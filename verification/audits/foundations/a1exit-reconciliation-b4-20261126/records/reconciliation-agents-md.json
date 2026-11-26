@@ -1,0 +1,104 @@
+{
+ "schema": "oi-reconciliation/1",
+ "record_id": "a1exit-reconciliation-agents-md",
+ "status": "UNREVIEWED DRAFT: prepared by the writer named in author; no independent review record exists. Not usable by any run until an oi-review-record/1 by a non-author reviewer names this blob (design r6 R6.REC.2, R6.REC.6; R6.RECON.21).",
+ "author": "b4-records-writer-20261126",
+ "supersedes": null,
+ "M": null,
+ "X": null,
+ "M0": "e8271d9d64e51cc6eb69a53ea2f5b80d490503a4",
+ "run_binding": {
+  "H": "53c6601a10419b6b333cc992474272501ab542af",
+  "M": "the run's predicted M: the commit M0 above plus the tool's landing paths (R6.TREE.15, R6.RECON.21, R6.EVID.8). Its id exists only once the tool candidate is fixed; it is null here.",
+  "X": "X_rep (R6.EVID.8), X = C = X_rep. Its id exists only once the REP-BUILD builder is implemented; it is null here. The x blob below is the AGENTS.md blob every conforming candidate carries: H's bytes with the ledger's AGENTS.md splice applied, whose sha256 equals the ledger's expected_sha256.",
+  "invariance": "The tool's landing touches no ledgered path (R6.PLACE.8), so AGENTS.md at the predicted M equals AGENTS.md at M0 and the predicted M adds no first-parent commit changing it: every per-path value below (side_change_commits, m, l, splices, protected) is the same at M0 and at the predicted M. Naming the run's M and X needs a superseding record of this lineage (same record_id, supersedes naming this blob) with its own review, changing only M and X."
+ },
+ "ledger_binding": {
+  "ledger_base": "53c6601a10419b6b333cc992474272501ab542af",
+  "files_entry_sha256": "926eaa8b21e933576422f1c7854f6cc8dd0aa178b8225e44b05067ac933dc514",
+  "splices_sha256": "dd0acccd6566e2e5f5e6b24bd3d0e6d2527cbb33210acb5fe368d0ac2c374119",
+  "edit_records_sha256": "fbb374e270690352e68e307a7e921fb6972b9efa03a0abcaa727ccdefa9f1395"
+ },
+ "changes_decisions_on_X": [],
+ "statement": "AGENTS.md is a ledgered path (one splice, D296, bytes 2332-2382 at H) that main changed after H in four first-parent merges, all in bytes after the splice. The retirement and main change disjoint regions: the splice translates by identity (H and M0 agree byte for byte up to its end) and its old bytes occur exactly once at H and at M0. The landing blob l is M0's bytes with D296 applied at its translated offset; it keeps every byte main added (the protected ranges are the six regions in which M0 differs from H, all after the splice) and carries the splice's approved new bytes. The record relabels no side change as a retirement edit and changes no decision of op C on X.",
+ "paths": [
+  {
+   "path": "AGENTS.md",
+   "side_change_commits": [
+    "4fb2c1eed350edf95da2b316abcca93717246589",
+    "8e9b83341cf5bc7fd9fb260892d0385fc9bfab4d",
+    "9deb69568d8231210c7f39cb65be943dea566371",
+    "03fed3f5a0e9f8e87b9fca3723cdf5a9ecfe41c9"
+   ],
+   "m": "39433b94264cc7b10028a7fc263ea158099af169",
+   "m_sha256": "b2be2ff63bdf15237a06c1157d0d17ebf3c9c706401bc3856ae1455847c04f06",
+   "l": "2d9b374866ddbd090200ebd5c7db7de0cd537c8e",
+   "l_sha256": "aa6a746e07128978422a8e8b988c53f34c529b98481b559d3597a6a281639568",
+   "x": "9f4fc3e830707c90ffc105842d26d5b51f01760b",
+   "x_sha256": "59b68984e659ef808819e02d4653d80388f8bd2f4c009796b162fc2453882ce2",
+   "splices": [
+    {
+     "id": "D296",
+     "start_H": 2332,
+     "end_H": 2382,
+     "start_M": 2332,
+     "end_M": 2382,
+     "translation": "identity",
+     "new_sha256": "532c5919b0acfcb31e0c16b799e1b2832b1c07a77d2865d136267c044e9cf051"
+    }
+   ],
+   "protected": [
+    {
+     "start_M": 37993,
+     "end_M": 38233,
+     "sha256": "07f51264e83e3a73330bfa7f42298ebfa3f79e851feec57d26ee4c945a8d4798"
+    },
+    {
+     "start_M": 46764,
+     "end_M": 47118,
+     "sha256": "9b882ac167d7bc37c241c2111dc032004c002b4a684c89d167ee75d183a6404b"
+    },
+    {
+     "start_M": 76843,
+     "end_M": 77407,
+     "sha256": "fdd00b944e28bd2359ab14d7acb5763d0cd1d8d44eff6ed3348f6d8d2cba57dc"
+    },
+    {
+     "start_M": 77583,
+     "end_M": 77852,
+     "sha256": "7bf4b481ff0e95654435cfd8b1281f8899cffd45e94626a6993b93c5e19fab21"
+    },
+    {
+     "start_M": 82702,
+     "end_M": 82908,
+     "sha256": "9b6689fb56b5ef7a636d5601caf1c4a6309621b189cd2c0a19e9835047448a91"
+    },
+    {
+     "start_M": 103198,
+     "end_M": 118962,
+     "sha256": "c8233e7a921c071293873d44644a71e277431c9d131c0d9192e3df1789fcbaa3"
+    }
+   ]
+  }
+ ],
+ "evidence": {
+  "ledger": {
+   "commit": "4c79be642ca631573f06b444903be75ec4f5e2b6",
+   "path": "verification/audits/foundations/a1exit-deletion-20261121/ledger.json",
+   "git_blob": "ba37c1cdb560cb5fceeeb2b46a3091c832b4a80e",
+   "blob_sha256": "2055e68f2343d00cec93bc35ecbccae21d46d1da154ee1a842663f1e4fec32b5"
+  },
+  "edits": {
+   "commit": "4c79be642ca631573f06b444903be75ec4f5e2b6",
+   "path": "verification/audits/foundations/a1exit-deletion-20261121/edits.json",
+   "git_blob": "ec384fdfbc12937b860e2f226355e8c5d94820a5",
+   "blob_sha256": "528f146d03b29cbc3d7dc29948e3dd1d4cd26f4d36e6e009f032e24f9462dec1"
+  },
+  "agents_md_at_H": {
+   "git_blob": "12a9281fb88c14395b6715a3bf4b4f6b030f433c",
+   "blob_sha256": "d87acac54b5f6392af3323630236d98b14bb4d485d10c0ff56b20806b0883e27"
+  },
+  "ledger_expected_sha256": "59b68984e659ef808819e02d4653d80388f8bd2f4c009796b162fc2453882ce2",
+  "derivation": "every value derived from git objects by the tool's reconcile.draft (tools/ledger_coverage/engine/reconcile.py) and checked by reconcile.evaluate; the reviewer re-derives them independently (R6.REC.2)"
+ }
+}

@@ -1,0 +1,1206 @@
+{
+ "schema": "oi-side-change-classes/1",
+ "record_id": "a1exit-side-change-classes-m0",
+ "status": "UNREVIEWED DRAFT: prepared by the writer named in author; no independent review record exists. Not usable by any run until an oi-review-record/1 by a non-author reviewer names this blob, and, because it supersedes the record named in supersedes, until that predecessor also passes record lint with its own review (design r6 R6.REC.2, R6.REC.6, R6.REC.7, R6.TREE.5).",
+ "author": "b4-rebuild-writer-20261126",
+ "supersedes": {
+  "path": "verification/audits/foundations/a1exit-reconciliation-b4-20261126/records/side-change-classes-r2.json",
+  "blob_sha256": "fbc1ceddea1d5ef2811745bb39f8cdbfe7c30a2f41503927d019f56b96f45929"
+ },
+ "M0": "eb3a69f402e9dcbe50f47e916b45c2b72772553b",
+ "scope": "every path that differs between H (53c6601a10419b6b333cc992474272501ab542af) and M0 (eb3a69f402e9dcbe50f47e916b45c2b72772553b, main after the merge of #1582) and is neither a ledgered or corpus path (base-drift, R6.TREE.7) nor a path of the tool's landing domain (tools/ledger_coverage.py, tools/ledger_coverage/, verification/audits/foundations/ledger-coverage-tool-20261123/, .github/workflows/ledger-coverage.yml), which the tool-landing class record classifies. Each pin binds one path to its exact blob at M0 and lists the first-parent commits on H..M0 that changed it; no class has a prefix. A blob that differs from its pin at the run's M leaves the path side-change-unclassified. The classes and their ids are those of the superseded record; every pin is re-derived at M0.",
+ "classes": [
+  {
+   "id": "m0-tool-configuration",
+   "reason": ".claude/settings.json; added by the merge of #1552 (4fb2c1eed)",
+   "pins": [
+    {
+     "path": ".claude/settings.json",
+     "git_blob": "b7f9b0a6294ff7c4771ffbf85d8c514176cf25c3",
+     "blob_sha256": "ad4130d0d5f61f0a2807e488706c925cfc6766b9a4cefc2cf04612bb4bb65b9b",
+     "side_change_commits": [
+      "4fb2c1eed350edf95da2b316abcca93717246589"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m0-trial-workflow",
+   "reason": "the A1 trial workflow, changed on main by the merge of #1543 (413b0bb88)",
+   "pins": [
+    {
+     "path": ".github/workflows/a1exit-trial-verify.yml",
+     "git_blob": "bca44ac06691363d10c70e8db2a3d352830488f2",
+     "blob_sha256": "f8c36855cf6e61891cbbd41011714af503b094b9dd63065ac042304817621646",
+     "side_change_commits": [
+      "413b0bb88f39cad901befcf4684355c7ee39480b"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m0-pdf-build-workflow",
+   "reason": "the PDF build workflow added by the merge of #1576 (02b8e2083)",
+   "pins": [
+    {
+     "path": ".github/workflows/pdf-build.yml",
+     "git_blob": "9c6e63359a870c933e15401f5432033b3cfe19fb",
+     "blob_sha256": "3d196b3b2abbb4fd627c56ed0a766962eaf69e18fba1c464267ad86e3219037a",
+     "side_change_commits": [
+      "02b8e20839d4700de721f8427b3fe9f3c746b71f"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m0-design-r6-record",
+   "reason": "the design r6 record directory added by the merge of #1575 (3e7363330)",
+   "pins": [
+    {
+     "path": "verification/audits/foundations/a1exit-design-r6-20261125/AUTHORIZATIONS.md",
+     "git_blob": "6b1aac8cd1d7aa16b178fc6174be94f928bf095f",
+     "blob_sha256": "6a7e01ac906512c420db05ff0f07a54091978d6a257488ad4a3dc3d4d97c1238",
+     "side_change_commits": [
+      "3e73633308bdef99f65f6117733aaf86097c7b22"
+     ]
+    },
+    {
+     "path": "verification/audits/foundations/a1exit-design-r6-20261125/DESIGN-r6.md",
+     "git_blob": "f39cc453ea9616a13c16e3a0e4909222367c86f5",
+     "blob_sha256": "8727f498a621fd45a0dcbb63061483b69b873f747f497f45f00ae416f02685e5",
+     "side_change_commits": [
+      "3e73633308bdef99f65f6117733aaf86097c7b22"
+     ]
+    },
+    {
+     "path": "verification/audits/foundations/a1exit-design-r6-20261125/EXPECTATIONS.json",
+     "git_blob": "7ae3ce0de30b959914e3cd63eec6713eb9a94413",
+     "blob_sha256": "a24a7b2bcaf5cdaeee6ca791cd4af11d1787043252d96bcb512825c9df17e847",
+     "side_change_commits": [
+      "3e73633308bdef99f65f6117733aaf86097c7b22"
+     ]
+    },
+    {
+     "path": "verification/audits/foundations/a1exit-design-r6-20261125/FRESH-AUTHORIZATION.md",
+     "git_blob": "05eaf98ea49b784e1d57a0a94e2a34e5f7f1b1b3",
+     "blob_sha256": "3a405442fb1cdfe31709fb6f4b0f6e38e1e4f69194fc67860fe58cc0de19d4ab",
+     "side_change_commits": [
+      "3e73633308bdef99f65f6117733aaf86097c7b22"
+     ]
+    },
+    {
+     "path": "verification/audits/foundations/a1exit-design-r6-20261125/INVENTORY.json",
+     "git_blob": "95d693f82be5a121049b5f2e73ca5754d88bddd9",
+     "blob_sha256": "42d44fb0624e82fb334d4feeeaceb7787c4309dfde2f52e373e208fe11d0f5dd",
+     "side_change_commits": [
+      "3e73633308bdef99f65f6117733aaf86097c7b22"
+     ]
+    },
+    {
+     "path": "verification/audits/foundations/a1exit-design-r6-20261125/LANDING-MANIFEST.md",
+     "git_blob": "f26ee4ac7bf21400377c6cc01dca0bd0477cbe75",
+     "blob_sha256": "0fe34b3b02e43a02faddb1bccae39f60d8b39c85f86df7e8ba481d0afa4df098",
+     "side_change_commits": [
+      "3e73633308bdef99f65f6117733aaf86097c7b22"
+     ]
+    },
+    {
+     "path": "verification/audits/foundations/a1exit-design-r6-20261125/MAPPING.json",
+     "git_blob": "f5d35cb490b0d8925ea7e242446837d567768021",
+     "blob_sha256": "bd1a8657961fd659b29980178781a7f30fd6e5b53da9a734db28a20130c9ff85",
+     "side_change_commits": [
+      "3e73633308bdef99f65f6117733aaf86097c7b22"
+     ]
+    },
+    {
+     "path": "verification/audits/foundations/a1exit-design-r6-20261125/MIGRATION.json",
+     "git_blob": "4ed66d207198ac12e5b7adcc637ce9325d21199c",
+     "blob_sha256": "9188e876ffce703df20710b1285f4ff0ca9145ad656e3617e30feef56bcdaf08",
+     "side_change_commits": [
+      "3e73633308bdef99f65f6117733aaf86097c7b22"
+     ]
+    },
+    {
+     "path": "verification/audits/foundations/a1exit-design-r6-20261125/PARAPHRASED-DECISIONS.md",
+     "git_blob": "c37ba6f982433ffafe8ed00b9cdf9bd10d45f40d",
+     "blob_sha256": "05602f3ec2f971ad860bc864a2ad8fce2d115948b0d3ac369ef17874746b65ce",
+     "side_change_commits": [
+      "3e73633308bdef99f65f6117733aaf86097c7b22"
+     ]
+    },
+    {
+     "path": "verification/audits/foundations/a1exit-design-r6-20261125/PENDING-33.md",
+     "git_blob": "1e09093faf934094dc201c045468d7f96e77ffc4",
+     "blob_sha256": "b1a171a958999bdbb7d576ed835cc95f7789639e23e5ed052f5e40a4de782fe6",
+     "side_change_commits": [
+      "3e73633308bdef99f65f6117733aaf86097c7b22"
+     ]
+    },
+    {
+     "path": "verification/audits/foundations/a1exit-design-r6-20261125/REQUIREMENTS.json",
+     "git_blob": "3fb0ce009fd4a7414defaf9cdff3d4d9eee39ccb",
+     "blob_sha256": "dbdba73379e99c7a4d66228aa7a60fe64af7154efbe9c836b814c768f6988167",
+     "side_change_commits": [
+      "3e73633308bdef99f65f6117733aaf86097c7b22"
+     ]
+    },
+    {
+     "path": "verification/audits/foundations/a1exit-design-r6-20261125/REVIEW-r6-round2.md",
+     "git_blob": "654bd76776042e1d2a135c8b15d2b447df0ef00a",
+     "blob_sha256": "8875ffd240989348f2c647b3187146e24c5454b5edc70c81817c9263a46c9912",
+     "side_change_commits": [
+      "3e73633308bdef99f65f6117733aaf86097c7b22"
+     ]
+    },
+    {
+     "path": "verification/audits/foundations/a1exit-design-r6-20261125/REVIEW-r6-round3.md",
+     "git_blob": "ed0dfb3c5a70d74c256bb8fbb34ece43cc735039",
+     "blob_sha256": "546188124cfe34c3924e032879c4bb1ae80ea17e619586283927840ccdd6fd99",
+     "side_change_commits": [
+      "3e73633308bdef99f65f6117733aaf86097c7b22"
+     ]
+    },
+    {
+     "path": "verification/audits/foundations/a1exit-design-r6-20261125/V4-COMPARISON.md",
+     "git_blob": "4efb9826e59b3c58d4209f89fb6ef72549e16bda",
+     "blob_sha256": "76970c73eeb45d8f81c4665b8e7b72e90f29ecfe2747cf7b0440a697d5bd9edf",
+     "side_change_commits": [
+      "3e73633308bdef99f65f6117733aaf86097c7b22"
+     ]
+    },
+    {
+     "path": "verification/audits/foundations/a1exit-design-r6-20261125/generator-round2/PROVENANCE.json",
+     "git_blob": "aa22337f3ebcff9857f4fc243ecb4138ae627526",
+     "blob_sha256": "7def6e16b52a38a77517be120bbc197964ac65d1ee25ae541835cc7efbee6c4d",
+     "side_change_commits": [
+      "3e73633308bdef99f65f6117733aaf86097c7b22"
+     ]
+    },
+    {
+     "path": "verification/audits/foundations/a1exit-design-r6-20261125/generator-round2/comments-1169.json",
+     "git_blob": "318fe33d6e7393184198f7e5af9f1272ad6a991e",
+     "blob_sha256": "af740cc18fa630358aa618c585508439bde4b8fb7d426ecd6808faa5e95db1e6",
+     "side_change_commits": [
+      "3e73633308bdef99f65f6117733aaf86097c7b22"
+     ]
+    },
+    {
+     "path": "verification/audits/foundations/a1exit-design-r6-20261125/generator-round2/correct.py",
+     "git_blob": "e846064c295cadd999317cd83e9a63386269e29d",
+     "blob_sha256": "284d2d757dc83705ddf1b923a3b7a04d6d8e84e517fe31f18e32b0311ebaea02",
+     "side_change_commits": [
+      "3e73633308bdef99f65f6117733aaf86097c7b22"
+     ]
+    },
+    {
+     "path": "verification/audits/foundations/a1exit-design-r6-20261125/generator-round2/correct2.py",
+     "git_blob": "2aeb5e742808f7ce69925dcbd8a020855bd007c4",
+     "blob_sha256": "1b7904ee99bdd33a3e95885e3c0aabff86ca52eb57aa527c1a044952b5d70991",
+     "side_change_commits": [
+      "3e73633308bdef99f65f6117733aaf86097c7b22"
+     ]
+    },
+    {
+     "path": "verification/audits/foundations/a1exit-design-r6-20261125/generator-round2/report_text.py",
+     "git_blob": "f71d4c6d2ecf0f9c92a9b5f282592fdcd20c53aa",
+     "blob_sha256": "41d9dfbfda94a4a29081a010e1dc582a36d79b9554890c48c9471afee1120b01",
+     "side_change_commits": [
+      "3e73633308bdef99f65f6117733aaf86097c7b22"
+     ]
+    },
+    {
+     "path": "verification/audits/foundations/a1exit-design-r6-20261125/generator-round2/text2.py",
+     "git_blob": "3c469f71083f56c1d328cbcfffd8e529c0d34204",
+     "blob_sha256": "b9002bd5486da16f2d3ce1cabe659c951efdafeaa643af5ef72608803947ee30",
+     "side_change_commits": [
+      "3e73633308bdef99f65f6117733aaf86097c7b22"
+     ]
+    },
+    {
+     "path": "verification/audits/foundations/a1exit-design-r6-20261125/generator-round3/comments-round3.json",
+     "git_blob": "7e4467626c700c23906e2e807dcfb8f55b9e0206",
+     "blob_sha256": "46619e1a198d7c7633c135d3da79b4f702746f3500d7a0e9ada9b7b0423df00b",
+     "side_change_commits": [
+      "3e73633308bdef99f65f6117733aaf86097c7b22"
+     ]
+    },
+    {
+     "path": "verification/audits/foundations/a1exit-design-r6-20261125/generator-round3/correct3.py",
+     "git_blob": "00fd8a9655b168be229ab667a1298fdabdc221e0",
+     "blob_sha256": "45d6a0f55adb73521fb3fff5e4bf032fef70b5795deb3ed6f04e80c97efe12da",
+     "side_change_commits": [
+      "3e73633308bdef99f65f6117733aaf86097c7b22"
+     ]
+    },
+    {
+     "path": "verification/audits/foundations/a1exit-design-r6-20261125/generator-round3/review-r6-round2.md",
+     "git_blob": "6f172c4dd1b6e9f57ca969b5e422afb1aa906d1e",
+     "blob_sha256": "f09d7cb057cd33bddc13a375960305b0a8956b8fd0bc7fe2987cd4d6f0f19619",
+     "side_change_commits": [
+      "3e73633308bdef99f65f6117733aaf86097c7b22"
+     ]
+    },
+    {
+     "path": "verification/audits/foundations/a1exit-design-r6-20261125/generator-round4/correct4.py",
+     "git_blob": "f3899a51974c643def4a25c661d36f04f088e8d4",
+     "blob_sha256": "6b75c545e1461049a9cbffd8b8185d39f8f0b10714abb97f281a921be6b145e9",
+     "side_change_commits": [
+      "3e73633308bdef99f65f6117733aaf86097c7b22"
+     ]
+    },
+    {
+     "path": "verification/audits/foundations/a1exit-design-r6-20261125/generator-round4/owner-decisions-A1-A5.json",
+     "git_blob": "4e54a7017a26890373d9077bedff1adc5611382f",
+     "blob_sha256": "b5340474a2ef0e8abb146009f9d01a2aadf8791f6a14f352a5963f8c18968d56",
+     "side_change_commits": [
+      "3e73633308bdef99f65f6117733aaf86097c7b22"
+     ]
+    },
+    {
+     "path": "verification/audits/foundations/a1exit-design-r6-20261125/generator-round4/records-1169.json",
+     "git_blob": "1092e1e4f690fa16a61fc884711d70306441cb08",
+     "blob_sha256": "bc1881208ab198f9427ecc3ba9d1bcdcc46530ff72b5038cd4fd65fdffa3395e",
+     "side_change_commits": [
+      "3e73633308bdef99f65f6117733aaf86097c7b22"
+     ]
+    },
+    {
+     "path": "verification/audits/foundations/a1exit-design-r6-20261125/generator-round4/review-r6-round3.md",
+     "git_blob": "4dbaa046434e3b782c31b07b44b084bab872a2e9",
+     "blob_sha256": "05b42b1c02bcfdeeecb543ecc0c87df3f8b10db82a8b12fa1343bef15b974fb4",
+     "side_change_commits": [
+      "3e73633308bdef99f65f6117733aaf86097c7b22"
+     ]
+    },
+    {
+     "path": "verification/audits/foundations/a1exit-design-r6-20261125/generator-round4/tree-c33d5b71.json",
+     "git_blob": "bbb88b7d08977326672b4482ce49bbf59d1e9869",
+     "blob_sha256": "82335bd460b7be4c0c119c2dca51722b3e7d0c7912815ceb9623f200d2104114",
+     "side_change_commits": [
+      "3e73633308bdef99f65f6117733aaf86097c7b22"
+     ]
+    },
+    {
+     "path": "verification/audits/foundations/a1exit-design-r6-20261125/generator-round5/correct5.py",
+     "git_blob": "bc2141fd3df554034444818cb9e73265cdb00385",
+     "blob_sha256": "5746bd23059496fd89b7bb814caa5b670cdf37468ca48eff054904216cd40112",
+     "side_change_commits": [
+      "3e73633308bdef99f65f6117733aaf86097c7b22"
+     ]
+    },
+    {
+     "path": "verification/audits/foundations/a1exit-design-r6-20261125/generator-round5/records-1169-round5.json",
+     "git_blob": "8fee728db7c517e26094ae1dafbca036fd4dec42",
+     "blob_sha256": "20e1b1931a7f3d2fde178128d721df793bcf822f4006f9f1c7910f8a53026218",
+     "side_change_commits": [
+      "3e73633308bdef99f65f6117733aaf86097c7b22"
+     ]
+    },
+    {
+     "path": "verification/audits/foundations/a1exit-design-r6-20261125/generator-round5/tree-2aec244e.json",
+     "git_blob": "b583b408a34a5edc803be0bb19e27618832b0d7f",
+     "blob_sha256": "937e8885786f33995ea93c0bf0d865cbd99679e95431402d93c36fb044b9dae0",
+     "side_change_commits": [
+      "3e73633308bdef99f65f6117733aaf86097c7b22"
+     ]
+    },
+    {
+     "path": "verification/audits/foundations/a1exit-design-r6-20261125/generator-round6/correct6.py",
+     "git_blob": "e2c17393360492f29c6cffcbd5fc5e1fedb6967f",
+     "blob_sha256": "ef5a08daa93bebffb721e814008fb00f094986841f744246f0cf94f60bc96bbc",
+     "side_change_commits": [
+      "3e73633308bdef99f65f6117733aaf86097c7b22"
+     ]
+    },
+    {
+     "path": "verification/audits/foundations/a1exit-design-r6-20261125/generator-round6/records-1169-round6.json",
+     "git_blob": "9129fdf7b4358c37b79f86173484b3aff9c6c98d",
+     "blob_sha256": "943aab8653403ceb2a7bef0575a9602969c1cdc2b6bf94ea1365f60295601f94",
+     "side_change_commits": [
+      "3e73633308bdef99f65f6117733aaf86097c7b22"
+     ]
+    },
+    {
+     "path": "verification/audits/foundations/a1exit-design-r6-20261125/inputs/edits_check.py",
+     "git_blob": "1153e039d7223742de56a54ed201e8358324c742",
+     "blob_sha256": "2856e58c65817865a57fc34851ab3319d1cdda86f72f76a77fc6c063b2f1d98c",
+     "side_change_commits": [
+      "3e73633308bdef99f65f6117733aaf86097c7b22"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m0-claims-check-redesign-record",
+   "reason": "the claims-check redesign record directory added by the merge of #1567 (5ebba1a27)",
+   "pins": [
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/CHANGES-land.md",
+     "git_blob": "e880571ab8878d6258ae62457a9ec8e35315ab0a",
+     "blob_sha256": "ba6206609b5bd862314161678566e66c8c3fea69430692a6f8ccdeed1da3539f",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/CHANGES-r2.md",
+     "git_blob": "e11c760bc79d51d1bfc9fd7e378018b16d1bc8c1",
+     "blob_sha256": "cac365f00bda62a2f55535ce651a7cd7f818e199307e2fcfef944290214eaddf",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/CHANGES-r3.md",
+     "git_blob": "e3b283ffbe7c265e2fe2724f73eddb1e520c6bf7",
+     "blob_sha256": "435b4d4815ccc26123bb37b119b5eba5d86b894a2c7e0f8e0bb5ea9962e5996b",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/CHANGES-r4-doc.md",
+     "git_blob": "2670f021160271dc017d2f4878c6d3ca960165a1",
+     "blob_sha256": "f2acc68f639167f4da56795797ed50a39fb3a5df7ab9ac48ac3ae328d4788259",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/CHANGES-r4.md",
+     "git_blob": "966f1739ef2ce5af3fd418d1d2eb113f0af74430",
+     "blob_sha256": "757e13b9f29af317ce462c934325a6056fe82863c5e3e9db30f68b7a22dd2d70",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/DESIGN-r2.md",
+     "git_blob": "8513c2faa7e12ef139c509b53fedb1f681c35f93",
+     "blob_sha256": "18ec577acbe8b3d8a561bd91c7fa07d1da8e3416b13fdbb2015195f829785914",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/DESIGN-r3.md",
+     "git_blob": "545808ff90acea6d97d15695950eef5d5fbd842a",
+     "blob_sha256": "907c17c5aef063ba93ca143c1d481399db57c189f3b8cb1f73aaa5cd36a75a01",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/DESIGN-r4.md",
+     "git_blob": "7006f3537fc3afe9db46fa8666938e01861c6d33",
+     "blob_sha256": "2867d591f82f960d91105c41e9edf84c83811f7796f939b2023a4d64edb9410e",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/DESIGN.md",
+     "git_blob": "bfff7f8e4073550ade7544d2da81209ef8c0a3ca",
+     "blob_sha256": "f1ea30f0cc16bf6a30ed26502760f7451d18e3de90ab549f82b0155967581226",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/results-r3/author-diagnostics.txt",
+     "git_blob": "fed9d88d5881ef4dc7c82323bb70c681fdb2b5cc",
+     "blob_sha256": "686920cac2ccaf17892a67abfcf40b1d7a8df1baeaad99bbec97c8a4c6ffee73",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/results-r3/compare.txt",
+     "git_blob": "70b80f2ca120db358f0177f087bc7e6504cf02fa",
+     "blob_sha256": "c7d908db9e67c058df9aad7005efe02f8477b6e3e499c122a6ced65aa36a3611",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/results-r3/exitcodes.txt",
+     "git_blob": "be7543e2a9be3d440b6d538788d8f45a136fc202",
+     "blob_sha256": "a5237d0109b526414af7436b3b5e773e52299f6b0c8492f33790bb2825be5a12",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/results-r3/injection-r2.txt",
+     "git_blob": "249ef0f4e55ee2e931ae43ae607639cf1faace9b",
+     "blob_sha256": "d35cfe583491be288a2379223682f021a96f956e932d6615e50be772518def51",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/results-r3/injection-r3.txt",
+     "git_blob": "24c20252efbc3c701a43fd4219520181c2044ae3",
+     "blob_sha256": "02ff8608a7d6e08b3447774f13eb0e36911f19508cd7aa55e264fb0f1cd5cf0c",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/results-r3/m1.txt",
+     "git_blob": "eab90f0ed0cf12df8d1f5b6a138fbe8d76bd3506",
+     "blob_sha256": "28f678c7010b7d1ad301d13c0cc2846b73e541d1ead2cf217609d0432c1ef703",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/results-r3/m2.txt",
+     "git_blob": "89199918635100392368932e7ed2706b67e5fd6d",
+     "blob_sha256": "a5a025cf6d22e76988a08ce9160cc90adc635149a293d672d3aeeff2018d755d",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/results-r3/r3-firstrun-controls.txt",
+     "git_blob": "d7dc14fa0b6d5ac90b2c54948eea7ae5231cc2f4",
+     "blob_sha256": "51081ba634c5453398c6ac9f6f518f1e8a88eeb5c768b6efcfc186872372db8f",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/results-r3/r3-firstrun-controls_c.txt",
+     "git_blob": "c984e6743c2457d85b83c74b7a548a260e185e1a",
+     "blob_sha256": "5d7c463028d7e7d69d2e181f69e2c2b1afd374e4051fbbf95db84f5404763633",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/results-r3/r3-firstrun-controls_d.txt",
+     "git_blob": "5c1af4a79c23cf4038625d517e0640b205b74f25",
+     "blob_sha256": "7d999be2f5de2752705ad7bddae7b6105b9873ee1167dfc76ff12912ac6b3e37",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/results-r3/r3-firstrun-controls_r2.txt",
+     "git_blob": "e49ab6a5861f0d6b275b31de6aa3abde6411b5d3",
+     "blob_sha256": "e64e006a4c380741a76981371cb79c1b2e841c545416519437fb79bc4bbddf58",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/results-r3/r3-firstrun-heldout.txt",
+     "git_blob": "2be09a230017d55711bc5598ea30f00ef2a616b9",
+     "blob_sha256": "00cc5a316c2fd7850f6921ca7c83549d1af1889519b02c9961346dbe7f1b061d",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/results-r3/r3-firstrun-reviewer-heldout-Y.txt",
+     "git_blob": "83a935d8a4ba1039d52e068e17019f4b6455aff1",
+     "blob_sha256": "ddbb0885e5768faa3c7922799812605b554be825fcf918e58beba2b968b1c60f",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/results-r3/r3-firstrun-reviewer-heldout.txt",
+     "git_blob": "c81c678a46c0d20ddc385fd4d98acff91ef4cccf",
+     "blob_sha256": "991ad46a1c9e2c0fc81c043e2f6c21634129c0034c08d57a88c8f3b4c07543c4",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/results-r3/self-test.txt",
+     "git_blob": "f6707b0ee1447a863f7884c30588b2cdb55589df",
+     "blob_sha256": "d526bcbcbe7b0acf02b7defcd19bfc95df97fc9981e04e0fba627f53ce8a81f6",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/results-r3/treeM-scan-summary-r3.json",
+     "git_blob": "45b874b252fce2c6977186e39d15b6e912e1fade",
+     "blob_sha256": "3ff32ca3509e08043ef05d177ca8d2047b0d483c508e36075148cabcfd527dd2",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/results-r3/treeM-scan.txt",
+     "git_blob": "93eb702b6f2c087f03a00dcafe9fd2101ac59ef0",
+     "blob_sha256": "727531e08adfda9684de1a2ac1248584ff66dc18fbc4623237beb043e9ceb0a5",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/results-r4/compare.txt",
+     "git_blob": "400040a70543b7eca1fe0937e0041594f72be2aa",
+     "blob_sha256": "14d188a528aeddfb854cd33ab1164d0d7a7ffbcd108a76e85aca6e7cb27e2a88",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/results-r4/controls-W.txt",
+     "git_blob": "821b6b2b27eee5d852b92cd0cc188852ea98926c",
+     "blob_sha256": "11a8c91c2ed1cdba5f01570bd3ed23bca1551bbf1155f619e93445ac3e562634",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/results-r4/exitcodes.txt",
+     "git_blob": "c76b9b1fc62f73f9129594f8b37548c51fc3a520",
+     "blob_sha256": "08d97ebc8b327cea842be3449dbbe43d33c10d9beba1d5a8ca8e70c61a776309",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/results-r4/injection-r3.txt",
+     "git_blob": "4272f93e761ded412b86826ba080be7f3960a910",
+     "blob_sha256": "9f311c33cf7fea90991ac9fea5dc05f72506a6250c9eb43f81cb367ac33aa54b",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/results-r4/injection-r4.txt",
+     "git_blob": "c960ee0ea9318d1cc4026d25b42986aa98b19992",
+     "blob_sha256": "3aa1a844c2f4b0b04469eef0ecc210513f2fe095bb3602358d77554580bbbd9f",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/results-r4/m2.txt",
+     "git_blob": "9a05a858864179cf63a3da99d73f67f6bff17113",
+     "blob_sha256": "1d01a3f9ee160d30b1a715d796fc70b2202936f309b9a11ba2201c9a996bfda4",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/results-r4/self-test.txt",
+     "git_blob": "1101a7ac6b026000832a17be6b2e1422d80ec092",
+     "blob_sha256": "9b5ce076ec0ff5405919289dc60412ef6f4596651d7fac513f9a340eeb484b4d",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/results-r4/treeM-hypothesis-token.txt",
+     "git_blob": "8f9acc528227a3dc0252a1b80d74e01403e75271",
+     "blob_sha256": "d68c6547fda5e548e55e2f5562611f1b07019da861ec29282ddb18ad2ed1f860",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/results-r4/treeM-scan-summary-r4.json",
+     "git_blob": "b224492614f18b73c062fb8e0d0f231c60cc2ef7",
+     "blob_sha256": "312929c278a60f6b249babe9f22e8a3d6747910fa12be172346a46ff18d81217",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/results-r4/treeM-scan.txt",
+     "git_blob": "46d0ed29946a9eaf632e4a95fb8775c6f868cd31",
+     "blob_sha256": "47890d20c097a4eee5d1544ac46370814ce1016898c0f01803a88bb1df8c76cc",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/results/controls-controls.txt",
+     "git_blob": "b5bd21028fc85cdb7cd60fb42651082a4446c653",
+     "blob_sha256": "f37f83ccc4d74e070f22f333cfcd426650eb8821db9138a878b6400e14ef70d9",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/results/controls-controls_c.txt",
+     "git_blob": "063d58f4a99c0bac1df6f61103f2d108df61bec5",
+     "blob_sha256": "a09f794149695c2e58dfd0d42f4972db6770191447a657660c74de7def7d0b2e",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/results/controls-controls_d.txt",
+     "git_blob": "b7531e435204b35294773b0cd2994ba072768a57",
+     "blob_sha256": "bd9b2a9207e42c6edc40f0e6c0ada61039bc255a6feb46713d16db3c153db68c",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/results/controls-controls_r2.txt",
+     "git_blob": "537516391f6e2401332f9aea2701266b38fde11d",
+     "blob_sha256": "739cb246c61276a52fcce1f1b09716bb50279d7733e47e4171fd6c3d7e5339b9",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/results/controls-heldout.txt",
+     "git_blob": "89a8568b31fb7ffc33de9c4f8fde8d767b4bd1dd",
+     "blob_sha256": "d089cd0b55f843ec64583e657ed1aa3d70e94cfc388f0722a78fabf3f83661c1",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/results/controls-reviewer-heldout.txt",
+     "git_blob": "0e2f606cd2658e9c0fb3da4b0a33f9b2ec3b10a1",
+     "blob_sha256": "d1ad8e40a7732e4afd812a032db62ab1f6352b73a5f38a1f747fccdbef24ea61",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/results/exitcodes.txt",
+     "git_blob": "fced76638c899989bfc68764d37e8f892fd239cf",
+     "blob_sha256": "f39a888cf7d53076cccf01db21204a8775b8c127df5053d20d6828aaa60efbb2",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/results/injection.txt",
+     "git_blob": "6fc1b740b86d50753008bfa7e901c1ac92e9c5a1",
+     "blob_sha256": "2ccdb1eaa7e3fb5e82352cdd16b41a0ca23133ce1ecde8e36a21a4015fcbc4ac",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/results/m2-m3.txt",
+     "git_blob": "479026f9fb68912eae8a257d880870a292563b61",
+     "blob_sha256": "b19612bb547e0c199b534c1efa725117526d5bfa5161f38af7013a993ac8114a",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/results/probes-probe.txt",
+     "git_blob": "ce6573067ba079b2e3d4d01d36b73f7a3163dc53",
+     "blob_sha256": "53d67f380e71eaf9b06dc1e9c42695e5f80fbc15a83a3d215cdd02bddec345fd",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/results/probes-probe2.txt",
+     "git_blob": "4c7b18ef66f8cb9ae2e8566f068fa8eac8bc1961",
+     "blob_sha256": "99ffce2ed4a5f3372027e282adaaaa748c57db42554ce0f0f63f26b6606b6cfc",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/results/probes-probe3.txt",
+     "git_blob": "023cb8953e994a7069a4f7a8ac7b3470cfbc99e6",
+     "blob_sha256": "444c0f137fcb182cf657309c2e4213e5bb25bb5a99ce11a8b508ddbd1f38224c",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/results/probes-probe4.txt",
+     "git_blob": "cbad179757359ea79a14810f283ba5464c44ceea",
+     "blob_sha256": "e9cbcc20c78f83c5415e8f74648fa16dec20a387b92597a4e8007b3f21056873",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/results/self-test.txt",
+     "git_blob": "4f2df1508d5b16132d8b8210354640e1ea360868",
+     "blob_sha256": "fdcb5cd4c6aeeb88784ae7e7a9ddfb9522388db48ec752ecc723be3927935ce2",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/results/treeM-scan-summary.json",
+     "git_blob": "ed4a4e09045aee2fde59b161d86005072b1133a6",
+     "blob_sha256": "6131f4c709014c3be19c269940b8d767f3219af897a3ae76a9f41fdb210296a3",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/work/controls.json",
+     "git_blob": "b70a452d653a112ffa76569aa806db9a3071796b",
+     "blob_sha256": "d185865270c1bb0957e70147050bd717b51031de6846808004cce9219078e34b",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/work/controls_c.json",
+     "git_blob": "4e85a634433aa19bcf787e92143cf94e32afe502",
+     "blob_sha256": "17eccf2901c7b48c2cedf9ee43b7958b74a007df5970e6b39bd16771532d3aab",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/work/controls_d.json",
+     "git_blob": "157358af65f7bc96d547e55bda1c123345c01fdf",
+     "blob_sha256": "e11d72f5ed94155b9b84e704c6bc9ce9fe477f5a56eb341ab9b56a9a0213a8aa",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/work/controls_r2.json",
+     "git_blob": "d670eede2a44eac5a491ea2ea241cbb237453449",
+     "blob_sha256": "18ba1af447ad1260b4439711e101173697ae7d787ee3e9ce901bd011d171883f",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/work/design-example-sentences.json",
+     "git_blob": "57b4cb99f868a8c780f138f094fd581331bf2e93",
+     "blob_sha256": "4d74bf19c99ca9b826c7fbe2b2334b83bc450d4b3c4b4a2c52185f8ce5f755d5",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/work/heldout.json",
+     "git_blob": "1cc486916c1acf986de9e93383edad0623d6786f",
+     "blob_sha256": "d17e0d0b190758c6292f7dc96266fea0442cca0c4c3442642e7dda5f3c1b7f16",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/work/licences-fixture.json",
+     "git_blob": "2e7bf745595173add1fb343d56753af16220e611",
+     "blob_sha256": "1632e93b219ff91a4b638a4b2eb5905084fb82a0e2b4da472e8176ad0dce85ca",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/work/licences-r3.json",
+     "git_blob": "00ee67fbd5bc446587735210732c903059199f03",
+     "blob_sha256": "679bdd1451148465144cc08efaa471b1d934c6cdbbde58b7e700e2dd107b7f21",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/work/licences.json",
+     "git_blob": "cf70131d9d2cf602c669a591dbc36fae52050f36",
+     "blob_sha256": "157b15f3796b0089b481a5236e870436a216c88fc20c6896e324a9aca340bc88",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/work/m2_r2.py",
+     "git_blob": "c8ab9eefa12888b637c68cc34d26040a962c28d7",
+     "blob_sha256": "537233ac78a86be16d1b5a165643b631cd2deb2a3f3b93b5f00b1e5ebd0ef718",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/work/proto.amended.py",
+     "git_blob": "2f15cc6f9b03fff2aeff348586b66fdf94f57b6f",
+     "blob_sha256": "04a8b30e589648b50d1a426066a4b7f6860a6a11d7edf17e601db2ecfff3e9ab",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/work/proto.r2.py",
+     "git_blob": "dca7afdf666099f8a2e2715b31703cd7bad62fc0",
+     "blob_sha256": "43ae9c715cd8e0e270d3a880eb83688224e8058f5c65675a6357929eb24df3f5",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/work/proto.r3.py",
+     "git_blob": "0d3f752b724d9730c6f5436a91742d1a9d2b9edf",
+     "blob_sha256": "bf5cad1a75b3e2c8301be5c64af80d564b3b248dd8faa24090bbbf1aacb1f2ef",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/work/proto.r4.py",
+     "git_blob": "047c0acaf6bb5c08e9ecb4356a6902bfffa631fb",
+     "blob_sha256": "35a0fa40a0cbf52295a13622e90d179bf9dba95e9580211d5776656177ad3379",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/work/r3-author-diagnostics.json",
+     "git_blob": "47748055b8b370dd26d60a5738625287633965e0",
+     "blob_sha256": "3056c6d76b4a91462ab358bf08b235ccf69d36f70631a88e7eb64141a8ec17df",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/work/reviewer-heldout-W.json",
+     "git_blob": "053862c5a006bd69d0d19ff944e937099b70f76c",
+     "blob_sha256": "6317946b6fae4d58c2c78be5e718b06fd002c1edc6d37280f6821c9876d6b9a9",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/work/reviewer-heldout-Y.json",
+     "git_blob": "84a3b986dea1c7e12e610b835cfc1db7441fba6f",
+     "blob_sha256": "ce31e49c69b188c6ccfa4eaac6a8ed431f234f51261114af5878972d79dd5c3d",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/work/reviewer-heldout.json",
+     "git_blob": "3f42c1cc3b0d11ad950a8af57d05e87ec1c7d9b7",
+     "blob_sha256": "c4591b6d8ec77f205f2eade8b563d7ed5fc3cf9434ba23b536fc570be98424e3",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/work/reviewer-probes-Y/m1-diag.json",
+     "git_blob": "3a7e9194e1ec2d92429ed895eb39326f563a8843",
+     "blob_sha256": "815e7ff1713a754edc0f7d976c03316adac4b18ee6b007663d55b25db2cb866d",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/work/reviewer-probes-Y/posthoc-probes.json",
+     "git_blob": "43911b07eb628e81364ecf892370c95a511a4269",
+     "blob_sha256": "06e32bbad6f70dae3c21eb34f1680fd55fa298060960735f626fc762a26d541c",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/work/reviewer-probes/probe.json",
+     "git_blob": "cb0c7a98059aa69018b4efb9f1fb3a1963d2a6c9",
+     "blob_sha256": "cee1545e90a7d90f8490045c74448a16b3815c317bfb37287673512d3881b012",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/work/reviewer-probes/probe2.json",
+     "git_blob": "b9160c34e3ef550f8d26ac2de7f6bb922718a69d",
+     "blob_sha256": "241554b1e61a004933155cd7c7b1b879bbaeef8493cef15c5c737994ceb7f61c",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/work/reviewer-probes/probe3.json",
+     "git_blob": "a05fe484ccf19b8dd85c536d80ee28b763dc6bbe",
+     "blob_sha256": "047a4e0e98c66a02e836f4ac9ee6c52bed593431d8899599c66b10b6a6487cc2",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/work/reviewer-probes/probe4.json",
+     "git_blob": "a5d6baa7e12ca61caf2920107f630793e1d95791",
+     "blob_sha256": "1e442fb6ff93257fcb911db3321539e4615da8482b45daebbad17d01a4406c97",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/work/run_r2.py",
+     "git_blob": "39405a440d0572bb3da869f54ed31b60204db17a",
+     "blob_sha256": "425a53025efc01020eed85694a785f624f6821a608df80777c21fbd68467703d",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/work/run_r3.py",
+     "git_blob": "b167c76c9a7dd304fbc314456a3e785e1b835f83",
+     "blob_sha256": "46cae4f6862605bc58d87d53a5156eb4ebd9ccb0bcb41d2c22167cc0953b8faa",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    },
+    {
+     "path": "verification/audits/infrastructure/claims-check-redesign-20261125/work/run_r4.py",
+     "git_blob": "becfc1f252d4947ea7cd051099b5ee9c90d872d1",
+     "blob_sha256": "6cafbee9314e69430ffd9bdaf0e432146063eb3b192c57acbe28f179665e4faa",
+     "side_change_commits": [
+      "5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m0-research-record-1564",
+   "reason": "research record added by the merge of #1564 (6c970356c)",
+   "pins": [
+    {
+     "path": "verification/programmes/gravity/h-bd-1245-20261125/CHANGES-r2.md",
+     "git_blob": "1dec7b5885155de2c419c531a6ad196b56df5104",
+     "blob_sha256": "67e238824d58daa14701a8bc47fcb87e79fef85060014765e2adf9258cb5c046",
+     "side_change_commits": [
+      "6c970356cdd672180a867250f19df466ca07b633"
+     ]
+    },
+    {
+     "path": "verification/programmes/gravity/h-bd-1245-20261125/CHANGES-r3.md",
+     "git_blob": "ce1c03eb970b74fc6793e48fa13aeedc84ad5743",
+     "blob_sha256": "64aeb73ffd210d40a2703f8c208b054ad4c83942dfb639f74563ebf92c162719",
+     "side_change_commits": [
+      "6c970356cdd672180a867250f19df466ca07b633"
+     ]
+    },
+    {
+     "path": "verification/programmes/gravity/h-bd-1245-20261125/CHANGES-r4.md",
+     "git_blob": "df8386f06dc08e1695fa3c2bc7b3e3609a9f1486",
+     "blob_sha256": "f18329053bdcc857fa3fb168322dcba11a2ecf87269f873ec2faae8b8cf9c28d",
+     "side_change_commits": [
+      "6c970356cdd672180a867250f19df466ca07b633"
+     ]
+    },
+    {
+     "path": "verification/programmes/gravity/h-bd-1245-20261125/CHANGES-r5.md",
+     "git_blob": "cf222b411d974c6635713e7e7217b9f7d01e9096",
+     "blob_sha256": "bcffa5a7287b27acc202d2ddeb4739a36f4f7ecc101106d2dda43574edad376b",
+     "side_change_commits": [
+      "6c970356cdd672180a867250f19df466ca07b633"
+     ]
+    },
+    {
+     "path": "verification/programmes/gravity/h-bd-1245-20261125/P3-EVIDENCE.md",
+     "git_blob": "984c223ad708b469fe4b48562fe6d3e5702335da",
+     "blob_sha256": "b2b6240a52bd5a3c4e85ae2ce291a02ef1ee824ab808c7921760dbae801aa9db",
+     "side_change_commits": [
+      "6c970356cdd672180a867250f19df466ca07b633"
+     ]
+    },
+    {
+     "path": "verification/programmes/gravity/h-bd-1245-20261125/REPORT-r2.md",
+     "git_blob": "e0f4de39518b141b266b6d9d1cd5579403bb1fea",
+     "blob_sha256": "c861d8c69b6f2a53dceaa15101579ea6f68406fb12534426f49f56abba107792",
+     "side_change_commits": [
+      "6c970356cdd672180a867250f19df466ca07b633"
+     ]
+    },
+    {
+     "path": "verification/programmes/gravity/h-bd-1245-20261125/REPORT-r3.md",
+     "git_blob": "5789dd6fc9c4663eff4dd068328ef7c42d72b58d",
+     "blob_sha256": "d8c553729539377fdd12b49b67546755de3a05f1d018695d5c8a4c14956d4d44",
+     "side_change_commits": [
+      "6c970356cdd672180a867250f19df466ca07b633"
+     ]
+    },
+    {
+     "path": "verification/programmes/gravity/h-bd-1245-20261125/REPORT-r4.md",
+     "git_blob": "2f041cf46cc51c0933b054de915f87471826da69",
+     "blob_sha256": "b6877f420e3c76b50d17c7f7ef3cf558dea5c599e2d36c8b539af58886b6ac27",
+     "side_change_commits": [
+      "6c970356cdd672180a867250f19df466ca07b633"
+     ]
+    },
+    {
+     "path": "verification/programmes/gravity/h-bd-1245-20261125/REPORT-r5.md",
+     "git_blob": "419c2522338a62dba2bfcc1bb140a7a103f76c71",
+     "blob_sha256": "beea71c12d5ba5d755139a67a67b9b869e7a1dd12a4368a13137b57adbd3b4bf",
+     "side_change_commits": [
+      "6c970356cdd672180a867250f19df466ca07b633"
+     ]
+    },
+    {
+     "path": "verification/programmes/gravity/h-bd-1245-20261125/REPORT.md",
+     "git_blob": "929bdcb64e3fc5ab43adcf511c2ec8698c4af644",
+     "blob_sha256": "4b4a30568491265ee4106ee88fa82eaa17af831c10c03cb8d2e5b090d7a3baf4",
+     "side_change_commits": [
+      "6c970356cdd672180a867250f19df466ca07b633"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m0-research-record-1562",
+   "reason": "research record added by the merge of #1562 (503847ad6)",
+   "pins": [
+    {
+     "path": "verification/programmes/oi-qm/interface/obs-emerge-1062-20261125/CHANGES-r2.md",
+     "git_blob": "edb696eb5552f974ce0b77af57e25ad9668cb515",
+     "blob_sha256": "393681e7ceab89a0708cf88d2318c87120497736c8c2787d78fcc752209d004c",
+     "side_change_commits": [
+      "503847ad6ce05832f279280f3abd86048be7d336"
+     ]
+    },
+    {
+     "path": "verification/programmes/oi-qm/interface/obs-emerge-1062-20261125/CHANGES-r3.md",
+     "git_blob": "5115654f7117734f41f9e867dc512d9842b8fc2e",
+     "blob_sha256": "9ee62d326f20ebf061cd9d7a11ec7d0f8d7225476c5142d2d9a0307d26d2d6eb",
+     "side_change_commits": [
+      "503847ad6ce05832f279280f3abd86048be7d336"
+     ]
+    },
+    {
+     "path": "verification/programmes/oi-qm/interface/obs-emerge-1062-20261125/CHANGES-r4.md",
+     "git_blob": "8c3e3ee904346ecd867ede53f57c7a3e16c954ca",
+     "blob_sha256": "82766a1f184929fcc9f73a3f8d36ce8844f39722c1c64f4f038c105a51b9126b",
+     "side_change_commits": [
+      "503847ad6ce05832f279280f3abd86048be7d336"
+     ]
+    },
+    {
+     "path": "verification/programmes/oi-qm/interface/obs-emerge-1062-20261125/CHANGES-r5.md",
+     "git_blob": "a180bf320a4f5449c55418fdf0bf4434f16854a2",
+     "blob_sha256": "45be38d6593bc010640921fe4263c22774228280a0488ca4558af82800084128",
+     "side_change_commits": [
+      "503847ad6ce05832f279280f3abd86048be7d336"
+     ]
+    },
+    {
+     "path": "verification/programmes/oi-qm/interface/obs-emerge-1062-20261125/REPORT-r2.md",
+     "git_blob": "e71b86295b58cae123b2c69e2fb7065c7a5f5e4b",
+     "blob_sha256": "119af848e960d109dcb72bd31b6328e79594427d27b3e02cfbd08448b0ef80cd",
+     "side_change_commits": [
+      "503847ad6ce05832f279280f3abd86048be7d336"
+     ]
+    },
+    {
+     "path": "verification/programmes/oi-qm/interface/obs-emerge-1062-20261125/REPORT-r3.md",
+     "git_blob": "746097d775fe63326019ad5e8b070e49b0d7e364",
+     "blob_sha256": "a0ed4c559a6e443b4ad5658bb1140f313077c8fab79ade93d1bee8d6269fe42d",
+     "side_change_commits": [
+      "503847ad6ce05832f279280f3abd86048be7d336"
+     ]
+    },
+    {
+     "path": "verification/programmes/oi-qm/interface/obs-emerge-1062-20261125/REPORT-r4.md",
+     "git_blob": "61d7be5e9d20b4876f01bb57336ffa1125969e04",
+     "blob_sha256": "72247d0fadaf064246710991e1055268e655dab0cfeb6431b4fe1abba03e76a5",
+     "side_change_commits": [
+      "503847ad6ce05832f279280f3abd86048be7d336"
+     ]
+    },
+    {
+     "path": "verification/programmes/oi-qm/interface/obs-emerge-1062-20261125/REPORT-r5.md",
+     "git_blob": "57629dbc39529313376e7ccac9be82e77496899d",
+     "blob_sha256": "9eee336c628425cbea6c85665fc5e8e83222d82a63c30078daa2710b17c71034",
+     "side_change_commits": [
+      "503847ad6ce05832f279280f3abd86048be7d336"
+     ]
+    },
+    {
+     "path": "verification/programmes/oi-qm/interface/obs-emerge-1062-20261125/REPORT.md",
+     "git_blob": "3f34a7eb3af4dc68a14411a08da7caf9873b9cc6",
+     "blob_sha256": "94418fb27a8ca2277d93ab028d58d8d7cc2e47790cc11efb7da90ef3d865a90d",
+     "side_change_commits": [
+      "503847ad6ce05832f279280f3abd86048be7d336"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "m0-research-record-1561",
+   "reason": "research record added by the merge of #1561 (5a39aa543)",
+   "pins": [
+    {
+     "path": "verification/programmes/substratum/a5-linear-affine-20261104/reassess-1049-20261125/CHANGES-r2.md",
+     "git_blob": "887f2810aaf731d1dd300be8d871f8e59cbae27c",
+     "blob_sha256": "7dd7a9dc5abd7e0a66ec3c976ad1fa99c87e16a1eec5a4a5308ef6fc43a0bad7",
+     "side_change_commits": [
+      "5a39aa543c212531660fcd51c67532c584026a3f"
+     ]
+    },
+    {
+     "path": "verification/programmes/substratum/a5-linear-affine-20261104/reassess-1049-20261125/CHANGES-r3.md",
+     "git_blob": "086495efee5c97d8e14ab48c4845e98be337f202",
+     "blob_sha256": "322ffd8b3b56f50b394455dd06932095047ce898471a49992507446c160d4018",
+     "side_change_commits": [
+      "5a39aa543c212531660fcd51c67532c584026a3f"
+     ]
+    },
+    {
+     "path": "verification/programmes/substratum/a5-linear-affine-20261104/reassess-1049-20261125/CHANGES-r4.md",
+     "git_blob": "e6ab59109191643204d5320f4003cdc83955e3df",
+     "blob_sha256": "0afc4e044523460beff54cfd67b6fb79ae7cff3491aeab3636ec406f7c575424",
+     "side_change_commits": [
+      "5a39aa543c212531660fcd51c67532c584026a3f"
+     ]
+    },
+    {
+     "path": "verification/programmes/substratum/a5-linear-affine-20261104/reassess-1049-20261125/CHANGES-r5.md",
+     "git_blob": "d660e5e7446c94961da16fbf9ea6c45a11ee2681",
+     "blob_sha256": "9518a7f0015ecb7c97ae4bb736fc5a756516a4d9940a8122d78c5d046d73683b",
+     "side_change_commits": [
+      "5a39aa543c212531660fcd51c67532c584026a3f"
+     ]
+    },
+    {
+     "path": "verification/programmes/substratum/a5-linear-affine-20261104/reassess-1049-20261125/REPORT-r2.md",
+     "git_blob": "682ab73856b926141de7935e4f3ac251db98d785",
+     "blob_sha256": "7a4f12ebe8d7d9d50454996db7ab88cc723d8f560b60e8e6f160c27bae6633f4",
+     "side_change_commits": [
+      "5a39aa543c212531660fcd51c67532c584026a3f"
+     ]
+    },
+    {
+     "path": "verification/programmes/substratum/a5-linear-affine-20261104/reassess-1049-20261125/REPORT-r3.md",
+     "git_blob": "932ad3b1cf3b144b349cabe1a4d181816217a0c0",
+     "blob_sha256": "f6e76e700f2cc3854e3bb33279241e3071238dcf40fea34b7b528ef7639fd20d",
+     "side_change_commits": [
+      "5a39aa543c212531660fcd51c67532c584026a3f"
+     ]
+    },
+    {
+     "path": "verification/programmes/substratum/a5-linear-affine-20261104/reassess-1049-20261125/REPORT-r4.md",
+     "git_blob": "63d1cb00c00bc5bd8d6a4b56a3180b17f73b9817",
+     "blob_sha256": "068e369f28065e9562909def0be8ae78b9ce6734ebb6023ec17071e88e1ccc92",
+     "side_change_commits": [
+      "5a39aa543c212531660fcd51c67532c584026a3f"
+     ]
+    },
+    {
+     "path": "verification/programmes/substratum/a5-linear-affine-20261104/reassess-1049-20261125/REPORT-r5.md",
+     "git_blob": "4fa3e236c688ce9076256b97cadb9aa3d645e84b",
+     "blob_sha256": "a7a41875369b438bce4d501b975f601aca19520069cc4d0ebabbb82898349316",
+     "side_change_commits": [
+      "5a39aa543c212531660fcd51c67532c584026a3f"
+     ]
+    },
+    {
+     "path": "verification/programmes/substratum/a5-linear-affine-20261104/reassess-1049-20261125/REPORT.md",
+     "git_blob": "a4f1b3fad82e25ca618997012a7b853a7e269551",
+     "blob_sha256": "4cb2c8942538af3632ec2fc4978fa74de59d2d53868c6f51c1e182f866f35c12",
+     "side_change_commits": [
+      "5a39aa543c212531660fcd51c67532c584026a3f"
+     ]
+    }
+   ]
+  }
+ ]
+}
