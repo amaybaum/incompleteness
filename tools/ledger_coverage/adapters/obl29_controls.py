@@ -253,8 +253,12 @@ def positive_controls(r):
          [o1['finding'], o1['blocked']], o1['finding'] == o2['finding'] and o1['blocked'] == o2['blocked'])
     # a revised plan that no longer carries the edit: the finding remains visible and binds nothing
     w = pfc.World(r, edits=pfc.EDITS_OTHER, first_id=2)
-    eff = dict(pfc.CONTROL_EFFECT, conclusions='none', verdict='invalidates',
-               invalidated=[{'id': 'E1', 'sha256': pfc.rcmod.edit_key(pfc.World(r).led, 'E1')}])
+    # the finding was made under the original plan: a readable element for E1 with its target there, naming that
+    # plan's configuration (not resolvable from this run, so the id match is global: E1 is not carried, and E2's old
+    # bytes differ from E1's target)
+    old_se = pfc.invalidating(pfc.World(r), sf.DOC)['paths'][0]['scientific_effect']
+    eff = dict(pfc.CONTROL_EFFECT, conclusions='none', verdict='invalidates', invalidated=old_se['invalidated'],
+               configuration=old_se['configuration'])
     doc = pfc.rcmod.draft(w.repo, w.ctx, w.syn.H, w.M, w.X, w.led, sf.DOC, scientific_effect=eff)
     doc.update(record_id='syn-finding-old-plan', author=sf.WRITER, supersedes=None, M=w.M, X=w.X)
     pfc.land(w, [(FP, doc)])
@@ -931,7 +935,7 @@ def read_domain_controls(r):
     step(w, {FP: None}, 'delete f')
     code, out = w.run([], harness=True)
     out = out or {}
-    good = rdm.problems(w.repo, out, [w.M])
+    good = rdm.problems(w.repo, out, [w.M], [w.c])
     rd = out.get('category3_read_domain') or {}
     import copy
     forged = copy.deepcopy(out)
@@ -943,15 +947,133 @@ def read_domain_controls(r):
                                                      'blob_sha256': sf.sha(w.repo.read(c1, 'doc/s.md'))})
     wrong = copy.deepcopy(out)
     wrong['category3_read_domain']['reads'][0]['blob_sha256'] = '0' * 64
+    exp = rd.get('explicit') or []
+    badsrc = copy.deepcopy(out)
+    if badsrc['category3_read_domain']['explicit']:
+        badsrc['category3_read_domain']['explicit'][0]['source'] = w.M
+    badpre = copy.deepcopy(out)
+    badpre['category3_read_domain']['prefix'] = ''
+    case('READ-DOMAIN-EXPLICIT', 'explicitly read records come from the configuration commit with their blob; a '
+                                 'substituted source, or a recorded prefix other than verification/audits/, is '
+                                 'refused', {'explicit': len(exp), 'badsrc': rdm.problems(w.repo, badsrc, [w.M], [w.c]),
+                                             'badpre': rdm.problems(w.repo, badpre, [w.M], [w.c])},
+         bool(exp) and bool(rdm.problems(w.repo, badsrc, [w.M], [w.c])) and
+         bool(rdm.problems(w.repo, badpre, [w.M], [w.c])))
     case('P-REPRESENTATIVE-READ-DOMAINS', 'the category-3 reads recorded with their source commit, path and blob all '
                                           'come from the named root or its verified history under the prefix; a read '
                                           'from an unrelated commit, outside the prefix, or with another blob is '
                                           'refused', {'good': good, 'reads': len(rd.get('reads') or []),
-                                                      'forged': rdm.problems(w.repo, forged, [w.M]),
-                                                      'outside': rdm.problems(w.repo, outside, [w.M]),
-                                                      'wrong': rdm.problems(w.repo, wrong, [w.M])},
-         good == [] and bool(rd.get('reads')) and rdm.problems(w.repo, forged, [w.M]) and
-         rdm.problems(w.repo, outside, [w.M]) and rdm.problems(w.repo, wrong, [w.M]))
+                                                      'forged': rdm.problems(w.repo, forged, [w.M], [w.c]),
+                                                      'outside': rdm.problems(w.repo, outside, [w.M], [w.c]),
+                                                      'wrong': rdm.problems(w.repo, wrong, [w.M], [w.c])},
+         good == [] and bool(rd.get('reads')) and rdm.problems(w.repo, forged, [w.M], [w.c]) and
+         rdm.problems(w.repo, outside, [w.M], [w.c]) and rdm.problems(w.repo, wrong, [w.M], [w.c]))
+
+
+def milestone_controls(r):
+    """Review findings on 4ba24dd3: the unreadable-invalidated fallback, the R6.RECON.30 beside-table stop, the global
+    id scope, the historical form-failure FAIL and the self-review boundary."""
+    rv = FP[:-5] + '.review.json'
+    w = pfc.World(r)
+    doc = pfc.invalidating(w, sf.DOC)
+    doc['paths'][0]['scientific_effect']['invalidated'] = [{'note': 'no readable element'}]
+    c1 = pfc.land(w, [(FP, doc)])
+    step(w, {FP: None, rv: None}, 'delete f')
+    o = outcome(w)
+    case('UNREADABLE-INVALIDATED-FALLBACK', 'invalidated with no readable {id, sha256, target} element, landed then '
+                                            'deleted: bound through the Form (iv) fallback (conclusions E1) and still '
+                                            'blocks', o, blocked(o, False, c1))
+    # beside the tables: end_M disagrees
+    w = pfc.World(r)
+    doc = pfc.invalidating(w, sf.DOC)
+    sp = doc['paths'][0]['splices']
+    if sp:
+        sp[0]['end_M'] = sp[0]['end_M'] + 1
+    pfc.land(w, [(FP, doc)])
+    o = outcome(w)
+    case('BESIDE-TABLES-STOP', 'a finding record whose splice end_M is not start_M + end_H - start_H (an R6.RECON.30 '
+                               'check beside the tables): whether that is a form failure is not settled, so the run '
+                               'stops with ERROR DESIGN_UNSETTLED', {'o': o, 'had_splice': bool(sp)},
+         bool(sp) and o['exit'] == 65 and o['stop'] == 'DESIGN_UNSETTLED')
+    # global id scope: an unresolved configuration binds a same-id edit on another path, outside the lineage
+    w = pfc.World(r)
+    doc = pfc.invalidating(w, sf.DOC)
+    se = doc['paths'][0]['scientific_effect']
+    se['configuration'] = {'path': 'syn/none/config.json', 'blob_sha256': '0' * 64}
+    se['invalidated'][0]['target'] = {'path': 'doc/other.md', 'start_H': 0, 'old_sha256': '1' * 64}
+    pfc.land(w, [(FP, doc)])
+    code, out = w.run([], harness=True)
+    edits = [b.get('edit') for b in ((out or {}).get('category3') or {}).get('blocked') or []]
+    case('GLOBAL-ID-SCOPE-UNRESOLVED', 'a finding whose configuration does not resolve, its element naming E1 on another '
+                                       'path: the id match is global (Form (iii)), so the run\'s E1 on doc/s.md is bound',
+         {'exit': code, 'edits': edits}, code == 20 and 'E1' in edits)
+    w = pfc.World(r)
+    doc = pfc.invalidating(w, sf.DOC)
+    se = doc['paths'][0]['scientific_effect']
+    se['invalidated'][0]['target'] = {'path': 'doc/other.md', 'start_H': 0, 'old_sha256': '1' * 64}
+    pfc.land(w, [(FP, doc)])
+    code, out = w.run([], harness=True)
+    edits = [b.get('edit') for b in ((out or {}).get('category3') or {}).get('blocked') or []]
+    inv = [d for i in (out or {}).get('items', []) if i['class'] == 'record-invalid' for d in (i.get('detail') or [])]
+    case('GLOBAL-ID-SCOPE-MISMATCH', 'an element whose target differs from the named configuration\'s ledger: a Form (ii) '
+                                     'failure, FAIL record-invalid, and E1 bound', {'exit': code, 'edits': edits},
+         code == 20 and 'E1' in edits and any('differs from the named configuration' in d for d in inv))
+    # historical form failure while it binds
+    w = pfc.World(r)
+    doc = pfc.invalidating(w, sf.DOC)
+    del doc['paths'][0]['scientific_effect']['configuration']
+    c1 = pfc.land(w, [(FP, doc)])
+    step(w, {FP: None, rv: None}, 'delete f')
+    o = outcome(w)
+    case('FORM-FAILURE-HISTORICAL-BOUND', 'a historical-only finding with a form failure that binds the run\'s E1: '
+                                          'FAIL record-invalid for its form and retirement-blocked (R6.OBL29.2)', o,
+         blocked(o, False, c1) and any('form failure of a category-3' in d for d in o['invalid']))
+    # the self-review boundary: the invalidating review lands first with its record absent, then the record lands and
+    # shows reviewer = author. Pinned to the current reading (the finding is disqualified once the record is found);
+    # flip this control if the owner rules otherwise.
+    w = pfc.World(r)
+    q = w.record(record_id='syn-recon-q')
+    qb = pfc.jb(q)
+    QP = pfc.RD + 'q.json'
+    inv = pfc.invalidating(w, sf.DOC)['paths'][0]['scientific_effect']
+    verdicts = [{'item': i, 'verdict': 'accept', 'reason': ''} for i in rec.item_ids(q)]
+    for v in verdicts:
+        if v['item'] == sf.DOC + ':scientific_effect':
+            v.update(verdict='invalidates', reason='x', invalidated=inv['invalidated'],
+                     configuration=inv['configuration'])
+    z = pfc.jb({'schema': rec.review_schema, 'reviewer': sf.WRITER, 'reviewed': {'path': QP, 'blob_sha256': sf.sha(qb)},
+                'method': 'read ' + 'a' * 40, 'verdicts': verdicts})
+    step(w, {pfc.RD + 'q.second.review.json': z}, 'the invalidating review lands first')
+    o1 = outcome(w)
+    step(w, {QP: qb}, 'the reviewed record lands, its author the reviewer')
+    o2 = outcome(w)
+    case('SELF-REVIEW-RECORD-LANDS-LATER', 'pinned reading: before the record lands the review names no record the scan '
+                                           'finds (stop 1, ERROR DESIGN_UNSETTLED); once it lands, reviewer = author '
+                                           'disqualifies the review and no second-kind finding remains',
+         {'before': [o1['exit'], o1['stop']], 'after_kind2': [f for f in o2['all'] if f.get('kind') == 2]},
+         o1['stop'] == 'DESIGN_UNSETTLED' and not [f for f in o2['all'] if f.get('kind') == 2])
+
+
+def explicit_review_controls(r):
+    """findings_of_records also extracts second-kind findings from review records the run reads explicitly."""
+    from ledger_coverage.engine import category3 as c3m
+    w = pfc.World(r)
+    q = w.record(record_id='syn-recon-q')
+    qb = pfc.jb(q)
+    qref = {'path': pfc.RD + 'q.json', 'blob_sha256': sf.sha(qb)}
+    inv = pfc.invalidating(w, sf.DOC)['paths'][0]['scientific_effect']
+    verdicts = [{'item': i, 'verdict': 'accept', 'reason': ''} for i in rec.item_ids(q)]
+    for v in verdicts:
+        if v['item'] == sf.DOC + ':scientific_effect':
+            v.update(verdict='invalidates', reason='x', invalidated=inv['invalidated'],
+                     configuration=inv['configuration'])
+    z = {'schema': rec.review_schema, 'reviewer': 'reviewer-x', 'reviewed': qref, 'method': 'read ' + 'a' * 40,
+         'verdicts': verdicts, '_ref': {'path': 'syn/cfg/z.review.json', 'blob_sha256': '5' * 64}}
+    got = c3m.findings_of_records([z], ('oi-reconciliation/1', 'oi-reconciliation/2'),
+                                  lambda ref: q if ref == qref else None)
+    case('EXPLICIT-REVIEW-SECOND-KIND', 'a review record the run reads explicitly carries a second-kind finding: it is '
+                                        'extracted with its entry', [(f['kind'], f['item']) for f in got],
+         [(f['kind'], f['item'], bool(f['entry'])) for f in got] == [(2, sf.DOC + ':scientific_effect', True)])
 
 
 def tl_variant(prefix, pins=()):
@@ -1068,7 +1190,8 @@ SUITES = [('removal', removal_controls), ('topology', topology_controls), ('unre
           ('predecessor-widening', predecessor_widening_unit),
           ('pairing-predecessor', pairing_predecessor_controls),
           ('pairing-review-order', pairing_review_order_control), ('r13-form', r13_form_controls),
-          ('read-domain', read_domain_controls)]
+          ('read-domain', read_domain_controls), ('milestone', milestone_controls),
+          ('explicit-review', explicit_review_controls)]
 
 
 def main(out):

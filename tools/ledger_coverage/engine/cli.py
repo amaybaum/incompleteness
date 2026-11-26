@@ -277,7 +277,22 @@ def category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, r
     revs = sorted({c[1] for c in route_cands})
     try:
         cum = c3.Cumulative(repo, [M] + ([F] if F else []) + revs, schemas, recon_route.audits_root)
-        found = c3.unique(cum.findings() + c3.findings_of_records(recon, schemas))
+        # the records the run reads explicitly: reconciliation records, and the review records the configuration
+        # references (R6.OBL29.1)
+        explicit_reviews = []
+        for r_ in cfg['records']:
+            d_ = loaded.store.get(r_) if isinstance(r_, dict) else None
+            if isinstance(d_, dict) and d_.get('schema') == rec.review_schema:
+                explicit_reviews.append(dict(d_, _ref={'path': r_['path'], 'blob_sha256': r_['blob_sha256']},
+                                             _source=loaded.ref['commit']))
+
+        def explicit_at(ref):
+            for r_ in recon:
+                if r_.get('_ref') == {'path': (ref or {}).get('path'), 'blob_sha256': (ref or {}).get('blob_sha256')}:
+                    return {k: v for k, v in r_.items() if k not in ('_ref', '_source')}
+            return None
+        found = c3.unique(cum.findings() + c3.findings_of_records(
+            recon + explicit_reviews, schemas, lambda ref: cum.record_at(ref) or explicit_at(ref)))
     except Unresolvable as exc:
         raise oc.Stop(oc.error, 'UNRESOLVABLE', 'the cumulative record set cannot be read: %s' % exc)
     out = []
@@ -331,7 +346,8 @@ def category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, r
                 f['path'])
     try:
         bview = c3.Binding(repo, M, cfg, {'path': loaded.ref['path'], 'blob_sha256': loaded.ref['blob_sha256']}, led,
-                           resolve_cfg, ledger_of)
+                           resolve_cfg, ledger_of, record_at=lambda ref: cum.record_at(ref) or explicit_at(ref),
+                           cfg_commit=loaded.ref['commit'])
         for f in found:
             present, wit = cum.witness(f['record'] or {}, M, revs, F)
             entry = f.get('entry')
@@ -376,7 +392,7 @@ def category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, r
                                     detail=['a form failure of a category-3 finding: %s' % x for x in form]))
     out += c3.blocked_items(repo, H, M, blocked, getattr(ex, 'dispositions', []))
     explicit = [{'path': (r.get('_ref') or {}).get('path'), 'blob_sha256': (r.get('_ref') or {}).get('blob_sha256'),
-                 'source': r.get('_source')} for r in recon]
+                 'source': r.get('_source')} for r in recon + explicit_reviews]
     result['category3_read_domain'] = cum.read_domain(explicit)
     result['category3'] = {'findings': findings,
                            'blocked': [{'record': f['record'], 'item': f.get('item'), 'path': f['path'], 'edit': e}

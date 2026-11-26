@@ -5,8 +5,12 @@ it reads the result and a reader with parents(c), read(c, path) (bytes or None).
 import hashlib
 
 
-def problems(reader, result, roots):
-    """[problem] for the read domain of one result; `roots` are the run's M, F and REV as the caller knows them."""
+PREFIX = 'verification/audits/'
+
+
+def problems(reader, result, roots, sources=()):
+    """[problem] for the read domain of one result; `roots` are the run's M, F and REV as the caller knows them, and
+    `sources` the commits an explicitly read record may come from (the configuration commit and the admitted REVs)."""
     rd = result.get('category3_read_domain')
     if not isinstance(rd, dict):
         return ['no category-3 read domain recorded']
@@ -20,7 +24,9 @@ def problems(reader, result, roots):
             continue
         seen.add(c)
         stack.extend(reader.parents(c))
-    prefix = rd.get('prefix') or ''
+    prefix = PREFIX
+    if rd.get('prefix') != PREFIX:
+        out.append('the recorded prefix %r is not %s' % (rd.get('prefix'), PREFIX))
     for x in rd.get('reads') or []:
         c, p, b = x.get('commit'), x.get('path'), x.get('blob_sha256')
         if c not in seen:
@@ -33,6 +39,12 @@ def problems(reader, result, roots):
         if data is None or hashlib.sha256(data).hexdigest() != b:
             out.append('%s at %s is not the recorded blob' % (p, c))
     for x in rd.get('explicit') or []:
-        if not x.get('source'):
-            out.append('explicit record %s names no admitted source' % x.get('path'))
+        src, p, b = x.get('source'), x.get('path'), x.get('blob_sha256')
+        if src not in set(sources):
+            out.append('explicit record %s names a source %r that is neither the configuration commit nor an admitted '
+                       'REV' % (p, src))
+            continue
+        data = reader.read(src, p) if isinstance(p, str) else None
+        if data is None or hashlib.sha256(data).hexdigest() != b:
+            out.append('explicit record %s is not present at its source with its blob' % p)
     return out

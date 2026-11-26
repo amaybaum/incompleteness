@@ -20,6 +20,8 @@ import re
 from . import util
 
 recon_schemas = ('oi-reconciliation/1', 'oi-reconciliation/2')
+# the mechanical floor of the executed-path rule (R6.RECON.30, R6.CFG.4 executed_suffixes)
+executed_floor = ('.py', '.lean', '.yml', '.yaml', '.sh')
 review_schema = 'oi-review-record/1'
 _esc = re.compile(r'\\u([0-9a-fA-F]{4})')
 _hex40 = re.compile(r'[0-9a-f]{40}\Z')

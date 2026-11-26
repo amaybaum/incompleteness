@@ -55,14 +55,40 @@ def _reviewed(store, ref, sha):
     return rec.lint_chain(ref, store, {sha, reviews[0]})
 
 
-def findings_of_records(records, schemas):
+def second_kind_findings(doc, ref, record_at):
+    """Form (i) second-kind findings of one review record (its reference `ref`); record_at(reference) returns the
+    reconciliation record the review names, or None when the scan finds none."""
+    reviewed = record_at(doc.get('reviewed'))
+    who = doc.get('reviewer')
+    if isinstance(reviewed, dict) and fd.same_identity(who, reviewed.get('author')):
+        return []  # an independence failure disqualifies the review (Form (i))
+    if fd.run_like(who):
+        return []
+    out = []
+    for v in fd.second_kind_verdicts(doc):
+        form = fd.second_kind_form_problems(doc, reviewed, v)
+        if reviewed is None:
+            form.append('its reviewed names no record the scan finds')
+        entry = fd.entry_of_item(reviewed, v.get('item')) if isinstance(reviewed, dict) else None
+        out.append({'kind': 2, 'record': ref, 'item': v.get('item'), 'entry': entry,
+                    'path': entry.get('path') if isinstance(entry, dict) else ref.get('path'),
+                    'configuration': v.get('configuration'), 'invalidated': v.get('invalidated'),
+                    'verdict_item': v.get('item'), 'form': form})
+    return out
+
+
+def findings_of_records(records, schemas, record_at=lambda ref: None):
     """The first-kind findings among records the run reads explicitly (R6.OBL29.1), in the form of
     Cumulative.findings."""
     out = []
     for r in records:
+        doc = {k: v for k, v in r.items() if k not in ('_ref', '_source')}
+        if r.get('schema') == fd.review_schema:
+            # an explicitly read review record carries second-kind findings like a scanned one
+            out += second_kind_findings(doc, r.get('_ref') or {}, record_at)
+            continue
         if r.get('schema') not in schemas:
             continue
-        doc = {k: v for k, v in r.items() if k not in ('_ref', '_source')}
         form = fd.record_schema_problems(doc)
         for e in fd.first_kind_entries(doc):
             se = e.get('scientific_effect') or {}
@@ -431,21 +457,7 @@ class Cumulative:
                                 'configuration': se.get('configuration'), 'invalidated': se.get('invalidated'),
                                 'verdict_item': None, 'form': list(form)})
                 continue
-            reviewed = self.record_at(doc.get('reviewed'))
-            who = doc.get('reviewer')
-            if isinstance(reviewed, dict) and fd.same_identity(who, reviewed.get('author')):
-                continue  # an independence failure disqualifies the review (Form (i))
-            if fd.run_like(who):
-                continue
-            for v in fd.second_kind_verdicts(doc):
-                form = fd.second_kind_form_problems(doc, reviewed, v)
-                if reviewed is None:
-                    form.append('its reviewed names no record the scan finds')
-                entry = fd.entry_of_item(reviewed, v.get('item')) if isinstance(reviewed, dict) else None
-                out.append({'kind': 2, 'record': ref, 'item': v.get('item'), 'entry': entry,
-                            'path': entry.get('path') if isinstance(entry, dict) else p,
-                            'configuration': v.get('configuration'), 'invalidated': v.get('invalidated'),
-                            'verdict_item': v.get('item'), 'form': form})
+            out += second_kind_findings(doc, ref, self.record_at)
         return unique(out)
 
     def reviews_naming(self, ref, directory=None):
@@ -538,9 +550,10 @@ class Binding:
     the CLI supplies: resolve_cfg(ref) -> (doc, commit) or None (R6.RECON.33 resolution), and ledger_of(ref, commit)
     -> the configuration's ledger (raises findings.Unsettled when it cannot be read)."""
 
-    def __init__(self, repo, M, cfg, cfg_ref, led, resolve_cfg, ledger_of):
+    def __init__(self, repo, M, cfg, cfg_ref, led, resolve_cfg, ledger_of, record_at=None, cfg_commit=None):
         self.repo, self.M, self.cfg, self.cfg_ref, self.led = repo, M, cfg, cfg_ref, led
-        self.resolve_cfg, self.ledger_of = resolve_cfg, ledger_of
+        self.resolve_cfg, self.ledger_of, self.record_at, self.cfg_commit = resolve_cfg, ledger_of, record_at, cfg_commit
+        self._commit_of = {}
         self._ledgers = {}
         if any(isinstance(r, dict) and r.get('kind') == 'edit-id-migration' for r in cfg.get('records') or []):
             # Form (iv)-(vi) follow R6.RECON.28 migrations, which this tool revision does not read; a configuration
@@ -562,9 +575,26 @@ class Binding:
                 self._ledgers[key] = None
             else:
                 doc, commit = got
+                self._commit_of[id(doc)] = commit
                 self._ledgers[key] = (doc, self.ledger_of(cref, commit),
                                       (doc.get('roles') or {}).get('scientific_base'))
         return self._ledgers[key]
+
+    def delegated_paths(self, fdoc):
+        """The paths of the delegation classes of a configuration (R6.RECON.30 executed paths), read at its commit;
+        an unreadable delegation contract stops the run (the floor cannot be decided)."""
+        dref = fdoc.get('delegation')
+        if not isinstance(dref, dict):
+            return set()
+        commit = self.cfg_commit if fdoc is self.cfg else self._commit_of.get(id(fdoc))
+        data = self.repo.read(commit, dref.get('path')) if commit else None
+        try:
+            doc = json.loads(data.decode('utf-8'))
+        except (AttributeError, ValueError, UnicodeDecodeError):
+            raise fd.Unsettled('R6.RECON.30 executed paths: the delegation contract of a named configuration cannot '
+                               'be read')
+        return {q for c in doc.get('classes') or [] if isinstance(c, dict) for q in c.get('paths') or []
+                if isinstance(q, str)}
 
     def in_lineage(self, fdoc, fref):
         """R6.RECON.33 plan lineage of the finding's configuration: the run's configuration lies on whose supersedes
@@ -612,6 +642,59 @@ def expected_target(repo, led, H, eid):
     return None
 
 
+def beside_table_problems(b, f, fled, fH, fdoc):
+    """The checks R6.RECON.30 makes beside its key tables, on the finding's reconciliation record: each entry's
+    splices are exactly the named configuration's ledger splices of the path, in order, with their start_H and end_H;
+    end_M = start_M + end_H - start_H; the translation agrees with the offsets (R6.RECON.10: identity requires
+    start_M = start and H and M equal up to the splice's end; an integer equals start_M - start); and, for an executed
+    path (a floor or configured suffix, or a delegated path), `method` names the entry's l blob id."""
+    rdoc = b.record_at(f['record']) if b.record_at else None
+    if not isinstance(rdoc, dict):
+        return []
+    out = []
+    suffixes = tuple(set(fd.executed_floor) | set((fdoc or {}).get('executed_suffixes') or []))
+    delegated = b.delegated_paths(fdoc) if fdoc is not None else set()
+    for e in rdoc.get('paths') or []:
+        if not isinstance(e, dict) or not isinstance(e.get('path'), str):
+            continue
+        path = e['path']
+        sps = e.get('splices') if isinstance(e.get('splices'), list) else []
+        if fled is not None:
+            want = [s_ for s_ in fled.get('splices') or [] if s_.get('file') == path]
+            if [x.get('id') for x in sps if isinstance(x, dict)] != [x.get('id') for x in want]:
+                out.append('%s: its splices are not the ledger\'s splices of the path in ledger order' % path)
+            else:
+                for x, w_ in zip(sps, want):
+                    if x.get('start_H') != w_.get('start') or x.get('end_H') != w_.get('end'):
+                        out.append('%s: splice %s offsets differ from the ledger\'s' % (path, x.get('id')))
+        for x in sps:
+            if not isinstance(x, dict):
+                continue
+            if all(type(x.get(k)) is int for k in ('start_M', 'end_M', 'start_H', 'end_H')) and \
+                    x['end_M'] != x['start_M'] + x['end_H'] - x['start_H']:
+                out.append('%s: splice %s end_M is not start_M + end_H - start_H' % (path, x.get('id')))
+            t = x.get('translation')
+            if type(t) is int and type(x.get('start_M')) is int and type(x.get('start_H')) is int and \
+                    t != x['start_M'] - x['start_H']:
+                out.append('%s: splice %s translation disagrees with its offsets' % (path, x.get('id')))
+            if t == 'identity':
+                if x.get('start_M') != x.get('start_H'):
+                    out.append('%s: splice %s translation identity with start_M != start' % (path, x.get('id')))
+                else:
+                    # H and M as the record states them (ledger_base, M): the record's own claim of prefix agreement
+                    hb = b.repo.read(rdoc.get('ledger_base'), path) if isinstance(rdoc.get('ledger_base'), str) else None
+                    mb = b.repo.read(rdoc.get('M'), path) if isinstance(rdoc.get('M'), str) else None
+                    end = x.get('end_H') if type(x.get('end_H')) is int else -1
+                    if hb is None or mb is None or end < 0 or hb[:end] != mb[:end]:
+                        out.append('%s: splice %s translation identity without prefix agreement of H and M'
+                                   % (path, x.get('id')))
+        if path.endswith(suffixes) or path in delegated:
+            if not (isinstance(e.get('l'), str) and isinstance((e.get('scientific_effect') or {}).get('method'), str)
+                    and e['l'] in e['scientific_effect']['method']):
+                out.append('%s: an executed path whose method does not name its l blob id' % path)
+    return out
+
+
 def bind(f, b):
     """(bound edit ids, run_level, form problems) of one finding for the run's configuration (Form (ii)-(v))."""
     form = list(f.get('form') or [])
@@ -627,10 +710,20 @@ def bind(f, b):
         lineage = b.in_lineage(fdoc, f['configuration'])
     run_edits = _edits(b.led)
     global_scope = unresolved
+    if f['kind'] == 1:
+        beside = beside_table_problems(b, f, fled, fH, fdoc)
+        if beside:
+            raise fd.Unsettled('Form (i): whether "a failure of the record\'s form" covers the checks R6.RECON.30 makes '
+                               'beside its tables is not settled; %s fails: %s' % ((f['record'] or {}).get('path'),
+                                                                                 beside[0]))
     elems = []
     inv = f.get('invalidated')
-    usable = isinstance(inv, list) and bool(inv) and \
+    # Form (iv): `invalidated` absent, empty or unreadable (no element is a readable {id, sha256, target}), or the
+    # verdict on another item than <path>:scientific_effect, falls back to the conclusions or the entry's path
+    usable = isinstance(inv, list) and any(fd.element_ok(x) for x in inv) and \
         (f['kind'] == 1 or (isinstance(f.get('verdict_item'), str) and f['verdict_item'].endswith(':scientific_effect')))
+    if isinstance(inv, list) and inv and not usable:
+        form.append('invalidated has no readable element (Form (ii)); bound through the Form (iv) fallback')
     if usable:
         for x in inv:
             if not fd.element_ok(x):
