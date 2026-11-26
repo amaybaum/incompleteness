@@ -1832,7 +1832,8 @@ repository.
 
 Adopted 2026-11-26 by owner decision (`amaybaum`, #1169 comment 7190776267); items 5 and 6 added
 the same day by owner decision (`amaybaum`, #1169 comments 7191506837 and
-7191552531).
+7191552531); items 2, 5 and 6 amended the same day by owner decision (`amaybaum`, #1169 comment
+7202075726).
 
 ***
 
@@ -1861,3 +1862,7 @@ the Issue or pull request concerned among the package's targets; the package is 
 holds stay in force as they apply, and a writer designation, stop or suspension recorded there
 stands until a recorded owner decision lifts, resumes or replaces it (§A.49 rule 3, §A.51 item 5,
 §A.52 item 2).
+
+Adopted 2026-11-26 by owner decision (`amaybaum`, #1169 comment 7202075726), including the changes
+to the active packages' writer reference and record targets stated above and the removal of their
+shared agent cap, first decided at #1169 comment 7201128226.
