@@ -62,6 +62,7 @@ scientific question and no row disposition.
 | `records/side-change-classes-v18.json` | `oi-side-change-classes/1` | supersedes `records/side-change-classes-v17.json` (same lineage; the earlier records stay unchanged): the class `tool-landing`, pinning the earlier class records v1 to v17 by path and blob, its pins refreshed after the amendment-5 runner updates and the gate's rtl2 rule |
 | `records/side-change-classes-v19.json` | `oi-side-change-classes/1` | supersedes `records/side-change-classes-v18.json` in the `side-change-classes-v1` lineage. The draft pins v1 through v18 and the WB2 runner edit. |
 | `records/side-change-classes-v20.json` | `oi-side-change-classes/1` | supersedes `records/side-change-classes-v19.json` in the `side-change-classes-v1` lineage. The draft pins v1 through v19 and the two RB-P1 evidence adapter edits. |
+| `records/side-change-classes-v21.json` | `oi-side-change-classes/1` | supersedes `records/side-change-classes-v20.json` in the `side-change-classes-v1` lineage. The draft pins v1 through v20 and the WB and V scoped-evidence adapter edits. |
 
 The A1 configuration `retirement-config.json` (`oi-retirement-config/1`) is not part of this landing. It belongs in
 the retirement plan's record directory, `verification/audits/foundations/a1exit-deletion-20261121/`, frozen with the

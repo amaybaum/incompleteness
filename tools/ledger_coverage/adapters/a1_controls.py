@@ -459,9 +459,26 @@ def v3_countercontrol(a, retired):
 
 # ---- adversarial controls on a T1'-style X -----------------------------------------------------------------
 
+def item7_without_dr3(a):
+    cfg = json.loads(a.repo.read(a.crev, a.cpath))
+    item7 = next(check for check in cfg['checks'] if check['id'] == 'item7')
+    return ','.join(profile for profile in item7['profiles'] if profile != 'DR-3')
+
+
 def v_controls(a):
+    def run_planted(args, path, mutant, line, control=None, restored_control=None):
+        clean_args = list(args)
+        clean_args[clean_args.index('--commit') + 1] = T
+        a.run(clean_args, control=restored_control)
+        clean = a.rec.name_last('baseline')
+        run = a.run(args, control=control, case='', bindings={'planted': '%s:%d' % (path, line)},
+                    mutation=[{'path': path, 'before': a.repo.blob_id(T, path),
+                               'after': a.repo.blob_id(mutant, path)}])
+        a.run(clean_args, control=restored_control, case='restored', baseline=clean)
+        return run
+
     def terms_added(cid, f, text, check='item7', final=False, profile=None, expect=None, line_expect=None,
-                    without_rules=False, extra=None):
+                    without_rules=False, extra=None, retain_planted=False):
         x, led = a.add_eof(f, text)
         args = ['terms', '--commit', x, '--base', H, '--ledger', LEDGER]
         args += ['--profile', profile] if profile else ['--check', check]
@@ -470,9 +487,13 @@ def v_controls(a):
         ctl = {'overrides': {'ledger': led}}
         if without_rules:
             ctl['without_allow_rules'] = True
-        code, res, t = a.run(args, control=ctl)
         n0 = len(a.lines(T, f)) + 1
         new = [n0 + k + 1 for k in range(text.count('\n'))]
+        if retain_planted:
+            clean_ctl = dict(ctl, overrides={'ledger': a.led})
+            code, res, t = run_planted(args, f, x, new[0], control=ctl, restored_control=clean_ctl)
+        else:
+            code, res, t = a.run(args, control=ctl)
         its = [i for i in res.get('items', []) if i.get('file') == f and i.get('line') in new]
         hits = [h for h in res.get('hits', []) if h['file'] == f and h['line'] in new]
         return code, res, its, hits
@@ -548,11 +569,12 @@ def v_controls(a):
     a.record('V26', all(x[0] for x in res26), 'REVIEW unclassified each, resid (b, b, b, b, c)', res26)
     # item 7 with --final: V23, V24, V25
     l136 = a.lines(H, 'book/ch02-substratum.md')[135] + '\n'
-    code, res, its, hits = terms_added('V23', 'book/ch02-substratum.md', l136, final=True)
+    code, res, its, hits = terms_added('V23', 'book/ch02-substratum.md', l136, final=True, retain_planted=True)
     a.record('V23', code == 20 and [i['class'] for i in its] == ['final-unclassified'] and
              not any(i['class'] == 'deny-match' for i in its), 'FAIL final-unclassified (ptr hit; no deny)',
              [(i['class'], i.get('profiles')) for i in its])
-    code, res, its, hits = terms_added('V24', 'papers/GR.md', 'six structural hypotheses\n', final=True)
+    code, res, its, hits = terms_added('V24', 'papers/GR.md', 'six structural hypotheses\n', final=True,
+                                      retain_planted=True)
     a.record('V24', code == 20 and [i['class'] for i in its] == ['final-unclassified'],
              'FAIL final-unclassified (count-grep hit; no deny)', [(i['class'], i.get('profiles')) for i in its])
     c1, r1, i1, h1 = terms_added('V25', 'book/ch02-substratum.md', l136)
@@ -574,19 +596,19 @@ def v_controls(a):
     v2 = t19[211].replace(old, "The framework's six structural properties of the bijection, one of which is total "
                                "finiteness, further narrow it.")
 
-    def edited(f, ln, new, profile=None, check='item7'):
+    def edited(f, ln, new, profile=None, check='item7', retain_planted=False):
         lines = a.lines(T, f)
         lines[ln - 1] = new
         x = a.repo.derive(T, {f: ('\n'.join(lines) + '\n').encode()}, parents=[H])
         args = ['terms', '--commit', x] + (['--profile', profile] if profile else ['--check', check])
-        code, res, t = a.run(args)
+        code, res, t = run_planted(args, f, x, ln) if retain_planted else a.run(args)
         return code, res, items_on(res, f, ln)
     code, res, its = edited(ch, 212, v2)
     a.record('V2', code == 20 and any(i['class'] == 'deny-match' and i['rule_id'] == 'DR-3'
                                       for i in res.get('items', []) if i.get('file') == ch),
              'FAIL deny-match DR-3', sorted({(i['class'], str(i.get('rule_id'))) for i in res.get('items', [])
                                              if i.get('file') == ch}))
-    code, res, its = edited(ch, 212, v2, profile='count-grep,ptr')
+    code, res, its = edited(ch, 212, v2, profile=item7_without_dr3(a), retain_planted=True)
     a.record('V7a', [i['class'] for i in its] == ['rule-negative-match'] and its[0]['rule_id'] == 'W1-d',
              "FAIL rule-negative-match (W1's negative matcher)", [(i['class'], i.get('rule_id')) for i in its])
     code, res, its, hits = terms_added('V7b', 'papers/GR.md', "The framework's six structural properties of the "
@@ -596,7 +618,7 @@ def v_controls(a):
              'REVIEW unclassified (p0-core and count-grep hits, no rule)', [(i['class'], i.get('profiles')) for i in its])
     ch9 = 'book/ch09-universality.md'
     v7c = a.lines(T, ch9)[136].replace('generation count', 'generation number')
-    code, res, its = edited(ch9, 137, v7c, profile='count-grep')
+    code, res, its = edited(ch9, 137, v7c, profile='count-grep', retain_planted=True)
     a.record('V7c', [i['class'] for i in its] == ['rule-fingerprint-mismatch'], 'REVIEW rule-fingerprint-mismatch',
              [(i['class'], i.get('rule_id')) for i in its])
     a.record('S1r', [i['class'] for i in its] == ['rule-fingerprint-mismatch'], 'REVIEW rule-fingerprint-mismatch',

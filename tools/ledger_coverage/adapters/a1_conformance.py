@@ -100,20 +100,24 @@ def wb_controls(a):
     text = a.repo.read(T, CH19).decode()
     full = a.repo.read(T, FULL).decode()
 
-    def run(files, extra=(), control=None, profile=None):
+    def run(files, extra=(), control=None, profile=None, bindings=None, mutation=None):
         x = a.repo.derive(T, {k: v.encode() for k, v in files.items()}, parents=[H], subject='WB')
         sel = ['--profile', profile] if profile else ['--check', 'item7']
-        code, res, _ = a.run(['terms', '--commit', x] + sel + list(extra), control=control)
+        if bindings is not None and mutation is None:
+            mutation = [{'path': path, 'before': a.repo.blob_id(T, path), 'after': a.repo.blob_id(x, path)}
+                        for path in sorted(files)]
+        code, res, _ = a.run(['terms', '--commit', x] + sel + list(extra), control=control,
+                             bindings=bindings, mutation=mutation)
         return x, code, res
     # the clean baseline of the restored cases (OBL-20): the unmutated tree, the same command and flags
     run({})
     clean = REC.name_last('baseline') if REC is not None else None
 
-    def wb_check(cid, *args):
+    def wb_check(cid, *args, profile=None, clean_run=None):
         # the restored case of every WB row: the same run on the unmutated tree, compared with the clean baseline
-        run({})
+        run({}, profile=profile)
         if REC is not None:
-            REC.name_last('restored', baseline=clean)
+            REC.name_last('restored', baseline=clean if clean_run is None else clean_run)
         return check(cid, *args)
     _, code, res = run({})
     l_full = line_of(full, s)
@@ -153,11 +157,12 @@ def wb_controls(a):
           'new location; REVIEW_REQUIRED rule-stale for the fingerprint', "new line rule-negative-match and a W1-c "
           "rule-stale item", {'new': items_at(res, CH19, end5), 'stale': len(stale)},
           'rule-negative-match' in items_at(res, CH19, end5) and len(stale) >= 1)
-    _, code, res = run({CH19: text.replace(s, s.replace('periodic', 'cyclic', 1))})
+    planted = {'planted': '%s:%d' % (CH19, ln)}
+    _, code, res = run({CH19: text.replace(s, s.replace('periodic', 'cyclic', 1))}, bindings=planted)
     wb_check('WB6', 'a near-copy at the fingerprinted location, one other word changed, one finit word kept: FAIL '
           'rule-negative-match', "the line has rule-negative-match", items_at(res, CH19, ln),
           'rule-negative-match' in items_at(res, CH19, ln))
-    _, code, res = run({CH19: text.replace(s, s.replace('a finite periodic', 'a periodic', 1))})
+    _, code, res = run({CH19: text.replace(s, s.replace('a finite periodic', 'a periodic', 1))}, bindings=planted)
     wb_check('WB7', 'the fingerprinted sentence with its one finit word removed: REVIEW_REQUIRED rule-fingerprint-mismatch',
           "the line has rule-fingerprint-mismatch and no FAIL class", items_at(res, CH19, ln),
           items_at(res, CH19, ln) == ['rule-fingerprint-mismatch'])
@@ -178,15 +183,21 @@ def wb_controls(a):
     rp = a1c.allow_rule_path(a, 'W1-c')
     base_rules = json.loads(a.repo.read(a.crev, rp))
 
-    def with_w1c(mut):
+    def with_w1c(mut, retain_mutation=False):
         doc = copy.deepcopy(base_rules)
         for r in doc['rules']:
             if r['id'] == 'W1-c':
                 mut(r)
+        bindings, mutation = None, None
+        if retain_mutation:
+            variant = a.repo.derive(a.crev, {rp: util.canonical(doc)}, parents=[a.crev], subject='WB rule mutation')
+            doc = json.loads(a.repo.read(variant, rp))
+            bindings = {'rule_file': rp}
+            mutation = [{'path': rp, 'before': a.repo.blob_id(a.crev, rp), 'after': a.repo.blob_id(variant, rp)}]
 
         def repl(files):
             return [(ref, doc if ref['path'] == rp else d) for ref, d in files]
-        _, code, res = run({}, control={'replace_rule_files': repl})
+        _, code, res = run({}, control={'replace_rule_files': repl}, bindings=bindings, mutation=mutation)
         return code, sorted({i['class'] for i in res.get('items', []) if i.get('subject') == rp})
     wb10 = {}
     for name, al in (('two', {'finit': 2}), ('zero', {'finit': 0}), ('axiom', {'axiom': 1})):
@@ -201,22 +212,24 @@ def wb_controls(a):
     def drop(r):
         for f in r['fingerprints']:
             f.pop('negative_allowance', None)
-    wb11 = with_w1c(drop)
+    wb11 = with_w1c(drop, retain_mutation=True)
     wb_check('WB11', 'lint: a rule whose fingerprinted sentence fails its own rule (W1-c with no allowance): FAIL '
           'record-invalid', "exit 20 with record-invalid for the rule file", wb11,
           wb11[0] == 20 and wb11[1] == ['record-invalid'])
     # WB12 is V7a (sec. 10.2: V2 with DR-3 removed from the profile set) on the W1-c sentence: item 7's profile set
     # less DR-3, so step 3 (the rule's negative matcher) is reached; deny-first order (sec. 6.2) is unchanged
     s12 = s.replace('of the bijection)', 'of the bijection, one of which is total finiteness,)', 1)
-    cfg = json.loads(a.repo.read(a.crev, a.cpath))
-    v7a = [n for n in [c for c in cfg['checks'] if c['id'] == 'item7'][0]['profiles'] if n != 'DR-3']
-    _, code, res = run({CH19: text.replace(s, s12)}, profile=','.join(v7a))
+    profile = a1c.item7_without_dr3(a)
+    run({}, profile=profile)
+    clean_wb12 = REC.name_last('baseline') if REC is not None else None
+    _, code, res = run({CH19: text.replace(s, s12)}, profile=profile, bindings=planted)
     its = [(i['class'], str(i.get('rule_id'))) for i in res.get('items', [])
            if i.get('file') == CH19 and i.get('line') == ln]
     wb_check('WB12', 'V7a on the W1-c sentence (", one of which is total finiteness,"): FAIL rule-negative-match',
           "profile set = item7 less DR-3 (%s); exit 20; the line has rule-negative-match of W1-c and no deny-match"
-          % ','.join(v7a), {'exit': code, 'items': its},
-          code == 20 and ('rule-negative-match', 'W1-c') in its and not [x for x in its if x[0] == 'deny-match'])
+          % profile, {'exit': code, 'items': its},
+          code == 20 and ('rule-negative-match', 'W1-c') in its and not [x for x in its if x[0] == 'deny-match'],
+          profile=profile, clean_run=clean_wb12)
     lines = text.split('\n')
     para = lines[ln - 1]
     t13 = '\n'.join(lines[:ln - 1] + lines[ln:]).rstrip('\n') + '\n\n' + para + '\n'
@@ -238,7 +251,8 @@ def wb_controls(a):
           'byte offset PASSes, the later copy FAILs rule-negative-match, on every run',
           "in two runs: fingerprinted line no item, later copy rule-negative-match, identical", runs,
           runs[0] == runs[1] and not runs[0]['fingerprinted'] and 'rule-negative-match' in runs[0]['later'])
-    _, code, res = run({CH19: text.replace(s, s.replace('the notion of', 'the Finiteness notion of', 1))})
+    _, code, res = run({CH19: text.replace(s, s.replace('the notion of', 'the Finiteness notion of', 1))},
+                       bindings=planted)
     wb_check('WB15', '"Finiteness" (capitalized) added to a W1 sentence at its fingerprinted location: FAIL '
           'rule-negative-match (case-insensitive negatives)', "the line has rule-negative-match",
           items_at(res, CH19, ln), 'rule-negative-match' in items_at(res, CH19, ln))
