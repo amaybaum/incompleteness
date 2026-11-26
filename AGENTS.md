@@ -1765,6 +1765,33 @@ resetting the work.
 
    A mismatch is a stop under §A.51 item 5.
 4. **Review.** A reviewer uninvolved in the work of either writer is preferred.
+5. **Interrupted session.** When a writer's session stops without a handover, one owner instruction
+   may start the recovery. It designates the replacement for the workstreams it names (item 2), and,
+   where the replacement's tool and path for comments are not validated (§A.51 item 2), grants one
+   write for that validation. That write is the record of the designation and the takeover on
+   #1169, quoting the instruction (§A.42 item 7); the replacement makes no other write until it has
+   passed §A.49's read-back. Every further operation is validated under §A.51 item 2. Before any
+   write, the replacement reads #1169 and the threads it will write to for a stop under §A.49 rule 3
+   or §A.51 item 5 that no recorded owner decision has lifted; while one stands it writes nothing,
+   that write included, and reports to the owner by the instruction's own channel. The replacement
+   then:
+   - reconstructs the state as item 3 requires, reading each thread beyond its latest checkpoint and
+     checking the recorded state against GitHub; a branch head that descends from the recorded
+     commit is reconciled by reading the commits after it, and any other difference is a stop under
+     §A.51 item 5;
+   - reconciles every write, push, merge or launch the interrupted session may have begun against
+     GitHub before repeating it, and treats one whose outcome cannot be determined as a stop under
+     §A.51 item 5;
+   - treats work that is not on GitHub as unavailable: it is reconstructed from the latest
+     checkpoint and the preserved records, and is not reported as recovered;
+   - posts a recovery checkpoint (item 1) on each workstream thread, and on #1169 a summary of the
+     discrepancies, unavailable work and decisions that need the owner;
+   - continues under the recorded authorizations, which a change of session does not renew or
+     withdraw (§A.45 rule 3, §A.51); a recommendation, review or writer proposal is not one.
+
+   A replacement reviewer inspects the evidence itself, and the replacement writer reviews none of
+   the work it or the interrupted session wrote (item 4). If the interrupted session resumes, it
+   writes nothing further to the designated workstreams.
 
 A handover authorizes nothing new and changes no scientific status. No handover file is added to the
 repository.
