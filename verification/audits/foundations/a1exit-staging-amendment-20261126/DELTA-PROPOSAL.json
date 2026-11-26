@@ -1,0 +1,242 @@
+{
+  "purpose": "Paper amendment delta for review. This file is not a configuration, adopted expectation file or release record.",
+  "baseline": {
+    "design_commit": "5ad8837521de0a26734266a64f91548fd3dcff1e",
+    "design_git_blob": "e149009cdcbdf7dd7167e5846fd8331f82cdc05e",
+    "expectations_git_blob": "2f1829da32e49b5d61f48d651439f694aa0841c8",
+    "requirements_git_blob": "70b759ba1239c140fafaad0400be69e8dcadb4de",
+    "tool_commit": "9efccff9741663e75cff47f73539b54845c2dc77"
+  },
+  "item2": {
+    "check": {
+      "id": "item2",
+      "profiles": [
+        "p0-core",
+        "p0-para",
+        "ledger-ext"
+      ],
+      "final_profiles": []
+    },
+    "review_profiles": [
+      {
+        "profile": {
+          "name": "p0-core",
+          "kind": "review",
+          "scope": "corpus",
+          "applies_to": "tree",
+          "source": {
+            "commit": "9882df8f2d41eee47790560b0e22aac03e95370f",
+            "path": "verification/audits/foundations/a1-scope-phase0-20261120/sites.json",
+            "blob_sha256": "00165404a6411a219a875ea1d9d6187e1d0d8f9951637fbb31ca0280212b4a5f",
+            "extractor": {
+              "kind": "json-pointer",
+              "selector": "/core_patterns"
+            }
+          },
+          "pattern_sha256": "939cafdad4dbcb47762af98a82a357bf2f1ff0da17408177d806eaff18204d93"
+        },
+        "source_git_blob": "b090644d0b698f2f9929a83a5332b5f3950826c0"
+      },
+      {
+        "profile": {
+          "name": "p0-para",
+          "kind": "review",
+          "scope": "corpus",
+          "applies_to": "tree",
+          "source": {
+            "commit": "9882df8f2d41eee47790560b0e22aac03e95370f",
+            "path": "verification/audits/foundations/a1-scope-phase0-20261120/sites.json",
+            "blob_sha256": "00165404a6411a219a875ea1d9d6187e1d0d8f9951637fbb31ca0280212b4a5f",
+            "extractor": {
+              "kind": "json-pointer",
+              "selector": "/paraphrase_patterns"
+            }
+          },
+          "pattern_sha256": "28b482757bee068e79eaac85619b4fd0a0e6f23e4d72cdd2b8252fb22167bd42"
+        },
+        "source_git_blob": "b090644d0b698f2f9929a83a5332b5f3950826c0"
+      },
+      {
+        "profile": {
+          "name": "ledger-ext",
+          "kind": "review",
+          "scope": "corpus",
+          "applies_to": "tree",
+          "source": {
+            "commit": "9882df8f2d41eee47790560b0e22aac03e95370f",
+            "path": "verification/audits/foundations/a1exit-ledger-20261120/ledger_check.py",
+            "blob_sha256": "34314041cff64f01287bd195d33c61cd17882166e11bd1296b005e72d4ad78e8",
+            "extractor": {
+              "kind": "python-ast-assign",
+              "selector": "EXTENDED_PATTERNS"
+            }
+          },
+          "pattern_sha256": "63f19fbfea68e9468aadcb5fa52685f1c4f15f38f4b376dc9d48de5c0ef25a2e"
+        },
+        "source_git_blob": "223a1d71d9cf77262a4e50c6c93bf2df15c0abbf"
+      }
+    ],
+    "workflow": {
+      "path": ".github/workflows/ledger-coverage.yml",
+      "git_blob": "d6372a6b114aeb607a7fcdcf2fc8e91350884ca8",
+      "arm": "item2-coverage",
+      "from": "            item2-coverage) exec python3 -I -S -B tools/ledger_coverage.py coverage \"$@\" --commit \"$X\" --segment \"$E..$H\" --segment \"$H..$X=$F:$D/ledger.json\" --hp \"$F:$D/hp.json\" --classify \"$F:$A/records/gr58-hit-classification-v3.json\" --classify \"$F:$D/context-adjudications.json\" --classify \"$F:$D/hit-classifications.json\" ;;",
+      "to": "            item2-coverage) exec python3 -I -S -B tools/ledger_coverage.py coverage \"$@\" --commit \"$X\" --check item2 --segment \"$E..$H\" --segment \"$H..$X=$F:$D/ledger.json\" --hp \"$F:$D/hp.json\" --classify \"$F:$A/records/gr58-hit-classification-v3.json\" --classify \"$F:$D/context-adjudications.json\" --classify \"$F:$D/hit-classifications.json\" ;;"
+    },
+    "controls": {
+      "path": "verification/audits/foundations/ledger-coverage-tool-20261123/controls.json",
+      "git_blob": "55cd8355a573d1b606f067a59b78af2ac817c54f",
+      "from": [
+        {
+          "id": "S11-2",
+          "operations": [
+            "execution"
+          ],
+          "direction": "adversarial"
+        }
+      ],
+      "to": [
+        {
+          "id": "S11-2",
+          "operations": [],
+          "direction": "adversarial"
+        },
+        {
+          "id": "S11-2a",
+          "operations": [
+            "coverage"
+          ],
+          "direction": "adversarial"
+        },
+        {
+          "id": "S11-2b",
+          "operations": [
+            "coverage"
+          ],
+          "direction": "adversarial"
+        },
+        {
+          "id": "S11-2c",
+          "operations": [
+            "record"
+          ],
+          "direction": "adversarial"
+        }
+      ]
+    },
+    "open_evidence": [
+      "S11-2c independent CK5 evidence tied to the exact sole J/S1 mutation",
+      "Reviewed records and real-tree coverage controls",
+      "Independent configuration and implementation review"
+    ]
+  },
+  "expectation_replacements": [
+    {
+      "row": "S11-2",
+      "path": "/operations",
+      "from": [
+        "execution"
+      ],
+      "to": []
+    },
+    {
+      "row": "S11-2a",
+      "path": "/operations",
+      "from": [
+        "execution"
+      ],
+      "to": [
+        "coverage"
+      ]
+    },
+    {
+      "row": "S11-2b",
+      "path": "/operations",
+      "from": [
+        "execution"
+      ],
+      "to": [
+        "coverage"
+      ]
+    },
+    {
+      "row": "I2-1",
+      "path": "/expect/invariants/0/equals",
+      "from": "existing arguments followed by the two --classify arguments of B.2, every expansion quoted",
+      "to": "the exact workflow arm with --check item2 after --commit \"$X\", retaining both segments and all existing operands, every expansion quoted"
+    },
+    {
+      "row": "RT-D",
+      "path": "/direction/why",
+      "from": "no mutation, but a positive control asserting acceptance of the 10 W1/W2 lines by their allow rules, with the superseding rule file that drops W1-a",
+      "to": "no mutation; the positive case retains the ten W1/W2 PASS lines under the exact independently reviewed allow input of the designated new lineage, with W1-a excluded"
+    },
+    {
+      "row": "RT-D",
+      "path": "/flags/6",
+      "from": "amendment 6 (amendment 5 delta review, PR #1592 comment 7189385508, nit 3): the count of 10 W1/W2 PASS lines and the SM:1394 site hold only with the superseding rule file that drops W1-a, under the owner's decision on the W1-a row (amaybaum, 2026-11-26T07:55:49Z, #1169 comment 7185991140); rule content is plan content (R6.DENY.1), and until that rule file is written and reviewed RT-D is not run against these figures",
+      "to": "A1 staging amendment: use the separately approved, exact independently reviewed tip of the designated allow-rule lineage with W1-a and equivalent allowances excluded. Keep the X_rep pin, the owner disposition in comment 7185991140 and the expected outcomes and figures. The historical v2 adverse review remains evidence. Verification of RT-D awaits admissible rule inputs."
+    }
+  ],
+  "preserved_expectations": [
+    "S11-2 aggregate and its three children",
+    "S11-2a and S11-2b outcomes and predicates",
+    "S11-2c record operation, FAIL and CK5 predicate",
+    "I2-1 TEXT_EQUAL outcome and workflow evidence",
+    "RT-D X_rep, expectations, restored comparison and group",
+    "RT-T and RT-T0 outcomes and reviewed-record conditions"
+  ],
+  "cases_to_register_after_adoption": [
+    {
+      "id": "ITEM2-CHECK",
+      "positive": "Retained workflow and both S11-2a invocations name item2. Verified config and profile pins select the three exact review sets and the deny sets required for their evaluated trees.",
+      "negative": [
+        "no --check on valid configuration yields USAGE",
+        "unknown --check on valid configuration yields USAGE",
+        "repeated --check on valid configuration yields USAGE",
+        "default_for yields CONFIG_INVALID even with --check item2",
+        "same substituted valid check in both retained invocations",
+        "different reviewed config, source or pattern pin",
+        "profile added or omitted, or required deny coverage missing",
+        "drop, change or reorder a classification operand",
+        "substitute E or a different child for the planted mutation"
+      ]
+    },
+    {
+      "id": "STAGING-ROLE-CHAIN",
+      "positive": "Exactly the two designated roots are preserved at B. Verify an append-only linear successor path to the exact permitted tips independently of config.records.",
+      "negative": [
+        "invalid predecessor or archived role still active",
+        "missing archive, variants or W1-a review provenance",
+        "reused legacy ID, fork, second root or stale tip",
+        "delete, rename or rewrite a node committed in a scanned namespace",
+        "same bytes at a different path",
+        "namespace member is non-regular, malformed or unavailable",
+        "activation anchor or descriptor substitution or incomplete first-parent path"
+      ]
+    },
+    {
+      "id": "STAGING-FIRST-ALLOW",
+      "positive": "Separate eligible ordinary and widening reviews name the proper exact first allow root. Explicit replaces null is present and every initial allow item passes.",
+      "negative": [
+        "unsupported W1-a or equivalent allowance",
+        "missing or non-null replaces on the designated first record",
+        "null replaces on an ordinary widening successor",
+        "reviewer identity reused or mismatched",
+        "wrong reference path with equivalent bytes",
+        "wrong reviewed digest, incomplete verdict list or non-accept verdict"
+      ]
+    },
+    {
+      "id": "STAGING-CONFIG-REVIEWS",
+      "positive": "The exact F PREREG.md pin table binds the new configuration, its own distinct ordinary and required widening reviews, and the approved transition descriptor. The widening review also binds the verified prior config.",
+      "negative": [
+        "replace or omit a pin-table review",
+        "duplicate or alternate review, mismatched old or new config bytes or path",
+        "self-reference from configuration records to its widening review",
+        "indirect hash cycle through class pin, review or descriptor",
+        "file discovered outside the exact frozen pin table"
+      ]
+    }
+  ]
+}

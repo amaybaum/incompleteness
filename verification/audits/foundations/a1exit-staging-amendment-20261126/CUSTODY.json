@@ -1,0 +1,447 @@
+{
+  "purpose": "Historical custody only.",
+  "archive_anchor": {
+    "repository": "amaybaum/incompleteness",
+    "pull_request": 1577,
+    "commit": "9efccff9741663e75cff47f73539b54845c2dc77",
+    "tree": "2f3ba5c23f254ea3d51fc27ce1476dee44572042",
+    "parent": "07ae3dfbb35adf1ee4e5c9f7cde2f90ce3d5f670",
+    "url": "https://github.com/amaybaum/incompleteness/commit/9efccff9741663e75cff47f73539b54845c2dc77"
+  },
+  "class_records": [
+    {
+      "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v1.json",
+      "git_blob": "de843294dbc46769eca5553739f1b296290534b2",
+      "blob_sha256": "4b28d3d22452bca712ab7c082feee5af3cd1dc1d81260dae2d6b7808354687b8",
+      "supersedes": null
+    },
+    {
+      "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v2.json",
+      "git_blob": "8e01d90c05f06a1f8f36a0c00a75c88e7abb4455",
+      "blob_sha256": "fc94958377da7002e32329e5f1752f7eee0c2597e5b634d807c585c4152f0637",
+      "supersedes": {
+        "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v1.json",
+        "blob_sha256": "4b28d3d22452bca712ab7c082feee5af3cd1dc1d81260dae2d6b7808354687b8"
+      }
+    },
+    {
+      "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v3.json",
+      "git_blob": "20e71d1357dfeaeed7d01607cc798aaee142e17f",
+      "blob_sha256": "af12bf5d572c6f8808ff4b20505c99776c60e8ec186f3ece19c057197084344e",
+      "supersedes": {
+        "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v2.json",
+        "blob_sha256": "fc94958377da7002e32329e5f1752f7eee0c2597e5b634d807c585c4152f0637"
+      }
+    },
+    {
+      "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v4.json",
+      "git_blob": "46ff87ef50c04425a61cc092d03accd7c5343e17",
+      "blob_sha256": "5c213137c7872a45e366621a961e6e766c37ebafcce470c4378d8091e94e9622",
+      "supersedes": {
+        "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v3.json",
+        "blob_sha256": "af12bf5d572c6f8808ff4b20505c99776c60e8ec186f3ece19c057197084344e"
+      }
+    },
+    {
+      "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v5.json",
+      "git_blob": "55366821ef5ac9245e08d3e2f4425cb9a58aa47c",
+      "blob_sha256": "3802e623b931d1962075e906b8ba900a0fcfe4b49dce3f14af244c63086c2b44",
+      "supersedes": {
+        "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v4.json",
+        "blob_sha256": "5c213137c7872a45e366621a961e6e766c37ebafcce470c4378d8091e94e9622"
+      }
+    },
+    {
+      "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v6.json",
+      "git_blob": "f544e0f9b92b5e41bc4228b9e452e7c84959c4cf",
+      "blob_sha256": "46108f4d05263d945a84db68389f7f2aeee1a149dc946c14e6ba37ec2844d9c9",
+      "supersedes": {
+        "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v5.json",
+        "blob_sha256": "3802e623b931d1962075e906b8ba900a0fcfe4b49dce3f14af244c63086c2b44"
+      }
+    },
+    {
+      "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v7.json",
+      "git_blob": "1e8a7390b0a21aec25fd9932a96fff21fdd55730",
+      "blob_sha256": "92ab8c39a98f2d07159dd767195e41da9b52389348120175a2b13fa7e97049d1",
+      "supersedes": {
+        "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v6.json",
+        "blob_sha256": "46108f4d05263d945a84db68389f7f2aeee1a149dc946c14e6ba37ec2844d9c9"
+      }
+    },
+    {
+      "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v8.json",
+      "git_blob": "14f38905cd31a5c955d8814a548e5f53c1a105d5",
+      "blob_sha256": "6481523218a0e9021d0688bae343a2541d5fa2c9713fe90bb17ef981c4daf3d6",
+      "supersedes": {
+        "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v7.json",
+        "blob_sha256": "92ab8c39a98f2d07159dd767195e41da9b52389348120175a2b13fa7e97049d1"
+      }
+    },
+    {
+      "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v9.json",
+      "git_blob": "3df6538c30fbcfa902681bf9b9e34c3d8fbbeebf",
+      "blob_sha256": "c72fe313d83cd072f3014e08ae25f17c28630f56b910dac3acbff4cd86c2c52e",
+      "supersedes": {
+        "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v8.json",
+        "blob_sha256": "6481523218a0e9021d0688bae343a2541d5fa2c9713fe90bb17ef981c4daf3d6"
+      }
+    },
+    {
+      "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v10.json",
+      "git_blob": "72ed51372c56527adce145ffaa2c01784ef9b05f",
+      "blob_sha256": "e50341ae77a46adff1b85b0231e01fd1f126f46047faea9e9a8b370e1b050013",
+      "supersedes": {
+        "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v9.json",
+        "blob_sha256": "c72fe313d83cd072f3014e08ae25f17c28630f56b910dac3acbff4cd86c2c52e"
+      }
+    },
+    {
+      "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v11.json",
+      "git_blob": "5e5ae396416f6e70631f2d37bbe5810dadbb9b67",
+      "blob_sha256": "943676e38a6ce97e3786175f9ea5493c821bf7ceb9057d7795de36fdae0062da",
+      "supersedes": {
+        "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v10.json",
+        "blob_sha256": "e50341ae77a46adff1b85b0231e01fd1f126f46047faea9e9a8b370e1b050013"
+      }
+    },
+    {
+      "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v12.json",
+      "git_blob": "d9f16d37c7c1400878ee48181a47f71f8cc3fb88",
+      "blob_sha256": "343ffdca8ea646dc9ec82a5c55f33d5effc26830c124cded887f02f02b7ede93",
+      "supersedes": {
+        "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v11.json",
+        "blob_sha256": "943676e38a6ce97e3786175f9ea5493c821bf7ceb9057d7795de36fdae0062da"
+      }
+    },
+    {
+      "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v13.json",
+      "git_blob": "ade59d0923469542b3661bc8fe371f24588d5b19",
+      "blob_sha256": "905f850044f89d89b9222a7546746136f91eb1145dd906ef622d8747851c77ac",
+      "supersedes": {
+        "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v12.json",
+        "blob_sha256": "343ffdca8ea646dc9ec82a5c55f33d5effc26830c124cded887f02f02b7ede93"
+      }
+    },
+    {
+      "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v14.json",
+      "git_blob": "93b0c23ff9f4399fb486cc38f14aeee72ecc4d66",
+      "blob_sha256": "2eb7a19b6152a5c6dbc537f83f6378547c08f926fe8701cebc4c520b78ae3006",
+      "supersedes": {
+        "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v13.json",
+        "blob_sha256": "905f850044f89d89b9222a7546746136f91eb1145dd906ef622d8747851c77ac"
+      }
+    },
+    {
+      "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v15.json",
+      "git_blob": "2edd9ae11106021d45f82f1d3140a1d8e941581b",
+      "blob_sha256": "b20e67c382c2f3d4849dbc1755d784f1e42e457546f6ad96a361c5034ba18268",
+      "supersedes": {
+        "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v14.json",
+        "blob_sha256": "2eb7a19b6152a5c6dbc537f83f6378547c08f926fe8701cebc4c520b78ae3006"
+      }
+    },
+    {
+      "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v16.json",
+      "git_blob": "54d069ecfcdb886075871d024e59a77a8b5442e0",
+      "blob_sha256": "934b816b82a28f4ffeb042273645d0bb478b06018b7f9575ffd0122643342749",
+      "supersedes": {
+        "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v15.json",
+        "blob_sha256": "b20e67c382c2f3d4849dbc1755d784f1e42e457546f6ad96a361c5034ba18268"
+      }
+    },
+    {
+      "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v17.json",
+      "git_blob": "bb17600498cdfb997d313167380f876d8e846996",
+      "blob_sha256": "bf2dfe2a51ac2723a680cb14202541186af9c71099a79edf264f2d1f4ae47782",
+      "supersedes": {
+        "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v16.json",
+        "blob_sha256": "934b816b82a28f4ffeb042273645d0bb478b06018b7f9575ffd0122643342749"
+      }
+    },
+    {
+      "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v18.json",
+      "git_blob": "bfe2beffa74dc0b91e3a915848450181ee03ff05",
+      "blob_sha256": "9903408ba0245a9c876de62737494df39022edc373b568b5dc2bb2b051fe3266",
+      "supersedes": {
+        "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v17.json",
+        "blob_sha256": "bf2dfe2a51ac2723a680cb14202541186af9c71099a79edf264f2d1f4ae47782"
+      }
+    },
+    {
+      "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v19.json",
+      "git_blob": "3994c12948f810ca293754b2c1da0b4b2c5a715b",
+      "blob_sha256": "59bab0be82e6e8c538b72e03e533978fc7c01aa686e98081aceaf47b9d431ad1",
+      "supersedes": {
+        "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v18.json",
+        "blob_sha256": "9903408ba0245a9c876de62737494df39022edc373b568b5dc2bb2b051fe3266"
+      }
+    },
+    {
+      "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v20.json",
+      "git_blob": "322a03d757e6ce4c906bced40a9048a13d7a384a",
+      "blob_sha256": "f7bbbd2841bf4dd8b1dccc26c5cbdf47059b14bd6069d81b163fe34b96eaca5c",
+      "supersedes": {
+        "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v19.json",
+        "blob_sha256": "59bab0be82e6e8c538b72e03e533978fc7c01aa686e98081aceaf47b9d431ad1"
+      }
+    },
+    {
+      "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v21.json",
+      "git_blob": "248d7cf0203036e1e70c11c8431757ebd516cb8a",
+      "blob_sha256": "fc0463feff016ee4b962f0da3850a39a723fdad893a61856c2406566ec2775b1",
+      "supersedes": {
+        "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v20.json",
+        "blob_sha256": "f7bbbd2841bf4dd8b1dccc26c5cbdf47059b14bd6069d81b163fe34b96eaca5c"
+      }
+    }
+  ],
+  "allow_rule_records": [
+    {
+      "path": "verification/audits/foundations/ledger-coverage-tool-20261123/rules/w1-w2-allow-v1.json",
+      "git_blob": "bf1882fb74938164d67602f5d482f9dd2d09ff49",
+      "blob_sha256": "0cbb97c98725cba618598650b0cd9c687c97e280b3422c4ad6e62794a222b171",
+      "supersedes": null
+    },
+    {
+      "path": "verification/audits/foundations/ledger-coverage-tool-20261123/rules/w1-w2-allow-v2.json",
+      "git_blob": "b7b475b0fe9d05b9f4c68cb30cb4a30c841f0de3",
+      "blob_sha256": "306017d93211bded9cf63f964d60f17db543f02e11183fb82b05d6a76d2bb903",
+      "supersedes": {
+        "path": "verification/audits/foundations/ledger-coverage-tool-20261123/rules/w1-w2-allow-v1.json",
+        "blob_sha256": "0cbb97c98725cba618598650b0cd9c687c97e280b3422c4ad6e62794a222b171"
+      }
+    },
+    {
+      "path": "verification/audits/foundations/ledger-coverage-tool-20261123/rules/w1-w2-allow-v3.json",
+      "git_blob": "e0621ed068ee993a70afabfefec38d5f193984fa",
+      "blob_sha256": "5485154a9c703192d4de65619ad5948d14fec7dbbffa2440b6482019efea15db",
+      "supersedes": {
+        "path": "verification/audits/foundations/ledger-coverage-tool-20261123/rules/w1-w2-allow-v2.json",
+        "blob_sha256": "306017d93211bded9cf63f964d60f17db543f02e11183fb82b05d6a76d2bb903"
+      }
+    }
+  ],
+  "adverse_review": {
+    "item": "W1-a",
+    "verdict": "REVISE",
+    "finding": "F1 (High)",
+    "comment_id": 7187883838,
+    "url": "https://github.com/amaybaum/incompleteness/pull/1577#issuecomment-7187883838",
+    "reviewed_head": "9a4ac5ee171799d591e123f9c0fdb2be76579fe3",
+    "reviewed_record": {
+      "path": "verification/audits/foundations/ledger-coverage-tool-20261123/rules/w1-w2-allow-v2.json",
+      "git_blob": "b7b475b0fe9d05b9f4c68cb30cb4a30c841f0de3",
+      "blob_sha256": "306017d93211bded9cf63f964d60f17db543f02e11183fb82b05d6a76d2bb903"
+    },
+    "record_introduction_commit": "e00fc49970555200324f2f3b1fe0c09a2ec1496c",
+    "reported_review_text_sha256": "e60ab5a808b4a9c7ef378381a1282360bcdb6afbc136c2ac85850914a2c1aa6e",
+    "github_comment_body_sha256": "b09c1682cad7c75a9bdac3de3715adc7cf0e12b6734b8151f75209b9596e7730",
+    "github_comment": {
+      "id": 7187883838,
+      "reported_by": "amaybaum",
+      "created_at": "2026-11-26T09:22:50Z",
+      "updated_at": "2026-11-26T09:22:50Z",
+      "body": "**Independent review of PR-1577-C29 at `9a4ac5ee`: reviewer text, verbatim.**\n\nReviewer: a Claude reviewer agent started with a fresh context, given only the PR, the design, Issue #1588, the merits review and the owner decisions and the commit; it wrote none of the reviewed work and made no GitHub or repository writes (owner decision at #1169 comment 7166418469). Redaction: no redaction. SHA-256 of the unredacted review text: `e60ab5a808b4a9c7ef378381a1282360bcdb6afbc136c2ac85850914a2c1aa6e`. Writer responses, if any, are posted separately; acceptance is the owner's decision.\n\n---- reviewer text begins ----\n\n**Independent review of PR #1577 (C-29 corrections and RECORD-BASE) at `9a4ac5ee`**\n\n**Overall verdict: REVISE.** Two parts need revision: the W1-a correction (item 1) and the RT-DR `targets` field (item 3b). G1, K1's removal of the four withdrawn fields, S1/S2 and RECORD-BASE are acceptable with nits. One further correction is needed whatever happens to the W1-a fix: class record v14 does not hold at the PR head, so a v15 is needed.\n\nReviewer: an independent reviewer started with a fresh context. I wrote none of the reviewed work. Everything I did was read-only: no commits, no pushes, no GitHub writes, no dispatches. I used scratch worktrees, which I removed afterwards. Local mutations were made only in the scratch worktree and were reverted after each run.\n\nObjects read:\n- tool branch `9a4ac5ee1`, plus `8db2e4c0a` and `c81df7988` for comparison\n- design `939a79c2` (DESIGN-r6.md, AMENDMENT-4.md, EXPECTATIONS.json, REQUIREMENTS.json)\n- main `13f5c66a` and `83e08bd9`\n- H `53c6601a`, T1\u2032 `14ac71b4`\n- B4 `13eeca70`\n- #1588 (the investigation and the owner's option-A decision, comment 7186075741)\n- PR #1589 (merged at `c31d739c`)\n- the merits review (#1577 comment 7185870548)\n- the owner decisions at #1169 comments 7185092393, 7185562871, 7186638587 and 7187418279\n\n## Verdicts\n\n| Item | Object | Verdict |\n|---|---|---|\n| 1 | W1-a correction (`rules/w1-w2-allow-v2.json`, `e00fc4997`) | **REVISE** |\n| 2 | G1 (`records/gr58-hit-classification-v2.json`, `0765097fc`) | ACCEPT WITH NITS |\n| 3a | K1: removal of `expect`, `reference`, `case`, `by` from `controls.json` (`e31292644`) | ACCEPT WITH NITS |\n| 3b | `targets` on RT-DR (owner, #1169 comment 7187418279 item 4) | **REVISE** (remove from controls.json, and make the obligation enforceable by the gate) |\n| 4 | S1, S2 (`records/side-change-classes-v14.json`, `REVIEW-INVENTORY-C29.md`, `8db2e4c0a`) | ACCEPT WITH NITS (v14 is correct at `8db2e4c0a` but does not hold at the PR head; see F4) |\n| 5 | RECORD-BASE implementation (`9a4ac5ee1`) | ACCEPT WITH NITS |\n\n## Findings\n\n**F1 (High), item 1: W1-a's new reason is not a valid justification. It asserts a referent that the corpus and the owner's decision have since rejected.**\n\nWhat v2 says:\n- It cites ch09:36 (\"the six properties developed in Chapter 5: isotropy, sublattice structure, link content, anomaly cancellation, taste content, generation count\") as the definition of SM:1394's \"the six structural properties\".\n- It states that SM:1394 contrasts these with the particular bijection, which it calls \"the Level G2/G3 split\".\n\nWhy that does not hold:\n- **The reading is circular.** The read-only investigation on #1588 tested exactly this reading and rejected it. SM:1394 defines structural predictions as what \"hold for every bijection satisfying\" the six, so the six must be inputs. The G2 list contains anomaly cancellation and generation count, which SM:1394 itself lists among the predictions (\"three generations\", \"unique hypercharges from anomaly cancellation\").\n- **ch09:36 does not define the term.** Its attribution \"developed in Chapter 5\" has no list behind it: ch05 contains no six-item list (I re-checked ch05 at main). The owner has classified ch09:36/137 as a \"G2 output list presented as structural assumptions\" (#1588 comment 7186075741, item 2) and approved correcting ch09:36 (#1169 comment 7186638587, item 1). A passage under authorized correction for that defect cannot serve as the definition.\n- **The intended referent was most plausibly A1\u2013A6, which includes A1.** The investigation found that SM's wording most plausibly meant A1\u2013A6 (Substratum \u00a73.1), the only six-item list of structural conditions in the papers, and that list contains finiteness. The rule's conclusion, \"it is not the retired posit count\", is therefore not established either, not only its stated reason. The merits review judged the classification correct on the evidence it had; #1588 came later and undermines it.\n- **Main resolved the referent differently.** The owner chose option A, and main now reads \"the assumptions of the local spatial and gauge construction (\u00a72.3)\" (#1589).\n\nWhat is accurate in v2: its statement that SM does not define the term was true at H, at T1\u2032 and at `83e08bd9`. Its note that the rule does not resolve the clarity finding is appropriate.\n\nUnder the owner's instruction (\"If no valid justification exists, remove the allowance rather than inventing one\"), the correction is to remove W1-a, not to give it another reason:\n- Supersede with a rule file that drops W1-a, and change nothing else.\n- SM:1394 at T1\u2032 then stays REVIEW_REQUIRED under count-grep. That is the correct outcome for a count whose referent is undetermined and plausibly includes A1.\n- Consequence: RT-D's expectation (\"the 11 W1/W2 lines\") becomes 10. That change belongs in the expectation-correction amendment the owner authorized (#1169 comment 7186638587, item 9), citing R6.RULE and R6.HIT. It is not a change made to fit the implementation.\n\n**F2 (Medium), item 1: the rule no longer matches main, and one statement in the reason is now false.**\n- At `13f5c66a`, \"six structural properties\" occurs nowhere in papers/SM.md (0 occurrences; it was 1 at H, at T1\u2032 and at `83e08bd9`).\n- So \"papers/SM.md:1394 is its only occurrence in SM\" is false at current main. \"SM does not define the term\" is true only vacuously, because the term is gone.\n- The commit message says it checked \"at H, T1\u2032 and main 83e08bd9\". That was correct for that commit, but main has moved.\n- At any candidate rebuilt over current main, the fingerprinted sentence is absent. Condition A2 of the merits review (re-fingerprint at the rebuilt candidate) cannot succeed for W1-a. This is a second, independent reason to remove the rule.\n\n**F3 (Medium), item 3b: `targets` on RT-DR expresses a real verification obligation, but the gate cannot enforce it.**\n\nWhat `targets` says:\n- It lists six line targets: FULL:6504, glossary:13, ch09:104 and FULL:718 (DR-1 alternatives a, a, b, c), Substratum:92 (DR-4) and Main:736 (DR-5).\n- This is the obligation of the RT-DR row's flag \"targets checked by rule id, not by the run outcome (O3)\", under R6.DENY.1, R6.DENY.3 and R6.CTRL.4.\n\nWhere the obligation lives:\n- Under R6.GATE.1, the authoritative statement is EXPECTATIONS.json: RT-DR's \"at H\" case carries `items_include` with keys `rule_id`, `alternatives_include` and `at`.\n- `a1_controls.rt_terms` checks the six targets in its own predicate (`targets_by_rule_id`).\n- Nothing reads `targets` in controls.json, so its copy there has no required role, and R6.GATE.1 (\"keeps only ... `operations` and `direction`, and the file's `control_inputs`\") calls for its removal.\n\nThe gap:\n- The gate's item matcher (`control_gate._has` and `_field`) has no case for the key `at`: it tests `obj.get('at')`, and no engine item carries an `at` field. I confirmed this directly: an item with the right `rule_id`, `alternatives` and file/line matches the first two conditions and fails `at`.\n- RT-DR is the only expectation row that uses `at`. Its `ch09:104` is also abbreviated, as the row's own flag notes.\n- So the gate, which is the verdict authority (R6.GATE.1, R6.GATE.9), cannot verify the targets. The obligation is enforced only by the runner's predicate, which the design treats as a diagnostic.\n\nRequired: remove `targets` from controls.json and make the obligation gate-enforceable. Either the gate interprets `at` as file:line (as `_names` already does for subjects), or the expectation-correction amendment restates the six patterns with `file` and `line` and the full ch09 path. Add a countercase in which one target is missing.\n\n**F4 (Medium), item 4: v14 does not hold at the PR head.**\n- At `8db2e4c0a`, v14 is exact. It has 79 pins, every `git_blob` and sha256 matches, and the 81 paths that differ from H under `tools/`, `.github/workflows/` and the audit directory are exactly the 79 pins plus v14 itself and `.github/workflows/a1exit-trial-verify.yml`. The trial workflow's blob `bca44ac0` is the same on `83e08bd9`, `eb3a69f4` and `13f5c66a`, so it is a main change, correctly excluded.\n- At `9a4ac5ee1`, seven pins are stale: a1_controls.py, conformance_controls.py, postfreeze_controls.py, synthetic_fixture.py, cli.py, recon_route.py and control_gate.py.\n- Under condition S1 (\"any later tool commit ... needs v13\", now v15), a v15 is required before any review record is written for the lineage head.\n\n**F5 (Low), item 5: RECORD-BASE case 5 (a merge between M0 and M) cannot fail for the right reason.**\n- The case's merge brings in `misc/side.txt`, which is not a tool-landing path, so check (3) also rejects it.\n- Mutation: with the single-parent check removed, RECORD-BASE still PASSes.\n- When I moved the side path to `tools/syn-tool/side.txt`, the case isolated the merge check: it was rejected with \"2 parents\" while the check was present, and the control failed when the check was removed.\n- The runner predicate accepts any reason beginning \"the record base is not admitted\"; it does not require the specific check's reason.\n- Recommended: give the merge only tool-landing content, and have the predicate check each countercase's specific reason.\n\n**F6 (Low), item 5: the gate's base comparison depends on the runner supplying `roles.M0`.**\n- `eval_procedure` (rtl2) compares `inputs.record_base` only when the roles name `M0`. A runner on a predicted M that omitted `M0` would skip the comparison silently.\n- `a1_controls` does supply it (`rtl2_inputs(..., m0=a.main)`, with `a.main` resolved to a full id).\n- Recommended: when any retained run's argv names `--main` with an in-memory M, or names `--record-base`, require `M0` in the roles.\n\n**F7 (Nit), item 5:**\n- (a) Check (4) is reached by no case. Removing it leaves RECORD-BASE PASS. The writer disclosed that check (3) refuses every such path first; I agree it is unreachable under the current domain definitions, so it is defensive only.\n- (b) A pinned path that lies under a tool-landing prefix must still equal its pin. That is stricter than a literal reading of check (3)'s \"either ... or\", but it agrees with the expectation's pin countercase (the pin lies under the prefix), so it is acceptable.\n- (c) The positive case's \"inputs.record_base is M0\" reaches the gate as an attested value, not as one read from the result.\n- (d) `inputs.record_base` is recorded even when the base is not admitted, or when no `--classify` is given. This is harmless, because the gate compares it.\n- (e) The chain-mode USAGE check runs after preflight, so a chain run whose preflight fails returns VOID, not USAGE.\n- (f) Case 10's class record is rejected with the same reason as the unclassified case. Its exclusion from the domain is structural (Scope reads only the pinned class record), not demonstrated by a distinct outcome.\n\n**F8 (Nit), item 4:**\n- The inventory's \"yes, same blob family\" for dr-deny-v1 should read \"same blob\".\n- The inventory names main `83e08bd9`; main is now `13f5c66a`. Every inventory digest is unchanged on `13f5c66a`. `controls.json` on main is still the older blob, sha256 `96f30320\u2026`.\n- The main move does matter elsewhere:\n  - SM.md is a ledgered path that has drifted (F1, F2, and B4 reconciliation under amendment 3).\n  - SM.tex, SM.pdf and the Main, Substratum and FULL PDFs need the approved generated-artefacts class.\n  - B4's 143 pins at `13eeca70` predate these changes.\n\n**F9 (Nit), item 2:**\n- The ptr hit's reason only restates the p0-core reason; it does not say what ptr detects.\n- The register and register-caps deny profiles match \"KMS\" and \"correction\" (twice) on the line. These are added-text profiles, and those spans are unchanged from H (both strings occur at H), so they are not hits of the line, and the record is right to omit them.\n\n**Information (not a regression):** POSTF-4 and RTL2-BIND FAIL in the conformance runner both at `8db2e4c0a` and at the head. RTL2-BIND is awaiting the authorized expectation correction.\n\n## Per-item detail\n\n**1. W1-a.**\n- Rule: literal \"the six structural properties\", scope papers/SM.md, `max_instances` 1, `recorded_at` T1\u2032. v2 changes only the reason and the status text. Its `supersedes` names v1's path and sha256 (`0cbb97c9\u2026`, verified).\n- See F1 and F2. On the three sub-questions:\n  - the justification is not valid;\n  - the rule matches nothing at current main;\n  - \"SM does not define the term\" is true only vacuously at main, and \"only occurrence\" is false there.\n\n**2. G1.**\n- I loaded the staged configuration's profiles with the tool's own `profiles.load_profile`. Source: the preserved staged copy on `records/a1-retirement-preservation-20261124`, with profile sources read at the tool commit; every `pattern_sha256` matched.\n- I applied each profile to GR.md line 58 at T1\u2032.\n- Tree-profile hits: exactly p0-core P2 at offset 85 (\"finite total system\"), ptr at 85, and p0-para P7 at 262 and 486 (\"uniform counting\"). No other tree profile matches, and no DR deny rule matches.\n- Offsets, texts, `line_sha256` (`3a7c1098\u2026`) and uniqueness all match. GR.md is unchanged from H to `13f5c66a`.\n- Reasons, against the text:\n  - \"For a finite total system\" is a scope clause.\n  - \"uniform counting gives P(i)=\u2026\" is the equal weighting used as an input under that scope.\n  - \"Gibbs is the leading finite-bath marginal of uniform counting, classically\" is the result.\n  - H-count does state \"that the total system is finite\".\n- The record calls the equal weighting \"an input of the derivation\" and states explicitly that whether it is justified \"is a question of the measure selection, which this record does not classify\". It does not decide that question.\n- v1's sha256 `8177b092\u2026` is verified.\n\n**3. K1.**\nReaders of controls.json:\n- engine `config.load`: rows' `operations` and `direction` (CONFIG_NO_CONTROLS);\n- `cli.lookups` and `a1_controls`: `control_inputs`;\n- purity: the file's string values;\n- `config` diff: the whole file.\n\nNo reader uses `expect`, `reference`, `case` or `by`. The gate reads EXPECTATIONS.json. The synthetic fixture writes its own controls file. Every row keeps `id`, `operations` and `direction`, and the file keeps `control_inputs`. For `targets`, see F3.\n\n**4. S1, S2.**\n- v14: see F4.\n- The inventory's sha256 values for dr-deny, resid, w1-w2 v1 and v2, params, gr58 v1 and v2, repo-scope, delegation-draft, controls.json and class v1 all match the head, and their \"on main\" status matches `83e08bd9` and `13f5c66a`.\n- B4 `side-change-classes-r2` at `13eeca70`: sha256 `fbc1cedd\u2026`, 8 classes, 143 pins, 143 distinct paths. Confirmed.\n\n**5. RECORD-BASE.**\n\nImplementation against R6.RECON.2 (c) as amended:\n- (1) A full 40-hex id. It must not be an in-memory commit, and the object store must hold it as a commit: `_commit` checks the object kind.\n- (2) A walk from M to M0 over in-memory commits, each with exactly one parent.\n- (3) Every path of the aggregate diff `M0..M` lies under a tool-landing prefix of the pinned class record or in an authorized plan record directory. A pin must equal its blob at M, and a deleted pin fails. Every path changed by a step must also appear in the aggregate diff. Changes are compared by mode and object id, deletions included.\n- (4) No ledgered or corpus path changes, and no path of the scanned set at M0 or at M.\n- Class records named by `--classify` never contribute to that domain.\n- `REV`'s single parent must be exactly M0.\n- In a chain-admitted run, or a simulated chain, `--record-base` gives USAGE (exit 64).\n- The result records `inputs.record_base`.\n- The gate's rtl2 procedure compares `inputs.record_base` with `roles.M0` in every retained run that names `--record-base`, and requires at least one such run.\n\nThis matches the requirement text, subject to F6 and F7.\n\n`a1_controls` passes `--record-base` with the resolved pinned main on the RT-L2 and RT-O9 predicted-main runs.\n\nRuns:\n- Conformance runner: the 13 cases (17 runs) all hold, and RECORD-BASE is PASS. Each countercase gives exit 20 with the expected class. The positive case is admitted with `inputs.record_base` equal to M0 and outcome REVIEW_REQUIRED from the delegated class only. Case 11 gives exit 64 with the stated message. Case 12's gate comparison gives FAIL, against PASS for the positive case.\n- Local control gate over amendment 4's EXPECTATIONS.json: RECORD-BASE PASS.\n\nMutations, 16 in all; the control failed in 14:\n- Input mutations, all detected:\n  - case 7's pin made equal;\n  - case 6 without its revert;\n  - case 8 with base M0;\n  - case 9 with a tool-landing path;\n  - case 11 in harness mode;\n  - case 12 with the right base.\n- Implementation mutations, all detected:\n  - aggregate-diff clause removed;\n  - in-memory check removed;\n  - pin check removed;\n  - base or M accepted;\n  - gate comparison disabled;\n  - USAGE check disabled.\n- Not detected (control still PASS):\n  - single-parent check removed (F5);\n  - check (4) removed (F7a).\n\n## Checks performed\n\n- Read AGENTS.md, the merits review, the four owner decisions, #1588, PR #1589, and the amendment 4 text and expectation row.\n- Diffed each reviewed commit. Verified the `supersedes` digests of w1-w2 v2, gr58 v2 and v14.\n- Counted occurrences of the phrase and read SM:1394 at H, T1\u2032, `83e08bd9` and `13f5c66a`. Read ch09:36, ch09:104 and ch09:137 at T1\u2032 and main. Searched ch05 for a six-item list.\n- Recomputed GR.md:58's profile hits with the tool's profile loader.\n- Traced every reader of controls.json. Checked the gate's handling of RT-DR's `items_include`.\n- Recomputed v14's pins against the H diff at `8db2e4c0a` and at the head. Recomputed the inventory digests at the head and at both main commits, and the B4 r2 pin count.\n- Ran the tool self-test (exit 0), the engine controls (97 of 97), the synthetic fixture (exit 0), the conformance controls at the head (119 PASS, 2 FAIL, 2 NOT RUN) and at `8db2e4c0a` (118 PASS, the same 2 FAIL), and the control gate on the conformance records.\n- Ran the RECORD-BASE mutation series above.\n- Not run: the A1 conformance and A1 controls runners, and the full A1 run. The staged configuration is not in the repository, and no finding needed the 9-minute run.\n\n---- reviewer text ends ----\n\n---\n_Generated by [Claude Code](https://claude.ai/code)_"
+    }
+  },
+  "previous_reviews_and_decision": {
+    "c29_merits_review": "https://github.com/amaybaum/incompleteness/pull/1577#issuecomment-7185870548",
+    "class_lineage_audit": "https://github.com/amaybaum/incompleteness/pull/1577#issuecomment-7193445777",
+    "allow_rule_lineage_audit": "https://github.com/amaybaum/incompleteness/pull/1577#issuecomment-7193747342",
+    "w1_a_owner_direction": "https://github.com/amaybaum/incompleteness/issues/1169#issuecomment-7185991140"
+  },
+  "in_place_history": {
+    "scope": "GitHub path history reachable from the archive anchor for the exact class v1 and v3 paths. The API returned fewer than 100 refs for each path. Unreachable refs were outside this query.",
+    "records": [
+      {
+        "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v1.json",
+        "history_anchor": "9efccff9741663e75cff47f73539b54845c2dc77",
+        "history_query": "https://api.github.com/repos/amaybaum/incompleteness/commits?sha=9efccff9741663e75cff47f73539b54845c2dc77&path=verification%2Faudits%2Ffoundations%2Fledger-coverage-tool-20261123%2Frecords%2Fside-change-classes-v1.json&per_page=100",
+        "path_history_refs_returned": 34,
+        "refs_matching_archived_member": [
+          "6a6e200f3cc0cddb4fa62213d48d9917552b15e7",
+          "bb620ec653cfbed986785d9810cf2372906c9b73"
+        ],
+        "other_blob_refs": [
+          {
+            "commit": "738b7559b0447b1b7171f9a426925950c0fe1463",
+            "git_blob": "40b90444158d3cf06e0164942f95cbd1cfe1344e",
+            "blob_sha256": "c14d1ab36d40ad24250bc77962c3386b2c78c254387cc87b3d46714f60aa7a07"
+          },
+          {
+            "commit": "eac7684a59c947f3d6cc3a4d121580052ac626e5",
+            "git_blob": "ae96499bda31a08ee975ef176971f3a328a004e3",
+            "blob_sha256": "cb2f9e1123ab613aa0a60e45a261abc4456180c20f62004ab4cf2f1c645b254c"
+          },
+          {
+            "commit": "10c2acb4a95f6e49497e43676b388d6f1c3d4cc4",
+            "git_blob": "1b47df0cc72afab574d07f3528f17a5f6ac7a92a",
+            "blob_sha256": "7083139ff1d831136d5e2cf452b450ed0598bc79fbff841143e00bcbb66427eb"
+          },
+          {
+            "commit": "4f4a9d58fd0bf41289a4904c9b39c00c711c9093",
+            "git_blob": "b54b003a29ea9e6961205bf20597f4002da014db",
+            "blob_sha256": "81af503355585660715e5549a6f1ad2164e142253b6cf7b52cca561755ead216"
+          },
+          {
+            "commit": "3184c7f9075948d8474197eee03ba5b94ba85db5",
+            "git_blob": "d9f76a1fed447e859935a93697d462c3588c659e",
+            "blob_sha256": "ff31eea1f067848784a246143f46742097407081c9c42bcca68d327fe5058795"
+          },
+          {
+            "commit": "c59b562c168dc24706f51b791ec526dd897c909d",
+            "git_blob": "9a9e00ae15aa9f64a7472e48ec5bad08423ff824",
+            "blob_sha256": "048ee7587b78a26e2a09b66b5bb29f7f4281059a23d8bde18de7cd141055fc36"
+          },
+          {
+            "commit": "71a17c735e24df43e768c6c6e3856de4415ef3e6",
+            "git_blob": "c92975864f6aeccc67f8e6806a24712a0237ad1e",
+            "blob_sha256": "714fd3db6b44175833ccfce1eb1b9bff63bc9e668979c04d5e94f8327dbd9c4f"
+          },
+          {
+            "commit": "67bae482b5842ede9e8430da841bd78563b0f97d",
+            "git_blob": "0df82dba38c45de5004cedc6c6375f65bbad255d",
+            "blob_sha256": "14eb91857fb6b6634746b08481d05bdcfe1ea8de6595960583e71a3c6d300d1f"
+          },
+          {
+            "commit": "3da175d1e48a6ea28d80f0d23fe1c68e4f872a96",
+            "git_blob": "2fa086ed9d2dadf3c28579526f274cf539c552ee",
+            "blob_sha256": "c6bac343a3cf3385b8c7f436ebfaa6f702ac1a607251fd5b9bf421562d8a8d18"
+          },
+          {
+            "commit": "43906a2bf347998800ba34adc0e66aabc9edfb5e",
+            "git_blob": "0386eef544fba7af819975ebedab256960895ba5",
+            "blob_sha256": "f1f75540fed3383861ed879b2aa972a757680f84ef13c80d3acec4b79ba937ac"
+          },
+          {
+            "commit": "443e871f225a414f69bef3f1e3cab45cb30d6594",
+            "git_blob": "6ef7c8911f1f6d19d06d16eada29a53236616a12",
+            "blob_sha256": "416f4685d78a2b2c31a1787be9a28bb122c5a10cb2c7ce020c2b3bb82f140fbf"
+          },
+          {
+            "commit": "45fb957e1acf3e7c5dc7c88ee214026599175dbc",
+            "git_blob": "dd7e8077f647b88612513f0060f12107136c6dc5",
+            "blob_sha256": "b3af3f14048a470180e518ebeb0d8fda9b7f2943bf9b543f364fbd86c4abce8d"
+          },
+          {
+            "commit": "25b82113a31b2b0880e7d4e0df0ff70a08b3c981",
+            "git_blob": "8d77115cff5b6fa8bbaa8005ba6608b634d38fa6",
+            "blob_sha256": "29f13a9649d9c49c0a02d2517a2c65ca0279df604b0fbdb0ff7a1f5d89036a25"
+          },
+          {
+            "commit": "9da5dd5f415654050afce40f689d55a13b66bad3",
+            "git_blob": "ad5535e2a3d27d596fb7c9f5f3d63c53002f16ba",
+            "blob_sha256": "534e96bd2bd0587a750102d57fdda82684724ff5497a240d6cf32c42b56f1ea2"
+          },
+          {
+            "commit": "1611c9e81a3c736b084dd9eaef5a02a6e627cdf3",
+            "git_blob": "954d768a43a1a76b29a6eb7cd0a724086a90b5d4",
+            "blob_sha256": "5ce231999235ea430fb562019418816220d22357f29dc2a9f852eb708587f7c5"
+          },
+          {
+            "commit": "a4566dc2618edb69c337c64b9d886cb0d1b1d8da",
+            "git_blob": "6bd52a601a98487b40dc26566257defda4e90053",
+            "blob_sha256": "cefcbe5c3105763ccac94b667fbad5485ea720adc4e3216f73db6cf1e92e27ed"
+          },
+          {
+            "commit": "c469fcf7fb3339159bd6cb0b29018c31b0a53850",
+            "git_blob": "d6c479c9b1c577f134f268fcee518a6bdf9c230d",
+            "blob_sha256": "66f71c501f966a805cb02e10c5b4c6f5eee657e4c3d43f1919b1c1bccfbdcec4"
+          },
+          {
+            "commit": "c678552c20b7c290f3870c05127d39028585b82e",
+            "git_blob": "d2d264992036e7692d6729d602c8572f07cc6e9c",
+            "blob_sha256": "84fead5391019a39af18eb8981c598de05b251c0c4660a54a77769641a3f6fb6"
+          },
+          {
+            "commit": "3978fc7ab786503b54f2bd45a88a61b8ccf46d9d",
+            "git_blob": "0c50c48490ca7aa0a1fd6c97e232bce74926ba85",
+            "blob_sha256": "12ad0dfde3b34c64bf0c226bee28cc230d4f4216a0a80caaa58cd874f71186a5"
+          },
+          {
+            "commit": "015edf3f1dc01125d5bd7c4073d7505597e07e1f",
+            "git_blob": "efe2cc083dada99198fb06f29bacb774cf3a1545",
+            "blob_sha256": "72933659b3953932d6274658fd276f387603100c3b2d88777597db7a08edeb28"
+          },
+          {
+            "commit": "b70cfc9a2ced8b302b59b0dc27d55c552187d2a6",
+            "git_blob": "d2f01d3130e43a5e2007b9dd673e862657193931",
+            "blob_sha256": "1070af5584ee91b696845f057eabe2d7d612f3cb2730faea1da2eaf9a309c4eb"
+          },
+          {
+            "commit": "7f4ef9c49459401b30096440fd3fee4ad5c2d3a2",
+            "git_blob": "576901a199405f690b805feadc62e649ebead3d3",
+            "blob_sha256": "398eaa6f53597936ea2803ee64f89852d5e5c19ed04ae4b8195726cb203d8d9d"
+          },
+          {
+            "commit": "28f7e37c8834886b5f9ea9b81d91baad7b711525",
+            "git_blob": "b30e3aa233d864459f7f9c9f91ab33688ecac98d",
+            "blob_sha256": "d526eaa2775cbb89462f7e59b303d1b4627b6bc01e7d261c5a3db13da0a06f46"
+          },
+          {
+            "commit": "b654c8f330275b42fef887d17cd56151e0a5af50",
+            "git_blob": "3786283574df6a6fb996bd0b5f3cd83312bfb69e",
+            "blob_sha256": "8932b12a81304f3b0d8e77ff83ab5f0fc14212a66b10439e11b5223dafe6f5c1"
+          },
+          {
+            "commit": "6babcea44d07815a0b887bdb37ca7c42cd4278d9",
+            "git_blob": "29ddaca1464f98ced752ffe84e369d1c4c63718b",
+            "blob_sha256": "cd231be2e7601188f2062afa78423911ab666a33bbce72283ff1c84b05d1ca2b"
+          },
+          {
+            "commit": "937bc78d266f55ee8103d40041b2174925624236",
+            "git_blob": "ce33624901e47dbab7de7628c06754f4941eaf64",
+            "blob_sha256": "b22dac34b681f99275312f05e94768dd9088d3700c59436ab04f1f7d4903623e"
+          },
+          {
+            "commit": "075d205a5d6313ef35dcb7163928bc72b116e0a8",
+            "git_blob": "481f7b46cb9afdeaefdec4be102cf6864bff6e5c",
+            "blob_sha256": "f5e3627a08124085a2cf284a429d194b9ffda286b7b1580346b2c64fa5aa2dea"
+          },
+          {
+            "commit": "75dae6456195fef3d8fb12190b69844e0d297929",
+            "git_blob": "ec86467cbd78bfdfe55e9fcf9467f2f922de4046",
+            "blob_sha256": "02644e3b8c0f2ecb2d06dcdc0d23ab1bcbc644dab72ec39339a706fe6b60c370"
+          },
+          {
+            "commit": "ae9081f1b96dcfad6531720906b5c4517043f372",
+            "git_blob": "dc8a0c78a12aa456491a607860e3ac0603487b08",
+            "blob_sha256": "db85516ecbac21720384825e7c0c89cd6d3c57d06f7a2bbad290f92c8241be19"
+          },
+          {
+            "commit": "04f54c0d33e5de59a16fb01e5f98e3cedb56a556",
+            "git_blob": "ccda5a26edac1a3f3ece281c158485ccaa40c8cb",
+            "blob_sha256": "4bd9710efa163d90f8bc7f607cfb951be20a490bc0ca478c22fc30640f3b70f8"
+          },
+          {
+            "commit": "2cf6ba247a8d65fea49b8aaac0fb14bf6e092787",
+            "git_blob": "3e92f6c69a76a8faefc022ccb5407fe761919857",
+            "blob_sha256": "5d7739d94bb665d183dc5e3d3d30f0b8846c854cf1224cf417960e3ca1309e0b"
+          },
+          {
+            "commit": "6f1ff70fc3c1c2965f9e781cd458babb27df4ae9",
+            "git_blob": "d168ad1d48ce80dd79d37fa5101d0384f94e428e",
+            "blob_sha256": "8027e8d928dbf822693d071ff6dc7d5fbd80dcbeee7a5af2cb6a6f181dcce1fa"
+          }
+        ]
+      },
+      {
+        "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v3.json",
+        "history_anchor": "9efccff9741663e75cff47f73539b54845c2dc77",
+        "history_query": "https://api.github.com/repos/amaybaum/incompleteness/commits?sha=9efccff9741663e75cff47f73539b54845c2dc77&path=verification%2Faudits%2Ffoundations%2Fledger-coverage-tool-20261123%2Frecords%2Fside-change-classes-v3.json&per_page=100",
+        "path_history_refs_returned": 2,
+        "refs_matching_archived_member": [
+          "adb8fc4380b9ce7d7f2decbf0c1b7c211f550793"
+        ],
+        "other_blob_refs": [
+          {
+            "commit": "8465c78a8afd6ccad9ba84cb0a335f626dc32135",
+            "git_blob": "7ed750c14f02960c1b8a40666e1bba4bb6a85140",
+            "blob_sha256": "76443ff3e331ba7c7a5f06ea3f8bf9357c25c50097e9159bb8968f51a74e39f7"
+          }
+        ]
+      }
+    ]
+  }
+}
