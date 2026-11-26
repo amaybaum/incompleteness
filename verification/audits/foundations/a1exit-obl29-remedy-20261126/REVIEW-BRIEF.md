@@ -1,53 +1,74 @@
-# OBL-29 remedy: brief for the independent design review
+# OBL-29 remedy r2 independent review brief
 
-Scope: DESIGN.md and CONTROLS.json in this directory, read against design r6 amendment 6 r5 at
-`1f5764572a98b7ae2f306e121e2e410f79c29daf` (`verification/audits/foundations/a1exit-design-r6-20261125/`).
-Authority: owner decision, amaybaum, #1169 comment 7191104852, item 2 (paper-only design and
-independent design review). The design is not implemented or adopted. The review decides nothing
-for the owner.
+Review DESIGN.md and CONTROLS.json at the same r2 revision. Use amendment 6 r5 at
+`1f5764572a98b7ae2f306e121e2e410f79c29daf` to reconstruct the defect and r10 at
+`4fee62cff40b1acf52357fa177752f2d5b231dfa` to check compatibility with the current draft on
+#1593. The authority is amaybaum's paper-only and review directions of 2026-11-26 at
+11:44Z and 12:10Z, #1169 comments 7191104852 and 7191665350, item 2. The r1 verdict was
+REVISE at `0b06363c8dbb3d2c7e95a6ca7ab22cdc8cc7d234` (#1601 comment 7191637164).
+OBL-29 remains an explicit retirement blocker until its remedy is implemented and
+independently verified. Adoption, implementation and trial execution require separate
+authorization.
 
-Claims to verify:
-
-1. **Failure statement (DESIGN sec. 1.3).** Check that the block decision is required to be monotone
-   in recorded history (R6.RECON.26, the lifecycle tables), and that r5 evaluates it over current
-   content. Check that this one statement accounts for every OBL-29 and #1598 case. Check whether
-   it misses a removal path.
-2. **Antitone predicates (sec. 1.3, R6.OBL29.3).** Check that deleting the reconciliation record a
-   second-kind review names, or deleting an accepting review of a first-kind entry, makes r5's
-   R6.RECON.27 Keys (b) or (a) admit `repair: null`. Check whether r5 has further predicates that
-   relax a block or a discharge when evidence is removed and that the list omits.
-3. **Pre-`F` and merge cases (sec. 1.3).** Check that a finding landed after `H` and removed before
-   `F`, and a post-freeze record seen through one `REV` and dropped when `REV` is merged, both escape
-   r5, so that OBL-29's post-`F` statement is narrower than the defect.
-4. **Coverage argument (sec. 2.3).** Check the argument that, under P-1, a complete store and an
-   unchanged detection function, no change lifts a finding carried by a reachable entry. Check that
-   the only uncovered routes are a history rewrite of `main` and an unreachable or uncommitted
-   finding.
-5. **Fixed selector (R6.OBL29.5, sec. 5.3).** Check that a later freeze can widen a tool-landing
-   prefix, or pin a blob, so that a finding leaves r5's detection. Check that removing the exclusion
-   for detection only leaves R6.RECON.2 (d) and (e) unchanged. Check that P-TL-CLEAN is the
-   necessary precondition.
-6. **Presence-based conditions (R6.OBL29.4).** Check that reading the repair and the reassessment
-   at `M` and `F` (not from `R*`) can only make a discharge fail when content is removed.
-7. **Legitimate removal rule (sec. 3).** Check that every legitimate route (reassessment, a revised
-   plan without the edit, D3's `repair: null`) remains available on the original reference.
-   Check that no route depends on an authorization the tool would have to read (R6.STAT.4,
-   R6.PUR.11). Check that missing evidence fails closed.
-8. **Walk (R6.OBL29.7, sec. 4).** Check that the ancestry walk terminates, has no depth limit,
-   reads parents only from verified content, and gives ERROR, never a verdict, on a missing,
-   pruned, corrupt or shallow object. Check that the first-parent-diff computation is equivalent
-   to the union over trees.
-9. **Amendment 6 compatibility (sec. 5).** Check that the requirement-change table is complete and
-   minimal. Check that R6.RECON.23, R6.RECON.28, R6.RECON.33 and R6.CFG.* need no change. Check
-   that no expectation row at `1f576457` changes.
-10. **Controls (CONTROLS.json).** Check that each control's expected outcome follows from the
-    requirements it names. Check that every R6.OBL29 requirement with a check has both a control
-    that must fail and one that must pass. Check that the countercases would catch an
-    implementation that scans only `M`, scans only the first-parent chain, applies a depth limit,
-    keeps the tool-landing exclusion, or reads Keys eligibility at `M`.
-11. **Full-history check (residual R-3).** On a full clone of `main`, run R6.RECON.35's classes over
-    every reachable entry under `verification/audits/`, and report any entry the remedy would newly
-    bind. The design's own check covered only the 81 first-parent commits of a shallow clone.
-12. **Owner points (sec. 5.5).** Assess the four points: ancestry or first-parent, mistaken
-    independent findings, R6.REC.6, and the rename burden. Say whether any is a correctness
-    question rather than a choice.
+1. **Failure and scope (§1).** Verify the snapshot counterexample, including deletion, rewrite,
+   rename, mode and encoding changes, selector widening and disappearance before `F`. Check
+   whether any discharge condition can still be relaxed by removing its evidence.
+2. **Common evidence for bindings and discharges (R6.OBL29.3–.4).** Verify Form (i), Form (iv)
+   and Keys (a)–(b) against the same cumulative records. Check that removing the reviewed entry
+   neither makes a same-author review count nor changes an edit binding into a run-level one.
+   Look for any remaining use of a different basis for "the scan finds". Verify that the repair
+   entry and its positive review still require the current evidence specified by R6.RECON.27.
+3. **Second reviews (R6.OBL29.3).** Check both N-REASSESS-DISSENT-DELETED and
+   N-REPAIR-DISSENT-DELETED against R6.REC.6 and R6.RECON.27. Check that they can start with an
+   applying discharge, make it fail, and then distinguish r2 from snapshot lint after the dissent
+   disappears. Evaluate R6.OBL29.10 separately as a scope choice.
+4. **Reachability and host methods (§2.3 and §6).** Check the proof under ancestry extension
+   and the foxtrot counterexample to first-parent preservation. Check the distinct outcomes of
+   a merge commit, a squash losing an intermediate witness and a rebase that preserves bytes
+   but rewrites commit ids used by applicability. Check how a changed or abandoned `REV`,
+   a rewritten branch, a tag-only or uncommitted finding, a rewrite of `main`, and a file
+   always outside the selector limit the guarantee. Evaluate the consequences of losing a
+   prior run's finding or dissent. Squash/rebase acceptance remains unresolved.
+5. **Roots and selector (R6.OBL29.1 and .5).** Check that `M`, `F`, `REV`, the predicted
+   `M` chain and explicitly read records account for existing category-3 inputs. Check
+   what dropping `X` and `C` as roots does to ordinary and harness runs. Verify that
+   tool-prefix widening cannot hide a finding and that R6.RECON.2 (d) and (e) keep
+   their admission set. Check the distinction between a newly excluded external path and an
+   originally in-scope record moved out later.
+6. **Malformed content (R6.OBL29.2, §6 R-3).** Check that classes (b) and (c) without an
+   invalidation signal cannot create a lasting block, and that files read in current
+   checks still get the applicable diagnostics. Check malformed finding retention and
+   the reviewed run-level D3 discharge, including whether a false positive can leave an
+   unliftable historical lint failure. Confirm the class (c) hazard for a JSON-leading
+   artifact corrupted while carrying both token types.
+7. **Legitimate removal (§3).** Verify a revised plan without the bound edit, the applying
+   reassessment of the original reference and item, and D3 where eligible. Check that
+   a deletion, withdrawal, owner approval, supersession or absent evidence cannot
+   stand in for discharge. Check that R6.RECON.26 still distinguishes a detected
+   finding from one whose side-change condition makes it bind.
+8. **Walk and output (§2 and §4).** Verify that the all-parent walk terminates at verified
+   parentless commits, the first-parent-diff calculation returns the same entry set, and
+   any unreadable required object produces ERROR with no verdict. Check that the
+   witness can be chosen deterministically for real commits, predicted `M` and
+   explicitly read records.
+9. **Amendment 6 compatibility (§5.5).** Verify the complete affected inventory,
+   including R6.REC.6 and the last reference-resolution sentence of R6.RECON.33.
+   Confirm R6.RECON.23's resolution-route table and r10 result fields compose with this
+   proposal. Check RECON-BLOCK and the separate shallow `terms` positive case in GV5.
+   Identify any existing op C fixture needing more objects without changing its
+   scientific or verification expectation.
+10. **Controls.** Reconcile all nine r1 findings with the requirement edits and named
+    paper controls. Check the positive cases, the two deletion guards that also hold
+    under r5, and the boundary countercases. Check that the asserted result distinguishes
+    missing evidence, nonbinding evidence, applying discharge and object-read ERROR.
+11. **Actual history and predicted landing.** The r1 reviewer reported zero class (a),
+    (b) or (c) entries at `4bb48cddec206e567639fa863ecce852ddd8350e`. Independently
+    assess P-ACTUAL-MAIN on full history at `942bd5ea1fd09f4223012b0755bce2d6da07c44a`
+    and P-TL-CLEAN on the complete predicted `R*`, including inherited history. Record
+    the exact heads and scope of any repeatable static check. These are paper control
+    specifications and no trial is part of this review.
+12. **Owner decisions (§5.6).** Give a recommendation and consequences for traversal,
+    squash/rebase reachability, formally correcting a mistaken independent finding,
+    broader R6.REC.6 scope and rename granularity. Assess whether each option preserves
+    the original evidence and keeps a binding obligation in force until its discharge
+    is established. The owner decides adoption and any residual risk acceptance.

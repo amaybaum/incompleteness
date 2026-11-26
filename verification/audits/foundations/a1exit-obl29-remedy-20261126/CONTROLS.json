@@ -1,22 +1,26 @@
 {
   "schema": "oi-obl29-remedy-controls/draft",
-  "status": "paper design; not implemented, not adopted; each control becomes an expectation row (runner null) only on adoption",
-  "authority": "owner decision, amaybaum, received 2026-11-26T11:44Z, #1169 comment 7191104852, item 2",
-  "base": "design r6 amendment 6 r5 at 1f5764572a98b7ae2f306e121e2e410f79c29daf",
-  "fixture": "Fixture: H; a configuration K frozen at F (round branch from D on main) whose ledger carries edit e on path p; c0 = main at F's designation. f = an oi-review-record/1 file under verification/audits/r/ carrying a well-formed second-kind finding on e by an independent reviewer (verdict invalidates on <p>:scientific_effect, invalidated naming e, configuration naming K), reviewing reconciliation record q in the same directory. Unless stated, the run is op C execution with M = the last listed main commit and no REV.",
+  "status": "paper design r2, pending independent review and adoption. All controls are specifications. Each would become an expectation row with runner null on adoption.",
+  "authority": "Owner decisions, amaybaum, #1169 comments 7191104852 (11:44Z) and 7191665350 (12:10Z), 2026-11-26, item 2",
+  "base": "design r6 amendment 6 r5 at 1f5764572a98b7ae2f306e121e2e410f79c29daf, cross-checked with amendment 6 r10 at 4fee62cff40b1acf52357fa177752f2d5b231dfa as a proposal",
+  "fixture": "Fixture: H; a configuration K frozen at F (round branch from D on main) whose ledger carries edit e on path p; c0 = main at F's designation. f = an oi-review-record/1 file under verification/audits/r/ carrying a well-formed second-kind finding on e by an independent reviewer (verdict invalidates on <p>:scientific_effect, invalidated naming e, configuration naming K), reviewing reconciliation record q in the same directory. Unless stated, the run is op C execution with M = the last listed main commit and no REV. Unless a control changes that condition, q's side_change_commits meet R6.RECON.26's applicability condition at each named M.",
   "expected_vocabulary": {
     "outcome": "FAIL, ERROR, PASS or ANY, as in EXPECTATIONS.json; ERROR means no verdict",
     "classes_include": "result classes that must appear",
     "invariants.not_class": "classes that must not appear",
     "finding": "the category3.findings element for f: present_at_M and witness (R6.OBL29.8); binding run-level where stated",
-    "finding_references": "number of distinct references carrying the finding"
+    "finding_references": "number of distinct references carrying the finding",
+    "invariants.finding_absent": "the named reference and item do not appear in category3.findings",
+    "invariants.finding_unblocked": "the finding remains visible but has no corresponding category3.blocked element",
+    "invariants.reassessment_applies": "the named reassessment is present in category3.reassessments",
+    "invariants.reassessment_absent": "the named reassessment is absent from category3.reassessments"
   },
   "kinds": {
     "negative": "a removal that must not lift the block",
     "positive": "a legitimate disappearance or a baseline that must behave as stated",
     "countercase": "an adversarial attempt to defeat the remedy",
     "boundary": "documents the edge of R* or the scope point of sec. 5.4",
-    "residual": "documents a residual the remedy does not cover"
+    "residual": "documents a limit of the proposed walk, without implying owner acceptance"
   },
   "controls": [
     {
@@ -363,9 +367,9 @@
       "id": "N-MERGE-SECOND-PARENT",
       "kind": "negative",
       "setup": [
-        "c1: land q and f",
-        "b1: branch from c1 deleting f",
-        "c2: merge (first parent c1, second parent b1), tree without f",
+        "b1: child of c0 on a separate branch adding q and f",
+        "c1: unrelated change on main from c0",
+        "c2: merge with first parent c1 and second parent b1, taking a tree that omits q and f",
         "run on c2"
       ],
       "expected": {
@@ -374,7 +378,8 @@
           "retirement-blocked"
         ],
         "finding": {
-          "present_at_M": false
+          "present_at_M": false,
+          "witness": "b1"
         }
       },
       "requirements": [
@@ -426,7 +431,7 @@
       "requirements": [
         "R6.OBL29.1"
       ],
-      "note": "ancestry walk; would pass under a first-parent-only R* (owner point 1)"
+      "note": "This two-parent merge preserves the actual branch history. Squash and rebase are assessed separately in section 6."
     },
     {
       "id": "N-REV-DROP",
@@ -452,7 +457,31 @@
         "R6.OBL29.1",
         "R6.OBL29.2"
       ],
-      "note": "REV1 is reachable from c2 as a second parent"
+      "note": "The merge commit preserves REV1 as a second parent. This is not a claim about squash or rebase."
+    },
+    {
+      "id": "P-FOXTROT",
+      "kind": "countercase",
+      "setup": [
+        "Start from c0. Main advances to c1 carrying q and f. On a side branch from c0, b1 changes an unrelated file.",
+        "Make merge d with first parent b1 and second parent c1, choosing a resolved tree that removes f. Fast-forward main from c1 to d.",
+        "Run on d. Compare the full-parent witness with the first-parent chain d, b1, c0."
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "retirement-blocked"
+        ],
+        "finding": {
+          "present_at_M": false,
+          "witness": "c1"
+        }
+      },
+      "requirements": [
+        "R6.OBL29.1",
+        "R6.OBL29.7"
+      ],
+      "note": "Synthetic graph countercase. c1 remains an ancestor even though the first-parent walk loses it. This does not assert that the host normally accepts this update."
     },
     {
       "id": "N-PRE-F",
@@ -552,6 +581,95 @@
         "R6.RECON.27"
       ],
       "note": "the accepting review is in R*: an independent reviewer asserts the invalidation"
+    },
+    {
+      "id": "N-REASSESS-DISSENT-DELETED",
+      "kind": "countercase",
+      "setup": [
+        "Use the applying reassessment in P-REASSESS-AFTER-DELETE at F2. Its accepting non-author review remains available through the required input path.",
+        "After F2 a second non-author review lands on main, names the exact reassessment reference and dissents on one item. The run fails with record-invalid and retirement-blocked.",
+        "A later main commit deletes only that dissenting review. Re-run on the later M with the same cited reassessment and no REV."
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "record-invalid",
+          "retirement-blocked"
+        ],
+        "invariants": [
+          {
+            "reassessment_absent": "the cited reassessment from category3.reassessments"
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.3",
+        "R6.OBL29.6",
+        "R6.REC.6",
+        "R6.RECON.27"
+      ],
+      "note": "The second review remains in R*. Snapshot lint would let the applicable discharge return after deletion."
+    },
+    {
+      "id": "N-REPAIR-DISSENT-DELETED",
+      "kind": "countercase",
+      "setup": [
+        "Use the applying reassessment in P-REASSESS-AFTER-DELETE with a repair reconciliation record subject to lint. Its entry and accepting review remain in the scanned set at M.",
+        "After F2 a second non-author review in the repair record directory lands on main, names that exact repair record reference and rejects one item. The run fails with record-invalid and retirement-blocked.",
+        "A later main commit deletes only the dissenting review. Re-run on that M with the same cited reassessment and no REV."
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "record-invalid",
+          "retirement-blocked"
+        ],
+        "invariants": [
+          {
+            "reassessment_absent": "the cited reassessment from category3.reassessments"
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.3",
+        "R6.OBL29.4",
+        "R6.OBL29.6",
+        "R6.REC.6",
+        "R6.RECON.27"
+      ],
+      "note": "The surviving entry and positive review are necessary and insufficient when a dissent also qualifies."
+    },
+    {
+      "id": "P-FORM-IV-REVIEWED-ENTRY",
+      "kind": "positive",
+      "setup": [
+        "Land q and f on main after the branch point of the revised freeze. Land an independently accepted repair entry.",
+        "Use a revised F2 whose inputs neither contain nor read q and that cites an applying reassessment of f for edit e with a non-null repair. Check that it applies on the initial M.",
+        "Delete only q on main. Keep f, the repair and accepting reviews. Re-run on the later M with F2."
+      ],
+      "expected": {
+        "outcome": "ANY",
+        "invariants": [
+          {
+            "not_class": [
+              "retirement-blocked"
+            ]
+          },
+          {
+            "reassessment_applies": "the same reassessment of f for e"
+          }
+        ],
+        "finding": {
+          "present_at_M": true
+        }
+      },
+      "requirements": [
+        "R6.OBL29.3",
+        "R6.OBL29.4",
+        "R6.RECON.26",
+        "R6.RECON.27"
+      ],
+      "note": "Using current content in Form (iv) alone would turn f into a run-level binding and invalidate the cited edit-specific reassessment."
     },
     {
       "id": "N-FORGED-REASSESS-NEWBLOB",
@@ -661,7 +779,8 @@
       "requirements": [
         "R6.OBL29.6",
         "R6.RECON.33"
-      ]
+      ],
+      "note": "Baseline guard with the same result under amendment 6 r5 and r10."
     },
     {
       "id": "N-INDEP-WITHDRAWN",
@@ -686,7 +805,7 @@
         "R6.OBL29.3",
         "R6.OBL29.6"
       ],
-      "note": "fail closed under r5 Keys; owner point 2"
+      "note": "Checks the current Keys rule. The possible independent correction routes in section 5.6 are owner decisions."
     },
     {
       "id": "N-ROOT",
@@ -845,7 +964,7 @@
       "id": "N-MALFORMED-DELETED",
       "kind": "negative",
       "setup": [
-        "c1: land a class (c) malformed finding file (does not parse; contains oi-review-record/1 and invalidates)",
+        "c1: land a JSON-leading, class (c) malformed finding file that does not parse and contains record-schema and invalidation signals. A merge-conflicted, JSON-leading fixture containing both signals is a concrete variant.",
         "c2: delete it",
         "run on c2"
       ],
@@ -887,7 +1006,7 @@
         "R6.OBL29.4",
         "R6.RECON.27"
       ],
-      "note": "presence-based discharge conditions are read at M, never from R*: removal can only take a discharge away"
+      "note": "presence-based discharge conditions are read at M, never from R*: removal can only take a discharge away Baseline guard with the same result under amendment 6 r5 and r10."
     },
     {
       "id": "P-NONFINDING-REMOVAL",
@@ -912,6 +1031,92 @@
         "R6.OBL29.2",
         "R6.OBL29.6"
       ]
+    },
+    {
+      "id": "P-HISTORICAL-MALFORMED-NONFINDING",
+      "kind": "positive",
+      "setup": [
+        "Variant b: land a JSON-leading class (b) malformed record with a record-schema marker but no invalidation signal. Variant c: land an unparseable JSON-leading class (c) record with a record-schema marker but no invalidation signal.",
+        "For each variant, the file at M fails record-invalid without retirement-blocked. Delete the file before the next M.",
+        "Re-run with a clean fixture. The file is still reachable but is absent from M and is not explicitly read."
+      ],
+      "expected": {
+        "outcome": "PASS",
+        "invariants": [
+          {
+            "not_class": [
+              "record-invalid",
+              "retirement-blocked"
+            ]
+          },
+          {
+            "finding_absent": "the malformed file"
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.2",
+        "R6.RECON.35"
+      ],
+      "note": "A current malformed record is diagnosed. A historical syntax error without finding evidence creates no lasting obligation."
+    },
+    {
+      "id": "P-HISTORICAL-SELF-REVIEW",
+      "kind": "positive",
+      "setup": [
+        "c1: land q and a second-kind candidate review f whose reviewer equals q.author under R6.RECON.29.",
+        "c2: delete q while leaving f. Neither q nor f was present at F and q is not an explicitly read record.",
+        "Re-run on c2 with no REV."
+      ],
+      "expected": {
+        "outcome": "ANY",
+        "invariants": [
+          {
+            "finding_absent": "f, disqualified by reviewer identity"
+          },
+          {
+            "not_class": [
+              "retirement-blocked"
+            ]
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.2",
+        "R6.OBL29.3",
+        "R6.RECON.26"
+      ],
+      "note": "Historical lookup preserves the independence disqualification. The r5 snapshot would treat the unresolved review as a form failure."
+    },
+    {
+      "id": "P-SIDE-CHANGE-UNLANDED",
+      "kind": "positive",
+      "setup": [
+        "Land q and f under verification/audits/ so both are reachable from M. The valid recorded side_change_commits for the finding are on a separate branch and none is an ancestor of M.",
+        "Use a configuration carrying the edit named by f, with all other binding conditions true and no reassessment.",
+        "Run with no REV and check detection and binding separately."
+      ],
+      "expected": {
+        "outcome": "ANY",
+        "finding": {
+          "present_at_M": true
+        },
+        "invariants": [
+          {
+            "finding_unblocked": "f"
+          },
+          {
+            "not_class": [
+              "retirement-blocked"
+            ]
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.2",
+        "R6.RECON.26"
+      ],
+      "note": "Historical detection does not replace the side-change applicability test."
     },
     {
       "id": "P-REASSESS-AFTER-DELETE",
@@ -970,25 +1175,35 @@
       "id": "P-D3-MALFORMED",
       "kind": "positive",
       "setup": [
-        "as N-MALFORMED-DELETED to c2",
+        "As N-MALFORMED-DELETED through c2. The malformed file is historical-only, absent from M and not explicitly read by the run.",
         "F2: K2 citing an applying reassessment with finding.item null, repair null, edit null, naming the malformed file's reference",
         "run on c2 with --freeze F2"
       ],
       "expected": {
-        "outcome": "ANY",
+        "outcome": "PASS",
         "invariants": [
           {
             "not_class": [
-              "retirement-blocked"
+              "retirement-blocked",
+              "record-invalid"
             ]
+          },
+          {
+            "reassessment_applies": "the reviewed run-level D3 reassessment"
           }
-        ]
+        ],
+        "finding": {
+          "present_at_M": false,
+          "binding": "run-level before discharge"
+        }
       },
       "requirements": [
+        "R6.OBL29.2",
         "R6.OBL29.3",
         "R6.OBL29.6",
         "R6.RECON.27"
-      ]
+      ],
+      "note": "The original malformed finding and witness stay visible. Its historical form failure no longer prevents a clean run after applying adjudication."
     },
     {
       "id": "P-D3-REJECTED-FIRST-KIND",
@@ -1128,27 +1343,53 @@
       "id": "P-TL-CLEAN",
       "kind": "positive",
       "setup": [
-        "the exact tool-landing tree of the tool candidate (R6.EVID.8 predicted M)",
-        "apply R6.RECON.35 detection without the tool-landing exclusion to every entry under verification/audits/ it adds"
+        "Use the exact predicted M of the tool candidate (R6.EVID.8, R6.RECON.21), with its actual M0 and any named F, REV and input records.",
+        "Apply the R6.OBL29.2 and R6.OBL29.5 detector over the entire R*, including each reachable historical tree and every in-memory step through predicted M."
       ],
       "expected": {
         "outcome": "PASS",
         "invariants": [
           {
-            "no_finding_bearing_entry": true
+            "no_finding_bearing_entry": true,
+            "scope": "entire R* of the named clean fixture"
           }
         ]
       },
       "requirements": [
         "R6.OBL29.5"
       ],
-      "note": "precondition of the tool's landing under the remedy"
+      "note": "Checks the candidate and inherited history together for accidental findings. A genuine finding is handled by the usual binding rules."
+    },
+    {
+      "id": "P-ACTUAL-MAIN",
+      "kind": "positive",
+      "setup": [
+        "Use a full store for current exact main at 942bd5ea1fd09f4223012b0755bce2d6da07c44a.",
+        "Apply R6.RECON.35 with the fixed selector and the r2 finding-evidence rule to every reachable regular entry under verification/audits/.",
+        "Record the exact head, selected-entry and class counts, and every finding reference. Reconcile the result with the r1 reviewer snapshot at 4bb48cddec206e567639fa863ecce852ddd8350e."
+      ],
+      "expected": {
+        "outcome": "PASS",
+        "invariants": [
+          {
+            "no_finding_bearing_entry": true,
+            "scope": "the named actual main history"
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.1",
+        "R6.OBL29.2",
+        "R6.OBL29.5",
+        "R6.OBL29.7"
+      ],
+      "note": "Paper expectation for independent review. The earlier review reported no finding on its named head. The r2 writer has not run this control."
     },
     {
       "id": "B-UNREACHABLE",
       "kind": "boundary",
       "setup": [
-        "b1: branch from c0 adding q and f, never merged, unreachable from M, F, REV, X and C",
+        "b1: branch from c0 adding q and f, never merged, unreachable from M, F and REV. The run explicitly reads neither record.",
         "run on main"
       ],
       "expected": {
@@ -1162,13 +1403,13 @@
       "requirements": [
         "R6.OBL29.1"
       ],
-      "note": "residual R-1: not a removal of a recorded finding"
+      "note": "R-1, evidence outside the run roots and explicit record inputs."
     },
     {
       "id": "B-BRANCH-REWRITE",
       "kind": "boundary",
       "setup": [
-        "b1: branch adding f; b1 is force-pushed to drop that commit before merge; merge",
+        "REV1: branch adding q and f. The earlier run sees f through REV1. The branch is force-pushed to omit that original ancestry before it merges.",
         "run on main"
       ],
       "expected": {
@@ -1182,7 +1423,161 @@
       "requirements": [
         "R6.OBL29.1"
       ],
-      "note": "residual R-1"
+      "note": "R-1, a branch rewrite before durable landing. This carries no risk acceptance."
+    },
+    {
+      "id": "B-SQUASH-REV",
+      "kind": "boundary",
+      "setup": [
+        "REV1: branch from c0 adding q and f. Run 1 observes f and reports retirement-blocked.",
+        "A later branch commit removes q and f and leaves an unrelated change. Squash-merge that net change to main without the original commits.",
+        "Run 2 on the squash commit without REV1 and without q or f as explicitly read inputs."
+      ],
+      "expected": {
+        "outcome": "ANY",
+        "invariants": [
+          {
+            "finding_absent": "f"
+          },
+          {
+            "not_class": [
+              "retirement-blocked"
+            ]
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.1",
+        "R6.OBL29.2",
+        "R6.OBL29.7"
+      ],
+      "note": "Unaccepted R-1 gap. A corresponding history that contains the original REV1 is covered by N-REV-DROP."
+    },
+    {
+      "id": "B-REBASE-SIDE-COMMIT",
+      "kind": "boundary",
+      "setup": [
+        "The topic history forks from main at c0. It contains a side-change commit s followed by q and f. The entry q documents s under a topic M that used s before replay.",
+        "Rebase and land equivalent content under new first-parent commit id s2, replaying the exact path and blob of q and f, including the unchanged side_change_commits reference to s.",
+        "Run on rebased M without the old topic history as a root. s is absent from M ancestry and s2 is present. All other binding conditions hold."
+      ],
+      "expected": {
+        "outcome": "ANY",
+        "finding": {
+          "present_at_M": true
+        },
+        "invariants": [
+          {
+            "finding_unblocked": "f"
+          },
+          {
+            "not_class": [
+              "retirement-blocked"
+            ]
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.1",
+        "R6.OBL29.2",
+        "R6.RECON.26"
+      ],
+      "note": "Unaccepted R-1 gap. Replay can retain bytes and still change which findings bind. Verify the existing side-change applicability predicate against the exact fixture."
+    },
+    {
+      "id": "B-ABANDONED-REV",
+      "kind": "boundary",
+      "setup": [
+        "REV1: branch from c0 adding q and f, with q naming an applicable side change already on main. Run 1 names REV1 and observes retirement-blocked.",
+        "Leave REV1 unmerged. Use a different REV whose ancestors do not include REV1, and a later M with no q or f.",
+        "Run 2 names that new REV and does not read q or f explicitly."
+      ],
+      "expected": {
+        "outcome": "ANY",
+        "invariants": [
+          {
+            "finding_absent": "f"
+          },
+          {
+            "not_class": [
+              "retirement-blocked"
+            ]
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.1",
+        "R6.OBL29.2"
+      ],
+      "note": "R-1. A result read from a named REV does not by itself land evidence for later runs."
+    },
+    {
+      "id": "B-TAG-ONLY",
+      "kind": "boundary",
+      "setup": [
+        "Create a tag pointing to a commit that carries q and f. The tagged commit is not reachable from M, F or REV and no explicit record input uses it.",
+        "Keep the tag and run on main without naming the tagged commit."
+      ],
+      "expected": {
+        "outcome": "ANY",
+        "invariants": [
+          {
+            "finding_absent": "f"
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.1",
+        "R6.OBL29.7"
+      ],
+      "note": "R-1. The verified reader does not discover walk roots from refs."
+    },
+    {
+      "id": "B-OUTSIDE-PREFIX",
+      "kind": "boundary",
+      "setup": [
+        "Commit q and f at regular-file paths outside verification/audits/ from the start, with f updated to reference the relocated q. They never have an in-scope path and the run explicitly reads neither.",
+        "Run on a main descendant. Compare N-MOVE-OUT, where there is a prior in-scope witness."
+      ],
+      "expected": {
+        "outcome": "ANY",
+        "invariants": [
+          {
+            "finding_absent": "f"
+          },
+          {
+            "not_class": [
+              "retirement-blocked"
+            ]
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.1",
+        "R6.OBL29.5"
+      ],
+      "note": "R-7. The fixed selector requires either a regular in-scope entry or an explicit input record."
+    },
+    {
+      "id": "B-CANDIDATE-ONLY",
+      "kind": "boundary",
+      "setup": [
+        "Create synthetic candidate-side commits X and C carrying a candidate fixture q and f, with q naming a side change already applicable at M.",
+        "Neither the candidate commits nor identical q/f entries are reachable from M, F or REV. Neither is explicitly read. Evaluate category-3 detection if the run reaches it."
+      ],
+      "expected": {
+        "outcome": "ANY",
+        "invariants": [
+          {
+            "finding_absent": "f"
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.1",
+        "R6.OBL29.2"
+      ],
+      "note": "Incidental candidate content does not add a finding. Existing candidate-tree and admission checks retain their own outcomes."
     },
     {
       "id": "B-MAIN-REWRITE",
@@ -1210,7 +1605,7 @@
       "id": "B-REC6-REJECTION",
       "kind": "boundary",
       "setup": [
-        "c1: land a record x with an accepting review and a second non-author review rejecting one item",
+        "c1: land a record x of a kind outside category-3 reassessment and repair, with an accepting review and a second non-author review rejecting one item",
         "c2: delete the rejecting review",
         "run reading x"
       ],
@@ -1228,7 +1623,7 @@
       "requirements": [
         "R6.OBL29.10"
       ],
-      "note": "scope for the owner"
+      "note": "Owner scope decision in section 5.6, independent of the required correction for reassessment and repair."
     }
   ]
 }
