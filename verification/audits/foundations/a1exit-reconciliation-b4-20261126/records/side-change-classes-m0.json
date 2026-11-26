@@ -4,8 +4,8 @@
  "status": "UNREVIEWED DRAFT: prepared by the writer named in author; no independent review record exists. Not usable by any run until an oi-review-record/1 by a non-author reviewer names this blob (design r6 R6.REC.2, R6.REC.6, R6.TREE.5).",
  "author": "b4-records-writer-20261126",
  "supersedes": null,
- "M0": "02b8e20839d4700de721f8427b3fe9f3c746b71f",
- "scope": "every path that differs between H (53c6601a10419b6b333cc992474272501ab542af) and M0 (02b8e20839d4700de721f8427b3fe9f3c746b71f) and is neither a ledgered or corpus path (base-drift, R6.TREE.7) nor a path of the tool's landing domain (tools/ledger_coverage.py, tools/ledger_coverage/, verification/audits/foundations/ledger-coverage-tool-20261123/, .github/workflows/ledger-coverage.yml), which the tool-landing class record classifies. Each pin binds one path to its exact blob at M0; no class has a prefix. A blob that differs from its pin at the run's M leaves the path side-change-unclassified.",
+ "M0": "e8271d9d64e51cc6eb69a53ea2f5b80d490503a4",
+ "scope": "every path that differs between H (53c6601a10419b6b333cc992474272501ab542af) and M0 (e8271d9d64e51cc6eb69a53ea2f5b80d490503a4) and is neither a ledgered or corpus path (base-drift, R6.TREE.7) nor a path of the tool's landing domain (tools/ledger_coverage.py, tools/ledger_coverage/, verification/audits/foundations/ledger-coverage-tool-20261123/, .github/workflows/ledger-coverage.yml), which the tool-landing class record classifies. Each pin binds one path to its exact blob at M0; no class has a prefix. A blob that differs from its pin at the run's M leaves the path side-change-unclassified.",
  "classes": [
   {
    "id": "m0-tool-configuration",
@@ -45,52 +45,6 @@
      "blob_sha256": "3d196b3b2abbb4fd627c56ed0a766962eaf69e18fba1c464267ad86e3219037a",
      "side_change_commits": [
       "02b8e20839d4700de721f8427b3fe9f3c746b71f"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "m0-derived-artifacts-1560",
-   "reason": "generated .tex artifacts and the sc42 result file changed by the merge of #1560 (4c3ad0796); delegated paths of the tex and sc42 classes",
-   "pins": [
-    {
-     "path": "book/The-Incompleteness-of-Observation-FULL.tex",
-     "git_blob": "5299761c54aae6781688a625da0014e6b0f69150",
-     "blob_sha256": "f894e528e936f0f46175b90a935390418ac3d5c0417212ab4f9dbd181eef9a3d",
-     "side_change_commits": [
-      "4c3ad0796b578c6258d5aae58c9502d5155d74dc"
-     ]
-    },
-    {
-     "path": "papers/Main.tex",
-     "git_blob": "637f6b081da78704d1c522b9b5ca01b1e6744d6f",
-     "blob_sha256": "0603fbcefabb7f5eb1be7b527b1820fe3a8f7ceb5044b15396bcd5d56ac5293a",
-     "side_change_commits": [
-      "4c3ad0796b578c6258d5aae58c9502d5155d74dc"
-     ]
-    },
-    {
-     "path": "papers/SM.tex",
-     "git_blob": "398a84ac8e2b7cb5b61a53f11196244e2e165beb",
-     "blob_sha256": "cbf0e4ced9b8df6df89221456a4b72cfd963b0866500a81af70f7a3ea7302a7d",
-     "side_change_commits": [
-      "4c3ad0796b578c6258d5aae58c9502d5155d74dc"
-     ]
-    },
-    {
-     "path": "papers/Substratum.tex",
-     "git_blob": "04a6830b29e74703daf2e537d0060a548615fc75",
-     "blob_sha256": "9377d7982f208b470d633996a0b175ee27897534262b1b1e3c82d8087321c13e",
-     "side_change_commits": [
-      "4c3ad0796b578c6258d5aae58c9502d5155d74dc"
-     ]
-    },
-    {
-     "path": "verification/audits/manuscript/bell-operational-reconciliation-20261029/sc42-integration-result.json",
-     "git_blob": "d07842a4235af2b68cc12b8d7462f6c6967f6d6d",
-     "blob_sha256": "c386720cbb0d464586bddf8629535f1a94b5025461a9f4434a8d8eb2f50cea3c",
-     "side_change_commits": [
-      "4c3ad0796b578c6258d5aae58c9502d5155d74dc"
      ]
     }
    ]
