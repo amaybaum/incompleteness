@@ -22537,13 +22537,57 @@
       ]
      },
      {
-      "case": "countercase: a result whose resolution_validity holds a value other than does-not-hold or not-established (a schema error, which the schema decides); and, checked by the runner against the fixture's known matched finding or carried site and not by the schema, a landing item of that finding or site whose resolution, verdict or hold was not kept that lacks the field, or another item that carries it",
+      "case": "countercase: the JSON Schema checks a copy of the case 7 result with the carried site's resolution_validity changed to a value outside the enum",
       "outcome": "PREDICATE",
       "invariants": [
        {
         "schema_errors": [
          "resolution_validity value not does-not-hold or not-established"
         ]
+       }
+      ]
+     },
+     {
+      "case": "placement: construct the RECON-TRIAL case 30 fixture with one affected carried site whose synthetic sitemap id is recon-enum-context-site, and an unrelated deny hit on a separate path. Retain the sitemap and the unmodified landing control-result.json in the evidence manifest",
+      "outcome": "FAIL",
+      "counts": {
+       "items[subject=recon-enum-context-site,class=context-meaning-unverified]": 1,
+       "items[resolution_validity_nonempty]": 1
+      },
+      "invariants": [
+       {
+        "items_include": [
+         {
+          "subject": "recon-enum-context-site",
+          "class": "context-meaning-unverified",
+          "resolution_validity": "does-not-hold"
+         }
+        ]
+       },
+       {
+        "schema_errors": []
+       }
+      ]
+     },
+     {
+      "case": "placement: construct the RECON-TRIAL case 23 fixture with one affected carried site whose synthetic sitemap id is recon-enum-count-site, and an unrelated deny hit on a separate path. Retain the sitemap and the unmodified landing control-result.json in the evidence manifest",
+      "outcome": "FAIL",
+      "counts": {
+       "items[subject=recon-enum-count-site,class=context-meaning-unverified]": 1,
+       "items[resolution_validity_nonempty]": 1
+      },
+      "invariants": [
+       {
+        "items_include": [
+         {
+          "subject": "recon-enum-count-site",
+          "class": "context-meaning-unverified",
+          "resolution_validity": "not-established"
+         }
+        ]
+       },
+       {
+        "schema_errors": []
        }
       ]
      }

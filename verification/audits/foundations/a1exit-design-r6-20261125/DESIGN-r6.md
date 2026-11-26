@@ -6082,8 +6082,9 @@ Sources: PR #1593 comments 7189621405, 7190234470, 7190255132 (D1) and 719060950
 - on an item of the reconciled-state trial at the landing, `resolution_validity`, `"does-not-hold"` or
   `"not-established"` (R6.RECON.23): present exactly on the item of a matched finding whose resolution at `X` was not
   kept and on the item of a site whose carried verdict or hold is not kept, and absent on every other item; its
-  presence is decided against the run's matched findings and carried sites, and a control's runner checks it against
-  the fixture's known matched finding or site, not against the result's schema alone;
+  presence is decided against the run's matched findings and carried sites. For the RECON-ENUM placement checks,
+  the independent gate reads `resolution_validity` from the retained result's items (R6.GATE.8) and compares the
+  tagged items with the fixture's known subjects. The JSON Schema checks the field's enum form;
 - `category3`: `{findings, blocked, reassessments}`: `findings` `[{record, item}]`, with `record` a reference and
   `item` as R6.RECON.27's `finding.item`; `blocked` `[{record, item, edit}]`, `edit` null for a run-level binding;
   `reassessments` the references of the applying reassessments;
