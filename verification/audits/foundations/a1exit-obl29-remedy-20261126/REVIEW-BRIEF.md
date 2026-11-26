@@ -1,6 +1,6 @@
-# OBL-29 remedy r4 independent review brief
+# OBL-29 remedy r5 independent review brief
 
-Review DESIGN.md and CONTROLS.json at the same r4 revision. Use amendment 6 r5 at
+Review DESIGN.md and CONTROLS.json at the same r5 revision. Use amendment 6 r5 at
 `1f5764572a98b7ae2f306e121e2e410f79c29daf` to reconstruct the defect and r10 at
 `4fee62cff40b1acf52357fa177752f2d5b231dfa` to check compatibility with the current draft on
 #1593. The authority is amaybaum's paper-only and review directions of 2026-11-26 at
@@ -8,7 +8,9 @@ Review DESIGN.md and CONTROLS.json at the same r4 revision. Use amendment 6 r5 a
 REVISE at `0b06363c8dbb3d2c7e95a6ca7ab22cdc8cc7d234` (#1601 comment 7191637164).
 The r2 verdict was REVISE at `1a067396370ecbd36acd1c35aec79c674de4f8e3`
 (#1601 comment 7192414933). R3 at `36d9071cac29075e2b57db11a17031760dbfd836`
-received focused REVISE on lineage dependencies (#1601 comment 7192615596). OBL-29 remains an explicit retirement blocker until its remedy is implemented and
+received focused REVISE on lineage dependencies (#1601 comment 7192615596). R4 at
+`dd1ca3bc40ffe822928986bba9b8a5d67e8a91b9` received focused REVISE on mutable
+competing-successor evidence (#1601 comment 7192760996). OBL-29 remains an explicit retirement blocker until its remedy is implemented and
 independently verified. Adoption, implementation and trial execution require separate
 authorization.
 
@@ -25,9 +27,13 @@ authorization.
    omitted items and duplicate accepted items. Check the existing lineage anchors and
    normal positive reviews. In the applying A–Q–P case, verify that dissent of an
    operative predecessor remains effective after deletion, including at a second hop.
-   Verify the missing-anchor and M-only Q controls. Treat broader historical lint,
-   full lineage admission for M-only Q and historical competing-successor rules as
-   separate scope choices.
+   Verify the missing-anchor and M-only Q controls. For the new sibling successor
+   check, verify the exact edge, eligibility under R6.RECON.2 (d), and the difference
+   between the fixed `F` view, live `REV` scan and cumulative negative evidence.
+   Check the applying baseline, the live conflict, the rerun after deletion and the
+   case that omits `REV`. Verify that none of these supplies a new positive input
+   or anchors a repair found only at `M`. Compare the out-of-scope control and
+   the old-`REV`-only witness gap.
 4. **Reachability and host methods (§2.3 and §6).** Check the proof under ancestry extension
    and both foxtrot controls, including the loss of first-parent reachability for the exact
    side-change id. Check the distinct outcomes of a merge commit, a squash losing an intermediate
@@ -35,7 +41,7 @@ authorization.
    The before-replay comparator is a synthetic topic graph. Check how a changed or abandoned `REV`,
    a rewritten branch, a tag-only or uncommitted finding, a rewrite of `main`, and a file
    always outside the selector limit the guarantee. Evaluate the consequences of losing a
-   prior run's finding, reviewed reference or lint-relevant review. Check that the
+   prior run's finding, reviewed reference, lint-relevant review or qualifying competing successor. Check that the
    land-at-once rule for findings leaves related evidence uncovered. Squash/rebase acceptance
    remains unresolved.
 5. **Roots and selector (R6.OBL29.1 and .5).** Check that `M`, `F`, `REV`, the predicted
@@ -64,14 +70,15 @@ authorization.
    explicitly read records. Verify that `present_at_M` and `witness` require an eligible
    regular mode even when a non-regular entry preserves the same blob id.
 9. **Amendment 6 compatibility (§5.5).** Verify the complete affected inventory,
-   including R6.REC.6, preserved R6.REC.7 anchors and the last reference-resolution
-   sentence of R6.RECON.33.
+   including R6.REC.6, the scoped negative addition to R6.REC.7, its preserved
+   anchors and the last reference-resolution sentence of R6.RECON.33.
    Check that R6.EVID.8 keeps `scanned_paths_within` for the representative scope and
    verifies category-3 reads separately in N10, N11, RT-L2 and RT-O9-L2. Verify the
    REASSESS-FORM lookup wording. Confirm
    R6.RECON.23 and the r10 result fields compose with the category-3 additions.
    Check RECON-BLOCK, GV5’s shallow `terms` case and existing op C fixture object completeness.
-10. **Controls.** Check the focused r3 corrections and verify the r2 corrections are preserved.
+10. **Controls.** Check the competing-successor controls and verify the r2–r4
+    corrections are preserved.
     Check the q1 presence assertion, the still-current finding in the reassessment and
     repair deletion comparisons, the historical self-review case and the true category-3
     result needed by B-CANDIDATE-ONLY. Check that the assertions distinguish missing or
@@ -80,10 +87,13 @@ authorization.
     (b) or (c) entries at `4bb48cddec206e567639fa863ecce852ddd8350e`. Independently
     assess P-ACTUAL-MAIN on full history at `942bd5ea1fd09f4223012b0755bce2d6da07c44a`
     and P-TL-CLEAN on the complete predicted `R*`, including inherited history, when
-    independently evaluated. Those exact-history checks remain unverified. The r4 revision
+    independently evaluated. Those exact-history checks remain unverified. The r5 revision
     adds no history scan or trial execution.
 12. **Owner decisions (§5.6).** Give a recommendation and consequences for traversal,
     squash/rebase reachability, formally correcting a mistaken independent finding,
-    broader R6.REC.6 scope, any future R6.REC.7 scope expansion and rename granularity. Assess whether each option preserves
+    broader R6.REC.6 scope, any future R6.REC.7 scope expansion and rename granularity.
+    Assess sibling eligibility and the available routes for a genuine retained conflict.
+    Any policy permitting use of the disputed edge requires a separate decision.
+    Assess whether each option preserves
     the original evidence and keeps a binding obligation in force until its discharge
     is established. The owner decides adoption and any residual risk acceptance.

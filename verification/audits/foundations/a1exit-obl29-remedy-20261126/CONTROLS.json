@@ -1,6 +1,6 @@
 {
   "schema": "oi-obl29-remedy-controls/draft",
-  "status": "paper design r4, pending independent review and adoption. All controls are specifications. Each would become an expectation row with runner null on adoption.",
+  "status": "paper design r5, pending independent review and adoption. All controls are specifications. Each would become an expectation row with runner null on adoption.",
   "authority": "Owner decisions, amaybaum, #1169 comments 7191104852 (11:44Z) and 7191665350 (12:10Z), 2026-11-26, item 2",
   "base": "design r6 amendment 6 r5 at 1f5764572a98b7ae2f306e121e2e410f79c29daf, cross-checked with amendment 6 r10 at 4fee62cff40b1acf52357fa177752f2d5b231dfa as a proposal",
   "fixture": "Fixture: H; a configuration K frozen at F (round branch from D on main) whose ledger carries edit e on path p; c0 = main at F's designation. f = an oi-review-record/1 file under verification/audits/r/ carrying a well-formed second-kind finding on e by an independent reviewer (verdict invalidates on <p>:scientific_effect, invalidated naming e, configuration naming K), reviewing reconciliation record q in the same directory. Unless stated, the run is op C execution with M = the last listed main commit and no REV. Unless a control changes that condition, q's side_change_commits meet R6.RECON.26's applicability condition at each named M.",
@@ -18,7 +18,9 @@
     "invariants.finding_observed": "the exact reference and item appear in the emitted category3.findings",
     "invariants.admission_mode": "the named ordinary chain or harness admission completed successfully and the result contains category3",
     "invariants.predecessor_review_checked": "the named exact predecessor was resolved under the existing lineage anchor and its review was evaluated for this discharge",
-    "invariants.predecessor_reference_unresolved": "the named exact predecessor was absent from the prescribed lineage anchor and could not be substituted from R*"
+    "invariants.predecessor_reference_unresolved": "the named exact predecessor was absent from the prescribed lineage anchor and could not be substituted from R*",
+    "invariants.conflicting_successor": "the exact successor and predecessor references are identified as ambiguous for an operative discharge",
+    "invariants.live_REV_record_admitted": "the named unrelated reconciliation record passes its own existing post-freeze admission"
   },
   "kinds": {
     "negative": "a removal that must not lift the block",
@@ -1515,6 +1517,204 @@
         "R6.RECON.27"
       ],
       "note": "The repair lookup keeps its direct review check and does not create a new lineage route. This fixture checks the boundary with N-REASSESS-PREDECESSOR-ANCHOR."
+    },
+    {
+      "id": "P-MUTABLE-SUCCESSOR-BASELINE",
+      "kind": "positive",
+      "setup": [
+        "Use variant Q of P-REASSESS-OPERATIVE-SUPERSEDES. A cites Q at M; the admitted configuration at F2 pins Q and its review independently of any REV. Q supersedes exact P, and that existing R6.REC.7 check is operative for A. The finding f still binds absent an applying discharge.",
+        "Keep all existing positive authorities and applicable repair commits. Admit an independently valid post-freeze record T0 from REV0 on the current M to reconcile a different changed path. T0 and its review meet R6.RECON.2 and do not reference Q or P.",
+        "No scanned or durable record has a competing successor relation to exact P. Check the nonvacuous category-3 result, the live REV admission and the applying reassessment."
+      ],
+      "expected": {
+        "outcome": "ANY",
+        "finding": {
+          "present_at_M": true,
+          "witness": "M"
+        },
+        "invariants": [
+          {
+            "live_REV_record_admitted": "T0"
+          },
+          {
+            "predecessor_review_checked": "P"
+          },
+          {
+            "reassessment_applies": "A"
+          },
+          {
+            "finding_unblocked": "f"
+          },
+          {
+            "not_class": [
+              "record-invalid",
+              "retirement-blocked"
+            ]
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.3",
+        "R6.OBL29.4",
+        "R6.REC.7",
+        "R6.RECON.2",
+        "R6.RECON.27"
+      ],
+      "note": "The independent REV admission brings the live scan into the check but supplies no positive authority for Q or P."
+    },
+    {
+      "id": "N-MUTABLE-SUCCESSOR-DELETED",
+      "kind": "countercase",
+      "setup": [
+        "Verify that P-MUTABLE-SUCCESSOR-BASELINE applies with no competing successor. On the next M land a regular, R6.RECON.2 (d)-eligible reconciliation record S, distinct from Q, of the same schema and lineage and superseding the same exact P. S is selected by the scan without being named as an admitted record.",
+        "Build and admit an unrelated valid T1 in REV1 on that M, on the same independent route as T0. Verify that R6.REC.7 sees S and the check for Q fails with record-invalid and retirement-blocked. No failure of T1 admission or competing coverage of its path supplies that outcome.",
+        "On the next M delete only S and rebuild an independently valid T2 and its review in a new REV2 on that M. Its live scan lacks S. Re-run with the same F2, exact Q and P, original positive reviews and current finding and repair."
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "record-invalid",
+          "retirement-blocked"
+        ],
+        "finding": {
+          "present_at_M": true,
+          "witness": "M"
+        },
+        "invariants": [
+          {
+            "live_REV_record_admitted": "T2"
+          },
+          {
+            "conflicting_successor": "Q and historical S name exact P"
+          },
+          {
+            "record_invalid_for": "A through Q’s competing-successor check"
+          },
+          {
+            "reassessment_absent": "A"
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.3",
+        "R6.REC.7",
+        "R6.RECON.2",
+        "R6.RECON.27"
+      ],
+      "note": "The original live ambiguity disappears from REV2. The exact S still has a qualifying witness in M ancestry, so neither deletion nor rebuilding REV restores A."
+    },
+    {
+      "id": "N-MUTABLE-SUCCESSOR-OMIT-REV",
+      "kind": "countercase",
+      "setup": [
+        "Use the durable S history and unchanged F2, Q, P and positive repair evidence from N-MUTABLE-SUCCESSOR-DELETED.",
+        "Repeat the same discharge check without optional REV. Keep the ordinary chain route admitted and require its category-3 result. Q and its operative lineage check still come from the fixed configuration."
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "record-invalid",
+          "retirement-blocked"
+        ],
+        "finding": {
+          "present_at_M": true,
+          "witness": "M"
+        },
+        "invariants": [
+          {
+            "conflicting_successor": "Q and historical S name exact P"
+          },
+          {
+            "reassessment_absent": "A"
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.3",
+        "R6.REC.7",
+        "R6.RECON.27"
+      ],
+      "note": "Omitting the mutable scan root does not discard S already witnessed in M ancestry. The rule does not admit Q through a missing REV."
+    },
+    {
+      "id": "P-SUCCESSOR-OUTSIDE-DISCHARGE-SCOPE",
+      "kind": "positive",
+      "setup": [
+        "Use P-MUTABLE-SUCCESSOR-BASELINE. Variant unrelated: put a durable scan-eligible competing pair on a different exact predecessor outside the operative discharge edges. Neither record is an independently used input. Keep the unrelated pair absent from the live REV scan in this variant to isolate the historical addition.",
+        "Variant excluded: put a durable same-lineage sibling of Q outside the R6.RECON.2 (d) scan domain, within a tool-landing prefix of the same frozen configuration, and give it no category-3 finding.",
+        "Variant fixed F: retain a same-lineage sibling of Q only in an ancestor of F2 on its freeze branch, absent at F2 itself and absent from M ancestry and REV. It is not an explicit input. Keep the original frozen resolution anchors and their ordinary lineage checks.",
+        "Variant M-only: use P-REPAIR-SUPERSEDES-M-ONLY, with a durable sibling of Q. Q does not have an operative R6.REC.7 lineage check and no other admitted record uses that lineage.",
+        "Require A to apply with the real f still detected in each variant. Keep the prescribed positive input and any unrelated live admission valid."
+      ],
+      "expected": {
+        "outcome": "ANY",
+        "finding": {
+          "present_at_M": true,
+          "witness": "M"
+        },
+        "invariants": [
+          {
+            "reassessment_applies": "A"
+          },
+          {
+            "finding_unblocked": "f"
+          },
+          {
+            "not_class": [
+              "record-invalid",
+              "retirement-blocked"
+            ]
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.3",
+        "R6.OBL29.5",
+        "R6.REC.7",
+        "R6.RECON.2",
+        "R6.RECON.27"
+      ],
+      "note": "The retained negative set is scoped to an existing discharge check, the exact predecessor relation and the original mutable scan selector."
+    },
+    {
+      "id": "B-SUCCESSOR-OLD-REV-ONLY",
+      "kind": "boundary",
+      "setup": [
+        "Use the applying P-MUTABLE-SUCCESSOR-BASELINE and preserve the immutable inputs. In REV1 add eligible S as a separate regular file alongside the independently valid unrelated T1 and its review. S never appears in a tree reachable from M or F2. The live scan sees S, making the Q to P edge ambiguous and blocking A.",
+        "Leave REV1 unmerged, without taking a main commit that contains S. On a later M build an otherwise valid unrelated T2 and review in REV2, with no S, and re-run with the same F2 and current repair evidence.",
+        "Check that no current root or verified explicit input reaches the old REV1 or contains any exact S witness. Keep the current finding so the outcome shows the actual reassessment result."
+      ],
+      "expected": {
+        "outcome": "ANY",
+        "finding": {
+          "present_at_M": true,
+          "witness": "M"
+        },
+        "invariants": [
+          {
+            "live_REV_record_admitted": "T2"
+          },
+          {
+            "reassessment_applies": "A"
+          },
+          {
+            "finding_unblocked": "f"
+          },
+          {
+            "not_class": [
+              "record-invalid",
+              "retirement-blocked"
+            ]
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.1",
+        "R6.OBL29.3",
+        "R6.REC.7",
+        "R6.RECON.27"
+      ],
+      "note": "Unaccepted R-1 limit. Changing or omitting optional REV can still lose a successor whose only witness was the previously named REV. A missing required object within an actual root instead produces ERROR."
     },
     {
       "id": "P-REMOVE-EDIT",
