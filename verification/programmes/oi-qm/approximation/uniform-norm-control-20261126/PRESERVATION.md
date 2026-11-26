@@ -20,7 +20,9 @@ before this file).
 - `REPORT-r3.md` (r3, commit `626628da47c75f045de32762ebb8e8443912959a`).
 
 **Change maps.** `CHANGES-r2.md`, `CHANGES-r3.md` and `CHANGES-r4.md` map each change to its review
-finding. r3 and r4 change text only: no result, proof or status changes after r2.
+finding. r3 and r4 change text only: they narrow what CC-p is stated to show (law boundedness F1
+alone does not bound the norms; the soundness term alone is not tested) and repair the opening
+sentence of (U-a). No result, proof, constant or status changes after r2.
 
 **Plan.** `PLAN.md` (commit `de3447139fa13ce8ba1c84baa66d6302c03fa48f`) fixes the questions U1–U3
 and CC-L, the decision rule N1–N4, the controls and the stopping conditions. It is not superseded.
@@ -111,8 +113,9 @@ obtained.
 **Countercontrols.**
 - **Prop X1:** gauge-conjugate theories S∘Q∘S^{-1} with tr∘S = tr and M_C < ε have all norms at
   most 32(1+2ε)/(1−16ε).
-- **Prop X2:** T_− = −Q (and T_ω = ωQ, ω^K = 1, ω ≠ 1) has M_C = 0 at every m, norms 1, and
-  Lemma 7's conclusion fails; it lies in class(η) only for η_a, η_c, η_d, η_e ≥ 2. It is not CC-L.
+- **Prop X2:** for K even, T_− = −Q (and, for any K, T_ω = ωQ with ω^K = 1, ω ≠ 1) has M_C = 0
+  at every m, norms 1, and Lemma 7's conclusion fails; it lies in class(η) only for η_a, η_c,
+  η_d, η_e ≥ 2. It is not CC-L.
 - **CC-s:** T_s satisfies M_C < ε only if ((1+s)^K − 1)/2 < ε, hence only if s < 2ε/K; it is not a
   CC-L candidate.
 - **CC-p:** with S^{-1} the depolarizing channel C_p, F1 holds exactly, the coverage term is at
@@ -205,9 +208,10 @@ commits reachable from `main`:
 
 That `PLAN.md`'s commit precedes every report commit is part of the record's provenance.
 
-The owner decision of 2026-11-26T19:52Z, item 3, makes preservation subject to the record's
-remaining verification and landing requirements, and keeps every existing gate in force. Merging
-needs the owner's approval (§A.50 item 1).
+The owner decision of 2026-11-26T19:52Z, item 3 ("Preserve #1612, #1614 and #1611 at their
+reviewed landing heads, subject to their remaining verification and landing requirements"), is the
+owner's approval of this merge (§A.50 item 1), subject to the review of this file and green CI. The
+same decision keeps every existing gate in force.
 
 ## 6. Preservation rationale
 
@@ -223,14 +227,14 @@ It establishes:
 - **the reduction of the converse to the single number φ = ‖c′(id) − id‖**, each direction proved
   separately (Theorem U), which locates unit 3's padding obstruction (W4) in that route rather than
   in the converse;
-- **that g is finite whenever ε < 1/16** (Corollary G1), which removes unit 3's g = ∞ branch
-  (routing only);
+- **that g is finite whenever ε < 1/16, m ≥ 2 and K ≥ 2** (Corollary G1), which excludes unit 3's
+  g = ∞ branch in that range (routing only);
 - **that M_C < ε at m, K ≥ 2 does not by itself give the converse, even with bounded norms**
-  (Prop X2, at η ≥ 2 only);
+  (Prop X2, with K even for T_−, or T_ω with ω^K = 1, ω ≠ 1; at η ≥ 2 only);
 - **the exclusion of two candidate countercontrol classes** and necessary conditions for CC-L.
 
-It is substantive and nonredundant with units 2 and 3, it is independently reviewed, and its open
-gaps carry the remediation plans of §3.
+It is substantive and nonredundant with units 2 and 3, it is independently reviewed by the model
+reviews of §1, and its open gaps carry the remediation plans of §3.
 
 ## 7. Standing of this record
 
