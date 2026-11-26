@@ -1,9 +1,9 @@
 {
   "schema": "oi-obl29-remedy-controls/draft",
-  "status": "paper design r5, pending independent review and adoption. All controls are specifications. Each would become an expectation row with runner null on adoption.",
-  "authority": "Owner decisions, amaybaum, #1169 comments 7191104852 (11:44Z) and 7191665350 (12:10Z), 2026-11-26, item 2",
-  "base": "design r6 amendment 6 r5 at 1f5764572a98b7ae2f306e121e2e410f79c29daf, cross-checked with amendment 6 r10 at 4fee62cff40b1acf52357fa177752f2d5b231dfa as a proposal",
-  "fixture": "Fixture: H; a configuration K frozen at F (round branch from D on main) whose ledger carries edit e on path p; c0 = main at F's designation. f = an oi-review-record/1 file under verification/audits/r/ carrying a well-formed second-kind finding on e by an independent reviewer (verdict invalidates on <p>:scientific_effect, invalidated naming e, configuration naming K), reviewing reconciliation record q in the same directory. Unless stated, the run is op C execution with M = the last listed main commit and no REV. Unless a control changes that condition, q's side_change_commits meet R6.RECON.26's applicability condition at each named M.",
+  "status": "paper design r6, pending independent review and adoption. All controls are specifications. Each would become an expectation row with runner null on adoption.",
+  "authority": "Owner decisions, amaybaum, #1169 comments 7191104852 (11:44Z) and 7191665350 (12:10Z), 2026-11-26, item 2. Owner’s r6 paper policy, amaybaum, #1169 comment 7193274406 at 13:22 UTC",
+  "base": "defect analyzed against Amendment 6 r5 at 1f5764572a98b7ae2f306e121e2e410f79c29daf. Operative comparison is adopted Amendment 6 r13 at 5ad8837521de0a26734266a64f91548fd3dcff1e, #1593 comment 7193277489.",
+  "fixture": "Fixture: H; a configuration K frozen at F (round branch from D on main) whose ledger carries edit e on path p; c0 = main at F's designation. f = an oi-review-record/1 file under verification/audits/r/ carrying a well-formed second-kind finding on e by an independent reviewer (verdict invalidates on <p>:scientific_effect, invalidated naming e, configuration naming K), reviewing reconciliation record q in the same directory. Unless stated, the run is op C execution with M = the last listed main commit and no REV. Unless a control changes that condition, q's side_change_commits meet R6.RECON.26's applicability condition at each named M. For an otherwise applying non-null repair, assume verifiable complete custody of its relevant historical inputs unless a control changes that condition. Proposed adjudication controls are conditional on an authorized admitted evidence route and confer no authority.",
   "expected_vocabulary": {
     "outcome": "FAIL, ERROR, PASS or ANY, as in EXPECTATIONS.json; ERROR means no verdict",
     "classes_include": "result classes that must appear",
@@ -20,7 +20,11 @@
     "invariants.predecessor_review_checked": "the named exact predecessor was resolved under the existing lineage anchor and its review was evaluated for this discharge",
     "invariants.predecessor_reference_unresolved": "the named exact predecessor was absent from the prescribed lineage anchor and could not be substituted from R*",
     "invariants.conflicting_successor": "the exact successor and predecessor references are identified as ambiguous for an operative discharge",
-    "invariants.live_REV_record_admitted": "the named unrelated reconciliation record passes its own existing post-freeze admission"
+    "invariants.live_REV_record_admitted": "the named unrelated reconciliation record passes its own existing post-freeze admission",
+    "invariants.qualified_witness_retained": "independent replay verifies the exact original adverse evidence and its original scope, including any predecessor, repair and successor references",
+    "invariants.custody_complete": "verification establishes the custody starting point and relevant historical coverage, including authorized originating scopes and retained decisions",
+    "invariants.verified_clearance": "the substantive disposition is independently verified for the specified exact witness, with required authorization and positive admissibility",
+    "invariants.clearance_history_retained": "the original witness, original context, all reviewed corrections or adjudications, and their provenance remain available and verifiable"
   },
   "kinds": {
     "negative": "a removal that must not lift the block",
@@ -1637,6 +1641,205 @@
       "note": "Omitting the mutable scan root does not discard S already witnessed in M ancestry. The rule does not admit Q through a missing REV."
     },
     {
+      "id": "N-REFREEZE-SELECTOR-WIDENED",
+      "kind": "countercase",
+      "setup": [
+        "Use N-MUTABLE-SUCCESSOR-DELETED with complete protected-main custody of the qualified S in the original F2 context. Keep Q, P, its relevant reviews and the finding current or valid under existing input rules.",
+        "Use a legitimately admitted revised freeze F3 with a broader tool-landing prefix covering S’s old path. Move neither the original witness nor Q. The broader exclusion leaves Q’s current repair path eligible. With no other changes to the repair, the current selector alone would exclude S.",
+        "Run twice with the identical frozen inputs. Verify S’s original selector eligibility and exact link to Q’s repair basis from retained custody in both runs."
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "record-invalid",
+          "retirement-blocked"
+        ],
+        "finding": {
+          "present_at_M": true,
+          "witness": "M"
+        },
+        "invariants": [
+          {
+            "qualified_witness_retained": "S under F2"
+          },
+          {
+            "custody_complete": true
+          },
+          {
+            "reassessment_absent": "the reassessment relying on Q"
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.3",
+        "R6.OBL29.5",
+        "R6.OBL29.6",
+        "R6.RECON.27"
+      ],
+      "note": "A later selector cannot retroactively change qualification. The repeated outcome may change only when actual clearance evidence changes."
+    },
+    {
+      "id": "N-REFREEZE-OPERATIVE-PIN-REMOVED",
+      "kind": "countercase",
+      "setup": [
+        "Start once with the qualified sibling S from N-MUTABLE-SUCCESSOR-DELETED and once with the eligible dissent of P from variant Q of N-OPERATIVE-PREDECESSOR-DISSENT-DELETED. Retain the original F2 admission of Q and the exact adverse evidence in verified custody.",
+        "Use a legitimately admitted F3 whose reassessment cites the identical repair blob, entry path and repair commits. F3 removes the independent reconciliation-record pin for Q. The current repair entry and its positive same-directory review still qualify at M. Q is now reached only by the current repair lookup.",
+        "Do not introduce an operative R6.REC.7 check through the M-only lookup. Require the original qualified witness to constrain use of this same repair. A second run under the same F3 inputs also keeps the block."
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "record-invalid",
+          "retirement-blocked"
+        ],
+        "finding": {
+          "present_at_M": true,
+          "witness": "M"
+        },
+        "invariants": [
+          {
+            "qualified_witness_retained": "S or the eligible P dissent under F2"
+          },
+          {
+            "custody_complete": true
+          },
+          {
+            "reassessment_absent": "the reassessment relying on Q"
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.3",
+        "R6.OBL29.4",
+        "R6.OBL29.6",
+        "R6.REC.7",
+        "R6.RECON.27"
+      ],
+      "note": "Removing the pin removes neither the repair identity nor the previously qualified adverse evidence. The M-only route without a previously qualified dispute remains covered by P-REPAIR-SUPERSEDES-M-ONLY."
+    },
+    {
+      "id": "P-REFREEZE-CORRECTED-REPAIR",
+      "kind": "positive",
+      "setup": [
+        "Use one of the same-disputed-repair fixtures. Establish from complete custody that the original witness really qualified. Preserve the original finding, exact records, original configuration, review history and source objects.",
+        "Under the existing approved record route, tender a substantive replacement repair with its own verified unambiguous basis. Its independently reviewed correction identifies the defect in the former basis and demonstrates a new independently supported repair and why the former dispute does not undermine that new basis. Build the required reviewed A2 and F4 with all ordinary current repair evidence.",
+        "Verify that the replacement’s linkage to the original adverse evidence and the chronological evidence remain available. Check that A2 applies and discharges the original finding only on the independently verified corrected basis."
+      ],
+      "expected": {
+        "outcome": "ANY",
+        "finding": {
+          "present_at_M": true,
+          "witness": "M"
+        },
+        "invariants": [
+          {
+            "qualified_witness_retained": "the original F2 witness"
+          },
+          {
+            "verified_clearance": "independently verified corrected evidence for the specified witness"
+          },
+          {
+            "clearance_history_retained": true
+          },
+          {
+            "reassessment_applies": "A2"
+          },
+          {
+            "finding_unblocked": "f"
+          },
+          {
+            "not_class": [
+              "retirement-blocked",
+              "record-invalid"
+            ]
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.3",
+        "R6.OBL29.4",
+        "R6.OBL29.6",
+        "R6.RECON.27"
+      ],
+      "note": "A real replacement is verified against the original adverse evidence. A changed reference by itself cannot satisfy the control."
+    },
+    {
+      "id": "P-ADJUDICATED-REPAIR-BASIS",
+      "kind": "positive",
+      "setup": [
+        "Paper case conditional on a separately authorized approved route for adjudication. Use complete protected-main custody of the originally qualified Q to P and S to P dispute, its original finding, reviews, source objects and authorization provenance. The exact conflict remains in retained custody and no independent live check rejects the otherwise current repair.",
+        "Under that route retain a substantive disposition naming both exact successors and the predecessor, the exact finding and repair scope, the independently re-derived reasons for selecting the repair basis and the record of that authorization and non-author review. Preserve the full sequence of earlier decisions and evidence.",
+        "In the required admitted freeze use the valid reassessment with every normal positive input still present. Check clearance of this exact dispute and no broader effect. Confirm that the contradictory original evidence remains present and inspectable."
+      ],
+      "expected": {
+        "outcome": "ANY",
+        "finding": {
+          "present_at_M": true,
+          "witness": "M"
+        },
+        "invariants": [
+          {
+            "qualified_witness_retained": "the original Q and S evidence"
+          },
+          {
+            "verified_clearance": "properly authorized independently reviewed substantive adjudication"
+          },
+          {
+            "clearance_history_retained": true
+          },
+          {
+            "reassessment_applies": "the valid reassessment in scope"
+          },
+          {
+            "finding_unblocked": "f"
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.3",
+        "R6.OBL29.4",
+        "R6.OBL29.6",
+        "R6.RECON.27"
+      ],
+      "note": "This tests the proposed semantics once an admitted evidence route is approved. r6 gives no schema or automatic authority for an adjudication."
+    },
+    {
+      "id": "N-REFREEZE-CLEARANCE-UNSUPPORTED",
+      "kind": "countercase",
+      "setup": [
+        "Use the qualified dispute and preserved category-3 finding from N-REFREEZE-OPERATIVE-PIN-REMOVED. In each variant keep the otherwise applicable current repair entry and review.",
+        "Variant cosmetic: give the same repair new selector or supersession metadata or a renamed byte-identical record, without a reviewed correction linked to the original evidence. Variant unsupported correction: claim materially different repair evidence without independent verification of the former dispute and the new basis.",
+        "Variant adjudication: claim clearance through an unapproved input route, without independently reviewed substantive grounds, or with authorization or review for a different exact witness. Variant repeat: run the same frozen inputs again after an unresolved disposition.",
+        "Require the cited reassessment to remain inapplicable in each case. No variant may lose the original qualified witness or acquire new positive authority."
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "record-invalid",
+          "retirement-blocked"
+        ],
+        "finding": {
+          "present_at_M": true,
+          "witness": "M"
+        },
+        "invariants": [
+          {
+            "qualified_witness_retained": "the original verified adverse evidence"
+          },
+          {
+            "reassessment_absent": "the attempted reassessment"
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.3",
+        "R6.OBL29.6",
+        "R6.RECON.27",
+        "R6.RECON.33"
+      ],
+      "note": "The artifact can be a failed claim outside the configuration’s admitted inputs. An attempt to use an unrecognized configured record kind instead fails CONFIG_INVALID under the existing rules."
+    },
+    {
       "id": "P-SUCCESSOR-OUTSIDE-DISCHARGE-SCOPE",
       "kind": "positive",
       "setup": [
@@ -1680,12 +1883,16 @@
       "id": "B-SUCCESSOR-OLD-REV-ONLY",
       "kind": "boundary",
       "setup": [
-        "Use the applying P-MUTABLE-SUCCESSOR-BASELINE and preserve the immutable inputs. In REV1 add eligible S as a separate regular file alongside the independently valid unrelated T1 and its review. S never appears in a tree reachable from M or F2. The live scan sees S, making the Q to P edge ambiguous and blocking A.",
-        "Leave REV1 unmerged, without taking a main commit that contains S. On a later M build an otherwise valid unrelated T2 and review in REV2, with no S, and re-run with the same F2 and current repair evidence.",
-        "Check that no current root or verified explicit input reaches the old REV1 or contains any exact S witness. Keep the current finding so the outcome shows the actual reassessment result."
+        "Use the applying P-MUTABLE-SUCCESSOR-BASELINE. In REV1 an eligible S appears as a separate regular file alongside independently valid unrelated T1 and its review. The live scan makes the Q to P edge ambiguous. S never appears on M and this variant does not retain the REV1 source through equivalent verified custody.",
+        "Build valid unrelated REV2 on later M with the same frozen reassessment and repair. The prior authorized scope can be identified, but the evidence needed to close its custody is unavailable. No other current root contains the exact S witness.",
+        "Attempt the same discharge. Distinguish missing custody coverage from an unreadable object that belongs to the required verified read domain."
       ],
       "expected": {
-        "outcome": "ANY",
+        "outcome": "FAIL",
+        "classes_include": [
+          "record-invalid",
+          "retirement-blocked"
+        ],
         "finding": {
           "present_at_M": true,
           "witness": "M"
@@ -1695,16 +1902,10 @@
             "live_REV_record_admitted": "T2"
           },
           {
-            "reassessment_applies": "A"
+            "custody_complete": false
           },
           {
-            "finding_unblocked": "f"
-          },
-          {
-            "not_class": [
-              "record-invalid",
-              "retirement-blocked"
-            ]
+            "reassessment_absent": "A"
           }
         ]
       },
@@ -1714,7 +1915,30 @@
         "R6.REC.7",
         "R6.RECON.27"
       ],
-      "note": "Unaccepted R-1 limit. Changing or omitting optional REV can still lose a successor whose only witness was the previously named REV. A missing required object within an actual root instead produces ERROR."
+      "note": "R-1 remains a coverage gap. With incomplete custody the remedy cannot establish clearance. This does not claim to recover a missing witness or to accept a squash, rebase or abandoned REV. A required unreadable object is ERROR."
+    },
+    {
+      "id": "B-CUSTODY-MISSING-REQUIRED-OBJECT",
+      "kind": "boundary",
+      "setup": [
+        "Use a qualified dispute and a verified protected-main custody entry that names all required source objects, including the original result-independent F and M evidence. The current reassessment uses the disputed repair.",
+        "In a synthetic verified-store fixture withhold a Git object required to replay the qualified witness, or change its content without changing the asserted object id.",
+        "Run the same admitted verification. Its required custody object no longer verifies even though the caller supplies the current repair entry and positive review."
+      ],
+      "expected": {
+        "outcome": "ERROR",
+        "invariants": [
+          {
+            "no_verdict": true
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.3",
+        "R6.OBL29.7",
+        "R6.REC.17"
+      ],
+      "note": "A missing or unverifiable required Git object fails the verified reader. B-SUCCESSOR-OLD-REV-ONLY instead tests demonstrably incomplete custody under otherwise readable inputs."
     },
     {
       "id": "P-REMOVE-EDIT",

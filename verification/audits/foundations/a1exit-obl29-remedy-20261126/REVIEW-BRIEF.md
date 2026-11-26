@@ -1,16 +1,19 @@
-# OBL-29 remedy r5 independent review brief
+# OBL-29 remedy r6 independent review brief
 
-Review DESIGN.md and CONTROLS.json at the same r5 revision. Use amendment 6 r5 at
-`1f5764572a98b7ae2f306e121e2e410f79c29daf` to reconstruct the defect and r10 at
-`4fee62cff40b1acf52357fa177752f2d5b231dfa` to check compatibility with the current draft on
-#1593. The authority is amaybaum's paper-only and review directions of 2026-11-26 at
-11:44Z and 12:10Z, #1169 comments 7191104852 and 7191665350, item 2. The r1 verdict was
+Review DESIGN.md and CONTROLS.json at the same r6 revision. Use amendment 6 r5 at
+`1f5764572a98b7ae2f306e121e2e410f79c29daf` to reconstruct the defect. Verify
+compatibility with the adopted Amendment 6 r13 contract at
+`5ad8837521de0a26734266a64f91548fd3dcff1e` (#1593 comment 7193277489).
+The bounded paper authority and owner policy are in #1169 comments 7191104852,
+7191665350 and 7193274406, the last from amaybaum recorded 2026-11-26 at 13:22 UTC. The r1 verdict was
 REVISE at `0b06363c8dbb3d2c7e95a6ca7ab22cdc8cc7d234` (#1601 comment 7191637164).
 The r2 verdict was REVISE at `1a067396370ecbd36acd1c35aec79c674de4f8e3`
 (#1601 comment 7192414933). R3 at `36d9071cac29075e2b57db11a17031760dbfd836`
 received focused REVISE on lineage dependencies (#1601 comment 7192615596). R4 at
 `dd1ca3bc40ffe822928986bba9b8a5d67e8a91b9` received focused REVISE on mutable
-competing-successor evidence (#1601 comment 7192760996). OBL-29 remains an explicit retirement blocker until its remedy is implemented and
+competing-successor evidence (#1601 comment 7192760996). The r5 review at
+`c11e8d4aa82aa46f0557513d476c6fd5e4f03576` accepted the same-freeze correction
+and identified re-freeze bypasses (#1601 comment 7192888727). OBL-29 remains an explicit retirement blocker until its remedy is implemented and
 independently verified. Adoption, implementation and trial execution require separate
 authorization.
 
@@ -32,8 +35,10 @@ authorization.
    between the fixed `F` view, live `REV` scan and cumulative negative evidence.
    Check the applying baseline, the live conflict, the rerun after deletion and the
    case that omits `REV`. Verify that none of these supplies a new positive input
-   or anchors a repair found only at `M`. Compare the out-of-scope control and
-   the old-`REV`-only witness gap.
+   or anchors a repair found only at `M`. Check requalification under the original
+   freeze in both new re-freeze fixtures, including an earlier adverse review whose
+   operative pin is later removed. Compare the out-of-scope control and check that
+   unverifiable custody of an old-`REV`-only witness leaves discharge inapplicable.
 4. **Reachability and host methods (§2.3 and §6).** Check the proof under ancestry extension
    and both foxtrot controls, including the loss of first-parent reachability for the exact
    side-change id. Check the distinct outcomes of a merge commit, a squash losing an intermediate
@@ -43,7 +48,8 @@ authorization.
    always outside the selector limit the guarantee. Evaluate the consequences of losing a
    prior run's finding, reviewed reference, lint-relevant review or qualifying competing successor. Check that the
    land-at-once rule for findings leaves related evidence uncovered. Squash/rebase acceptance
-   remains unresolved.
+   remains unaccepted without independently demonstrated equivalent evidence custody
+   and lineage preservation.
 5. **Roots and selector (R6.OBL29.1 and .5).** Check that `M`, `F`, `REV`, the predicted
    `M` chain and explicitly read records account for existing category-3 inputs. Check
    B-CANDIDATE-ONLY on both admitted chain and harness runs, including the observable
@@ -62,7 +68,11 @@ authorization.
    reassessment of the original reference and item, and D3 where eligible. Check that
    a deletion, withdrawal, owner approval, supersession or absent evidence cannot
    stand in for discharge. Check that R6.RECON.26 still distinguishes a detected
-   finding from one whose side-change condition makes it bind.
+   finding from one whose side-change condition makes it bind. Verify the scoped repair
+   identity and exact links to the originating witness. Check substantive, independently
+   verified replacement evidence and the conditional properly authorized adjudication
+   route. Confirm retention of the original evidence and full adjudication history.
+   An unresolved witness must survive repeated execution with identical frozen inputs.
 8. **Walk and output (§2 and §4).** Verify that the all-parent walk terminates at verified
    parentless commits, the first-parent-diff calculation returns the same entry set, and
    any unreadable required object produces ERROR with no verdict. Check that the
@@ -75,10 +85,12 @@ authorization.
    Check that R6.EVID.8 keeps `scanned_paths_within` for the representative scope and
    verifies category-3 reads separately in N10, N11, RT-L2 and RT-O9-L2. Verify the
    REASSESS-FORM lookup wording. Confirm
-   R6.RECON.23 and the r10 result fields compose with the category-3 additions.
+   R6.RECON.23 and adopted r13's retained-result and input verification for
+   RECON-ENUM compose with the category-3 additions.
    Check RECON-BLOCK, GV5’s shallow `terms` case and existing op C fixture object completeness.
-10. **Controls.** Check the competing-successor controls and verify the r2–r4
-    corrections are preserved.
+10. **Controls.** Check both re-freeze bypasses, the two substantive clearance routes
+    and the unsupported-clearance and incomplete-custody controls. Verify the r2–r5
+    corrections are preserved, with the earlier missing-custody case now failing closed.
     Check the q1 presence assertion, the still-current finding in the reassessment and
     repair deletion comparisons, the historical self-review case and the true category-3
     result needed by B-CANDIDATE-ONLY. Check that the assertions distinguish missing or
@@ -87,13 +99,11 @@ authorization.
     (b) or (c) entries at `4bb48cddec206e567639fa863ecce852ddd8350e`. Independently
     assess P-ACTUAL-MAIN on full history at `942bd5ea1fd09f4223012b0755bce2d6da07c44a`
     and P-TL-CLEAN on the complete predicted `R*`, including inherited history, when
-    independently evaluated. Those exact-history checks remain unverified. The r5 revision
+    independently evaluated. Those exact-history checks remain unverified. The r6 revision
     adds no history scan or trial execution.
-12. **Owner decisions (§5.6).** Give a recommendation and consequences for traversal,
-    squash/rebase reachability, formally correcting a mistaken independent finding,
-    broader R6.REC.6 scope, any future R6.REC.7 scope expansion and rename granularity.
-    Assess sibling eligibility and the available routes for a genuine retained conflict.
-    Any policy permitting use of the disputed edge requires a separate decision.
-    Assess whether each option preserves
-    the original evidence and keeps a binding obligation in force until its discharge
-    is established. The owner decides adoption and any residual risk acceptance.
+12. **Owner decisions (§5.6).** Check the proposed implementation of the recorded
+    retention and clearance policy. Review the evidence needed to verify a complete
+    custody starting point and the limits of current clearance inputs. Scope decisions
+    on broader lint, lineage admission for M-only repairs, mistaken-finding correction
+    and rename granularity remain separate. OBL-29 adoption and any new adjudication
+    admission mechanism require separate authority.
