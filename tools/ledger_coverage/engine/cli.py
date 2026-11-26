@@ -963,7 +963,8 @@ def site_state(so):
     provenance-adjudicated for a site its HP adjudication resolves (R6.HP.7, distinct from every segment status);
     else its last segment status."""
     last = so['statuses'][-1]['status'] if so['statuses'] else None
-    if 'current' in so and so['current'] is None and last != 'authorized-removal':
+    # an authorized removal and an HP site keep their own state (an HP site's region is decided by its walk)
+    if 'current' in so and so['current'] is None and last != 'authorized-removal' and not so.get('hp_steps'):
         return 'unresolved'
     if so.get('provenance_adjudicated'):
         return 'provenance-adjudicated'
