@@ -991,6 +991,7 @@ def tree_controls(a, tool_files):
         out['landed_unbound'] = sorted(p for p in tool_files if (sc.get(p) or {}).get('class') in (None, 'base-drift'))
         out['landed_classes'] = dict(collections.Counter(str((sc.get(p) or {}).get('class')) for p in tool_files))
         out['agents_md'] = {k: (sc.get('AGENTS.md') or {}).get(k) for k in ('class', 'reconciled')}
+        out['rtl2_inputs'] = rtl2_inputs(a, res, recon_arg, H, Mp, X_of(a))
         out['predicted'] = {'exit': code, 'side_changes': res.get('side_changes'),
                             'main_items': sorted((i['class'], i['subject']) for i in res.get('items', [])
                                                  if i['obligation'] == 'MAIN'), 'admission': res.get('config', {}).get('admission')}
@@ -1026,6 +1027,38 @@ def tree_controls(a, tool_files):
                                                  'record is unreviewed (R6.GATE.16)')
     if main is not None:
         rt_o9(a, Mp, recon_arg)
+
+
+def X_of(a):
+    # the candidate of the RT-L2 runs (exec_args' default)
+    return T
+
+
+def rtl2_inputs(a, res, recon_arg, h, m, c):
+    """The rtl2 procedure's inputs (design r6 R6.GATE.16), derived from the run's result: the drifted paths (side
+    changes of class base-drift), each reconciliation record the run was given with `reviewed` (the route listed it
+    with its review) and `review_lint_passes` (no record-invalid item names the record or its review, OBL-28 C-29) and
+    the H, M and C it names, and the run's roles."""
+    items = res.get('items') or []
+    invalid = {i.get('subject') for i in items if i.get('class') == 'record-invalid'}
+    listed = {x.get('path'): x for x in (res.get('inputs') or {}).get('classify_records') or []}
+    recs = []
+    for ref in [recon_arg[k + 1] for k in range(0, len(recon_arg), 2) if recon_arg[k] == '--classify']:
+        rev, path = ref.split(':', 1)
+        try:
+            doc = json.loads(a.repo.read(rev, path))
+        except Exception:
+            continue
+        if doc.get('schema') != 'oi-reconciliation/1':
+            continue
+        review = (listed.get(path) or {}).get('review') or {}
+        for e in doc.get('paths') or []:
+            recs.append({'path': e.get('path'), 'record': path, 'reviewed': bool(review),
+                         'review_lint_passes': path not in invalid and review.get('path') not in invalid,
+                         'H': (doc.get('ledger_binding') or {}).get('ledger_base'), 'M': doc.get('M'),
+                         'C': doc.get('X')})
+    drift = sorted(x.get('path') for x in res.get('side_changes') or [] if x.get('class') == 'base-drift')
+    return {'drift': drift, 'records': recs, 'roles': {'H': h, 'M': m, 'C': c}}
 
 
 def rt_o9(a, Mp, recon_arg):
@@ -1411,7 +1444,13 @@ def main():
         v = a.results[cid]
         a.rec.pending = a.runs_of.get(cid, [])
         st = v['status'] if v['status'] in ('PASS', 'FAIL', 'NOT RUN') else 'FAIL'
-        a.rec.record(cid, st, v.get('actual'), v['predicate'])
+        files = proc = None
+        if cid == 'RT-L2' and isinstance(v.get('actual'), dict) and v['actual'].get('rtl2_inputs'):
+            ri = v['actual']['rtl2_inputs']
+            files = {'rtl2-drift.json': ri['drift'], 'rtl2-records.json': ri['records'], 'rtl2-roles.json': ri['roles']}
+            proc = {'name': 'rtl2', 'lib': 'rtl2', 'drift': 'rtl2-drift.json', 'records': 'rtl2-records.json',
+                    'roles': 'rtl2-roles.json'}
+        a.rec.record(cid, st, v.get('actual'), v['predicate'], files=files, procedure=proc)
     a.rec.write()
     with open(os.path.join(args.out, 'a1-controls.json'), 'w') as f:
         json.dump(summary, f, indent=1, sort_keys=True, default=str)
