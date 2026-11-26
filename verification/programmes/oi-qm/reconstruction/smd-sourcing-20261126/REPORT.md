@@ -27,15 +27,16 @@ review (PLAN.md §8).**
 | K3 (all-moments reading), finite-range dependence, uniformly bounded moments of all orders | POSITIVE (Corollary P3, [A]) | OBSTRUCTION (CC-D) |
 | K3′ (fourth-moment reading of K3), finite-range dependence, uniformly bounded fourth moments | POSITIVE, conditional on [I-Stein] (Corollary P3′) | OBSTRUCTION (CC-D) |
 | K2, cumulant clustering, uniformly bounded moments of all orders | POSITIVE (Theorem P, [A]) | OBSTRUCTION (CC-D) |
-| Kα, strong mixing with summable rate, uniformly bounded 2+δ moments | POSITIVE, conditional on H-αCLT (Corollary Pα) | OBSTRUCTION (CC-D) |
+| Kα, strong mixing with summable rate, uniformly bounded 2+δ moments | POSITIVE, conditional on H-αCLT (Corollary Pα), for the distance-indexed α of H-αCLT (§3) | OBSTRUCTION (CC-D) |
 | K1, translation mixing, no rate | OPEN (§5) | OBSTRUCTION (CC-D) |
 | K0, translation ergodicity | OPEN (§5) | OBSTRUCTION (CC-D) |
 | none (stationarity alone), d = 3 | OBSTRUCTION (CC-K); outside §2, recorded as the countercontrol | not examined |
 
 **Generated verdict (PLAN.md §3; all controls green, §9):**
 - *On Z^d with 0 < abs(μ) < 1:* "Stationarity and clustering force SMD", with K2 (cumulant
-  clustering with finite moments of all orders; unconditional, paper proof) and with Kα (strong
-  mixing with summable rate and 2+δ moments; conditional on H-αCLT). K2 and Kα are not comparable
+  clustering with uniformly bounded moments of all orders; unconditional, paper proof) and with Kα (strong
+  mixing with summable rate and uniformly bounded 2+δ moments, for the distance-indexed α of
+  H-αCLT, §3; conditional on H-αCLT). K2 and Kα are not comparable
   as far as checked (§1.2), so both minimal notions are printed. The mechanism gives more than SMD:
   every such state is a centred Gaussian law.
 - *On Z^d with 0 < abs(μ) < 1:* no obstruction was found for any notion of §2; K1 and K0 are open
@@ -82,6 +83,10 @@ a partial order only:
   states).
 - Neither K2 ⇒ Kα nor Kα ⇒ K2 was established; they are treated as incomparable. The verdict
   therefore prints both minimal positive notions (§0).
+- **Kα read with the distance-indexed α.** PLAN.md §2 does not fix how the mixing coefficient is
+  indexed. The conditional positive (Corollary Pα) covers Kα with α(r) indexed by distance alone,
+  over sets of sites of any sizes, as H-αCLT states it (§3); a mixing coefficient restricted by
+  set size is not covered.
 - **K3 split into its two readings.** PLAN.md §2 defines K3 with "uniformly bounded fourth (or
   all) moments". The report treats the two readings separately: K3 (all moments), for which the
   unconditional positive Corollary P3 holds, and K3′ (fourth moments only), for which the positive
@@ -330,8 +335,11 @@ and Lemmas C, M and G hold at μ = 0. The positive proof therefore does not prov
 
 ### 4.3 CC-K (clustering is load-bearing): an O-orbit mixture on Z^3
 
-Let d = 3, 0 < abs(μ) < 1, c as in §4.1, B = t eᵀ + e tᵀ with t ∈ T_1, e ∈ E real unit vectors
-(E11), and S = S_0 + εB with ε > 0 small enough that S > 0 (E15 for κ = (1, 2, 3), ε = 1/10). For
+Let d = 3, 0 < abs(μ) < 1, c as in §4.1, B = t eᵀ + e tᵀ with t ∈ T_1, e ∈ E nonzero real vectors
+(E11), and S = S_0 + εB with ε > 0 small enough that S > 0. The argument below needs only t ≠ 0 and
+e ≠ 0. The controls use the unnormalised vectors t = |+e_1⟩ − |−e_1⟩ (abs(t)² = 2) and
+e = s_1 − s_2 (abs(e)² = 4) in the link basis (E11), and E15 checks S > 0 for κ = (1, 2, 3) and
+ε = 1/10 with that B. For
 h ∈ O put S_h = ρ(h)Sρ(h)ᵀ. Let ρ_K be the equal-weight mixture over h ∈ O of the centred
 Gaussian laws N(0, c ⊗ S_h) (equal components merged; exactly 12 distinct S_h, E14).
 

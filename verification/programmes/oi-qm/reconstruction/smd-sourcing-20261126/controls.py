@@ -97,63 +97,67 @@ def spatial_checks(d, L, mu):
     s2 = add(I, scal(Fr(1, 4), A2), -1)                 # 1 - A^2/4
     s2b = block(s2, Z, Z, s2)
     tag = f"d={d} L={L} mu={mu}"
-    check(f"[E1] F c F^T = c ({tag})", mul(mul(F, c), tr(F)) == c)
-    check(f"[E2] D c D^T = (1 - A^2/4) c, i.e. J c J^T = c ({tag})", mul(mul(D, c), tr(D)) == mul(s2b, c))
-    check(f"[E3] c positive definite ({tag})", is_pos_def(c))
-    # negative control: the identity covariance is not F-invariant
-    I2 = eye(2 * n)
-    check(f"[E4-neg] I_2n is NOT F-invariant (non-vacuity of E1) ({tag})", mul(mul(F, I2), tr(F)) != I2)
-    cp = block(I, scal(Fr(1, 3), A), scal(Fr(1, 3), A), I)  # perturbed off-diagonal weight A/3
-    check(f"[N1-neg] [[1, A/3], [A/3, 1]] fails E1 and E2 ({tag})",
-          mul(mul(F, cp), tr(F)) != cp and mul(mul(D, cp), tr(D)) != mul(s2b, cp))
-    c3 = block(I, scal(Fr(3), A), scal(Fr(3), A), I)       # eigenvalue 1 - 6 abs(mu) < 0 at k = 0
-    check(f"[N2-neg] [[1, 3A], [3A, 1]] is NOT positive definite (non-vacuity of E3) ({tag})", not is_pos_def(c3))
-    # cubic invariance: axis permutations and reflections act by site permutations
-    ok = True
+
+    # site permutations: the full hyperoctahedral group (axis permutations and reflections)
+    hyper = []
     for perm in permutations(range(d)):
         for signs in product((1, -1), repeat=d):
             P = zeros(n)
-            for s in S:
-                t = tuple((signs[k] * s[perm[k]]) % L for k in range(d))
-                P[idx[t]][idx[s]] = Fr(1)
-            PP = block(P, zeros(n), zeros(n), P)
-            if mul(mul(PP, c), tr(PP)) != c or mul(mul(PP, F), tr(PP)) != F:
-                ok = False
-    check(f"[E5] c and F invariant under the hyperoctahedral site action ({tag})", ok)
-    # translation invariance
+            for s_ in S:
+                t = tuple((signs[k] * s_[perm[k]]) % L for k in range(d))
+                P[idx[t]][idx[s_]] = Fr(1)
+            hyper.append(block(P, zeros(n), zeros(n), P))
     T = zeros(n)
-    for s in S:
-        t = list(s)
+    for s_ in S:
+        t = list(s_)
         t[0] = (t[0] + 1) % L
-        T[idx[tuple(t)]][idx[s]] = Fr(1)
+        T[idx[tuple(t)]][idx[s_]] = Fr(1)
     TT = block(T, zeros(n), zeros(n), T)
-    check(f"[E6] c translation invariant ({tag})", mul(mul(TT, c), tr(TT)) == c)
-    # finite range: c(n, m) = 0 for graph distance > 1
+
     def dist(a, b):
         return sum(min((x - y) % L, (y - x) % L) for x, y in zip(a, b))
-    ok = all(c[i + p * n][j + q * n] == 0
-             for p in (0, 1) for q in (0, 1)
-             for i, a in enumerate(S) for j, b in enumerate(S) if dist(a, b) > 1)
-    check(f"[E7] c has range 1 ({tag})", ok)
-    # negative controls for E5-E7
+
+    # each check is a function of the matrix M; positive checks and negative controls call the same function
+    def e1(M):   # F M F^T = M
+        return mul(mul(F, M), tr(F)) == M
+
+    def e2(M):   # D M D^T = (1 - A^2/4) M, i.e. J M J^T = M
+        return mul(mul(D, M), tr(D)) == mul(s2b, M)
+
+    def e3(M):   # M positive definite
+        return is_pos_def(M)
+
+    def e5(M):   # invariant under every hyperoctahedral site permutation
+        return all(mul(mul(PP, M), tr(PP)) == M for PP in hyper)
+
+    def e6(M):   # translation invariant
+        return mul(mul(TT, M), tr(TT)) == M
+
+    def e7(M):   # range 1: zero for graph distance > 1
+        return all(M[i + p * n][j + q * n] == 0
+                   for p in (0, 1) for q in (0, 1)
+                   for i, a in enumerate(S) for j, b in enumerate(S) if dist(a, b) > 1)
+
+    check(f"[E1] F c F^T = c ({tag})", e1(c))
+    check(f"[E2] D c D^T = (1 - A^2/4) c, i.e. J c J^T = c ({tag})", e2(c))
+    check(f"[E3] c positive definite ({tag})", e3(c))
+    I2 = eye(2 * n)
+    check(f"[E4-neg] I_2n is NOT F-invariant (non-vacuity of E1) ({tag})", not e1(I2))
+    check(f"[E5] c and F invariant under the hyperoctahedral site action ({tag})", e5(c) and e5(F))
+    check(f"[E6] c translation invariant ({tag})", e6(c))
+    check(f"[E7] c has range 1 ({tag})", e7(c))
+    # negative controls, through the same functions
+    cp = block(I, scal(Fr(1, 3), A), scal(Fr(1, 3), A), I)  # perturbed off-diagonal weight A/3
+    check(f"[N1-neg] [[1, A/3], [A/3, 1]] fails E1 and E2 ({tag})", not e1(cp) and not e2(cp))
+    c3 = block(I, scal(Fr(3), A), scal(Fr(3), A), I)       # eigenvalue 1 - 6 abs(mu) < 0 at k = 0
+    check(f"[N2-neg] [[1, 3A], [3A, 1]] fails E3 ({tag})", not e3(c3))
     cb = [row[:] for row in c]
     s1 = [0] * d
     s1[0] = 1
     cb[idx[tuple(s1)]][idx[tuple(s1)]] += 1                # bump at one site off the origin
-    def perm_inv(Pm, M):
-        return mul(mul(Pm, M), tr(Pm)) == M
-    refl = zeros(n)
-    for s_ in S:
-        t = tuple((-x) % L for x in s_)
-        refl[idx[t]][idx[s_]] = Fr(1)
-    RR = block(refl, zeros(n), zeros(n), refl)
-    check(f"[N3-neg] a one-site bump fails the reflection (E5) and translation (E6) checks ({tag})",
-          not perm_inv(RR, cb) and not perm_inv(TT, cb))
+    check(f"[N3-neg] a one-site bump fails E5 and E6 ({tag})", not e5(cb) and not e6(cb))
     c2 = block(I, A2, A2, I)
-    ok2 = all(c2[i + p * n][j + q * n] == 0
-              for p in (0, 1) for q in (0, 1)
-              for i, a in enumerate(S) for j, b in enumerate(S) if dist(a, b) > 1)
-    check(f"[N4-neg] [[1, A^2], [A^2, 1]] fails the range-1 check (non-vacuity of E7) ({tag})", not ok2)
+    check(f"[N4-neg] [[1, A^2], [A^2, 1]] fails E7 ({tag})", not e7(c2))
 
 
 # ---------- internal part: the six signed links and the cubic rotation group O ----------
