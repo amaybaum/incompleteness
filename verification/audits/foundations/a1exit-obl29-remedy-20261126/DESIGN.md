@@ -1,8 +1,8 @@
-# OBL-29 remedy for removal of finding evidence (paper design r3)
+# OBL-29 remedy for removal of finding evidence (paper design r4)
 
 ## 0. Status, authority, scope and goal link
 
-**Status.** Paper design r3, pending independent review of this revision and an owner decision.
+**Status.** Paper design r4, pending independent review of this revision and an owner decision.
 The proposed requirements (ids `R6.OBL29.n`) have no force until adoption. OBL-29 remains an explicit
 A1 retirement blocker until a remedy is implemented and independently verified. The interim
 procedural guards (AGENTS.md §A.50 item 3 and §A.46 item 6) and adoption alone do not discharge it.
@@ -31,8 +31,8 @@ of the squash and rebase gap before any acceptance. It also requires distinguish
 historical content from evidence of an obligation and investigating a correction route that
 preserves the original finding and its adjudication. Implementation, adoption and trial execution
 require separate authorization. The prior draft at `0b06363c8dbb3d2c7e95a6ca7ab22cdc8cc7d234`
-received REVISE (#1601 comment 7191637164). This revision addresses the independent REVISE
-on r2 at `1a067396370ecbd36acd1c35aec79c674de4f8e3` (#1601 comment 7192414933).
+received REVISE (#1601 comment 7191637164). R3 addressed the r2 review (#1601 comment 7192414933). This revision clarifies the lineage dependency raised by the focused REVISE on r3 at
+`36d9071cac29075e2b57db11a17031760dbfd836` (#1601 comment 7192615596).
 
 **Base text.** The analysis follows design r6 amendment 6 r5 at
 `1f5764572a98b7ae2f306e121e2e410f79c29daf`. Section 5 compares the current amendment 6 proposal,
@@ -47,9 +47,10 @@ while the obligation it established still applies.
 discharged and states the effects on amendment 6. The squash and rebase gap remains open (§6).
 
 **Scope.** Category-3 findings and the predicates that decide whether their discharges apply.
-Historical review lint under R6.REC.6 is mandatory for a cited reassessment and, whenever
-it cites a repair, the repair's reconciliation record. Extending historical review lint to
-other records is an owner decision (§5.4).
+Historical review lint under R6.REC.6 is mandatory for a cited reassessment, its cited
+repair's reconciliation record and any predecessor whose review an existing discharge
+condition requires. Existing R6.REC.7 admission and lineage checks retain their scope.
+Section 5.4 lists the separate scope choices.
 
 ***
 
@@ -174,24 +175,44 @@ including:
 - R6.RECON.27's lookup of the finding a cited reassessment names, by original reference and
   `item`.
 
-Under this proposal, R6.RECON.27 requires the cited reassessment and, for a non-null
-repair, the repair's reconciliation record to pass R6.REC.6 and R6.REC.7. For each
-record, apply R6.REC.6 to every eligible review in `R*` naming its exact
-`{path, blob_sha256}`. An eligible review is a selected ordinary review record with a
-resolvable exact reviewed reference and the location prescribed for that record kind.
-A repair review must be in the same reconciliation directory as the repair record
-(R6.RECON.1, R6.RECON.35).
-A review at another location can still carry a category-3 finding under R6.RECON.35.
-An ordinary out-of-directory review neither supplies the required repair review nor
-enters the repair's historical review lint.
+**Direct review checks.** Apply R6.REC.6 to the cited reassessment `A`. For a non-null
+repair, find the exact reconciliation record `Q` and its cited entry in the scanned
+set of `M` and require its same-directory accepting non-author review at `M`
+(R6.OBL29.4). In both cases check every eligible ordinary review in `R*` naming the
+record's exact `{path, blob_sha256}`. The repair-review check applies the R6.REC.6 item,
+verdict, form and reviewer rules to those exact-reference reviews of `Q`, including
+complete, unduplicated coverage of `Q`'s required item ids. A review with a non-`accept`
+verdict, an omitted item or a duplicate fails the discharge even if the review has left
+the current tree and another eligible review accepts every item. A review of a
+reconciliation record qualifies for this check only in that record's reconciliation
+directory (R6.RECON.1, R6.RECON.35). A review elsewhere can still carry a category-3
+finding. Historical review evidence cannot supply the current or pinned accepting
+review. A repair entry selected solely from `M` does not acquire a new R6.REC.7
+lineage check or anchor through that selection.
 
-Check every such review under the existing item, verdict, form and reviewer rules.
-A review with any non-`accept` verdict, a missing required item or a duplicate verdict
-fails lint even if the review is now absent from current content and another eligible
-review accepted every item. R6.OBL29.4 still requires the accepting reviews through
-their ordinary input routes. A historical review can constrain discharge but does not
-supply a missing current or pinned approval. Retain the current R6.REC.7 inputs and
-the R6.RECON.2 admission and uniqueness rules.
+**Existing lineage checks.** `A` retains its R6.REC.7 check. In a chain run the
+configuration cites `A` and its review under the existing frozen input rules, and
+R6.RECON.33 resolves predecessor references at `F` or on its first-parent chain.
+Under existing harness admission (R6.RECON.21), the pinned record is read from its
+verified source commit for record lint, and R6.RECON.33 resolves references from the
+named `REV` or, without `REV`, from that verified source. When `Q` is independently
+admitted by an existing route which requires R6.REC.7 for its use in the discharge,
+that route supplies the lineage check and its original anchor. Preserve
+R6.RECON.2 (d)'s `REV` presence and competing-successor checks where that route
+applies, the R6.RECON.33 reference-resolution rules, and the existing scope of
+R6.REC.7's competing successors. A required exact predecessor reference unresolvable
+from its prescribed anchor fails `record-invalid`. An unreadable required Git object
+is ERROR through R6.REC.17.
+
+**Predecessor reviews.** For each existing R6.REC.7 check whose result is required for a
+discharge, follow every required `supersedes` hop using that check's existing inputs.
+At each exact predecessor apply its required review checks with the eligible reviews
+from `R*`, preserving the normal review roles, item sets, location, independence and
+positive review sources. Include a widening review where the original check requires
+one. Failure of any required predecessor review keeps the discharge inapplicable.
+Cumulative review evidence does not resolve predecessor references beyond their
+prescribed anchors, supply missing positive review evidence or widen the set of
+competing successors.
 
 **R6.OBL29.4 Presence-based discharge conditions stay on current content.** Some conditions enable a
 discharge only by the presence of evidence. These are read where r5 reads them, because a removal
@@ -273,8 +294,10 @@ inputs has a narrower guarantee while it has no witness reachable from `M` (R-1)
 For a fixed configuration, a side-change id that was reachable from `M` remains reachable
 from `M'`, including if it stops being on the first-parent chain. Removing current files
 cannot erase a finding, an exact reviewed reference used by Form (i), Form (iv) or Keys,
-or an eligible review constraining a discharge if that evidence has a durable witness
-in `M`'s ancestry. Removing evidence required at
+or an eligible review constraining a discharge, including a required review of any
+predecessor under the existing lineage check, if that evidence has a durable witness
+in `M`'s ancestry. This applies with the same lineage anchors and admitted inputs.
+Removing evidence required at
 `M` can cause a discharge to fail. The original form, independence and scope rules still
 determine whether the persistent evidence establishes a binding finding. For example,
 establishing a reviewer's lack of independence can disqualify it. That is a determination
@@ -306,7 +329,7 @@ both under the weaker P-1 (§5.6).
 | removal before `F` | an entry already reachable from `M` persists regardless of the freeze |
 | deletion of the record that a second-kind review names | Form (i), Form (iv) and Keys (b) still find it in `R*` |
 | deletion of review evidence establishing an independent assertion | Keys (a) still counts the review in `R*` |
-| deletion of a dissenting second review of a reassessment or its repair record | R6.OBL29.3 preserves the R6.REC.6 lint failure |
+| deletion of a dissenting review of a reassessment, its repair record or an operative predecessor | R6.OBL29.3 preserves the review failure without changing the lineage anchor |
 | owner-approved evidence removal (AGENTS.md §A.46 item 6 and §A.50 item 3) | R6.OBL29.6 retains the obligation and §A.46 item 6 requires continued reachability of the evidence |
 | history rewrite of `main` | R-2 limits the guarantee to P-1 |
 | a finding seen only outside the protected history or selector | R-1 and R-7 bound what the scan can recover |
@@ -391,11 +414,20 @@ discharge the blocker (§32). This paper proposes the remedy independently of th
 
 ### 5.2 Reassessment and migration records
 
-A reassessment resolves its finding from `R*`, reads the repair entry at `M`, and counts
-historical dissent for record lint (R6.OBL29.3–.4). Its keys, item ids, positive review and
-freeze citation retain their existing requirements. REASSESS-FORM and REASSESS-KEYS keep
-their schema cases. An edit-id migration remains a pinned match route under R6.RECON.28
-and establishes no discharge.
+A reassessment resolves its finding from `R*`, reads the repair entry at `M` and counts
+historical reviews for the discharge, including operative predecessor reviews
+(R6.OBL29.3–.4). Its keys, item ids, positive review and freeze citation retain their
+existing requirements. REASSESS-FORM and REASSESS-KEYS keep their schema cases.
+An edit-id migration remains a pinned match route under R6.RECON.28.
+
+Consider an applying reassessment `A` citing repair `Q`, where `Q` supersedes `P`.
+Initially the direct reviews of `A` and `Q` and the required review of `P` all accept.
+If `Q` already undergoes an operative lineage check for this discharge, an eligible
+dissent of `P` that lands on `main` makes that check fail. Removing the dissent from the
+next tree leaves it in `R*`, so the same check still prevents the discharge. The same
+rule applies along `A`'s own required predecessor chain. If the repair lookup is the
+only use of `Q`, there is no operative lineage check on `P` through that lookup.
+The direct `Q` review condition still applies and retains any eligible dissent of `Q`.
 
 The current reference-and-item rule requires a reassessment for each distinct finding
 reference created by a rename or rewrite. A byte-identical rename still creates a second
@@ -423,14 +455,14 @@ record contributes no finding to the result.
 
 ### 5.4 Dissent outside category-3 discharge
 
-R6.OBL29.3 applies historical review lint to the reassessment and to the repair's
-reconciliation record whenever a reassessment cites a repair. Other records have the
-same deletion vulnerability when their lint reads only snapshots. Proposed R6.OBL29.10
-would extend the history rule to all other records governed by R6.REC.6. That affects
-record admission beyond this remedy's required category-3 scope. Section 5.6 gives the
-scope decision. Presence and uniqueness conditions in R6.RECON.2 (d) and (e) and the
-lineage checks in R6.REC.7 still use their prescribed inputs. They determine the record
-to evaluate. A selected discharge record still undergoes historical review lint.
+R6.OBL29.3 covers direct discharge records and the review dependencies of any
+lineage check already required for their use. Other records can have the same
+deletion vulnerability when their lint reads only snapshots. Proposed R6.OBL29.10
+would extend historical review lint to those other records. Full lineage admission
+for repairs selected solely from `M` and a historical competing-successor rule are
+separate scope choices. Either would need its own anchor, candidate set and controls.
+The existing presence, ancestry and uniqueness conditions in R6.RECON.2 and
+R6.REC.7 retain their specified inputs.
 
 **R6.OBL29.10 (scope option)** Extend R6.OBL29.3's historical sources for R6.REC.6 review
 lint to records outside category-3 discharge when those records undergo that lint.
@@ -443,10 +475,11 @@ same requirement locations in r10. They would need a separate amendment on adopt
 | Requirement | Proposed effect |
 |---|---|
 | R6.RECON.26 | Use `R*` for detection and for each "the scan finds" predicate in Forms (i) and (iv). State that the original finding remains as reachable evidence after a legitimate removal. Preserve the independence, lineage and edit predicates. Define "contains" for the exact side-change commit id as reachability through any verified parent. |
-| R6.RECON.27 | Look up the finding in `R*`, evaluate Keys (a)–(b) and the corresponding Form (iv) basis over `R*`, and require R6.REC.6 and R6.REC.7 on both the reassessment and any cited repair record. Keep the current repair entry, positive review and first-parent predicates. |
+| R6.RECON.27 | Look up the finding in `R*` and evaluate Keys (a)–(b) and the Form (iv) basis there. Keep the reassessment lineage check, preserve current repair entry, positive review and first-parent predicates, and apply R6.OBL29.3 to the exact repair reviews and to reviews in any existing operative predecessor checks. |
 | R6.RECON.33 | Change its last reference-resolution sentence. The finding comes from `R*`; the repair entry remains in the scan at `M`. The record-kind table and existing resolution anchors retain their scope. |
 | R6.RECON.35 | Use the fixed category-3 selector and the historical diagnostic rule. Preserve the existing tool-landing exclusion for ordinary current malformed-nonfinding lint and the same-directory reconciliation-review requirement. |
-| R6.REC.6 | Apply review lint to every eligible exact-reference review in `R*` of either required discharge record. Reviews that dissent, omit a required item or duplicate a verdict remain material after deletion. Extend historical review sources to other records only if the owner chooses R6.OBL29.10. |
+| R6.REC.6 | Apply review lint using the eligible exact-reference reviews in `R*` of either direct discharge record and of predecessors in existing operative lineage checks. Defective reviews remain material after deletion. Extend historical review sources to other records only if the owner chooses R6.OBL29.10. |
+| R6.REC.7 | Preserve existing anchors and competing-successor scope. Use the cumulative review evidence under R6.OBL29.3 at every predecessor hop required for discharge. A repair lookup alone does not trigger full lineage admission. |
 | R6.REC.17 | Add the verified all-parent walk to parentless commits as an exception to the explicit-endpoint rule. |
 | R6.RECON.36, R6.OUT.18 and the result schema | Add `present_at_M` and `witness` within each `category3.findings` element. Both require a regular entry of the exact reference. |
 | R6.EVID.8 and N10, N11, RT-L2, RT-O9-L2 | Keep `scanned_paths_within` for the existing representative comparison and add a separately verified category-3 read domain tied to the prescribed roots and input records (§5.3). Update those expectation rows and runners on adoption. |
@@ -470,7 +503,8 @@ no runners.
 | Ancestry walk | All parents require ordinary ancestry extension and scan more commits. A first-parent walk requires first-parent preservation and would lose the foxtrot witness, even with ordinary ancestry extension. | The reviewer preferred the weaker ancestry premise. The owner prefers all parents subject to independent verification. R6.OBL29.1 uses it for this draft. |
 | Reachability after squash, rebase or a `REV` change | An ancestry-preserving landing retains exact witness commits. A verified replay would need to retain each exact reference and item, the referenced records and reviews used by Forms, Keys and historical lint, and the applicable side-change ids. Equal end trees cannot establish this. An explicit retained-evidence record could address a missing witness with new admission and verification rules. Extending the land-at-once procedure to all obligation and discharge evidence before another run could reduce exposure, but would need a way to establish completeness. | The r2 reviewer favors durable witnesses on protected `main` for findings and discharge evidence. The owner requires assessment and has accepted no squash/rebase residual. Section 6 describes the cases. The alternatives remain open. |
 | Mistaken independent finding | Current Keys requires a repair and applying reassessment, or a plan that no longer binds. This can exclude otherwise sound work across all matching lineages. A narrowly extended `repair: null` route could require an independently reviewed adjudication attached to the original finding and a new freeze, reusing the reassessment flow. A dedicated adjudication record could carry the original reference and `item`, review, evidence and scope explicitly, with a larger schema and admission change. | The r2 reviewer favored a narrow D3 extension with independent adjudication and a new freeze. The owner favors controlled adjudication and asks that it be investigated. Both routes remain proposals. |
-| R6.REC.6 beyond reassessment and repair | Apply the required fix only when lint affects a category-3 discharge, or apply R6.OBL29.10 to other kinds too. The latter prevents analogous deletion bypasses and changes unrelated record-admission outcomes, including the effect of mistaken historical dissent. | The reviewer treated the discharge case as a correctness defect and the broader case as a scope choice. |
+| R6.REC.6 outside discharge checks | Use historical review evidence for discharge and its existing predecessor dependencies, or extend it to unrelated records under R6.OBL29.10. The latter prevents analogous deletion bypasses and changes unrelated admission outcomes. | The reviewer treated the discharge case as a correctness defect and the broader case as a scope choice. |
+| R6.REC.7 scope | Preserve existing lineage routes and their anchors. A separate proposal could add lineage admission to repairs selected solely from `M` or extend the competing-successor check to historical branches. It would need an explicit anchor and candidate set and could make currently eligible discharges inapplicable. | The focused review allowed the bounded repair-review fix or an explicit full lineage design. This draft uses the bounded fix. The broader scope remains open. |
 | Renamed findings | Keep exact reference plus `item` and reassess every reference, or add a tightly checked multi-reference reassessment for byte-identical copies and the same `item`. The latter reduces repeated work and requires checking each path's independence and review location. A blob-and-item identity would change R6.RECON.35 and needs the same review-location analysis. | The reviewer saw a sound route in principle with those interactions accounted for. The draft retains exact identity pending a decision. |
 
 A correction for a mistaken independent finding would need to preserve the original record,
@@ -493,7 +527,8 @@ its cited configuration. The draft's controls retain the current Keys outcome.
   The tool sees only verified parents and cannot reconstruct an overwritten history.
 - **P-2. Persistence requires durable witnesses for all relevant evidence.** This includes
   the original finding and item, the exact record and entry looked up by Form (i), Form (iv)
-  or Keys, the reviews needed to establish or constrain a discharge, and the exact
+  or Keys, the reviews needed to establish or constrain a discharge at any operative predecessor
+  hop as well as at the direct records, and the exact
   side-change commit ids. R6.RECON.26 directs landing a finding on `main` by its own
   commit before a subsequent retirement landing run. That direction does not ensure that
   all those related inputs, including dissent which carries no finding, acquire witnesses
@@ -558,7 +593,8 @@ remain open.
 | #1169 comment 7191104852 | the authority, quoted in §0 | provenance, quoted with author and time |
 | #1169 comment 7191665350 | bounded r2 direction and open owner decisions | provenance, owner and time in §0 |
 | #1601 comment 7191637164 and r1 at `0b06363c8dbb3d2c7e95a6ca7ab22cdc8cc7d234` | independent REVISE, reviewed scope and earlier scan | provenance for the reported observations and review |
-| #1601 r2 at `1a067396370ecbd36acd1c35aec79c674de4f8e3` and its independent REVISE (comment 7192414933) | prior paper draft and r3 review inputs | provenance for the correction scope |
+| #1601 r2 at `1a067396370ecbd36acd1c35aec79c674de4f8e3` and its independent REVISE (comment 7192414933) | r3 review inputs | provenance for the correction scope |
+| #1601 r3 at `36d9071cac29075e2b57db11a17031760dbfd836` and its independent REVISE (comment 7192615596) | r4 lineage correction | provenance for the correction scope |
 | repository ruleset 21725642 (guardrail) | host permits merge, squash and rebase, and requires PRs and rejects non-fast-forward updates on the covered default branch | host configuration at the time of the comparison |
 | #1169 comments 7185092393 and 7185562871 | the lifecycle tables behind requirement (I) | support off `main`; quoted in r5 sec. 0.4 and 0.5 on the amendment branches |
 | Issue #1598 and comment 7191083365; PR #1593 comments 7189446310, 7190255132, 7190966287 | the defect statement and its wider scope | provenance |

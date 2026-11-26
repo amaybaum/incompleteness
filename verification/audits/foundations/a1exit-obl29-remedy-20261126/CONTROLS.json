@@ -1,6 +1,6 @@
 {
   "schema": "oi-obl29-remedy-controls/draft",
-  "status": "paper design r3, pending independent review and adoption. All controls are specifications. Each would become an expectation row with runner null on adoption.",
+  "status": "paper design r4, pending independent review and adoption. All controls are specifications. Each would become an expectation row with runner null on adoption.",
   "authority": "Owner decisions, amaybaum, #1169 comments 7191104852 (11:44Z) and 7191665350 (12:10Z), 2026-11-26, item 2",
   "base": "design r6 amendment 6 r5 at 1f5764572a98b7ae2f306e121e2e410f79c29daf, cross-checked with amendment 6 r10 at 4fee62cff40b1acf52357fa177752f2d5b231dfa as a proposal",
   "fixture": "Fixture: H; a configuration K frozen at F (round branch from D on main) whose ledger carries edit e on path p; c0 = main at F's designation. f = an oi-review-record/1 file under verification/audits/r/ carrying a well-formed second-kind finding on e by an independent reviewer (verdict invalidates on <p>:scientific_effect, invalidated naming e, configuration naming K), reviewing reconciliation record q in the same directory. Unless stated, the run is op C execution with M = the last listed main commit and no REV. Unless a control changes that condition, q's side_change_commits meet R6.RECON.26's applicability condition at each named M.",
@@ -16,7 +16,9 @@
     "invariants.reassessment_absent": "the named reassessment is absent from category3.reassessments",
     "invariants.record_invalid_for": "a record-invalid item naming the specified discharge record or its defective review",
     "invariants.finding_observed": "the exact reference and item appear in the emitted category3.findings",
-    "invariants.admission_mode": "the named ordinary chain or harness admission completed successfully and the result contains category3"
+    "invariants.admission_mode": "the named ordinary chain or harness admission completed successfully and the result contains category3",
+    "invariants.predecessor_review_checked": "the named exact predecessor was resolved under the existing lineage anchor and its review was evaluated for this discharge",
+    "invariants.predecessor_reference_unresolved": "the named exact predecessor was absent from the prescribed lineage anchor and could not be substituted from R*"
   },
   "kinds": {
     "negative": "a removal that must not lift the block",
@@ -1363,6 +1365,156 @@
         "R6.RECON.27"
       ],
       "note": "Use this applying baseline when a control changes only discharge evidence. P-REASSESS-AFTER-DELETE independently tests historical finding lookup."
+    },
+    {
+      "id": "P-REASSESS-OPERATIVE-SUPERSEDES",
+      "kind": "positive",
+      "setup": [
+        "Start from P-REASSESS-CURRENT-BASELINE. Let the cited reassessment be A and the exact repair record at M be Q. Keep f current. Use a chain-admitted configuration at F2, with no REV.",
+        "Variant A: A supersedes reviewed reassessment A0, which in turn supersedes A00. The exact references have the same kind, schema and lineage, and resolve at F2 or on its first-parent chain under R6.RECON.33.",
+        "Variant Q: A cites Q, which supersedes P, which in turn supersedes P0. Q and its ordinary review are independently admitted via configuration pins under the existing F2 route. The existing R6.REC.7 check on Q is a prerequisite for using Q in this discharge. P and P0 have the same kind, schema and lineage and resolve under that check’s anchor.",
+        "Keep every required predecessor review independently accepting. The repair entry, its current accepting review and its first-parent repair commits remain available. Require evidence that the operative predecessor checks ran and that A applied in each variant."
+      ],
+      "expected": {
+        "outcome": "ANY",
+        "finding": {
+          "present_at_M": true,
+          "witness": "M"
+        },
+        "invariants": [
+          {
+            "predecessor_review_checked": "A0 and A00 in variant A, P and P0 in variant Q"
+          },
+          {
+            "reassessment_applies": "A"
+          },
+          {
+            "finding_unblocked": "f"
+          },
+          {
+            "not_class": [
+              "record-invalid",
+              "retirement-blocked"
+            ]
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.3",
+        "R6.OBL29.4",
+        "R6.REC.7",
+        "R6.RECON.27",
+        "R6.RECON.33"
+      ],
+      "note": "This tests an actual applying non-null supersession baseline. A review check independently required by existing admission is distinct from a repair lookup solely at M."
+    },
+    {
+      "id": "N-OPERATIVE-PREDECESSOR-DISSENT-DELETED",
+      "kind": "countercase",
+      "setup": [
+        "Verify that P-REASSESS-OPERATIVE-SUPERSEDES applies with its direct and predecessor reviews accepting. Keep the same configuration, anchoring and ordinary accepting inputs.",
+        "For variant A separately target A0, then the next ancestor A00. For variant Q separately target P, then the next ancestor P0. In each run land a new eligible second non-author review on main that names the exact targeted predecessor and dissents on a required item. For P and P0 use the same reconciliation directory as the reviewed record.",
+        "Run with that dissent present and verify record-invalid and retirement-blocked. On the next main commit remove only the dissenting review. Keep f, Q, the frozen inputs, the first-parent repair commits and the original accepting reviews. Re-run against the same F2."
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "record-invalid",
+          "retirement-blocked"
+        ],
+        "finding": {
+          "present_at_M": true,
+          "witness": "M"
+        },
+        "invariants": [
+          {
+            "predecessor_review_checked": "the exact targeted predecessor"
+          },
+          {
+            "record_invalid_for": "the targeted predecessor or its eligible dissenting review"
+          },
+          {
+            "reassessment_absent": "A"
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.3",
+        "R6.REC.6",
+        "R6.REC.7",
+        "R6.RECON.27"
+      ],
+      "note": "A direct-only check misses either lineage. A one-hop check misses A00 or P0. The historical review must remain operative after deletion."
+    },
+    {
+      "id": "N-REASSESS-PREDECESSOR-ANCHOR",
+      "kind": "countercase",
+      "setup": [
+        "Use variant A of P-REASSESS-OPERATIVE-SUPERSEDES. Keep the chain-admitted A and its accepting review at F2. Place the exact predecessor A0 and its accepting review only on M after that F2 lineage diverged. A0 is reachable in R* but absent from F2 and its first-parent chain.",
+        "Keep every object readable, the current repair evidence valid and f current. Run with the same F2 and no REV."
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "record-invalid",
+          "retirement-blocked"
+        ],
+        "finding": {
+          "present_at_M": true,
+          "witness": "M"
+        },
+        "invariants": [
+          {
+            "predecessor_reference_unresolved": "A0 at F2 and its first-parent ancestry"
+          },
+          {
+            "reassessment_absent": "A"
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.3",
+        "R6.REC.7",
+        "R6.RECON.27",
+        "R6.RECON.33"
+      ],
+      "note": "An unavailable exact reference at its required anchor differs from an unreadable Git object. R* cannot supply the missing anchored predecessor."
+    },
+    {
+      "id": "P-REPAIR-SUPERSEDES-M-ONLY",
+      "kind": "positive",
+      "setup": [
+        "Use the applying A of P-REASSESS-CURRENT-BASELINE with an exact non-null repair reference to Q. Q and the older record P already have ordinary accepting reviews when first used. Q has a well-formed supersedes reference to P. Keep Q, its entry and its same-directory accepting review in the scanned set of M.",
+        "Only the existing R6.RECON.27 repair lookup reads Q. Neither the configuration nor any other admission route uses Q, and no independent lineage check on Q is a prerequisite for this discharge. In this fixture P has no witness on F2’s first-parent chain.",
+        "Require A to apply and f to remain unblocked. Check that the current lookup never tries F2 as a new Q lineage anchor. The historical direct-review negative cases for Q still apply."
+      ],
+      "expected": {
+        "outcome": "ANY",
+        "finding": {
+          "present_at_M": true,
+          "witness": "M"
+        },
+        "invariants": [
+          {
+            "reassessment_applies": "A"
+          },
+          {
+            "finding_unblocked": "f"
+          },
+          {
+            "not_class": [
+              "record-invalid",
+              "retirement-blocked"
+            ]
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.3",
+        "R6.OBL29.4",
+        "R6.RECON.27"
+      ],
+      "note": "The repair lookup keeps its direct review check and does not create a new lineage route. This fixture checks the boundary with N-REASSESS-PREDECESSOR-ANCHOR."
     },
     {
       "id": "P-REMOVE-EDIT",
