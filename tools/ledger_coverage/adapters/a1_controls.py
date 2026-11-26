@@ -809,10 +809,18 @@ def drift_classes(a):
     return a._drift
 
 
+def class_record_path(a):
+    """The tool's side-change class record: the one the configuration pins (roles.side_change_classes), so that the
+    runner names no record version of its own."""
+    cfg = json.loads(a.repo.read(a.crev, a.cpath))
+    return ((cfg.get('roles') or {}).get('side_change_classes') or {}).get('path') or \
+        a.ad + 'records/side-change-classes-v1.json'
+
+
 def exec_args(a, x=T, extra=()):
     return ['execution', '--scientific-base', H, '--candidate', x, '--ledger', LEDGER, '--edits', EDITS,
             '--delegation', '%s:%sdelegation-draft.json' % (a.crev, a.ad),
-            '--classify', '%s:%srecords/side-change-classes-v6.json' % (a.crev, a.ad),
+            '--classify', '%s:%s' % (a.crev, class_record_path(a)),
             '--classify', drift_classes(a)] + list(extra)
 
 
