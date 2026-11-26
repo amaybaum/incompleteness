@@ -394,7 +394,7 @@ def rt_terms(a):
              predicate='no deny-match; the 11 W1/W2 hit states are PASS; GR.md:58 REVIEW_REQUIRED; 45 resid REVIEW lines '
                        'of which 17 carry no other review profile')
     code, res, t = a.run(['terms', '--commit', T, '--base', H, '--ledger', LEDGER, '--check', 'item7',
-                          '--classify', '%s:%srecords/gr58-hit-classification-v1.json' % (a.crev, a.ad)])
+                          '--classify', '%s:%s' % (a.crev, hit_record_path(a))])
     gr = [h for h in res.get('hits', []) if h['file'] == 'papers/GR.md' and h['line'] == 58]
     a.record('RT-D-gr58', gr and gr[0]['state'] == 'PASS', 'GR.md:58 PASS with its record',
              {'gr58': gr[0] if gr else None})
