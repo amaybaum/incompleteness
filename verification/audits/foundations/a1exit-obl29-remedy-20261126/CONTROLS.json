@@ -1,0 +1,1234 @@
+{
+  "schema": "oi-obl29-remedy-controls/draft",
+  "status": "paper design; not implemented, not adopted; each control becomes an expectation row (runner null) only on adoption",
+  "authority": "owner decision, amaybaum, received 2026-11-26T11:44Z, #1169 comment 7191104852, item 2",
+  "base": "design r6 amendment 6 r5 at 1f5764572a98b7ae2f306e121e2e410f79c29daf",
+  "fixture": "Fixture: H; a configuration K frozen at F (round branch from D on main) whose ledger carries edit e on path p; c0 = main at F's designation. f = an oi-review-record/1 file under verification/audits/r/ carrying a well-formed second-kind finding on e by an independent reviewer (verdict invalidates on <p>:scientific_effect, invalidated naming e, configuration naming K), reviewing reconciliation record q in the same directory. Unless stated, the run is op C execution with M = the last listed main commit and no REV.",
+  "expected_vocabulary": {
+    "outcome": "FAIL, ERROR, PASS or ANY, as in EXPECTATIONS.json; ERROR means no verdict",
+    "classes_include": "result classes that must appear",
+    "invariants.not_class": "classes that must not appear",
+    "finding": "the category3.findings element for f: present_at_M and witness (R6.OBL29.8); binding run-level where stated",
+    "finding_references": "number of distinct references carrying the finding"
+  },
+  "kinds": {
+    "negative": "a removal that must not lift the block",
+    "positive": "a legitimate disappearance or a baseline that must behave as stated",
+    "countercase": "an adversarial attempt to defeat the remedy",
+    "boundary": "documents the edge of R* or the scope point of sec. 5.4",
+    "residual": "documents a residual the remedy does not cover"
+  },
+  "controls": [
+    {
+      "id": "N-DEL",
+      "kind": "negative",
+      "setup": [
+        "c1: land q and f on main",
+        "c2: delete f",
+        "run on M = c2"
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "retirement-blocked"
+        ],
+        "finding": {
+          "present_at_M": false
+        }
+      },
+      "requirements": [
+        "R6.OBL29.1",
+        "R6.OBL29.2",
+        "R6.OBL29.6"
+      ]
+    },
+    {
+      "id": "N-REWRITE-VERDICT",
+      "kind": "negative",
+      "setup": [
+        "c1: land q and f",
+        "c2: rewrite f's verdict on <p>:scientific_effect to accept and drop invalidated and configuration",
+        "run on c2"
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "retirement-blocked"
+        ],
+        "finding": {
+          "present_at_M": false
+        }
+      },
+      "requirements": [
+        "R6.OBL29.2",
+        "R6.OBL29.6"
+      ]
+    },
+    {
+      "id": "N-REWRITE-INVALIDATED",
+      "kind": "negative",
+      "setup": [
+        "c1: land q and f",
+        "c2: remove the key invalidated only (verdict left invalidates)",
+        "run on c2"
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "retirement-blocked",
+          "record-invalid"
+        ],
+        "finding": {
+          "present_at_M": false
+        }
+      },
+      "requirements": [
+        "R6.OBL29.2",
+        "R6.OBL29.6"
+      ],
+      "note": "the rewritten blob is itself a form-failed finding; the original blob still binds e"
+    },
+    {
+      "id": "N-REWRITE-ENTRY",
+      "kind": "negative",
+      "setup": [
+        "c1: land a reconciliation record q1 whose entry for p has scientific_effect verdict invalidates (first kind) with its review",
+        "c2: rewrite q1 removing that entry",
+        "run on c2"
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "retirement-blocked"
+        ],
+        "finding": {
+          "present_at_M": false
+        }
+      },
+      "requirements": [
+        "R6.OBL29.2",
+        "R6.OBL29.6"
+      ]
+    },
+    {
+      "id": "N-MOVE-OUT",
+      "kind": "negative",
+      "setup": [
+        "c1: land q and f",
+        "c2: git mv f to docs/f.json (outside verification/audits/)",
+        "run on c2"
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "retirement-blocked"
+        ],
+        "finding": {
+          "present_at_M": false
+        }
+      },
+      "requirements": [
+        "R6.OBL29.1",
+        "R6.OBL29.6"
+      ]
+    },
+    {
+      "id": "N-MOVE-TL",
+      "kind": "negative",
+      "setup": [
+        "c1: land q and f",
+        "c2: move f under a tool-landing prefix of K's side-change class record, unpinned",
+        "run on c2"
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "retirement-blocked",
+          "side-change-unclassified"
+        ],
+        "finding": {
+          "present_at_M": false
+        }
+      },
+      "requirements": [
+        "R6.OBL29.5",
+        "R6.OBL29.6",
+        "R6.TREE.5"
+      ]
+    },
+    {
+      "id": "N-TL-WIDEN",
+      "kind": "negative",
+      "setup": [
+        "c1: land q and f",
+        "F2: a new configuration version K2 (new freeze) whose side-change class record adds a tool-landing prefix covering verification/audits/r/ and pins f's blob; K2 still carries e",
+        "run on c1 with --freeze F2"
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "retirement-blocked"
+        ],
+        "finding": {
+          "present_at_M": true
+        }
+      },
+      "requirements": [
+        "R6.OBL29.5"
+      ]
+    },
+    {
+      "id": "N-SYMLINK",
+      "kind": "negative",
+      "setup": [
+        "c1: land q and f",
+        "c2: replace f by a symbolic link (mode 120000) to q",
+        "run on c2"
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "retirement-blocked"
+        ],
+        "finding": {
+          "present_at_M": false
+        }
+      },
+      "requirements": [
+        "R6.OBL29.1",
+        "R6.OBL29.6"
+      ]
+    },
+    {
+      "id": "N-GITLINK",
+      "kind": "negative",
+      "setup": [
+        "c1: land q and f",
+        "c2: replace f by a submodule entry (mode 160000)",
+        "run on c2"
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "retirement-blocked"
+        ],
+        "finding": {
+          "present_at_M": false
+        }
+      },
+      "requirements": [
+        "R6.OBL29.1",
+        "R6.OBL29.6"
+      ]
+    },
+    {
+      "id": "N-MODE",
+      "kind": "negative",
+      "setup": [
+        "c1: land q and f (100644)",
+        "c2: change f to 100755, bytes unchanged",
+        "run on c2"
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "retirement-blocked"
+        ],
+        "finding": {
+          "present_at_M": true
+        }
+      },
+      "requirements": [
+        "R6.OBL29.1"
+      ],
+      "note": "mode is not part of identity: one finding, present at M"
+    },
+    {
+      "id": "N-PREPEND",
+      "kind": "negative",
+      "setup": [
+        "c1: land q and f",
+        "c2: prepend the bytes '# note\\n' to f",
+        "run on c2"
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "retirement-blocked"
+        ],
+        "finding": {
+          "present_at_M": false
+        }
+      },
+      "requirements": [
+        "R6.OBL29.2",
+        "R6.OBL29.6"
+      ]
+    },
+    {
+      "id": "N-TRUNCATE",
+      "kind": "negative",
+      "setup": [
+        "c1: land q and f",
+        "c2: truncate f mid-object",
+        "run on c2"
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "retirement-blocked",
+          "record-invalid"
+        ],
+        "finding": {
+          "present_at_M": false
+        }
+      },
+      "requirements": [
+        "R6.OBL29.2",
+        "R6.OBL29.6"
+      ],
+      "note": "the truncated blob is class (c) on its own; the original blob binds e"
+    },
+    {
+      "id": "N-RENAME-CHAIN",
+      "kind": "negative",
+      "setup": [
+        "c1: land q and f at r/f.json",
+        "c2: rename to r/g.json",
+        "c3: rename to s/h.json",
+        "c4: rewrite s/h.json to verdict accept",
+        "run on c4"
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "retirement-blocked"
+        ],
+        "finding_references": 3
+      },
+      "requirements": [
+        "R6.OBL29.1",
+        "R6.OBL29.2",
+        "R6.OBL29.6"
+      ],
+      "note": "three references carry the finding (r/f.json, r/g.json and s/h.json's first blob)"
+    },
+    {
+      "id": "N-RENAME-PARTIAL-DISCHARGE",
+      "kind": "negative",
+      "setup": [
+        "as N-RENAME-CHAIN to c4",
+        "F2: K2 cites one applying reassessment naming r/f.json only",
+        "run on c4 with --freeze F2"
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "retirement-blocked"
+        ],
+        "finding": {
+          "present_at_M": false
+        }
+      },
+      "requirements": [
+        "R6.OBL29.6",
+        "R6.RECON.27"
+      ],
+      "note": "one reassessment lifts only the finding it names"
+    },
+    {
+      "id": "N-READD-ALTERED",
+      "kind": "negative",
+      "setup": [
+        "c1: land q and f",
+        "c2: delete f",
+        "c3: re-add a file at f's path with verdict accept and no invalidated",
+        "run on c3"
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "retirement-blocked"
+        ],
+        "finding": {
+          "present_at_M": false
+        }
+      },
+      "requirements": [
+        "R6.OBL29.1",
+        "R6.OBL29.6"
+      ]
+    },
+    {
+      "id": "N-MERGE-SECOND-PARENT",
+      "kind": "negative",
+      "setup": [
+        "c1: land q and f",
+        "b1: branch from c1 deleting f",
+        "c2: merge (first parent c1, second parent b1), tree without f",
+        "run on c2"
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "retirement-blocked"
+        ],
+        "finding": {
+          "present_at_M": false
+        }
+      },
+      "requirements": [
+        "R6.OBL29.1",
+        "R6.OBL29.7"
+      ]
+    },
+    {
+      "id": "N-MERGE-RESOLUTION",
+      "kind": "negative",
+      "setup": [
+        "c1: land q and f",
+        "b1: branch from c0 changing an unrelated file",
+        "c2: merge (c1, b1) whose conflict resolution drops f",
+        "run on c2"
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "retirement-blocked"
+        ],
+        "finding": {
+          "present_at_M": false
+        }
+      },
+      "requirements": [
+        "R6.OBL29.1",
+        "R6.OBL29.7"
+      ]
+    },
+    {
+      "id": "N-BRANCH-DRAFT",
+      "kind": "negative",
+      "setup": [
+        "b1: branch from c0 adding q and f",
+        "b2: on the branch, delete f",
+        "c1: merge --no-ff (c0, b2)",
+        "run on c1"
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "retirement-blocked"
+        ],
+        "finding": {
+          "present_at_M": false
+        }
+      },
+      "requirements": [
+        "R6.OBL29.1"
+      ],
+      "note": "ancestry walk; would pass under a first-parent-only R* (owner point 1)"
+    },
+    {
+      "id": "N-REV-DROP",
+      "kind": "negative",
+      "setup": [
+        "c1: main after F",
+        "REV1: child of c1 adding a post-freeze reconciliation record q1 whose entry has scientific_effect verdict invalidates, with its review",
+        "run 1 on M = c1 with --classify REV1:q1: retirement-blocked",
+        "c2: merge (c1, REV1) whose resolution drops q1 and its review",
+        "REV2: child of c2 with an unrelated post-freeze record",
+        "run 2 on M = c2 with --classify REV2:..."
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "retirement-blocked"
+        ],
+        "finding": {
+          "present_at_M": false
+        }
+      },
+      "requirements": [
+        "R6.OBL29.1",
+        "R6.OBL29.2"
+      ],
+      "note": "REV1 is reachable from c2 as a second parent"
+    },
+    {
+      "id": "N-PRE-F",
+      "kind": "negative",
+      "setup": [
+        "c1: land q and f on main",
+        "c2: delete f",
+        "F: freeze of K, D = c2 (F's tree lacks f)",
+        "c3: main",
+        "run on c3"
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "retirement-blocked"
+        ],
+        "finding": {
+          "present_at_M": false
+        }
+      },
+      "requirements": [
+        "R6.OBL29.1",
+        "R6.OBL29.2"
+      ],
+      "note": "the failure is not limited to post-F changes"
+    },
+    {
+      "id": "N-SUPERSEDE-DELETE",
+      "kind": "negative",
+      "setup": [
+        "c1: land q1 (first-kind finding on e) and its review",
+        "c2: land q2 superseding q1 with verdict no-effect and an accepting review",
+        "c3: delete q1 and its review",
+        "run on c3"
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "retirement-blocked"
+        ],
+        "finding": {
+          "present_at_M": false
+        }
+      },
+      "requirements": [
+        "R6.OBL29.6",
+        "R6.RECON.26"
+      ]
+    },
+    {
+      "id": "N-KEYS-B-BYPASS",
+      "kind": "countercase",
+      "setup": [
+        "c1: land q and f (independent reviewer)",
+        "c2: delete q (f stays)",
+        "F2: K2 carrying e, citing a reassessment of f with repair null under Keys (b) ('reviewed names no record the scan finds'), with review and rederivation",
+        "run on c2 with --freeze F2"
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "retirement-blocked",
+          "record-invalid"
+        ],
+        "finding": {
+          "present_at_M": true
+        }
+      },
+      "requirements": [
+        "R6.OBL29.3",
+        "R6.RECON.27"
+      ],
+      "note": "q is in R*, so f's independence is established and a repair is required"
+    },
+    {
+      "id": "N-KEYS-A-BYPASS",
+      "kind": "countercase",
+      "setup": [
+        "c1: land q1 (first-kind finding on e) and a non-author review accepting <p>:scientific_effect",
+        "c2: delete that review",
+        "c3: land a second non-author review rejecting <p>:scientific_effect",
+        "F2: K2 carrying e, citing a reassessment with repair null under Keys (a)",
+        "run on c3 with --freeze F2"
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "retirement-blocked",
+          "record-invalid"
+        ],
+        "finding": {
+          "present_at_M": false
+        }
+      },
+      "requirements": [
+        "R6.OBL29.3",
+        "R6.RECON.27"
+      ],
+      "note": "the accepting review is in R*: an independent reviewer asserts the invalidation"
+    },
+    {
+      "id": "N-FORGED-REASSESS-NEWBLOB",
+      "kind": "countercase",
+      "setup": [
+        "as N-REWRITE-VERDICT to c2",
+        "F2: K2 carrying e, citing a reassessment whose finding names the rewritten blob (path of f, sha256 at c2)",
+        "run on c2 with --freeze F2"
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "retirement-blocked",
+          "record-invalid"
+        ],
+        "finding": {
+          "present_at_M": false
+        }
+      },
+      "requirements": [
+        "R6.OBL29.6",
+        "R6.RECON.27"
+      ],
+      "note": "the named reference carries no finding"
+    },
+    {
+      "id": "N-FORGED-REASSESS-FAKE",
+      "kind": "countercase",
+      "setup": [
+        "as N-DEL to c2",
+        "F2: K2 citing a reassessment naming a reference that no reachable tree holds",
+        "run on c2 with --freeze F2"
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "retirement-blocked",
+          "record-invalid"
+        ],
+        "finding": {
+          "present_at_M": false
+        }
+      },
+      "requirements": [
+        "R6.OBL29.3",
+        "R6.RECON.27"
+      ]
+    },
+    {
+      "id": "N-FORGED-REASSESS-SELF",
+      "kind": "countercase",
+      "setup": [
+        "as N-DEL to c2",
+        "F2: K2 citing a reassessment of f's original reference whose review is by its author",
+        "run on c2 with --freeze F2"
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "retirement-blocked",
+          "record-invalid"
+        ],
+        "finding": {
+          "present_at_M": false
+        }
+      },
+      "requirements": [
+        "R6.OBL29.6",
+        "R6.RECON.27"
+      ]
+    },
+    {
+      "id": "N-OWNER-DELETE",
+      "kind": "countercase",
+      "setup": [
+        "c1: land q and f",
+        "c2: delete f; the commit message quotes an owner approval under AGENTS.md sec. A.50 item 3 and a disposition note lands beside it",
+        "run on c2"
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "retirement-blocked"
+        ],
+        "finding": {
+          "present_at_M": false
+        }
+      },
+      "requirements": [
+        "R6.OBL29.6"
+      ],
+      "note": "the tool reads no authorization (R6.STAT.4, R6.PUR.11)"
+    },
+    {
+      "id": "N-OWNER-RECORD-KIND",
+      "kind": "countercase",
+      "setup": [
+        "as N-OWNER-DELETE",
+        "F2: K2 whose records list an oi-owner-authorization/1 record covering the deletion"
+      ],
+      "expected": {
+        "outcome": "ERROR",
+        "classes_include": [
+          "CONFIG_INVALID"
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.6",
+        "R6.RECON.33"
+      ]
+    },
+    {
+      "id": "N-INDEP-WITHDRAWN",
+      "kind": "countercase",
+      "setup": [
+        "c1: land q and f",
+        "c2: the reviewer of f lands a note withdrawing it and f is deleted",
+        "F2: K2 carrying e, citing a reassessment with repair null",
+        "run on c2 with --freeze F2"
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "retirement-blocked",
+          "record-invalid"
+        ],
+        "finding": {
+          "present_at_M": false
+        }
+      },
+      "requirements": [
+        "R6.OBL29.3",
+        "R6.OBL29.6"
+      ],
+      "note": "fail closed under r5 Keys; owner point 2"
+    },
+    {
+      "id": "N-ROOT",
+      "kind": "negative",
+      "setup": [
+        "fixture repository whose root commit r0 holds q and f",
+        "r1: delete f",
+        "...: the plan fixture on top",
+        "run on the last commit"
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "retirement-blocked"
+        ],
+        "finding": {
+          "present_at_M": false
+        }
+      },
+      "requirements": [
+        "R6.OBL29.7"
+      ],
+      "note": "removal at the walk's end: the root's whole tree is scanned"
+    },
+    {
+      "id": "N-BOUND-DEPTH",
+      "kind": "countercase",
+      "setup": [
+        "c1: land q and f",
+        "c2: delete f",
+        "c3 .. c(N+2): N >= 10000 further first-parent commits",
+        "run on the last commit"
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "retirement-blocked"
+        ],
+        "finding": {
+          "present_at_M": false
+        }
+      },
+      "requirements": [
+        "R6.OBL29.7"
+      ],
+      "note": "no depth limit; a limit at N would let this pass"
+    },
+    {
+      "id": "N-SHALLOW",
+      "kind": "negative",
+      "setup": [
+        "as N-DEL, in a store made shallow at c2 (c1 absent)",
+        "run on c2"
+      ],
+      "expected": {
+        "outcome": "ERROR",
+        "invariants": [
+          {
+            "no_verdict": true
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.7",
+        "R6.REC.17"
+      ]
+    },
+    {
+      "id": "N-CORRUPT-OBJECT",
+      "kind": "negative",
+      "setup": [
+        "as N-DEL",
+        "replace the loose object of f's blob with bytes that do not hash to its id",
+        "run on c2"
+      ],
+      "expected": {
+        "outcome": "ERROR",
+        "invariants": [
+          {
+            "no_verdict": true
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.7",
+        "R6.REC.17"
+      ]
+    },
+    {
+      "id": "N-PRUNED-BLOB",
+      "kind": "negative",
+      "setup": [
+        "as N-DEL",
+        "remove f's blob object from the store",
+        "run on c2"
+      ],
+      "expected": {
+        "outcome": "ERROR",
+        "invariants": [
+          {
+            "no_verdict": true
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.7",
+        "R6.REC.17"
+      ]
+    },
+    {
+      "id": "N-GRAFT",
+      "kind": "countercase",
+      "setup": [
+        "as N-DEL",
+        "add a replace ref and a graft that make c2's parent c0",
+        "run on c2"
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "retirement-blocked"
+        ],
+        "finding": {
+          "present_at_M": false
+        }
+      },
+      "requirements": [
+        "R6.OBL29.7",
+        "R6.REC.17"
+      ],
+      "note": "replace refs and grafts are not applied"
+    },
+    {
+      "id": "N-PREDICTED-M",
+      "kind": "negative",
+      "setup": [
+        "M0 = main commit whose history holds f landed then deleted",
+        "predicted M = M0 plus the tool's landing paths (in-memory)",
+        "RT-L2-style run with --record-base M0, with K's lineage"
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "retirement-blocked"
+        ],
+        "finding": {
+          "present_at_M": false
+        }
+      },
+      "requirements": [
+        "R6.OBL29.1",
+        "R6.OBL29.7"
+      ]
+    },
+    {
+      "id": "N-MALFORMED-DELETED",
+      "kind": "negative",
+      "setup": [
+        "c1: land a class (c) malformed finding file (does not parse; contains oi-review-record/1 and invalidates)",
+        "c2: delete it",
+        "run on c2"
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "retirement-blocked",
+          "record-invalid"
+        ],
+        "finding": {
+          "present_at_M": false,
+          "binding": "run-level"
+        }
+      },
+      "requirements": [
+        "R6.OBL29.2",
+        "R6.OBL29.6"
+      ]
+    },
+    {
+      "id": "N-REPAIR-ENTRY-DELETED",
+      "kind": "negative",
+      "setup": [
+        "as P-REASSESS-AFTER-DELETE to F2",
+        "c4: delete the repair's reconciliation record (its entry is no longer at M)",
+        "run on c4 with --freeze F2"
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "retirement-blocked",
+          "record-invalid"
+        ],
+        "finding": {
+          "present_at_M": false
+        }
+      },
+      "requirements": [
+        "R6.OBL29.4",
+        "R6.RECON.27"
+      ],
+      "note": "presence-based discharge conditions are read at M, never from R*: removal can only take a discharge away"
+    },
+    {
+      "id": "P-NONFINDING-REMOVAL",
+      "kind": "positive",
+      "setup": [
+        "c1: land a reconciliation record q0 with verdict no-effect and an accepting review, referenced by no configuration",
+        "c2: delete q0",
+        "run on c2"
+      ],
+      "expected": {
+        "outcome": "ANY",
+        "invariants": [
+          {
+            "not_class": [
+              "retirement-blocked",
+              "record-invalid"
+            ]
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.2",
+        "R6.OBL29.6"
+      ]
+    },
+    {
+      "id": "P-REASSESS-AFTER-DELETE",
+      "kind": "positive",
+      "setup": [
+        "c1: land q and f",
+        "c2: land the repair of the change and its reconciliation record entry with an accepting non-author review",
+        "c3: delete f",
+        "F2: K2 whose ledger rewords e and whose freeze cites an applying reassessment naming f's original reference and item <p>:scientific_effect, with repair (commits c2, entry present at M) and edit bound to K2's canonical entry",
+        "run on c3 with --freeze F2"
+      ],
+      "expected": {
+        "outcome": "ANY",
+        "invariants": [
+          {
+            "not_class": [
+              "retirement-blocked"
+            ]
+          }
+        ],
+        "finding": {
+          "present_at_M": false
+        }
+      },
+      "requirements": [
+        "R6.OBL29.3",
+        "R6.OBL29.4",
+        "R6.OBL29.6",
+        "R6.OBL29.8"
+      ]
+    },
+    {
+      "id": "P-REMOVE-EDIT",
+      "kind": "positive",
+      "setup": [
+        "c1: land q and f",
+        "c2: delete f",
+        "F2: K2 whose ledger carries neither e's id, a migrated id, nor e's target, citing no reassessment",
+        "run on c2 with --freeze F2"
+      ],
+      "expected": {
+        "outcome": "ANY",
+        "invariants": [
+          {
+            "not_class": [
+              "retirement-blocked"
+            ]
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.6"
+      ]
+    },
+    {
+      "id": "P-D3-MALFORMED",
+      "kind": "positive",
+      "setup": [
+        "as N-MALFORMED-DELETED to c2",
+        "F2: K2 citing an applying reassessment with finding.item null, repair null, edit null, naming the malformed file's reference",
+        "run on c2 with --freeze F2"
+      ],
+      "expected": {
+        "outcome": "ANY",
+        "invariants": [
+          {
+            "not_class": [
+              "retirement-blocked"
+            ]
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.3",
+        "R6.OBL29.6",
+        "R6.RECON.27"
+      ]
+    },
+    {
+      "id": "P-D3-REJECTED-FIRST-KIND",
+      "kind": "positive",
+      "setup": [
+        "c1: land q1 (first-kind finding on e) whose only review is non-author and rejects <p>:scientific_effect",
+        "c2: delete q1 and its review",
+        "F2: K2 citing an applying reassessment with repair null under Keys (a), naming q1's reference",
+        "run on c2 with --freeze F2"
+      ],
+      "expected": {
+        "outcome": "ANY",
+        "invariants": [
+          {
+            "not_class": [
+              "retirement-blocked"
+            ]
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.3",
+        "R6.RECON.27"
+      ],
+      "note": "R* holds no review asserting the invalidation, so Keys (a) admits repair null"
+    },
+    {
+      "id": "P-RENAME-DISCHARGED",
+      "kind": "positive",
+      "setup": [
+        "as N-RENAME-CHAIN to c4",
+        "F2: K2 citing one applying reassessment for each of the three references",
+        "run on c4 with --freeze F2"
+      ],
+      "expected": {
+        "outcome": "ANY",
+        "invariants": [
+          {
+            "not_class": [
+              "retirement-blocked"
+            ]
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.6",
+        "R6.RECON.27"
+      ]
+    },
+    {
+      "id": "P-UNRELATED-HISTORY",
+      "kind": "positive",
+      "setup": [
+        "history under verification/audits/ with deleted, renamed and rewritten JSON files whose objects carry no schema beginning oi-review-record/ or oi-reconciliation/, some containing the word invalidates",
+        "run on main"
+      ],
+      "expected": {
+        "outcome": "ANY",
+        "invariants": [
+          {
+            "not_class": [
+              "retirement-blocked",
+              "record-invalid"
+            ]
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.2",
+        "R6.OBL29.5"
+      ]
+    },
+    {
+      "id": "P-PRESENT-UNCHANGED",
+      "kind": "positive",
+      "setup": [
+        "c1: land q and f",
+        "run on c1"
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "retirement-blocked"
+        ],
+        "finding": {
+          "present_at_M": true,
+          "witness": "M"
+        }
+      },
+      "requirements": [
+        "R6.OBL29.8"
+      ],
+      "note": "baseline: the result r5 already gives, with the new fields"
+    },
+    {
+      "id": "P-WITNESS",
+      "kind": "positive",
+      "setup": [
+        "as N-MOVE-OUT",
+        "run on c2"
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "retirement-blocked"
+        ],
+        "finding": {
+          "present_at_M": false,
+          "witness": "c1"
+        }
+      },
+      "requirements": [
+        "R6.OBL29.8"
+      ]
+    },
+    {
+      "id": "P-DETERMINISM",
+      "kind": "positive",
+      "setup": [
+        "as N-RENAME-CHAIN",
+        "run twice, with different pack layouts and an empty and a warm cache"
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "invariants": [
+          {
+            "results_identical": true
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.1",
+        "R6.OBL29.7"
+      ]
+    },
+    {
+      "id": "P-TL-CLEAN",
+      "kind": "positive",
+      "setup": [
+        "the exact tool-landing tree of the tool candidate (R6.EVID.8 predicted M)",
+        "apply R6.RECON.35 detection without the tool-landing exclusion to every entry under verification/audits/ it adds"
+      ],
+      "expected": {
+        "outcome": "PASS",
+        "invariants": [
+          {
+            "no_finding_bearing_entry": true
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.5"
+      ],
+      "note": "precondition of the tool's landing under the remedy"
+    },
+    {
+      "id": "B-UNREACHABLE",
+      "kind": "boundary",
+      "setup": [
+        "b1: branch from c0 adding q and f, never merged, unreachable from M, F, REV, X and C",
+        "run on main"
+      ],
+      "expected": {
+        "outcome": "ANY",
+        "invariants": [
+          {
+            "finding_absent": "f"
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.1"
+      ],
+      "note": "residual R-1: not a removal of a recorded finding"
+    },
+    {
+      "id": "B-BRANCH-REWRITE",
+      "kind": "boundary",
+      "setup": [
+        "b1: branch adding f; b1 is force-pushed to drop that commit before merge; merge",
+        "run on main"
+      ],
+      "expected": {
+        "outcome": "ANY",
+        "invariants": [
+          {
+            "finding_absent": "f"
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.1"
+      ],
+      "note": "residual R-1"
+    },
+    {
+      "id": "B-MAIN-REWRITE",
+      "kind": "residual",
+      "setup": [
+        "c1: land q and f",
+        "c2: delete f",
+        "main force-pushed to c2' whose history omits c1",
+        "run on c2'"
+      ],
+      "expected": {
+        "outcome": "ANY",
+        "invariants": [
+          {
+            "finding_absent": "f"
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.1"
+      ],
+      "note": "residual R-2: undetectable by the tool; relies on P-1 (host protection of main). Recorded so that the limit is tested, not claimed away"
+    },
+    {
+      "id": "B-REC6-REJECTION",
+      "kind": "boundary",
+      "setup": [
+        "c1: land a record x with an accepting review and a second non-author review rejecting one item",
+        "c2: delete the rejecting review",
+        "run reading x"
+      ],
+      "expected": {
+        "with_R6.OBL29.10": {
+          "outcome": "FAIL",
+          "classes_include": [
+            "record-invalid"
+          ]
+        },
+        "without": {
+          "note": "x applies (the failure of sec. 5.4 persists)"
+        }
+      },
+      "requirements": [
+        "R6.OBL29.10"
+      ],
+      "note": "scope for the owner"
+    }
+  ]
+}
