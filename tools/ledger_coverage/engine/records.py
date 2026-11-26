@@ -45,6 +45,10 @@ def item_ids(doc):
     and is record-invalid: the record id never stands in for an entry's id."""
     if doc.get('schema') == 'oi-retirement-config/1':
         return [doc.get('config_id')]
+    if doc.get('schema') == 'oi-obl29-custody/1':
+        # R6.CUST.8: a custody version's review covers `entry:<i>` for each index it adds; without its predecessor
+        # every index is listed (custody.item_ids computes the added indices)
+        return ['entry:%d' % i for i in range(len(doc.get('entries') or []))]
     if doc.get('schema') == 'oi-reconciliation/2' and isinstance(doc.get('paths'), list):
         # design r6 amendment 3: each path entry, its scientific effect and each resolution are items of the review
         ids = []

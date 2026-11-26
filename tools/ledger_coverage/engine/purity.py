@@ -44,6 +44,7 @@ schema_ids = frozenset([
     'oi-ledger-coverage/5', 'oi-retirement-config/1', 'oi-term-rules/2', 'oi-delegation/1', 'oi-hp-adjudication/1',
     'oi-context-adjudication/1', 'oi-hit-classification/1', 'oi-scope/1', 'oi-side-change-classes/1',
     'oi-reconciliation/1', 'oi-reconciliation/2', 'oi-review-record/1', 'oi-ledger-landing/1', 'oi-reassessment/1',
+    'oi-obl29-custody/1',
 ])
 enumerations = frozenset([
     'PASS', 'REVIEW_REQUIRED', 'FAIL', 'USAGE', 'ERROR', 'VOID', 'INTERNAL',

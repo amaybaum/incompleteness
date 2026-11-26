@@ -189,6 +189,61 @@
     "unauthorized-change": "a change that no splice of the frozen ledger and no declared class specifies",
     "unauthorized-edit": "a ledgered file whose bytes differ from H with the frozen ledger's splices applied"
    }
+  },
+  "category3": {
+   "type": "object",
+   "description": "Category 3 (R6.RECON.36, R6.OBL29.8) and OBL-29 custody (OQ-12): custody is the R6.CUST.7 status at effective M with V_M's blob id, the chain, the discharge-bearing contexts, their runs, the custody failures and the witnesses custody adds",
+   "properties": {
+    "custody": {
+     "type": "object",
+     "required": [
+      "status"
+     ],
+     "properties": {
+      "status": {
+       "enum": [
+        "established",
+        "unestablished",
+        "not-required"
+       ]
+      },
+      "path": {
+       "type": "string"
+      },
+      "version": {
+       "type": [
+        "string",
+        "null"
+       ]
+      },
+      "chain": {
+       "type": "array",
+       "items": {
+        "type": "string"
+       }
+      },
+      "contexts": {
+       "type": "array"
+      },
+      "runs": {
+       "type": "object"
+      },
+      "problems": {
+       "type": "array",
+       "items": {
+        "type": "object",
+        "required": [
+         "item",
+         "why"
+        ]
+       }
+      },
+      "witnesses": {
+       "type": "array"
+      }
+     }
+    }
+   }
   }
  }
 }

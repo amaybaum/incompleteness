@@ -96,6 +96,10 @@ def build_parser():
     rp.add_argument('--snapshot', required=True, help='a committed landing record (oi-ledger-landing/1)')
     rp.add_argument('--out', required=True)
     rp.add_argument('--repo', default=None)
+    cu = sub.add_parser('custody', help='the R6.CUST.10 gate check of the OBL-29 custody record at a commit')
+    cu.add_argument('--commit', required=True)
+    cu.add_argument('--out', required=True)
+    cu.add_argument('--repo', default=None)
     s = sub.add_parser('self-test')
     s.add_argument('--out', required=True)
     s.add_argument('--repo', default=None)
@@ -364,13 +368,33 @@ def category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, r
         raise oc.Stop(oc.error, 'DESIGN_UNSETTLED', str(exc))
     except Unresolvable as exc:
         raise oc.Stop(oc.error, 'UNRESOLVABLE', 'a category-3 input cannot be read: %s' % exc)
+    # OBL-29 custody (R6.CUST.1-.9): checked at effective M whenever the configuration cites a reassessment
+    custody = None
+    if any(isinstance(r, dict) and r.get('kind') == 'reassessment' for r in cfg['records']):
+        from .. import record_authority as ra_
+        from . import custody as cust
+        try:
+            chk = cust.Check(repo, M, F, ra_.custody_path, ra_.custody_bootstrap_blob, cum, recon_route.audits_root,
+                             cfgmod.read_pin_table, recon_route.audits_root)
+            custody = chk.run()
+        except fd.Unsettled as exc:
+            raise oc.Stop(oc.error, 'DESIGN_UNSETTLED', str(exc))
+        except cust.Unimplemented as exc:
+            raise oc.Stop(oc.error, 'NOT_IMPLEMENTED', str(exc))
+        except Unresolvable as exc:
+            raise oc.Stop(oc.error, 'UNRESOLVABLE', 'a custody object cannot be read: %s' % exc)
+        for p_ in custody.get('problems') or []:
+            out.append(oc.make_item('RECORD', 'record-invalid', ra_.custody_path, None,
+                                    {'custody': p_['item'], 'why': p_['why']},
+                                    detail=['%s: %s' % (p_['item'], p_['why'])]))
     applying = []
     for r in cfg['records']:
         if r.get('kind') != 'reassessment':
             continue
         d = loaded.store.get(r)
         probs = c3.reassessment_problems(repo, M, led, d, r, loaded.store, loaded.admitted, found, m_scan, schemas,
-                                         cum, run_level=lambda f: bound.get(fkey(f), ([], False))[1])
+                                         cum, run_level=lambda f: bound.get(fkey(f), ([], False))[1],
+                                         custody=custody)
         if probs:
             out.append(oc.make_item('RECORD', 'record-invalid', r['path'], None,
                                     {'sha': r.get('blob_sha256'), 'why': probs[0]}, detail=probs))
@@ -394,7 +418,8 @@ def category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, r
     explicit = [{'path': (r.get('_ref') or {}).get('path'), 'blob_sha256': (r.get('_ref') or {}).get('blob_sha256'),
                  'source': r.get('_source')} for r in recon + explicit_reviews]
     result['category3_read_domain'] = cum.read_domain(explicit)
-    result['category3'] = {'findings': findings,
+    result['category3'] = {'custody': custody if custody is not None else {'status': 'not-required'},
+                           'findings': findings,
                            'blocked': [{'record': f['record'], 'item': f.get('item'), 'path': f['path'], 'edit': e}
                                        for f, e in blocked],
                            'reassessments': [r for _d, r in applying]}
@@ -418,6 +443,8 @@ def run(argv, repo=None, harness=False, stderr=None, extra_records=(), preflight
         if a.op == 'replay':
             from . import replay
             return replay.cli(a, out, repo, stderr)
+        if a.op == 'custody':
+            return custody_gate(a, out, repo, repo_path, argv)
         if getattr(a, 'final', False) and not getattr(a, 'check', None):
             raise UsageError('--final requires --check')
     except UsageError as exc:
@@ -470,6 +497,45 @@ def invocation(argv):
             continue
         out.append(x)
     return out
+
+
+def custody_gate(a, out, repo, repo_path, argv):
+    """R6.CUST.10: at the commit under check as M, R6.CUST.2 for the version in its tree, R6.CUST.4, the mechanical
+    parts of R6.CUST.5 (c1) for freeze entries, (c3), (c4)'s second clause and (c5), the second and third clauses of
+    (c2), and R6.CUST.8; it does not require a close for every context and establishes nothing for a run. Exit 0 when
+    every clause holds, 20 with record-invalid items otherwise, 65 on an unreadable object or an unsettled clause."""
+    from .. import record_authority as ra_
+    from . import custody as cust
+    res = {'schema': oc.result_schema, 'operation': 'custody', 'engine': engine_identity(), 'preflight': [],
+           'record_checks': None, 'items': [], 'invocation': invocation(argv)}
+    try:
+        if repo is None:
+            repo = Overlay(GitRepo(repo_path))
+        M = resolve(repo, a.commit)
+        cum = c3.Cumulative(repo, [M], rcmod.reconciliation_schemas, recon_route.audits_root)
+        chk = cust.Check(repo, M, None, ra_.custody_path, ra_.custody_bootstrap_blob, cum, recon_route.audits_root,
+                         cfgmod.read_pin_table, recon_route.audits_root)
+        rep = chk.run(gate=True)
+        # the gate checks (c4)'s second clause only (an unfrozen entry names a discharge-bearing configuration)
+        rep['problems'] = [p for p in rep['problems'] if not (p['item'] == 'custody-incomplete' and
+                                                              'unaccounted for' in p['why'])]
+        rep['status'] = 'established' if not rep['problems'] else 'unestablished'
+        res['custody'] = rep
+        res['items'] = oc.sort_items([oc.make_item('RECORD', 'record-invalid', ra_.custody_path, None,
+                                                   {'custody': p['item'], 'why': p['why']},
+                                                   detail=['%s: %s' % (p['item'], p['why'])])
+                                      for p in rep['problems']])
+        outc = oc.compute(res['preflight'], None, res['items'])
+    except (fd.Unsettled, cust.Unimplemented) as exc:
+        res['stop'] = {'class': 'DESIGN_UNSETTLED', 'message': str(exc)}
+        outc = oc.error
+    except Unresolvable as exc:
+        res['stop'] = {'class': 'UNRESOLVABLE', 'message': str(exc)}
+        outc = oc.error
+    res['outcome'] = outc
+    res['exit_status'] = oc.exit_codes[outc]
+    write(out, res)
+    return res['exit_status'], res
 
 
 def write(out, result, harness=False):

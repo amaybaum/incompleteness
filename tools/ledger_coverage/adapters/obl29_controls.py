@@ -56,8 +56,10 @@ def outcome(w, classify=(), **kw):
 def custody_only(o):
     """OBL-29 sec. 2.2 fail-closed: the cited reassessment's only problem is the unestablished custody, so that it
     would apply apart from custody, and the block stands (FAIL record-invalid and retirement-blocked)."""
-    return o['reassess_why'] == [c3.custody_unverified] and 'retirement-blocked' in o['classes'] and \
-        not o['reassessments']
+    # every remaining problem is a custody condition (R6.CUST.9); with no custody record in the fixture that is
+    # custody-missing
+    return bool(o['reassess_why']) and all(d.startswith('custody-') for d in o['reassess_why']) and \
+        'retirement-blocked' in o['classes'] and not o['reassessments']
 
 
 def refused_for(o, *phrases):

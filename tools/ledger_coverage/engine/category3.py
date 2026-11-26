@@ -217,6 +217,16 @@ REASSESS_RECORD = {'schema': (('lit', (reassessment_schema,)), True), 'record_id
                    'verdict': (('lit', ('no-effect',)), True)}
 
 
+def custody_problems(custody):
+    """The custody conditions a cited discharge fails: none when custody is established (R6.CUST.7), each custody-*
+    failure otherwise; without a custody check (no report) the discharge fails closed."""
+    if custody is None:
+        return [custody_unverified]
+    if custody.get('status') == 'established':
+        return []
+    return ['%s: %s' % (p['item'], p['why']) for p in custody.get('problems') or []] or [custody_unverified]
+
+
 def keys_problems(doc):
     """R6.RECON.27 Keys and R6.RECON.32 tables: a key missing, of another type or outside the table is a form
     failure (the reassessment does not apply)."""
@@ -255,7 +265,7 @@ def repair_null_admitted(f, cum):
 
 
 def reassessment_problems(repo, M, led, doc, ref, store, admitted, found, m_scan, schemas, cum=None,
-                          run_level=lambda f: False):
+                          run_level=lambda f: False, custody=None):
     """Why a cited reassessment does not apply (empty if it applies). m_scan: [(path, bytes)], the scanned set of M's
     tree; `found`: the findings of the cumulative record set; `cum`: that set, whose eligible reviews of the
     reassessment and of its repair record must all accept (R6.OBL29.3); run_level(finding): whether it binds the
@@ -266,7 +276,7 @@ def reassessment_problems(repo, M, led, doc, ref, store, admitted, found, m_scan
     out += ['a form failure of its keys: %s' % x for x in keys_problems(doc)]
     out += rec.lint_chain(ref, store, admitted)
     if out:
-        return out + [custody_unverified]
+        return out + custody_problems(custody)
     reviewers = {rv.get('reviewer') for _s, (_p, rv) in store.by_sha.items()
                  if isinstance(rv, dict) and rv.get('schema') == rec.review_schema
                  and isinstance(rv.get('reviewed'), dict) and rv['reviewed'].get('blob_sha256') == ref['blob_sha256']}
@@ -317,12 +327,9 @@ def reassessment_problems(repo, M, led, doc, ref, store, admitted, found, m_scan
     eid, esha = _part(doc, 'edit_id'), _part(doc, 'edit_sha256')
     if doc.get('edit') is not None and (eid is None or edit_sha(led, eid) is None or edit_sha(led, eid) != esha):
         out.append("the edit is not an edit of the citing configuration's ledger as worded")
-    # OBL-29 remedy r9 sec. 2.2, Custody and lookup: before an applying discharge is returned, the custody starting
-    # point and its coverage for the repair under consideration are verified; missing required custody leaves the
-    # cited discharge inapplicable (FAIL record-invalid and retirement-blocked). The custody format, bootstrap record
-    # and mapping to admitted inputs are not yet fixed and independently verified, so no custody can be established
-    # and every cited discharge fails closed here, whatever else holds.
-    out.append(custody_unverified)
+    # R6.CUST.7 (OBL-29 custody c7): before an applying discharge is returned, custody must be established at
+    # effective M; any custody failure makes every cited discharge inapplicable (R6.CUST.9, global to the run)
+    out += custody_problems(custody)
     return out
 
 

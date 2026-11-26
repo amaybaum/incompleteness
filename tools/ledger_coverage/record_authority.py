@@ -35,3 +35,10 @@ transition_descriptor = 'a1-staging-transition.json'
 transition_descriptor_schema = 'oi-a1-staging-transition/1'
 transition_prior = 'a1-staging-prior.json'
 transition_prior_schema = 'oi-a1-staging-prior/1'
+
+# OBL-29 custody (design c7, R6.CUST.1, R6.CUST.3): the single path of the custody record, and the git blob id of its
+# bootstrap version. The bootstrap blob id is a placeholder until the owner designates B0 and the bootstrap version is
+# built and independently verified (sec. 3); while it is the placeholder no chain can end at the bootstrap, so custody
+# is never established and every cited discharge stays inapplicable (fail closed). Changing either is a tool revision.
+custody_path = 'verification/audits/foundations/a1exit-obl29-custody/custody.json'
+custody_bootstrap_blob = 'PLACEHOLDER-UNTIL-B0-IS-DESIGNATED'
