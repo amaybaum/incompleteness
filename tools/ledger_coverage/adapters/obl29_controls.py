@@ -44,7 +44,7 @@ def outcome(w, classify=(), **kw):
     c3 = out.get('category3') or {}
     fs = [f for f in c3.get('findings') or [] if (f.get('record') or {}).get('path') == FP]
     return {'exit': code, 'classes': sorted({i['class'] for i in out.get('items', [])}),
-            'stop': (out.get('stop') or {}).get('class'), 'finding': fs,
+            'stop': (out.get('stop') or {}).get('class'), 'finding': fs, 'all': c3.get('findings') or [],
             'blocked': [b['record']['path'] for b in c3.get('blocked') or []],
             'reassessments': c3.get('reassessments'),
             'invalid': [d for i in out.get('items', []) if i['class'] == 'record-invalid'
@@ -757,6 +757,173 @@ def predecessor_widening_unit(r):
          {'reject': rej, 'accept': acc}, bool(rej) and acc == [])
 
 
+def r13_form_controls(r):
+    """Amendment 6 r13 Form of a finding (i)-(iv) and R6.RECON.35 classes, as R6.OBL29.2 applies them to R*."""
+    from ledger_coverage.engine import findings as fdm
+    rv = FP[:-5] + '.review.json'
+    # R6.RECON.35 classes on bytes
+    cls = {
+        'strict recon': fdm.classify(b'{"schema": "oi-reconciliation/2"}'),
+        'duplicate key': fdm.classify(b'{"schema": "oi-review-record/1", "schema": "oi-review-record/1"}'),
+        'NaN': fdm.classify(b'{"schema": "oi-reconciliation/2", "x": NaN}'),
+        'utf-16 BOM': fdm.classify('{"schema": "oi-review-record/1"}'.encode('utf-16')),
+        'nested schema': fdm.classify(b'{"a": [{"schema": " OI-Reconciliation/9 "}]}'),
+        'review shape': fdm.classify(b'{"reviewed": {}, "verdicts": [{"invalidated": []}]}'),
+        'unparseable': fdm.classify(b'{"schema": "oi-reconciliation/2", invalidates'),
+        'escaped': fdm.classify(b'{"x": "oi-reconcili\\u0061tion/2" ,,'),
+        'prose': fdm.classify(b'# oi-reconciliation/2 quoted in prose'),
+        'other json': fdm.classify(b'{"schema": "oi-term-rules/2"}'),
+    }
+    want = {'strict recon': ('a', 'oi-reconciliation/2'), 'duplicate key': ('b', False), 'NaN': ('b', False),
+            'utf-16 BOM': ('b', False), 'nested schema': ('b', False), 'review shape': ('b', True),
+            'unparseable': ('c', True), 'escaped': ('c', False), 'prose': None, 'other json': None}
+    case('SCAN-CLASSES', 'R6.RECON.35 selection and classes (a), (b), (c) and the invalidation signal on fixed bytes',
+         {k: list(v) if v else v for k, v in cls.items()}, cls == want)
+
+    def second_kind_world(reviewer='reviewer-x', withdraw=False, reviewed_missing=False):
+        w = pfc.World(r)
+        q = w.record(record_id='syn-recon-q')
+        qb = pfc.jb(q)
+        QP = pfc.RD + 'q.json'
+        pfc.land(w, [(QP, q)], 'a reviewed no-effect record q')
+        inv = pfc.invalidating(w, sf.DOC)['paths'][0]['scientific_effect']
+        ref = {'path': QP if not reviewed_missing else pfc.RD + 'absent.json', 'blob_sha256': sf.sha(qb)}
+        verdicts = [{'item': i, 'verdict': 'accept', 'reason': ''} for i in rec.item_ids(q)]
+        for v in verdicts:
+            if v['item'] == sf.DOC + ':scientific_effect':
+                v.update(verdict='invalidates', reason='the change invalidates the planned edit',
+                         invalidated=inv['invalidated'], configuration=inv['configuration'])
+        z = pfc.jb({'schema': rec.review_schema, 'reviewer': reviewer, 'reviewed': ref,
+                    'method': 'read ' + 'a' * 40, 'verdicts': verdicts})
+        ZP = pfc.RD + 'q.second.review.json'
+        c1 = step(w, {ZP: z}, 'an independent review finds invalidation')
+        if withdraw:
+            step(w, {ZP: None}, 'the review is withdrawn')
+        return w, c1, ZP
+    w, c1, ZP = second_kind_world()
+    o = outcome(w)
+    sk = [f for f in o['all'] if f.get('kind') == 2]
+    case('SECOND-KIND', 'an independent reviewer\'s invalidates verdict on <path>:scientific_effect of a no-effect '
+                        'record: a second-kind finding that blocks', o,
+         'retirement-blocked' in o['classes'] and sk and sk[0]['record']['path'] == ZP)
+    w, c1, ZP = second_kind_world(withdraw=True)
+    o = outcome(w)
+    sk = [f for f in o['all'] if f.get('kind') == 2]
+    case('N-INDEP-WITHDRAWN', 'the independent review deleted after landing: the second-kind finding still blocks', o,
+         'retirement-blocked' in o['classes'] and sk and sk[0]['present_at_M'] is False and sk[0]['witness'] == c1)
+    w, c1, ZP = second_kind_world(reviewer=sf.WRITER, withdraw=True)
+    o = outcome(w)
+    case('SECOND-KIND-SELF-REVIEW', 'the same verdict by the reviewed record\'s own author (independence fails): no '
+                                    'finding', o, not [f for f in o['all'] if f.get('kind') == 2]
+         and 'retirement-blocked' not in o['classes'])
+    w, c1, ZP = second_kind_world(reviewer='https://example.invalid/runs/1')
+    o = outcome(w)
+    case('SECOND-KIND-RUN-REVIEWER', 'the same verdict by a run (a URL in reviewer): disqualified, no finding', o,
+         not [f for f in o['all'] if f.get('kind') == 2])
+    w, c1, ZP = second_kind_world(reviewed_missing=True)
+    o = outcome(w)
+    case('SECOND-KIND-REVIEWED-MISSING', 'an invalidates verdict whose reviewed names no record the scan finds: it '
+                                         'counts (form failure) but has no entry; its applicability is not settled: '
+                                         'ERROR DESIGN_UNSETTLED', o, o['exit'] == 65 and o['stop'] == 'DESIGN_UNSETTLED')
+    # first kind with no review at all
+    w = pfc.World(r)
+    doc = pfc.invalidating(w, sf.DOC)
+    step(w, {FP: pfc.jb(doc)}, 'an invalidating entry with no review')
+    o = outcome(w)
+    case('FIRST-KIND-UNREVIEWED', 'an invalidating entry whose record has no review: a finding that blocks (detection '
+                                  'precedes lint)', o, blocked(o, True, w.M))
+    # malformed files
+    MP = pfc.RD + 'broken.json'
+    w = pfc.World(r)
+    step(w, {MP: b'{"schema": "oi-reconciliation/2", "record_id": "x", "record_id": "y"}'}, 'a malformed record')
+    o = outcome(w)
+    case('MALFORMED-NONFINDING-AT-M', 'a class (b) file without an invalidation signal at M: FAIL record-invalid (the '
+                                      'ordinary malformed-nonfinding lint), no finding', o,
+         'record-invalid' in o['classes'] and any('malformed record' in d for d in o['invalid']) and not o['finding'])
+    step(w, {MP: None}, 'deleted')
+    o = outcome(w)
+    case('P-HISTORICAL-MALFORMED-NONFINDING', 'the same file deleted: history alone gives neither a finding nor a '
+                                              'diagnostic', o, not o['finding'] and
+         not any('malformed record' in d for d in o['invalid']))
+    w = pfc.World(r)
+    step(w, {MP: b'{"schema": "oi-reconciliation/2", "x": "invalidates"'}, 'an unparseable malformed finding')
+    step(w, {MP: None}, 'deleted')
+    o = outcome(w)
+    case('N-MALFORMED-DELETED', 'a class (c) malformed finding landed and deleted: still in R*; a malformed finding has '
+                                'no entry, so its applicability is not settled: ERROR DESIGN_UNSETTLED', o,
+         o['exit'] == 65 and o['stop'] == 'DESIGN_UNSETTLED')
+    TLP = 'verification/audits/syn-tl/'
+    w = pfc.World(r, variant=tl_variant(TLP))
+    step(w, {TLP + 'broken.json': b'{"schema": "oi-review-record/1", "a": 1, "a": 2}'}, 'malformed under a TL prefix')
+    o = outcome(w)
+    case('P-TL-MALFORMED-NONFINDING', 'a malformed non-finding under a tool-landing prefix at M, not read by the run: '
+                                      'no malformed-record FAIL (the existing selector)', o,
+         not any('malformed record' in d for d in o['invalid']))
+    # form failures and binding
+    w = pfc.World(r)
+    doc = pfc.invalidating(w, sf.DOC)
+    del doc['paths'][0]['scientific_effect']['configuration']
+    c1 = pfc.land(w, [(FP, doc)])
+    o = outcome(w)
+    case('FORM-III-CURRENT', 'a finding at M without configuration: FAIL record-invalid (form failure) and still '
+                             'blocks (global scope)', o, blocked(o, True, w.M) and
+         any('configuration is absent' in d for d in o['invalid']))
+    w = pfc.World(r)
+    doc = pfc.invalidating(w, sf.DOC)
+    doc['paths'][0]['scientific_effect']['invalidated'][0]['sha256'] = '0' * 64
+    pfc.land(w, [(FP, doc)])
+    o = outcome(w)
+    case('FORM-II-MISMATCH', 'an invalidated element whose sha256 differs from the named configuration\'s ledger: FAIL '
+                             'record-invalid and still blocks', o, blocked(o, True, w.M) and
+         any('differs from the named configuration' in d for d in o['invalid']))
+    w = pfc.World(r)
+    doc = pfc.invalidating(w, sf.DOC)
+    se = doc['paths'][0]['scientific_effect']
+    se.pop('invalidated')
+    pfc.land(w, [(FP, doc)])
+    o = outcome(w)
+    case('FALLBACK-CONCLUSIONS', 'invalidates without invalidated, conclusions naming E1: bound through the Form (iv) '
+                                 'fallback (E1), with a form failure', o, blocked(o, True, w.M) and
+         'record-invalid' in o['classes'])
+    w = pfc.World(r)
+    other = 'doc/other.md'
+    w.M = w.repo.derive(w.M, {other: b'# other\n\nchanged on main\n'}, parents=[w.M], subject='corpus change')
+    doc = pfc.invalidating(w, other)
+    se = doc['paths'][0]['scientific_effect']
+    se.pop('invalidated')
+    se['conclusions'] = 'none'
+    pfc.land(w, [(FP, doc)])
+    code, out = w.run([], harness=True)
+    rl = [b for b in ((out or {}).get('category3') or {}).get('blocked') or [] if b.get('edit') is None]
+    case('RUN-LEVEL', 'invalidates with no invalidated, conclusions none, on a path the ledger does not list: bound at '
+                      'run level for the configuration of its lineage', {'exit': code, 'run_level': rl},
+         code == 20 and bool(rl))
+    w0 = pfc.World(r)
+    d0 = pfc.invalidating(w0, sf.DOC)
+    del d0['paths'][0]['scientific_effect']['configuration']
+    w = pfc.World(r, edits=pfc.EDITS_OTHER, first_id=2)
+    pfc.land(w, [(FP, d0)])
+    step(w, {FP: None, rv: None}, 'deleted')
+    o = outcome(w)
+    case('FORM-FAILURE-HISTORICAL-UNBOUND', 'a historical-only finding with a form failure that binds nothing the run\'s '
+                                            'configuration carries: no FAIL from its form (R6.OBL29.2)', o,
+         'retirement-blocked' not in o['classes'] and not any('form failure of a category-3' in d for d in o['invalid']))
+    # Keys
+    def keys_world(**upd):
+        w1 = pfc.finding_world(r, edits=pfc.EDITS_REWORDED)
+        return pfc.finding_world(r, variant=pfc.cite(pfc.reassessment(w1, **upd)), edits=pfc.EDITS_REWORDED)
+    o = outcome(keys_world(repair=None))
+    case('N-KEYS-A-BYPASS', 'repair null for a first-kind finding with no rejecting review of its scientific effect: '
+                            'refused (Keys (a))', o, refused_for(o, 'repair is null where an independent reviewer'))
+    o = outcome(keys_world(edit=None))
+    case('KEYS-EDIT-NULL', 'edit null for a finding not bound at run level: refused (Keys)', o,
+         refused_for(o, 'edit is null for a finding not bound at run level'))
+    w1 = pfc.finding_world(r, edits=pfc.EDITS_REWORDED)
+    o = outcome(keys_world(finding=w1.findings[0]))
+    case('KEYS-ITEM-MISSING', 'a reassessment finding without item: a form failure of its keys', o,
+         refused_for(o, '$.finding.item: missing'))
+
+
 def tl_variant(prefix, pins=()):
     """The synthetic configuration with a tool-landing class whose prefix is `prefix` (and pins for `pins`)."""
     from ledger_coverage import record_authority as ra
@@ -870,7 +1037,7 @@ SUITES = [('removal', removal_controls), ('topology', topology_controls), ('unre
           ('more-negative', more_negative_controls), ('monotone', monotone_controls),
           ('predecessor-widening', predecessor_widening_unit),
           ('pairing-predecessor', pairing_predecessor_controls),
-          ('pairing-review-order', pairing_review_order_control)]
+          ('pairing-review-order', pairing_review_order_control), ('r13-form', r13_form_controls)]
 
 
 def main(out):
