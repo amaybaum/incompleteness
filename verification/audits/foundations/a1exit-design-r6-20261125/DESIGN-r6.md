@@ -727,6 +727,23 @@ Owner direction at #1169 comment 7191164794 (amaybaum, 2026-11-26T11:47Z (as rec
 >
 > [...]
 
+Owner direction at #1169 comment 7191325726 (amaybaum, 2026-11-26T11:54Z (as received), relayed by the coordinating session); excerpt of item 2 (each line prefixed by "> "; "[...]" marks text left out):
+
+> [...]
+>
+> Rather than assuming that the three identified gaps are the last ones, require the reviewers to check the complete inventory of resolution routes against the general validity rule.
+>
+> For every applicable route, verify:
+> - Legitimate unchanged resolutions remain valid.
+> - Invalidated resolutions cannot survive.
+> - Conditions that genuinely cannot be established fail closed.
+>
+> Preserve the distinction between a condition being false and a condition being unverifiable.
+>
+> Adoption and trial execution remain unauthorized.
+>
+> [...]
+
 Amendment 6 resolves the schema ambiguities of category 3 that the tool writer raised while implementing amendment 4 and one expectation conflict; answers the independent review of its first draft (PR #1593 comment 7189446310); resolves two further ambiguities, the retained-site line of RC14 (b) and the resolution schema of R6.RECON.24; and states the schema contract of the reconciliation record kinds that the owner's completeness audit (PR #1593 comment 7189621405) found stated by meaning only (sec. 23.1, R6.RECON.29 to R6.RECON.36, one key table per kind); it then answers the reviews of its second draft (PR #1593 comments 7190255132 and 7190234470), states each definition once, and removes cases and text that both reviewers found to add no protection; and it makes the corrections of the two final checks (PR #1593 comments 7190624085 and 7190609504), states the matching key of R6.RECON.23 and the count grammar of R6.GATE.3, and adds R6.GATE.17, under which a failing row may stay unresolved; and it separates the identity of a finding from the validity of its resolution (R6.RECON.23) and states the removal of a landed finding record as the open defect OBL-29. Each resolution is a proposal for the owner's decision at adoption (AMENDMENT-6.md gives the options and lists the owner choices). None lets a finding be lost or lifted by rewording: a finding is detected before lint, every form failure blocks rather than lapses, the path-and-old-bytes match binds every configuration, and a migration only adds edits. Where the tool accepts input the design refuses (a missing `changes_decisions_on_X`, non-integer offsets, a suffix filter on the scanned set, skipped parse failures, ignored record kinds), the design rule is stated and a countercontrol row is added; no requirement is weakened to match the tool.
 
 ***
@@ -2936,7 +2953,7 @@ Sources: E-1068, V2-068, V2-069, RV-057, V1-079. Controls: B4-MEANING, S7-schema
 | `missing` | a site whose anchor occurs nowhere in the evaluated tree (sec. 4) |
 | `duplicated` | a site whose anchor occurs more than once where exactly one occurrence is required (sec. 4) |
 | `ambiguous` | a site whose occurrence cannot be selected uniquely by count, context and ordinal, including a disagreement between translation and search (sec. 4) |
-| `context-meaning-unverified` | a meaning-context site whose context changed, with no context adjudication matching both context hashes (sec. 6) |
+| `context-meaning-unverified` | a meaning-context site whose context changed, with no context adjudication matching both context hashes (sec. 6), or a resolving record's or site hold's condition that cannot be established on the landing (R6.RECON.23; amendment 6) |
 | `retained-changed` | a ledger entry listed as retained that is absent from `edits.json`, has a splice, or whose site text differs between `H` and `X` (sec. 3) |
 
 The PASS states of a site are `unchanged`, `moved`, `authorized-replacement`, `authorized-removal` and
@@ -5286,24 +5303,34 @@ sentence as splitter version 2 delimits it; the line number, the segment and the
 without a line, the key is its class, its subject and its fingerprint. Keys are counted with multiplicity: a
 key found k times at the landing and j times at `X` gives k - j new findings when k > j, so a line that `M`
 moves is not new and a second copy of a line is; when several new findings share a key, each is reported, at
-the landing's positions of the last k - j occurrences in file order. *Validity.* A previous resolution is never
-inherited merely because the finding remains identifiable: its full validity is established again on the
-landing tree. A matched finding keeps the resolution it had at `X` only if the resolving record resolves it under that record's own requirement, evaluated
-in full on the landing tree; the parts named here are included, not exhaustive: for a context adjudication,
-both context hashes (R6.CTX.7); for an allow rule, steps 1 to 4 of R6.RULE.4 (scope, literal, context matcher,
-deny precedence, negative matcher and allowance, each fingerprint's single use in the tree, and its sentence
-and, where required, context); for a hit classification, `file`, `line_sha256` and its uniqueness in the
-landing tree, and the profiles hitting the line (R6.HIT.4); for an HP adjudication, its line sha256 at the
-site's position and, where it binds a context, both context hashes. A segment or walk-step condition of an HP
-adjudication or a hit classification is read at `X`, and carries over only for a site whose line RC14 keeps
-intact (R6.RECON.24); otherwise it is not established. A record resolves at the landing at most as many
-matched instances as it resolved at `X`. The condition cannot be established when an input it reads (the
-sentence, the context window, the site's line, a segment or step, the tree's set of lines) cannot be
-computed on the landing by the procedure that computed it at `X`, or when the record's requirement gives no
-evaluation on a landing; the finding is then FAIL `context-meaning-unverified`. A record of any other kind
-keeps no resolution at the landing: the matched finding is resolved anew. A matched finding whose
-resolution is not kept counts as new unless records and rules at the landing resolve it. Moving a finding does
-not by itself make it new, and keeping its wording does not by itself keep its meaning. A new finding that records and rules do not resolve there under their own rules (sec.
+the landing's positions of the last k - j occurrences in file order. *Validity.* A previous resolution is never inherited merely because the finding remains identifiable: its full
+validity is established again on the landing tree. A matched finding keeps the resolution it had at `X` only if its
+resolving record or hold resolves it under its own requirement, evaluated in full on the landing tree; the parts
+named here are included, not exhaustive: for a context adjudication, both context hashes (R6.CTX.7); for an allow
+rule, steps 1 to 4 of R6.RULE.4 (scope, literal, context matcher, deny precedence, negative matcher and allowance,
+each fingerprint's single use in the tree, and its sentence and, where required, context); for a hit classification,
+`file`, `line_sha256` and its uniqueness in the landing tree, and the profiles hitting the line (R6.HIT.4); for an
+HP adjudication, its line sha256 at the site's position and, where it binds a context, both context hashes, and each
+of its `hit_classifications` entries evaluated as a hit classification (its line sha256, the line's uniqueness in
+the landing tree, and the profiles hitting the line); for a hit held by a tracked site (R6.HIT.1, R6.HIT.2), which
+no record resolves, that the site is not an HP site, that the hit lies on the site's region lines, and that those
+lines are byte-identical at the landing under the carry-over condition below. A segment or walk-step condition is
+read at `X`, and carries over for a site whose line is byte-identical at the landing and either lies in a path whose
+blob at the landing equals its blob at `X`, or lies outside every range of the path that `M` changes (it is at most
+moved by changes elsewhere), or is kept intact by RC14 (R6.RECON.24); otherwise it is not established. A site hold
+carries over when the site's region lines are located at the landing under the same branches (an unchanged path, a
+position outside every range `M` changes, or the region's translated position, checked as RC14 (b) checks a retained
+site's line) and are byte-identical there; a located region whose bytes differ does not hold, and a region that
+cannot be located exactly once is not established. The routes and their cases are listed in the table below. A
+record resolves at the landing at most as many matched instances as it resolved at `X`. The condition cannot be
+established when an input it reads (the sentence, the context window, the site's line or position, the site's
+region, a segment or step, the tree's set of lines) cannot be computed on the landing by the procedure that computed
+it at `X`, or when the requirement gives no evaluation on a landing; the finding is then FAIL
+`context-meaning-unverified`. A record of any other kind keeps no resolution at the landing: the matched finding is
+resolved anew. A matched finding whose resolution is not kept counts as new unless records and rules at the landing
+resolve it, and its landing item records `resolution_validity`: `does-not-hold` when the condition was evaluated and
+is false, `not-established` when it cannot be established. Moving a finding does not by itself make it new, and
+keeping its wording does not by itself keep its meaning. A new finding that records and rules do not resolve there under their own rules (sec.
 14, R6.HIT.1), exactly as they would at `X`, is a FAIL `base-drift` naming the condition `reconciled-state`: it is the
 disposition of the drifted path it lies in; a new finding in a path that does not differ (for example a mirror or pin
 finding produced by a change to its counterpart) is a run-level item naming the drifted paths whose changes produced
@@ -5314,10 +5341,31 @@ configuration version and a new freeze (R6.CFG.3). The trial is recorded as its 
 changes (R6.RECON.20), it is run again. The tool's trial is a scan: it executes no check of the repository. Executable
 checks bearing on a drifted path (Lean, verification scripts, generated artifacts) are re-run at the landing by the
 delegation contract where a delegated class covers the path (sec. 13, R6.TREE.19), and otherwise by the independent
-reviewer under R6.RECON.25. Op B is not repeated at the landing: outside resolution windows, RC14 (a) and (b) keep
-every spliced or retained site's line intact at its translated position, so op B's site verdicts at `X` carry over
-there; a site inside a resolution window rests on the review of the resolution (R6.RECON.24) and on op D at the
+reviewer under R6.RECON.25. Op B is not repeated at the landing: op B's site verdicts at `X` carry over to the landing for every
+tracked site whose region lies in a drifted path only under the carry-over condition of the Validity paragraph
+above (outside resolution windows, RC14 (a) and (b) keep every spliced or retained site's line intact at its
+translated position); for any other such site, a hold or resolution that depends on its verdict is not
+established (amendment 6, sec. 0.7: proposal, pending independent review and the owner's decision); a site inside a resolution window rests on the review of the resolution (R6.RECON.24) and on op D at the
 landing, which finds new hits. No expectation of an existing control changes.
+*Resolution routes at the landing* (amendment 6, sec. 0.7: proposal, pending independent review and the owner's decision). Every route by which this design resolves a finding, a hit or a
+site, found by searching it for each rule that makes an item PASS or resolves it. "Kept", "does not hold" and "not
+established" are the three outcomes of the Validity paragraph above; "anew" means the route is evaluated afresh on the
+landing tree and inherits nothing. Cases are numbered within RECON-TRIAL.
+
+| Route (source) | Condition re-established at the landing | Does not hold (resolved anew; `resolution_validity: does-not-hold`) | Cannot be established (FAIL `context-meaning-unverified`; `not-established`) | RECON-TRIAL cases |
+|---|---|---|---|---|
+| site hold (R6.HIT.1, R6.HIT.2) | not an HP site; the hit on the region lines; the region located (unchanged path, outside every changed range, or at its translated position as RC14 (b) checks) and byte-identical | the region located but its bytes differ | the region not located exactly once | kept 20; does not hold 21; not established 23 |
+| op B site verdict at `X` (sec. 4; R6.HIT.1) | the carry-over condition above for the site's region | as for a site hold | as for a site hold | through the site-hold cases |
+| hit classification (R6.HIT.2, R6.HIT.4, R6.RULE.13, sec. 22) | `file`, `line_sha256` unique in the landing tree, the profiles hitting the line, and its segment condition | the line not unique, or other profiles hitting it | its segment condition not established | kept 16, 22; does not hold 13; not established 24 |
+| HP adjudication, site (R6.HP.4) | line sha256 at the site's position, both bound context hashes, segment and step conditions | a bound context hash differs | a segment or step condition not established, or the site's position not unique | kept 17; does not hold 25; not established 14 |
+| HP adjudication, `hit_classifications` (R6.HIT.2, R6.HP.4) | each entry as a hit classification | as for a hit classification | as for a hit classification | kept 26; does not hold 27; not established 14 |
+| context adjudication (R6.CTX.6, R6.CTX.7, sec. 22) | both context hashes and, for a LIST or TABLE site, both structure hashes (R6.CTX.11) | a hash computed at the landing differs | the site's position at the landing not unique (R6.CTX.3, R6.ANCH.12, R6.ANCH.17) | kept 9; does not hold 10, 11, 18; not established 19 |
+| allow rule (R6.RULE.4, R6.RULE.5, R6.RULE.13, R6.HIT.2) | steps 1 to 4 of R6.RULE.4, each fingerprint used once in the tree | a step fails, or a fingerprint would serve twice | does not arise: the sentence (splitter version 2) and its context (with `BOF` and `EOF` sentinels, R6.CTX.2) are computable on any tree | kept 15; does not hold 12; second instance 29 |
+| items without a line: pin postconditions and PIN_OK (R6.ANCH.19, R6.REC.15), mirror identity and the other postconditions (R6.TREE.9) | anew: the postcondition and any PIN_OK entry under its own requirement | not applicable (anew) | not applicable (anew) | kept 28; not kept 6 |
+| delegated classes (R6.DELEG.11, R6.TREE.19) | anew: re-run at the landing by the delegation contract | not applicable (anew) | not applicable (anew) | outside the trial's matching (R6.RECON.23) |
+| deny match (R6.HIT.2) | none: never resolved | not applicable | not applicable | 2 |
+| reconciliation records, side-change class records, scope records (R6.RECON.4, R6.TREE.5, R6.RULE.13) | anew: decided at the landing by their own conditions; they resolve drift, side changes and scope, not trial findings | not applicable (anew) | not applicable (anew) | the RECON-* rows |
+
 Sources: amendment 3 (#1169 comments 7184569981 and 7184626125). Controls: RECON-TRIAL.
 
 **R6.RECON.24** **Conflict detection: RC14** (amendment 3, sec. 0.4: pending independent review and the owner's acceptance). For each entry of a reconciliation record:

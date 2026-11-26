@@ -25,6 +25,7 @@ import json
 import os
 import re
 import sys
+import textwrap
 
 BASE_SHA256 = {
     'DESIGN-r6.md': 'b643294b0ff8b82c511d5fcb77d00b72cd690e5d2d9b08480cfaa7da875a8c5b',
@@ -1160,6 +1161,36 @@ RECON_ENUM_COUNTER = {'case': 'countercase: the same result with a dispositions 
 
 RECON23_OLD = ('by fingerprint,\nthe tree field excluded, counting multiplicities: a fingerprint found k times at the landing and j times at '
                '`X` gives\nk - j new findings when k > j.')
+VALIDITY = textwrap.fill(
+    '*Validity.* A previous resolution is never inherited merely because the finding remains identifiable: its full '
+    'validity is established again on the landing tree. A matched finding keeps the resolution it had at `X` only if '
+    'its resolving record or hold resolves it under its own requirement, evaluated in full on the landing tree; the '
+    'parts named here are included, not exhaustive: for a context adjudication, both context hashes (R6.CTX.7); for '
+    'an allow rule, steps 1 to 4 of R6.RULE.4 (scope, literal, context matcher, deny precedence, negative matcher and '
+    'allowance, each fingerprint\'s single use in the tree, and its sentence and, where required, context); for a hit '
+    'classification, `file`, `line_sha256` and its uniqueness in the landing tree, and the profiles hitting the line '
+    '(R6.HIT.4); for an HP adjudication, its line sha256 at the site\'s position and, where it binds a context, both '
+    'context hashes, and each of its `hit_classifications` entries evaluated as a hit classification (its line sha256, '
+    'the line\'s uniqueness in the landing tree, and the profiles hitting the line); for a hit held by a tracked site '
+    '(R6.HIT.1, R6.HIT.2), which no record resolves, that the site is not an HP site, that the hit lies on the site\'s '
+    'region lines, and that those lines are byte-identical at the landing under the carry-over condition below. A '
+    'segment or walk-step condition is read at `X`, and carries over for a site whose line is byte-identical at the '
+    'landing and either lies in a path whose blob at the landing equals its blob at `X`, or lies outside every range of '
+    'the path that `M` changes (it is at most moved by changes elsewhere), or is kept intact by RC14 (R6.RECON.24); '
+    'otherwise it is not established. A site hold carries over when the site\'s region lines are located at the landing '
+    'under the same branches (an unchanged path, a position outside every range `M` changes, or the region\'s '
+    'translated position, checked as RC14 (b) checks a retained site\'s line) and are byte-identical there; a located '
+    'region whose bytes differ does not hold, and a region that cannot be located exactly once is not established. The '
+    'routes and their cases are listed in the table below. A record resolves at the landing at most as many matched '
+    'instances as it resolved at `X`. The condition cannot be established when an input it reads (the sentence, the '
+    'context window, the site\'s line or position, the site\'s region, a segment or step, the tree\'s set of lines) '
+    'cannot be computed on the landing by the procedure that computed it at `X`, or when the requirement gives no '
+    'evaluation on a landing; the finding is then FAIL `context-meaning-unverified`. A record of any other kind keeps '
+    'no resolution at the landing: the matched finding is resolved anew. A matched finding whose resolution is not '
+    'kept counts as new unless records and rules at the landing resolve it, and its landing item records '
+    '`resolution_validity`: `does-not-hold` when the condition was evaluated and is false, `not-established` when it '
+    'cannot be established. Moving a finding does not by itself make it new, and keeping its wording does not by '
+    'itself keep its meaning.', width=116, break_long_words=False, break_on_hyphens=False)
 RECON23_NEW = ('by identity and validity, which are two separate questions %s. *Identity.* A finding is\n'
                'identified by its content, not by its fingerprint (which includes its subject\'s line number): for an item '
                'with a\nfile and line, the key is its class, its file, its `rule_id` or, without one, its profiles, and the '
@@ -1170,23 +1201,7 @@ RECON23_NEW = ('by identity and validity, which are two separate questions %s. *
                'counted with multiplicity: a\nkey found k times at the landing and j times at `X` gives k - j new findings '
                'when k > j, so a line that `M`\nmoves is not new and a second copy of a line is; when several new findings '
                'share a key, each is reported, at\nthe landing\'s positions of the last k - j occurrences in file order. '
-               '*Validity.* A previous resolution is never\ninherited merely because the finding remains identifiable: its full validity is established again on the\nlanding tree. A matched finding keeps the resolution it had at `X` only if the resolving record resolves it under '
-               'that record\'s own requirement, evaluated\nin full on the landing tree; the parts named here are included, '
-               'not exhaustive: for a context adjudication,\nboth context hashes (R6.CTX.7); for an allow rule, steps 1 to 4 '
-               'of R6.RULE.4 (scope, literal, context matcher,\ndeny precedence, negative matcher and allowance, each '
-               'fingerprint\'s single use in the tree, and its sentence\nand, where required, context); for a hit '
-               'classification, `file`, `line_sha256` and its uniqueness in the\nlanding tree, and the profiles hitting the '
-               'line (R6.HIT.4); for an HP adjudication, its line sha256 at the\nsite\'s position and, where it binds a '
-               'context, both context hashes. A segment or walk-step condition of an HP\nadjudication or a hit '
-               'classification is read at `X`, and carries over only for a site whose line RC14 keeps\nintact '
-               '(R6.RECON.24); otherwise it is not established. A record resolves at the landing at most as many\nmatched '
-               'instances as it resolved at `X`. The condition cannot be established when an input it reads (the\n'
-               'sentence, the context window, the site\'s line, a segment or step, the tree\'s set of lines) cannot be\n'
-               'computed on the landing by the procedure that computed it at `X`, or when the record\'s requirement gives no\n'
-               'evaluation on a landing; the finding is then FAIL `context-meaning-unverified`. A record of any other kind\n'
-               'keeps no resolution at the landing: the matched finding is resolved anew. A matched finding whose\n'
-               'resolution is not kept counts as new unless records and rules at the landing resolve it. Moving a finding '
-               'does\nnot by itself make it new, and keeping its wording does not by itself keep its meaning.' % MARK)
+               '') % MARK + VALIDITY
 GATE3_OLD = ('  - `<unit>[k=v,...]` with unit `items`, `lines`, `sentences`, `hits` or `findings`, counted over the\n    '
              'result. Filter keys are item fields (`obligation`, `class`, `decision`, `rule_id`, `profile`,\n    `file`, '
              '`subject`, `segment`, `state`, `path`, `literal`, `only_profile`). `|` separates\n    alternatives.')
@@ -1238,6 +1253,40 @@ in sec. 0.7). Gates: the A1 retirement execution. Discharged by: its remedy, imp
 Sources: PR #1593 comment 7190966287 (D1);
 Issue #1598.
 """ % MARK
+
+CARRY_OLD = ("Op B is not repeated at the landing: outside resolution windows, RC14 (a) and (b) keep\nevery spliced or "
+             "retained site's line intact at its translated position, so op B's site verdicts at `X` carry over\nthere;")
+CARRY_NEW = ("Op B is not repeated at the landing: op B's site verdicts at `X` carry over to the landing for every\n"
+             "tracked site whose region lies in a drifted path only under the carry-over condition of the Validity "
+             "paragraph\nabove (outside resolution windows, RC14 (a) and (b) keep every spliced or retained site's line "
+             "intact at its\ntranslated position); for any other such site, a hold or resolution that depends on its "
+             "verdict is not\nestablished %s;" % MARK)
+CLASS_OLD = ("| `context-meaning-unverified` | a meaning-context site whose context changed, with no context adjudication "
+             "matching both context hashes (sec. 6) |")
+CLASS_NEW = ("| `context-meaning-unverified` | a meaning-context site whose context changed, with no context adjudication "
+             "matching both context hashes (sec. 6), or a resolving record's or site hold's condition that cannot be "
+             "established on the landing (R6.RECON.23; amendment 6) |")
+
+INVENTORY = """
+*Resolution routes at the landing* %s. Every route by which this design resolves a finding, a hit or a
+site, found by searching it for each rule that makes an item PASS or resolves it. "Kept", "does not hold" and "not
+established" are the three outcomes of the Validity paragraph above; "anew" means the route is evaluated afresh on the
+landing tree and inherits nothing. Cases are numbered within RECON-TRIAL.
+
+| Route (source) | Condition re-established at the landing | Does not hold (resolved anew; `resolution_validity: does-not-hold`) | Cannot be established (FAIL `context-meaning-unverified`; `not-established`) | RECON-TRIAL cases |
+|---|---|---|---|---|
+| site hold (R6.HIT.1, R6.HIT.2) | not an HP site; the hit on the region lines; the region located (unchanged path, outside every changed range, or at its translated position as RC14 (b) checks) and byte-identical | the region located but its bytes differ | the region not located exactly once | kept 20; does not hold 21; not established 23 |
+| op B site verdict at `X` (sec. 4; R6.HIT.1) | the carry-over condition above for the site's region | as for a site hold | as for a site hold | through the site-hold cases |
+| hit classification (R6.HIT.2, R6.HIT.4, R6.RULE.13, sec. 22) | `file`, `line_sha256` unique in the landing tree, the profiles hitting the line, and its segment condition | the line not unique, or other profiles hitting it | its segment condition not established | kept 16, 22; does not hold 13; not established 24 |
+| HP adjudication, site (R6.HP.4) | line sha256 at the site's position, both bound context hashes, segment and step conditions | a bound context hash differs | a segment or step condition not established, or the site's position not unique | kept 17; does not hold 25; not established 14 |
+| HP adjudication, `hit_classifications` (R6.HIT.2, R6.HP.4) | each entry as a hit classification | as for a hit classification | as for a hit classification | kept 26; does not hold 27; not established 14 |
+| context adjudication (R6.CTX.6, R6.CTX.7, sec. 22) | both context hashes and, for a LIST or TABLE site, both structure hashes (R6.CTX.11) | a hash computed at the landing differs | the site's position at the landing not unique (R6.CTX.3, R6.ANCH.12, R6.ANCH.17) | kept 9; does not hold 10, 11, 18; not established 19 |
+| allow rule (R6.RULE.4, R6.RULE.5, R6.RULE.13, R6.HIT.2) | steps 1 to 4 of R6.RULE.4, each fingerprint used once in the tree | a step fails, or a fingerprint would serve twice | does not arise: the sentence (splitter version 2) and its context (with `BOF` and `EOF` sentinels, R6.CTX.2) are computable on any tree | kept 15; does not hold 12; second instance 29 |
+| items without a line: pin postconditions and PIN_OK (R6.ANCH.19, R6.REC.15), mirror identity and the other postconditions (R6.TREE.9) | anew: the postcondition and any PIN_OK entry under its own requirement | not applicable (anew) | not applicable (anew) | kept 28; not kept 6 |
+| delegated classes (R6.DELEG.11, R6.TREE.19) | anew: re-run at the landing by the delegation contract | not applicable (anew) | not applicable (anew) | outside the trial's matching (R6.RECON.23) |
+| deny match (R6.HIT.2) | none: never resolved | not applicable | not applicable | 2 |
+| reconciliation records, side-change class records, scope records (R6.RECON.4, R6.TREE.5, R6.RULE.13) | anew: decided at the landing by their own conditions; they resolve drift, side changes and scope, not trial findings | not applicable (anew) | not applicable (anew) | the RECON-* rows |
+""" % MARK
 RECON_TRIAL_R5 = [
     {'case': 'a finding resolved at X by a context adjudication, on a line that M\'s changes move with its relevant context '
              'unchanged: matched by its key, and the adjudication\'s condition holds on the landing content, so it keeps '
@@ -1246,22 +1295,26 @@ RECON_TRIAL_R5 = [
     {'case': 'countercase: a hit resolved at X by a context adjudication, whose line M moves and whose context M changes '
              'while the matched sentence stays the same: the adjudication\'s condition fails on the landing content and '
              'the resolution is not preserved', 'outcome': 'FAIL', 'classes_include': ['base-drift'],
-     'invariants': [{'failed_conditions_include': 'reconciled-state'}]},
-    {'case': 'countercase: a hit on a TABLE site resolved at X by a context adjudication, where M turns the neighbouring '
-             'table rows into plain paragraphs (every delimiter removed from them) and leaves the site\'s own line '
-             'byte-identical, so the structure context that the procedure computed at X cannot be computed at the '
-             'landing: it fails closed', 'outcome': 'FAIL', 'classes_include': ['context-meaning-unverified']},
+     'invariants': [{'failed_conditions_include': 'reconciled-state'}, {'items_include': [{'resolution_validity': 'does-not-hold'}]}]},
+    {'case': 'countercase (does not hold): a hit on a TABLE site whose meaning_context is true, resolved at X by a context '
+             'adjudication, where M turns the neighbouring table rows into plain paragraphs and leaves the site\'s own '
+             'line byte-identical: the structure and context hashes are computed at the landing and differ, so the '
+             'adjudication does not hold, and R6.CTX.6 gives FAIL context-meaning-unverified', 'outcome': 'FAIL',
+     'classes_include': ['context-meaning-unverified'],
+     'invariants': [{'items_include': [{'resolution_validity': 'does-not-hold'}]}]},
     {'case': 'countercase: a hit resolved at X by an allow rule, moved unchanged into a context where the rule\'s context '
              'matcher fails: the resolution is not kept', 'outcome': 'FAIL', 'classes_include': ['base-drift'],
-     'invariants': [{'failed_conditions_include': 'reconciled-state'}]},
+     'invariants': [{'failed_conditions_include': 'reconciled-state'}, {'items_include': [{'resolution_validity': 'does-not-hold'}]}]},
     {'case': 'countercase: a hit resolved at X by a hit classification whose line M duplicates: the record\'s uniqueness '
              'condition fails at the landing, so the original\'s resolution is not kept', 'outcome': 'FAIL',
      'classes_include': ['base-drift'],
      'invariants': [{'failed_conditions_include': 'reconciled-state'},
-                    {'items_include': [{'class': 'unclassified', 'subject': '$original_line'}]}]},
-    {'case': 'countercase: a site resolved at X by an HP adjudication, lying off every line RC14 keeps intact, whose '
-             'segment condition is therefore not established at the landing', 'outcome': 'FAIL',
-     'classes_include': ['context-meaning-unverified']},
+                    {'items_include': [{'class': 'unclassified', 'subject': '$original_line',
+                                        'resolution_validity': 'does-not-hold'}]}]},
+    {'case': 'countercase: a site resolved at X by an HP adjudication whose line lies in a range of its path that M '
+             'changes and off every line RC14 keeps intact, so that its segment condition is not established at the '
+             'landing', 'outcome': 'FAIL', 'classes_include': ['context-meaning-unverified'],
+     'invariants': [{'items_include': [{'resolution_validity': 'not-established'}]}]},
     dict(case='a hit resolved at X by an allow rule, unchanged at the landing: its sentence and context, the rule\'s '
               'scope, literal, context matcher and deny precedence all hold there and the fingerprint is used once, so '
               'it keeps its resolution (positive)', **{'outcome': 'ANY', 'invariants': [{'not_class': ['base-drift', 'record-invalid', 'context-meaning-unverified']}]}),
@@ -1269,6 +1322,46 @@ RECON_TRIAL_R5 = [
               'landing tree and hit by the same profiles: it keeps its resolution (positive)', **{'outcome': 'ANY', 'invariants': [{'not_class': ['base-drift', 'record-invalid', 'context-meaning-unverified']}]}),
     dict(case='a site resolved at X by an HP adjudication whose line RC14 keeps intact and whose bound context hashes hold '
               'at the landing: it keeps its resolution (positive)', **{'outcome': 'ANY', 'invariants': [{'not_class': ['base-drift', 'record-invalid', 'context-meaning-unverified']}]}),
+    {'case': 'countercase (does not hold): the same TABLE construction for a site whose meaning_context is false: R6.CTX.6 '
+             'gives REVIEW_REQUIRED context-structure-changed, unresolved at the landing', 'outcome': 'FAIL',
+     'classes_include': ['context-structure-changed', 'base-drift'],
+     'invariants': [{'items_include': [{'resolution_validity': 'does-not-hold'}]}]},
+    {'case': 'countercase (cannot be established): a hit resolved at X by a context adjudication, where M adds a second copy '
+             'of the site\'s line so that the site\'s position at the landing is not unique (R6.CTX.3, R6.ANCH.12, '
+             'R6.ANCH.17) and its context cannot be computed: it fails closed', 'outcome': 'FAIL',
+     'classes_include': ['context-meaning-unverified'],
+     'invariants': [{'items_include': [{'resolution_validity': 'not-established'}]}]},
+    dict(case='a hit held at X by a tracked site (not an HP site) whose region lines M moves intact, outside every range M '
+              'changes: it keeps its hold (positive)', **{'outcome': 'ANY', 'invariants': [{'not_class': ['base-drift', 'record-invalid', 'context-meaning-unverified']}]}),
+    {'case': 'countercase: a hit held at X by a tracked site whose region M edits outside every splice window: the region '
+             'is located but its bytes differ, so the hold does not hold', 'outcome': 'FAIL',
+     'classes_include': ['base-drift'],
+     'invariants': [{'failed_conditions_include': 'reconciled-state'}, {'items_include': [{'resolution_validity': 'does-not-hold'}]}]},
+    dict(case='a hit resolved at X by a hit classification on a line of a path whose blob at the landing equals its blob '
+              'at X: it keeps its resolution (positive)', **{'outcome': 'ANY', 'invariants': [{'not_class': ['base-drift', 'record-invalid', 'context-meaning-unverified']}]}),
+    {'case': 'countercase (cannot be established): a hit held at X by a tracked site whose region lines M copies elsewhere '
+             'in the file, so that the region cannot be located exactly once at the landing', 'outcome': 'FAIL',
+     'classes_include': ['context-meaning-unverified'], 'invariants': [{'items_include': [{'resolution_validity': 'not-established'}]}]},
+    {'case': 'countercase (cannot be established): a hit resolved at X by a hit classification whose byte-identical line '
+             'lies in a range of its path that M changes and off every line RC14 keeps intact, so that its segment '
+             'condition is not established', 'outcome': 'FAIL', 'classes_include': ['context-meaning-unverified'],
+     'invariants': [{'items_include': [{'resolution_validity': 'not-established'}]}]},
+    {'case': 'countercase (does not hold): a site resolved at X by an HP adjudication whose line RC14 keeps intact and '
+             'whose bound context M changes: a context hash computed at the landing differs', 'outcome': 'FAIL',
+     'classes_include': ['base-drift'],
+     'invariants': [{'failed_conditions_include': 'reconciled-state'}, {'items_include': [{'resolution_validity': 'does-not-hold'}]}]},
+    dict(case='a hit in an HP region resolved at X by an entry of the HP adjudication\'s hit_classifications, its line '
+              'unique in the landing tree and in a path whose blob at the landing equals its blob at X: it keeps its '
+              'resolution (positive)', **{'outcome': 'ANY', 'invariants': [{'not_class': ['base-drift', 'record-invalid', 'context-meaning-unverified']}]}),
+    {'case': 'countercase (does not hold): a hit in an HP region resolved at X by an entry of the HP adjudication\'s '
+             'hit_classifications whose line M duplicates: the line is not unique at the landing', 'outcome': 'FAIL',
+     'classes_include': ['base-drift'],
+     'invariants': [{'failed_conditions_include': 'reconciled-state'}, {'items_include': [{'resolution_validity': 'does-not-hold'}]}]},
+    dict(case='a pin postcondition that holds at X and at the landing, M leaving the pinned literal in its target: no item '
+              '(positive)', **{'outcome': 'ANY', 'invariants': [{'not_class': ['base-drift', 'record-invalid', 'context-meaning-unverified']}]}),
+    {'case': 'countercase: M adds a second copy of a sentence resolved at X by an allow rule: the fingerprint serves one '
+             'sentence only, so the second instance is not resolved at the landing', 'outcome': 'FAIL',
+     'classes_include': ['base-drift'], 'invariants': [{'failed_conditions_include': 'reconciled-state'}]},
 ]
 RECON_TRIAL_CASE = {'case': 'a finding at X on a line that M\'s changes move (lines inserted above it): matched at the '
                             'landing by its key, the line number excluded; no new finding (positive)',
@@ -1314,6 +1407,18 @@ DECLARED_DIFFS = [
     ('RECON-TRIAL', ('expect', 'cases', 14), MISSING, RECON_TRIAL_R5[6]),
     ('RECON-TRIAL', ('expect', 'cases', 15), MISSING, RECON_TRIAL_R5[7]),
     ('RECON-TRIAL', ('expect', 'cases', 16), MISSING, RECON_TRIAL_R5[8]),
+    ('RECON-TRIAL', ('expect', 'cases', 17), MISSING, RECON_TRIAL_R5[9]),
+    ('RECON-TRIAL', ('expect', 'cases', 18), MISSING, RECON_TRIAL_R5[10]),
+    ('RECON-TRIAL', ('expect', 'cases', 19), MISSING, RECON_TRIAL_R5[11]),
+    ('RECON-TRIAL', ('expect', 'cases', 20), MISSING, RECON_TRIAL_R5[12]),
+    ('RECON-TRIAL', ('expect', 'cases', 21), MISSING, RECON_TRIAL_R5[13]),
+    ('RECON-TRIAL', ('expect', 'cases', 22), MISSING, RECON_TRIAL_R5[14]),
+    ('RECON-TRIAL', ('expect', 'cases', 23), MISSING, RECON_TRIAL_R5[15]),
+    ('RECON-TRIAL', ('expect', 'cases', 24), MISSING, RECON_TRIAL_R5[16]),
+    ('RECON-TRIAL', ('expect', 'cases', 25), MISSING, RECON_TRIAL_R5[17]),
+    ('RECON-TRIAL', ('expect', 'cases', 26), MISSING, RECON_TRIAL_R5[18]),
+    ('RECON-TRIAL', ('expect', 'cases', 27), MISSING, RECON_TRIAL_R5[19]),
+    ('RECON-TRIAL', ('expect', 'cases', 28), MISSING, RECON_TRIAL_R5[20]),
     ('S11-2a', ('expect', 'sites', 0, 'added_relative_to_unmutated'), MISSING,
      {'items[class=unclassified,subject=$new_line]': 1}),
     ('RTL2-BIND', ('expect', 'cases', 6, 'case'), RTL2_OLD, RTL2_NEW),
@@ -1794,6 +1899,40 @@ R6_MAP = [
               'adjudication cases, so legitimate unchanged resolutions stay valid.'),
 ]
 
+R7_MAP = [
+    ('audit 1', 'Site holds (R6.HIT.1, R6.HIT.2) are in the Validity enumeration: a hit keeps its hold only if the site is '
+                'not an HP site, the hit lies on its region lines, and those lines carry over byte-identical (unchanged '
+                'path, outside every changed range, or intact as RC14 (b) checks a retained line, at the translated '
+                'position); otherwise not established, FAIL `context-meaning-unverified`. R6.RECON.23\'s carry-over '
+                'sentence covers every tracked site whose region lies in a drifted path. RECON-TRIAL pair: a held hit '
+                'on a moved intact region keeps its hold; a region edited outside every splice window does not.'),
+    ('focused 1', 'The segment carry-over is the focused reviewer\'s text (byte-identical line, and an unchanged path, '
+                  'or outside every changed range, or RC14-kept); the hold condition uses the same branches. Positive '
+                  'control: a hit-classified line in an unchanged path. The moved hit-classification control and the HP '
+                  'control pass under the new text (the moved line lies outside every changed range; the HP line is '
+                  'RC14-kept); the HP countercase now states its line lies in a changed range and off every RC14-kept '
+                  'line.'),
+    ('focused 2', 'The TABLE case is a "does not hold" countercase (meaning_context true: FAIL '
+                  '`context-meaning-unverified` by R6.CTX.6), with a variant for meaning_context false (REVIEW_REQUIRED '
+                  '`context-structure-changed`, unresolved at the landing, so FAIL `base-drift`). The owner\'s third '
+                  'control uses a duplicated site line, whose position at the landing is not unique. The landing item '
+                  'records `resolution_validity` (`does-not-hold` or `not-established`), and the cases assert it.'),
+    ('audit 2', 'An HP adjudication\'s `hit_classifications` entries are each evaluated as a hit classification.'),
+    ('audit 3', 'The class name `context-meaning-unverified` is kept; its meaning in sec. 15 adds "or a resolving '
+                'record\'s or site hold\'s condition that cannot be established on the landing (R6.RECON.23)".'),
+    ('owner inventory', 'Owner direction (#1169 comment 7191325726): R6.RECON.23 carries a table of every resolution route, '
+                        'found by searching the design for each rule that makes an item PASS or resolves it, with the '
+                        'condition re-established, the does-not-hold and cannot-be-established outcomes, and the cases. '
+                        'Routes made explicit that the enumeration had covered only by "any other kind": op B site '
+                        'verdicts, items without a line (pins, PIN_OK, mirror identity, other postconditions), '
+                        'delegated classes, deny matches, and the reconciliation, side-change class and scope records. '
+                        'A site hold distinguishes a located region whose bytes differ (does not hold) from a region '
+                        'not located exactly once (not established); the r7 region-edited case is therefore does not '
+                        'hold. Cases added: hold not established, hit classification not established, HP does not '
+                        'hold, HP hit_classifications kept and not kept, a pin postcondition kept, an allow rule\'s '
+                        'second instance; resolution_validity asserted wherever a resolution is not kept.'),
+]
+
 
 def note(owner):
     out = ['', '### 0.7 Amendment 6 of 2026-11-26', '']
@@ -1974,6 +2113,11 @@ def amend_design(t, owner):
              'R6.TREE.5 pin')
     # R6.RECON.23: the matching key; R6.GATE.3: the count grammar
     t = once(t, RECON23_OLD, RECON23_NEW, 'R6.RECON.23')
+    t = once(t, CARRY_OLD, CARRY_NEW, 'R6.RECON.23 carry-over')
+    t = once(t, "\nSources: amendment 3 (#1169 comments 7184569981 and 7184626125). Controls: RECON-TRIAL.",
+             INVENTORY + "\nSources: amendment 3 (#1169 comments 7184569981 and 7184626125). Controls: RECON-TRIAL.",
+             'R6.RECON.23 inventory')
+    t = once(t, CLASS_OLD, CLASS_NEW, 'class meaning')
     t = once(t, GATE3_OLD, GATE3_NEW, 'R6.GATE.3')
     # R6.TREE.5: class record keys
     t = once(t, "directory the rule of sec. 21 also applies.",
@@ -2303,6 +2447,8 @@ def self_checks(E0, E, R0, R, t, base_texts):
         problems.append('ranked map incomplete')
     if [x[0] for x in R6_MAP] != ['focused 1', 'focused 2', 'a1', 'a2', 'a3', 'b1', 'c1', 'owner']:
         problems.append('r6 map incomplete')
+    if [x[0] for x in R7_MAP] != ['audit 1', 'focused 1', 'focused 2', 'audit 2', 'audit 3', 'owner inventory']:
+        problems.append('r7 map incomplete')
     if [x[0] for x in R5_MAP] != ['focused 1 / audit C1', 'audit D1', 'C-n1', 'C-n2', 'A-n1', 'A-n2', 'A-n3',
                                   'focused 2']:
         problems.append('r5 map incomplete')
@@ -2335,7 +2481,7 @@ def change_record(owner, outs, gen_sha, owner_sha, totals):
     lines = ['# r6 amendment 6: change record', '',
              'Owner directions, quoted in DESIGN-r6.md sec. 0.7: %s. Generated by generator-amendment6/amend6.py '
              '(sha256 %s) from the amendment-5 outputs (amendment 5 r2, e0706a4b, adopted) and '
-             'generator-amendment6/owner-decisions-amendment6.json (sha256 %s). This is r6, correctness corrections only. r3, the last general revision, '
+             'generator-amendment6/owner-decisions-amendment6.json (sha256 %s). This is r7, correctness corrections only. r3, the last general revision, '
              'it answers the delta review of r2 (PR #1593 comment 7190255132, D1 to D7) and the completeness-audit '
              'follow-up (PR #1593 comment 7190234470, findings 1 to 13 and section S), and removes complexity that '
              'both reviewers agree gives no protection. It keeps the answers of r2 to the first review (PR #1593 '
@@ -2345,7 +2491,10 @@ def change_record(owner, outs, gen_sha, owner_sha, totals):
              'matching; R6.GATE.3 count grammar). r5 makes only the corrections of the final reviews of r4 (PR #1593 comments '
              '7190950956 and 7190966287): R6.RECON.23 as the owner decided (#1169 comment 7190979974), OBL-29, and '
              'their nits. r6 defines the validity of a kept resolution for every resolution-record kind and states '
-             'OBL-29\'s discharge in the owner\'s words (#1169 comments 7190996241 and 7191104852). Every resolution is a proposal; the choice is the owner\'s at adoption.'
+             'OBL-29\'s discharge in the owner\'s words (#1169 comments 7190996241 and 7191104852). r7 adds site holds to that rule, takes the reviewer\'s '
+             'segment carry-over text, and distinguishes a condition that does not hold from one that cannot be '
+             'established (PR #1593 comments 7191268444 and 7191269191), with a table of every resolution route '
+             '(#1169 comment 7191325726). Every resolution is a proposal; the choice is the owner\'s at adoption.'
              % ('; '.join('%s, %s (%s), %s' % (d['author'], d['time'], d['record'], d['item'])
                           for d in owner['decisions']), gen_sha, owner_sha), '',
              'Safety rule for every point: no reading may let a category-3 finding be lost or lifted by rewording, and '
@@ -2360,8 +2509,9 @@ def change_record(owner, outs, gen_sha, owner_sha, totals):
              '| amendment 6 r3 (c6df73dd) | 619 | 15 | 134 | 443 | 9 |',
              '| amendment 6 r4 (d92673a5) | 619 | 15 | 142 | 444 | 10 |',
              '| amendment 6 r5 (1f576457) | 619 | 15 | 142 | 445 | 11 |',
-             '| amendment 6 r6 | %d | %d | %d | %d | %d |' % (totals['rows'], nr, nc, totals['reqs'], len(NEW_REQS)), '',
-             'r6 generates %d conformance mutants into CONFORMANCE-MUTANTS.json, each an identifiable case of the '
+             '| amendment 6 r6 (9ca54e76) | 619 | 15 | 142 | 445 | 11 |',
+             '| amendment 6 r7 | %d | %d | %d | %d | %d |' % (totals['rows'], nr, nc, totals['reqs'], len(NEW_REQS)), '',
+             'r7 generates %d conformance mutants into CONFORMANCE-MUTANTS.json, each an identifiable case of the '
              'RECON-SCHEMA mutant countercase.' % len(mutants()), '',
              'r3 merges RESULT-FIELDS into RECON-ENUM (two cases added there) and WIDENING-ITEMS into REVIEW-SCHEMA, '
              'collapses the individual schema violations of RECON-SCHEMA into one generic conformance case, removes '
@@ -2403,6 +2553,9 @@ def change_record(owner, outs, gen_sha, owner_sha, totals):
     lines += ['## 2f. Reviews of r5 (PR #1593 comments 7191130298 and 7191119951) under the owner\'s standard (#1169 '
               'comment 7191104852)', '', '| Item | Disposition |', '|---|---|']
     lines += ['| %s | %s |' % (k, v) for k, v in R6_MAP] + ['']
+    lines += ['## 2g. Reviews of r6 (PR #1593 comments 7191268444 and 7191269191)', '', '| Item | Disposition |',
+              '|---|---|']
+    lines += ['| %s | %s |' % (k, v) for k, v in R7_MAP] + ['']
     lines += ['## 3. Items B (tool writer)', '']
     for k, title, opts, rec in B_MAP:
         lines += ['### %s. %s' % (k, title), '', 'Options:', ''] + ['- ' + o for o in opts] + ['', rec, '']

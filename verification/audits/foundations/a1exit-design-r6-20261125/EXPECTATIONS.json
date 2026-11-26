@@ -22844,14 +22844,30 @@
       "invariants": [
        {
         "failed_conditions_include": "reconciled-state"
+       },
+       {
+        "items_include": [
+         {
+          "resolution_validity": "does-not-hold"
+         }
+        ]
        }
       ]
      },
      {
-      "case": "countercase: a hit on a TABLE site resolved at X by a context adjudication, where M turns the neighbouring table rows into plain paragraphs (every delimiter removed from them) and leaves the site's own line byte-identical, so the structure context that the procedure computed at X cannot be computed at the landing: it fails closed",
+      "case": "countercase (does not hold): a hit on a TABLE site whose meaning_context is true, resolved at X by a context adjudication, where M turns the neighbouring table rows into plain paragraphs and leaves the site's own line byte-identical: the structure and context hashes are computed at the landing and differ, so the adjudication does not hold, and R6.CTX.6 gives FAIL context-meaning-unverified",
       "outcome": "FAIL",
       "classes_include": [
        "context-meaning-unverified"
+      ],
+      "invariants": [
+       {
+        "items_include": [
+         {
+          "resolution_validity": "does-not-hold"
+         }
+        ]
+       }
       ]
      },
      {
@@ -22863,6 +22879,13 @@
       "invariants": [
        {
         "failed_conditions_include": "reconciled-state"
+       },
+       {
+        "items_include": [
+         {
+          "resolution_validity": "does-not-hold"
+         }
+        ]
        }
       ]
      },
@@ -22880,17 +22903,27 @@
         "items_include": [
          {
           "class": "unclassified",
-          "subject": "$original_line"
+          "subject": "$original_line",
+          "resolution_validity": "does-not-hold"
          }
         ]
        }
       ]
      },
      {
-      "case": "countercase: a site resolved at X by an HP adjudication, lying off every line RC14 keeps intact, whose segment condition is therefore not established at the landing",
+      "case": "countercase: a site resolved at X by an HP adjudication whose line lies in a range of its path that M changes and off every line RC14 keeps intact, so that its segment condition is not established at the landing",
       "outcome": "FAIL",
       "classes_include": [
        "context-meaning-unverified"
+      ],
+      "invariants": [
+       {
+        "items_include": [
+         {
+          "resolution_validity": "not-established"
+         }
+        ]
+       }
       ]
      },
      {
@@ -22929,6 +22962,192 @@
          "record-invalid",
          "context-meaning-unverified"
         ]
+       }
+      ]
+     },
+     {
+      "case": "countercase (does not hold): the same TABLE construction for a site whose meaning_context is false: R6.CTX.6 gives REVIEW_REQUIRED context-structure-changed, unresolved at the landing",
+      "outcome": "FAIL",
+      "classes_include": [
+       "context-structure-changed",
+       "base-drift"
+      ],
+      "invariants": [
+       {
+        "items_include": [
+         {
+          "resolution_validity": "does-not-hold"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "case": "countercase (cannot be established): a hit resolved at X by a context adjudication, where M adds a second copy of the site's line so that the site's position at the landing is not unique (R6.CTX.3, R6.ANCH.12, R6.ANCH.17) and its context cannot be computed: it fails closed",
+      "outcome": "FAIL",
+      "classes_include": [
+       "context-meaning-unverified"
+      ],
+      "invariants": [
+       {
+        "items_include": [
+         {
+          "resolution_validity": "not-established"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "case": "a hit held at X by a tracked site (not an HP site) whose region lines M moves intact, outside every range M changes: it keeps its hold (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "not_class": [
+         "base-drift",
+         "record-invalid",
+         "context-meaning-unverified"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "countercase: a hit held at X by a tracked site whose region M edits outside every splice window: the region is located but its bytes differ, so the hold does not hold",
+      "outcome": "FAIL",
+      "classes_include": [
+       "base-drift"
+      ],
+      "invariants": [
+       {
+        "failed_conditions_include": "reconciled-state"
+       },
+       {
+        "items_include": [
+         {
+          "resolution_validity": "does-not-hold"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "case": "a hit resolved at X by a hit classification on a line of a path whose blob at the landing equals its blob at X: it keeps its resolution (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "not_class": [
+         "base-drift",
+         "record-invalid",
+         "context-meaning-unverified"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "countercase (cannot be established): a hit held at X by a tracked site whose region lines M copies elsewhere in the file, so that the region cannot be located exactly once at the landing",
+      "outcome": "FAIL",
+      "classes_include": [
+       "context-meaning-unverified"
+      ],
+      "invariants": [
+       {
+        "items_include": [
+         {
+          "resolution_validity": "not-established"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "case": "countercase (cannot be established): a hit resolved at X by a hit classification whose byte-identical line lies in a range of its path that M changes and off every line RC14 keeps intact, so that its segment condition is not established",
+      "outcome": "FAIL",
+      "classes_include": [
+       "context-meaning-unverified"
+      ],
+      "invariants": [
+       {
+        "items_include": [
+         {
+          "resolution_validity": "not-established"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "case": "countercase (does not hold): a site resolved at X by an HP adjudication whose line RC14 keeps intact and whose bound context M changes: a context hash computed at the landing differs",
+      "outcome": "FAIL",
+      "classes_include": [
+       "base-drift"
+      ],
+      "invariants": [
+       {
+        "failed_conditions_include": "reconciled-state"
+       },
+       {
+        "items_include": [
+         {
+          "resolution_validity": "does-not-hold"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "case": "a hit in an HP region resolved at X by an entry of the HP adjudication's hit_classifications, its line unique in the landing tree and in a path whose blob at the landing equals its blob at X: it keeps its resolution (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "not_class": [
+         "base-drift",
+         "record-invalid",
+         "context-meaning-unverified"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "countercase (does not hold): a hit in an HP region resolved at X by an entry of the HP adjudication's hit_classifications whose line M duplicates: the line is not unique at the landing",
+      "outcome": "FAIL",
+      "classes_include": [
+       "base-drift"
+      ],
+      "invariants": [
+       {
+        "failed_conditions_include": "reconciled-state"
+       },
+       {
+        "items_include": [
+         {
+          "resolution_validity": "does-not-hold"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "case": "a pin postcondition that holds at X and at the landing, M leaving the pinned literal in its target: no item (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "not_class": [
+         "base-drift",
+         "record-invalid",
+         "context-meaning-unverified"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "countercase: M adds a second copy of a sentence resolved at X by an allow rule: the fingerprint serves one sentence only, so the second instance is not resolved at the landing",
+      "outcome": "FAIL",
+      "classes_include": [
+       "base-drift"
+      ],
+      "invariants": [
+       {
+        "failed_conditions_include": "reconciled-state"
        }
       ]
      }

@@ -137,6 +137,21 @@
     "Adoption and trial execution remain unauthorized.",
     null
    ]
+  },
+  {
+   "author": "amaybaum",
+   "time": "2026-11-26T11:54Z (as received)",
+   "record": "#1169 comment 7191325726",
+   "relayed_by": "coordinating session",
+   "item": "item 2",
+   "quotes": [
+    null,
+    "Rather than assuming that the three identified gaps are the last ones, require the reviewers to check the complete inventory of resolution routes against the general validity rule.",
+    "For every applicable route, verify:\n- Legitimate unchanged resolutions remain valid.\n- Invalidated resolutions cannot survive.\n- Conditions that genuinely cannot be established fail closed.",
+    "Preserve the distinction between a condition being false and a condition being unverifiable.",
+    "Adoption and trial execution remain unauthorized.",
+    null
+   ]
   }
  ]
 }
