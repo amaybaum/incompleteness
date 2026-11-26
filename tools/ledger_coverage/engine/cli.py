@@ -1072,8 +1072,10 @@ def op_terms(a, repo, ctx, loaded, records, result):
         names = [n.strip() for n in a.profile.split(',') if n.strip()]
         chk = None
     else:
-        chk = ctx.default_check('terms')
-        names = chk['profiles'] if chk else [p for p in ctx.profiles]
+        # no check is defined as a default (R6.RECON.33: `default_for` is CONFIG_INVALID); the terms syntax without
+        # --check or --profile stays as it was for a configuration without a default (staging r2 leaves it open)
+        chk = None
+        names = [p for p in ctx.profiles]
     for n in names:
         if n not in ctx.profiles:
             raise oc.Stop(oc.usage, 'USAGE', 'unknown profile %s' % n)

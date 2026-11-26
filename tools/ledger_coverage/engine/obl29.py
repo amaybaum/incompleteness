@@ -167,7 +167,8 @@ def nr5(Z, V, W, R, D, finding_git, reviews_of_R):
     if not isinstance(Z, dict) or Z.get('_dir') != R['ref']['path'].rsplit('/', 1)[0] or Z.get('kind', 'review') != \
             'review' or adverse_items(Z, R['doc']):
         bad.append('Z does not meet R6.REC.6 in R\'s reconciliation directory')
-    if any(dissents(v) for v in reviews_of_R) or dissents(Z):
+    # NR-3's test: a review dissents when its dissent field is non-empty or it does not accept every item of R
+    if any(dissents(v) or adverse_items(v, R['doc']) for v in list(reviews_of_R) + [Z or {}]):
         bad.append('an eligible review of R dissents')
     entry = ((D.get('repair') or {}).get('entry')) or {}
     if not isinstance(Z, dict) or Z.get('reviewed') != R['ref'] or entry != R['ref']:
@@ -183,7 +184,10 @@ def nr5(Z, V, W, R, D, finding_git, reviews_of_R):
                 not all(holds(vs[0]['reason'], t) for t in toks):
             bad.append('the verdict on %s does not accept with a reason holding every token' % item)
     fref, fitem = D.get('finding') or (None, None)
-    ftok = finding_git if fitem is None else item_token(finding_git, fitem)
+    if fitem is None:
+        ftok = finding_git if isinstance(finding_git, str) and _hex40.match(finding_git) else None
+    else:
+        ftok = item_token(finding_git, fitem)
     if ftok is None or not holds(method, ftok):
         bad.append("Z's method lacks the token of the finding the reassessment discharges")
     return bad
@@ -192,7 +196,7 @@ def nr5(Z, V, W, R, D, finding_git, reviews_of_R):
 def decide(D, W, R=None, Z=None, required_review=None, excluded=(), reviews_of_R=(), nr2=False, finding_git=None):
     """blocked(D, W) = Relies(D, W) and not Cleared(D, W). Returns (blocked, clauses, route). `nr2` states whether
     the candidate freeze admits R through an existing route making R's own R6.REC.6 and R6.REC.7 checks operative
-    (an admission fact the caller establishes)."""
+    (an admission fact the caller establishes). `Z` is a review of R or a list of them (one may resolve each V)."""
     clauses = reliance(D, W)
     if not clauses:
         return False, [], None
@@ -204,7 +208,11 @@ def decide(D, W, R=None, Z=None, required_review=None, excluded=(), reviews_of_R
             if nr3(R, required_review, excluded, reviews_of_R) and nr4(required_review, W):
                 return False, clauses, 'non-reliance (NR-1 to NR-4)'
         elif W['kind'] == 'review':
-            forming = (W.get('forming') or [None])[0]
-            if forming is not None and nr4(Z, W) and not nr5(Z, forming, W, R, D, finding_git, reviews_of_R):
+            # NR-5 for each adverse or failed review V forming the witness: some review Z of R resolves that V, and
+            # NR-4 holds for it
+            zs = Z if isinstance(Z, (list, tuple)) else [Z]
+            forming = W.get('forming') or []
+            if forming and all(any(z is not None and nr4(z, W) and not nr5(z, v, W, R, D, finding_git, reviews_of_R)
+                                   for z in zs) for v in forming):
                 return False, clauses, 'explicit resolution (NR-1, NR-2, NR-4, NR-5)'
     return True, clauses, None

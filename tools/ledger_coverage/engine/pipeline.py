@@ -55,11 +55,6 @@ class RunContext:
                 return c
         return None
 
-    def default_check(self, op):
-        for c in self.config['checks']:
-            if op in c.get('default_for', []):
-                return c
-        return None
 
 
 # ---- sites ------------------------------------------------------------------------------------------------

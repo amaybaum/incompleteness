@@ -383,7 +383,7 @@ def load(repo, rev, path, expected_sha, operation, mode, extra_records=(), admis
                                     for r in (L.transition or {}).get('roots', [])}
     # review chain of the configuration itself
     if mode == 'chain':
-        own_review_problems(path, sha, cfg, table)
+        own_review_problems(path, sha, cfg, table, L.store)
         probs = rec.lint_chain({'path': path, 'blob_sha256': sha}, L.store, L.admitted)
         if probs:
             raise stop('CONFIG_UNREVIEWED', 'configuration review chain: %s' % '; '.join(probs[:4]))
@@ -481,7 +481,7 @@ def _review_of(b, path, sha, kind):
         d.get('reviewed') == {'path': path, 'blob_sha256': sha}
 
 
-def own_review_problems(path, sha, cfg, table):
+def own_review_problems(path, sha, cfg, table, store=None):
     """A1 staging amendment r2, sec. 3 (R6.RECON.31, R6.REC.3-.5, R6.REC.16 as amended): the configuration's own
     ordinary review is a member of F's pin table naming its exact path and digest, and the only one of its kind there;
     the configuration's `records` hold no reference to a review of the configuration itself (its own reviews are
@@ -492,17 +492,30 @@ def own_review_problems(path, sha, cfg, table):
                    % len(ordinary))
     own = []
     for r in cfg['records']:
-        b = table.get(r.get('path')) if isinstance(r, dict) else None
-        try:
-            d = json.loads(b.decode('utf-8')) if b is not None else None
-        except (ValueError, UnicodeDecodeError):
-            d = None
+        if not isinstance(r, dict):
+            continue
+        # every referenced record, inside the pin table or not, read by its exact reference
+        d = store.get(r) if store is not None else None
+        if d is None and r.get('path') in table:
+            try:
+                d = json.loads(table[r['path']].decode('utf-8'))
+            except (ValueError, UnicodeDecodeError):
+                d = None
         if isinstance(d, dict) and d.get('schema') == rec.review_schema and \
                 (d.get('reviewed') or {}).get('path') == path:
             own.append(r['path'])
     if own:
         raise stop('CONFIG_INVALID', 'the configuration\'s records reference a review of the configuration itself: %s'
                    % sorted(set(own))[0])
+
+
+def _defines_class(b, cid):
+    try:
+        d = json.loads(b.decode('utf-8'))
+    except (ValueError, UnicodeDecodeError):
+        return False
+    return isinstance(d, dict) and d.get('schema') == 'oi-side-change-classes/1' and isinstance(d.get('classes'), list) \
+        and any(isinstance(c, dict) and c.get('id') == cid for c in d['classes'])
 
 
 def transition_admission(repo, F, rec_dir, cpath, csha, cfg, table):
@@ -531,11 +544,26 @@ def transition_admission(repo, F, rec_dir, cpath, csha, cfg, table):
             B = repo.resolve(desc['base'])
         except Unresolvable as exc:
             raise stop('UNRESOLVABLE', 'the transition base B cannot be read: %s' % exc)
+        # the descriptor binds the custody archive by path and digest; the build order of staging r2 sec. 3 puts the
+        # custody bytes before the roots, so the tool requires them in B's tree (a reading of that order, stated here)
         cust = repo.read(B, desc['custody']['path'])
         if cust is None or util.sha256(cust) != desc['custody']['blob_sha256']:
             raise tr.Refused('the custody archive is not at B with its pinned digest')
         path, chains = tr.walk(repo, B, F, roles, desc)
         tips = {k: v[-1] for k, v in chains.items()}
+        # the tool-landing role pin is the class tip while the transition is in play: roles.side_change_classes and
+        # every referenced class record defining the tool-landing class (staging r2 sec. 2, role pin = tip)
+        tl = []
+        for r in cfg['records']:
+            if isinstance(r, dict) and isinstance(r.get('path'), str) and \
+                    repo.mode(F, r['path']) in tr.regular_modes and \
+                    _defines_class(repo.read(F, r['path']) or b'', ra.tool_landing_class_id):
+                tl.append(r)
+        role_pin = (cfg.get('roles') or {}).get('side_change_classes')
+        for r in tl + ([role_pin] if isinstance(role_pin, dict) else []):
+            if {'path': r.get('path'), 'blob_sha256': r.get('blob_sha256')} != tips['class']:
+                raise tr.Refused('the tool-landing class pin %s is not the current class tip %s'
+                                 % (r.get('path'), tips['class']['path']))
         for r in in_ns:
             role = [x['role'] for x in roles if tr.in_namespace(r['path'], x)][0]
             if {'path': r['path'], 'blob_sha256': r.get('blob_sha256')} != tips[role]:

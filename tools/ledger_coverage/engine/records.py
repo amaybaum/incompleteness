@@ -104,10 +104,11 @@ class Store:
         return sha
 
     def get(self, ref):
-        hit = self.by_sha.get(ref.get('blob_sha256'))
-        if hit is None or hit[0] != ref.get('path'):
-            return None
-        return hit[1]
+        """The record at exactly {path, blob_sha256}: a byte-identical blob at another path is another record."""
+        for sha, doc in self.by_path.get(ref.get('path'), []):
+            if sha == ref.get('blob_sha256'):
+                return doc
+        return None
 
     def resolve(self, ref):
         """A record read from the object store (at or before F) by {path, blob_sha256}, or None."""
@@ -393,6 +394,10 @@ def widening_review_problems(ref, store, admitted_shas, regular_reviewers, autho
                 bad.append('the designated root\'s widening review does not carry replaces: null')
         elif 'replaces' in d and d['replaces'] is None:
             bad.append('replaces is null outside the designated root')
+        elif old_ref is None:
+            # R6.RECON.31 (replaces required for a widening review) as amended by staging r2: a record with no
+            # predecessor other than the designated root has no widening review that can name one
+            bad.append('a widening review of a record without a predecessor outside the designated root')
         elif old_ref is not None and (not isinstance(d.get('replaces'), dict) or
                                       d['replaces'].get('blob_sha256') != old_ref.get('blob_sha256') or
                                       d['replaces'].get('path') != old_ref.get('path')):

@@ -981,6 +981,10 @@ def _s11_unmutated_result(ev, case, result):
             and before.get('config') and before.get('config') == result.get('config')
             and isinstance(before.get('items'), list)):
         return None
+    # Open: the reviewed configuration's path and digest are not bound here. Staging r2 requires both runs to use
+    # "the same reviewed config pin" but names no source from which the gate could read the expected path and digest
+    # (no staged configuration or admission record exists yet); a configuration substituted in both runs alike
+    # passes this check, and the deny set is read from the results' own profile records.
     # A1 staging amendment r2: both invocations name the authoritative check (a same wrong check in both is refused),
     # and both results evaluate the approved profiles: the review set alone at exact E, the review set and the
     # configured deny profiles at the planted child.

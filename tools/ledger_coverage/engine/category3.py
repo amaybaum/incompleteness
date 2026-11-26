@@ -21,6 +21,8 @@ from . import records as rec
 from . import util
 
 reassessment_schema = 'oi-reassessment/1'
+custody_unverified = ('the custody of the relevant historical inputs is not established (OBL-29 sec. 2.2): the cited '
+                      'discharge is inapplicable')
 blocked_class = 'retirement-blocked'
 
 # The keys of one element of `invalidated`. The design names its parts (an edit id, the canonical sha256 of its
@@ -48,31 +50,42 @@ def _reviewed(store, ref, sha):
     d = posixpath.dirname(ref['path'])
     reviews = [s for s, (p, rv) in store.by_sha.items()
                if isinstance(rv, dict) and rv.get('schema') == rec.review_schema and posixpath.dirname(p) == d
-               and isinstance(rv.get('reviewed'), dict) and rv['reviewed'].get('blob_sha256') == sha]
+               and isinstance(rv.get('reviewed'), dict) and rv['reviewed'].get('blob_sha256') == sha
+               and rv['reviewed'].get('path') == ref['path']]
     if len(reviews) != 1:
         return ['%d review records in the record directory name its blob, not one' % len(reviews)]
     return rec.lint_chain(ref, store, {sha, reviews[0]})
 
 
+def _entry_findings(ref, doc):
+    return [{'record': ref, 'path': e.get('path'),
+             'invalidated': list((e.get('scientific_effect') or {}).get('invalidated') or []),
+             'side_change_commits': list(e.get('side_change_commits') or [])}
+            for e in doc.get('paths') or [] if isinstance(e, dict)
+            and (e.get('scientific_effect') or {}).get('verdict') == 'invalidates']
+
+
 def findings_in(entries, schemas):
-    """entries: [(path, bytes)] of one scanned set. The findings of the first kind among its records:
+    """entries: [(path, bytes)] of one scanned set. The findings of the first kind among its records, one per record
+    reference (path and blob: a byte-identical copy at another path is another record, R6.RECON.35 Identity) and entry:
     [{'record': ref, 'path': entry path, 'invalidated': [...], 'side_change_commits': [...]}]."""
     store = rec.Store(entries)
-    out = []
-    for sha, (path, doc) in sorted(store.by_sha.items()):
+    out, seen = [], set()
+    for path, data in entries:
+        sha = util.sha256(data)
+        if (path, sha) in seen:
+            continue
+        seen.add((path, sha))
+        doc = next((d for s_, d in store.by_path.get(path, []) if s_ == sha), None)
         if not isinstance(doc, dict) or doc.get('schema') not in schemas:
             continue
-        ents = [e for e in doc.get('paths') or [] if isinstance(e, dict)
-                and (e.get('scientific_effect') or {}).get('verdict') == 'invalidates']
-        if not ents:
+        found = _entry_findings({'path': path, 'blob_sha256': sha}, doc)
+        if not found:
             continue
         ref = {'path': path, 'blob_sha256': sha}
         if _reviewed(store, ref, sha):
             continue
-        for e in ents:
-            out.append({'record': ref, 'path': e.get('path'),
-                        'invalidated': list((e.get('scientific_effect') or {}).get('invalidated') or []),
-                        'side_change_commits': list(e.get('side_change_commits') or [])})
+        out += found
     return out
 
 
@@ -93,7 +106,8 @@ def findings_of_records(records, schemas):
 def unique(found):
     seen, out = set(), []
     for f in found:
-        key = ((f['record'] or {}).get('blob_sha256'), f['path'])
+        # a finding is identified by its record's reference (path and blob) and its entry path
+        key = ((f['record'] or {}).get('path'), (f['record'] or {}).get('blob_sha256'), f['path'])
         if key not in seen:
             seen.add(key)
             out.append(f)
@@ -242,6 +256,16 @@ def reassessment_problems(repo, M, led, doc, ref, store, admitted, found, m_scan
                 break  # an unresolvable predecessor is the lineage check's own failure (record lint, above)
             out += ['predecessor %s: %s' % (pref.get('path'), x)
                     for x in eligible_review_problems(cum.reviews_naming(pref), prev)]
+            # include a widening review where the original check requires one: every widening review in R* of the
+            # exact predecessor accepts each of its verdicts
+            older = store.resolve(prev['supersedes']) if isinstance(prev.get('supersedes'), dict) else None
+            if store.widening is not None and store.widening(older, prev):
+                for wp, wv in cum.reviews_naming(pref):
+                    if isinstance(wv, dict) and wv.get('kind') == 'widening' and \
+                            any(not isinstance(v, dict) or v.get('verdict') != 'accept'
+                                for v in wv.get('verdicts') or [None]):
+                        out.append('predecessor %s: the widening review %s in the cumulative record set does not '
+                                   'accept every item' % (pref.get('path'), wp))
             cur = prev
         if isinstance(entry, dict) and isinstance(edoc, dict):
             out += eligible_review_problems(cum.reviews_naming(entry, posixpath.dirname(entry.get('path') or '')),
@@ -253,6 +277,12 @@ def reassessment_problems(repo, M, led, doc, ref, store, admitted, found, m_scan
     eid, esha = _part(doc, 'edit_id'), _part(doc, 'edit_sha256')
     if eid is None or edit_sha(led, eid) is None or edit_sha(led, eid) != esha:
         out.append("the edit is not an edit of the citing configuration's ledger as worded")
+    # OBL-29 remedy r9 sec. 2.2, Custody and lookup: before an applying discharge is returned, the custody starting
+    # point and its coverage for the repair under consideration are verified; missing required custody leaves the
+    # cited discharge inapplicable (FAIL record-invalid and retirement-blocked). The custody format, bootstrap record
+    # and mapping to admitted inputs are not yet fixed and independently verified, so no custody can be established
+    # and every cited discharge fails closed here, whatever else holds.
+    out.append(custody_unverified)
     return out
 
 
@@ -336,16 +366,72 @@ class Cumulative:
         return None
 
     def findings(self):
-        """The union of the first-kind findings detected in each distinct reachable subtree."""
+        """The first-kind findings of R* taken as a set (R6.OBL29.2, .3): a candidate record reference is a finding
+        when R* holds a review record in its own directory naming its exact path and blob under which the record
+        passes record lint (the tool's first-kind condition), wherever in history the record and the review each
+        appear; predecessors and ambiguity are resolved over R* as well. One finding per record reference and entry
+        (a copy at another path is another record)."""
+        cands, reviews = {}, {}
+        for ents in self.subtrees.values():
+            for p, _m, o in ents:
+                inf = self.info[o]
+                if inf[0] == 'candidate':
+                    cands[(p, inf[1])] = o
+                elif inf[0] == 'review' and inf[1] is not None:
+                    reviews.setdefault((inf[1], inf[2]), set()).add((p, o))
+        if not cands:
+            return []
+        pool = self.pool()
         out = []
-        for key, ents in sorted(self.subtrees.items(), key=lambda kv: repr(kv[0])):
-            cands = [(p, o) for p, _m, o in ents if self.info[o][0] == 'candidate']
-            if not cands:
+        for (p, sha), o in sorted(cands.items()):
+            data = self.repo.read_blob_uncached(o)
+            try:
+                doc = json.loads(data.decode('utf-8'))
+            except (ValueError, UnicodeDecodeError):
                 continue
-            # the tree's whole scanned set (every reconciliation and review record under the prefix), so that a
-            # candidate's review and lineage are judged as in that tree
-            out += findings_in([(p, self.repo.read_blob_uncached(o)) for p, _m, o in ents], self.schemas)
-        return unique(out)
+            ref = {'path': p, 'blob_sha256': sha}
+            found = _entry_findings(ref, doc)
+            d = posixpath.dirname(p)
+            for rp, ro in sorted(reviews.get((p, sha), ())):
+                if posixpath.dirname(rp) != d:
+                    continue
+                rb = self.repo.read_blob_uncached(ro)
+                st = rec.Store([(p, data), (rp, rb)])
+                st.resolver = pool.resolve
+                st.scan = pool.entries
+                if not rec.lint_chain(ref, st, {sha, util.sha256(rb)}):
+                    out += found
+                    break
+        return out
+
+    def pool(self):
+        """R*'s reconciliation and review records by exact reference, read on demand: resolve({path, blob_sha256})
+        and entries() (every such record, for the lineage scan)."""
+        if getattr(self, '_pool', None) is None:
+            refs = {}
+            for ents in self.subtrees.values():
+                for p, _m, o in ents:
+                    inf = self.info[o]
+                    sha = inf[1] if inf[0] in ('candidate', 'record') else None
+                    refs[(p, o)] = sha
+            repo = self.repo
+
+            class Pool:
+                def resolve(_s, ref):
+                    for (p, o), _sha in refs.items():
+                        if p == ref.get('path'):
+                            b = repo.read_blob_uncached(o)
+                            if util.sha256(b) == ref.get('blob_sha256'):
+                                try:
+                                    return json.loads(b.decode('utf-8'))
+                                except (ValueError, UnicodeDecodeError):
+                                    return None
+                    return None
+
+                def entries(_s):
+                    return [(p, repo.read_blob_uncached(o)) for (p, o) in sorted(refs)]
+            self._pool = Pool()
+        return self._pool
 
     def reviews_naming(self, ref, directory=None):
         """[(path, doc)] of every review record in R* whose `reviewed` names `ref` exactly (path and blob), only in
