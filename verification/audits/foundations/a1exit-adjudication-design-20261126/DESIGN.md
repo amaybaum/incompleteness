@@ -1,8 +1,8 @@
-# Formal adjudication of retained witnesses (paper design r1)
+# Formal adjudication of retained witnesses (paper design r2)
 
 ## 0. Status, authority, scope and goal link
 
-**Status.** Paper design r1. Not adopted. It changes no schema, admission rule, requirement,
+**Status.** Paper design r2. Not adopted. It changes no schema, admission rule, requirement,
 expectation, tool, configuration or record. The proposed requirements (ids `R6.ADJ.n`) have no
 force. They would take effect only through a separate owner decision, and then only through the
 amendments that §6 lists. Implementation, freeze, trial, dispatch and merge are not authorized
@@ -18,8 +18,12 @@ amendments that §6 lists. Implementation, freeze, trial, dispatch and merge are
 The same decision, quoted: "No schema modification, admission-rule modification, implementation,
 freeze, trial, dispatch or merge is authorized by this decision. OBL-29 remains blocking, and A1
 retirement remains unauthorized." and "Return for a separate decision after the adjudication design
-receives independent review." Item 2 of the same decision governs the token convention used in §5.4:
-"Tokens establish evidence identity, never adjudication authority."
+receives independent review." Item 2 of the same decision governs the token convention: "Tokens
+establish evidence identity, never adjudication authority."
+
+**Revision.** r1 at `2de8462946c65dcf0f004a559fd12b9c18c22ceb` (PR #1605) received REVISE in the
+independent review posted verbatim at #1605 comment 7197900888 (findings F1 to F12). r2 is made under
+the same authority and answers each finding. The finding map is in REVIEW-BRIEF.md.
 
 The seven requirements, as the recording comment lists them:
 
@@ -77,8 +81,9 @@ reads nor checks it, and no record kind, field, comment or host read represents 
 `oi-owner-authorization/1` as an example of an undefined record kind (ERROR `CONFIG_INVALID`). The
 edit-id migration record carries an `approval` quotation checked "for form only (R6.REC.3)"
 (R6.RECON.28, R6.RECON.32). That quotation is the one existing case of a typed field that quotes the
-owner. Its reading, which this design follows, is that a quotation may be carried for the reviewer
-and checked for form, but does not establish approval to the tool.
+owner: it may be carried for the reviewer and checked for form, but it does not establish approval
+to the tool. This design goes one step beyond that precedent (owner attribution, §5.2), and states
+that step as a deliberate change of R6.REC.3 (§6).
 
 **The design question.** A freeze that pins a substituted reviewer must not be indistinguishable
 from one that pins an authorized adjudicator. §2 asks what the tool can distinguish at all.
@@ -98,13 +103,23 @@ can be written by any party with push access to a branch whose content later rea
 Reaching `main` is gated by the owner's merge approval (AGENTS.md §A.50 item 1), which the tool does
 not read (R6.REC.3, R6.OUT.14). Records carry identity strings that are self-declared and not
 authenticated (r9 R-8). So for any set of bytes that an authorized adjudication would produce, a
-substitute can produce the same bytes, changing only who actually wrote them, which no byte records.
-Two freezes with equal bytes get equal verdicts. The tool can tell an authorized freeze from a
-substituted one only if some byte the tool reads can be produced only by an authorized party. That
-requires authenticated identity: a signature checked against a pinned key, or a host read of the
-owner's own record. R6.REC.3 excludes both, and AGENTS.md §A.42 item 2 excludes a host comment as
-the sole support of an enduring claim. The argument depends on R6.REC.3 and on unauthenticated
-identity strings, not on the choice among (A), (B) and (C).
+substitute can produce the same record bytes, changing only who actually wrote them, which no record
+byte authenticates. The tool can tell an authorized freeze from a substituted one only if some byte
+it reads can be produced only by an authorized party. That requires authenticated identity: a
+signature checked against a pinned key, or a host read of the owner's own record. R6.REC.3 excludes
+both, and AGENTS.md §A.42 item 2 excludes a host comment as the sole support of an enduring claim.
+The argument depends on R6.REC.3 and on unauthenticated identity strings, not on the choice among
+(A), (B) and (C).
+
+*Qualification (what lies just outside R6.REC.3).* Merge commits made through the host on `main`
+carry the host's web-flow signature, and that signature covers the whole commit object, its `author`
+field included: `942bd5ea` has author `amaybaum`, committer `GitHub` and a web-flow signature. With a
+pinned web-flow key, the tool could therefore check that the commit introducing an adjudication is a
+host-signed merge whose author is an owner identity. That would authenticate more than Claim I
+allows, without owner key custody. Caveat: commits created through the host's API are also
+web-flow-signed and can carry an arbitrary author, so the check authenticates the host's record of
+the commit, not the owner's act, unless the landing path is constrained. Using it needs an R6.REC.3
+decision. It is the web-flow variant of OD-3 (e).
 
 ### 2.2 What can be made mechanical
 
@@ -115,22 +130,23 @@ mechanical, so that substitution needs a forgery that is recorded permanently an
 |---|---|---|
 | M1 | Explicitness | A typed authorization object exists, bound to this dispute. A freeze without one is distinguished from one with one. |
 | M2 | Owner attribution | The authorization's `author` is a member of a tool constant `OWNER_IDENTITIES`, pinned with the tool files (as R6.RDIR.2 pins the admitted record directories). An authorization attributed to anyone else fails. |
-| M3 | Scope equality | The authorization names the adjudicator, the finding and the witness, and these equal the adjudication's own. An authorization for another person or dispute fails. |
-| M4 | Independent review of the authorization | The authorization is an item of the adjudication, so a non-author technical reviewer must accept it under R6.REC.6. That reviewer checks the quotation against the owner's record. |
-| M5 | Landing before reliance | The adjudication and its review are on `main` (on `M`'s first-parent chain) before the freeze that cites them. They therefore passed an owner-approved merge, at which the owner sees a quotation of the owner's own words. |
+| M3 | Scope equality | The authorization names the adjudicator, the finding, the witness and the replacement, and these equal the adjudication's own. Its time precedes the adjudication's landing. |
+| M4 | Independent review of the authorization | The authorization is an item of the adjudication, so a non-party technical reviewer must accept it. That reviewer checks the quotation against the owner's record. |
+| M5 | Landing before reliance | The adjudication and its review are on `main` before the freeze that cites them. They therefore passed an owner-approved merge, at which the owner sees a quotation of the owner's own words. |
+| M5' | Dedicated landing (recommended, OD-3) | The first-parent commit on `main` that introduces the adjudication changes only the adjudication and its review. The owner's merge approval is then an approval of this record specifically. |
 | M6 | Conflict rules | Mechanical identity-string exclusions (§5.3). |
 | M7 | Permanence | The adjudication, its authorization and every review stay in `R*` (r9 R6.OBL29.1), so a forgery cannot be withdrawn without trace. |
 
-**Distinguishability of substitution.** The table states which attempts the tool distinguishes.
+**Distinguishability of substitution.**
 
 | Attempt | Distinguished mechanically? |
 |---|---|
 | S1. A substitute's accepting review of `R`, with no adjudication record | yes: NR-5 fails (reviewer is not `V`'s), and `Adjudicated(W)` is false |
 | S2. An adjudication record without an authorization object | yes (M1) |
 | S3. An authorization attributed to a non-owner identity | yes (M2) |
-| S4. An authorization naming another adjudicator, finding or witness | yes (M3) |
+| S4. An authorization naming another adjudicator, finding, witness or replacement, or dated after the landing | yes (M3) |
 | S5. A forged authorization that the technical reviewer rejects | yes (M4) |
-| S6. A forged authorization accepted by a colluding technical reviewer and landed through an owner-approved merge | **no**: residual R-ADJ-1 |
+| S6. A forged authorization accepted by a colluding technical reviewer and landed through an owner-approved merge (with M5', a merge that carries only that record) | **no**: residual R-ADJ-1 |
 | S7. A party writing under the adjudicator's identity string | **no**: residual R-ADJ-2 (r9 R-8) |
 
 So the substitution case that remains needs a fabricated quotation of the owner, a second party's
@@ -138,21 +154,15 @@ false acceptance of it, and an owner-approved merge that shows it. All three sta
 
 ### 2.3 Strengthenings assessed
 
-The brief asked about three strengthenings: an authorization record that itself needs independent
-review, a pinned registry of adjudicators reviewed at the freeze, and a quorum. A fourth, an
-authenticated channel, is the only one that changes Claim I.
-
 | Strengthening | Effect on substitution | Cost and reachability | Assessment |
 |---|---|---|---|
-| Separate authorization record kind, by an author other than the adjudicator, with its own non-author review, landed before the adjudication | S6 needs two colluding reviewers plus a false author instead of one reviewer | a second record kind, key tables and item-id row; one more landing | Marginal gain over M4. Not recommended as the default. OD-3 (c). |
-| Pinned adjudicator registry as a tool constant `ADJUDICATORS` | S6 additionally needs a tool revision that adds the substitute, reviewed and landed under owner approval | every appointment is a tool revision. A "pre-dispute" variant (registry of the tool pinned at the original freeze) also stops post-hoc choice, but leaves no adjudicator for any dispute that arose before the registry, including every current A1 dispute | Raises the bar. The pre-dispute variant fails RQ7 for existing disputes. OD-3 (b). |
+| Dedicated landing (M5') | S6 needs an owner-approved merge whose whole content is the forged record | one tree comparison; no schema | Recommended (OD-3). |
+| Separate authorization record kind, by an author other than the adjudicator, with its own non-author review, landed before the adjudication | S6 needs two colluding reviewers plus a false author instead of one reviewer | a second record kind, key tables and item-id row; one more landing | Marginal gain over M4. OD-3 (c). |
+| Standing adjudicator registry as a tool constant `ADJUDICATORS` | S6 additionally needs a tool revision that adds the substitute, reviewed and landed under owner approval | every appointment is a tool revision. A "pre-dispute" variant (registry of the tool pinned at the original freeze) also stops post-hoc choice, but leaves no adjudicator for any dispute that arose before the registry, including every current A1 dispute | Raises the bar. The pre-dispute variant fails RQ7 for existing disputes. OD-3 (b). |
+| Per-dispute registry entry as a tool constant: `{adjudicator, finding, item, witness sources, replacement}` | S6 needs a reviewed tool revision, landed under owner merge approval, for this dispute; stronger than a quotation | a tool revision per adjudication; tool code becomes a ledger of disputes | Stronger authorization than (A)'s quotation, at the cost of a tool revision per grant. It can be combined with (A), whose record keeps the substance and review. OD-3 (b'). |
 | Registry pinned in the configuration | none: the configuration is written by the plan side and admitted by the same freeze that would pin a substitute (r8 review, finding 4) | a closed-key change to `oi-retirement-config/1` | Unsound. Rejected. |
 | Quorum of k ≥ 2 independent technical reviewers | S6 needs k colluding reviewers. Gives no authorization | k reviews per adjudication | Not a substitute for RQ1. May be added. OD-3 (d). |
-| Authenticated channel: an owner signature on the adjudication's commit or a signed tag, checked against a pinned owner key; or a host read of the owner's comment | the only option that makes S6 and the owner-attribution part of S7 mechanically distinguishable | changes R6.REC.3; key custody and rotation; a host read also conflicts with §A.42 item 2 and with offline replay (R6.OUT.15) | Outside the three alternatives. OD-3 (e). Not recommended without an owner decision on R6.REC.3. |
-
-Merge commits made through the host on `main` carry the host's own signature (for example
-`942bd5ea`). That signature authenticates the host's merge, not the owner's identity, so it does not
-change Claim I.
+| Authenticated channel: an owner signature on the adjudication's commit or a signed tag, checked against a pinned owner key; the web-flow variant of §2.1; or a host read of the owner's comment | the only options that make S6 and the owner-attribution part of S7 mechanically distinguishable | changes R6.REC.3; key custody for an owner key; the web-flow caveat of §2.1; a host read also conflicts with §A.42 item 2 and with offline replay (R6.OUT.15) | Outside the three alternatives. OD-3 (e). Needs its own R6.REC.3 decision. |
 
 ***
 
@@ -170,19 +180,19 @@ The alternatives as investigated:
   `repair: null` route.
 - **(C) Amendment to the admission rules, no new keys.** (C1) The freeze's owner approval is taken as
   the authorization of whatever reviews it pins. (C2) A quorum of independent reviews of `R` carrying
-  the NR-5 tokens replaces `V`'s reviewer. (C3) A tool-constant registry: a review of `R` with the
-  NR-5 tokens by a registry member clears. (C4) Authorization stated in free text (a token or phrase
-  in `method` or `reason`).
+  the NR-5 tokens replaces `V`'s reviewer. (C3) A tool-constant registry (standing, or with
+  per-dispute entries): a review of `R` with the NR-5 tokens by the registered adjudicator clears.
+  (C4) Authorization stated in free text (a token or phrase in `method` or `reason`).
 
 | Req | (A) | (B1) | (B2) | (C1) | (C2) | (C3) | (C4) |
 |---|---|---|---|---|---|---|---|
-| RQ1 | M1 to M7. Authenticity procedural (Claim I) | same keys as (A), inside a review | the reassessment's author is the plan side: authorization written by a conflicted party | none distinguishable (S1 passes) | no authorization at all | standing, typed in tool code. Not per-dispute | excluded by owner decision item 2 (tokens never carry authority) |
+| RQ1 | M1 to M7. Authenticity procedural (Claim I) | same keys as (A), inside a review | the reassessment's author is the plan side: authorization written by a party | none distinguishable (S1 passes) | no authorization at all | typed in reviewed tool code; with per-dispute entries stronger than (A)'s quotation | excluded by owner decision item 2 (tokens never carry authority) |
 | RQ2 | typed parties; mechanical exclusions (§5.3) | as (A) | fails: author is a party | reviewer exclusions only | exclusions only | exclusions only | as (C3) |
-| RQ3 | typed references to finding, witness, disputed record, replacement, reassessment | as (A) | partial: no witness binding without new keys | tokens (identity only) | tokens | tokens | tokens |
-| RQ4 | typed per-item grounds, coverage checked; substance by review | as (A) | single `rederivation` string | general `accept` on `R`'s items | general `accept` | `accept`/`reject` on `R`'s items stands in for the disposition, conflating "is `R` correct" with "is `V`'s objection resolved" | as (C3) |
+| RQ3 | typed references to finding, witness, disputed record, replacement, reassessment | as (A) | partial: no witness binding without new keys | tokens (identity only) | tokens | tokens (identity only), plus the registry entry's typed scope | tokens |
+| RQ4 | typed per-item grounds, coverage checked; substance by an independent review of the adjudication | as (A), but no review of the adjudication without reviews of reviews | single `rederivation` string | general `accept` on `R`'s items | general `accept` | the adjudicator's review of `R` is not itself reviewed (r9 route 2 requires an independently reviewed adjudication; reviews of reviews are undefined) | as (C3) |
 | RQ5 | no supersession; all in `R*` | as (A) | as (A) | `R*` | `R*` | `R*` | `R*` |
-| RQ6 | typed failure conditions; contradiction rule (§5.7) | as (A), plus a hazard: older pinned tools see unknown keys in a review record and fail the reviewed record (R6.REC.6, R6.RECON.31's closed key set) | as (A) | no contradiction rule expressible | none | intent ambiguous: a member's ordinary review of `R` with tokens becomes an adjudication | as (C3) |
-| RQ7 | unavailability: yes. Dispute: per round (§4) | as (A) | as (A) | yes, unsoundly | yes, unsoundly | only if a registry member is free of conflict; pre-dispute variant: no for existing disputes | — |
+| RQ6 | typed failure conditions; validity separated from admission; contradiction rule (§5.7) | as (A), plus a hazard: older pinned tools see unknown keys in a review record and fail the reviewed record (R6.REC.6, R6.RECON.31's closed key set) | as (A) | no contradiction rule expressible | none | "upheld" is expressible only as a dissent on `R`, so an upheld decision is indistinguishable from an ordinary dissent and has no typed contradiction rule | as (C3) |
+| RQ7 | yes for an unavailable reviewer, an unusable identity and a dispute the adjudication answers; termination under OD-2 | as (A) | as (A) | yes, unsoundly | yes, unsoundly | yes with per-dispute entries; the pre-dispute variant fails existing disputes | — |
 
 **Who reviews the adjudication.** r9 route 2 requires an independently reviewed adjudication. Under
 (A) the adjudication is an ordinary reviewed record (one new row in R6.RECON.31's item-id table).
@@ -195,40 +205,53 @@ reviews. Under (C2) and (C3) the technical review is a second review of `R` with
 would be read by every older pinned tool as class (b), a malformed record, and, where its text holds
 `invalidates`, as a malformed finding binding at run level. Keeping the schema id and adding keys
 instead fails the reviewed record in every older tool. (A) uses a schema outside both prefixes and
-key names outside the class (b) review shape (R6.ADJ.14), so detection does not select it as a record.
+key names outside the class (b) review shape (R6.ADJ.14), so detection does not select a parseable
+adjudication as a record.
+
+**Why not (C3).** (C3) changes no schema, and with per-dispute entries its authorization is stronger
+than (A)'s quotation. Its defects are elsewhere:
+1. it has no independent review of the adjudication, which r9 route 2 requires, and adding one needs
+   reviews of reviews, which r13 does not define;
+2. an upheld decision can be expressed only as a dissent on `R`, which has no typed contradiction or
+   upheld rule;
+3. the adjudication's binding to the witness and the dissents it answers would be carried in
+   free-text tokens, against the owner's preference for a typed mechanism (tokens may carry identity,
+   but the decision would then live in untyped text);
+4. tool code becomes a ledger of disputes, with a tool revision for every adjudication.
+
+The per-dispute registry entry, without the rest of (C3), is kept as an optional strengthening of
+(A) (OD-3 (b')).
 
 **Size.** (A) adds one kind with five key tables, one row in R6.RECON.33's kind table, one row in
-R6.RECON.31's item-id table, the `Adjudicated(W)` definition in r9 and three narrow exceptions (§6).
-(B1) needs the same keys, the same item-id row, reviews of reviews and a compatibility change to the
-most-read record kind. (B2) is unsound (RQ2). (C1) and (C2) are unsound (RQ1). (C4) is excluded.
-(C3) is the only smaller candidate. It changes no schema, but it cannot express the disposition, the
-dissents addressed or the role of the technical reviewer without putting decision meaning into
-`accept`/`reject` or into free-text tokens (RQ4, RQ6). Its pre-dispute variant fails RQ7.
+R6.RECON.31's item-id table, the `Adjudicated` definition in r9, a tool constant and the narrow
+exceptions of §6. (B1) needs the same keys, the same item-id row, reviews of reviews and a
+compatibility change to the most-read record kind. (B2) is unsound (RQ2). (C1) and (C2) are unsound
+(RQ1). (C4) is excluded. (C3) is not sound for RQ4 and RQ6, for the reasons above.
 
 ***
 
 ## 4. Recommendation
 
 **Adopt (A), in its minimal form:** one record kind `oi-adjudication/1` as §5 states, with
-authorization quoted inside it (no separate authorization kind) and attributed to `OWNER_IDENTITIES`.
-It is the smallest alternative that meets RQ2 to RQ6 with typed fields, and it meets RQ1 to the
-limit Claim I allows. (C3) is smaller but not sound for RQ4 and RQ6. (B) carries the same content as
-(A) inside a record whose meaning and compatibility it changes.
+authorization quoted inside it (no separate authorization kind), attributed to `OWNER_IDENTITIES`,
+and landed by a dedicated landing (M5'). It is the smallest alternative that meets RQ2 to RQ6 with
+typed fields, meets RQ1 to the limit Claim I allows, and meets RQ7 under the recommended OD-2 default.
 
 **Requirements no alternative can meet in full.**
 
 1. **RQ1, "verifiable".** No alternative makes the owner's authorization mechanically verifiable
-   under R6.REC.3 (Claim I). (A) makes it explicit, owner-attributed, scope-bound, independently
-   reviewed, landed under owner merge approval and permanent. The authenticity of the quotation stays
-   procedural (R-ADJ-1). Only an authenticated channel, which needs an R6.REC.3 decision, changes
-   this (OD-3 (e)).
-2. **RQ7 against a persistent disputant, together with RQ6.** An original reviewer who dissents
-   again after each adjudication obliges a fresh adjudication each time under fail-closed handling of
-   contradictory evidence (§5.10 default). Mechanical finality would need a rule under which a
-   party's later dissent does not defeat an adjudication, which narrows RQ6. The records cannot tell a
-   repeated objection from a new one. The tension does not depend on the alternative. OD-2 states the
-   choice. RQ7 for an unavailable reviewer, an unusable identity and a dispute that the adjudication
-   answers is met in full.
+   under R6.REC.3 (Claim I). (A) makes it explicit, owner-attributed, scope-bound, dated before the
+   landing, independently reviewed, landed by a dedicated owner-approved merge and permanent. The
+   authenticity of the quotation stays procedural (R-ADJ-1). Only an authenticated channel, which
+   needs an R6.REC.3 decision, changes this (OD-3 (e), including its web-flow variant).
+2. **RQ7 and RQ6 together, in full.** With the recommended OD-2 default (refined (ii), R6.ADJ.12),
+   RQ7 terminates: a reviewer whose objection an adjudication has answered cannot defeat it again by
+   repeating the objection, and new substance from that reviewer enters as a category-3 finding,
+   which binds under its own rules. RQ6 is narrowed only for those repeated objections. Under
+   option (i), RQ6 holds in full but resolution can depend indefinitely on one reviewer's
+   willingness, which conflicts with the owner's principle that adjudication remain available
+   (§5.10). No alternative removes this trade-off, because the records cannot tell a repeated
+   objection from a new one. Residual sock identities remain (R-ADJ-2).
 
 ***
 
@@ -238,7 +261,11 @@ Terms follow r13 R6.RECON.29 (reference, commit id, blob id, sha256, identity st
 §2.2 (witness, disputed record `Q`, replacement `R`, candidate discharge `D` with reassessment `A`,
 `R*`, custody). A *reference* is `{path, blob_sha256}`. An *item reference* is `{ref, item}`, with
 `ref` a reference and `item` an item id of the referenced record or the pseudo-item `dissent`. A
-*party* is an identity in the set `Parties(W, D)` of R6.ADJ.4.
+*usable identity* is an identity string that is not a tool, CI or check run, an Issue, a URL or a
+run id (R6.REC.6). `R*(C)`, for a commit `C`, is `R*` computed with `C` in place of `M` and
+without `F` or `REV` (r9 R6.OBL29.1). For an adjudication `J`, `L(J)` is its *landing commit*: the
+earliest commit `C` on `M`'s first-parent chain whose tree holds `J` and a review of `J` that
+qualifies under R6.ADJ.7 when evaluated over `R*(C)`, with `Parties` at `C`; null when there is none.
 
 ### 5.1 Kind, location and keys
 
@@ -247,8 +274,8 @@ reviewed and immutable, under the ownership chain of r13 sec. 11. It decides one
 `W` (r9 §2.2) against one replacement for one finding. It lies, with its review record, in the
 reconciliation directory of its `replacement` (the directory of `replacement.path`, R6.RECON.1). A
 configuration's freeze cites it by listing it in `records` with kind `adjudication`, and its review
-with kind `review` (R6.CFG.4, R6.RECON.33). An adjudication referenced from another directory is
-FAIL `record-invalid`.
+with kind `review` (R6.CFG.4, R6.RECON.33). An adjudication cited from another directory fails
+admission (`ADJ-ADMIT`).
 
 **R6.ADJ.2 Key tables.** Each table is closed. A missing key, a key of another type or a key outside
 the table is a form failure (condition `ADJ-FORM`).
@@ -260,13 +287,13 @@ the table is a form failure (condition `ADJ-FORM`).
 | `schema` | `"oi-adjudication/1"` | yes |  |  |
 | `record_id` | non-empty string | yes | R6.REC.7 | unique among adjudication records in `R*` |
 | `supersedes` | null | yes | R6.ADJ.10 | must be null |
-| `author` | identity string | yes | the adjudicator | R6.ADJ.4 |
+| `author` | identity string | yes | the adjudicator | usable identity; R6.ADJ.4 |
 | `authorization` | object (`adj.authorization`) | yes | R6.ADJ.3 |  |
 | `finding` | object (`reassess.finding` of R6.RECON.32) | yes | the finding whose discharge is in dispute | R6.ADJ.5 |
 | `witness` | object (`adj.witness`) | yes | `W` as retained | R6.ADJ.5 |
 | `replacement` | object (`reassess.repair.entry` of R6.RECON.32) | yes | `R` and its entry | R6.ADJ.5 |
 | `reassessment` | reference | yes | `A` | R6.ADJ.5 |
-| `dissents_addressed` | array of item references, no duplicate | yes (may be empty) | each non-accept item or non-empty `dissent` of a review of `R` that the adjudication answers | R6.ADJ.12 |
+| `dissents_addressed` | array of item references, no duplicate | yes (may be empty) | each non-accept item, or `dissent` for a non-empty `dissent` field, of a review of `R` that the adjudication answers | each names a review of `R` in `R*(L(J))` and an item that is adverse in it |
 | `disposition` | `"cleared"` or `"upheld"` | yes | the decision on `W` for this replacement and finding | R6.ADJ.9 |
 | `grounds` | non-empty array of grounds (`adj.ground`), `id` unique | yes | R6.ADJ.6 | coverage of R6.ADJ.6 |
 | `method` | non-empty string | yes | how the adjudicator re-derived the dispute | contains the blob ids R6.ADJ.6 requires |
@@ -276,13 +303,14 @@ the table is a form failure (condition `ADJ-FORM`).
 
 | Key | Type | Required | Source and binding | Acceptance |
 |---|---|---|---|---|
-| `quote` | non-empty string | yes | the owner's words authorizing this adjudicator for this dispute | form only; its correspondence to the owner's record rests on the review (R6.REC.3) |
+| `quote` | non-empty string | yes | the owner's words authorizing this adjudicator for this dispute | form only; its correspondence to the owner's record rests on the review |
 | `author` | identity string | yes | the owner's login | a member of `OWNER_IDENTITIES` |
-| `time` | time | yes | the time of the owner's record | form only |
+| `time` | time | yes | the time of the owner's record | earlier than the committer time of `L(J)` |
 | `source` | non-empty string | yes | where the owner's record is held | provenance only (AGENTS.md §A.42 item 2) |
 | `adjudicator` | identity string | yes | the person authorized | equals the record's `author` |
 | `finding` | object (`reassess.finding`) | yes | the dispute authorized | equals the record's `finding` |
 | `witness_sources` | non-empty array of references | yes | the dispute authorized | set-equal to `witness.sources` |
+| `replacement` | object (`reassess.repair.entry`) | yes | the replacement authorized | equals the record's `replacement` |
 
 *`witness`* (table `adj.witness`)
 
@@ -310,51 +338,61 @@ Review item ids (one row added to R6.RECON.31's item-id table): `authorization`,
 ### 5.2 Authorization
 
 **R6.ADJ.3 Authorization.** The `authorization` object quotes the owner's authorization of this
-adjudicator for this dispute, with author and time (AGENTS.md §A.42 item 7). The tool checks that:
-its keys meet `adj.authorization`; `author` is a member of the tool constant `OWNER_IDENTITIES`
-(for this repository `["amaybaum"]`), which is fixed by the tool's review and landing, pinned by
-every configuration's `tool.files`, and changed only by a tool revision (as R6.RDIR.2 fixes the
-admitted record directories); `adjudicator` equals the record's `author`; `finding` equals the
-record's `finding`; and `witness_sources` is set-equal to `witness.sources`. A failure of the first
-two checks is condition `ADJ-AUTH-FORM` or `ADJ-AUTH-OWNER`, and a failure of the last three is
-`ADJ-AUTH-SCOPE`. The tool neither reads nor checks the owner's approval (R6.REC.3). The quotation
-is evidence for the technical reviewer, who checks it against the owner's record (R6.ADJ.7). It does
-not represent the approval to the tool. A statement of authorization anywhere else (a token, `method`,
-`reason`, `grounds`, a commit message, pull-request or Issue text, a run log) is not an authorization.
+adjudicator for this dispute and this replacement, with author and time (AGENTS.md §A.42 item 7). The
+tool checks:
+- its keys meet `adj.authorization` (`ADJ-AUTH-FORM`);
+- `author` is a member of the tool constant `OWNER_IDENTITIES` (for this repository `["amaybaum"]`),
+  which is fixed by the tool's review and landing, pinned by every configuration's `tool.files`, and
+  changed only by a tool revision, as R6.RDIR.2 fixes the admitted record directories
+  (`ADJ-AUTH-OWNER`);
+- `adjudicator`, `finding`, `witness_sources` and `replacement` equal the record's own (set equality
+  for `witness_sources`) (`ADJ-AUTH-SCOPE`);
+- `time` is earlier than the committer time of `L(J)` (`ADJ-AUTH-TIME`).
+
+An authorization covers only the replacement it names; a later replacement needs a new
+authorization. The owner attribution check goes beyond the migration `approval` precedent, whose
+`author` is checked for form only; it is a deliberate change of R6.REC.3 (§6). Beyond it, the tool
+neither reads nor checks the owner's approval. The quotation is evidence for the technical reviewer,
+who checks it against the owner's record (R6.ADJ.7). A statement of authorization anywhere else (a
+token, `method`, `reason`, `grounds`, a commit message, pull-request or Issue text, a run log) is not
+an authorization.
 
 ### 5.3 Independence and conflicts
 
-**R6.ADJ.4 Independence.** `Parties(W, D)` is the set of identity strings consisting of:
-- the `author` of: the record carrying the finding; `Q`; `R`; `A`; the citing configuration; each
-  record in `witness.sources` that has an `author`; and, for a lineage witness, the predecessor;
-- the `reviewer` of: each review in `witness.sources`; each review in `R*` of `Q`, of `R` and of `A`
-  that names their exact references; and, for a lineage witness, each review of the predecessor.
+**R6.ADJ.4 Independence.** `Parties(W, D, C)`, for a commit `C`, is the set of usable identities
+among:
+- the `author` or `reviewer` of the record carrying the finding;
+- the `author` of: `Q`; `R`; `A`; the citing configuration; each record in `witness.sources` that has
+  an `author`; and, for a lineage witness, the predecessor;
+- the `reviewer` of: each review in `witness.sources`; each review in `R*(C)` of `Q`, of `R` and of
+  `A` that names their exact references; and, for a lineage witness, each review of the predecessor.
 
-The author of an earlier adjudication of the same witness is not a party by that fact alone. A
-further adjudication by the same adjudicator is evaluated with the earlier one under R6.ADJ.9.
+A party identity that is missing, malformed or not usable is left out of `Parties`; it neither
+excludes anyone nor fails the adjudication. The usable-identity rule applies to the adjudicator
+(`author`) and to the technical reviewer only.
 
-The adjudicator (`author`) must not be a party and must not equal `authorization.author` (OD-4). The
-technical reviewer (the `reviewer` of the adjudication's review, R6.ADJ.7) must not be a party and
-must not equal the adjudicator. Every comparison is of identity strings (R6.RECON.29). An identity
-that is a tool, CI or check run, an Issue, a URL or a run id fails (R6.REC.6). Any failure is
-condition `ADJ-INDEP`. The `conflicts` declaration is reviewed, not checked. A relationship that the
-identity strings do not show (a shared employer, the same agent session under two strings) is
-residual R-ADJ-2.
+The adjudicator must be a usable identity, must not be in `Parties`, and must not be a member of
+`OWNER_IDENTITIES` (OD-4). The technical reviewer (the `reviewer` of the review of R6.ADJ.7) must be
+a usable identity, must not be in `Parties`, must not equal the adjudicator, and must not be a member
+of `OWNER_IDENTITIES` (OD-4). Comparisons are of identity strings (R6.RECON.29). For clearing,
+`Parties` is evaluated at the run's `M`; for adverse use, at `L(J)` (R6.ADJ.9). Any failure is
+condition `ADJ-INDEP`.
+
+The `conflicts` declaration is reviewed, not checked. A relationship that the identity strings do not
+show (a shared employer, one agent session under two strings) is residual R-ADJ-2. The author of an
+earlier adjudication of the same witness is not a party by that fact alone.
 
 ### 5.4 Binding
 
-**R6.ADJ.5 Binding.** For a candidate discharge `D` with reassessment `A` and witness `W`, an
-adjudication binds `D` and `W` only if all of the following hold, each checked from git objects:
-- `finding` equals `A`'s `finding` (path, blob sha256 and item);
-- `reassessment` equals the reference of `A`, and `replacement` equals `A`'s `repair.entry`;
-- `witness` equals `W` as reproduced from custody under r9 R6.OBL29.3: the same `class`, `disputed`
-  and `edge`; `sources` set-equal to the records forming `W`; `adverse` set-equal to the adverse items
-  computed from those records; and `original_configuration` equal to the configuration under which
-  `W` qualified.
-
-Any difference, and any reference that does not resolve, is condition `ADJ-BIND`. An adjudication
-binds no other discharge, witness, replacement or finding. Typed references establish evidence
-identity. They confer no authority, as the token convention of owner decision item 2 states for
+**R6.ADJ.5 Binding.** *Self-consistency* (part of validity): every reference in `J` resolves, and
+`witness` reproduces from custody under r9 R6.OBL29.3 as a retained witness: the same `class`,
+`disputed` and `edge`; `sources` set-equal to the records forming it; `adverse` set-equal to the
+adverse items computed from those records; `original_configuration` equal to the configuration under
+which it qualified. *Binding to a discharge* (part of clearing): for a candidate discharge `D` with
+reassessment `A` and witness `W`, `J` binds `D` and `W` only if, in addition, `finding` equals `A`'s
+`finding` (path, blob sha256 and item), `reassessment` equals the reference of `A`, `replacement`
+equals `A`'s `repair.entry`, and `witness` describes `W`. Any failure is condition `ADJ-BIND`. Typed
+references establish evidence identity and confer no authority, as owner decision item 2 states for
 tokens. r9's tokens are not used in this record kind.
 
 ### 5.5 Substance
@@ -365,99 +403,141 @@ ground's `evidence` contains the git blob id of its target's record, of `Q` and 
 contains the git blob ids of the record carrying the finding, of each element of `witness.sources`,
 of `Q`, of `R` and of `A`. Any failure is condition `ADJ-SUBST`. The tool checks coverage and
 presence only. Whether the reasoning resolves the objection rests on the technical review (R6.REC.2,
-R6.ADJ.7) and is residual R-ADJ-3. An adjudication whose only basis is an approval, a withdrawal, a
-rehearing decision or a deletion meets no substance requirement that a reviewer can accept. A
-disposition without grounds fails mechanically.
+R6.ADJ.7) and is residual R-ADJ-3. A disposition without grounds fails mechanically. An adjudication
+whose only basis is an approval, a withdrawal, a rehearing decision or a deletion meets no substance
+requirement that a reviewer can accept.
 
-### 5.6 Technical review and admission
+### 5.6 Technical review, validity and admission
 
-**R6.ADJ.7 Technical review.** Exactly one review record of the adjudication is cited by the freeze.
-It meets R6.REC.6 and R6.RECON.31, covers every item id of R6.ADJ.2 with `accept`, and its `method`
-names the git blob ids of the adjudication and of each element of `witness.sources`. On the item
-`authorization`, the reviewer confirms that the quotation, author and time correspond to the owner's
-record at `source`. On each `ground:<id>`, the reviewer re-derives the ground from the git objects,
-not from the adjudicator's text. Every review in `R*` that names the adjudication's reference is a
-review of it (R6.REC.6): one whose verdict on any item is not `accept`, or whose `dissent` is
-non-empty, fails the adjudication. A failure is condition `ADJ-REVIEW`.
+**R6.ADJ.7 Technical review.** A review of `J` *qualifies* when it meets R6.REC.6 and R6.RECON.31,
+covers every item id of R6.ADJ.2 with `accept`, has an empty or absent `dissent`, is written by a
+reviewer allowed by R6.ADJ.4, and its `method` names the git blob ids of `J` and of each element of
+`witness.sources`. On the item `authorization`, the reviewer confirms that the quotation, author and
+time correspond to the owner's record at `source`. On each `ground:<id>`, the reviewer re-derives the
+ground from the git objects, not from the adjudicator's text. A review of `J` that does not accept
+every item, or has a non-empty `dissent`, is *adverse to `J`*. Condition `ADJ-REVIEW` fails when no
+qualifying review exists, or, for clearing, when R6.ADJ.12 counts an adverse review of `J` against it.
 
-**R6.ADJ.8 Admission.** An adjudication is admitted for a run only if: the configuration at the
-candidate freeze `F'` references it with kind `adjudication`, and its review with kind `review`
-(R6.REC.4); both resolve from `F'` under R6.RECON.33 at a commit that lies on the first-parent chain
-of the run's `M` and is an ancestor of `F'` (they were on `main` before the freeze); both lie at
-their stated paths in the reconciliation directory of R6.ADJ.1; and both pass record lint
-(R6.REC.6, R6.REC.7). An adjudication found in `R*` but not cited is not applied. It is still read
-for R6.ADJ.9's contradiction rule and reported. Failures are `ADJ-ADMIT` (not cited, wrong location,
-or not resolvable) and `ADJ-LANDED` (not on `M`'s first-parent chain before `F'`).
+**R6.ADJ.8 Validity and admission.**
+- *Valid (adverse use).* `J` is valid as adverse evidence when `L(J)` exists and, evaluated over
+  `R*(L(J))` with `Parties` at `L(J)`, `J` meets R6.ADJ.2 to R6.ADJ.6 (with R6.ADJ.5 self-consistency
+  only) and some review of `J` in `R*(L(J))` qualifies under R6.ADJ.7. Validity for adverse use needs
+  no citation by any freeze and is not changed by any record that lands after `L(J)`: a later
+  review of `J`, adverse or not, and later growth of `Parties` are preserved and reported, and do not
+  cancel it.
+- *Valid (clearing use).* `J` is valid for clearing when it meets R6.ADJ.2 to R6.ADJ.6 evaluated at
+  the run's `M` and `R*`, some review of `J` in `R*` qualifies under R6.ADJ.7, and R6.ADJ.12 counts no
+  adverse review of `J` against it.
+- *Admitted.* `J` is admitted for a run when it is valid for clearing and: the configuration at the
+  candidate freeze `F'` references `J` with kind `adjudication` and exactly one qualifying review of
+  `J` with kind `review` (R6.REC.4) (`ADJ-ADMIT`); both lie at their stated paths in the
+  reconciliation directory of R6.ADJ.1 (`ADJ-ADMIT`); for each of the two, its blob is present at its
+  path in some commit `C` on `M`'s first-parent chain with `C` an ancestor of `F'` (`ADJ-LANDED`);
+  and, under the recommended dedicated landing (M5', OD-3), the commit `L1` on `M`'s first-parent
+  chain that first holds `J`'s blob at its path differs from its first parent only by adding `J` and
+  that review (`ADJ-DEDICATED`).
+
+An adjudication that is valid but not cited is not applied for clearing. It is read for the
+contradiction and upheld rules of R6.ADJ.9 and reported.
 
 ### 5.7 Decision
 
 **R6.ADJ.9 `Adjudicated(W, D)`.** In r9's decision, `Adjudicated(W)` reads `Adjudicated(W, D)` and
 holds exactly when some adjudication `J` meets all of the following:
-1. it is admitted (R6.ADJ.8) and passes R6.ADJ.2 to R6.ADJ.7;
+1. it is admitted (R6.ADJ.8);
 2. it binds `D` and `W` (R6.ADJ.5);
 3. its `disposition` is `"cleared"`;
-4. its `dissents_addressed` covers every dissenting review of `R` (R6.ADJ.12);
-5. no contradicting adjudication exists. A contradicting adjudication is any record in `R*` of
-   schema `oi-adjudication/1`, other than `J`, that names the same `finding`, `replacement` and
-   `witness.disputed`, has an overlapping `witness.sources`, and has `disposition` `"upheld"`,
-   unless that record is established invalid by a definite failure of R6.ADJ.2 to R6.ADJ.7.
-   One whose validity cannot be established (a reference that does not resolve, or incomplete
-   custody) contradicts. The condition is `ADJ-CONTRA`.
+4. no contradicting adjudication exists. A contradicting adjudication is any record in `R*` of schema
+   `oi-adjudication/1`, other than `J`, that names the same `finding`, `replacement` and
+   `witness.disputed`, has an overlapping `witness.sources`, has `disposition` `"upheld"`, and is
+   valid for adverse use, or whose validity for adverse use cannot be established (a reference that
+   does not resolve, incomplete custody, or no `L(J')` although a review of it that would qualify
+   exists in `R*`). An upheld record established invalid for adverse use by a definite failure does
+   not contradict. The condition is `ADJ-CONTRA`.
 
-A valid adjudication with `disposition` `"upheld"`, admitted or not, also makes NR-5 false for the
-same finding, replacement and witness (`ADJ-UPHELD`; OD-6). A new replacement is a new question.
-`Adjudicated(W, D)` is false unless verified records establish it (r9 §2.2). When it is false and
-`W` is not otherwise cleared, r9's result stands: FAIL `record-invalid` naming `D`'s reassessment,
-`W` and each failed condition, with `retirement-blocked` for the finding. A required unreadable or
-unverifiable git object gives ERROR.
+An upheld adjudication valid for adverse use, cited or not, also makes NR-5 false for the same
+finding, replacement and witness (`ADJ-UPHELD`; OD-6). A wrongly upheld adjudication is reversed only
+through a new replacement: a later cleared adjudication for the same replacement is always
+contradicted, while a new replacement is a new question with its own authorization. `Adjudicated(W,
+D)` is false unless verified records establish it (r9 §2.2). When it is false and `W` is not
+otherwise cleared, r9's result stands: FAIL `record-invalid` naming `D`'s reassessment, `W` and each
+failed condition, with `retirement-blocked` for the finding. A required unreadable or unverifiable
+git object gives ERROR.
 
 ### 5.8 Preservation
 
 **R6.ADJ.10 Preservation.** An adjudication changes no finding, witness, record or review. It is
-never superseded (`supersedes` is null). A correction is a new adjudication, which is evaluated with
-every earlier one under R6.ADJ.9. No later record narrows, withdraws or replaces an earlier
-adjudication. An adjudication, its review and every review of it stay in `R*` after a removal from
-the current tree (r9 R6.OBL29.1), and a removed adjudication is evaluated as one that is present. The
-finding stays in `category3.findings` whether or not it is discharged, and each witness stays
-reported with its sources, its adverse items, and the route and records that cleared it. Clearing a
-witness discharges nothing by itself: an applying reassessment is still required wherever
-R6.RECON.26 and R6.RECON.27 require one.
+never superseded (`supersedes` is null). A correction is a new adjudication, evaluated with every
+earlier one under R6.ADJ.9. No later record narrows, withdraws or replaces an earlier adjudication.
+An adjudication, its review and every review of it stay in `R*` after a removal from the current tree
+(r9 R6.OBL29.1), and a removed adjudication is evaluated as one that is present. The finding stays in
+`category3.findings` whether or not it is discharged, and each witness stays reported with its
+sources, its adverse items, and the route and records that cleared it. Clearing a witness discharges
+nothing by itself: an applying reassessment is still required wherever R6.RECON.26 and R6.RECON.27
+require one.
 
 ### 5.9 Fail-closed handling
 
 **R6.ADJ.11 Fail closed.** `Adjudicated(W, D)` is false when any of the following holds: a required
-record, reference or custody object is missing or does not resolve; the retained description of `W`
-cannot be reproduced (r9 R6.OBL29.3); a key is missing, ambiguous or malformed; two reviews of the
-adjudication are cited; the dissenting reviews of `R` cannot be enumerated because custody is
-incomplete; or a contradiction under R6.ADJ.9 (5) exists. No default, inference or later statement
-supplies a missing element. The same inputs give the same result on every run.
+key, record, reference or custody object of `J`, of its review, of `A` or of `R` is missing or does
+not resolve; the retained description of `W` cannot be reproduced (r9 R6.OBL29.3); a key of `J` or of
+its review is ambiguous or malformed; two reviews of `J` are cited; the reviews of `R` cannot be
+enumerated because custody is incomplete; or a contradiction under R6.ADJ.9 (4) exists. Missing or
+malformed identity fields of parties are not covered by this rule (R6.ADJ.4). No default, inference
+or later statement supplies a missing element. The same inputs give the same result on every run.
 
-### 5.10 Dissent on the replacement
+### 5.10 Dissent on the replacement and on the adjudication
 
-**R6.ADJ.12 Dissents addressed.** A *dissenting review of `R`* is a review in `R*` that names
-`R`'s exact reference and has a verdict other than `accept` on any item or a non-empty `dissent`.
-Each such item, and `dissent` for a non-empty field, must appear in `dissents_addressed`, and so
-receives a ground (R6.ADJ.6). Otherwise condition `ADJ-DISSENT` fails. For a discharge `D` for which
-`Adjudicated(W, D)` holds for every witness that relies through `R`, a dissent item that an applying
-adjudication addresses does not fail `R` under R6.REC.6, and does not count as dissent under r9 NR-3
-and NR-5. It is preserved and reported. A dissent item that no applying adjudication addresses keeps
-both effects. A dissenting review that lands after the adjudication is therefore unaddressed and
-needs a further adjudication (default; OD-2).
+The recommended default for OD-2 is the refined option (ii) below. It answers the owner's principle,
+as the r8 direction quoted in r9 §0 states it, that adjudication "remain available if the original
+reviewer is unavailable", and its consequence that resolution must not depend indefinitely on one
+reviewer's willingness. Option (i) is kept as an alternative in §8.
+
+**R6.ADJ.12 Dissents.** A *dissent item on `R`* is an item with a verdict other than `accept`, or
+`dissent` for a non-empty field, in a review in `R*` that names `R`'s exact reference. For an applying
+adjudication `J`, `Answered(J)` is the set of usable identities consisting of the reviewer of each
+review in `J.witness.sources` and the reviewer of each review referenced in `J.dissents_addressed`.
+A review is *later* than `J` when its blob first appears on `M`'s first-parent chain after `L(J)`.
+
+1. *Addressed.* A dissent item on `R` is addressed for `D` when it appears in `dissents_addressed` of
+   some admitted adjudication that binds `D` and is cleared.
+2. *Exempt (refined (ii)).* A dissent item on `R`, or an adverse review of `J`, is exempt for `D` when
+   its review is later than `J` and its reviewer is in `Answered(J)`, for some admitted adjudication
+   `J` that binds `D` and is cleared. An exempt review is preserved and reported. It does not defeat
+   `J`, does not fail `R` under R6.REC.6 for `D`, and does not count as dissent under r9 NR-3 and
+   NR-5 for `D`. New substance from that reviewer enters only as a category-3 finding (R6.RECON.26),
+   which binds under its own rules.
+3. *Not exempt.* A later adverse review of `J`, or a later dissent item on `R`, by any other reviewer
+   defeats `J` for clearing (`ADJ-REVIEW` or `ADJ-DISSENT`) until a further adjudication answers it.
+4. *Precondition and effect.* For evaluating R6.REC.6 on `R` and the no-dissent conditions of r9 NR-3
+   and NR-5 for `D`, addressed and exempt items are disregarded. `D`'s discharge applies only if every
+   witness relying through `R` is then cleared by some route (NR-5, `Inapplicable`, route 1 or
+   `Adjudicated`), and every dissent item on `R` is addressed or exempt (`ADJ-DISSENT`). Where no
+   adjudication applies to `D`, no item is disregarded, and r9 and R6.REC.6 apply unchanged.
+
+The definitions are not circular. Addressed and exempt items depend on admitted adjudications, and
+admission (R6.ADJ.8) does not depend on NR-5 or on R6.REC.6 applied to `R`.
 
 ### 5.11 Result and detection
 
 **R6.ADJ.13 Result fields.** Each element of `category3.findings` gains `adjudications`: one entry
 for every `oi-adjudication/1` record in `R*` that names the finding,
-`{path, blob_sha256, witness_sources, disposition, admitted, applies, failures}`, with `failures` the
-list of condition ids of R6.ADJ.3 to R6.ADJ.12. A witness cleared by adjudication is reported with
-route `adjudication` and the references of `J` and its review. The name avoids r9 R6.OBL29.8's
-`witness`, which is a commit id. No new outcome class is introduced.
+`{path, blob_sha256, witness_sources, disposition, landing, valid_adverse, valid_clearing, admitted,
+applies, failures, exempt_reviews}`. `landing` is `L(J)` or null. `failures` lists the condition ids
+of R6.ADJ.3 to R6.ADJ.12. `exempt_reviews` lists the references of the reviews R6.ADJ.12 exempts. A
+witness cleared by adjudication is reported with route `adjudication` and the references of `J` and
+its review. The name avoids r9 R6.OBL29.8's `witness`, which is a commit id. No new outcome class is
+introduced.
 
 **R6.ADJ.14 Detection compatibility.** An adjudication record and its elements contain no key
 `reviewed` or `verdicts` and no `schema` value beginning `oi-review-record/` or `oi-reconciliation/`
-at any depth. So R6.RECON.35 does not select it as a record of class (a) or (b). A file of schema
-`oi-adjudication/1` that violates this is classed by R6.RECON.35 as it stands (a malformed record,
-and a malformed finding where its text holds `invalidates`), which fails closed.
+at any depth. So R6.RECON.35 does not select a parseable adjudication as a record of class (a) or
+(b). A file of schema `oi-adjudication/1` that violates this, or that does not parse and whose text
+contains those prefixes, is classed by R6.RECON.35 as it stands: a malformed record, and a malformed
+finding binding at run level where its text holds `invalidates`. Under r9 R6.OBL29.2 such a finding
+binds from history. This fails closed but cannot be undone, so writers follow two practices: cite
+records by blob id and path, never by schema string, in `reasoning` and `method`; and parse-check the
+file strictly against `adj.record` before it is landed.
 
 ***
 
@@ -468,14 +548,18 @@ On adoption, these would be separate amendments. None is made here.
 | Location | Proposed change |
 |---|---|
 | r9 §2.2 route 2 and §5.6 "Route 2 adjudication" | route 2 is `Adjudicated(W, D)` of R6.ADJ.9. The sentence "Route 2 is therefore unavailable through existing records ... until an owner-authorized admission route exists" is replaced by a citation of R6.ADJ.1 to R6.ADJ.14. NR-5 and route 1 are unchanged. The original reviewer's resolution stays available and needs no adjudication. |
-| r9 NR-3 and NR-5, "no eligible review of `R` in `R*` dissents" | gains R6.ADJ.12's exception for addressed dissent items |
+| r9 NR-3 and NR-5, "no eligible review of `R` in `R*` dissents" | gains R6.ADJ.12's disregard of addressed and exempt items, under its precondition |
 | r9 decision | `Adjudicated(W)` reads `Adjudicated(W, D)`. Otherwise unchanged. |
 | r9 R6.OBL29.8 | `adjudications` added beside `present_at_M` and `witness` (R6.ADJ.13) |
-| r13 R6.REC.3 | add: "The `authorization` of an adjudication record (R6.ADJ.3), like the `approval` of an edit-id migration record (R6.RECON.32), quotes that approval for the reviewer and is checked for form and binding only; it does not represent the approval to the tool." |
-| r13 R6.REC.6 | add R6.ADJ.12's exception for `R`, limited to the discharge the adjudication binds |
+| r13 R6.REC.1 and R6.RECON.1 | the reconciliation directory also holds adjudication records and their reviews (R6.ADJ.1) |
+| r13 R6.REC.3 | deliberate change: "The `authorization` of an adjudication record (R6.ADJ.3) quotes that approval for the reviewer. The tool checks its form, its scope, its time against the landing, and that its `author` is a member of `OWNER_IDENTITIES`. The last check is attribution, not verification of the approval, which the tool still neither reads nor checks." |
+| r13 R6.REC.4 and R6.REC.5 | exception: an adjudication record and its reviews found in `R*` are read for R6.ADJ.9's contradiction and upheld rules and reported, without being referenced by the configuration. They are never used to clear unless cited. |
+| r13 R6.REC.6 | add R6.ADJ.12's disregard of addressed and exempt items on `R`, limited to the discharge the adjudication binds and to its precondition |
 | r13 R6.RECON.31 | one item-id row for `oi-adjudication/1` (R6.ADJ.2) |
 | r13 R6.RECON.33 and R6.CFG.4 | one kind row: `adjudication` → `oi-adjudication/1`. `oi-owner-authorization/1` stays undefined. |
 | r13 R6.RECON.29 | the new tables enter the single-definition rule, and their conformance mutants are generated as for the other kinds |
+| r13 R6.RECON.36, R6.OUT.18 and the result JSON Schema | the `adjudications` field of R6.ADJ.13 and its element schema |
+| r13 generators | the REQUIREMENTS, EXPECTATIONS and CONFORMANCE-MUTANTS generators gain the new requirements, expectation rows (runner null) and the mutants of the new tables |
 | r13 tool constants | `OWNER_IDENTITIES`, beside the admitted record directories (R6.RDIR.2) |
 
 Unchanged: R6.RECON.26's blocking rule and finding forms; R6.RECON.27's reassessment and its Keys
@@ -485,16 +569,22 @@ authority. Adjudication adds no route that lifts a block without an applying rea
 freeze (R6.CFG.3, AGENTS.md §A.50 item 5).
 
 **Safety (no bypass).** Each conjunct of r9's `blocked(D, W)` is unchanged except `Cleared`, which
-gains one disjunct, `Adjudicated(W, D)`, false unless R6.ADJ.9 holds. The exception of R6.ADJ.12
-applies only where that disjunct holds for every witness relying through `R`. So every discharge
-that r9 blocks stays blocked unless an admitted, bound, authorized, independent, substantive,
-uncontradicted adjudication exists, subject to residuals R-ADJ-1 to R-ADJ-3.
+gains one disjunct, `Adjudicated(W, D)`, false unless R6.ADJ.9 holds. Adverse evidence (an upheld
+adjudication) takes effect by validity alone: leaving it out of a freeze, landing a later adverse
+review of it, or adding a party after its landing does not cancel it. The disregard of R6.ADJ.12
+applies only to items an admitted cleared adjudication addresses, or to repeated objections of
+reviewers it has answered, and only when every relying witness is cleared and every other dissent
+item is addressed. So every discharge that r9 blocks stays blocked unless an admitted, bound,
+authorized, independent, substantive, uncontradicted adjudication exists, subject to residuals
+R-ADJ-1 to R-ADJ-3.
 
 **Reachability.** An adjudication can meet R6.ADJ.9 without any act of `V`'s reviewer. So route 2
-is reachable when that reviewer is unavailable, has an unusable identity, or disputes `R` with
-reviews that the adjudication addresses. It needs one authorized adjudicator and one technical
-reviewer outside `Parties(W, D)`, and one owner authorization (CONTROLS.json: ADJ-P-UNAVAILABLE,
-ADJ-P-DISPUTED, ADJ-P-UNUSABLE-IDENTITY).
+is reachable when that reviewer is unavailable, has a missing or unusable identity, or disputes `R`,
+before or after the adjudication. It needs one authorized adjudicator and one technical reviewer
+outside `Parties` and `OWNER_IDENTITIES`, one owner authorization and a dedicated landing on `main`
+before `F'`. A mixed case, one witness adjudicated and another resolved by NR-5, is reachable
+(CONTROLS.json: ADJ-P-UNAVAILABLE, ADJ-P-DISPUTED, ADJ-P-UNUSABLE-IDENTITY, ADJ-P-MISSING-REVIEWER,
+ADJ-P-ADDRESSED-REDISSENT, ADJ-P-MIXED-NR5, ADJ-P-LANDING-SEARCH-AT-F).
 
 ***
 
@@ -502,38 +592,43 @@ ADJ-P-DISPUTED, ADJ-P-UNUSABLE-IDENTITY).
 
 - **R-ADJ-1. Forged authorization.** The tool cannot tell a genuine quotation of the owner from a
   fabricated one that a colluding technical reviewer accepts and that reaches `main` (Claim I, S6).
-  Guards: procedural only. The owner's merge approval of the adjudication's landing (M5), at which the
-  owner sees a quotation of the owner's own words with its `source`, and permanence in `R*` (M7).
-  OD-3 lists the strengthenings.
+  Guards: procedural only. The owner's merge approval of a dedicated landing (M5, M5'), at which the
+  owner sees a quotation of the owner's own words with its `source` and nothing else, and permanence
+  in `R*` (M7). OD-3 lists the strengthenings.
 - **R-ADJ-2. Identity.** Identity strings are self-declared (r9 R-8). Impersonation of the
-  adjudicator, the reviewer or a party, and relationships the strings do not show, are guarded only
-  procedurally.
+  adjudicator, the reviewer or a party, relationships the strings do not show, and sock identities
+  that file new dissents after an adjudication (which R6.ADJ.12 does not exempt) are guarded only
+  procedurally. Evaluating adverse validity at `L(J)` stops a forged party identity from cancelling an
+  upheld adjudication after its landing.
 - **R-ADJ-3. Substance.** Coverage of every adverse item and dissent is mechanical. Whether each
   ground's reasoning resolves its objection rests on the technical review, as every judgment in r13
   does (R6.REC.2).
-- **R-ADJ-4. Termination.** Under the default of R6.ADJ.12 and R6.ADJ.7, a party who files a new
-  dissent on `R` or on the adjudication after each adjudication keeps the witness unresolved until a
-  further adjudication answers it (§4, OD-2).
+- **R-ADJ-4. Termination.** Under refined (ii), a reviewer an adjudication has answered cannot
+  defeat it by repeating the objection, but a new reviewer can, and a new category-3 finding binds as
+  in r13. Under option (i), the answered reviewer can also defeat it each round.
 - **R-ADJ-5. Availability of adjudicators.** Reachability needs one authorized adjudicator and one
-  technical reviewer outside `Parties(W, D)`. Where no such person exists, the witness stands, which
-  fails closed. The r13 identity strings cannot show whether such people exist.
-- **R-ADJ-6. Custody.** `Adjudicated` depends on r9's custody of the witness and the dissent
-  enumeration. Where custody is incomplete, it fails closed (R6.ADJ.11). r9's squash and rebase gap
-  (r9 §6) applies to adjudication records as to every other record.
+  technical reviewer outside `Parties` and `OWNER_IDENTITIES`. Where no such person exists, the
+  witness stands, which fails closed.
+- **R-ADJ-6. Custody.** `Adjudicated` and adverse validity depend on r9's custody of the witness and
+  the review enumeration. Where custody is incomplete, clearing fails and adverse evidence that cannot
+  be evaluated contradicts (R6.ADJ.9, R6.ADJ.11). r9's squash and rebase gap (r9 §6) applies to
+  adjudication records as to every other record, and to `L(J)` in particular.
+- **R-ADJ-7. A wrongly upheld adjudication.** It binds its replacement permanently. The only
+  reversal is a new replacement (R6.ADJ.9).
 
 ***
 
 ## 8. Owner decisions this design leaves
 
-| Id | Decision | Alternatives and consequences | Design default |
-|---|---|---|---|
-| OD-1 | Mechanism | (A) as §5; (B1); (C3); none (route 2 stays unavailable, and RQ7 stays unmet) | (A) |
-| OD-2 | Termination against a persistent disputant | (i) per round: every unaddressed dissent on `R` and every non-accepting review of the adjudication defeats it until a further adjudication answers it (RQ6 in full, RQ7 not guaranteed to terminate); (ii) finality: reviews by parties of `R` or of the adjudication that land on `main` after the adjudication are preserved and reported but do not defeat it, and a new substantive objection enters only as a well-formed category-3 finding (R6.RECON.26), which blocks under its own rules (RQ7 terminates; RQ6 narrowed for later party dissent) | (i) |
-| OD-3 | Strengthening the authorization | (a) `OWNER_IDENTITIES` only; (b) an `ADJUDICATORS` tool-constant registry, with or without the pre-dispute variant; (c) a separate authorization record kind; (d) a quorum of k technical reviewers; (e) an authenticated channel (owner signature with a pinned key, or a host read), which needs an R6.REC.3 change | (a) |
-| OD-4 | May the owner be the adjudicator? | Allowed: removes the separation between authorizer and adjudicator. Barred: an authorized third party is always needed. | barred |
-| OD-5 | Scope | witness clearance only, or also adjudication of a mistaken independent finding (r9 §5.6), which would extend R6.RECON.27's `repair: null` route and needs its own design | witness only |
-| OD-6 | Effect of an upheld adjudication on NR-5 | blocks NR-5 for the same finding, replacement and witness, or does not | blocks |
-| OD-7 | Dissent exception | adopt R6.ADJ.12's exceptions to R6.REC.6 and to r9 NR-3 and NR-5 (needed for the dispute case of RQ7), or not (adjudication then reaches only the unavailable and unusable-identity cases) | adopt |
+| Id | Decision | Alternatives and consequences | Design default | Reviewer recommendation (#1605 comment 7197900888) |
+|---|---|---|---|---|
+| OD-1 | Mechanism | (A) as §5; (B1); (C3); none (route 2 stays unavailable, and RQ7 stays unmet) | (A) | (A), after the F1 to F5 revisions |
+| OD-2 | Termination against a persistent disputant | (ii) refined, R6.ADJ.12: a later dissent on `R` or adverse review of `J` by a reviewer `J` has answered is preserved and does not defeat `J`; any other later dissent defeats it; new substance enters only as a category-3 finding (RQ7 terminates; RQ6 narrowed for repeated objections only). (i) per round: every later dissent defeats `J` until a further adjudication answers it (RQ6 in full; resolution can depend indefinitely on one reviewer's willingness, which conflicts with the owner's principle that adjudication remain available) | (ii) refined; not decided | (ii) refined; not (i) |
+| OD-3 | Strengthening the authorization | (a) `OWNER_IDENTITIES` and the dedicated landing M5'; (b) a standing `ADJUDICATORS` tool-constant registry, with or without the pre-dispute variant; (b') a per-dispute registry entry in tool code; (c) a separate authorization record kind; (d) a quorum of k technical reviewers; (e) an authenticated channel: an owner signature with a pinned key, the web-flow variant (pinned host key and an owner-authored landing merge, with the API-commit caveat of §2.1), or a host read; each needs an R6.REC.3 decision | (a) | (a) plus the dedicated landing; (b') and the web-flow variant of (e) kept as later options |
+| OD-4 | May the owner be the adjudicator or the technical reviewer? | Allowed: removes the separation between authorizer and judge. Barred: the authorizer holds neither judging role; the owner's merge approval still covers the R-ADJ-1 self-check. | barred in both roles (R6.ADJ.4) | barred in both roles |
+| OD-5 | Scope | witness clearance only, or also adjudication of a mistaken independent finding (r9 §5.6), which would extend R6.RECON.27's `repair: null` route and needs its own design | witness only | witness only |
+| OD-6 | Effect of an upheld adjudication on NR-5 | blocks NR-5 for the same finding, replacement and witness, by validity alone, or does not | blocks | blocks, once F1 and F2 are fixed (done in r2) |
+| OD-7 | Dissent disregard | adopt R6.ADJ.12's disregard in R6.REC.6 and r9 NR-3 and NR-5 with its precondition (needed for the dispute case of RQ7), or not (adjudication then reaches only the unavailable and unusable-identity cases) | adopt | adopt, with the corrected precondition (done in r2) |
 
 Adoption of this design, any amendment of r9 or r13, any tool revision, freeze, trial, dispatch and
 merge each need their own owner decision (AGENTS.md §A.50 items 1 and 5, §A.51 item 6).
@@ -545,10 +640,11 @@ merge each need their own owner decision (AGENTS.md §A.50 items 1 and 5, §A.51
 | Reference | Used for | Classification |
 |---|---|---|
 | #1169 comment 7197443528 | authority, the seven requirements, token condition | provenance; author and time quoted in §0 |
-| `5ad8837521de0a26734266a64f91548fd3dcff1e` (r13), PR #1593, #1593 comment 7193277489 | R6.REC.2, .3, .6, .7, R6.CFG.4, R6.RDIR.2, R6.RECON.26 to .35 | support off `main` (PR #1593 open); the cited requirements are quoted or paraphrased here |
-| `77a73c022091f598cf807fcf89d66c3cf43208de` (r9), PR #1601 | §2.2 route 2, NR-3 to NR-5, token rule, decision, R6.OBL29.1, .3, .8, R-8, §5.6 | support off `main` (PR #1601 open) |
+| `5ad8837521de0a26734266a64f91548fd3dcff1e` (r13), PR #1593, #1593 comment 7193277489 | R6.REC.1 to .7, R6.CFG.4, R6.RDIR.2, R6.RECON.1, .26 to .36, R6.OUT.18 | support off `main` (PR #1593 open); the cited requirements are quoted or paraphrased here |
+| `77a73c022091f598cf807fcf89d66c3cf43208de` (r9), PR #1601 | §0 (the owner's r8 direction), §2.2 route 2, NR-3 to NR-5, token rule, decision, R6.OBL29.1, .2, .3, .8, R-8, §5.6 | support off `main` (PR #1601 open) |
 | #1601 comment 7197262397, finding 4 | the gap | provenance |
-| `942bd5ea1fd09f4223012b0755bce2d6da07c44a` | `main` at drafting; AGENTS.md §A.42, §A.46, §A.47, §A.50, §A.51; signed merge example | support on `main` |
+| `2de8462946c65dcf0f004a559fd12b9c18c22ceb` (r1), PR #1605, #1605 comment 7197900888 | the revised text and the review findings answered | provenance |
+| `942bd5ea1fd09f4223012b0755bce2d6da07c44a` | `main` at drafting; AGENTS.md §A.42, §A.46, §A.47, §A.50, §A.51; the signed merge commit of §2.1 | support on `main` |
 
 The design asserts no established result. Its claims (Claim I, the comparison, safety and
 reachability) are for independent review (REVIEW-BRIEF.md).

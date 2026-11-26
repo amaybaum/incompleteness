@@ -1,19 +1,20 @@
 {
  "schema": "oi-a1-adjudication-controls/draft",
- "status": "paper design r1, not adopted. Specifications only; no runner, fixture, expectation row, schema or rule is created or changed.",
- "authority": "Owner decision, amaybaum, received 2026-11-26T16:17Z, #1169 comment 7197443528, item 1 (formal adjudication design, paper only, with positive and negative controls and independent non-author review).",
+ "status": "paper design r2, not adopted. Specifications only; no runner, fixture, expectation row, schema or rule is created or changed.",
+ "authority": "Owner decision, amaybaum, received 2026-11-26T16:17Z, #1169 comment 7197443528, item 1 (formal adjudication design, paper only, with positive and negative controls and independent non-author review). r2 answers the independent review of r1, #1605 comment 7197900888.",
  "base": "Amendment 6 r13 at 5ad8837521de0a26734266a64f91548fd3dcff1e (adopted, #1593 comment 7193277489); OBL-29 remedy r9 at 77a73c022091f598cf807fcf89d66c3cf43208de (conditionally adopted, same decision, item 3).",
- "recommended_option": "A (DESIGN.md sec. 4 and 5); alternative_outcomes, where given, record how the other alternatives would decide the same case.",
- "fixture": "Base fixture. OWNER_IDENTITIES = [o]. Configuration K frozen at F carries edit e on path p. Finding f: a well-formed second-kind finding on e by reviewer fr (verdict invalidates on <p>:scientific_effect, configuration K), landed on main. Q: the reconciliation record (author w) whose entry for p repaired the change; accepting review of Q by qa. V: a review of Q by v with verdict reject on <p>:scientific_effect and a non-empty reason; V qualified under K as a review witness W (r9 sec. 2.2) against reassessment A0 citing Q. Re-freeze: K' (author ka) frozen at F', drafted from D' on main, cites reassessment A (author aa) of f whose repair.entry is replacement R (author ra, entry path p, its own reconciliation directory), which relies on W only through (r3); accepting review of R by n. v writes nothing further unless stated. J: oi-adjudication/1 by j in R's directory, authorization {quote, author o, time, source, adjudicator j, finding f's reference and item, witness_sources [V]}, finding = A.finding, witness {class review, disputed Q, edge null, sources [V], adverse [{V, <p>:scientific_effect}], original_configuration K}, replacement = A.repair.entry, reassessment A, dissents_addressed [], disposition cleared, one ground g1 targeting the adverse item with reasoning and evidence [git blob ids of V, Q, R], method naming the git blob ids of f, V, Q, R, A, conflicts none. J's review by t accepts every item. J and its review land on main at cJ, an ancestor of D'. K' lists J (kind adjudication) and J's review (kind review). Unless stated, every other discharge condition of R6.RECON.27, r9 and R6.OBL29.4 holds and custody is complete.",
+ "recommended_option": "A (DESIGN.md sec. 4 and 5), with OD-2 refined (ii) and OD-3 (a) including the dedicated landing; alternative_outcomes, where given, record how other alternatives or options would decide the same case.",
+ "fixture": "Base fixture. OWNER_IDENTITIES = [o]. Configuration K frozen at F carries edit e on path p. Finding f: a well-formed second-kind finding on e in a review record by reviewer fr (verdict invalidates on <p>:scientific_effect, configuration K), landed on main. Q: the reconciliation record (author w) whose entry for p repaired the change; accepting review of Q by qa. V: a review of Q by v with verdict reject on <p>:scientific_effect and a non-empty reason; V qualified under K as a review witness W (r9 sec. 2.2) against reassessment A0 citing Q. Re-freeze: K' (author ka) frozen at F', drafted from D' on main, cites reassessment A (author aa) of f whose repair.entry is replacement R (author ra, entry path p, its own reconciliation directory), which relies on W only through (r3); accepting review of R by n. v writes nothing further unless stated. J: oi-adjudication/1 by j in R's directory, authorization {quote, author o, time before cJ, source, adjudicator j, finding f's reference and item, witness_sources [V], replacement = A.repair.entry}, finding = A.finding, witness {class review, disputed Q, edge null, sources [V], adverse [{V, <p>:scientific_effect}], original_configuration K}, replacement = A.repair.entry, reassessment A, dissents_addressed [], disposition cleared, one ground g1 targeting the adverse item with reasoning and evidence [git blob ids of V, Q, R], method naming the git blob ids of f's record, V, Q, R, A, conflicts none. J's review by t accepts every item and names the git blob ids of J and V in method. J and its review are added, and nothing else changed, by the first-parent commit cJ on main (a dedicated landing), an ancestor of D'; L(J) = cJ. K' lists J (kind adjudication) and J's review (kind review). Unless stated, every other discharge condition of R6.RECON.27, r9 and R6.OBL29.4 holds and custody is complete.",
  "expected_vocabulary": {
   "outcome": "FAIL, ERROR, PASS or ANY; ANY where the case decides only the witness",
   "classes_include": "result classes that must appear",
   "witness_cleared": "whether W is cleared for discharge D",
   "cleared_route": "adjudication, NR-5, inapplicable or corrected (r9 sec. 2.2)",
-  "adjudication_failures": "condition ids of R6.ADJ.3 to R6.ADJ.12 reported for the adjudication under test",
+  "adjudication_failures": "condition ids of R6.ADJ.2 to R6.ADJ.12 that decide the case",
   "adjudications": "elements of category3.findings[].adjudications (R6.ADJ.13)",
   "invariants": "further conditions on the result",
-  "alternative_outcomes": "the decision each alternative of DESIGN.md sec. 3 would give, for the discriminating cases"
+  "decided_by": "present where the outcome depends on a reviewer's judgement rather than a mechanical check",
+  "alternative_outcomes": "the decision another alternative or option would give, for the discriminating cases"
  },
  "kinds": {
   "positive": "a legitimate adjudication or clearance that must succeed",
@@ -37,8 +38,6 @@
    "setup": [
     "base fixture",
     "v writes nothing after V (unavailable)",
-    "J as base fixture, disposition cleared, landed at cJ before D'",
-    "K' at F' cites A, R, R's review by n, J (kind adjudication) and J's review by t (kind review)",
     "run on M = last main commit"
    ],
    "expected": {
@@ -55,6 +54,9 @@
     "adjudications": [
      {
       "ref": "J",
+      "landing": "cJ",
+      "valid_adverse": true,
+      "valid_clearing": true,
       "admitted": true,
       "applies": true,
       "failures": []
@@ -76,9 +78,36 @@
     "B1": "clears",
     "C1": "clears (also clears its countercases)",
     "C2": "clears with k reviews (also clears ADJ-N-UNAUTHORIZED)",
-    "C3": "clears only if j is in the registry",
+    "C3": "clears only if j is registered",
     "r9 as conditionally adopted": "blocked (route 2 unavailable)"
    }
+  },
+  {
+   "id": "ADJ-P-LANDING-SEARCH-AT-F",
+   "kind": "positive",
+   "seven_requirements": [
+    "RQ7"
+   ],
+   "setup": [
+    "base fixture; F' tree also holds J and its review at their paths, so the R6.RECON.33 search from F' resolves at F' itself, which is not on M's first-parent chain",
+    "run"
+   ],
+   "expected": {
+    "outcome": "ANY",
+    "witness_cleared": true,
+    "cleared_route": "adjudication",
+    "invariants": {
+     "reassessment_applies": "A",
+     "finding_present": "f",
+     "not_class_for_f": [
+      "retirement-blocked"
+     ],
+     "landing_condition": "holds through cJ, a commit on M's first-parent chain that holds both blobs and is an ancestor of F'"
+    }
+   },
+   "requirements": [
+    "R6.ADJ.8"
+   ]
   },
   {
    "id": "ADJ-P-DISPUTED",
@@ -92,35 +121,6 @@
     "base fixture",
     "before J: v lands review Dv of R with verdict dissent on <p>:scientific_effect (reason non-empty)",
     "J.dissents_addressed = [{Dv, <p>:scientific_effect}] with ground g2 targeting it",
-    "K' cites J and its review; run"
-   ],
-   "expected": {
-    "outcome": "ANY",
-    "witness_cleared": true,
-    "cleared_route": "adjudication",
-    "invariants": {
-     "reassessment_applies": "A",
-     "finding_present": "f",
-     "dissent_preserved": "Dv reported as addressed by J",
-     "R_lint_exception": "Dv does not fail R for D (R6.ADJ.12)"
-    }
-   },
-   "requirements": [
-    "R6.ADJ.6",
-    "R6.ADJ.9",
-    "R6.ADJ.10",
-    "R6.ADJ.12"
-   ]
-  },
-  {
-   "id": "ADJ-P-UNUSABLE-IDENTITY",
-   "kind": "positive",
-   "seven_requirements": [
-    "RQ7"
-   ],
-   "setup": [
-    "base fixture except V.reviewer is a URL (unusable identity; NR-5 can never hold, r9 NR-5)",
-    "J binds W with sources [V]",
     "run"
    ],
    "expected": {
@@ -132,12 +132,139 @@
      "finding_present": "f",
      "not_class_for_f": [
       "retirement-blocked"
-     ]
+     ],
+     "dissent_preserved": "Dv reported as addressed by J",
+     "R_lint": "Dv disregarded for R6.REC.6 on R for D (R6.ADJ.12)"
+    }
+   },
+   "requirements": [
+    "R6.ADJ.6",
+    "R6.ADJ.9",
+    "R6.ADJ.10",
+    "R6.ADJ.12"
+   ]
+  },
+  {
+   "id": "ADJ-P-ADDRESSED-REDISSENT",
+   "kind": "positive",
+   "seven_requirements": [
+    "RQ6",
+    "RQ7"
+   ],
+   "setup": [
+    "ADJ-P-DISPUTED",
+    "after cJ, v lands review Dv2 of R repeating the dissent, and review Jv of J with verdict reject on ground:g1",
+    "run"
+   ],
+   "expected": {
+    "outcome": "ANY",
+    "witness_cleared": true,
+    "cleared_route": "adjudication",
+    "invariants": {
+     "reassessment_applies": "A",
+     "finding_present": "f",
+     "not_class_for_f": [
+      "retirement-blocked"
+     ],
+     "exempt_reviews": [
+      "Dv2",
+      "Jv"
+     ],
+     "J_applies": true
+    }
+   },
+   "requirements": [
+    "R6.ADJ.12",
+    "R6.ADJ.13"
+   ],
+   "alternative_outcomes": {
+    "OD-2 (ii) refined (default)": "clears; Dv2 and Jv preserved and reported as exempt",
+    "OD-2 (i)": "blocked (ADJ-DISSENT, ADJ-REVIEW) until a further adjudication"
+   }
+  },
+  {
+   "id": "ADJ-P-NEW-SUBSTANCE-AS-FINDING",
+   "kind": "boundary",
+   "seven_requirements": [
+    "RQ6",
+    "RQ7"
+   ],
+   "setup": [
+    "ADJ-P-UNAVAILABLE",
+    "after cJ, v lands a well-formed second-kind finding f2 on R's entry for p (verdict invalidates on <p>:scientific_effect, configuration K')",
+    "run"
+   ],
+   "expected": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "retirement-blocked"
+    ],
+    "invariants": {
+     "W_cleared_by": "adjudication",
+     "f2_blocks": "under R6.RECON.26, independently of J"
+    }
+   },
+   "requirements": [
+    "R6.ADJ.12"
+   ]
+  },
+  {
+   "id": "ADJ-P-UNUSABLE-IDENTITY",
+   "kind": "positive",
+   "seven_requirements": [
+    "RQ2",
+    "RQ7"
+   ],
+   "setup": [
+    "base fixture except V.reviewer is a URL (NR-5 can never hold)",
+    "run"
+   ],
+   "expected": {
+    "outcome": "ANY",
+    "witness_cleared": true,
+    "cleared_route": "adjudication",
+    "invariants": {
+     "reassessment_applies": "A",
+     "finding_present": "f",
+     "not_class_for_f": [
+      "retirement-blocked"
+     ],
+     "parties_exclude": "V.reviewer omitted from Parties (R6.ADJ.4)"
     }
    },
    "requirements": [
     "R6.ADJ.4",
     "R6.ADJ.9"
+   ]
+  },
+  {
+   "id": "ADJ-P-MISSING-REVIEWER",
+   "kind": "positive",
+   "seven_requirements": [
+    "RQ6",
+    "RQ7"
+   ],
+   "setup": [
+    "base fixture except V has no reviewer key (V qualifies as a failed review; r9 NR-5)",
+    "run"
+   ],
+   "expected": {
+    "outcome": "ANY",
+    "witness_cleared": true,
+    "cleared_route": "adjudication",
+    "invariants": {
+     "reassessment_applies": "A",
+     "finding_present": "f",
+     "not_class_for_f": [
+      "retirement-blocked"
+     ],
+     "parties_exclude": "no identity contributed by V",
+     "R6.ADJ.11": "not triggered by a party's missing identity"
+    }
+   },
+   "requirements": [
+    "R6.ADJ.4",
+    "R6.ADJ.11"
    ]
   },
   {
@@ -149,8 +276,7 @@
    ],
    "setup": [
     "base fixture except V has verdict reject on <p> and on <p>:scientific_effect, and a non-empty dissent field",
-    "J.witness.adverse = the three item references (<p>, <p>:scientific_effect, dissent)",
-    "J.grounds: one ground per item; each evidence lists the git blob ids of V, Q and R",
+    "J.witness.adverse = the three item references (<p>, <p>:scientific_effect, dissent); one ground per item, each with evidence naming the git blob ids of V, Q and R",
     "run"
    ],
    "expected": {
@@ -178,7 +304,7 @@
     "RQ7"
    ],
    "setup": [
-    "lineage witness: competing successor S -> P of the disputed edge Q -> P, qualified under K (r9 sec. 2.2); reliance through (r2) (conclusive, NR conditions unavailable)",
+    "lineage witness: competing successor S -> P of the disputed edge Q -> P, qualified under K; reliance through (r2) (conclusive)",
     "J.witness.class lineage, edge {S, P}, sources [S], adverse [{S, edge}], one ground",
     "run"
    ],
@@ -198,6 +324,32 @@
     "R6.ADJ.2",
     "R6.ADJ.5",
     "R6.ADJ.9"
+   ]
+  },
+  {
+   "id": "ADJ-P-MIXED-NR5",
+   "kind": "positive",
+   "seven_requirements": [
+    "RQ7"
+   ],
+   "setup": [
+    "two witnesses rely through R: W1 (sources [V], reviewer v, unavailable) and W2 (sources [V2], reviewer v2)",
+    "before J1: v lands dissent Dv on R",
+    "J1 binds W1, addresses Dv",
+    "v2 lands Z resolving V2 for R under NR-5 (tokens complete)",
+    "run"
+   ],
+   "expected": {
+    "outcome": "ANY",
+    "invariants": {
+     "W1_cleared_by": "adjudication",
+     "W2_cleared_by": "NR-5",
+     "Dv": "disregarded for NR-5 of W2 and for R6.REC.6 on R (R6.ADJ.12 item 4)",
+     "reassessment_applies": "A"
+    }
+   },
+   "requirements": [
+    "R6.ADJ.12"
    ]
   },
   {
@@ -231,8 +383,8 @@
     "RQ6"
    ],
    "setup": [
-    "base fixture except J1 (cited by an earlier freeze) has no review record",
-    "J2 by j, valid, disposition cleared, cited by K'",
+    "base fixture except an earlier J1 (cleared) has no review record anywhere",
+    "J2 by j, valid, cleared, cited by K'",
     "run"
    ],
    "expected": {
@@ -249,6 +401,8 @@
     "adjudications": [
      {
       "ref": "J1",
+      "landing": null,
+      "valid_adverse": false,
       "admitted": false,
       "applies": false,
       "failures": [
@@ -265,9 +419,35 @@
     ]
    },
    "requirements": [
-    "R6.ADJ.9",
+    "R6.ADJ.8",
     "R6.ADJ.10",
     "R6.ADJ.13"
+   ]
+  },
+  {
+   "id": "ADJ-P-REVERSAL-NEW-REPLACEMENT",
+   "kind": "positive",
+   "seven_requirements": [
+    "RQ5",
+    "RQ7"
+   ],
+   "setup": [
+    "J2 upheld for R, valid for adverse use",
+    "a new reassessment A2 with replacement R2 (independent of R), a new authorization naming R2, and J3 cleared for R2, cited by K''",
+    "run for D2"
+   ],
+   "expected": {
+    "outcome": "ANY",
+    "witness_cleared": true,
+    "cleared_route": "adjudication",
+    "invariants": {
+     "J2": "preserved, reported, binds R only",
+     "reassessment_applies": "A2"
+    }
+   },
+   "requirements": [
+    "R6.ADJ.3",
+    "R6.ADJ.9"
    ]
   },
   {
@@ -287,8 +467,12 @@
     "cleared_route": "adjudication",
     "invariants": {
      "reassessment_applies": "A",
+     "finding_present": "f",
+     "not_class_for_f": [
+      "retirement-blocked"
+     ],
      "J_present_at_M": false,
-     "J_resolved_from": "cJ via R6.RECON.33 from F'"
+     "landing_condition": "holds through cJ"
     }
    },
    "requirements": [
@@ -303,8 +487,9 @@
     "RQ1"
    ],
    "setup": [
-    "base fixture except J has no authorization key",
-    "run"
+    "variant a: J has no authorization key",
+    "variant b: as a, and J.method, a ground's reasoning, cJ's commit message and the PR text all say 'authorized by o'",
+    "run each"
    ],
    "expected": {
     "outcome": "FAIL",
@@ -326,7 +511,8 @@
     "A": "blocked",
     "C1": "clears (the freeze is the only authorization)",
     "C2": "clears with k reviews",
-    "C3": "clears if j is in the registry"
+    "C3": "clears if j is registered",
+    "C4": "variant b clears (excluded by owner decision item 2)"
    }
   },
   {
@@ -365,6 +551,7 @@
     "variant a: authorization.adjudicator = j2, J.author = j",
     "variant b: authorization.finding names another item of f",
     "variant c: authorization.witness_sources = [V2] while J.witness.sources = [V]",
+    "variant d: authorization.replacement names R2 while J.replacement names R (reuse of an earlier authorization)",
     "run each"
    ],
    "expected": {
@@ -383,13 +570,13 @@
    ]
   },
   {
-   "id": "ADJ-N-AUTH-IN-FREE-TEXT",
-   "kind": "countercase",
+   "id": "ADJ-N-AUTH-TIME",
+   "kind": "negative",
    "seven_requirements": [
     "RQ1"
    ],
    "setup": [
-    "base fixture except J has no authorization object; J.method and a ground's reasoning say 'authorized by o, #1169 comment N'; the commit message of cJ and the PR text quote o",
+    "base fixture except authorization.time is later than the committer time of cJ",
     "run"
    ],
    "expected": {
@@ -400,8 +587,7 @@
     ],
     "witness_cleared": false,
     "adjudication_failures": [
-     "ADJ-FORM",
-     "ADJ-AUTH-FORM"
+     "ADJ-AUTH-TIME"
     ]
    },
    "requirements": [
@@ -435,7 +621,7 @@
    ],
    "alternative_outcomes": {
     "A": "blocked",
-    "C3": "clears if x is in the registry",
+    "C3": "clears if x is registered",
     "C4": "clears (excluded by owner decision item 2)"
    }
   },
@@ -446,7 +632,7 @@
     "RQ1"
    ],
    "setup": [
-    "base fixture except authorization.quote does not appear at source; t's review verdict on item authorization is reject (reason: quote not found)",
+    "base fixture except authorization.quote does not appear at source; t's review verdict on item authorization is reject",
     "run"
    ],
    "expected": {
@@ -463,7 +649,8 @@
    "requirements": [
     "R6.ADJ.3",
     "R6.ADJ.7"
-   ]
+   ],
+   "decided_by": "reviewer judgement: the case tests the technical reviewer's rejection, not a mechanical check"
   },
   {
    "id": "ADJ-R-FORGED-AUTH-COLLUSION",
@@ -472,13 +659,13 @@
     "RQ1"
    ],
    "setup": [
-    "as ADJ-C-FORGED-AUTH-REJECTED except t accepts every item; J and its review land on main through an owner-approved merge"
+    "as ADJ-C-FORGED-AUTH-REJECTED except t accepts every item; J and its review land on main through an owner-approved dedicated landing"
    ],
    "expected": {
     "outcome": "ANY",
     "witness_cleared": true,
     "cleared_route": "adjudication",
-    "note": "documents residual R-ADJ-1: not mechanically distinguishable (Claim I, S6); the guards are the owner's merge approval and permanence in R*; no owner acceptance implied"
+    "note": "documents residual R-ADJ-1; cannot fail mechanically (Claim I, S6); the guards are the owner's merge approval of a dedicated landing and permanence in R*; no owner acceptance implied"
    },
    "requirements": [
     "R6.ADJ.3",
@@ -497,8 +684,8 @@
     "variant c: J.author = qa (accepting reviewer of Q)",
     "variant d: J.author = n (reviewer of R)",
     "variant e: J.author = ka (author of K')",
-    "variant f: J.author = fr (carrier of the finding)",
-    "variant g: J.author = o (owner; default of OD-4)",
+    "variant f: J.author = fr (reviewer of the record carrying the finding)",
+    "variant g: J.author = o (owner; OD-4 default)",
     "run each"
    ],
    "expected": {
@@ -550,11 +737,38 @@
     "RQ2"
    ],
    "setup": [
-    "variant a: J's review by t = ra",
-    "variant b: J's review by t = j (self-review, R6.REC.6)",
-    "variant c: J's review by t = v",
-    "variant d: t is a CI run URL (R6.REC.6)",
+    "variant a: t = ra; expected ADJ-INDEP",
+    "variant b: t = j (self-review); expected ADJ-INDEP and ADJ-REVIEW (R6.REC.6)",
+    "variant c: t = v; expected ADJ-INDEP",
+    "variant d: t is a CI run URL; expected ADJ-INDEP",
     "run each"
+   ],
+   "expected": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "record-invalid",
+     "retirement-blocked"
+    ],
+    "witness_cleared": false,
+    "adjudication_failures": [
+     "ADJ-INDEP"
+    ],
+    "note": "variant b also ADJ-REVIEW"
+   },
+   "requirements": [
+    "R6.ADJ.4",
+    "R6.ADJ.7"
+   ]
+  },
+  {
+   "id": "ADJ-N-OWNER-TECH-REVIEWER",
+   "kind": "negative",
+   "seven_requirements": [
+    "RQ2"
+   ],
+   "setup": [
+    "base fixture except t = o (owner as technical reviewer; OD-4 default)",
+    "run"
    ],
    "expected": {
     "outcome": "FAIL",
@@ -568,8 +782,7 @@
     ]
    },
    "requirements": [
-    "R6.ADJ.4",
-    "R6.ADJ.7"
+    "R6.ADJ.4"
    ]
   },
   {
@@ -579,7 +792,7 @@
     "RQ4"
    ],
    "setup": [
-    "variant a: grounds is empty (schema)",
+    "variant a: grounds is empty (schema; ADJ-FORM)",
     "variant b: no ground targets <p>:scientific_effect of V",
     "variant c: a ground's reasoning is the empty string",
     "variant d: a ground's evidence lacks V's git blob id",
@@ -597,7 +810,7 @@
     "adjudication_failures": [
      "ADJ-SUBST"
     ],
-    "note": "variant a also ADJ-FORM"
+    "note": "variant a: ADJ-FORM"
    },
    "requirements": [
     "R6.ADJ.6"
@@ -610,7 +823,7 @@
     "RQ4"
    ],
    "setup": [
-    "base fixture except every ground's reasoning reads 'cleared by owner approval'; coverage and evidence complete; t rejects each ground:<id> (no re-derivation possible)",
+    "base fixture except every ground's reasoning reads 'cleared by owner approval'; coverage and evidence complete; t rejects each ground:<id>",
     "run"
    ],
    "expected": {
@@ -628,7 +841,8 @@
    "requirements": [
     "R6.ADJ.6",
     "R6.ADJ.7"
-   ]
+   ],
+   "decided_by": "reviewer judgement: the case tests the technical reviewer's rejection, not a mechanical check"
   },
   {
    "id": "ADJ-N-MISBIND",
@@ -639,7 +853,7 @@
    "setup": [
     "variant a: J.finding.item differs from A.finding.item",
     "variant b: J.replacement names R2 while A.repair.entry names R",
-    "variant c: J.reassessment names A0 (the earlier reassessment)",
+    "variant c: J.reassessment names A0",
     "variant d: W has sources [V, V2]; J.witness.sources = [V]",
     "variant e: J.witness.adverse omits the dissent item that V's non-empty dissent field requires",
     "variant f: J.witness.disputed names P instead of Q",
@@ -683,7 +897,7 @@
      "ADJ-ADMIT"
     ],
     "invariants": {
-     "J_reported": "admitted false, applies false"
+     "J_reported": "valid_adverse true, admitted false, applies false"
     }
    },
    "requirements": [
@@ -699,7 +913,7 @@
     "RQ6"
    ],
    "setup": [
-    "base fixture except J and its review exist only on the round branch between D' and F' (not on main)",
+    "base fixture except J and its review exist only on the round branch between D' and F' (never on M's first-parent chain)",
     "run"
    ],
    "expected": {
@@ -711,6 +925,31 @@
     "witness_cleared": false,
     "adjudication_failures": [
      "ADJ-LANDED"
+    ]
+   },
+   "requirements": [
+    "R6.ADJ.8"
+   ]
+  },
+  {
+   "id": "ADJ-N-NOT-DEDICATED-LANDING",
+   "kind": "negative",
+   "seven_requirements": [
+    "RQ1"
+   ],
+   "setup": [
+    "base fixture except the first-parent commit cJ that introduces J also changes another file",
+    "run under OD-3 (a) with M5'"
+   ],
+   "expected": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "record-invalid",
+     "retirement-blocked"
+    ],
+    "witness_cleared": false,
+    "adjudication_failures": [
+     "ADJ-DEDICATED"
     ]
    },
    "requirements": [
@@ -763,6 +1002,7 @@
     "adjudications": [
      {
       "ref": "J",
+      "valid_adverse": true,
       "admitted": true,
       "applies": false,
       "failures": []
@@ -782,6 +1022,7 @@
    "setup": [
     "ADJ-N-UPHELD",
     "v then lands Z resolving V for R under NR-5",
+    "re-freeze K'' without J",
     "run"
    ],
    "expected": {
@@ -796,6 +1037,123 @@
     ]
    },
    "requirements": [
+    "R6.ADJ.8",
+    "R6.ADJ.9"
+   ]
+  },
+  {
+   "id": "ADJ-N-UPHELD-UNCITED",
+   "kind": "negative",
+   "seven_requirements": [
+    "RQ6"
+   ],
+   "setup": [
+    "J2 by j2, upheld, valid for adverse use, landed on main, cited by no freeze",
+    "J1 by j, cleared, cited by K'",
+    "run"
+   ],
+   "expected": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "record-invalid",
+     "retirement-blocked"
+    ],
+    "witness_cleared": false,
+    "adjudication_failures": [
+     "ADJ-CONTRA"
+    ]
+   },
+   "requirements": [
+    "R6.ADJ.8",
+    "R6.ADJ.9"
+   ]
+  },
+  {
+   "id": "ADJ-N-UPHELD-LATER-REJECT",
+   "kind": "countercase",
+   "seven_requirements": [
+    "RQ6"
+   ],
+   "setup": [
+    "ADJ-N-UPHELD-UNCITED",
+    "after L(J2), ka (plan side) lands a review of J2 rejecting every item",
+    "run"
+   ],
+   "expected": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "record-invalid",
+     "retirement-blocked"
+    ],
+    "witness_cleared": false,
+    "adjudication_failures": [
+     "ADJ-CONTRA"
+    ],
+    "invariants": {
+     "J2": "valid_adverse true (evaluated at L(J2)); the later review preserved and reported"
+    }
+   },
+   "requirements": [
+    "R6.ADJ.8",
+    "R6.ADJ.9"
+   ]
+  },
+  {
+   "id": "ADJ-N-UPHELD-ADJUDICATOR-LATER-PARTY",
+   "kind": "countercase",
+   "seven_requirements": [
+    "RQ2",
+    "RQ6"
+   ],
+   "setup": [
+    "ADJ-N-UPHELD-UNCITED",
+    "after L(J2), a review of R naming j2 as reviewer lands (j2 becomes a party at M)",
+    "run"
+   ],
+   "expected": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "record-invalid",
+     "retirement-blocked"
+    ],
+    "witness_cleared": false,
+    "adjudication_failures": [
+     "ADJ-CONTRA"
+    ],
+    "invariants": {
+     "J2": "valid_adverse true (Parties evaluated at L(J2))"
+    }
+   },
+   "requirements": [
+    "R6.ADJ.4",
+    "R6.ADJ.8",
+    "R6.ADJ.9"
+   ]
+  },
+  {
+   "id": "ADJ-N-CORRECTION-SAME-R",
+   "kind": "negative",
+   "seven_requirements": [
+    "RQ6"
+   ],
+   "setup": [
+    "J2 upheld for R, valid for adverse use",
+    "J3 cleared for the same R, finding and witness, cited by K'",
+    "run"
+   ],
+   "expected": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "record-invalid",
+     "retirement-blocked"
+    ],
+    "witness_cleared": false,
+    "adjudication_failures": [
+     "ADJ-CONTRA"
+    ],
+    "note": "a wrongly upheld adjudication is reversed only through a new replacement (ADJ-P-REVERSAL-NEW-REPLACEMENT)"
+   },
+   "requirements": [
     "R6.ADJ.9"
    ]
   },
@@ -806,7 +1164,7 @@
     "RQ6"
    ],
    "setup": [
-    "J1 by j cleared, J2 by j2 upheld, both valid, both naming f, R, Q and V; K' cites J1",
+    "J1 by j cleared and J2 by j2 upheld, both valid, both naming f, R, Q and V; K' cites J1 only",
     "run"
    ],
    "expected": {
@@ -863,7 +1221,7 @@
     "RQ6"
    ],
    "setup": [
-    "ADJ-N-CONTRADICTED except J2's witness.original_configuration does not resolve (validity cannot be established)",
+    "ADJ-N-CONTRADICTED except J2's witness.original_configuration does not resolve",
     "run"
    ],
    "expected": {
@@ -889,7 +1247,7 @@
     "RQ6"
    ],
    "setup": [
-    "ADJ-N-CONTRADICTED except J2 has no review record (established invalid)",
+    "ADJ-N-CONTRADICTED except no review of J2 exists anywhere in R* (established invalid for adverse use)",
     "run"
    ],
    "expected": {
@@ -910,28 +1268,29 @@
      },
      {
       "ref": "J2",
+      "landing": null,
+      "valid_adverse": false,
       "applies": false,
       "failures": [
-       "ADJ-REVIEW",
-       "ADJ-ADMIT"
+       "ADJ-REVIEW"
       ]
      }
     ]
    },
    "requirements": [
+    "R6.ADJ.8",
     "R6.ADJ.9"
    ]
   },
   {
-   "id": "ADJ-N-DISSENT-UNADDRESSED",
+   "id": "ADJ-N-NEW-DISSENTER",
    "kind": "negative",
    "seven_requirements": [
-    "RQ6",
-    "RQ7"
+    "RQ6"
    ],
    "setup": [
     "ADJ-P-UNAVAILABLE",
-    "after J lands, v lands review Dv2 of R with verdict dissent",
+    "after cJ, x (not in Answered(J)) lands a review of R with verdict dissent",
     "run"
    ],
    "expected": {
@@ -944,7 +1303,7 @@
     "adjudication_failures": [
      "ADJ-DISSENT"
     ],
-    "note": "default of OD-2 (i); a further adjudication addressing Dv2 is needed (residual R-ADJ-4)"
+    "note": "a further adjudication answering x is needed"
    },
    "requirements": [
     "R6.ADJ.12"
@@ -958,7 +1317,7 @@
    ],
    "setup": [
     "ADJ-P-UNAVAILABLE",
-    "a second review of J by x (not a party) with verdict reject on ground:g1",
+    "after cJ, x (not in Answered(J)) lands a review of J with verdict reject on ground:g1",
     "run"
    ],
    "expected": {
@@ -973,7 +1332,8 @@
     ]
    },
    "requirements": [
-    "R6.ADJ.7"
+    "R6.ADJ.7",
+    "R6.ADJ.12"
    ]
   },
   {
@@ -983,8 +1343,8 @@
     "RQ5"
    ],
    "setup": [
-    "base fixture except the landing commit cJ also deletes V and rewrites f's file",
-    "run on M after cJ"
+    "base fixture except cJ also deletes V and rewrites f's file (and so is not a dedicated landing)",
+    "run with OD-3 (a): expect ADJ-DEDICATED; run without M5': the invariants below"
    ],
    "expected": {
     "outcome": "ANY",
@@ -995,9 +1355,10 @@
      ],
      "V_present_at_M": false
     },
-    "note": "J binds V by reference, which resolves from R*; the finding and witness remain reported; if the rewrite of f creates a second finding reference, it needs its own discharge (r9 sec. 5.2)"
+    "note": "J binds V by reference, which resolves from R*; a rewrite of f that creates a second finding reference needs its own discharge (r9 sec. 5.2)"
    },
    "requirements": [
+    "R6.ADJ.8",
     "R6.ADJ.10",
     "R6.ADJ.13"
    ]
@@ -1050,7 +1411,7 @@
     "adjudication_failures": [
      "ADJ-BIND"
     ],
-    "note": "W's description cannot be reproduced (r9 R6.OBL29.3); an unreadable required git object gives ERROR instead"
+    "note": "an unreadable required git object gives ERROR instead"
    },
    "requirements": [
     "R6.ADJ.5",
@@ -1075,11 +1436,11 @@
     ],
     "witness_cleared": false,
     "adjudication_failures": [
-     "ADJ-REVIEW"
+     "ADJ-ADMIT"
     ]
    },
    "requirements": [
-    "R6.ADJ.7",
+    "R6.ADJ.8",
     "R6.ADJ.11"
    ]
   },
@@ -1098,10 +1459,15 @@
     "classes_include": [
      "retirement-blocked"
     ],
-    "note": "clearing a witness discharges nothing by itself (R6.ADJ.10; R6.RECON.26)"
+    "invariants": {
+     "W_cleared_by": "adjudication (reported)",
+     "finding_discharged": false
+    },
+    "note": "the witness is cleared and reported, yet the block stands: clearing a witness discharges nothing by itself (R6.ADJ.10; R6.RECON.26)"
    },
    "requirements": [
-    "R6.ADJ.10"
+    "R6.ADJ.10",
+    "R6.ADJ.13"
    ]
   },
   {
@@ -1111,8 +1477,9 @@
     "RQ6"
    ],
    "setup": [
-    "J carries a nested object with keys reviewed and verdicts, one verdict holding invalidates",
-    "run"
+    "variant a: J carries a nested object with keys reviewed and verdicts, one verdict holding invalidates",
+    "variant b: J does not parse and its reasoning quotes the string oi-review-record/1 and the word invalidates",
+    "run each"
    ],
    "expected": {
     "outcome": "FAIL",
@@ -1120,7 +1487,7 @@
      "record-invalid",
      "retirement-blocked"
     ],
-    "note": "R6.RECON.35 class (b) malformed finding binding at run level (R6.ADJ.14)"
+    "note": "R6.RECON.35 class (b) or (c) malformed finding binding at run level, from history (R6.ADJ.14)"
    },
    "requirements": [
     "R6.ADJ.14"
@@ -1133,7 +1500,7 @@
     "RQ3"
    ],
    "setup": [
-    "two witnesses W1 (sources [V]) and W2 (sources [V2]) rely through R; J binds W1 only",
+    "two witnesses W1 (sources [V]) and W2 (sources [V2], reviewer unavailable) rely through R; J binds W1 only; no other route clears W2",
     "run"
    ],
    "expected": {
@@ -1145,7 +1512,7 @@
     "invariants": {
      "W1_cleared": true,
      "W2_cleared": false,
-     "R_lint_exception": "not applied (R6.ADJ.12 requires every witness relying through R to be adjudicated)"
+     "discharge": "does not apply (R6.ADJ.12 item 4 precondition)"
     }
    },
    "requirements": [
