@@ -580,6 +580,10 @@ def stages(a, repo, harness, result, extra_records, preflight_fn, control, envir
     result['config'] = {'config_id': cfg['config_id'], 'version': cfg['version'], 'path': cpath,
                         'commit': loaded.ref['commit'], 'blob_sha256': loaded.ref['blob_sha256'],
                         'admission': rec_adm}
+    if getattr(loaded, 'transition', None):
+        t = loaded.transition
+        result['transition'] = {'descriptor': t['descriptor'], 'base': t['base'], 'tips': t['tips'],
+                                'prior': t['prior']}
     result['adapters'] = loaded.adapter_records
     result['profiles'] = loaded.profile_records
     result['rule_files'] = [{'path': r['path'], 'blob_sha256': r['blob_sha256']} for r, _ in loaded.rule_files]

@@ -1251,8 +1251,11 @@ def k1_graph(a, tool_files):
         return jb({'schema': 'oi-review-record/1', 'reviewer': reviewer, 'reviewed': {'path': path,
                    'blob_sha256': sha(b)}, 'method': 'graph fixture', 'verdicts': [{'item': '*', 'verdict': 'accept'}]})
 
-    def layout(landed, cls_review_dir):
-        """nodes and required edges for one placement. cls_review_dir: where the class record's review lies."""
+    def layout(landed, cls_review_dir, config_self=False):
+        """nodes and required edges for one placement. cls_review_dir: where the class record's review lies.
+        A1 staging amendment r2, sec. 3: the configuration's own ordinary and widening reviews and the transition
+        descriptor are bound by the external pin table; `config_self` places the configuration's own widening review
+        in its records instead (the direct self-cycle)."""
         nodes = dict(landed)
         cls_b = nodes[cls_path]
         rk_p = cls_review_dir + 'reviews/class-record.review.json'
@@ -1267,11 +1270,17 @@ def k1_graph(a, tool_files):
         rc_p = rec_dir + 'reviews/config.review.json'
         rc = review(a.cpath, c2b, 'reviewer-fixture')
         nodes[rc_p] = rc
+        rw_p = rec_dir + 'reviews/config.widening.json'
+        nodes[rw_p] = review(a.cpath, c2b, 'widener-fixture')
+        d_p = rec_dir + 'a1-staging-transition.json'
+        if d_p not in nodes:
+            nodes[d_p] = jb({'class_root': {'path': cls_path, 'blob_sha256': sha(cls_b)}})
         pt_p = rec_dir + 'PREREG.md'
         nodes[pt_p] = ('### 1.1 Record pins\n\n' + ''.join('| `%s` | `%s` |\n' % (q[len(rec_dir):], sha(nodes[q]))
-                                                           for q in (a.cpath, rc_p))).encode()
+                                                           for q in (a.cpath, rc_p, rw_p, d_p))).encode()
         required = {cls_path: [q for q in landed if q != cls_path] + ([rk_p] if rk_p in landed else []),
-                    pt_p: [a.cpath, rc_p], a.cpath: [cls_path, rk_p], rc_p: [a.cpath], rk_p: [cls_path]}
+                    pt_p: [a.cpath, rc_p, rw_p, d_p], a.cpath: [cls_path, rk_p] + ([rw_p] if config_self else []),
+                    rc_p: [a.cpath], rw_p: [a.cpath], rk_p: [cls_path], d_p: [cls_path]}
         return nodes, required
     out = {}
     nodes, req = layout(dict(tool_files), rec_dir)
@@ -1290,12 +1299,24 @@ def k1_graph(a, tool_files):
     landed2 = {q: n2[q] for q in list(tool_files) + [tool_ad + 'reviews/class-record.review.json']}
     n2, r2 = layout(landed2, tool_ad)
     out['class_review_landed'] = {'cycle': reference_graph(n2, r2)[1]}
+    # countercontrol 3: the configuration's records name its own widening review (direct self-cycle)
+    n3, r3 = layout(dict(tool_files), rec_dir, config_self=True)
+    out['config_names_own_widening_review'] = {'cycle': reference_graph(n3, r3)[1]}
+    # countercontrol 4: the transition descriptor landed with the tool (an indirect cycle through a class pin)
+    n4, r4 = layout(dict(tool_files), rec_dir)
+    d_p = rec_dir + 'a1-staging-transition.json'
+    landed4 = dict(tool_files)
+    landed4[d_p] = n4[d_p]
+    n4, r4 = layout(landed4, rec_dir)
+    out['descriptor_landed'] = {'cycle': reference_graph(n4, r4)[1]}
     a.record('K1-GRAPH', cyc is None and out['actual']['config_in_landing'] is False and
-             bool(out['config_landed']['cycle']) and bool(out['class_review_landed']['cycle']),
+             bool(out['config_landed']['cycle']) and bool(out['class_review_landed']['cycle']) and
+             bool(out['config_names_own_widening_review']['cycle']) and bool(out['descriptor_landed']['cycle']),
              'the reference graph of the tool landing and the freeze has no cycle, including through review records; '
              'placing the configuration, or the class record\'s review, in the landing gives a cycle', out,
-             predicate='no cycle in the actual layout (configuration not landed; reviews in the plan record '
-                       'directory); a cycle in each countercontrol layout')
+             predicate='no cycle in the actual layout (configuration not landed; reviews and the transition '
+                       'descriptor in the plan record directory, bound by the pin table); a cycle in each of the four '
+                       'countercontrol layouts')
 
 
 def chain_refusal(a):

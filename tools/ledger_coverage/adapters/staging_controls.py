@@ -261,7 +261,433 @@ def item2_gate(root):
          v == 'GATE_FAIL' and 'declarative-mismatch' in rows.get('S11-2b', []))
 
 
-SUITES = [('item2-engine', item2_engine), ('item2-gate', item2_gate)]
+# ---- STAGING-ROLE-CHAIN and STAGING-CONFIG-REVIEWS: chain admission through the CLI ---------------------------
+
+def _patched_authority():
+    """The role selectors pointed at synthetic directories for the duration of a run (an in-process control; the
+    tool's own selectors are unchanged on disk)."""
+    from ledger_coverage import record_authority as ra
+    saved = (ra.transition_roles, ra.authorized_record_directories)
+    ra.transition_roles = (
+        dict(ra.transition_roles[0], directory='syn/cls/'),
+        dict(ra.transition_roles[1], directory='syn/cfg/'))
+    ra.authorized_record_directories = ('syn/cfg',)
+    return ra, saved
+
+
+CLS_ROOT, ALLOW_ROOT = 'syn/cls/a1-staging-class-root.json', 'syn/cfg/a1-staging-allow-root.json'
+CUSTODY = 'syn/custody/CUSTODY.json'
+
+
+def cls_doc(n, sup):
+    return {'schema': 'oi-side-change-classes/1', 'record_id': 'a1-staging-tool-landing', 'supersedes': sup,
+            'author': sf.WRITER, 'classes': [{'id': 'syn-class', 'paths': ['syn/x%d' % n]}]}
+
+
+def allow_doc():
+    return {'schema': 'oi-term-rules/2', 'record_id': 'a1-staging-w1-w2', 'supersedes': None, 'author': sf.WRITER,
+            'rules': []}
+
+
+def review_doc(path, b, reviewer=sf.REVIEWER, kind=None, replaces=None, items=None, **extra):
+    from ledger_coverage.engine import records as rec
+    d = {'schema': 'oi-review-record/1', 'reviewer': reviewer, 'reviewed': {'path': path, 'blob_sha256': sf.sha(b)},
+         'method': 'read', 'verdicts': [{'item': i, 'verdict': 'accept'} for i in
+                                        (items if items is not None else rec.item_ids(json.loads(b)))]}
+    if kind:
+        d['kind'] = kind
+        d['replaces'] = replaces
+    d.update(extra)
+    return d
+
+
+class ChainWorld:
+    """B (custody, both roots), a first-parent chain of class successors, and a configuration frozen on top that
+    references a class record and its review. Every part can be varied by the cases."""
+
+    def __init__(self, root):
+        self.r = sf.Runner(root)
+        self.syn = sf.Syn()
+        self.repo = self.syn.repo
+        edits = [('# synthetic', ['# synthetic', '', 'Preface line one.'])]
+        self.pd = sf.patch_doc(self.syn.H, edits)
+
+    def chain(self, b_extra=None, steps=(), base=None):
+        """Returns (B, tip commit, {path: bytes} of the class records) for `steps`, a list of {path: bytes or None}
+        applied one commit each after B."""
+        repo = self.repo
+        c0 = sf.jb(cls_doc(0, None))
+        files = {CUSTODY: b'{"archive": true}\n', CLS_ROOT: c0, ALLOW_ROOT: sf.jb(allow_doc()),
+                 'syn/cls/reviews/root.review.json': sf.jb(review_doc(CLS_ROOT, c0))}
+        files.update(b_extra or {})
+        B = repo.derive(base or self.syn.H, files, parents=[base or self.syn.H], subject='B')
+        cur = B
+        for st in steps:
+            cur = repo.derive(cur, st, parents=[cur], subject='step')
+        return B, cur
+
+    def successor(self, n, prev_path, prev_bytes, path=None):
+        b = sf.jb(cls_doc(n, {'path': prev_path, 'blob_sha256': sf.sha(prev_bytes)}))
+        path = path or 'syn/cls/a1-staging-class-v%d.json' % n
+        return path, b, {path: b, 'syn/cls/reviews/v%d.review.json' % n: sf.jb(review_doc(path, b))}
+
+    def config(self, tip, pin, B, prior=None, desc=None, extra_files=None, records_extra=(), variant=None):
+        """The configuration commit on top of `tip`, referencing `pin` (path, bytes) and its review; the transition
+        descriptor and prior declaration in the configuration directory."""
+        repo = self.repo
+        K = repo.derive(tip, {}, parents=[tip], subject='K')
+        c0 = repo.read(B, CLS_ROOT)
+        d = desc if desc is not None else {
+            'schema': 'oi-a1-staging-transition/1', 'base': B,
+            'custody': {'path': CUSTODY, 'blob_sha256': sf.sha(repo.read(B, CUSTODY))},
+            'class_root': {'path': CLS_ROOT, 'blob_sha256': sf.sha(c0)},
+            'allow_root': {'path': ALLOW_ROOT, 'blob_sha256': sf.sha(repo.read(B, ALLOW_ROOT))}}
+        files = {'syn/cfg/a1-staging-transition.json': sf.jb(d) if isinstance(d, dict) else d,
+                 'syn/cfg/a1-staging-prior.json': sf.jb(prior if prior is not None else
+                                                       {'schema': 'oi-a1-staging-prior/1', 'freeze': None})}
+        files.update(extra_files or {})
+        recs = []
+        if pin is not None:
+            pp, pb = pin
+            rv = pp.rsplit('/', 1)[0] + '/reviews/' + pp.rsplit('/', 1)[1][:-5] + '.pin-review.json'
+            files[rv] = sf.jb(review_doc(pp, pb))
+            recs = [{'kind': 'record', 'path': pp, 'blob_sha256': sf.sha(pb)},
+                    {'kind': 'review', 'path': rv, 'blob_sha256': sf.sha(files[rv])}]
+        recs += list(records_extra)
+        v = {'patch_sha': sf.sha(self.pd), 'files': dict({'syn/patch.json': self.pd}, **files), 'add_records': recs}
+        v.update(variant or {})
+        c, p, s, allf = self.syn.build(v, at=K)
+        return c, p, s, allf
+
+    def run(self, c, p, listed=None, F=None, drop=()):
+        from ledger_coverage.adapters import host_fixture as hf
+        from ledger_coverage.engine import cli
+        w = hf.World(self.repo, c)
+        if F is None:
+            F = hf.freeze(self.repo, c, p, listed=listed)
+            if drop:
+                F = self.repo.derive(F, {q: None for q in drop}, parents=self.repo.parents(F), subject='F less')
+        argv = ['coverage', '--config', '%s:%s' % (F, p), '--out', self.r.out()] + w.args(F) + \
+            ['--commit', self.syn.H, '--check', 'zc']
+        ra, saved = _patched_authority()
+        try:
+            code, res = cli.run(argv, repo=self.repo, harness=False, stderr=io.StringIO(),
+                                control=w.control(w.checkout()))
+        finally:
+            ra.transition_roles, ra.authorized_record_directories = saved
+        res = res or {}
+        return code, (res.get('stop') or {}).get('class'), (res.get('stop') or {}).get('message', ''), \
+            res.get('transition'), F
+
+
+def role_chain(root):
+    W = ChainWorld(root)
+    c0 = sf.jb(cls_doc(0, None))
+    p1, b1, f1 = W.successor(1, CLS_ROOT, c0)
+    p2, b2, f2 = W.successor(2, p1, b1)
+
+    def refused(got):
+        return got[0] == 65 and got[1] == 'CONFIG_UNREVIEWED' and 'transition' in got[2]
+
+    B, tip = W.chain(steps=[f1, f2])
+    c, p, s, _ = W.config(tip, (p2, b2), B)
+    got = W.run(c, p)
+    case('STAGING-ROLE-CHAIN/1', 'B holds exactly the two roots; two appended successors; the configuration pins the '
+                                 'exact class tip: admitted, the tip reported', got[:4],
+         got[1] is None and got[0] in (0, 10, 20) and (got[3] or {}).get('tips', {}).get('class') ==
+         {'path': p2, 'blob_sha256': sf.sha(b2)})
+    F_ok = got[4]
+    # a linear suffix appended in one commit
+    B, tip = W.chain(steps=[dict(f1, **f2)])
+    c, p, s, _ = W.config(tip, (p2, b2), B)
+    got = W.run(c, p)
+    case('STAGING-ROLE-CHAIN/2', 'two successors appended in one commit, ordered by their exact references: admitted',
+         got[:4], got[1] is None and got[0] in (0, 10, 20))
+    negs = []
+    B, tip = W.chain(steps=[f1, f2])
+    negs.append(('3', 'the configuration pins the stale tip (the first successor)', W.config(tip, (p1, b1), B)))
+    negs.append(('4', 'the configuration pins the root while successors exist', W.config(tip, (CLS_ROOT, c0), B)))
+    Bx, tipx = W.chain(b_extra={'syn/cls/a1-staging-class-other.json': sf.jb(cls_doc(9, None))}, steps=[f1])
+    negs.append(('5', 'B holds a second member in the class namespace', W.config(tipx, (p1, b1), Bx)))
+    second = sf.jb(cls_doc(7, None))
+    B, tip = W.chain(steps=[f1, {'syn/cls/a1-staging-class-x.json': second}])
+    negs.append(('6', 'a second root (supersedes null) appended after B', W.config(tip, (p1, b1), B)))
+    pf, bf, ff = W.successor(3, CLS_ROOT, c0, path='syn/cls/a1-staging-class-fork.json')
+    B, tip = W.chain(steps=[f1, ff])
+    negs.append(('7', 'a fork: two successors of the root', W.config(tip, (p1, b1), B)))
+    alias = 'syn/cls/a1-staging-class-alias.json'
+    pa, ba, fa = W.successor(4, alias, c0)
+    B, tip = W.chain(steps=[fa])
+    negs.append(('8', 'a successor naming the root\'s bytes at another path (reference path substitution)',
+                 W.config(tip, (pa, ba), B)))
+    B, tip = W.chain(steps=[f1, {CLS_ROOT: None}])
+    negs.append(('9', 'the root deleted after B', W.config(tip, (p1, b1), B)))
+    B, tip = W.chain(steps=[f1, {p1: b1 + b' '}])
+    negs.append(('10', 'a committed successor rewritten in place', W.config(tip, (p1, b1 + b' '), B)))
+    B, tip = W.chain(steps=[f1, {p1: None, 'syn/cls/a1-staging-class-moved.json': b1}])
+    negs.append(('11', 'a committed successor renamed (same bytes at a different path)',
+                 W.config(tip, ('syn/cls/a1-staging-class-moved.json', b1), B)))
+    B, tip = W.chain(steps=[f1, {'syn/cls/a1-staging-class-link.json': ('symlink', 'x')}])
+    negs.append(('12', 'a non-regular namespace member', W.config(tip, (p1, b1), B)))
+    B, tip = W.chain(steps=[f1, {'syn/cls/a1-staging-class-bad.json': b'{not json'}])
+    negs.append(('13', 'a malformed namespace member', W.config(tip, (p1, b1), B)))
+    bad_id = sf.jb(dict(cls_doc(5, {'path': p1, 'blob_sha256': sf.sha(b1)}), record_id='tool-landing-classes'))
+    B, tip = W.chain(steps=[f1, {'syn/cls/a1-staging-class-v5.json': bad_id}])
+    negs.append(('14', 'a successor reusing another (legacy) record id', W.config(tip, (p1, b1), B)))
+    B, tip = W.chain(steps=[f1])
+    negs.append(('15', 'the descriptor names a root digest other than the root at B',
+                 W.config(tip, (p1, b1), B, desc={'schema': 'oi-a1-staging-transition/1', 'base': B,
+                                                  'custody': {'path': CUSTODY,
+                                                              'blob_sha256': sf.sha(b'{"archive": true}\n')},
+                                                  'class_root': {'path': CLS_ROOT, 'blob_sha256': '0' * 64},
+                                                  'allow_root': {'path': ALLOW_ROOT,
+                                                                 'blob_sha256': sf.sha(sf.jb(allow_doc()))}})))
+    # a commit holding the same custody and roots, but off F's first-parent chain
+    other = W.repo.derive(W.syn.H, {CUSTODY: b'{"archive": true}\n', CLS_ROOT: c0, ALLOW_ROOT: sf.jb(allow_doc()),
+                                    'z': b'z'}, parents=[W.syn.H], subject='elsewhere')
+    negs.append(('16', 'the descriptor\'s base is not on F\'s first-parent chain (incomplete path)',
+                 W.config(tip, (p1, b1), B, desc={'schema': 'oi-a1-staging-transition/1', 'base': other,
+                                                  'custody': {'path': CUSTODY,
+                                                              'blob_sha256': sf.sha(b'{"archive": true}\n')},
+                                                  'class_root': {'path': CLS_ROOT, 'blob_sha256': sf.sha(c0)},
+                                                  'allow_root': {'path': ALLOW_ROOT,
+                                                                 'blob_sha256': sf.sha(sf.jb(allow_doc()))}})))
+    negs.append(('17', 'the custody archive differs from its descriptor pin',
+                 W.config(tip, (p1, b1), B, desc={'schema': 'oi-a1-staging-transition/1', 'base': B,
+                                                  'custody': {'path': CUSTODY, 'blob_sha256': '1' * 64},
+                                                  'class_root': {'path': CLS_ROOT, 'blob_sha256': sf.sha(c0)},
+                                                  'allow_root': {'path': ALLOW_ROOT,
+                                                                 'blob_sha256': sf.sha(sf.jb(allow_doc()))}})))
+    negs.append(('18', 'a descriptor with an extra key', W.config(tip, (p1, b1), B, desc=sf.jb(
+        {'schema': 'oi-a1-staging-transition/1', 'base': B, 'namespaces': ['syn/'],
+         'custody': {'path': CUSTODY, 'blob_sha256': sf.sha(b'{"archive": true}\n')},
+         'class_root': {'path': CLS_ROOT, 'blob_sha256': sf.sha(c0)},
+         'allow_root': {'path': ALLOW_ROOT, 'blob_sha256': sf.sha(sf.jb(allow_doc()))}}))))
+    for n, what, (c, p, s, _) in negs:
+        got = W.run(c, p)
+        case('STAGING-ROLE-CHAIN/' + n, what + ': admission refused (ERROR CONFIG_UNREVIEWED, transition)', got[:3],
+             refused(got))
+    # the descriptor or prior declaration not bound by the pin table
+    c, p, s, allf = W.config(tip, (p1, b1), B)
+    listed = {q: b for q, b in allf.items() if q.startswith('syn/cfg/') and q.endswith('.json') and
+              '/' not in q[len('syn/cfg/'):] and not q.endswith('a1-staging-transition.json')}
+    got = W.run(c, p, listed=listed)
+    case('STAGING-ROLE-CHAIN/19', 'a namespace member pinned while the pin table omits the descriptor: refused',
+         got[:3], refused(got))
+    listed = {q: b for q, b in allf.items() if q.startswith('syn/cfg/') and q.endswith('.json') and
+              '/' not in q[len('syn/cfg/'):] and not q.endswith('a1-staging-prior.json')}
+    got = W.run(c, p, listed=listed)
+    case('STAGING-ROLE-CHAIN/20', 'the pin table omits the prior-freeze declaration: refused', got[:3], refused(got))
+    # prior-freeze continuity (the configuration pins no namespace member here, so that it is unchanged between
+    # the freezes unless a case changes it; the descriptor alone puts the transition in play)
+    B, t1 = W.chain(steps=[f1])
+    c1, p_, s1, _ = W.config(t1, None, B)
+    g1 = W.run(c1, p_)
+    Fprev = g1[4]
+    t2 = W.repo.derive(Fprev, f2, parents=[Fprev], subject='successor after F_prev')
+    c2, p_, s2, _ = W.config(t2, None, B, prior={'schema': 'oi-a1-staging-prior/1', 'freeze': Fprev})
+    got = W.run(c2, p_)
+    case('STAGING-ROLE-CHAIN/21', 'a later F extends the declared prior freeze on the first-parent path, the same '
+                                  'descriptor bound there, the configuration unchanged: admitted', got[:4],
+         g1[1] is None and got[1] is None and (got[3] or {}).get('prior', {}).get('freeze') == Fprev)
+    sib = W.repo.derive(t1, {'syn/sibling.txt': b's'}, parents=[t1], subject='sibling freeze')
+    c3, p_, s3, _ = W.config(t2, None, B, prior={'schema': 'oi-a1-staging-prior/1', 'freeze': sib})
+    got = W.run(c3, p_)
+    case('STAGING-ROLE-CHAIN/22', 'the declared prior freeze is a sibling descending from B, not on F\'s first-parent '
+                                  'path: refused', got[:3], refused(got))
+    c4, p_, s4, _ = W.config(t2, None, B, prior={'schema': 'oi-a1-staging-prior/1', 'freeze': None})
+    got = W.run(c4, p_)
+    case('STAGING-ROLE-CHAIN/23', 'a null prior declaration after an earlier designation: admitted by the tool (the '
+                                  'return to null is refused procedurally, by the owner decision and review)',
+         got[:3], got[1] is None)
+    # a prior freeze whose pin table binds another descriptor
+    alt = W.config(t1, None, B, desc={'schema': 'oi-a1-staging-transition/1', 'base': B,
+                                          'custody': {'path': CUSTODY,
+                                                      'blob_sha256': sf.sha(b'{"archive": true}\n')},
+                                          'class_root': {'path': CLS_ROOT, 'blob_sha256': sf.sha(c0)},
+                                          'allow_root': {'path': ALLOW_ROOT,
+                                                         'blob_sha256': sf.sha(sf.jb(allow_doc()))}},
+                   extra_files={'syn/cfg/padding.json': b'{"x": 1}\n'})
+    ga = W.run(alt[0], alt[1])
+    Fa = ga[4]
+    t3 = W.repo.derive(Fa, f2, parents=[Fa], subject='after F_a')
+    c5, p_, s5, _ = W.config(t3, None, B, prior={'schema': 'oi-a1-staging-prior/1', 'freeze': Fa},
+                             desc={'schema': 'oi-a1-staging-transition/1', 'base': B,
+                                   'custody': {'path': CUSTODY, 'blob_sha256': sf.sha(b'{"archive": true}\n')},
+                                   'class_root': {'path': CLS_ROOT, 'blob_sha256': sf.sha(c0)},
+                                   'allow_root': {'path': ALLOW_ROOT, 'blob_sha256': sf.sha(sf.jb(allow_doc()))},
+                                   })
+    # same descriptor content, so this one is admitted; then a different descriptor at F (a key order change)
+    got = W.run(c5, p_)
+    d_other = sf.jb({'schema': 'oi-a1-staging-transition/1', 'base': B,
+                     'custody': {'path': CUSTODY, 'blob_sha256': sf.sha(b'{"archive": true}\n')},
+                     'class_root': {'path': CLS_ROOT, 'blob_sha256': sf.sha(c0)},
+                     'allow_root': {'path': ALLOW_ROOT, 'blob_sha256': sf.sha(sf.jb(allow_doc()))}}).rstrip() + b'\n\n'
+    c6, p_, s6, _ = W.config(t3, None, B, prior={'schema': 'oi-a1-staging-prior/1', 'freeze': Fa}, desc=d_other)
+    got6 = W.run(c6, p_)
+    case('STAGING-ROLE-CHAIN/24', 'the prior freeze binds a descriptor whose bytes differ from F\'s: refused',
+         {'same': got[:3], 'differs': got6[:3]}, got[1] is None and refused(got6))
+    # a changed configuration that does not supersede the configuration the prior freeze binds
+    c7, p_, s7, _ = W.config(t2, None, B, prior={'schema': 'oi-a1-staging-prior/1', 'freeze': Fprev},
+                             variant={'version': 2})
+    got = W.run(c7, p_)
+    case('STAGING-ROLE-CHAIN/25', 'the configuration changed since the prior freeze without superseding it: refused',
+         got[:3], refused(got))
+    # unauthorized directory
+    from ledger_coverage import record_authority as ra0
+    case('STAGING-ROLE-CHAIN/26', 'the tool\'s own selectors name fixed namespaces, root paths and record ids, and no '
+                                  'configuration field or option chooses them',
+         [r['directory'] + r['root'] for r in ra0.transition_roles],
+         [r['directory'] + r['root'] for r in ra0.transition_roles] ==
+         ['verification/audits/foundations/ledger-coverage-tool-20261123/records/a1-staging-class-root.json',
+          'verification/audits/foundations/a1exit-deletion-20261121/a1-staging-allow-root.json'] and
+         [r['record_id'] for r in ra0.transition_roles] == ['a1-staging-tool-landing', 'a1-staging-w1-w2'])
+    return F_ok
+
+
+def config_reviews(root):
+    W = ChainWorld(root)
+    B, tip = W.chain()
+    c, p, s, allf = W.config(tip, None, B)
+    got = W.run(c, p)
+    case('STAGING-CONFIG-REVIEWS/1', 'the pin table binds the configuration, its one ordinary review and the '
+                                     'transition metadata: admitted', got[:3], got[1] is None)
+    cfg_b = allf[p]
+    dup = sf.jb(review_doc(p, cfg_b, reviewer='reviewer-c', items=['synthetic-retirement-config']))
+    c2, p2, s2, _ = W.config(tip, None, B, extra_files={'syn/cfg/review-2.json': dup})
+    got = W.run(c2, p2)
+    case('STAGING-CONFIG-REVIEWS/2', 'a duplicate ordinary review of the configuration in the pin table: refused',
+         got[:3], got[:2] == (65, 'CONFIG_UNREVIEWED'))
+    listed = {q: b for q, b in allf.items() if q.startswith('syn/cfg/') and q.endswith('.json') and
+              '/' not in q[len('syn/cfg/'):] and not q.endswith('/review.json')}
+    got = W.run(c, p, listed=listed)
+    case('STAGING-CONFIG-REVIEWS/3', 'the configuration\'s review present beside it but omitted from the pin table: '
+                                     'refused (no file is discovered outside the table)', got[:3],
+         got[:2] == (65, 'CONFIG_UNREVIEWED'))
+    rv_ref = {'kind': 'review', 'path': 'syn/cfg/self.review.json', 'blob_sha256': '0' * 64}
+    selfrev = sf.jb({'schema': 'oi-review-record/1', 'reviewer': 'reviewer-c', 'kind': 'widening',
+                     'reviewed': {'path': 'syn/cfg/config.json', 'blob_sha256': '0' * 64}, 'replaces': None,
+                     'method': 'read', 'verdicts': []})
+    rv_ref['blob_sha256'] = sf.sha(selfrev)
+    c3, p3, s3, _ = W.config(tip, None, B, extra_files={'syn/cfg/self.review.json': selfrev},
+                             records_extra=[rv_ref])
+    got = W.run(c3, p3)
+    case('STAGING-CONFIG-REVIEWS/4', 'the configuration\'s records reference a widening review of the configuration '
+                                     'itself: ERROR CONFIG_INVALID', got[:3], got[:2] == (65, 'CONFIG_INVALID'))
+    desc_ref = {'kind': 'review', 'path': 'syn/cfg/a1-staging-transition.json',
+                'blob_sha256': sf.sha(allf['syn/cfg/a1-staging-transition.json'])}
+    c4, p4, s4, _ = W.config(tip, None, B, records_extra=[desc_ref])
+    got = W.run(c4, p4)
+    case('STAGING-CONFIG-REVIEWS/5', 'the frozen transition descriptor used as a record of the configuration: ERROR '
+                                     'CONFIG_INVALID (control metadata admits no record or review)', got[:3],
+         got[:2] == (65, 'CONFIG_INVALID'))
+
+
+# ---- STAGING-FIRST-ALLOW: the widening review of the designated root --------------------------------------------
+
+def first_allow(root):
+    from ledger_coverage.engine import records as rec, rules as rulemod
+    doc = {'schema': 'oi-term-rules/2', 'record_id': 'a1-staging-w1-w2', 'supersedes': None, 'author': sf.WRITER,
+           'rules': [{'id': i, 'kind': 'allow'} for i in ('W1-b', 'W1-c', 'W1-d', 'W2-a', 'W2-b')]}
+    b = sf.jb(doc)
+    ref = {'path': ALLOW_ROOT, 'blob_sha256': sf.sha(b)}
+    changed = rulemod.file_widening(None, doc)
+    ordinary = review_doc(ALLOW_ROOT, b)
+
+    def problems(wide, designated=True, old_ref=None, path=ALLOW_ROOT, data=b):
+        entries = [(path, data), ('syn/cfg/r.json', sf.jb(ordinary))]
+        if wide is not None:
+            entries.append(('syn/cfg/w.json', sf.jb(wide)))
+        st = rec.Store(entries)
+        st.designated_roots = {(ALLOW_ROOT, sf.sha(b))} if designated else set()
+        adm = {sf.sha(x) for _, x in entries}
+        r = {'path': path, 'blob_sha256': sf.sha(data)}
+        return rec.widening_review_problems(r, st, adm, rec.reviewers_of(r, st), sf.WRITER, old_ref, changed)
+
+    def wide(**kw):
+        d = {'schema': 'oi-review-record/1', 'kind': 'widening', 'reviewer': sf.WIDENER,
+             'reviewed': dict(ref), 'replaces': None, 'method': 'read',
+             'verdicts': [{'item': i, 'verdict': 'accept'} for i in changed]}
+        d.update(kw)
+        for k in [k for k, v in kw.items() if v == '__drop__']:
+            d.pop(k)
+        return d
+    got = problems(wide())
+    case('STAGING-FIRST-ALLOW/1', 'the designated root, a distinct widening reviewer, replaces explicitly null, an '
+                                  'accept verdict for every initial allow rule: no problem', got, got == [])
+    negs = [
+        ('2', 'replaces omitted on the designated root', problems(wide(replaces='__drop__'))),
+        ('3', 'replaces non-null on the designated root (an invented predecessor)',
+         problems(wide(replaces={'path': 'x.json', 'blob_sha256': '0' * 64}))),
+        ('4', 'replaces null on a record that is not the designated root', problems(wide(), designated=False)),
+        ('5', 'replaces null on an ordinary widening successor', problems(
+            wide(), designated=False, old_ref={'path': 'syn/cfg/old.json', 'blob_sha256': '2' * 64})),
+        ('6', 'the widening reviewer is the ordinary reviewer', problems(wide(reviewer=sf.REVIEWER))),
+        ('7', 'the widening reviewer is the writer', problems(wide(reviewer=sf.WRITER))),
+        ('8', 'the reviewed reference names the root\'s bytes at another path',
+         problems(wide(reviewed={'path': 'syn/cfg/elsewhere.json', 'blob_sha256': sf.sha(b)}))),
+        ('9', 'the reviewed digest differs', problems(wide(reviewed={'path': ALLOW_ROOT, 'blob_sha256': '3' * 64}))),
+        ('10', 'one initial allow rule has no verdict',
+         problems(wide(verdicts=[{'item': i, 'verdict': 'accept'} for i in changed[1:]]))),
+        ('11', 'one verdict is not accept',
+         problems(wide(verdicts=[{'item': i, 'verdict': 'reject' if k == 0 else 'accept'}
+                                 for k, i in enumerate(changed)]))),
+        ('12', 'no widening review', problems(None)),
+        ('13', 'a successor whose widening review names the predecessor\'s bytes at a wrong path', problems(
+            wide(replaces={'path': 'syn/cfg/wrong.json', 'blob_sha256': '2' * 64}), designated=False,
+            old_ref={'path': 'syn/cfg/old.json', 'blob_sha256': '2' * 64})),
+    ]
+    for n, what, got in negs:
+        case('STAGING-FIRST-ALLOW/' + n, what + ': refused', got, bool(got))
+    got = problems(wide(replaces={'path': 'syn/cfg/old.json', 'blob_sha256': '2' * 64}), designated=False,
+                   old_ref={'path': 'syn/cfg/old.json', 'blob_sha256': '2' * 64})
+    case('STAGING-FIRST-ALLOW/14', 'an ordinary successor\'s widening review naming the exact predecessor: no problem',
+         got, got == [])
+
+
+# ---- K1-GRAPH: acyclic layout and the two cycle countercases -----------------------------------------------------
+
+def k1_layout(root):
+    from ledger_coverage.adapters import a1_controls as a1
+    jb = sf.jb
+    tool = {'tools/ledger_coverage.py': b'entry\n', 'tools/ledger_coverage/x.py': b'x\n'}
+
+    def layout(landed_extra=(), config_self=False):
+        nodes = dict(tool)
+        cls = jb({'pins': [{'path': q, 'blob_sha256': sf.sha(b)} for q, b in sorted(nodes.items())]})
+        nodes['rec/cls-root.json'] = cls
+        nodes['rec/cls-root.review.json'] = jb(review_doc('rec/cls-root.json', cls))
+        desc = jb({'class_root': {'path': 'rec/cls-root.json', 'blob_sha256': sf.sha(cls)}})
+        nodes['plan/transition.json'] = desc
+        cfg = {'records': [{'path': 'rec/cls-root.json', 'blob_sha256': sf.sha(cls)}]}
+        cfg_b = jb(cfg)
+        nodes['plan/config.json'] = cfg_b
+        rw = jb(review_doc('plan/config.json', cfg_b, kind='widening', replaces={'path': 'plan/old.json',
+                                                                                'blob_sha256': '4' * 64}))
+        nodes['plan/config.widen.json'] = rw
+        nodes['plan/config.review.json'] = jb(review_doc('plan/config.json', cfg_b))
+        req = {'plan/config.json': ['rec/cls-root.json'],
+               'plan/PREREG.md': ['plan/config.json', 'plan/config.review.json', 'plan/config.widen.json',
+                                  'plan/transition.json'],
+               'plan/config.widen.json': ['plan/config.json'], 'plan/config.review.json': ['plan/config.json'],
+               'plan/transition.json': ['rec/cls-root.json'], 'rec/cls-root.review.json': ['rec/cls-root.json'],
+               'rec/cls-root.json': sorted(tool) + list(landed_extra)}
+        if config_self:
+            req['plan/config.json'] = req['plan/config.json'] + ['plan/config.widen.json']
+        nodes['plan/PREREG.md'] = b'pins\n'
+        return a1.reference_graph(nodes, req)[1]
+    got = (layout(), layout(config_self=True), layout(landed_extra=['plan/transition.json']),
+           layout(landed_extra=['rec/cls-root.review.json']), layout(landed_extra=['plan/config.json']))
+    case('STAGING-CONFIG-REVIEWS/6', 'the dependency-ordered layout (custody and tool, then class and allow roots, '
+                                     'their reviews and the descriptor, the configuration, its own reviews, the '
+                                     'external pin table) has no cycle; the configuration naming its own widening '
+                                     'review, and a class pin of the descriptor, its review or the configuration, each '
+                                     'give a cycle (K1-GRAPH)', got,
+         got[0] is None and all(bool(x) for x in got[1:]))
+
+
+SUITES = [('item2-engine', item2_engine), ('item2-gate', item2_gate), ('role-chain', role_chain),
+          ('config-reviews', config_reviews), ('first-allow', first_allow), ('k1-layout', k1_layout)]
 
 
 def main(out):

@@ -14,3 +14,24 @@ reconciliation_root = 'verification/audits/'
 # The id of the side-change class that describes this tool's landing (design r6 R6.TREE.5): the domain the post-freeze
 # route keeps reconciliation records out of is that class of the side-change class record the configuration pins.
 tool_landing_class_id = 'tool-landing'
+
+# The one-time transition to independently reviewed roots (A1 staging amendment r2, sec. 2, amending R6.PLACE.4 and
+# R6.A1CFG.1 for this transition only). Each role names its namespace (a directory and a file-name prefix selecting
+# candidate record paths directly in it), its root path, the designated `record_id` and the record schema. A file
+# name supplies no authority or ordering. The plan directory of the allow role is the admitted record directory above.
+# No configuration, record or command-line argument chooses or widens these selectors; changing them is a tool
+# revision under separate authority.
+transition_roles = (
+    {'role': 'class', 'directory': 'verification/audits/foundations/ledger-coverage-tool-20261123/records/',
+     'prefix': 'a1-staging-class-', 'root': 'a1-staging-class-root.json', 'record_id': 'a1-staging-tool-landing',
+     'schema': 'oi-side-change-classes/1'},
+    {'role': 'allow', 'directory': authorized_record_directories[0] + '/',
+     'prefix': 'a1-staging-allow-', 'root': 'a1-staging-allow-root.json', 'record_id': 'a1-staging-w1-w2',
+     'schema': 'oi-term-rules/2'},
+)
+# The frozen control metadata of the transition, read only through the plan's Record pins table (sec. 2): the
+# activation descriptor and the prior-freeze declaration, each a direct file of the admitted record directory.
+transition_descriptor = 'a1-staging-transition.json'
+transition_descriptor_schema = 'oi-a1-staging-transition/1'
+transition_prior = 'a1-staging-prior.json'
+transition_prior_schema = 'oi-a1-staging-prior/1'

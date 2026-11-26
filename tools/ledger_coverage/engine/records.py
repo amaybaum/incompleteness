@@ -382,8 +382,21 @@ def widening_review_problems(ref, store, admitted_shas, regular_reviewers, autho
         if not usable(sha) or d.get('reviewed', {}).get('blob_sha256') != ref['blob_sha256']:
             continue
         bad = []
-        if old_ref is not None and (d.get('replaces') or {}).get('blob_sha256') != old_ref.get('blob_sha256'):
-            bad.append('does not name the blob it replaces')
+        if d.get('reviewed', {}).get('path') != ref.get('path'):
+            bad.append('names the reviewed blob at another path')
+        # A1 staging amendment r2, sec. 2: `replaces` is an explicit JSON null only in the widening review of the
+        # designated first allow-rule record (a root whose supersedes is null); there it must be present and null.
+        # Every other widening review names the exact superseded record, path and blob.
+        designated = (ref.get('path'), ref.get('blob_sha256')) in (getattr(store, 'designated_roots', None) or ())
+        if designated:
+            if old_ref is not None or 'replaces' not in d or d['replaces'] is not None:
+                bad.append('the designated root\'s widening review does not carry replaces: null')
+        elif 'replaces' in d and d['replaces'] is None:
+            bad.append('replaces is null outside the designated root')
+        elif old_ref is not None and (not isinstance(d.get('replaces'), dict) or
+                                      d['replaces'].get('blob_sha256') != old_ref.get('blob_sha256') or
+                                      d['replaces'].get('path') != old_ref.get('path')):
+            bad.append('does not name the record it replaces by path and blob')
         who = d.get('reviewer')
         if not _person(who) or who == author or who in regular_reviewers:
             bad.append('reviewer is the author, a regular reviewer, or not a person')

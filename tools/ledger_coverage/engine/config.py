@@ -376,8 +376,14 @@ def load(repo, rev, path, expected_sha, operation, mode, extra_records=(), admis
     if len(seen_ids) != len(set(seen_ids)):
         raise stop('CONFIG_INCONSISTENT', 'a side-change class id is defined more than once: %s'
                    % sorted({i for i in seen_ids if seen_ids.count(i) > 1}))
+    L.transition = None
+    if mode == 'chain':
+        L.transition = transition_admission(repo, commit, cfg_dir, path, sha, cfg, table)
+        L.store.designated_roots = {(r['path'], r['blob_sha256'])
+                                    for r in (L.transition or {}).get('roots', [])}
     # review chain of the configuration itself
     if mode == 'chain':
+        own_review_problems(path, sha, cfg, table)
         probs = rec.lint_chain({'path': path, 'blob_sha256': sha}, L.store, L.admitted)
         if probs:
             raise stop('CONFIG_UNREVIEWED', 'configuration review chain: %s' % '; '.join(probs[:4]))
@@ -385,10 +391,19 @@ def load(repo, rev, path, expected_sha, operation, mode, extra_records=(), admis
             old_b = read_ref(repo, commit, cfg['supersedes'], 'the configuration it supersedes')
             why = non_widening(json.loads(old_b.decode('utf-8')), cfg)
             if why:
+                # A1 staging amendment r2, sec. 3: the configuration's own widening review is selected from the
+                # members of F's pin table only, names the exact new configuration in `reviewed` and the exact old
+                # one in `replaces`, and is the only one of its kind there
+                wides = [b for p_, b in sorted(table.items()) if _review_of(b, path, sha, 'widening')]
+                if len(wides) > 1:
+                    raise stop('CONFIG_UNREVIEWED', 'more than one widening review of the configuration in the pin '
+                               'table')
                 reviewers = rec.reviewers_of({'blob_sha256': sha}, L.store)
-                if not rec.widening_review_ok({'path': path, 'blob_sha256': sha}, L.store, L.admitted,
-                                              reviewers, cfg.get('author'), cfg['supersedes'],
-                                              ['%s:%s' % (cfg['config_id'], w) for w in why]):
+                pinned = {util.sha256(b) for b in table.values()}
+                if not wides or not rec.widening_review_ok({'path': path, 'blob_sha256': sha}, L.store,
+                                                           L.admitted & pinned, reviewers, cfg.get('author'),
+                                                           cfg['supersedes'],
+                                                           ['%s:%s' % (cfg['config_id'], w) for w in why]):
                     raise stop('CONFIG_UNREVIEWED', 'widening without a widening review: %s' % '; '.join(why[:4]))
         L.admission = dict(admission)
     else:
@@ -455,6 +470,102 @@ def load(repo, rev, path, expected_sha, operation, mode, extra_records=(), admis
     for r in cfg['rules']:
         L.rule_files.append((r, L.store.get(r)))
     return L
+
+
+def _review_of(b, path, sha, kind):
+    try:
+        d = json.loads(b.decode('utf-8'))
+    except (ValueError, UnicodeDecodeError):
+        return False
+    return isinstance(d, dict) and d.get('schema') == rec.review_schema and d.get('kind', 'review') == kind and \
+        d.get('reviewed') == {'path': path, 'blob_sha256': sha}
+
+
+def own_review_problems(path, sha, cfg, table):
+    """A1 staging amendment r2, sec. 3 (R6.RECON.31, R6.REC.3-.5, R6.REC.16 as amended): the configuration's own
+    ordinary review is a member of F's pin table naming its exact path and digest, and the only one of its kind there;
+    the configuration's `records` hold no reference to a review of the configuration itself (its own reviews are
+    bound by the external pin table, which keeps the binding acyclic)."""
+    ordinary = [p for p, b in sorted(table.items()) if _review_of(b, path, sha, 'review')]
+    if len(ordinary) != 1:
+        raise stop('CONFIG_UNREVIEWED', '%d ordinary reviews of the configuration in the pin table, not one'
+                   % len(ordinary))
+    own = []
+    for r in cfg['records']:
+        b = table.get(r.get('path')) if isinstance(r, dict) else None
+        try:
+            d = json.loads(b.decode('utf-8')) if b is not None else None
+        except (ValueError, UnicodeDecodeError):
+            d = None
+        if isinstance(d, dict) and d.get('schema') == rec.review_schema and \
+                (d.get('reviewed') or {}).get('path') == path:
+            own.append(r['path'])
+    if own:
+        raise stop('CONFIG_INVALID', 'the configuration\'s records reference a review of the configuration itself: %s'
+                   % sorted(set(own))[0])
+
+
+def transition_admission(repo, F, rec_dir, cpath, csha, cfg, table):
+    """The transition to independently reviewed roots (A1 staging amendment r2, sec. 2), in a chain-admitted run.
+    It is in play when the pin table binds the activation descriptor or the configuration references a member of a
+    role namespace. Returns None when it is not in play, else {descriptor, base, tips, roots, prior}; any failed
+    condition refuses admission (ERROR CONFIG_UNREVIEWED); an unreadable object is ERROR UNRESOLVABLE."""
+    from .. import record_authority as ra
+    from . import transition as tr
+    roles = ra.transition_roles
+    refs = [r for r in list(cfg['rules']) + list(cfg['records']) if isinstance(r, dict)]
+    in_ns = [r for r in refs if isinstance(r.get('path'), str) and any(tr.in_namespace(r['path'], x) for x in roles)]
+    dpath, ppath = rec_dir + ra.transition_descriptor, rec_dir + ra.transition_prior
+    if dpath not in table and not in_ns:
+        return None
+    authorized = rec_dir.rstrip('/') in ra.authorized_record_directories
+    try:
+        if not authorized:
+            raise tr.Refused('the transition is used from a record directory the tool does not admit')
+        if dpath not in table or ppath not in table:
+            raise tr.Refused('the pin table does not bind both %s and %s' % (ra.transition_descriptor,
+                                                                          ra.transition_prior))
+        desc = tr.parse_descriptor(table[dpath], ra.transition_descriptor_schema)
+        prior = tr.parse_prior(table[ppath], ra.transition_prior_schema)
+        try:
+            B = repo.resolve(desc['base'])
+        except Unresolvable as exc:
+            raise stop('UNRESOLVABLE', 'the transition base B cannot be read: %s' % exc)
+        cust = repo.read(B, desc['custody']['path'])
+        if cust is None or util.sha256(cust) != desc['custody']['blob_sha256']:
+            raise tr.Refused('the custody archive is not at B with its pinned digest')
+        path, chains = tr.walk(repo, B, F, roles, desc)
+        tips = {k: v[-1] for k, v in chains.items()}
+        for r in in_ns:
+            role = [x['role'] for x in roles if tr.in_namespace(r['path'], x)][0]
+            if {'path': r['path'], 'blob_sha256': r.get('blob_sha256')} != tips[role]:
+                raise tr.Refused('the configuration pins %s, not the current %s tip %s'
+                                 % (r['path'], role, tips[role]['path']))
+
+        def read_table(c):
+            pt = repo.read(c, rec_dir + 'PREREG.md')
+            if pt is None:
+                raise tr.Refused('the prior freeze has no file of record pins')
+            try:
+                names = read_pin_table(pt)
+            except PinTableError as exc:
+                raise tr.Refused('the prior freeze\'s pin table cannot be read: %s' % exc)
+            got = admitted_by_table(repo, c, rec_dir, names)
+            return names, {p[len(rec_dir):]: b for p, b in got.items()}
+        pc = tr.prior_continuity(path, F, prior, read_table, ra.transition_descriptor, util.sha256(table[dpath]),
+                                 config_schema)
+        if pc['freeze'] is not None and pc['configuration_sha256'] != csha:
+            want = {'path': rec_dir + pc['configuration_name'], 'blob_sha256': pc['configuration_sha256']}
+            if cfg.get('supersedes') != want:
+                raise tr.Refused('the configuration changed since the prior freeze but does not supersede the exact '
+                                 'configuration it binds')
+    except tr.Refused as exc:
+        raise stop('CONFIG_UNREVIEWED', 'transition: %s' % exc)
+    except Unresolvable as exc:
+        raise stop('UNRESOLVABLE', 'transition: %s' % exc)
+    return {'descriptor': {'path': dpath, 'blob_sha256': util.sha256(table[dpath])}, 'base': B,
+            'tips': tips, 'chains': chains, 'roots': [chains[x['role']][0] for x in roles if x['role'] == 'allow'],
+            'prior': pc}
 
 
 def hp_chain_check(repo, cfg):
