@@ -1309,10 +1309,13 @@ OUT18_ITEM_OLD = "applicable, `file`, `line`, `pre_existing` (R6.PIPE.8) and the
 OUT18_ITEM_NEW = ("applicable, `file`, `line`, `pre_existing` (R6.PIPE.8), the explanation of R6.OUT.22 and, on a landing "
                   "item of the\nreconciled-state trial for a matched finding or a carried site whose resolution, verdict or "
                   "hold is not kept,\n`resolution_validity` (R6.RECON.23, R6.RECON.36) %s." % MARK)
-RECON_ENUM_VALIDITY = {'case': 'countercase: a result whose landing item for a matched finding whose resolution at X was '
-                               'not kept lacks resolution_validity, or whose other item carries it',
-                       'outcome': 'PREDICATE', 'invariants': [{'schema_errors': ['resolution_validity not of the '
-                                                                                'R6.RECON.36 form']}]}
+RECON_ENUM_VALIDITY = {'case': 'countercase: a result whose resolution_validity holds a value other than does-not-hold or '
+                               'not-established (a schema error, which the schema decides); and, checked by the runner '
+                               'against the fixture\'s known matched finding or carried site and not by the schema, a '
+                               'landing item of that finding or site whose resolution, verdict or hold was not kept that '
+                               'lacks the field, or another item that carries it',
+                       'outcome': 'PREDICATE', 'invariants': [{'schema_errors': ['resolution_validity value not '
+                                                                                'does-not-hold or not-established']}]}
 RECON_TRIAL_R5 = [
     {'case': 'a finding resolved at X by a context adjudication, on a line that M\'s changes move with its relevant context '
              'unchanged: matched by its key, and the adjudication\'s condition holds on the landing content, so it keeps '

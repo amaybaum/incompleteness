@@ -22537,12 +22537,12 @@
       ]
      },
      {
-      "case": "countercase: a result whose landing item for a matched finding whose resolution at X was not kept lacks resolution_validity, or whose other item carries it",
+      "case": "countercase: a result whose resolution_validity holds a value other than does-not-hold or not-established (a schema error, which the schema decides); and, checked by the runner against the fixture's known matched finding or carried site and not by the schema, a landing item of that finding or site whose resolution, verdict or hold was not kept that lacks the field, or another item that carries it",
       "outcome": "PREDICATE",
       "invariants": [
        {
         "schema_errors": [
-         "resolution_validity not of the R6.RECON.36 form"
+         "resolution_validity value not does-not-hold or not-established"
         ]
        }
       ]
