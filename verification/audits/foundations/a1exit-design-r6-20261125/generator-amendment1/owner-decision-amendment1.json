@@ -1,0 +1,19 @@
+{
+ "schema": "oi-owner-decision-quote/1",
+ "author": "amaybaum",
+ "time": "2026-11-26T04:39:58Z",
+ "record": "#1169 comment 7182798225",
+ "relayed_by": "coordinating session",
+ "quotes": [
+  "B1 | Approved. Add the missing test coverage. Reuse the existing schema test for R6.OUT.22 where it fully covers the requirement.",
+  "B2 | Approved. Add the missing opposite-case tests to all 42 affected rows.",
+  "B3 | Approved. Correct the reciprocal requirement references for TR28.",
+  "B5 | Approved. Permit multi-key conditions when every key is recognized and the combined semantics are unambiguous.",
+  "Identifier rename | Approved. Authorize the reviewed migration of the 40 test identifiers under §A.48.",
+  "B4 | Approved. Draft the two required records on a separate branch and obtain independent review.",
+  "Package the design and expectation corrections into one consolidated amendment with independent review.",
+  "The ordinary implementation choices concerning plan location, refreshed references, release-condition evaluators and CI architecture are acceptable as described.",
+  "Resume A1 tool implementation. Work that does not depend on the amendment may proceed in parallel with its review.",
+  "Do not weaken requirements, introduce exemptions or bypass failed controls. Actual workflow dispatches and landing remain separately gated."
+ ]
+}
