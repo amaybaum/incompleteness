@@ -195,6 +195,10 @@ ROWS = [
          'outcome': 'ANY',
          'invariants': [NONE_DRIFT, {'equals': 'the path\'s disposition is reconciled-resolved, category 2'}]},
         fail('countercase: a resolution window that occurs twice at M', ['RC14']),
+        {'case': 'a splice whose H context window occurs twice at M (identical table rows), resolved through a '
+                 'writer-chosen window that occurs exactly once at M, confirmed by the review item (positive)',
+         'outcome': 'ANY',
+         'invariants': [NONE_DRIFT, {'equals': 'the path\'s disposition is reconciled-resolved, category 2'}]},
         {'case': 'countercase: a changed-span resolution whose writer-chosen window the review does not confirm (no '
                  'review item that the window covers every changed byte and keeps or justifies each)',
          'outcome': 'FAIL', 'classes_include': ['record-invalid']},
@@ -336,12 +340,14 @@ the same bytes; (b) the line of each retained site of the path (the ledger inter
 through the site map) occurs exactly once at `M`, with the same bytes. Otherwise RC14 fails: the record does not apply,
 the path stays `base-drift`, and the result names RC14 and the splice or site. "Exactly once" is deliberately strict: a
 window or line repeated verbatim at `M` (for example identical table rows) fails RC14 even when the change on `M` lies
-elsewhere, and is resolved explicitly as below. A change on `M` that touches a planned retirement edit's context is
+elsewhere; a repeated splice window is resolved explicitly as below, and a retained-site conflict, a repeated
+retained-site line included, waits for a revised plan. A change on `M` that touches a planned retirement edit's context is
 reported as a conflict and never resolved by translation; a translation that relocates a splice whose span `M` changed
 fails here. **Explicit resolution (category 2).** A conflict is resolved only by an entry's `resolutions`, one for each
 conflicting splice: the window at `M` (`start_M`, `end_M`, `sha256`) and the resolved bytes' sha256. Where `H`'s
-context window still occurs at `M`, the resolution window equals it. Where it does not (the span or its context
-changed), the writer chooses the window at `M` and the reviewer verifies it: the review record confirms, as an item of
+context window still occurs exactly once at `M`, the resolution window equals it. Otherwise (the span or its context
+changed, or the window is repeated at `M`), the writer chooses a window that occurs exactly once at `M`, and the
+reviewer verifies it: the review record confirms, as an item of
 the resolution, that the window covers every byte `M` changed in the splice's context, and that every byte `M` changed
 inside the window is kept in the resolved bytes or that dropping it is justified; the tool checks only that the window
 occurs once at `M` and that the review covers and accepts that item. The resolution applies only if the window occurs exactly once at `M`, the

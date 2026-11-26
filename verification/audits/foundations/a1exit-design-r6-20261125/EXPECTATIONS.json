@@ -22842,6 +22842,21 @@
       ]
      },
      {
+      "case": "a splice whose H context window occurs twice at M (identical table rows), resolved through a writer-chosen window that occurs exactly once at M, confirmed by the review item (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "not_class": [
+         "base-drift",
+         "record-invalid"
+        ]
+       },
+       {
+        "equals": "the path's disposition is reconciled-resolved, category 2"
+       }
+      ]
+     },
+     {
       "case": "countercase: a changed-span resolution whose writer-chosen window the review does not confirm (no review item that the window covers every changed byte and keeps or justifies each)",
       "outcome": "FAIL",
       "classes_include": [
