@@ -156,7 +156,7 @@ For each rule and each sentence unit:
   occur in the immediately preceding unit, which is the last unit of the previous paragraph for a
   paragraph's first sentence.
 - **C3, strong cue (code P).** The rule's strong cue matches, whatever the subject.
-- **Literal (code L).** The formula `\varepsilon\kappa/c` without the square (`W-GR-EPSKAPPA`).
+- **Literal (code L).** The formula of control EX-4 (`work/design-example-sentences.json`), without the square (`W-GR-EPSKAPPA`).
 
 A unit with none of these is **PASS** and has no finding. No other route leads to PASS.
 
@@ -342,7 +342,7 @@ The figures in brackets are exact / blocked / load. The r2 numbers reproduce the
 (19 / 43 and 17 / 43 exact). In this table a negative that r2 sent to REVIEW under the empty file
 counts as load, not as a mismatch.
 
-- **The single first-run failure.** P-KDEG-3, "The framework's answer is $K = 2d$, …", passed. r2's
+- **The single first-run failure.** P-KDEG-3 (control EX-5) passed. r2's
   literal rule had a subject ("the framework's answer") that the first r3 argument set omitted. This
   was a transcription defect of the inventory, and it was repaired by adding the subject.
 - **Batch Y's first run** under r3 had no silent miss. This is not held-out evidence: the author had
@@ -462,7 +462,7 @@ Tree M is as in r2 §6.6. The outputs are in `results-r3/`; `results/` holds r2'
 ## 7. Mechanisms added after the first measurements
 
 **Code P** was added after the author diagnostics showed that narrowing the lexicon (§3.2) let r3
-lose two sentences that r2 caught. D-03 is "It is state-independent." with the antecedent two
+lose two sentences that r2 caught. D-03 is the sentence of control EX-6, with the antecedent two
 sentences back. D-07 is "Every field state on this background is KMS."
 
 - **What it prevents:** a regression against r2 on a predicate stated without its subject in reach.

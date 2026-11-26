@@ -129,7 +129,7 @@ itself sufficient for PASS.
 As `DESIGN.md` §3.3, with one change (review nit on `which`): a copular clause whose subject is the
 relative pronoun `which`, in a comma-introduced relative clause, is bound when the last five tokens
 before the relative clause contain a subject-lexicon term, exactly as the verbal rule resolves a
-relative pronoun. "The Unruh temperature, which is state-independent, sets the calibration" is then a
+relative pronoun. The sentence of control EX-1 (`work/design-example-sentences.json`) is then a
 bound assertion (FAIL), not R1.
 
 The dominance rule of `DESIGN.md` §3.3 is kept: when binding is undetermined but a governing
@@ -385,10 +385,8 @@ rule-data change (§3.13), never a review record.
 
 Derivation operations: (i) the anchor's own subject and predicate; (ii) inflection and hyphenation
 variants; (iii) the nominalized and gerund forms of a subject that is itself a nominalization
-("coupling-degree minimization" → "minimization of the coupling degree", "minimizing the coupling
-degree"); (iv) predicate synonyms that state the same quantified content as the anchor predicate
-("state-independent" ≡ "independent of the state" ≡ "the same / identical / unchanged in every
-state" ≡ "insensitive to the state"); (v) verbs that state the same modal relation as the anchor
+(control EX-2 in `work/design-example-sentences.json`); (iv) predicate synonyms that state the same quantified content as the anchor predicate
+(control EX-3); (v) verbs that state the same modal relation as the anchor
 verb (necessity for W-OI-REQ: requires, needs, presupposes, depends on, necessitates, demands, is
 impossible without; fixing for W-KDEG: fixes, determines, selects, derives, forces, establishes,
 yields, gives, implies, produces, picks out, singles out, entails); (vi) the quantifier family of a
