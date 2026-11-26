@@ -1144,10 +1144,25 @@ def eval_procedure(row, ev, findings_out):
                      and all(r.get(k) == roles.get(k) and roles.get(k) for k in ('H', 'M', 'C')) for r in recs)
             if not ok:
                 uncovered.append(path)
-        actual['rt_l2'] = 'PASS' if not uncovered else 'FAIL'
+        # amendment 4 (R6.GATE.16): on a predicted M (roles name the runner's pinned main as M0), every retained run
+        # that names a record base records the pinned main as inputs.record_base, and at least one run names it
+        base_wrong = []
+        if roles.get('M0') is not None:
+            named = [c for c in (ev.man or {}).get('cases', []) if '--record-base' in (c.get('argv') or [])]
+            for c in named:
+                res = ev.json(c.get('result_file')) if c.get('result_file') else None
+                got = ((res or {}).get('inputs') or {}).get('record_base')
+                if got != roles['M0'] or not (isinstance(got, str) and HEX40.match(got)):
+                    base_wrong.append(c.get('case'))
+            if not named:
+                base_wrong.append('(no run names a record base)')
+            actual['record_base_matches'] = not base_wrong
+        actual['rt_l2'] = 'PASS' if not uncovered and not base_wrong else 'FAIL'
         actual['state'] = 'no drift' if not drift else ('validly reconciled' if not uncovered else 'unresolved')
         if uncovered:
             fail('drifted paths not validly reconciled: %s' % uncovered)
+        if base_wrong:
+            fail("the record base differs from the runner's pinned main in cases %s" % base_wrong)
     elif lib == 'lint':
         findings = ev.json(proc['findings'])
         smap = ev.json(proc['source_map'])

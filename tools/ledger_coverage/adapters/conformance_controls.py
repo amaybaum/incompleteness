@@ -2630,7 +2630,9 @@ def main(out_root):
               # design amendment r4: the record-directory rule (O-9) and the item-2 record interfaces
               ('O9', lambda: rdc.o9_controls(r, check)), ('I2', lambda: rdc.i2_controls(r, check, WORKFLOW)),
               # design amendment 1: the post-freeze route
-              ('POSTF', lambda: pfc.postf_controls(r, check))]
+              ('POSTF', lambda: pfc.postf_controls(r, check)),
+              # design amendment 4: the record base of a predicted M
+              ('RECORD-BASE', lambda: pfc.rb_controls(r, check))]
     for name, fn in groups:
         try:
             got = fn()

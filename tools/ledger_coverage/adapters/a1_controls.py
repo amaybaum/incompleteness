@@ -1005,18 +1005,20 @@ def tree_controls(a, tool_files):
         out['predicted_without_reconciliation'] = {
             'exit': code, 'main_items': sorted((i['class'], i['subject']) for i in res.get('items', [])
                                                if i['obligation'] == 'MAIN')}
-        code, res, t = a.run(exec_args(a, extra=['--main', Mp] + recon_arg))
+        # amendment 4: a run on the predicted main names its record base, the pinned main (--record-base)
+        base_arg = ['--record-base', a.main]
+        code, res, t = a.run(exec_args(a, extra=['--main', Mp] + base_arg + recon_arg))
         sc = {e['path']: e for e in res.get('side_changes') or []}
         out['landed_paths'] = len(tool_files)
         out['landed_unbound'] = sorted(p for p in tool_files if (sc.get(p) or {}).get('class') in (None, 'base-drift'))
         out['landed_classes'] = dict(collections.Counter(str((sc.get(p) or {}).get('class')) for p in tool_files))
         out['agents_md'] = {k: (sc.get('AGENTS.md') or {}).get(k) for k in ('class', 'reconciled')}
-        out['rtl2_inputs'] = rtl2_inputs(a, res, recon_arg, H, Mp, X_of(a))
+        out['rtl2_inputs'] = rtl2_inputs(a, res, recon_arg, H, Mp, X_of(a), m0=a.main)
         out['predicted'] = {'exit': code, 'side_changes': res.get('side_changes'),
                             'main_items': sorted((i['class'], i['subject']) for i in res.get('items', [])
                                                  if i['obligation'] == 'MAIN'), 'admission': res.get('config', {}).get('admission')}
         L2 = ex.compose_landing(a.repo, H, Mp, T, a.led, a.repo)
-        code, res, t = a.run(exec_args(a, extra=['--main', Mp, '--landing', L2] + recon_arg))
+        code, res, t = a.run(exec_args(a, extra=['--main', Mp, '--landing', L2] + base_arg + recon_arg))
         out['predicted_with_landing'] = {'exit': code, 'main_items': sorted(
             (i['class'], i['subject']) for i in res.get('items', []) if i['obligation'] == 'MAIN')}
         code, res, t = a.run(exec_args(a, extra=['--main', Mp]), harness=False)
@@ -1054,7 +1056,7 @@ def X_of(a):
     return T
 
 
-def rtl2_inputs(a, res, recon_arg, h, m, c):
+def rtl2_inputs(a, res, recon_arg, h, m, c, m0=None):
     """The rtl2 procedure's inputs (design r6 R6.GATE.16), derived from the run's result: the drifted paths (side
     changes of class base-drift), each reconciliation record the run was given with `reviewed` (the route listed it
     with its review) and `review_lint_passes` (no record-invalid item names the record or its review, OBL-28 C-29) and
@@ -1075,10 +1077,13 @@ def rtl2_inputs(a, res, recon_arg, h, m, c):
         for e in doc.get('paths') or []:
             recs.append({'path': e.get('path'), 'record': path, 'reviewed': bool(review),
                          'review_lint_passes': path not in invalid and review.get('path') not in invalid,
-                         'H': (doc.get('ledger_binding') or {}).get('ledger_base'), 'M': doc.get('M'),
+                         'H': (e.get('ledger_binding') or doc.get('ledger_binding') or {}).get('ledger_base'), 'M': doc.get('M'),
                          'C': doc.get('X')})
     drift = sorted(x.get('path') for x in res.get('side_changes') or [] if x.get('class') == 'base-drift')
-    return {'drift': drift, 'records': recs, 'roles': {'H': h, 'M': m, 'C': c}}
+    roles = {'H': h, 'M': m, 'C': c}
+    if m0 is not None:
+        roles['M0'] = m0
+    return {'drift': drift, 'records': recs, 'roles': roles}
 
 
 def rt_o9(a, Mp, recon_arg):
@@ -1097,7 +1102,7 @@ def rt_o9(a, Mp, recon_arg):
                 if rcm.inside(d, p)}
     M9 = a.repo.derive(Mp, {p: a.repo.read(F9, p) for p in expected}, parents=[Mp],
                        subject='predicted main with the tool landing and the plan record directory')
-    code, res, t = a.run(exec_args(a, extra=['--main', M9, '--freeze', F9] + recon_arg))
+    code, res, t = a.run(exec_args(a, extra=['--main', M9, '--freeze', F9, '--record-base', a.main] + recon_arg))
     got = {}
     for e in res.get('side_changes') or []:
         if e.get('class') == rcm.record_directory_class:

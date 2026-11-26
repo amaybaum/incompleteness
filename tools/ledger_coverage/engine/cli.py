@@ -72,6 +72,7 @@ def build_parser():
     e.add_argument('--candidate', required=True)
     e.add_argument('--certified', default=None)
     e.add_argument('--main', default=None)
+    e.add_argument('--record-base', default=None)
     e.add_argument('--landing', default=None)
     e.add_argument('--ledger', required=True)
     e.add_argument('--edits', default=None)
@@ -550,6 +551,11 @@ def stages(a, repo, harness, result, extra_records, preflight_fn, control, envir
     if any(not p['passed'] for p in pf):
         raise oc.Stop(oc.void, 'PREFLIGHT_FAILED', 'a preflight control failed', {'failed': [p['id'] for p in pf
                                                                                               if not p['passed']]})
+    if getattr(a, 'record_base', None) is not None and (adm.get('mode') == 'chain' or adm.get('simulated_chain')):
+        # amendment 4: the record base of a predicted M is a control-harness input only
+        raise oc.Stop(oc.usage, 'USAGE', '--record-base in a chain-admitted run')
+    if getattr(a, 'record_base', None) is not None:
+        result.setdefault('inputs', {})['record_base'] = a.record_base
     records = RecordSet(loaded, harness)
     indicators = ctxmod.Indicators(cfg['indicators'])
     ctx = pl.RunContext(repo, cfg, loaded.profiles, [], {}, indicators)
@@ -1261,7 +1267,7 @@ def op_execution(a, repo, ctx, loaded, records, result, control=None):
             pinned_doc = loaded.store.get(pinned) if pinned.get('path') else None
             scope = recon_route.Scope(repo, H, M, X, resolve(repo, a.freeze) if a.freeze else None, records.harness,
                                       pinned_doc, posixpath.dirname(split_ref(a.config)[1]), led['files'],
-                                      ctx.in_corpus, recon)
+                                      ctx.in_corpus, recon, record_base=a.record_base)
             got, listing, clash = recon_route.admit(repo, route_cands, scope, records.items)
             if clash:
                 # (e): a configuration-referenced record that shares a path with another is not used either

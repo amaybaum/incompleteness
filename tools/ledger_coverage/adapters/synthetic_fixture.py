@@ -137,6 +137,7 @@ class Syn:
         files['syn/rules-pat.json'] = jb(pats)
         files['syn/rules-allow.json'] = jb(allow)
         recs = []
+        recs += list(v.get('add_records', []))
         for p in ('syn/rules-pat.json', 'syn/rules-allow.json'):
             recs += self.chain(files, p, v.get('reviewer', REVIEWER) if p.endswith('allow.json') else REVIEWER)
         wr0 = {'schema': 'oi-review-record/1', 'kind': 'widening', 'reviewer': WIDENER,

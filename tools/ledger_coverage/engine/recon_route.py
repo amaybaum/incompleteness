@@ -1,4 +1,4 @@
-# design r6 as amended by amendment 1: R6.RECON.2 (a)-(g), R6.RECON.21, OBL-28 C-29
+# design r6 as amended by amendments 1 and 4: R6.RECON.2 (a)-(g), R6.RECON.21, OBL-28 C-29
 """The post-freeze route for reconciliation records named by --classify, and the record lint of --classify
 records in the control harness.
 
@@ -35,18 +35,23 @@ class Scope:
     pins (`pinned_class_doc`); a class record named by --classify never contributes to it. The plan's record directory
     counts only when it is an authorized record directory."""
 
-    def __init__(self, repo, H, M, X, F, harness, pinned_class_doc, plan_dir, ledgered, in_corpus, config_recon):
+    def __init__(self, repo, H, M, X, F, harness, pinned_class_doc, plan_dir, ledgered, in_corpus, config_recon,
+                 record_base=None):
         self.repo = repo
         self.H, self.M, self.X, self.F = H, M, X, F
         self.harness = harness
         cls = [c for c in ((pinned_class_doc or {}).get('classes') or [])
                if isinstance(c, dict) and c.get('id') == record_authority.tool_landing_class_id]
         self.prefixes = sorted({p for c in cls for p in (c.get('prefixes') or []) if isinstance(p, str)})
+        self.pins = {x['path']: x for c in cls for x in (c.get('pins') or [])
+                     if isinstance(x, dict) and isinstance(x.get('path'), str)}
         d = plan_dir.rstrip('/') if plan_dir else None
         self.plan_dir = d + '/' if d and d in record_authority.authorized_record_directories else None
         self.ledgered = set(ledgered)
         self.in_corpus = in_corpus
         self.config_recon = list(config_recon)
+        self.record_base = record_base
+        self._base = None
 
     # (f) and R6.RECON.1: a reconciliation directory
     def placement_problem(self, path):
@@ -61,9 +66,92 @@ class Scope:
         return None
 
     def record_bases(self):
-        """The record base: the run's M, in every admission mode. The record base of a predicted M (the main commit
-        M0 it is built from) needs an input the adopted design does not give; it awaits a design amendment."""
-        return [self.M]
+        """The record base: the run's M; for a run on a predicted M, the commit M0 named with --record-base, admitted
+        only when base_problems finds nothing (amendment 4). Naming M0 establishes nothing."""
+        if self.record_base is None:
+            return [self.M]
+        return [self.record_base] if not self.base_problems() else []
+
+    def base_problems(self):
+        if self._base is None:
+            self._base = record_base_problems(self.repo, self.record_base, self) if self.record_base else []
+        return self._base
+
+    # (c) (3): a path a step between M0 and M may change
+    def step_path_problem(self, path, at_m):
+        pin = self.pins.get(path)
+        if pin is not None:
+            if at_m is None:
+                return '%s, a pin of the tool-landing class, is deleted' % path
+            if at_m[0] not in regular_modes or not pin_matches(self.repo, self.M, path, pin):
+                return '%s differs from its pin in the tool-landing class' % path
+            return None
+        if any(path.startswith(p) for p in self.prefixes):
+            return None
+        if self.plan_dir and path.startswith(self.plan_dir):
+            return None
+        return '%s is neither a tool-landing path nor in an authorized plan record directory' % path
+
+
+def pin_matches(repo, rev, path, pin):
+    data = repo.read(rev, path)
+    if data is None:
+        return False
+    if pin.get('blob_sha256') is not None and util.sha256(data) != pin['blob_sha256']:
+        return False
+    if pin.get('git_blob') is not None and repo.blob_id(rev, path) != pin['git_blob']:
+        return False
+    return pin.get('blob_sha256') is not None or pin.get('git_blob') is not None
+
+
+def in_memory(repo, rev):
+    return rev in (getattr(repo, 'mem', None) or {})
+
+
+# R6.RECON.2 (c) as amended by amendment 4: the record base M0 of a run on a predicted M, from git objects
+def record_base_problems(repo, m0, scope):
+    M = scope.M
+    # (1) a full commit id of the repository object store, not an in-memory commit
+    if not isinstance(m0, str) or not _full_id.match(m0):
+        return ['the record base %r is not a full commit id' % (m0,)]
+    if in_memory(repo, m0):
+        return ['the record base is an in-memory commit']
+    try:
+        repo.parents(m0)
+    except Exception:  # an id the object store does not hold
+        return ['the record base is not a commit of the repository']
+    # (2) M descends from M0 by single-parent in-memory commits
+    chain = []
+    cur = M
+    while cur != m0:
+        if not in_memory(repo, cur):
+            return ['M does not descend from the record base by in-memory commits']
+        ps = repo.parents(cur)
+        if len(ps) != 1:
+            return ['a commit between the record base and M has %d parents, not one' % len(ps)]
+        chain.append((ps[0], cur))
+        cur = ps[0]
+    if not chain:
+        return ['the record base is M itself: a run on M needs no record base']
+    # (3) every changed path, per step and in the aggregate diff
+    em = repo.entries(M)
+    aggregate = set(changed_paths(repo, m0, M))
+    for path in sorted(aggregate):
+        prob = scope.step_path_problem(path, em.get(path))
+        if prob:
+            return [prob]
+    for a, b in reversed(chain):
+        for path in changed_paths(repo, a, b):
+            if path not in aggregate:
+                return ['%s changes between the record base and M but not in the aggregate diff' % path]
+    # (4) no ledgered, corpus or scanned-set path
+    scan = {p for p, _ in scanned(repo, m0, scope)} | {p for p, _ in scanned(repo, M, scope)}
+    for path in sorted(aggregate):
+        if path in scope.ledgered or scope.in_corpus(path):
+            return ['%s, a ledgered or corpus path, changes between the record base and M' % path]
+        if path in scan:
+            return ['%s, a path of the scanned set, changes between the record base and M' % path]
+    return []
 
 
 def changed_paths(repo, a, b):
@@ -97,6 +185,8 @@ def rev_problems(repo, rev_text, rev, scope):
     ps = repo.parents(rev)
     if len(ps) != 1:
         return ['the record commit has %d parents, not one' % len(ps)]
+    if scope.record_base is not None and scope.base_problems():
+        return ['the record base is not admitted: %s' % scope.base_problems()[0]]
     if ps[0] not in scope.record_bases():
         return ["the record commit's parent is not the run's record base"]
     er, ep = repo.entries(rev), repo.entries(ps[0])

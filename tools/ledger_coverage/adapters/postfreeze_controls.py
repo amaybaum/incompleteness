@@ -33,7 +33,7 @@ class World:
     """One synthetic post-freeze world. pre_change: the ledgered file's change on M is made before F (F descends from
     it), so no commit on M after F changes it (POSTF-2)."""
 
-    def __init__(self, r, pre_change=False, side=False, config_records=None):
+    def __init__(self, r, pre_change=False, side=False, config_records=None, variant=None):
         self.r = r
         syn = self.syn = sf.Syn()
         repo = self.repo = syn.repo
@@ -49,6 +49,10 @@ class World:
                              parents=[syn.H], subject='X')
         if config_records:
             base = dict(base, extra={'records': None})
+        if variant:
+            v = variant(self)
+            base = dict(base, extra=dict(base.get('extra') or {}, **v.get('extra', {})),
+                        files=dict(base['files'], **v.get('files', {})), add_records=v.get('add_records', []))
         c, p, s, files = syn.build(base)
         self.p = p
         if pre_change:
@@ -90,23 +94,23 @@ class World:
         files.update(extra or {})
         return self.rev(files, parent, parents), path, data
 
-    def run(self, classify=(), harness=False, main=None):
+    def run(self, classify=(), harness=False, main=None, extra=(), stderr=None):
         tail = ['--scientific-base', self.syn.H, '--candidate', self.X, '--ledger', None, '--delegation', None,
-                '--main', main or self.M]
+                '--main', main or self.M] + list(extra)
         for c in classify:
             tail += ['--classify', c]
         if harness:
             argv = list(tail)
             argv[argv.index(None)] = '%s:syn/patch.json' % self.c
             argv[argv.index(None)] = '%s:syn/delegation.json' % self.c
-            return self.r.cli(self.repo, ['execution'] + argv, self.c, self.p, None, harness=True)
+            return self.r.cli(self.repo, ['execution'] + argv, self.c, self.p, None, harness=True, stderr=stderr)
         w = hf.World(self.repo, self.syn.H)
         F = hf.freeze(self.repo, self.c, self.p)
         argv = list(tail)
         argv[argv.index(None)] = '%s:syn/patch.json' % F
         argv[argv.index(None)] = '%s:syn/delegation.json' % F
         full = ['execution', '--config', '%s:%s' % (F, self.p), '--out', self.r.out()] + w.args(F) + argv
-        return cli.run(full, repo=self.repo, stderr=io.StringIO(), control=w.control(w.checkout()), environ={})
+        return cli.run(full, repo=self.repo, stderr=stderr or io.StringIO(), control=w.control(w.checkout()), environ={})
 
 
 def classes(res):
@@ -141,7 +145,7 @@ def rtl2_inputs(res, w, path, doc):
     used = [x for x in ((res or {}).get('inputs') or {}).get('classify_records') or [] if x.get('path') == path]
     drift = sorted(x.get('path') for x in (res or {}).get('side_changes') or [] if x.get('class') == 'base-drift')
     recs = [{'path': e.get('path'), 'reviewed': bool(used and used[0].get('review')), 'review_lint_passes': lint_ok,
-             'H': (doc.get('ledger_binding') or {}).get('ledger_base'), 'M': doc.get('M'), 'C': doc.get('X')}
+             'H': (e.get('ledger_binding') or doc.get('ledger_binding') or {}).get('ledger_base'), 'M': doc.get('M'), 'C': doc.get('X')}
             for e in doc.get('paths') or []]
     return {'drift': drift, 'records': recs, 'roles': {'H': w.syn.H, 'M': w.M, 'C': w.X}}
 
@@ -407,13 +411,34 @@ def postf_controls(r, check):
     bind_case(BIND[3], wb.record(M=None, X=None))
     bind_case(BIND[4], reviewer=sf.WRITER)
     bind_case(BIND[5], parent=wb.syn.H)
+
+    # owner decision of 2026-11-26 (#1169 comment 7186638587, item 8): delegated classes are not exempted, and an
+    # unrelated failure beside the reconciled drift keeps its own outcome. Diagnostic runs, not expectation cases.
+    def unrelated(name, w, extra_files, extra_classify):
+        rv, pth, data = w.standard(extra=extra_files)
+        code, res = w.run(['%s:%s' % (rv, pth)] + [c % rv for c in extra_classify], harness=True)
+        sc = [x for x in (res or {}).get('side_changes') or [] if x.get('path') == sf.DOC]
+        resb[name] = {'exit': code, 'classes': classes(res), 'outcome': (res or {}).get('outcome'),
+                      'drift_state': 'reconciled' if sc and sc[0].get('reconciled') else 'unresolved'}
+        namesb.append(None)
+    hit = jb({'schema': 'oi-hit-classification/1', 'record_id': 'syn-unrelated', 'author': sf.WRITER,
+              'supersedes': None, 'classifications': []})
+    unrelated(BIND_DIAG[0], World(r), {RD2 + 'unrelated.json': hit}, ['%s:' + RD2 + 'unrelated.json'])
+    ws = World(r)
+    ws.M = ws.repo.derive(ws.M, {'notes/side.txt': b'an unrelated side change on main\n'}, parents=[ws.M],
+                          subject='unrelated side change')
+    unrelated(BIND_DIAG[1], ws, None, [])
+    diag_ok = resb[BIND_DIAG[0]]['drift_state'] == 'reconciled' and resb[BIND_DIAG[0]]['exit'] == 20 and \
+        'record-invalid' in resb[BIND_DIAG[0]]['classes'] and \
+        resb[BIND_DIAG[1]]['exit'] == 20 and 'side-change-unclassified' in resb[BIND_DIAG[1]]['classes'] and \
+        'base-drift' in resb[BIND_DIAG[1]]['classes']
     okb = resb[BIND[0]]['drift_state'] == 'reconciled' and resb[BIND[0]]['exit'] == 0 and \
         all(resb[k]['drift_state'] == 'unresolved' and resb[k]['exit'] == 20 for k in BIND[1:]) and \
-        all(resb[k]['invalid'] for k in BIND[4:])
+        all(resb[k]['invalid'] for k in BIND[4:]) and diag_ok
     check('RTL2-BIND', "the binding of R6.RECON.21 in the control harness: only a reviewed record naming the run's M "
           "and X, passing record lint and read from a REV tied to the run, reconciles", 'positive reconciled and PASS; '
           'every countercase unresolved', resb, okb, cases=namesb,
-          attested={n: {'drift_state_in': [v['drift_state']]} for n, v in resb.items()},
+          attested={n: {'drift_state_in': [v['drift_state']]} for n, v in resb.items() if n in BIND},
           files={'rtl2-drift.json': proc_in['drift'], 'rtl2-records.json': proc_in['records'],
                  'rtl2-roles.json': proc_in['roles']},
           procedure={'name': 'rtl2-binding', 'lib': 'rtl2', 'drift': 'rtl2-drift.json',
@@ -421,6 +446,10 @@ def postf_controls(r, check):
     return out
 
 
+BIND_DIAG = ['diagnostic: the positive record beside an unrelated unreviewed record named by --classify (FAIL '
+             'record-invalid expected, the drift still reconciled)',
+             'diagnostic: the positive record beside an unrelated side change on M, in its own commit, that no class pins '
+             '(FAIL expected: side-change-unclassified, and base-drift, since RC11 needs every side change classified)']
 POSTF1_POS = ("a reviewed reconciliation record naming the run's M and X and its review record, in one reconciliation "
               "directory of a record commit REV whose single parent is M and which adds only those two files, named by "
               "--classify REV:PATH, covering a ledgered path changed on M by a commit that is not an ancestor of F, "
@@ -462,3 +491,170 @@ BIND = ["a reviewed reconciliation record bound to the run: ledger_base the run'
         "countercase: the same record, in harness mode, with a review record whose reviewer equals the record's author "
         "(record lint fails)",
         "countercase: the same record read from a REV whose single parent is neither M0 nor the run's M"]
+
+
+# RECORD-BASE (design r6 as amended by amendment 4: R6.RECON.2 (c), R6.RECON.21, R6.GATE.16)
+RB = ["a run on a predicted M built from M0 by in-memory commits adding tool-landing paths whose blobs equal their pins, "
+      "named with --record-base M0; REV's single parent is M0 (positive)",
+      "countercase: REV's parent is the predicted M",
+      "countercase: REV's parent is an intermediate in-memory commit (RT-O9 shape)",
+      "countercase: REV's parent is an ancestor of M0",
+      "countercase: a ledgered, corpus, unclassified or reconciliation-directory change lies between M0 and M",
+      "countercase: a merge lies between M0 and M",
+      "countercase: a change between M0 and M that a later step reverts (the aggregate diff is empty for it)",
+      "countercase: a pin path of the tool-landing class with a different blob, or deleted",
+      "countercase: --record-base names an in-memory commit",
+      "countercase: the configuration lies in a directory that is not an authorized record directory",
+      "countercase: a reviewed class record named by --classify whose prefixes cover the offending change",
+      "countercase: --record-base given in a chain-admitted run",
+      "countercase: the result's inputs.record_base differs from the runner's pinned main commit"]
+RB_TOOL = 'tools/syn-tool/'
+RB_PIN = RB_TOOL + 'entry.py'
+RB_PIN_BYTES = b'x = 2\n'
+RB_NOTE = RB_TOOL + 'note.md'
+RB_LANDING = {RB_PIN: RB_PIN_BYTES, RB_NOTE: b'tool note\n'}
+
+
+def rb_variant(w):
+    """The synthetic configuration with a side-change class record whose class tool-landing has the prefix RB_TOOL and
+    a pin for each path of RB_LANDING; the configuration pins it as roles.side_change_classes."""
+    from ledger_coverage import record_authority as ra
+    doc = {'schema': 'oi-side-change-classes/1', 'record_id': 'syn-tool-landing', 'author': sf.WRITER,
+           'supersedes': None, 'classes': [{'id': ra.tool_landing_class_id, 'prefixes': [RB_TOOL],
+                                            'reason': 'synthetic tool landing',
+                                            'pins': [{'path': p, 'blob_sha256': sha(b)}
+                                                     for p, b in sorted(RB_LANDING.items())]}]}
+    b = jb(doc)
+    ref = {'path': 'syn/cfg/classes.json', 'blob_sha256': sha(b)}
+    files = {ref['path']: b}
+    review = sf.Syn.chain(None, files, ref['path'], sf.REVIEWER)
+    return {'files': files, 'add_records': [dict(ref, kind='side-change-classes')] + review,
+            'extra': {'roles': {'scientific_base': w.syn.H, 'pin': w.syn.pin, 'side_change_classes': ref}}}
+
+
+def rb_world(r):
+    """A World whose main commit M0 lies in the object store (an inner reader) and whose predicted M is built on it by
+    in-memory commits of the outer reader: the shape of RT-L2's predicted M."""
+    from ledger_coverage.engine import gitobj
+    w = World(r, variant=rb_variant)
+    inner = w.repo
+    w.repo = gitobj.Overlay(inner)
+    # M0 is a commit of the object store (the inner reader) holding an earlier version of the pinned tool file
+    w.M0 = inner.derive(w.M, {RB_PIN: b'x = 1\n'}, parents=[w.M], subject='main with an earlier tool file')
+    w.I = w.repo.derive(w.M0, {RB_NOTE: RB_LANDING[RB_NOTE]}, parents=[w.M0], subject='tool landing, step 1')
+    w.M = w.repo.derive(w.I, {RB_PIN: RB_PIN_BYTES}, parents=[w.I], subject='tool landing, step 2')
+    loaded = cfgmod.load(w.repo, w.c, w.p, None, 'execution', 'harness')
+    w.ctx = pl.RunContext(w.repo, loaded.config, loaded.profiles, [], {}, None)
+    return w
+
+
+def res_base(res):
+    return ((res or {}).get('inputs') or {}).get('record_base')
+
+
+def rb_gate_case(res, roles_m0):
+    """The gate's rtl2 procedure (R6.GATE.16) over one retained result and the runner's pinned main: the rt_l2 value."""
+    import os
+    import tempfile
+    from ledger_coverage.gate import control_gate as cg
+    d = tempfile.mkdtemp(prefix='rb-gate-')
+    files = {'result.json': res, 'drift.json': [], 'records.json': [],
+             'roles.json': {'H': 'a' * 40, 'M': 'b' * 40, 'C': 'c' * 40, 'M0': roles_m0}}
+    man = {'schema': cg.SCHEMA_MAN, 'id': 'RECORD-BASE', 'files': {}, 'cases': [{'case': '', 'result_file': 'result.json',
+                                                     'argv': ['execution', '--record-base', res_base(res)]}],
+           'procedure': {'lib': 'rtl2', 'drift': 'drift.json', 'records': 'records.json', 'roles': 'roles.json'}}
+    for n, v in files.items():
+        b = jb(v)
+        with open(os.path.join(d, n), 'wb') as f:
+            f.write(b)
+        man['files'][n] = sha(b)
+    with open(os.path.join(d, 'manifest.json'), 'wb') as f:
+        f.write(jb(man))
+    found = []
+    actual = cg.eval_procedure({'procedure': {'lib': 'rtl2'}}, cg.Evidence(d, '.', 'RECORD-BASE'), found)
+    return actual.get('rt_l2'), found
+
+
+def rb_controls(r, check):
+    res, names, att = {}, [], {}
+
+    def run(name, parent=None, base=None, extra_files=None, w=None, classify=(), harness=True, binding=True):
+        """One op C run on a predicted M; parent(w) gives REV's parent (default M0), base the --record-base."""
+        w = w or rb_world(r)
+        rv, pth, data = w.standard(parent=parent(w) if parent else w.M0, extra=extra_files)
+        err = io.StringIO()
+        code, out = w.run(['%s:%s' % (rv, pth)] + list(classify), harness=harness,
+                          extra=['--record-base', base or w.M0], stderr=err)
+        res[name] = {'exit': code, 'classes': classes(out), 'invalid': invalid(out, pth),
+                     'admitted': admitted(out, pth), 'record_base': ((out or {}).get('inputs') or {}).get('record_base'),
+                     'stop': ((out or {}).get('stop') or {}).get('class'),
+                     'usage': (json.loads(err.getvalue() or 'null') or {}).get('message') if code == 64 else None,
+                     'why': [d for i in (out or {}).get('items', []) if i['class'] == 'record-invalid'
+                             and i.get('subject') == pth for d in (i.get('detail') or [])][:1]}
+        names.append((name, {'record': pth} if binding else {}))
+        return w, out
+
+    w0, out0 = run(RB[0])
+    att[RB[0]] = {'equals': 'inputs.record_base is M0'} if res[RB[0]]['record_base'] == w0.M0 else {}
+    run(RB[1], parent=lambda w: w.M)
+    run(RB[2], parent=lambda w: w.I)
+    run(RB[3], parent=lambda w: w.repo.parents(w.M0)[0])
+
+    def top(ch, merge=False, revert=None):
+        w = rb_world(r)
+        if merge:
+            side = w.repo.derive(w.M0, {'misc/side.txt': b'side\n'}, parents=[w.M0], subject='side')
+            w.M = w.repo.derive(w.M, {'misc/side.txt': b'side\n'}, parents=[w.M, side], subject='merge')
+        elif revert is not None:
+            mid = w.repo.derive(w.M, ch, parents=[w.M], subject='a change')
+            w.M = w.repo.derive(mid, revert, parents=[mid], subject='its revert')
+        else:
+            w.M = w.repo.derive(w.M, ch, parents=[w.M], subject='a further change')
+        return w
+    w = rb_world(r)
+    h_doc = w.repo.read(w.M0, sf.DOC)
+    subs = [('ledgered', {sf.DOC: h_doc + b'One more line on main.\n'}), ('corpus', {'doc/other.md': b'corpus\n'}),
+            ('unclassified', {'misc/x.txt': b'x\n'}),
+            ('reconciliation directory', {RD2 + 'x.json': jb({'schema': 'oi-reconciliation/2', 'record_id': 'x'})})]
+    for k, (label, ch) in enumerate(subs):
+        run(RB[4] if k == 0 else '%s (%s)' % (RB[4], label), w=top(ch))
+    run(RB[5], w=top(None, merge=True))
+    run(RB[6], w=top({'misc/y.txt': b'y\n'}, revert={'misc/y.txt': None}))
+    run(RB[7], w=top({RB_PIN: b'x = 3\n'}))
+    w = rb_world(r)
+    w.M = w.repo.derive(w.I, {RB_PIN: None}, parents=[w.I], subject='tool landing deleting the pinned file')
+    run('%s (deleted)' % RB[7], w=w)
+    w = rb_world(r)
+    run(RB[8], parent=lambda w: w.I, base=w.I, w=w)
+    run(RB[9], w=top({'syn/cfg/extra.json': b'{}\n'}))
+    # a reviewed class record named by --classify, whose prefixes cover misc/
+    w = top({'misc/x.txt': b'x\n'})
+    cls = {'schema': 'oi-side-change-classes/1', 'record_id': 'syn-misc', 'author': sf.WRITER, 'supersedes': None,
+           'classes': [{'id': 'misc', 'prefixes': ['misc/'], 'reason': 'synthetic'}]}
+    cb = jb(cls)
+    cpath = 'syn/late/classes.json'
+    crev = w.repo.derive(w.M, {cpath: cb, 'syn/late/classes.review.json': w.review(cpath, cb)}, parents=[w.M])
+    run(RB[10], w=w, classify=['%s:%s' % (crev, cpath)])
+    run(RB[11], harness=False, binding=False)
+    # the run names a record base other than the runner's pinned main M0 (the main commit M0 is built on); the gate's
+    # rtl2 comparison of that result with M0 gives FAIL, and of the positive result with M0 gives PASS
+    w = rb_world(r)
+    _, out12 = run(RB[12], base=w.repo.parents(w.M0)[0], w=w)
+    wrong = rb_gate_case(out12, w.M0)
+    right = rb_gate_case(out0, w0.M0)
+    res[RB[12]].update(rt_l2_wrong_base=wrong[0], rt_l2_right_base=right[0], findings_wrong_base=wrong[1],
+                       findings_right_base=right[1])
+    att[RB[12]] = {'rt_l2_status': wrong[0]}
+    neg = [k for k in res if k not in (RB[0], RB[11])]
+    ok = 'base-drift' not in res[RB[0]]['classes'] and res[RB[0]]['admitted'] and not res[RB[0]]['invalid'] and \
+        res[RB[0]]['record_base'] == w0.M0 and \
+        all(res[k]['exit'] == 20 and res[k]['invalid'] for k in neg) and \
+        all(res[k]['why'] and res[k]['why'][0].startswith('the record base is not admitted')
+            for k in neg if k not in (RB[1], RB[2], RB[3])) and \
+        res[RB[11]]['exit'] == 64 and res[RB[11]]['usage'] == '--record-base in a chain-admitted run' and \
+        wrong[0] == 'FAIL' and right[0] == 'PASS'
+    check('RECORD-BASE', 'the record base of a run on a predicted M is named with --record-base M0 and admitted only '
+          'after the tool establishes it from git objects; the gate compares it with the pinned main',
+          'positive admitted with inputs.record_base M0; every countercase record-invalid; USAGE in a chain-admitted '
+          "run; the gate's rt_l2 FAIL for a different base and PASS for M0", res, ok,
+          cases=names, attested=att)
