@@ -1737,8 +1737,8 @@ mismatch to the failed operation where §A.49 rule 3 does.
 ## §A.52 Writer handover
 
 A designated writer (§A.45 rule 3, §A.51) may be replaced by another agent session, of the same or
-another provider, without repeating scientific approvals, restarting completed reviews or resetting
-the work. GitHub holds the state from which the replacement resumes.
+another provider, without repeating approvals already recorded, restarting completed reviews or
+resetting the work.
 
 1. **Checkpoint.** The outgoing writer pushes its work to the designated branch (§A.43 item 2) and
    records a handover checkpoint as a comment on the guiding pull request, or on the accountable
@@ -1748,24 +1748,23 @@ the work. GitHub holds the state from which the replacement resumes.
    - the open scientific questions;
    - the review status and unresolved findings;
    - the authorized scope and restrictions;
-   - any artifact not yet pushed;
+   - any artifact withheld from the branch under §A.43 item 5, and where it is held;
    - the next concrete action.
 
-   Checkpoints are updated at meaningful milestones and before an expected interruption, such as a
-   usage limit.
-2. **Designation.** The owner records the replacement writer on the same thread or on #1169. The
-   outgoing writer then stops writing to that branch, file or artifact; until then it remains the
-   writer, and no conflicting writer starts (§A.45 rule 3).
+   The checkpoint is kept current under §A.43 item 2; where the outgoing writer cannot write one at
+   handover, its latest checkpoint and the pushed branch head are the state the replacement verifies.
+2. **Designation.** The owner's decision designating the replacement writer is recorded on the same
+   thread, or in a record linked from it (§A.51: quoted with its author and time when automation
+   writes it). The outgoing writer then stops writing to that branch, file or artifact; until then
+   it remains the writer (§A.45 rule 3).
 3. **Resumption.** The replacement writer:
    - reconstructs the context from this file, the owner records, the accountable Issue, the plan, the
      branch and its reviews;
    - confirms that the branch head equals the recorded commit;
    - continues under the existing scope, authorization and acceptance criteria.
 
-   A mismatch stops it under §A.51 item 5.
-4. **Review.** A reviewer uninvolved in either writing stage is preferred. A review by an agent of
-   another provider is evidence of review, not independent mathematical verification (§A.46
-   item 8).
+   A mismatch is a stop under §A.51 item 5.
+4. **Review.** A reviewer uninvolved in the work of either writer is preferred.
 
 A handover authorizes nothing new and changes no scientific status. No handover file is added to the
 repository.
