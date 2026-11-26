@@ -1,5 +1,7 @@
 # Q-β b-consumption trace (#1049, lane 1) — REPORT
 
+> **Superseded by `REPORT-r2.md`.** `REPORT-r2.md` in this directory is the authoritative, independently reviewed version of this record, accepted by the owner (#1169 comment 7187418279); `CHANGES-r2.md` maps each change. The first version below is kept unchanged.
+
 **Standing: WIP / UNVERIFIED. Paper-only research record.** Source reading and hand algebra only. No computation was run, no Lean was built, no manuscript or registry was edited, and no premise was adopted, weakened or dropped; A5 remains a posit. Conventions, decision rule, controls, productivity test and stopping rule are those of `PLAN.md` (committed first, `1fdd0907`). Every new step is labelled [A] (exact hand algebra here, unreviewed) or [W] (reasoning here, unreviewed). Other labels as in `PLAN.md` §3: [K], [P], [D] (A5-LA, Q4, Q3), [R] (POSIT-MIN, OA-1, H-D).
 
 **Authorization.** Owner decision (amaybaum, 2026-11-26T06:25:53Z, #1169 comment 7184425769), lane 1, approved as written: "Determine which results genuinely depend on microscopic linearity and the zero-offset condition." Restrictions: paper-only, no computational experiments, no manuscript changes, no adoption of new premises, no automatic merges.
