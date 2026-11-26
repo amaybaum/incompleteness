@@ -195,6 +195,9 @@ ROWS = [
          'outcome': 'ANY',
          'invariants': [NONE_DRIFT, {'equals': 'the path\'s disposition is reconciled-resolved, category 2'}]},
         fail('countercase: a resolution window that occurs twice at M', ['RC14']),
+        {'case': 'countercase: a changed-span resolution whose writer-chosen window the review does not confirm (no '
+                 'review item that the window covers every changed byte and keeps or justifies each)',
+         'outcome': 'FAIL', 'classes_include': ['record-invalid']},
         fail('countercase: a conflict on a retained site\'s line with a resolution offered for it (no resolution '
              'route)', ['RC14']),
         {'case': 'countercase: scientific_effect that does not name the overlapped splice',
@@ -224,6 +227,9 @@ ROWS = [
          'outcome': 'FAIL', 'classes_include': ['retirement-blocked']},
         {'case': 'a later commit on M reverting the invalidating change, the plan unchanged',
          'outcome': 'FAIL', 'classes_include': ['retirement-blocked']},
+        {'case': 'a revert of the path to exactly H\'s bytes with no other drifted path (a run-level item names the '
+                 'path)',
+         'outcome': 'FAIL', 'classes_include': ['retirement-blocked']},
         {'case': 'a reviewed repair of the change landed on M and recorded by its own reconciliation record entry, the '
                  'plan unchanged',
          'outcome': 'FAIL', 'classes_include': ['retirement-blocked']},
@@ -246,6 +252,8 @@ ROWS = [
 for _r, _ in ROWS:
     if _r['id'] in ('RECON-CATEGORY', 'RECON-OVERLAP', 'RECON-BLOCK'):
         _r['source'] = SRC + '; categories: #1169 comment 7184808247 (2026-11-26T06:48:37Z), item 3'
+        if _r['id'] == 'RECON-BLOCK':
+            _r['source'] += '; block lifecycle: #1169 comment 7185092393 (2026-11-26T07:05:39Z), item 4'
 NEW_IDS = [r['id'] for r, _ in ROWS]
 REQ_CONTROLS = {}
 for _r, _ in ROWS:
@@ -285,7 +293,8 @@ ledger-path check is mandatory: every op C run with `M` gives every path that di
 ledgered or corpus exactly one disposition in its result: `reconciled`, naming the record and entry that apply, or an
 item `base-drift` (FAIL), naming each failed condition or that no admitted record covers the path. No such path is
 omitted, none has two, and a path that does not differ has none; the result's JSON Schema refuses a result that breaks
-this. A run-level `reconciled-state` item of R6.RECON.23 is not a disposition. Each disposition carries the path's
+this. A run-level `reconciled-state` item (R6.RECON.23) or `retirement-blocked` item (R6.RECON.26) is not a
+disposition. Each disposition carries the path's
 category: category 1 (mechanical), when every condition RC1-RC14 holds for an applying entry with no conflict,
 disposition `reconciled`; category 2 (overlap), when RC14 finds a conflict or a splice's old bytes do not occur once at
 `M`, disposition `reconciled-resolved` only under an explicit resolution (R6.RECON.24), otherwise `base-drift`;
@@ -330,8 +339,12 @@ window or line repeated verbatim at `M` (for example identical table rows) fails
 elsewhere, and is resolved explicitly as below. A change on `M` that touches a planned retirement edit's context is
 reported as a conflict and never resolved by translation; a translation that relocates a splice whose span `M` changed
 fails here. **Explicit resolution (category 2).** A conflict is resolved only by an entry's `resolutions`, one for each
-conflicting splice: the window at `M` (`start_M`, `end_M`, `sha256`), which equals the splice's conflicting context
-window, and the resolved bytes' sha256. The resolution applies only if the window occurs exactly once at `M`, the
+conflicting splice: the window at `M` (`start_M`, `end_M`, `sha256`) and the resolved bytes' sha256. Where `H`'s
+context window still occurs at `M`, the resolution window equals it. Where it does not (the span or its context
+changed), the writer chooses the window at `M` and the reviewer verifies it: the review record confirms, as an item of
+the resolution, that the window covers every byte `M` changed in the splice's context, and that every byte `M` changed
+inside the window is kept in the resolved bytes or that dropping it is justified; the tool checks only that the window
+occurs once at `M` and that the review covers and accepts that item. The resolution applies only if the window occurs exactly once at `M`, the
 resolved bytes contain the splice's approved new bytes exactly once, the entry's `l` equals the resolved composition
 (R6.TREE.12), the entry's `scientific_effect` names the splice in `conclusions` with verdict `no-effect` (the renewed
 scientific review), and the review record covers each resolution and accepts it. A resolved splice is not translated:
@@ -369,11 +382,12 @@ that the change invalidates the basis of a planned edit, whatever the writer's v
 `invalidated`, each an edit id with the canonical sha256 of its edit-list entry. A record or review record carrying a
 finding is landed on `main` at once, by its own commit outside any run (under the owner's merge approval, AGENTS.md
 sec. A.50 item 1), before any further run of the retirement's landing; R6.RECON.20's re-resolution of `M` before the
-landing brings it into every later run's `M`. Every run with a drifted ledgered or corpus path scans `M`'s tree, and the
-records the run reads and the scanned sets of `F`'s tree and, for a post-freeze run, of `REV`'s tree, for findings, by
-the scan of R6.RECON.2 (d), chain runs without `--classify` included. A finding found there blocks every run whose `M`
-contains one of the entry's `side_change_commits`: the entry's path takes the disposition `retirement-blocked` and an
-item FAIL `retirement-blocked` (obligation `RET`), for as long as the configuration's ledger holds, for each
+landing brings it into every later run's `M`. Every run scans `M`'s tree, and the records the run reads and the scanned
+sets of `F`'s tree and, for a post-freeze run, of `REV`'s tree, for findings, by the scan of R6.RECON.2 (d), whether or
+not any path differs between `H` and `M`, chain runs without `--classify` included. A finding found there blocks every
+run whose `M` contains one of the entry's `side_change_commits`, with an item FAIL `retirement-blocked` (obligation
+`RET`): the entry's path takes the disposition `retirement-blocked` when it differs between `H` and `M`; when it does not
+(for example after a revert to `H`'s bytes), the item is a run-level item naming the path. The block holds for as long as the configuration's ledger holds, for each
 invalidated edit id, an edit-list entry with the same canonical sha256. A finding counts whether or not a later record
 supersedes the entry and whatever `REV` a run names; no reconciliation record, resolution, supersession, or later
 commit that reverts or repairs the change clears the block. The block is scoped to the frozen plan: it binds every
@@ -385,7 +399,7 @@ revised one, is not blocked by the old finding; its renewed verification and tri
 run's do, and the retirement becomes eligible for approval again only when they pass. A later repair can resolve the
 underlying scientific problem, but cannot validate the invalidated frozen plan. The tool cannot find a category-3 change by itself: it relies on the review, and it enforces mechanically that a
 recorded finding blocks.
-Sources: %(src3)s. Controls: RECON-BLOCK.
+Sources: %(src4)s. Controls: RECON-BLOCK.
 '''
 
 
@@ -420,7 +434,9 @@ def note(owner):
         'check: whether a change bears on the scientific justification beyond what the profiles and postconditions '
         'detect (for example a change to a verification script\'s logic, or a change in a sentence\'s meaning that no '
         'profile matches), and so it cannot find a category-3 change or judge a category-2 resolution\'s wording; '
-        'those rest on the independent review of R6.RECON.24 and R6.RECON.25.',
+        'those rest on the independent review of R6.RECON.24 and R6.RECON.25. The obligation to land a category-3 '
+        'finding on `main` at once is procedural: the tool enforces the block only from the commit that lands the '
+        'finding (R6.RECON.26).',
         '',
         'Preserved, stated before the change as its controls (AGENTS.md sec. A.29): the meaning of RC1-RC9, RC12 and '
         'RC13 for each path; the composition and translation rules (R6.TREE.12, R6.TREE.13), extended only for a path '
@@ -569,7 +585,8 @@ def amend_design(t, owner):
              "  `oi-side-change-classes/1`, `oi-reconciliation/2` %s, `oi-review-record/1`);" % MARK, 'R6.CORE.5 schema')
     t = once(t, "\n***\n\n## 24. Engine, purity scope (Z9), generality",
              NEW_REQ_TEXT % {'mark': MARK, 'src': 'amendment 3 (#1169 comments 7184569981 and 7184626125)',
-                             'src3': 'amendment 3 (#1169 comments 7184569981, 7184626125 and 7184808247)'}
+                             'src3': 'amendment 3 (#1169 comments 7184569981, 7184626125 and 7184808247)',
+                             'src4': 'amendment 3 (#1169 comments 7184569981, 7184626125, 7184808247 and 7185092393)'}
              + "\n***\n\n## 24. Engine, purity scope (Z9), generality", 'new requirements')
     # R6.CTRL.3: the six rows and the recount
     t = once(t, "direction on each of those 42 rows and adds 14 rows (B1) and 6 rows (B4), each with one. Counted",
@@ -646,7 +663,8 @@ def amend_requirements(R):
     i = [k for k, q in enumerate(R) if q['id'] == 'R6.RECON.21'][0]
     new = [{'id': q, 'section': 'RECON', 'section_number': 23, 'kind': 'testable',
             'sources': ['#1169 comment 7184569981', '#1169 comment 7184626125'] +
-                       (['#1169 comment 7184808247'] if q in ('R6.RECON.22', 'R6.RECON.24', 'R6.RECON.26') else []),
+                       (['#1169 comment 7184808247'] if q in ('R6.RECON.22', 'R6.RECON.24', 'R6.RECON.26') else []) +
+                       (['#1169 comment 7185092393'] if q == 'R6.RECON.26' else []),
             'controls': list(REQ_CONTROLS[q]),
             'verification': ['controls', 'review'] if q in ('R6.RECON.25', 'R6.RECON.26') else ['controls'], 'open': [],
             'pending_owner_confirmation': [PENDING], 'owner_decision': []} for q in NEW_REQS]
@@ -853,6 +871,10 @@ def change_record(owner, outs, gen_sha, owner_sha):
               'finding, and its renewed verification and trials run normally, the retirement becoming eligible for '
               'approval again when they pass. RECON-BLOCK covers both directions: the repair and a new freeze with the '
               'entry unchanged stay blocked; a revised plan that changes or removes the entry is not blocked.', '',
+              '- Changed-span resolution windows (R6.RECON.24): option (b) is chosen, the writer choosing the window '
+              'and the review confirming it. It adds no rule to the tool beyond a review item; option (a), windows '
+              'bounded by the nearest unique unchanged lines, would add an anchor search whose result can still cut '
+              'through a change, so the review would have to check it anyway.', '',
               '- Retained-site conflicts (R6.RECON.24): the minimal option is chosen. A retained site is a plan decision '
               'with no new bytes to keep, so no objective resolution check exists; a conflict on its line stays '
               '`base-drift` until a revised plan. Defining a resolution for it would add a rule the tool cannot check.',
@@ -913,7 +935,8 @@ def manifest(m, outs, gen_sha, owner_sha):
     m = once(m, '| LANDING-MANIFEST.md | this manifest (A5) | amendment-2 output | (this file) |',
              rows + '| LANDING-MANIFEST.md | this manifest (A5) | amendment-3 output | (this file) |', 'manifest self')
     para = ('\nAmendment 3 (owner decisions of 2026-11-26T06:34:32Z, 2026-11-26T06:37:58Z and 2026-11-26T06:48:37Z, '
-            'amaybaum, #1169 comments 7184569981, 7184626125 and 7184808247, quoted in DESIGN-r6.md sec. 0.4): DESIGN-r6.md, EXPECTATIONS.json and '
+            'amaybaum, #1169 comments 7184569981, 7184626125 and 7184808247, and 2026-11-26T07:05:39Z, #1169 comment '
+            '7185092393, item 4, quoted in DESIGN-r6.md sec. 0.4): DESIGN-r6.md, EXPECTATIONS.json and '
             'REQUIREMENTS.json are amended, and AMENDMENT-3.md records the analysis and the changes. Recipe: run the '
             'amendment-2 recipe into `out2/`, copy REQUIREMENTS.json of `out1/` into `out2/`, and run `python3 -I -B '
             'generator-amendment3/amend3.py out2 out3`. It checks the four files against their sha256, exits 0 and '

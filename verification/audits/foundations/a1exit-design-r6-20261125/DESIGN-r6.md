@@ -465,7 +465,7 @@ Each drifted path falls in one of three categories (R6.RECON.22):
 | 2, overlap | RC14 finds a conflict, or a splice's old bytes do not occur once at `M` (its span changed) | `reconciled-resolved` with an applying reviewed resolution of each conflicting splice and a renewed scientific review; otherwise `base-drift`. A retained-site conflict has no resolution: `base-drift` until a revised plan (a new freeze) | the tool decides the category; the reviewer the resolution | RECON-CATEGORY, RECON-OVERLAP |
 | 3, invalidating | a reviewed `scientific_effect` with verdict `invalidates`, for an edit of any path | `retirement-blocked` (FAIL), which no reconciliation record clears; only a revised plan (a new freeze, AGENTS.md sec. A.50) does | the review; the tool enforces the block | RECON-BLOCK |
 
-What the tool can check mechanically: every changed ledgered or corpus path and its disposition; each record entry's binding and RC1-RC14 from git objects; the absence, at the landing, of any profile finding or postcondition failure that the candidate does not have; category 1 and category 2; that a recorded category-3 verdict blocks; the form of the scientific review and of a resolution. What it cannot check: whether a change bears on the scientific justification beyond what the profiles and postconditions detect (for example a change to a verification script's logic, or a change in a sentence's meaning that no profile matches), and so it cannot find a category-3 change or judge a category-2 resolution's wording; those rest on the independent review of R6.RECON.24 and R6.RECON.25.
+What the tool can check mechanically: every changed ledgered or corpus path and its disposition; each record entry's binding and RC1-RC14 from git objects; the absence, at the landing, of any profile finding or postcondition failure that the candidate does not have; category 1 and category 2; that a recorded category-3 verdict blocks; the form of the scientific review and of a resolution. What it cannot check: whether a change bears on the scientific justification beyond what the profiles and postconditions detect (for example a change to a verification script's logic, or a change in a sentence's meaning that no profile matches), and so it cannot find a category-3 change or judge a category-2 resolution's wording; those rest on the independent review of R6.RECON.24 and R6.RECON.25. The obligation to land a category-3 finding on `main` at once is procedural: the tool enforces the block only from the commit that lands the finding (R6.RECON.26).
 
 Preserved, stated before the change as its controls (AGENTS.md sec. A.29): the meaning of RC1-RC9, RC12 and RC13 for each path; the composition and translation rules (R6.TREE.12, R6.TREE.13), extended only for a path with an applying category-2 resolution; `base-drift` for every drifted path that no applying record covers (R6.TREE.7); identical items on `X` with and without the records (R6.RECON.3); the composition's authority over a record's `l` (R6.RECON.19); the post-freeze route and its one record per path (R6.RECON.2); RT-L2's three values; and every existing control row and expectation, none of which changes. With one drifted ledgered path and no other side change, RC10 and RC11 as amended give the verdicts they gave before. Whether every existing positive control (TT8, POSTF-1 and the other positive reconciliation fixtures) also satisfies RC14 and the reconciled-state trial is a check for the tool revision; the independent review found no change of verdict for TT8 at 933b1efd or for the B4 AGENTS.md record (splice D296).
 
@@ -4916,7 +4916,8 @@ ledger-path check is mandatory: every op C run with `M` gives every path that di
 ledgered or corpus exactly one disposition in its result: `reconciled`, naming the record and entry that apply, or an
 item `base-drift` (FAIL), naming each failed condition or that no admitted record covers the path. No such path is
 omitted, none has two, and a path that does not differ has none; the result's JSON Schema refuses a result that breaks
-this. A run-level `reconciled-state` item of R6.RECON.23 is not a disposition. Each disposition carries the path's
+this. A run-level `reconciled-state` item (R6.RECON.23) or `retirement-blocked` item (R6.RECON.26) is not a
+disposition. Each disposition carries the path's
 category: category 1 (mechanical), when every condition RC1-RC14 holds for an applying entry with no conflict,
 disposition `reconciled`; category 2 (overlap), when RC14 finds a conflict or a splice's old bytes do not occur once at
 `M`, disposition `reconciled-resolved` only under an explicit resolution (R6.RECON.24), otherwise `base-drift`;
@@ -4961,8 +4962,12 @@ window or line repeated verbatim at `M` (for example identical table rows) fails
 elsewhere, and is resolved explicitly as below. A change on `M` that touches a planned retirement edit's context is
 reported as a conflict and never resolved by translation; a translation that relocates a splice whose span `M` changed
 fails here. **Explicit resolution (category 2).** A conflict is resolved only by an entry's `resolutions`, one for each
-conflicting splice: the window at `M` (`start_M`, `end_M`, `sha256`), which equals the splice's conflicting context
-window, and the resolved bytes' sha256. The resolution applies only if the window occurs exactly once at `M`, the
+conflicting splice: the window at `M` (`start_M`, `end_M`, `sha256`) and the resolved bytes' sha256. Where `H`'s
+context window still occurs at `M`, the resolution window equals it. Where it does not (the span or its context
+changed), the writer chooses the window at `M` and the reviewer verifies it: the review record confirms, as an item of
+the resolution, that the window covers every byte `M` changed in the splice's context, and that every byte `M` changed
+inside the window is kept in the resolved bytes or that dropping it is justified; the tool checks only that the window
+occurs once at `M` and that the review covers and accepts that item. The resolution applies only if the window occurs exactly once at `M`, the
 resolved bytes contain the splice's approved new bytes exactly once, the entry's `l` equals the resolved composition
 (R6.TREE.12), the entry's `scientific_effect` names the splice in `conclusions` with verdict `no-effect` (the renewed
 scientific review), and the review record covers each resolution and accepts it. A resolved splice is not translated:
@@ -5000,11 +5005,12 @@ that the change invalidates the basis of a planned edit, whatever the writer's v
 `invalidated`, each an edit id with the canonical sha256 of its edit-list entry. A record or review record carrying a
 finding is landed on `main` at once, by its own commit outside any run (under the owner's merge approval, AGENTS.md
 sec. A.50 item 1), before any further run of the retirement's landing; R6.RECON.20's re-resolution of `M` before the
-landing brings it into every later run's `M`. Every run with a drifted ledgered or corpus path scans `M`'s tree, and the
-records the run reads and the scanned sets of `F`'s tree and, for a post-freeze run, of `REV`'s tree, for findings, by
-the scan of R6.RECON.2 (d), chain runs without `--classify` included. A finding found there blocks every run whose `M`
-contains one of the entry's `side_change_commits`: the entry's path takes the disposition `retirement-blocked` and an
-item FAIL `retirement-blocked` (obligation `RET`), for as long as the configuration's ledger holds, for each
+landing brings it into every later run's `M`. Every run scans `M`'s tree, and the records the run reads and the scanned
+sets of `F`'s tree and, for a post-freeze run, of `REV`'s tree, for findings, by the scan of R6.RECON.2 (d), whether or
+not any path differs between `H` and `M`, chain runs without `--classify` included. A finding found there blocks every
+run whose `M` contains one of the entry's `side_change_commits`, with an item FAIL `retirement-blocked` (obligation
+`RET`): the entry's path takes the disposition `retirement-blocked` when it differs between `H` and `M`; when it does not
+(for example after a revert to `H`'s bytes), the item is a run-level item naming the path. The block holds for as long as the configuration's ledger holds, for each
 invalidated edit id, an edit-list entry with the same canonical sha256. A finding counts whether or not a later record
 supersedes the entry and whatever `REV` a run names; no reconciliation record, resolution, supersession, or later
 commit that reverts or repairs the change clears the block. The block is scoped to the frozen plan: it binds every
@@ -5016,7 +5022,7 @@ revised one, is not blocked by the old finding; its renewed verification and tri
 run's do, and the retirement becomes eligible for approval again only when they pass. A later repair can resolve the
 underlying scientific problem, but cannot validate the invalidated frozen plan. The tool cannot find a category-3 change by itself: it relies on the review, and it enforces mechanically that a
 recorded finding blocks.
-Sources: amendment 3 (#1169 comments 7184569981, 7184626125 and 7184808247). Controls: RECON-BLOCK.
+Sources: amendment 3 (#1169 comments 7184569981, 7184626125, 7184808247 and 7185092393). Controls: RECON-BLOCK.
 
 ***
 

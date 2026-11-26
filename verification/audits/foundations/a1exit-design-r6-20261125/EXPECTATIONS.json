@@ -22842,6 +22842,13 @@
       ]
      },
      {
+      "case": "countercase: a changed-span resolution whose writer-chosen window the review does not confirm (no review item that the window covers every changed byte and keeps or justifies each)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     },
+     {
       "case": "countercase: a conflict on a retained site's line with a resolution offered for it (no resolution route)",
       "outcome": "FAIL",
       "classes_include": [
@@ -22945,6 +22952,13 @@
       ]
      },
      {
+      "case": "a revert of the path to exactly H's bytes with no other drifted path (a run-level item names the path)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked"
+      ]
+     },
+     {
       "case": "a reviewed repair of the change landed on M and recorded by its own reconciliation record entry, the plan unchanged",
       "outcome": "FAIL",
       "classes_include": [
@@ -22993,7 +23007,7 @@
      }
     ]
    },
-   "source": "r6 amendment 3 (owner decisions of 2026-11-26T06:34:32Z, #1169 comment 7184569981, and 2026-11-26T06:37:58Z, #1169 comment 7184626125); categories: #1169 comment 7184808247 (2026-11-26T06:48:37Z), item 3",
+   "source": "r6 amendment 3 (owner decisions of 2026-11-26T06:34:32Z, #1169 comment 7184569981, and 2026-11-26T06:37:58Z, #1169 comment 7184626125); categories: #1169 comment 7184808247 (2026-11-26T06:48:37Z), item 3; block lifecycle: #1169 comment 7185092393 (2026-11-26T07:05:39Z), item 4",
    "flags": [
     "added by amendment 3; no runner records it before the tool revision implements it"
    ]

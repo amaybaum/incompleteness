@@ -12,9 +12,9 @@ Directory: `verification/audits/foundations/a1exit-design-r6-20261125/`. The lan
 
 | Path | Role | Source | sha256 |
 |---|---|---|---|
-| DESIGN-r6.md | final r6 document (the design) | amendment-3 output | 7bf2ac03a3b9862cdb2c5dddb325167564d6b652294d0ac0bf8758f96710944b |
-| EXPECTATIONS.json | final r6 document (expectation file) | amendment-3 output | 8675089acac8a7c5035cee6cc7e88f03b6bbf3cb736213126604e7f5ee121cd4 |
-| REQUIREMENTS.json | final r6 document (requirement index) | amendment-3 output | 72128c145b5a555f46a1c64a318fec93a056298e3248293c4a6f7c5bc26f795f |
+| DESIGN-r6.md | final r6 document (the design) | amendment-3 output | 4394fd2aa3ec536cd4ae92ba0b83da54cea440558f76cf4553ac4a8a42909793 |
+| EXPECTATIONS.json | final r6 document (expectation file) | amendment-3 output | d98cabaf937cf86a754c6bd2b997ba8c4c0206056cdf55d717d82c01f2b2c0d0 |
+| REQUIREMENTS.json | final r6 document (requirement index) | amendment-3 output | 21c4cfc14c0e56c564ca87aa42c5bef7c134943224ce84f4bd7f2ff5c923ba36 |
 | MIGRATION.json | final r6 document (migration index) | amendment-2 output | d1471fa3914b0e062aeae7ac544c34f076707c59e6f4d1b2260fd3b30b2ba7b2 |
 | PARAPHRASED-DECISIONS.md | final r6 document (list of paraphrased decisions) | unchanged from 2aec244e (blob c37ba6f98243) | 05602f3ec2f971ad860bc864a2ad8fce2d115948b0d3ac369ef17874746b65ce |
 | AUTHORIZATIONS.md | final r6 document (decision records relied on) | round-5 output | 6a7e01ac906512c420db05ff0f07a54091978d6a257488ad4a3dc3d4d97c1238 |
@@ -52,8 +52,8 @@ Directory: `verification/audits/foundations/a1exit-design-r6-20261125/`. The lan
 | AMENDMENT-2.md | change record of amendment 2 | amendment-2 output | 85a737097d1c8be5019aa691985b8bf5fdefd5869a660143e49b424343273b5f |
 | generator-amendment2/amend2.py | amendment-2 generator | amendment-2 generator | e908341aef5f9620356820727de27f4373e94f65d514601e1156a01560dfdf5a |
 | generator-amendment2/owner-decision-amendment2.json | amendment-2 generator input (the owner decision quoted) | amendment-2 generator | a9c7f56a0cbb9fce8f9e7c40f2925357c9774fa784dac2bb0566afe989e6482f |
-| AMENDMENT-3.md | change record of amendment 3 | amendment-3 output | 2e13142911f4c0b0f69433ee110f162d2eed714814272e3a171420b6607c2ee8 |
-| generator-amendment3/amend3.py | amendment-3 generator | amendment-3 generator | 22cd1796dadad84e4c7562c7d6e79419e490fd97b79337884a65de8f3032f6fe |
+| AMENDMENT-3.md | change record of amendment 3 | amendment-3 output | fe19035e7e1a8b48dcbf112360fe5a3497e22e1c04a43ac5213dd52f1d214fab |
+| generator-amendment3/amend3.py | amendment-3 generator | amendment-3 generator | aa9bb7f41d5598b2bcb6d87aa21954364f97039bb0bfcd52dcbb505fd83b732d |
 | generator-amendment3/owner-decisions-amendment3.json | amendment-3 generator input (the owner decisions quoted) | amendment-3 generator | 87a041cf924182723e7db33943ee515d202fd1a3d594b72b46d6772d856ea1f0 |
 | LANDING-MANIFEST.md | this manifest (A5) | amendment-3 output | (this file) |
 
@@ -67,7 +67,7 @@ Amendment 1 (owner decision of 2026-11-26T04:39:58Z, amaybaum, #1169 comment 718
 
 Amendment 2 (owner decision of 2026-11-26T05:53:39Z, amaybaum, #1169 comment 7183914927, quoted in DESIGN-r6.md sec. 0.3): DESIGN-r6.md, EXPECTATIONS.json and MIGRATION.json are amended, and AMENDMENT-2.md maps each change to its decision. Recipe: run the amendment-1 recipe into `out1/`, copy MIGRATION.json of this directory at main 02b8e20839d4700de721f8427b3fe9f3c746b71f into `out1/`, and run `python3 -I -B generator-amendment2/amend2.py out1 out2`. It checks the four files against their sha256, exits 0 and writes into `out2/` the files of sec. 1 marked "amendment-2 output" with the sha256 stated and this manifest.
 
-Amendment 3 (owner decisions of 2026-11-26T06:34:32Z, 2026-11-26T06:37:58Z and 2026-11-26T06:48:37Z, amaybaum, #1169 comments 7184569981, 7184626125 and 7184808247, quoted in DESIGN-r6.md sec. 0.4): DESIGN-r6.md, EXPECTATIONS.json and REQUIREMENTS.json are amended, and AMENDMENT-3.md records the analysis and the changes. Recipe: run the amendment-2 recipe into `out2/`, copy REQUIREMENTS.json of `out1/` into `out2/`, and run `python3 -I -B generator-amendment3/amend3.py out2 out3`. It checks the four files against their sha256, exits 0 and writes into `out3/` the files of sec. 1 marked "amendment-3 output" with the sha256 stated and this manifest.
+Amendment 3 (owner decisions of 2026-11-26T06:34:32Z, 2026-11-26T06:37:58Z and 2026-11-26T06:48:37Z, amaybaum, #1169 comments 7184569981, 7184626125 and 7184808247, and 2026-11-26T07:05:39Z, #1169 comment 7185092393, item 4, quoted in DESIGN-r6.md sec. 0.4): DESIGN-r6.md, EXPECTATIONS.json and REQUIREMENTS.json are amended, and AMENDMENT-3.md records the analysis and the changes. Recipe: run the amendment-2 recipe into `out2/`, copy REQUIREMENTS.json of `out1/` into `out2/`, and run `python3 -I -B generator-amendment3/amend3.py out2 out3`. It checks the four files against their sha256, exits 0 and writes into `out3/` the files of sec. 1 marked "amendment-3 output" with the sha256 stated and this manifest.
 
 ## 2. Files left to Git history
 
