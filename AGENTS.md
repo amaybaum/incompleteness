@@ -1651,7 +1651,25 @@ explicit approval each time:
    any run that uses the plan's designated trial records, executes its trial procedure, or could
    change the plan's scientific status. Unit tests, synthetic controls and ordinary CI controls
    that do none of these are not trials; a case that may be one is put to the owner first;
-3. deleting branches, Issues, pull requests or evidence;
+3. deleting branches, Issues, pull requests or evidence, except deleting a branch reference when
+   all of the following are checked before the deletion and the check is recorded, under §A.49, on
+   the pull request that merged the branch or on its accountable Issue, stating the branch, the head
+   commit checked, the `main` commit checked against and the result of each condition:
+   - the head commit is an ancestor of `main`, so that every commit on the branch is reachable from
+     `main` and nothing on the branch exists only there (§A.42 items 5 and 8);
+   - no frozen record or protocol, verification mechanism (a workflow, including one whose trigger
+     pattern matches the branch, a guard, a check or a tool) or operative record (a work package, an
+     active workstream's checkpoint, or an open pull request whose base is the branch) depends on
+     the branch by its name rather than on commits reachable from `main`; a record that cites the
+     branch only as provenance does not count;
+   - the branch is not protected by branch protection or a ruleset, and is not held at a candidate
+     `F` or `E` (§A.43 item 3).
+
+   The deletion is made only if the branch still points at the head commit checked. A deletion the
+   host makes automatically at a merge is covered only when the merge is a merge commit into `main`
+   made at the head commit checked, the repository permits no other merge method into `main`, and
+   the other conditions were checked and recorded before the merge. Every other deletion of a
+   branch, and every deletion of an Issue, a pull request or evidence, needs the owner's approval;
 4. sending material outside GitHub;
 5. freezing a preregistration, protocol or experimental plan, including designating a round's `F`
    or `E` (§A.39), or amending one once frozen;
@@ -1662,7 +1680,8 @@ Other work follows this file: work packages under §A.51, GitHub writes under §
 
 Adopted 2026-11-23 by owner decision (`amaybaum`, coordinating session); item 2 amended, items 5
 and 6 added and the closing line reworded 2026-11-24 by owner decision (`amaybaum`, #1169 comment
-7124456482).
+7124456482); item 3's exception for fully merged branch references added 2026-11-26 by owner
+decision (`amaybaum`, #1169 comment 7202467295), drafted under #1169 comment 7202329986, item 3.
 
 ***
 
@@ -1701,12 +1720,15 @@ permission broader than the instruction grants.
 3. **Pushes.** A package's writers push only to the branches it designates. None of them is `main`,
    a protected branch, a branch held at a candidate `F` or `E` (§A.43 item 3), or a trigger branch
    whose push starts a launch the package does not name. Before each push the writer confirms that
-   no stop is in force (item 5); that the push creates a ref or fast-forwards one; that the commits
-   meet §A.43 items 1 and 5, the applicable checks of §A.40 have been run on them and any that fail
-   are stated as §A.43 item 2 requires; and that the push starts no launch the package does not name
-   (§A.43 item 4). After the push the remote ref is read back and must equal the commit pushed. No
-   force-push, history rewrite or ref deletion is made under a package. An agent's push under
-   another authorization meets the same conditions, with that authorization in place of the package.
+   no stop is in force (item 5); that the push creates a ref, fast-forwards one or, as this item
+   permits, deletes one with a lease on the head commit checked; that the commits meet §A.43 items 1
+   and 5, the applicable checks of §A.40 have been run on them and any that fail are stated as §A.43
+   item 2 requires; and that the push starts no launch the package does not name (§A.43 item 4).
+   After the push the remote ref is read back and must equal the commit pushed, or, after a
+   deletion, be absent. No force-push or history rewrite is made under a package, and no ref
+   deletion except the deletion, under §A.50 item 3's exception, of a branch the package designates
+   and names for deletion in its scope. An agent's push under another authorization meets the same
+   conditions, with that authorization in place of the package.
 4. **CI.** The workflows that run automatically on the package's pushes and pull requests run under
    it, within its resource limits. The package may name further workflows that its writers may
    dispatch or launch, each with its branch, its inputs or the rule that fixes them, and its limit;
@@ -1730,7 +1752,9 @@ permission broader than the instruction grants.
 Adopted 2026-11-24 by owner decision (`amaybaum`, #1169 comment 7124456482); items 2 and 5
 amended 2026-11-25 by owner decision (`amaybaum`, #1169 comment 7171625550), to let a
 difference that §A.49 rule 2's allowlist permits pass a validation write, and to confine a §A.49
-mismatch to the failed operation where §A.49 rule 3 does.
+mismatch to the failed operation where §A.49 rule 3 does; item 3 amended 2026-11-26 by owner
+decision (`amaybaum`, #1169 comment 7202467295), to admit a leased deletion of a branch reference
+under §A.50 item 3's exception.
 
 ***
 
