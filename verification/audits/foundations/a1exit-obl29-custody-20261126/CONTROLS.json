@@ -1,6 +1,6 @@
 {
  "schema": "oi-obl29-custody-controls/draft",
- "status": "paper design c4, pending independent review and adoption. Each control is a specification; on adoption each would become an expectation row with runner null. 'kills' names the implementation mutation the control must detect (mutation-tested in principle); a residual control documents a limit and kills nothing. A paired control is two runs whose outcomes are compared. 'variant' tags a control with the variant of decision D-1 it tests (i, ii, both, or a paired run of both); a control tagged with an unadopted variant is dropped on adoption.",
+ "status": "paper design c5, pending independent review and adoption. Each control is a specification; on adoption each would become an expectation row with runner null. 'kills' names the implementation mutation the control must detect (mutation-tested in principle); a residual control documents a limit and kills nothing. A paired control is two runs whose outcomes are compared. 'variant' tags a control with the variant of decision D-1 it tests (i, ii, both, or a paired run of both); a control tagged with an unadopted variant is dropped on adoption.",
  "authority": "Owner decision (amaybaum, received 2026-11-26T19:52Z, coordinating session; #1169 comment 7202075726), item 5.",
  "base": "OBL-29 remedy r9 at 77a73c022091f598cf807fcf89d66c3cf43208de (adopted, #1601 comment 7197486426); drafting snapshot origin/main 84e927b9b7c2bcc8cb9624cb036167dae233e408.",
  "fixture": "Fixture: the r9 fixture (a configuration K frozen at F citing reassessment A, repair Q superseding P, finding f) with custody constants PATH and BOOT in record_authority.py. V0 is the bootstrap version at BOOT with base B0. Unless stated, the run is op C execution at effective M with a cited discharge of A whose every other condition holds, K's freeze has not landed (K is not in R*(M), has no receipt and no freeze entry), every custody version that adds entries has an accepting non-author review of every added item, and every regular mode named is 100644 or 100755.",
@@ -852,14 +852,33 @@
    "variant": "both",
    "requirements": [
     "R6.CUST.5 (c3) run results",
-    "OQ-17"
+    "OQ-17",
+    "OQ-19"
    ],
-   "setup": "With OQ-17 adopted: F1's close lists (M1, null) and the landing tree holds no result.json under <dir>/op-c-runs/. Variant: a result.json there has inputs.freeze naming another freeze. Variant: a result.json there fails schema oi-ledger-coverage/5.",
+   "setup": "With OQ-17 and OQ-19 adopted (M read from the named field OQ-19 fixes): F1's close lists (M1, null). Variant a: the landing tree holds no result.json under <dir>/op-c-runs/. Variant b: a result.json there has config.commit naming another freeze. Variant c: one has operation other than \"execution\", or config.admission.mode harness, or a harness field. Variant d: one fails schema oi-ledger-coverage/5. Variant e (errored result): the only result.json for F1 has outcome ERROR and records (M1, null).",
    "expected": {
     "outcome": "FAIL",
-    "item": "custody-runs-mismatch"
+    "item": "custody-runs-mismatch",
+    "note": "in variant e the errored result is not a run, so the listed run (M1, null) has no result and fails as missing; the same errored result beside an evaluating result for (M1, null) is ignored"
    },
-   "kills": "skipping the runs check when results are absent, or reading results without checking their freeze and schema"
+   "kills": "reading nonexistent fields (inputs.operation, inputs.freeze), reading the diagnostic roles.M, skipping the check when results are absent, or counting a non-evaluating result as a run"
+  },
+  {
+   "id": "CU-P11",
+   "kind": "positive",
+   "variant": "paired (i) and (ii)",
+   "requirements": [
+    "R6.CUST.5 (c4) pin rule"
+   ],
+   "setup": "Kx's PREREG.md pin is introduced at commit P1 (listed in P1's tree, absent from its parent's) and remains present at every later commit, M included. No freeze of Kx is designated. An unfrozen entry for Kx is introduced in a custody version at a commit descending from P1, with its R6.CUST.8 review.",
+   "expected": {
+    "outcome": "PASS",
+    "custody": "established",
+    "invariants.not_class": [
+     "custody-incomplete"
+    ]
+   },
+   "kills": "treating every commit whose tree lists the pin as a pinning commit, so that a cover written after the pin's introduction fails while the pin stays present"
   }
  ]
 }

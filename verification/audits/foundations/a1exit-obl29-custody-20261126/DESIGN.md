@@ -1,8 +1,8 @@
-# OBL-29 custody: format, bootstrap inventory and mapping to admitted inputs (paper design c4)
+# OBL-29 custody: format, bootstrap inventory and mapping to admitted inputs (paper design c5)
 
 ## 0. Status, authority, scope and goal link
 
-**Status.** Paper design c4, pending an owner decision on the context source (§4.2, decision D-1), independent review and adoption. The proposed
+**Status.** Paper design c5, pending an owner decision on the context source (§4.2, decision D-1), independent review and adoption. The proposed
 requirements (ids `R6.CUST.n`) have no force until adoption. Adoption of this design does not
 discharge OBL-29, does not authorize implementing custody-dependent discharge, and changes no
 schema, admission rule or release-gate step by itself (§7).
@@ -20,7 +20,9 @@ review, relayed by the coordinating session; c2 at `b61467e9efecc435798861130a5a
 received REVISE from the independent re-review posted on PR #1616 (comment 7202652276). c3 answers
 findings 2 to 6 of that re-review and drafts both variants of finding 1, which awaits the owner's
 decision (D-1); c3 at `ca82d23ef4b604b040660515e486fe6fdfdf1f9d` received a small REVISE (PR #1616
-comment 7202781537), which c4 answers, keeping both variants. §9 maps findings to changes and records each choice made where a finding offered one.
+comment 7202781537), which c4 answers, keeping both variants; c4 at
+`3658ed49f210f83f633a47cf2546ea5606b005b2` received a REVISE with two targeted fixes (PR #1616
+comment 7202860517), which c5 answers. §9 maps findings to changes and records each choice made where a finding offered one.
 
 **Source requirements.** The adopted OBL-29 remedy r9: `DESIGN.md` and `CONTROLS.json` under
 `verification/audits/foundations/a1exit-obl29-remedy-20261126/` at
@@ -272,8 +274,8 @@ further `close`.
   For each, `f`'s tree holds `config` at its path at a regular mode, the configuration is
   discharge-bearing and is admitted by R6.CFG.1–.2 at `f` (the `PREREG.md` beside it lists its
   SHA-256), and `landing` is the merge that landed `f`: a commit on `M`'s first-parent chain with at
-  least two parents, whose first parent does not have `f` as an ancestor (or equal), and one of whose
-  other parents has `f` as an ancestor or equal. `landing = f`, a commit off `M`'s first-parent chain,
+  least two parents, whose first parent is not a descendant-or-self of `f`, and one of whose other parents is a
+  descendant-or-self of `f`. `landing = f`, a commit off `M`'s first-parent chain,
   or a descendant of `f` that is not that merge, fails (`custody-unsupported`). A later foxtrot
   fast-forward that took the landing merge off the first-parent chain would make the entry fail at
   every later `M`; that is fail-closed and is a liveness hazard of variant (ii) (R-C4). Whether the entries list every owner-designated
@@ -297,12 +299,23 @@ further `close`.
 
   *Run results.* A run result of context `f` is a regular file named `result.json` anywhere under
   `<dir>/op-c-runs/` in the landing commit's tree, where `<dir>` is the directory of the context's
-  configuration, that strict-parses with schema `oi-ledger-coverage/5` (R6.OUT.11) and records
-  `inputs.operation` op C execution, `inputs.freeze` equal to `f` and `inputs.config.blob_sha256` equal
-  to the configuration's SHA-256 (R6.OUT result table, `inputs`). Its run is `(roles.M, REV)`, where
-  `REV` is the common `rev` of the members of `inputs.classify_records` (R6.RECON.2 (c) requires one
-  `REV` per run), or null when that list is absent or empty. A `result.json` under that directory that
-  fails these conditions is a custody failure (`custody-runs-mismatch`). The location `op-c-runs/` is
+  configuration, that strict-parses with schema `oi-ledger-coverage/5` (R6.OUT.11) and records, in
+  fields the tool at `e88ca375` emits: top-level `operation` equal to `"execution"`; `config.commit`
+  equal to `f` (in a chain run the tool refuses unless the configuration's commit equals `--freeze`);
+  `config.blob_sha256` equal to the configuration's SHA-256; `config.admission.mode` equal to
+  `"chain"`; and no `harness` field. A result whose `outcome` is USAGE, ERROR, VOID or INTERNAL did
+  not evaluate and is not a run; it is ignored by the equality below. The run's `REV` is the common
+  `rev` of the members of `inputs.classify_records` (R6.RECON.2 (c) requires one `REV` per run), or
+  null when that list is absent or empty. The run's `M` must come from a named result field that a
+  verdict may read: `roles.M` is a declared diagnostic that R6.OUT forbids a verdict to read, so the
+  check depends on either adopting `roles.M` as a named field or emitting `inputs.main` under OBL-28
+  C-24. That is an r6 and tool change that the owner adopts with this design (OQ-19); until it is
+  made, the run results cannot supply `M`: the equality below cannot be computed, and the completeness
+  and attribution of `runs` rest on the R6.CUST.8 review whichever form OQ-17 fixes, while the
+  conditions of this paragraph and the `REV`s of evaluating results (each must equal the `rev` of a
+  listed run of `f`) are still checked. A `result.json`
+  under that directory that fails these conditions, other than by a non-evaluating outcome, is a
+  custody failure (`custody-runs-mismatch`). The location `op-c-runs/` is
   this design's proposal (OQ-17). The check takes one of two forms, fixed by OQ-17:
   - *OQ-17 adopted (recommended).* Every discharge-bearing round lands its run results. The union of
     the `close` runs for `f` equals, as a set of `(m, rev)`, the runs of its results: a listed run
@@ -316,10 +329,13 @@ further `close`.
   discharge-bearing context or named by an `unfrozen` entry, and every `unfrozen` entry names a
   discharge-bearing configuration in `R*(M)`. An `unfrozen` entry whose configuration a later context
   admits is not a failure: it only acknowledges, and the context then needs its own `close` (c2).
-  **Pin rule.** If a discharge-bearing configuration's SHA-256 is listed in the last `Record pins`
-  subsection of the `PREREG.md` beside it in the tree of any commit reachable from `M`, an `unfrozen`
-  entry covers it only when every commit reachable from `M` whose custody version contains that entry
-  descends from every such pinning commit. Otherwise the configuration must be admitted by a context:
+  **Pin rule.** A *pinning commit* of a discharge-bearing configuration is a commit reachable from
+  `M` whose tree lists the configuration's SHA-256 in the last `Record pins` subsection of the
+  `PREREG.md` beside it, while the tree of at least one of its parents does not (the commit that
+  introduces the pin; a root commit that lists it is one). An `unfrozen` entry covers such a
+  configuration only when every commit reachable from `M` whose custody version contains that entry
+  descends from every pinning commit; the pin remaining present at later commits, `M` included, does
+  not by itself defeat a cover written after the pin was introduced. Otherwise the configuration must be admitted by a context:
   under variant (i) a receipt, under variant (ii) a `freeze` entry. An acknowledgement written before
   a configuration was pinned for a freeze therefore cannot stand in for that freeze, and a writer who
   asserts `unfrozen` after the pin does so knowingly, under the R6.CUST.8 review.
@@ -603,6 +619,14 @@ The table above records c2's changes; where c3 changes them again, the table bel
 | 4. Variant (i) precondition | §5 item 1 and R-C1 list "every discharge-bearing freeze is a native round's `F`" as review-resting, and note that the pin rule makes that review effective |
 | 5. Nits | CU-N2 split into CU-N2 (both) and CU-N2i (variant (i): an entry type `freeze`); CU-N30 worded as built by `tools/v3_receipt.py`, then mutated; CU-P2's `expected` completed |
 
+**Re-review of c4 (PR #1616 comment 7202860517):**
+
+| Finding | Change in c5 |
+|---|---|
+| 1. Result fields do not exist; `roles.M` is a diagnostic | (c3) reads top-level `operation` = `"execution"`, `config.commit` = `f`, `config.blob_sha256`, `config.admission.mode` = `"chain"`, no `harness`, and `REV` from `inputs.classify_records[].rev`; non-evaluating outcomes (USAGE, ERROR, VOID, INTERNAL) are not runs; `M` needs a named field (`roles.M` adopted as named, or `inputs.main` under OBL-28 C-24), listed as dependency OQ-19. CU-N35 rebuilt, with an errored-result variant |
+| 2. Pinning commit undefined | (c4) defines a pinning commit as one that introduces the pin (listed in its tree, absent from at least one parent's). Control CU-P11: an `unfrozen` entry written after that commit passes while the pin is still present at `M` |
+| 3. Landing wording | "first parent is not a descendant-or-self of `f`" |
+
 ***
 
 ## 10. Open questions for the owner
@@ -629,6 +653,7 @@ this design; their ids are not reused.
 | OQ-15 | Recovery when a mechanically invalid entry lands despite R6.CUST.10 | none: custody stays unestablished (fail closed) | an owner-authorized correction route, for example a tool revision listing the offending entries as excluded; a new mechanism needing its own design |
 | OQ-16 | Adopt R6.CUST.10 as a release-gate step? | yes (review finding 5) | no: run-time checks only, accepting that a malformed or invalid entry is found only at the next run and cannot then be removed |
 | OQ-17 | Must a discharge-bearing round land the `result.json` of each op C run under `<dir>/op-c-runs/` of its configuration's directory, so that (c3) checks `runs` mechanically and a missing result is a custody failure? | yes, at that location | no: the equality is checked only where results landed, and otherwise completeness and attribution rest on review (R-C2); or another location fixed by the same rule |
+| OQ-19 | Which named result field carries a run's `M` for (c3)? A dependency: an r6 and tool change adopted with this design | adopt `roles.M` as a named field a verdict may read (R6.OUT) | emit `inputs.main` under OBL-28 C-24; until either is made, (c3) cannot read `M` from results and takes its review form |
 | OQ-18 | Under variant (i) of D-1, which plan layout reconciles the V3 record directory with R6.CFG.1 and R6.A1CFG.1? | the configuration and its `PREREG.md` under `R/amendments/` of the round, with the admitted record directory of R6.A1CFG.1 set to that round's record directory by a tool revision | the configuration landed under `R` on `main` before `D`; either needs an r6 amendment |
 
 ***
@@ -644,6 +669,7 @@ this design; their ids are not reused.
 | PR #1577 at `e88ca375c35a278371f8bc1c70ba963ea61fef05` | the current fail-closed behaviour this design replaces | provenance |
 | c1 at `dc2b344c91c04979570ad58c5a554b3b7585008f` and its independent review (relayed by the coordinating session) | the findings answered in §9 | provenance |
 | c2 at `b61467e9efecc435798861130a5ace5e40c18a91` and its re-review, PR #1616 comment 7202652276 | the findings answered in §9 | provenance |
+| c4 at `3658ed49f210f83f633a47cf2546ea5606b005b2` and its re-review, PR #1616 comment 7202860517 (result fields at `e88ca375`, `cli.py` freeze check) | the findings answered in §9 | provenance |
 | c3 at `ca82d23ef4b604b040660515e486fe6fdfdf1f9d` and its re-review, PR #1616 comment 7202781537 | the findings answered in §9; the reviewer's build of a variant (i) receipt with `tools/v3_receipt.py` | provenance |
 | `tools/v3_verifier.py` (control-plane pattern) and `verification/infrastructure/v3/architecture.md` (`K1`, `S2`) on `main` | variant (i) of (c1) and its realizability | support on `main` |
 | `origin/main` at `84e927b9b7c2bcc8cb9624cb036167dae233e408` | the drafting measurement of §1; receipts under `verification/receipts/`; `tools/v3_verifier.py` as an existing mechanism | support on `main`; the measurement is re-established at `B0` (§3 (b)) |
