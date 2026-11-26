@@ -376,6 +376,8 @@ def category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, r
         try:
             chk = cust.Check(repo, M, F, ra_.custody_path, ra_.custody_bootstrap_blob, cum, recon_route.audits_root,
                              cfgmod.read_pin_table, recon_route.audits_root)
+            chk.tool_landing_id = ra_.tool_landing_class_id
+            chk.ledger_files = context_ledger_files(repo)
             custody = chk.run()
         except fd.Unsettled as exc:
             raise oc.Stop(oc.error, 'DESIGN_UNSETTLED', str(exc))
@@ -499,6 +501,19 @@ def invocation(argv):
     return out
 
 
+def context_ledger_files(repo):
+    """files(context) -> the set of ledgered paths of a custody context's configuration, read at its freeze through
+    the configuration's own ledger adapter (R6.RECON.1), or None when they cannot be read."""
+    def files(c_):
+        try:
+            other = cfgmod.load(repo, c_['f'], c_['config']['path'], c_['config']['blob_sha256'], None, 'harness')
+            led = load_adapter_input(repo, other, 'ledger')
+            return set((led.get('files') or {}).keys())
+        except Exception:  # an unreadable ledger leaves the directory undecided (custody-run-shape)
+            return None
+    return files
+
+
 def custody_gate(a, out, repo, repo_path, argv):
     """R6.CUST.10: at the commit under check as M, R6.CUST.2 for the version in its tree, R6.CUST.4, the mechanical
     parts of R6.CUST.5 (c1) for freeze entries, (c3), (c4)'s second clause and (c5), the second and third clauses of
@@ -515,8 +530,14 @@ def custody_gate(a, out, repo, repo_path, argv):
         cum = c3.Cumulative(repo, [M], rcmod.reconciliation_schemas, recon_route.audits_root)
         chk = cust.Check(repo, M, None, ra_.custody_path, ra_.custody_bootstrap_blob, cum, recon_route.audits_root,
                          cfgmod.read_pin_table, recon_route.audits_root)
+        chk.tool_landing_id = ra_.tool_landing_class_id
+        chk.ledger_files = context_ledger_files(repo)
         rep = chk.run(gate=True)
-        # the gate checks (c4)'s second clause only (an unfrozen entry names a discharge-bearing configuration)
+        # the gate checks (c4)'s second clause only (an unfrozen entry names a discharge-bearing configuration): the
+        # first clause's "unaccounted for" failures are dropped. The pin-rule failure ("the only cover of a
+        # configuration pinned after it") is kept, although R6.CUST.10's text names only (c4)'s second clause: a
+        # deliberate, stricter choice (an entry the pin rule refuses can never be repaired once it lands, R-C4),
+        # put to the owner
         rep['problems'] = [p for p in rep['problems'] if not (p['item'] == 'custody-incomplete' and
                                                               'unaccounted for' in p['why'])]
         rep['status'] = 'established' if not rep['problems'] else 'unestablished'

@@ -180,6 +180,8 @@ class Check:
         self.contexts = []
         self.runs = {}
         self.gate = False
+        self.ledger_files = None
+        self.tool_landing_id = None
 
     def fail(self, item, msg):
         self.problems.append((item, msg))
@@ -371,7 +373,7 @@ class Check:
             self.runs[c_['f']] = sorted([list(r) for r in runs], key=str)
             for m, rev in runs:
                 if rev is not None:
-                    self.rev_shape(m, rev)
+                    self.rev_shape(m, rev, c_)
             self.results_check(c_, runs)
         # R6.CUST.7: the run's own F is the f of a closed context
         if not self.gate and self.run_F and self.run_F in ctx_f and any(e['f'] == self.run_F for e in closes):
@@ -415,7 +417,43 @@ class Check:
                 holders.append(c)
         return all(repo.is_ancestor(p, c) for c in holders for p in pinning)
 
-    def rev_shape(self, m, rev):
+    def recon_dir_problem(self, path, c_):
+        """R6.RECON.1: a reconciliation directory lies under verification/audits/, outside every prefix of the
+        context configuration's tool-landing class, outside its plan record directory, and holds no ledgered or
+        corpus path of that configuration. Returns why `path` is not in one, or None."""
+        if not path.startswith(self.recon_root):
+            return 'not under %s' % self.recon_root
+        cref, f = c_['config'], c_['f']
+        plan = posixpath.dirname(cref['path']) + '/'
+        if path.startswith(plan):
+            return 'inside the plan record directory'
+        doc = fd.strict_parse(self.repo.read(f, cref['path'])) or {}
+        scr = (doc.get('roles') or {}).get('side_change_classes')
+        prefixes = []
+        if isinstance(scr, dict):
+            b = self.repo.read(f, scr.get('path')) if isinstance(scr.get('path'), str) else None
+            cls = fd.strict_parse(b) if b is not None and util.sha256(b) == scr.get('blob_sha256') else None
+            if cls is None:
+                return 'the context\'s side-change class record cannot be read at f'
+            for c in cls.get('classes') or []:
+                if isinstance(c, dict) and c.get('id') == self.tool_landing_id:
+                    prefixes += [x for x in c.get('prefixes') or [] if isinstance(x, str)]
+        if any(path.startswith(x) for x in prefixes):
+            return 'under a prefix of the tool-landing class'
+        d = posixpath.dirname(path) + '/'
+        corpus = doc.get('corpus') or {}
+        pats = [re.compile(x) for x in corpus.get('patterns') or [] if isinstance(x, str)]
+        exact = set(corpus.get('paths') or []) if isinstance(corpus.get('paths'), list) else set()
+        files = self.ledger_files(c_) if self.ledger_files else None
+        if files is None:
+            return 'the context\'s ledgered paths cannot be read'
+        held = [q for q in self.repo.paths(f) if q.startswith(d) and
+                (q in exact or q in files or any(rx.search(q) for rx in pats))]
+        if held or any(q.startswith(d) for q in files):
+            return 'its directory holds a ledgered or corpus path'
+        return None
+
+    def rev_shape(self, m, rev, c_):
         repo = self.repo
         ps = repo.parents(rev)
         if len(ps) != 1 or ps[0] != m:
@@ -423,10 +461,15 @@ class Check:
             return
         a, b = repo.entries(m), repo.entries(rev)
         changed = [p for p in set(a) | set(b) if a.get(p) != b.get(p)]
-        if any(p in a or b[p][0] not in regular or not p.startswith(self.recon_root) for p in changed):
-            self.fail('custody-run-shape', 'REV %s changes more than regular files added under %s'
-                      % (rev, self.recon_root))
+        if any(p in a or b[p][0] not in regular for p in changed):
+            self.fail('custody-run-shape', 'REV %s changes more than adding regular files' % rev)
             return
+        for p in changed:
+            why = self.recon_dir_problem(p, c_)
+            if why:
+                self.fail('custody-run-shape', 'REV %s adds %s outside a reconciliation directory (%s)'
+                          % (rev, p, why))
+                return
         named = False
         for p in changed:
             d = fd.strict_parse(repo.read(rev, p))

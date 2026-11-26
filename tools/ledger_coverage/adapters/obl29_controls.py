@@ -1107,6 +1107,43 @@ def nits_0cafbdc0_controls(r):
                                                      'global and E1 is bound', got,
          got['exit'] == 20 and 'E1' in got['edits'] and
          any('differs from the named configuration' in d for d in got['invalid']))
+    # an unreadable element beside a readable one, the configuration resolved and outside the lineage: the
+    # unreadable element makes the id match global (Form (ii), "blocks through the fallback of (iii)"), and that alone
+    # binds the run's E1. The named configuration's ledger has E1 (another edit than the run's) and E2; the readable
+    # element names E2 correctly, the unreadable one carries only the id E1
+    w = pfc.World(r)
+    two = pfc.EDITS_REWORDED + pfc.EDITS_OTHER
+    pd2 = sf.patch_doc(w.syn.H, two, 1)
+    oc2, op2, os2, of2 = w.syn.build({'patch_sha': sf.sha(pd2), 'files': {'syn/patch.json': pd2},
+                                      'config_path': 'syn/other2/config.json',
+                                      'extra': {'retirement': {'name': 'other2', 'issue': 'other2'},
+                                                'config_id': 'other2-retirement-config'}})
+    step(w, {q: b for q, b in of2.items() if isinstance(b, bytes)}, 'another retirement\'s configuration (E2)')
+    w2 = pfc.World(r, edits=two, first_id=1)
+    sp2 = [x for x in w2.led['splices'] if x['id'] == 'E2'][0]
+    readable = {'id': 'E2', 'sha256': pfc.rcmod.edit_key(w2.led, 'E2'),
+                'target': {'path': sp2['file'], 'start_H': sp2['start'], 'old_sha256': sp2['old_sha256']}}
+    # the record's splice table drafted from the named configuration's ledger, as R6.RECON.30 requires beside it
+    eff = dict(pfc.CONTROL_EFFECT, conclusions='none', verdict='invalidates', invalidated=[{'id': 'E1'}, readable],
+               configuration={'path': op2, 'blob_sha256': os2},
+               assessment='control fixture: an unreadable element beside a readable one')
+    doc = pfc.rcmod.draft(w.repo, w.ctx, w.syn.H, w.M, w.X, w2.led, sf.DOC, scientific_effect=eff)
+    doc.update(record_id='syn-finding-beside', author=sf.WRITER, supersedes=None, M=w.M, X=w.X)
+    se = doc['paths'][0]['scientific_effect']
+    se['conclusions'] = 'none'
+    pfc.land(w, [(FP, doc)])
+    code, out = w.run([], harness=True)
+    out = out or {}
+    edits = [b_.get('edit') for b_ in (out.get('category3') or {}).get('blocked') or []]
+    inv = [d for i in out.get('items', []) if i['class'] == 'record-invalid' for d in (i.get('detail') or [])]
+    stop = out.get('stop')
+    case('GLOBAL-ID-SCOPE-UNREADABLE-BESIDE-READABLE', 'an element with only an id beside a readable element, the '
+                                                       'configuration resolved outside the lineage: the id match is '
+                                                       'global and the run\'s E1 is bound (removing that global scope '
+                                                       'fails this control)', {'exit': code, 'edits': edits,
+                                                                               'invalid': inv[:3], 'stop': stop},
+         code == 20 and 'E1' in edits and not any('configuration is absent' in d for d in inv) and
+         not any('differs from the named configuration' in d for d in inv))
     # an identity translation whose H and M prefixes disagree
     w = pfc.World(r)
     doc = pfc.invalidating(w, sf.DOC)

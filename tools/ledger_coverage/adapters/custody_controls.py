@@ -106,6 +106,7 @@ class CW:
         return {'exit': code, 'stop': (out.get('stop') or {}).get('class'),
                 'stop_msg': (out.get('stop') or {}).get('message', '')[:200],
                 'status': cu.get('status'), 'items': sorted({p['item'] for p in cu.get('problems') or []}),
+                'whys': [p['why'][:160] for p in cu.get('problems') or []][:4],
                 'reassessments': c3.get('reassessments'), 'blocked': [b['record']['path'] for b in c3.get('blocked')
                                                                        or []],
                 'classes': sorted({i['class'] for i in out.get('items', [])})}
@@ -361,7 +362,7 @@ def freeze_controls(r):
     KP = KD + 'config.json'
 
     def freeze_world(close=True, landing_kind='merge', runs=(), results=(), early_close=False, prereg_lists=True,
-                     config_at_f=True):
+                     config_at_f=True, pre=None):
         c = CW(r)
         v0 = c.bootstrap()
         main_before = c.w.M
@@ -383,9 +384,17 @@ def freeze_controls(r):
             L = c.step(branch, 'land F1', parents=[main2, tip])
         elif landing_kind == 'self':
             L = F1
+        elif landing_kind == 'foxtrot':
+            # the landing merge, then a foxtrot fast-forward: main's next commit has another line as first parent and
+            # the landing as second, so the landing leaves M's first-parent chain (R-C4)
+            L = c.step(branch, 'land F1', parents=[main2, tip])
+            other = c.w.repo.derive(main_before, {'notes/other.txt': b'o\n'}, parents=[main_before], subject='line')
+            c.step(dict(branch, **{'notes/main.txt': b'main moves\n'}), 'foxtrot', parents=[other, L])
         else:
             L = c.step(branch, 'land F1', parents=[main2, tip])
             L = c.step({'notes/later.txt': b'l\n'}, 'a later merge', parents=[L, tip])
+        if pre is not None:
+            runs = pre(c, main_before)
         kref = {'path': KP, 'blob_sha256': sf.sha(kb)}
         fe = {'config': kref, 'f': F1, 'landing': L, 'type': 'freeze'}
         ents = [fe]
@@ -422,6 +431,73 @@ def freeze_controls(r):
     o = freeze_world(early_close=True)[0].run()
     case('CU-N29', 'a close for F1 stands at a commit that does not descend from its landing: custody-early-close', o,
          failed_with(o, 'custody-early-close'))
+    o = freeze_world(landing_kind='foxtrot')[0].run()
+    case('CU-RC4-FOXTROT', 'a foxtrot fast-forward takes the landing merge off M\'s first-parent chain: the freeze '
+                           'entry fails at this M (custody-unsupported; the liveness hazard R-C4)', o,
+         failed_with(o, 'custody-unsupported'))
+
+    def rev_pre(kind):
+        def pre(c, main_before):
+            m = main_before
+            rec_doc = {'schema': 'oi-reconciliation/2', 'M': m, 'record_id': 'x'}
+            files = {'verification/audits/syn-recon-r/rec.json': pfc.jb(rec_doc)}
+            parents = [m]
+            if kind == 'plan-dir':
+                files = {KD + 'stray.json': pfc.jb(rec_doc)}
+            elif kind == 'modifies':
+                files = dict(files, **{sf.DOC: b'changed\n'})
+            elif kind == 'no-record':
+                files = {'verification/audits/syn-recon-r/rec.json': pfc.jb(dict(rec_doc, M='8' * 40))}
+            elif kind == 'two-parents':
+                parents = [m, c.w.repo.parents(m)[0]]
+            base = m
+            if kind == 'other-parent':
+                base = c.w.repo.parents(m)[0]
+                parents = [base]
+            rev = c.w.repo.derive(base, files, parents=parents, subject='REV')
+            c.step(files, 'merge REV', parents=[c.w.M, rev])
+            return [(m, rev)]
+        return pre
+    from ledger_coverage.engine import cli as cli_mod
+
+    def with_ledger(cw):
+        # the ledgered paths supplied from the fixture's own ledger (see CU-REV-SHAPE-OK), so that each case fails for
+        # its own reason, not for an unreadable ledger
+        real = cli_mod.context_ledger_files
+        cli_mod.context_ledger_files = lambda repo: (lambda c_: set((cw.w.led.get('files') or {}).keys()))
+        try:
+            return cw.run()
+        finally:
+            cli_mod.context_ledger_files = real
+    want = {'plan-dir': 'inside the plan record directory', 'modifies': 'changes more than adding',
+            'no-record': 'adds no oi-reconciliation/2 record', 'two-parents': 'exactly the one parent',
+            'other-parent': 'exactly the one parent'}
+    shapes = {k: with_ledger(freeze_world(pre=rev_pre(k))[0]) for k in want}
+    case('CU-N14', 'a close run\'s REV with two parents, a parent other than its m, a changed existing path, a file added '
+                   'in the plan record directory (elsewhere under verification/audits/ than a reconciliation '
+                   'directory, R6.RECON.1), or no oi-reconciliation/2 record naming m: custody-run-shape, each for '
+                   'its own reason', {k: v['whys'][:1] for k, v in shapes.items()},
+         all(failed_with(o, 'custody-run-shape') and any(want[k] in w_ for w_ in o['whys'])
+             for k, o in shapes.items()))
+    # the context's configuration carries the synthetic `admission` key that stop 1 requires, which the configuration
+    # loader refuses as an unknown key, so its ledgered paths cannot be read through it: an unreadable ledger leaves
+    # the directory undecided (custody-run-shape, fail closed); for these cases the ledgered paths are supplied from
+    # the fixture's own ledger (an in-process substitution, documented here)
+    ok = with_ledger(freeze_world(pre=rev_pre('ok'))[0])
+    undecided = freeze_world(pre=rev_pre('ok'))[0].run()
+    case('CU-REV-LEDGER-UNREADABLE', 'the same REV when the context\'s ledgered paths cannot be read: the directory is '
+                                     'undecided, custody-run-shape (fail closed)', undecided,
+         failed_with(undecided, 'custody-run-shape') and any('ledgered paths cann' in w_ for w_ in undecided['whys']))
+    case('CU-REV-SHAPE-OK', 'a REV adding one oi-reconciliation/2 record naming m in a reconciliation directory: no '
+                            'custody-run-shape (the run results still decide the rest)', ok,
+         'custody-run-shape' not in ok['items'])
+
+    def off_main(c, main_before):
+        off = c.w.repo.derive(main_before, {'notes/off.txt': b'off\n'}, parents=[main_before], subject='off main')
+        return [(off, None)]
+    o = freeze_world(pre=off_main)[0].run()
+    case('CU-N12', 'a close run whose m is in the store but not reachable from M: custody-unreachable', o,
+         failed_with(o, 'custody-unreachable'))
     c = CW(r)
     v0 = c.bootstrap()
     c.succ(v0, [{'f': c.w.M, 'runs': [], 'type': 'close'}])
