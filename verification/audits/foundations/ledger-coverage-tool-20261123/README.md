@@ -30,7 +30,7 @@ scientific question and no row disposition.
 
 | Path | Kind | What it holds |
 |---|---|---|
-| `controls.json` | A1 control set | the preregistered A1 controls with the design's expected outcomes, the tool-level controls GV1-GV7 and EI1-EI15, the controls of amendment r4 (RDIR-1 to RDIR-25 and RDIR-12b, RT-O9, I2-1 to I2-8), and the control-only inputs (DR-3's witness `AGENTS.md` at `H`) |
+| `controls.json` | A1 control set | each control's operations and direction as the engine reads them (design r6, R6.GATE.1: every expected result is stated in the expectation file), for the preregistered A1 controls, the tool-level controls GV1-GV7 and EI1-EI15, the controls of amendment r4 (RDIR-1 to RDIR-25 and RDIR-12b, RT-O9, I2-1 to I2-8), and the control-only inputs (DR-3's witness `AGENTS.md` at `H`) |
 | `delegation-draft.json` | `oi-delegation/1` | a draft of the delegation contract; the contract itself belongs in the amended plan's record directory at `F` |
 | `rules/dr-deny-v1.json` | `oi-term-rules/2` | deny rules DR-1 (a, b, c), DR-3, DR-4, DR-5 with examples and real-tree countercontrols |
 | `rules/resid-v1.json` | `oi-term-rules/2` | the review pattern `resid` (resid-a, resid-b, resid-c) |
@@ -176,7 +176,6 @@ scope record's agreement with `P`'s classification (ESC-3) and the classified li
 | `P` in `source.commit` | `records/repo-scope-v1.json` | not read: the run applies only the record's lists | gap: the record's statement that its lists are the plan checker's classification can be verified only against `P`'s `edits_check.py` (ESC-3) |
 | `T1'` in `classifications[0].tree` | `records/gr58-hit-classification-v1.json`, `records/gr58-hit-classification-v2.json` | not read: the run matches the classified line by file and line hash | gap: the classified line occurs only in `T1'`'s `papers/GR.md`, which the record's review must read (ESC-4) |
 | control input `agents-md-at-T1p` (commit `T1'`) | `controls.json` | the control RT-DR3W of the A1 control runner only; no deny rule's countercontrol names it | provenance (a control-harness input; harness results are never acceptable) |
-| "at `T1'`" in case texts and expected figures | `controls.json` | the A1 control runner's comparisons | provenance (preregistered control descriptions) |
 | the constants `T` (`T1'`) and `P` | `tools/ledger_coverage/adapters/a1_controls.py` | the real-tree controls' candidate and the ledger, edit list and checker the A1 controls read | provenance (control-harness results) |
 | `T1'` and `P` through `a1_controls`; the blob id 9f4fc3e830707c90ffc105842d26d5b51f01760b (`T1'`'s `AGENTS.md`) | `tools/ledger_coverage/adapters/a1_conformance.py` | the control expectations of WB1-WB15, S11-56 to S11-58 and N3-N18 | provenance (control-harness results) |
 | the id 86d79863821f3f8cdad86771008b2df89fd1961a | `tools/ledger_coverage/adapters/a1_conformance.py` | the expected blob id of the composed `AGENTS.md` (`main` 8e9b8334 with splice D296 of `P`'s ledger) that N10, N11 and the configuration-route control compute in memory | provenance; a computed identifier, not an object in any repository |

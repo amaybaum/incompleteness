@@ -1,7 +1,7 @@
 {
  "schema": "oi-a1-controls/1",
  "record_id": "a1exit-controls-v1",
- "status": "UNREVIEWED DRAFT: the preregistered A1 control set with the design's expected outcomes (DESIGN v6.0e sec. 10, 11, 13); GV1-GV7 and EI1-EI15 are tool-level controls. Not reviewed.",
+ "status": "UNREVIEWED DRAFT: the A1 control set as the engine reads it: each control's operations and direction, and the control-only inputs (design r6, R6.GATE.1); every expected result is stated in the expectation file. GV1-GV7 and EI1-EI15 are tool-level controls. Not reviewed.",
  "author": "implementation-writer-20261123",
  "design": {
   "name": "DESIGN-v6.0e",
@@ -28,124 +28,56 @@
    "operations": [
     "record"
    ],
-   "direction": "positive",
-   "case": "record --pin E --record H",
-   "expect": {
-    "outcome": "PASS",
-    "classes": []
-   },
-   "by": "",
-   "reference": "frozen replay: 0 errors; 697 anchors"
+   "direction": "positive"
   },
   {
    "id": "X1",
    "operations": [
     "record"
    ],
-   "direction": "adversarial",
-   "case": "record --pin H",
-   "expect": {
-    "outcome": "ERROR",
-    "classes": [
-     "PIN_MISMATCH"
-    ]
-   },
-   "by": "sec. 5"
+   "direction": "adversarial"
   },
   {
    "id": "RT-E",
    "operations": [
     "coverage"
    ],
-   "direction": "positive",
-   "case": "coverage --commit E",
-   "expect": {
-    "outcome": "PASS",
-    "classes": []
-   },
-   "by": "",
-   "reference": "697 unchanged"
+   "direction": "positive"
   },
   {
    "id": "RT-H0",
    "operations": [
     "coverage"
    ],
-   "direction": "adversarial",
-   "case": "coverage --commit H, no HP records",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "hp-unadjudicated",
-     "context-meaning-unverified",
-     "context-structure-changed"
-    ]
-   },
-   "by": "",
-   "reference": "113 hp-unadjudicated; 7 HP context-meaning-unverified; 3 HP context-structure-changed; every FAIL and indicator item has obligation HP"
+   "direction": "adversarial"
   },
   {
    "id": "RT-T0",
    "operations": [
     "coverage"
    ],
-   "direction": "adversarial",
-   "case": "coverage at X = T1', no records",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "hp-unadjudicated",
-     "untracked-hp-overlap",
-     "context-meaning-unverified",
-     "context-structure-changed"
-    ]
-   },
-   "by": "",
-   "reference": "HP: 113 hp-unadjudicated, 7 context FAILs, 3 structure REVIEWs. RET: 19 untracked-hp-overlap, 5 context-meaning-unverified, 3 context-structure-changed. Deny: 0. 383 unchanged (168 moved), 197 replaced, 4 removed; 9 merger groups covering 22 sites"
+   "direction": "adversarial"
   },
   {
    "id": "RT-T",
    "operations": [
     "coverage"
    ],
-   "direction": "positive",
-   "case": "RT-T0 with all reviewed records of sec. 8.2",
-   "expect": {
-    "outcome": "PASS",
-    "classes": []
-   },
-   "by": "",
-   "reference": "PASS only when every record verifies; any missing record leaves REVIEW_REQUIRED or FAIL"
+   "direction": "positive"
   },
   {
    "id": "RT-C",
    "operations": [
     "execution"
    ],
-   "direction": "positive",
-   "case": "execution at X = T1' with F = the amended freeze",
-   "expect": {
-    "outcome": "PASS",
-    "classes": []
-   },
-   "by": "",
-   "reference": "399 splices verified at H; 23 corpus and 21 other ledgered files conform, except LEDGER.json under coverage-ledger; PASS only with contract evidence"
+   "direction": "positive"
   },
   {
    "id": "RT-D",
    "operations": [
     "terms"
    ],
-   "direction": "positive",
-   "case": "terms --commit T1' --base H --ledger F:ledger.json",
-   "expect": {
-    "outcome": "REVIEW_REQUIRED",
-    "classes": [
-     "unclassified"
-    ]
-   },
-   "by": "",
-   "reference": "0 deny matches; W1 and W2 PASS with their rules, else REVIEW; GR.md:58 PASS with its record, else REVIEW; resid 17 lines REVIEW until classified"
+   "direction": "positive"
   },
   {
    "id": "RT-DR",
@@ -153,15 +85,6 @@
     "terms"
    ],
    "direction": "adversarial",
-   "case": "terms --commit H --profile DR-1,DR-3,DR-4,DR-5",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "deny-match"
-    ]
-   },
-   "by": "",
-   "reference": "at H: DR-1 61 lines (a 6, b 2, c 55), DR-3 0, DR-4 28, DR-5 1, 86 distinct lines; at E: 95; at T1' 0 lines and 0 sentences",
    "targets": [
     {
      "rule": "DR-1",
@@ -204,1759 +127,850 @@
    "operations": [
     "terms"
    ],
-   "direction": "adversarial",
-   "case": "control-only scan of AGENTS.md at H with DR-3 alone; countercontrol AGENTS.md at T1'",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "deny-match"
-    ]
-   },
-   "by": "",
-   "reference": "exactly one DR-3 sentence at H, starting on line 37 and including lines 37-38; 0 at T1'"
+   "direction": "adversarial"
   },
   {
    "id": "RT-I7",
    "operations": [
     "terms"
    ],
-   "direction": "adversarial",
-   "case": "terms --commit T1' --profile item7-literal; the same at H",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "item7-literal-match"
-    ]
-   },
-   "by": "",
-   "reference": "T1': 7 \"six structural\" lines, 0 \"Fourteen\", 0 \"sixth of\"; \\bA1\\b 4. H: 11 / 1 / 2; \\bA1\\b 179"
+   "direction": "adversarial"
   },
   {
    "id": "RT-I7A",
    "operations": [
     "terms"
    ],
-   "direction": "adversarial",
-   "case": "the proposed item-7 amendment check at H and at T1', no records",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "deny-match",
-     "final-unclassified"
-    ]
-   },
-   "by": "",
-   "reference": "H: 86 deny lines (line level; 93 with sentence attribution) and 123 final-unclassified lines (209 FAIL lines); all 95 retired lines FAIL. T1': 0 deny lines; 12 final-unclassified lines"
+   "direction": "adversarial"
   },
   {
    "id": "SW1",
    "operations": [
     "coverage"
    ],
-   "direction": "adversarial",
-   "case": "per-site sweep at E: each of the 697 sites, one token deleted",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "unauthorized-change"
-    ]
-   },
-   "by": "",
-   "reference": "exactly one FAIL naming that site"
+   "direction": "adversarial"
   },
   {
    "id": "SW2",
    "operations": [
     "coverage"
    ],
-   "direction": "adversarial",
-   "case": "per-site sweep at H: each of the 584 sites",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "unauthorized-change"
-    ]
-   },
-   "by": "",
-   "reference": "exactly one FAIL naming that site"
+   "direction": "adversarial"
   },
   {
    "id": "L1",
    "operations": [
     "terms"
    ],
-   "direction": "positive",
-   "case": "the W1 sentence shifted by 40 lines",
-   "expect": {
-    "outcome": "PASS",
-    "classes": []
-   },
-   "by": "W1 rule"
+   "direction": "positive"
   },
   {
    "id": "L2",
    "operations": [
     "terms"
    ],
-   "direction": "positive",
-   "case": "the W2 lines moved",
-   "expect": {
-    "outcome": "PASS",
-    "classes": []
-   },
-   "by": "W2 rule"
+   "direction": "positive"
   },
   {
    "id": "L3",
    "operations": [
     "terms"
    ],
-   "direction": "adversarial",
-   "case": "a W1 sentence copied inside scope",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "rule-overreach"
-    ]
-   },
-   "by": "max_instances"
+   "direction": "adversarial"
   },
   {
    "id": "L4",
    "operations": [
     "terms"
    ],
-   "direction": "adversarial",
-   "case": "a W1 sentence copied outside scope",
-   "expect": {
-    "outcome": "REVIEW_REQUIRED",
-    "classes": [
-     "unclassified"
-    ]
-   },
-   "by": "scope"
+   "direction": "adversarial"
   },
   {
    "id": "V1",
    "operations": [
     "terms"
    ],
-   "direction": "adversarial",
-   "case": "\"The six structural properties of the substratum are listed in Chapter 2.\"",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "deny-match"
-    ]
-   },
-   "by": "DR-1b"
+   "direction": "adversarial"
   },
   {
    "id": "V2",
    "operations": [
     "terms"
    ],
-   "direction": "adversarial",
-   "case": "ch19:212 edited to \"six structural properties, one of which is total finiteness,\"",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "deny-match"
-    ]
-   },
-   "by": "DR-3"
+   "direction": "adversarial"
   },
   {
    "id": "V3",
    "operations": [
     "terms"
    ],
-   "direction": "adversarial",
-   "case": "\"(A1) the substratum is finite in total\" in appendix B",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "deny-match"
-    ]
-   },
-   "by": "DR-4"
+   "direction": "adversarial"
   },
   {
    "id": "V4",
    "operations": [
     "terms"
    ],
-   "direction": "positive",
-   "case": "\"the framework's sixth structural property, finiteness of the bijection\"",
-   "expect": {
-    "outcome": "PASS",
-    "classes": []
-   },
-   "by": "accepted residual (V5-D1)"
+   "direction": "positive"
   },
   {
    "id": "V27",
    "operations": [
     "terms"
    ],
-   "direction": "positive",
-   "case": "\"The framework's sixth structural property is finiteness of the substratum\", alone and as the edited glossary.md:13 line",
-   "expect": {
-    "outcome": "PASS",
-    "classes": []
-   },
-   "by": "accepted residual (V5-D1)"
+   "direction": "positive"
   },
   {
    "id": "V5",
    "operations": [
     "terms"
    ],
-   "direction": "adversarial",
-   "case": "\"**(A1) Finiteness.** The configuration space is finite.\" in appendix B",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "deny-match"
-    ]
-   },
-   "by": "DR-4"
+   "direction": "adversarial"
   },
   {
    "id": "V6",
    "operations": [
     "terms"
    ],
-   "direction": "adversarial",
-   "case": "\"the six structural properties of the substratum, including finiteness\"",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "deny-match"
-    ]
-   },
-   "by": "DR-1b and DR-3"
+   "direction": "adversarial"
   },
   {
    "id": "V7a",
    "operations": [
     "terms"
    ],
-   "direction": "adversarial",
-   "case": "V2 with DR-3 removed, inside W1-d scope",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "rule-negative-match"
-    ]
-   },
-   "by": "W1's negative matcher"
+   "direction": "adversarial"
   },
   {
    "id": "V7b",
    "operations": [
     "terms"
    ],
-   "direction": "adversarial",
-   "case": "V2 text outside every W1 scope, DR-3 removed",
-   "expect": {
-    "outcome": "REVIEW_REQUIRED",
-    "classes": [
-     "unclassified"
-    ]
-   },
-   "by": "p0-core and count-grep hits with no rule"
+   "direction": "adversarial"
   },
   {
    "id": "V7c",
    "operations": [
     "terms"
    ],
-   "direction": "adversarial",
-   "case": "a W1 sentence edited with no negative literal",
-   "expect": {
-    "outcome": "REVIEW_REQUIRED",
-    "classes": [
-     "rule-fingerprint-mismatch"
-    ]
-   },
-   "by": "sec. 6.2 step 4"
+   "direction": "adversarial"
   },
   {
    "id": "V9",
    "operations": [
     "terms"
    ],
-   "direction": "adversarial",
-   "case": "\"Six structural assumptions define the substratum.\"",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "deny-match"
-    ]
-   },
-   "by": "DR-1a"
+   "direction": "adversarial"
   },
   {
    "id": "V10",
    "operations": [
     "terms"
    ],
-   "direction": "adversarial",
-   "case": "\"the six structural conditions on the substratum\"",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "deny-match"
-    ]
-   },
-   "by": "DR-1a"
+   "direction": "adversarial"
   },
   {
    "id": "V11",
    "operations": [
     "terms"
    ],
-   "direction": "adversarial",
-   "case": "\"six structural premises of the framework\"",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "deny-match"
-    ]
-   },
-   "by": "DR-1a"
+   "direction": "adversarial"
   },
   {
    "id": "V12",
    "operations": [
     "terms"
    ],
-   "direction": "adversarial",
-   "case": "\"the six substratum posits\"",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "deny-match"
-    ]
-   },
-   "by": "DR-1a"
+   "direction": "adversarial"
   },
   {
    "id": "V13",
    "operations": [
     "terms"
    ],
-   "direction": "adversarial",
-   "case": "\"the structural assumptions A1 through A6\"",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "deny-match"
-    ]
-   },
-   "by": "DR-1c"
+   "direction": "adversarial"
   },
   {
    "id": "V14",
    "operations": [
     "terms"
    ],
-   "direction": "adversarial",
-   "case": "\"A1--A6\"; \"A1—A6\"; \"(A1)–(A6)\"; \"A1, ..., A6\"",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "deny-match"
-    ]
-   },
-   "by": "DR-1c"
+   "direction": "adversarial"
   },
   {
    "id": "V15",
    "operations": [
     "terms"
    ],
-   "direction": "adversarial",
-   "case": "\"the substratum's sixth axiom, finiteness\"",
-   "expect": {
-    "outcome": "REVIEW_REQUIRED",
-    "classes": [
-     "unclassified"
-    ]
-   },
-   "by": "resid (resid-a)"
+   "direction": "adversarial"
   },
   {
    "id": "V16",
    "operations": [
     "terms"
    ],
-   "direction": "adversarial",
-   "case": "\"posit A1 (finiteness) holds\"",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "deny-match"
-    ]
-   },
-   "by": "DR-4"
+   "direction": "adversarial"
   },
   {
    "id": "V17",
    "operations": [
     "terms"
    ],
-   "direction": "adversarial",
-   "case": "\"A1 (Finiteness): the configuration space is finite\"",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "deny-match"
-    ]
-   },
-   "by": "DR-4"
+   "direction": "adversarial"
   },
   {
    "id": "V18",
    "operations": [
     "terms"
    ],
-   "direction": "adversarial",
-   "case": "\"(A1) Finiteness. The configuration space S is finite.\"",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "deny-match"
-    ]
-   },
-   "by": "DR-4"
+   "direction": "adversarial"
   },
   {
    "id": "V19",
    "operations": [
     "terms"
    ],
-   "direction": "adversarial",
-   "case": "\"The posit ledger has 14 items.\"",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "deny-match"
-    ]
-   },
-   "by": "DR-5"
+   "direction": "adversarial"
   },
   {
    "id": "V20",
    "operations": [
     "terms"
    ],
-   "direction": "adversarial",
-   "case": "\"the six structural properties of the bijection, the first being finiteness of S\"",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "deny-match"
-    ]
-   },
-   "by": "DR-3"
+   "direction": "adversarial"
   },
   {
    "id": "V21",
    "operations": [
     "terms"
    ],
-   "direction": "adversarial",
-   "case": "\"one of the posits is that the configuration space is finite\"",
-   "expect": {
-    "outcome": "REVIEW_REQUIRED",
-    "classes": [
-     "unclassified"
-    ]
-   },
-   "by": "resid only"
+   "direction": "adversarial"
   },
   {
    "id": "V22",
    "operations": [
     "terms"
    ],
-   "direction": "adversarial",
-   "case": "Main.md:736's H sentence reinstated",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "deny-match"
-    ]
-   },
-   "by": "DR-5"
+   "direction": "adversarial"
   },
   {
    "id": "N-W",
    "operations": [
     "terms"
    ],
-   "direction": "positive",
-   "case": "every W1 and W2 line at T1', and Main.md:738",
-   "expect": {
-    "outcome": "PASS",
-    "classes": []
-   },
-   "by": "negative examples"
+   "direction": "positive"
   },
   {
    "id": "V23",
    "operations": [
     "terms"
    ],
-   "direction": "adversarial",
-   "case": "ch02:136 at H reinstated; item 7 with --final",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "final-unclassified"
-    ]
-   },
-   "by": "sec. 5, 11 note 1"
+   "direction": "adversarial"
   },
   {
    "id": "V24",
    "operations": [
     "terms"
    ],
-   "direction": "adversarial",
-   "case": "\"six structural hypotheses\" added; item 7 with --final",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "final-unclassified"
-    ]
-   },
-   "by": "V3"
+   "direction": "adversarial"
   },
   {
    "id": "V25",
    "operations": [
     "terms"
    ],
-   "direction": "adversarial",
-   "case": "V23 and V24 without --final; a W2 line with its rule under --final; a resid-only hit under --final",
-   "expect": {
-    "outcome": "REVIEW_REQUIRED",
-    "classes": [
-     "unclassified"
-    ]
-   },
-   "by": "sec. 5"
+   "direction": "adversarial"
   },
   {
    "id": "V26",
    "operations": [
     "terms"
    ],
-   "direction": "adversarial",
-   "case": "five resid-b/resid-c strings added one at a time",
-   "expect": {
-    "outcome": "REVIEW_REQUIRED",
-    "classes": [
-     "unclassified"
-    ]
-   },
-   "by": "resid (b, b, b, b, c)"
+   "direction": "adversarial"
   },
   {
    "id": "A1r",
    "operations": [
     "terms"
    ],
-   "direction": "adversarial",
-   "case": "rule scope widened to book/",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "record-invalid"
-    ]
-   },
-   "by": "sec. 6.3"
+   "direction": "adversarial"
   },
   {
    "id": "A2r",
    "operations": [
     "terms"
    ],
-   "direction": "adversarial",
-   "case": "literal shortened to (A1)",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "record-invalid"
-    ]
-   },
-   "by": "widening"
+   "direction": "adversarial"
   },
   {
    "id": "A3r",
    "operations": [
     "terms"
    ],
-   "direction": "adversarial",
-   "case": "fingerprint swapped, no widening review",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "record-invalid"
-    ]
-   },
-   "by": "widening"
+   "direction": "adversarial"
   },
   {
    "id": "A4r",
    "operations": [
     "terms"
    ],
-   "direction": "adversarial",
-   "case": "widening review signed by the author",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "record-invalid"
-    ]
-   },
-   "by": "reviewer is not the author"
+   "direction": "adversarial"
   },
   {
    "id": "A5r",
    "operations": [
     "terms"
    ],
-   "direction": "adversarial",
-   "case": "allow rule fingerprinting a sentence a deny rule matches",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "deny-match"
-    ]
-   },
-   "by": "deny precedence"
+   "direction": "adversarial"
   },
   {
    "id": "A6r",
    "operations": [
     "terms"
    ],
-   "direction": "adversarial",
-   "case": "literal not covering the trigger",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "record-invalid"
-    ]
-   },
-   "by": "trigger definition"
+   "direction": "adversarial"
   },
   {
    "id": "A7r",
    "operations": [
     "terms"
    ],
-   "direction": "adversarial",
-   "case": "reused rule id",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "record-invalid"
-    ]
-   },
-   "by": "id rule"
+   "direction": "adversarial"
   },
   {
    "id": "A8r",
    "operations": [
     "terms"
    ],
-   "direction": "adversarial",
-   "case": "allow rule with no negative example",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "record-invalid"
-    ]
-   },
-   "by": "examples"
+   "direction": "adversarial"
   },
   {
    "id": "A9r",
    "operations": [
     "terms"
    ],
-   "direction": "adversarial",
-   "case": "rule widened by one alternation",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "record-invalid"
-    ]
-   },
-   "by": "widening and examples"
+   "direction": "adversarial"
   },
   {
    "id": "A10r",
    "operations": [
     "terms"
    ],
-   "direction": "adversarial",
-   "case": "deny rule narrowed in scope",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "record-invalid"
-    ]
-   },
-   "by": "deny widening"
+   "direction": "adversarial"
   },
   {
    "id": "A11r",
    "operations": [
     "terms"
    ],
-   "direction": "adversarial",
-   "case": "deny rule whose countercontrol no longer matches",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "record-invalid"
-    ]
-   },
-   "by": "countercontrols"
+   "direction": "adversarial"
   },
   {
    "id": "S1r",
    "operations": [
     "terms"
    ],
-   "direction": "adversarial",
-   "case": "a fingerprinted sentence edited",
-   "expect": {
-    "outcome": "REVIEW_REQUIRED",
-    "classes": [
-     "rule-fingerprint-mismatch"
-    ]
-   },
-   "by": "sec. 6.2"
+   "direction": "adversarial"
   },
   {
    "id": "S2r",
    "operations": [
     "terms"
    ],
-   "direction": "adversarial",
-   "case": "a fingerprinted sentence deleted",
-   "expect": {
-    "outcome": "REVIEW_REQUIRED",
-    "classes": [
-     "rule-stale"
-    ]
-   },
-   "by": ""
+   "direction": "adversarial"
   },
   {
    "id": "G1",
    "operations": [
     "execution"
    ],
-   "direction": "adversarial",
-   "case": "delegated result whose candidate is an abbreviation",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "delegated-evidence-invalid"
-    ]
-   },
-   "by": "sec. 7.2"
+   "direction": "adversarial"
   },
   {
    "id": "G2",
    "operations": [
     "execution"
    ],
-   "direction": "adversarial",
-   "case": "no delegated result supplied",
-   "expect": {
-    "outcome": "REVIEW_REQUIRED",
-    "classes": [
-     "delegated-evidence-missing"
-    ]
-   },
-   "by": "sec. 7.2"
+   "direction": "adversarial"
   },
   {
    "id": "G3",
    "operations": [
     "execution"
    ],
-   "direction": "adversarial",
-   "case": "LEDGER.json with one STALE id removed",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "delegated-evidence-invalid"
-    ]
-   },
-   "by": "sec. 7.3"
+   "direction": "adversarial"
   },
   {
    "id": "S11-1",
    "operations": [
     "execution"
    ],
-   "direction": "adversarial",
-   "case": "sec. 11 row 1 countercontrol: one splice reverted in X",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "unauthorized-edit"
-    ]
-   },
-   "by": "sec. 11"
+   "direction": "adversarial"
   },
   {
    "id": "S11-2",
    "operations": [
     "execution"
    ],
-   "direction": "adversarial",
-   "case": "sec. 11 row 2 countercontrol: frozen self-test countercontrols at E",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "missing"
-    ]
-   },
-   "by": "sec. 11"
+   "direction": "adversarial"
   },
   {
    "id": "S11-3",
    "operations": [
     "execution"
    ],
-   "direction": "adversarial",
-   "case": "sec. 11 row 3 countercontrol: evidence from another head_sha",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "delegated-evidence-invalid"
-    ]
-   },
-   "by": "sec. 11"
+   "direction": "adversarial"
   },
   {
    "id": "S11-4",
    "operations": [
     "execution"
    ],
-   "direction": "adversarial",
-   "case": "sec. 11 row 4 countercontrol: one STALE value altered",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "delegated-evidence-invalid"
-    ]
-   },
-   "by": "sec. 11"
+   "direction": "adversarial"
   },
   {
    "id": "S11-5",
    "operations": [
     "execution"
    ],
-   "direction": "adversarial",
-   "case": "sec. 11 row 5 countercontrol: a splice adding \"no longer\"",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "deny-match"
-    ]
-   },
-   "by": "sec. 11"
+   "direction": "adversarial"
   },
   {
    "id": "S11-6",
    "operations": [
     "execution"
    ],
-   "direction": "adversarial",
-   "case": "sec. 11 row 6 countercontrol: a splice adding \"is infinite\"",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "deny-match"
-    ]
-   },
-   "by": "sec. 11"
+   "direction": "adversarial"
   },
   {
    "id": "S11-7",
    "operations": [
     "terms"
    ],
-   "direction": "adversarial",
-   "case": "sec. 11 row 7 countercontrol: \"Fourteen items\" reinstated",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "item7-literal-match",
-     "deny-match"
-    ]
-   },
-   "by": "sec. 11"
+   "direction": "adversarial"
   },
   {
    "id": "S11-8",
    "operations": [
     "execution"
    ],
-   "direction": "adversarial",
-   "case": "sec. 11 row 8 countercontrol: FULL mirror text altered",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "mirror-mismatch"
-    ]
-   },
-   "by": "sec. 11"
+   "direction": "adversarial"
   },
   {
    "id": "S11-9",
    "operations": [
     "execution"
    ],
-   "direction": "adversarial",
-   "case": "sec. 11 row 9 countercontrol: one registry splice dropped",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "unauthorized-edit"
-    ]
-   },
-   "by": "sec. 11"
+   "direction": "adversarial"
   },
   {
    "id": "S11-10",
    "operations": [
     "execution"
    ],
-   "direction": "adversarial",
-   "case": "sec. 11 row 10 countercontrol: a Lean definition changed",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "lean-code-change"
-    ]
-   },
-   "by": "sec. 11"
+   "direction": "adversarial"
   },
   {
    "id": "S11-11",
    "operations": [
     "terms"
    ],
-   "direction": "adversarial",
-   "case": "sec. 11 row 11 countercontrol: a new unexplained A1 line in a new active file, item 11 --final",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "final-unclassified"
-    ]
-   },
-   "by": "sec. 11"
+   "direction": "adversarial"
   },
   {
    "id": "S11-12",
    "operations": [
     "execution"
    ],
-   "direction": "adversarial",
-   "case": "sec. 11 row 12 countercontrol: a guard-pin splice dropped",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "pin-broken"
-    ]
-   },
-   "by": "sec. 11"
+   "direction": "adversarial"
   },
   {
    "id": "S11-13",
    "operations": [
     "execution"
    ],
-   "direction": "adversarial",
-   "case": "sec. 11 row 13 countercontrol: the SC-42 result hand-edited",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "delegated-evidence-invalid"
-    ]
-   },
-   "by": "sec. 11"
+   "direction": "adversarial"
   },
   {
    "id": "S11-14",
    "operations": [
     "execution"
    ],
-   "direction": "adversarial",
-   "case": "sec. 11 row 14 countercontrol: an extra word in an unledgered file of X; L dropping W's workflow",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "unauthorized-change",
-     "landing-drops-main-change"
-    ]
-   },
-   "by": "sec. 11"
+   "direction": "adversarial"
   },
   {
    "id": "RT-X",
    "operations": [
     "execution"
    ],
-   "direction": "positive",
-   "case": "--scientific-base H --main W --candidate T1'",
-   "expect": {
-    "outcome": "REVIEW_REQUIRED",
-    "classes": [
-     "delegated-evidence-missing"
-    ]
-   },
-   "by": "",
-   "reference": "candidate checks as RT-C; one side change (.github/workflows/a1exit-trial-verify.yml) classified; no RET item from it"
+   "direction": "positive"
   },
   {
    "id": "RT-L",
    "operations": [
     "execution"
    ],
-   "direction": "positive",
-   "case": "in-memory landing with parents (W, T1')",
-   "expect": {
-    "outcome": "REVIEW_REQUIRED",
-    "classes": []
-   },
-   "by": "",
-   "reference": "composition PASS; the workflow at L equals W's blob; the mutant with H's copy FAILs landing-drops-main-change"
+   "direction": "positive"
   },
   {
    "id": "RT-L2",
    "operations": [
     "execution"
    ],
-   "direction": "adversarial",
-   "case": "predicted M containing the tool's landing paths",
-   "expect": {
-    "outcome": "FAIL",
-    "classes": [
-     "base-drift"
-    ]
-   },
-   "by": "",
-   "reference": "sec. 13.4: must show every side change classified and no base-drift; at M = main 4fb2c1ee, AGENTS.md (a ledgered path, splice D296) changed by the sec. A.49 merge is base-drift, and .claude/settings.json is an unclassified side change"
+   "direction": "adversarial"
   },
   {
    "id": "GV1",
    "operations": [],
-   "direction": "adversarial",
-   "case": "a replace ref (`refs/replace/`) that substitutes a commit of the E..H chain, and separately one that substitutes the configuration's blob at `F`; separately, a role commit given as a ref name (`main`, a tag)",
-   "expect": {
-    "text": "the replace refs are ignored: the result equals that from the same store without them; the ref name is an unresolvable object (ERROR), refs not being consulted"
-   },
-   "by": "sec. 6.3, object integrity",
-   "reference": "tool-level control (sec. 6.3), run by conformance_controls.py"
+   "direction": "adversarial"
   },
   {
    "id": "GV2",
    "operations": [],
-   "direction": "adversarial",
-   "case": "a graft file that makes a commit of the E..H chain parentless",
-   "expect": {
-    "text": "ignored: the result equals that without the graft file"
-   },
-   "by": "object integrity",
-   "reference": "tool-level control (sec. 6.3), run by conformance_controls.py"
+   "direction": "adversarial"
   },
   {
    "id": "GV3",
    "operations": [],
-   "direction": "adversarial",
-   "case": "a commit-graph file recording false parents for a commit between `H` and `M`, and for a rule's `recorded_at`",
-   "expect": {
-    "text": "ignored: `H` on `M`'s first-parent chain and the `rule-stale` scoping equal those of the clean store"
-   },
-   "by": "object integrity",
-   "reference": "tool-level control (sec. 6.3), run by conformance_controls.py"
+   "direction": "adversarial"
   },
   {
    "id": "GV4",
    "operations": [],
-   "direction": "adversarial",
-   "case": "a loose object whose stored content does not hash to its id, each case separately: the configuration's blob at `F`, the pin table's blob, a tree of `X`, a commit of E..H, a tool blob at `T`, the HP merge",
-   "expect": {
-    "text": "ERROR in each case, exit 65 and no PASS (`CONFIG_UNREVIEWED` for an admission or identity read, the unresolvable-object error otherwise; the HP merge, which the HP chain check reads first, `CONFIG_INCONSISTENT` or the unresolvable-object error), although `git cat-file -p` prints the content"
-   },
-   "by": "object integrity",
-   "reference": "tool-level control (sec. 6.3), run by conformance_controls.py"
+   "direction": "adversarial"
   },
   {
    "id": "GV5",
    "operations": [],
-   "direction": "adversarial",
-   "case": "a store lacking a parent that a bounded walk needs (a shallow store whose boundary lies inside E..H; separately, a partial store lacking a needed blob); and the positive direction: a shallow store that holds every object the run needs",
-   "expect": {
-    "text": "ERROR in the first two, with no object fetched; the third proceeds as in a full store"
-   },
-   "by": "object integrity, bounded walks",
-   "reference": "tool-level control (sec. 6.3), run by conformance_controls.py"
+   "direction": "adversarial"
   },
   {
    "id": "GV6",
    "operations": [],
-   "direction": "adversarial",
-   "case": "a symlink entry at the configuration's path in `F`; separately at the pin table's path; separately at a record's path",
-   "expect": {
-    "text": "refused in each case (ERROR `CONFIG_UNREVIEWED` for the first two; the record `record-invalid`)"
-   },
-   "by": "object integrity, entries",
-   "reference": "tool-level control (sec. 6.3), run by conformance_controls.py"
+   "direction": "adversarial"
   },
   {
    "id": "GV7",
    "operations": [],
-   "direction": "adversarial",
-   "case": "the host's REST API failing or incomplete, each case separately: the run record; the consumer's artifact list; the run and job records of a host-run class",
-   "expect": {
-    "text": "no `\"chain\"` (ERROR `CONFIG_UNREVIEWED`); non-acceptance at the consumer; REVIEW_REQUIRED `delegated-evidence-missing` for the class, never PASS; no fallback source in any case"
-   },
-   "by": "sec. 6.3, host reads",
-   "reference": "tool-level control (sec. 6.3), run by conformance_controls.py"
+   "direction": "adversarial"
   },
   {
    "id": "EI1",
    "operations": [],
-   "direction": "adversarial",
-   "case": "the tool run directly, without the pre-run check, on a checkout of `T` in which one tool file differs from `T`'s blob (an engine module patched after checkout), or holds a file `T` does not (a compiled-bytecode file under `tools/ledger_coverage/`)",
-   "expect": {
-    "text": "ERROR at the tool; in the pinned workflow the pre-run check fails first (EI9, EI13), and the consumer's repetition of point 2 (TR28, TR52) is the binding refusal"
-   },
-   "by": "execution identity point 2",
-   "reference": "tool-level control (sec. 6.3), run by conformance_controls.py"
+   "direction": "adversarial"
   },
   {
    "id": "EI2",
    "operations": [],
-   "direction": "adversarial",
-   "case": "a run whose event is `pull_request` (head in the canonical repository); separately `schedule`; separately `workflow_run`",
-   "expect": {
-    "text": "ERROR at the tool; non-acceptance at the consumer"
-   },
-   "by": "execution identity point 1 (B-1)",
-   "reference": "tool-level control (sec. 6.3), run by conformance_controls.py"
+   "direction": "adversarial"
   },
   {
    "id": "EI3",
    "operations": [],
-   "direction": "adversarial",
-   "case": "a result whose `F` differs from the landing record's; separately, whose pin table `{path, blob_sha256}` differs; separately, whose configuration path differs",
-   "expect": {
-    "text": "non-acceptance in each case"
-   },
-   "by": "sec. 5 (review N-1)",
-   "reference": "tool-level control (sec. 6.3), run by conformance_controls.py"
+   "direction": "adversarial"
   },
   {
    "id": "EI4",
    "operations": [],
-   "direction": "adversarial",
-   "case": "`F` holds the plan directory with its `PREREG.md` and a second directory whose `PREREG.md` lists another configuration: (a) that other configuration placed in the plan directory, listed only by the second `PREREG.md`; (b) a caller argument naming the second `PREREG.md` as pin table; (c) the plan's `PREREG.md` whose last `Record pins` subsection omits the configuration while an earlier one lists it; (d) no `PREREG.md` beside the configuration; separately, a malformed row in its last `Record pins` subsection",
-   "expect": {
-    "text": "(a), (c), (d): ERROR `CONFIG_UNREVIEWED`; (b): USAGE, exit 64 (the run takes no pin-table argument)"
-   },
-   "by": "configuration admission point 2 (B-3)",
-   "reference": "tool-level control (sec. 6.3), run by conformance_controls.py"
+   "direction": "adversarial"
   },
   {
    "id": "EI5",
    "operations": [],
-   "direction": "adversarial",
-   "case": "before landing, `git ls-remote` failing; separately, returning no `refs/heads/main` line or more than one; separately, an id that is not a full 40-hex id, or that the verified reader cannot read, including one equal to `L`'s given first parent; separately, an id other than `L`'s first parent",
-   "expect": {
-    "text": "the landing is refused in each case; one `refs/heads/main` line equal to `L`'s first parent resolves to it (countercontrol)"
-   },
-   "by": "sec. 13.4 (review N-2)",
-   "reference": "tool-level control (sec. 6.3), run by conformance_controls.py"
+   "direction": "adversarial"
   },
   {
    "id": "EI6",
    "operations": [],
-   "direction": "adversarial",
-   "case": "the checkout of a `T` holding, besides the pinned files, an unpinned `tools/hashlib.py` (separately `tools/re.py`, `tools/subprocess.py`, `tools/json.py`, `tools/importlib.py`) whose module body writes a marker, the probe `review-v6.0a/cx3/hashlib_probe.py`, the entry point run with the workflow's flags `-I -S -B`; separately, the entry point run without `-I`, or with a checkout directory on `sys.path`; separately, the predicate of the first case on a traced import of a fixture package from a `site-packages` directory (a symlink to `dist-packages`) inside a standard-library-like directory, on a traced import of an installed package of the interpreter (`certifi`, where present), and on every out-of-tree import of a real `-I -S -B` self-test run",
-   "expect": {
-    "text": "the first: the marker is never written, every imported module's file lies in `tool.files` or the interpreter's standard library, and the run's items equal those of the same run without the file; at the consumer a `T` that is not on `main`'s first-parent chain is non-acceptance (TR29). The standard library is the interpreter's `-I -S` import path less its installed-package directories (sysconfig `purelib` and `platlib`, `site-packages` and `dist-packages`, by real path), and no allowed directory is or lies under an installed-package directory. The second: ERROR at the entry point, exit 65, before any import of a module not already loaded at interpreter start. The third: the fixture's and the installed package's imported files are refused, and every import of the self-test run is accepted"
-   },
-   "by": "execution identity point 5 (R-1; N-g)",
-   "reference": "tool-level control (sec. 6.3), run by conformance_controls.py"
+   "direction": "adversarial"
   },
   {
    "id": "EI7",
    "operations": [],
-   "direction": "adversarial",
-   "case": "a pinned workflow blob with `uses: ./.github/actions/x`; separately `uses: ./.github/workflows/w.yml`; separately `uses: owner/action@v4` (a tag); separately `uses: owner/action@main`; separately each of the forms the line rule refuses: a quoted key `\"uses\": owner/action@<40 hex>`, an escaped key `\"\\x75ses\": ./x`, a flow mapping `- {uses: ./x}` and a flow sequence `steps: [ {\"\\x75ses\": ./x} ]`, an anchor and alias (`x: &a ./x` with `uses: *a`), a block scalar (`uses: >` followed by `./x`), a complex key `? uses`; and the forms of review v6.0d B-1: an escaped key after a dash and two spaces (`-  \"\\x75ses\": ./x`), a flow mapping after a dash and two spaces (`-  {\"\\x75ses\": ./x}`), a tag after a dash and two spaces (`-  !!str \"\\x75ses\": ./x`), a nested dash (`- - \"\\x75ses\": ./x`), a whole-document flow mapping after `---` (`--- {\"jobs\": ...}` with `\"\\x75ses\"` in a step), a tab after the dash (`-<TAB>\"\\x75ses\": ./x`), a tab after a colon before a flow collection (`steps:<TAB>[ ... ]`), and the key in upper case (`USES: ./x`); separately a local or parent path with a 40-hex suffix: `uses: ./.github/actions/x@<40 hex>`, a job-level `uses: ./.github/workflows/w.yml@<40 hex>` and `uses: ../x/y@<40 hex>`; separately an owner name beginning with a hyphen, `uses: -foo/bar@<40 hex>`",
-   "expect": {
-    "text": "ERROR at the tool (exit 65, `CONFIG_UNREVIEWED` naming the line rule); non-acceptance at the consumer, in each case; the conforming workflow, a `uses:` line naming an action by a 40-hex id, exits 0"
-   },
-   "by": "execution identity point 5 (R-1, N5, R-a, B-1)",
-   "reference": "tool-level control (sec. 6.3), run by conformance_controls.py"
+   "direction": "adversarial"
   },
   {
    "id": "EI8",
    "operations": [],
-   "direction": "positive",
-   "case": "the pre-run check on a clean checkout of a `T` equal to the configuration's `tool.files`",
-   "expect": {
-    "text": "the step passes and the entry point runs (positive control)"
-   },
-   "by": "execution identity point 5 (O-1)",
-   "reference": "tool-level control (sec. 6.3), run by conformance_controls.py"
+   "direction": "positive"
   },
   {
    "id": "EI9",
    "operations": [],
-   "direction": "adversarial",
-   "case": "the pre-run check on a checkout holding `tools/ledger_coverage/engine/__pycache__/util.cpython-313.pyc`, an unchecked-hash bytecode file whose code writes a marker (review v6.0b probe P4)",
-   "expect": {
-    "text": "the step fails; the job ends before the entry point runs; the marker is never written"
-   },
-   "by": "point 5 (O-1)",
-   "reference": "tool-level control (sec. 6.3), run by conformance_controls.py"
+   "direction": "adversarial"
   },
   {
    "id": "EI10",
    "operations": [],
-   "direction": "adversarial",
-   "case": "the pre-run check on a checkout holding an extension module `tools/ledger_coverage/engine/util.so` beside the pinned `util.py` (probe P7)",
-   "expect": {
-    "text": "the step fails before the entry point runs; the module's init never runs"
-   },
-   "by": "point 5 (O-1)",
-   "reference": "tool-level control (sec. 6.3), run by conformance_controls.py"
+   "direction": "adversarial"
   },
   {
    "id": "EI11",
    "operations": [],
-   "direction": "adversarial",
-   "case": "the pre-run check on a checkout in which the pinned path `tools/ledger_coverage/engine/util.py` is a symlink to a payload outside the package (probe P9)",
-   "expect": {
-    "text": "the step fails before the entry point runs; the payload never runs"
-   },
-   "by": "point 5 (O-1)",
-   "reference": "tool-level control (sec. 6.3), run by conformance_controls.py"
+   "direction": "adversarial"
   },
   {
    "id": "EI12",
    "operations": [],
-   "direction": "adversarial",
-   "case": "the pre-run check on a checkout in which the entry point `tools/ledger_coverage.py` is a symlink to `tools/evil.py` (probe P10)",
-   "expect": {
-    "text": "the step fails before the entry point runs; `evil.py` never runs"
-   },
-   "by": "point 5 (O-1)",
-   "reference": "tool-level control (sec. 6.3), run by conformance_controls.py"
+   "direction": "adversarial"
   },
   {
    "id": "EI13",
    "operations": [],
-   "direction": "adversarial",
-   "case": "the pre-run check, each case separately: a pinned file changed by one byte; a pinned file missing; an extra `.py` file under `tools/ledger_coverage/`; a directory entry that is neither a regular file nor a directory; `tools` a symlink to a real directory holding the pinned files, inside the checkout, and separately to an absolute path outside it (R-d); `F` not fetched; the configuration path absent at `F`; a configuration without `tool.files`",
-   "expect": {
-    "text": "the step fails in each case before the entry point runs"
-   },
-   "by": "point 5 (O-1, R-d)",
-   "reference": "tool-level control (sec. 6.3), run by conformance_controls.py"
+   "direction": "adversarial"
   },
   {
    "id": "EI14",
    "operations": [],
-   "direction": "adversarial",
-   "case": "the review v6.0a CX-3 tree: a branch `T'` holding the pinned files and an unpinned `tools/hashlib.py`",
-   "expect": {
-    "text": "dispatched on the branch: the pre-run check fails (`GITHUB_REF` is not `refs/heads/main`, EI15), so nothing runs; on any run that reaches the tool, the file never executes (EI6) and the tool refuses before any evaluation (`head_branch`, TR29); at the consumer, non-acceptance (TR29). The same file at an on-`main` `T`: the pre-run check passes (the file lies outside the pinned paths), the file never executes, and the run is unaffected"
-   },
-   "by": "points 5, 6 (O-1; N-c; O-4)",
-   "reference": "tool-level control (sec. 6.3), run by conformance_controls.py"
+   "direction": "adversarial"
   },
   {
    "id": "EI15",
    "operations": [],
-   "direction": "adversarial",
-   "case": "the pre-run check, each case separately: a `workflow_dispatch` run on a branch, with `F'` a commit whose configuration pins the branch's changed tool code (review v6.0c case O-4); `GITHUB_REF` `refs/tags/main`; `F` given as `HEAD`, as an abbreviated id, or in upper case",
-   "expect": {
-    "text": "the step fails in each case before the entry point runs; with the plan's `F` on `main` the same step passes (countercontrol EI8)"
-   },
-   "by": "point 5 (O-4)",
-   "reference": "tool-level control (sec. 6.3), run by conformance_controls.py"
+   "direction": "adversarial"
   },
   {
    "id": "RDIR-1",
    "operations": [
     "execution"
    ],
-   "direction": "positive",
-   "case": "every entry of `D` at `M` equal to `F`",
-   "expect": {
-    "text": "each `record-directory`; A.5 no unequal path; no `side-change-unclassified`"
-   },
-   "by": "design amendment r4 (8de52148)",
-   "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
+   "direction": "positive"
   },
   {
    "id": "RDIR-2",
    "operations": [
     "execution"
    ],
-   "direction": "adversarial",
-   "case": "one file in `D` modified on `M` after `F`",
-   "expect": {
-    "text": "that file `side-change-unclassified` (`differs from F`); the others `record-directory`"
-   },
-   "by": "design amendment r4 (8de52148)",
-   "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
+   "direction": "adversarial"
   },
   {
    "id": "RDIR-3",
    "operations": [
     "execution"
    ],
-   "direction": "adversarial",
-   "case": "a file added in `D` on `M`, absent at `F`",
-   "expect": {
-    "text": "`side-change-unclassified` (`absent at F`)"
-   },
-   "by": "design amendment r4 (8de52148)",
-   "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
+   "direction": "adversarial"
   },
   {
    "id": "RDIR-4",
    "operations": [
     "execution"
    ],
-   "direction": "adversarial",
-   "case": "a file of `F` in `D` deleted on `M` (absent at `H` and `M`)",
-   "expect": {
-    "text": "`side-change-unclassified` (`absent at M`), reported by A.5 although the `H`-to-`M` scan does not list it"
-   },
-   "by": "design amendment r4 (8de52148)",
-   "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
+   "direction": "adversarial"
   },
   {
    "id": "RDIR-5",
    "operations": [
     "execution"
    ],
-   "direction": "adversarial",
-   "case": "a path outside `D` whose blob at `M` equals its blob at `F`",
-   "expect": {
-    "text": "`side-change-unclassified` (`outside the record directory`)"
-   },
-   "by": "design amendment r4 (8de52148)",
-   "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
+   "direction": "adversarial"
   },
   {
    "id": "RDIR-6",
    "operations": [
     "execution"
    ],
-   "direction": "adversarial",
-   "case": "a sibling path `D-x/f` sharing `D` as a string prefix, equal at `F` and `M`",
-   "expect": {
-    "text": "`side-change-unclassified`"
-   },
-   "by": "design amendment r4 (8de52148)",
-   "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
+   "direction": "adversarial"
   },
   {
    "id": "RDIR-7",
    "operations": [
     "execution"
    ],
-   "direction": "adversarial",
-   "case": "the clean-path predicate applied to paths with a `.`, `..` or empty component",
-   "expect": {
-    "text": "each refused (tested on the predicate, since git trees do not normally carry such names; the fixture builds one with a raw tree object if its reader admits it)"
-   },
-   "by": "design amendment r4 (8de52148)",
-   "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
+   "direction": "adversarial"
   },
   {
    "id": "RDIR-8",
    "operations": [
     "execution"
    ],
-   "direction": "adversarial",
-   "case": "in `D`: the same blob with a mode change (`100644` to `100755`); a symbolic link at `M` where `F` has a regular file of the same bytes; a submodule entry at `M`. Each case is run through the full `execution --main` path (the `M` role) and, separately, through a reconciliation record's R11",
-   "expect": {
-    "text": "each `side-change-unclassified` (`differs from F`, `not a regular file`, `not a regular file`); R11 fails in each case; no exception and no `*-group-error` in either path"
-   },
-   "by": "design amendment r4 (8de52148)",
-   "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
+   "direction": "adversarial"
   },
   {
    "id": "RDIR-9",
    "operations": [
     "execution"
    ],
-   "direction": "adversarial",
-   "case": "a ledgered path, and separately a corpus path, inside `D`",
-   "expect": {
-    "text": "ERROR `CONFIG_INCONSISTENT` (D3)"
-   },
-   "by": "design amendment r4 (8de52148)",
-   "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
+   "direction": "adversarial"
   },
   {
    "id": "RDIR-10",
    "operations": [
     "execution"
    ],
-   "direction": "positive",
-   "case": "a configuration in the root directory",
-   "expect": {
-    "text": "the rule inactive, the run unchanged (items and side changes equal to the same run without this amendment), no `record-directory` classification"
-   },
-   "by": "design amendment r5 (99c51e6a)",
-   "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
+   "direction": "positive"
   },
   {
    "id": "RDIR-11",
    "operations": [
     "execution"
    ],
-   "direction": "adversarial",
-   "case": "a path inside `D` that exists at `H`",
-   "expect": {
-    "text": "ERROR `CONFIG_INCONSISTENT` (D2)"
-   },
-   "by": "design amendment r4 (8de52148)",
-   "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
+   "direction": "adversarial"
   },
   {
    "id": "RDIR-12",
    "operations": [
     "execution"
    ],
-   "direction": "adversarial",
-   "case": "the authorized `D`, with a side-change class the configuration references whose prefix lies inside `D`",
-   "expect": {
-    "text": "ERROR `CONFIG_INCONSISTENT` (D3)"
-   },
-   "by": "design amendment r4 (8de52148)",
-   "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
+   "direction": "adversarial"
   },
   {
    "id": "RDIR-12b",
    "operations": [
     "execution"
    ],
-   "direction": "adversarial",
-   "case": "a configuration whose directory lies under `.github/`, with an entry inside it on `M`: (a) the directory present at `H`; (b) the directory absent at `H`",
-   "expect": {
-    "text": "(a) the rule inactive, no `record-directory` classification, the result equal to the same run without this amendment; (b) ERROR `CONFIG_INCONSISTENT` (authority). Neither is a D3 test"
-   },
-   "by": "design amendment r4 (8de52148)",
-   "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
+   "direction": "adversarial"
   },
   {
    "id": "RDIR-13",
    "operations": [
     "execution"
    ],
-   "direction": "adversarial",
-   "case": "a path in `D`, equal at `F` and `M`, that a class names with a pin differing from `M`",
-   "expect": {
-    "text": "`side-change-unclassified` naming the class (A.6 row 2); not `record-directory`"
-   },
-   "by": "design amendment r4 (8de52148)",
-   "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
+   "direction": "adversarial"
   },
   {
    "id": "RDIR-14",
    "operations": [
     "execution"
    ],
-   "direction": "positive",
-   "case": "no `--freeze`",
-   "expect": {
-    "text": "the rule inactive; files in `D` `side-change-unclassified`; A.5 not evaluated"
-   },
-   "by": "design amendment r4 (8de52148)",
-   "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
+   "direction": "positive"
   },
   {
    "id": "RDIR-15",
    "operations": [
     "execution"
    ],
-   "direction": "positive",
-   "case": "a reconciliation record, `M` with `D` equal to `F`",
-   "expect": {
-    "text": "R11 holds"
-   },
-   "by": "design amendment r4 (8de52148)",
-   "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
+   "direction": "positive"
   },
   {
    "id": "RDIR-16",
    "operations": [
     "execution"
    ],
-   "direction": "adversarial",
-   "case": "a configuration in a newly introduced, unrelated directory (four components, absent at `H`, holding the configuration and a file of record pins, no ledgered, corpus, class or `.github/` path)",
-   "expect": {
-    "text": "ERROR `CONFIG_INCONSISTENT` (authority): D2-D4 hold, A.3 fails"
-   },
-   "by": "design amendment r4 (8de52148)",
-   "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
+   "direction": "adversarial"
   },
   {
    "id": "RDIR-17",
    "operations": [
     "execution"
    ],
-   "direction": "adversarial",
-   "case": "a class record defining class id `record-directory`",
-   "expect": {
-    "text": "ERROR `CONFIG_INCONSISTENT` (D5)"
-   },
-   "by": "design amendment r4 (8de52148)",
-   "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
+   "direction": "adversarial"
   },
   {
    "id": "RDIR-18",
    "operations": [
     "execution"
    ],
-   "direction": "adversarial",
-   "case": "a reconciliation record, `M` with one file of `D` modified after `F`",
-   "expect": {
-    "text": "R11 fails"
-   },
-   "by": "design amendment r4 (8de52148)",
-   "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
+   "direction": "adversarial"
   },
   {
    "id": "RDIR-19",
    "operations": [
     "execution"
    ],
-   "direction": "adversarial",
-   "case": "a reconciliation record, `M` with one file of `F`'s `D` deleted",
-   "expect": {
-    "text": "R11 fails (A.5)"
-   },
-   "by": "design amendment r4 (8de52148)",
-   "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
+   "direction": "adversarial"
   },
   {
    "id": "RDIR-20",
    "operations": [
     "execution"
    ],
-   "direction": "adversarial",
-   "case": "a reconciliation record, `M` with a file of `D` equal to `F`, but the run's `D` not authorized",
-   "expect": {
-    "text": "ERROR `CONFIG_INCONSISTENT` (authority) before R11 is evaluated"
-   },
-   "by": "design amendment r4 (8de52148)",
-   "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
+   "direction": "adversarial"
   },
   {
    "id": "RDIR-21",
    "operations": [
     "execution"
    ],
-   "direction": "adversarial",
-   "case": "a file in `D` that differs between `F` and `M`, and a class pin naming it that matches `M`",
-   "expect": {
-    "text": "the class route's entry stands in the side-change list and A.5 issues `side-change-unclassified` (`differs from F`); the result is not accepting"
-   },
-   "by": "design amendment r4 (8de52148)",
-   "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
+   "direction": "adversarial"
   },
   {
    "id": "RDIR-22",
    "operations": [
     "execution"
    ],
-   "direction": "positive",
-   "case": "an unauthorized `D` with no entry inside it on `M`, under `execution --main --freeze`",
-   "expect": {
-    "text": "no ERROR; side changes classified exactly as without this amendment"
-   },
-   "by": "design amendment r4 (8de52148)",
-   "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
+   "direction": "positive"
   },
   {
    "id": "RDIR-23",
    "operations": [
     "coverage"
    ],
-   "direction": "positive",
-   "case": "the authorized `D` and a configuration whose run is `coverage` (no `M`)",
-   "expect": {
-    "text": "no evaluation of A.3-A.5; the result equal to the same run without this amendment"
-   },
-   "by": "design amendment r4 (8de52148)",
-   "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
+   "direction": "positive"
   },
   {
    "id": "RDIR-24",
    "operations": [
     "execution"
    ],
-   "direction": "adversarial",
-   "case": "a class record admitted through `--classify` that defines the class id `record-directory`",
-   "expect": {
-    "text": "ERROR `CONFIG_INCONSISTENT` (D5)"
-   },
-   "by": "design amendment r4 (8de52148)",
-   "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
+   "direction": "adversarial"
   },
   {
    "id": "RDIR-25",
    "operations": [
     "execution"
    ],
-   "direction": "positive",
-   "case": "the synthetic world of the conformance controls: an unauthorized `D` (`syn`) present at `H`, with entries inside it on `M`, under `execution --main --freeze`",
-   "expect": {
-    "text": "no ERROR; the rule inactive; side changes, items and outcome equal to the same run without this amendment; every existing conformance control that runs `execution --main --freeze` keeps its expected result unchanged"
-   },
-   "by": "design amendment r4 (8de52148)",
-   "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
+   "direction": "positive"
   },
   {
    "id": "RT-O9",
    "operations": [
     "execution"
    ],
-   "direction": "positive",
-   "case": "the predicted `M`: `main` plus the tool landing plus the plan's record directory as it stands at the stand-in `F`",
-   "expect": {
-    "text": "the control computes the expected set independently from the stand-in `F`'s tree: every entry inside `D`, with its mode, blob id and sha256. It requires the run's `record-directory` entries to equal that set exactly (no path missing, none extra, modes and hashes equal), A.5 no unequal path, no `side-change-unclassified`, and RT-L2 still PASS"
-   },
-   "by": "design amendment r4 (8de52148)",
-   "reference": "real-tree control (design amendment r4, A.9), run by a1_controls.py beside RT-L2"
+   "direction": "positive"
   },
   {
    "id": "I2-1",
    "operations": [],
-   "direction": "positive",
-   "case": "the `item2-coverage` arm's command, read from the workflow file by the conformance controls (which already read that file)",
-   "expect": {
-    "text": "exactly the existing arguments followed by the two `--classify` arguments of B.2, every expansion quoted; a new control, since no existing control checks an arm's text"
-   },
-   "by": "design amendment r4 (8de52148)",
-   "reference": "tool-level control (design amendment r4, B.4), run by conformance_controls.py (record_directory_controls.py)"
+   "direction": "positive"
   },
   {
    "id": "I2-2",
    "operations": [
     "coverage"
    ],
-   "direction": "positive",
-   "case": "a meaning-context adjudication supplied through `context-adjudications.json`, matching both context hashes of a meaning-context site",
-   "expect": {
-    "text": "that site PASS (sec. 4.1 row 2), as K10"
-   },
-   "by": "design amendment r4 (8de52148)",
-   "reference": "tool-level control (design amendment r4, B.4), run by conformance_controls.py (record_directory_controls.py)"
+   "direction": "positive"
   },
   {
    "id": "I2-3",
    "operations": [
     "coverage"
    ],
-   "direction": "adversarial",
-   "case": "`context-adjudications.json` absent at `F`",
-   "expect": {
-    "text": "ERROR `SOURCE_CHANGED`"
-   },
-   "by": "design amendment r4 (8de52148)",
-   "reference": "tool-level control (design amendment r4, B.4), run by conformance_controls.py (record_directory_controls.py)"
+   "direction": "adversarial"
   },
   {
    "id": "I2-4",
    "operations": [
     "coverage"
    ],
-   "direction": "adversarial",
-   "case": "`hit-classifications.json` present but not referenced by the configuration",
-   "expect": {
-    "text": "`record-invalid`; the hit stays REVIEW_REQUIRED"
-   },
-   "by": "design amendment r4 (8de52148)",
-   "reference": "tool-level control (design amendment r4, B.4), run by conformance_controls.py (record_directory_controls.py)"
+   "direction": "adversarial"
   },
   {
    "id": "I2-5",
    "operations": [
     "coverage"
    ],
-   "direction": "adversarial",
-   "case": "a referenced record without a valid review",
-   "expect": {
-    "text": "`record-invalid`"
-   },
-   "by": "design amendment r4 (8de52148)",
-   "reference": "tool-level control (design amendment r4, B.4), run by conformance_controls.py (record_directory_controls.py)"
+   "direction": "adversarial"
   },
   {
    "id": "I2-6",
    "operations": [
     "coverage"
    ],
-   "direction": "positive",
-   "case": "an empty `entries` list with its `record_id`, referenced, with a valid review bound to that `record_id`",
-   "expect": {
-    "text": "admitted; no site resolved by it; the same file without `record_id`, or without a review, `record-invalid`"
-   },
-   "by": "design amendment r4 (8de52148)",
-   "reference": "tool-level control (design amendment r4, B.4), run by conformance_controls.py (record_directory_controls.py)"
+   "direction": "positive"
   },
   {
    "id": "I2-7",
    "operations": [
     "coverage"
    ],
-   "direction": "positive",
-   "case": "a hit classification supplied through `hit-classifications.json`, matching a hit outside any HP region by its line sha256",
-   "expect": {
-    "text": "that hit resolved as the classification states; without the record, the same hit REVIEW_REQUIRED"
-   },
-   "by": "design amendment r4 (8de52148)",
-   "reference": "tool-level control (design amendment r4, B.4), run by conformance_controls.py (record_directory_controls.py)"
+   "direction": "positive"
   },
   {
    "id": "I2-8",
    "operations": [
     "coverage"
    ],
-   "direction": "positive",
-   "case": "an indicator adjudication supplied through `context-adjudications.json`, matching both context hashes and both structure hashes of a LIST or TABLE site",
-   "expect": {
-    "text": "the `context-structure-changed` item resolved (sec. 4.1 row 3); without it, REVIEW_REQUIRED `context-structure-changed`"
-   },
-   "by": "design amendment r4 (8de52148)",
-   "reference": "tool-level control (design amendment r4, B.4), run by conformance_controls.py (record_directory_controls.py)"
+   "direction": "positive"
   }
  ]
 }
