@@ -45,6 +45,12 @@ class Capture(object):
             base = next((r for r in self.rec.pending if r['case'] == baseline), None)
         self.rec.name_last(case, bindings=dict(bindings), baseline=base)
 
+    def attest(self, case, values):
+        """Values the runner states for a named case (checked by the gate for integrity only)."""
+        run = next((r for r in self.rec.pending if r['case'] == case), None)
+        if run is not None and values:
+            run['attested'] = dict(run.get('attested') or {}, **values)
+
     def count(self):
         return len(self.rec.pending)
 
@@ -123,6 +129,12 @@ def main(out_dir):
         extra = extra_controls(cap)
     except Exception as exc:
         extra = {'extra-group-error': '%s: %s' % (type(exc).__name__, exc)}
+    from ledger_coverage.adapters import recon_controls
+    try:
+        extra.update(recon_controls.recon_controls(cap))
+    except Exception as exc:
+        import traceback
+        extra['recon-group-error'] = '%s: %s %s' % (type(exc).__name__, exc, traceback.format_exc()[-1200:])
     for cid, v in sorted(extra.items()):
         if cid.startswith('_'):
             continue
