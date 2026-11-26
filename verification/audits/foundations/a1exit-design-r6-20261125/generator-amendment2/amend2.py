@@ -52,9 +52,17 @@ RTT_NOT_RUN = {
                'needs %s, none of which exists' % KINDS),
     'release_condition': ('every reviewed record of sec. 8.2 present at F and verifying under sec. 6.3, run at X_rep '
                           'built from F\'s ledger (R6.EVID.8)',
-                          'every one of %s present at F and verifying under sec. 6.3, run at X_rep built from F\'s '
-                          'ledger (R6.EVID.8)' % KINDS),
+                          'every one of %s present at F and verifying under the ownership chain and record lint of '
+                          'sec. 11 (R6.REC.1 to R6.REC.6), run at X_rep built from F\'s ledger (R6.EVID.8)' % KINDS),
 }
+# Unqualified citations of the source design's sec. 6.3 in rows' provenance text (not expectation values): qualified as
+# "v6.0e sec. 6.3", which is what they cite (the rows' sources are v6.0e locations).
+V6_QUALIFY = {
+    'GV-CACHE': ('source', 'direction.why'), 'GV-CACHE-AFTER-READ': ('source', 'direction.why'),
+    'GV-CACHE-IMMUTABLE': ('source', 'direction.why'), 'GV-CACHE-KEY': ('source', 'direction.why'),
+    'R4-B3-DUP': ('flags.0',),
+}
+UNQUALIFIED_63 = re.compile(r'(?<!v6\.0e )sec\. 6\.3\b')
 # RT-T's release_check is a fixed key the gate maps to its evaluator (control_gate.py, RC_RTT); it is kept verbatim,
 # and R6.GATE.15 defines the kinds it names. Changing the key is a change to the gate, made with the tool revision.
 RTT_RELEASE_CHECK = 'a reviewed record of a sec. 8.2 kind referenced by the configuration at the commit under check'
@@ -106,11 +114,19 @@ def note(owner):
         'Dir2-Dir5, and no finding is added. The other migrated families: TT1-TT14 and RC1-RC13 contain at most two '
         'consecutive capitals and match no profile (RC1-RC13 are also engine enumerations, R6.CORE.5); RDIR-1 to '
         'RDIR-25, RDIR-12b and RDIR-m1 to RDIR-m17 match `register-caps` ("RDIR"), but they occur only in adapter '
-        'modules and the expectation file, outside Z9\'s scope (R6.CORE.3), so the lint does not see them.\n'
+        'modules and the expectation file, outside Z9\'s scope (R6.CORE.3), so the lint does not see them. The '
+        'condition names are identified case-sensitively: the tool revision renames every occurrence in one change '
+        '(OBL-22), with no alias and no case-folding. R6.CORE.2 does not list the reasons naming the conditions '
+        'among the allowlisted engine enumerations, so the condition names stay under the profile check of Z9 (a '
+        'change put to the owner with F1).\n'
         '- RT-T. RT-T\'s NOT RUN entry named the records it needs as the records "of sec. 8.2", a section r6 does not '
         'have. Its reason and release condition name them: %s. Its release check is a fixed key that the gate maps '
         'to its evaluator, so it keeps its text, and R6.GATE.15 states the kinds it means; the gate\'s key changes '
-        'only with the tool revision.\n\n'
+        'only with the tool revision. Its release condition also read "verifying under sec. 6.3", a section r6 does '
+        'not have; the source design\'s sec. 6.3 (v6.0e, at the line RT-T\'s source cites) is the ownership chain and '
+        'record lint, whose r6 successor is sec. 11, and it reads "verifying under the ownership chain and record '
+        'lint of sec. 11 (R6.REC.1 to R6.REC.6)". Citations of the source design\'s sec. 6.3 in rows\' provenance '
+        'text read "v6.0e sec. 6.3".\n\n'
         'Amendment 2 changes nothing else. Its identifier change is a sec. A.48 item 3 migration that needs the '
         'owner\'s approval and an independent review; the tool revision applies it (OBL-22). AMENDMENT-2.md maps each '
         'change to its decision and lists what the tool must change; amendment 2 authorizes no merge, dispatch, '
@@ -128,6 +144,8 @@ def amend_design(t, owner):
     t = once(t, '| D2-D5 (r5 directory conditions) | Dir2-Dir5 | OD-31, RE-28 |',
              '| D2-D5 (r5 directory conditions) | Dir2-Dir5 (DIR2-DIR5 of the approved migration, superseded by '
              'amendment 2, sec. 0.3) | OD-31, RE-28, amendment 2 |', 'sec. 34 row')
+    t = once(t, '`not a regular file`, and the reasons naming Dir2-Dir5 and `directory not admitted`), and the path',
+             '`not a regular file`, and `directory not admitted`), and the path', 'R6.CORE.2 allowlist clause')
     t = once(t, 'NOT RUN (Q6). RT-T is NOT RUN until the reviewed records it needs exist.',
              'NOT RUN (Q6). RT-T is NOT RUN until the reviewed records it needs exist: %s. The release check of its '
              'expectation row, a fixed key of the gate, names them as the records of "a sec. 8.2 kind"; it means these '
@@ -148,6 +166,21 @@ def amend_expectations(E):
                 obj['reason'] = OLD_RX.sub(new_id, old)
                 changes.append((r['id'], 'F1', '%s: reason "%s" -> "%s"' % (path, old, obj['reason'])))
                 n += 1
+        if r['id'] in V6_QUALIFY:
+            for field in V6_QUALIFY[r['id']]:
+                head, _, tail = field.partition('.')
+                holder = r
+                key = head
+                if tail:
+                    holder = r[head]
+                    key = int(tail) if isinstance(holder, list) else tail
+                old = holder[key]
+                if len(UNQUALIFIED_63.findall(old)) != 1:
+                    raise SystemExit('%s %s: expected one unqualified "sec. 6.3"' % (r['id'], field))
+                holder[key] = UNQUALIFIED_63.sub('v6.0e sec. 6.3', old)
+            changes.append((r['id'], 'RT-T (sec. 6.3)', '%s: "sec. 6.3" qualified as "v6.0e sec. 6.3" (provenance '
+                                                        'text; no expectation value changed)'
+                            % ', '.join(V6_QUALIFY[r['id']])))
         if r['id'] == 'RT-T':
             for k, (was, now) in RTT_NOT_RUN.items():
                 if r['not_run'][k] != was:
@@ -156,7 +189,9 @@ def amend_expectations(E):
             if r['not_run']['release_check'] != RTT_RELEASE_CHECK:
                 raise SystemExit('RT-T release_check differs from the base')
             changes.append(('RT-T', 'RT-T', 'not_run reason and release_condition: "sec. 8.2" replaced by the record '
-                                            'kinds (R6.HP.4, R6.CTX.7, R6.HIT.4); release_check kept verbatim, a fixed '
+                                            'kinds (R6.HP.4, R6.CTX.7, R6.HIT.4); release_condition: "verifying under '
+                                            'sec. 6.3" replaced by "verifying under the ownership chain and record lint '
+                                            'of sec. 11 (R6.REC.1 to R6.REC.6)"; release_check kept verbatim, a fixed '
                                             'key of the gate, its kinds defined in R6.GATE.15'))
     if n != 5:
         raise SystemExit('expected 5 reason values naming DIR2-DIR5, found %d' % n)
@@ -183,10 +218,13 @@ def amend_migration(M):
         raise SystemExit('MIGRATION.json: DIR2-DIR5 entries %d, %d' % (len(sd), len(fi)))
     for e in sd + fi:
         e['new'] = 'Dir2-Dir5'
-        e['superseded'] = ('DIR2-DIR5, renamed by amendment 2 (owner decision of 2026-11-26T05:53:39Z, #1169 comment '
-                           '7183914927): the A1 profile register-caps matches "DIR" in the engine\'s string literals '
-                           '(R6.CORE.3)')
+        e['superseded'] = 'DIR2-DIR5 (see the final_identifier_changes entry of amendment 2)'
+    M['final_identifier_changes'].append(dict(MIG_ENTRY))
     return M
+
+
+MIG_ENTRY = {'old': 'DIR2-DIR5 (approved migration, #1169 comment 7182798225)', 'new': 'Dir2-Dir5',
+             'basis': 'amendment 2 (#1169 comment 7183914927)'}
 
 
 def self_checks(t, E0, E, M0, M, base_texts):
@@ -208,6 +246,10 @@ def self_checks(t, E0, E, M0, M, base_texts):
     if [p for p in left if not any(0 <= p - q < 60 for q in allowed)]:
         problems.append('DIR2-DIR5 remains in DESIGN-r6.md outside sec. 0.3 and sec. 34')
     ex = json.dumps(E).replace(json.dumps(RTT_RELEASE_CHECK), '')
+    if UNQUALIFIED_63.search(json.dumps(E)):
+        problems.append('an unqualified "sec. 6.3" remains in EXPECTATIONS.json')
+    if UNQUALIFIED_63.search(t[:t.index('### 0.3 Amendment 2')] + t[t.index('\n***\n', t.index('### 0.3 Amendment 2')):]):
+        problems.append('an unqualified "sec. 6.3" remains in DESIGN-r6.md outside sec. 0.3')
     rs = rest.replace('names them as the records of "a sec. 8.2 kind"', '')
     for name, text in (('DESIGN-r6.md outside sec. 0.3', rs), ('EXPECTATIONS.json', ex)):
         if 'sec. 8.2' in text:
@@ -220,6 +262,11 @@ def self_checks(t, E0, E, M0, M, base_texts):
         a0 = json.dumps(r0[rid], sort_keys=True)
         a1 = OLD_RX.sub(new_id, a0) if rid != 'RT-T' else a0
         b1 = json.dumps(r1[rid], sort_keys=True)
+        if rid in V6_QUALIFY:
+            b1 = b1.replace('v6.0e sec. 6.3', 'sec. 6.3')
+            for f in ('expect', 'restored', 'not_run', 'requirements', 'status_allowed'):
+                if r0[rid].get(f) != r1[rid].get(f):
+                    problems.append('EXPECTATIONS.json: row %s field %s changed' % (rid, f))
         if rid == 'RT-T':
             x = copy.deepcopy(r1[rid])
             x['not_run'] = r0[rid]['not_run']
@@ -228,6 +275,9 @@ def self_checks(t, E0, E, M0, M, base_texts):
             problems.append('EXPECTATIONS.json: row %s changed beyond amendment 2' % rid)
     m0 = json.dumps(M0, sort_keys=True)
     m1 = copy.deepcopy(M)
+    if m1['final_identifier_changes'][-1] != MIG_ENTRY:
+        problems.append('MIGRATION.json: the amendment-2 entry is not last in final_identifier_changes')
+    m1['final_identifier_changes'] = m1['final_identifier_changes'][:-1]
     for k in ('section_D_migration_index', 'final_identifier_changes'):
         for e in m1[k]:
             if e.get('superseded'):
@@ -291,7 +341,13 @@ def change_record(changes, owner, outs, gen_sha, owner_sha):
         'them a meaning (sec. A.48 item 3, sec. A.30). Rejected: DC2-DC5 (`DC1` and `DC4` name divergence conditions '
         'in verification/ROADMAP.md); RD2-RD5 (the integration name, and confusable with the residual-decision labels '
         'RD-2 to RD-5); D2-D5 (the decision labels D1-D8); allowlisting DIR2-DIR5 (an exemption from the lint, which '
-        'the owner\'s decision excludes).',
+        'the owner\'s decision excludes). DS2-DS5 also passes the lint and is unused; it was not chosen because it is '
+        'less clear. Case: a case-insensitive search for DIR2 also returns Dir2, which names the same condition, and '
+        'the unrelated DIR2 of the two oi-qm files (sec. 3); identification is case-sensitive, and the independent '
+        'review confirmed it reliable on two conditions, both applied: the structured MIGRATION.json entry of sec. 2, '
+        'and the tool revision renaming every occurrence in one change, with no alias and no case-folding (stated in '
+        'DESIGN-r6.md sec. 0.3). The owner preferred Dir2-Dir5 on that confirmation (amaybaum, 2026-11-26, '
+        'coordinating session).',
         '',
         '## 2. Changes',
         '',
@@ -306,40 +362,63 @@ def change_record(changes, owner, outs, gen_sha, owner_sha):
         'kind" of RT-T\'s release check |',
         '| DESIGN-r6.md | sec. 34, row D2-D5 | F1 | Dir2-Dir5, with DIR2-DIR5 recorded as superseded |',
         '| MIGRATION.json | section_D_migration_index and final_identifier_changes, the DIR2-DIR5 entries | F1 | '
-        '`new` Dir2-Dir5; `superseded` names DIR2-DIR5 and the reason |',
+        '`new` Dir2-Dir5; `superseded` names DIR2-DIR5 and points to the amendment-2 entry |',
+        '| MIGRATION.json | final_identifier_changes, appended | F1 | %s |' % json.dumps(MIG_ENTRY),
+        '| DESIGN-r6.md | R6.CORE.2, allowlist clause | F1 (put to the owner with F1) | "the reasons naming Dir2-Dir5 '
+        'and" removed, keeping `directory not admitted`, so the condition names stay under the profile check of Z9; '
+        'this strengthens the lint |',
     ] + ['| EXPECTATIONS.json | %s | %s | %s |' % c for c in changes] + [
         '',
         '## 3. Reference trace (F1)',
         '',
         '| Place | Occurrences of DIR2-DIR5 | Disposition |',
         '|---|---|---|',
-        '| DESIGN-r6.md | %d on %d lines | renamed by this amendment; the superseded name is recorded in sec. 34 and '
-        'sec. 0.3 |' % (PLACES[0], PLACES[1]),
-        '| EXPECTATIONS.json | 5 (`reason` values of RDIR rows) | renamed by this amendment |',
-        '| MIGRATION.json | 2 | renamed by this amendment; superseded name recorded |',
-        '| REQUIREMENTS.json | 0 | unchanged |',
-        '| FRESH-AUTHORIZATION.md | 3 (quotations of the design) | unchanged: a record quoting the design as it stood |',
-        '| generator-round2/correct.py, report_text.py, text2.py | 1 each | unchanged: the generators of an earlier '
-        'round, which reproduce their own outputs |',
-        '| the tool (branch tools/a1-ledger-coverage-r6 at adb8fc43): engine/reconcile.py | 18 on 14 lines | the tool '
+        '| DESIGN-r6.md | %d occurrences on %d lines | renamed by this amendment; the superseded name is recorded in '
+        'sec. 34 and sec. 0.3 |' % (PLACES[0], PLACES[1]),
+        '| EXPECTATIONS.json | 5 occurrences on 5 lines (`reason` values of RDIR rows) | renamed by this amendment |',
+        '| MIGRATION.json | 4 occurrences on 2 lines | renamed by this amendment; superseded name recorded |',
+        '| REQUIREMENTS.json | 0 occurrences | unchanged |',
+        '| FRESH-AUTHORIZATION.md | 5 occurrences on 3 lines (quotations of the design) | unchanged: a record quoting '
+        'the design as it stood |',
+        '| generator-round2/correct.py, report_text.py, text2.py | 1, 1 and 2 occurrences, on 1 line each | unchanged: '
+        'the generators of an earlier round, which reproduce their own outputs |',
+        '| the tool (branch tools/a1-ledger-coverage-r6 at adb8fc43): engine/reconcile.py | 18 occurrences on 14 lines '
+        '| the tool '
         'revision '
         'renames them (OBL-22): the keys of `conditions`, the `_stop` reasons and the comments |',
-        '| the tool: adapters/record_directory_controls.py | 15 on 11 lines | the tool revision renames them (OBL-22) |',
-        '| the tool: verification/audits/foundations/ledger-coverage-tool-20261123/IMPLEMENTATION-PLAN-r6.md | 6 on 3 '
-        'lines | '
+        '| the tool: adapters/record_directory_controls.py | 15 occurrences on 11 lines | the tool revision renames them (OBL-22) |',
+        '| the tool: verification/audits/foundations/ledger-coverage-tool-20261123/IMPLEMENTATION-PLAN-r6.md | 6 occurrences on '
+        '3 lines | '
         'the plan states the conflict (F1); updated with the tool revision |',
-        '| the tool: engine/purity.py allowlist | 0 | no change: the names pass the lint without being allowlisted. '
-        'R6.CORE.2 lists the reasons naming the conditions among the allowlisted engine enumerations, which the tool at '
-        'adb8fc43 does not do; amendment 2 leaves R6.CORE.2 as it stands apart from the names (an open point for '
-        'review) |',
+        '| the tool: engine/purity.py allowlist | 0 occurrences | no change: the names pass the lint without being '
+        'allowlisted, and R6.CORE.2 no longer allowlists them (sec. 2) |',
         '| the gate: tools/ledger_coverage/gate/control_gate.py (RC_RTT and the comment above its record kinds) | 0 '
-        'of DIR2-DIR5; RT-T\'s release-check key says "sec. 8.2" | changing the key is a gate change; if the tool '
+        'occurrences; RT-T\'s release-check key says "sec. 8.2" | changing the key is a gate change; if the tool '
         'revision changes it, the expectation file\'s release_check changes with it in the same change |',
         '| verification/programmes/oi-qm (pe01_bounded_tests_v1/run.py, round-ord-1-composition-order/controls.py) | '
-        '6 lines | DIR2 there is a usage placeholder and a variable name with other meanings; unchanged, and a further '
+        '6 occurrences on 6 lines | DIR2 there is a usage placeholder and a variable name with other meanings; unchanged, and a further '
         'reason the conditions take a name no record uses |',
         '',
-        '## 4. Outputs',
+        '## 4. The sec. 6.3 reference (RT-T)',
+        '',
+        'RT-T\'s release condition read "verifying under sec. 6.3"; r6 has no sec. 6.3. The independent review '
+        'recovered its meaning from the source design: RT-T\'s source is v6.0e line 2210, and v6.0e sec. 6.3 is the '
+        'ownership chain and record lint, whose r6 successor is sec. 11. The release condition reads "verifying under '
+        'the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)". The rows that cite the source design\'s '
+        'sec. 6.3 in provenance text (the `source` and `direction.why` of GV-CACHE, GV-CACHE-AFTER-READ, '
+        'GV-CACHE-IMMUTABLE and GV-CACHE-KEY, and `flags[0]` of R4-B3-DUP) cite it as "v6.0e sec. 6.3": qualifying '
+        'keeps them accurate as provenance, where replacing them with r6 requirement ids would change what they cite; '
+        'no expectation value changes.',
+        '',
+        '## 5. Open items for the owner and the tool revision',
+        '',
+        '- RT-T\'s release check ("a reviewed record of a sec. 8.2 kind referenced by the configuration") is true once '
+        'any one of the three kinds is referenced, while its release condition requires every one of them. A release '
+        'check that holds early only lets the runner record RT-T, which then fails if a kind is missing, so it fails '
+        'closed. The check is a fixed key of the gate (RC_RTT); aligning it with the release condition is a gate change '
+        'for the tool revision, made together with the expectation file. Amendment 2 does not change it.',
+        '',
+        '## 6. Outputs',
         '',
         '| File | sha256 |',
         '|---|---|',
@@ -348,7 +427,9 @@ def change_record(changes, owner, outs, gen_sha, owner_sha):
         lines.append('| %s | %s |' % (n, sha(outs[n])))
     lines += ['', 'REQUIREMENTS.json is not changed by amendment 2. Self-checks run by the generator: the new names are '
               'matched by no run of three capitals and occur in no base file; DIR2-DIR5 are matched (control); no '
-              'DIR2-DIR5 remains outside the passages that record the superseded mapping; no "sec. 8.2" remains; '
+              'DIR2-DIR5 remains outside the passages that record the superseded mapping; no "sec. 8.2" remains outside '
+              'the gate key and its definition; no unqualified "sec. 6.3" remains; MIGRATION.json ends with the '
+              'amendment-2 entry; '
               'EXPECTATIONS.json and MIGRATION.json change only where stated.', '']
     return '\n'.join(lines)
 

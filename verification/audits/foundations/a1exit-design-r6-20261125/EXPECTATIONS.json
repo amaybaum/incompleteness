@@ -2615,7 +2615,7 @@
    "direction": {
     "of": "adversarial",
     "scope": "outside",
-    "why": "RE-3 (c): its governing source (none (runner-only; object integrity, sec. 6.3)) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+    "why": "RE-3 (c): its governing source (none (runner-only; object integrity, v6.0e sec. 6.3)) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
    },
    "predicate_kind": "procedural",
    "expect": {
@@ -2643,7 +2643,7 @@
      "git ls-tree listing"
     ]
    },
-   "source": "none (runner-only; object integrity, sec. 6.3)"
+   "source": "none (runner-only; object integrity, v6.0e sec. 6.3)"
   },
   {
    "id": "GV-CACHE-AFTER-READ",
@@ -2657,7 +2657,7 @@
    "direction": {
     "of": "adversarial",
     "scope": "outside",
-    "why": "RE-3 (c): its governing source (none (runner-only; object integrity, sec. 6.3)) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+    "why": "RE-3 (c): its governing source (none (runner-only; object integrity, v6.0e sec. 6.3)) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
    },
    "predicate_kind": "procedural",
    "expect": {
@@ -2682,7 +2682,7 @@
      "git ls-tree listing"
     ]
    },
-   "source": "none (runner-only; object integrity, sec. 6.3)"
+   "source": "none (runner-only; object integrity, v6.0e sec. 6.3)"
   },
   {
    "id": "GV-CACHE-IMMUTABLE",
@@ -2696,7 +2696,7 @@
    "direction": {
     "of": "adversarial",
     "scope": "outside",
-    "why": "RE-3 (c): its governing source (none (runner-only; object integrity, sec. 6.3)) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+    "why": "RE-3 (c): its governing source (none (runner-only; object integrity, v6.0e sec. 6.3)) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
    },
    "predicate_kind": "procedural",
    "expect": {
@@ -2727,7 +2727,7 @@
      "git ls-tree listing"
     ]
    },
-   "source": "none (runner-only; object integrity, sec. 6.3)"
+   "source": "none (runner-only; object integrity, v6.0e sec. 6.3)"
   },
   {
    "id": "GV-CACHE-KEY",
@@ -2741,7 +2741,7 @@
    "direction": {
     "of": "adversarial",
     "scope": "outside",
-    "why": "RE-3 (c): its governing source (none (runner-only; object integrity, sec. 6.3)) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
+    "why": "RE-3 (c): its governing source (none (runner-only; object integrity, v6.0e sec. 6.3)) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
    },
    "predicate_kind": "procedural",
    "expect": {
@@ -2769,7 +2769,7 @@
      "git ls-tree listing"
     ]
    },
-   "source": "none (runner-only; object integrity, sec. 6.3)"
+   "source": "none (runner-only; object integrity, v6.0e sec. 6.3)"
   },
   {
    "id": "GV1",
@@ -6666,7 +6666,7 @@
    },
    "source": "none (runner-only)",
    "flags": [
-    "Q9: runner predicate weaker/mismatched: the lint cases assert lint findings, not an emitted FAIL record-invalid; the op C case carries the emitted form, so the requirement (sec. 6.3) is met by the row as a whole; the lint-only cases are recorded as such"
+    "Q9: runner predicate weaker/mismatched: the lint cases assert lint findings, not an emitted FAIL record-invalid; the op C case carries the emitted form, so the requirement (v6.0e sec. 6.3) is met by the row as a whole; the lint-only cases are recorded as such"
    ]
   },
   {
@@ -9015,7 +9015,7 @@
    ],
    "not_run": {
     "reason": "needs the reviewed HP adjudication, context-adjudication and hit-classification records (R6.HP.4, R6.CTX.7, R6.HIT.4), none of which exists",
-    "release_condition": "every one of the reviewed HP adjudication, context-adjudication and hit-classification records (R6.HP.4, R6.CTX.7, R6.HIT.4) present at F and verifying under sec. 6.3, run at X_rep built from F's ledger (R6.EVID.8)",
+    "release_condition": "every one of the reviewed HP adjudication, context-adjudication and hit-classification records (R6.HP.4, R6.CTX.7, R6.HIT.4) present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6), run at X_rep built from F's ledger (R6.EVID.8)",
     "release_check": "a reviewed record of a sec. 8.2 kind referenced by the configuration at the commit under check"
    },
    "source": "D:2210",

@@ -12,10 +12,10 @@ Directory: `verification/audits/foundations/a1exit-design-r6-20261125/`. The lan
 
 | Path | Role | Source | sha256 |
 |---|---|---|---|
-| DESIGN-r6.md | final r6 document (the design) | amendment-2 output | dc15c562608b4bf396b90b0fe06b81d94270582cc8148b943ce76c7f7a0a5b69 |
-| EXPECTATIONS.json | final r6 document (expectation file) | amendment-2 output | 5c2ee8417a290758dd34a51de1f093209aca360eec65451af18274d862559d30 |
+| DESIGN-r6.md | final r6 document (the design) | amendment-2 output | ca367e744b85fc5d28d463c0eb568b4198e3a768b0ea64e54532385ff086c1c5 |
+| EXPECTATIONS.json | final r6 document (expectation file) | amendment-2 output | eaec250ec932e563ad68a493cc846307c3b172ac0454028a231c08a5b259b2f9 |
 | REQUIREMENTS.json | final r6 document (requirement index) | amendment-1 output | 77ba1d9c40ac67180939a696b3d4b9c5bf674083cc50d6f7b0744ff3d35d2243 |
-| MIGRATION.json | final r6 document (migration index) | amendment-2 output | 1301831cc5b4f700181ec743fa404e807e37dcc5881030dde4c86d9530cbf9ea |
+| MIGRATION.json | final r6 document (migration index) | amendment-2 output | d1471fa3914b0e062aeae7ac544c34f076707c59e6f4d1b2260fd3b30b2ba7b2 |
 | PARAPHRASED-DECISIONS.md | final r6 document (list of paraphrased decisions) | unchanged from 2aec244e (blob c37ba6f98243) | 05602f3ec2f971ad860bc864a2ad8fce2d115948b0d3ac369ef17874746b65ce |
 | AUTHORIZATIONS.md | final r6 document (decision records relied on) | round-5 output | 6a7e01ac906512c420db05ff0f07a54091978d6a257488ad4a3dc3d4d97c1238 |
 | FRESH-AUTHORIZATION.md | final r6 document (requirement status and wording) | round-6 output: status paragraphs prefixed with their requirement ids (blob 39dfdc65290c at 2aec244e) | 3a405442fb1cdfe31709fb6f4b0f6e38e1e4f69194fc67860fe58cc0de19d4ab |
@@ -49,8 +49,8 @@ Directory: `verification/audits/foundations/a1exit-design-r6-20261125/`. The lan
 | generator-amendment1/amend1.py | amendment-1 generator | amendment-1 generator | c7cd0aa6fc4b44f2e8410f2a9245a956517935f412c0ded8c5640b153958db6c |
 | generator-amendment1/owner-decision-amendment1.json | amendment-1 generator input (the owner decision quoted) | amendment-1 generator | e5579e5c6ee8b14349d83e74bf3972ca8bc1bec3a3ed1f6cada61d2d73ea070b |
 | generator-amendment1/b4-design-edits.json | amendment-1 generator input (the B4 design corrections, anchored edits) | amendment-1 generator | 5db42d39f8d5f569be5851db422b04bd946232a0c0f63781c264f9fa7c5b4c2a |
-| AMENDMENT-2.md | change record of amendment 2 | amendment-2 output | 2b0338185b587c04a8bf050eb1d5f3f3c15533f12922529682c1c202c342db44 |
-| generator-amendment2/amend2.py | amendment-2 generator | amendment-2 generator | 0b6c4778eb8acf8010c9846e1378c54f3f8245ba85ec6b3200283b3c3195d4fc |
+| AMENDMENT-2.md | change record of amendment 2 | amendment-2 output | 85a737097d1c8be5019aa691985b8bf5fdefd5869a660143e49b424343273b5f |
+| generator-amendment2/amend2.py | amendment-2 generator | amendment-2 generator | e908341aef5f9620356820727de27f4373e94f65d514601e1156a01560dfdf5a |
 | generator-amendment2/owner-decision-amendment2.json | amendment-2 generator input (the owner decision quoted) | amendment-2 generator | a9c7f56a0cbb9fce8f9e7c40f2925357c9774fa784dac2bb0566afe989e6482f |
 | LANDING-MANIFEST.md | this manifest (A5) | amendment-2 output | (this file) |
 
