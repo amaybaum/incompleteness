@@ -286,9 +286,14 @@ def rt_coverage(a):
                                     'exit': code}}
 
 
+RTDR_MISSING = ('countercase: at H with the DR-1 alternative-a match at book/The-Incompleteness-of-Observation-FULL.md:6504 '
+                'removed (one target missing): the target item is absent')
+
+
 def rt_terms(a):
+    case_of = {'H': 'at H', 'E': 'at E', 'T1p': "at T1'"}
     for c, name in ((H, 'H'), (E, 'E'), (T, 'T1p')):
-        code, res, t = a.run(['terms', '--commit', c, '--profile', 'DR-1,DR-3,DR-4,DR-5'])
+        code, res, t = a.run(['terms', '--commit', c, '--profile', 'DR-1,DR-3,DR-4,DR-5'], case=case_of[name])
         ln, sl, per, alt = dl(res)
         a.results.setdefault('RT-DR', {'passed': True, 'expected': 'H: DR-1 61 (a 6, b 2, c 55), DR-3 0, DR-4 28, '
                                                                    'DR-5 1, 86 lines; E: 95; T1\': 0 / 0', 'actual': {}})
@@ -310,6 +315,17 @@ def rt_terms(a):
         else:
             ok = code == 0 and not ln and not sl
         a.results['RT-DR']['passed'] &= ok
+    # amendment 5: the countercase with one target missing; H with FULL:6504 replaced by a line no deny rule matches
+    parts = a.repo.read(H, FULL).split(b'\n')
+    parts[6503] = b'A neutral line written by the control.'
+    hc = a.repo.derive(H, {FULL: b'\n'.join(parts)}, parents=a.repo.parents(H),
+                       subject='H with one RT-DR target removed')
+    code, res, t = a.run(['terms', '--commit', hc, '--profile', 'DR-1,DR-3,DR-4,DR-5'], case=RTDR_MISSING,
+                         mutation=[{'path': FULL, 'before': sha(a.repo.read(H, FULL)), 'after': sha(a.repo.read(hc, FULL))}])
+    gone = not [i for i in items_on(res, FULL, 6504) if i['class'] == 'deny-match']
+    a.results['RT-DR']['actual']['target_missing'] = {'exit': code, 'item_at_6504': not gone}
+    a.results['RT-DR']['passed'] &= code == 20 and gone
+    a.runs_of['RT-DR'] = a.rec.take()
     # RT-DR3W: control-only scan of AGENTS.md with DR-3 alone
     cfg = json.loads(a.repo.read(a.crev, a.cpath))
     controls = json.loads(a.repo.read(a.crev, cfg['controls']['path']))
@@ -368,7 +384,8 @@ def rt_terms(a):
     w_pass = sorted('%s:%d' % (h['file'], h['line']) for h in hits if h['state'] == 'PASS')
     resid = [h for h in hits if 'resid' in h['profiles'] and h['state'] != 'PASS']
     F_ = FULL
-    w1_lines = [('papers/SM.md', 1394), ('book/ch09-universality.md', 137), ('book/ch19-open-problems.md', 198),
+    # amendment 5: W1-a is removed (rule file v3), so SM:1394 is REVIEW_REQUIRED and 10 W1/W2 lines PASS
+    w1_lines = [('book/ch09-universality.md', 137), ('book/ch19-open-problems.md', 198),
                 ('book/ch19-open-problems.md', 212), (F_, 2554), (F_, 5270), (F_, 5284)]
     w2_lines = [('book/appendix-b-derivations.md', 235), ('book/appendix-b-derivations.md', 246), (F_, 5914),
                 (F_, 5925)]
@@ -383,16 +400,19 @@ def rt_terms(a):
     resid_only = [h for h in resid if not prof_at.get((h['file'], h['line']), set()) & others]
     a.record('RT-D', not any(i['class'] == 'deny-match' for i in res.get('items', [])) and
              all(st_of.get(k) == 'PASS' for k in w1_lines + w2_lines) and gr58 == 'REVIEW_REQUIRED' and
+             st_of.get(('papers/SM.md', 1394)) == 'REVIEW_REQUIRED' and
              len(resid) == 45 and len(resid_only) == 17,
-             '0 deny; all 7 W1 lines (W1-c with its allowance) and the 4 W2 lines PASS with their rules; GR.md:58 '
-             'REVIEW without its record (PASS with it: RT-D-gr58); 45 resid lines REVIEW, 17 hit by no other profile',
+             '0 deny; the 6 W1 lines (W1-c with its allowance) and the 4 W2 lines PASS with their rules; SM:1394 and '
+             'GR.md:58 REVIEW (GR.md:58 PASS with its record: RT-D-gr58); 45 resid lines REVIEW, 17 hit by no other '
+             'profile',
              {'exit': code, 'finding_counts': res.get('finding_counts'), 'pass_lines': w_pass,
               'resid_review_lines': len(resid), 'resid_only_lines': len(resid_only), 'gr58': gr58,
               'w1_w2_states': {'%s:%d' % k: st_of.get(k) for k in w1_lines + w2_lines},
+              'sm1394': st_of.get(('papers/SM.md', 1394)),
               'rule_negative': sorted(i['subject'] for i in res.get('items', []) if i['class'] == 'rule-negative-match')},
              reference_difference=None,
-             predicate='no deny-match; the 11 W1/W2 hit states are PASS; GR.md:58 REVIEW_REQUIRED; 45 resid REVIEW lines '
-                       'of which 17 carry no other review profile')
+             predicate='no deny-match; the 10 W1/W2 hit states are PASS; SM:1394 and GR.md:58 REVIEW_REQUIRED; 45 resid '
+                       'REVIEW lines of which 17 carry no other review profile')
     code, res, t = a.run(['terms', '--commit', T, '--base', H, '--ledger', LEDGER, '--check', 'item7',
                           '--classify', '%s:%s' % (a.crev, hit_record_path(a))])
     gr = [h for h in res.get('hits', []) if h['file'] == 'papers/GR.md' and h['line'] == 58]

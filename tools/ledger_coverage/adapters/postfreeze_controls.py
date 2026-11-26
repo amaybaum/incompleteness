@@ -455,7 +455,10 @@ def postf_controls(r, check):
         sc = [x for x in (res or {}).get('side_changes') or [] if x.get('path') == sf.DOC]
         state = 'reconciled' if sc and sc[0].get('reconciled') else ('none' if not sc else 'unresolved')
         resb[name] = {'exit': code, 'classes': classes(res), 'drift_state': state, 'invalid': invalid(res, pth),
-                      'review_lint_passes': not invalid(res, pth) and not invalid(res, pth[:-5] + '.review.json')}
+                      'review_lint_passes': not invalid(res, pth) and not invalid(res, pth[:-5] + '.review.json'),
+                      'fail_items': sorted({i['class'] for i in (res or {}).get('items', []) if i['decision'] == 'FAIL'}),
+                      'review_classes': sorted({i['class'] for i in (res or {}).get('items', [])
+                                                if i['decision'] == 'REVIEW_REQUIRED'})}
         namesb.append((name, {'record': pth}))
     bind_case(BIND[0])
     bind_case(BIND[1], wb.record(M=wb.syn.H))
@@ -484,9 +487,16 @@ def postf_controls(r, check):
         'record-invalid' in resb[BIND_DIAG[0]]['classes'] and \
         resb[BIND_DIAG[1]]['exit'] == 20 and 'side-change-unclassified' in resb[BIND_DIAG[1]]['classes'] and \
         'base-drift' in resb[BIND_DIAG[1]]['classes']
-    okb = resb[BIND[0]]['drift_state'] == 'reconciled' and resb[BIND[0]]['exit'] == 0 and \
+    # amendment 5: the positive case is drift reconciled, no FAIL item, and REVIEW_REQUIRED only from delegated
+    # classes
+    pos_items = resb[BIND[0]].get('review_classes', [])
+    okb = resb[BIND[0]]['drift_state'] == 'reconciled' and resb[BIND[0]]['exit'] in (0, 10) and \
+        not resb[BIND[0]].get('fail_items') and all(c == 'delegated-evidence-missing' for c in pos_items) and \
         all(resb[k]['drift_state'] == 'unresolved' and resb[k]['exit'] == 20 for k in BIND[1:]) and \
         all(resb[k]['invalid'] for k in BIND[4:]) and diag_ok
+    resb['not_built'] = [BIND_PLANTED]
+    resb['built_cases_hold'] = okb
+    okb = False  # the planted case is not built
     check('RTL2-BIND', "the binding of R6.RECON.21 in the control harness: only a reviewed record naming the run's M "
           "and X, passing record lint and read from a REV tied to the run, reconciles", 'positive reconciled and PASS; '
           'every countercase unresolved', resb, okb, cases=namesb,
@@ -537,14 +547,17 @@ POSTF4 = [
 POSTF5 = ['PATH under a prefix of the tool-landing class', "PATH inside the plan's record directory",
           'PATH a ledgered path', 'PATH a corpus path', 'PATH outside verification/audits/',
           "the review record in a directory other than the record's"]
-BIND = ["a reviewed reconciliation record bound to the run: ledger_base the run's H, naming the run's M and X, its m and x "
-        "the path's blobs at the run's M and C (positive)",
-        "countercase: the same record naming a commit other than the run's M",
-        "countercase: the same record naming a commit other than the run's X",
-        'countercase: the same record with M and X null',
-        "countercase: the same record, in harness mode, with a review record whose reviewer equals the record's author "
-        "(record lint fails)",
-        "countercase: the same record read from a REV whose single parent is neither M0 nor the run's M"]
+BIND = [
+    "a reviewed reconciliation record bound to the run: ledger_base the run's H, naming the run's M and X, its m and x the path's blobs at the run's M and C (positive: drift reconciled; REVIEW_REQUIRED only from delegated classes)",
+    "countercase: the same record naming a commit other than the run's M",
+    "countercase: the same record naming a commit other than the run's X",
+    'countercase: the same record with M and X null',
+    "countercase: the same record, in harness mode, with a review record whose reviewer equals the record's author (record lint fails)",
+    "countercase: the same record read from a REV whose single parent is neither M0 nor the run's M",
+]
+# amendment 5's planted non-delegated REVIEW case: not built (op C runs no review profile; the planted unclassified
+# hit arises only from the reconciled-state trial, R6.RECON.23, which this tool revision does not implement)
+BIND_PLANTED = 'countercase: the same reconciled drift with a planted non-delegated REVIEW item that touches no reconciliation (an unclassified review hit on an unledgered line): the drift stays reconciled and the positive predicate (REVIEW_REQUIRED only from delegated classes) fails'
 
 
 # RECORD-BASE (design r6 as amended by amendment 4: R6.RECON.2 (c), R6.RECON.21, R6.GATE.16)
