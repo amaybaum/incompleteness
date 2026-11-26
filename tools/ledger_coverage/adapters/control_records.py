@@ -42,7 +42,12 @@ def stage_doc(items, preflight=None, record_checks=None, operation=None, **extra
     compositions, sites) under their result-schema names."""
     from ledger_coverage.engine import outcome as oc
     items = list(items or [])
+    stop = extra.pop('stop', None)
     o = oc.compute(list(preflight or []), record_checks, items)
+    if stop is not None:
+        # a stage that ended in oc.Stop: the stop's outcome, as the tool's writer reports it
+        o = stop.outcome
+        extra['stop'] = {'class': stop.cls, 'message': stop.message, 'detail': stop.detail}
     doc = {'schema': oc.result_schema, 'operation': operation, 'outcome': o, 'exit_status': oc.exit_codes[o],
            'preflight': list(preflight or []), 'record_checks': record_checks, 'items': items, 'in_process': True}
     doc.update(extra)

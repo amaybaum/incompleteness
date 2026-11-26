@@ -32,6 +32,28 @@ def _stage(label, items, **facts):
     return items
 
 
+def _stage_stop(label, stop):
+    """Captures a stage that ended in oc.Stop (its outcome and stop class)."""
+    if capture_hook is not None:
+        capture_hook.stage(label, [], stop=stop)
+
+
+def _restore_with(fn, label):
+    """The restored case: the same stage on the unmutated input (`fn` runs it and returns its items or raises),
+    against a clean run of the same stage."""
+    if capture_hook is None:
+        return
+    for name in ('baseline', 'restored'):
+        before = capture_hook.count()
+        try:
+            got = fn()
+            if capture_hook.count() == before:
+                _stage(label, got or [])
+        except oc.Stop as s:
+            _stage_stop(label, s)
+        _case(name, baseline='baseline' if name == 'restored' else None)
+
+
 def _bind_first(**bindings):
     """Binds the first unnamed stage result of the control being computed as its case '' (its row's case)."""
     if capture_hook is not None:
@@ -323,13 +345,25 @@ def m_controls():
         mut(l2)
         try:
             pl.check_ledger(w.repo, w.pin, l2)
+            _stage('ledger integrity', [])
             return None
         except oc.Stop as s:
+            _stage_stop('ledger integrity', s)
             return s.cls
-    out['M3'] = integ(lambda l: l['splices'][0].update(old_sha256=util.sha256('z'))) == 'LEDGER_INTEGRITY' and \
-        integ(lambda l: None) is None
-    out['M4'] = integ(lambda l: l['splices'][0].update(start=a + 1, end=a + 5)) == 'LEDGER_INTEGRITY'
-    out['M5'] = integ(lambda l: l.update(base=x0)) == 'SCIENTIFIC_BASE_MISMATCH'
+
+    def clean_integ():
+        integ(lambda l: None)
+        return None
+    m3 = integ(lambda l: l['splices'][0].update(old_sha256=util.sha256('z')))
+    m3c = integ(lambda l: None)
+    _restore_with(clean_integ, 'ledger integrity')
+    out['M3'] = m3 == 'LEDGER_INTEGRITY' and m3c is None
+    m4 = integ(lambda l: l['splices'][0].update(start=a + 1, end=a + 5))
+    _restore_with(clean_integ, 'ledger integrity')
+    out['M4'] = m4 == 'LEDGER_INTEGRITY'
+    m5 = integ(lambda l: l.update(base=x0))
+    _restore_with(clean_integ, 'ledger integrity')
+    out['M5'] = m5 == 'SCIENTIFIC_BASE_MISMATCH'
     x = w.child(w.pin, base_text.replace('beta line two stands here.\n', ''),
                 files={other_path: b'beta line two stands here.\n'})
     cv, it = w.coverage(x, [seg(w.pin, x)])
@@ -338,9 +372,13 @@ def m_controls():
     x = w.child(w.pin, base_text.replace('beta line two', 'beta line\rtwo'))
     try:
         w.coverage(x, [seg(w.pin, x)])
-        out['M11'] = False
-    except util.EncodingFault:
-        out['M11'] = True
+        m11 = False
+    except util.EncodingFault as exc:
+        # the entry point turns the fault into ERROR ENCODING (cli.run)
+        _stage_stop('coverage', oc.Stop(oc.error, 'ENCODING', str(exc)))
+        m11 = True
+    _restore(w)
+    out['M11'] = m11
     return out
 
 
@@ -612,31 +650,52 @@ def r_controls():
         return {'id': cid, 'pins': [{'path': p, 'git_blob': w.repo.blob_id(commit, p),
                                      'blob_sha256': util.sha256(w.repo.read(commit, p))} for p in paths]}
     wfc = pin('wf', M, wf)
+
+    def clean_c():
+        return run(M, side=[wfc]).items
+
+    def clean_l():
+        return run(M, exmod.compose_landing(w.repo, H, M, X, led, w.repo), side=[wfc]).items
     e = run(M, side=[wfc])
+    _restore_with(clean_c, 'execution')
     out['TT1'] = not e.items and e.side_changes[0]['class'] == 'wf'
     # R18 (S3): a listed path whose blob at M differs from its pin; R19 (V3): a prefix alone classifies nothing
+    _restore_with(clean_c, 'execution')
     out['R18-engine'] = 'side-change-unclassified' in classes(run(M, side=[dict(wfc, pins=[dict(
         wfc['pins'][0], blob_sha256='0' * 64)])]).items)
     xm = w.repo.derive(M, {doc_path: w.repo.read(X, doc_path)}, parents=[H])
     e2 = run(x=xm)
+    _restore_with(clean_c, 'execution')
     out['TT2'] = any(i['subject'] == wf for i in e2.items)
     X3 = w.repo.derive(M, {doc_path: w.repo.read(X, doc_path)}, parents=[M])
+    _restore_with(clean_c, 'execution')
     out['TT3'] = 'candidate-parent' in classes(run(x=X3).items)
     X4 = w.repo.derive(H, {doc_path: w.repo.read(X, doc_path)}, parents=[H, M])
+    _restore_with(clean_c, 'execution')
     out['TT4'] = 'candidate-parent' in classes(run(x=X4).items)
     l5 = dict(led, base=M)
     e5 = exmod.Execution(ctx, H, X, l5, None)
     try:
         e5.integrity()
-        out['TT5'] = False
+        tt5 = False
     except oc.Stop as s:
-        out['TT5'] = s.cls == 'SCIENTIFIC_BASE_MISMATCH'
+        _stage_stop('execution integrity', s)
+        tt5 = s.cls == 'SCIENTIFIC_BASE_MISMATCH'
+
+    def clean_integrity():
+        exmod.Execution(ctx, H, X, led, None).integrity()
+        return []
+    _restore_with(clean_integrity, 'execution integrity')
+    out['TT5'] = tt5
     other = w.repo.add_commit({doc_path: b'unrelated\n'}, [], 'unrelated root')
     try:
         run(other, cand=False)
-        out['TT6'] = False
+        tt6 = False
     except oc.Stop as s:
-        out['TT6'] = s.cls == 'MAIN_NOT_DESCENDANT'
+        _stage_stop('execution', s)
+        tt6 = s.cls == 'MAIN_NOT_DESCENDANT'
+    _restore_with(lambda: run(M, side=[wfc], cand=False).items, 'execution')
+    out['TT6'] = tt6
     M7 = w.child(H, base_text.replace('epsilon closing', 'epsilon finale'), subject='main edits ledgered file')
     e7 = run(M7)
     L7 = exmod.compose_landing(w.repo, H, M7, X, led, w.repo)
@@ -652,22 +711,29 @@ def r_controls():
     L = exmod.compose_landing(w.repo, H, M, X, led, w.repo)
     out['RL'] = not run(M, L, side=[wfc]).items
     L9 = w.repo.derive(L, {}, parents=[X, M])
+    _restore_with(clean_l, 'execution')
     out['TT9'] = 'landing-parents' in classes(run(M, L9, side=[wfc]).items)
     L10 = w.repo.derive(L, {wf: None}, parents=[M, X])
+    _restore_with(clean_l, 'execution')
     out['TT10'] = 'landing-drops-main-change' in classes(run(M, L10, side=[wfc]).items)
     L11 = w.repo.derive(L, {other_path: b'extra word\n'}, parents=[M, X])
+    _restore_with(clean_l, 'execution')
     out['TT11'] = 'landing-extra-change' in classes(run(M, L11, side=[wfc]).items)
     L12 = w.repo.derive(L, {doc_path: w.repo.read(H, doc_path)}, parents=[M, X])
+    _restore_with(clean_l, 'execution')
     out['TT12'] = bool(classes(run(M, L12, side=[wfc]).items))
     M13 = w.child(H, files={'tools/t.py': b'x = 1\n'}, subject='tool landing')
     tool = dict(pin('tool', M13, 'tools/t.py'), prefixes=['tools/'])
     out['TT13'] = not run(M13, side=[tool]).items
     M19 = w.child(M13, files={'tools/u.py': b'y = 2\n'}, subject='unlisted tool file')
+    _restore_with(lambda: run(M13, side=[tool]).items, 'execution')
     out['R19-engine'] = 'side-change-unclassified' in classes(run(M19, side=[tool]).items)
     M14 = w.child(H, base_text.replace('epsilon closing', 'epsilon tool edit'), subject='tool touches ledgered')
+    _restore_with(lambda: run(M13, side=[tool]).items, 'execution')
     out['TT14'] = 'base-drift' in classes(run(M14, side=[tool]).items)
     Mo = w.child(M, files={'ops/other.yml': b'z\n'}, subject='another main')
     L15 = exmod.compose_landing(w.repo, H, Mo, X, led, w.repo)
+    _restore_with(clean_l, 'execution')
     out['R15'] = 'landing-first-parent-not-M' in classes(run(M, L15, side=[wfc, pin('ops-other', Mo, 'ops/other.yml')],
                                                              cand=False).items)
     e16 = exmod.Execution(ctx, H, X, led, None, pin_ok=[{'file': 'tools/t.py', 'prefix': 'x', 'recorded_at': M}])

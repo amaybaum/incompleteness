@@ -45,6 +45,9 @@ class Capture(object):
             base = next((r for r in self.rec.pending if r['case'] == baseline), None)
         self.rec.name_last(case, bindings=dict(bindings), baseline=base)
 
+    def count(self):
+        return len(self.rec.pending)
+
     def bind_first(self, bindings):
         run = next((r for r in self.rec.pending if r['case'] is None), None)
         if run is not None:
