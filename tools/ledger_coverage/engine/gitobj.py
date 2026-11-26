@@ -173,6 +173,40 @@ class GitRepo:
     def blob_id(self, cid, path):
         return self.paths(cid).get(path)
 
+    def prefix_entries(self, cid, prefix, keep):
+        """(key, entries) for the regular-file entries under `prefix` of the commit's tree that `keep(blob id)`
+        selects: entries a tuple of (path, mode, blob id). `key` identifies the selected content (the verified tree
+        id of the prefix), so that a caller can process each distinct subtree once. The listing of each subtree is
+        built once per tree id from verified tree objects, holding only the selected entries; nothing else of the
+        commit's tree is listed."""
+        tid = self.tree_id(cid, prefix)
+        if tid is None:
+            return None, ()
+        memo = self.__dict__.setdefault('_prefix_memo', {}).setdefault(id(keep), {})
+
+        def walk(t, pre):
+            if t in memo:
+                return tuple((pre + q, m, o) for q, m, o in memo[t])
+            got = []
+            for mode, name, oid in self._tree(t):
+                if mode == '040000':
+                    got.extend((name + '/' + q, m, o) for q, m, o in walk(oid, ''))
+                elif mode in regular_modes and keep(oid):
+                    got.append((name, mode, oid))
+            memo[t] = tuple(got)
+            return tuple((pre + q, m, o) for q, m, o in memo[t])
+        base = prefix.rstrip('/') + '/' if prefix else ''
+        return tid, walk(tid, base)
+
+    def read_blob_uncached(self, bid):
+        """A verified blob read that is not kept in the reader's object cache (for a history walk that reads each
+        distinct blob once)."""
+        kind, data = self._batch(bid)
+        self._objs.pop(bid, None)
+        if kind != 'blob':
+            raise Unresolvable('missing blob %s' % bid)
+        return data
+
     def read_blob(self, bid):
         if bid not in self._blobs:
             kind, data = self._batch(bid)
@@ -311,6 +345,19 @@ class Overlay:
 
     def blob_id(self, cid, path):
         return self.paths(cid).get(path)
+
+    def prefix_entries(self, cid, prefix, keep):
+        """As GitRepo.prefix_entries, for an in-memory commit (its key is the selected entries themselves)."""
+        if cid not in self.mem:
+            if self.base is None:
+                raise Unresolvable('not a commit: %s' % cid)
+            return self.base.prefix_entries(cid, prefix, keep)
+        got = tuple(sorted((p, m, o) for p, (m, o) in self.entries(cid).items()
+                           if p.startswith(prefix) and m in regular_modes and keep(o)))
+        return ('mem', got), got
+
+    def read_blob_uncached(self, bid):
+        return self.read_blob(bid)
 
     def read(self, cid, path):
         if cid in self.mem:

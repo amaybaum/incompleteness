@@ -268,18 +268,25 @@ def category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, r
     scope = recon_route.Scope(repo, H, M, None, F, records.harness, pinned_doc,
                               posixpath.dirname(split_ref(a.config)[1]), led['files'], lambda p: False, [])
     schemas = rcmod.reconciliation_schemas
+    # R6.OBL29.4: the presence-based discharge conditions (the repair's current entry and review) read M's scan with
+    # its existing selector
     m_scan = recon_route.scanned(repo, M, scope)
-    found = c3.findings_in(m_scan, schemas) + c3.findings_of_records(recon, schemas)
-    for tree in ([F] if F else []) + sorted({c[1] for c in route_cands}):
-        found += c3.findings_in(recon_route.scanned(repo, tree, scope), schemas)
-    found = c3.unique(found)
+    # R6.OBL29.1, .2, .5, .7: detection reads the cumulative record set over every tree reachable through any parent
+    # from M, F and each named REV, with the fixed selector, plus the records the run reads
+    revs = sorted({c[1] for c in route_cands})
+    try:
+        cum = c3.Cumulative(repo, [M] + ([F] if F else []) + revs, schemas, recon_route.audits_root)
+        found = c3.unique(cum.findings() + c3.findings_of_records(recon, schemas))
+    except Unresolvable as exc:
+        raise oc.Stop(oc.error, 'UNRESOLVABLE', 'the cumulative record set cannot be read: %s' % exc)
     out = []
     applying = []
     for r in cfg['records']:
         if r.get('kind') != 'reassessment':
             continue
         d = loaded.store.get(r)
-        probs = c3.reassessment_problems(repo, M, led, d, r, loaded.store, loaded.admitted, found, m_scan, schemas)
+        probs = c3.reassessment_problems(repo, M, led, d, r, loaded.store, loaded.admitted, found, m_scan, schemas,
+                                         cum)
         if probs:
             out.append(oc.make_item('RECORD', 'record-invalid', r['path'], None,
                                     {'sha': r.get('blob_sha256'), 'why': probs[0]}, detail=probs))
@@ -287,7 +294,14 @@ def category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, r
             applying.append((d, r))
     blocked = c3.blocks(repo, M, led, found, c3.lifting(applying))
     out += c3.blocked_items(repo, H, M, blocked, getattr(ex, 'dispositions', []))
-    result['category3'] = {'findings': [{'record': f['record'], 'path': f['path']} for f in found],
+    findings = []
+    for f in found:
+        try:
+            present, wit = cum.witness(f['record'] or {}, M, revs, F)
+        except Unresolvable as exc:
+            raise oc.Stop(oc.error, 'UNRESOLVABLE', 'a witness cannot be read: %s' % exc)
+        findings.append({'record': f['record'], 'path': f['path'], 'present_at_M': present, 'witness': wit})
+    result['category3'] = {'findings': findings,
                            'blocked': [{'record': f['record'], 'path': f['path'], 'edit': e} for f, e in blocked],
                            'reassessments': [r for _d, r in applying]}
     return out

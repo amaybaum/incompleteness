@@ -2,9 +2,10 @@
 """Category 3: the blocking state.
 
 A finding of the first kind is a reconciliation record entry whose scientific_effect has the verdict invalidates and
-whose record passes record lint with a review that accepts every item. Every run that evaluates M scans M's tree, the
-records the run reads, and the scanned sets of F's tree and of each record commit the run names, for findings,
-whether or not any path differs between H and M. A finding blocks a run whose M contains one of the entry's
+whose record passes record lint with a review that accepts every item. Every run that evaluates M detects findings
+over the cumulative record set R* (OBL-29 remedy r9, R6.OBL29.1-.7): every tree reachable through any parent from M,
+F and each record commit the run names, with a fixed selector, and the records the run reads, whether or not any path
+differs between H and M. Removing, rewriting, moving or superseding a record never lifts its finding (R6.OBL29.6). A finding blocks a run whose M contains one of the entry's
 side_change_commits when the run's configuration carries an invalidated edit: its ledger holds the edit's id, or an
 edit of the same path whose old bytes hash to the recorded old_sha256. A reassessment the configuration cites lifts
 the block for the finding it names when it applies.
@@ -12,6 +13,7 @@ the block for the finding it names when it applies.
 Not implemented here, pending a design decision: the second kind of finding (a review record's verdict), the plan
 lineage of the configuration a finding was made under, and recorded identifier migrations.
 """
+import json
 import posixpath
 
 from . import outcome as oc
@@ -190,9 +192,10 @@ def _first_parent_chain(repo, M):
     return out
 
 
-def reassessment_problems(repo, M, led, doc, ref, store, admitted, found, m_scan, schemas):
+def reassessment_problems(repo, M, led, doc, ref, store, admitted, found, m_scan, schemas, cum=None):
     """Why a cited reassessment does not apply (empty if it applies). m_scan: [(path, bytes)], the scanned set of M's
-    tree."""
+    tree; `found`: the findings of the cumulative record set; `cum`: that set, whose eligible reviews of the
+    reassessment and of its repair record must all accept (R6.OBL29.3)."""
     out = []
     if not isinstance(doc, dict) or doc.get('schema') != reassessment_schema:
         return ['not a reassessment record']
@@ -206,7 +209,7 @@ def reassessment_problems(repo, M, led, doc, ref, store, admitted, found, m_scan
     if not (isinstance(finding, dict) and any((f['record'] or {}).get('path') == finding.get('path') and
                                                (f['record'] or {}).get('blob_sha256') == finding.get('blob_sha256')
                                                for f in found)):
-        out.append('the named finding is not a finding at M')
+        out.append('the named finding is not a finding in the cumulative record set')
     commits = _part(doc, 'repair_commits')
     chain = _first_parent_chain(repo, M)
     if not (isinstance(commits, list) and commits and all(isinstance(c, str) and c in chain for c in commits)):
@@ -221,6 +224,14 @@ def reassessment_problems(repo, M, led, doc, ref, store, admitted, found, m_scan
             out.append("the repair's reconciliation record entry has no accepting non-author review")
         if edoc.get('author') in reviewers:
             out.append("the reviewer is the author of the repair's reconciliation record entry")
+    if cum is not None:
+        # R6.OBL29.3: every eligible ordinary review in R* of the reassessment's exact reference, and of the repair
+        # record's exact reference within its own directory, accepts every item; historical review evidence never
+        # supplies the current accepting review (R6.OBL29.4, above)
+        out += eligible_review_problems(cum.reviews_naming(ref), doc)
+        if isinstance(entry, dict) and isinstance(edoc, dict):
+            out += eligible_review_problems(cum.reviews_naming(entry, posixpath.dirname(entry.get('path') or '')),
+                                            edoc)
     if not (isinstance(doc.get('rederivation'), str) and doc['rederivation'].strip()):
         out.append('the rederivation is empty')
     if doc.get('verdict') != 'no-effect':
@@ -239,3 +250,154 @@ def lifting(reassessments):
                    and d['finding'].get('blob_sha256') == fr.get('blob_sha256') and _part(d, 'edit_id') == eid
                    for d, _r in reassessments)
     return lifted
+
+
+# ---- the cumulative record set R* (OBL-29 remedy r9, R6.OBL29.1-.8) ---------------------------------------------
+
+class Cumulative:
+    """R*: the regular-file entries under the fixed category-3 prefix in every tree reachable through any parent from
+    the roots (R6.OBL29.1, .7). One walk through the verified reader visits each commit once, keyed by full id, until
+    no unvisited parent remains; parents are read only from verified commit content (no ref, reflog, replace ref,
+    graft, shallow file or commit-graph). A commit, tree or blob the walk needs that the store lacks or that does not
+    hash to its id raises the reader's Unresolvable (ERROR, no verdict). There is no depth or count limit.
+
+    Selection is fixed (R6.OBL29.5): the prefix, the regular mode and the file's bytes; no tool-landing or plan
+    directory exclusion. Each distinct blob is classified once: a reconciliation record carrying an `invalidates`
+    entry (a finding candidate), another reconciliation record, a review record (kept with the exact reference it
+    names), or neither (not kept). Findings are detected in each distinct prefix subtree holding a candidate, with
+    the first-kind detector (`findings_in`) over that tree's kept records, and the union over every reachable tree is
+    retained (R6.OBL29.2), so that removing a record or its review from a later tree removes nothing.
+    """
+
+    def __init__(self, repo, roots, schemas, prefix):
+        self.repo, self.schemas, self.prefix = repo, schemas, prefix
+        self.info = {}
+        self.visited = []
+        self.holders = {}
+        self.subtrees = {}
+        keep = repo.__dict__.get('_c3_keep')
+        if keep is None:
+            info = {}
+
+            def keep(oid):
+                if oid not in info:
+                    info[oid] = self._classify(repo.read_blob_uncached(oid))
+                return info[oid] is not None
+            keep.info = info
+            repo.__dict__['_c3_keep'] = keep
+        self.keep = keep
+        self.info = keep.info
+        seen, stack = set(), [r for r in roots if r]
+        while stack:
+            c = stack.pop()
+            if c in seen:
+                continue
+            seen.add(c)
+            self.visited.append(c)
+            ps = repo.parents(c)
+            key, ents = repo.prefix_entries(c, prefix, keep)
+            if key is not None and key not in self.subtrees:
+                self.subtrees[key] = ents
+            for p, _m, o in ents:
+                if self.info[o][0] == 'candidate':
+                    self.holders.setdefault((p, o), set()).add(c)
+            stack.extend(ps)
+
+    def _classify(self, data):
+        try:
+            doc = json.loads(data.decode('utf-8'))
+        except (ValueError, UnicodeDecodeError):
+            return None
+        if not isinstance(doc, dict):
+            return None
+        if doc.get('schema') in self.schemas and any(
+                isinstance(e, dict) and (e.get('scientific_effect') or {}).get('verdict') == 'invalidates'
+                for e in (doc.get('paths') if isinstance(doc.get('paths'), list) else [])):
+            return ('candidate', util.sha256(data))
+        if doc.get('schema') in self.schemas:
+            return ('record', util.sha256(data))
+        if doc.get('schema') == rec.review_schema:
+            rv = doc.get('reviewed') if isinstance(doc.get('reviewed'), dict) else {}
+            return ('review', rv.get('path'), rv.get('blob_sha256'))
+        return None
+
+    def findings(self):
+        """The union of the first-kind findings detected in each distinct reachable subtree."""
+        out = []
+        for key, ents in sorted(self.subtrees.items(), key=lambda kv: repr(kv[0])):
+            cands = [(p, o) for p, _m, o in ents if self.info[o][0] == 'candidate']
+            if not cands:
+                continue
+            # the tree's whole scanned set (every reconciliation and review record under the prefix), so that a
+            # candidate's review and lineage are judged as in that tree
+            out += findings_in([(p, self.repo.read_blob_uncached(o)) for p, _m, o in ents], self.schemas)
+        return unique(out)
+
+    def reviews_naming(self, ref, directory=None):
+        """[(path, doc)] of every review record in R* whose `reviewed` names `ref` exactly (path and blob), only in
+        `directory` when one is given."""
+        out, seen = [], set()
+        for ents in self.subtrees.values():
+            for p, _m, o in ents:
+                inf = self.info[o]
+                if inf[0] != 'review' or (p, o) in seen or inf[1] != ref.get('path') or \
+                        inf[2] != ref.get('blob_sha256'):
+                    continue
+                if directory is not None and posixpath.dirname(p) != directory:
+                    continue
+                seen.add((p, o))
+                try:
+                    out.append((p, json.loads(self.repo.read_blob_uncached(o).decode('utf-8'))))
+                except (ValueError, UnicodeDecodeError):
+                    continue
+        return sorted(out, key=lambda x: x[0])
+
+    def witness(self, ref, M, rev, F):
+        """(present_at_M, witness) of a finding's record reference (R6.OBL29.8): present_at_M when M's tree holds
+        its path and blob at a regular mode; the witness chosen from M, REV, F, then the newest commit on M's
+        first-parent chain, then the smallest full id among the other commits that supply it."""
+        holders = set()
+        for (p, o), cs in self.holders.items():
+            if p == ref.get('path') and self.info[o][1] == ref.get('blob_sha256'):
+                holders |= cs
+        present = M in holders
+        for c in [M] + sorted(rev or []) + [F]:
+            if c and c in holders:
+                return present, c
+        c = M
+        while c:
+            if c in holders:
+                return present, c
+            ps = self.repo.parents(c)
+            c = ps[0] if ps else None
+        return present, (min(holders) if holders else None)
+
+
+def eligible_review_problems(reviews, doc):
+    """R6.OBL29.3 direct review checks over R*: every eligible ordinary review of the record's exact reference (kind
+    review; reviewer a person other than the record's author) accepts every item id of the record exactly once and
+    carries no dissent. A review whose verdict is not accept, that omits or duplicates an item, or that dissents fails
+    the discharge even if it has left the current tree."""
+    out = []
+    ids = rec.item_ids(doc) if isinstance(doc, dict) else []
+    author = doc.get('author') if isinstance(doc, dict) else None
+    for path, rv in reviews:
+        if not isinstance(rv, dict) or rv.get('kind', 'review') != 'review':
+            continue
+        who = rv.get('reviewer')
+        if not rec._person(who) or who == author:
+            continue
+        named = [v.get('item') for v in rv.get('verdicts') or [] if isinstance(v, dict)]
+        verdicts = {v.get('item'): v.get('verdict') for v in rv.get('verdicts') or [] if isinstance(v, dict)}
+        bad = []
+        if len(named) != len(set(named)):
+            bad.append('an item has more than one verdict')
+        if set(ids) - set(verdicts):
+            bad.append('an item is omitted')
+        if any(verdicts.get(i) != 'accept' for i in ids):
+            bad.append('an item is not accepted')
+        if isinstance(rv.get('dissent'), str) and rv['dissent'].strip():
+            bad.append('it dissents')
+        if bad:
+            out.append('the review %s in the cumulative record set: %s' % (path, '; '.join(bad)))
+    return out
