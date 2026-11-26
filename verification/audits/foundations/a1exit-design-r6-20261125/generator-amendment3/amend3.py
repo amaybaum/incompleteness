@@ -224,10 +224,19 @@ ROWS = [
          'outcome': 'FAIL', 'classes_include': ['retirement-blocked']},
         {'case': 'a later commit on M reverting the invalidating change, the plan unchanged',
          'outcome': 'FAIL', 'classes_include': ['retirement-blocked']},
+        {'case': 'a reviewed repair of the change landed on M and recorded by its own reconciliation record entry, the '
+                 'plan unchanged',
+         'outcome': 'FAIL', 'classes_include': ['retirement-blocked']},
+        {'case': 'a new configuration version with a new freeze whose ledger still carries the invalidated edit-list '
+                 'entry unchanged',
+         'outcome': 'FAIL', 'classes_include': ['retirement-blocked']},
         {'case': 'countercase: the same entry with verdict no-effect (positive)',
          'outcome': 'ANY', 'invariants': [{'not_class': ['retirement-blocked']}]},
         {'case': 'countercase: the run under a revised plan, a new configuration whose ledger changes the invalidated '
                  'edit\'s edit-list entry (positive)',
+         'outcome': 'ANY', 'invariants': [{'not_class': ['retirement-blocked']}]},
+        {'case': 'countercase: the run under a revised plan whose ledger no longer carries the invalidated edit, the '
+                 'finding and the repair still on M (positive)',
          'outcome': 'ANY', 'invariants': [{'not_class': ['retirement-blocked']}]}]},
         None,
         'category 3: a reviewed finding that a change invalidates the basis of a planned edit blocks the retirement '
@@ -367,9 +376,14 @@ contains one of the entry's `side_change_commits`: the entry's path takes the di
 item FAIL `retirement-blocked` (obligation `RET`), for as long as the configuration's ledger holds, for each
 invalidated edit id, an edit-list entry with the same canonical sha256. A finding counts whether or not a later record
 supersedes the entry and whatever `REV` a run names; no reconciliation record, resolution, supersession, or later
-commit that reverts or repairs the change clears the block. Only a revision of the retirement plan, a new configuration
-version with a new freeze (R6.CFG.3; AGENTS.md sec. A.50 item 5) whose ledger changes or removes an invalidated edit,
-ends it. The tool cannot find a category-3 change by itself: it relies on the review, and it enforces mechanically that a
+commit that reverts or repairs the change clears the block. The block is scoped to the frozen plan: it binds every
+configuration whose ledger carries an invalidated edit-list entry unchanged, and nothing else. A repair on `main` never
+lifts it; the finding and the repair stay on `main` as evidence, the repair recorded by a reconciliation record entry
+of the repairing change, with its own reviewed `scientific_effect`. A revised plan, a new configuration version with a
+new freeze (R6.CFG.3; AGENTS.md sec. A.50 item 5) whose ledger no longer carries an invalidated entry or carries a
+revised one, is not blocked by the old finding; its renewed verification and trials run under this design as any
+run's do, and the retirement becomes eligible for approval again only when they pass. A later repair can resolve the
+underlying scientific problem, but cannot validate the invalidated frozen plan. The tool cannot find a category-3 change by itself: it relies on the review, and it enforces mechanically that a
 recorded finding blocks.
 Sources: %(src3)s. Controls: RECON-BLOCK.
 '''
@@ -420,8 +434,11 @@ def note(owner):
         'the independent review found no change of verdict for TT8 at 933b1efd or for the B4 AGENTS.md record (splice '
         'D296).',
         '',
-        'Owner question: a category-3 block persists even if a later commit reverts or repairs the change; only a '
-        'revision of the plan ends it (R6.RECON.26). This is put to the owner for confirmation.',
+        'Category-3 lifecycle (owner decision at #1169 comment 7185092393, item 4): the block is scoped to the frozen '
+        'plan, keyed to its ledger\'s invalidated edit-list entries; a repair on `main` never lifts it, and the finding '
+        'and the recorded repair stay on `main` as evidence; a revised plan, frozen anew, whose ledger no longer '
+        'carries an invalidated entry or carries a revised one, is not blocked by the old finding, and its renewed '
+        'verification and trials run normally (R6.RECON.26).',
         '',
         'Design note for the owner: a configuration frozen at `F` that references a reconciliation record closes that '
         'record\'s paths to the post-freeze route (R6.RECON.2 (d) and (e)), so a record that fails at a later `M` can be '
@@ -826,13 +843,16 @@ def change_record(owner, outs, gen_sha, owner_sha):
               'AGENTS.md alone reconciled, RC10 fails naming the ten other drifted ledger paths; and RC14 decides, from '
               'the bytes, whether any restored correction touches the context of a retirement splice (sentence-level '
               'windows remain to be checked when the records are drafted).', '']
-    lines += ['## 4a. Owner question', '',
-              '- A category-3 block persists even if a later commit on `main` reverts or repairs the invalidating '
-              'change; only a revision of the retirement plan (a new configuration version and a new freeze) ends it '
-              '(R6.RECON.26). The delta review left this unchanged and puts it to the owner for confirmation. The '
-              'alternative, lifting the block when `M` no longer contains the change, would let a revert followed by a '
-              're-application avoid a recorded finding unless the finding were keyed to the content rather than the '
-              'commits.', '',
+    lines += ['## 4a. Owner decisions on the block and on retained sites', '',
+              '- Category-3 lifecycle, decided by the owner (amaybaum, 2026-11-26T07:05:39Z, #1169 comment 7185092393, '
+              'item 4; quoted in DESIGN-r6.md sec. 0.4). Encoded in R6.RECON.26: the block is scoped to the frozen '
+              'plan, keyed to its ledger\'s invalidated edit-list entries; a repair on `main` never lifts it; the '
+              'original finding and the recorded repair (a reconciliation record entry of the repairing change, with '
+              'its own reviewed `scientific_effect`) stay on `main` as evidence; a revised plan, frozen anew, whose '
+              'ledger no longer carries an invalidated entry or carries a revised one, is not blocked by the old '
+              'finding, and its renewed verification and trials run normally, the retirement becoming eligible for '
+              'approval again when they pass. RECON-BLOCK covers both directions: the repair and a new freeze with the '
+              'entry unchanged stay blocked; a revised plan that changes or removes the entry is not blocked.', '',
               '- Retained-site conflicts (R6.RECON.24): the minimal option is chosen. A retained site is a plan decision '
               'with no new bytes to keep, so no objective resolution check exists; a conflict on its line stays '
               '`base-drift` until a revised plan. Defining a resolution for it would add a rule the tool cannot check.',

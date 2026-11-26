@@ -424,6 +424,30 @@ The owner decided at #1169 comment 7184808247 (amaybaum, 2026-11-26T06:48:37Z, r
 >
 > [...]
 
+The owner decided at #1169 comment 7185092393 (amaybaum, 2026-11-26T07:05:39Z, relayed by the coordinating session). Excerpt, in the order of the source (table cells joined by " | ", table padding removed; headings left out; each line prefixed by "> "; "[...]" marks text left out):
+
+> [...]
+>
+> A category-3 block must persist for the affected frozen retirement plan, even if a repair subsequently lands on `main`.
+>
+> However, it must not permanently block the entire retirement programme.
+>
+> Event | Required outcome
+>
+> Invalidating scientific change discovered | Block the affected retirement plan.
+>
+> Repair lands on main | Preserve the original finding and record the repair.
+>
+> Repair independently verified | Reassess the scientific justification and affected retirement edits.
+>
+> Revised plan reviewed and frozen | Permit renewed verification and trials.
+>
+> New trials pass | Retirement becomes eligible for approval again.
+>
+> The principle is that a later repair can resolve the underlying scientific problem, but cannot retroactively validate an invalidated frozen plan.
+>
+> [...]
+
 Amendment 3 generalizes reconciliation from one drifted path to any set of drifted ledgered and corpus paths, with no exemption and no file-specific rule; AMENDMENT-3.md gives the analysis of the single-path assumptions it removes. Its requirements are pending independent review and the owner's acceptance. The four responsibilities are kept apart:
 
 | Responsibility | Requirements | Controls | Established by |
@@ -445,7 +469,7 @@ What the tool can check mechanically: every changed ledgered or corpus path and 
 
 Preserved, stated before the change as its controls (AGENTS.md sec. A.29): the meaning of RC1-RC9, RC12 and RC13 for each path; the composition and translation rules (R6.TREE.12, R6.TREE.13), extended only for a path with an applying category-2 resolution; `base-drift` for every drifted path that no applying record covers (R6.TREE.7); identical items on `X` with and without the records (R6.RECON.3); the composition's authority over a record's `l` (R6.RECON.19); the post-freeze route and its one record per path (R6.RECON.2); RT-L2's three values; and every existing control row and expectation, none of which changes. With one drifted ledgered path and no other side change, RC10 and RC11 as amended give the verdicts they gave before. Whether every existing positive control (TT8, POSTF-1 and the other positive reconciliation fixtures) also satisfies RC14 and the reconciled-state trial is a check for the tool revision; the independent review found no change of verdict for TT8 at 933b1efd or for the B4 AGENTS.md record (splice D296).
 
-Owner question: a category-3 block persists even if a later commit reverts or repairs the change; only a revision of the plan ends it (R6.RECON.26). This is put to the owner for confirmation.
+Category-3 lifecycle (owner decision at #1169 comment 7185092393, item 4): the block is scoped to the frozen plan, keyed to its ledger's invalidated edit-list entries; a repair on `main` never lifts it, and the finding and the recorded repair stay on `main` as evidence; a revised plan, frozen anew, whose ledger no longer carries an invalidated entry or carries a revised one, is not blocked by the old finding, and its renewed verification and trials run normally (R6.RECON.26).
 
 Design note for the owner: a configuration frozen at `F` that references a reconciliation record closes that record's paths to the post-freeze route (R6.RECON.2 (d) and (e)), so a record that fails at a later `M` can be replaced only by a new freeze. The recommendation is that the configuration at `F` reference no reconciliation records. Cross-file semantic consistency (two files that stay byte-compatible but disagree in meaning) is left to the independent review (R6.RECON.25).
 
@@ -4983,9 +5007,14 @@ contains one of the entry's `side_change_commits`: the entry's path takes the di
 item FAIL `retirement-blocked` (obligation `RET`), for as long as the configuration's ledger holds, for each
 invalidated edit id, an edit-list entry with the same canonical sha256. A finding counts whether or not a later record
 supersedes the entry and whatever `REV` a run names; no reconciliation record, resolution, supersession, or later
-commit that reverts or repairs the change clears the block. Only a revision of the retirement plan, a new configuration
-version with a new freeze (R6.CFG.3; AGENTS.md sec. A.50 item 5) whose ledger changes or removes an invalidated edit,
-ends it. The tool cannot find a category-3 change by itself: it relies on the review, and it enforces mechanically that a
+commit that reverts or repairs the change clears the block. The block is scoped to the frozen plan: it binds every
+configuration whose ledger carries an invalidated edit-list entry unchanged, and nothing else. A repair on `main` never
+lifts it; the finding and the repair stay on `main` as evidence, the repair recorded by a reconciliation record entry
+of the repairing change, with its own reviewed `scientific_effect`. A revised plan, a new configuration version with a
+new freeze (R6.CFG.3; AGENTS.md sec. A.50 item 5) whose ledger no longer carries an invalidated entry or carries a
+revised one, is not blocked by the old finding; its renewed verification and trials run under this design as any
+run's do, and the retirement becomes eligible for approval again only when they pass. A later repair can resolve the
+underlying scientific problem, but cannot validate the invalidated frozen plan. The tool cannot find a category-3 change by itself: it relies on the review, and it enforces mechanically that a
 recorded finding blocks.
 Sources: amendment 3 (#1169 comments 7184569981, 7184626125 and 7184808247). Controls: RECON-BLOCK.
 

@@ -57,6 +57,25 @@
     "The third category must block retirement until resolved, rather than merely require another reconciliation record.",
     null
    ]
+  },
+  {
+   "author": "amaybaum",
+   "time": "2026-11-26T07:05:39Z",
+   "record": "#1169 comment 7185092393",
+   "relayed_by": "coordinating session",
+   "quotes": [
+    null,
+    "A category-3 block must persist for the affected frozen retirement plan, even if a repair subsequently lands on `main`.",
+    "However, it must not permanently block the entire retirement programme.",
+    "Event | Required outcome",
+    "Invalidating scientific change discovered | Block the affected retirement plan.",
+    "Repair lands on main | Preserve the original finding and record the repair.",
+    "Repair independently verified | Reassess the scientific justification and affected retirement edits.",
+    "Revised plan reviewed and frozen | Permit renewed verification and trials.",
+    "New trials pass | Retirement becomes eligible for approval again.",
+    "The principle is that a later repair can resolve the underlying scientific problem, but cannot retroactively validate an invalidated frozen plan.",
+    null
+   ]
   }
  ]
 }
