@@ -1849,9 +1849,10 @@ one for each workstream in that order, whose records are #1169 comments 71997032
 7199705637 (owner decision, `amaybaum`, 2026-11-26T17:49Z).
 
 This file governs the repository: what work is authorized, how it is reviewed and verified, and what
-lands. Within the limits a package or the owner sets, the management of agents inside a session,
-their concurrency and resources, and the recovery of a session's internal state are the session
-provider's. No coordination Issue is kept. Where an active package's record names #1169 as the place
+lands. The management of agents inside a session, their number, concurrency, scheduling and
+resources, and the recovery of a session's internal state are the session provider's, within the
+provider's limits and any budget the owner sets; the active packages' shared agent cap no longer
+applies. No coordination Issue is kept. Where an active package's record names #1169 as the place
 its writer is recorded, the writer is the one the owner's latest designation names (§A.52 item 2);
 where it names #1169 as a target for records of owner decisions and checkpoints, that target is the
 Issue or pull request concerned among the package's targets; the package is otherwise unchanged.
