@@ -506,10 +506,17 @@ class Evidence(object):
 
 def recompute_outcome(result):
     """The gate's own sec. 7 precedence: a stop's outcome (USAGE, INTERNAL, ERROR, VOID) first, then VOID for a
-    failed preflight, FAIL for failed record checks or a FAIL item, REVIEW_REQUIRED for a REVIEW item, else PASS."""
+    failed preflight, FAIL for failed record checks or a FAIL item, REVIEW_REQUIRED for a REVIEW item, else PASS.
+
+    A stop is `{class, message, detail}` (DESIGN-r6.md sec. 7, result schema): it names no outcome, and which of
+    USAGE, INTERNAL, ERROR and VOID stopped the run is not derivable from `preflight`, `record_checks` and `items`.
+    For a result with a stop, the stop's outcome is the result's `outcome` when it is one of those four, and the
+    caller's cross-check against the exit file decides it; any other `outcome` beside a stop is reported as the
+    inconsistent value `STOP_WITHOUT_STOP_OUTCOME`, which equals no expected outcome."""
     stop = result.get('stop')
-    if isinstance(stop, dict) and stop.get('outcome') in ('USAGE', 'INTERNAL', 'ERROR', 'VOID'):
-        return stop['outcome']
+    if isinstance(stop, dict) and stop:
+        o = stop.get('outcome', result.get('outcome'))
+        return o if o in ('USAGE', 'INTERNAL', 'ERROR', 'VOID') else 'STOP_WITHOUT_STOP_OUTCOME'
     if any(not p.get('passed') for p in result.get('preflight') or []):
         return 'VOID'
     rc = result.get('record_checks')

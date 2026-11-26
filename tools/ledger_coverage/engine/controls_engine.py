@@ -16,6 +16,28 @@ from . import reconcile as rcmod
 from . import util
 from .gitobj import Overlay
 
+# A control runner may set CAPTURE to an object with `result_map()` (a dict that binds each control id to the stage
+# results captured before its assignment) and `stage(label, items, **facts)`. Unset (the self-test and the
+# preflight), the controls run unchanged.
+CAPTURE = None
+
+
+def _out():
+    return CAPTURE.result_map() if CAPTURE is not None else {}
+
+
+def _stage(label, items, **facts):
+    if CAPTURE is not None:
+        CAPTURE.stage(label, items, **facts)
+    return items
+
+
+def _case(name, baseline=None, **bindings):
+    """Names the last captured stage result as the expectation case `name`, with its bindings; `baseline` names the
+    earlier case a restored case is compared with."""
+    if CAPTURE is not None:
+        CAPTURE.name_last(name, bindings, baseline)
+
 doc_path = 'notes/a.md'
 other_path = 'notes/b.md'
 base_text = ('# heading one\n\nalpha line one stands here.\n\nbeta line two stands here.\n\n'
@@ -76,6 +98,8 @@ class World:
             tm.deny()
             tm.review(held=pl.held_lines(cv.states))
             items += tm.items
+        _stage('coverage', items, sites=[dict(site_id=k, state=(v.get('statuses') or [{}])[-1].get('status'))
+                                         for k, v in sorted(cv.site_out.items())])
         return cv, items
 
 
@@ -117,7 +141,7 @@ def off(text, needle):
 # ---- controls ----------------------------------------------------------------------------------------------
 
 def u_controls():
-    out = {}
+    out = _out()
     w = World()
     cv, it = w.coverage(w.pin, [])
     out['U1'] = decision(it) == oc.pass_ and all(not s['statuses'] for s in cv.site_out.values())
@@ -164,12 +188,9 @@ def u_controls():
     x = w.child(w.pin, base_text + '\nzeta appears on a new line.\n')
     cv, it = w.coverage(x, [seg(w.pin, x)])
     out['U12'] = decision(it) == oc.review and classes(it) == ['unclassified']
-    zt = base_text.replace('gamma line three', 'gamma zeta three')
-    wz = World(zt, sites=[(3, 'sr'), (5, 'sr'), (7, 'sr'), (9, 'sr')])
-    x = wz.child(wz.pin, 'top\n' + zt)
-    cv, it = wz.coverage(x, [seg(wz.pin, x)])
-    out['U13'] = decision(it) == oc.pass_
-    out['U14'], out['U15'] = hp_adjudication_pair()
+    # U13 is retired with the `read` route (DESIGN-r6.md sec. 33); U15 is U14's wrong-region-hash case
+    u14, u15 = hp_adjudication_pair()
+    out['U14'] = u14 and u15
     return out
 
 
@@ -213,15 +234,21 @@ def hp_adjudication_pair():
     good = {'site_id': sid, 'steps': steps, 'carried': {'row': 'row-x', 'code': 'code-x', 'owner': 'owner-x'},
             'semantic_classification': 'stated', 'author': 'eng-writer'}
     cv, it = w.coverage(h, [s], adj={'hp': [good]}, hits=False)
+    pos = 'a provenance adjudication matching the walk for a changed HP site (positive)'
+    _case(pos, site=sid)
     u14 = not [i for i in it if i['subject'] == sid]
+    # the restored case: the control's own positive case run again (DESIGN-r6.md, U14 `restored`)
+    cv_r, it_r = w.coverage(h, [s], adj={'hp': [good]}, hits=False)
+    _case('restored', baseline=pos, site=sid)
     bad = dict(good, steps=[dict(steps[0], post_sha256=util.sha256('other'))])
     cv, it = w.coverage(h, [s], adj={'hp': [bad]}, hits=False)
+    _case('the same adjudication with a wrong region hash (the v1 U15 case)', site=sid)
     u15 = [i['class'] for i in it if i['subject'] == sid] == ['provenance-mismatch']
     return u14, u15
 
 
 def m_controls():
-    out = {}
+    out = _out()
     w = World()
     a = off(base_text, 'beta line two')
     led = ledger(w.pin, [(doc_path, a, a + 4, 'betax')], w.repo)
@@ -262,7 +289,7 @@ def m_controls():
 
 
 def k_controls():
-    out = {}
+    out = _out()
     w = World(sites=[(3, 'sd'), (7, 'sr')])
     x = w.child(w.pin, base_text.replace('beta line two stands here.', 'beta line two does not stand.'),
                 files={})
@@ -322,7 +349,7 @@ def k_controls():
 
 
 def b_controls():
-    out = {}
+    out = _out()
     w = World()
     a = off(base_text, 'beta line two stands here.\n')
     b = a + len('beta line two stands here.\n')
@@ -368,7 +395,7 @@ def b_controls():
 
 
 def h_controls():
-    out = {}
+    out = _out()
     w, h, s = hp_world()
     sid = '%s:5@%s' % (doc_path, w.pin[:8])
     steps = walk_steps(w, h, s, 5)
@@ -456,7 +483,7 @@ def chain_probs(rule, review, admitted_extra=(), mutate_ref=None):
 
 
 def o_controls():
-    out = {}
+    out = _out()
     rule, review, ref, vref = chain_world()
     out['O9'] = chain_probs(rule, review) == []
     out['O1'] = bool(chain_probs(rule, dict(review, reviewer='eng-writer')))
@@ -483,7 +510,7 @@ def o_controls():
 
 def r_controls():
     """Tree roles (sec. 13) on neutral trees."""
-    out = {}
+    out = _out()
     w = World()
     H = w.pin
     a = off(base_text, 'beta line two')
@@ -502,7 +529,9 @@ def r_controls():
             e.main_role(set(led['files']) | {doc_path})
         if l:
             e.landing()
+        _stage('execution', e.items, side_changes=e.side_changes)
         return e
+
     def pin(cid, commit, *paths):
         return {'id': cid, 'pins': [{'path': p, 'git_blob': w.repo.blob_id(commit, p),
                                      'blob_sha256': util.sha256(w.repo.read(commit, p))} for p in paths]}
@@ -599,7 +628,7 @@ def n2_control(w, ctx, H, X, led, rec):
 
 def rule_controls():
     """Generic rule application and lint (sec. 6.2, 6.3) on a neutral allow rule."""
-    out = {}
+    out = _out()
     sent = 'The zeta value counts seven items, listed below.'
     w = World(base_text.replace('delta line four stands here.', sent))
     ctx = w.ctx()
@@ -619,7 +648,7 @@ def rule_controls():
         tm.deny()
         tm.review()
         tm.stale_rules()
-        return tm.items
+        return _stage('terms', tm.items)
     out['E-L1'] = not terms(w.pin, [rule])
     x = w.child(w.pin, w.ctx().ft(w.pin, doc_path).text + '\n' + sent + '\n')
     out['E-L3'] = classes(terms(x, [rule])) == ['rule-overreach']

@@ -5,6 +5,10 @@ review and one deny profile, one HP obligation with one merge, one delegation cl
 field `kind`, and one indicator (LIST). It runs the Y controls, the configuration-defect controls Z1-Z8 and Z10,
 the purity controls Z9a-Z9f and the command-line controls X2-X10 and M10 through the same executable.
 The identities in its review chain (writer-a, reviewer-b, widener-d) are synthetic fixtures.
+
+Run as a script it also writes `control-records.json` (oi-control-records/1) and `evidence/synthetic/<id>/` into DIR:
+every in-process tool run is captured and retained as the evidence of the control assigned next (design r6,
+R6.GATE.5 and R6.GATE.7).
 """
 import hashlib
 import io
@@ -28,6 +32,16 @@ if 'ledger_coverage' not in sys.modules:
 
 from ledger_coverage.engine import checker, cli, gitobj, outcome as oc, pipeline as pl, purity, util  # noqa: E402
 from ledger_coverage.adapters import host_fixture as hf  # noqa: E402
+from ledger_coverage.adapters import control_records  # noqa: E402
+
+# set by the script entry: the recorder and the runs captured per control id
+REC = None
+RUNS = {}
+
+
+def outmap():
+    return control_records.RunMap(REC, RUNS)
+
 
 DOC = 'doc/s.md'
 TEXT = ('# synthetic\n\nAxiom Z is the named premise of the synthetic world.\n\nDefinition one states the base object.\n\n'
@@ -304,7 +318,7 @@ def classes(res):
 
 
 def y_controls(r):
-    out = {}
+    out = outmap()
     syn = Syn()
     edits = [('# synthetic', ['# synthetic', '', 'Preface line one.', '', 'Preface line two.'])]
     X, c, p, s = y_world(syn, edits)
@@ -370,7 +384,7 @@ def run_exec(r, syn, X, c, p, s):
 
 
 def z_controls(r):
-    out = {}
+    out = outmap()
     syn = Syn()
     edits = [('# synthetic', ['# synthetic', '', 'Preface line one.'])]
     pd = patch_doc(syn.H, edits)
@@ -451,7 +465,7 @@ def z_controls(r):
 
 
 def x_controls(r, repo_path):
-    out = {}
+    out = outmap()
     syn = Syn()
     edits = [('# synthetic', ['# synthetic', '', 'Preface line one.'])]
     X, c, p, s = y_world(syn, edits)
@@ -567,9 +581,12 @@ def z9_controls():
 
     def lint(src):
         return purity.lint_sources({'engine/m.py': src}, vals, [a1])
-    out = {'Z9a': bool(lint('x = %r\n' % hexid)), 'Z9b': bool(lint('x = %r\n' % hexid[:7])),
-           'Z9c': bool(lint('x = %r\n' % r'\bA1\b')), 'Z9d': bool(lint("x = 'per unit Q2'\n")),
-           'Z9e': not lint("x = {'splices': []}\n")}
+    out = outmap()
+    out['Z9a'] = bool(lint('x = %r\n' % hexid))
+    out['Z9b'] = bool(lint('x = %r\n' % hexid[:7]))
+    out['Z9c'] = bool(lint('x = %r\n' % r'\bA1\b'))
+    out['Z9d'] = bool(lint("x = 'per unit Q2'\n"))
+    out['Z9e'] = not lint("x = {'splices': []}\n")
     adapter_ok = not purity.lint_sources({}, vals, [a1])
     out['Z9f'] = adapter_ok and bool(lint("x = 'a1exit deletion exact-edit ledger v2'\n"))
     return out
@@ -588,9 +605,24 @@ def run_all(out_root, repo_path):
     return res
 
 
+def write_records(out_dir, res):
+    """R6.GATE.5 and R6.GATE.7: one record per control id (keys starting with `_` are diagnostics), PASS when the
+    runner's boolean holds, FAIL otherwise (a group error is a FAIL record of its own)."""
+    REC.out_dir = out_dir
+    for cid in sorted(k for k in res if not k.startswith('_')):
+        v = res[cid]
+        REC.pending = RUNS.get(cid, [])
+        REC.record(cid, 'PASS' if v is True else 'FAIL', v, 'the boolean computed for this id in synthetic_fixture.py')
+    return REC.write()
+
+
 if __name__ == '__main__':
     if len(sys.argv) > 1:
         os.makedirs(sys.argv[1], exist_ok=True)
     root = tempfile.mkdtemp(prefix='syn-controls-', dir=sys.argv[1] if len(sys.argv) > 1 else None)
+    REC = control_records.Recorder('synthetic', None)
+    REC.wrap_cli(cli)
     res = run_all(root, sys.argv[2] if len(sys.argv) > 2 else os.getcwd())
+    if len(sys.argv) > 1:
+        write_records(sys.argv[1], res)
     print(json.dumps(res, indent=1, sort_keys=True, default=str))

@@ -1,15 +1,21 @@
 """Runner evidence contract (design r6, R6.GATE.5 and R6.GATE.7), shared by the control runners.
 
 A runner creates one `Recorder` per job. Each tool run the runner makes is captured with `capture` (argv, exit
-status, the `--out` directory); `record` then closes a control: it copies the captured runs' exit status, result
-file and `--out` listing into `evidence/<job>/<id>/`, writes the control's `manifest.json`
-(`oi-control-evidence/1`: per case the argv, exit file, result file, `--out` listing, input mutation, bindings;
-the sha256 of every file) and adds `{id, status, actual, predicate, evidence}` to the job's records. `write`
-writes `control-records.json` (`oi-control-records/1`). Status is PASS, FAIL or NOT RUN; there is no SKIP.
+status, the `--out` directory's result file and listing, read at capture time), or with `wrap_cli`, which captures
+every in-process call of `cli.run`; an in-process stage that has no command line (an Execution, a coverage or
+terms stage of the engine controls) is captured with `capture_doc`, its argv recorded as `['in-process', label]`
+and its result document built by `stage_doc` with the tool's own outcome function. `record` then closes a control:
+it writes the captured runs' exit status, result file and `--out` listing into `evidence/<job>/<id>/`, writes the
+control's `manifest.json` (`oi-control-evidence/1`: per case the argv, exit file, result file, `--out` listing,
+input mutation, bindings, attested values; the sha256 of every file) and adds `{id, status, actual, predicate,
+evidence}` to the job's records. `write` writes `control-records.json` (`oi-control-records/1`). Status is PASS,
+FAIL or NOT RUN; there is no SKIP.
 
-Case names: a run captured with `case=NAME` is the evidence of the expectation case NAME (`restored` for the
-restored tree). An unnamed first run is the row's single case ``; further unnamed runs are kept as `run2`,
-`run3`, ... and decide nothing. The gate reads only this evidence, never the runner's status or actual.
+Case names: a run captured with `case=NAME` (or named afterwards with `name_last`) is the evidence of the
+expectation case NAME (`restored` for the restored tree). An unnamed first run is the row's single case ``;
+further unnamed runs are kept as `run2`, `run3`, ... and decide nothing. The gate reads only this evidence, never
+the runner's status or actual; attested values are the runner's statements, checked by the gate for integrity
+only.
 """
 import hashlib
 import json
@@ -30,6 +36,34 @@ def _safe(cid):
     return ''.join(c if c.isalnum() or c in '-_.' else '_' for c in cid)
 
 
+def stage_doc(items, preflight=None, record_checks=None, operation=None, **extra):
+    """The result document of an in-process stage: its items, and the outcome and exit status that the tool's own
+    outcome function (engine/outcome.py, sec. 7 precedence) gives them. `extra` adds stage facts (side changes,
+    compositions, sites) under their result-schema names."""
+    from ledger_coverage.engine import outcome as oc
+    items = list(items or [])
+    o = oc.compute(list(preflight or []), record_checks, items)
+    doc = {'schema': oc.result_schema, 'operation': operation, 'outcome': o, 'exit_status': oc.exit_codes[o],
+           'preflight': list(preflight or []), 'record_checks': record_checks, 'items': items, 'in_process': True}
+    doc.update(extra)
+    return doc
+
+
+class RunMap(dict):
+    """A control-result dict whose every assignment of a control id (a key not starting with `_`) takes the runs
+    captured since the previous assignment as that control's evidence (`runs_of[id]`)."""
+
+    def __init__(self, recorder, runs_of):
+        dict.__init__(self)
+        self.recorder = recorder
+        self.runs_of = runs_of
+
+    def __setitem__(self, k, v):
+        if self.recorder is not None and not str(k).startswith('_'):
+            self.runs_of.setdefault(k, []).extend(self.recorder.take())
+        dict.__setitem__(self, k, v)
+
+
 class Recorder(object):
     def __init__(self, job, out_dir):
         self.job = job
@@ -38,12 +72,36 @@ class Recorder(object):
         self.ids = set()
         self.pending = []
 
-    def capture(self, argv, code, out=None, case=None, mutation=None, bindings=None, stderr=None, baseline=None):
+    def capture(self, argv, code, out=None, case=None, mutation=None, bindings=None, stderr=None, baseline=None,
+                attested=None):
         """One tool run. `out` is its --out directory (or None); `stderr` the USAGE stderr JSON text, if any;
-        `baseline` an earlier captured run whose result this case is compared with (restored cases)."""
-        self.pending.append({'argv': [str(a) for a in argv], 'exit': code, 'out': out, 'case': case,
-                             'mutation': list(mutation or []), 'bindings': dict(bindings or {}), 'stderr': stderr,
-                             'baseline': baseline})
+        `baseline` an earlier captured run whose result this case is compared with (restored cases). The result
+        file and the --out listing are read now, so a later run that reuses the directory cannot change them."""
+        run = {'argv': [str(a) for a in argv], 'exit': code, 'case': case, 'mutation': list(mutation or []),
+               'bindings': dict(bindings or {}), 'stderr': stderr, 'baseline': baseline, 'listing': [],
+               'result': None, 'attested': attested}
+        if out and os.path.isdir(out):
+            run['listing'] = sorted(os.listdir(out))
+            for rn in RESULT_NAMES:
+                p = os.path.join(out, rn)
+                if os.path.isfile(p):
+                    with open(p, 'rb') as f:
+                        run['result'] = (rn, f.read())
+                    break
+        self.pending.append(run)
+        return run
+
+    def capture_doc(self, label, doc, case=None, mutation=None, bindings=None, baseline=None, attested=None):
+        """An in-process evaluation (no command line): `doc` is the result document the evaluated stage produced
+        (its items, and the outcome and exit status the tool's precedence gives them); `label` names the stage.
+        The argv is recorded as ['in-process', label] so the evidence never reads as a command-line run."""
+        data = (json.dumps(doc, indent=1, sort_keys=True, default=str) + '\n').encode()
+        run = {'argv': ['in-process', label], 'exit': doc.get('exit_status'), 'case': case,
+               'mutation': list(mutation or []), 'bindings': dict(bindings or {}), 'stderr': None,
+               'baseline': baseline, 'listing': ['result.json'], 'result': ('result.json', data),
+               'attested': attested}
+        self.pending.append(run)
+        return run
 
     def discard(self):
         self.pending = []
@@ -82,30 +140,24 @@ class Recorder(object):
             entry = {'case': name, 'argv': run['argv'], 'mutation': run['mutation'], 'bindings': run['bindings']}
             if run['exit'] is not None:
                 entry['exit_file'] = put(tag + '.exit', ('%d\n' % run['exit']).encode())
-            listing = []
-            if run['out'] and os.path.isdir(run['out']):
-                listing = sorted(os.listdir(run['out']))
-                for rn in RESULT_NAMES:
-                    p = os.path.join(run['out'], rn)
-                    if os.path.isfile(p):
-                        with open(p, 'rb') as f:
-                            entry['result_file'] = put(tag + '.' + rn, f.read())
-                        break
+            if run.get('result'):
+                rn, data = run['result']
+                entry['result_file'] = put(tag + '.' + rn, data)
             if run['stderr'] and 'result_file' not in entry:
                 entry['result_file'] = put(tag + '.stderr.json', run['stderr'].encode())
-            entry['out_listing'] = put(tag + '.out-listing.json', (json.dumps(listing) + '\n').encode())
+            entry['out_listing'] = put(tag + '.out-listing.json', (json.dumps(run['listing']) + '\n').encode())
             b = run.get('baseline')
-            if b and b.get('out') and os.path.isdir(b['out']):
-                for rn in RESULT_NAMES:
-                    p = os.path.join(b['out'], rn)
-                    if os.path.isfile(p):
-                        with open(p, 'rb') as f:
-                            entry['baseline_file'] = put(tag + '.baseline.' + rn, f.read())
-                        entry['baseline_argv'] = b['argv']
-                        break
+            if b and b.get('result'):
+                rn, data = b['result']
+                entry['baseline_file'] = put(tag + '.baseline.' + rn, data)
+                entry['baseline_argv'] = b['argv']
+            att = dict(run.get('attested') or {})
             if attested and name in attested:
+                att.update(attested[name])
+            if att:
+                # values the runner states for this case (DESIGN-r6.md sec. 16, L1): checked for integrity only
                 entry['attested'] = put(tag + '.attested.json',
-                                        (json.dumps(attested[name], sort_keys=True, default=str) + '\n').encode())
+                                        (json.dumps(att, sort_keys=True, default=str) + '\n').encode())
             man['cases'].append(entry)
         for name, data in sorted((files or {}).items()):
             put(name, data if isinstance(data, bytes) else
@@ -119,6 +171,31 @@ class Recorder(object):
                              'evidence': rel})
         self.pending = []
         return rel
+
+    def wrap_cli(self, cli):
+        """Captures every in-process call of `cli.run` (argv, exit status, --out result and listing, the USAGE
+        stderr) until the returned function restores it."""
+        real = cli.run
+        rec = self
+
+        def run(argv, *args, **kw):
+            code, res = real(argv, *args, **kw)
+            argv = list(argv)
+            out = argv[argv.index('--out') + 1] if '--out' in argv[:-1] else None
+            err = kw.get('stderr')
+            text = err.getvalue() if code == 64 and hasattr(err, 'getvalue') else None
+            rec.capture(argv, code, out, stderr=text or None)
+            return code, res
+        cli.run = run
+        return lambda: setattr(cli, 'run', real)
+
+    def name_last(self, case, **kw):
+        """Names the last captured run as expectation case `case` (and sets its bindings or mutation)."""
+        if self.pending:
+            self.pending[-1]['case'] = case
+            for k, v in kw.items():
+                self.pending[-1][k] = v
+        return self.pending[-1] if self.pending else None
 
     def write(self, name='control-records.json'):
         p = os.path.join(self.out_dir, name)

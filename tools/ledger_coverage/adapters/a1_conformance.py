@@ -29,6 +29,7 @@ if 'ledger_coverage' not in sys.modules:
 from ledger_coverage.engine import cli, execution as exmod, peredit, pipeline as pl, reconcile as rc  # noqa: E402
 from ledger_coverage.engine import rules as rulemod, util  # noqa: E402
 from ledger_coverage.adapters import a1_controls as a1c, a1exit_exact_edit as le  # noqa: E402
+from ledger_coverage.adapters import control_records  # noqa: E402
 
 H, T, P, E = a1c.H, a1c.T, a1c.P, a1c.E
 PL = a1c.PL
@@ -36,11 +37,25 @@ M = '8e9b83341cf5bc7fd9fb260892d0385fc9bfab4d'
 CH19 = 'book/ch19-open-problems.md'
 FULL = a1c.FULL
 RESULTS = []
+# R6.GATE.7: the tool runs (and in-process stage results) captured since the previous check are its evidence
+REC = None
+RUNS = {}
 
 
 def check(cid, expected, predicate, actual, holds):
     RESULTS.append({'id': cid, 'expected': expected, 'predicate': predicate, 'actual': actual,
                     'status': 'PASS' if holds else 'FAIL'})
+    if REC is not None:
+        RUNS.setdefault(cid, []).extend(REC.take())
+
+
+def exec_doc(e, label):
+    """Captures an in-process Execution's items, side changes and compositions as a stage result."""
+    if REC is not None:
+        REC.capture_doc(label, control_records.stage_doc(
+            e.items, operation='execution', side_changes=getattr(e, 'side_changes', None),
+            landing_compositions=getattr(e, 'compositions', None)))
+    return e
 
 
 def sha(b):
@@ -418,7 +433,7 @@ class Recon:
         e.main_role(set(self.led['files']) | corp)
         if L:
             e.landing()
-        return e
+        return exec_doc(e, 'execution main role%s (a1_conformance.Recon.run)' % (' and landing' if L else ''))
 
     def failed(self, e):
         return [x for s_ in e.side_changes for ev in (s_.get('record_conditions') or []) for x in ev['failed']]
@@ -432,6 +447,7 @@ def n_controls(a):
     base = [i for i in e.items if i.get('file') == path]
     # N3 with the full candidate comparison
     ex = cli.candidate_with_and_without(rcn.ctx, H, T, rcn.led, None, M, None, T, rcn.classes, [rec])
+    exec_doc(ex, 'op C candidate comparison with and without the record (cli.candidate_with_and_without)')
     check('N3', 'a valid reconciliation record naming a ledgered path that X changes (AGENTS.md: D296 at X, a later '
           'section added on M): the record applies; no record-invalid; op C\'s items on X identical with and '
           'without it', "no item for AGENTS.md at M (RC1-RC13 hold), no record-invalid, and the with/without items on X "
@@ -577,6 +593,8 @@ def main():
     args = ap.parse_args()
     os.makedirs(args.out, exist_ok=True)
     a = a1c.A1(args.repo, args.config, args.out, args.staged_config)
+    global REC
+    REC = a.rec = control_records.Recorder('a1-conformance', args.out)
     groups = [('WB', wb_controls), ('S11', s11_controls), ('N', n_controls)]
     for name, fn in groups:
         if args.only and name not in args.only.split(','):
@@ -594,6 +612,15 @@ def main():
     doc = {'schema': 'oi-control-report/1', 'controls': sorted(RESULTS, key=lambda x: x['id']), 'summary': summary}
     with open(os.path.join(args.out, 'a1-conformance.json'), 'w', encoding='utf-8') as f:
         f.write(json.dumps(doc, indent=1, sort_keys=True, default=str) + '\n')
+    # R6.GATE.5 and R6.GATE.7: one record per control with its retained evidence, read by the gate
+    done = set()
+    for r in doc['controls']:
+        if r['id'] in done:
+            continue
+        done.add(r['id'])
+        REC.pending = RUNS.get(r['id'], [])
+        REC.record(r['id'], r['status'], r['actual'], r['predicate'] or r['expected'])
+    REC.write()
     print(json.dumps(summary, sort_keys=True))
     for r in doc['controls']:
         if r['status'] != 'PASS':

@@ -8,8 +8,11 @@ commits after X R16/R17, widening A12r,
 the synthetic parts of S4a and Z11, the lineage controls LN1-LN8 and LN10 (DI-2), and the retained controls for the
 independent reviews' findings (R3-F2, R4-B3, R4-B3-DUP, R5-N6, R6-G6).
 
-Every control is reported as {id, expected, predicate, actual, status} with status PASS, FAIL, SKIP or NOT RUN
-(sec. 10.4, B6). A control that needs the real host (a CI job with the host's API) is NOT RUN here, never PASS.
+Every control is reported as {id, expected, predicate, actual, status} with status PASS, FAIL or NOT RUN (sec. 10.4,
+B6; r6 R6.GATE.5: no SKIP). A control that needs the real host (a CI job with the host's API) is NOT RUN here, never
+PASS. Every in-process tool run is captured (control_records.Recorder.wrap_cli) and retained as the evidence of the
+control recorded next; `control-records.json` (oi-control-records/1) and `evidence/conformance/<id>/` are written
+beside the summary, for the gate (design r6 sec. 16).
 
 Usage: python3 -I -B tools/ledger_coverage/adapters/conformance_controls.py OUT_DIR
 """
@@ -42,13 +45,19 @@ from ledger_coverage.engine import checker, cli, delegation as delmod, execution
 from ledger_coverage.engine import gitobj, host as hostmod, purity, schema as schemamod, util  # noqa: E402
 from ledger_coverage.adapters import host_fixture as hf, synthetic_fixture as sf  # noqa: E402
 from ledger_coverage.adapters import record_directory_controls as rdc  # noqa: E402
+from ledger_coverage.adapters import control_records  # noqa: E402
 
 RESULTS = []
+# R6.GATE.7: the tool runs captured since the previous record are the evidence of the next one
+REC = control_records.Recorder('conformance', None)
+RUNS = {}
+ATTESTED = {}
 WORKFLOW = os.path.join(os.path.dirname(tools), '.github', 'workflows', 'ledger-coverage.yml')
 
 
 def record(cid, expected, predicate, actual, status):
     RESULTS.append({'id': cid, 'expected': expected, 'predicate': predicate, 'actual': actual, 'status': status})
+    RUNS.setdefault(cid, []).extend(REC.take())
 
 
 def check(cid, expected, predicate, actual, holds):
@@ -59,8 +68,6 @@ def not_run(cid, expected, why):
     record(cid, expected, None, why, 'NOT RUN')
 
 
-def skip(cid, expected, why):
-    record(cid, expected, None, why, 'SKIP')
 
 
 def sha(b):
@@ -1366,8 +1373,9 @@ def ei_controls(r):
     # EI10: an extension module beside the pinned util.py
     cc = shutil.which('cc') or shutil.which('gcc')
     if cc is None:
-        skip('EI10', 'the pre-run check fails before the entry point runs; the module\'s init never runs',
-             'no C compiler in this environment')
+        # no SKIP (R6.GATE.5) and EI10 admits no NOT RUN: a control that cannot run here fails
+        record('EI10', 'the pre-run check fails before the entry point runs; the module\'s init never runs', None,
+               'not run: no C compiler in this environment', 'FAIL')
     else:
         import sysconfig
         ext = os.path.join(r.out_root, 'ei-ext')
@@ -2572,11 +2580,23 @@ def write(out_root):
     doc = {'schema': 'oi-control-report/1', 'controls': sorted(RESULTS, key=lambda x: x['id']), 'summary': summary}
     with open(os.path.join(out_root, 'conformance-controls.json'), 'w', encoding='utf-8') as f:
         f.write(json.dumps(doc, indent=1, sort_keys=True, default=str) + '\n')
+    # R6.GATE.5 and R6.GATE.7: one record per control with its retained evidence, read by the gate
+    REC.out_dir = out_root
+    done = set()
+    for rrec in sorted(RESULTS, key=lambda x: x['id']):
+        if rrec['id'] in done:
+            continue
+        done.add(rrec['id'])
+        REC.pending = RUNS.get(rrec['id'], [])
+        REC.record(rrec['id'], rrec['status'], rrec['actual'], rrec['predicate'] or rrec['expected'],
+                   attested=ATTESTED.get(rrec['id']))
+    REC.write()
     return doc
 
 
 def main(out_root):
     os.makedirs(out_root, exist_ok=True)
+    REC.wrap_cli(cli)
     r = sf.Runner(tempfile.mkdtemp(prefix='conf-', dir=out_root))
     t = None
     groups = [('TR', lambda: tr_controls(r)), ('EI5', lambda: ei5_controls(r)), ('O3', lambda: o3_controls(r)),
