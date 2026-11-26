@@ -16,22 +16,28 @@ reports the record `record-invalid`. A row listed here can fail for other reason
 ## Repository records read through the A1 configuration
 
 Commit: every path below is on the tool branch `tools/a1-ledger-coverage-r6` at the commit that carries this file;
-"main" gives its blob there (main 83e08bd9, checked against the remote with `git ls-remote` and a repository API
+"main" gives its blob there (main 13f5c66a, checked against the remote with `git ls-remote` and a repository API
 GET on 2026-11-26) where the path is on `main`.
 
 | Path (tool audit directory) | Kind | sha256 | On main | A1 rows that rest on it |
 |---|---|---|---|---|
-| `rules/dr-deny-v1.json` | rule file (deny rules DR-1, DR-3, DR-4, DR-5) | daf3a8e231ace391f0037447d1266d1255df8dc015baaaa601fcc79b63cec6ae | yes, same blob family | 93 rows: A1r-A11r, G1-G3, L1-L4, N-W, N3-config-route, RT-A, RT-C, RT-D, RT-D-gr58, RT-DR3W, RT-E, RT-H0, RT-L, RT-L2, RT-O9, RT-T0, RT-X, S11-1 to S11-14 (as run), S11-56, S2r, V1-V27-glossary, WB1-WB15, item11-T1p |
+| `rules/dr-deny-v1.json` | rule file (deny rules DR-1, DR-3, DR-4, DR-5) | daf3a8e231ace391f0037447d1266d1255df8dc015baaaa601fcc79b63cec6ae | yes, same blob | 93 rows: A1r-A11r, G1-G3, L1-L4, N-W, N3-config-route, RT-A, RT-C, RT-D, RT-D-gr58, RT-DR3W, RT-E, RT-H0, RT-L, RT-L2, RT-O9, RT-T0, RT-X, S11-1 to S11-14 (as run), S11-56, S2r, V1-V27-glossary, WB1-WB15, item11-T1p |
 | `rules/resid-v1.json` | rule file (review pattern resid) | 7aa1412206f7bf5fec1d3573d76e1b91c0f6bc8f67704a1dcb75344d09aac221 | yes | the same 93 rows (every run that loads the configuration's rule files) |
-| `rules/w1-w2-allow-v2.json` (supersedes v1; changes only W1-a's reason) | rule file (allow rules W1, W2) | 306017d93211bded9cf63f964d60f17db543f02e11183fb82b05d6a76d2bb903 | no | the same 93 rows; their allowances decide WB1-WB15, L1-L4, V7a-V7c, V25, S1r, S2r |
+| `rules/w1-w2-allow-v3.json` (supersedes v2; removes W1-a, for which no valid justification exists) | rule file (allow rules W1, W2) | 5485154a9c703192d4de65619ad5948d14fec7dbbffa2440b6482019efea15db | no | the same 93 rows; their allowances decide WB1-WB15, L1-L4, V7a-V7c, V25, S1r, S2r |
+| `rules/w1-w2-allow-v2.json` (predecessor of v3) | rule file (allow rules W1, W2) | 306017d93211bded9cf63f964d60f17db543f02e11183fb82b05d6a76d2bb903 | no | the same rows, through the lineage lint of v3 |
 | `rules/w1-w2-allow-v1.json` (predecessor of v2) | rule file (allow rules W1, W2) | 0cbb97c98725cba618598650b0cd9c687c97e280b3422c4ad6e62794a222b171 | yes | the same rows, through the lineage lint of v2 |
 | `rules/register-infinity-params-v1.json` | params (per-edit parameters of items 5 and 6) | 05149ba694dd4017ad27dd60c02810403ec7351036776bea212768ba9ebc509f | yes | the same 93 rows; it sets op C's per-edit evaluation (S11-5, S11-6, S11-56) |
-| `records/side-change-classes-v14.json` (the head of the class-record lineage v1-v14 at this commit; v14 pins this file's blob, so its own digest is not stated here; its predecessor v13 has sha256 905f850044f89d89b9222a7546746136f91eb1145dd906ef622d8747851c77ac) | side-change class (tool-landing) | (see the path's blob) | no (v1 only, sha256 4b28d3d22452bca712ab7c082feee5af3cd1dc1d81260dae2d6b7808354687b8) | 19 rows: G1-G3, RT-C, RT-L, RT-L2, RT-O9, RT-X, S11-1, S11-3 to S11-6, S11-8 to S11-10, S11-12 to S11-14 |
-| `records/gr58-hit-classification-v2.json` (supersedes v1; names and reasons every profile hit on the line) | hit classification (`--classify`) | 28c5a5706605cabc5c7542ca3b9ad11f96151d3e8c829aa73b391420ecea54c1 | no | RT-D-gr58, RT-D (through C-29 part 2: a `--classify` record is linted at its record commit) |
+| `records/side-change-classes-v15.json` (the head of the class-record lineage v1-v15 at this commit; v15 pins this file's blob, so its own digest is not stated here; its predecessor v14 has sha256 2eb7a19b6152a5c6dbc537f83f6378547c08f926fe8701cebc4c520b78ae3006) | side-change class (tool-landing) | (see the path's blob) | no (v1 only, sha256 4b28d3d22452bca712ab7c082feee5af3cd1dc1d81260dae2d6b7808354687b8) | 19 rows: G1-G3, RT-C, RT-L, RT-L2, RT-O9, RT-X, S11-1, S11-3 to S11-6, S11-8 to S11-10, S11-12 to S11-14 |
+| `records/gr58-hit-classification-v3.json` (supersedes v2; the ptr hit's reason says what ptr detects) | hit classification (`--classify`) | 0e2cd408c500313f3c214590f86d76eb33529875903682924f1f94a8340beb86 | no | RT-D-gr58, RT-D (through C-29 part 2: a `--classify` record is linted at its record commit) |
+| `records/gr58-hit-classification-v2.json` (supersedes v1; names and reasons every profile hit on the line; predecessor of v3) | hit classification (`--classify`) | 28c5a5706605cabc5c7542ca3b9ad11f96151d3e8c829aa73b391420ecea54c1 | no | RT-D-gr58, RT-D (through C-29 part 2: a `--classify` record is linted at its record commit) |
 | `records/gr58-hit-classification-v1.json` (predecessor of v2) | hit classification (`--classify`) | 8177b0923a7eddf09c473ce541e4c23de53067429a31d52260aa35f0bafa8410 | yes | the same rows, through the lineage lint of v2 |
 | `records/repo-scope-v1.json` | scope record (`--scope`) | 32afecca8e371a1f51217a70058676144e874b24526ca0becddea04e2c12df42 | yes | item11-T1p, S11-11, RT-D (read through `--scope`; not chain-linted by op C at this commit) |
 | `delegation-draft.json` | delegation contract (draft) | 015826146fd01b9f5ebc5ae8b1966f700e2f964b8989203d66b75e36e032f65c | yes | every op C run (RT-C, RT-X, RT-L, RT-L2, RT-O9, S11, G1-G3); read by its pin, not chain-linted |
-| `controls.json` (keeps only `control_inputs`, `operations` and `direction`, R6.GATE.1) | controls file | bd0457363d6115b3084ebde9e37157eadd9877fd75c35231b1412d79127774c2 | yes (older blob, sha256 96f3032097e817f33803d62e75b4055cb2f6111b29dc3a3ed58cb3e4115ce3d8) | every run (preflight controls of the configuration); read by its pin, not chain-linted |
+| `controls.json` (keeps only `control_inputs`, `operations` and `direction`, R6.GATE.1) | controls file | fd6d16f84ad5d9ef70655461d46a62ec2af018b917841f475dea01bcc98bde72 | yes (older blob, sha256 96f3032097e817f33803d62e75b4055cb2f6111b29dc3a3ed58cb3e4115ce3d8) | every run (preflight controls of the configuration); read by its pin, not chain-linted |
+
+Main's move from 83e08bd9 to 13f5c66a changes no digest above. It changes papers/SM.md (a ledgered path, so it
+drifts further), papers/SM.tex and SM.pdf, and the Main, Substratum and FULL PDFs, which need the generated-artefacts
+class; the B4 class records' pins at 13eeca70 predate these changes.
 
 The A1 configuration itself (`retirement-config.json`, the staged draft at the plan directory's path) is admitted only
 by the control harness; its review chain is outside C-29 and outside this inventory.
