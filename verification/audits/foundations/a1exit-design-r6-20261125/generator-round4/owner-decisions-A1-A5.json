@@ -1,0 +1,16 @@
+{
+ "author": "amaybaum",
+ "date": "2026-11-25",
+ "context": "Owner decisions on the round-3 delta review of A1 design r6, given in the coordinating session and relayed verbatim to the writer of the round-4 revision; recorded at #1169 comment 7169906297.",
+ "decisions": {
+  "A1": "A1 \u2014 Offline replay | Defer TR45-opB, TR45-opC, TR45 and OBL-17 together. A1 retirement must not depend on a deferred feature.",
+  "A2": "A2 \u2014 T1\u2032 evidence | Correct both flags to \"candidate evidence only, not acceptance support\". Preserve the existing expectations.",
+  "A3": "A3 \u2014 Landing order | Adopt the explicit wording below.",
+  "A3-wording": "The verification tool must land before A1 retirement execution, through its own independently reviewed pull request and separate merge approval. After the tool lands and its operation on main is confirmed, amend the A1 retirement plan's PREREG.md to specify the adopted tool and its exact verification commands. Every mandatory check in section 11 must pass as written, without exceptions. The amended plan must be independently reviewed and frozen again. Maintain the distinction between the immutable scientific base H, the current integration base on main, the candidate execution tree and the landing tree, as specified in r6 section 20. The execution-exception route recorded in comment 7092885251 is superseded. Each applicable approval gate for implementation, push, pull request, merge, plan amendment, freezing, trials and retirement execution remains separate under the governing rules.",
+  "A4": "A4 \u2014 Authorization | Confirm all 53 identified requirements, within the reviewed r6 scope and subject to previously approved deferrals. This confirmation does not extend to unidentified requirements.",
+  "A5": "A5 \u2014 Landing scope | Land only the final r6 documents, both review records and the round-2/3 generators, including any committed inputs necessary for reproducibility. Preserve earlier drafts through Git history or the evidence branch. Classify every off-main reference individually.",
+  "closing": "Proceed with the final bounded text-only revision, including the R6.TREE.12 correction, and obtain the short independent delta review. Do not reopen settled requirements or introduce further features.",
+  "objective": "minimum sufficient verification, not maximum possible verification"
+ },
+ "a4_identified": "the 50 requirements marked pending under S1-D3 in round 3, plus R6.OUT.5, R6.OUT.18 and R6.DELEG.8 (round-3 delta review, F3)"
+}
