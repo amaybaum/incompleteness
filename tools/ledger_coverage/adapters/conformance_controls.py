@@ -46,6 +46,7 @@ from ledger_coverage.engine import gitobj, host as hostmod, purity, schema as sc
 from ledger_coverage.adapters import host_fixture as hf, synthetic_fixture as sf  # noqa: E402
 from ledger_coverage.adapters import record_directory_controls as rdc  # noqa: E402
 from ledger_coverage.adapters import control_records  # noqa: E402
+from ledger_coverage.adapters import postfreeze_controls as pfc  # noqa: E402
 
 RESULTS = []
 # R6.GATE.7: the tool runs captured since the previous record are the evidence of the next one
@@ -55,19 +56,25 @@ ATTESTED = {}
 WORKFLOW = os.path.join(os.path.dirname(tools), '.github', 'workflows', 'ledger-coverage.yml')
 
 
-def record(cid, expected, predicate, actual, status, cases=None):
+def record(cid, expected, predicate, actual, status, cases=None, attested=None, baseline_of=None):
     """`cases`: per captured run of this control, in order, None or (case name, bindings) naming it as an
-    expectation case (R6.GATE.7)."""
+    expectation case (R6.GATE.7); `attested`: {case: {key: value}} the runner states for a case; `baseline_of`:
+    {case: earlier case} whose result a restored case is compared with."""
     RESULTS.append({'id': cid, 'expected': expected, 'predicate': predicate, 'actual': actual, 'status': status})
     runs = REC.take()
     for run, c in zip(runs, cases or []):
         if c is not None:
             run['case'], run['bindings'] = c[0], dict(c[1] or {})
+    for run in runs:
+        if run['case'] in (attested or {}):
+            run['attested'] = dict(run.get('attested') or {}, **attested[run['case']])
+        if run['case'] in (baseline_of or {}):
+            run['baseline'] = next((x for x in runs if x['case'] == baseline_of[run['case']]), None)
     RUNS.setdefault(cid, []).extend(runs)
 
 
-def check(cid, expected, predicate, actual, holds, cases=None):
-    record(cid, expected, predicate, actual, 'PASS' if holds else 'FAIL', cases)
+def check(cid, expected, predicate, actual, holds, cases=None, attested=None, baseline_of=None):
+    record(cid, expected, predicate, actual, 'PASS' if holds else 'FAIL', cases, attested, baseline_of)
 
 
 def not_run(cid, expected, why):
@@ -2615,7 +2622,9 @@ def main(out_root):
               ('LN', lambda: ln1_ln8(r)), ('R6-G6', lambda: r6_g6(r)),
               ('CONFIG-LINT', lambda: config_lint_controls(r)), ('B4-MEANING', lambda: meaning_controls(r)),
               # design amendment r4: the record-directory rule (O-9) and the item-2 record interfaces
-              ('O9', lambda: rdc.o9_controls(r, check)), ('I2', lambda: rdc.i2_controls(r, check, WORKFLOW))]
+              ('O9', lambda: rdc.o9_controls(r, check)), ('I2', lambda: rdc.i2_controls(r, check, WORKFLOW)),
+              # design amendment 1: the post-freeze route
+              ('POSTF', lambda: pfc.postf_controls(r, check))]
     for name, fn in groups:
         try:
             got = fn()

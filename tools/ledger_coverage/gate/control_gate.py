@@ -795,6 +795,12 @@ def _computed_invariant(k, v, result, bindings):
         if sel is not None:
             return not sel, len(sel), 'result'
         return None
+    if k == 'record_admitted' and isinstance(v, str) and \
+            isinstance((result.get('inputs') or {}).get('classify_records'), list):
+        # the records the post-freeze route admitted, as the result lists them
+        want = _bind(v, bindings)
+        got = sorted(str(x.get('path')) for x in result['inputs']['classify_records'] if isinstance(x, dict))
+        return want in got, got, 'result'
     if k == 'composed_blob' and isinstance(result.get('landing_compositions'), list):
         a = sorted(str(c.get('composed_blob')) for c in result['landing_compositions'] if isinstance(c, dict))
         return v in a, a, 'result'
