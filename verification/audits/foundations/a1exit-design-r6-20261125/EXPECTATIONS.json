@@ -21743,7 +21743,8 @@
    },
    "source": "r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B4; owner directions of 2026-11-26T04:52:48Z, #1169 comment 7182986451)",
    "flags": [
-    "added by amendment 1 (B4; owner directions of 2026-11-26T04:52:48Z, #1169 comment 7182986451); no runner records it before the tool revision implements it"
+    "added by amendment 1 (B4; owner directions of 2026-11-26T04:52:48Z, #1169 comment 7182986451); no runner records it before the tool revision implements it",
+    "ATTESTED: the inputs.classify_records listing of the positive case is an attested value; the gate computes no key over result.inputs, and it is not extended for it"
    ]
   },
   {
@@ -21942,6 +21943,37 @@
       "case": "a REV naming a commit object whose content does not hash to its id",
       "outcome": "ERROR",
       "stop_class": "UNRESOLVABLE"
+     },
+     {
+      "case": "an admitted record naming a commit other than the run's M, its blobs satisfying RC1-RC13 at the run's M",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "base-drift"
+      ]
+     },
+     {
+      "case": "an admitted record naming a commit other than the run's X, its blobs satisfying RC1-RC13",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "base-drift"
+      ]
+     },
+     {
+      "case": "an admitted record whose supersedes names a reconciliation record the configuration references",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "a reconciliation record the configuration references and an admitted record, naming different commits M, covering one path (each record-invalid; neither applies)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "base-drift"
+      ]
      }
     ]
    },
@@ -21998,6 +22030,13 @@
      },
      {
       "case": "PATH a corpus path",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "PATH outside verification/audits/",
       "outcome": "FAIL",
       "classes_include": [
        "record-invalid"

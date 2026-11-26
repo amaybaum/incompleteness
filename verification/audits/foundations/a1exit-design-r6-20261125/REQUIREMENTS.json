@@ -2028,7 +2028,7 @@
   ],
   "open": [],
   "pending_owner_confirmation": [
-   "amendment 1, B4 part A (post-freeze route of R6.RECON.2, reconciliation records only): conditionally approved by the owner (amaybaum, 2026-11-26), subject to an independent review confirming that it preserves the frozen verification contract; if that review finds that it permits changing the verification contract after F, it returns to the owner; no tool revision implements it before that review accepts it"
+   "amendment 1, B4 part A (post-freeze route of R6.RECON.2, reconciliation records only): conditionally approved by the owner (amaybaum, 2026-11-26T05:21:04Z, #1169 comment 7183745781), subject to an independent review confirming that it preserves the frozen verification contract; if that review finds that it permits changing the verification contract after F, it returns to the owner; no tool revision implements it before that review accepts it"
   ],
   "owner_decision": [
    {
@@ -3235,7 +3235,7 @@
      "amendment 1, B4 part B (record location)"
     ],
     "effect": "approved: records kept outside the tool's landing paths and ledgered corpus",
-    "record": "owner decision on B4 parts A to D of 2026-11-26 (amaybaum, coordinating session)"
+    "record": "owner decision on B4 parts A to D of 2026-11-26T05:21:04Z (amaybaum, coordinating session; #1169 comment 7183745781)"
    }
   ]
  },
@@ -3281,7 +3281,7 @@
   ],
   "open": [],
   "pending_owner_confirmation": [
-   "amendment 1, B4 part A (post-freeze route of R6.RECON.2, reconciliation records only): conditionally approved by the owner (amaybaum, 2026-11-26), subject to an independent review confirming that it preserves the frozen verification contract; if that review finds that it permits changing the verification contract after F, it returns to the owner; no tool revision implements it before that review accepts it"
+   "amendment 1, B4 part A (post-freeze route of R6.RECON.2, reconciliation records only): conditionally approved by the owner (amaybaum, 2026-11-26T05:21:04Z, #1169 comment 7183745781), subject to an independent review confirming that it preserves the frozen verification contract; if that review finds that it permits changing the verification contract after F, it returns to the owner; no tool revision implements it before that review accepts it"
   ],
   "owner_decision": []
  },
@@ -3305,7 +3305,7 @@
   ],
   "open": [],
   "pending_owner_confirmation": [
-   "amendment 1, B4 part A (post-freeze route of R6.RECON.2, reconciliation records only): conditionally approved by the owner (amaybaum, 2026-11-26), subject to an independent review confirming that it preserves the frozen verification contract; if that review finds that it permits changing the verification contract after F, it returns to the owner; no tool revision implements it before that review accepts it"
+   "amendment 1, B4 part A (post-freeze route of R6.RECON.2, reconciliation records only): conditionally approved by the owner (amaybaum, 2026-11-26T05:21:04Z, #1169 comment 7183745781), subject to an independent review confirming that it preserves the frozen verification contract; if that review finds that it permits changing the verification contract after F, it returns to the owner; no tool revision implements it before that review accepts it"
   ],
   "owner_decision": []
  },
@@ -3344,7 +3344,7 @@
   ],
   "open": [],
   "pending_owner_confirmation": [
-   "amendment 1, B4 part A (post-freeze route of R6.RECON.2, reconciliation records only): conditionally approved by the owner (amaybaum, 2026-11-26), subject to an independent review confirming that it preserves the frozen verification contract; if that review finds that it permits changing the verification contract after F, it returns to the owner; no tool revision implements it before that review accepts it"
+   "amendment 1, B4 part A (post-freeze route of R6.RECON.2, reconciliation records only): conditionally approved by the owner (amaybaum, 2026-11-26T05:21:04Z, #1169 comment 7183745781), subject to an independent review confirming that it preserves the frozen verification contract; if that review finds that it permits changing the verification contract after F, it returns to the owner; no tool revision implements it before that review accepts it"
   ],
   "owner_decision": [
    {
@@ -3419,7 +3419,9 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [],
+  "pending_owner_confirmation": [
+   "amendment 1, B4 part A (post-freeze route of R6.RECON.2, reconciliation records only): conditionally approved by the owner (amaybaum, 2026-11-26T05:21:04Z, #1169 comment 7183745781), subject to an independent review confirming that it preserves the frozen verification contract; if that review finds that it permits changing the verification contract after F, it returns to the owner; no tool revision implements it before that review accepts it"
+  ],
   "owner_decision": [
    {
     "record": "#1169 comment 7166844576",
@@ -3435,7 +3437,7 @@
      "amendment 1, B4 part B (record location)"
     ],
     "effect": "approved: records kept outside the tool's landing paths and ledgered corpus",
-    "record": "owner decision on B4 parts A to D of 2026-11-26 (amaybaum, coordinating session)"
+    "record": "owner decision on B4 parts A to D of 2026-11-26T05:21:04Z (amaybaum, coordinating session; #1169 comment 7183745781)"
    }
   ]
  },
@@ -5633,7 +5635,7 @@
      "amendment 1, B4 part D (M and X binding)"
     ],
     "effect": "approved: both identifiers and the RTL2-BIND control required",
-    "record": "owner decision on B4 parts A to D of 2026-11-26 (amaybaum, coordinating session)"
+    "record": "owner decision on B4 parts A to D of 2026-11-26T05:21:04Z (amaybaum, coordinating session; #1169 comment 7183745781)"
    }
   ]
  },
@@ -7762,7 +7764,7 @@
      "amendment 1, B4 part B (record location)"
     ],
     "effect": "approved: records kept outside the tool's landing paths and ledgered corpus",
-    "record": "owner decision on B4 parts A to D of 2026-11-26 (amaybaum, coordinating session)"
+    "record": "owner decision on B4 parts A to D of 2026-11-26T05:21:04Z (amaybaum, coordinating session; #1169 comment 7183745781)"
    }
   ]
  },
@@ -8800,7 +8802,7 @@
      "amendment 1, B4 part B (record location)"
     ],
     "effect": "approved: records kept outside the tool's landing paths and ledgered corpus",
-    "record": "owner decision on B4 parts A to D of 2026-11-26 (amaybaum, coordinating session)"
+    "record": "owner decision on B4 parts A to D of 2026-11-26T05:21:04Z (amaybaum, coordinating session; #1169 comment 7183745781)"
    }
   ]
  },
@@ -8827,7 +8829,7 @@
   ],
   "open": [],
   "pending_owner_confirmation": [
-   "amendment 1, B4 part A (post-freeze route of R6.RECON.2, reconciliation records only): conditionally approved by the owner (amaybaum, 2026-11-26), subject to an independent review confirming that it preserves the frozen verification contract; if that review finds that it permits changing the verification contract after F, it returns to the owner; no tool revision implements it before that review accepts it"
+   "amendment 1, B4 part A (post-freeze route of R6.RECON.2, reconciliation records only): conditionally approved by the owner (amaybaum, 2026-11-26T05:21:04Z, #1169 comment 7183745781), subject to an independent review confirming that it preserves the frozen verification contract; if that review finds that it permits changing the verification contract after F, it returns to the owner; no tool revision implements it before that review accepts it"
   ],
   "owner_decision": []
  },
@@ -9210,7 +9212,9 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [],
+  "pending_owner_confirmation": [
+   "amendment 1, B4 part A (post-freeze route of R6.RECON.2, reconciliation records only): conditionally approved by the owner (amaybaum, 2026-11-26T05:21:04Z, #1169 comment 7183745781), subject to an independent review confirming that it preserves the frozen verification contract; if that review finds that it permits changing the verification contract after F, it returns to the owner; no tool revision implements it before that review accepts it"
+  ],
   "owner_decision": [
    {
     "decision": "D",
@@ -9218,7 +9222,7 @@
      "amendment 1, B4 part D (M and X binding)"
     ],
     "effect": "approved: both identifiers and the RTL2-BIND control required",
-    "record": "owner decision on B4 parts A to D of 2026-11-26 (amaybaum, coordinating session)"
+    "record": "owner decision on B4 parts A to D of 2026-11-26T05:21:04Z (amaybaum, coordinating session; #1169 comment 7183745781)"
    }
   ]
  },
@@ -9601,7 +9605,7 @@
   ],
   "open": [],
   "pending_owner_confirmation": [
-   "amendment 1, B4 part A (post-freeze route of R6.RECON.2, reconciliation records only): conditionally approved by the owner (amaybaum, 2026-11-26), subject to an independent review confirming that it preserves the frozen verification contract; if that review finds that it permits changing the verification contract after F, it returns to the owner; no tool revision implements it before that review accepts it"
+   "amendment 1, B4 part A (post-freeze route of R6.RECON.2, reconciliation records only): conditionally approved by the owner (amaybaum, 2026-11-26T05:21:04Z, #1169 comment 7183745781), subject to an independent review confirming that it preserves the frozen verification contract; if that review finds that it permits changing the verification contract after F, it returns to the owner; no tool revision implements it before that review accepts it"
   ],
   "owner_decision": []
  },
@@ -10208,7 +10212,7 @@
   ],
   "open": [],
   "pending_owner_confirmation": [
-   "amendment 1, B4 part A (post-freeze route of R6.RECON.2, reconciliation records only): conditionally approved by the owner (amaybaum, 2026-11-26), subject to an independent review confirming that it preserves the frozen verification contract; if that review finds that it permits changing the verification contract after F, it returns to the owner; no tool revision implements it before that review accepts it"
+   "amendment 1, B4 part A (post-freeze route of R6.RECON.2, reconciliation records only): conditionally approved by the owner (amaybaum, 2026-11-26T05:21:04Z, #1169 comment 7183745781), subject to an independent review confirming that it preserves the frozen verification contract; if that review finds that it permits changing the verification contract after F, it returns to the owner; no tool revision implements it before that review accepts it"
   ],
   "owner_decision": [
    {
