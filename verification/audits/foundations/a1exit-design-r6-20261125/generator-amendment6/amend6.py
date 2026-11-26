@@ -1,4 +1,4 @@
-"""Generator of amendment 6 (r12) to design r6: the category-3 schema ambiguities raised by the tool writer (points 1 to
+"""Generator of amendment 6 (r13) to design r6: the category-3 schema ambiguities raised by the tool writer (points 1 to
 5); the answers to the reviews of its drafts (PR #1593 comments 7189446310, 7190255132 and 7190234470); two further
 ambiguities found by the tool writer (RC14 (b) and the R6.RECON.24 resolution schema); the schema contract of the
 reconciliation record kinds from the owner's completeness audit (PR #1593 comment 7189621405); and the amendment 5
@@ -1139,6 +1139,9 @@ Sources: PR #1593 comments 7189621405, 7190234470, 7190255132 (D1) and 719060950
   each admitted record that covers the path (its reference, and the names of the conditions it fails: `RC1` to
   `RC14`, `reconciled-state`), or the single element `{record: null, conditions: ["no-record"]}` when none covers it;
   `conflicts` an array of splice and site ids; `why` a string, a diagnostic;
+- for a drifted path with a new unresolved finding under R6.RECON.23, the path-level FAIL `base-drift` item uses
+  obligation `MAIN` and the drifted repository path as `subject`. Its `failed_conditions` array contains the
+  string `"reconciled-state"`.
 - on an item of the reconciled-state trial at the landing, `resolution_validity`, `"does-not-hold"` or
   `"not-established"` (R6.RECON.23): present exactly on the item of a matched finding whose resolution at `X` was not
   kept and on the item of a site whose carried verdict or hold is not kept, and absent on every other item; its
@@ -1153,7 +1156,7 @@ Sources: PR #1593 comments 7189621405, 7190234470, 7190255132 (D1) and 719060950
 R6.OUT.18 lists these fields, and the result's JSON Schema file carries them.
 
 *RECON-ENUM evidence for field placement (cases 7 and 8).* The gate independently derives every `counts`
-value for these cases from `items[]` in the unmodified landing `control-result.json` retained under R6.GATE.7
+value for these cases from `items[]` in the unmodified aggregate op C `control-result.json` retained under R6.GATE.7
 and read under R6.GATE.8. The presence count reads object members directly, including when a member's value is
 null, false, zero or empty. The runner retains the synthetic configuration and the fixture Git objects needed to
 read the changed paths, the configuration and the site's pinned blob. The gate checks the hashes in the evidence
@@ -1241,8 +1244,9 @@ GATE3_NEW = ('  - `<unit>[k=v,...]` with unit `items`, `findings`, `hits`, `site
              '    example `moved_in`). `k=v` holds when the field equals `v` or, for a list-valued field, contains `v`;\n'
              '    `|` separates alternative values; `k_nonempty` holds when the field is present and non-empty.\n'
              '    In RECON-ENUM cases 7 and 8, `items[resolution_validity_present]` counts each item with that\n'
-             '    member, regardless of its JSON value. The `k=v` filters in those cases require exact equality\n'
-             '    to the specified JSON strings (R6.RECON.36).\n'
+             '    member, regardless of its JSON value. In those cases, `failed_conditions=reconciled-state`\n'
+             '    matches an array containing that string. The other `k=v` filters require exact equality to\n'
+             '    the specified JSON strings (R6.RECON.36).\n'
              '    `items`, `findings`, `hits` and `sites` count objects. `lines` counts distinct `(file, line)` pairs,\n'
              '    an item\'s `line` being the line on which its match begins: a sentence-level item (one whose sentence\n'
              '    spans several lines) counts once, at that line, and several items on one line count once.\n'
@@ -1340,13 +1344,15 @@ def recon_enum_placement(change, validity):
                 'The site is outside the edit list and every splice window, and its path has no term hits, '
                 'context adjudication or HP record. M %s. On the separate untracked corpus path '
                 'papers/recon-enum-deny.md, M replaces a neutral line 1 with "Axiom Z is assumed." under the '
-                'tree-scan line-level Z-premise deny profile. Retain the unmodified landing control-result.json '
-                'and the fixture inputs specified in R6.RECON.36' % change,
+                'tree-scan line-level Z-premise deny profile. Each path has a reviewed no-splice reconciliation '
+                'entry that meets the mechanical conditions. Retain the unmodified aggregate op C '
+                'control-result.json and the fixture inputs specified in R6.RECON.36' % change,
         'outcome': 'FAIL',
         'counts': {
             'items[subject=$resolution_site,class=context-meaning-unverified]': 1,
             'items[subject=$resolution_site,class=context-meaning-unverified,resolution_validity=%s]' % validity: 1,
-            'items[subject=papers/recon-enum-deny.md:1,class=deny-match,rule_id=Z-premise]': 1,
+            ('items[subject=papers/recon-enum-deny.md,obligation=MAIN,class=base-drift,decision=FAIL,'
+             'failed_conditions=reconciled-state]'): 1,
             'items[resolution_validity_present]': 1,
         },
     }
@@ -2609,8 +2615,8 @@ def change_record(owner, outs, gen_sha, owner_sha, totals):
     lines = ['# r6 amendment 6: change record', '',
              'Owner directions, quoted in DESIGN-r6.md sec. 0.7: %s. Generated by generator-amendment6/amend6.py '
              '(sha256 %s) from the amendment-5 outputs (amendment 5 r2, e0706a4b, adopted) and '
-             'generator-amendment6/owner-decisions-amendment6.json (sha256 %s). This is r12, the independent gate '
-             'correction for RECON-ENUM field presence and fixture identity. r3, the last general revision, '
+             'generator-amendment6/owner-decisions-amendment6.json (sha256 %s). This is r13, the correction for the '
+             'unrelated landing item in RECON-ENUM. r3, the last general revision, '
              'answers the delta review of r2 (PR #1593 comment 7190255132, D1 to D7) and the completeness-audit '
              'follow-up (PR #1593 comment 7190234470, findings 1 to 13 and section S), and removes complexity that '
              'both reviewers agree gives no protection. It keeps the answers of r2 to the first review (PR #1593 '
@@ -2642,7 +2648,7 @@ def change_record(owner, outs, gen_sha, owner_sha, totals):
              '| amendment 6 r6 (9ca54e76) | 619 | 15 | 142 | 445 | 11 |',
              '| amendment 6 r7 (8788763f) | 619 | 15 | 142 | 445 | 11 |',
              '| amendment 6 r8 (e20b02b5) | 619 | 15 | 142 | 445 | 11 |',
-             '| amendment 6 r12 | %d | %d | %d | %d | %d |' % (totals['rows'], nr, nc, totals['reqs'], len(NEW_REQS)), '',
+             '| amendment 6 r13 | %d | %d | %d | %d | %d |' % (totals['rows'], nr, nc, totals['reqs'], len(NEW_REQS)), '',
              'The generator writes %d conformance mutants into CONFORMANCE-MUTANTS.json, each an identifiable case of the '
              'RECON-SCHEMA mutant countercase.' % len(mutants()), '',
              'r3 merges RESULT-FIELDS into RECON-ENUM (two cases added there) and WIDENING-ITEMS into REVIEW-SCHEMA, '
@@ -2696,11 +2702,16 @@ def change_record(owner, outs, gen_sha, owner_sha, totals):
               'r11 kept RECON-ENUM case 6\'s JSON Schema rejection of an invalid enum value and added '
               'placement cases 7 and 8.', '',
               '## 2k. Independent checks of r11 (PR #1593 at 0af890ac)', '',
-              'The gate derives the affected site\'s canonical subject from retained fixture inputs and '
+              'r12 derives the affected site\'s canonical subject from retained fixture inputs and '
               'requires both the site item and the separate deny item. The site path has no term hits, so the '
               'fixture isolates the carried verdict. The gate reads every placement count from the unmodified '
               'result, including a field-presence count that covers null, false, zero and empty values. Case 6 '
               'remains a separate required schema case.', '']
+    lines += ['## 2l. Focused check of r12 (PR #1593 at 9b1d0276)', '',
+              'Cases 7 and 8 require the path-level MAIN base-drift item caused by the planted deny match. '
+              'R6.RECON.23 guarantees this item in the aggregate op C result. The gate identifies it by its '
+              'drifted path and reconciled-state condition. The site binding and field-presence count still '
+              'read the same unmodified result.', '']
     lines += ['## 3. Items B (tool writer)', '']
     for k, title, opts, rec in B_MAP:
         lines += ['### %s. %s' % (k, title), '', 'Options:', ''] + ['- ' + o for o in opts] + ['', rec, '']

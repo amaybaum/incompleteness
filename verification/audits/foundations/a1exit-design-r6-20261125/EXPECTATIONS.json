@@ -22548,22 +22548,22 @@
       ]
      },
      {
-      "case": "placement (R6.SYN.1, R6.SYN.3): the sole tracked site is a kind=definition on line 2 of papers/recon-enum-site.md, with pin and X holding the same three consecutive nonblank lines. The site is outside the edit list and every splice window, and its path has no term hits, context adjudication or HP record. M changes only the first line of the site path, leaving the site line unique and unchanged. On the separate untracked corpus path papers/recon-enum-deny.md, M replaces a neutral line 1 with \"Axiom Z is assumed.\" under the tree-scan line-level Z-premise deny profile. Retain the unmodified landing control-result.json and the fixture inputs specified in R6.RECON.36",
+      "case": "placement (R6.SYN.1, R6.SYN.3): the sole tracked site is a kind=definition on line 2 of papers/recon-enum-site.md, with pin and X holding the same three consecutive nonblank lines. The site is outside the edit list and every splice window, and its path has no term hits, context adjudication or HP record. M changes only the first line of the site path, leaving the site line unique and unchanged. On the separate untracked corpus path papers/recon-enum-deny.md, M replaces a neutral line 1 with \"Axiom Z is assumed.\" under the tree-scan line-level Z-premise deny profile. Each path has a reviewed no-splice reconciliation entry that meets the mechanical conditions. Retain the unmodified aggregate op C control-result.json and the fixture inputs specified in R6.RECON.36",
       "outcome": "FAIL",
       "counts": {
        "items[subject=$resolution_site,class=context-meaning-unverified]": 1,
        "items[subject=$resolution_site,class=context-meaning-unverified,resolution_validity=does-not-hold]": 1,
-       "items[subject=papers/recon-enum-deny.md:1,class=deny-match,rule_id=Z-premise]": 1,
+       "items[subject=papers/recon-enum-deny.md,obligation=MAIN,class=base-drift,decision=FAIL,failed_conditions=reconciled-state]": 1,
        "items[resolution_validity_present]": 1
       }
      },
      {
-      "case": "placement (R6.SYN.1, R6.SYN.3): the sole tracked site is a kind=definition on line 2 of papers/recon-enum-site.md, with pin and X holding the same three consecutive nonblank lines. The site is outside the edit list and every splice window, and its path has no term hits, context adjudication or HP record. M appends a blank line and an exact copy of the three-line block on the site path. On the separate untracked corpus path papers/recon-enum-deny.md, M replaces a neutral line 1 with \"Axiom Z is assumed.\" under the tree-scan line-level Z-premise deny profile. Retain the unmodified landing control-result.json and the fixture inputs specified in R6.RECON.36",
+      "case": "placement (R6.SYN.1, R6.SYN.3): the sole tracked site is a kind=definition on line 2 of papers/recon-enum-site.md, with pin and X holding the same three consecutive nonblank lines. The site is outside the edit list and every splice window, and its path has no term hits, context adjudication or HP record. M appends a blank line and an exact copy of the three-line block on the site path. On the separate untracked corpus path papers/recon-enum-deny.md, M replaces a neutral line 1 with \"Axiom Z is assumed.\" under the tree-scan line-level Z-premise deny profile. Each path has a reviewed no-splice reconciliation entry that meets the mechanical conditions. Retain the unmodified aggregate op C control-result.json and the fixture inputs specified in R6.RECON.36",
       "outcome": "FAIL",
       "counts": {
        "items[subject=$resolution_site,class=context-meaning-unverified]": 1,
        "items[subject=$resolution_site,class=context-meaning-unverified,resolution_validity=not-established]": 1,
-       "items[subject=papers/recon-enum-deny.md:1,class=deny-match,rule_id=Z-premise]": 1,
+       "items[subject=papers/recon-enum-deny.md,obligation=MAIN,class=base-drift,decision=FAIL,failed_conditions=reconciled-state]": 1,
        "items[resolution_validity_present]": 1
       }
      }

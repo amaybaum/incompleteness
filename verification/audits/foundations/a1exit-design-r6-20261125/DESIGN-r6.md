@@ -3167,8 +3167,9 @@ Sources: A-130, E-1080, RD-4, RD-32. Controls: GATE-12, GATE-17, GATE-26.
     example `moved_in`). `k=v` holds when the field equals `v` or, for a list-valued field, contains `v`;
     `|` separates alternative values; `k_nonempty` holds when the field is present and non-empty.
     In RECON-ENUM cases 7 and 8, `items[resolution_validity_present]` counts each item with that
-    member, regardless of its JSON value. The `k=v` filters in those cases require exact equality
-    to the specified JSON strings (R6.RECON.36).
+    member, regardless of its JSON value. In those cases, `failed_conditions=reconciled-state`
+    matches an array containing that string. The other `k=v` filters require exact equality to
+    the specified JSON strings (R6.RECON.36).
     `items`, `findings`, `hits` and `sites` count objects. `lines` counts distinct `(file, line)` pairs,
     an item's `line` being the line on which its match begins: a sentence-level item (one whose sentence
     spans several lines) counts once, at that line, and several items on one line count once.
@@ -6082,6 +6083,9 @@ Sources: PR #1593 comments 7189621405, 7190234470, 7190255132 (D1) and 719060950
   each admitted record that covers the path (its reference, and the names of the conditions it fails: `RC1` to
   `RC14`, `reconciled-state`), or the single element `{record: null, conditions: ["no-record"]}` when none covers it;
   `conflicts` an array of splice and site ids; `why` a string, a diagnostic;
+- for a drifted path with a new unresolved finding under R6.RECON.23, the path-level FAIL `base-drift` item uses
+  obligation `MAIN` and the drifted repository path as `subject`. Its `failed_conditions` array contains the
+  string `"reconciled-state"`.
 - on an item of the reconciled-state trial at the landing, `resolution_validity`, `"does-not-hold"` or
   `"not-established"` (R6.RECON.23): present exactly on the item of a matched finding whose resolution at `X` was not
   kept and on the item of a site whose carried verdict or hold is not kept, and absent on every other item; its
@@ -6096,7 +6100,7 @@ Sources: PR #1593 comments 7189621405, 7190234470, 7190255132 (D1) and 719060950
 R6.OUT.18 lists these fields, and the result's JSON Schema file carries them.
 
 *RECON-ENUM evidence for field placement (cases 7 and 8).* The gate independently derives every `counts`
-value for these cases from `items[]` in the unmodified landing `control-result.json` retained under R6.GATE.7
+value for these cases from `items[]` in the unmodified aggregate op C `control-result.json` retained under R6.GATE.7
 and read under R6.GATE.8. The presence count reads object members directly, including when a member's value is
 null, false, zero or empty. The runner retains the synthetic configuration and the fixture Git objects needed to
 read the changed paths, the configuration and the site's pinned blob. The gate checks the hashes in the evidence
