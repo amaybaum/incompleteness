@@ -883,6 +883,60 @@ def eval_invariant(k, v, result, case, attested, bindings):
     return False, None, 'unattested'
 
 
+def _coverage_invocation(argv):
+    """Returns the evaluated commit and the arguments which must match across the pair."""
+    if not (isinstance(argv, list) and argv and argv[0] == 'coverage'
+            and all(isinstance(arg, str) for arg in argv)):
+        return None
+    shared = list(argv)
+    commit = None
+    for flag in ('--commit', '--out'):
+        if shared.count(flag) != 1:
+            return None
+        index = shared.index(flag)
+        if index + 1 == len(shared) or shared[index + 1].startswith('--'):
+            return None
+        if flag == '--commit':
+            commit = shared[index + 1]
+        del shared[index:index + 2]
+    if shared.count('--check') != 1:
+        return None
+    index = shared.index('--check')
+    if index + 1 == len(shared) or not shared[index + 1] or shared[index + 1].startswith('--'):
+        return None
+    return commit, shared
+
+
+def _s11_unmutated_result(ev, case, result):
+    """Bind S11-2a's subtraction to the retained R6.PLAN.4 coverage run on E."""
+    named = ev.case('unmutated')
+    if not named or case.get('baseline_argv') != named.get('argv'):
+        return None
+    linked_bytes = ev.text(case.get('baseline_file'))
+    if linked_bytes is None or linked_bytes != ev.text(named.get('result_file')):
+        return None
+    before = ev.json(named.get('result_file'))
+    unmutated = _coverage_invocation(named.get('argv'))
+    mutated = _coverage_invocation(case.get('argv'))
+    # R6.NOTE.1 pins the ledger's E independently of the runner's chosen baseline.
+    pin = 'e837e3dbaa605efc867a213f3345cee14c36d8f5'
+    if not (isinstance(before, dict) and isinstance(result, dict) and unmutated and mutated
+            and unmutated[0] == pin and mutated[0] != pin and unmutated[1] == mutated[1]
+            and before.get('operation') == result.get('operation') == 'coverage'
+            and before.get('evaluated') == {'commit': pin}
+            and result.get('evaluated') == {'commit': mutated[0]}
+            and before.get('config') and before.get('config') == result.get('config')
+            and isinstance(before.get('items'), list)):
+        return None
+    outcome = recompute_outcome(before)
+    if outcome not in ('PASS', 'REVIEW_REQUIRED', 'FAIL') or before.get('outcome') != outcome:
+        return None
+    exit_bytes = ev.text(named.get('exit_file'))
+    if exit_bytes != ('%d\n' % TOOL_EXIT[outcome]).encode():
+        return None
+    return before
+
+
 def eval_case(exp, case_name, ev, row, record, findings_out):
     """Evaluates one expectation (the row's, one of its cases, or its restored case) against the retained
     evidence of the case. Appends findings; returns the extracted actual."""
@@ -1034,7 +1088,8 @@ def eval_case(exp, case_name, ev, row, record, findings_out):
                     got = sorted({i.get('class') for i in sitems})
                     ok = ok and (set(v) == set(got) if k == 'classes_exact' else set(v) <= set(got))
                 elif k == 'added_relative_to_unmutated':
-                    baseline = ev.json(c.get('baseline_file'))
+                    baseline = (_s11_unmutated_result(ev, c, result) if rid == 'S11-2a'
+                                else ev.json(c.get('baseline_file')))
                     if not (isinstance(baseline, dict) and isinstance(baseline.get('items'), list)
                             and isinstance(v, dict) and v):
                         findings_out.append(('raw-evidence-missing', 'case %r: site %s has no countable baseline'

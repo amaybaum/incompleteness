@@ -27,7 +27,7 @@ GET on 2026-11-26) where the path is on `main`.
 | `rules/w1-w2-allow-v2.json` (predecessor of v3) | rule file (allow rules W1, W2) | 306017d93211bded9cf63f964d60f17db543f02e11183fb82b05d6a76d2bb903 | no | the same rows, through the lineage lint of v3 |
 | `rules/w1-w2-allow-v1.json` (predecessor of v2) | rule file (allow rules W1, W2) | 0cbb97c98725cba618598650b0cd9c687c97e280b3422c4ad6e62794a222b171 | yes | the same rows, through the lineage lint of v2 |
 | `rules/register-infinity-params-v1.json` | params (per-edit parameters of items 5 and 6) | 05149ba694dd4017ad27dd60c02810403ec7351036776bea212768ba9ebc509f | yes | the same 93 rows; it sets op C's per-edit evaluation (S11-5, S11-6, S11-56) |
-| `records/side-change-classes-v21.json` (unreviewed head of the class-record lineage v1 through v21. The path identifies v21 because v21 pins this inventory. Predecessor v20 has SHA-256 f7bbbd2841bf4dd8b1dccc26c5cbdf47059b14bd6069d81b163fe34b96eaca5c.) | side-change class (tool-landing) | (see the path's blob) | no (v1 only, sha256 4b28d3d22452bca712ab7c082feee5af3cd1dc1d81260dae2d6b7808354687b8) | Previously observed dependencies include G1-G3, RT-C, RT-L, RT-L2, RT-O9, RT-X, S11-1, S11-3 to S11-6, S11-8 to S11-10, S11-12 to S11-14 |
+| `records/side-change-classes-v21.json` (historical head of the class-record lineage v1 through v21. It pins the inventory at `9184f7ad`. Predecessor v20 has SHA-256 f7bbbd2841bf4dd8b1dccc26c5cbdf47059b14bd6069d81b163fe34b96eaca5c.) | side-change class (tool-landing) | (see the path's blob) | no (v1 only, sha256 4b28d3d22452bca712ab7c082feee5af3cd1dc1d81260dae2d6b7808354687b8) | Previously observed dependencies include G1-G3, RT-C, RT-L, RT-L2, RT-O9, RT-X, S11-1, S11-3 to S11-6, S11-8 to S11-10, S11-12 to S11-14 |
 | `records/gr58-hit-classification-v3.json` (supersedes v2; the ptr hit's reason says what ptr detects) | hit classification (`--classify`) | 0e2cd408c500313f3c214590f86d76eb33529875903682924f1f94a8340beb86 | no | RT-D-gr58, RT-D (through C-29 part 2: a `--classify` record is linted at its record commit) |
 | `records/gr58-hit-classification-v2.json` (supersedes v1; names and reasons every profile hit on the line; predecessor of v3) | hit classification (`--classify`) | 28c5a5706605cabc5c7542ca3b9ad11f96151d3e8c829aa73b391420ecea54c1 | no | RT-D-gr58, RT-D (through C-29 part 2: a `--classify` record is linted at its record commit) |
 | `records/gr58-hit-classification-v1.json` (predecessor of v2) | hit classification (`--classify`) | 8177b0923a7eddf09c473ce541e4c23de53067429a31d52260aa35f0bafa8410 | yes | the same rows, through the lineage lint of v2 |
@@ -51,15 +51,19 @@ The R18 draft has Git blob `182807d7aff4d6b4c810d63dff45a953d501a412` and SHA-25
 `c1291121174a4295ebf62b8b1aad633d2f92b45667ff177fc901397fc5f0cab3`.
 
 S11-2a retains the coverage result on the unmutated pin and the result on its mutated child.
-The runner binds the appended line and both mutation blob IDs. The gate computes the adopted
-site count delta from the two retained results. Synthetic evaluator controls reject a missing
-baseline, an item already present, an item at the wrong line, a duplicate addition and a missing
-deny item. The real-tree control remains unverified.
+The runner binds the appended line and both mutation blob IDs. The gate binds the named unmutated
+result to coverage at E (R6.NOTE.1, R6.PLAN.4), checks the paired explicit check, arguments and
+configuration, then computes the adopted site count delta. Synthetic evaluator controls reject
+missing, stopped, unnamed or unrelated baselines, different checks, inconsistent evaluated commits,
+an item already present, wrong-line and duplicate additions, and a missing deny item.
+The real-tree runner still uses a legacy default. R6.RECON.33 requires an explicit coverage check,
+and the committed Item 2 sources supply no check ID or profile binding. The staged configuration and
+control mapping remain open, so the synthetic evaluator result does not establish real-tree S11-2a.
 
 | Changed path | Git blob | SHA-256 |
 |---|---|---|
 | `tools/ledger_coverage/adapters/a1_controls.py` | `0fe36b50ff5a426a9ef5e50cdf36e9d33a77a7c7` | `39e1bd2844eaeafc40bebc1e2d230f856f6cd5abd19439c18473a866593b27e2` |
-| `tools/ledger_coverage/gate/control_gate.py` | `90404dcac1c444ef7ef35cf795d662238495fac8` | `71b26784dac2f12478ab90182df8ca650ab9faa238691794a26bd0114aefe9cf` |
+| `tools/ledger_coverage/gate/control_gate.py` | `773421a0cad5570832549b5037ccce6c6a155940` | `95211a52de0352d016e25656093e7530a31fe803c0e95bc817c1fd871d373ef1` |
 
 The v1 through v21 records preserve the historical pin inventory. Amendment 6 r13 requires SHA-256-only
 pin entries, the exact listed class-record keys, and GitHub login identities (R6.RECON.29 and R6.RECON.34).
