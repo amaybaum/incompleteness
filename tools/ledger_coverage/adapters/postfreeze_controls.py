@@ -834,3 +834,149 @@ def block_controls(r, check):
           'kind of finding; amendment 4 keying by edit id)', 'each blocking case FAIL retirement-blocked; the '
           'countercases not blocked; the review-finding cases not built (a design decision is pending)', res, ok,
           cases=names)
+
+
+# BLOCK-KEY and REASSESS-FORM (design r6 as amended by amendment 4: R6.RECON.26, R6.RECON.27, R6.CFG.4)
+BK = ["the edit's wording changed in a revised configuration (new bytes or reason; the same id and target), no "
+      "reassessment cited",
+      "the edit id renamed in a revised configuration, the rename recorded under AGENTS.md sec. A.48 item 3",
+      "the edit id renamed with no recorded migration (the target unchanged)",
+      "a scientific repair landed on M, the original frozen configuration unchanged",
+      "an applying reassessment exists on M, the original frozen configuration (which does not cite it) unchanged",
+      "a revised configuration citing a reassessment whose edit_sha256 differs from the edit as now worded",
+      "a configuration of the same retirement in a new config_id lineage, carrying the edit, citing no reassessment",
+      "an unrecorded rename on a new H: the edit renumbered, start_H moved, its old bytes unchanged",
+      "a retirement renamed (new name and Issue) in a configuration that supersedes the blocked plan",
+      "two findings on one edit, the revised configuration citing an applying reassessment that names only one of "
+      "them",
+      "countercase: a revised configuration, frozen anew, citing an applying reassessment of the edit as now worded "
+      "(positive)",
+      "countercase: a revised configuration that removes the edit (neither its id, a migrated id nor its target "
+      "remains), citing no reassessment (positive)"]
+RF = ["a reassessment with no non-author review, or whose reviewer equals its author",
+      "a reassessment naming no finding, or a path that holds no finding at M",
+      "a reassessment whose repair names no commit on M's first-parent chain",
+      "a reassessment with an empty re-derivation of the edit's justification",
+      "a reassessment whose verdict is not no-effect",
+      "a reassessment cited under kind reassessment but failing record lint (a schema error)",
+      "a reassessment whose repair entry is absent from M, or has no accepting non-author review",
+      "a reassessment whose reviewer is the author of the repair's reconciliation record entry"]
+RA_PATH = 'syn/cfg/reassessment.json'
+REPAIR_AUTHOR = 'writer-r'
+
+
+def finding_world(r, variant=None, edits=None, two=False, first_id=1):
+    """A World whose main carries the change, a landed finding on it (and with two=True a second one, in another
+    reconciliation directory), then a repair of the change recorded by its own reviewed no-effect entry. Commit ids
+    are content hashes, so the same construction in another World yields the same main commits."""
+    w = World(r, variant=variant, edits=edits, first_id=first_id)
+    orig = rcmod.edit_key(World(r).led, 'E1')
+    f = invalidating(w, sf.DOC, edit='E1') if first_id == 1 else invalidating(World(r), sf.DOC)
+    f['paths'][0]['scientific_effect']['invalidated'][0]['sha256'] = orig
+    docs = [(RD + 'finding.json', f)]
+    if two:
+        f2 = dict(f, record_id='syn-finding-two')
+        docs.append((RD2 + 'finding-two.json', f2))
+    land(w, docs)
+    w.findings = [{'path': p, 'blob_sha256': sha(jb(d))} for p, d in docs]
+    w.M = w.repo.derive(w.M, {sf.DOC: w.repo.read(w.M, sf.DOC).replace(b'changed on main', b'repaired on main')},
+                        parents=[w.M], subject='repair')
+    w.repair_commit = w.M
+    rep = w.record(record_id='syn-repair', author=REPAIR_AUTHOR)
+    rp = 'verification/audits/syn-repair/repair.json'
+    land(w, [(rp, rep)], 'the repair record')
+    w.repair_entry = {'path': rp, 'blob_sha256': sha(jb(rep))}
+    return w
+
+
+def reassessment(w, edit_sha=None, **upd):
+    doc = {'schema': 'oi-reassessment/1', 'record_id': 'syn-reassessment', 'author': sf.WRITER, 'supersedes': None,
+           'finding': w.findings[0], 'repair': {'commits': [w.repair_commit], 'entry': w.repair_entry},
+           'edit': {'id': 'E1', 'sha256': edit_sha or rcmod.edit_key(w.led, 'E1')},
+           'rederivation': 'control fixture: the planned edit re-derived at the repaired state; the check re-run',
+           'verdict': 'no-effect'}
+    doc.update(upd)
+    return doc
+
+
+def cite(doc, reviewer=sf.REVIEWER, review=True):
+    """A configuration variant citing the reassessment with kind reassessment, its review beside it."""
+    def variant(w_):
+        b = jb(doc)
+        files = {RA_PATH: b}
+        recs = [{'kind': 'reassessment', 'path': RA_PATH, 'blob_sha256': sha(b)}]
+        if review:
+            rv = jb({'schema': rec.review_schema, 'reviewer': reviewer,
+                     'reviewed': {'path': RA_PATH, 'blob_sha256': sha(b)}, 'method': 'read',
+                     'verdicts': [{'item': i, 'verdict': 'accept'} for i in rec.item_ids(doc)]})
+            files[RA_PATH[:-5] + '.review.json'] = rv
+            recs.append({'kind': 'review', 'path': RA_PATH[:-5] + '.review.json', 'blob_sha256': sha(rv)})
+        return {'files': files, 'add_records': recs}
+    return variant
+
+
+def bk_controls(r, check):
+    res, names, rf, rnames = {}, [], {}, []
+
+    def run(store, nm, name, w):
+        code, out = w.run([], harness=True)
+        inv = [i for i in (out or {}).get('items', []) if i['class'] == 'record-invalid' and i.get('subject') == RA_PATH]
+        store[name] = {'exit': code, 'classes': classes(out),
+                       'blocked': [i.get('subject') for i in (out or {}).get('items', [])
+                                   if i['class'] == 'retirement-blocked'],
+                       'reassessment_invalid': [d for i in inv for d in (i.get('detail') or [])][:1],
+                       'reassessments': ((out or {}).get('category3') or {}).get('reassessments')}
+        nm.append((name, {}))
+
+    def revised(mk, two=False, reviewer=sf.REVIEWER, review=True, edits=EDITS_REWORDED):
+        # two passes: the first World gives the finding, the repair commit and entry the reassessment names (the
+        # main commits and records do not depend on the configuration); the second cites it
+        w1 = finding_world(r, edits=edits, two=two)
+        return finding_world(r, variant=cite(mk(w1), reviewer, review), edits=edits, two=two)
+
+    run(res, names, BK[0], finding_world(r, edits=EDITS_REWORDED))
+    run(res, names, BK[3], finding_world(r))
+    run(res, names, BK[4], finding_world(r))  # the original configuration cites nothing
+    run(res, names, BK[5], revised(lambda w1: reassessment(w1, edit_sha='0' * 64)))
+    run(res, names, BK[6], finding_world(r, variant=lambda w_: {'extra': {'config_id': 'synthetic-other-lineage'}}))
+    run(res, names, BK[8], finding_world(r, variant=lambda w_: {'extra': {'retirement': {'name': 'renamed',
+                                                                                         'issue': 'other'}}}))
+    run(res, names, BK[9], revised(lambda w1: reassessment(w1), two=True))
+    run(res, names, BK[10], revised(lambda w1: reassessment(w1)))
+    run(res, names, BK[11], finding_world(r, edits=EDITS_OTHER, first_id=2))
+    not_built = [BK[1], BK[2], BK[7]]
+    blocked = [BK[k] for k in (0, 3, 4, 5, 6, 8, 9)]
+    built_ok = all(res[k]['exit'] == 20 and 'retirement-blocked' in res[k]['classes'] for k in blocked) and \
+        'retirement-blocked' not in res[BK[10]]['classes'] and not res[BK[10]]['reassessment_invalid'] and \
+        res[BK[10]]['reassessments'] and 'retirement-blocked' not in res[BK[11]]['classes'] and \
+        res[BK[5]]['reassessment_invalid'] and not res[BK[9]]['reassessment_invalid']
+    res['built_cases_hold'] = built_ok
+    res['not_built'] = not_built
+    check('BLOCK-KEY', 'the block is keyed by the edit id; wording changes and repairs do not lift it; a revised plan '
+          'proceeds by removing the edit or citing an applying reassessment', 'each blocking case FAIL '
+          'retirement-blocked; the two countercases not blocked; the migration and target cases not built (a design '
+          'decision is pending)', res, built_ok and not not_built, cases=names)
+
+    # REASSESS-FORM: a revised configuration citing a reassessment that fails one condition keeps the block
+    def bad(case, mk, reviewer=sf.REVIEWER, review=True):
+        run(rf, rnames, case, revised(mk, reviewer=reviewer, review=review))
+    bad(RF[0], lambda w1: reassessment(w1), review=False)
+    bad(RF[1], lambda w1: reassessment(w1, finding={'path': RD + 'none.json', 'blob_sha256': '0' * 64}))
+    bad(RF[2], lambda w1: reassessment(w1, repair={'commits': ['0' * 40], 'entry': w1.repair_entry}))
+    bad(RF[3], lambda w1: reassessment(w1, rederivation=''))
+    bad(RF[4], lambda w1: reassessment(w1, verdict='invalidates'))
+    # a field error of the record (no supersedes field), which record lint refuses; an unknown schema id is a
+    # configuration error instead (CONFIG_INVALID, sec. 16.2)
+    bad(RF[5], lambda w1: {k: v for k, v in reassessment(w1).items() if k != 'supersedes'})
+    bad(RF[6], lambda w1: reassessment(w1, repair={'commits': [w1.repair_commit],
+                                                   'entry': {'path': 'verification/audits/x/none.json',
+                                                             'blob_sha256': '0' * 64}}))
+    bad(RF[7], lambda w1: reassessment(w1), reviewer=REPAIR_AUTHOR)
+    run(rf, rnames, 'restored', revised(lambda w1: reassessment(w1)))
+    neg = [k for k in rf if k != 'restored']
+    ok = all(rf[k]['exit'] == 20 and 'retirement-blocked' in rf[k]['classes'] and
+             ('record-invalid' in rf[k]['classes']) for k in neg) and \
+        'retirement-blocked' not in rf['restored']['classes'] and 'record-invalid' not in rf['restored']['classes']
+    check('REASSESS-FORM', "a cited reassessment's form, review and citation are checked; a failure keeps the block",
+          'each case FAIL record-invalid for the reassessment and retirement-blocked; restored: neither', rf, ok,
+          cases=rnames)
