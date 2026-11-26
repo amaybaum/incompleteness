@@ -718,11 +718,26 @@ def eval_case(exp, case_name, ev, row, record, findings_out):
         elif o == 'ANY' or o is None:
             pass
         elif o in ('NO_ITEM', 'ITEM') and result is not None:
-            n = len(result.get('items') or [])
+            # over the items the case's classes_exact filter selects, when it states one; else over all items
+            sel = result.get('items') or []
+            ce = exp.get('classes_exact')
+            if isinstance(ce, dict) and len(ce) == 1:
+                _, conds = parse_filter(next(iter(ce)), bindings)
+                sel = [i for i in sel if conds is not None and _match(i, conds)]
+            n = len(sel)
             actual['outcome'] = 'ITEM' if n else 'NO_ITEM'
             if actual['outcome'] != o:
                 findings_out.append(('declarative-mismatch', 'case %r: %s, expected %s' % (case_name,
                                                                                          actual['outcome'], o)))
+        elif o in ('RESULT_EQUAL_CLEAN', 'RESULT_EQUAL_FULL_STORE', 'RESULT_EQUAL_WITHOUT_AMENDMENT',
+                   'REPLAY_EQUAL') and c.get('baseline_file'):
+            # gate-computed: the case's item tuples and outcome equal those of the retained baseline run
+            base = ev.json(c['baseline_file'])
+            same = (result is not None and base is not None and _tuples(result) == _tuples(base)
+                    and recompute_outcome(result) == recompute_outcome(base))
+            actual['outcome'] = o if same else 'RESULT_DIFFERS'
+            if not same:
+                findings_out.append(('declarative-mismatch', 'case %r: result differs from its baseline' % case_name))
         elif o in SUBJECT_OUTCOMES | MUT_OUTCOMES:
             got = attested.get('outcome')
             actual['outcome'] = got

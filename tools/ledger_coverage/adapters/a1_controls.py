@@ -42,6 +42,7 @@ if 'ledger_coverage' not in sys.modules:
 
 from ledger_coverage.engine import cli, gitobj, execution as exmod, pipeline as pl, purity, util  # noqa: E402
 from ledger_coverage.engine import profiles as prf, rules as rulemod, records as rec  # noqa: E402
+from ledger_coverage.adapters import control_records  # noqa: E402
 
 E = 'e837e3dbaa605efc867a213f3345cee14c36d8f5'
 H = '53c6601a10419b6b333cc992474272501ab542af'
@@ -100,16 +101,23 @@ class A1:
         from ledger_coverage.adapters import a1exit_exact_edit as le
         self.led = le.load(self.base.read(P, PL + 'ledger.json'), {'edits': self.base.read(P, PL + 'edits.json')})
         self.results = {}
+        self.rec = control_records.Recorder('a1-controls', out_root)
+        self.runs_of = {}
 
     def out(self):
         self.n += 1
         return os.path.join(self.out_root, 'run%03d' % self.n)
 
-    def run(self, args, harness=True, control=None):
-        argv = args[:1] + ['--config', '%s:%s' % (self.crev, self.cpath), '--out', self.out(),
+    def run(self, args, harness=True, control=None, case=None, mutation=None, bindings=None, baseline=None):
+        out = self.out()
+        argv = args[:1] + ['--config', '%s:%s' % (self.crev, self.cpath), '--out', out,
                            '--repo', self.repo_path] + args[1:]
         t = time.time()
-        code, res = cli.run(argv, repo=self.repo, harness=harness, stderr=io.StringIO(), control=control)
+        err = io.StringIO()
+        code, res = cli.run(argv, repo=self.repo, harness=harness, stderr=err, control=control)
+        # R6.GATE.7: every tool run is retained as evidence of the control recorded next
+        self.rec.capture(argv, code, out, case=case, mutation=mutation, bindings=bindings,
+                         stderr=err.getvalue() if code == 64 else None, baseline=baseline)
         return code, res or {}, round(time.time() - t, 1)
 
     def record(self, cid, passed, expected, actual, **extra):
@@ -120,6 +128,7 @@ class A1:
              'predicate': extra.pop('predicate', 'the boolean computed for this id in a1_controls.py')}
         d.update(extra)
         self.results[cid] = d
+        self.runs_of[cid] = self.rec.take()
 
     # helpers
     def lines(self, c, f):
@@ -644,11 +653,19 @@ def pipeline_rule_controls(a, cfg, allow_ref, deny_ref, allow, deny, w1, rec, st
             {'commit': H, 'path': 'papers/Main.md', 'line': 1, 'alternative': 'a'}]) if r['id'] == 'DR-5' else None,
             sup=False)),
     }
+    # the clean baseline of the restored cases (OBL-20): the same run with no rule file replaced
+    a.run(['terms', '--commit', T, '--check', 'item7'], control={'force_widening': True}, case='baseline')
+    baseline = a.rec.take()[0]
     for cid, (what, (path, doc)) in sorted(muts.items()):
         def repl(files, path=path, doc=doc):
             return [(r, doc if r['path'] == path else d) for r, d in files]
         code, res, t = a.run(['terms', '--commit', T, '--check', 'item7'],
-                             control={'replace_rule_files': repl, 'force_widening': True})
+                             control={'replace_rule_files': repl, 'force_widening': True},
+                             mutation=[{'path': path, 'before': None, 'after': sha(doc) if isinstance(doc, bytes)
+                                        else None}], bindings={'rule_file': path})
+        # the restored case: the unmutated tree, the same command and flags, compared with the clean baseline
+        a.run(['terms', '--commit', T, '--check', 'item7'], control={'force_widening': True}, case='restored',
+              baseline=baseline, bindings={'rule_file': path})
         ri = sorted({i['class'] for i in res.get('items', []) if i.get('subject') == path})
         a.record(cid, code == 20 and ri == ['record-invalid'], what + ' -> FAIL record-invalid, emitted by the pipeline',
                  {'exit': code, 'classes_for_the_rule_file': ri,
@@ -1354,6 +1371,14 @@ def main():
     summary = {'controls': a.results, 'timing_seconds': timing,
                'passed': sum(1 for v in a.results.values() if v.get('passed')),
                'failed': sorted(k for k, v in a.results.items() if not v.get('passed'))}
+    # R6.GATE.5 and R6.GATE.7: one record per control with its retained evidence, read by the gate
+    a.rec.out_dir = args.out
+    for cid in sorted(a.results):
+        v = a.results[cid]
+        a.rec.pending = a.runs_of.get(cid, [])
+        st = v['status'] if v['status'] in ('PASS', 'FAIL', 'NOT RUN') else 'FAIL'
+        a.rec.record(cid, st, v.get('actual'), v['predicate'])
+    a.rec.write()
     with open(os.path.join(args.out, 'a1-controls.json'), 'w') as f:
         json.dump(summary, f, indent=1, sort_keys=True, default=str)
     print(json.dumps({'passed': summary['passed'], 'failed': summary['failed'], 'timing': timing}, indent=1))
