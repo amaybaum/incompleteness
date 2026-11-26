@@ -22922,7 +22922,7 @@
       ]
      },
      {
-      "case": "countercase: a site resolved at X by an HP adjudication whose byte-identical line is not located at the landing (M edits a neighbouring sentence of the line's window, the path is changed, and RC14 does not keep the line), so that its segment condition is not established",
+      "case": "countercase: a site resolved at X by an HP adjudication whose byte-identical line is not located at the landing (M edits, on another line, part of a sentence that overlaps the line, so that its window changes; the path is changed, and RC14 does not keep the line), so that its segment condition is not established",
       "outcome": "FAIL",
       "classes_include": [
        "context-meaning-unverified"
@@ -23071,7 +23071,7 @@
       ]
      },
      {
-      "case": "countercase (cannot be established): a hit resolved at X by a hit classification whose byte-identical line is not located at the landing (M edits a neighbouring sentence of the line's window, the path is changed, and RC14 does not keep the line), so that its segment condition is not established",
+      "case": "countercase (cannot be established): a hit resolved at X by a hit classification whose byte-identical line is not located at the landing (M edits, on another line, part of a sentence that overlaps the line, so that its window changes; the path is changed, and RC14 does not keep the line), so that its segment condition is not established",
       "outcome": "FAIL",
       "classes_include": [
        "context-meaning-unverified"
@@ -23192,7 +23192,7 @@
       ]
      },
      {
-      "case": "countercase (cannot be established): a hit in an HP region resolved at X by an entry of the HP adjudication's hit_classifications whose byte-identical line is not located at the landing (M edits a neighbouring sentence of the line's window, the path is changed, and RC14 does not keep the line), so that the entry's segment condition is not established",
+      "case": "countercase (cannot be established): a hit in an HP region resolved at X by an entry of the HP adjudication's hit_classifications whose byte-identical line is not located at the landing (M edits, on another line, part of a sentence that overlaps the line, so that its window changes; the path is changed, and RC14 does not keep the line), so that the entry's segment condition is not established",
       "outcome": "FAIL",
       "classes_include": [
        "context-meaning-unverified"

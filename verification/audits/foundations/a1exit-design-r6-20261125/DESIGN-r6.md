@@ -1789,7 +1789,8 @@ check found not emitted are emitted in the tool revision (OBL-28, C-24).
 Item fields: `obligation` (R6.OUT.24), `class`, `decision` (FAIL or REVIEW_REQUIRED), `subject`,
 `segment` (string or null), `fingerprint` (64 hex), `resolution_needed` (object or null), and, where
 applicable, `file`, `line`, `pre_existing` (R6.PIPE.8), the explanation of R6.OUT.22 and, on a landing item of the
-reconciled-state trial, `resolution_validity` (R6.RECON.23, R6.RECON.36) (amendment 6, sec. 0.7: proposal, pending independent review and the owner's decision).
+reconciled-state trial for a matched finding or a carried site whose resolution, verdict or hold is not kept,
+`resolution_validity` (R6.RECON.23, R6.RECON.36) (amendment 6, sec. 0.7: proposal, pending independent review and the owner's decision).
 
 Site fields: `site_id`, `anchor_sha256`, `state`, `current` (file, lines, sha256, or null), `pin_count`,
 `ordinal`, `pin_context_sha256`, `current_context_sha256`, `context_required`, `meaning_context`,
@@ -5342,21 +5343,23 @@ RC14 keeps it intact (R6.RECON.24). No diff range enters this definition (diff r
 A segment or walk-step condition is read at `X`, and carries over for a site whose line is located at the landing
 and byte-identical there; a line that is not located (its window absent, or occurring more than once, in either
 blob) leaves the condition not established. A site hold, and op B's verdict for a site, carry over when the site is
-located at the landing as op B locates it, with its whole-line occurrence count (R6.ANCH.17, R6.ANCH.12) equal to
-its count at `X`, its region lines byte-identical there, and its context and structure conditions met as the
-carry-over sentence of this requirement states; a located site whose region bytes differ, or whose changed context
-R6.CTX.6 decides against it, does not hold, and a site whose count differs has a position that is not established.
-Where one part of a requirement does not hold and another cannot be established, the outcome is does not hold: the
-resolution is then known to be invalid. The routes and their cases are listed in the table below. A record resolves
-at the landing at most as many matched instances as it resolved at `X`. The condition cannot be established when an
-input it reads (the sentence, the context window, the site's line or position, the site's region, a segment or step,
-the tree's set of lines) cannot be computed on the landing by the procedure that computed it at `X`, or when the
-requirement gives no evaluation on a landing; the finding is then FAIL `context-meaning-unverified`. A record of any
-other kind keeps no resolution at the landing: the matched finding is resolved anew. A matched finding whose
-resolution is not kept counts as new unless records and rules at the landing resolve it, and its landing item
-records `resolution_validity`: `does-not-hold` when the condition was evaluated and is false, `not-established` when
-it cannot be established. Moving a finding does not by itself make it new, and keeping its wording does not by
-itself keep its meaning. A new finding that records and rules do not resolve there under their own rules (sec.
+located at the landing as op B locates it (R6.ANCH.17's exact search with `FROM` = `X` and `TO` = the landing: the
+occurrences of the site's bytes counted as whole lines, R6.ANCH.12's duplicate rule applied, and the line diff used
+only as a diagnostic), with its whole-line occurrence count (R6.ANCH.17, R6.ANCH.12) equal to its count at `X`, its
+region lines byte-identical there, and its context and structure conditions met as the carry-over sentence of this
+requirement states; a located site whose region bytes differ, or whose changed context R6.CTX.6 decides against it,
+does not hold, and a site whose count differs has a position that is not established. Where one part of a
+requirement does not hold and another cannot be established, the outcome is does not hold: the resolution is then
+known to be invalid. The routes and their cases are listed in the table below. A record resolves at the landing at
+most as many matched instances as it resolved at `X`. The condition cannot be established when an input it reads
+(the sentence, the context window, the site's line or position, the site's region, a segment or step, the tree's set
+of lines) cannot be computed on the landing by the procedure that computed it at `X`, or when the requirement gives
+no evaluation on a landing; the finding is then FAIL `context-meaning-unverified`. A record of any other kind keeps
+no resolution at the landing: the matched finding is resolved anew. A matched finding whose resolution is not kept
+counts as new unless records and rules at the landing resolve it, and its landing item records
+`resolution_validity`: `does-not-hold` when the condition was evaluated and is false, `not-established` when it
+cannot be established. Moving a finding does not by itself make it new, and keeping its wording does not by itself
+keep its meaning. A new finding that records and rules do not resolve there under their own rules (sec.
 14, R6.HIT.1), exactly as they would at `X`, is a FAIL `base-drift` naming the condition `reconciled-state`: it is the
 disposition of the drifted path it lies in; a new finding in a path that does not differ (for example a mirror or pin
 finding produced by a change to its counterpart) is a run-level item naming the drifted paths whose changes produced
@@ -5384,7 +5387,7 @@ landing tree and inherits nothing. Cases are numbered within RECON-TRIAL.
 
 | Route (source) | Condition re-established at the landing | Does not hold (resolved anew; `resolution_validity: does-not-hold`) | Cannot be established (FAIL `context-meaning-unverified`; `not-established`) | RECON-TRIAL cases |
 |---|---|---|---|---|
-| site hold (R6.HIT.1, R6.HIT.2) | not an HP site; the hit on the region lines; the site located as op B locates it, its whole-line occurrence count equal to that at `X` (R6.ANCH.17, R6.ANCH.12), its region byte-identical, its context and structure hashes equal or adjudicated (R6.CTX.2, R6.CTX.11) | the site located but its region bytes differ, or its changed context decided against it by R6.CTX.6 | its occurrence count differs from that at `X` | kept 20, 31; does not hold 21; not established 23 |
+| site hold (R6.HIT.1, R6.HIT.2) | not an HP site; the hit on the region lines; the site located as op B locates it, its whole-line occurrence count equal to that at `X` (R6.ANCH.17, R6.ANCH.12), its region byte-identical, its context and structure hashes equal or adjudicated (R6.CTX.2, R6.CTX.11) | the site located but its region bytes differ, or its changed context decided against it by R6.CTX.6 | its occurrence count differs from that at `X` (R6.ANCH.17) | kept 20, 31; does not hold 21; not established 23 |
 | op B site verdict at `X` (sec. 4; R6.HIT.1) | as for a site hold | as for a site hold, including an unadjudicated meaning-context site whose neighbouring line `M` changes | as for a site hold | kept 31; does not hold 30; not established 23 |
 | hit classification (R6.HIT.2, R6.HIT.4, R6.RULE.13, sec. 22) | `file`, `line_sha256` unique in the landing tree, the profiles hitting the line, and its segment condition (the line located: an unchanged path, its window once in both blobs, or kept by RC14) | the line not unique, or other profiles hitting it | the line not located, so its segment condition is not established | kept 16, 22; does not hold 13; not established 24 |
 | HP adjudication, site (R6.HP.4) | line sha256 at the site's position, both bound context hashes, segment and step conditions | a bound context hash differs | a segment or step condition not established, or the site's position not unique | kept 17; does not hold 25; not established 14 |
@@ -6078,7 +6081,9 @@ Sources: PR #1593 comments 7189621405, 7190234470, 7190255132 (D1) and 719060950
   `conflicts` an array of splice and site ids; `why` a string, a diagnostic;
 - on an item of the reconciled-state trial at the landing, `resolution_validity`, `"does-not-hold"` or
   `"not-established"` (R6.RECON.23): present exactly on the item of a matched finding whose resolution at `X` was not
-  kept, and absent on every other item;
+  kept and on the item of a site whose carried verdict or hold is not kept, and absent on every other item; its
+  presence is decided against the run's matched findings and carried sites, and a control's runner checks it against
+  the fixture's known matched finding or site, not against the result's schema alone;
 - `category3`: `{findings, blocked, reassessments}`: `findings` `[{record, item}]`, with `record` a reference and
   `item` as R6.RECON.27's `finding.item`; `blocked` `[{record, item, edit}]`, `edit` null for a run-level binding;
   `reassessments` the references of the applying reassessments;
