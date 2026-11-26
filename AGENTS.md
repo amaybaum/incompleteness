@@ -1651,7 +1651,20 @@ explicit approval each time:
    any run that uses the plan's designated trial records, executes its trial procedure, or could
    change the plan's scientific status. Unit tests, synthetic controls and ordinary CI controls
    that do none of these are not trials; a case that may be one is put to the owner first;
-3. deleting branches, Issues, pull requests or evidence;
+3. deleting branches, Issues, pull requests or evidence, except deleting a branch reference when
+   all of the following are checked before the deletion and the check is recorded on the pull
+   request or Issue concerned:
+   - the branch head is an ancestor of `main`, reached through merges that keep the branch's
+     commits as ancestors (a merge commit, not a squash or rebase), so that every commit on the
+     branch stays reachable from `main` and nothing on it exists only there;
+   - no frozen record or protocol, verification mechanism or operative record on `main` names the
+     branch reference (§A.42 item 5);
+   - the branch is not protected and is not held at a candidate `F` or `E` (§A.43 item 3).
+
+   A deletion the host makes automatically at a merge is covered only when the merge is a merge
+   commit and the other conditions were checked and recorded before the merge. Every other deletion
+   of a branch, and every deletion of an Issue, a pull request or evidence, still needs the owner's
+   approval;
 4. sending material outside GitHub;
 5. freezing a preregistration, protocol or experimental plan, including designating a round's `F`
    or `E` (§A.39), or amending one once frozen;
