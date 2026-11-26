@@ -637,6 +637,12 @@ def recompute_outcome(result):
     if isinstance(stop, dict) and stop:
         o = stop.get('outcome', result.get('outcome'))
         return o if o in ('USAGE', 'INTERNAL', 'ERROR', 'VOID') else 'STOP_WITHOUT_STOP_OUTCOME'
+    if 'schema' not in result and result.get('outcome') == 'USAGE':
+        # the USAGE object written to stderr (no result file is written for USAGE, R6.OUT.1)
+        return 'USAGE'
+    if result.get('operation') == 'purity-lint' and isinstance(result.get('findings'), list):
+        # the purity lint's verdict is its findings list
+        return 'FAIL' if result['findings'] else 'PASS'
     if any(not p.get('passed') for p in result.get('preflight') or []):
         return 'VOID'
     rc = result.get('record_checks')
@@ -670,6 +676,18 @@ def _field(obj, k):
     return obj.get(k)
 
 
+def _has(obj, k, v):
+    """One field condition of an item pattern: `<field>_include` tests membership in the item's list field (for
+    example `alternatives_include`), `profile` also matches a member of the item's `profiles`, any other key tests
+    equality of the field."""
+    if k.endswith('_include') and k[:-len('_include')] in obj:
+        got = obj.get(k[:-len('_include')])
+        return v in got if isinstance(got, list) else got == v
+    if k == 'profile' and 'profile' not in obj and isinstance(obj.get('profiles'), list):
+        return v in obj['profiles']
+    return _field(obj, k) == v
+
+
 def parse_filter(spec, bindings):
     """`unit[k=v,...]` with `|` between alternative values; `unit[k_nonempty]` tests a non-empty field."""
     m = re.fullmatch(r'([a-z_]+)(?:\[(.*)\])?', spec)
@@ -694,6 +712,9 @@ def _match(obj, conds):
         got = _field(obj, k)
         if vals is None:
             if not got:
+                return False
+        elif k == 'profile' and got is None and isinstance(obj.get('profiles'), list):
+            if not set(str(v) for v in vals) & set(str(p) for p in obj['profiles']):
                 return False
         elif str(got) not in [str(v) for v in vals] and got not in vals:
             return False
@@ -759,7 +780,7 @@ def eval_invariant(k, v, result, case, attested, bindings):
             return not (set(vals) & set(a)), a, 'result'
         if k == 'items_include':
             items = result.get('items') or []
-            miss = [w for w in v if not any(all(_field(i, kk) == _bind(vv, bindings) for kk, vv in w.items())
+            miss = [w for w in v if not any(all(_has(i, kk, _bind(vv, bindings)) for kk, vv in w.items())
                                             for i in items)]
             return not miss, {'missing': miss}, 'result'
         if k == 'failed_conditions_include' and isinstance(result.get('side_changes'), list):
@@ -916,7 +937,8 @@ def eval_case(exp, case_name, ev, row, record, findings_out):
                                          'case %r: site condition %s not attested' % (case_name, s)))
                 continue
             sites = [x for x in ((result or {}).get('sites') or []) if x.get('subject', x.get('site')) == subj]
-            sitems = [i for i in items if i.get('subject') == subj]
+            # a delegated class is named by its class id (`delegated_class`), its items' subject being a message
+            sitems = [i for i in items if i.get('subject') == subj or i.get('delegated_class') == subj]
             ok = bool(sites or sitems)
             for k, v in fields.items():
                 if k in ('classes_exact', 'classes_include'):
