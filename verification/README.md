@@ -638,8 +638,9 @@ not an explanatory one, and nothing shows a hidden sub-quantum level is required
 matrices as states, informationally complete measurements exist, so the universally quantified form
 of observational incompleteness is false at the quantum-state level. `oiCore_forward_redundancy`
 collects the three. The core keeps its positive role: it defines what counts as an OI realization,
-which is what gives `oi_alone_not_qm` content. `tools/claims_check.py` guards the paraphrase with
-an `OI_CLAIMS` class carrying its own marker list.
+which is what gives `oi_alone_not_qm` content. `tools/claims_check.py` flags the paraphrase through
+a separate `OI_RULES` list that no marker word can pass; a flagged sentence is cleared only by a
+review record.
 
 `C1C4-MINIMALITY-AUDIT.md` is the corpus audit of C1 coupling, C4 readback, hidden predictive
 memory, raw versus minimal carrier, the observability quotient and passive minimality, read against

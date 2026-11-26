@@ -1,0 +1,3900 @@
+{
+ "schema": "claims-controls/1",
+ "about": "Control suite of tools/claims_check.py. Every item is copied verbatim (id, rule, expect, text, context) from the file named in 'source' under verification/audits/infrastructure/claims-check-redesign-20261125/work/; 'pinned' is the verdict of that directory's reference prototype work/proto.r4.py for the item's rule (verdict, codes) and over every rule (any). Categories: acceptance (the 195 preserved controls), probe (the review probes), heldout-W (batch W), diagnostic (author diagnostics D-01..D-12), example (the design example sentences EX-1..EX-6; 'expect' FAIL there marks a must-not-pass text, the source states its outcome in design terms). The self-test fails on any changed pinned verdict, and on a MISS or FPFAIL in the acceptance and probe categories. tools/claims_check_test.py checks the copies against their sources and the pins against the prototype.",
+ "controls": [
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "P-TQ-1",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "The Hawking temperature $T_Q$ is state-independent.",
+   "pinned": {
+    "verdict": "FAIL",
+    "codes": "B",
+    "any": "FAIL"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "P-TQ-2",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "$T_Q$ is state-independent, and the lattice cutoff does not affect the calibration.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "P-TQ-3",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "The de Sitter temperature is state-independent. The entropy cannot be computed without the assumptions of §1.2, and the premise of the count is conditional on H-link.",
+   "pinned": {
+    "verdict": "FAIL",
+    "codes": "B",
+    "any": "FAIL"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "P-TQ-4",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "The horizon temperature is unconditionally state-independent.",
+   "pinned": {
+    "verdict": "FAIL",
+    "codes": "B",
+    "any": "FAIL"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "P-TQ-5",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "The calibration yields a state-independent $T_Q$; it cannot depend on the lattice spacing.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "P-TQ-6",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "Not surprisingly for a horizon, whose entropy does not depend on the observer, $T_Q$ is independent of the state.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "N-TQ-1",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "PASS",
+   "text": "$T_Q$ is not state-independent: $\\alpha$-vacua fail detector detailed balance.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "N-TQ-2",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "PASS",
+   "text": "Under H-balance, $T_Q$ is state-independent over the probed frequency window.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "N-TQ-3",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "PASS",
+   "text": "If H-balance holds on the accessible transitions, the horizon temperature is state-independent.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "N-TQ-4",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "PASS",
+   "text": "No theorem shows that $T_Q$ is state-independent.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "N-TQ-MAIN720",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "PASS",
+   "text": "**Chandrasekaran, Longo, Penington and Witten [35]** showed that adding an observer to QFT in a de Sitter static patch promotes the von Neumann algebra of observables from type III to type II$_1$, with a well-defined trace and a renormalized entropy defined up to a state-independent additive constant; Witten [36] presents that algebra as the algebra of observables along the observer's worldline.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "P",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "N-TQ-MAIN724",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "PASS",
+   "text": "Witten's Type II algebra programme defines a renormalized entropy, finite for semiclassical states and fixed up to a state-independent additive constant, without finite-dimensional Hilbert spaces.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "P",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "N-TQ-CH07",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "PASS",
+   "text": "Chandrasekaran, Longo, Penington, and Witten (CLPW) showed that the von Neumann algebra of QFT observables in a gravitational subregion promotes from type III to type II once an observer is included, with a renormalized entropy defined up to a state-independent additive constant. Harlow, Usatyuk, and Zhao established that the closed-universe Hilbert-space dimension is determined by the observer's degrees of freedom.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "P",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "N-TQ-CH09A",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "PASS",
+   "text": "The construction gives the observer's operator algebra as a *Type II* von Neumann factor (rather than Type III, the algebra of operators in standard quantum field theory), with well-defined density matrices and a renormalized entropy defined up to a state-independent additive constant. The construction is observer-relative: different observers in de Sitter space have different algebras.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "P",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "N-TQ-CH09B",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "PASS",
+   "text": "CLPW's entropy is the renormalized entropy of a Type II$_1$ algebra, defined up to a state-independent additive constant; it is not the ordinary von Neumann entropy of a finite-dimensional density matrix used in the framework.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "P",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "N-TQ-TUNE1",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "PASS",
+   "text": "The unamended Q3 (state-independent gate records of the model $\\mathfrak{G}$) is replaced.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "P",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "N-TQ-5",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "PASS",
+   "text": "The temperature $T_Q$ depends on the state through H-balance; the coupling constant is state-independent.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "A-TQ-1",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "REVIEW",
+   "text": "It is state-independent.",
+   "context": "The calibration fixes $T_Q = \\hbar\\kappa/(2\\pi c k_B)$ on the de Sitter horizon.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "A",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "A-TQ-2",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "REVIEW",
+   "text": "$T_Q$ is state-independent in the conditional sense discussed above.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "A-TQ-3",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "REVIEW",
+   "text": "Under H-link, $T_Q$ is state-independent.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "A-TQ-4",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "REVIEW",
+   "text": "For the horizon temperature $T_Q$ the relevant quantity is state-independent.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "P-KIN-1",
+   "rule": "W-GR-THERM-KIN",
+   "expect": "FAIL",
+   "text": "The thermality of the horizon is purely kinematic, and it does not require a microscopic model.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "N-KIN-1",
+   "rule": "W-GR-THERM-KIN",
+   "expect": "PASS",
+   "text": "The thermality is not purely kinematic: H-balance is a selection condition on the state.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "N-KIN-2",
+   "rule": "W-GR-THERM-KIN",
+   "expect": "PASS",
+   "text": "The Lorentz boost relating the frames is purely kinematic.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "P",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "A-KIN-1",
+   "rule": "W-GR-THERM-KIN",
+   "expect": "REVIEW",
+   "text": "This is purely kinematic.",
+   "context": "The detector sees a thermal spectrum at $T_Q$.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "A",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "P-KMS-1",
+   "rule": "W-GR-KMS",
+   "expect": "FAIL",
+   "text": "Any QFT on this background must therefore be periodic in imaginary time.",
+   "pinned": {
+    "verdict": "FAIL",
+    "codes": "B",
+    "any": "FAIL"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "P-KMS-2",
+   "rule": "W-GR-KMS",
+   "expect": "FAIL",
+   "text": "Any QFT on a bifurcate Killing horizon must be KMS at $T_Q$, though the lattice does not fix the cutoff.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "N-KMS-1",
+   "rule": "W-GR-KMS",
+   "expect": "PASS",
+   "text": "Any QFT on this background — including a lattice-regularized one — is periodic in imaginary time with that period only under the H-Hawking conditions.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "N-KMS-2",
+   "rule": "W-GR-KMS",
+   "expect": "PASS",
+   "text": "It is not proved that any QFT on this background must be KMS.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "A-KMS-1",
+   "rule": "W-GR-KMS",
+   "expect": "REVIEW",
+   "text": "Any QFT on this background must be KMS, conditional on the assumptions above.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "P-CONE-1",
+   "rule": "W-GR-CONE",
+   "expect": "FAIL",
+   "text": "The free-level cone is exact per channel, which the anisotropy estimate cannot change.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "P-CONE-2",
+   "rule": "W-GR-CONE",
+   "expect": "FAIL",
+   "text": "This gives an exact free-level cone per channel on the normalized $d=3$ branch.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "N-CONE-1",
+   "rule": "W-GR-CONE",
+   "expect": "PASS",
+   "text": "First, the free-level cone is not exact per channel on the normalized $d=3$ observer branch.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "A-CONE-1",
+   "rule": "W-GR-CONE",
+   "expect": "REVIEW",
+   "text": "On the unnormalized branch the free-level cone is exact.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "P-EPS-1",
+   "rule": "W-GR-EPSKAPPA",
+   "expect": "FAIL",
+   "text": "The correction is of order $\\varepsilon\\kappa/c$, which does not exceed $10^{-61}$.",
+   "pinned": {
+    "verdict": "FAIL",
+    "codes": "L",
+    "any": "FAIL"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "N-EPS-1",
+   "rule": "W-GR-EPSKAPPA",
+   "expect": "PASS",
+   "text": "For the cosmological horizon, $\\varepsilon\\kappa/c^2 = 2\\sqrt{\\sigma}\\,l_P \\cdot H/c$.",
+   "pinned": {
+    "verdict": "PASS",
+    "codes": "",
+    "any": "PASS"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "P-BM-1",
+   "rule": "W-BM-EUCLID",
+   "expect": "FAIL",
+   "text": "Cubic equivariance forces an Euclidean quadratic symbol, so no anisotropy survives.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "P-BM-2",
+   "rule": "W-BM-EUCLID",
+   "expect": "FAIL",
+   "text": "The leading scalar propagation geometry is Euclidean; finite observation cannot excuse an anisotropy.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "N-BM-1",
+   "rule": "W-BM-EUCLID",
+   "expect": "PASS",
+   "text": "Cubic equivariance forbids quadratic anisotropy but does not force an Euclidean quadratic symbol, because $b_m$ may vanish.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "N-BM-2",
+   "rule": "W-BM-EUCLID",
+   "expect": "PASS",
+   "text": "When $b_m \\neq 0$, the leading scalar propagation geometry is Euclidean.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "P-KDEG-1",
+   "rule": "W-KDEG",
+   "expect": "FAIL",
+   "text": "Coupling-degree minimization fixes $K = 6$.",
+   "pinned": {
+    "verdict": "FAIL",
+    "codes": "B",
+    "any": "FAIL"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "P-KDEG-2",
+   "rule": "W-KDEG",
+   "expect": "FAIL",
+   "text": "Coupling-degree minimization selects $K=2d$, and the dynamics does not select the sites.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "P-KDEG-3",
+   "rule": "W-KDEG",
+   "expect": "FAIL",
+   "text": "The framework's answer is $K = 2d$, which is not a proof of the generation count.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "P-KDEG-4",
+   "rule": "W-KDEG",
+   "expect": "FAIL",
+   "text": "$K = 2d$ follows from coupling-degree minimization. The link count is conditional on H-link.",
+   "pinned": {
+    "verdict": "FAIL",
+    "codes": "B",
+    "any": "FAIL"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "N-KDEG-1",
+   "rule": "W-KDEG",
+   "expect": "PASS",
+   "text": "**Why coupling-degree minimization does not fix $K$.** The natural argument runs: the discrete Laplacian couples $2d$ nearest neighbours.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "N-KDEG-2",
+   "rule": "W-KDEG",
+   "expect": "PASS",
+   "text": "No theorem in the present framework derives $m=1$ from finite observation, center independence, or the link count; coupling-degree minimization does not establish it either.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "N-KDEG-3",
+   "rule": "W-KDEG",
+   "expect": "PASS",
+   "text": "**Scope of $K = 2d$.** Coupling-degree minimization does not establish $K=2d=6$.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "N-KDEG-4",
+   "rule": "W-KDEG",
+   "expect": "PASS",
+   "text": "The framework retains bounded local coupling as a substratum condition, but it does not derive the physical carrier dimension $K=6$ from coupling-degree minimization.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "N-KDEG-5",
+   "rule": "W-KDEG",
+   "expect": "PASS",
+   "text": "**The coupling-degree minimization.** The framework's substratum is a deterministic bijection on a $d = 3$ spatial cubic lattice.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "A",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "N-KDEG-6",
+   "rule": "W-KDEG",
+   "expect": "PASS",
+   "text": "Under H-link, $K=2dm$; the single-copy clause gives $K=2d$.",
+   "pinned": {
+    "verdict": "PASS",
+    "codes": "",
+    "any": "PASS"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "A-KDEG-1",
+   "rule": "W-KDEG",
+   "expect": "REVIEW",
+   "text": "Coupling-degree minimization yields the carrier, as the assumption list records.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "P-OI-1",
+   "rule": "W-OI-REQ",
+   "expect": "FAIL",
+   "text": "Quantum mechanics requires observational incompleteness.",
+   "pinned": {
+    "verdict": "FAIL",
+    "codes": "B",
+    "any": "FAIL"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "P-OI-2",
+   "rule": "W-OI-REQ",
+   "expect": "FAIL",
+   "text": "Quantum mechanics requires OI. The containment theorem `qm_implies_oiCore` is proved in the kernel.",
+   "pinned": {
+    "verdict": "FAIL",
+    "codes": "B",
+    "any": "FAIL"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "P-OI-3",
+   "rule": "W-OI-REQ",
+   "expect": "FAIL",
+   "text": "Quantum theory requires observational incompleteness, and the converse is not proved.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "P-OI-4",
+   "rule": "W-OI-NOEXIST",
+   "expect": "FAIL",
+   "text": "Quantum mechanics cannot exist without a hidden sector, which is redundant in the forward derivation.",
+   "pinned": {
+    "verdict": "FAIL",
+    "codes": "B",
+    "any": "FAIL"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "P-OI-5",
+   "rule": "W-OI-EXPLAINS",
+   "expect": "FAIL",
+   "text": "Observational incompleteness explains quantum mechanics.",
+   "pinned": {
+    "verdict": "FAIL",
+    "codes": "B",
+    "any": "FAIL"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "P-OI-6",
+   "rule": "W-OI-HIDDEN",
+   "expect": "FAIL",
+   "text": "Quantum mechanics needs hidden variables.",
+   "pinned": {
+    "verdict": "FAIL",
+    "codes": "B",
+    "any": "FAIL"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "P-OI-7",
+   "rule": "W-OI-CONTRA",
+   "expect": "FAIL",
+   "text": "Without observational incompleteness there would be no quantum mechanics.",
+   "pinned": {
+    "verdict": "FAIL",
+    "codes": "B",
+    "any": "FAIL"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "N-OI-1",
+   "rule": "W-OI-REQ",
+   "expect": "PASS",
+   "text": "Not claimed: that quantum mechanics requires OI or a hidden ontology — `qm_implies_oiCore` is containment, the necessity reading is not a theorem of this thread.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "N-OI-2",
+   "rule": "W-OI-REQ",
+   "expect": "PASS",
+   "text": "Quantum mechanics does not require observational incompleteness: informationally complete measurements exist.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "N-OI-3",
+   "rule": "W-OI-REQ",
+   "expect": "PASS",
+   "text": "No theorem shows that quantum mechanics requires OI.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "N-OI-4",
+   "rule": "W-OI-REQ",
+   "expect": "PASS",
+   "text": "Quantum mechanics requires OI only in the core-containment sense of `qm_implies_oiCore`: every theory in the class realizes the sealed OI core.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls.json",
+   "category": "acceptance",
+   "id": "A-OI-1",
+   "rule": "W-OI-REQ",
+   "expect": "REVIEW",
+   "text": "On the operational reading, quantum mechanics requires observational incompleteness, an assumption examined in §4.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "heldout.json",
+   "category": "acceptance",
+   "id": "H-P-1",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "Because the horizon is bifurcate, the de Sitter temperature remains state-independent for every detector, and no further condition is needed.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "heldout.json",
+   "category": "acceptance",
+   "id": "H-P-2",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "In this calibration $T_Q$, which cannot be measured directly, is state-independent.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "heldout.json",
+   "category": "acceptance",
+   "id": "H-P-3",
+   "rule": "W-GR-THERM-KIN",
+   "expect": "FAIL",
+   "text": "Horizon thermality is therefore purely kinematic; the premise list of §2 is not needed.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "heldout.json",
+   "category": "acceptance",
+   "id": "H-P-4",
+   "rule": "W-OI-REQ",
+   "expect": "FAIL",
+   "text": "As the containment theorem suggests, quantum mechanics presupposes observational incompleteness.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "heldout.json",
+   "category": "acceptance",
+   "id": "H-P-5",
+   "rule": "W-OI-EXPLAINS",
+   "expect": "FAIL",
+   "text": "Ignorance of the hidden sector gives rise to quantum mechanics, which is not a theorem of standard physics.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "heldout.json",
+   "category": "acceptance",
+   "id": "H-P-6",
+   "rule": "W-KDEG",
+   "expect": "FAIL",
+   "text": "Coupling-degree minimization, a definition* of the site, determines $K=2d$.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "heldout.json",
+   "category": "acceptance",
+   "id": "H-P-7",
+   "rule": "W-GR-CONE",
+   "expect": "FAIL",
+   "text": "At free level the free-level cone is exact per channel, though higher orders do not preserve it.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "heldout.json",
+   "category": "acceptance",
+   "id": "H-P-8",
+   "rule": "W-BM-EUCLID",
+   "expect": "FAIL",
+   "text": "The substratum symmetry forces a Euclidean metric at leading order, which does not depend on $b_m$.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "heldout.json",
+   "category": "acceptance",
+   "id": "H-N-1",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "PASS",
+   "text": "The Bekenstein bound is state-independent, while $T_Q$ requires H-balance.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "heldout.json",
+   "category": "acceptance",
+   "id": "H-N-2",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "PASS",
+   "text": "Nothing makes $T_Q$ state-independent: $\\alpha$-vacua violate detailed balance.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "heldout.json",
+   "category": "acceptance",
+   "id": "H-N-3",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "PASS",
+   "text": "Given H-spectrum, the horizon temperature is state-independent on the probed window.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "heldout.json",
+   "category": "acceptance",
+   "id": "H-N-4",
+   "rule": "W-OI-REQ",
+   "expect": "PASS",
+   "text": "It is not the case that quantum mechanics requires observational incompleteness.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "heldout.json",
+   "category": "acceptance",
+   "id": "H-N-5",
+   "rule": "W-OI-HIDDEN",
+   "expect": "PASS",
+   "text": "Quantum mechanics does not need hidden variables, and the standard reading uses none.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "heldout.json",
+   "category": "acceptance",
+   "id": "H-N-6",
+   "rule": "W-KDEG",
+   "expect": "PASS",
+   "text": "Coupling-degree minimization fails to select the site factorization.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "heldout.json",
+   "category": "acceptance",
+   "id": "H-N-7",
+   "rule": "W-GR-KMS",
+   "expect": "PASS",
+   "text": "Under the H-Hawking conditions, any QFT on this background must be KMS at $T_Q$.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "heldout.json",
+   "category": "acceptance",
+   "id": "H-N-8",
+   "rule": "W-GR-THERM-KIN",
+   "expect": "PASS",
+   "text": "The redshift factor is purely kinematic.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "P",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "heldout.json",
+   "category": "acceptance",
+   "id": "H-A-1",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "REVIEW",
+   "text": "This temperature is state-independent once the window is fixed.",
+   "context": "We now turn to the horizon temperature $T_Q$.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "A",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "heldout.json",
+   "category": "acceptance",
+   "id": "H-A-2",
+   "rule": "W-OI-REQ",
+   "expect": "REVIEW",
+   "text": "If the hidden sector is finite, quantum mechanics requires observational incompleteness.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "heldout.json",
+   "category": "acceptance",
+   "id": "H-A-3",
+   "rule": "W-KDEG",
+   "expect": "REVIEW",
+   "text": "It fixes $K=6$.",
+   "context": "Coupling-degree minimization is the natural starting point.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "A",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "heldout.json",
+   "category": "acceptance",
+   "id": "H-A-4",
+   "rule": "W-GR-CONE",
+   "expect": "REVIEW",
+   "text": "Assuming isotropic normalization, the free-level cone is exact.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls_c.json",
+   "category": "acceptance",
+   "id": "C-P-1",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "The horizon temperature $T_Q$ does not depend on the state.",
+   "pinned": {
+    "verdict": "FAIL",
+    "codes": "B",
+    "any": "FAIL"
+   }
+  },
+  {
+   "source": "controls_c.json",
+   "category": "acceptance",
+   "id": "C-N-1",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "PASS",
+   "text": "CLPW's entropy is the renormalized entropy of a Type II$_1$ algebra, defined up to an additive constant that does not depend on the state; it is not the ordinary von Neumann entropy of a finite-dimensional density matrix used in the framework.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "P",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls_c.json",
+   "category": "acceptance",
+   "id": "C-N-2",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "PASS",
+   "text": "Under H-balance, $T_Q$ does not depend on the state within the probed window.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls_c.json",
+   "category": "acceptance",
+   "id": "C-N-3",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "PASS",
+   "text": "L4 (the graph of an additive update does not depend on the state) is proved in §4.2.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "P",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls_c.json",
+   "category": "acceptance",
+   "id": "C-A-1",
+   "rule": "W-KDEG",
+   "expect": "REVIEW",
+   "text": "OLD: `The framework's coupling-degree minimization argument rules out this alternative by forcing $K = 2d = 6$ internal components.`",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls_d.json",
+   "category": "acceptance",
+   "id": "D-P-1",
+   "rule": "W-OI-REQ",
+   "expect": "FAIL",
+   "text": "We adopt the view of quantum mechanics that requires observational incompleteness.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls_d.json",
+   "category": "acceptance",
+   "id": "D-N-1",
+   "rule": "W-OI-HIDDEN",
+   "expect": "PASS",
+   "text": "Neither statement shows that quantum mechanics needs a hidden sub-quantum level, and nothing in the tree proves it.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls_d.json",
+   "category": "acceptance",
+   "id": "D-N-2",
+   "rule": "W-OI-HIDDEN",
+   "expect": "PASS",
+   "text": "It does not say quantum mechanics requires a hidden ontology, that every quantum state is observationally incomplete, or that OI causes quantumness.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls_d.json",
+   "category": "acceptance",
+   "id": "D-A-1",
+   "rule": "W-OI-REQ",
+   "expect": "REVIEW",
+   "text": "That quantum mechanics requires OI, or that passive incompleteness is evidence for a hidden ontology: `qm_implies_oiCore` is containment.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout.json",
+   "category": "acceptance",
+   "id": "X-P-01",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "Since the cutoff does not enter the calibration, $T_Q$ is state-independent.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout.json",
+   "category": "acceptance",
+   "id": "X-P-02",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "$T_Q$ is not only state-independent but also universal.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout.json",
+   "category": "acceptance",
+   "id": "X-P-03",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "Under H-balance, $T_Q$ is state-independent. Hence $T_Q$ is state-independent for every state of the field.",
+   "pinned": {
+    "verdict": "FAIL",
+    "codes": "C,B",
+    "any": "FAIL"
+   }
+  },
+  {
+   "source": "reviewer-heldout.json",
+   "category": "acceptance",
+   "id": "X-P-04",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "State-independent horizon thermality follows from the bifurcate geometry alone.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout.json",
+   "category": "acceptance",
+   "id": "X-P-05",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "The Unruh temperature, which is state-independent, sets the detector calibration.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout.json",
+   "category": "acceptance",
+   "id": "X-P-06",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "The horizon temperature $T_Q$ is independent of the quantum state.",
+   "pinned": {
+    "verdict": "FAIL",
+    "codes": "B",
+    "any": "FAIL"
+   }
+  },
+  {
+   "source": "reviewer-heldout.json",
+   "category": "acceptance",
+   "id": "X-P-07",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "The de Sitter temperature is the same in every state of the field.",
+   "pinned": {
+    "verdict": "FAIL",
+    "codes": "B",
+    "any": "FAIL"
+   }
+  },
+  {
+   "source": "reviewer-heldout.json",
+   "category": "acceptance",
+   "id": "X-P-08",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "We do not doubt that the Hawking temperature is state-independent.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout.json",
+   "category": "acceptance",
+   "id": "X-P-09",
+   "rule": "W-GR-KMS",
+   "expect": "FAIL",
+   "text": "Every QFT on this background must be KMS at the horizon temperature.",
+   "pinned": {
+    "verdict": "FAIL",
+    "codes": "B",
+    "any": "FAIL"
+   }
+  },
+  {
+   "source": "reviewer-heldout.json",
+   "category": "acceptance",
+   "id": "X-P-10",
+   "rule": "W-KDEG",
+   "expect": "FAIL",
+   "text": "The minimization of the coupling degree fixes $K = 6$.",
+   "pinned": {
+    "verdict": "FAIL",
+    "codes": "B",
+    "any": "FAIL"
+   }
+  },
+  {
+   "source": "reviewer-heldout.json",
+   "category": "acceptance",
+   "id": "X-P-11",
+   "rule": "W-OI-REQ",
+   "expect": "FAIL",
+   "text": "Quantum mechanics requires observational incompleteness and does not admit a hidden-variable completion.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout.json",
+   "category": "acceptance",
+   "id": "X-P-12",
+   "rule": "W-OI-REQ",
+   "expect": "FAIL",
+   "text": "Quantum mechanics, as is well known, requires observational incompleteness.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout.json",
+   "category": "acceptance",
+   "id": "X-P-13",
+   "rule": "W-OI-REQ",
+   "expect": "FAIL",
+   "text": "Quantum mechanics necessitates observational incompleteness.",
+   "pinned": {
+    "verdict": "FAIL",
+    "codes": "B",
+    "any": "FAIL"
+   }
+  },
+  {
+   "source": "reviewer-heldout.json",
+   "category": "acceptance",
+   "id": "X-P-14",
+   "rule": "W-OI-REQ",
+   "expect": "FAIL",
+   "text": "QM requires OI.",
+   "pinned": {
+    "verdict": "FAIL",
+    "codes": "B",
+    "any": "FAIL"
+   }
+  },
+  {
+   "source": "reviewer-heldout.json",
+   "category": "acceptance",
+   "id": "X-P-15",
+   "rule": "W-OI-EXPLAINS",
+   "expect": "FAIL",
+   "text": "Observational incompleteness explains quantum mechanics; no extra postulate is needed.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout.json",
+   "category": "acceptance",
+   "id": "X-P-16",
+   "rule": "W-BM-EUCLID",
+   "expect": "FAIL",
+   "text": "Cubic symmetry forces a Euclidean quadratic symbol.",
+   "pinned": {
+    "verdict": "FAIL",
+    "codes": "B",
+    "any": "FAIL"
+   }
+  },
+  {
+   "source": "reviewer-heldout.json",
+   "category": "acceptance",
+   "id": "X-N-01",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "PASS",
+   "text": "The paper does not claim that $T_Q$ is state-independent.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout.json",
+   "category": "acceptance",
+   "id": "X-N-02",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "PASS",
+   "text": "State-independent normalization of the detector response is imposed by convention.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "P",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout.json",
+   "category": "acceptance",
+   "id": "X-N-03",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "PASS",
+   "text": "$T_Q$ is never state-independent in the presence of $\\alpha$-vacua.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout.json",
+   "category": "acceptance",
+   "id": "X-N-04",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "PASS",
+   "text": "The claim that $T_Q$ is state-independent is withdrawn.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout.json",
+   "category": "acceptance",
+   "id": "X-N-05",
+   "rule": "W-GR-KMS",
+   "expect": "PASS",
+   "text": "It has not been shown that every QFT on this background is a KMS state.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout.json",
+   "category": "acceptance",
+   "id": "X-N-06",
+   "rule": "W-KDEG",
+   "expect": "PASS",
+   "text": "Coupling-degree minimization, as shown below, does not fix $K = 6$.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout.json",
+   "category": "acceptance",
+   "id": "X-N-07",
+   "rule": "W-OI-REQ",
+   "expect": "PASS",
+   "text": "Whether quantum mechanics requires observational incompleteness is open.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout.json",
+   "category": "acceptance",
+   "id": "X-N-08",
+   "rule": "W-OI-REQ",
+   "expect": "PASS",
+   "text": "Nobody has shown that quantum mechanics requires observational incompleteness.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout.json",
+   "category": "acceptance",
+   "id": "X-N-09",
+   "rule": "W-OI-EXPLAINS",
+   "expect": "PASS",
+   "text": "Observational incompleteness does not explain quantum mechanics, but it does motivate the axioms.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout.json",
+   "category": "acceptance",
+   "id": "X-N-10",
+   "rule": "W-GR-CONE",
+   "expect": "PASS",
+   "text": "It is false that the free-level cone is exact per channel.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout.json",
+   "category": "acceptance",
+   "id": "X-N-11",
+   "rule": "W-BM-EUCLID",
+   "expect": "PASS",
+   "text": "Cubic equivariance forces a Euclidean quadratic symbol only when $b_m \\neq 0$.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout.json",
+   "category": "acceptance",
+   "id": "X-A-01",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "REVIEW",
+   "text": "The 2019 draft stated that \"the Hawking temperature is state-independent\", which the corpus withdraws.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout.json",
+   "category": "acceptance",
+   "id": "X-A-02",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "REVIEW",
+   "text": "The 2019 draft stated that “the Hawking temperature is state-independent”, which the corpus withdraws.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout.json",
+   "category": "acceptance",
+   "id": "X-A-03",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "REVIEW",
+   "text": "Assuming H-cust, the de Sitter temperature is state-independent.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout.json",
+   "category": "acceptance",
+   "id": "X-A-04",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "REVIEW",
+   "text": "Under H-link, $T_Q$ is state-independent. H-balance is discussed in Section 3.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout.json",
+   "category": "acceptance",
+   "id": "X-A-05",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "REVIEW",
+   "text": "Under H-balance, $T_Q$ is state-independent. It is state-independent in general.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C,A",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout.json",
+   "category": "acceptance",
+   "id": "X-A-06",
+   "rule": "W-KDEG",
+   "expect": "REVIEW",
+   "text": "Coupling-degree minimization fixes $K = 6$ only if one assumes H-link.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout.json",
+   "category": "acceptance",
+   "id": "X-A-07",
+   "rule": "W-OI-REQ",
+   "expect": "REVIEW",
+   "text": "Quantum mechanics requires observational incompleteness provided the measurements are finite.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls_r2.json",
+   "category": "acceptance",
+   "id": "R2-P-01",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "$T_Q$ is state-independent, and H-balance holds on the window.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls_r2.json",
+   "category": "acceptance",
+   "id": "R2-P-02",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "No theorem shows that the window is finite; $T_Q$ is state-independent.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls_r2.json",
+   "category": "acceptance",
+   "id": "R2-P-03",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "We show that $T_Q$ is state-independent.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls_r2.json",
+   "category": "acceptance",
+   "id": "R2-P-04",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "The de Sitter temperature, which is the same in every state of the field, fixes the scale.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls_r2.json",
+   "category": "acceptance",
+   "id": "R2-P-05",
+   "rule": "W-OI-REQ",
+   "expect": "FAIL",
+   "text": "Quantum mechanics demands observational incompleteness.",
+   "pinned": {
+    "verdict": "FAIL",
+    "codes": "B",
+    "any": "FAIL"
+   }
+  },
+  {
+   "source": "controls_r2.json",
+   "category": "acceptance",
+   "id": "R2-P-06",
+   "rule": "W-KDEG",
+   "expect": "FAIL",
+   "text": "Minimizing the coupling degree singles out $K = 6$.",
+   "pinned": {
+    "verdict": "FAIL",
+    "codes": "B",
+    "any": "FAIL"
+   }
+  },
+  {
+   "source": "controls_r2.json",
+   "category": "acceptance",
+   "id": "R2-P-07",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "Because the horizon is bifurcate, the Unruh temperature is independent of the choice of state.",
+   "pinned": {
+    "verdict": "FAIL",
+    "codes": "B",
+    "any": "FAIL"
+   }
+  },
+  {
+   "source": "controls_r2.json",
+   "category": "acceptance",
+   "id": "R2-N-01",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "PASS",
+   "text": "Without H-balance, $T_Q$ is not state-independent.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls_r2.json",
+   "category": "acceptance",
+   "id": "R2-N-02",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "PASS",
+   "text": "$T_Q$ is state-independent only under H-balance.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls_r2.json",
+   "category": "acceptance",
+   "id": "R2-N-03",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "PASS",
+   "text": "Provided H-balance holds, $T_Q$ is state-independent.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls_r2.json",
+   "category": "acceptance",
+   "id": "R2-N-04",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "PASS",
+   "text": "It is not proved that, on the probed window, $T_Q$ is state-independent.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls_r2.json",
+   "category": "acceptance",
+   "id": "R2-N-05",
+   "rule": "W-OI-REQ",
+   "expect": "PASS",
+   "text": "Nobody has shown that hidden sectors are finite or that quantum mechanics requires observational incompleteness.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls_r2.json",
+   "category": "acceptance",
+   "id": "R2-N-06",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "PASS",
+   "text": "The Hawking temperature is not one value for every state.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls_r2.json",
+   "category": "acceptance",
+   "id": "R2-N-07",
+   "rule": "W-OI-REQ",
+   "expect": "PASS",
+   "text": "There is no statement that quantum mechanics rests on observational incompleteness.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls_r2.json",
+   "category": "acceptance",
+   "id": "R2-A-01",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "REVIEW",
+   "text": "Regardless of H-balance, $T_Q$ is state-independent.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls_r2.json",
+   "category": "acceptance",
+   "id": "R2-A-02",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "REVIEW",
+   "text": "Whether or not H-balance holds, $T_Q$ is state-independent.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls_r2.json",
+   "category": "acceptance",
+   "id": "R2-A-03",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "REVIEW",
+   "text": "Under H-slope, the thermal ratio is state-independent.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls_r2.json",
+   "category": "acceptance",
+   "id": "R2-A-04",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "REVIEW",
+   "text": "Some authors argue that $T_Q$ is state-independent.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls_r2.json",
+   "category": "acceptance",
+   "id": "R2-A-05",
+   "rule": "W-OI-REQ",
+   "expect": "REVIEW",
+   "text": "It is doubtful that quantum mechanics requires observational incompleteness.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls_r2.json",
+   "category": "acceptance",
+   "id": "R2-A-06",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "REVIEW",
+   "text": "The claim that $T_Q$ is state-independent is central to the calibration.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls_r2.json",
+   "category": "acceptance",
+   "id": "R2-A-07",
+   "rule": "W-OI-REQ",
+   "expect": "REVIEW",
+   "text": "Quantum mechanics rests on observational incompleteness.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls_r2.json",
+   "category": "acceptance",
+   "id": "R2-A-08",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "REVIEW",
+   "text": "The Hawking temperature takes one value for every state.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls_r2.json",
+   "category": "acceptance",
+   "id": "R2-A-09",
+   "rule": "W-KDEG",
+   "expect": "REVIEW",
+   "text": "The minimal coupling degree singles out six sites.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls_r2.json",
+   "category": "acceptance",
+   "id": "R2-A-10",
+   "rule": "W-OI-EXPLAINS",
+   "expect": "REVIEW",
+   "text": "Observational incompleteness is the origin of quantum mechanics.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls_r2.json",
+   "category": "acceptance",
+   "id": "R2-A-11",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "REVIEW",
+   "text": "$T_Q$ is state-independent, since H-balance holds.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "controls_r2.json",
+   "category": "acceptance",
+   "id": "R2-A-12",
+   "rule": "W-GR-KMS",
+   "expect": "REVIEW",
+   "text": "Every QFT on this background must be KMS independently of the H-Hawking conditions.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-Y.json",
+   "category": "acceptance",
+   "id": "Y-P-01",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "The temperature of the black-hole horizon does not vary from one state to another.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-Y.json",
+   "category": "acceptance",
+   "id": "Y-P-02",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "The Hawking temperature, which is defined under H-balance, is state-independent.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-Y.json",
+   "category": "acceptance",
+   "id": "Y-P-03",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "Under H-balance violations, the Hawking temperature $T_Q$ is state-independent.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-Y.json",
+   "category": "acceptance",
+   "id": "Y-P-04",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "For H-balance-violating states, the Hawking temperature $T_Q$ is state-independent.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-Y.json",
+   "category": "acceptance",
+   "id": "Y-P-05",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "The Hawking temperature $T_Q$ is state-independent when H-balance holds and also when it fails.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-Y.json",
+   "category": "acceptance",
+   "id": "Y-P-06",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "Under H-spectrum or H-slope, the Hawking temperature $T_Q$ is state-independent.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-Y.json",
+   "category": "acceptance",
+   "id": "Y-P-07",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "Every state of the field yields the same Hawking temperature.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-Y.json",
+   "category": "acceptance",
+   "id": "Y-P-08",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "The Hawking temperature takes a single value, whatever the state of the field.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-Y.json",
+   "category": "acceptance",
+   "id": "Y-P-09",
+   "rule": "W-GR-KMS",
+   "expect": "FAIL",
+   "text": "No QFT on this background can fail to be KMS at the horizon temperature.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-Y.json",
+   "category": "acceptance",
+   "id": "Y-P-10",
+   "rule": "W-OI-REQ",
+   "expect": "FAIL",
+   "text": "Observational incompleteness is a prerequisite of quantum mechanics.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-Y.json",
+   "category": "acceptance",
+   "id": "Y-P-11",
+   "rule": "W-OI-REQ",
+   "expect": "FAIL",
+   "text": "Quantum mechanics would be impossible without observational incompleteness.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-Y.json",
+   "category": "acceptance",
+   "id": "Y-P-12",
+   "rule": "W-GR-CONE",
+   "expect": "FAIL",
+   "text": "Nothing in this section shows that the free-level cone is exact per channel, but it is.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-Y.json",
+   "category": "acceptance",
+   "id": "Y-P-13",
+   "rule": "W-GR-CONE",
+   "expect": "FAIL",
+   "text": "It is not the case that the free-level cone fails to be exact per channel.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-Y.json",
+   "category": "acceptance",
+   "id": "Y-P-14",
+   "rule": "W-GR-CONE",
+   "expect": "FAIL",
+   "text": "It is not false that the free-level cone is exact per channel.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-Y.json",
+   "category": "acceptance",
+   "id": "Y-P-15",
+   "rule": "W-KDEG",
+   "expect": "FAIL",
+   "text": "Coupling-degree minimization is what fixes $K=2d$ on the cubic lattice.",
+   "pinned": {
+    "verdict": "FAIL",
+    "codes": "B",
+    "any": "FAIL"
+   }
+  },
+  {
+   "source": "reviewer-heldout-Y.json",
+   "category": "acceptance",
+   "id": "Y-P-16",
+   "rule": "W-BM-EUCLID",
+   "expect": "FAIL",
+   "text": "Cubic equivariance alone guarantees that the quadratic symbol is Euclidean.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-Y.json",
+   "category": "acceptance",
+   "id": "Y-P-17",
+   "rule": "W-GR-THERM-KIN",
+   "expect": "FAIL",
+   "text": "Horizon thermality is nothing more than kinematics.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-Y.json",
+   "category": "acceptance",
+   "id": "Y-P-18",
+   "rule": "W-OI-EXPLAINS",
+   "expect": "FAIL",
+   "text": "Quantum structure is a consequence of observational incompleteness.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-Y.json",
+   "category": "acceptance",
+   "id": "Y-P-19",
+   "rule": "W-OI-NOEXIST",
+   "expect": "FAIL",
+   "text": "Without observational incompleteness, quantum mechanics could not exist.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-Y.json",
+   "category": "acceptance",
+   "id": "Y-P-20",
+   "rule": "W-OI-HIDDEN",
+   "expect": "FAIL",
+   "text": "Quantum mechanics cannot do without a hidden sub-quantum level.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-Y.json",
+   "category": "acceptance",
+   "id": "Y-P-21",
+   "rule": "W-GR-CONE",
+   "expect": "FAIL",
+   "text": "It is well known that the free-level cone is exact per channel.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-Y.json",
+   "category": "acceptance",
+   "id": "Y-P-22",
+   "rule": "W-OI-REQ",
+   "expect": "FAIL",
+   "text": "Few would deny that quantum mechanics requires observational incompleteness.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-Y.json",
+   "category": "acceptance",
+   "id": "Y-N-01",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "PASS",
+   "text": "The Hawking temperature $T_Q$ is not state-independent, since the alpha-vacua violate H-balance.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-Y.json",
+   "category": "acceptance",
+   "id": "Y-N-02",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "PASS",
+   "text": "The cutoff is state-independent, unlike the Hawking temperature.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-Y.json",
+   "category": "acceptance",
+   "id": "Y-N-03",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "PASS",
+   "text": "Neither the Hawking temperature nor the Unruh temperature is state-independent.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-Y.json",
+   "category": "acceptance",
+   "id": "Y-N-04",
+   "rule": "W-GR-KMS",
+   "expect": "PASS",
+   "text": "Nobody has proved that every QFT on this background must be KMS.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-Y.json",
+   "category": "acceptance",
+   "id": "Y-N-05",
+   "rule": "W-GR-CONE",
+   "expect": "PASS",
+   "text": "That the free-level cone is exact per channel is false on the normalized $d=3$ branch.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-Y.json",
+   "category": "acceptance",
+   "id": "Y-N-06",
+   "rule": "W-KDEG",
+   "expect": "PASS",
+   "text": "Coupling-degree minimization never singles out $K=2d$.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-Y.json",
+   "category": "acceptance",
+   "id": "Y-N-07",
+   "rule": "W-OI-REQ",
+   "expect": "PASS",
+   "text": "Quantum mechanics implies the OI core.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-Y.json",
+   "category": "acceptance",
+   "id": "Y-N-08",
+   "rule": "W-OI-REQ",
+   "expect": "PASS",
+   "text": "Nobody has shown that quantum mechanics needs hidden variables or that quantum mechanics requires observational incompleteness.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-Y.json",
+   "category": "acceptance",
+   "id": "Y-N-09",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "PASS",
+   "text": "The normalization of the detector response is state-independent, whereas the Hawking temperature $T_Q$ depends on the state.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-Y.json",
+   "category": "acceptance",
+   "id": "Y-N-10",
+   "rule": "W-GR-KMS",
+   "expect": "PASS",
+   "text": "Any QFT on this background must be KMS provided the H-Hawking conditions hold.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-Y.json",
+   "category": "acceptance",
+   "id": "Y-N-11",
+   "rule": "W-GR-KMS",
+   "expect": "PASS",
+   "text": "Only when the H-Hawking conditions hold is every QFT on this background KMS.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-Y.json",
+   "category": "acceptance",
+   "id": "Y-N-12",
+   "rule": "W-OI-REQ",
+   "expect": "PASS",
+   "text": "In the core-containment sense, quantum mechanics requires observational incompleteness.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-Y.json",
+   "category": "acceptance",
+   "id": "Y-N-13",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "PASS",
+   "text": "Is the Hawking temperature $T_Q$ state-independent?",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-Y.json",
+   "category": "acceptance",
+   "id": "Y-N-14",
+   "rule": "W-GR-CONE",
+   "expect": "PASS",
+   "text": "The proof that the free-level cone is exact per channel fails on the normalized $d=3$ branch.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-Y.json",
+   "category": "acceptance",
+   "id": "Y-N-15",
+   "rule": "W-GR-THERM-KIN",
+   "expect": "PASS",
+   "text": "Horizon thermality is not purely kinematic: it rests on H-balance.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-Y.json",
+   "category": "acceptance",
+   "id": "Y-N-16",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "PASS",
+   "text": "Suppose the Hawking temperature $T_Q$ were state-independent; then every alpha-vacuum would be thermal at $T_Q$.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-Y.json",
+   "category": "acceptance",
+   "id": "Y-A-01",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "REVIEW",
+   "text": "Under H-slope, the de Sitter temperature is state-independent.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-Y.json",
+   "category": "acceptance",
+   "id": "Y-A-02",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "REVIEW",
+   "text": "The Hawking temperature $T_Q$ was computed above. It is state-independent.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "A",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-Y.json",
+   "category": "acceptance",
+   "id": "Y-A-03",
+   "rule": "W-OI-REQ",
+   "expect": "REVIEW",
+   "text": "The superseded draft read: \"Quantum mechanics requires observational incompleteness.\"",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-Y.json",
+   "category": "acceptance",
+   "id": "Y-A-04",
+   "rule": "W-OI-REQ",
+   "expect": "REVIEW",
+   "text": "Quantum mechanics requires observational incompleteness only if the measurements are finite.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-Y.json",
+   "category": "acceptance",
+   "id": "Y-A-05",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "REVIEW",
+   "text": "The Hawking temperature $T_Q$ is state-independent, although H-balance is used elsewhere.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-probes/probe.json",
+   "category": "probe",
+   "id": "v1",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "PASS",
+   "text": "The claim that $T_Q$ is state-independent is withdrawn.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-probes/probe.json",
+   "category": "probe",
+   "id": "v2",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "PASS",
+   "text": "The claim that the horizon temperature is state-independent is withdrawn.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-probes/probe.json",
+   "category": "probe",
+   "id": "v3",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "PASS",
+   "text": "The claim that the horizon temperature is state-independent remains unproved.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-probes/probe.json",
+   "category": "probe",
+   "id": "v4",
+   "rule": "W-OI-REQ",
+   "expect": "PASS",
+   "text": "The claim that quantum mechanics requires observational incompleteness is withdrawn.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-probes/probe.json",
+   "category": "probe",
+   "id": "v5",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "The horizon temperature is state-independent, a result that is withdrawn in some readings.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-probes/probe.json",
+   "category": "probe",
+   "id": "v6",
+   "rule": "W-OI-REQ",
+   "expect": "PASS",
+   "text": "It is not shown that quantum mechanics requires observational incompleteness.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-probes/probe.json",
+   "category": "probe",
+   "id": "v7",
+   "rule": "W-OI-REQ",
+   "expect": "FAIL",
+   "text": "It is not surprising that quantum mechanics requires observational incompleteness.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-probes/probe.json",
+   "category": "probe",
+   "id": "v8",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "Whether or not the detector is inertial, $T_Q$ is state-independent.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-probes/probe.json",
+   "category": "probe",
+   "id": "v9",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "No matter which state is prepared, $T_Q$ is state-independent.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-probes/probe.json",
+   "category": "probe",
+   "id": "v10",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "$T_Q$ is state-independent, which is not the case for the entropy.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-probes/probe.json",
+   "category": "probe",
+   "id": "v11",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "$T_Q$ is state-independent (not merely approximately).",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-probes/probe.json",
+   "category": "probe",
+   "id": "v12",
+   "rule": "W-OI-REQ",
+   "expect": "FAIL",
+   "text": "Quantum mechanics requires observational incompleteness, not hidden variables.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-probes/probe.json",
+   "category": "probe",
+   "id": "v13",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "$T_Q$ is state-independent whenever H-balance fails.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-probes/probe2.json",
+   "category": "probe",
+   "id": "g1",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "Even without H-balance, $T_Q$ is state-independent.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-probes/probe2.json",
+   "category": "probe",
+   "id": "g2",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "If H-balance fails, $T_Q$ is still state-independent.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-probes/probe2.json",
+   "category": "probe",
+   "id": "g3",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "$T_Q$ is state-independent with or without H-balance.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-probes/probe2.json",
+   "category": "probe",
+   "id": "g4",
+   "rule": "W-GR-KMS",
+   "expect": "FAIL",
+   "text": "Any QFT on this background must be KMS, independently of the H-Hawking conditions.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-probes/probe2.json",
+   "category": "probe",
+   "id": "g5",
+   "rule": "W-OI-REQ",
+   "expect": "FAIL",
+   "text": "Quantum mechanics requires observational incompleteness in a sense stronger than the core-containment sense.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-probes/probe2.json",
+   "category": "probe",
+   "id": "g6",
+   "rule": "W-BM-EUCLID",
+   "expect": "FAIL",
+   "text": "Cubic equivariance forces a Euclidean quadratic symbol even when $b_m = 0$.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-probes/probe2.json",
+   "category": "probe",
+   "id": "g7",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "Whether the field is massive or massless, $T_Q$ is state-independent.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-probes/probe2.json",
+   "category": "probe",
+   "id": "g8",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "It does not matter which vacuum is chosen: $T_Q$ is state-independent.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-probes/probe2.json",
+   "category": "probe",
+   "id": "g9",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "No observer can tell the difference, because $T_Q$ is state-independent.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-probes/probe3.json",
+   "category": "probe",
+   "id": "s1",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "REVIEW",
+   "text": "Under H-slope, $T_Q$ is state-independent.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-probes/probe3.json",
+   "category": "probe",
+   "id": "s2",
+   "rule": "W-GR-THERM-KIN",
+   "expect": "REVIEW",
+   "text": "Under H-slope, horizon thermality is purely kinematic.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-probes/probe4.json",
+   "category": "probe",
+   "id": "f1",
+   "rule": "W-OI-REQ",
+   "expect": "FAIL",
+   "text": "On the necessity reading, which we adopt, quantum mechanics requires observational incompleteness.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-probes/probe4.json",
+   "category": "probe",
+   "id": "f2",
+   "rule": "W-OI-REQ",
+   "expect": "FAIL",
+   "text": "We settle whether the hidden sector matters: quantum mechanics requires observational incompleteness.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-probes/probe4.json",
+   "category": "probe",
+   "id": "f3",
+   "rule": "W-OI-REQ",
+   "expect": "FAIL",
+   "text": "No experiment shows otherwise, and quantum mechanics requires observational incompleteness.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-probes/probe4.json",
+   "category": "probe",
+   "id": "f4",
+   "rule": "W-OI-REQ",
+   "expect": "FAIL",
+   "text": "Nothing in the data contradicts it: quantum mechanics requires observational incompleteness.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-probes/probe4.json",
+   "category": "probe",
+   "id": "f5",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "The question is not whether $T_Q$ is state-independent but how to measure it, since $T_Q$ is state-independent.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-probes/probe4.json",
+   "category": "probe",
+   "id": "f6",
+   "rule": "W-OI-REQ",
+   "expect": "FAIL",
+   "text": "No theorem shows that hidden sectors are finite, yet quantum mechanics requires observational incompleteness.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-probes-Y/posthoc-probes.json",
+   "category": "probe",
+   "id": "Z-01",
+   "rule": "W-GR-KMS",
+   "expect": "FAIL",
+   "text": "Under H-Hawking violations, any QFT on this background must be KMS.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-probes-Y/posthoc-probes.json",
+   "category": "probe",
+   "id": "Z-02",
+   "rule": "W-GR-KMS",
+   "expect": "FAIL",
+   "text": "Under the H-Hawking conditions or without them, any QFT on this background must be KMS.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-probes-Y/posthoc-probes.json",
+   "category": "probe",
+   "id": "Z-03",
+   "rule": "W-GR-KMS",
+   "expect": "FAIL",
+   "text": "Any QFT on this background must be KMS under H-Hawking violations.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-probes-Y/posthoc-probes.json",
+   "category": "probe",
+   "id": "Z-04",
+   "rule": "W-GR-KMS",
+   "expect": "FAIL",
+   "text": "Given the H-Hawking conditions' failure, any QFT on this background must be KMS.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-probes-Y/posthoc-probes.json",
+   "category": "probe",
+   "id": "Z-05",
+   "rule": "W-GR-KMS",
+   "expect": "FAIL",
+   "text": "Any QFT on this background must be KMS when the H-Hawking conditions hold and when they do not.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-probes-Y/posthoc-probes.json",
+   "category": "probe",
+   "id": "Z-06",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "In H-balance's absence, the Hawking temperature $T_Q$ is state-independent.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-probes-Y/posthoc-probes.json",
+   "category": "probe",
+   "id": "Z-07",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "The Hawking temperature $T_Q$ is state-independent for the H-balance analysis to go through.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-probes-Y/posthoc-probes.json",
+   "category": "probe",
+   "id": "Z-08",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "The Hawking temperature does not change from state to state.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-probes-Y/posthoc-probes.json",
+   "category": "probe",
+   "id": "Z-09",
+   "rule": "W-OI-REQ",
+   "expect": "FAIL",
+   "text": "Observational incompleteness is presupposed by quantum mechanics.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-probes-Y/posthoc-probes.json",
+   "category": "probe",
+   "id": "Z-10",
+   "rule": "W-OI-REQ",
+   "expect": "FAIL",
+   "text": "There is no quantum mechanics without observational incompleteness.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-probes-Y/m1-diag.json",
+   "category": "probe",
+   "id": "M1-a",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "The Hawking temperature $T_Q$ is state-independent, since the alpha-vacua violate H-balance.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-probes-Y/m1-diag.json",
+   "category": "probe",
+   "id": "M1-b",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "The Hawking temperature and the Unruh temperature are state-independent.",
+   "pinned": {
+    "verdict": "FAIL",
+    "codes": "B",
+    "any": "FAIL"
+   }
+  },
+  {
+   "source": "reviewer-probes-Y/m1-diag.json",
+   "category": "probe",
+   "id": "M1-c",
+   "rule": "W-GR-KMS",
+   "expect": "FAIL",
+   "text": "Every QFT on this background must be KMS.",
+   "pinned": {
+    "verdict": "FAIL",
+    "codes": "B",
+    "any": "FAIL"
+   }
+  },
+  {
+   "source": "reviewer-probes-Y/m1-diag.json",
+   "category": "probe",
+   "id": "M1-d",
+   "rule": "W-KDEG",
+   "expect": "FAIL",
+   "text": "Coupling-degree minimization singles out $K=2d$.",
+   "pinned": {
+    "verdict": "FAIL",
+    "codes": "B",
+    "any": "FAIL"
+   }
+  },
+  {
+   "source": "reviewer-probes-Y/m1-diag.json",
+   "category": "probe",
+   "id": "M1-e",
+   "rule": "W-OI-REQ",
+   "expect": "FAIL",
+   "text": "Quantum mechanics needs hidden variables and quantum mechanics requires observational incompleteness.",
+   "pinned": {
+    "verdict": "FAIL",
+    "codes": "B",
+    "any": "FAIL"
+   }
+  },
+  {
+   "source": "reviewer-probes-Y/m1-diag.json",
+   "category": "probe",
+   "id": "M1-f",
+   "rule": "W-GR-KMS",
+   "expect": "FAIL",
+   "text": "Any QFT on this background must be KMS.",
+   "pinned": {
+    "verdict": "FAIL",
+    "codes": "B",
+    "any": "FAIL"
+   }
+  },
+  {
+   "source": "reviewer-probes-Y/m1-diag.json",
+   "category": "probe",
+   "id": "M1-g",
+   "rule": "W-OI-REQ",
+   "expect": "FAIL",
+   "text": "Quantum mechanics requires observational incompleteness.",
+   "pinned": {
+    "verdict": "FAIL",
+    "codes": "B",
+    "any": "FAIL"
+   }
+  },
+  {
+   "source": "reviewer-probes-Y/m1-diag.json",
+   "category": "probe",
+   "id": "M1-h",
+   "rule": "W-GR-THERM-KIN",
+   "expect": "FAIL",
+   "text": "Horizon thermality is purely kinematic: it rests on H-balance.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-W.json",
+   "category": "heldout-W",
+   "id": "W-P-01",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "Whichever quantum state the exterior field occupies, the Hawking temperature of the horizon comes out identical.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-W.json",
+   "category": "heldout-W",
+   "id": "W-P-02",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "The value of $T_Q$ is insensitive to the choice of quantum state.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-W.json",
+   "category": "heldout-W",
+   "id": "W-P-03",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "No matter how the exterior field is prepared, one and the same horizon temperature results.",
+   "pinned": {
+    "verdict": "PASS",
+    "codes": "",
+    "any": "PASS"
+   }
+  },
+  {
+   "source": "reviewer-heldout-W.json",
+   "category": "heldout-W",
+   "id": "W-P-04",
+   "rule": "W-GR-THERM-KIN",
+   "expect": "FAIL",
+   "text": "The thermal character of the horizon spectrum is fixed by the geometry alone, with no dynamical input whatsoever.",
+   "pinned": {
+    "verdict": "PASS",
+    "codes": "",
+    "any": "PASS"
+   }
+  },
+  {
+   "source": "reviewer-heldout-W.json",
+   "category": "heldout-W",
+   "id": "W-P-05",
+   "rule": "W-GR-KMS",
+   "expect": "FAIL",
+   "text": "Every quantum field propagating on this black-hole geometry satisfies the equilibrium condition at the Hawking temperature.",
+   "pinned": {
+    "verdict": "PASS",
+    "codes": "",
+    "any": "PASS"
+   }
+  },
+  {
+   "source": "reviewer-heldout-W.json",
+   "category": "heldout-W",
+   "id": "W-P-06",
+   "rule": "W-GR-CONE",
+   "expect": "FAIL",
+   "text": "Channel by channel, the free-level light cone holds without any error.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-W.json",
+   "category": "heldout-W",
+   "id": "W-P-07",
+   "rule": "W-BM-EUCLID",
+   "expect": "FAIL",
+   "text": "Cubic-equivariant finite observation hands the observer a rotation-invariant quadratic dispersion.",
+   "pinned": {
+    "verdict": "PASS",
+    "codes": "",
+    "any": "PASS"
+   }
+  },
+  {
+   "source": "reviewer-heldout-W.json",
+   "category": "heldout-W",
+   "id": "W-P-08",
+   "rule": "W-BM-EUCLID",
+   "expect": "FAIL",
+   "text": "Equivariance under the cubic group guarantees that the leading observer symbol is isotropic and quadratic.",
+   "pinned": {
+    "verdict": "PASS",
+    "codes": "",
+    "any": "PASS"
+   }
+  },
+  {
+   "source": "reviewer-heldout-W.json",
+   "category": "heldout-W",
+   "id": "W-P-09",
+   "rule": "W-KDEG",
+   "expect": "FAIL",
+   "text": "Minimizing the number of couplings per site singles out six internal components.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-W.json",
+   "category": "heldout-W",
+   "id": "W-P-10",
+   "rule": "W-KDEG",
+   "expect": "FAIL",
+   "text": "The internal component count 2d is what the principle of least coupling picks.",
+   "pinned": {
+    "verdict": "PASS",
+    "codes": "",
+    "any": "PASS"
+   }
+  },
+  {
+   "source": "reviewer-heldout-W.json",
+   "category": "heldout-W",
+   "id": "W-P-11",
+   "rule": "W-OI-REQ",
+   "expect": "FAIL",
+   "text": "Quantum theory hinges on the observer's incomplete access to the substratum.",
+   "pinned": {
+    "verdict": "PASS",
+    "codes": "",
+    "any": "PASS"
+   }
+  },
+  {
+   "source": "reviewer-heldout-W.json",
+   "category": "heldout-W",
+   "id": "W-P-12",
+   "rule": "W-OI-REQ",
+   "expect": "FAIL",
+   "text": "Observational incompleteness is a sine qua non of quantum mechanics.",
+   "pinned": {
+    "verdict": "PASS",
+    "codes": "",
+    "any": "PASS"
+   }
+  },
+  {
+   "source": "reviewer-heldout-W.json",
+   "category": "heldout-W",
+   "id": "W-P-13",
+   "rule": "W-OI-HIDDEN",
+   "expect": "FAIL",
+   "text": "Quantum mechanics only makes sense if a concealed sub-quantum level lies beneath it.",
+   "pinned": {
+    "verdict": "PASS",
+    "codes": "",
+    "any": "PASS"
+   }
+  },
+  {
+   "source": "reviewer-heldout-W.json",
+   "category": "heldout-W",
+   "id": "W-P-14",
+   "rule": "W-OI-NOEXIST",
+   "expect": "FAIL",
+   "text": "Take away observational incompleteness and quantum mechanics disappears.",
+   "pinned": {
+    "verdict": "PASS",
+    "codes": "",
+    "any": "PASS"
+   }
+  },
+  {
+   "source": "reviewer-heldout-W.json",
+   "category": "heldout-W",
+   "id": "W-P-15",
+   "rule": "W-OI-EXPLAINS",
+   "expect": "FAIL",
+   "text": "The incompleteness of observation is the reason quantum mechanics takes the form it does.",
+   "pinned": {
+    "verdict": "PASS",
+    "codes": "",
+    "any": "PASS"
+   }
+  },
+  {
+   "source": "reviewer-heldout-W.json",
+   "category": "heldout-W",
+   "id": "W-P-16",
+   "rule": "W-OI-EXPLAINS",
+   "expect": "FAIL",
+   "text": "Quantum structure springs from observational incompleteness.",
+   "pinned": {
+    "verdict": "PASS",
+    "codes": "",
+    "any": "PASS"
+   }
+  },
+  {
+   "source": "reviewer-heldout-W.json",
+   "category": "heldout-W",
+   "id": "W-P-17",
+   "rule": "W-OI-CONTRA",
+   "expect": "FAIL",
+   "text": "Were observation complete, there would be no quantum theory at all.",
+   "pinned": {
+    "verdict": "PASS",
+    "codes": "",
+    "any": "PASS"
+   }
+  },
+  {
+   "source": "reviewer-heldout-W.json",
+   "category": "heldout-W",
+   "id": "W-P-18",
+   "rule": "W-GR-EPSKAPPA",
+   "expect": "FAIL",
+   "text": "The redshift factor scales as $\\varepsilon\\,\\kappa/c$ near the horizon.",
+   "pinned": {
+    "verdict": "PASS",
+    "codes": "",
+    "any": "PASS"
+   }
+  },
+  {
+   "source": "reviewer-heldout-W.json",
+   "category": "heldout-W",
+   "id": "W-P-19",
+   "rule": "W-GR-EPSKAPPA",
+   "expect": "FAIL",
+   "text": "The redshift factor scales as $\\kappa\\varepsilon/c$ near the horizon.",
+   "pinned": {
+    "verdict": "PASS",
+    "codes": "",
+    "any": "PASS"
+   }
+  },
+  {
+   "source": "reviewer-heldout-W.json",
+   "category": "heldout-W",
+   "id": "W-P-20",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "Its value never moves when the state of the field is changed.",
+   "context": "Consider the Hawking temperature $T_Q$ of the horizon.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "A",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-W.json",
+   "category": "heldout-W",
+   "id": "W-P-21",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "The Hawking temperature $T_Q$ is state-independent.",
+   "pinned": {
+    "verdict": "FAIL",
+    "codes": "B",
+    "any": "FAIL"
+   }
+  },
+  {
+   "source": "reviewer-heldout-W.json",
+   "category": "heldout-W",
+   "id": "W-P-22",
+   "rule": "W-OI-REQ",
+   "expect": "FAIL",
+   "text": "Quantum mechanics requires observational incompleteness.",
+   "pinned": {
+    "verdict": "FAIL",
+    "codes": "B",
+    "any": "FAIL"
+   }
+  },
+  {
+   "source": "reviewer-heldout-W.json",
+   "category": "heldout-W",
+   "id": "W-P-23",
+   "rule": "W-KDEG",
+   "expect": "FAIL",
+   "text": "Coupling-degree minimization fixes $K = 2d$.",
+   "pinned": {
+    "verdict": "FAIL",
+    "codes": "B",
+    "any": "FAIL"
+   }
+  },
+  {
+   "source": "reviewer-heldout-W.json",
+   "category": "heldout-W",
+   "id": "W-P-24",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "Without assuming H-balance, the Hawking temperature $T_Q$ is state-independent.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-W.json",
+   "category": "heldout-W",
+   "id": "W-P-25",
+   "rule": "W-GR-KMS",
+   "expect": "FAIL",
+   "text": "Even if H-Hawking is dropped, every QFT on this background must be KMS.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-W.json",
+   "category": "heldout-W",
+   "id": "W-P-26",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "It is not H-balance but the geometry that makes $T_Q$ state-independent.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-W.json",
+   "category": "heldout-W",
+   "id": "W-P-27",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "As a conditional statement this is often misread, but the Hawking temperature is state-independent.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-W.json",
+   "category": "heldout-W",
+   "id": "W-A-01",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "REVIEW",
+   "text": "Under H-slope, $T_Q$ is state-independent.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-W.json",
+   "category": "heldout-W",
+   "id": "W-A-02",
+   "rule": "W-OI-EXPLAINS",
+   "expect": "REVIEW",
+   "text": "Many readers take observational incompleteness to be why quantum mechanics exists.",
+   "pinned": {
+    "verdict": "PASS",
+    "codes": "",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-W.json",
+   "category": "heldout-W",
+   "id": "W-A-03",
+   "rule": "W-OI-EXPLAINS",
+   "expect": "REVIEW",
+   "text": "Is quantum mechanics a consequence of observational incompleteness? The kernel does not say.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-W.json",
+   "category": "heldout-W",
+   "id": "W-N-01",
+   "rule": "W-BM-EUCLID",
+   "expect": "PASS",
+   "text": "Cubic equivariance forbids quadratic anisotropy but does not by itself produce a Euclidean metric, since $b_m$ may vanish.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-W.json",
+   "category": "heldout-W",
+   "id": "W-N-02",
+   "rule": "W-KDEG",
+   "expect": "PASS",
+   "text": "Coupling-degree minimization does not fix the internal component count; the six-link count is conditional on H-link.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-W.json",
+   "category": "heldout-W",
+   "id": "W-N-03",
+   "rule": "W-OI-REQ",
+   "expect": "PASS",
+   "text": "The kernel proves only that every quantum theory in the characterized class contains the OI core.",
+   "pinned": {
+    "verdict": "PASS",
+    "codes": "",
+    "any": "PASS"
+   }
+  },
+  {
+   "source": "reviewer-heldout-W.json",
+   "category": "heldout-W",
+   "id": "W-N-04",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "PASS",
+   "text": "The temperature of the laboratory sample was held fixed at 4 K throughout the run.",
+   "pinned": {
+    "verdict": "PASS",
+    "codes": "",
+    "any": "PASS"
+   }
+  },
+  {
+   "source": "reviewer-heldout-W.json",
+   "category": "heldout-W",
+   "id": "W-N-05",
+   "rule": "W-GR-THERM-KIN",
+   "expect": "PASS",
+   "text": "Thermality is kinematic in its parameter only; its magnitude needs H-balance.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "reviewer-heldout-W.json",
+   "category": "heldout-W",
+   "id": "W-N-06",
+   "rule": "W-GR-EPSKAPPA",
+   "expect": "PASS",
+   "text": "The relation $\\varepsilon\\kappa/c^2$ fixes the surface-gravity scaling.",
+   "pinned": {
+    "verdict": "PASS",
+    "codes": "",
+    "any": "PASS"
+   }
+  },
+  {
+   "source": "reviewer-heldout-W.json",
+   "category": "heldout-W",
+   "id": "W-N-07",
+   "rule": "W-OI-EXPLAINS",
+   "expect": "PASS",
+   "text": "The book explains quantum mechanics to readers without a physics background.",
+   "pinned": {
+    "verdict": "PASS",
+    "codes": "",
+    "any": "PASS"
+   }
+  },
+  {
+   "source": "reviewer-heldout-W.json",
+   "category": "heldout-W",
+   "id": "W-N-08",
+   "rule": "W-GR-CONE",
+   "expect": "PASS",
+   "text": "The free-level cone fails on the normalized d = 3 branch.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "r3-author-diagnostics.json",
+   "category": "diagnostic",
+   "id": "D-01",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "The Hawking temperature $T_Q$ never varies.",
+   "pinned": {
+    "verdict": "PASS",
+    "codes": "",
+    "any": "PASS"
+   }
+  },
+  {
+   "source": "r3-author-diagnostics.json",
+   "category": "diagnostic",
+   "id": "D-02",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "The temperature measured by any detector at the horizon is the same whatever is prepared.",
+   "pinned": {
+    "verdict": "PASS",
+    "codes": "",
+    "any": "PASS"
+   }
+  },
+  {
+   "source": "r3-author-diagnostics.json",
+   "category": "diagnostic",
+   "id": "D-03",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "It is state-independent.",
+   "context": "The calibration fixes $T_Q$ on the de Sitter horizon. The window is then closed.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "P",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "r3-author-diagnostics.json",
+   "category": "diagnostic",
+   "id": "D-04",
+   "rule": "W-OI-REQ",
+   "expect": "FAIL",
+   "text": "The Born-rule theory needs it.",
+   "context": "Consider observational incompleteness.",
+   "pinned": {
+    "verdict": "PASS",
+    "codes": "",
+    "any": "PASS"
+   }
+  },
+  {
+   "source": "r3-author-diagnostics.json",
+   "category": "diagnostic",
+   "id": "D-05",
+   "rule": "W-OI-REQ",
+   "expect": "FAIL",
+   "text": "Quantum mechanics is built on observational incompleteness.",
+   "pinned": {
+    "verdict": "PASS",
+    "codes": "",
+    "any": "PASS"
+   }
+  },
+  {
+   "source": "r3-author-diagnostics.json",
+   "category": "diagnostic",
+   "id": "D-06",
+   "rule": "W-GR-CONE",
+   "expect": "FAIL",
+   "text": "The light cone at free level is exact in every channel.",
+   "pinned": {
+    "verdict": "PASS",
+    "codes": "",
+    "any": "PASS"
+   }
+  },
+  {
+   "source": "r3-author-diagnostics.json",
+   "category": "diagnostic",
+   "id": "D-07",
+   "rule": "W-GR-KMS",
+   "expect": "FAIL",
+   "text": "Every field state on this background is KMS.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "P",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "r3-author-diagnostics.json",
+   "category": "diagnostic",
+   "id": "D-08",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "| $T_Q$ |\n| state-independent |",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "P",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "r3-author-diagnostics.json",
+   "category": "diagnostic",
+   "id": "D-09",
+   "rule": "W-OI-EXPLAINS",
+   "expect": "FAIL",
+   "text": "Observational incompleteness is why quantum mechanics looks the way it does.",
+   "pinned": {
+    "verdict": "PASS",
+    "codes": "",
+    "any": "PASS"
+   }
+  },
+  {
+   "source": "r3-author-diagnostics.json",
+   "category": "diagnostic",
+   "id": "D-10",
+   "rule": "W-KDEG",
+   "expect": "FAIL",
+   "text": "Choosing the fewest couplings fixes $K = 6$.",
+   "pinned": {
+    "verdict": "PASS",
+    "codes": "",
+    "any": "PASS"
+   }
+  },
+  {
+   "source": "r3-author-diagnostics.json",
+   "category": "diagnostic",
+   "id": "D-11",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "The Hawking temperature takes one value in all vacua.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "r3-author-diagnostics.json",
+   "category": "diagnostic",
+   "id": "D-12",
+   "rule": "W-OI-REQ",
+   "expect": "FAIL",
+   "text": "Observational incompleteness is indispensable to quantum mechanics.",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "design-example-sentences.json",
+   "category": "example",
+   "id": "EX-1",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "The Unruh temperature, which is state-independent, sets the calibration",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "design-example-sentences.json",
+   "category": "example",
+   "id": "EX-2",
+   "rule": "W-KDEG",
+   "expect": "FAIL",
+   "text": "\"coupling-degree minimization\" → \"minimization of the coupling degree\", \"minimizing the coupling\ndegree\"",
+   "pinned": {
+    "verdict": "PASS",
+    "codes": "",
+    "any": "PASS"
+   }
+  },
+  {
+   "source": "design-example-sentences.json",
+   "category": "example",
+   "id": "EX-3",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "\"state-independent\" ≡ \"independent of the state\" ≡ \"the same / identical / unchanged in every\nstate\" ≡ \"insensitive to the state\"",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "P",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "design-example-sentences.json",
+   "category": "example",
+   "id": "EX-4",
+   "rule": "W-GR-EPSKAPPA",
+   "expect": "FAIL",
+   "text": "`\\varepsilon\\kappa/c`",
+   "pinned": {
+    "verdict": "FAIL",
+    "codes": "L",
+    "any": "FAIL"
+   }
+  },
+  {
+   "source": "design-example-sentences.json",
+   "category": "example",
+   "id": "EX-5",
+   "rule": "W-KDEG",
+   "expect": "FAIL",
+   "text": "\"The framework's answer is $K = 2d$, …\"",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "C",
+    "any": "REVIEW"
+   }
+  },
+  {
+   "source": "design-example-sentences.json",
+   "category": "example",
+   "id": "EX-6",
+   "rule": "W-GR-TQ-STATE",
+   "expect": "FAIL",
+   "text": "\"It is state-independent.\"",
+   "pinned": {
+    "verdict": "REVIEW",
+    "codes": "P",
+    "any": "REVIEW"
+   }
+  }
+ ]
+}

@@ -18,7 +18,12 @@ another. Each exists because a real defect shipped past the others:
   voice_check          correction rounds reintroduced revision narration that
                        AGENTS.md forbids, faster than review removed it.
   claims_check         a withdrawn result stayed asserted in a later sentence;
-                       a file-level scope note does not rescue it.
+                       a file-level scope note does not rescue it, and a marker
+                       word anywhere in the paragraph rescued it under the
+                       previous checker. Flags defined patterns (FAIL for the
+                       plain canonical assertion, REVIEW otherwise) and enforces
+                       the structure of review records; independent scientific
+                       review carries reworded claims outside the patterns.
   duplicate_check      a scope note pasted at the head of every file put 16
                        identical copies inside the assembled book, and an
                        entire 8.6 section was duplicated in one paper.
@@ -118,7 +123,13 @@ def main():
         # particular layout, so it holds across the migration too.
         ("manifest-drift",
                       [sys.executable, "tools/build_migration_manifest.py", "--check"]),
-        ("claims",    [sys.executable, "tools/claims_check.py"]),
+        # claims: conservative detection of withdrawn results, then revision-bound review records
+        # (Issue #1565, DESIGN-r3 as amended by DESIGN-r4). --repo and the main ref are passed
+        # explicitly: a review record is valid only at a revision on the main ref, and the job checks
+        # out with full history. claims-controls runs the exit-code and record controls, the
+        # control-source checks and the regression against the previous checker's patterns.
+        ("claims",    [sys.executable, "tools/claims_check.py", "--repo", ".", "--main", "origin/main"]),
+        ("claims-controls", [sys.executable, "tools/claims_check_test.py"]),
         ("duplicate", [sys.executable, "tools/duplicate_check.py"]),
         ("mirror",    [sys.executable, "papers/oi_lattice_code/mirror_check.py"]),
         ("citation",  [sys.executable, "papers/oi_lattice_code/citation_check.py"]),
