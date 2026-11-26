@@ -323,9 +323,9 @@ def o9_controls(r, check):
     repo, H, F, M = world()
     a = run_main(repo, H, F, M, ledgered=[lp])
     b = run_main(repo, H, F, M, corpus=[lp])
-    check('RDIR-9', 'a ledgered path, and separately a corpus path, inside D: ERROR CONFIG_INCONSISTENT (DIR3)',
-          'both runs stop CONFIG_INCONSISTENT with condition DIR3', {'ledgered': a, 'corpus': b},
-          all(x.get('stop') == 'CONFIG_INCONSISTENT' and x.get('condition') == 'DIR3' for x in (a, b)))
+    check('RDIR-9', 'a ledgered path, and separately a corpus path, inside D: ERROR CONFIG_INCONSISTENT (Dir3)',
+          'both runs stop CONFIG_INCONSISTENT with condition Dir3', {'ledgered': a, 'corpus': b},
+          all(x.get('stop') == 'CONFIG_INCONSISTENT' and x.get('condition') == 'Dir3' for x in (a, b)))
 
     # RDIR-10: a configuration in the root directory
     repo = Overlay(None)
@@ -346,8 +346,8 @@ def o9_controls(r, check):
     # RDIR-11
     repo, H, F, M = world(h_extra={AUTH + '/old.txt': b'old\n'})
     res = run_main(repo, H, F, M)
-    check('RDIR-11', 'a path inside D that exists at H: ERROR CONFIG_INCONSISTENT (DIR2)', 'stop CONFIG_INCONSISTENT, DIR2',
-          res, res.get('stop') == 'CONFIG_INCONSISTENT' and res.get('condition') == 'DIR2')
+    check('RDIR-11', 'a path inside D that exists at H: ERROR CONFIG_INCONSISTENT (Dir2)', 'stop CONFIG_INCONSISTENT, Dir2',
+          res, res.get('stop') == 'CONFIG_INCONSISTENT' and res.get('condition') == 'Dir2')
 
     # RDIR-12: a class prefix inside the authorized D
     sub = AUTH + '/sub/f.json'
@@ -355,8 +355,8 @@ def o9_controls(r, check):
     cls = [{'id': 'c', 'prefixes': [AUTH + '/sub/'], 'pins': []}]
     res = run_main(repo, H, F, M, classes=cls)
     check('RDIR-12', 'the authorized D, with a side-change class whose prefix lies inside D: ERROR CONFIG_INCONSISTENT '
-          '(DIR3)', 'stop CONFIG_INCONSISTENT, DIR3', res,
-          res.get('stop') == 'CONFIG_INCONSISTENT' and res.get('condition') == 'DIR3')
+          '(Dir3)', 'stop CONFIG_INCONSISTENT, Dir3', res,
+          res.get('stop') == 'CONFIG_INCONSISTENT' and res.get('condition') == 'Dir3')
 
     # RDIR-12b: a configuration under .github/, (a) present at H, (b) absent at H
     gd = '.github/plan'
@@ -426,8 +426,8 @@ def o9_controls(r, check):
     # RDIR-17, RDIR-24: the reserved class id; RDIR-24 through --classify (full path)
     repo, H, F, M = world()
     res = run_main(repo, H, F, M, classes=[{'id': rc.record_directory_class, 'pins': []}])
-    check('RDIR-17', 'a class record defining class id record-directory: ERROR CONFIG_INCONSISTENT (DIR5)',
-          'stop CONFIG_INCONSISTENT, DIR5', res, res.get('stop') == 'CONFIG_INCONSISTENT' and res.get('condition') == 'DIR5')
+    check('RDIR-17', 'a class record defining class id record-directory: ERROR CONFIG_INCONSISTENT (Dir5)',
+          'stop CONFIG_INCONSISTENT, Dir5', res, res.get('stop') == 'CONFIG_INCONSISTENT' and res.get('condition') == 'Dir5')
     cls_doc = {'schema': 'oi-side-change-classes/1', 'record_id': 'reserved', 'author': sf.WRITER, 'supersedes': None,
                'classes': [{'id': rc.record_directory_class, 'prefixes': ['notes/'], 'reason': 'synthetic', 'pins': []}]}
     cp = 'syn/reserved-classes.json'
@@ -448,9 +448,9 @@ def o9_controls(r, check):
     M1 = plan_on(syn_, F1, p1, syn_.H)
     code, res = exec_run(r, syn_, w1, F1, p1, M1, extra=['--classify', '%s:%s' % (F1, cp)])
     check('RDIR-24', 'a class record admitted through --classify that defines the class id record-directory: ERROR '
-          'CONFIG_INCONSISTENT (DIR5)', 'exit 65, stop CONFIG_INCONSISTENT, condition DIR5',
+          'CONFIG_INCONSISTENT (Dir5)', 'exit 65, stop CONFIG_INCONSISTENT, condition Dir5',
           {'exit': code, 'stop': res.get('stop')}, code == 65 and (res.get('stop') or {}).get('class') ==
-          'CONFIG_INCONSISTENT' and ((res.get('stop') or {}).get('detail') or {}).get('condition') == 'DIR5')
+          'CONFIG_INCONSISTENT' and ((res.get('stop') or {}).get('detail') or {}).get('condition') == 'Dir5')
 
     # RDIR-20: RC11 with an unauthorized D: ERROR before RC11 is evaluated
     calls = []

@@ -168,7 +168,7 @@ governance 11, obligation 33, and testable 14: see blocker B1).
 | OBL-19 consumer halves | EI7-consumer, TR15/TR50/TR51/TR52-consumer: new runners (consumer predicates over retained results, landing record and snapshot) | none |
 | OBL-20 second directions | 174 rows need only the restored case executed and recorded; 217 rows carry VD-RESTORE | 42 rows in scope record no second direction in the adopted file (blocker B2) |
 | OBL-21 corrections VD-1 to VD-12, RD-12, RD-35 | VD-1 is the gate (first deliverable); VD-2/VD-3 engine changes with VD2-HP-SEARCH, VD3-COUNT, VD3-CONTEXT; VD-4/VD-5 TT7, TT2; VD-6 S11-7; VD-7 A9r, A11r; VD-8 SW1; VD-9 Z9f; VD-10 emitted quantities; VD-11 RT-T0; VD-12 sitemap `read_entries`; RD-12 SIDE-NONREG; RD-35 items | none |
-| OBL-22 identifier migration | 40 rows renamed (O9-n to RDIR-n, R1-R14 to TT1-TT14, RC1-RC13, DIR2-DIR5, `outcome` to Z9-STAGED, reason strings) per MIGRATION.json | owner's advance approval and independent non-author review (AGENTS.md sec. A.48 item 3) (question Q1) |
+| OBL-22 identifier migration | 40 rows renamed (O9-n to RDIR-n, R1-R14 to TT1-TT14, RC1-RC13, Dir2-Dir5, `outcome` to Z9-STAGED, reason strings) per MIGRATION.json | owner's advance approval and independent non-author review (AGENTS.md sec. A.48 item 3) (question Q1) |
 | OBL-23 `T1'`-input evidence | N10, N11, RT-D, RT-I7, RT-I7A, RT-DR3W, RT-T0 run at `X_rep`; item11-T1p stays candidate evidence | none beyond OBL-13's `X_rep` |
 | OBL-24 mutation evidence | land the harness (from the disposable branch of 233412cc7, with mutate_o9.py and mutants_o9.py), pinned, under `tools/ledger_coverage/`; renumber the o9 set to RDIR-m1 to RDIR-m17; write `mutation-records.json`; add K08, I06, P01 distinguishing controls (C08 is TR52-consumer) | the mutation run is heavy: CI only (sec. 9) |
 | OBL-25 runner-only predicates | the 32 RD-24 predicates checked against their requirements; the weak ones of C-3 emit the asserted quantity | none |
@@ -903,7 +903,7 @@ gate cannot hold until B1 to B3 are resolved by an owner-approved expectation ch
   record, plus `status-not-allowed` on the 16 composites whose components have no record.
 - Identifier migration (OBL-22, approved by the owner under AGENTS.md sec. A.48): the r5 directory controls
   O9-n become RDIR-n (runner and `controls.json`); the v2 four-tree controls R1 to R14 become TT1 to TT14; the
-  record conditions R1 to R13 become RC1 to RC13; the directory conditions D2 to D5 become DIR2 to DIR5; the
+  record conditions R1 to R13 become RC1 to RC13; the directory conditions D2 to D5 become Dir2 to Dir5; the
   reason "(authority)" becomes "(directory not admitted)". Local checks: tool self-test PASS (86 controls,
   TT1 to TT14 among them); conformance 113 PASS and 2 NOT RUN (TR5, G-A1), RDIR-1 to RDIR-25 and RDIR-12b among
   them; A1 conformance 47 PASS.
@@ -947,10 +947,10 @@ Done:
 
 Findings for the owner (none resolved by exception):
 
-- F1. Z9-STAGED and Z9g FAIL: the migrated condition ids DIR2 to DIR5 (OBL-22, MIGRATION.json) are string literals
-  in `engine/reconcile.py`, and the A1 profile `register-caps` (the plan checker's `CAPS`, three or more capitals
-  not followed by a letter) matches "DIR". The old ids D2 to D5 did not match. Writing the ids so that the lint does
-  not see them would bypass the control; choosing other identifiers is a change to the approved migration.
+- F1. Z9-STAGED and Z9g: the directory condition ids are string literals in `engine/reconcile.py`, linted against the
+  A1 profile `register-caps` (the plan checker's `CAPS`, three or more capitals not followed by a letter). The ids
+  are Dir2 to Dir5 (design amendment 2, MIGRATION.json), which that profile does not match; no allowlist entry names
+  them.
 - F2. RT-O9 FAILs at `origin/main`: its predicate requires no `side-change-unclassified`, and `main` carries over a
   hundred paths changed after `H` that no class covers (other audits, the r6 design directory, generated `.tex`
   files), besides the tool files whose pins this stage refreshes.
@@ -966,8 +966,8 @@ step (OBL-24); the A1 controls run without `--main`, Y8 and REPRO-DOUBLE in the 
 ## 15. Second stage: expectations checked as stated (WIP / UNVERIFIED)
 
 Owner rulings of 2026-11-26T05:53:39Z (#1169 comment 7183914927): F1 is resolved by compliant replacement
-identifiers under a separately reviewed mapping (DIR2 to DIR5 stay until it is approved, and Z9-STAGED and Z9g keep
-failing); F2 by complete B4 side-change classification records, built separately; RT-T's record kinds are `hp`,
+identifiers under a separately reviewed mapping (design amendment 2: Dir2 to Dir5, approved under AGENTS.md sec. A.48
+at #1169 comment 7184425769); F2 by complete B4 side-change classification records, built separately; RT-T's record kinds are `hp`,
 `context-adjudication` and `hit-classification`; the suite-job dispatch waits for a complete candidate.
 
 Done in this stage:

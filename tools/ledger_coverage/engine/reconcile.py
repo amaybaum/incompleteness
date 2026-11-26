@@ -115,13 +115,13 @@ class RecordDirectory:
         self.state = None
         self.equal = {}
         self.unequal = {}
-        # A.8: the outcome of each guard. DIR2-DIR5: True held, False failed (the run then stops), None not evaluated;
+        # A.8: the outcome of each guard. Dir2-Dir5: True held, False failed (the run then stops), None not evaluated;
         # authority: whether the directory is authorized (False with the rule inactive, or with the authority ERROR)
-        self.conditions = {'authority': None, 'DIR2': None, 'DIR3': None, 'DIR4': None, 'DIR5': None}
-        # DIR5: the reserved class id, over the admitted class set of both routes
+        self.conditions = {'authority': None, 'Dir2': None, 'Dir3': None, 'Dir4': None, 'Dir5': None}
+        # Dir5: the reserved class id, over the admitted class set of both routes
         if any(isinstance(c, dict) and c.get('id') == record_directory_class for c in classes):
-            self._stop('DIR5', 'a side-change class uses the class id reserved for the record-directory rule')
-        self.conditions['DIR5'] = True
+            self._stop('Dir5', 'a side-change class uses the class id reserved for the record-directory rule')
+        self.conditions['Dir5'] = True
         self.conditions['authority'] = self.authorized
         e_h = [p for p in repo.entries(H) if inside(self.d, p)]
         e_m = {p: e for p, e in repo.entries(M).items() if inside(self.d, p)}
@@ -134,23 +134,23 @@ class RecordDirectory:
                 return
             self._stop('authority', 'the configuration\'s directory is not an authorized record directory, is absent '
                                     'at H and appears on M')
-        # DIR2: the directory is introduced after H
+        # Dir2: the directory is introduced after H
         if e_h:
-            self._stop('DIR2', 'the record directory holds entries at H: %s' % e_h[0])
-        self.conditions['DIR2'] = True
+            self._stop('Dir2', 'the record directory holds entries at H: %s' % e_h[0])
+        self.conditions['Dir2'] = True
         e_f = {p: e for p, e in repo.entries(F).items() if inside(self.d, p)}
-        # DIR3: no ledgered, corpus, class-prefix or workflow path inside the directory, at F or at M
+        # Dir3: no ledgered, corpus, class-prefix or workflow path inside the directory, at F or at M
         prefixes = [x for c in classes if isinstance(c, dict) for x in c.get('prefixes', []) if isinstance(x, str)]
         for p in sorted(set(e_f) | set(e_m)):
             if p in ledgered or in_corpus(p) or any(p.startswith(x) for x in prefixes) or p.startswith('.github/'):
-                self._stop('DIR3', 'a ledgered, corpus, class-prefix or workflow path lies in the record directory: %s'
+                self._stop('Dir3', 'a ledgered, corpus, class-prefix or workflow path lies in the record directory: %s'
                            % p)
-        self.conditions['DIR3'] = True
-        # DIR4: F holds the configuration and the file of record pins in the directory
+        self.conditions['Dir3'] = True
+        # Dir4: F holds the configuration and the file of record pins in the directory
         prereg = self.d + '/' + 'PREREG.md'
         if (e_f.get(cpath) or (None,))[0] not in regular_modes or (e_f.get(prereg) or (None,))[0] not in regular_modes:
-            self._stop('DIR4', 'F does not hold the configuration and its file of record pins in the record directory')
-        self.conditions['DIR4'] = True
+            self._stop('Dir4', 'F does not hold the configuration and its file of record pins in the record directory')
+        self.conditions['Dir4'] = True
         self.active = True
         self.state = 'active'
         self._complete(e_f, e_m)
