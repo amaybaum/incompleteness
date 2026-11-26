@@ -107,6 +107,8 @@ class CW:
                 'stop_msg': (out.get('stop') or {}).get('message', '')[:200],
                 'status': cu.get('status'), 'items': sorted({p['item'] for p in cu.get('problems') or []}),
                 'whys': [p['why'][:160] for p in cu.get('problems') or []][:4],
+                # the whole why of every custody-run-shape problem, for controls that assert its reason
+                'shape_whys': [p['why'] for p in cu.get('problems') or [] if p['item'] == 'custody-run-shape'],
                 'reassessments': c3.get('reassessments'), 'blocked': [b['record']['path'] for b in c3.get('blocked')
                                                                        or []],
                 'classes': sorted({i['class'] for i in out.get('items', [])})}
@@ -369,13 +371,15 @@ def freeze_controls(r):
         kb = config_doc(c.w)
         cls_files = {}
         if classes is not None:
-            # roles.side_change_classes names a class record at f; classes = (record bytes, pinned blob_sha256 or None)
-            cb, pin = classes
+            # roles.side_change_classes names a class record at f; classes = (record bytes, pinned blob_sha256 or
+            # None, and optionally False to leave the record out of f's tree)
+            cb, pin = classes[:2]
+            present = classes[2] if len(classes) > 2 else True
             d = json.loads(kb)
             d['roles'] = dict(d['roles'], side_change_classes={'path': KD + 'classes.json',
                                                                'blob_sha256': pin or sf.sha(cb)})
             kb = pfc.jb(d)
-            cls_files = {KD + 'classes.json': cb}
+            cls_files = {KD + 'classes.json': cb} if present else {}
         files = {KD + 'PREREG.md': ('### 1.1 Record pins\n\n| file | sha256 |\n|---|---|\n| `config.json` | `%s` |\n'
                                     % (sf.sha(kb) if prereg_lists else '0' * 64)).encode()}
         if config_at_f:
@@ -486,30 +490,45 @@ def freeze_controls(r):
     want = {'plan-dir': 'inside the plan record directory', 'modifies': 'changes more than adding',
             'no-record': 'adds no oi-reconciliation/2 record', 'two-parents': 'exactly the one parent',
             'other-parent': 'exactly the one parent'}
-    shapes = {k: with_ledger(freeze_world(pre=rev_pre(k))[0]) for k in want}
     # the class record of the context: a tool-landing class whose prefix holds the REV's file, and another class
     tl_classes = pfc.jb({'classes': [{'id': 'tool-landing', 'prefixes': ['verification/audits/syn-tool/']},
                                      {'id': 'other-class', 'prefixes': ['verification/audits/syn-recon-r/']}]})
-    # the reasons are matched on a prefix that fits the truncated `whys` text
-    want.update({'tool-landing': 'under a prefix of the tool-landing',
-                 'ledgered-dir': 'its directory holds a ledgered or',
+    want.update({'tool-landing': 'under a prefix of the tool-landing class',
+                 'ledgered-dir': 'its directory holds a ledgered or corpus path',
                  'outside-audits': 'not under verification/audits/',
-                 'class-unverified': 'side-change class'})
-    shapes['tool-landing'] = with_ledger(freeze_world(pre=rev_pre('tool-landing'), classes=(tl_classes, None))[0])
+                 'class-unverified': 'the context\'s side-change class record cannot be read at f'})
+
+    def guarded(make):
+        # each variant runs on its own: an exception is recorded for that variant, which then fails its assertion
+        try:
+            return make()
+        except Exception as e:  # noqa: BLE001 - a crash is the variant's failure, reported in the case
+            return {'error': '%s: %s' % (type(e).__name__, str(e)[:160]), 'shape_whys': [], 'items': [],
+                    'whys': [], 'status': None, 'classes': [], 'reassessments': None}
+    shapes = {k: guarded(lambda k=k: with_ledger(freeze_world(pre=rev_pre(k))[0]))
+              for k in ('plan-dir', 'modifies', 'no-record', 'two-parents', 'other-parent')}
+    shapes['tool-landing'] = guarded(lambda: with_ledger(freeze_world(pre=rev_pre('tool-landing'),
+                                                                      classes=(tl_classes, None))[0]))
     # a ledgered path of the context in the REV file's directory (added to the substituted ledger set)
-    shapes['ledgered-dir'] = with_ledger(freeze_world(pre=rev_pre('ok'))[0],
-                                         extra=['verification/audits/syn-recon-r/ledgered.md'])
-    shapes['outside-audits'] = with_ledger(freeze_world(pre=rev_pre('outside-audits'))[0])
-    # roles.side_change_classes pins a blob other than the record at its path at f
-    shapes['class-unverified'] = with_ledger(freeze_world(pre=rev_pre('ok'), classes=(tl_classes, '6' * 64))[0])
+    shapes['ledgered-dir'] = guarded(lambda: with_ledger(freeze_world(pre=rev_pre('ok'))[0],
+                                                         extra=['verification/audits/syn-recon-r/ledgered.md']))
+    shapes['outside-audits'] = guarded(lambda: with_ledger(freeze_world(pre=rev_pre('outside-audits'))[0]))
+    # roles.side_change_classes names a path with no record at f (its pin is the record's hash, the path is absent)
+    shapes['class-unverified'] = guarded(lambda: with_ledger(freeze_world(pre=rev_pre('ok'),
+                                                                          classes=(tl_classes, None, False))[0]))
     case('CU-N14', 'a close run\'s REV with two parents, a parent other than its m, a changed existing path, a file added '
                    'in the plan record directory (elsewhere under verification/audits/ than a reconciliation '
                    'directory, R6.RECON.1), a file under a prefix of the context\'s tool-landing class, a file in a '
                    'directory holding a ledgered path, a file outside verification/audits/, a context whose class '
                    'record does not verify at f, or no oi-reconciliation/2 record naming m: custody-run-shape, each '
-                   'for its own reason', {k: v['whys'][:1] for k, v in shapes.items()},
-         all(failed_with(o, 'custody-run-shape') and any(want[k] in w_ for w_ in o['whys'])
+                   'for its own reason', {k: v.get('error') or v['shape_whys'][:1] for k, v in shapes.items()},
+         all(failed_with(o, 'custody-run-shape') and any(want[k] in w_ for w_ in o['shape_whys'])
              for k, o in shapes.items()))
+    # a REV whose directory is a prefix of a class other than the tool-landing class: a reconciliation directory
+    o = guarded(lambda: with_ledger(freeze_world(pre=rev_pre('ok'), classes=(tl_classes, None))[0]))
+    case('CU-N14-OTHER-CLASS', 'the REV\'s directory is a prefix of a class other than the context\'s tool-landing '
+                               'class: no custody-run-shape (only the tool-landing class\'s prefixes are excluded)',
+         o, 'error' not in o and o['status'] is not None and 'custody-run-shape' not in o['items'])
     # the context's configuration carries the synthetic `admission` key that stop 1 requires, which the configuration
     # loader refuses as an unknown key, so its ledgered paths cannot be read through it: an unreadable ledger leaves
     # the directory undecided (custody-run-shape, fail closed); for these cases the ledgered paths are supplied from
@@ -518,7 +537,7 @@ def freeze_controls(r):
     undecided = freeze_world(pre=rev_pre('ok'))[0].run()
     case('CU-REV-LEDGER-UNREADABLE', 'the same REV when the context\'s ledgered paths cannot be read: the directory is '
                                      'undecided, custody-run-shape (fail closed)', undecided,
-         failed_with(undecided, 'custody-run-shape') and any('ledgered paths cann' in w_ for w_ in undecided['whys']))
+         failed_with(undecided, 'custody-run-shape') and any('ledgered paths cannot be read' in w_ for w_ in undecided['shape_whys']))
     case('CU-REV-SHAPE-OK', 'a REV adding one oi-reconciliation/2 record naming m in a reconciliation directory: no '
                             'custody-run-shape (the run results still decide the rest)', ok,
          'custody-run-shape' not in ok['items'])
