@@ -15,6 +15,8 @@ from ledger_coverage.engine import cli, config as cfgmod, pipeline as pl, reconc
 from ledger_coverage.adapters import host_fixture as hf, synthetic_fixture as sf
 
 RD = 'verification/audits/syn-recon/'
+CONTROL_EFFECT = {'conclusions': 'none', 'assessment': 'control fixture: the change on main touches no planned edit',
+                  'method': 'control: every condition recomputed from git objects', 'verdict': 'no-effect'}
 RD2 = 'verification/audits/syn-recon-b/'
 EDITS = [('# synthetic', ['# synthetic', '', 'Preface line one.'])]
 
@@ -61,7 +63,8 @@ class World:
         self.led = cli.load_adapter_input(repo, loaded, 'ledger', '%s:syn/patch.json' % c)
 
     def record(self, **upd):
-        doc = rcmod.draft(self.repo, self.ctx, self.syn.H, self.M, self.X, self.led, sf.DOC)
+        doc = rcmod.draft(self.repo, self.ctx, self.syn.H, self.M, self.X, self.led, sf.DOC,
+                          scientific_effect=dict(CONTROL_EFFECT))
         doc.update(record_id='syn-recon', author=sf.WRITER, supersedes=None, M=self.M, X=self.X)
         doc.update(upd)
         return doc

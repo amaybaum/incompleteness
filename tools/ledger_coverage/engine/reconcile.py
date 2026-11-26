@@ -11,7 +11,13 @@ from . import segments as sg
 from . import util
 from .gitobj import Unresolvable, blob_id_of, on_first_parent_chain, regular_modes
 
-condition_order = ['RC13', 'RC1', 'RC2', 'RC3', 'RC4', 'RC5', 'RC6', 'RC7', 'RC8', 'RC9', 'RC10', 'RC11', 'RC12']
+condition_order = ['RC13', 'RC1', 'RC2', 'RC3', 'RC4', 'RC5', 'RC6', 'RC7', 'RC8', 'RC9', 'RC10', 'RC11', 'RC12',
+                   'RC14']
+# design r6 amendment 3: the per-path binding and scientific effect change the record's shape (oi-reconciliation/2)
+reconciliation_schemas = ('oi-reconciliation/1', 'oi-reconciliation/2')
+local_conditions = ('RC13', 'RC1', 'RC2', 'RC3', 'RC4', 'RC5', 'RC6', 'RC7', 'RC8', 'RC9', 'RC12', 'RC14')
+# paths a check executes (a script, a Lean file, a workflow), whose scientific effect names the check re-run at l
+executed_suffixes = ('.py', '.lean', '.yml', '.yaml', '.sh')
 
 
 def occurrences(buf, needle):
@@ -254,18 +260,168 @@ def compose(repo, H, M, path, splices):
     return b''.join(out), placed
 
 
-def evaluate(repo, ctx, H, M, X, led, rdoc, entry, classes, record_refs, rd=None):
-    """Each condition of one path entry of a reconciliation record, evaluated from git objects. Returns
-    {'holds': {R: bool}, 'failed': [R...], 'composed_blob', 'composed_sha256'}. `rd` is the run's record-directory
-    context (amendment r4, A.7), shared with the M role; None outside its scope."""
-    path = entry.get('path')
-    res = {}
-    # RC13 first
-    b = binding(led, path)
+def ledger_lists(led, path):
+    """Whether the ledger lists the path: a files entry, a splice or an edit entry for it."""
+    raw = led.get('raw') or {}
+    files = led.get('files') if isinstance(led.get('files'), dict) else {}
+    return path in files or any(s.get('file') == path for s in led.get('splices', [])) or \
+        any(e.get('file') == path for e in (raw.get('edits') or []) if isinstance(e, dict))
+
+
+def entry_binding(rdoc, entry):
+    """The binding an entry states: its own `ledger_binding` (oi-reconciliation/2) with the record's `ledger_base`,
+    or the record-level binding of an oi-reconciliation/1 record."""
+    if rdoc.get('schema') == 'oi-reconciliation/2':
+        want = dict(entry.get('ledger_binding') or {})
+        want['ledger_base'] = rdoc.get('ledger_base')
+        return want
     want = dict(rdoc.get('ledger_binding') or {})
     want.update(entry.get('ledger_binding') or {})
-    res['RC13'] = b['ledger_base'] == H == want.get('ledger_base') and b['files_entry_sha256'] is not None and \
-        all(b[k] == want.get(k) for k in ('files_entry_sha256', 'splices_sha256', 'edit_records_sha256'))
+    return want
+
+
+def context_windows(h, sps, corpus, sentences=None):
+    """[(splice, window start, window end)] at H: the bytes from the start of the first line that overlaps the
+    splice's span to the end of the last such line; for a corpus path widened to the lines of the splitter-v2
+    sentences that overlap those lines (sentence windows rounded to whole lines). `sentences`: [(first, last)] line
+    numbers (1-based) of the file's sentences at H."""
+    starts = [0] + [i + 1 for i, c in enumerate(h) if c == 0x0a]
+
+    def line_of(off):
+        lo, hi = 0, len(starts) - 1
+        while lo < hi:
+            mid = (lo + hi + 1) // 2
+            if starts[mid] <= off:
+                lo = mid
+            else:
+                hi = mid - 1
+        return lo
+    out = []
+    for sp in sps:
+        a = line_of(sp['start'])
+        b = line_of(max(sp['start'], sp['end'] - 1))
+        if corpus and sentences:
+            changed = True
+            while changed:
+                changed = False
+                for first, last in sentences:
+                    if first - 1 <= b and last - 1 >= a and (first - 1 < a or last - 1 > b):
+                        a, b = min(a, first - 1), max(b, last - 1)
+                        changed = True
+        ws = starts[a]
+        we = starts[b + 1] if b + 1 < len(starts) else len(h)
+        out.append((sp, ws, we))
+    return out
+
+
+# design r6 R6.RECON.24 (RC14)
+def rc14(h, m, windows, placed, retained_lines):
+    """RC14: each window occurs exactly once at M, at the splice's translated offset less its distance
+    from the window's start; each retained site's line occurs exactly once at M. Returns [problem]."""
+    at = {sp['id']: a for sp, a, _e in (placed or [])}
+    out = []
+    for sp, ws, we in windows:
+        win = h[ws:we]
+        occ = occurrences(m, win)
+        want = at.get(sp['id'])
+        if want is None:
+            out.append('%s: the splice has no translated offset at M' % sp['id'])
+        elif occ != [want - (sp['start'] - ws)]:
+            out.append('%s: its context window occurs %d times at M, not once at the translated offset'
+                       % (sp['id'], len(occ)))
+    for site, line in retained_lines:
+        if len(occurrences(m, line)) != 1:
+            out.append('%s: the retained site line does not occur exactly once at M' % site)
+    return out
+
+
+def path_conflicts(repo, ctx, H, M, path, led, retained_lines=()):
+    """The conflicts RC14 finds for a path, from git objects alone (no record is read): its category is 2 when there
+    is one, or when a splice's old bytes do not occur once at M."""
+    sps = [s for s in led['splices'] if s['file'] == path]
+    h = repo.read(H, path) or b''
+    m = repo.read(M, path) or b''
+    comp, placed = compose(repo, H, M, path, sps)
+    if comp is None:
+        return ['%s' % placed]
+    corpus = ctx is not None and ctx.in_corpus(path)
+    return rc14(h, m, context_windows(h, sps, corpus, file_sentences(ctx, H, path) if corpus else None), placed,
+                retained_lines)
+
+
+def file_sentences(ctx, commit, path):
+    try:
+        return [(a, b) for _s, a, b in ctx.sentences(commit, path)]
+    except Exception:  # a context without a splitter (controls) reads lines only
+        return None
+
+
+def ledger_edits(led):
+    raw = led.get('raw') or {}
+    return {e.get('id'): e for e in (raw.get('edits') or []) if isinstance(e, dict) and e.get('id')}
+
+
+# design r6 R6.RECON.25 and R6.RECON.26: the key of a finding
+def edit_key(led, edit_id):
+    """The key of an edit in the frozen plan: the canonical sha256 of its edit-list entry.
+    Kept apart so that a later amendment can change how a finding is keyed."""
+    e = ledger_edits(led).get(edit_id)
+    return util.sha256(util.canonical(e)) if e is not None else None
+
+
+# design r6 R6.RECON.25
+def scientific_problems(entry, led):
+    """The form of an entry's scientific_effect: present and non-empty; conclusions are edit ids of the
+    ledger or none; assessment and method non-empty; verdict no-effect or invalidates, the latter with invalidated
+    edit ids whose sha256 equals the edit-list entry's; for an executed path, method names the composed blob l."""
+    se = entry.get('scientific_effect')
+    if not isinstance(se, dict) or not se:
+        return ['no scientific_effect']
+    out = []
+    edits = ledger_edits(led)
+    con = se.get('conclusions')
+    if con != 'none' and not (isinstance(con, list) and con and all(isinstance(c, str) and c in edits for c in con)):
+        out.append('conclusions name no edit id of the ledger')
+    for k in ('assessment', 'method'):
+        if not (isinstance(se.get(k), str) and se[k].strip()):
+            out.append('%s is empty' % k)
+    v = se.get('verdict')
+    if v not in ('no-effect', 'invalidates'):
+        out.append('no verdict')
+    if v == 'invalidates':
+        inv = se.get('invalidated')
+        if not (isinstance(inv, list) and inv):
+            out.append('invalidates without an invalidated edit')
+        else:
+            for x in inv:
+                if not isinstance(x, dict) or edit_key(led, x.get('id')) is None or \
+                        edit_key(led, x.get('id')) != x.get('sha256'):
+                    out.append('an invalidated sha256 differs from the edit-list entry')
+                    break
+    path = entry.get('path') or ''
+    if path.endswith(executed_suffixes) and entry.get('l') and entry['l'] not in (se.get('method') or ''):
+        out.append('the method names no check re-run at the composed blob')
+    return out
+
+
+def evaluate(repo, ctx, H, M, X, led, rdoc, entry, classes, record_refs, rd=None, covered=None, retained_lines=()):
+    """Each condition of one path entry of a reconciliation record, evaluated from git objects. Returns
+    {'holds': {R: bool}, 'failed': [R...], 'composed_blob', 'composed_sha256'}. `rd` is the run's record-directory
+    context (amendment r4, A.7), shared with the M role; None outside its scope. `covered`: the paths covered by the
+    run's locally valid entries (amendment 3: RC10 and RC11 are read over them); None reads only the entry's path."""
+    path = entry.get('path')
+    res = {}
+    listed = ledger_lists(led, path)
+    # RC13 first
+    b = binding(led, path)
+    want = entry_binding(rdoc, entry)
+    if listed:
+        res['RC13'] = b['ledger_base'] == H == want.get('ledger_base') and b['files_entry_sha256'] is not None and \
+            all(b[k] == want.get(k) for k in ('files_entry_sha256', 'splices_sha256', 'edit_records_sha256'))
+    else:
+        # a corpus path the ledger does not list: the three values are null (R6.RECON.5)
+        res['RC13'] = b['ledger_base'] == H == want.get('ledger_base') and \
+            all(want.get(k, 0) is None for k in ('files_entry_sha256', 'splices_sha256', 'edit_records_sha256'))
     # RC1
     changes = []
     try:
@@ -291,65 +447,81 @@ def evaluate(repo, ctx, H, M, X, led, rdoc, entry, classes, record_refs, rd=None
     m = m or b''
     sps = [s for s in led['splices'] if s['file'] == path]
     rsp = {s.get('id'): s for s in entry.get('splices', [])}
-    r3 = r4 = r5 = bool(sps)
-    common = 0
-    while common < min(len(h), len(m)) and h[common] == m[common]:
-        common += 1
-    for sp in sps:
-        old = h[sp['start']:sp['end']]
-        r = rsp.get(sp['id'], {})
-        r3 = r3 and occurrences(h, old) == [sp['start']] and util.sha256(old) == sp['old_sha256'] and \
-            r.get('start_H') == sp['start'] and r.get('end_H') == sp['end']
-        om = occurrences(m, old)
-        r4 = r4 and len(om) == 1 and om[0] == r.get('start_M') and util.sha256(m[om[0]:om[0] + len(old)]) == \
-            sp['old_sha256']
-        if r.get('translation') == 'identity':
-            r5 = r5 and common >= sp['end'] and r.get('start_M') == sp['start']
-        else:
-            delta = r.get('start_M', -1) - sp['start']
-            r5 = r5 and bool(om) and om[0] - sp['start'] == delta
-    res['RC3'], res['RC4'], res['RC5'] = r3, r4, r5
-    comp, placed = compose(repo, H, M, path, sps)
     x = repo.read(X, path)
-    if comp is None:
-        res.update(RC6=False, RC7=False, RC9=False)
-    else:
-        img_ok, shift = True, 0
-        for sp, a, e in sorted(placed, key=lambda q: q[1]):
-            at = a + shift
-            img_ok = img_ok and comp[at:at + len(sp['new_bytes'])] == sp['new_bytes'] and \
-                util.sha256(sp['new_bytes']) == sp['new_sha256'] and \
-                rsp.get(sp['id'], {}).get('new_sha256') == sp['new_sha256'] and \
-                (x or b'')[sp['start']:sp['start'] + len(sp['new_bytes'])] == sp['new_bytes']
-            shift += len(sp['new_bytes']) - (e - a)
-        res['RC6'] = img_ok
-        res['RC7'] = blob_id_of(comp) == entry.get('l') and util.sha256(comp) == entry.get('l_sha256')
-        delta = sum(len(sp['new_bytes']) - (e - a) for sp, a, e in placed)
-        last_end = max(e for _, _, e in placed) if placed else 0
-        r9 = comp[last_end + delta:] == m[last_end:]
-        for pr in entry.get('protected', []):
-            a, e = pr.get('start_M'), pr.get('end_M')
-            if not isinstance(a, int) or not isinstance(e, int):
-                r9 = False
-                continue
-            seg = m[a:e]
-            r9 = r9 and util.sha256(seg) == pr.get('sha256') and len(occurrences(m, seg)) == 1 and \
-                len(occurrences(comp, seg)) == 1 and a >= last_end and comp[a + delta:e + delta] == seg
-        res['RC9'] = r9
     fe = (led.get('files') or {}).get(path) if isinstance(led.get('files'), dict) else None
-    res['RC8'] = x is not None and repo.blob_id(X, path) == entry.get('x') and util.sha256(x) == entry.get('x_sha256') \
-        and fe is not None and fe.get('expected_sha256') == util.sha256(x)
-    r10 = True
+    comp, placed = compose(repo, H, M, path, sps)
+    if not listed:
+        # R6.RECON.3, R6.RECON.8: an entry without splices for a corpus path the ledger does not list
+        empty = not sps and not entry.get('splices')
+        res.update(RC3=empty, RC4=empty, RC5=empty, RC6=empty)
+        res['RC7'] = entry.get('l') == repo.blob_id(M, path) and entry.get('l_sha256') == util.sha256(m)
+        res['RC8'] = entry.get('x') == repo.blob_id(H, path) and fe is None and \
+            entry.get('x_sha256') == util.sha256(repo.read(H, path) or b'')
+        res['RC9'] = res['RC7']
+        res['RC14'] = True
+    else:
+        r3 = r4 = r5 = bool(sps)
+        common = 0
+        while common < min(len(h), len(m)) and h[common] == m[common]:
+            common += 1
+        for sp in sps:
+            old = h[sp['start']:sp['end']]
+            r = rsp.get(sp['id'], {})
+            r3 = r3 and occurrences(h, old) == [sp['start']] and util.sha256(old) == sp['old_sha256'] and \
+                r.get('start_H') == sp['start'] and r.get('end_H') == sp['end']
+            om = occurrences(m, old)
+            r4 = r4 and len(om) == 1 and om[0] == r.get('start_M') and util.sha256(m[om[0]:om[0] + len(old)]) == \
+                sp['old_sha256']
+            if r.get('translation') == 'identity':
+                r5 = r5 and common >= sp['end'] and r.get('start_M') == sp['start']
+            else:
+                delta = r.get('start_M', -1) - sp['start']
+                r5 = r5 and bool(om) and om[0] - sp['start'] == delta
+        res['RC3'], res['RC4'], res['RC5'] = r3, r4, r5
+        if comp is None:
+            res.update(RC6=False, RC7=False, RC9=False)
+        else:
+            img_ok, shift = True, 0
+            for sp, a, e in sorted(placed, key=lambda q: q[1]):
+                at = a + shift
+                img_ok = img_ok and comp[at:at + len(sp['new_bytes'])] == sp['new_bytes'] and \
+                    util.sha256(sp['new_bytes']) == sp['new_sha256'] and \
+                    rsp.get(sp['id'], {}).get('new_sha256') == sp['new_sha256'] and \
+                    (x or b'')[sp['start']:sp['start'] + len(sp['new_bytes'])] == sp['new_bytes']
+                shift += len(sp['new_bytes']) - (e - a)
+            res['RC6'] = img_ok
+            res['RC7'] = blob_id_of(comp) == entry.get('l') and util.sha256(comp) == entry.get('l_sha256')
+            delta = sum(len(sp['new_bytes']) - (e - a) for sp, a, e in placed)
+            last_end = max(e for _, _, e in placed) if placed else 0
+            r9 = comp[last_end + delta:] == m[last_end:]
+            for pr in entry.get('protected', []):
+                a, e = pr.get('start_M'), pr.get('end_M')
+                if not isinstance(a, int) or not isinstance(e, int):
+                    r9 = False
+                    continue
+                seg = m[a:e]
+                r9 = r9 and util.sha256(seg) == pr.get('sha256') and len(occurrences(m, seg)) == 1 and \
+                    len(occurrences(comp, seg)) == 1 and a >= last_end and comp[a + delta:e + delta] == seg
+            res['RC9'] = r9
+        res['RC8'] = x is not None and repo.blob_id(X, path) == entry.get('x') and \
+            util.sha256(x) == entry.get('x_sha256') and fe is not None and fe.get('expected_sha256') == util.sha256(x)
+        corpus = ctx is not None and ctx.in_corpus(path)
+        conflicts = rc14(h, m, context_windows(h, sps, corpus, file_sentences(ctx, H, path) if corpus else None),
+                         placed if comp is not None else [], retained_lines) if comp is not None else ['no composition']
+        res['RC14'] = not conflicts
+    cov = set(covered or ()) | {path}
+    r10, r10_named = True, []
     for f, v in (led.get('files') or {}).items() if isinstance(led.get('files'), dict) else []:
-        if f == path:
+        if f in cov:
             continue
         if repo.blob_id(H, f) != repo.blob_id(M, f) or util.sha256(repo.read(M, f) or b'') != v.get('base_sha256'):
             r10 = False
+            r10_named.append(f)
     res['RC10'] = r10
     r11 = True
     hp, mp = repo.paths(H), repo.paths(M)
     for p in sorted(set(hp) | set(mp)):
-        if p == path or hp.get(p) == mp.get(p):
+        if p in cov or hp.get(p) == mp.get(p):
             continue
         if ctx is not None and ctx.in_corpus(p):
             r11 = False
@@ -363,16 +535,57 @@ def evaluate(repo, ctx, H, M, X, led, rdoc, entry, classes, record_refs, rd=None
     res['RC11'] = r11
     res['RC12'] = not rdoc.get('changes_decisions_on_X')
     failed = [k for k in condition_order if not res.get(k)]
-    return {'path': path, 'holds': res, 'failed': failed,
-            'composed_blob': blob_id_of(comp) if comp is not None else None,
-            'composed_sha256': util.sha256(comp) if comp is not None else None,
-            'side_change_commits': changes}
+    out = {'path': path, 'holds': res, 'failed': failed,
+           'composed_blob': blob_id_of(comp) if comp is not None else None,
+           'composed_sha256': util.sha256(comp) if comp is not None else None,
+           'side_change_commits': changes}
+    if r10_named:
+        out['rc10_files'] = sorted(r10_named)
+    return out
 
 
-def draft(repo, ctx, H, M, X, led, path, protected=(), classes=(), record_refs=None):
-    """A draft reconciliation record for one path, every value derived from git objects (for writers and
-    controls). A draft is never admitted without its review chain (sec. 6.3)."""
+# design r6 R6.RECON.4, R6.RECON.15, R6.RECON.16, R6.RECON.22, R6.RECON.25
+def assess(repo, ctx, H, M, X, led, records, classes, record_refs, rd, paths, retained=None):
+    """The run-level reconciliation assessment: every entry of every record for the drifted paths is evaluated locally (RC1-RC9, RC12-RC14); RC10 and RC11 are
+    then read over the paths the locally valid entries cover. An entry applies when every condition holds and its
+    scientific_effect has the reviewed verdict no-effect (an oi-reconciliation/1 record carries none and never
+    applies). Returns {path: {'evaluations', 'applies', 'form'}}."""
+    retained = retained or {}
+    first = {}
+    for r in records:
+        for e in r.get('paths', []):
+            p = e.get('path')
+            if p not in paths:
+                continue
+            ev = evaluate(repo, ctx, H, M, X, led, r, e, classes, record_refs, rd,
+                          retained_lines=retained.get(p, ()))
+            first.setdefault(p, []).append((r, e, ev))
+    covered = {p for p, lst in first.items() for _r, _e, ev in lst
+               if all(ev['holds'].get(k) for k in local_conditions)}
+    out = {}
+    for p in paths:
+        evs, applies, forms = [], None, []
+        for r, e, _ev in first.get(p, []):
+            ev = evaluate(repo, ctx, H, M, X, led, r, e, classes, record_refs, rd, covered=covered - {p},
+                          retained_lines=retained.get(p, ()))
+            ev['record'] = r.get('_ref')
+            form = scientific_problems(e, led) if r.get('schema') == 'oi-reconciliation/2' else \
+                ['schema oi-reconciliation/1 carries no scientific_effect']
+            ev['scientific_effect'] = {'problems': form, 'verdict': (e.get('scientific_effect') or {}).get('verdict')}
+            forms.append((r, e, form))
+            evs.append(ev)
+            if applies is None and not ev['failed'] and not form and ev['scientific_effect']['verdict'] == 'no-effect':
+                applies = dict(e, _ref=r.get('_ref'))
+        out[p] = {'evaluations': evs, 'applies': applies, 'form': forms}
+    return out
+
+
+def draft(repo, ctx, H, M, X, led, path, protected=(), classes=(), record_refs=None, scientific_effect=None):
+    """A draft reconciliation record (oi-reconciliation/2) for one path, every value derived from git objects (for
+    writers and controls). A draft is never admitted without its review chain (sec. 6.3). The scientific effect is the
+    writer's statement, never derived: without one the draft carries an empty statement, which fails its form."""
     b = binding(led, path)
+    listed = ledger_lists(led, path)
     sps = [s for s in led['splices'] if s['file'] == path]
     h = repo.read(H, path) or b''
     m = repo.read(M, path) or b''
@@ -380,9 +593,12 @@ def draft(repo, ctx, H, M, X, led, path, protected=(), classes=(), record_refs=N
     common = 0
     while common < min(len(h), len(m)) and h[common] == m[common]:
         common += 1
-    comp, placed = compose(repo, H, M, path, sps)
-    if comp is None:
-        return None
+    if listed:
+        comp, placed = compose(repo, H, M, path, sps)
+        if comp is None:
+            return None
+    else:
+        comp, placed = m, []
     rsp = []
     for sp, a, e in placed:
         rsp.append({'id': sp['id'], 'start_H': sp['start'], 'end_H': sp['end'], 'start_M': a, 'end_M': e,
@@ -391,11 +607,16 @@ def draft(repo, ctx, H, M, X, led, path, protected=(), classes=(), record_refs=N
     prot = []
     for a, e in protected:
         prot.append({'start_M': a, 'end_M': e, 'sha256': util.sha256(m[a:e])})
-    entry = {'path': path, 'm': repo.blob_id(M, path), 'm_sha256': util.sha256(m),
-             'x': repo.blob_id(X, path), 'x_sha256': util.sha256(x or b''),
+    eb = {k: (b[k] if listed else None) for k in ('files_entry_sha256', 'splices_sha256', 'edit_records_sha256')}
+    xb = x if listed else (repo.read(H, path) or b'')
+    entry = {'path': path, 'ledger_binding': eb,
+             'scientific_effect': scientific_effect or {'conclusions': 'none', 'assessment': '', 'method': '',
+                                                        'verdict': None},
+             'm': repo.blob_id(M, path), 'm_sha256': util.sha256(m),
+             'x': repo.blob_id(X if listed else H, path), 'x_sha256': util.sha256(xb or b''),
              'l': blob_id_of(comp), 'l_sha256': util.sha256(comp), 'splices': rsp, 'protected': prot}
-    ev = evaluate(repo, ctx, H, M, X, led, {'ledger_binding': b}, dict(entry, side_change_commits=[]),
-                  list(classes), record_refs or {})
+    doc = {'schema': 'oi-reconciliation/2', 'record_id': 'draft-%s' % path, 'supersedes': None,
+           'ledger_base': b['ledger_base'], 'paths': [entry], 'changes_decisions_on_X': []}
+    ev = evaluate(repo, ctx, H, M, X, led, doc, dict(entry, side_change_commits=[]), list(classes), record_refs or {})
     entry['side_change_commits'] = ev['side_change_commits']
-    return {'schema': 'oi-reconciliation/1', 'record_id': 'draft-%s' % path, 'supersedes': None,
-            'ledger_binding': b, 'paths': [entry], 'changes_decisions_on_X': []}
+    return doc

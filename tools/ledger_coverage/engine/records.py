@@ -8,7 +8,7 @@ from . import util
 
 review_schema = 'oi-review-record/1'
 record_schemas = ('oi-term-rules/2', 'oi-hp-adjudication/1', 'oi-context-adjudication/1', 'oi-hit-classification/1',
-                  'oi-scope/1', 'oi-side-change-classes/1', 'oi-reconciliation/1', 'oi-retirement-config/1',
+                  'oi-scope/1', 'oi-side-change-classes/1', 'oi-reconciliation/1', 'oi-reconciliation/2', 'oi-retirement-config/1',
                   'oi-delegation/1')
 
 _url = re.compile(r'://|/runs/|/actions|check[-_ ]run|/issues/\d+$|^#\d+$|/pull/\d+$')
@@ -45,6 +45,16 @@ def item_ids(doc):
     and is record-invalid: the record id never stands in for an entry's id."""
     if doc.get('schema') == 'oi-retirement-config/1':
         return [doc.get('config_id')]
+    if doc.get('schema') == 'oi-reconciliation/2' and isinstance(doc.get('paths'), list):
+        # design r6 amendment 3: each path entry, its scientific effect and each resolution are items of the review
+        ids = []
+        for e in doc['paths']:
+            if not (isinstance(e, dict) and isinstance(e.get('path'), str) and e['path']):
+                return []
+            ids += [e['path'], e['path'] + ':scientific_effect']
+            ids += [e['path'] + ':resolution:' + str(x.get('splice')) for x in (e.get('resolutions') or [])
+                    if isinstance(x, dict)]
+        return sorted(ids)
     if item_list_problems(doc) or entries_without_id(doc):
         return []
     ids = []

@@ -32,6 +32,7 @@ field_names = frozenset([
     'exclude_patterns', 'ledgered_paths', 'params', 'evidence', 'sha256', 'blob', 'class_adapters', 'issue', 'sentences',
     'manuscript_digest', 'paths_record', 'record-dir', 'interface', 'module_sha256', 'regex', 'context_field',
     'INTERFACE', 'NAME', 'VERSION', 'outcome', 'exit_status', 'items', 'preflight', 'record_checks', 'passed',
+    'scientific_effect', 'conclusions', 'assessment', 'invalidated', 'resolutions', 'ledger_binding', 'ledger_base',
     'holds', 'obligation', 'class', 'decision', 'subject', 'fingerprint', 'm', 'l', 'h', 'c', 'x', 'list', 'check',
     'message', 'status', 'match', 'H', 'X', 'M', 'L', 'C', 'GITHUB_ACTIONS', 'GITHUB_RUN_ID', 'GITHUB_TOKEN',
     'GITHUB_API_URL', 'GITHUB_REPOSITORY_ID',
@@ -39,7 +40,7 @@ field_names = frozenset([
 schema_ids = frozenset([
     'oi-ledger-coverage/5', 'oi-retirement-config/1', 'oi-term-rules/2', 'oi-delegation/1', 'oi-hp-adjudication/1',
     'oi-context-adjudication/1', 'oi-hit-classification/1', 'oi-scope/1', 'oi-side-change-classes/1',
-    'oi-reconciliation/1', 'oi-review-record/1', 'oi-ledger-landing/1',
+    'oi-reconciliation/1', 'oi-reconciliation/2', 'oi-review-record/1', 'oi-ledger-landing/1',
 ])
 enumerations = frozenset([
     'PASS', 'REVIEW_REQUIRED', 'FAIL', 'USAGE', 'ERROR', 'VOID', 'INTERNAL',
@@ -52,6 +53,7 @@ enumerations = frozenset([
     'landing-drops-main-change', 'landing-conflict-unresolved', 'landing-extra-change', 'base-drift', 'unclassified',
     'new-pattern-in-replacement', 'unclassified-in-replacement', 'rule-fingerprint-mismatch', 'rule-stale',
     'context-structure-changed', 'delegated-evidence-missing', 'side-change-unclassified',
+    'retirement-blocked', 'RC14', 'reconciled-state', 'reconciled', 'reconciled-resolved', 'no-effect', 'invalidates',
     'PIN_MISMATCH', 'RECORD_TREE_MISMATCH', 'SCIENTIFIC_BASE_MISMATCH', 'MAIN_NOT_DESCENDANT', 'SOURCE_CHANGED',
     'LEDGER_INTEGRITY', 'EDITS_HASH_MISMATCH', 'ENCODING', 'UNRESOLVABLE', 'CONFIG_INVALID', 'CONFIG_UNSUPPORTED',
     'CONFIG_UNREVIEWED', 'CONFIG_INCONSISTENT', 'CONFIG_NO_CONTROLS', 'PREFLIGHT_FAILED',

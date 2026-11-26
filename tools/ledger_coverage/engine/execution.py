@@ -323,6 +323,13 @@ class Execution:
                 self.item('MAIN', 'side-change-unclassified', path,
                           {'f': rd.entry(path, rd.F), 'm': rd.entry(path, M)}, file=path, why=why,
                           rule='record-directory completeness')
+        # amendment 3: one run-level assessment of every entry for the drifted ledgered or corpus paths (RC10 and
+        # RC11 read over the locally valid entries), and one disposition per such path (R6.RECON.22)
+        drifted = {p for p in set(hp) | set(mp) if hp.get(p) != mp.get(p) and p in ledgered_or_corpus}
+        self.assessment = rc.assess(self.repo, self.ctx, self.H, M, self.X, self.ledger, self.reconciliations,
+                                    self.side_classes, getattr(self, 'record_refs', {}), rd, drifted)
+        self.dispositions = []
+        invalid_forms = set()
         for path in sorted(set(hp) | set(mp)):
             if hp.get(path) == mp.get(path):
                 continue
@@ -334,10 +341,26 @@ class Execution:
                 prev = c
             entry = {'path': path, 'h': hp.get(path), 'm': mp.get(path), 'commit': made}
             if path in ledgered_or_corpus:
-                rec, ev = self._reconciled(path)
+                a = self.assessment.get(path) or {'evaluations': [], 'applies': None, 'form': []}
+                rec, ev = a['applies'], a['evaluations']
                 entry['class'] = 'base-drift'
                 entry['reconciled'] = bool(rec)
                 entry['record_conditions'] = ev
+                for r_, e_, form in a['form']:
+                    key = ((r_.get('_ref') or {}).get('path'), e_.get('path'))
+                    if form and key not in invalid_forms:
+                        invalid_forms.add(key)
+                        self.item('RECORD', 'record-invalid', '%s:%s' % key, {'why': form[0]},
+                                  detail='scientific_effect: %s' % '; '.join(form))
+                conflict = rc.path_conflicts(self.repo, self.ctx, self.H, M, path, self.ledger) \
+                    if path in (self.ledger.get('files') or {}) else []
+                disp = {'path': path, 'disposition': 'reconciled' if rec else 'base-drift',
+                        'category': 2 if conflict else 1,
+                        'record': (rec or {}).get('_ref'), 'failed': [e['failed'] for e in ev],
+                        'conflicts': conflict}
+                if not rec and not ev:
+                    disp['why'] = 'no admitted record covers the path'
+                self.dispositions.append(disp)
                 if not rec:
                     self.item('MAIN', 'base-drift', path, {'h': hp.get(path), 'm': mp.get(path)}, file=path,
                               commit=made, failed_conditions=[e['failed'] for e in ev])

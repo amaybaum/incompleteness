@@ -701,7 +701,7 @@ def r_controls():
     L7 = exmod.compose_landing(w.repo, H, M7, X, led, w.repo)
     e7l = run(M7, L7)
     out['TT7'] = not [i for i in e7.items if i['obligation'] == 'RET'] and 'base-drift' in classes(e7.items)
-    rec8 = rcmod.draft(w.repo, ctx, H, M7, X, led, doc_path)
+    rec8 = rcmod.draft(w.repo, ctx, H, M7, X, led, doc_path, scientific_effect=control_effect)
     e8 = run(M7, L7, recon=[rec8])
     out['TT8'] = not [i for i in e8.items if i['class'] in ('base-drift', 'landing-conflict-unresolved',
                                                          'record-invalid')]
@@ -815,6 +815,11 @@ def rule_controls():
     fp2 = dict(rule['fingerprints'][0], sentence_sha256=util.sha256('another'))
     out['E-A3r'] = bool(rulemod.allow_widening(rule, dict(rule, fingerprints=[fp2])))
     return out
+
+
+# the writer's scientific effect of a control fixture's reconciliation record (amendment 3, R6.RECON.25)
+control_effect = {'conclusions': 'none', 'assessment': 'control fixture: the change on main touches no planned edit',
+                  'method': 'control: every condition recomputed from git objects', 'verdict': 'no-effect'}
 
 
 def route_controls():

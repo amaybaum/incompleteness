@@ -18,7 +18,8 @@ from . import records as rec
 from . import util
 from .. import record_authority
 
-recon_schema = 'oi-reconciliation/1'
+recon_schema = 'oi-reconciliation/2'
+recon_schemas = ('oi-reconciliation/1', 'oi-reconciliation/2')
 review_schema = rec.review_schema
 # the root under which reconciliation directories lie; a repository fact, kept outside the engine
 audits_root = record_authority.reconciliation_root
@@ -84,7 +85,7 @@ def scanned(repo, rev, scope):
             doc = json.loads(data.decode('utf-8'))
         except (ValueError, UnicodeDecodeError, AttributeError):
             continue
-        if isinstance(doc, dict) and doc.get('schema') in (recon_schema, review_schema):
+        if isinstance(doc, dict) and doc.get('schema') in recon_schemas + (review_schema,):
             out.append((path, data))
     return out
 
@@ -208,7 +209,7 @@ def admit(repo, cands, scope, items):
         superseded_shas = {x['supersedes'].get('blob_sha256') for _s, (_p, x) in st.by_sha.items()
                            if isinstance(x, dict) and isinstance(x.get('supersedes'), dict)}
         others += [dict(x, _ref={'path': p, 'blob_sha256': s}) for s, (p, x) in st.by_sha.items()
-                   if isinstance(x, dict) and x.get('schema') == recon_schema and x.get('M') == scope.M
+                   if isinstance(x, dict) and x.get('schema') in recon_schemas and x.get('M') == scope.M
                    and s not in superseded_shas]
     pool = {}
     for r in list(scope.config_recon) + admitted + others:

@@ -37,6 +37,9 @@ M = '8e9b83341cf5bc7fd9fb260892d0385fc9bfab4d'
 CH19 = 'book/ch19-open-problems.md'
 FULL = a1c.FULL
 RESULTS = []
+# the writer's scientific effect of the control fixture records (design r6 amendment 3, R6.RECON.25)
+CONTROL_EFFECT = {'conclusions': 'none', 'assessment': 'control fixture: the change on main touches no planned edit',
+                  'method': 'control: every condition recomputed from git objects', 'verdict': 'no-effect'}
 # R6.GATE.7: the tool runs (and in-process stage results) captured since the previous check are its evidence
 REC = None
 RUNS = {}
@@ -430,7 +433,8 @@ class Recon:
         self.protected = [(hdr, len(m))] if hdr > 0 else []
         self.classes = [self.cls('trial-workflow', '.github/workflows/a1exit-trial-verify.yml', M),
                         self.cls('tool-configuration', '.claude/settings.json', M)]
-        self.rec = rc.draft(a.repo, self.ctx, H, M, T, self.led, self.path, self.protected, self.classes, {})
+        self.rec = rc.draft(a.repo, self.ctx, H, M, T, self.led, self.path, self.protected, self.classes, {},
+                            scientific_effect=CONTROL_EFFECT)
 
     def cls(self, cid, path, commit):
         return {'id': cid, 'pins': [{'path': path, 'git_blob': self.repo.blob_id(commit, path),
@@ -489,8 +493,8 @@ def n_controls(a):
         r['paths'][0].update(upd)
         return r
     named('N4', 'the record with its ledger_binding altered by one byte: does not apply (base-drift), naming RC13',
-          'RC13', lambda r: dict(r, ledger_binding=dict(r['ledger_binding'], files_entry_sha256='0' + r[
-              'ledger_binding']['files_entry_sha256'][1:])))
+          'RC13', lambda r: entry(r, ledger_binding=dict(r['paths'][0]['ledger_binding'], files_entry_sha256='0' + r[
+              'paths'][0]['ledger_binding']['files_entry_sha256'][1:])))
     M5 = repo.derive(M, {path: comp + b'\n'}, parents=[M], subject='one more main commit')
     named('N5', 'M with one more first-parent commit changing the path: does not apply, naming RC1', 'RC1', m=M5)
     named('N6', 'a protected range at M altered by one byte (the recorded range shifted by one byte): does not '

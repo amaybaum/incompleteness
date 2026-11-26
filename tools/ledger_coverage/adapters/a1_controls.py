@@ -1049,7 +1049,7 @@ def rtl2_inputs(a, res, recon_arg, h, m, c):
             doc = json.loads(a.repo.read(rev, path))
         except Exception:
             continue
-        if doc.get('schema') != 'oi-reconciliation/1':
+        if doc.get('schema') not in ('oi-reconciliation/1', 'oi-reconciliation/2'):
             continue
         review = (listed.get(path) or {}).get('review') or {}
         for e in doc.get('paths') or []:

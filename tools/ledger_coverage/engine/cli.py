@@ -1174,7 +1174,7 @@ def op_execution(a, repo, ctx, loaded, records, result, control=None):
         kind = r.get('kind')
         if kind == 'side-change-classes' and (d is None or d.get('schema') != 'oi-side-change-classes/1'):
             continue
-        if kind == 'reconciliation' and (d is None or d.get('schema') != 'oi-reconciliation/1'):
+        if kind == 'reconciliation' and (d is None or d.get('schema') not in rcmod.reconciliation_schemas):
             continue
         if kind not in ('side-change-classes', 'reconciliation'):
             continue
@@ -1220,7 +1220,7 @@ def op_execution(a, repo, ctx, loaded, records, result, control=None):
         except (ValueError, UnicodeDecodeError):
             doc = None
         schema = doc.get('schema') if isinstance(doc, dict) else None
-        if schema == recon_route.recon_schema:
+        if schema in recon_route.recon_schemas:
             records.used.append({'path': rpath, 'blob_sha256': util.sha256(data), 'kind': 'classification'})
             route_cands.append((rev_text, rev, rpath, data, doc))
             continue
@@ -1330,6 +1330,7 @@ def op_execution(a, repo, ctx, loaded, records, result, control=None):
         ex.main_role(set(led['files']) | corp, rp.get('record_tree'), rdir)
         items += [i for i in ex.items if i['obligation'] == 'MAIN' and i not in items]
         result['side_changes'] = ex.side_changes
+        result['dispositions'] = getattr(ex, 'dispositions', [])
         if ex.rd is not None:
             result['record_directory'] = ex.rd.summary()
     if L:

@@ -29,6 +29,7 @@ fail_classes = frozenset([
     'final-unclassified', 'pin-broken', 'pin-target-missing', 'mirror-mismatch', 'lean-code-change',
     'delegated-evidence-invalid', 'candidate-parent', 'landing-parents', 'landing-first-parent-not-M',
     'landing-drops-main-change', 'landing-conflict-unresolved', 'landing-extra-change', 'base-drift',
+    'retirement-blocked',
 ])
 review_classes = frozenset([
     'unclassified', 'new-pattern-in-replacement', 'unclassified-in-replacement', 'rule-fingerprint-mismatch',
