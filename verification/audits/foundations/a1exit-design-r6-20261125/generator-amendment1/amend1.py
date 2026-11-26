@@ -96,13 +96,14 @@ NEW_ROWS = [
         'ERROR with `result.json` (C-12); with no `--segment`, the default segment is of kind `hp` where an HP '
         'obligation names it, else unledgered'),
     row('PIPE-UNRESOLVED', ['R6.PIPE.7'], ['coverage'], 'declarative', 'adversarial', {
-        'outcome': 'FAIL', 'sites': [{'subject': '$site', 'state': 'unresolved'}],
+        'outcome': 'FAIL', 'classes_include': ['missing'],
+        'sites': [{'subject': '$site', 'state': 'unresolved', 'classes_include': ['missing']}],
         'invariants': [{'items_include': [{'subject': '$site', 'segment': '$first_segment'}]},
                        {'none': 'items[subject=$site,segment=$second_segment]'}]},
         {'outcome': 'RESULT_EQUAL_CLEAN',
          'invariants': [{'baseline': 'the same two segments with the site unchanged'}]},
-        'a site removed without a splice in the first of two unledgered segments and untouched in the second: it stays '
-        'unresolved and its item carries the first segment'),
+        'a site removed without a splice in the first of two unledgered segments and untouched in the second: FAIL '
+        '`missing` (R6.CLASS.2); it stays unresolved and its item carries the first segment'),
     row('PIPE-PRIOR', ['R6.PIPE.8'], ['terms'], 'declarative', 'both', {'cases': [
         {'case': 'a hit present at the prior endpoint and at the named commit',
          'outcome': 'REVIEW_REQUIRED', 'exit': 10,
@@ -134,7 +135,7 @@ NEW_ROWS = [
         {'outcome': 'RESULT_EQUAL_CLEAN',
          'invariants': [{'baseline': 'the same adjudication with its semantic_classification'}]},
         'an HP adjudication entry without `semantic_classification`'),
-    row('HP-RECORDS', ['R6.HP.14'], ['coverage'], 'declarative', 'adversarial', {'cases': [
+    row('HP-RECORDS', ['R6.HP.14', 'R6.HP.5'], ['coverage'], 'declarative', 'adversarial', {'cases': [
         {'case': 'an HP record supplied with --hp that fails its schema',
          'outcome': 'FAIL', 'classes_include': ['record-invalid']},
         {'case': 'an HP record whose fingerprint for the site differs (its semantic_classification edited after '
@@ -195,6 +196,7 @@ NEW_ROWS = [
 NEW_REQ = {r['requirements'][0]: r['id'] for r, _ in NEW_ROWS}
 NEW_REQ_CONTROLS = dict((k, [v]) for k, v in NEW_REQ.items())
 NEW_REQ_CONTROLS['R6.OUT.22'] = ['S7-schema-and-checker', 'OUT-EXPLAIN']
+NEW_REQ_CONTROLS['R6.HP.5'] = ['HP-SEMCLASS', 'HP-RECORDS']
 
 # B2: the 42 rows. Positive rows take a countercase (direction `both`), N10 and N11 pair, the rest a restored case.
 COUNTERCASES = {
@@ -204,11 +206,16 @@ COUNTERCASES = {
              'outcome': 'REVIEW_REQUIRED', 'classes_include': ['side-change-unclassified']},
     'TT8': {'case': 'countercase: the same landing with a ledgered path changed on main after H',
             'outcome': 'FAIL', 'classes_include': ['base-drift']},
+    'N3-config-route': {'case': 'countercase: the same record, supplied through the configuration\'s `records`, with '
+                                'its `ledger_binding` altered by one byte',
+                        'outcome': 'FAIL', 'classes_include': ['base-drift'],
+                        'invariants': [{'failed_conditions_include': 'RC13'}]},
     'TT13': {'case': 'countercase: a tool-landing path whose blob differs from its class pin',
              'outcome': 'REVIEW_REQUIRED', 'classes_include': ['side-change-unclassified']},
 }
 POSITIVE_CASE = 'the control input (positive)'
-PAIRS = {'N10': ['N11'], 'N11': ['N10']}
+PAIRS = {'N10': ['N11'], 'N11': ['N10'], 'N3': ['N4']}
+EXTRA_PAIRS = {'N4': ['N3']}
 Z9H_RESTORED = {'outcome': 'LINT_PASS',
                 'invariants': [{'baseline': "the same lint with 'guard-pin' removed from the engine module"}]}
 
@@ -259,9 +266,15 @@ def amend_expectations(E):
         else:
             r['restored'] = copy.deepcopy(RESTORED_CLEAN)
             how = 'restored RESULT_EQUAL_CLEAN (the same run on the unmutated tree)'
-        r['flags'] = [NEW_VD if f.startswith(OLD_VD) else f for f in r.get('flags', [])]
+        if rid == 'Z9h':
+            r['flags'] = [NEW_VD if f.startswith('VD-RESTORE') else f for f in r.get('flags', [])]
+        else:
+            r['flags'] = [NEW_VD if f.startswith(OLD_VD) else f for f in r.get('flags', [])]
         r['source'] = r['source'] + '; second direction: ' + SOURCE % 'B2'
         changes.append((rid, 'B2', how))
+    for rid, p in EXTRA_PAIRS.items():
+        by[rid]['paired_with'] = p
+        changes.append((rid, 'B2', 'also paired_with %s (reciprocal of %s)' % (p[0], p[0])))
     s7 = by['S7-schema-and-checker']
     s7['requirements'] = s7['requirements'] + ['R6.OUT.22']
     changes.append(('S7-schema-and-checker', 'B1', 'names R6.OUT.22 (the explanation is part of the JSON Schema '
@@ -302,12 +315,38 @@ def table_row(r, case):
         r['id'], ', '.join(r['requirements']), kind, dirs, case)
 
 
+COUNTS = ''
+B4_EDITS = []
+
+
+def counts_text(E):
+    rows = [r for r in E['rows'] if not r['id'].startswith(('MUT:', 'GATE-'))]
+
+    def dof(r):
+        d = r.get('direction', 'adversarial')
+        return d.get('of') if isinstance(d, dict) else d
+    n_out = sum(1 for r in rows if isinstance(r.get('direction'), dict) and 'scope' in r['direction'])
+    n_ex = sum(1 for r in rows if isinstance(r.get('direction'), dict) and r['direction'].get('exempt') == 'observation')
+    return ('%d rows, %d of them recording `scope: "outside"`; %d carry a `restored` expectation, %d declare '
+            'direction `both`, %d name `paired_with`, %d are exempt as observations'
+            % (len(rows), n_out, sum(1 for r in rows if r.get('restored') is not None),
+               sum(1 for r in rows if dof(r) == 'both'), sum(1 for r in rows if r.get('paired_with')), n_ex))
+
+
+def apply_b4(t):
+    # Design corrections for the B4 records, supplied as anchored edits in b4-design-edits.json beside this script
+    # (absent until that text is provided): [{"label", "anchor", "replacement"}], each anchor occurring once.
+    for e in B4_EDITS:
+        t = once(t, e['anchor'], e['replacement'], 'B4 ' + e['label'])
+    return t
+
+
 def amend_design(t, owner):
     q = owner['quotes']
     note = (
         '\n### 0.2 Amendment 1 of 2026-11-26\n\n'
         'The owner decided on the brief of 2026-11-26 in the coordinating session; the decision is recorded at %s '
-        '(%s, %s). Quoted, byte-exact as relayed (each line prefixed by "> "):\n\n' % (
+        '(%s, %s). Quoted (part 1 of the decision record), byte-exact as relayed (each line prefixed by "> "):\n\n' % (
             owner['record'], owner['author'], owner['time'])
         + '\n>\n'.join('> ' + x for x in q) + '\n\n'
         'Amendment 1 applies the decisions on B1, B2, B3 and B5; AMENDMENT-1.md maps each change to its decision. It '
@@ -319,9 +358,10 @@ def amend_design(t, owner):
         'explanation\'s values, so it does not fully cover R6.OUT.22 alone; OUT-EXPLAIN tests them. Each new row '
         'records a second direction.\n'
         '- B2. Each of the 42 rows in the both-directions scope of R6.CTRL.3 that recorded no second direction records '
-        'one: 35 by a `restored` expectation, N10 and N11 by `paired_with` (the same run differing only in the landing '
-        'blob of `AGENTS.md`), and RT-L, RT-L2, RT-X, TT8 and TT13 by direction `both` (RT-L by its existing mutant '
-        'case, the others by a countercase).\n'
+        'one: 33 by a `restored` expectation; N10 and N11 by `paired_with` (the same run differing only in the landing '
+        'blob of `AGENTS.md` and the record\'s `l` naming it); N3 by `paired_with` N4 (the same record with its '
+        '`ledger_binding` altered by one byte; N4 also names N3); and RT-L, RT-L2, RT-X, TT8, TT13 and '
+        'N3-config-route by direction `both` (RT-L by its existing mutant case, the others by a countercase).\n'
         '- B3. R6.REC.18 and R6.CTRL.23 name the composite TR28, as Table 17.1 states.\n'
         '- B5. R6.GATE.3 states the reading of multi-key invariant objects.\n'
         '- The identifier migration of sec. 34 (OBL-22) is not applied by this amendment: OBL-22 places it in the tool '
@@ -375,13 +415,16 @@ def amend_design(t, owner):
              '  section (16.10). An unknown key makes the file invalid. An object may hold several keys when every\n'
              '  key is in the vocabulary and their combined meaning is unambiguous (a key such as `all`, `condition`,\n'
              '  `arm` or `each_listed_line` with its companion `have`, `holds`, `equals`, `has` or `reason`); it\n'
-             '  counts as one condition (amendment 1, B5).', 'R6.GATE.3 B5')
+             '  counts as one condition. The gate lists every such object in `gate-result.json`\n'
+             '  (`compound_invariants`), and each listed object is reviewed for an unambiguous combined meaning\n'
+             '  (amendment 1, B5).', 'R6.GATE.3 B5')
     # B2: counts in R6.CTRL.3 and OBL-20
     t = once(t, '42 rows in scope record no second direction (`direction-missing`), and 217 rows are flagged VD-RESTORE.',
-             '42 rows in scope recorded no second direction (`direction-missing`), and 217 rows are flagged VD-RESTORE.\n'
-             'Amendment 1 (sec. 0.2) records a second direction on each of those 42 rows (35 by a `restored`\n'
-             'expectation, N10 and N11 by `paired_with`, RT-L, RT-L2, RT-X, TT8 and TT13 by direction `both`) and adds\n'
-             '14 rows, each with a second direction; no row in scope records no second direction.', 'R6.CTRL.3 counts')
+             '42 rows in scope recorded no second direction (`direction-missing`), and 217 rows are flagged VD-RESTORE\n'
+             '(these figures are those of the adopted file, before amendment 1). Amendment 1 (sec. 0.2) records a second\n'
+             'direction on each of those 42 rows and adds 14 rows, each with one. Counted mechanically over the amended\n'
+             'file\'s rows outside the MUT and GATE namespaces (%s): no row in scope records no second direction.'
+             % COUNTS, 'R6.CTRL.3 counts')
     t = once(t, 'mechanically from the per-row decisions of R6.CTRL.3 (42 of them record no second direction and are\n'
                 'reported as `direction-missing`).',
              'mechanically from the per-row decisions of R6.CTRL.3 (42 of them recorded no second direction and were\n'
@@ -399,6 +442,15 @@ def amend_design(t, owner):
         cells[4] = 'both'
         new = ' | '.join(cells)
         t = t[:m[0].start()] + new + t[m[0].end():]
+    s7 = [x for x in re.finditer(r'^\| S7-schema-and-checker \| [^\n]*$', t, re.M)]
+    if len(s7) != 1:
+        raise SystemExit('S7 table row')
+    line = s7[0].group(0)
+    cells = line.split(' | ')
+    if 'R6.OUT.22' in cells[1]:
+        raise SystemExit('S7 row already names R6.OUT.22')
+    cells[1] = cells[1] + ', R6.OUT.22'
+    t = t[:s7[0].start()] + ' | '.join(cells) + t[s7[0].end():]
     anchor = [x for x in re.finditer(r'^\| REP-BUILD \| R6\.EVID\.8 \| [^\n]*$', t, re.M)]
     if len(anchor) != 1:
         raise SystemExit('REP-BUILD table row')
@@ -487,7 +539,13 @@ def main():
     R0 = json.loads(data['REQUIREMENTS.json'])
     E, changes = amend_expectations(E0)
     R = amend_requirements(R0)
-    t = amend_design(data['DESIGN-r6.md'].decode('utf-8'), owner)
+    global COUNTS
+    COUNTS = counts_text(E)
+    b4p = os.path.join(HERE, 'b4-design-edits.json')
+    if os.path.exists(b4p):
+        with open(b4p, 'rb') as f:
+            B4_EDITS.extend(json.loads(f.read()))
+    t = apply_b4(amend_design(data['DESIGN-r6.md'].decode('utf-8'), owner))
     problems = self_checks(E, R, t)
     if problems:
         sys.stderr.write('self-check failures:\n' + '\n'.join(problems) + '\n')
@@ -510,7 +568,7 @@ def change_record(changes, owner, outs, gen_sha, owner_sha):
     lines = [
         '# r6 amendment 1: change record',
         '',
-        'Owner decision (%s, %s; %s, relayed by the %s), quoted in full in DESIGN-r6.md sec. 0.2. Generated by '
+        'Owner decision (%s, %s; %s, relayed by the %s), quoted (part 1 of the decision record) in DESIGN-r6.md sec. 0.2. Generated by '
         'generator-amendment1/amend1.py (sha256 %s) from the directory at main 02b8e20839d4700de721f8427b3fe9f3c746b71f '
         'and generator-amendment1/owner-decision-amendment1.json (sha256 %s). This record maps every change to the '
         'decision it implements; it adopts nothing beyond that decision and authorizes no merge, dispatch, freeze or '
@@ -542,7 +600,9 @@ def change_record(changes, owner, outs, gen_sha, owner_sha):
         '| R6.GATE.3 | B5 | multi-key invariant objects: allowed when every key is in the vocabulary and their combined '
         'meaning is unambiguous; one condition |',
         '| R6.CTRL.3, OBL-20 | B2 | the 42 rows recorded as having a second direction by amendment 1 |',
-        '| Table 17.1 | B1, B2 | 14 rows added after REP-BUILD; RT-L, RT-L2, RT-X, TT8 and TT13 direction `both` |',
+        '| Table 17.1 | B1, B2 | 14 rows added after REP-BUILD; RT-L, RT-L2, RT-X, TT8 and TT13 direction `both`; '
+        'S7-schema-and-checker names R6.OUT.22 |',
+    ] + ['| %s | B4 | anchored design correction (b4-design-edits.json) |' % e['label'] for e in B4_EDITS] + [
         '',
         '## 3. Not changed by amendment 1',
         '',

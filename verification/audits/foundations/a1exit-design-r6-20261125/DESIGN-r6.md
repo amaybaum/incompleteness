@@ -231,7 +231,7 @@ How r6 applies it; it authorizes preparation only, and nothing is adopted, froze
 
 ### 0.2 Amendment 1 of 2026-11-26
 
-The owner decided on the brief of 2026-11-26 in the coordinating session; the decision is recorded at #1169 comment 7182798225 (amaybaum, 2026-11-26T04:39:58Z). Quoted, byte-exact as relayed (each line prefixed by "> "):
+The owner decided on the brief of 2026-11-26 in the coordinating session; the decision is recorded at #1169 comment 7182798225 (amaybaum, 2026-11-26T04:39:58Z). Quoted (part 1 of the decision record), byte-exact as relayed (each line prefixed by "> "):
 
 > B1 | Approved. Add the missing test coverage. Reuse the existing schema test for R6.OUT.22 where it fully covers the requirement.
 >
@@ -256,7 +256,7 @@ The owner decided on the brief of 2026-11-26 in the coordinating session; the de
 Amendment 1 applies the decisions on B1, B2, B3 and B5; AMENDMENT-1.md maps each change to its decision. It weakens no requirement and adds no exemption:
 
 - B1. The 14 testable requirements that named no control (R6.PIPE.1, R6.PIPE.4, R6.PIPE.6, R6.PIPE.7, R6.PIPE.8, R6.ANCH.8, R6.HP.1, R6.HP.5, R6.HP.14, R6.CTX.8, R6.OUT.16, R6.OUT.22, R6.OUT.25, R6.OUT.28) each name a control: 14 new rows, and R6.OUT.22 also names S7-schema-and-checker, which validates every written result against the JSON Schema that holds the explanation. S7-schema-and-checker does not test the explanation's values, so it does not fully cover R6.OUT.22 alone; OUT-EXPLAIN tests them. Each new row records a second direction.
-- B2. Each of the 42 rows in the both-directions scope of R6.CTRL.3 that recorded no second direction records one: 35 by a `restored` expectation, N10 and N11 by `paired_with` (the same run differing only in the landing blob of `AGENTS.md`), and RT-L, RT-L2, RT-X, TT8 and TT13 by direction `both` (RT-L by its existing mutant case, the others by a countercase).
+- B2. Each of the 42 rows in the both-directions scope of R6.CTRL.3 that recorded no second direction records one: 33 by a `restored` expectation; N10 and N11 by `paired_with` (the same run differing only in the landing blob of `AGENTS.md` and the record's `l` naming it); N3 by `paired_with` N4 (the same record with its `ledger_binding` altered by one byte; N4 also names N3); and RT-L, RT-L2, RT-X, TT8, TT13 and N3-config-route by direction `both` (RT-L by its existing mutant case, the others by a countercase).
 - B3. R6.REC.18 and R6.CTRL.23 name the composite TR28, as Table 17.1 states.
 - B5. R6.GATE.3 states the reading of multi-key invariant objects.
 - The identifier migration of sec. 34 (OBL-22) is not applied by this amendment: OBL-22 places it in the tool revision that implements the gate. The owner's approval of it is quoted above ("Identifier rename"). The `runner` fields keep their cites; they are refreshed from the tool revision's final lines when it lands, and the gate never reads them (R6.GATE.9).
@@ -839,7 +839,7 @@ Sources: E-068, V2-035. Controls: H6, H7.
 **R6.HP.5** `semantic_classification` is the reviewer's judgement of what the text means. Provenance
 shows where the text came from; the tool checks only that the classification is present and
 fingerprinted.
-Sources: V2-041. Controls: HP-SEMCLASS.
+Sources: V2-041. Controls: HP-SEMCLASS, HP-RECORDS.
 
 **R6.HP.6** Walk recomputation. The tool recomputes the walk of R6.HP.2 and compares it with the
 record. The result is:
@@ -2641,7 +2641,9 @@ Sources: A-130, E-1080, RD-4, RD-32. Controls: GATE-12, GATE-17, GATE-26.
   section (16.10). An unknown key makes the file invalid. An object may hold several keys when every
   key is in the vocabulary and their combined meaning is unambiguous (a key such as `all`, `condition`,
   `arm` or `each_listed_line` with its companion `have`, `holds`, `equals`, `has` or `reason`); it
-  counts as one condition (amendment 1, B5).
+  counts as one condition. The gate lists every such object in `gate-result.json`
+  (`compound_invariants`), and each listed object is reviewed for an unambiguous combined meaning
+  (amendment 1, B5).
 - **`gate_findings_include`** and **`gate_findings_exact`.** For the gate's own controls: the gate
   findings (R6.GATE.9) the self-test run must include, or must equal exactly.
 - **`cases`.** A list of case expectations, each with `case`. A list of names means each named case
@@ -3023,10 +3025,10 @@ A row outside the scope that has no second direction records `scope: "outside"` 
 mutant rows and the gate's own controls are outside the rule by their namespace. At the final
 expectation file, of 420 control rows 267 are in scope and 153 outside; 223 rows carry a `restored`
 expectation, 41 declare direction `both`, 6 name `paired_with` and 3 are exempt as observations;
-42 rows in scope recorded no second direction (`direction-missing`), and 217 rows are flagged VD-RESTORE.
-Amendment 1 (sec. 0.2) records a second direction on each of those 42 rows (35 by a `restored`
-expectation, N10 and N11 by `paired_with`, RT-L, RT-L2, RT-X, TT8 and TT13 by direction `both`) and adds
-14 rows, each with a second direction; no row in scope records no second direction.
+42 rows in scope recorded no second direction (`direction-missing`), and 217 rows are flagged VD-RESTORE
+(these figures are those of the adopted file, before amendment 1). Amendment 1 (sec. 0.2) records a second
+direction on each of those 42 rows and adds 14 rows, each with one. Counted mechanically over the amended
+file's rows outside the MUT and GATE namespaces (435 rows, 137 of them recording `scope: "outside"`; 266 carry a `restored` expectation, 54 declare direction `both`, 10 name `paired_with`, 3 are exempt as observations): no row in scope records no second direction.
 Sources: V1-101, V2-073, V1-138, Q7, RE-2, RE-3, RE-4, Q11. Controls: A11r, M1, N1, GATE-27.
 
 **R6.CTRL.4** Each expected FAIL names the class of sec. 15 that produces it; a FAIL expectation
@@ -3559,7 +3561,7 @@ row with a recorded restored case. Kind: `decl` declarative, `proc` procedural.
 | G-A1 | R6.DELEG.1, R6.DELEG.3, R6.DELEG.8, R6.GATE.15, R6.CTRL.5, R6.CTRL.23, R6.CTRL.28 | conformance_controls.py:2434 | proc | adv | delegated classes run natively in clones at `X` and `C`, and host-run classes read from the host API, after the tool lands |
 | ACCEPT-SCHEMA | R6.OUT.12, R6.OUT.18, R6.CTRL.23, R6.CTRL.28, R6.REPRO.1 | conformance_controls.py:514 | decl | adv | the acceptance predicate applied to a result of schema `/5` with `config.admission` of mode `chain`, and to the same result declared as schema `/4` |
 | B4-MEANING | R6.PUR.11, R6.OUT.18, R6.OUT.21, R6.CLASS.1, R6.CTRL.23, R6.CTRL.28 | conformance_controls.py:1734 | decl | adv | every result: the `class_meaning` table and its quotation by each item that carries a class |
-| S7-schema-and-checker | R6.OUT.18, R6.OUT.19, R6.OUT.23, R6.CLASS.1, R6.CTRL.23, R6.CTRL.28, R6.REPRO.1 | synthetic_fixture.py:555 | proc | adv | every result of the self-test and synthetic runs, validated against the result schema, with the outcome recomputed by the outcome checker |
+| S7-schema-and-checker | R6.OUT.18, R6.OUT.19, R6.OUT.23, R6.CLASS.1, R6.CTRL.23, R6.CTRL.28, R6.REPRO.1, R6.OUT.22 | synthetic_fixture.py:555 | proc | adv | every result of the self-test and synthetic runs, validated against the result schema, with the outcome recomputed by the outcome checker |
 | X1 | R6.PIPE.9, R6.PIPE.10, R6.ANCH.1, R6.ANCH.2, R6.OUT.1, R6.OUT.5, R6.CTRL.23 | a1_controls.py:176 | decl | adv | `record --pin H` |
 | X2 | R6.OUT.1, R6.OUT.3, R6.CTRL.23 | synthetic_fixture.py:478 | decl | adv | an exception injected in classification |
 | X3 | R6.PIPE.3, R6.OUT.1, R6.OUT.2, R6.OUT.6, R6.OUT.7, R6.CTRL.23 | synthetic_fixture.py:482 | decl | adv | an unknown flag |
@@ -3781,12 +3783,12 @@ row with a recorded restored case. Kind: `decl` declarative, `proc` procedural.
 | PIPE-STAGES | R6.PIPE.1 | to be implemented (tool revision) | decl | adv | two faults of different stages planted at once: usage with integrity, integrity with a failing preflight control, a failing preflight control with a deny match; the earlier stage decides and no later stage runs (amendment 1, B1) |
 | PIPE-REPO | R6.PIPE.4 | to be implemented (tool revision) | decl | adv | `--repo` naming an existing directory that is not a git repository (amendment 1, B1) |
 | PIPE-CHAIN | R6.PIPE.6 | to be implemented (tool revision) | decl | both | a broken segment chain (consecutive endpoints differ; a chain not ending at the named commit) is an integrity ERROR with `result.json` (C-12); with no `--segment`, the default segment is of kind `hp` where an HP obligation names it, else unledgered (amendment 1, B1) |
-| PIPE-UNRESOLVED | R6.PIPE.7 | to be implemented (tool revision) | decl | adv | a site removed without a splice in the first of two unledgered segments and untouched in the second: it stays unresolved and its item carries the first segment (amendment 1, B1) |
+| PIPE-UNRESOLVED | R6.PIPE.7 | to be implemented (tool revision) | decl | adv | a site removed without a splice in the first of two unledgered segments and untouched in the second: FAIL `missing` (R6.CLASS.2); it stays unresolved and its item carries the first segment (amendment 1, B1) |
 | PIPE-PRIOR | R6.PIPE.8 | to be implemented (tool revision) | decl | both | `pre_existing` computed at the prior endpoint (the last segment's FROM): true for a hit already there, false for a new hit; the exit status reports every item either way (amendment 1, B1) |
 | ANCH-OVERRIDE | R6.ANCH.8 | to be implemented (tool revision) | decl | both | an override anchor checked once, at the pin: an anchor that is not a substring of the pin line FAILs `record-invalid` through `record_checks.pin_findings`; a valid anchor is not searched again (amendment 1, B1) |
 | HP-MERGE-PR | R6.HP.1 | to be implemented (tool revision) | decl | adv | a configuration (control harness) pinning an HP merge whose subject names a different pull-request number: ERROR `CONFIG_INVALID` before any subject is evaluated (amendment 1, B1) |
 | HP-SEMCLASS | R6.HP.5 | to be implemented (tool revision) | decl | adv | an HP adjudication entry without `semantic_classification` (amendment 1, B1) |
-| HP-RECORDS | R6.HP.14 | to be implemented (tool revision) | decl | adv | HP records enter through `--hp` or `--classify` under sec. 11: a schema-invalid record and an unreferenced record are `record-invalid`; a record resolves a site only when every fingerprint matches (amendment 1, B1) |
+| HP-RECORDS | R6.HP.14, R6.HP.5 | to be implemented (tool revision) | decl | adv | HP records enter through `--hp` or `--classify` under sec. 11: a schema-invalid record and an unreferenced record are `record-invalid`; a record resolves a site only when every fingerprint matches (amendment 1, B1) |
 | CTX-INDICATOR | R6.CTX.8 | to be implemented (tool revision) | decl | adv | a configuration whose definition of one meaning-context indicator differs from the configuration it supersedes, without a widening review (widening, R6.CFG.7; ERROR `CONFIG_UNREVIEWED`, R6.VALID.3) (amendment 1, B1) |
 | OUT-FROZEN | R6.OUT.16 | to be implemented (tool revision) | decl | adv | an exception injected into a frozen-code call of op A becomes a structured INTERNAL with its class and stage; the frozen `main()` is never called (amendment 1, B1) |
 | OUT-EXPLAIN | R6.OUT.22 | to be implemented (tool revision) | proc | both | every subject carries an explanation with the fields of R6.OUT.22, its values checked against the run's inputs; a result missing one fails schema validation (the schema part is also tested by S7-schema-and-checker) (amendment 1, B1) |

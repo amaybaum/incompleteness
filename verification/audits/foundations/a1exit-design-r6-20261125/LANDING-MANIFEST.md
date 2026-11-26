@@ -12,9 +12,9 @@ Directory: `verification/audits/foundations/a1exit-design-r6-20261125/`. The lan
 
 | Path | Role | Source | sha256 |
 |---|---|---|---|
-| DESIGN-r6.md | final r6 document (the design) | amendment-1 output | fe306c602b23bf409fd266d2ac4d182fde7bfafbc16e0f974b823346ba064b2b |
-| EXPECTATIONS.json | final r6 document (expectation file) | amendment-1 output | 3c638a362d14592207bfbf75c581e74881f316c9f263262fbd908eb426b4511a |
-| REQUIREMENTS.json | final r6 document (requirement index) | amendment-1 output | 2d12e811e4448124edb1117eb6e50b3d756e91b45b601b7eb7a1473bb3817860 |
+| DESIGN-r6.md | final r6 document (the design) | amendment-1 output | 809022bdf9d9dd85037fe8b3fa329ee4a1bedfbf73dff3666a084b70bbec49c4 |
+| EXPECTATIONS.json | final r6 document (expectation file) | amendment-1 output | a75fe62cff0dc766cf22fcb34bde65b75dfa92567ed5eaea98086da0e37ca377 |
+| REQUIREMENTS.json | final r6 document (requirement index) | amendment-1 output | 44a8151d2468ba4e88b7919dbf578f5a0fffd55f5ab1d193379fd64a949280b4 |
 | MIGRATION.json | final r6 document (migration index) | unchanged from 2aec244e (blob 4ed66d207198) | 9188e876ffce703df20710b1285f4ff0ca9145ad656e3617e30feef56bcdaf08 |
 | PARAPHRASED-DECISIONS.md | final r6 document (list of paraphrased decisions) | unchanged from 2aec244e (blob c37ba6f98243) | 05602f3ec2f971ad860bc864a2ad8fce2d115948b0d3ac369ef17874746b65ce |
 | AUTHORIZATIONS.md | final r6 document (decision records relied on) | round-5 output | 6a7e01ac906512c420db05ff0f07a54091978d6a257488ad4a3dc3d4d97c1238 |
@@ -45,8 +45,8 @@ Directory: `verification/audits/foundations/a1exit-design-r6-20261125/`. The lan
 | generator-round5/records-1169-round5.json | round-5 generator (produces the round-5 documents) | round-5 generator | 20e1b1931a7f3d2fde178128d721df793bcf822f4006f9f1c7910f8a53026218 |
 | generator-round6/correct6.py | round-6 generator (produces the round-6 files) | round-6 generator | ef5a08daa93bebffb721e814008fb00f094986841f744246f0cf94f60bc96bbc |
 | generator-round6/records-1169-round6.json | round-6 generator (produces the round-6 files) | round-6 generator | 943aab8653403ceb2a7bef0575a9602969c1cdc2b6bf94ea1365f60295601f94 |
-| AMENDMENT-1.md | change record of amendment 1 | amendment-1 output | 4a62bbc23cb610236a4ced1cb9f02acf78ac20c8d4ae9b14376b834b4faa5bcc |
-| generator-amendment1/amend1.py | amendment-1 generator | amendment-1 generator | 189172bb9c553a028913bcc4605873b3971d7f57f522eaeb9df2b4a2ffc6e9b0 |
+| AMENDMENT-1.md | change record of amendment 1 | amendment-1 output | 420ce96e3c5380fa4c757ec6460a085600a64c6906cd0267f3dbe5f84b8ae4cc |
+| generator-amendment1/amend1.py | amendment-1 generator | amendment-1 generator | 9384529d80999ef7091c77171c85d2dd1725c7c92ce3c54f44b0f8dd413d2fd3 |
 | generator-amendment1/owner-decision-amendment1.json | amendment-1 generator input (the owner decision quoted) | amendment-1 generator | e5579e5c6ee8b14349d83e74bf3972ca8bc1bec3a3ed1f6cada61d2d73ea070b |
 | LANDING-MANIFEST.md | this manifest (A5) | amendment-1 output | (this file) |
 

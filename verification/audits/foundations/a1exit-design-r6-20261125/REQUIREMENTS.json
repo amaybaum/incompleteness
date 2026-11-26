@@ -1452,7 +1452,8 @@
    "V2-041"
   ],
   "controls": [
-   "HP-SEMCLASS"
+   "HP-SEMCLASS",
+   "HP-RECORDS"
   ],
   "verification": [
    "controls"

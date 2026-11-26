@@ -5591,14 +5591,9 @@
    "flags": [
     "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit"
    ],
-   "restored": {
-    "outcome": "RESULT_EQUAL_CLEAN",
-    "invariants": [
-     {
-      "baseline": "the same run on the restored (unmutated) tree"
-     }
-    ]
-   }
+   "paired_with": [
+    "N4"
+   ]
   },
   {
    "id": "N3-config-route",
@@ -5611,33 +5606,42 @@
     "execution"
    ],
    "direction": {
-    "of": "adversarial",
+    "of": "both",
     "required": "opposite direction",
     "why": "in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c))"
    },
    "expect": {
-    "outcome": "ANY",
-    "invariants": [
+    "cases": [
      {
-      "none": "items[path=AGENTS.md]"
+      "case": "the control input (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "none": "items[path=AGENTS.md]"
+       },
+       {
+        "composed_blob": "86d79863821f3f8cdad86771008b2df89fd1961a"
+       }
+      ]
      },
      {
-      "composed_blob": "86d79863821f3f8cdad86771008b2df89fd1961a"
+      "case": "countercase: the same record, supplied through the configuration's `records`, with its `ledger_binding` altered by one byte",
+      "outcome": "FAIL",
+      "classes_include": [
+       "base-drift"
+      ],
+      "invariants": [
+       {
+        "failed_conditions_include": "RC13"
+       }
+      ]
      }
     ]
    },
    "source": "D:2508; second direction: r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B2)",
    "flags": [
     "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit"
-   ],
-   "restored": {
-    "outcome": "RESULT_EQUAL_CLEAN",
-    "invariants": [
-     {
-      "baseline": "the same run on the restored (unmutated) tree"
-     }
-    ]
-   }
+   ]
   },
   {
    "id": "N4",
@@ -5681,7 +5685,10 @@
       "baseline": "the same run on the restored (unmutated) tree"
      }
     ]
-   }
+   },
+   "paired_with": [
+    "N3"
+   ]
   },
   {
    "id": "N5",
@@ -15934,7 +15941,7 @@
    },
    "source": "D:2886 with D:2291 (RD-31: \"'guard-pin' planted in an engine module, with the adapter companions in the value set: lint FAIL (the value occurs in edits.json)\"); second direction: r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B2)",
    "flags": [
-    "VD-RESTORE: listed without a restored case by the conformance check (C-1)"
+    "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit"
    ],
    "restored": {
     "outcome": "LINT_PASS",
@@ -21249,10 +21256,16 @@
    ],
    "expect": {
     "outcome": "FAIL",
+    "classes_include": [
+     "missing"
+    ],
     "sites": [
      {
       "subject": "$site",
-      "state": "unresolved"
+      "state": "unresolved",
+      "classes_include": [
+       "missing"
+      ]
      }
     ],
     "invariants": [
@@ -21441,7 +21454,8 @@
   {
    "id": "HP-RECORDS",
    "requirements": [
-    "R6.HP.14"
+    "R6.HP.14",
+    "R6.HP.5"
    ],
    "runner": null,
    "operations": [
