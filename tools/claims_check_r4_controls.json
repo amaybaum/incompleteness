@@ -1,6 +1,6 @@
 {
  "schema": "claims-controls/1",
- "about": "Control suite of tools/claims_check.py. Every item is copied verbatim (id, rule, expect, text, context) from the file named in 'source' under verification/audits/infrastructure/claims-check-redesign-20261125/work/; 'pinned' is the verdict of that directory's reference prototype work/proto.r4.py for the item's rule (verdict, codes) and over every rule (any). Categories: acceptance (the 195 preserved controls), probe (the review probes), heldout-W (batch W), diagnostic (author diagnostics D-01..D-12), example (the design example sentences EX-1..EX-6; 'expect' FAIL there marks a must-not-pass text, the source states its outcome in design terms). The self-test fails on any changed pinned verdict, and on a MISS or FPFAIL in the acceptance and probe categories. tools/claims_check_test.py checks the copies against their sources and the pins against the prototype.",
+ "about": "Control suite of tools/claims_check_r4.py. Items with a 'source' file name are copied verbatim (id, rule, expect, text, context) from that file under verification/audits/infrastructure/claims-check-redesign-20261125/work/, and their 'pinned' verdict is that directory's reference prototype work/proto.r4.py for the item's rule (verdict, codes) and over every rule (any). Categories: acceptance (the 195 preserved controls), probe (the review probes), heldout-W (batch W), diagnostic (author diagnostics D-01..D-12), example (the design example sentences EX-1..EX-6; 'expect' FAIL there marks a must-not-pass text, the source states its outcome in design terms), and previous-gap (the independent review of PR #1578: sentences that tools/claims_check.py flags, 'old_flags', and this checker passes, pinned as they are, a known and unresolved coverage gap). The self-test fails on any changed pinned verdict, and on a MISS or FPFAIL in the acceptance and probe categories. tools/claims_check_r4_test.py checks the copies against their sources, the pins of copied items against the prototype, and the old checker's verdict on the previous-gap items.",
  "controls": [
   {
    "source": "controls.json",
@@ -3894,6 +3894,104 @@
     "verdict": "REVIEW",
     "codes": "P",
     "any": "REVIEW"
+   }
+  },
+  {
+   "source": "independent review of PR #1578",
+   "category": "previous-gap",
+   "id": "PG-01",
+   "rule": "W-OI-EXPLAINS",
+   "expect": "FAIL",
+   "text": "Observational incompleteness explains quantum interference.",
+   "old_flags": true,
+   "pinned": {
+    "verdict": "PASS",
+    "codes": "",
+    "any": "PASS"
+   }
+  },
+  {
+   "source": "independent review of PR #1578",
+   "category": "previous-gap",
+   "id": "PG-02",
+   "rule": "W-OI-EXPLAINS",
+   "expect": "FAIL",
+   "text": "OI produces quantum randomness.",
+   "old_flags": true,
+   "pinned": {
+    "verdict": "PASS",
+    "codes": "",
+    "any": "PASS"
+   }
+  },
+  {
+   "source": "independent review of PR #1578",
+   "category": "previous-gap",
+   "id": "PG-03",
+   "rule": "W-OI-EXPLAINS",
+   "expect": "FAIL",
+   "text": "Ignorance explains quantum entanglement.",
+   "old_flags": true,
+   "pinned": {
+    "verdict": "PASS",
+    "codes": "",
+    "any": "PASS"
+   }
+  },
+  {
+   "source": "independent review of PR #1578",
+   "category": "previous-gap",
+   "id": "PG-04",
+   "rule": "W-OI-EXPLAINS",
+   "expect": "FAIL",
+   "text": "OI gives rise to quantum probabilities.",
+   "old_flags": true,
+   "pinned": {
+    "verdict": "PASS",
+    "codes": "",
+    "any": "PASS"
+   }
+  },
+  {
+   "source": "independent review of PR #1578",
+   "category": "previous-gap",
+   "id": "PG-05",
+   "rule": "W-OI-EXPLAINS",
+   "expect": "FAIL",
+   "text": "Observational incompleteness causes quantum indeterminacy.",
+   "old_flags": true,
+   "pinned": {
+    "verdict": "PASS",
+    "codes": "",
+    "any": "PASS"
+   }
+  },
+  {
+   "source": "independent review of PR #1578",
+   "category": "previous-gap",
+   "id": "PG-06",
+   "rule": "W-GR-KMS",
+   "expect": "FAIL",
+   "text": "In this model, any QFT on a bifurcate Killing horizon is thermal.",
+   "old_flags": true,
+   "pinned": {
+    "verdict": "PASS",
+    "codes": "",
+    "any": "PASS"
+   }
+  },
+  {
+   "source": "independent review of PR #1578",
+   "category": "previous-gap",
+   "id": "PG-07",
+   "rule": "W-GR-KMS",
+   "expect": "FAIL",
+   "text": "so the field must therefore be periodic with period 2π/κ.",
+   "old_flags": true,
+   "pinned": {
+    "verdict": "PASS",
+    "codes": "",
+    "any": "PASS"
    }
   }
  ]

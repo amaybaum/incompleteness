@@ -2249,16 +2249,20 @@ ok_fr &= 'defines what counts as an OI realization' in _frflat \
     and 'defines what counts as an OI realization' in _coflat
 ok_fr &= 'informationally complete' in _frflat
 ok_fr &= 'is not an explanatory one' in _frflat
-# the withdrawn-claim checker keeps a separate OI rule list, and nothing in it accepts an OI
-# assertion automatically: no marker list (a marker word such as "cannot" or "does not" would let the
-# dangerous sentences escape through the very words that make them dangerous), and no licence unless
-# an owner-adopted entry exists for the rule with its independent review record
+# the lint class must exist, with its OWN markers -- the general ones would let the
+# dangerous sentences escape through "cannot" and "does not"
+_cc = open(os.path.join(os.path.dirname(os.path.dirname(BRIDGE)), 'tools', 'claims_check.py'),
+           encoding='utf-8').read()
+ok_fr &= 'OI_CLAIMS' in _cc and 'OI_MARKERS' in _cc
+ok_fr &= 'cannot exist without' in _cc and '(requires|needs) hidden' in _cc
+ok_fr &= 'core-containment' in _cc
+# the redesigned checker beside it (tools/claims_check_r4.py, report-only in the gate) keeps a separate
+# OI rule list that no marker word accepts, and no OI licence without an independent review record
 _root = os.path.dirname(os.path.dirname(BRIDGE))
-_cc = open(os.path.join(_root, 'tools', 'claims_check.py'), encoding='utf-8').read()
-_ccm = None
+_cc4 = open(os.path.join(_root, 'tools', 'claims_check_r4.py'), encoding='utf-8').read()
 try:
     import importlib.util as _ilu
-    _sp = _ilu.spec_from_file_location('claims_check_r7fwd', os.path.join(_root, 'tools', 'claims_check.py'))
+    _sp = _ilu.spec_from_file_location('claims_check_r4_r7fwd', os.path.join(_root, 'tools', 'claims_check_r4.py'))
     _ccm = _ilu.module_from_spec(_sp)
     _sp.loader.exec_module(_ccm)
 except Exception:                                   # noqa: BLE001 -- an unloadable checker fails the guard
@@ -2268,13 +2272,9 @@ if _ccm is not None:
     _oi = {r['id']: r for r in getattr(_ccm, 'OI_RULES', [])}
     ok_fr &= set(_oi) == {'W-OI-REQ', 'W-OI-HIDDEN', 'W-OI-NOEXIST', 'W-OI-EXPLAINS', 'W-OI-CONTRA'}
     ok_fr &= all(r in _ccm.RULES for r in _oi.values())
-    ok_fr &= not hasattr(_ccm, 'MARKERS') and not hasattr(_ccm, 'OI_MARKERS')
-    ok_fr &= 'MARKERS' not in _cc.replace('PREV_MARKERS', '')
+    ok_fr &= not hasattr(_ccm, 'MARKERS') and not hasattr(_ccm, 'OI_MARKERS') and 'MARKERS' not in _cc4
     ok_fr &= 'cannot exist without' in _oi.get('W-OI-NOEXIST', {}).get('strong', '')
-    ok_fr &= bool(re.search(_oi.get('W-OI-NOEXIST', {}).get('strong', '^$'),
-                            'quantum mechanics cannot exist without OI', re.I))
     ok_fr &= any('hidden' in a for a in _oi.get('W-OI-HIDDEN', {}).get('args', []))
-    # a sentence asserting the withdrawn necessity is flagged, and a marker word does not pass it
     for _s in ('Quantum mechanics requires observational incompleteness.',
                'Quantum mechanics cannot exist without observational incompleteness.',
                'Quantum mechanics requires hidden variables, which does not follow from containment.'):
@@ -2293,11 +2293,12 @@ check('R7-FWD', ok_fr,
       'containment yes, forward redundancy yes, ontological necessity NO, with the reason the '
       'strong reading breaks (informationally complete measurements determine a density matrix). '
       'The core keeps its positive role of defining what counts as an OI realization, and the '
-      'equivalence theorem oiPlus_iff_qm is untouched. claims_check keeps the OI assertions in a '
-      'separate rule list, OI_RULES, with no marker list: no negation or marker word such as "cannot" '
-      'or "does not" can pass a guarded sentence, which is flagged and cleared only by a review record '
-      'within the mechanical bounds, and no OI licence exists without an independent review record '
-      'and a quoted owner adoption.')
+      'equivalence theorem oiPlus_iff_qm is untouched. claims_check carries an OI_CLAIMS class '
+      'with its own marker list, because the general markers include "cannot" and "does not" and '
+      'would let the guarded sentences escape through the very words that make them dangerous. '
+      'The redesigned checker beside it, claims_check_r4, keeps the OI assertions in a separate rule '
+      'list, OI_RULES, with no marker list, and admits no OI licence without an independent review '
+      'record and a quoted owner adoption.')
 
 # ---- CT3-R2A guard: a dead branch must not be read as a closed question ----
 # The positive requirements are checked against SCOPE TOKENS rather than prose, so that rewording

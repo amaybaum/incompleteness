@@ -18,12 +18,10 @@ another. Each exists because a real defect shipped past the others:
   voice_check          correction rounds reintroduced revision narration that
                        AGENTS.md forbids, faster than review removed it.
   claims_check         a withdrawn result stayed asserted in a later sentence;
-                       a file-level scope note does not rescue it, and a marker
-                       word anywhere in the paragraph rescued it under the
-                       previous checker. Flags defined patterns (FAIL for the
-                       plain canonical assertion, REVIEW otherwise) and enforces
-                       the structure of review records; independent scientific
-                       review carries reworded claims outside the patterns.
+                       a file-level scope note does not rescue it.
+  claims-controls      tools/claims_check_r4.py, the redesigned withdrawn-claim
+  claims-r4-report     checker, runs beside claims_check: its controls block, its
+                       scan reports without blocking (Issue #1565).
   duplicate_check      a scope note pasted at the head of every file put 16
                        identical copies inside the assembled book, and an
                        entire 8.6 section was duplicated in one paper.
@@ -77,7 +75,7 @@ Usage:
 
 Exit 1 if any check fails. Run from the repository root.
 """
-import os, subprocess, sys
+import os, subprocess, sys, tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
@@ -87,9 +85,16 @@ def run(name, argv, cwd=ROOT):
         r = subprocess.run(argv, cwd=cwd, capture_output=True, text=True,
                            timeout=1800)
     except Exception as e:                     # noqa: BLE001
-        return name, False, f"could not run: {e}"
+        return name, False, f"could not run: {e}", ""
     tail = [l for l in (r.stdout + r.stderr).strip().splitlines() if l.strip()]
-    return name, r.returncode == 0, (tail[-1] if tail else "")
+    return name, r.returncode == 0, (tail[-1] if tail else ""), r.stdout + r.stderr
+
+# Steps whose whole output is printed after the summary line: report-only steps, whose findings are
+# the point of running them and would otherwise be reduced to their last line.
+REPORT_STEPS = ("claims-r4-report",)
+# Where the report-only withdrawn-claim step writes its structured report (CI sets the variable so the
+# workflow can keep the file).
+CLAIMS_R4_REPORT = os.environ.get("CLAIMS_R4_REPORT") or os.path.join(tempfile.gettempdir(), "claims-r4-report.json")
 
 def main():
     label = None
@@ -123,13 +128,18 @@ def main():
         # particular layout, so it holds across the migration too.
         ("manifest-drift",
                       [sys.executable, "tools/build_migration_manifest.py", "--check"]),
-        # claims: conservative detection of withdrawn results, then revision-bound review records
-        # (Issue #1565, DESIGN-r3 as amended by DESIGN-r4). --repo and the main ref are passed
-        # explicitly: a review record is valid only at a revision on the main ref, and the job checks
-        # out with full history. claims-controls runs the exit-code and record controls, the
-        # control-source checks and the regression against the previous checker's patterns.
-        ("claims",    [sys.executable, "tools/claims_check.py", "--repo", ".", "--main", "origin/main"]),
-        ("claims-controls", [sys.executable, "tools/claims_check_test.py"]),
+        ("claims",    [sys.executable, "tools/claims_check.py"]),
+        # claims-controls and claims-r4-report: the redesigned withdrawn-claim checker,
+        # tools/claims_check_r4.py (Issue #1565, DESIGN-r3 as amended by DESIGN-r4), beside the
+        # blocking step above (owner decision, amaybaum, 2026-11-26T04:39:58Z, #1169 comment
+        # 7182798225). Its controls block. Its scan is report-only: findings never fail the step, its
+        # own failures (self-test, invalid or stale record, crash) do; the report's three sections
+        # (findings in the current corpus, generated test cases covering the old checker's patterns,
+        # known coverage gaps) are printed and written to CLAIMS_R4_REPORT. Making it blocking is a
+        # separate reviewed change with the owner's approval.
+        ("claims-controls", [sys.executable, "tools/claims_check_r4_test.py"]),
+        ("claims-r4-report", [sys.executable, "tools/claims_check_r4_test.py", "report",
+                              "--json", CLAIMS_R4_REPORT]),
         ("duplicate", [sys.executable, "tools/duplicate_check.py"]),
         ("mirror",    [sys.executable, "papers/oi_lattice_code/mirror_check.py"]),
         ("citation",  [sys.executable, "papers/oi_lattice_code/citation_check.py"]),
@@ -204,8 +214,10 @@ def main():
     print("=" * 68)
     failed = []
     for name, argv in checks:
-        n, ok, tail = run(name, argv)
+        n, ok, tail, out = run(name, argv)
         print(f"  {'PASS' if ok else 'FAIL'}  {n:16s} {tail[:60]}")
+        if n in REPORT_STEPS:
+            print("\n".join("        | " + l for l in out.rstrip().splitlines()))
         if not ok:
             failed.append(n)
     print("=" * 68)

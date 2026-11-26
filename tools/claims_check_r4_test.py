@@ -1,28 +1,38 @@
 #!/usr/bin/env python3
-"""claims_check_test.py - controls on tools/claims_check.py that its own self-test cannot run.
+"""claims_check_r4_test.py - controls on tools/claims_check_r4.py that its own self-test cannot run.
 
   records    the exit-code, licence and review-record controls of the adopted design (DESIGN-r4
              section 3, 73 controls, ported from work/run_r4.py exitcodes), run on synthetic trees
              against a synthetic git repository built in a temporary directory, so that they need
              no network, no particular checkout and no history of this repository;
-  sources    every item of tools/claims_check_controls.json against the control file it was copied
-             from, batch W against its published SHA-256, and every pinned verdict against the
-             reference prototype work/proto.r4.py of the design directory;
-  previous   the withdrawn-claim patterns of the checker this one replaced, kept below verbatim as a
-             fixture: every control text they flagged is flagged here, every match of them in this
-             repository's Markdown that its marker lists did not excuse lies in a flagged sentence,
-             and inserting its markers into a must-not-pass control never produces PASS (the
-             design's M2 segmentation check);
-  gate       tools/release_gate.py runs the checker with --repo and the main ref, and runs this file.
+  sources    every item of tools/claims_check_r4_controls.json copied from a file of the design
+             directory against that file, batch W against its published SHA-256, and every pinned
+             verdict against the reference prototype work/proto.r4.py;
+  previous   comparison with the blocking checker, tools/claims_check.py, on three specific sets:
+             the controls (those it flags and this checker passes must be exactly the pinned
+             losses); a finite set of sentences generated from the alternatives of each of its
+             patterns (the old-only ones and the per-pattern counts must equal the pinned file
+             tools/claims_check_r4_gap.json; they are known, unresolved coverage gaps); and the
+             current corpus (n reported, not coverage evidence).  Plus marker insertion into the
+             must-not-pass acceptance controls (the design's M2 segmentation check).  None of these
+             finite sets proves that coverage of the old patterns is preserved;
+  gate       tools/release_gate.py keeps the blocking claims step unchanged, runs this checker
+             report-only, and runs this file.
 
-Usage:  python3 tools/claims_check_test.py [records|sources|previous|gate ...]
-Exit 0 when every control holds, 1 otherwise.  Writes nothing outside a temporary directory.
+Usage:  python3 tools/claims_check_r4_test.py [records|sources|previous|gate ...]
+        python3 tools/claims_check_r4_test.py report [--json OUT]   the report-only gate step
+        python3 tools/claims_check_r4_test.py write-gap-pin         regenerate the pinned gap file
+Exit 0 when every control holds, 1 otherwise.  report: 0 whatever it finds, 1 when
+tools/claims_check_r4.py fails (self-test, record, usage or internal error) or the report crashes;
+its output and OUT have three sections: findings in the current corpus, generated test cases
+covering the old checker's patterns, and known coverage gaps, unresolved.  Writes nothing outside a
+temporary directory, except OUT and write-gap-pin's file.
 """
 import hashlib, importlib.util, json, os, re, subprocess, sys, tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
-CHECKER = os.path.join(HERE, "claims_check.py")
+CHECKER = os.path.join(HERE, "claims_check_r4.py")
 DESIGN = os.path.join(ROOT, "verification", "audits", "infrastructure", "claims-check-redesign-20261125", "work")
 W_SHA = "6317946b6fae4d58c2c78be5e718b06fd002c1edc6d37280f6821c9876d6b9a9"
 
@@ -34,7 +44,7 @@ def load(name, path):
     return m
 
 
-CC = load("claims_check", CHECKER)
+CC = load("claims_check_r4", CHECKER)
 RESULTS = []
 
 
@@ -279,11 +289,13 @@ def sources():
     if not os.path.isdir(DESIGN):
         check("sources", "design directory present", False, "missing; the copies cannot be checked")
         return
-    suite = json.load(open(os.path.join(HERE, "claims_check_controls.json"), encoding="utf-8"))["controls"]
+    suite = json.load(open(os.path.join(HERE, "claims_check_r4_controls.json"), encoding="utf-8"))["controls"]
     by_src = {}
     for c in suite:
         by_src.setdefault(c["source"], []).append(c)
     for src, items in sorted(by_src.items()):
+        if not os.path.exists(os.path.join(DESIGN, src)):
+            continue                                   # items not copied from a design file
         data = json.load(open(os.path.join(DESIGN, src), encoding="utf-8"))
         if src == "design-example-sentences.json":
             orig = [{"id": e["id"], "rule": e["rule"], "expect": "FAIL", "text": e["text"]} for e in data["examples"]]
@@ -317,60 +329,135 @@ def sources():
 
 
 # ------------------------------------------------------------------ previous
-# Fixture: the patterns and marker lists of tools/claims_check.py before this design was implemented
-# (blob at commit 5ebba1a27f2ce5d02cadb75ee5fb3393e6f88e80), verbatim.  They are not used to decide
-# anything in the gate; they test that no claim the previous checker caught passes silently here.
-PREV_MARKERS = ('H-link', 'H-spin', 'H-balance', 'H-Hawking', 'H-spectrum', 'H-cust', 'H-blind',
-                'H-frame', 'H-scramble', 'H-shell', 'H-slope', 'kinematic in its parameter', 'conditional', 'CONDITIONAL', 'not establish',
-                'does not answer', 'does not close', 'premise', 'withdrawn',
-                'is not a proof', 'No framework derives', 'no framework derives',
-                'definition*', 'assumption', 'does not', 'cannot', 'not a proof',
-                'link count', 'rather than facts')
-PREV_CLAIMS = [
-    re.compile(r'coupling-degree minimi\w*'),
-    re.compile(r"framework's answer is \$K = 2d"),
-    re.compile(r'forcing an Euclidean|forces an Euclidean'),
-    re.compile(r'leading scalar propagation geometry is Euclidean'),
-    re.compile(r'state-independent'),
-    re.compile(r'purely kinematic'),
-    re.compile(r'must therefore be periodic|must be KMS|any QFT on this background'),
-    re.compile(r'any QFT on a bifurcate|exact free-level cone per channel'),
-    re.compile(r'free-level cone is exact'),
-    re.compile(r'(\\v?arepsilon|\\epsilon)\s*\\kappa\s*/\s*c\b(?!\^)'),
-]
-PREV_OI_MARKERS = ('core-containment', 'core containment', 'containment', 'qm_implies_oiCore',
-                   'completedOI_iff_physical', 'forward redundancy', 'forward-redundancy',
-                   'redundant', 'does no work', 'not explanatory', 'not an explanatory',
-                   'in the narrow', 'unsupported', 'is not proved', 'not a theorem')
-PREV_OI_CLAIMS = [
-    re.compile(r'(?i)\b(QM|quantum mechanics) (requires|needs|presupposes) '
-               r'(bare )?(OI\b|observation(al)? incompleteness)'),
-    re.compile(r'(?i)\b(QM|quantum mechanics) cannot exist without'),
-    re.compile(r'(?i)\b(QM|quantum mechanics) (requires|needs) hidden '
-               r'(information|variables?|states?|ontology)'),
-    re.compile(r'(?i)\b(OI|observation(al)? incompleteness|ignorance) '
-               r'(causes|produces|explains|generates|gives rise to) '
-               r'(QM|quantum|quantum mechanics)'),
-    re.compile(r'(?i)\bwithout (OI|observation(al)? incompleteness) there (is|would be) no '
-               r'(QM|quantum)'),
-]
-PREV = [(rx, PREV_MARKERS) for rx in PREV_CLAIMS] + [(rx, PREV_OI_MARKERS) for rx in PREV_OI_CLAIMS]
+# The blocking checker, tools/claims_check.py, read as it is: its patterns and marker lists decide
+# here only what it flags, to compare with this checker.
+OLD = load("claims_check_previous", os.path.join(HERE, "claims_check.py"))
+PREV = ([(rx, why, OLD.MARKERS) for rx, why in OLD.CLAIMS]
+        + [(rx, why, OLD.OI_MARKERS) for rx, why in OLD.OI_CLAIMS])
+
+
+def prev_matches(par):
+    """The blocking checker's findings on one paragraph: (match, reason) for each rule it reports."""
+    out = []
+    for rx, why, marks in PREV:
+        m = rx.search(par)
+        if m and not any(k in par for k in marks):
+            out.append((m, why))
+    return out
 
 
 def prev_hits(par):
-    """The previous checker's verdict on one paragraph: the matches it reported."""
-    return [m for rx, marks in PREV for m in rx.finditer(par) if not any(k in par for k in marks)]
+    return [m for m, _ in prev_matches(par)]
 
 
-def previous():
-    suite = json.load(open(os.path.join(HERE, "claims_check_controls.json"), encoding="utf-8"))["controls"]
-    flagged = [c for c in suite if prev_hits(c["text"])]
-    lost = [c["id"] for c in flagged if CC.any_verdict(c["text"], c.get("context", "")) == "PASS"]
-    # EX-2 is the one exception, and it is not an assertion: it lists the forms of the subject
-    # "coupling-degree minimization" with no selection cue (K, 2d, six, fixes, ...), which the previous
-    # checker flagged as a bare mention.  Any other loss fails.
-    check("previous", "every control the previous checker flagged is flagged, except the mention EX-2 (%d of %d)"
-          % (len(flagged), len(suite)), lost == ["EX-2"], " ".join(lost[:10]))
+# ---- generated forms: what the blocking checker's patterns can match
+# Each pattern of tools/claims_check.py is expanded from its own alternatives (subjects, verbs,
+# objects, case) into sentence frames that state the withdrawn result; the frames carry no marker
+# of the blocking checker, so it flags each sentence that contains a match.  The list is fixed in
+# this file, not chosen from the outcome, and every sentence it yields is compared.
+def _cap(s):
+    return s[:1].upper() + s[1:]
+
+
+def generated_forms():
+    forms = []
+
+    def add(label, sents):
+        for s in sents:
+            forms.append((label, s))
+    kdeg = ["coupling-degree minimization", "coupling-degree minimisation", "coupling-degree minimizing",
+            "coupling-degree minimum"]
+    kfr = ["{} fixes the component count.", "{} fixes $K = 2d$.", "{} selects six components per site.",
+           "The component count follows from {}.", "{} determines the internal structure of a site.",
+           "{} gives the single-copy clause.", "The lattice is chosen by {}.", "{} is why each site carries six links."]
+    add("coupling-degree minimi", [(f.format(_cap(k)) if f.startswith("{}") else f.format(k)) for k in kdeg for f in kfr]
+        + ["In this framework, " + f.format(k) for k in kdeg for f in kfr if f.startswith("{}")])
+    add("framework's answer is $K = 2d", ["The framework's answer is $K = 2d$.", "The framework's answer is $K = 2d$ components per site.",
+                                          "In three dimensions the framework's answer is $K = 2d$, six."])
+    eu_s = ["cubic equivariance", "cubic symmetry", "the lattice symmetry", "finite observation", "equivariant projection",
+            "the substratum", "projected memory", "the observer interface"]
+    eu_o = ["quadratic symbol", "metric", "propagation geometry", "observer symbol", "dispersion relation"]
+    add("forces an Euclidean", ["%s forces an Euclidean %s." % (_cap(s), o) for s in eu_s for o in eu_o])
+    add("forcing an Euclidean", ["The lattice is cubic, forcing an Euclidean %s." % o for o in eu_o]
+        + ["%s acts on the projection, forcing an Euclidean %s." % (_cap(s), o) for s in eu_s[:4] for o in eu_o[:2]])
+    add("leading scalar propagation geometry is Euclidean",
+        ["The leading scalar propagation geometry is Euclidean.", "At long wavelength the leading scalar propagation geometry is Euclidean.",
+         "On the lattice the leading scalar propagation geometry is Euclidean in every direction."])
+    ts = ["$T_Q$", "the Hawking temperature", "the horizon temperature", "the de Sitter temperature", "the temperature",
+          "the vacuum energy", "the thermal ratio", "the Unruh temperature", "the calibration", "the entropy"]
+    add("state-independent", ["%s is state-independent." % _cap(s) for s in ts]
+        + ["The state-independent %s fixes the scale." % s.replace("the ", "") for s in ts[1:5]])
+    ks = ["horizon thermality", "the Hawking temperature", "the thermal spectrum", "the Unruh effect", "the thermality of the horizon",
+          "$T_Q$"]
+    add("purely kinematic", ["%s is purely kinematic." % _cap(s) for s in ks]
+        + ["The effect is purely kinematic in origin.", "Its origin is purely kinematic."])
+    pf = ["the field", "the state", "every correlator", "the two-point function", "each mode", "the restricted state"]
+    add("must therefore be periodic", ["%s must therefore be periodic in imaginary time." % _cap(s) for s in pf]
+        + ["%s must therefore be periodic with period $2\\pi/\\kappa$." % _cap(s) for s in pf]
+        + ["So %s must therefore be periodic with period 2π/κ." % s for s in pf])
+    add("must be KMS", ["%s must be KMS." % _cap(s) for s in pf] + ["%s must be KMS at the horizon temperature." % _cap(s) for s in pf])
+    qb = ["is thermal", "is in equilibrium", "has a thermal spectrum", "is KMS", "is periodic in imaginary time",
+          "radiates at $T_Q$"]
+    add("any QFT on this background", ["Any QFT on this background %s." % p for p in qb]
+        + ["In this model, any QFT on this background %s." % p for p in qb])
+    add("any QFT on a bifurcate", ["Any QFT on a bifurcate Killing horizon %s." % p for p in qb]
+        + ["In this model, any QFT on a bifurcate Killing horizon %s." % p for p in qb])
+    add("exact free-level cone per channel", ["The exact free-level cone per channel bounds every signal.",
+                                              "Each mode obeys an exact free-level cone per channel.",
+                                              "There is an exact free-level cone per channel."])
+    add("free-level cone is exact", ["The free-level cone is exact.", "The free-level cone is exact per channel.",
+                                     "On the normalized branch the free-level cone is exact.",
+                                     "In $d = 3$ the free-level cone is exact for every mode."])
+    add("epsilon kappa over c", ["The shift is $\\varepsilon\\kappa/c$.", "The shift is $\\epsilon \\kappa / c$.",
+                                 "It equals $2\\varepsilon\\kappa/c$ at leading order."])
+    qm = ["QM", "quantum mechanics", "Quantum mechanics"]
+    oi = ["OI", "observational incompleteness", "observation incompleteness", "bare OI", "bare observational incompleteness"]
+    add("QM requires OI", ["%s %s %s." % (q, v, o) for q in qm for v in ("requires", "needs", "presupposes") for o in oi]
+        + ["In this framework, %s requires %s." % (q.lower() if q != "QM" else q, o) for q in qm[:2] for o in oi[:3]])
+    add("QM cannot exist without", ["%s cannot exist without %s." % (q, o) for q in qm
+                                    for o in ("OI", "observational incompleteness", "hidden information", "ignorance",
+                                              "an observer", "a substratum", "the trace-out")])
+    add("QM requires hidden", ["%s %s hidden %s." % (q, v, o) for q in qm for v in ("requires", "needs")
+                               for o in ("information", "variables", "variable", "states", "state", "ontology")])
+    oi_s = ["OI", "observational incompleteness", "observation incompleteness", "ignorance", "Observational incompleteness",
+            "Ignorance"]
+    oi_v = ["causes", "produces", "explains", "generates", "gives rise to"]
+    oi_o = ["QM", "quantum mechanics", "quantum interference", "quantum randomness", "quantum entanglement",
+            "quantum probabilities", "quantum indeterminacy", "quantum behaviour", "quantum statistics", "quantum theory",
+            "quantum structure", "quantum phenomena", "quantum superposition", "quantum uncertainty"]
+    add("OI explains quantum", ["%s %s %s." % (_cap(s), v, o) for s in oi_s for v in oi_v for o in oi_o])
+    add("without OI there is no quantum", ["%s %s there %s no %s." % (w, o, b, q)
+                                           for w in ("Without", "without")[:1]
+                                           for o in ("OI", "observational incompleteness", "observation incompleteness")
+                                           for b in ("is", "would be")
+                                           for q in ("QM", "quantum mechanics", "quantum behaviour", "quantum interference",
+                                                     "quantum theory")])
+    return forms
+
+
+def gap():
+    """Over the generated forms: per pattern label, the number generated, flagged by the blocking
+    checker, flagged by both checkers, and flagged by the blocking checker only (old-only); and the
+    old-only sentences themselves."""
+    rows, tot = [], {}
+    for label, s in generated_forms():
+        pm = prev_matches(s)
+        t = tot.setdefault(label, {"generated": 0, "old_flags": 0, "caught_by_both": 0, "old_only": 0})
+        t["generated"] += 1
+        if not pm:
+            continue
+        t["old_flags"] += 1
+        if CC.any_verdict(s) == "PASS":
+            t["old_only"] += 1
+            rows.append({"pattern": label, "old_rule": pm[0][1], "sentence": s})
+        else:
+            t["caught_by_both"] += 1
+    return rows, tot
+
+
+def tree_comparison():
+    """Every match of the blocking checker's patterns, in a paragraph its marker lists do not excuse,
+    in this repository's Markdown, and those of them that lie in a sentence this checker passes."""
     n, lost = 0, []
     for dp, dn, fs in os.walk(ROOT):
         dn[:] = sorted(x for x in dn if x != ".git")
@@ -389,36 +476,180 @@ def previous():
                         n += 1
                         unit = max(a for a in starts if a <= m.start()) if any(a <= m.start() for a in starts) else None
                         if not any(x["offset"] == unit for x in found):
-                            lost.append("%s: %s" % (os.path.relpath(p, ROOT), m.group(0)))
+                            lost.append({"path": os.path.relpath(p, ROOT).replace(os.sep, "/"), "match": m.group(0)})
                 prev = par
-    check("previous", "every unexcused match of the previous patterns in this tree lies in a flagged sentence (%d)" % n,
-          not lost, "; ".join(lost[:5]))
+    return n, lost
+
+
+def control_losses(suite):
+    """Controls the blocking checker flags and this checker passes (over every rule)."""
+    flagged = [c for c in suite if prev_hits(c["text"])]
+    return flagged, sorted(c["id"] for c in flagged if CC.any_verdict(c["text"], c.get("context", "")) == "PASS")
+
+
+def coverage(suite):
+    rows, tot = gap()
+    n, lost = tree_comparison()
+    flagged, losses = control_losses(suite)
+    return {
+        "generated_test_cases": {
+            "about": ("Sentences generated from the alternatives of each pattern of tools/claims_check.py "
+                      "(generated_forms in tools/claims_check_r4_test.py). A finite set: it shows which of these "
+                      "sentences each checker flags, not that every sentence the old patterns match is covered."),
+            "generated": sum(t["generated"] for t in tot.values()),
+            "old_flags": sum(t["old_flags"] for t in tot.values()),
+            "caught_by_both": sum(t["caught_by_both"] for t in tot.values()),
+            "old_only": sum(t["old_only"] for t in tot.values()),
+            "by_pattern": tot},
+        "known_coverage_gaps": {
+            "about": ("Sentences and controls that tools/claims_check.py flags and tools/claims_check_r4.py passes. "
+                      "Unresolved; no switch to the new checker as the blocking check while they remain."),
+            "generated_old_only": rows,
+            "controls_old_only": losses,
+            "corpus_old_only": lost},
+        "corpus_comparison": {"old_unexcused_matches": n, "of_which_new_passes": len(lost),
+                              "controls_old_flags": len(flagged), "controls": len(suite)},
+    }
+
+
+GAP_PIN = os.path.join(HERE, "claims_check_r4_gap.json")
+SUITE = os.path.join(HERE, "claims_check_r4_controls.json")
+
+
+def report(out):
+    """The report-only gate step: the r4 scan of the current corpus (its own failures fail the step),
+    then the comparison with the blocking checker, in three sections."""
+    with tempfile.TemporaryDirectory() as d:
+        j = os.path.join(d, "findings.json")
+        p = subprocess.run([sys.executable, "-I", CHECKER, "--report-only", "--repo", ROOT, "--main", "origin/main",
+                            "--json", j], capture_output=True, text=True, cwd=ROOT)
+        print(p.stdout.rstrip())
+        if p.returncode != 0:
+            print("claims_check_r4_test report: FAILED (tools/claims_check_r4.py exit %d)" % p.returncode)
+            return 1
+        scan = json.load(open(j, encoding="utf-8"))
+    suite = json.load(open(SUITE, encoding="utf-8"))["controls"]
+    cov = coverage(suite)
+    act = [x for x in scan["findings"] if x["active"] and "resolved_by" not in x]
+    doc = {
+        "schema": "claims-r4-report/1",
+        "findings_in_current_corpus": {
+            "about": ("tools/claims_check_r4.py on this tree, report-only. findings: one per (rule, sentence unit); "
+                      "sentences: distinct (path, sentence hash); texts: distinct sentence hashes; records needed: "
+                      "distinct (rule, path, sentence hash, code, window hash for code A)."),
+            "workload": scan["workload"], "counts": scan["counts"], "record_problems": scan["record_problems"],
+            "active_findings": [{k: x[k] for k in ("path", "line", "rule", "code", "verdict", "sentence_sha256",
+                                                    "window_sha256", "sentence")} for x in act],
+            "comparison_with_blocking_checker": cov["corpus_comparison"]},
+        "generated_test_cases": cov["generated_test_cases"],
+        "known_coverage_gaps": cov["known_coverage_gaps"],
+    }
+    if out:
+        with open(out, "w", encoding="utf-8") as fh:
+            json.dump(doc, fh, indent=1, ensure_ascii=False)
+            fh.write("\n")
+    w, cc, g, k = scan["workload"], cov["corpus_comparison"], cov["generated_test_cases"], cov["known_coverage_gaps"]
+    print("== 1. findings in the current corpus (report-only; not gating)")
+    print("   " + ", ".join("%s %d" % kv for kv in w.items()))
+    print("   blocking-checker patterns: %d unexcused match(es) in this tree, %d in a sentence the new checker passes"
+          % (cc["old_unexcused_matches"], cc["of_which_new_passes"]))
+    print("== 2. generated test cases covering the old checker's patterns (a finite set, not a proof of coverage)")
+    print("   %d generated, %d flagged by the old checker, %d by both, %d by the old checker only"
+          % (g["generated"], g["old_flags"], g["caught_by_both"], g["old_only"]))
+    for label, t in g["by_pattern"].items():
+        print("   %-48s generated %3d  old %3d  both %3d  old-only %3d"
+              % (label, t["generated"], t["old_flags"], t["caught_by_both"], t["old_only"]))
+    print("== 3. known coverage gaps, unresolved")
+    print("   controls flagged by the old checker only: %s" % (" ".join(k["controls_old_only"]) or "none"))
+    for r in k["corpus_old_only"]:
+        print("   CORPUS %s: %s" % (r["path"], r["match"]))
+    for r in k["generated_old_only"]:
+        print("   GAP [%s] %s" % (r["pattern"], r["sentence"]))
+    print("claims_check_r4_test report: OK (report-only; %d active findings, %d records needed; %d known gap(s) in "
+          "generated cases, %d in controls)%s" % (w["findings"], w["records needed"], len(k["generated_old_only"]),
+                                                   len(k["controls_old_only"]), ("; report " + out) if out else ""))
+    return 0
+
+
+def previous():
+    suite = json.load(open(SUITE, encoding="utf-8"))["controls"]
+    known = {c["id"] for c in suite if c.get("category") == "previous-gap"} | {"EX-2"}
+    flagged, lost = control_losses(suite)
+    # The known losses are pinned: EX-2 (a listing of forms of "coupling-degree minimization" with no
+    # selection cue) and the previous-gap controls (the independent review's examples).  Any other
+    # control the blocking checker flags and this one passes fails the test.
+    check("previous", "controls flagged by the old checker and passed by the new are exactly the pinned losses "
+          "(%d of %d controls flagged by the old)" % (len(flagged), len(suite)), lost == sorted(known), " ".join(lost[:12]))
+    for c in suite:
+        if c.get("category") == "previous-gap":
+            check("previous", "%s: the old checker's verdict is as pinned" % c["id"], bool(prev_hits(c["text"])) == c["old_flags"])
+    # Generated test cases: the old-only list and the per-pattern counts must equal the pinned file, so
+    # that a change in either direction is visible.  This records the gaps; it does not resolve them.
+    rows, tot = gap()
+    try:
+        pin = json.load(open(GAP_PIN, encoding="utf-8"))
+    except (OSError, ValueError) as e:
+        check("previous", "pinned gap file readable", False, str(e))
+        pin = {}
+    check("previous", "generated test cases: old-only list and per-pattern counts equal the pinned file "
+          "(%d generated, %d old-only)" % (sum(t["generated"] for t in tot.values()), len(rows)),
+          pin.get("generated_old_only") == rows and pin.get("by_pattern") == tot)
+    # Current corpus: n is reported, and is not coverage evidence (the old checker passes this tree).
+    n, lost = tree_comparison()
+    check("previous", "current corpus: old-pattern matches in sentences the new checker passes: %d of n = %d (n is not coverage)"
+          % (len(lost), n), not lost, "; ".join("%s: %s" % (r["path"], r["match"]) for r in lost[:5]))
     ins, passed = 0, []
     for c in suite:
         if c["category"] != "acceptance" or c["expect"] != "FAIL":
             continue
         t = c["text"].rstrip()
-        for m in PREV_MARKERS + PREV_OI_MARKERS:
+        for m in OLD.MARKERS + OLD.OI_MARKERS:
             for txt in (t + " The text notes " + m + ".", (t[:-1] if t.endswith(".") else t) + ", and the text notes " + m + ".",
                         m[:1].upper() + m[1:] + ": " + t, "Under " + m + ", " + t[:1].lower() + t[1:]):
                 ins += 1
                 if CC.verdict_for(txt, c["rule"], c.get("context", ""))[0] == "PASS":
                     passed.append(c["id"])
-    check("previous", "marker insertion into must-not-pass controls never passes (%d insertions)" % ins,
+    check("previous", "marker insertion into the must-not-pass acceptance controls never passes (%d insertions)" % ins,
           not passed, " ".join(sorted(set(passed))[:10]))
+
+
+def write_gap_pin():
+    """Regenerates the pinned file from the current outcome (used when a deliberate change moves it)."""
+    rows, tot = gap()
+    with open(GAP_PIN, "w", encoding="utf-8") as fh:
+        json.dump({"schema": "claims-r4-previous-gap/1",
+                   "about": ("Generated test cases from the patterns of tools/claims_check.py that it flags and "
+                             "tools/claims_check_r4.py passes, and the per-pattern counts. Known, unresolved coverage "
+                             "gaps of a finite generated set; tools/claims_check_r4_test.py previous fails when the "
+                             "outcome differs from this file."),
+                   "by_pattern": tot, "generated_old_only": rows}, fh, indent=1, ensure_ascii=False)
+        fh.write("\n")
 
 
 # ------------------------------------------------------------------ gate
 def gate():
     g = open(os.path.join(HERE, "release_gate.py"), encoding="utf-8").read()
     m = re.search(r'\("claims",\s*\[([^\]]*)\]\)', g)
+    check("gate", "the blocking claims step runs tools/claims_check.py unchanged",
+          bool(m) and m.group(1).strip() == 'sys.executable, "tools/claims_check.py"', m.group(1).strip()[:100] if m else "")
+    m = re.search(r'\("claims-r4-report",\s*\[([^\]]*)\]', g)
     argv = m.group(1) if m else ""
-    check("gate", "the claims step runs tools/claims_check.py with --repo and --main origin/main",
-          "tools/claims_check.py" in argv and '"--repo"' in argv and '"--main", "origin/main"' in argv, argv.strip()[:100])
-    check("gate", "the gate runs this file", '"tools/claims_check_test.py"' in g)
+    check("gate", "the report-only step runs this file's report", '"tools/claims_check_r4_test.py", "report"' in argv,
+          argv.strip()[:120])
+    src = open(os.path.abspath(__file__), encoding="utf-8").read()
+    check("gate", "the report runs tools/claims_check_r4.py with --report-only, --repo and --main origin/main",
+          '[sys.executable, "-I", CHECKER, "--report-only", "--repo", ROOT, "--main", "origin/main"' in src)
+    m = re.search(r'\("claims-controls",\s*\[([^\]]*)\]\)', g)
+    check("gate", "the blocking claims-controls step runs this file's controls",
+          bool(m) and m.group(1).strip() == 'sys.executable, "tools/claims_check_r4_test.py"')
 
 
 def main(argv):
+    if argv[1:2] == ["report"]:
+        return report(argv[argv.index("--json") + 1] if "--json" in argv else None)
+    if argv[1:2] == ["write-gap-pin"]:
+        write_gap_pin()
+        return 0
     parts = {"records": records, "sources": sources, "previous": previous, "gate": gate}
     want = argv[1:] or list(parts)
     bad = [w for w in want if w not in parts]
@@ -428,7 +659,7 @@ def main(argv):
     for w in want:
         parts[w]()
     n_bad = RESULTS.count(False)
-    print("claims_check_test: %s (%d controls, %d failed)" % ("OK" if not n_bad else "FAILED", len(RESULTS), n_bad))
+    print("claims_check_r4_test: %s (%d controls, %d failed)" % ("OK" if not n_bad else "FAILED", len(RESULTS), n_bad))
     return 1 if n_bad else 0
 
 
@@ -438,5 +669,5 @@ if __name__ == "__main__":
     except SystemExit:
         raise
     except Exception as e:                     # noqa: BLE001 -- a crash is a failed control, never a pass
-        print("claims_check_test: internal error:", repr(e))
+        print("claims_check_r4_test: internal error:", repr(e))
         sys.exit(1)

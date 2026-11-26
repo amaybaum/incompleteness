@@ -5,8 +5,8 @@ itself conditional?
 Dependency labels do not update themselves. When an upstream result is scoped
 to a named condition (H-slope, H-Hawking, ...), every downstream paragraph that
 cites that section as its derivation keeps the label it had when the upstream
-result was unconditional. claims_check cannot see this: it matches defined
-patterns of withdrawn results, and "(derived)" is not a wrong phrase, only a stale
+result was unconditional. claims_check cannot see this: it matches an
+enumerated phrase list, and "(derived)" is not a wrong phrase, only a stale
 one. The GR dark-sector chain shipped past a green gate in exactly this
 state: Step 1 "(derived)" citing T_dS "derived, sec 3.2", after sec 3.2 had
 become conditional. The same pattern was then found one level down (the
@@ -18,7 +18,7 @@ Rule. For every file, a section CARRIES A CONDITION if its text (including
 subsections) contains a named-condition token or the word "conditional". A
 paragraph is a HIT if it (a) cites such a section, (b) uses derivation-
 strength language about it, and (c) carries no conditionality marker of its
-own. Paragraph scope: a file-level or section-preamble
+own. Paragraph scope, as in claims_check: a file-level or section-preamble
 scope note does not rescue a later paragraph that re-asserts the result.
 
 This is deliberately an over-approximation. A hit is either a stale label
