@@ -910,3 +910,55 @@ gate cannot hold until B1 to B3 are resolved by an owner-approved expectation ch
 - Still to migrate: the purity job's record id `outcome` (becomes Z9-STAGED when that runner gains the
   evidence contract); the o9 mutant names (RDIR-m1 to RDIR-m17), which go with the harness when it lands; the
   result field "authority match", which occurs in no tool file.
+
+## 14. Progress on the evidence contract, second directions and release checks (WIP / UNVERIFIED)
+
+Counted over the amended expectation file of design amendment 1 (572 rows), with the local records of the
+engine controls, the staged purity lint, the synthetic fixture, the conformance controls (with the RDIR and I2
+groups), the A1 conformance and an A1 controls run with sweeps: before this stage 30 rows held (the GATE rows) with
+`missing-id` 542 and `status-not-allowed` 16; after it 89 hold, with `missing-id` 166 (107 mutant rows, 44 rows
+with no runner, the rest ids no runner records yet), `raw-evidence-missing` 301, `declarative-mismatch` 55,
+`status-actual-inconsistent` 312 and `status-not-allowed` 20. The gate reports GATE_FAIL; the counts measure
+progress only.
+
+Done:
+
+- Every runner writes `control-records.json` and `evidence/<job>/<id>/` (`engine_controls.py` records the engine
+  controls through a capture hook that the self-test and the preflight leave unset; `staged_purity_lint.py`
+  records Z9-STAGED). In-process stage results are retained with argv `['in-process', label]` and the outcome of
+  the tool's own outcome function. No runner emits SKIP.
+- Second directions executed: the WB rows, the N rows evaluated by a mutated record, `M` or class set, R18, U14 and
+  the unledgered engine controls U2, U4 to U9, U12, K1, K5, K6 and K8. U13 is retired and U15 is U14's
+  wrong-region-hash case (C-7).
+- New runners: HP-MERGE-PR and OUT-NOTRUNC (synthetic fixture). The merge cross-check now gives ERROR
+  `CONFIG_INVALID` for a subject naming another pull-request number (R6.HP.1); it gave `CONFIG_INCONSISTENT`, and a
+  subject naming #70 satisfied a pin of #7.
+- RT-L2 with drift is recorded NOT RUN until a reviewed reconciliation record exists (R6.GATE.16); RT-O9 records
+  its own record-directory checks and RT-O9-L2 is NOT RUN while RT-L2 is.
+- Release checks read their facts from git objects at the commit under check (`--commit`; the file
+  `release/<row>.json` of the tool's audit directory in that tree names the objects each evaluator checks). This
+  replaces L2. RT-T's kinds of "sec. 8.2" are taken as `hp`, `context-adjudication` and `hit-classification`, a
+  reading the expectation file does not state.
+- The gate reads a stop's outcome from the result's `outcome` (a stop is `{class, message, detail}` and names
+  none), cross-checked with the exit file; `failed_conditions_include` is read from the result's side changes.
+- The pinned workflow carries a dispatch-only `suite` job (input `job: control-suite`), with its own guard, the
+  runner steps, the gate as its own step and the marker step "control expectations hold". It has not been
+  dispatched.
+
+Findings for the owner (none resolved by exception):
+
+- F1. Z9-STAGED and Z9g FAIL: the migrated condition ids DIR2 to DIR5 (OBL-22, MIGRATION.json) are string literals
+  in `engine/reconcile.py`, and the A1 profile `register-caps` (the plan checker's `CAPS`, three or more capitals
+  not followed by a letter) matches "DIR". The old ids D2 to D5 did not match. Writing the ids so that the lint does
+  not see them would bypass the control; choosing other identifiers is a change to the approved migration.
+- F2. RT-O9 FAILs at `origin/main`: its predicate requires no `side-change-unclassified`, and `main` carries over a
+  hundred paths changed after `H` that no class covers (other audits, the r6 design directory, generated `.tex`
+  files), besides the tool files whose pins this stage refreshes.
+- F3. Many WB, N and engine rows state whole-result expectations (outcome, `classes_exact`) where the runner's
+  predicate reads one line or one subject; on the real tree the result carries other items (for example WB2:
+  `rule-stale` and `unclassified` beside `rule-negative-match`). The gate reports `declarative-mismatch`.
+
+Remaining: restored cases for the other rows (a1_controls beyond the rule rows, the ledgered engine controls, the
+conformance rows with named positive cases, S11); runners for the other 12 B1 rows and the rows without a runner;
+named cases and bindings for multi-case rows; evaluators for attested invariants (L1); the mutation harness and its
+step (OBL-24); the A1 controls run without `--main`, Y8 and REPRO-DOUBLE in the suite job.
