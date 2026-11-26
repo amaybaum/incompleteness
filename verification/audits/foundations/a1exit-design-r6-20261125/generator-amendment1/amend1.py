@@ -643,10 +643,12 @@ def b4_note():
         'revision in development (6a6e200f, provenance), harness mode admits a `--classify` record without review or '
         'lint and skips the chain lint of configuration-pinned reconciliation and class records and of rule files '
         '(cli.py lines 180-182, 1166 and 210); RT-L2\'s `execution` run reads the rule files, whose lint items '
-        'enter its result, although op C\'s drift and side-change decisions apply no allow rule; and no runner '
+        'enter its result, and the rule files\' `params` rule sets op C\'s per-edit evaluation (cli.py line 568; lines '
+        '725-726), although op C\'s drift and side-change decisions apply no allow rule; and no runner '
         'computes the `review_lint_passes` value the gate\'s `rtl2` predicate reads. Effect on soundness: an RT-L2 '
         'PASS from that revision would not establish that the record\'s review passes record lint, so it would not '
         'establish the safeguard; no verdict rests on it, since RT-L2 is NOT RUN. The correction is OBL-28 C-29, '
+        'which covers the rule files and so the `params` rule\'s effect on op C, '
         'with RTL2-BIND\'s countercase of a reviewed record whose lint fails; RT-L2 is not released before C-29 '
         'holds (OBL-13).\n\n')
 
