@@ -1798,6 +1798,18 @@ resetting the work.
    The replacement writer reviews none of the work it or the interrupted session wrote. If the
    interrupted session resumes, it is no longer the writer of the designated workstreams (§A.45
    rule 3) and writes nothing to them.
+6. **Entry point and missing records.** Recovery needs only the repository's identity and the
+   owner's instruction. It starts from this file on `main`, which names the coordination Issue,
+   #1169, the Project and the planning record in open Issues (§A.45 "Where things live"). No one of
+   these is indispensable: where one is missing or cannot be read, the replacement discovers the
+   workstreams from the others, from open pull requests and their branches, and from the records on
+   `main`. A record that something still references, but that cannot be read, is unavailable rather
+   than nonexistent, and is put to the owner. An authorization that cannot be read is not held, and
+   the work it would cover waits for the owner's confirmation. A stop record that cannot be read, or
+   the loss of a record that would show whether a stop stands, is treated as a stop under §A.49 rule
+   3 until the owner decides otherwise. So that an authorization survives the loss of an Issue, each
+   workstream's plan, or the commit that opens its branch, quotes the owner authorization it relies
+   on (§A.42 item 7).
 
 A handover authorizes nothing new and changes no scientific status. No handover file is added to the
 repository.
