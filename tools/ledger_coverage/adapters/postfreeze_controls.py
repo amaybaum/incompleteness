@@ -510,6 +510,18 @@ RB = ["a run on a predicted M built from M0 by in-memory commits adding tool-lan
       "countercase: a reviewed class record named by --classify whose prefixes cover the offending change",
       "countercase: --record-base given in a chain-admitted run",
       "countercase: the result's inputs.record_base differs from the runner's pinned main commit"]
+# the reason each countercase must give (its check), so that a countercase cannot pass for another check's reason
+RB_WHY = {RB[1]: "the record commit's parent is not the run's record base",
+          RB[2]: "the record commit's parent is not the run's record base",
+          RB[3]: "the record commit's parent is not the run's record base",
+          RB[4]: 'is neither a tool-landing path nor in an authorized plan record directory',
+          RB[5]: 'has 2 parents, not one',
+          RB[6]: 'but not in the aggregate diff',
+          RB[7]: 'the tool-landing class',
+          RB[8]: 'the record base is an in-memory commit',
+          RB[9]: 'syn/cfg/extra.json is neither a tool-landing path nor in an authorized plan record directory',
+          RB[10]: 'misc/x.txt is neither a tool-landing path nor in an authorized plan record directory',
+          RB[12]: 'M does not descend from the record base by in-memory commits'}
 RB_TOOL = 'tools/syn-tool/'
 RB_PIN = RB_TOOL + 'entry.py'
 RB_PIN_BYTES = b'x = 2\n'
@@ -605,8 +617,9 @@ def rb_controls(r, check):
     def top(ch, merge=False, revert=None):
         w = rb_world(r)
         if merge:
-            side = w.repo.derive(w.M0, {'misc/side.txt': b'side\n'}, parents=[w.M0], subject='side')
-            w.M = w.repo.derive(w.M, {'misc/side.txt': b'side\n'}, parents=[w.M, side], subject='merge')
+            # the merge brings in only a tool-landing path, so that only the single-parent check can refuse it
+            side = w.repo.derive(w.M0, {RB_TOOL + 'side.txt': b'side\n'}, parents=[w.M0], subject='side')
+            w.M = w.repo.derive(w.M, {RB_TOOL + 'side.txt': b'side\n'}, parents=[w.M, side], subject='merge')
         elif revert is not None:
             mid = w.repo.derive(w.M, ch, parents=[w.M], subject='a change')
             w.M = w.repo.derive(mid, revert, parents=[mid], subject='its revert')
@@ -644,15 +657,18 @@ def rb_controls(r, check):
     _, out12 = run(RB[12], base=w.repo.parents(w.M0)[0], w=w)
     wrong = rb_gate_case(out12, w.M0)
     right = rb_gate_case(out0, w0.M0)
+    unnamed = rb_gate_case(out0, None)
     res[RB[12]].update(rt_l2_wrong_base=wrong[0], rt_l2_right_base=right[0], findings_wrong_base=wrong[1],
-                       findings_right_base=right[1])
+                       findings_right_base=right[1], rt_l2_no_m0=unnamed[0], findings_no_m0=unnamed[1])
     att[RB[12]] = {'rt_l2_status': wrong[0]}
     neg = [k for k in res if k not in (RB[0], RB[11])]
     ok = 'base-drift' not in res[RB[0]]['classes'] and res[RB[0]]['admitted'] and not res[RB[0]]['invalid'] and \
         res[RB[0]]['record_base'] == w0.M0 and \
         all(res[k]['exit'] == 20 and res[k]['invalid'] for k in neg) and \
-        all(res[k]['why'] and res[k]['why'][0].startswith('the record base is not admitted')
-            for k in neg if k not in (RB[1], RB[2], RB[3])) and \
+        all(res[k]['why'] and next(v for c, v in RB_WHY.items() if k == c or k.startswith(c + ' (')) in res[k]['why'][0] and
+            (k.endswith('(deleted)') or 'is deleted' not in res[k]['why'][0]) for k in neg) and \
+        all('is deleted' in res[k]['why'][0] for k in neg if k.endswith('(deleted)')) and \
+        unnamed[0] == 'FAIL' and \
         res[RB[11]]['exit'] == 64 and res[RB[11]]['usage'] == '--record-base in a chain-admitted run' and \
         wrong[0] == 'FAIL' and right[0] == 'PASS'
     check('RECORD-BASE', 'the record base of a run on a predicted M is named with --record-base M0 and admitted only '

@@ -570,6 +570,10 @@ def stages(a, repo, harness, result, extra_records, preflight_fn, control, envir
     # admission (sec. 6.3), then integrity: configuration, adapters, profiles, records
     crev, cpath = split_ref(a.config)
     adm, table = admission(a, repo, harness, control, crev, cpath, environ)
+    if getattr(a, 'record_base', None) is not None and (adm.get('mode') == 'chain' or adm.get('simulated_chain')):
+        # amendment 4: the record base of a predicted M is a control-harness input only; refused before the
+        # configuration load and the preflight, so that USAGE takes precedence (sec. 7)
+        raise oc.Stop(oc.usage, 'USAGE', '--record-base in a chain-admitted run')
     loaded = cfgmod.load(repo, crev, cpath, None, a.op, 'harness' if harness else 'chain', extra_records, adm, table)
     cfg = loaded.config
     rec_adm = dict(loaded.admission)
@@ -587,9 +591,6 @@ def stages(a, repo, harness, result, extra_records, preflight_fn, control, envir
     if any(not p['passed'] for p in pf):
         raise oc.Stop(oc.void, 'PREFLIGHT_FAILED', 'a preflight control failed', {'failed': [p['id'] for p in pf
                                                                                               if not p['passed']]})
-    if getattr(a, 'record_base', None) is not None and (adm.get('mode') == 'chain' or adm.get('simulated_chain')):
-        # amendment 4: the record base of a predicted M is a control-harness input only
-        raise oc.Stop(oc.usage, 'USAGE', '--record-base in a chain-admitted run')
     if getattr(a, 'record_base', None) is not None:
         result.setdefault('inputs', {})['record_base'] = a.record_base
     records = RecordSet(loaded, harness)

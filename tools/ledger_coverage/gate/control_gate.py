@@ -1073,7 +1073,7 @@ def _tuples(result, decision=None):
                       if decision is None or i.get('decision') == decision))
 
 
-def eval_procedure(row, ev, findings_out):
+def eval_procedure(row, ev, findings_out, repo=None):
     lib = row['procedure']['lib']
     proc = (ev.man or {}).get('procedure') or {}
     missing = [k for k in LIB_INPUTS[lib] if k not in proc]
@@ -1147,6 +1147,20 @@ def eval_procedure(row, ev, findings_out):
         # amendment 4 (R6.GATE.16): on a predicted M (roles name the runner's pinned main as M0), every retained run
         # that names a record base records the pinned main as inputs.record_base, and at least one run names it
         base_wrong = []
+
+        def predicted(c):
+            # a run that names --record-base, or names --main with a commit the repository does not hold (an
+            # in-memory predicted M), is a run on a predicted M
+            argv = c.get('argv') or []
+            if '--record-base' in argv:
+                return True
+            if '--main' in argv and argv.index('--main') + 1 < len(argv):
+                m = argv[argv.index('--main') + 1]
+                return bool(repo) and isinstance(m, str) and HEX40.match(m) is not None and \
+                    git_blob_id(repo, m + '^{commit}') is None
+            return False
+        if roles.get('M0') is None and any(predicted(c) for c in (ev.man or {}).get('cases', [])):
+            base_wrong.append('(the roles name no M0, and a retained run is on a predicted M)')
         if roles.get('M0') is not None:
             named = [c for c in (ev.man or {}).get('cases', []) if '--record-base' in (c.get('argv') or [])]
             for c in named:
@@ -1162,7 +1176,7 @@ def eval_procedure(row, ev, findings_out):
         if uncovered:
             fail('drifted paths not validly reconciled: %s' % uncovered)
         if base_wrong:
-            fail("the record base differs from the runner's pinned main in cases %s" % base_wrong)
+            fail("the record base is not the runner's pinned main, or no M0 is named, in cases %s" % base_wrong)
     elif lib == 'lint':
         findings = ev.json(proc['findings'])
         smap = ev.json(proc['source_map'])
@@ -1349,7 +1363,7 @@ def evaluate(exp_doc, rows, retired, reqs, records, mutations, ctx):
                         if row.get('restored') is not None and row['restored'].get('outcome') != 'COMPOSITE':
                             acts.append(eval_case(row['restored'], 'restored', ev, row, rec, fl))
                         if row.get('procedure'):
-                            acts.append(eval_procedure(row, ev, fl))
+                            acts.append(eval_procedure(row, ev, fl, ctx.repo))
                         if ev.problems:
                             fl.append(('raw-evidence-missing', '; '.join(sorted(set(ev.problems)))))
                     for f, d in fl:
