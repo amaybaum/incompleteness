@@ -1756,7 +1756,10 @@ resetting the work.
 2. **Designation.** The owner's decision designating the replacement writer is recorded on the same
    thread, or in a record linked from it (§A.51: quoted with its author and time when automation
    writes it). The outgoing writer then stops writing to that branch, file or artifact; until then
-   it remains the writer (§A.45 rule 3).
+   it remains the writer (§A.45 rule 3). At a handover between sessions, the owner's decision also
+   establishes the writer of each workstream it covers and, from the records, which stops of every
+   automated text write and which suspended operations stand (§A.49 rule 3, §A.51 item 5); an
+   unresolved incident stands across the change of session.
 3. **Resumption.** The replacement writer:
    - reconstructs the context from this file, the owner records, the accountable Issue, the plan, the
      branch and its reviews;
@@ -1771,26 +1774,27 @@ resetting the work.
    workstream the replacement cannot resolve from the records is put to the owner (§A.51 item 1). It
    may grant one validation write for each operation that the recorded authorizations already permit
    and whose tool and path are not validated for the replacement (§A.51 item 2), each within a
-   package's targets or, for the record below, on the coordination Issue (item 6). Such a grant
-   permits only that write: it adds no operation, widens no scope and waives no approval, and a
-   mismatch is handled under §A.49 rule 3. Neither the designation nor such a grant lifts a stop of
-   every automated text write or resumes a suspended operation (§A.49 rule 3, §A.51 item 5); a write
+   package's targets or, for the record below, on a thread it will write to. Such a grant permits
+   only that write: it adds no operation, widens no scope and waives no approval, and a mismatch is
+   handled under §A.49 rule 3. Neither the designation nor such a grant lifts a stop of every
+   automated text write or resumes a suspended operation (§A.49 rule 3, §A.51 item 5); a write
    through a suspended operation, its validation write included, is made only as its resumption
    under those rules provides. A push is not validated under §A.51 item 2; each push meets §A.51
    item 3. Before any write, the replacement establishes which stops of every automated text write
    and which suspended operations stand (§A.49 rule 3, §A.51 item 5), from the owner's instruction
-   or a later owner decision stating them and from the coordination Issue, the threads it will write
-   to and the records they link. A record that the replacement reads and that shows a restriction no
-   recorded owner decision has lifted or resumed keeps that restriction in force. A record it cannot
-   read, the interrupted session's halt record included, is not evidence that none stands, and until
-   an owner statement establishes the status the replacement treats a stop as standing (item 6).
-   While a stop stands it writes nothing; it makes no write through a suspended operation; and it
-   tells the owner by the instruction's own channel. Its first write is the record of the
-   designation and the takeover on the coordination Issue, quoting the instruction (§A.42 item 7)
-   and listing each workstream the designation covers; its writes are a run of its own plan (§A.49
-   rule 3), and the replacement makes no other write until that record has passed §A.49's read-back.
-   Where the comment operation is not validated, that record is its validation write. The
-   replacement then:
+   or a later owner decision, which establishes them from the records rather than assuming that none
+   stands (item 2), and from the threads it will write to and the records they link. A record that
+   the replacement reads and that shows a restriction no recorded owner decision has lifted or
+   resumed keeps that restriction in force. A record it cannot read, the interrupted session's halt
+   record included, is not evidence that none stands, and until an owner statement establishes the
+   status the replacement treats a stop as standing (item 6). While a stop stands it writes nothing;
+   it makes no write through a suspended operation; and it tells the owner by the instruction's own
+   channel. Its first write is the record of the designation and the takeover on the guiding pull
+   request or accountable Issue of a workstream it takes over (item 1), quoting the instruction
+   (§A.42 item 7) and listing each workstream the designation covers; its writes are a run of its
+   own plan (§A.49 rule 3), and the replacement makes no other write until that record has passed
+   §A.49's read-back. Where the comment operation is not validated, that record is its validation
+   write. The replacement then:
    - reconstructs the state as item 3 requires, reading each thread beyond its latest checkpoint; in
      place of item 3's equality check, a branch head that descends from the recorded commit is
      accepted once each later commit is accounted for as the interrupted session's unreviewed work,
@@ -1800,8 +1804,8 @@ resetting the work.
    - treats work that is not on GitHub as unavailable, not recovered, and reconstructs it where
      needed from the latest checkpoint and the preserved records;
    - posts a recovery checkpoint (item 1) on each workstream thread, linking the record of the
-     designation (item 2), and on the coordination Issue a summary of the discrepancies,
-     unavailable work and decisions that need the owner;
+     designation (item 2), and tells the owner, by the instruction's own channel, of the
+     discrepancies, unavailable work and decisions that need the owner;
    - continues under the recorded authorizations, which a change of session does not renew or
      withdraw (§A.45 rule 3, §A.51); a recommendation, review or writer proposal is not one.
 
@@ -1809,20 +1813,19 @@ resetting the work.
    interrupted session resumes, it is no longer the writer of the designated workstreams (§A.45
    rule 3) and writes nothing to them.
 6. **Entry point and missing records.** Recovery needs only the repository's identity and the
-   owner's instruction. It starts from this file on `main`, which names the coordination Issue,
-   #1169, and, in §A.45 "Where things live", the Project and the planning record in open Issues. No
-   one of these is indispensable: where one is missing or cannot be read, the replacement discovers
-   the workstreams from the others, from open pull requests and their branches, and from the records
-   on `main`; where #1169 is missing or cannot be read, the coordination Issue of item 5 is the one
-   the owner names. A record that something references, or that the host reports as deleted or
-   inaccessible, is unavailable rather than nonexistent; where recovery depends on it, it is put to
-   the owner. An authorization, review verdict or owner decision lifting a stop that cannot be read
-   is not held unless a record on `main` quotes it (§A.42 item 7). No change of session, writer or
-   environment lifts a stop or resumes a suspended operation, and no change of tool lifts a stop
-   (§A.49 rule 3). A record of a stop or suspension that cannot be read, or the loss of a record
-   that would show whether one stands, keeps in force the restriction it could show until the owner
-   decides: no write for a possible stop, no write through the operation for a possible suspension,
-   and no write where the kind cannot be established.
+   owner's instruction. It starts from this file on `main`, which names, in §A.45 "Where things
+   live", the Project and the planning record in open Issues. No one of these is indispensable:
+   where one is missing or cannot be read, the replacement discovers the workstreams from the
+   others, from open pull requests and their branches, and from the records on `main`. A record that
+   something references, or that the host reports as deleted or inaccessible, is unavailable rather
+   than nonexistent; where recovery depends on it, it is put to the owner. An authorization, review
+   verdict or owner decision lifting a stop that cannot be read is not held unless a record on
+   `main` quotes it (§A.42 item 7). No change of session, writer or environment lifts a stop or
+   resumes a suspended operation, and no change of tool lifts a stop (§A.49 rule 3). A record of a
+   stop or suspension that cannot be read, or the loss of a record that would show whether one
+   stands, keeps in force the restriction it could show until the owner decides: no write for a
+   possible stop, no write through the operation for a possible suspension, and no write where the
+   kind cannot be established.
 
 A handover authorizes nothing new and changes no scientific status. No handover file is added to the
 repository.
@@ -1830,3 +1833,28 @@ repository.
 Adopted 2026-11-26 by owner decision (`amaybaum`, #1169 comment 7190776267); items 5 and 6 added
 the same day by owner decision (`amaybaum`, #1169 comments 7191506837 and
 7191552531).
+
+***
+
+## §A.53 Workstreams and session providers
+
+Work falls in three permanent workstreams: **framework integrity**, which maintains and improves the
+existing framework; **scientific research**, which produces new mathematical and physical results;
+and **verification and operations**, which maintains verification tools, infrastructure and
+governance. The designated writer assigns work to a workstream dynamically, as the active packages
+provide; no label records the assignment and no allocation of resources between workstreams is
+fixed. Priorities and status stay in the planning record and the Project, and §A.45's rules and
+every gate of this file apply unchanged. The active work packages (§A.51) are WP-1, WP-2 and WP-3,
+one for each workstream in that order, whose records are #1169 comments 7199703288, 7199704501 and
+7199705637 (owner decision, `amaybaum`, 2026-11-26T17:49Z).
+
+This file governs the repository: what work is authorized, how it is reviewed and verified, and what
+lands. Within the limits a package or the owner sets, the management of agents inside a session,
+their concurrency and resources, and the recovery of a session's internal state are the session
+provider's. No coordination Issue is kept. Where an active package's record names #1169 as the place
+its writer is recorded, the writer is the one the owner's latest designation names (§A.52 item 2);
+where it names #1169 as a target for records of owner decisions and checkpoints, that target is the
+Issue or pull request concerned among the package's targets; the package is otherwise unchanged.
+#1169 is the accountable Issue of OI-QM-EXT-1. The records, owner decisions and authorizations it
+holds stay in force where they are cited, and a writer designation, stop or suspension recorded
+there stands until an owner decision at a handover establishes otherwise (§A.52 item 2).
