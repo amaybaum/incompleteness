@@ -28,6 +28,7 @@ if 'ledger_coverage' not in sys.modules:
 from ledger_coverage.adapters import synthetic_fixture as sf  # noqa: E402
 from ledger_coverage.adapters import postfreeze_controls as pfc  # noqa: E402
 from ledger_coverage.engine import records as rec  # noqa: E402
+from ledger_coverage.engine import category3 as c3  # noqa: E402
 
 RESULTS = []
 FP = pfc.RD + 'finding.json'
@@ -37,8 +38,8 @@ def case(cid, expected, actual, holds):
     RESULTS.append({'id': cid, 'expected': expected, 'actual': actual, 'status': 'PASS' if holds else 'FAIL'})
 
 
-def outcome(w, **kw):
-    code, out = w.run([], harness=True, **kw)
+def outcome(w, classify=(), **kw):
+    code, out = w.run(list(classify), harness=True, **kw)
     out = out or {}
     c3 = out.get('category3') or {}
     fs = [f for f in c3.get('findings') or [] if (f.get('record') or {}).get('path') == FP]
@@ -47,7 +48,23 @@ def outcome(w, **kw):
             'blocked': [b['record']['path'] for b in c3.get('blocked') or []],
             'reassessments': c3.get('reassessments'),
             'invalid': [d for i in out.get('items', []) if i['class'] == 'record-invalid'
-                        for d in (i.get('detail') or [])][:3]}
+                        for d in (i.get('detail') or [])][:3],
+            'reassess_why': [d for i in out.get('items', []) if i['class'] == 'record-invalid' and
+                             i.get('subject') == pfc.RA_PATH for d in (i.get('detail') or [])]}
+
+
+def custody_only(o):
+    """OBL-29 sec. 2.2 fail-closed: the cited reassessment's only problem is the unestablished custody, so that it
+    would apply apart from custody, and the block stands (FAIL record-invalid and retirement-blocked)."""
+    return o['reassess_why'] == [c3.custody_unverified] and 'retirement-blocked' in o['classes'] and \
+        not o['reassessments']
+
+
+def refused_for(o, *phrases):
+    """The block stands and the cited reassessment is refused for the stated reason (each phrase occurs in one of its
+    problems), besides the custody condition."""
+    return 'retirement-blocked' in o['classes'] and not o['reassessments'] and \
+        all(any(ph in d for d in o['reassess_why']) for ph in phrases)
 
 
 def blocked(o, present=False, witness=None):
@@ -269,16 +286,20 @@ def reassessment_controls(r):
         return json.loads(w.repo.read(w.M, w.repair_entry['path']))
 
     o = outcome(world(lambda w1: pfc.reassessment(w1)))
-    case('P-REASSESS-CURRENT-BASELINE', 'an applying reassessment with all reviews present: not blocked', o,
-         'retirement-blocked' not in o['classes'] and o['reassessments'])
+    case('P-REASSESS-CURRENT-BASELINE', 'a reassessment meeting every other condition, all reviews present: its '
+                                        'only problem is the unestablished custody (fail closed), the block stands',
+         o, custody_only(o))
+    case('FAIL-CLOSED-CUSTODY', 'until custody exists every cited discharge fails closed: FAIL record-invalid for the '
+                                'reassessment, naming custody, and retirement-blocked', o,
+         o['exit'] == 20 and 'record-invalid' in o['classes'] and custody_only(o))
 
     def delete_finding(w):
         step(w, {FP: None, FP[:-5] + '.review.json': None}, 'delete f')
     o = outcome(world(lambda w1: pfc.reassessment(w1), after=delete_finding))
-    case('P-REASSESS-AFTER-DELETE', 'f deleted; a reassessment naming its original reference applies: not blocked; f '
+    case('P-REASSESS-AFTER-DELETE', 'f deleted; a reassessment naming its original reference meets every condition but '
+                                    'custody (fail closed); f '
                                     'reported with present_at_M false', o,
-         'retirement-blocked' not in o['classes'] and o['reassessments'] and
-         any(f.get('present_at_M') is False for f in o['finding']))
+         custody_only(o) and any(f.get('present_at_M') is False for f in o['finding']))
 
     def repair_dissent(kind):
         def after(w):
@@ -286,7 +307,7 @@ def reassessment_controls(r):
             q = w.repair_entry['path']
             d = q.rsplit('/', 1)[0] + '/'
             name = d + 'repair.second-review.json'
-            b = adverse(qd, q, drop_item=(kind == 'items'), verdict='accept' if kind == 'items' else 'reject',
+            b = adverse(qd, q, drop_item=(kind == 'items'), verdict='reject' if kind == 'reject' else 'accept',
                         dissent='the repair does not restore the basis' if kind == 'dissent' else None)
             step(w, {name: b}, 'a second review of the repair')
             step(w, {name: None}, 'delete it')
@@ -298,8 +319,9 @@ def reassessment_controls(r):
                             ('N-REPAIR-DISSENT-FIELD-DELETED', 'dissent', 'an accepting review of the repair record '
                                                                           'with a dissent, then deleted')):
         o = outcome(world(lambda w1: pfc.reassessment(w1), after=repair_dissent(kind)))
-        case(cid, what + ': the discharge fails (record-invalid) and the block stands', o,
-             'retirement-blocked' in o['classes'] and 'record-invalid' in o['classes'] and not o['reassessments'])
+        why = {'reject': 'an item is not accepted', 'items': 'an item is omitted', 'dissent': 'it dissents'}[kind]
+        case(cid, what + ': the discharge fails (record-invalid, %s) and the block stands' % why, o,
+             'record-invalid' in o['classes'] and refused_for(o, 'repair.second-review.json', why))
 
     def repair_dissent_elsewhere(w):
         qd = repair_doc(w)
@@ -308,7 +330,7 @@ def reassessment_controls(r):
     o = outcome(world(lambda w1: pfc.reassessment(w1), after=repair_dissent_elsewhere))
     case('P-REPAIR-REVIEW-OTHER-DIRECTORY', 'a rejecting review of the repair record outside its directory does not '
                                             'count for the repair-review check: the reassessment applies', o,
-         'retirement-blocked' not in o['classes'] and o['reassessments'])
+         custody_only(o))
 
     def reassess_dissent(w):
         a = json.loads(w.repo.read(w.c, pfc.RA_PATH))
@@ -318,7 +340,8 @@ def reassessment_controls(r):
     o = outcome(world(lambda w1: pfc.reassessment(w1), after=reassess_dissent))
     case('N-REASSESS-DISSENT-DELETED', 'an eligible review of the cited reassessment rejecting an item, landed on main '
                                        'and then deleted: the discharge fails and the block stands', o,
-         'retirement-blocked' in o['classes'] and 'record-invalid' in o['classes'] and not o['reassessments'])
+         'record-invalid' in o['classes'] and refused_for(o, 'syn-dissent/reassessment.review.json',
+                                                          'an item is not accepted'))
 
     def self_review(w):
         a = json.loads(w.repo.read(w.c, pfc.RA_PATH))
@@ -326,8 +349,7 @@ def reassessment_controls(r):
              'a rejecting review by the reassessment\'s author')
     o = outcome(world(lambda w1: pfc.reassessment(w1), after=self_review))
     case('P-HISTORICAL-SELF-REVIEW', 'a rejecting review by the reassessment\'s own author is not eligible: the '
-                                     'reassessment applies', o,
-         'retirement-blocked' not in o['classes'] and o['reassessments'])
+                                     'reassessment meets every condition but custody', o, custody_only(o))
 
     # an operative predecessor of the reassessment: A supersedes P (same record id, both reviewed in the plan
     # directory); an eligible review of P rejecting an item lands on main and is deleted
@@ -367,11 +389,11 @@ def reassessment_controls(r):
         step(w, {name: None}, 'delete it')
     o1 = outcome(pred_world(pred_dissent))
     case('P-REASSESS-OPERATIVE-SUPERSEDES', 'a reassessment superseding a reviewed predecessor, every review accepting: '
-                                            'the reassessment applies', o0,
-         'retirement-blocked' not in o0['classes'] and o0['reassessments'])
+                                            'the reassessment meets every condition but custody', o0, custody_only(o0))
     case('N-OPERATIVE-PREDECESSOR-DISSENT-DELETED', 'an eligible review of the operative predecessor rejecting an item, '
                                                     'landed and deleted: the discharge fails and the block stands', o1,
-         'retirement-blocked' in o1['classes'] and 'record-invalid' in o1['classes'] and not o1['reassessments'])
+         'record-invalid' in o1['classes'] and refused_for(o1, 'predecessor syn/cfg/reassessment-p.json',
+                                                           'an item is not accepted'))
 
     def rewrite(w):
         b = w.repo.read(w.M, FP)
@@ -382,7 +404,7 @@ def reassessment_controls(r):
     o = outcome(world(lambda w_: pfc.reassessment(w_, finding=new_ref), after=rewrite))
     case('N-FORGED-REASSESS-NEWBLOB', 'a reassessment naming the rewritten blob, which carries no finding: it fails '
                                       'and the original finding still blocks', o,
-         'retirement-blocked' in o['classes'] and 'record-invalid' in o['classes'])
+         'record-invalid' in o['classes'] and refused_for(o, 'not a finding in the cumulative record set'))
 
 
 def clearance_predicates(r):
@@ -489,6 +511,23 @@ def clearance_predicates(r):
             dd['reassessment'] = {'doc': {'author': kw['A_author']}}
         b, cl, rt = o.decide(dd, Wv, R=R, Z=kw['Z'], nr2=kw.get('nr2', True), finding_git=fgit)
         case(cid, what + ': the witness stands (blocked)', [b, cl, rt], b and cl == ['r3'])
+    rej = {'reviewer': 'reviewer-k', 'reviewed': dict(R['ref']), '_dir': 'verification/audits/r', 'method': 'read',
+           'verdicts': [{'item': i, 'verdict': 'reject' if k == 0 else 'accept'} for k, i in
+                        enumerate(rec.item_ids(Rd))]}
+    b = o.decide(D(R['ref'], Rd), W, R=R, Z=Z(), nr2=True, finding_git=fgit, reviews_of_R=[rej])
+    case('NR5-NONACCEPT-REVIEW-pred', 'another eligible review of R rejecting an item without a dissent field: NR-3\'s '
+                                      'dissent test fails NR-5, the witness stands', b, b[0] and b[1] == ['r3'])
+    V2 = dict(V, reviewer='reviewer-w')
+    W2 = dict(W, forming=W['forming'] + [{'doc': V2, 'git': blob_id_of(jb(V2)), 'path': 'v2'}])
+    toks2 = toks + [o.item_token(W2['forming'][1]['git'], p + ':scientific_effect')]
+    meth = ' '.join([W['disputed_git'], W2['forming'][0]['git'], W2['forming'][1]['git']] + toks2 + [ftok])
+    reason2 = 'the corrected record restores the basis ' + ' '.join(toks2)
+    zv = Z(method=meth, verdicts=[{'item': i, 'verdict': 'accept', 'reason': reason2} for i in rec.item_ids(Rd)])
+    zw = dict(zv, reviewer='reviewer-w')
+    b1 = o.decide(D(R['ref'], Rd), W2, R=R, Z=[zv], nr2=True, finding_git=fgit)
+    b2 = o.decide(D(R['ref'], Rd), W2, R=R, Z=[zv, zw], nr2=True, finding_git=fgit)
+    case('NR5-EVERY-V-pred', 'a review witness formed by two adverse reviews: resolving only the first leaves it '
+                             'standing; a resolution by each reviewer clears it', [b1, b2], b1[0] and not b2[0])
     wsp = dict(Q, paths=[{'path': 'doc/s s.md', 'side_change_commits': ['c' * 40]}])
     Vs = {'schema': rec.review_schema, 'reviewer': 'reviewer-v', 'reviewed': dict(qref), 'method': 'read',
           'verdicts': [{'item': 'doc/s s.md', 'verdict': 'reject', 'reason': 'x'}]}
@@ -519,9 +558,160 @@ def clearance_predicates(r):
                                                      'it (only Inapplicable(W) or route 2)', b5, b5[0])
 
 
+def identity_and_set_controls(r):
+    """Finding identity by record reference (path and blob) and detection over R* as a set (R6.OBL29.1, .2, .3)."""
+    rv = FP[:-5] + '.review.json'
+    COPY = pfc.RD + 'finding-copy.json'
+    w, c1, fb = landed(r)
+    step(w, {COPY: fb, COPY[:-5] + '.review.json': w.review(COPY, fb)}, 'a byte-identical copy with its own review')
+    step(w, {FP: None, rv: None}, 'delete the original')
+    code, out = w.run([], harness=True)
+    refs = sorted({(f['record']['path'], f['record']['blob_sha256']) for f in out['category3']['findings']})
+    blocked_paths = sorted({b['record']['path'] for b in out['category3']['blocked']})
+    case('COPY-THEN-DELETE', 'f copied byte for byte to a second path (reviewed there), then the original deleted: both '
+                             'references are findings (a copy is another record), the original still reported and '
+                             'blocking', {'refs': refs, 'blocked': blocked_paths},
+         refs == sorted([(FP, sf.sha(fb)), (COPY, sf.sha(fb))]) and FP in blocked_paths)
+    f_orig = {'record': {'path': FP, 'blob_sha256': sf.sha(fb)}, 'path': sf.DOC}
+    lifted = c3.lifting([({'finding': {'path': COPY, 'blob_sha256': sf.sha(fb)}, 'edit': {'id': 'E1'}}, None)])
+    case('COPY-REASSESSMENT-SCOPE', 'a reassessment naming the copy\'s reference does not name the original\'s: it '
+                                    'cannot lift the original finding', lifted(f_orig, 'E1'), lifted(f_orig, 'E1') is False)
+    w, c1, fb = landed(r)
+    step(w, {COPY: fb}, 'an unreviewed copy')
+    step(w, {FP: None, rv: None}, 'delete the original')
+    o = outcome(w)
+    case('COPY-UNREVIEWED-THEN-DELETE', 'an unreviewed copy, then the original deleted: the original reference still '
+                                        'blocks; witness c1', o, blocked(o, False, None))
+    # the record and its review never in one tree
+    w = pfc.World(r)
+    doc = pfc.invalidating(w, sf.DOC)
+    b = pfc.jb(doc)
+    c1 = step(w, {FP: b}, 'the record lands without a review')
+    step(w, {FP: None}, 'the record is deleted')
+    step(w, {rv: w.review(FP, b)}, 'an accepting review naming its exact reference lands')
+    o = outcome(w)
+    case('SET-PAIRING', 'a record and an accepting review of its exact reference that never share a tree: R* holds both, '
+                        'so the finding is detected and blocks (R6.OBL29.2 over R* as a set)', o, blocked(o, False, c1))
+    w = pfc.World(r)
+    step(w, {FP: b}, 'the record lands without a review')
+    step(w, {FP: None}, 'the record is deleted')
+    step(w, {'verification/audits/elsewhere/r.json': w.review(FP, b)}, 'a review outside the record\'s directory')
+    o = outcome(w)
+    case('SET-PAIRING-LOCATION', 'the same, the review outside the record\'s directory: no finding (review location)', o,
+         not o['finding'])
+
+
+def tl_variant(prefix, pins=()):
+    """The synthetic configuration with a tool-landing class whose prefix is `prefix` (and pins for `pins`)."""
+    from ledger_coverage import record_authority as ra
+
+    def variant(w):
+        doc = {'schema': 'oi-side-change-classes/1', 'record_id': 'syn-tool-landing', 'author': sf.WRITER,
+               'supersedes': None, 'classes': [{'id': ra.tool_landing_class_id, 'prefixes': [prefix],
+                                                'reason': 'synthetic tool landing',
+                                                'pins': [{'path': q, 'blob_sha256': sf.sha(x)} for q, x in pins]}]}
+        b = pfc.jb(doc)
+        ref = {'path': 'syn/cfg/classes.json', 'blob_sha256': sf.sha(b)}
+        files = {ref['path']: b}
+        review = sf.Syn.chain(None, files, ref['path'], sf.REVIEWER)
+        return {'files': files, 'add_records': [dict(ref, kind='side-change-classes')] + review,
+                'extra': {'roles': {'scientific_base': w.syn.H, 'pin': w.syn.pin, 'side_change_classes': ref}}}
+    return variant
+
+
+def more_negative_controls(r):
+    rv = FP[:-5] + '.review.json'
+    TL = 'verification/audits/syn-tl/'
+    w = pfc.World(r, variant=tl_variant(TL))
+    doc = pfc.invalidating(w, sf.DOC)
+    fb = pfc.jb(doc)
+    c1 = pfc.land(w, [(FP, doc)])
+    step(w, {FP: None, rv: None, TL + 'finding.json': fb}, 'move f under a tool-landing prefix, unpinned')
+    o = outcome(w)
+    case('N-MOVE-TL', 'f moved under a tool-landing prefix, unpinned: still blocked (no tool-landing exclusion in '
+                      'detection) and the side change unclassified', o,
+         blocked(o, False, c1) and 'side-change-unclassified' in o['classes'])
+    w0 = pfc.World(r)
+    fb0 = pfc.jb(pfc.invalidating(w0, sf.DOC))
+    w = pfc.World(r, variant=tl_variant(pfc.RD, pins=[(FP, fb0)]))
+    doc = pfc.invalidating(w, sf.DOC)
+    c1 = pfc.land(w, [(FP, doc)])
+    o = outcome(w)
+    case('N-TL-WIDEN', 'a configuration whose tool-landing class covers f\'s directory and pins f\'s blob: f is still '
+                       'detected and blocks (R6.OBL29.5)', {'o': o, 'same_blob': fb0 == pfc.jb(doc)},
+         blocked(o, True, w.M) and fb0 == pfc.jb(doc))
+    w, c1, fb = landed(r)
+    step(w, {FP: ('symlink', fb)}, 'mode 120000 with the same object id')
+    o = outcome(w)
+    # depends on R6.PUR.12 (SIDE-NONREG), as N-SYMLINK
+    case('N-SYMLINK-SAME-BLOB', 'f\'s entry turned into a symbolic link with the same object id: still blocked, '
+                                'present_at_M false, witness c1', o, blocked(o, False, c1))
+    w, c1, fb = landed(r)
+    d = json.loads(fb)
+    d['paths'][0]['scientific_effect'].pop('invalidated', None)
+    step(w, {FP: pfc.jb(d)}, 'remove the key invalidated')
+    o = outcome(w)
+    case('N-REWRITE-INVALIDATED', 'the key invalidated removed: still blocked (the record-invalid form failure of '
+                                  'r13 Form (i) is not implemented by this tool)', o, blocked(o, False, c1))
+    w, c1, fb = landed(r)
+    d = json.loads(fb)
+    d['paths'] = [e for e in d['paths'] if e.get('path') != sf.DOC]
+    step(w, {FP: pfc.jb(d)}, 'remove the entry')
+    o = outcome(w)
+    case('N-REWRITE-ENTRY', 'the invalidating entry removed from the record: still blocked', o, blocked(o, False, c1))
+    # a record seen only in a REV dropped at merge
+    w = pfc.World(r)
+    c1 = w.M
+    doc = pfc.invalidating(w, sf.DOC)
+    rev1, _p, _d = w.standard(w.record(), path=pfc.RD2 + 'doc.json',
+                              extra={FP: pfc.jb(doc), rv: w.review(FP, pfc.jb(doc))})
+    w.M = w.repo.derive(c1, {'notes/m.txt': b'm\n'}, parents=[c1, rev1], subject='merge dropping the REV records')
+    rev2, p2, _d = w.standard(w.record(record_id='syn-recon-2'), path=pfc.RD2 + 'doc2.json')
+    o = outcome(w, classify=['%s:%s' % (rev2, p2)])
+    case('N-REV-DROP', 'a finding added by an earlier REV whose merge into main dropped it, a later run naming another '
+                       'REV: still blocked through the merge\'s ancestry; witness the earlier REV', o,
+         blocked(o, False, rev1))
+    # the REV root: a finding only in the named REV's tree
+    w = pfc.World(r)
+    doc = pfc.invalidating(w, sf.DOC)
+    revx, px, _d = w.standard(w.record(), path=pfc.RD2 + 'doc.json',
+                              extra={FP: pfc.jb(doc), rv: w.review(FP, pfc.jb(doc))})
+    o = outcome(w, classify=['%s:%s' % (revx, px)])
+    case('REV-ROOT', 'a finding present only in the named REV\'s tree: detected through the REV root and blocking; '
+                     'witness REV', o, blocked(o, False, revx))
+    # a predicted M on an object-store M0 whose history holds f landed then deleted
+    from ledger_coverage.engine import gitobj
+    w, c1, fb = landed(r)
+    M0 = step(w, {FP: None, rv: None}, 'delete f')
+    w.repo = gitobj.Overlay(w.repo)
+    w.M = w.repo.derive(M0, {'tools/syn-tool/x.py': b'x = 1\n'}, parents=[M0], subject='predicted M')
+    o = outcome(w)
+    case('N-PREDICTED-M', 'a predicted M built in memory on M0, whose history holds f landed then deleted: still '
+                          'blocked (the walk crosses from the in-memory chain into M0\'s history)', o,
+         blocked(o, False, c1))
+    # F first in the witness order
+    def with_f(w_):
+        d0 = pfc.invalidating(pfc.World(r), sf.DOC)
+        b0 = pfc.jb(d0)
+        return {'files': {FP: b0, rv: pfc.World(r).review(FP, b0)}}
+    w = pfc.World(r, variant=with_f)
+    doc = pfc.invalidating(w, sf.DOC)
+    pfc.land(w, [(FP, doc)])
+    step(w, {FP: None, rv: None}, 'delete f on main')
+    from ledger_coverage.adapters import host_fixture as hf
+    F = hf.freeze(w.repo, w.c, w.p)
+    code, out = w.run([], harness=False)
+    fs = [f for f in ((out or {}).get('category3') or {}).get('findings') or [] if f['record']['path'] == FP]
+    case('P-WITNESS-F', 'f absent at M, present in F\'s tree and on M\'s first-parent chain: the witness is F (order '
+                        'M, REV, F, then the first-parent chain)', {'exit': code, 'findings': fs, 'F': F,
+                                                                   'stop': (out or {}).get('stop')},
+         bool(fs) and all(f['witness'] == F and f['present_at_M'] is False for f in fs))
+
+
 SUITES = [('removal', removal_controls), ('topology', topology_controls), ('unreadable', unreadable_controls),
           ('positive', positive_controls), ('reassessment', reassessment_controls),
-          ('clearance-predicates', clearance_predicates)]
+          ('clearance-predicates', clearance_predicates), ('identity-and-set', identity_and_set_controls),
+          ('more-negative', more_negative_controls)]
 
 
 def main(out):

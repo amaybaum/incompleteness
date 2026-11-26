@@ -253,6 +253,14 @@ def item2_gate(root):
         v, rows = gate_rows(root, 's11a-' + n, lambda fx, m=mut: s11_fixture(fx, m))
         case('ITEM2-CHECK/' + n, what + ': the gate refuses S11-2a (raw-evidence-missing, no countable baseline)',
              (v, rows), v == 'GATE_FAIL' and 'raw-evidence-missing' in rows.get('S11-2a', []))
+    def no_deny(st):
+        for k in ('before', 'after'):
+            st[k]['profiles'] = [x for x in st[k]['profiles'] if x['kind'] != 'deny']
+        st['after']['profiles_evaluated'][X] = sorted(G.ITEM2_PROFILES)
+    v, rows = gate_rows(root, 's11a-24', lambda fx: s11_fixture(fx, no_deny))
+    case('ITEM2-CHECK/24', 'no deny profile reported in either result, the child evaluated with the review set alone: '
+                           'refused (a missing deny scan is not a clean one)', (v, rows),
+         v == 'GATE_FAIL' and 'raw-evidence-missing' in rows.get('S11-2a', []))
     v, rows = gate_rows(root, 's11b-positive', lambda fx: s11b_fixture(fx))
     case('ITEM2-CHECK/22', 'S11-2b run under --check item2: the gate holds', (v, rows),
          v == 'GATE_HOLDS' and rows.get('S11-2b') == [])
@@ -386,8 +394,15 @@ def role_chain(root):
     p1, b1, f1 = W.successor(1, CLS_ROOT, c0)
     p2, b2, f2 = W.successor(2, p1, b1)
 
-    def refused(got):
-        return got[0] == 65 and got[1] == 'CONFIG_UNREVIEWED' and 'transition' in got[2]
+    def refused(got, phrase):
+        """Refused by the transition, for the stated reason."""
+        return got[0] == 65 and got[1] == 'CONFIG_UNREVIEWED' and 'transition' in got[2] and phrase in got[2]
+    why = {'3': 'not the current class tip', '4': 'not the current class tip', '5': 'not exactly the root',
+           '6': 'second root', '7': 'does not extend the current tip', '8': 'does not extend the current tip',
+           '9': 'is deleted, renamed, rewritten', '10': 'is deleted, renamed, rewritten',
+           '11': 'is deleted, renamed, rewritten', '12': 'is not a regular file', '13': 'is not JSON',
+           '14': 'with record_id', '15': 'does not hash to the descriptor', '16': 'not on the first-parent chain',
+           '17': 'custody archive', '18': 'exactly the keys'}
 
     B, tip = W.chain(steps=[f1, f2])
     c, p, s, _ = W.config(tip, (p2, b2), B)
@@ -465,19 +480,20 @@ def role_chain(root):
          'allow_root': {'path': ALLOW_ROOT, 'blob_sha256': sf.sha(sf.jb(allow_doc()))}}))))
     for n, what, (c, p, s, _) in negs:
         got = W.run(c, p)
-        case('STAGING-ROLE-CHAIN/' + n, what + ': admission refused (ERROR CONFIG_UNREVIEWED, transition)', got[:3],
-             refused(got))
+        case('STAGING-ROLE-CHAIN/' + n, what + ': admission refused (ERROR CONFIG_UNREVIEWED, transition: %s)' % why[n],
+             got[:3], refused(got, why[n]))
     # the descriptor or prior declaration not bound by the pin table
     c, p, s, allf = W.config(tip, (p1, b1), B)
     listed = {q: b for q, b in allf.items() if q.startswith('syn/cfg/') and q.endswith('.json') and
               '/' not in q[len('syn/cfg/'):] and not q.endswith('a1-staging-transition.json')}
     got = W.run(c, p, listed=listed)
     case('STAGING-ROLE-CHAIN/19', 'a namespace member pinned while the pin table omits the descriptor: refused',
-         got[:3], refused(got))
+         got[:3], refused(got, 'does not bind both'))
     listed = {q: b for q, b in allf.items() if q.startswith('syn/cfg/') and q.endswith('.json') and
               '/' not in q[len('syn/cfg/'):] and not q.endswith('a1-staging-prior.json')}
     got = W.run(c, p, listed=listed)
-    case('STAGING-ROLE-CHAIN/20', 'the pin table omits the prior-freeze declaration: refused', got[:3], refused(got))
+    case('STAGING-ROLE-CHAIN/20', 'the pin table omits the prior-freeze declaration: refused', got[:3],
+         refused(got, 'does not bind both'))
     # prior-freeze continuity (the configuration pins no namespace member here, so that it is unchanged between
     # the freezes unless a case changes it; the descriptor alone puts the transition in play)
     B, t1 = W.chain(steps=[f1])
@@ -490,11 +506,17 @@ def role_chain(root):
     case('STAGING-ROLE-CHAIN/21', 'a later F extends the declared prior freeze on the first-parent path, the same '
                                   'descriptor bound there, the configuration unchanged: admitted', got[:4],
          g1[1] is None and got[1] is None and (got[3] or {}).get('prior', {}).get('freeze') == Fprev)
-    sib = W.repo.derive(t1, {'syn/sibling.txt': b's'}, parents=[t1], subject='sibling freeze')
+    # a sibling freeze: a real freeze of the same configuration and descriptor on a branch from t1, off F's path
+    sib_tip = W.repo.derive(t1, {'syn/sibling.txt': b's'}, parents=[t1], subject='sibling branch')
+    cs, ps_, ss_, _ = W.config(sib_tip, None, B)
+    gs = W.run(cs, ps_)
+    sib = gs[4]
     c3, p_, s3, _ = W.config(t2, None, B, prior={'schema': 'oi-a1-staging-prior/1', 'freeze': sib})
     got = W.run(c3, p_)
-    case('STAGING-ROLE-CHAIN/22', 'the declared prior freeze is a sibling descending from B, not on F\'s first-parent '
-                                  'path: refused', got[:3], refused(got))
+    case('STAGING-ROLE-CHAIN/22', 'the declared prior freeze is a sibling freeze descending from B with the same '
+                                  'descriptor and configuration, not on F\'s first-parent path: refused as not a strict '
+                                  'ancestor', {'sibling_admitted': gs[:3], 'run': got[:3]},
+         gs[1] is None and refused(got, 'not a strict ancestor'))
     c4, p_, s4, _ = W.config(t2, None, B, prior={'schema': 'oi-a1-staging-prior/1', 'freeze': None})
     got = W.run(c4, p_)
     case('STAGING-ROLE-CHAIN/23', 'a null prior declaration after an earlier designation: admitted by the tool (the '
@@ -526,13 +548,25 @@ def role_chain(root):
     c6, p_, s6, _ = W.config(t3, None, B, prior={'schema': 'oi-a1-staging-prior/1', 'freeze': Fa}, desc=d_other)
     got6 = W.run(c6, p_)
     case('STAGING-ROLE-CHAIN/24', 'the prior freeze binds a descriptor whose bytes differ from F\'s: refused',
-         {'same': got[:3], 'differs': got6[:3]}, got[1] is None and refused(got6))
+         {'same': got[:3], 'differs': got6[:3]}, got[1] is None and refused(got6, 'same transition descriptor'))
     # a changed configuration that does not supersede the configuration the prior freeze binds
     c7, p_, s7, _ = W.config(t2, None, B, prior={'schema': 'oi-a1-staging-prior/1', 'freeze': Fprev},
                              variant={'version': 2})
     got = W.run(c7, p_)
     case('STAGING-ROLE-CHAIN/25', 'the configuration changed since the prior freeze without superseding it: refused',
-         got[:3], refused(got))
+         got[:3], refused(got, 'does not supersede'))
+    # a tool-landing class record outside the namespace while the transition is in play (review finding 11)
+    from ledger_coverage import record_authority as ra1
+    tlb = sf.jb({'schema': 'oi-side-change-classes/1', 'record_id': 'syn-tl-outside', 'supersedes': None,
+                 'author': sf.WRITER, 'classes': [{'id': ra1.tool_landing_class_id, 'prefixes': ['tools/x/'],
+                                                   'reason': 'r', 'pins': []}]})
+    B9, t9 = W.chain(steps=[f1])
+    c9, p9, s9, _ = W.config(t9, ('syn/other-classes/classes.json', tlb), B9,
+                             extra_files={'syn/other-classes/classes.json': tlb})
+    got = W.run(c9, p9)
+    case('STAGING-ROLE-CHAIN/27', 'while the transition is in play, a tool-landing class record outside the namespace '
+                                  'pinned by the configuration: refused (the role pin is the class tip)', got[:3],
+         refused(got, 'tool-landing class pin'))
     # unauthorized directory
     from ledger_coverage import record_authority as ra0
     case('STAGING-ROLE-CHAIN/26', 'the tool\'s own selectors name fixed namespaces, root paths and record ids, and no '
@@ -574,6 +608,16 @@ def config_reviews(root):
     got = W.run(c3, p3)
     case('STAGING-CONFIG-REVIEWS/4', 'the configuration\'s records reference a widening review of the configuration '
                                      'itself: ERROR CONFIG_INVALID', got[:3], got[:2] == (65, 'CONFIG_INVALID'))
+    outside = sf.jb({'schema': 'oi-review-record/1', 'reviewer': 'reviewer-c',
+                     'reviewed': {'path': 'syn/cfg/config.json', 'blob_sha256': '0' * 64}, 'method': 'read',
+                     'verdicts': []})
+    out_ref = {'kind': 'review', 'path': 'syn/elsewhere/self.review.json', 'blob_sha256': sf.sha(outside)}
+    c5, p5, s5, _ = W.config(tip, None, B, extra_files={'syn/elsewhere/self.review.json': outside},
+                             records_extra=[out_ref])
+    got = W.run(c5, p5)
+    case('STAGING-CONFIG-REVIEWS/11', 'the configuration\'s records reference a review of the configuration lying '
+                                      'outside the pin table: ERROR CONFIG_INVALID', got[:3],
+         got[:2] == (65, 'CONFIG_INVALID') and 'review of the configuration itself' in got[2])
     desc_ref = {'kind': 'review', 'path': 'syn/cfg/a1-staging-transition.json',
                 'blob_sha256': sf.sha(allf['syn/cfg/a1-staging-transition.json'])}
     c4, p4, s4, _ = W.config(tip, None, B, records_extra=[desc_ref])
@@ -581,6 +625,52 @@ def config_reviews(root):
     case('STAGING-CONFIG-REVIEWS/5', 'the frozen transition descriptor used as a record of the configuration: ERROR '
                                      'CONFIG_INVALID (control metadata admits no record or review)', got[:3],
          got[:2] == (65, 'CONFIG_INVALID'))
+
+
+def config_widening(root):
+    """The configuration's own widening review (staging r2 sec. 3): chosen from the pin table only, unique, naming the
+    exact new configuration in `reviewed` and the exact old one in `replaces`."""
+    r = sf.Runner(root)
+    syn = sf.Syn()
+    pd = sf.patch_doc(syn.H, [])
+    b1 = {'patch_sha': sf.sha(pd), 'files': {'syn/patch.json': pd}}
+    c1, p1, h1, f1 = syn.build(b1)
+    sup = {'path': p1, 'blob_sha256': h1}
+    d1 = p1.rsplit('/', 1)[0] + '/'
+    v2 = dict(b1, version=2, supersedes=sup, config_path='syn/cfg2/config.json',
+              extra={'corpus': {'patterns': [r'^doc/[^/]+\.md$', r'^notes/[^/]+\.md$']}},
+              files=dict(b1['files'], **{p1: f1[p1], d1 + 'review.json': f1[d1 + 'review.json']}))
+
+    def widen(n=1, replaces=None, reviewer=sf.WIDENER):
+        def post(path, cfg_sha):
+            out = {}
+            for k in range(n):
+                wr = {'schema': 'oi-review-record/1', 'kind': 'widening', 'reviewer': reviewer if k == 0 else
+                      'widener-e', 'reviewed': {'path': path, 'blob_sha256': cfg_sha},
+                      'replaces': replaces if replaces is not None else sup, 'method': 'read the widened corpus',
+                      'verdicts': [{'item': 'synthetic-retirement-config:changed corpus', 'verdict': 'accept'}]}
+                out[path.rsplit('/', 1)[0] + '/widening-%d.json' % k] = sf.jb(wr)
+            return out
+        return post
+
+    def run(post):
+        c, p, h, _ = syn.build(dict(v2, post=post) if post else v2)
+        code, res = r.cli(syn.repo, ['coverage', '--commit', syn.H, '--check', 'zc'], c, p, h)
+        st = (res or {}).get('stop') or {}
+        return code, st.get('class'), st.get('message', '')
+    got = run(widen())
+    case('STAGING-CONFIG-REVIEWS/7', 'a widening configuration with one widening review in the pin table naming the '
+                                     'exact new and old configurations: admitted', got, got[1] is None)
+    got = run(None)
+    case('STAGING-CONFIG-REVIEWS/8', 'the widening configuration without a widening review: refused', got,
+         got[:2] == (65, 'CONFIG_UNREVIEWED') and 'widening without a widening review' in got[2])
+    got = run(widen(n=2))
+    case('STAGING-CONFIG-REVIEWS/9', 'two widening reviews of the configuration in the pin table: refused', got,
+         got[:2] == (65, 'CONFIG_UNREVIEWED') and 'more than one widening review' in got[2])
+    got = run(widen(replaces={'path': 'syn/cfg/elsewhere.json', 'blob_sha256': h1}))
+    case('STAGING-CONFIG-REVIEWS/10', 'the widening review names the old configuration\'s bytes at another path: '
+                                      'refused', got,
+         got[:2] == (65, 'CONFIG_UNREVIEWED') and 'widening without a widening review' in got[2])
 
 
 # ---- STAGING-FIRST-ALLOW: the widening review of the designated root --------------------------------------------
@@ -687,7 +777,7 @@ def k1_layout(root):
 
 
 SUITES = [('item2-engine', item2_engine), ('item2-gate', item2_gate), ('role-chain', role_chain),
-          ('config-reviews', config_reviews), ('first-allow', first_allow), ('k1-layout', k1_layout)]
+          ('config-reviews', config_reviews), ('config-widening', config_widening), ('first-allow', first_allow), ('k1-layout', k1_layout)]
 
 
 def main(out):
