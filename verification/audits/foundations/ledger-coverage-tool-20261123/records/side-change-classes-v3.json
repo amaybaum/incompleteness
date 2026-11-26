@@ -257,8 +257,8 @@
     },
     {
      "path": "tools/ledger_coverage/gate/gate_selftest.py",
-     "git_blob": "cf480965f8b12fe3a033909ee43dd7ac5adcf75c",
-     "blob_sha256": "c1ecb283e453b0397065dff5298be189b4e4f8ea96ea659b95107980eff3a7b3"
+     "git_blob": "fd7355a7b7be8a0acf9d37b88abfaaf5f771a5a4",
+     "blob_sha256": "711e8b99a020120cd6421aa381a6acf46e9d1fd1356ca0ede0953260427e5da6"
     },
     {
      "path": "tools/ledger_coverage/record_authority.py",

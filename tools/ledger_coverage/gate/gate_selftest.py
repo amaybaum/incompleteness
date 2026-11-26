@@ -182,8 +182,8 @@ def blob_id(data):
 
 def git_commit(repo, files):
     """Writes `files` into the fixture repository's work tree and commits them; returns the commit id."""
-    env = dict(os.environ, GIT_AUTHOR_NAME='fixture', GIT_AUTHOR_EMAIL='fixture@example.invalid',
-               GIT_COMMITTER_NAME='fixture', GIT_COMMITTER_EMAIL='fixture@example.invalid',
+    env = dict(os.environ, GIT_AUTHOR_NAME='fixture', GIT_AUTHOR_EMAIL='fixture.invalid',
+               GIT_COMMITTER_NAME='fixture', GIT_COMMITTER_EMAIL='fixture.invalid',
                GIT_AUTHOR_DATE='2026-01-01T00:00:00Z', GIT_COMMITTER_DATE='2026-01-01T00:00:00Z')
     if not os.path.isdir(os.path.join(repo, '.git')):
         os.makedirs(repo, exist_ok=True)
