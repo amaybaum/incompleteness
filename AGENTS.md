@@ -1769,8 +1769,10 @@ resetting the work.
    may start the recovery. It identifies the interrupted session and designates the replacement for
    the workstreams it names, directly or as those whose recorded writer is that session (item 2); a
    workstream the replacement cannot resolve from the records is put to the owner (§A.51 item 1).
-   It may grant one write for each operation it names whose tool and path are not validated for the
-   replacement (§A.51 item 2), each within a package's targets. Before any write, the replacement
+   It may grant one validation write for each operation that the recorded authorizations already
+   permit and whose tool and path are not validated for the replacement (§A.51 item 2), each within
+   a package's targets. Such a grant validates a path only: it authorizes no operation, widens no
+   scope and waives no approval, and a mismatch is a stop under §A.49 rule 3. Before any write, the replacement
    reads #1169, the threads it will write to and the records they link for a stop under §A.49 rule 3
    or §A.51 item 5 that no recorded owner decision has lifted; while one stands it writes nothing
    and tells the owner by the instruction's own channel. Its first write is the record of the
