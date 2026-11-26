@@ -1809,21 +1809,21 @@ resetting the work.
    interrupted session resumes, it is no longer the writer of the designated workstreams (§A.45
    rule 3) and writes nothing to them.
 6. **Entry point and missing records.** Recovery needs only the repository's identity and the
-   owner's instruction. It starts from this file on `main`, which names the coordination Issue,
-   the operations Issue #OPS (§A.53), and, in §A.45 "Where things live", the Project and the
-   planning record in open Issues. No
-   one of these is indispensable: where one is missing or cannot be read, the replacement discovers
-   the workstreams from the others, from open pull requests and their branches, and from the records
-   on `main`; where #OPS is missing or cannot be read, the coordination Issue of item 5 is the one
-   the owner names. A record that something references, or that the host reports as deleted or
-   inaccessible, is unavailable rather than nonexistent; where recovery depends on it, it is put to
-   the owner. An authorization, review verdict or owner decision lifting a stop that cannot be read
-   is not held unless a record on `main` quotes it (§A.42 item 7). No change of session, writer or
-   environment lifts a stop or resumes a suspended operation, and no change of tool lifts a stop
-   (§A.49 rule 3). A record of a stop or suspension that cannot be read, or the loss of a record
-   that would show whether one stands, keeps in force the restriction it could show until the owner
-   decides: no write for a possible stop, no write through the operation for a possible suspension,
-   and no write where the kind cannot be established.
+   owner's instruction. It starts from this file on `main`, which names the coordination Issue, the
+   operations Issue #OPS (§A.53), and, in §A.45 "Where things live", the Project and the planning
+   record in open Issues. No one of these is indispensable: where one is missing or cannot be read,
+   the replacement discovers the workstreams from the others, from open pull requests and their
+   branches, and from the records on `main`; where #OPS is missing or cannot be read, the
+   coordination Issue of item 5 is the one the owner names. A record that something references, or
+   that the host reports as deleted or inaccessible, is unavailable rather than nonexistent; where
+   recovery depends on it, it is put to the owner. An authorization, review verdict or owner
+   decision lifting a stop that cannot be read is not held unless a record on `main` quotes it
+   (§A.42 item 7). No change of session, writer or environment lifts a stop or resumes a suspended
+   operation, and no change of tool lifts a stop (§A.49 rule 3). A record of a stop or suspension
+   that cannot be read, or the loss of a record that would show whether one stands, keeps in force
+   the restriction it could show until the owner decides: no write for a possible stop, no write
+   through the operation for a possible suspension, and no write where the kind cannot be
+   established.
 
 A handover authorizes nothing new and changes no scientific status. No handover file is added to the
 repository.
