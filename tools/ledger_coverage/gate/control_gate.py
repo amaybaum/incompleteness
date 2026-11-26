@@ -637,7 +637,7 @@ def recompute_outcome(result):
     if isinstance(stop, dict) and stop:
         o = stop.get('outcome', result.get('outcome'))
         return o if o in ('USAGE', 'INTERNAL', 'ERROR', 'VOID') else 'STOP_WITHOUT_STOP_OUTCOME'
-    if 'schema' not in result and result.get('outcome') == 'USAGE':
+    if result.get('outcome') == 'USAGE' and 'items' not in result and 'preflight' not in result:
         # the USAGE object written to stderr (no result file is written for USAGE, R6.OUT.1)
         return 'USAGE'
     if result.get('operation') == 'purity-lint' and isinstance(result.get('findings'), list):
@@ -672,7 +672,7 @@ def _field(obj, k):
     if k == 'file':
         return obj.get('file', obj.get('subject'))
     if k == 'path':
-        return obj.get('path', obj.get('subject'))
+        return obj.get('path', obj.get('file', obj.get('subject')))
     return obj.get(k)
 
 
@@ -686,6 +686,19 @@ def _has(obj, k, v):
     if k == 'profile' and 'profile' not in obj and isinstance(obj.get('profiles'), list):
         return v in obj['profiles']
     return _field(obj, k) == v
+
+
+def _names(obj, subj):
+    """Whether a result site or item is the subject `subj`: its subject, site or site_id equal to it, or that id
+    with the pin suffix (`<file>:<line>@<pin>`); a `<file>:<line>` subject also names the item at that file and
+    line; a delegated class is named by its class id (`delegated_class`), its items' subject being a message."""
+    if not isinstance(subj, str):
+        return False
+    ids = [obj.get(k) for k in ('subject', 'site', 'site_id') if isinstance(obj.get(k), str)]
+    if subj in ids or obj.get('delegated_class') == subj or any(x.startswith(subj + '@') for x in ids):
+        return True
+    m = re.fullmatch(r'(.+):([0-9]+)', subj)
+    return bool(m and obj.get('file') == m.group(1) and str(obj.get('line')) == m.group(2))
 
 
 def parse_filter(spec, bindings):
@@ -725,7 +738,11 @@ def extract_count(key, result, bindings, attested):
     """Returns (value, source) for a count key, or (None, None) when the key cannot be extracted."""
     if key.startswith('finding_counts:'):
         cur = result.get('finding_counts')
-        for p in key[len('finding_counts:'):].split('/'):
+        k = key[len('finding_counts:'):]
+        if isinstance(cur, dict) and k in cur:
+            # the result's flat form: one key `obligation/decision/class`
+            return cur[k], 'result'
+        for p in k.split('/'):
             cur = cur.get(p) if isinstance(cur, dict) else None
         return (cur if cur is not None else 0), 'result'
     if key.startswith('site_counts:'):
@@ -745,11 +762,63 @@ def extract_count(key, result, bindings, attested):
     cur = result
     for p in key.split('.'):
         cur = cur.get(p) if isinstance(cur, dict) else None
+    if isinstance(cur, list):
+        # a count key naming a list field of the result (merger_groups) counts its members
+        return len(cur), 'result'
     if cur is not None:
         return cur, 'result'
     if key in attested:
         return attested[key], 'attested'
     return None, None
+
+
+# the item fields whose values are enumerations or literals, so that `{"all": ..., "have": {...}}` is decided by
+# equality; any other `have` field is prose and stays attested
+LITERAL_FIELDS = frozenset(['obligation', 'class', 'decision', 'state', 'profiles', 'rule_id', 'segment'])
+SELECTABLE = frozenset(['items', 'hits', 'sites'])
+
+
+def _select(spec, result, bindings):
+    """The result members a `unit[filter]` spec selects, or None when the spec is not such a filter."""
+    if not isinstance(spec, str):
+        return None
+    unit, conds = parse_filter(spec, bindings)
+    if unit not in SELECTABLE or conds is None:
+        return None
+    return [o for o in (result.get(unit) or []) if isinstance(o, dict) and _match(o, conds)]
+
+
+def _computed_invariant(k, v, result, bindings):
+    """(holds, actual, 'result') for an invariant the gate computes from the result alone, else None."""
+    if k == 'none':
+        sel = _select(v, result, bindings)
+        if sel is not None:
+            return not sel, len(sel), 'result'
+        return None
+    if k == 'composed_blob' and isinstance(result.get('landing_compositions'), list):
+        a = sorted(str(c.get('composed_blob')) for c in result['landing_compositions'] if isinstance(c, dict))
+        return v in a, a, 'result'
+    if k == 'a5_unequal_paths' and isinstance((result.get('record_directory') or {}).get('unequal'), dict):
+        a = len(result['record_directory']['unequal'])
+        return a == v, a, 'result'
+    if k == 'rule_active' and isinstance((result.get('record_directory') or {}).get('state'), str):
+        a = result['record_directory']['state'] == 'active'
+        return a == v, a, 'result'
+    if k.startswith('{'):
+        inv = json.loads(k)
+        if set(inv) == {'all', 'have'} and isinstance(inv['have'], dict) and set(inv['have']) <= LITERAL_FIELDS:
+            sel = _select(inv['all'], result, bindings)
+            if sel is not None:
+                bad = [o.get('subject') for o in sel if not all(_has(o, f, _bind(x, bindings)) if f != 'profiles'
+                                                                else o.get(f) == x for f, x in inv['have'].items())]
+                return not bad, {'selected': len(sel), 'not_having': bad[:5]}, 'result'
+        if set(inv) == {'condition', 'holds'} and isinstance(result.get('side_changes'), list):
+            evs = [ev for sc in result['side_changes'] if isinstance(sc, dict)
+                   for ev in sc.get('record_conditions') or [] if isinstance(ev, dict)]
+            if evs:
+                failed = any(inv['condition'] in (ev.get('failed') or []) for ev in evs)
+                return (not failed) == inv['holds'], not failed, 'result'
+    return None
 
 
 def eval_invariant(k, v, result, case, attested, bindings):
@@ -793,6 +862,9 @@ def eval_invariant(k, v, result, case, attested, bindings):
             return case.get('_exit') == v, case.get('_exit'), 'exit file'
         if k == 'stderr_json_outcome':
             return result.get('outcome') == v, result.get('outcome'), 'result'
+        computed = _computed_invariant(k, v, result, bindings)
+        if computed is not None:
+            return computed
     if k == 'no_result_written':
         a = case.get('_result_absent')
         if a is not None:
@@ -936,16 +1008,15 @@ def eval_case(exp, case_name, ev, row, record, findings_out):
                     findings_out.append(('raw-evidence-missing' if got is None else 'declarative-mismatch',
                                          'case %r: site condition %s not attested' % (case_name, s)))
                 continue
-            sites = [x for x in ((result or {}).get('sites') or []) if x.get('subject', x.get('site')) == subj]
-            # a delegated class is named by its class id (`delegated_class`), its items' subject being a message
-            sitems = [i for i in items if i.get('subject') == subj or i.get('delegated_class') == subj]
+            sites = [x for x in ((result or {}).get('sites') or []) if _names(x, subj)]
+            sitems = [i for i in items if _names(i, subj)]
             ok = bool(sites or sitems)
             for k, v in fields.items():
                 if k in ('classes_exact', 'classes_include'):
                     got = sorted({i.get('class') for i in sitems})
                     ok = ok and (set(v) == set(got) if k == 'classes_exact' else set(v) <= set(got))
                 else:
-                    ok = ok and any(x.get(k) == v for x in sites)
+                    ok = ok and any(x.get(k) == v for x in sites + sitems)
             if not ok:
                 findings_out.append(('declarative-mismatch', 'case %r: site %s does not meet %s' % (case_name, subj,
                                                                                                     fields)))
