@@ -1731,3 +1731,41 @@ Adopted 2026-11-24 by owner decision (`amaybaum`, #1169 comment 7124456482); ite
 amended 2026-11-25 by owner decision (`amaybaum`, #1169 comment 7171625550), to let a
 difference that §A.49 rule 2's allowlist permits pass a validation write, and to confine a §A.49
 mismatch to the failed operation where §A.49 rule 3 does.
+
+***
+
+## §A.52 Writer handover
+
+A designated writer (§A.45 rule 3, §A.51) may be replaced by another agent session, of the same or
+another provider, without repeating scientific approvals, restarting completed reviews or resetting
+the work. GitHub holds the state from which the replacement resumes.
+
+1. **Checkpoint.** The outgoing writer pushes its work to the designated branch (§A.43 item 2) and
+   records a handover checkpoint as a comment on the guiding pull request, or on the accountable
+   Issue for work that has none. The checkpoint states:
+   - the exact branch and commit;
+   - the completed and outstanding obligations;
+   - the open scientific questions;
+   - the review status and unresolved findings;
+   - the authorized scope and restrictions;
+   - any artifact not yet pushed;
+   - the next concrete action.
+
+   Checkpoints are updated at meaningful milestones and before an expected interruption, such as a
+   usage limit.
+2. **Designation.** The owner records the replacement writer on the same thread or on #1169. The
+   outgoing writer then stops writing to that branch, file or artifact; until then it remains the
+   writer, and no conflicting writer starts (§A.45 rule 3).
+3. **Resumption.** The replacement writer:
+   - reconstructs the context from this file, the owner records, the accountable Issue, the plan, the
+     branch and its reviews;
+   - confirms that the branch head equals the recorded commit;
+   - continues under the existing scope, authorization and acceptance criteria.
+
+   A mismatch stops it under §A.51 item 5.
+4. **Review.** A reviewer uninvolved in either writing stage is preferred. A review by an agent of
+   another provider is evidence of review, not independent mathematical verification (§A.46
+   item 8).
+
+A handover authorizes nothing new and changes no scientific status. No handover file is added to the
+repository.
