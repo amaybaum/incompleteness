@@ -1,0 +1,77 @@
+[
+ {
+  "label": "A: R6.REC.4 (part A: owner's specific approval needed)",
+  "anchor": "**R6.REC.4** **Frozen configuration.** The configuration at `F` references every record and review\nrecord by `{path, blob_sha256}` (sec. 25). A record added after `F` is admissible only under the\nreconciliation rule of sec. 23: it is valid only for a side change on `M`, and it never changes a\ndecision of op C on `X`.\nSources: E-138, E-165. Controls: O8, N2, O9.",
+  "replacement": "**R6.REC.4** **Frozen configuration.** The configuration at `F` references by `{path, blob_sha256}`\n(sec. 25) every record and review record a run uses, other than a record admitted by the post-freeze\nroute of R6.RECON.2 and its review record. That route admits only a reconciliation record or a\nside-change class record written after `F`; such a record is valid only for a side change on `M`, and\nit never changes a decision of op C on `X`.\nSources: E-138, E-165. Controls: O8, N2, O9, POSTF-1."
+ },
+ {
+  "label": "A: R6.RECON.2 (part A: owner's specific approval needed)",
+  "anchor": "**R6.RECON.2** A record written after `F` is allowed only for side changes on `M` that the freeze could\nnot foresee. It is under the ownership chain of sec. 11.\nSources: E-1341, RV-027. Controls: O8, N2.",
+  "replacement": "**R6.RECON.2** **Post-freeze route.** A record written after `F` is allowed only for side changes on\n`M` that the freeze could not foresee. It is under the ownership chain of sec. 11, and it is admitted\nonly if every condition below holds, each checked by the tool from git objects; otherwise it is FAIL\n`record-invalid` and is not used:\n- (a) its schema is `oi-reconciliation/1` or `oi-side-change-classes/1`; no other record kind is\n  admitted after `F`, except the review record of such a record;\n- (b) every path it covers (each path of a reconciliation record, each path a class of a side-change\n  class record pins) is changed by at least one commit on `M`'s first-parent chain that is not an\n  ancestor of `F`;\n- (c) it is named by `--classify REV:PATH`, with `REV` a full commit id read through the verified\n  reader (R6.REC.17); exactly one review record in the same directory of `REV`'s tree names its\n  blob, and that review is admitted for this record alone; no record in that directory of `REV`'s\n  tree supersedes it; and record lint (R6.REC.6, R6.REC.7) holds over the record and its review, with\n  `REV` in place of `F` in R6.REC.7's \"at or before `F`\";\n- (d) `PATH` and the path of its review record lie outside every prefix of the tool-landing class\n  and outside the plan's record directory, and neither is a ledgered or corpus path (R6.RECON.1);\n  that the directory lies under `verification/audits/` is placement, verified by review;\n- (e) it is used only in the `M` role (side-change classification, the reconciliation of\n  `base-drift`, RC11), and the comparison of R6.RECON.3 applies to it.\n\nThe result lists each record this route admits in `inputs.classify_records`, with its `rev`, path and\nsha256 and the path and sha256 of its review record. Configuration admission (R6.REC.16) and\nexecution identity (R6.REC.18) are unchanged.\nSources: E-1341, RV-027. Controls: O8, N2, POSTF-1, POSTF-2, POSTF-3, POSTF-4, POSTF-5."
+ },
+ {
+  "label": "A: R6.REC.5 (part A: owner's specific approval needed)",
+  "anchor": "  record supplied to the run (for example by `--classify`) that the configuration at `F` does not\n  reference: FAIL `record-invalid` (exit 20). An unreferenced record is never used.",
+  "replacement": "  record supplied to the run (for example by `--classify`) that the configuration at `F` does not\n  reference, other than a record admitted by the post-freeze route of R6.RECON.2: FAIL\n  `record-invalid` (exit 20). An unreferenced record that this route does not admit is never used."
+ },
+ {
+  "label": "A: R6.REC.5 controls (part A: owner's specific approval needed)",
+  "anchor": "I2-3, Y10, M3, M4, M5, Z1, Z11, I2-4, I2-5, GV6.",
+  "replacement": "I2-3, Y10, M3, M4, M5, Z1, Z11, I2-4, I2-5, GV6, POSTF-3."
+ },
+ {
+  "label": "A: R6.CFG.4 `records` (part A: owner's specific approval needed)",
+  "anchor": "- `records`: every record and review record the run may use, `[{kind, path, blob_sha256}]`, including",
+  "replacement": "- `records`: every record and review record the run may use, other than a record admitted by the\n  post-freeze route of R6.RECON.2 and its review record, `[{kind, path, blob_sha256}]`, including"
+ },
+ {
+  "label": "A: R6.OUT.5 (part A: owner's specific approval needed)",
+  "anchor": "`--classify` that the configuration does not reference. VOID carries",
+  "replacement": "`--classify` that the configuration does not reference, other than a record admitted by the\npost-freeze route of R6.RECON.2. VOID carries"
+ },
+ {
+  "label": "A: R6.VALID.3 (part A: owner's specific approval needed)",
+  "anchor": "  passed with `--classify` that the configuration does not reference: FAIL `record-invalid`.",
+  "replacement": "  passed with `--classify` that the configuration does not reference, other than a record admitted\n  by the post-freeze route of R6.RECON.2: FAIL `record-invalid`."
+ },
+ {
+  "label": "B: R6.RECON.1",
+  "anchor": "lives in the audit directory. It names",
+  "replacement": "lives with its review record in a reconciliation directory, never among the tool's landing paths\n(R6.RECON.21). A reconciliation directory is a directory under `verification/audits/` (AGENTS.md\nsec. A.36) that lies outside every prefix of the tool-landing class and outside the plan's record\ndirectory, and that holds no ledgered or corpus path. The record names"
+ },
+ {
+  "label": "B: R6.RECON.1 controls",
+  "anchor": "Sources: V2-146. Controls: N3, N4.",
+  "replacement": "Sources: V2-146. Controls: N3, N4, POSTF-5."
+ },
+ {
+  "label": "B: R6.REC.1",
+  "anchor": "One record is one immutable file in the audit directory of sec. 19, or in the amended plan's record\ndirectory (sec. 21) for records frozen with the plan.",
+  "replacement": "One record is one immutable file in the audit directory of sec. 19; in the amended plan's record\ndirectory (sec. 21), for records frozen with the plan; or in a reconciliation directory\n(R6.RECON.1), for reconciliation records and the side-change class records and review records that\naccompany them."
+ },
+ {
+  "label": "B: R6.PLACE.5",
+  "anchor": "HP, context and hit classification records, review records, reconciliation records, and the tool's\nlanding record of the real-tree runs with their commits, commands, counts and results.",
+  "replacement": "HP, context and hit classification records, review records, and the tool's landing record of the\nreal-tree runs with their commits, commands, counts and results. Reconciliation records, with the\nside-change class records and review records that accompany them, lie in a reconciliation directory\n(R6.RECON.1)."
+ },
+ {
+  "label": "B: R6.REC.7 ambiguous ancestry",
+  "anchor": "  directory and the plan's record directory at `F` and the records the run reads;",
+  "replacement": "  directory and the plan's record directory at `F`, the records in the reconciliation directories\n  (R6.RECON.1) at the commits that supply the records the run reads, and the records the run reads;"
+ },
+ {
+  "label": "B: R6.REC.7 controls",
+  "anchor": "Sources: E-141. Controls: S4a, LN1, LN2, LN3, LN4, LN5, LN6, LN7, LN8, LN10, R6-G6.",
+  "replacement": "Sources: E-141. Controls: S4a, LN1, LN2, LN3, LN4, LN5, LN6, LN7, LN8, LN10, R6-G6, POSTF-4."
+ },
+ {
+  "label": "D: R6.RECON.21 binding (part D: owner's specific approval needed)",
+  "anchor": "its `ledger_base` is the run's `H`, it names the\n  run's `M`, and its",
+  "replacement": "its `ledger_base` is the run's `H`, it names the\n  run's `M` and `X`, and its"
+ },
+ {
+  "label": "D: R6.RECON.21 controls (part D: owner's specific approval needed)",
+  "anchor": "Sources: E-1355, OC-3. Controls: RT-L2, RT-O9-L2, GATE-13, GATE-14, GATE-15, GATE-19.",
+  "replacement": "Sources: E-1355, OC-3. Controls: RT-L2, RT-O9-L2, GATE-13, GATE-14, GATE-15, GATE-19, RTL2-BIND."
+ }
+]

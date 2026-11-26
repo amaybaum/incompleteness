@@ -2027,7 +2027,9 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [],
+  "pending_owner_confirmation": [
+   "amendment 1, B4 part A (post-freeze route of R6.RECON.2): needs the owner's specific approval; the alternative is a new configuration version and a new freeze (R6.CFG.3)"
+  ],
   "owner_decision": [
    {
     "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
@@ -3284,13 +3286,16 @@
   "controls": [
    "O8",
    "N2",
-   "O9"
+   "O9",
+   "POSTF-1"
   ],
   "verification": [
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [],
+  "pending_owner_confirmation": [
+   "amendment 1, B4 part A (post-freeze route of R6.RECON.2): needs the owner's specific approval; the alternative is a new configuration version and a new freeze (R6.CFG.3)"
+  ],
   "owner_decision": []
  },
  {
@@ -3320,13 +3325,16 @@
    "Z11",
    "I2-4",
    "I2-5",
-   "GV6"
+   "GV6",
+   "POSTF-3"
   ],
   "verification": [
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [],
+  "pending_owner_confirmation": [
+   "amendment 1, B4 part A (post-freeze route of R6.RECON.2): needs the owner's specific approval; the alternative is a new configuration version and a new freeze (R6.CFG.3)"
+  ],
   "owner_decision": [
    {
     "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
@@ -3393,7 +3401,8 @@
    "LN7",
    "LN8",
    "LN10",
-   "R6-G6"
+   "R6-G6",
+   "POSTF-4"
   ],
   "verification": [
    "controls"
@@ -8738,7 +8747,8 @@
   ],
   "controls": [
    "N3",
-   "N4"
+   "N4",
+   "POSTF-5"
   ],
   "verification": [
    "controls"
@@ -8758,13 +8768,20 @@
   ],
   "controls": [
    "O8",
-   "N2"
+   "N2",
+   "POSTF-1",
+   "POSTF-2",
+   "POSTF-3",
+   "POSTF-4",
+   "POSTF-5"
   ],
   "verification": [
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [],
+  "pending_owner_confirmation": [
+   "amendment 1, B4 part A (post-freeze route of R6.RECON.2): needs the owner's specific approval; the alternative is a new configuration version and a new freeze (R6.CFG.3)"
+  ],
   "owner_decision": []
  },
  {
@@ -9139,13 +9156,16 @@
    "GATE-13",
    "GATE-14",
    "GATE-15",
-   "GATE-19"
+   "GATE-19",
+   "RTL2-BIND"
   ],
   "verification": [
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [],
+  "pending_owner_confirmation": [
+   "amendment 1, B4 part D (the binding names the run's M and X): needs the owner's specific approval"
+  ],
   "owner_decision": []
  },
  {
@@ -9526,7 +9546,9 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [],
+  "pending_owner_confirmation": [
+   "amendment 1, B4 part A (post-freeze route of R6.RECON.2): needs the owner's specific approval; the alternative is a new configuration version and a new freeze (R6.CFG.3)"
+  ],
   "owner_decision": []
  },
  {
@@ -10131,7 +10153,9 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [],
+  "pending_owner_confirmation": [
+   "amendment 1, B4 part A (post-freeze route of R6.RECON.2): needs the owner's specific approval; the alternative is a new configuration version and a new freeze (R6.CFG.3)"
+  ],
   "owner_decision": [
    {
     "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",

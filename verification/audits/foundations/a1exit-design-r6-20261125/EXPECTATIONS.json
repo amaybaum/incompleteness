@@ -21695,6 +21695,321 @@
    "flags": [
     "added by amendment 1 (B1); no runner records it before the tool revision implements it"
    ]
+  },
+  {
+   "id": "POSTF-1",
+   "requirements": [
+    "R6.RECON.2",
+    "R6.REC.4"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "direction": "both",
+   "expect": {
+    "cases": [
+     {
+      "case": "a reviewed reconciliation record and its review record in one reconciliation directory at REV, named by --classify REV:PATH, covering a ledgered path changed on M by a commit that is not an ancestor of F, every condition RC1-RC13 holding (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "record_admitted": "$record"
+       },
+       {
+        "none": "items[class=record-invalid]"
+       },
+       {
+        "none": "items[class=base-drift]"
+       },
+       {
+        "equals": "inputs.classify_records lists the record with its rev, path and sha256 and the path and sha256 of its review record"
+       }
+      ]
+     },
+     {
+      "case": "a reviewed side-change class record and its review record at REV, pinning a path changed on M by a commit that is not an ancestor of F (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "record_admitted": "$record"
+       },
+       {
+        "none": "items[class=side-change-unclassified]"
+       }
+      ]
+     },
+     {
+      "case": "countercase: the same run without the reconciliation record",
+      "outcome": "FAIL",
+      "classes_include": [
+       "base-drift"
+      ]
+     }
+    ]
+   },
+   "source": "r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B4; owner directions of 2026-11-26T04:52:48Z, #1169 comment 7182986451)",
+   "flags": [
+    "added by amendment 1 (B4; owner directions of 2026-11-26T04:52:48Z, #1169 comment 7182986451); no runner records it before the tool revision implements it"
+   ]
+  },
+  {
+   "id": "POSTF-2",
+   "requirements": [
+    "R6.RECON.2"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "cases": [
+     {
+      "case": "a reviewed reconciliation record named by --classify REV:PATH whose covered path is changed on M only by commits that are ancestors of F",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "base-drift"
+      ]
+     },
+     {
+      "case": "a reviewed side-change class record named by --classify REV:PATH one of whose pinned paths is changed on M only by commits that are ancestors of F",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     }
+    ]
+   },
+   "restored": {
+    "outcome": "ANY",
+    "invariants": [
+     {
+      "record_admitted": "$record"
+     }
+    ]
+   },
+   "source": "r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B4; owner directions of 2026-11-26T04:52:48Z, #1169 comment 7182986451)",
+   "flags": [
+    "added by amendment 1 (B4; owner directions of 2026-11-26T04:52:48Z, #1169 comment 7182986451); no runner records it before the tool revision implements it"
+   ]
+  },
+  {
+   "id": "POSTF-3",
+   "requirements": [
+    "R6.RECON.2",
+    "R6.REC.5"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "cases": [
+     {
+      "case": "a reviewed hit-classification record written after F, named by --classify REV:PATH from a reconciliation directory",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "a reviewed HP adjudication written after F, named the same way",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     }
+    ]
+   },
+   "restored": {
+    "outcome": "RESULT_EQUAL_CLEAN",
+    "invariants": [
+     {
+      "baseline": "the same run without the record"
+     }
+    ]
+   },
+   "source": "r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B4; owner directions of 2026-11-26T04:52:48Z, #1169 comment 7182986451)",
+   "flags": [
+    "added by amendment 1 (B4; owner directions of 2026-11-26T04:52:48Z, #1169 comment 7182986451); no runner records it before the tool revision implements it"
+   ]
+  },
+  {
+   "id": "POSTF-4",
+   "requirements": [
+    "R6.RECON.2",
+    "R6.REC.7"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "cases": [
+     {
+      "case": "no review record naming the record's blob in the same directory of REV's tree",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "two review records naming the record's blob in that directory",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "another record in that directory of REV's tree supersedes the record",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "two records in the reconciliation directory at REV supersede the same predecessor",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     }
+    ]
+   },
+   "restored": {
+    "outcome": "ANY",
+    "invariants": [
+     {
+      "record_admitted": "$record"
+     }
+    ]
+   },
+   "source": "r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B4; owner directions of 2026-11-26T04:52:48Z, #1169 comment 7182986451)",
+   "flags": [
+    "added by amendment 1 (B4; owner directions of 2026-11-26T04:52:48Z, #1169 comment 7182986451); no runner records it before the tool revision implements it"
+   ]
+  },
+  {
+   "id": "POSTF-5",
+   "requirements": [
+    "R6.RECON.2",
+    "R6.RECON.1"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "cases": [
+     {
+      "case": "PATH under a prefix of the tool-landing class",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "PATH inside the plan's record directory",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "the review record in a directory other than the record's",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     }
+    ]
+   },
+   "restored": {
+    "outcome": "ANY",
+    "invariants": [
+     {
+      "record_admitted": "$record"
+     }
+    ]
+   },
+   "source": "r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B4; owner directions of 2026-11-26T04:52:48Z, #1169 comment 7182986451)",
+   "flags": [
+    "added by amendment 1 (B4; owner directions of 2026-11-26T04:52:48Z, #1169 comment 7182986451); no runner records it before the tool revision implements it"
+   ]
+  },
+  {
+   "id": "RTL2-BIND",
+   "requirements": [
+    "R6.RECON.21"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "direction": "both",
+   "predicate_kind": "procedural",
+   "expect": {
+    "cases": [
+     {
+      "case": "a reviewed reconciliation record bound to the run: ledger_base the run's H, naming the run's M and X, its m and x the path's blobs at the run's M and C (positive)",
+      "outcome": "PASS",
+      "invariants": [
+       {
+        "drift_state_in": [
+         "reconciled"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "countercase: the same record naming a commit other than the run's M",
+      "outcome": "FAIL",
+      "invariants": [
+       {
+        "drift_state_in": [
+         "unresolved"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "countercase: the same record naming a commit other than the run's X",
+      "outcome": "FAIL",
+      "invariants": [
+       {
+        "drift_state_in": [
+         "unresolved"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "countercase: the same record with M and X null",
+      "outcome": "FAIL",
+      "invariants": [
+       {
+        "drift_state_in": [
+         "unresolved"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "source": "r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B4; owner directions of 2026-11-26T04:52:48Z, #1169 comment 7182986451)",
+   "flags": [
+    "added by amendment 1 (B4; owner directions of 2026-11-26T04:52:48Z, #1169 comment 7182986451); no runner records it before the tool revision implements it"
+   ],
+   "procedure": {
+    "name": "rtl2-binding",
+    "lib": "rtl2",
+    "evidence": [
+     "run result.json",
+     "each reconciliation record used and its review record",
+     "the run's H, M, X and C"
+    ]
+   }
   }
  ],
  "retired": [

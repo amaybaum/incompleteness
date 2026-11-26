@@ -4,8 +4,8 @@ Usage: python3 -I -B amend1.py BASE OUT
 
 BASE is a directory holding DESIGN-r6.md, EXPECTATIONS.json, REQUIREMENTS.json and LANDING-MANIFEST.md exactly as
 they are in verification/audits/foundations/a1exit-design-r6-20261125/ at main 02b8e20839d4700de721f8427b3fe9f3c746b71f
-(each checked against its sha256 below). The script reads owner-decision-amendment1.json beside itself and writes
-into OUT the amended DESIGN-r6.md, EXPECTATIONS.json and REQUIREMENTS.json, the change record AMENDMENT-1.md and the
+(each checked against its sha256 below). The script reads owner-decision-amendment1.json and, when present,
+b4-design-edits.json (the B4 design corrections, a list of anchored edits) beside itself and writes into OUT the amended DESIGN-r6.md, EXPECTATIONS.json and REQUIREMENTS.json, the change record AMENDMENT-1.md and the
 updated LANDING-MANIFEST.md. Every text edit is anchored on an exact string that must occur exactly once. After the
 edits it runs its self-checks (correspondence in both directions, a second direction on every row in scope, the
 closed invariant vocabulary of sec. 16.10, multi-key invariants, identifier uniqueness) and exits nonzero on any
@@ -53,7 +53,7 @@ def dumpj(doc):
 # B1: the new control rows. Each states a second direction (a restored expectation or direction `both` with a
 # countercase); runner null until the tool revision implements it.
 
-def row(rid, req, ops, kind, direction, expect, restored, case):
+def row(rid, req, ops, kind, direction, expect, restored, case, dec='B1'):
     r = {'id': rid, 'requirements': req, 'runner': None, 'operations': ops}
     if direction != 'adversarial':
         r['direction'] = direction
@@ -62,8 +62,8 @@ def row(rid, req, ops, kind, direction, expect, restored, case):
     r['expect'] = expect
     if restored is not None:
         r['restored'] = restored
-    r['source'] = SOURCE % 'B1'
-    r['flags'] = [FLAG_NEW % 'B1']
+    r['source'] = SOURCE % dec
+    r['flags'] = [FLAG_NEW % dec]
     return r, case
 
 
@@ -198,6 +198,113 @@ NEW_REQ_CONTROLS = dict((k, [v]) for k, v in NEW_REQ.items())
 NEW_REQ_CONTROLS['R6.OUT.22'] = ['S7-schema-and-checker', 'OUT-EXPLAIN']
 NEW_REQ_CONTROLS['R6.HP.5'] = ['HP-SEMCLASS', 'HP-RECORDS']
 
+# B4: design corrections for the B4 records (owner directions of 2026-11-26T04:52:48Z, #1169 comment 7182986451).
+# The text edits are the anchored entries of b4-design-edits.json; these are the control rows they name. Parts A
+# (post-freeze route) and D (binding to the run's M and X) need the owner's specific approval (sec. 0.2).
+B4 = 'B4; owner directions of 2026-11-26T04:52:48Z, #1169 comment 7182986451'
+B4_DIRECTIONS = {
+    'record': '#1169 comment 7182986451', 'author': 'amaybaum', 'time': '2026-11-26T04:52:48Z',
+    'quotes': [
+        "Record location | Keep reconciliation records outside the tool's landing paths. Resolve the contradictory "
+        "design wording through independent review.",
+        'M and X commit identifiers | Complete them when the actual commits exist, using independently reviewed '
+        'superseding records.',
+        'Records created after freezing | Investigate the conflict now. Do not bypass chain-mode validation or '
+        'silently introduce an exception.',
+        'Include any necessary design corrections in the consolidated amendment where practical, rather than '
+        'creating another series of amendments.',
+        'Do not introduce multi-path reconciliation merely to accommodate #1560. We should avoid further expansion '
+        'of the verification tool when a simpler solution exists.']}
+POSTF_POS = {'outcome': 'ANY', 'invariants': [{'record_admitted': '$record'}]}
+REC_INVALID = {'outcome': 'FAIL', 'classes_include': ['record-invalid']}
+
+
+def fcase(text, extra=None):
+    c = dict(case=text, **REC_INVALID)
+    if extra:
+        c['classes_include'] = c['classes_include'] + extra
+    return c
+
+
+B4_ROWS = [
+    row('POSTF-1', ['R6.RECON.2', 'R6.REC.4'], ['execution'], 'declarative', 'both', {'cases': [
+        {'case': 'a reviewed reconciliation record and its review record in one reconciliation directory at REV, '
+                 'named by --classify REV:PATH, covering a ledgered path changed on M by a commit that is not an '
+                 'ancestor of F, every condition RC1-RC13 holding (positive)',
+         'outcome': 'ANY',
+         'invariants': [{'record_admitted': '$record'}, {'none': 'items[class=record-invalid]'},
+                        {'none': 'items[class=base-drift]'},
+                        {'equals': 'inputs.classify_records lists the record with its rev, path and sha256 and the '
+                                   'path and sha256 of its review record'}]},
+        {'case': 'a reviewed side-change class record and its review record at REV, pinning a path changed on M by '
+                 'a commit that is not an ancestor of F (positive)',
+         'outcome': 'ANY',
+         'invariants': [{'record_admitted': '$record'}, {'none': 'items[class=side-change-unclassified]'}]},
+        {'case': 'countercase: the same run without the reconciliation record',
+         'outcome': 'FAIL', 'classes_include': ['base-drift']}]},
+        None,
+        'post-freeze route (R6.RECON.2): a reviewed reconciliation or side-change class record written after `F` '
+        'for a path changed on `M` after `F`, named by `--classify REV:PATH`, is admitted in the `M` role and listed '
+        'in `inputs.classify_records` with its review; without it the path is `base-drift`', B4),
+    row('POSTF-2', ['R6.RECON.2'], ['execution'], 'declarative', 'adversarial', {'cases': [
+        fcase('a reviewed reconciliation record named by --classify REV:PATH whose covered path is changed on M only '
+              'by commits that are ancestors of F', ['base-drift']),
+        fcase('a reviewed side-change class record named by --classify REV:PATH one of whose pinned paths is '
+              'changed on M only by commits that are ancestors of F')]},
+        POSTF_POS,
+        'a post-freeze record covering a path that no commit on `M` after `F` changed: FAIL `record-invalid`; the '
+        'restored case is the POSTF-1 input', B4),
+    row('POSTF-3', ['R6.RECON.2', 'R6.REC.5'], ['execution'], 'declarative', 'adversarial', {'cases': [
+        fcase('a reviewed hit-classification record written after F, named by --classify REV:PATH from a '
+              'reconciliation directory'),
+        fcase('a reviewed HP adjudication written after F, named the same way')]},
+        {'outcome': 'RESULT_EQUAL_CLEAN', 'invariants': [{'baseline': 'the same run without the record'}]},
+        'a record of another kind written after `F` and not referenced by the configuration: FAIL `record-invalid`, '
+        'never used', B4),
+    row('POSTF-4', ['R6.RECON.2', 'R6.REC.7'], ['execution'], 'declarative', 'adversarial', {'cases': [
+        fcase("no review record naming the record's blob in the same directory of REV's tree"),
+        fcase("two review records naming the record's blob in that directory"),
+        fcase("another record in that directory of REV's tree supersedes the record"),
+        fcase('two records in the reconciliation directory at REV supersede the same predecessor')]},
+        POSTF_POS,
+        'post-freeze review and lineage: no review, two reviews, a superseded record and ambiguous ancestry in the '
+        'reconciliation directory at `REV` are each FAIL `record-invalid`; the restored case is the POSTF-1 input',
+        B4),
+    row('POSTF-5', ['R6.RECON.2', 'R6.RECON.1'], ['execution'], 'declarative', 'adversarial', {'cases': [
+        fcase('PATH under a prefix of the tool-landing class'),
+        fcase("PATH inside the plan's record directory"),
+        fcase('the review record in a directory other than the record\'s')]},
+        POSTF_POS,
+        'a post-freeze record outside a reconciliation directory (under a tool-landing prefix, inside the plan\'s '
+        'record directory) or with its review elsewhere: FAIL `record-invalid`; the restored case is the POSTF-1 '
+        'input', B4),
+    row('RTL2-BIND', ['R6.RECON.21'], ['execution'], 'procedural', 'both', {'cases': [
+        {'case': "a reviewed reconciliation record bound to the run: ledger_base the run's H, naming the run's M and "
+                 "X, its m and x the path's blobs at the run's M and C (positive)",
+         'outcome': 'PASS', 'invariants': [{'drift_state_in': ['reconciled']}]},
+        {'case': "countercase: the same record naming a commit other than the run's M",
+         'outcome': 'FAIL', 'invariants': [{'drift_state_in': ['unresolved']}]},
+        {'case': "countercase: the same record naming a commit other than the run's X",
+         'outcome': 'FAIL', 'invariants': [{'drift_state_in': ['unresolved']}]},
+        {'case': 'countercase: the same record with M and X null',
+         'outcome': 'FAIL', 'invariants': [{'drift_state_in': ['unresolved']}]}]},
+        None,
+        'the binding clause of R6.RECON.21: a reviewed record that does not name the run\'s `M` and `X` leaves the '
+        'drift state unresolved (synthetic configuration)', B4),
+]
+B4_ROWS[5][0]['procedure'] = {'name': 'rtl2-binding', 'lib': 'rtl2',
+                              'evidence': ['run result.json', 'each reconciliation record used and its review record',
+                                           "the run's H, M, X and C"]}
+B4_REQ_CONTROLS = {}
+for _r, _ in B4_ROWS:
+    for _q in _r['requirements']:
+        B4_REQ_CONTROLS.setdefault(_q, []).append(_r['id'])
+PENDING_A = ("amendment 1, B4 part A (post-freeze route of R6.RECON.2): needs the owner's specific approval; the "
+             "alternative is a new configuration version and a new freeze (R6.CFG.3)")
+PENDING_D = ("amendment 1, B4 part D (the binding names the run's M and X): needs the owner's specific approval")
+B4_PENDING = {'R6.REC.4': PENDING_A, 'R6.RECON.2': PENDING_A, 'R6.REC.5': PENDING_A, 'R6.CFG.4': PENDING_A,
+              'R6.OUT.5': PENDING_A, 'R6.VALID.3': PENDING_A, 'R6.RECON.21': PENDING_D}
+
 # B2: the 42 rows. Positive rows take a countercase (direction `both`), N10 and N11 pair, the rest a restored case.
 COUNTERCASES = {
     'RT-L2': {'case': 'countercase: the same run with the reconciliation record unreviewed (drafted)',
@@ -284,6 +391,11 @@ def amend_expectations(E):
             raise SystemExit('new id %s already a row' % r['id'])
         rows.append(r)
         changes.append((r['id'], 'B1', 'new row for %s' % r['requirements'][0]))
+    for r, case in B4_ROWS:
+        if r['id'] in by:
+            raise SystemExit('new id %s already a row' % r['id'])
+        rows.append(r)
+        changes.append((r['id'], 'B4', 'new row for %s' % ', '.join(r['requirements'])))
     return E, changes
 
 
@@ -300,23 +412,33 @@ def amend_requirements(R):
         if 'TR28' in c:
             raise SystemExit('%s already names TR28' % rid)
         c.insert(c.index(after) + 1, 'TR28')
+    for rid, ctl in sorted(B4_REQ_CONTROLS.items()):
+        q = by[rid]
+        if q['kind'] != 'testable' or set(ctl) & set(q['controls']):
+            raise SystemExit('%s: B4 controls' % rid)
+        q['controls'] = q['controls'] + ctl
+    for rid, note in sorted(B4_PENDING.items()):
+        if by[rid]['pending_owner_confirmation']:
+            raise SystemExit('%s: pending_owner_confirmation not empty' % rid)
+        by[rid]['pending_owner_confirmation'] = [note]
     return R
 
 
 # ------------------------------------------------------------------------------------------------------------------
 # DESIGN-r6.md
 
-def table_row(r, case):
+def table_row(r, case, dec='B1'):
     kind = 'proc' if r.get('predicate_kind') == 'procedural' else 'decl'
     d = r.get('direction', 'adversarial')
     dof = d.get('of') if isinstance(d, dict) else d
     dirs = {'adversarial': 'adv', 'positive': 'pos', 'both': 'both'}[dof]
-    return '| %s | %s | to be implemented (tool revision) | %s | %s | %s (amendment 1, B1) |' % (
-        r['id'], ', '.join(r['requirements']), kind, dirs, case)
+    return '| %s | %s | to be implemented (tool revision) | %s | %s | %s (amendment 1, %s) |' % (
+        r['id'], ', '.join(r['requirements']), kind, dirs, case, dec)
 
 
 COUNTS = ''
 B4_EDITS = []
+B4_SHA = None
 
 
 def counts_text(E):
@@ -341,6 +463,36 @@ def apply_b4(t):
     return t
 
 
+def b4_note():
+    d = B4_DIRECTIONS
+    return (
+        'B4 design corrections. The owner\'s directions on the questions raised by the B4 records are recorded at %s '
+        '(%s, %s). Quoted (table cells joined by " | ", table padding removed; each line prefixed by "> "):\n\n'
+        % (d['record'], d['author'], d['time'])
+        + '\n>\n'.join('> ' + x for x in d['quotes']) + '\n\n'
+        '- Part A, records written after `F` (needs the owner\'s specific approval). R6.REC.4 and R6.RECON.2 admit a '
+        'record written after `F`, while R6.REC.4, R6.REC.5, R6.CFG.4 (`records`), R6.OUT.5 and R6.VALID.3 require '
+        'the configuration at `F` to reference every record a run uses and make any other record `record-invalid`, '
+        'and R6.CFG.3 requires a new configuration version and a new freeze for any change to the configuration. '
+        'Chain-mode admission implements the second set, so the admission R6.RECON.2 states is unreachable. Part A '
+        'makes it reachable by the post-freeze route of R6.RECON.2, conditions (a) to (e), each checked by the tool '
+        'from git objects: only reconciliation and side-change class records with their review records, only for '
+        'paths changed on `M` after `F`, and only in the `M` role. Configuration admission, execution identity and '
+        'chain-mode validation are otherwise unchanged, and every other unreferenced record stays `record-invalid`. '
+        'Controls POSTF-1 to POSTF-5. The alternative, which adds no route, narrows R6.RECON.2 and R6.REC.4 to a new '
+        'configuration version and a new freeze (R6.CFG.3) for every record written after `F`; it needs a freeze '
+        '(AGENTS.md sec. A.50 item 5) whenever `M` gains a side change after `F` before the landing. The owner '
+        'chooses between them; until then part A is proposed text that no tool revision implements, and the '
+        'requirements it touches carry it in `pending_owner_confirmation`.\n'
+        '- Part B, record location (owner direction; independent review). R6.RECON.1, R6.REC.1 and R6.PLACE.5 placed '
+        'reconciliation records in the tool\'s audit directory, a prefix of the tool\'s landing paths (R6.PLACE.8), '
+        'while R6.RECON.21 and R6.EVID.8 require them outside those paths. They lie in a reconciliation directory '
+        '(R6.RECON.1), and R6.REC.7\'s ambiguous-ancestry scope includes those directories.\n'
+        '- Part D, binding (needs the owner\'s specific approval). R6.RECON.21\'s binding clause requires the record '
+        'to name the run\'s `M` and also its `X`, so that `M` and `X` completed by a superseding record are checked '
+        'against the run; control RTL2-BIND. It strengthens the clause and adds no requirement identifier.\n\n')
+
+
 def amend_design(t, owner):
     q = owner['quotes']
     note = (
@@ -349,8 +501,8 @@ def amend_design(t, owner):
         '(%s, %s). Quoted (part 1 of the decision record), byte-exact as relayed (each line prefixed by "> "):\n\n' % (
             owner['record'], owner['author'], owner['time'])
         + '\n>\n'.join('> ' + x for x in q) + '\n\n'
-        'Amendment 1 applies the decisions on B1, B2, B3 and B5; AMENDMENT-1.md maps each change to its decision. It '
-        'weakens no requirement and adds no exemption:\n\n'
+        'Amendment 1 applies the decisions on B1, B2, B3 and B5, which weaken no requirement and add no exemption, and '
+        'the B4 design corrections stated after this list; AMENDMENT-1.md maps each change to its decision:\n\n'
         '- B1. The 14 testable requirements that named no control (R6.PIPE.1, R6.PIPE.4, R6.PIPE.6, R6.PIPE.7, '
         'R6.PIPE.8, R6.ANCH.8, R6.HP.1, R6.HP.5, R6.HP.14, R6.CTX.8, R6.OUT.16, R6.OUT.22, R6.OUT.25, R6.OUT.28) each '
         'name a control: 14 new rows, and R6.OUT.22 also names S7-schema-and-checker, which validates every written '
@@ -368,9 +520,11 @@ def amend_design(t, owner):
         'revision that implements the gate. The owner\'s approval of it is quoted above ("Identifier rename"). The '
         '`runner` fields keep their cites; they are refreshed from the tool revision\'s final lines when it lands, '
         'and the gate never reads them (R6.GATE.9).\n'
-        '- B4 (the reviewed RT-L2 records) is drafted on a separate branch and changes nothing here.\n\n'
+        '- B4. The records themselves are drafted and reviewed on a separate branch; the design corrections that '
+        'drafting them showed to be needed are stated after this list.\n\n'
+        + b4_note() +
         'Amendment 1 is a design change under its own independent review; it adopts nothing beyond the quoted '
-        'decision and authorizes no merge, dispatch, freeze or trial.\n')
+        'decisions and authorizes no merge, dispatch, freeze or trial.\n')
     t = once(t, '\n***\n\n## 1. Notation and symbols', '\n' + note + '\n***\n\n## 1. Notation and symbols', '0.2 note')
     # B1: the requirements' Controls lists
     t = once(t, 'Sources: E-058, V1-035. Controls: none (no control checks the stage order directly; X1 and '
@@ -422,9 +576,10 @@ def amend_design(t, owner):
     t = once(t, '42 rows in scope record no second direction (`direction-missing`), and 217 rows are flagged VD-RESTORE.',
              '42 rows in scope recorded no second direction (`direction-missing`), and 217 rows are flagged VD-RESTORE\n'
              '(these figures are those of the adopted file, before amendment 1). Amendment 1 (sec. 0.2) records a second\n'
-             'direction on each of those 42 rows and adds 14 rows, each with one. Counted mechanically over the amended\n'
-             'file\'s rows outside the MUT and GATE namespaces (%s): no row in scope records no second direction.'
-             % COUNTS, 'R6.CTRL.3 counts')
+             'direction on each of those 42 rows and adds 14 rows (B1) and %d rows (B4), each with one. Counted\n'
+             'mechanically over the amended file\'s rows outside the MUT and GATE namespaces (%s): no row in scope\n'
+             'records no second direction.'
+             % (len(B4_ROWS), COUNTS), 'R6.CTRL.3 counts')
     t = once(t, 'mechanically from the per-row decisions of R6.CTRL.3 (42 of them record no second direction and are\n'
                 'reported as `direction-missing`).',
              'mechanically from the per-row decisions of R6.CTRL.3 (42 of them recorded no second direction and were\n'
@@ -454,7 +609,7 @@ def amend_design(t, owner):
     anchor = [x for x in re.finditer(r'^\| REP-BUILD \| R6\.EVID\.8 \| [^\n]*$', t, re.M)]
     if len(anchor) != 1:
         raise SystemExit('REP-BUILD table row')
-    ins = '\n'.join(table_row(r, c) for r, c in NEW_ROWS)
+    ins = '\n'.join([table_row(r, c) for r, c in NEW_ROWS] + [table_row(r, c, 'B4') for r, c in B4_ROWS])
     t = t[:anchor[0].end()] + '\n' + ins + t[anchor[0].end():]
     return t
 
@@ -487,7 +642,7 @@ def self_checks(E, R, t):
         for x in r['requirements']:
             if x not in reqs:
                 problems.append('row %s: requirement %s absent' % (rid, x))
-            elif rid not in reqs[x]['controls'] and rid in [n[0].get('id') for n in NEW_ROWS]:
+            elif rid not in reqs[x]['controls'] and rid in [n[0].get('id') for n in NEW_ROWS + B4_ROWS]:
                 problems.append('row %s lists %s, which does not name it' % (rid, x))
         for p in r.get('paired_with', []):
             if p not in rows:
@@ -510,9 +665,21 @@ def self_checks(E, R, t):
     for rid, r in rows.items():
         walk_exp(rid, r.get('expect'))
         walk_exp(rid, r.get('restored'))
-    for r, _ in NEW_ROWS:
+    for r, _ in NEW_ROWS + B4_ROWS:
         if r['id'] in retired:
             problems.append('new id %s is retired' % r['id'])
+    # B4: each requirement a B4 row lists names it in its DESIGN-r6.md block (the Controls line edited by the
+    # anchored B4 entries), and every B4 table row is present.
+    for rid, ctl in B4_REQ_CONTROLS.items():
+        start = t.index('**%s**' % rid)
+        nxt = re.compile(r'\n(?:\*\*R6\.|\*\*\*|#)').search(t, start + 1)
+        cl = t[start:nxt.start()].split('Controls:')[-1]
+        for c in ctl:
+            if not re.search(r'(?<![A-Za-z0-9-])%s(?![A-Za-z0-9-])' % re.escape(c), cl):
+                problems.append('%s: DESIGN Controls line does not name %s' % (rid, c))
+    for r, _ in B4_ROWS:
+        if len(re.findall(r'^\| %s \| ' % re.escape(r['id']), t, re.M)) != 1:
+            problems.append('table row %s not present once' % r['id'])
     return problems
 
 
@@ -542,9 +709,12 @@ def main():
     global COUNTS
     COUNTS = counts_text(E)
     b4p = os.path.join(HERE, 'b4-design-edits.json')
+    global B4_SHA
     if os.path.exists(b4p):
         with open(b4p, 'rb') as f:
-            B4_EDITS.extend(json.loads(f.read()))
+            b4b = f.read()
+        B4_SHA = sha(b4b)
+        B4_EDITS.extend(json.loads(b4b))
     t = apply_b4(amend_design(data['DESIGN-r6.md'].decode('utf-8'), owner))
     problems = self_checks(E, R, t)
     if problems:
@@ -572,7 +742,10 @@ def change_record(changes, owner, outs, gen_sha, owner_sha):
         'generator-amendment1/amend1.py (sha256 %s) from the directory at main 02b8e20839d4700de721f8427b3fe9f3c746b71f '
         'and generator-amendment1/owner-decision-amendment1.json (sha256 %s). This record maps every change to the '
         'decision it implements; it adopts nothing beyond that decision and authorizes no merge, dispatch, freeze or '
-        'trial.' % (owner['author'], owner['time'], owner['record'], owner['relayed_by'], gen_sha, owner_sha),
+        'trial.' % (owner['author'], owner['time'], owner['record'], owner['relayed_by'], gen_sha, owner_sha)
+        + (' The B4 design corrections implement the owner\'s directions of %s (%s, %s), quoted in DESIGN-r6.md sec. '
+           '0.2, from generator-amendment1/b4-design-edits.json (sha256 %s).'
+           % (B4_DIRECTIONS['time'], B4_DIRECTIONS['author'], B4_DIRECTIONS['record'], B4_SHA) if B4_EDITS else ''),
         '',
         '## 1. Expectation file and requirement list',
         '',
@@ -584,8 +757,12 @@ def change_record(changes, owner, outs, gen_sha, owner_sha):
     for rid, ctl in sorted(NEW_REQ_CONTROLS.items()):
         lines.append('| %s | B1 | controls: %s |' % (rid, ', '.join(ctl)))
     lines += ['| R6.REC.18 | B3 | controls: TR28 added after TR28-consumer |',
-              '| R6.CTRL.23 | B3 | controls: TR28 added after TR28-tool |',
-              '']
+              '| R6.CTRL.23 | B3 | controls: TR28 added after TR28-tool |']
+    for rid, ctl in sorted(B4_REQ_CONTROLS.items()):
+        lines.append('| %s | B4 | controls: %s appended |' % (rid, ', '.join(ctl)))
+    for rid, note in sorted(B4_PENDING.items()):
+        lines.append('| %s | B4 | pending_owner_confirmation: "%s" |' % (rid, note))
+    lines += ['']
     lines += [
         '## 2. DESIGN-r6.md',
         '',
@@ -603,6 +780,8 @@ def change_record(changes, owner, outs, gen_sha, owner_sha):
         '| Table 17.1 | B1, B2 | 14 rows added after REP-BUILD; RT-L, RT-L2, RT-X, TT8 and TT13 direction `both`; '
         'S7-schema-and-checker names R6.OUT.22 |',
     ] + ['| %s | B4 | anchored design correction (b4-design-edits.json) |' % e['label'] for e in B4_EDITS] + [
+        '| sec. 0.2, R6.CTRL.3, Table 17.1 | B4 | the B4 directions quoted and parts A, B and D stated; the six B4 rows '
+        'counted and added to Table 17.1 after the B1 rows |'] * bool(B4_EDITS) + [
         '',
         '## 3. Not changed by amendment 1',
         '',
@@ -613,7 +792,19 @@ def change_record(changes, owner, outs, gen_sha, owner_sha):
         '- The `runner` fields: kept; refreshed from the tool revision\'s final lines when it lands (the gate does '
         'not read them, R6.GATE.9). New rows have `runner` null until implemented.',
         '- The invariant vocabulary (153 keys): unchanged; every new invariant uses a listed key.',
-        '- B4: the reviewed RT-L2 records are drafted on a separate branch.',
+        '- B4: the records themselves (reconciliation record and side-change class records) are drafted and '
+        'reviewed on a separate branch; only the design text is corrected here.',
+        '- B4 parts A and D need the owner\'s specific approval before any tool revision implements them; their '
+        'requirements carry this in `pending_owner_confirmation`. Part A qualifies the rule that the configuration '
+        'at `F` references every record a run uses (R6.REC.4, R6.REC.5, R6.CFG.4, R6.OUT.5, R6.VALID.3) by the '
+        'checked post-freeze route of R6.RECON.2; the alternative that adds no route is a new configuration version '
+        'and a new freeze (R6.CFG.3) for every record written after `F`. Part B follows the owner\'s direction on '
+        'record location and needs independent review. Part D strengthens R6.RECON.21.',
+        '- Not adopted from the proposed B4 text: a reserved side-change class `admitted-record` classifying records '
+        'and review records in a reconciliation directory on `M`. A class record that is not itself on that `M` (one '
+        'frozen with the plan, or one the post-freeze route admits) already pins such files by blob without a hash '
+        'cycle (R6.TREE.5), so the class would widen the tool without need (owner direction: "We should avoid '
+        'further expansion of the verification tool when a simpler solution exists.").',
         '',
         '## 4. Outputs',
         '',
@@ -642,6 +833,9 @@ def manifest(m, outs, gen_sha, owner_sha):
             '| generator-amendment1/amend1.py | amendment-1 generator | amendment-1 generator | %s |\n'
             '| generator-amendment1/owner-decision-amendment1.json | amendment-1 generator input (the owner decision '
             'quoted) | amendment-1 generator | %s |\n' % (sha(outs['AMENDMENT-1.md']), gen_sha, owner_sha))
+    if B4_EDITS:
+        rows += ('| generator-amendment1/b4-design-edits.json | amendment-1 generator input (the B4 design corrections, '
+                 'anchored edits) | amendment-1 generator | %s |\n' % B4_SHA)
     m = once(m, '| LANDING-MANIFEST.md | this manifest (A5) | round-6 output | (this file) |',
              rows + '| LANDING-MANIFEST.md | this manifest (A5) | amendment-1 output | (this file) |', 'manifest self row')
     para = ('\nAmendment 1 (owner decision of 2026-11-26T04:39:58Z, amaybaum, #1169 comment 7182798225, quoted in '
