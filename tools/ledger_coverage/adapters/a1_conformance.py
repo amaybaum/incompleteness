@@ -434,7 +434,7 @@ def n_controls(a):
     ex = cli.candidate_with_and_without(rcn.ctx, H, T, rcn.led, None, M, None, T, rcn.classes, [rec])
     check('N3', 'a valid reconciliation record naming a ledgered path that X changes (AGENTS.md: D296 at X, a later '
           'section added on M): the record applies; no record-invalid; op C\'s items on X identical with and '
-          'without it', "no item for AGENTS.md at M (R1-R13 hold), no record-invalid, and the with/without items on X "
+          'without it', "no item for AGENTS.md at M (RC1-RC13 hold), no record-invalid, and the with/without items on X "
           "are identical", {'items': [i['class'] for i in base], 'failed': rcn.failed(e),
                             'x_identity': ex.x_identity,
                             'record_invalid': [i for i in ex.items if i['class'] == 'record-invalid']},
@@ -453,46 +453,46 @@ def n_controls(a):
     def entry(r, **upd):
         r['paths'][0].update(upd)
         return r
-    named('N4', 'the record with its ledger_binding altered by one byte: does not apply (base-drift), naming R13',
-          'R13', lambda r: dict(r, ledger_binding=dict(r['ledger_binding'], files_entry_sha256='0' + r[
+    named('N4', 'the record with its ledger_binding altered by one byte: does not apply (base-drift), naming RC13',
+          'RC13', lambda r: dict(r, ledger_binding=dict(r['ledger_binding'], files_entry_sha256='0' + r[
               'ledger_binding']['files_entry_sha256'][1:])))
     M5 = repo.derive(M, {path: comp + b'\n'}, parents=[M], subject='one more main commit')
-    named('N5', 'M with one more first-parent commit changing the path: does not apply, naming R1', 'R1', m=M5)
+    named('N5', 'M with one more first-parent commit changing the path: does not apply, naming RC1', 'RC1', m=M5)
     named('N6', 'a protected range at M altered by one byte (the recorded range shifted by one byte): does not '
-          'apply, naming R9', 'R9', lambda r: entry(r, protected=[dict(r['paths'][0]['protected'][0],
+          'apply, naming RC9', 'RC9', lambda r: entry(r, protected=[dict(r['paths'][0]['protected'][0],
                                                                        start_M=r['paths'][0]['protected'][0]['start_M']
                                                                        + 1)]))
-    named('N7', 'the path\'s blob at M differs from the record\'s m: does not apply, naming R2', 'R2',
+    named('N7', 'the path\'s blob at M differs from the record\'s m: does not apply, naming RC2', 'RC2',
           lambda r: entry(r, m='0' * 40))
     old = repo.read(H, path)[rcn.led['splices'][[s['file'] for s in rcn.led['splices']].index(path)]['start']:
                              rcn.led['splices'][[s['file'] for s in rcn.led['splices']].index(path)]['end']]
     M8 = repo.derive(M, {path: comp + b'\n' + old + b'\n'}, parents=[M], subject='old bytes twice at M')
-    named('N8', 'a splice\'s old bytes occurring twice at M: does not apply, naming R4', 'R4', m=M8)
-    named('N9', 'the record\'s l differs from the composed blob: does not apply, naming R7', 'R7',
+    named('N8', 'a splice\'s old bytes occurring twice at M: does not apply, naming RC4', 'RC4', m=M8)
+    named('N9', 'the record\'s l differs from the composed blob: does not apply, naming RC7', 'RC7',
           lambda r: entry(r, l='0' * 40))
     H12 = repo.derive(H, {path: repo.read(H, path) + b'\n' + old + b'\n'}, parents=repo.parents(H),
                       subject='old bytes twice at H (synthetic copy)')
     e12 = exmod.Execution(rcn.ctx, H12, T, rcn.led, None, M, None, T, rcn.classes, [rec])
     ev12 = rc.evaluate(repo, rcn.ctx, H12, M, T, rcn.led, rec, rec['paths'][0], rcn.classes, {})
-    check('N12', 'the record\'s R3: D296\'s old bytes made to occur twice at H in a synthetic copy: does not apply, '
-          'naming R3', "the evaluated failed conditions include R3", ev12['failed'], 'R3' in ev12['failed'])
+    check('N12', 'the record\'s RC3: D296\'s old bytes made to occur twice at H in a synthetic copy: does not apply, '
+          'naming RC3', "the evaluated failed conditions include RC3", ev12['failed'], 'RC3' in ev12['failed'])
     M13 = repo.derive(M, {path: b'inserted line\n' + comp}, parents=[M], subject='insertion before D296')
     named('N13', 'an insertion on M before D296\'s offset while the record states the identity translation: does not '
-          'apply, naming R5', 'R5', m=M13)
-    named('N14', 'the record\'s approved text differs from the ledger\'s new: does not apply, naming R6', 'R6',
+          'apply, naming RC5', 'RC5', m=M13)
+    named('N14', 'the record\'s approved text differs from the ledger\'s new: does not apply, naming RC6', 'RC6',
           lambda r: entry(r, splices=[dict(r['paths'][0]['splices'][0], new_sha256='0' * 64)]))
-    named('N15', 'the record\'s x differs from the ledger\'s expected_sha256 for the path: does not apply, naming R8',
-          'R8', lambda r: entry(r, x_sha256='0' * 64))
+    named('N15', 'the record\'s x differs from the ledger\'s expected_sha256 for the path: does not apply, naming RC8',
+          'RC8', lambda r: entry(r, x_sha256='0' * 64))
     other = [f for f in rcn.led['files'] if f != path and f.startswith('papers/')][0]
     M16 = repo.derive(M, {other: repo.read(M, other) + b'\n'}, parents=[M], subject='another ledgered file')
-    e16 = named('N16', 'another ledgered file changed on M: does not apply, naming R10; that file is base-drift',
-                'R10', m=M16)
+    e16 = named('N16', 'another ledgered file changed on M: does not apply, naming RC10; that file is base-drift',
+                'RC10', m=M16)
     check('N16-file', 'the other ledgered file is base-drift', "base-drift for that file",
           other, any(i['class'] == 'base-drift' and i.get('file') == other for i in e16.items))
     M17 = repo.derive(M, {'x/unclassified.txt': b'x\n'}, parents=[M], subject='unclassified path')
-    named('N17', 'a changed path on M not covered by a pinned class: does not apply, naming R11', 'R11', m=M17)
-    e18 = named('N18', 'the record\'s changes_decisions_on_X non-empty: does not apply, naming R12; the record is '
-                'record-invalid', 'R12', lambda r: dict(r, changes_decisions_on_X=['a decision']))
+    named('N17', 'a changed path on M not covered by a pinned class: does not apply, naming RC11', 'RC11', m=M17)
+    e18 = named('N18', 'the record\'s changes_decisions_on_X non-empty: does not apply, naming RC12; the record is '
+                'record-invalid', 'RC12', lambda r: dict(r, changes_decisions_on_X=['a decision']))
     check('N18-record', 'the record is record-invalid', "a record-invalid item", [i['class'] for i in e18.items],
           'record-invalid' in [i['class'] for i in e18.items])
     # N10 and N11: the S6 probe, pinned

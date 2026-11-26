@@ -1,8 +1,8 @@
-"""Preregistered controls of design amendment r4: the record-directory rule (O9-1 to O9-25, O9-12b; A.9) and the
+"""Preregistered controls of design amendment r4: the record-directory rule (RDIR-1 to RDIR-25, RDIR-12b; A.9) and the
 item-2 record interfaces (I2-1 to I2-8; B.4). Run by conformance_controls.py; each control records its id, its
 expectation, its predicate and what it found.
 
-Engine-level cases build their repositories in memory and call the M role (`Execution.main_role`), the R11 condition
+Engine-level cases build their repositories in memory and call the M role (`Execution.main_role`), the RC11 condition
 (`reconcile.evaluate`) or the context (`reconcile.RecordDirectory`) directly; the cases marked "full path" run the
 `execution` or `coverage` operation through `cli.run` on the synthetic host world, with the tool's own authority
 constant (`record_authority.authorized_record_directories`).
@@ -105,7 +105,7 @@ def run_main(repo, H, F, M, cpath=CFG, classes=(), authorized=(AUTH,), ledgered=
 
 
 def r11(repo, H, F, M, cpath=CFG, classes=(), authorized=(AUTH,), ledgered=(), corpus=()):
-    """R11 of a reconciliation record whose own path is outside the world, evaluated with the run's context."""
+    """RC11 of a reconciliation record whose own path is outside the world, evaluated with the run's context."""
     try:
         rd = rc.RecordDirectory(repo, H, F, M, cpath, authorized, set(ledgered), Ctx(repo, corpus).in_corpus,
                                 list(classes))
@@ -116,7 +116,7 @@ def r11(repo, H, F, M, cpath=CFG, classes=(), authorized=(AUTH,), ledgered=(), c
         ev = rc.evaluate(repo, Ctx(repo, corpus), H, M, H, led, {}, {'path': 'zz/none'}, list(classes), {}, rd)
     except Exception as exc:
         return {'exception': '%s: %s' % (type(exc).__name__, exc)}
-    return {'R11': ev['holds'].get('R11'), 'rd': rd.summary()}
+    return {'RC11': ev['holds'].get('RC11'), 'rd': rd.summary()}
 
 
 def unclassified(res, path):
@@ -183,9 +183,9 @@ def without_rule(fn):
 
 
 def o98_run(r, case):
-    """O9-8, one case: the synthetic host world with the configuration in the authorized directory and a reconciliation
+    """RDIR-8, one case: the synthetic host world with the configuration in the authorized directory and a reconciliation
     record for the corpus file (referenced by the configuration and reviewed); M = H plus the plan directory as F holds
-    it, with the case's change, plus a change of the corpus file, so that the M role evaluates the record's R11. Runs
+    it, with the case's change, plus a change of the corpus file, so that the M role evaluates the record's RC11. Runs
     `execution --main` through cli.run. case None: the baseline, D equal to F."""
     path = AUTH + {'mode': '/mode.sh', 'symlink': '/link', 'submodule': '/sub', None: '/mode.sh'}[case]
     syn = sf.Syn()
@@ -227,7 +227,7 @@ def o98_run(r, case):
     return {'exit': code, 'path': path, 'record_directory': res.get('record_directory'),
             'case_items': sorted((i['class'], i['subject'], i.get('why')) for i in res.get('items', [])
                                  if i['subject'] == path),
-            'R11': holds.get('R11'), 'other_conditions': {k: v for k, v in sorted(holds.items()) if k != 'R11'},
+            'RC11': holds.get('RC11'), 'other_conditions': {k: v for k, v in sorted(holds.items()) if k != 'RC11'},
             'record_evaluated': bool(evs)}
 
 
@@ -236,105 +236,105 @@ def o98_run(r, case):
 def o9_controls(r, check):
     names = sorted(plan_files())
 
-    # O9-1
+    # RDIR-1
     repo, H, F, M = world()
     res = run_main(repo, H, F, M)
-    check('O9-1', 'every entry of D at M equal to F: each record-directory; A.5 no unequal path; no '
+    check('RDIR-1', 'every entry of D at M equal to F: each record-directory; A.5 no unequal path; no '
           'side-change-unclassified', 'each D path classified record-directory; rd.unequal empty; no unclassified item',
           res, all(side_of(res, p) == [(p, 'record-directory', None)] for p in names) and
           (res.get('rd') or {}).get('unequal') == {} and not [x for x in res.get('items', [])
                                                               if x[0] == 'side-change-unclassified'])
 
-    # O9-2
+    # RDIR-2
     mod = AUTH + '/review.json'
     repo, H, F, M = world({mod: b'{"synthetic": "review", "changed": true}\n'})
     res = run_main(repo, H, F, M)
-    check('O9-2', 'one file in D modified on M after F: that file side-change-unclassified (differs from F); the others '
+    check('RDIR-2', 'one file in D modified on M after F: that file side-change-unclassified (differs from F); the others '
           'record-directory', 'the modified file unclassified "differs from F"; the other three record-directory',
           res, unclassified(res, mod) == [('side-change-unclassified', mod, 'differs from F')] and
           all(side_of(res, p) == [(p, 'record-directory', None)] for p in names if p != mod))
 
-    # O9-3
+    # RDIR-3
     add = AUTH + '/added.json'
     repo, H, F, M = world(m_extra={add: b'{}\n'})
     res = run_main(repo, H, F, M)
-    check('O9-3', 'a file added in D on M, absent at F: side-change-unclassified (absent at F)',
+    check('RDIR-3', 'a file added in D on M, absent at F: side-change-unclassified (absent at F)',
           'the added file unclassified "absent at F"', res,
           unclassified(res, add) == [('side-change-unclassified', add, 'absent at F')])
 
-    # O9-4
+    # RDIR-4
     dele = AUTH + '/ledger.json'
     repo, H, F, M = world({dele: None})
     res = run_main(repo, H, F, M)
     scan_lists = bool(side_of(res, dele))
-    check('O9-4', 'a file of F in D deleted on M (absent at H and M): side-change-unclassified (absent at M), reported '
+    check('RDIR-4', 'a file of F in D deleted on M (absent at H and M): side-change-unclassified (absent at M), reported '
           'by A.5 although the H-to-M scan does not list it', 'an unclassified item "absent at M" for the deleted path, '
           'and no side-change entry for it from the scan', res,
           unclassified(res, dele) == [('side-change-unclassified', dele, 'absent at M')] and not scan_lists)
 
-    # O9-5
+    # RDIR-5
     out_p = 'notes/same.txt'
     repo, H, F, M = world(f_extra={out_p: b'same\n'}, m_extra={out_p: b'same\n'})
     res = run_main(repo, H, F, M)
-    check('O9-5', 'a path outside D whose blob at M equals its blob at F: side-change-unclassified (outside the record '
+    check('RDIR-5', 'a path outside D whose blob at M equals its blob at F: side-change-unclassified (outside the record '
           'directory)', 'unclassified "outside the record directory"', res,
           unclassified(res, out_p) == [('side-change-unclassified', out_p, 'outside the record directory')])
 
-    # O9-6
+    # RDIR-6
     sib = AUTH + '-x/f.json'
     repo, H, F, M = world(f_extra={sib: b'{}\n'}, m_extra={sib: b'{}\n'})
     res = run_main(repo, H, F, M)
-    check('O9-6', 'a sibling path D-x/f sharing D as a string prefix, equal at F and M: side-change-unclassified',
+    check('RDIR-6', 'a sibling path D-x/f sharing D as a string prefix, equal at F and M: side-change-unclassified',
           'the sibling path unclassified (outside the record directory); not record-directory', res,
           unclassified(res, sib) == [('side-change-unclassified', sib, 'outside the record directory')] and
           not [x for x in side_of(res, sib) if x[1] == 'record-directory'])
 
-    # O9-7
+    # RDIR-7
     bad = [AUTH + '/./x', AUTH + '/../x', AUTH + '//x', AUTH + '/x/..', AUTH + '/']
     good = [AUTH + '/x', AUTH + '/a/b.json']
     got = {p: rc.clean_path(p) for p in bad + good}
-    check('O9-7', 'the clean-path predicate applied to paths with a ., .. or empty component: each refused (tested on the '
+    check('RDIR-7', 'the clean-path predicate applied to paths with a ., .. or empty component: each refused (tested on the '
           'predicate)', 'clean_path false for each bad path, true for each good path', got,
           not any(got[p] for p in bad) and all(got[p] for p in good))
 
-    # O9-8: a mode change, a symbolic link and a submodule in D, each in its own world, each through the full
-    # `execution --main` path (the M role) and, in the same run, through the R11 of a reconciliation record the
-    # configuration references; compared with the same world with D equal to F, where R11 holds
+    # RDIR-8: a mode change, a symbolic link and a submodule in D, each in its own world, each through the full
+    # `execution --main` path (the M role) and, in the same run, through the RC11 of a reconciliation record the
+    # configuration references; compared with the same world with D equal to F, where RC11 holds
     cases = {'mode': 'differs from F', 'symlink': 'not a regular file', 'submodule': 'not a regular file'}
     o8 = {'baseline': o98_run(r, None)}
-    ok = o8['baseline'].get('R11') is True and not o8['baseline'].get('stop') and \
+    ok = o8['baseline'].get('RC11') is True and not o8['baseline'].get('stop') and \
         not o8['baseline'].get('exception') and not o8['baseline'].get('case_items')
     for case, why in cases.items():
         got = o98_run(r, case)
         o8[case] = got
         ok = ok and not got.get('stop') and not got.get('exception') and \
-            got.get('case_items') == [('side-change-unclassified', got['path'], why)] and got.get('R11') is False and \
+            got.get('case_items') == [('side-change-unclassified', got['path'], why)] and got.get('RC11') is False and \
             got.get('other_conditions') == o8['baseline'].get('other_conditions')
-    check('O9-8', 'in D: the same blob with a mode change (100644 to 100755); a symbolic link at M where F has a regular '
+    check('RDIR-8', 'in D: the same blob with a mode change (100644 to 100755); a symbolic link at M where F has a regular '
           'file of the same bytes; a submodule entry at M; each case run through the full execution --main path (the M '
-          'role) and, separately, through a reconciliation record\'s R11: each side-change-unclassified (differs from '
-          'F, not a regular file, not a regular file); R11 fails in each case; no exception and no *-group-error in '
+          'role) and, separately, through a reconciliation record\'s RC11: each side-change-unclassified (differs from '
+          'F, not a regular file, not a regular file); RC11 fails in each case; no exception and no *-group-error in '
           'either path', 'per case, in its own world and through cli.run: exactly one unclassified item on the case path '
-          'with its reason; the R11 of the referenced reconciliation record false, every other condition equal to the '
-          'baseline world, where R11 holds; no stop and no exception', o8, ok)
+          'with its reason; the RC11 of the referenced reconciliation record false, every other condition equal to the '
+          'baseline world, where RC11 holds; no stop and no exception', o8, ok)
 
-    # O9-9: a ledgered path, and separately a corpus path, inside D
+    # RDIR-9: a ledgered path, and separately a corpus path, inside D
     lp = AUTH + '/ledger.json'
     repo, H, F, M = world()
     a = run_main(repo, H, F, M, ledgered=[lp])
     b = run_main(repo, H, F, M, corpus=[lp])
-    check('O9-9', 'a ledgered path, and separately a corpus path, inside D: ERROR CONFIG_INCONSISTENT (D3)',
-          'both runs stop CONFIG_INCONSISTENT with condition D3', {'ledgered': a, 'corpus': b},
-          all(x.get('stop') == 'CONFIG_INCONSISTENT' and x.get('condition') == 'D3' for x in (a, b)))
+    check('RDIR-9', 'a ledgered path, and separately a corpus path, inside D: ERROR CONFIG_INCONSISTENT (DIR3)',
+          'both runs stop CONFIG_INCONSISTENT with condition DIR3', {'ledgered': a, 'corpus': b},
+          all(x.get('stop') == 'CONFIG_INCONSISTENT' and x.get('condition') == 'DIR3' for x in (a, b)))
 
-    # O9-10: a configuration in the root directory
+    # RDIR-10: a configuration in the root directory
     repo = Overlay(None)
     H = repo.add_commit({'doc/a.md': b'base\n'}, [], 'H')
     F = repo.derive(H, {'retirement-config.json': b'{}\n', 'PREREG.md': b'# p\n'}, parents=[H], subject='F')
     M = repo.derive(H, {'retirement-config.json': b'{}\n', 'PREREG.md': b'# p\n'}, parents=[H], subject='M')
     res = run_main(repo, H, F, M, cpath='retirement-config.json')
     res0 = run_main(repo, H, F, M, cpath='retirement-config.json', rule=False)
-    check('O9-10', 'a configuration in the root directory: the rule inactive, the run unchanged (items and side changes '
+    check('RDIR-10', 'a configuration in the root directory: the rule inactive, the run unchanged (items and side changes '
           'equal to the same run without this amendment), no record-directory classification (amendment r5)',
           'no stop and no exception; items and side changes equal to the run without the rule; no side change '
           'classified record-directory; the context inactive', {'with': res, 'without': res0},
@@ -343,50 +343,50 @@ def o9_controls(r, check):
           not [x for x in res.get('side', []) if x[1] == rc.record_directory_class] and
           (res.get('rd') or {}).get('state', '').startswith('inactive'))
 
-    # O9-11
+    # RDIR-11
     repo, H, F, M = world(h_extra={AUTH + '/old.txt': b'old\n'})
     res = run_main(repo, H, F, M)
-    check('O9-11', 'a path inside D that exists at H: ERROR CONFIG_INCONSISTENT (D2)', 'stop CONFIG_INCONSISTENT, D2',
-          res, res.get('stop') == 'CONFIG_INCONSISTENT' and res.get('condition') == 'D2')
+    check('RDIR-11', 'a path inside D that exists at H: ERROR CONFIG_INCONSISTENT (DIR2)', 'stop CONFIG_INCONSISTENT, DIR2',
+          res, res.get('stop') == 'CONFIG_INCONSISTENT' and res.get('condition') == 'DIR2')
 
-    # O9-12: a class prefix inside the authorized D
+    # RDIR-12: a class prefix inside the authorized D
     sub = AUTH + '/sub/f.json'
     repo, H, F, M = world(f_extra={sub: b'{}\n'}, m_extra={sub: b'{}\n'})
     cls = [{'id': 'c', 'prefixes': [AUTH + '/sub/'], 'pins': []}]
     res = run_main(repo, H, F, M, classes=cls)
-    check('O9-12', 'the authorized D, with a side-change class whose prefix lies inside D: ERROR CONFIG_INCONSISTENT '
-          '(D3)', 'stop CONFIG_INCONSISTENT, D3', res,
-          res.get('stop') == 'CONFIG_INCONSISTENT' and res.get('condition') == 'D3')
+    check('RDIR-12', 'the authorized D, with a side-change class whose prefix lies inside D: ERROR CONFIG_INCONSISTENT '
+          '(DIR3)', 'stop CONFIG_INCONSISTENT, DIR3', res,
+          res.get('stop') == 'CONFIG_INCONSISTENT' and res.get('condition') == 'DIR3')
 
-    # O9-12b: a configuration under .github/, (a) present at H, (b) absent at H
+    # RDIR-12b: a configuration under .github/, (a) present at H, (b) absent at H
     gd = '.github/plan'
     repo, H, F, M = world(d=gd, h_extra={gd + '/existing.txt': b'x\n'})
     a = run_main(repo, H, F, M, cpath=gd + '/retirement-config.json')
     a0 = run_main(repo, H, F, M, cpath=gd + '/retirement-config.json', rule=False)
     repo, H, F, M = world(d=gd)
     b = run_main(repo, H, F, M, cpath=gd + '/retirement-config.json')
-    check('O9-12b', 'a configuration under .github/ with an entry inside it on M: (a) present at H: the rule inactive, no '
+    check('RDIR-12b', 'a configuration under .github/ with an entry inside it on M: (a) present at H: the rule inactive, no '
           'record-directory, the result equal to the run without this amendment; (b) absent at H: ERROR '
-          'CONFIG_INCONSISTENT (authority)', '(a) items and side changes equal to the run without the rule, state '
+          'CONFIG_INCONSISTENT (directory not admitted)', '(a) items and side changes equal to the run without the rule, state '
           'inactive; (b) stop CONFIG_INCONSISTENT, authority', {'a': a, 'a_without': a0, 'b': b},
           a.get('items') == a0.get('items') and a.get('side') == a0.get('side') and
           not [x for x in a.get('side', []) if x[1] == 'record-directory'] and
           (a.get('rd') or {}).get('state', '').startswith('inactive') and
           b.get('stop') == 'CONFIG_INCONSISTENT' and b.get('condition') == 'authority')
 
-    # O9-13: a class pin naming a D path, differing from M
+    # RDIR-13: a class pin naming a D path, differing from M
     p13 = AUTH + '/review.json'
     repo, H, F, M = world()
     cls = [{'id': 'pinned', 'pins': [{'path': p13, 'git_blob': None, 'blob_sha256': '0' * 64}]}]
     res = run_main(repo, H, F, M, classes=cls)
-    check('O9-13', 'a path in D, equal at F and M, that a class names with a pin differing from M: '
+    check('RDIR-13', 'a path in D, equal at F and M, that a class names with a pin differing from M: '
           'side-change-unclassified naming the class; not record-directory',
           'unclassified with the class-pin reason naming class pinned', res,
           unclassified(res, p13) == [('side-change-unclassified', p13,
                                       'the blob at M differs from the pin of class pinned')] and
           not [x for x in side_of(res, p13) if x[1] == 'record-directory'])
 
-    # O9-14: no --freeze (full path, control harness)
+    # RDIR-14: no --freeze (full path, control harness)
     syn, w, c, p, F = syn_world(CFG)
     M = plan_on(syn, F, p, syn.H)
     argv = ['execution', '--config', '%s:%s' % (F, p), '--out', r.out(), '--scientific-base', syn.H, '--candidate',
@@ -394,40 +394,40 @@ def o9_controls(r, check):
     code, res = cli.run(argv, repo=syn.repo, harness=True, stderr=io.StringIO())
     res = res or {}
     dpaths = [e for e in res.get('side_changes', []) if rc.inside(AUTH, e['path'])]
-    check('O9-14', 'no --freeze: the rule inactive; files in D side-change-unclassified; A.5 not evaluated',
+    check('RDIR-14', 'no --freeze: the rule inactive; files in D side-change-unclassified; A.5 not evaluated',
           'no record_directory in the result; every D side change unclassified', {'exit': code, 'side': dpaths,
                                                                                  'rd': res.get('record_directory')},
           'record_directory' not in res and dpaths and all(e['class'] is None for e in dpaths))
 
-    # O9-15, O9-18, O9-19: R11
+    # RDIR-15, RDIR-18, RDIR-19: RC11
     repo, H, F, M = world()
     a = r11(repo, H, F, M)
     repo, H, F, M = world({AUTH + '/review.json': b'{"changed": 1}\n'})
     b = r11(repo, H, F, M)
     repo, H, F, M = world({AUTH + '/ledger.json': None})
     c_ = r11(repo, H, F, M)
-    check('O9-15', 'a reconciliation record, M with D equal to F: R11 holds', 'R11 true', a, a.get('R11') is True)
-    check('O9-18', 'a reconciliation record, M with one file of D modified after F: R11 fails', 'R11 false', b,
-          b.get('R11') is False)
-    check('O9-19', 'a reconciliation record, M with one file of F\'s D deleted: R11 fails (A.5)', 'R11 false', c_,
-          c_.get('R11') is False)
+    check('RDIR-15', 'a reconciliation record, M with D equal to F: RC11 holds', 'RC11 true', a, a.get('RC11') is True)
+    check('RDIR-18', 'a reconciliation record, M with one file of D modified after F: RC11 fails', 'RC11 false', b,
+          b.get('RC11') is False)
+    check('RDIR-19', 'a reconciliation record, M with one file of F\'s D deleted: RC11 fails (A.5)', 'RC11 false', c_,
+          c_.get('RC11') is False)
 
-    # O9-16: a configuration in a newly introduced, unrelated directory (full path, the tool's constant)
+    # RDIR-16: a configuration in a newly introduced, unrelated directory (full path, the tool's constant)
     other = 'syn2/new/plan/r1/retirement-config.json'
     syn, w, c, p, F = syn_world(other)
     M = plan_on(syn, F, p, syn.H)
     code, res = exec_run(r, syn, w, F, p, M)
-    check('O9-16', 'a configuration in a newly introduced, unrelated directory (absent at H, holding the configuration '
+    check('RDIR-16', 'a configuration in a newly introduced, unrelated directory (absent at H, holding the configuration '
           'and a file of record pins, no ledgered, corpus, class or .github/ path): ERROR CONFIG_INCONSISTENT '
-          '(authority)', 'exit 65, stop CONFIG_INCONSISTENT, condition authority',
+          '(directory not admitted)', 'exit 65, stop CONFIG_INCONSISTENT, condition authority',
           {'exit': code, 'stop': res.get('stop')}, code == 65 and (res.get('stop') or {}).get('class') ==
           'CONFIG_INCONSISTENT' and ((res.get('stop') or {}).get('detail') or {}).get('condition') == 'authority')
 
-    # O9-17, O9-24: the reserved class id; O9-24 through --classify (full path)
+    # RDIR-17, RDIR-24: the reserved class id; RDIR-24 through --classify (full path)
     repo, H, F, M = world()
     res = run_main(repo, H, F, M, classes=[{'id': rc.record_directory_class, 'pins': []}])
-    check('O9-17', 'a class record defining class id record-directory: ERROR CONFIG_INCONSISTENT (D5)',
-          'stop CONFIG_INCONSISTENT, D5', res, res.get('stop') == 'CONFIG_INCONSISTENT' and res.get('condition') == 'D5')
+    check('RDIR-17', 'a class record defining class id record-directory: ERROR CONFIG_INCONSISTENT (DIR5)',
+          'stop CONFIG_INCONSISTENT, DIR5', res, res.get('stop') == 'CONFIG_INCONSISTENT' and res.get('condition') == 'DIR5')
     cls_doc = {'schema': 'oi-side-change-classes/1', 'record_id': 'reserved', 'author': sf.WRITER, 'supersedes': None,
                'classes': [{'id': rc.record_directory_class, 'prefixes': ['notes/'], 'reason': 'synthetic', 'pins': []}]}
     cp = 'syn/reserved-classes.json'
@@ -447,12 +447,12 @@ def o9_controls(r, check):
     F1 = hf.freeze(syn_.repo, c1, p1)
     M1 = plan_on(syn_, F1, p1, syn_.H)
     code, res = exec_run(r, syn_, w1, F1, p1, M1, extra=['--classify', '%s:%s' % (F1, cp)])
-    check('O9-24', 'a class record admitted through --classify that defines the class id record-directory: ERROR '
-          'CONFIG_INCONSISTENT (D5)', 'exit 65, stop CONFIG_INCONSISTENT, condition D5',
+    check('RDIR-24', 'a class record admitted through --classify that defines the class id record-directory: ERROR '
+          'CONFIG_INCONSISTENT (DIR5)', 'exit 65, stop CONFIG_INCONSISTENT, condition DIR5',
           {'exit': code, 'stop': res.get('stop')}, code == 65 and (res.get('stop') or {}).get('class') ==
-          'CONFIG_INCONSISTENT' and ((res.get('stop') or {}).get('detail') or {}).get('condition') == 'D5')
+          'CONFIG_INCONSISTENT' and ((res.get('stop') or {}).get('detail') or {}).get('condition') == 'DIR5')
 
-    # O9-20: R11 with an unauthorized D: ERROR before R11 is evaluated
+    # RDIR-20: RC11 with an unauthorized D: ERROR before RC11 is evaluated
     calls = []
     orig = rc.evaluate
 
@@ -477,29 +477,29 @@ def o9_controls(r, check):
     finally:
         rc.evaluate = orig
     got['evaluations'] = len(calls)
-    check('O9-20', 'a reconciliation record, M with a file of D equal to F, but D not authorized: ERROR '
-          'CONFIG_INCONSISTENT (authority) before R11 is evaluated', 'stop CONFIG_INCONSISTENT, authority; no call of '
+    check('RDIR-20', 'a reconciliation record, M with a file of D equal to F, but D not authorized: ERROR '
+          'CONFIG_INCONSISTENT (directory not admitted) before RC11 is evaluated', 'stop CONFIG_INCONSISTENT, authority; no call of '
           'reconcile.evaluate', got, got.get('stop') == 'CONFIG_INCONSISTENT' and got.get('condition') == 'authority'
           and got['evaluations'] == 0)
 
-    # O9-21: a class pin that matches M, on a file that differs between F and M
+    # RDIR-21: a class pin that matches M, on a file that differs between F and M
     p21 = AUTH + '/review.json'
     new = b'{"changed on M": true}\n'
     repo, H, F, M = world({p21: new})
     cls = [{'id': 'matching', 'pins': [{'path': p21, 'git_blob': repo.blob_id(M, p21), 'blob_sha256': sha(new)}]}]
     res = run_main(repo, H, F, M, classes=cls)
-    check('O9-21', 'a file in D that differs between F and M, and a class pin naming it that matches M: the class '
+    check('RDIR-21', 'a file in D that differs between F and M, and a class pin naming it that matches M: the class '
           'route\'s entry stands and A.5 issues side-change-unclassified (differs from F); not accepting',
           'side-change entry class matching; an unclassified item "differs from F"', res,
           side_of(res, p21) == [(p21, 'matching', None)] and
           unclassified(res, p21) == [('side-change-unclassified', p21, 'differs from F')])
 
-    # O9-22: an unauthorized D with no entry on M (full path), compared with the tool without the rule
+    # RDIR-22: an unauthorized D with no entry on M (full path), compared with the tool without the rule
     syn, w, c, p, F = syn_world('syn/cfg/config.json')
     M = syn.repo.derive(syn.H, {'notes/m.txt': b'main\n'}, parents=[syn.H], subject='M')
     with_r = exec_run(r, syn, w, F, p, M)
     without = without_rule(lambda: exec_run(r, syn, w, F, p, M))
-    check('O9-22', 'an unauthorized D with no entry inside it on M, under execution --main --freeze: no ERROR; side '
+    check('RDIR-22', 'an unauthorized D with no entry inside it on M, under execution --main --freeze: no ERROR; side '
           'changes classified exactly as without this amendment', 'no stop; record_directory state inactive; result '
           'equal to the run without the rule', {'exit': with_r[0], 'rd': with_r[1].get('record_directory'),
                                                'exit_without': without[0]},
@@ -507,7 +507,7 @@ def o9_controls(r, check):
           strip_run(with_r[1]) == strip_run(without[1]) and
           (with_r[1].get('record_directory') or {}).get('state', '').startswith('inactive'))
 
-    # O9-23: the authorized D under coverage (no M): A.3-A.5 never evaluated
+    # RDIR-23: the authorized D under coverage (no M): A.3-A.5 never evaluated
     built = []
     orig_rd = rc.RecordDirectory
 
@@ -523,19 +523,19 @@ def o9_controls(r, check):
     finally:
         rc.RecordDirectory = orig_rd
     res = res or {}
-    check('O9-23', 'the authorized D and a configuration whose run is coverage (no M): no evaluation of A.3-A.5',
+    check('RDIR-23', 'the authorized D and a configuration whose run is coverage (no M): no evaluation of A.3-A.5',
           'no RecordDirectory built; no record_directory in the result; no stop', {'exit': code, 'built': len(built),
                                                                                  'stop': res.get('stop')},
           not built and 'record_directory' not in res and not res.get('stop'))
 
-    # O9-25: the synthetic world of the conformance controls: an unauthorized D (syn) present at H, entries on M
+    # RDIR-25: the synthetic world of the conformance controls: an unauthorized D (syn) present at H, entries on M
     syn, w, c, p, F = syn_world('syn/config.json')
     M = syn.repo.derive(syn.H, {'notes/m.txt': b'main\n'}, parents=[syn.H], subject='M')
     present_h = any(rc.inside('syn', q) for q in syn.repo.entries(syn.H))
     on_m = any(rc.inside('syn', q) for q in syn.repo.entries(M))
     with_r = exec_run(r, syn, w, F, p, M)
     without = without_rule(lambda: exec_run(r, syn, w, F, p, M))
-    check('O9-25', 'the synthetic world: an unauthorized D (syn) present at H, with entries inside it on M, under '
+    check('RDIR-25', 'the synthetic world: an unauthorized D (syn) present at H, with entries inside it on M, under '
           'execution --main --freeze: no ERROR; the rule inactive; side changes, items and outcome equal to the same '
           'run without this amendment (the existing conformance controls are checked by their own results)',
           'D present at H and on M; no stop; state inactive; result equal to the run without the rule',
@@ -780,6 +780,6 @@ def i2_controls(r, check, workflow_path):
           not [i for i in it6b if i['subject'] == s6])
 
 
-IDS = ['O9-1', 'O9-2', 'O9-3', 'O9-4', 'O9-5', 'O9-6', 'O9-7', 'O9-8', 'O9-9', 'O9-10', 'O9-11', 'O9-12', 'O9-12b',
-       'O9-13', 'O9-14', 'O9-15', 'O9-16', 'O9-17', 'O9-18', 'O9-19', 'O9-20', 'O9-21', 'O9-22', 'O9-23', 'O9-24',
-       'O9-25', 'I2-1', 'I2-2', 'I2-3', 'I2-4', 'I2-5', 'I2-6', 'I2-7', 'I2-8']
+IDS = ['RDIR-1', 'RDIR-2', 'RDIR-3', 'RDIR-4', 'RDIR-5', 'RDIR-6', 'RDIR-7', 'RDIR-8', 'RDIR-9', 'RDIR-10', 'RDIR-11', 'RDIR-12', 'RDIR-12b',
+       'RDIR-13', 'RDIR-14', 'RDIR-15', 'RDIR-16', 'RDIR-17', 'RDIR-18', 'RDIR-19', 'RDIR-20', 'RDIR-21', 'RDIR-22', 'RDIR-23', 'RDIR-24',
+       'RDIR-25', 'I2-1', 'I2-2', 'I2-3', 'I2-4', 'I2-5', 'I2-6', 'I2-7', 'I2-8']

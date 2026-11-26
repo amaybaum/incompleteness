@@ -1506,7 +1506,7 @@
    "reference": "tool-level control (sec. 6.3), run by conformance_controls.py"
   },
   {
-   "id": "O9-1",
+   "id": "RDIR-1",
    "operations": [
     "execution"
    ],
@@ -1519,7 +1519,7 @@
    "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
   },
   {
-   "id": "O9-2",
+   "id": "RDIR-2",
    "operations": [
     "execution"
    ],
@@ -1532,7 +1532,7 @@
    "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
   },
   {
-   "id": "O9-3",
+   "id": "RDIR-3",
    "operations": [
     "execution"
    ],
@@ -1545,7 +1545,7 @@
    "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
   },
   {
-   "id": "O9-4",
+   "id": "RDIR-4",
    "operations": [
     "execution"
    ],
@@ -1558,7 +1558,7 @@
    "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
   },
   {
-   "id": "O9-5",
+   "id": "RDIR-5",
    "operations": [
     "execution"
    ],
@@ -1571,7 +1571,7 @@
    "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
   },
   {
-   "id": "O9-6",
+   "id": "RDIR-6",
    "operations": [
     "execution"
    ],
@@ -1584,7 +1584,7 @@
    "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
   },
   {
-   "id": "O9-7",
+   "id": "RDIR-7",
    "operations": [
     "execution"
    ],
@@ -1597,7 +1597,7 @@
    "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
   },
   {
-   "id": "O9-8",
+   "id": "RDIR-8",
    "operations": [
     "execution"
    ],
@@ -1610,7 +1610,7 @@
    "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
   },
   {
-   "id": "O9-9",
+   "id": "RDIR-9",
    "operations": [
     "execution"
    ],
@@ -1623,7 +1623,7 @@
    "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
   },
   {
-   "id": "O9-10",
+   "id": "RDIR-10",
    "operations": [
     "execution"
    ],
@@ -1636,7 +1636,7 @@
    "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
   },
   {
-   "id": "O9-11",
+   "id": "RDIR-11",
    "operations": [
     "execution"
    ],
@@ -1649,7 +1649,7 @@
    "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
   },
   {
-   "id": "O9-12",
+   "id": "RDIR-12",
    "operations": [
     "execution"
    ],
@@ -1662,7 +1662,7 @@
    "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
   },
   {
-   "id": "O9-12b",
+   "id": "RDIR-12b",
    "operations": [
     "execution"
    ],
@@ -1675,7 +1675,7 @@
    "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
   },
   {
-   "id": "O9-13",
+   "id": "RDIR-13",
    "operations": [
     "execution"
    ],
@@ -1688,7 +1688,7 @@
    "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
   },
   {
-   "id": "O9-14",
+   "id": "RDIR-14",
    "operations": [
     "execution"
    ],
@@ -1701,7 +1701,7 @@
    "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
   },
   {
-   "id": "O9-15",
+   "id": "RDIR-15",
    "operations": [
     "execution"
    ],
@@ -1714,7 +1714,7 @@
    "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
   },
   {
-   "id": "O9-16",
+   "id": "RDIR-16",
    "operations": [
     "execution"
    ],
@@ -1727,7 +1727,7 @@
    "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
   },
   {
-   "id": "O9-17",
+   "id": "RDIR-17",
    "operations": [
     "execution"
    ],
@@ -1740,7 +1740,7 @@
    "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
   },
   {
-   "id": "O9-18",
+   "id": "RDIR-18",
    "operations": [
     "execution"
    ],
@@ -1753,7 +1753,7 @@
    "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
   },
   {
-   "id": "O9-19",
+   "id": "RDIR-19",
    "operations": [
     "execution"
    ],
@@ -1766,7 +1766,7 @@
    "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
   },
   {
-   "id": "O9-20",
+   "id": "RDIR-20",
    "operations": [
     "execution"
    ],
@@ -1779,7 +1779,7 @@
    "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
   },
   {
-   "id": "O9-21",
+   "id": "RDIR-21",
    "operations": [
     "execution"
    ],
@@ -1792,7 +1792,7 @@
    "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
   },
   {
-   "id": "O9-22",
+   "id": "RDIR-22",
    "operations": [
     "execution"
    ],
@@ -1805,7 +1805,7 @@
    "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
   },
   {
-   "id": "O9-23",
+   "id": "RDIR-23",
    "operations": [
     "coverage"
    ],
@@ -1818,7 +1818,7 @@
    "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
   },
   {
-   "id": "O9-24",
+   "id": "RDIR-24",
    "operations": [
     "execution"
    ],
@@ -1831,7 +1831,7 @@
    "reference": "tool-level control (design amendment r4, A.9), run by conformance_controls.py (record_directory_controls.py)"
   },
   {
-   "id": "O9-25",
+   "id": "RDIR-25",
    "operations": [
     "execution"
    ],

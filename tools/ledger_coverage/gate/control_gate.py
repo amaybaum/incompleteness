@@ -233,9 +233,8 @@ def _check_expect(e, where, allow_cases=True):
     if 'exit' in e and not isinstance(e['exit'], int):
         raise FileInvalid('%s: exit is not an integer' % where)
     for inv in e.get('invariants', []):
-        # R6.GATE.3 states single-key objects; the adopted file also holds compound objects whose companion keys
-        # (have, has, holds, equals, value, reason, ...) are in the vocabulary. Every key must be in the vocabulary;
-        # a compound object is evaluated as one invariant and reported in the gate result.
+        # R6.GATE.3 (amendment 1, B5): an object may hold several keys when every key is in the vocabulary and
+        # their combined meaning is unambiguous; it counts as one condition, and the gate lists it in its result.
         if not (isinstance(inv, dict) and inv):
             raise FileInvalid('%s: an invariant is not an object' % where)
         for k in inv:

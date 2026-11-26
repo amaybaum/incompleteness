@@ -1,9 +1,9 @@
 """Reconciliation records (sec. 13.3, schema oi-reconciliation/1) and side-change classes (sec. 13.1, S3, S7).
 
 The tool evaluates every checkable condition of a reconciliation record itself, from git objects (S5): the
-ledger binding (R13, first), the commit list (R1), the blob at M (R2), uniqueness and translation (R3-R5), the
-composed blob and the candidate blob (R6-R8), the protected bytes (R9), the other ledgered files (R10), the
-classified side changes (R11) and an empty `changes_decisions_on_X` (R12). The composition itself is computed
+ledger binding (RC13, first), the commit list (RC1), the blob at M (RC2), uniqueness and translation (RC3-RC5), the
+composed blob and the candidate blob (RC6-RC8), the protected bytes (RC9), the other ledgered files (RC10), the
+classified side changes (RC11) and an empty `changes_decisions_on_X` (RC12). The composition itself is computed
 independently of any record (S6).
 """
 from . import outcome as oc
@@ -11,7 +11,7 @@ from . import segments as sg
 from . import util
 from .gitobj import Unresolvable, blob_id_of, on_first_parent_chain, regular_modes
 
-condition_order = ['R13', 'R1', 'R2', 'R3', 'R4', 'R5', 'R6', 'R7', 'R8', 'R9', 'R10', 'R11', 'R12']
+condition_order = ['RC13', 'RC1', 'RC2', 'RC3', 'RC4', 'RC5', 'RC6', 'RC7', 'RC8', 'RC9', 'RC10', 'RC11', 'RC12']
 
 
 def occurrences(buf, needle):
@@ -101,7 +101,7 @@ def clean_path(path):
 
 class RecordDirectory:
     """The context of the record-directory rule for one run (A.2-A.5): built once by an operation that evaluates M
-    with F, and shared by the M role and the R11 condition of every reconciliation record it evaluates (A.7).
+    with F, and shared by the M role and the RC11 condition of every reconciliation record it evaluates (A.7).
 
     `authorized` is the tool's tuple of authorized record directories (A.3); `ledgered` the ledgered paths;
     `in_corpus` the configuration's corpus predicate; `classes` the run's admitted side-change classes from both routes
@@ -115,13 +115,13 @@ class RecordDirectory:
         self.state = None
         self.equal = {}
         self.unequal = {}
-        # A.8: the outcome of each guard. D2-D5: True held, False failed (the run then stops), None not evaluated;
+        # A.8: the outcome of each guard. DIR2-DIR5: True held, False failed (the run then stops), None not evaluated;
         # authority: whether the directory is authorized (False with the rule inactive, or with the authority ERROR)
-        self.conditions = {'authority': None, 'D2': None, 'D3': None, 'D4': None, 'D5': None}
-        # D5: the reserved class id, over the admitted class set of both routes
+        self.conditions = {'authority': None, 'DIR2': None, 'DIR3': None, 'DIR4': None, 'DIR5': None}
+        # DIR5: the reserved class id, over the admitted class set of both routes
         if any(isinstance(c, dict) and c.get('id') == record_directory_class for c in classes):
-            self._stop('D5', 'a side-change class uses the class id reserved for the record-directory rule')
-        self.conditions['D5'] = True
+            self._stop('DIR5', 'a side-change class uses the class id reserved for the record-directory rule')
+        self.conditions['DIR5'] = True
         self.conditions['authority'] = self.authorized
         e_h = [p for p in repo.entries(H) if inside(self.d, p)]
         e_m = {p: e for p, e in repo.entries(M).items() if inside(self.d, p)}
@@ -134,30 +134,30 @@ class RecordDirectory:
                 return
             self._stop('authority', 'the configuration\'s directory is not an authorized record directory, is absent '
                                     'at H and appears on M')
-        # D2: the directory is introduced after H
+        # DIR2: the directory is introduced after H
         if e_h:
-            self._stop('D2', 'the record directory holds entries at H: %s' % e_h[0])
-        self.conditions['D2'] = True
+            self._stop('DIR2', 'the record directory holds entries at H: %s' % e_h[0])
+        self.conditions['DIR2'] = True
         e_f = {p: e for p, e in repo.entries(F).items() if inside(self.d, p)}
-        # D3: no ledgered, corpus, class-prefix or workflow path inside the directory, at F or at M
+        # DIR3: no ledgered, corpus, class-prefix or workflow path inside the directory, at F or at M
         prefixes = [x for c in classes if isinstance(c, dict) for x in c.get('prefixes', []) if isinstance(x, str)]
         for p in sorted(set(e_f) | set(e_m)):
             if p in ledgered or in_corpus(p) or any(p.startswith(x) for x in prefixes) or p.startswith('.github/'):
-                self._stop('D3', 'a ledgered, corpus, class-prefix or workflow path lies in the record directory: %s'
+                self._stop('DIR3', 'a ledgered, corpus, class-prefix or workflow path lies in the record directory: %s'
                            % p)
-        self.conditions['D3'] = True
-        # D4: F holds the configuration and the file of record pins in the directory
+        self.conditions['DIR3'] = True
+        # DIR4: F holds the configuration and the file of record pins in the directory
         prereg = self.d + '/' + 'PREREG.md'
         if (e_f.get(cpath) or (None,))[0] not in regular_modes or (e_f.get(prereg) or (None,))[0] not in regular_modes:
-            self._stop('D4', 'F does not hold the configuration and its file of record pins in the record directory')
-        self.conditions['D4'] = True
+            self._stop('DIR4', 'F does not hold the configuration and its file of record pins in the record directory')
+        self.conditions['DIR4'] = True
         self.active = True
         self.state = 'active'
         self._complete(e_f, e_m)
 
     def _stop(self, cond, msg):
         self.conditions[cond] = False
-        raise oc.Stop(oc.error, 'CONFIG_INCONSISTENT', 'record directory (%s): %s' % (cond, msg),
+        raise oc.Stop(oc.error, 'CONFIG_INCONSISTENT', 'record directory (%s): %s' % ('directory not admitted' if cond == 'authority' else cond, msg),
                       {'directory': self.d, 'condition': cond, 'conditions': dict(self.conditions)})
 
     def _complete(self, e_f, e_m):
@@ -197,7 +197,7 @@ class RecordDirectory:
 
 
 def side_class(repo, M, path, classes, record_refs, rd=None):
-    """(class id, why): the one side-change classification of the M role and of R11 (amendment r4, A.6). Without an
+    """(class id, why): the one side-change classification of the M role and of RC11 (amendment r4, A.6). Without an
     active record-directory context it is classify_side."""
     active = rd is not None and rd.active
     if active and inside(rd.d, path):
@@ -260,13 +260,13 @@ def evaluate(repo, ctx, H, M, X, led, rdoc, entry, classes, record_refs, rd=None
     context (amendment r4, A.7), shared with the M role; None outside its scope."""
     path = entry.get('path')
     res = {}
-    # R13 first
+    # RC13 first
     b = binding(led, path)
     want = dict(rdoc.get('ledger_binding') or {})
     want.update(entry.get('ledger_binding') or {})
-    res['R13'] = b['ledger_base'] == H == want.get('ledger_base') and b['files_entry_sha256'] is not None and \
+    res['RC13'] = b['ledger_base'] == H == want.get('ledger_base') and b['files_entry_sha256'] is not None and \
         all(b[k] == want.get(k) for k in ('files_entry_sha256', 'splices_sha256', 'edit_records_sha256'))
-    # R1
+    # RC1
     changes = []
     try:
         on_chain = on_first_parent_chain(repo, H, M)
@@ -282,11 +282,11 @@ def evaluate(repo, ctx, H, M, X, led, rdoc, entry, classes, record_refs, rd=None
             if repo.blob_id(c, path) != repo.blob_id(prev, path):
                 changes.append(c)
             prev = c
-        res['R1'] = changes == list(entry.get('side_change_commits') or [])
+        res['RC1'] = changes == list(entry.get('side_change_commits') or [])
     else:
-        res['R1'] = False
+        res['RC1'] = False
     m = repo.read(M, path)
-    res['R2'] = m is not None and repo.blob_id(M, path) == entry.get('m') and util.sha256(m) == entry.get('m_sha256')
+    res['RC2'] = m is not None and repo.blob_id(M, path) == entry.get('m') and util.sha256(m) == entry.get('m_sha256')
     h = repo.read(H, path) or b''
     m = m or b''
     sps = [s for s in led['splices'] if s['file'] == path]
@@ -308,11 +308,11 @@ def evaluate(repo, ctx, H, M, X, led, rdoc, entry, classes, record_refs, rd=None
         else:
             delta = r.get('start_M', -1) - sp['start']
             r5 = r5 and bool(om) and om[0] - sp['start'] == delta
-    res['R3'], res['R4'], res['R5'] = r3, r4, r5
+    res['RC3'], res['RC4'], res['RC5'] = r3, r4, r5
     comp, placed = compose(repo, H, M, path, sps)
     x = repo.read(X, path)
     if comp is None:
-        res.update(R6=False, R7=False, R9=False)
+        res.update(RC6=False, RC7=False, RC9=False)
     else:
         img_ok, shift = True, 0
         for sp, a, e in sorted(placed, key=lambda q: q[1]):
@@ -322,8 +322,8 @@ def evaluate(repo, ctx, H, M, X, led, rdoc, entry, classes, record_refs, rd=None
                 rsp.get(sp['id'], {}).get('new_sha256') == sp['new_sha256'] and \
                 (x or b'')[sp['start']:sp['start'] + len(sp['new_bytes'])] == sp['new_bytes']
             shift += len(sp['new_bytes']) - (e - a)
-        res['R6'] = img_ok
-        res['R7'] = blob_id_of(comp) == entry.get('l') and util.sha256(comp) == entry.get('l_sha256')
+        res['RC6'] = img_ok
+        res['RC7'] = blob_id_of(comp) == entry.get('l') and util.sha256(comp) == entry.get('l_sha256')
         delta = sum(len(sp['new_bytes']) - (e - a) for sp, a, e in placed)
         last_end = max(e for _, _, e in placed) if placed else 0
         r9 = comp[last_end + delta:] == m[last_end:]
@@ -335,9 +335,9 @@ def evaluate(repo, ctx, H, M, X, led, rdoc, entry, classes, record_refs, rd=None
             seg = m[a:e]
             r9 = r9 and util.sha256(seg) == pr.get('sha256') and len(occurrences(m, seg)) == 1 and \
                 len(occurrences(comp, seg)) == 1 and a >= last_end and comp[a + delta:e + delta] == seg
-        res['R9'] = r9
+        res['RC9'] = r9
     fe = (led.get('files') or {}).get(path) if isinstance(led.get('files'), dict) else None
-    res['R8'] = x is not None and repo.blob_id(X, path) == entry.get('x') and util.sha256(x) == entry.get('x_sha256') \
+    res['RC8'] = x is not None and repo.blob_id(X, path) == entry.get('x') and util.sha256(x) == entry.get('x_sha256') \
         and fe is not None and fe.get('expected_sha256') == util.sha256(x)
     r10 = True
     for f, v in (led.get('files') or {}).items() if isinstance(led.get('files'), dict) else []:
@@ -345,7 +345,7 @@ def evaluate(repo, ctx, H, M, X, led, rdoc, entry, classes, record_refs, rd=None
             continue
         if repo.blob_id(H, f) != repo.blob_id(M, f) or util.sha256(repo.read(M, f) or b'') != v.get('base_sha256'):
             r10 = False
-    res['R10'] = r10
+    res['RC10'] = r10
     r11 = True
     hp, mp = repo.paths(H), repo.paths(M)
     for p in sorted(set(hp) | set(mp)):
@@ -357,11 +357,11 @@ def evaluate(repo, ctx, H, M, X, led, rdoc, entry, classes, record_refs, rd=None
         cid, _ = side_class(repo, M, p, classes, record_refs, rd)
         if cid is None:
             r11 = False
-    # A.5 is a mandatory invariant: an unequal entry of the record directory fails R11 whatever classifies it
+    # A.5 is a mandatory invariant: an unequal entry of the record directory fails RC11 whatever classifies it
     if rd is not None and rd.active and rd.unequal:
         r11 = False
-    res['R11'] = r11
-    res['R12'] = not rdoc.get('changes_decisions_on_X')
+    res['RC11'] = r11
+    res['RC12'] = not rdoc.get('changes_decisions_on_X')
     failed = [k for k in condition_order if not res.get(k)]
     return {'path': path, 'holds': res, 'failed': failed,
             'composed_blob': blob_id_of(comp) if comp is not None else None,

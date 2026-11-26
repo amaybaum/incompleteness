@@ -894,3 +894,19 @@ gate cannot hold until B1 to B3 are resolved by an owner-approved expectation ch
 | `LC-7` | NEW-RUNNER | null | - |
 | `DELEG-REGEN` | NEW-RUNNER | null | - |
 | `REP-BUILD` | NEW-RUNNER | null | - |
+
+## 13. Progress after the owner decision of 2026-11-26T04:39:58Z (WIP / UNVERIFIED)
+
+- The plan lives in the tool's audit directory, an implementation choice the owner accepted.
+- Design amendment 1 (B1, B2, B3, B5) is a separate branch under its own independent review. Run over the
+  amended files with only the self-test's records, the gate reports only `missing-id` for rows that have no
+  record, plus `status-not-allowed` on the 16 composites whose components have no record.
+- Identifier migration (OBL-22, approved by the owner under AGENTS.md sec. A.48): the r5 directory controls
+  O9-n become RDIR-n (runner and `controls.json`); the v2 four-tree controls R1 to R14 become TT1 to TT14; the
+  record conditions R1 to R13 become RC1 to RC13; the directory conditions D2 to D5 become DIR2 to DIR5; the
+  reason "(authority)" becomes "(directory not admitted)". Local checks: tool self-test PASS (86 controls,
+  TT1 to TT14 among them); conformance 113 PASS and 2 NOT RUN (TR5, G-A1), RDIR-1 to RDIR-25 and RDIR-12b among
+  them; A1 conformance 47 PASS.
+- Still to migrate: the purity job's record id `outcome` (becomes Z9-STAGED when that runner gains the
+  evidence contract); the o9 mutant names (RDIR-m1 to RDIR-m17), which go with the harness when it lands; the
+  result field "authority match", which occurs in no tool file.

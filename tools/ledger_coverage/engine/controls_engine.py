@@ -508,38 +508,38 @@ def r_controls():
                                      'blob_sha256': util.sha256(w.repo.read(commit, p))} for p in paths]}
     wfc = pin('wf', M, wf)
     e = run(M, side=[wfc])
-    out['R1'] = not e.items and e.side_changes[0]['class'] == 'wf'
+    out['TT1'] = not e.items and e.side_changes[0]['class'] == 'wf'
     # R18 (S3): a listed path whose blob at M differs from its pin; R19 (V3): a prefix alone classifies nothing
     out['R18-engine'] = 'side-change-unclassified' in classes(run(M, side=[dict(wfc, pins=[dict(
         wfc['pins'][0], blob_sha256='0' * 64)])]).items)
     xm = w.repo.derive(M, {doc_path: w.repo.read(X, doc_path)}, parents=[H])
     e2 = run(x=xm)
-    out['R2'] = any(i['subject'] == wf for i in e2.items)
+    out['TT2'] = any(i['subject'] == wf for i in e2.items)
     X3 = w.repo.derive(M, {doc_path: w.repo.read(X, doc_path)}, parents=[M])
-    out['R3'] = 'candidate-parent' in classes(run(x=X3).items)
+    out['TT3'] = 'candidate-parent' in classes(run(x=X3).items)
     X4 = w.repo.derive(H, {doc_path: w.repo.read(X, doc_path)}, parents=[H, M])
-    out['R4'] = 'candidate-parent' in classes(run(x=X4).items)
+    out['TT4'] = 'candidate-parent' in classes(run(x=X4).items)
     l5 = dict(led, base=M)
     e5 = exmod.Execution(ctx, H, X, l5, None)
     try:
         e5.integrity()
-        out['R5'] = False
+        out['TT5'] = False
     except oc.Stop as s:
-        out['R5'] = s.cls == 'SCIENTIFIC_BASE_MISMATCH'
+        out['TT5'] = s.cls == 'SCIENTIFIC_BASE_MISMATCH'
     other = w.repo.add_commit({doc_path: b'unrelated\n'}, [], 'unrelated root')
     try:
         run(other, cand=False)
-        out['R6'] = False
+        out['TT6'] = False
     except oc.Stop as s:
-        out['R6'] = s.cls == 'MAIN_NOT_DESCENDANT'
+        out['TT6'] = s.cls == 'MAIN_NOT_DESCENDANT'
     M7 = w.child(H, base_text.replace('epsilon closing', 'epsilon finale'), subject='main edits ledgered file')
     e7 = run(M7)
     L7 = exmod.compose_landing(w.repo, H, M7, X, led, w.repo)
     e7l = run(M7, L7)
-    out['R7'] = not [i for i in e7.items if i['obligation'] == 'RET'] and 'base-drift' in classes(e7.items)
+    out['TT7'] = not [i for i in e7.items if i['obligation'] == 'RET'] and 'base-drift' in classes(e7.items)
     rec8 = rcmod.draft(w.repo, ctx, H, M7, X, led, doc_path)
     e8 = run(M7, L7, recon=[rec8])
-    out['R8'] = not [i for i in e8.items if i['class'] in ('base-drift', 'landing-conflict-unresolved',
+    out['TT8'] = not [i for i in e8.items if i['class'] in ('base-drift', 'landing-conflict-unresolved',
                                                          'record-invalid')]
     bad8 = dict(rec8, paths=[dict(rec8['paths'][0], l=w.repo.blob_id(X, doc_path))])
     e8b = run(M7, L7, recon=[bad8])
@@ -547,20 +547,20 @@ def r_controls():
     L = exmod.compose_landing(w.repo, H, M, X, led, w.repo)
     out['RL'] = not run(M, L, side=[wfc]).items
     L9 = w.repo.derive(L, {}, parents=[X, M])
-    out['R9'] = 'landing-parents' in classes(run(M, L9, side=[wfc]).items)
+    out['TT9'] = 'landing-parents' in classes(run(M, L9, side=[wfc]).items)
     L10 = w.repo.derive(L, {wf: None}, parents=[M, X])
-    out['R10'] = 'landing-drops-main-change' in classes(run(M, L10, side=[wfc]).items)
+    out['TT10'] = 'landing-drops-main-change' in classes(run(M, L10, side=[wfc]).items)
     L11 = w.repo.derive(L, {other_path: b'extra word\n'}, parents=[M, X])
-    out['R11'] = 'landing-extra-change' in classes(run(M, L11, side=[wfc]).items)
+    out['TT11'] = 'landing-extra-change' in classes(run(M, L11, side=[wfc]).items)
     L12 = w.repo.derive(L, {doc_path: w.repo.read(H, doc_path)}, parents=[M, X])
-    out['R12'] = bool(classes(run(M, L12, side=[wfc]).items))
+    out['TT12'] = bool(classes(run(M, L12, side=[wfc]).items))
     M13 = w.child(H, files={'tools/t.py': b'x = 1\n'}, subject='tool landing')
     tool = dict(pin('tool', M13, 'tools/t.py'), prefixes=['tools/'])
-    out['R13'] = not run(M13, side=[tool]).items
+    out['TT13'] = not run(M13, side=[tool]).items
     M19 = w.child(M13, files={'tools/u.py': b'y = 2\n'}, subject='unlisted tool file')
     out['R19-engine'] = 'side-change-unclassified' in classes(run(M19, side=[tool]).items)
     M14 = w.child(H, base_text.replace('epsilon closing', 'epsilon tool edit'), subject='tool touches ledgered')
-    out['R14'] = 'base-drift' in classes(run(M14, side=[tool]).items)
+    out['TT14'] = 'base-drift' in classes(run(M14, side=[tool]).items)
     Mo = w.child(M, files={'ops/other.yml': b'z\n'}, subject='another main')
     L15 = exmod.compose_landing(w.repo, H, Mo, X, led, w.repo)
     out['R15'] = 'landing-first-parent-not-M' in classes(run(M, L15, side=[wfc, pin('ops-other', Mo, 'ops/other.yml')],

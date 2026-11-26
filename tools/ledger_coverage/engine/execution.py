@@ -342,9 +342,9 @@ class Execution:
                     self.item('MAIN', 'base-drift', path, {'h': hp.get(path), 'm': mp.get(path)}, file=path,
                               commit=made, failed_conditions=[e['failed'] for e in ev])
                 for e in ev:
-                    if 'R12' in e['failed']:
+                    if 'RC12' in e['failed']:
                         self.item('RECORD', 'record-invalid', '%s:%s' % ((e.get('record') or {}).get('path'), path),
-                                  {'why': 'R12'}, detail='the record states decisions it changes on X (R12)')
+                                  {'why': 'RC12'}, detail='the record states decisions it changes on X (RC12)')
             else:
                 cls, why = self._side_class(path)
                 entry['class'] = cls
@@ -432,7 +432,7 @@ class Execution:
                         if e.get('l') != comp_id:
                             self.item('RECORD', 'record-invalid', '%s:%s' % ((r.get('_ref') or {}).get('path'), path),
                                       {'l': e.get('l'), 'composed': comp_id}, file=path,
-                                      detail='the record\'s l differs from the composition (the record\'s R7)')
+                                      detail='the record\'s l differs from the composition (the record\'s RC7)')
                     if comp is not None and l is not None and l == comp_id:
                         continue
                 if generated_rx is not None and generated_rx.search(path):

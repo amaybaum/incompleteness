@@ -30,7 +30,7 @@ scientific question and no row disposition.
 
 | Path | Kind | What it holds |
 |---|---|---|
-| `controls.json` | A1 control set | the preregistered A1 controls with the design's expected outcomes, the tool-level controls GV1-GV7 and EI1-EI15, the controls of amendment r4 (O9-1 to O9-25 and O9-12b, RT-O9, I2-1 to I2-8), and the control-only inputs (DR-3's witness `AGENTS.md` at `H`) |
+| `controls.json` | A1 control set | the preregistered A1 controls with the design's expected outcomes, the tool-level controls GV1-GV7 and EI1-EI15, the controls of amendment r4 (RDIR-1 to RDIR-25 and RDIR-12b, RT-O9, I2-1 to I2-8), and the control-only inputs (DR-3's witness `AGENTS.md` at `H`) |
 | `delegation-draft.json` | `oi-delegation/1` | a draft of the delegation contract; the contract itself belongs in the amended plan's record directory at `F` |
 | `rules/dr-deny-v1.json` | `oi-term-rules/2` | deny rules DR-1 (a, b, c), DR-3, DR-4, DR-5 with examples and real-tree countercontrols |
 | `rules/resid-v1.json` | `oi-term-rules/2` | the review pattern `resid` (resid-a, resid-b, resid-c) |
