@@ -1,0 +1,46 @@
+{
+ "schema": "oi-owner-decision-quote/1",
+ "decisions": [
+  {
+   "author": "amaybaum",
+   "time": "2026-11-26T06:34:32Z",
+   "record": "#1169 comment 7184569981",
+   "relayed_by": "coordinating session",
+   "quotes": [
+    "The verification machinery should accommodate legitimate repository evolution, rather than force the repository back to an older state.",
+    null,
+    "Authorize a bounded design amendment supporting multiple reconciled ledger paths.",
+    "The amended design must support:",
+    "* Multiple independently reviewed reconciliation records.",
+    "* Exact identification and classification of every changed ledger path.",
+    "* Verification that intervening changes do not invalidate the scientific conclusions supporting A1 retirement.",
+    "* Detection of conflicts between intervening changes and the planned retirement edits.",
+    "* Fresh verification trials against the reconciled state.",
+    "* No blanket exemptions or weakening of acceptance criteria.",
+    "Prefer a general reconciliation mechanism over special cases for individual files.",
+    null,
+    "The complete ledger-path check remains mandatory. However, detected drift should trigger a reconciliation assessment, not an automatic revert.",
+    null
+   ]
+  },
+  {
+   "author": "amaybaum",
+   "time": "2026-11-26T06:37:58Z",
+   "record": "#1169 comment 7184626125",
+   "relayed_by": "coordinating session",
+   "quotes": [
+    null,
+    "The proposed approach is consistent with the new direction.",
+    "Ensure the independent review establishes the following distinctions:",
+    "Responsibility | Required verification",
+    "Mechanical verification | Every changed ledger path is identified, accounted for and bound to its reviewed reconciliation record.",
+    "Scientific verification | Independent review establishes whether intervening changes affect the scientific justification for retirement.",
+    "Conflict detection | Overlapping retirement edits cannot silently overwrite or invalidate intervening corrections.",
+    "Trial verification | The retirement is tested against the reconciled repository state.",
+    "Preserve all existing requirements wherever possible. Generalize the mechanism rather than introducing file-specific exceptions.",
+    "The mechanism must support future legitimate changes, not merely the eleven currently affected paths.",
+    null
+   ]
+  }
+ ]
+}

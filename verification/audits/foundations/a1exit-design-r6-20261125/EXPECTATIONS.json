@@ -22171,6 +22171,480 @@
      "the record commit REV and its parent"
     ]
    }
+  },
+  {
+   "id": "RECON-MULTI",
+   "requirements": [
+    "R6.RECON.4",
+    "R6.RECON.5",
+    "R6.RECON.15",
+    "R6.RECON.16"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "direction": "both",
+   "expect": {
+    "cases": [
+     {
+      "case": "two ledgered paths in two files changed on M, each covered by its own reviewed reconciliation record bound to the run, every condition RC1-RC14 holding for each (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "not_class": [
+         "base-drift",
+         "record-invalid"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "the same two paths covered by one reviewed record with two path entries, each with its own ledger_binding (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "not_class": [
+         "base-drift",
+         "record-invalid"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "countercase: the same run with the second record removed",
+      "outcome": "FAIL",
+      "classes_include": [
+       "base-drift"
+      ],
+      "invariants": [
+       {
+        "failed_conditions_include": "RC10"
+       }
+      ]
+     },
+     {
+      "case": "countercase: the second record failing RC2 (its m differs from the path's blob at M)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "base-drift"
+      ],
+      "invariants": [
+       {
+        "failed_conditions_include": "RC2"
+       },
+       {
+        "failed_conditions_include": "RC10"
+       }
+      ]
+     },
+     {
+      "case": "countercase: an unledgered non-corpus path changed on M left unclassified",
+      "outcome": "FAIL",
+      "classes_include": [
+       "base-drift"
+      ],
+      "invariants": [
+       {
+        "failed_conditions_include": "RC11"
+       }
+      ]
+     }
+    ]
+   },
+   "source": "r6 amendment 3 (owner decisions of 2026-11-26T06:34:32Z, #1169 comment 7184569981, and 2026-11-26T06:37:58Z, #1169 comment 7184626125)",
+   "flags": [
+    "added by amendment 3; no runner records it before the tool revision implements it"
+   ]
+  },
+  {
+   "id": "RECON-ENUM",
+   "requirements": [
+    "R6.RECON.22"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "direction": "both",
+   "expect": {
+    "cases": [
+     {
+      "case": "three ledgered paths changed on M, two covered by applying records and one by none",
+      "outcome": "FAIL",
+      "classes_include": [
+       "base-drift"
+      ],
+      "invariants": [
+       {
+        "items_include": [
+         {
+          "class": "base-drift",
+          "subject": "$uncovered_path"
+         }
+        ]
+       },
+       {
+        "equals": "the result lists exactly one disposition for each path that differs between H and M and is ledgered or corpus: two reconciled, each naming its record, and one base-drift naming that no admitted record covers it; no other path has one"
+       }
+      ]
+     },
+     {
+      "case": "countercase: the same result with one disposition removed",
+      "outcome": "PREDICATE",
+      "invariants": [
+       {
+        "schema_errors": [
+         "missing disposition"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "countercase: the same result with a disposition for a path that does not differ between H and M",
+      "outcome": "PREDICATE",
+      "invariants": [
+       {
+        "schema_errors": [
+         "disposition for an unchanged path"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "source": "r6 amendment 3 (owner decisions of 2026-11-26T06:34:32Z, #1169 comment 7184569981, and 2026-11-26T06:37:58Z, #1169 comment 7184626125)",
+   "flags": [
+    "added by amendment 3; no runner records it before the tool revision implements it"
+   ]
+  },
+  {
+   "id": "RECON-CORPUS",
+   "requirements": [
+    "R6.RECON.3",
+    "R6.RECON.8",
+    "R6.RECON.22"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "direction": "both",
+   "expect": {
+    "cases": [
+     {
+      "case": "a corpus path the ledger does not list, changed on M, covered by a reviewed record entry with no splices, l equal to m, x equal to the path's blob at H, and null ledger_binding values (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "not_class": [
+         "base-drift",
+         "record-invalid"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "countercase: the same entry with l differing from m",
+      "outcome": "FAIL",
+      "classes_include": [
+       "base-drift"
+      ],
+      "invariants": [
+       {
+        "failed_conditions_include": "RC7"
+       }
+      ]
+     },
+     {
+      "case": "countercase: the same entry with a non-null ledger_binding value",
+      "outcome": "FAIL",
+      "classes_include": [
+       "base-drift"
+      ],
+      "invariants": [
+       {
+        "failed_conditions_include": "RC13"
+       }
+      ]
+     },
+     {
+      "case": "countercase: the same path with no record",
+      "outcome": "FAIL",
+      "classes_include": [
+       "base-drift"
+      ]
+     }
+    ]
+   },
+   "source": "r6 amendment 3 (owner decisions of 2026-11-26T06:34:32Z, #1169 comment 7184569981, and 2026-11-26T06:37:58Z, #1169 comment 7184626125)",
+   "flags": [
+    "added by amendment 3; no runner records it before the tool revision implements it"
+   ]
+  },
+  {
+   "id": "RECON-CONFLICT",
+   "requirements": [
+    "R6.RECON.24",
+    "R6.RECON.4",
+    "R6.RECON.18"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "cases": [
+     {
+      "case": "M changes a byte of the line holding a splice, outside the splice's span",
+      "outcome": "FAIL",
+      "classes_include": [
+       "base-drift"
+      ],
+      "invariants": [
+       {
+        "failed_conditions_include": "RC14"
+       }
+      ]
+     },
+     {
+      "case": "M changes a byte of a sentence (splitter version 2) that overlaps a splice's span, on another line",
+      "outcome": "FAIL",
+      "classes_include": [
+       "base-drift"
+      ],
+      "invariants": [
+       {
+        "failed_conditions_include": "RC14"
+       }
+      ]
+     },
+     {
+      "case": "M changes the line of a retained site of the path",
+      "outcome": "FAIL",
+      "classes_include": [
+       "base-drift"
+      ],
+      "invariants": [
+       {
+        "failed_conditions_include": "RC14"
+       }
+      ]
+     },
+     {
+      "case": "M adds a second copy of a splice's context window elsewhere in the file",
+      "outcome": "FAIL",
+      "classes_include": [
+       "base-drift"
+      ],
+      "invariants": [
+       {
+        "failed_conditions_include": "RC14"
+       }
+      ]
+     },
+     {
+      "case": "a protected range of the record overlaps a translated splice's context window at M",
+      "outcome": "FAIL",
+      "classes_include": [
+       "base-drift"
+      ],
+      "invariants": [
+       {
+        "failed_conditions_include": "RC14"
+       }
+      ]
+     },
+     {
+      "case": "M changes the bytes of a splice's span and the old bytes occur once elsewhere at M",
+      "outcome": "FAIL",
+      "classes_include": [
+       "base-drift"
+      ],
+      "invariants": [
+       {
+        "failed_conditions_include": "RC14"
+       }
+      ]
+     }
+    ]
+   },
+   "restored": {
+    "outcome": "ANY",
+    "invariants": [
+     {
+      "not_class": [
+       "base-drift",
+       "record-invalid"
+      ]
+     },
+     {
+      "baseline": "the same path with M's changes outside every context window and retained-site line"
+     }
+    ]
+   },
+   "source": "r6 amendment 3 (owner decisions of 2026-11-26T06:34:32Z, #1169 comment 7184569981, and 2026-11-26T06:37:58Z, #1169 comment 7184626125)",
+   "flags": [
+    "added by amendment 3; no runner records it before the tool revision implements it"
+   ]
+  },
+  {
+   "id": "RECON-TRIAL",
+   "requirements": [
+    "R6.RECON.23",
+    "R6.RECON.21"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "direction": "both",
+   "expect": {
+    "cases": [
+     {
+      "case": "two drifted ledgered corpus paths with applying records; M's changes add text no profile matches (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "not_class": [
+         "base-drift",
+         "record-invalid"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "countercase: M's change adds, outside every context window, a sentence a deny profile matches",
+      "outcome": "FAIL",
+      "classes_include": [
+       "base-drift"
+      ],
+      "invariants": [
+       {
+        "failed_conditions_include": "reconciled-state"
+       }
+      ]
+     },
+     {
+      "case": "countercase: M's change adds an unclassified hit of a review profile with applies_to tree",
+      "outcome": "FAIL",
+      "classes_include": [
+       "base-drift"
+      ],
+      "invariants": [
+       {
+        "failed_conditions_include": "reconciled-state"
+       }
+      ]
+     },
+     {
+      "case": "countercase: M changes one file of a mirror pair and not the other",
+      "outcome": "FAIL",
+      "classes_include": [
+       "base-drift"
+      ],
+      "invariants": [
+       {
+        "failed_conditions_include": "reconciled-state"
+       }
+      ]
+     },
+     {
+      "case": "countercase: M removes a literal that a pin of the configuration requires at X",
+      "outcome": "FAIL",
+      "classes_include": [
+       "base-drift"
+      ],
+      "invariants": [
+       {
+        "failed_conditions_include": "reconciled-state"
+       }
+      ]
+     },
+     {
+      "case": "countercase: RT-L2 with every drifted path covered by an applying record and the reconciled-state trial failing",
+      "outcome": "FAIL",
+      "invariants": [
+       {
+        "drift_state_in": [
+         "unresolved"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "source": "r6 amendment 3 (owner decisions of 2026-11-26T06:34:32Z, #1169 comment 7184569981, and 2026-11-26T06:37:58Z, #1169 comment 7184626125)",
+   "flags": [
+    "added by amendment 3; no runner records it before the tool revision implements it"
+   ]
+  },
+  {
+   "id": "RECON-SCI",
+   "requirements": [
+    "R6.RECON.25",
+    "R6.RECON.1"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "cases": [
+     {
+      "case": "a path entry without scientific_effect",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "a scientific_effect whose conclusions name an edit id that is not a splice of the path",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "a scientific_effect with an empty assessment or method",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "a review record whose verdicts do not cover the entry's scientific_effect item, or do not accept it",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "a review record whose reviewer equals the record's author",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     }
+    ]
+   },
+   "restored": {
+    "outcome": "ANY",
+    "invariants": [
+     {
+      "record_admitted": "$record"
+     },
+     {
+      "not_class": [
+       "record-invalid"
+      ]
+     }
+    ]
+   },
+   "source": "r6 amendment 3 (owner decisions of 2026-11-26T06:34:32Z, #1169 comment 7184569981, and 2026-11-26T06:37:58Z, #1169 comment 7184626125)",
+   "flags": [
+    "added by amendment 3; no runner records it before the tool revision implements it"
+   ]
   }
  ],
  "retired": [
