@@ -5100,10 +5100,13 @@
    "reference": {
     "measured_at_T1p_14ac71b4_with_tool_commit_a3799244": "the expected figures of this row were measured there; historical measurement and provenance (AGENTS.md sec. A.42 item 2); carried to X_rep as expectations because the paths the verdict reads are byte-identical when T1' conforms (R6.EVID.8); not the support of any enduring claim"
    },
-   "source": "D:2515",
+   "source": "D:2515; second direction: r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B2)",
    "flags": [
-    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))",
+    "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit",
     "OC-3: runs at X_rep (R6.EVID.8); the verdict reads only paths that H and the ledger determine, so T1''s identity and ancestry are not material; landing decision: kind 1 on the exact tool candidate; enduring claim: kind 2 once the landing merge is on main, kind 3 re-run on main, every input reachable from main"
+   ],
+   "paired_with": [
+    "N11"
    ]
   },
   {
@@ -5143,10 +5146,13 @@
    "reference": {
     "measured_at_T1p_14ac71b4_with_tool_commit_a3799244": "the expected figures of this row were measured there; historical measurement and provenance (AGENTS.md sec. A.42 item 2); carried to X_rep as expectations because the paths the verdict reads are byte-identical when T1' conforms (R6.EVID.8); not the support of any enduring claim"
    },
-   "source": "D:2516",
+   "source": "D:2516; second direction: r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B2)",
    "flags": [
-    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))",
+    "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit",
     "OC-3: runs at X_rep (R6.EVID.8); the verdict reads only paths that H and the ledger determine, so T1''s identity and ancestry are not material; landing decision: kind 1 on the exact tool candidate; enduring claim: kind 2 once the landing merge is on main, kind 3 re-run on main, every input reachable from main"
+   ],
+   "paired_with": [
+    "N10"
    ]
   },
   {
@@ -5176,11 +5182,19 @@
      }
     ]
    },
-   "source": "D:2518",
+   "source": "D:2518; second direction: r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B2)",
    "flags": [
     "record condition renamed per OD-31 (Rk -> RCk)",
-    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
-   ]
+    "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit"
+   ],
+   "restored": {
+    "outcome": "RESULT_EQUAL_CLEAN",
+    "invariants": [
+     {
+      "baseline": "the same run on the restored (unmutated) tree"
+     }
+    ]
+   }
   },
   {
    "id": "N13",
@@ -5210,11 +5224,19 @@
      }
     ]
    },
-   "source": "D:2519",
+   "source": "D:2519; second direction: r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B2)",
    "flags": [
     "record condition renamed per OD-31 (Rk -> RCk)",
-    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
-   ]
+    "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit"
+   ],
+   "restored": {
+    "outcome": "RESULT_EQUAL_CLEAN",
+    "invariants": [
+     {
+      "baseline": "the same run on the restored (unmutated) tree"
+     }
+    ]
+   }
   },
   {
    "id": "N14",
@@ -5243,11 +5265,19 @@
      }
     ]
    },
-   "source": "D:2520",
+   "source": "D:2520; second direction: r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B2)",
    "flags": [
     "record condition renamed per OD-31 (Rk -> RCk)",
-    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
-   ]
+    "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit"
+   ],
+   "restored": {
+    "outcome": "RESULT_EQUAL_CLEAN",
+    "invariants": [
+     {
+      "baseline": "the same run on the restored (unmutated) tree"
+     }
+    ]
+   }
   },
   {
    "id": "N15",
@@ -5276,11 +5306,19 @@
      }
     ]
    },
-   "source": "D:2521",
+   "source": "D:2521; second direction: r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B2)",
    "flags": [
     "record condition renamed per OD-31 (Rk -> RCk)",
-    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
-   ]
+    "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit"
+   ],
+   "restored": {
+    "outcome": "RESULT_EQUAL_CLEAN",
+    "invariants": [
+     {
+      "baseline": "the same run on the restored (unmutated) tree"
+     }
+    ]
+   }
   },
   {
    "id": "N16",
@@ -5309,11 +5347,19 @@
      }
     ]
    },
-   "source": "D:2522",
+   "source": "D:2522; second direction: r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B2)",
    "flags": [
     "record condition renamed per OD-31 (Rk -> RCk)",
-    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
-   ]
+    "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit"
+   ],
+   "restored": {
+    "outcome": "RESULT_EQUAL_CLEAN",
+    "invariants": [
+     {
+      "baseline": "the same run on the restored (unmutated) tree"
+     }
+    ]
+   }
   },
   {
    "id": "N16-file",
@@ -5346,10 +5392,18 @@
      }
     ]
    },
-   "source": "D:2522",
+   "source": "D:2522; second direction: r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B2)",
    "flags": [
-    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
-   ]
+    "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit"
+   ],
+   "restored": {
+    "outcome": "RESULT_EQUAL_CLEAN",
+    "invariants": [
+     {
+      "baseline": "the same run on the restored (unmutated) tree"
+     }
+    ]
+   }
   },
   {
    "id": "N17",
@@ -5378,11 +5432,19 @@
      }
     ]
    },
-   "source": "D:2523",
+   "source": "D:2523; second direction: r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B2)",
    "flags": [
     "record condition renamed per OD-31 (Rk -> RCk)",
-    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
-   ]
+    "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit"
+   ],
+   "restored": {
+    "outcome": "RESULT_EQUAL_CLEAN",
+    "invariants": [
+     {
+      "baseline": "the same run on the restored (unmutated) tree"
+     }
+    ]
+   }
   },
   {
    "id": "N18",
@@ -5411,11 +5473,19 @@
      }
     ]
    },
-   "source": "D:2524",
+   "source": "D:2524; second direction: r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B2)",
    "flags": [
     "record condition renamed per OD-31 (Rk -> RCk)",
-    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
-   ]
+    "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit"
+   ],
+   "restored": {
+    "outcome": "RESULT_EQUAL_CLEAN",
+    "invariants": [
+     {
+      "baseline": "the same run on the restored (unmutated) tree"
+     }
+    ]
+   }
   },
   {
    "id": "N18-record",
@@ -5438,10 +5508,18 @@
      "record-invalid"
     ]
    },
-   "source": "D:2524",
+   "source": "D:2524; second direction: r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B2)",
    "flags": [
-    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
-   ]
+    "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit"
+   ],
+   "restored": {
+    "outcome": "RESULT_EQUAL_CLEAN",
+    "invariants": [
+     {
+      "baseline": "the same run on the restored (unmutated) tree"
+     }
+    ]
+   }
   },
   {
    "id": "N2",
@@ -5509,10 +5587,18 @@
      "the same without it"
     ]
    },
-   "source": "D:2508",
+   "source": "D:2508; second direction: r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B2)",
    "flags": [
-    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
-   ]
+    "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit"
+   ],
+   "restored": {
+    "outcome": "RESULT_EQUAL_CLEAN",
+    "invariants": [
+     {
+      "baseline": "the same run on the restored (unmutated) tree"
+     }
+    ]
+   }
   },
   {
    "id": "N3-config-route",
@@ -5540,10 +5626,18 @@
      }
     ]
    },
-   "source": "D:2508",
+   "source": "D:2508; second direction: r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B2)",
    "flags": [
-    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
-   ]
+    "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit"
+   ],
+   "restored": {
+    "outcome": "RESULT_EQUAL_CLEAN",
+    "invariants": [
+     {
+      "baseline": "the same run on the restored (unmutated) tree"
+     }
+    ]
+   }
   },
   {
    "id": "N4",
@@ -5575,11 +5669,19 @@
      }
     ]
    },
-   "source": "D:2509",
+   "source": "D:2509; second direction: r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B2)",
    "flags": [
     "record condition renamed per OD-31 (Rk -> RCk)",
-    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
-   ]
+    "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit"
+   ],
+   "restored": {
+    "outcome": "RESULT_EQUAL_CLEAN",
+    "invariants": [
+     {
+      "baseline": "the same run on the restored (unmutated) tree"
+     }
+    ]
+   }
   },
   {
    "id": "N5",
@@ -5610,11 +5712,19 @@
      }
     ]
    },
-   "source": "D:2510",
+   "source": "D:2510; second direction: r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B2)",
    "flags": [
     "record condition renamed per OD-31 (Rk -> RCk)",
-    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
-   ]
+    "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit"
+   ],
+   "restored": {
+    "outcome": "RESULT_EQUAL_CLEAN",
+    "invariants": [
+     {
+      "baseline": "the same run on the restored (unmutated) tree"
+     }
+    ]
+   }
   },
   {
    "id": "N6",
@@ -5643,11 +5753,19 @@
      }
     ]
    },
-   "source": "D:2511",
+   "source": "D:2511; second direction: r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B2)",
    "flags": [
     "record condition renamed per OD-31 (Rk -> RCk)",
-    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
-   ]
+    "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit"
+   ],
+   "restored": {
+    "outcome": "RESULT_EQUAL_CLEAN",
+    "invariants": [
+     {
+      "baseline": "the same run on the restored (unmutated) tree"
+     }
+    ]
+   }
   },
   {
    "id": "N7",
@@ -5676,11 +5794,19 @@
      }
     ]
    },
-   "source": "D:2512",
+   "source": "D:2512; second direction: r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B2)",
    "flags": [
     "record condition renamed per OD-31 (Rk -> RCk)",
-    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
-   ]
+    "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit"
+   ],
+   "restored": {
+    "outcome": "RESULT_EQUAL_CLEAN",
+    "invariants": [
+     {
+      "baseline": "the same run on the restored (unmutated) tree"
+     }
+    ]
+   }
   },
   {
    "id": "N8",
@@ -5710,11 +5836,19 @@
      }
     ]
    },
-   "source": "D:2513",
+   "source": "D:2513; second direction: r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B2)",
    "flags": [
     "record condition renamed per OD-31 (Rk -> RCk)",
-    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
-   ]
+    "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit"
+   ],
+   "restored": {
+    "outcome": "RESULT_EQUAL_CLEAN",
+    "invariants": [
+     {
+      "baseline": "the same run on the restored (unmutated) tree"
+     }
+    ]
+   }
   },
   {
    "id": "N9",
@@ -5743,11 +5877,19 @@
      }
     ]
    },
-   "source": "D:2514",
+   "source": "D:2514; second direction: r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B2)",
    "flags": [
     "record condition renamed per OD-31 (Rk -> RCk)",
-    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
-   ]
+    "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit"
+   ],
+   "restored": {
+    "outcome": "RESULT_EQUAL_CLEAN",
+    "invariants": [
+     {
+      "baseline": "the same run on the restored (unmutated) tree"
+     }
+    ]
+   }
   },
   {
    "id": "O1",
@@ -6090,10 +6232,18 @@
      "landing-first-parent-not-M"
     ]
    },
-   "source": "D:2502-2503",
+   "source": "D:2502-2503; second direction: r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B2)",
    "flags": [
-    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
-   ]
+    "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit"
+   ],
+   "restored": {
+    "outcome": "RESULT_EQUAL_CLEAN",
+    "invariants": [
+     {
+      "baseline": "the same run on the restored (unmutated) tree"
+     }
+    ]
+   }
   },
   {
    "id": "R16",
@@ -6202,10 +6352,18 @@
      }
     ]
    },
-   "source": "D:2517",
+   "source": "D:2517; second direction: r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B2)",
    "flags": [
-    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
-   ]
+    "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit"
+   ],
+   "restored": {
+    "outcome": "RESULT_EQUAL_CLEAN",
+    "invariants": [
+     {
+      "baseline": "the same run on the restored (unmutated) tree"
+     }
+    ]
+   }
   },
   {
    "id": "R18-engine",
@@ -6229,10 +6387,18 @@
      "side-change-unclassified"
     ]
    },
-   "source": "D:2517 (engine form)",
+   "source": "D:2517 (engine form); second direction: r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B2)",
    "flags": [
-    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
-   ]
+    "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit"
+   ],
+   "restored": {
+    "outcome": "RESULT_EQUAL_CLEAN",
+    "invariants": [
+     {
+      "baseline": "the same run on the restored (unmutated) tree"
+     }
+    ]
+   }
   },
   {
    "id": "R19",
@@ -6266,10 +6432,18 @@
      }
     ]
    },
-   "source": "D:2525",
+   "source": "D:2525; second direction: r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B2)",
    "flags": [
-    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
-   ]
+    "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit"
+   ],
+   "restored": {
+    "outcome": "RESULT_EQUAL_CLEAN",
+    "invariants": [
+     {
+      "baseline": "the same run on the restored (unmutated) tree"
+     }
+    ]
+   }
   },
   {
    "id": "R19-engine",
@@ -6293,10 +6467,18 @@
      "side-change-unclassified"
     ]
    },
-   "source": "D:2525 (engine form)",
+   "source": "D:2525 (engine form); second direction: r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B2)",
    "flags": [
-    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
-   ]
+    "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit"
+   ],
+   "restored": {
+    "outcome": "RESULT_EQUAL_CLEAN",
+    "invariants": [
+     {
+      "baseline": "the same run on the restored (unmutated) tree"
+     }
+    ]
+   }
   },
   {
    "id": "R3-F2",
@@ -8537,7 +8719,7 @@
     "execution"
    ],
    "direction": {
-    "of": "positive",
+    "of": "both",
     "required": "opposite direction",
     "why": "in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c))"
    },
@@ -8566,10 +8748,10 @@
      }
     ]
    },
-   "source": "v2:629 (D:2502 stands; OD-17)",
+   "source": "v2:629 (D:2502 stands; OD-17); second direction: r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B2)",
    "flags": [
     "RD-25: composed landing REVIEW_REQUIRED exit 10 (delegated evidence missing), as controls.json and the runner have it",
-    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
+    "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit"
    ]
   },
   {
@@ -8590,31 +8772,47 @@
     "execution"
    ],
    "direction": {
-    "of": "positive",
+    "of": "both",
     "required": "opposite direction",
     "why": "in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c))"
    },
    "predicate_kind": "procedural",
    "expect": {
-    "outcome": "PASS",
-    "invariants": [
+    "cases": [
      {
-      "all": "side_changes",
-      "have": {
-       "classified": true
-      }
-     },
-     {
-      "drift_state_in": [
-       "none",
-       "reconciled"
+      "case": "the control input (positive)",
+      "outcome": "PASS",
+      "invariants": [
+       {
+        "all": "side_changes",
+        "have": {
+         "classified": true
+        }
+       },
+       {
+        "drift_state_in": [
+         "none",
+         "reconciled"
+        ]
+       },
+       {
+        "representative_candidate": "X_rep (R6.EVID.8): single parent H; ledgered paths H plus the ledger's splices, sha256 equal to the ledger's expected_sha256; plan record-directory paths the pinned ledger and edit list; delegated paths a fixed marker blob; every other path H's"
+       },
+       {
+        "scanned_paths_within": "side changes H..M, the ledgered and corpus path sets, and the candidate blobs on drifted paths"
+       }
       ]
      },
      {
-      "representative_candidate": "X_rep (R6.EVID.8): single parent H; ledgered paths H plus the ledger's splices, sha256 equal to the ledger's expected_sha256; plan record-directory paths the pinned ledger and edit list; delegated paths a fixed marker blob; every other path H's"
-     },
-     {
-      "scanned_paths_within": "side changes H..M, the ledgered and corpus path sets, and the candidate blobs on drifted paths"
+      "case": "countercase: the same run with the reconciliation record unreviewed (drafted)",
+      "outcome": "FAIL",
+      "invariants": [
+       {
+        "drift_state_in": [
+         "unresolved"
+        ]
+       }
+      ]
      }
     ]
    },
@@ -8638,10 +8836,10 @@
     "release_condition": "reviewed reconciliation record bound to exact H, M and C = X_rep covering every drifted path, named by the run from a commit outside the tool's landing paths (it names the predicted M and cannot be among its paths)",
     "release_check": "a reconciliation record named by the run from a commit outside the tool's landing paths, whose review record passes record lint and whose H, M and C blob ids equal the predicted run roles"
    },
-   "source": "D:2592-2594 (OD-18, Q2, MC-4)",
+   "source": "D:2592-2594 (OD-18, Q2, MC-4); second direction: r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B2)",
    "flags": [
     "CI run 45569710442 recorded PASS on a drafted record; that PASS does not establish the safeguard (OD-18)",
-    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))",
+    "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit",
     "OC-3: runs at X = C = X_rep (R6.EVID.8); its verdict reads H..M, the ledgered and corpus path sets and the candidate blobs on drifted paths, not T1s identity or ancestry; landing decision: kind 1 on the exact tool candidate with the predicted M = M0 plus the candidate's landing paths; enduring claim: kind 2 once the landing merge and the reviewed record (landed after the tool's landing commit) are on main, kind 3 re-run on main"
    ]
   },
@@ -8923,32 +9121,44 @@
     "execution"
    ],
    "direction": {
-    "of": "positive",
+    "of": "both",
     "required": "opposite direction",
     "why": "in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c))"
    },
    "expect": {
-    "outcome": "REVIEW_REQUIRED",
-    "classes_exact": [
-     "delegated-evidence-missing"
-    ],
-    "invariants": [
+    "cases": [
      {
-      "side_changes_exact": [
+      "case": "the control input (positive)",
+      "outcome": "REVIEW_REQUIRED",
+      "classes_exact": [
+       "delegated-evidence-missing"
+      ],
+      "invariants": [
        {
-        "path": ".github/workflows/a1exit-trial-verify.yml",
-        "classified_by": "side-change class record"
+        "side_changes_exact": [
+         {
+          "path": ".github/workflows/a1exit-trial-verify.yml",
+          "classified_by": "side-change class record"
+         }
+        ]
+       },
+       {
+        "none": "items[obligation=RET,path=.github/workflows/a1exit-trial-verify.yml]"
        }
       ]
      },
      {
-      "none": "items[obligation=RET,path=.github/workflows/a1exit-trial-verify.yml]"
+      "case": "countercase: the side-change class record without the workflow path",
+      "outcome": "REVIEW_REQUIRED",
+      "classes_include": [
+       "side-change-unclassified"
+      ]
      }
     ]
    },
-   "source": "v2:628 (D:2502 stands; OD-17 translation; OD-21)",
+   "source": "v2:628 (D:2502 stands; OD-17 translation; OD-21); second direction: r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B2)",
    "flags": [
-    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
+    "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit"
    ]
   },
   {
@@ -10149,7 +10359,8 @@
     "R6.CLASS.1",
     "R6.CTRL.23",
     "R6.CTRL.28",
-    "R6.REPRO.1"
+    "R6.REPRO.1",
+    "R6.OUT.22"
    ],
    "runner": "synthetic_fixture.py:555",
    "operations": [
@@ -11504,10 +11715,18 @@
      }
     ]
    },
-   "source": "v2:614 (OD-17: class-pin reading)",
+   "source": "v2:614 (OD-17: class-pin reading); second direction: r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B2)",
    "flags": [
-    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
-   ]
+    "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit"
+   ],
+   "restored": {
+    "outcome": "RESULT_EQUAL_CLEAN",
+    "invariants": [
+     {
+      "baseline": "the same run on the restored (unmutated) tree"
+     }
+    ]
+   }
   },
   {
    "id": "TT10",
@@ -11532,10 +11751,18 @@
      "landing-drops-main-change"
     ]
    },
-   "source": "v2:623",
+   "source": "v2:623; second direction: r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B2)",
    "flags": [
-    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
-   ]
+    "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit"
+   ],
+   "restored": {
+    "outcome": "RESULT_EQUAL_CLEAN",
+    "invariants": [
+     {
+      "baseline": "the same run on the restored (unmutated) tree"
+     }
+    ]
+   }
   },
   {
    "id": "TT11",
@@ -11561,10 +11788,18 @@
      "landing-extra-change"
     ]
    },
-   "source": "v2:624",
+   "source": "v2:624; second direction: r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B2)",
    "flags": [
-    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
-   ]
+    "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit"
+   ],
+   "restored": {
+    "outcome": "RESULT_EQUAL_CLEAN",
+    "invariants": [
+     {
+      "baseline": "the same run on the restored (unmutated) tree"
+     }
+    ]
+   }
   },
   {
    "id": "TT12",
@@ -11590,11 +11825,19 @@
      "landing-extra-change"
     ]
    },
-   "source": "v2:625",
+   "source": "v2:625; second direction: r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B2)",
    "flags": [
     "RD-25: class landing-extra-change (the landing does not carry the execution change); the runner asserts only \"some class\" today (VD-10)",
-    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
-   ]
+    "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit"
+   ],
+   "restored": {
+    "outcome": "RESULT_EQUAL_CLEAN",
+    "invariants": [
+     {
+      "baseline": "the same run on the restored (unmutated) tree"
+     }
+    ]
+   }
   },
   {
    "id": "TT13",
@@ -11610,24 +11853,36 @@
     "execution"
    ],
    "direction": {
-    "of": "positive",
+    "of": "both",
     "required": "opposite direction",
     "why": "in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c))"
    },
    "expect": {
-    "outcome": "NO_ITEM",
-    "invariants": [
+    "cases": [
      {
-      "side_changes_classified_by": "tool-landing class pin"
+      "case": "the control input (positive)",
+      "outcome": "NO_ITEM",
+      "invariants": [
+       {
+        "side_changes_classified_by": "tool-landing class pin"
+       },
+       {
+        "candidate_and_landing_pass": true
+       }
+      ]
      },
      {
-      "candidate_and_landing_pass": true
+      "case": "countercase: a tool-landing path whose blob differs from its class pin",
+      "outcome": "REVIEW_REQUIRED",
+      "classes_include": [
+       "side-change-unclassified"
+      ]
      }
     ]
    },
-   "source": "v2:626 (OD-17: class-pin reading)",
+   "source": "v2:626 (OD-17: class-pin reading); second direction: r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B2)",
    "flags": [
-    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
+    "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit"
    ]
   },
   {
@@ -11658,10 +11913,18 @@
      }
     ]
    },
-   "source": "v2:627 (OD-17, OD-26)",
+   "source": "v2:627 (OD-17, OD-26); second direction: r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B2)",
    "flags": [
-    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
-   ]
+    "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit"
+   ],
+   "restored": {
+    "outcome": "RESULT_EQUAL_CLEAN",
+    "invariants": [
+     {
+      "baseline": "the same run on the restored (unmutated) tree"
+     }
+    ]
+   }
   },
   {
    "id": "TT2",
@@ -11689,11 +11952,19 @@
      }
     ]
    },
-   "source": "v2:615 (OD-17: v2 countercontrol)",
+   "source": "v2:615 (OD-17: v2 countercontrol); second direction: r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B2)",
    "flags": [
     "VD-5: the old-style comparison is not run today; implement or retire (OD-17)",
-    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
-   ]
+    "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit"
+   ],
+   "restored": {
+    "outcome": "RESULT_EQUAL_CLEAN",
+    "invariants": [
+     {
+      "baseline": "the same run on the restored (unmutated) tree"
+     }
+    ]
+   }
   },
   {
    "id": "TT3",
@@ -11719,10 +11990,18 @@
      "candidate-parent"
     ]
    },
-   "source": "v2:616",
+   "source": "v2:616; second direction: r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B2)",
    "flags": [
-    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
-   ]
+    "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit"
+   ],
+   "restored": {
+    "outcome": "RESULT_EQUAL_CLEAN",
+    "invariants": [
+     {
+      "baseline": "the same run on the restored (unmutated) tree"
+     }
+    ]
+   }
   },
   {
    "id": "TT4",
@@ -11747,10 +12026,18 @@
      "candidate-parent"
     ]
    },
-   "source": "v2:617",
+   "source": "v2:617; second direction: r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B2)",
    "flags": [
-    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
-   ]
+    "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit"
+   ],
+   "restored": {
+    "outcome": "RESULT_EQUAL_CLEAN",
+    "invariants": [
+     {
+      "baseline": "the same run on the restored (unmutated) tree"
+     }
+    ]
+   }
   },
   {
    "id": "TT5",
@@ -11776,10 +12063,18 @@
     "outcome": "ERROR",
     "stop_class": "SCIENTIFIC_BASE_MISMATCH"
    },
-   "source": "v2:618",
+   "source": "v2:618; second direction: r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B2)",
    "flags": [
-    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
-   ]
+    "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit"
+   ],
+   "restored": {
+    "outcome": "RESULT_EQUAL_CLEAN",
+    "invariants": [
+     {
+      "baseline": "the same run on the restored (unmutated) tree"
+     }
+    ]
+   }
   },
   {
    "id": "TT6",
@@ -11803,10 +12098,18 @@
     "outcome": "ERROR",
     "stop_class": "MAIN_NOT_DESCENDANT"
    },
-   "source": "v2:619",
+   "source": "v2:619; second direction: r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B2)",
    "flags": [
-    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
-   ]
+    "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit"
+   ],
+   "restored": {
+    "outcome": "RESULT_EQUAL_CLEAN",
+    "invariants": [
+     {
+      "baseline": "the same run on the restored (unmutated) tree"
+     }
+    ]
+   }
   },
   {
    "id": "TT7",
@@ -11863,11 +12166,19 @@
      }
     ]
    },
-   "source": "v2:620 (OD-17, OD-12)",
+   "source": "v2:620 (OD-17, OD-12); second direction: r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B2)",
    "flags": [
     "VD-4: landing run e7l computed and not asserted today; see (D) for the landing class",
-    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
-   ]
+    "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit"
+   ],
+   "restored": {
+    "outcome": "RESULT_EQUAL_CLEAN",
+    "invariants": [
+     {
+      "baseline": "the same run on the restored (unmutated) tree"
+     }
+    ]
+   }
   },
   {
    "id": "TT8",
@@ -11884,28 +12195,40 @@
     "execution"
    ],
    "direction": {
-    "of": "positive",
+    "of": "both",
     "required": "opposite direction",
     "why": "in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c))"
    },
    "expect": {
-    "outcome": "PASS",
-    "invariants": [
+    "cases": [
      {
-      "none": "items[class=base-drift]"
+      "case": "the control input (positive)",
+      "outcome": "PASS",
+      "invariants": [
+       {
+        "none": "items[class=base-drift]"
+       },
+       {
+        "none": "items[class=landing-conflict-unresolved]"
+       },
+       {
+        "none": "items[class=record-invalid]"
+       }
+      ]
      },
      {
-      "none": "items[class=landing-conflict-unresolved]"
-     },
-     {
-      "none": "items[class=record-invalid]"
+      "case": "countercase: the same landing with a ledgered path changed on main after H",
+      "outcome": "FAIL",
+      "classes_include": [
+       "base-drift"
+      ]
      }
     ]
    },
-   "source": "v2:621 (OD-17: PASS asserted)",
+   "source": "v2:621 (OD-17: PASS asserted); second direction: r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B2)",
    "flags": [
     "VD-10: PASS asserted, not only the absence of three classes",
-    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
+    "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit"
    ]
   },
   {
@@ -11931,10 +12254,18 @@
      "landing-parents"
     ]
    },
-   "source": "v2:622",
+   "source": "v2:622; second direction: r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B2)",
    "flags": [
-    "VD-RESTORE: no second direction recorded (in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c)))"
-   ]
+    "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit"
+   ],
+   "restored": {
+    "outcome": "RESULT_EQUAL_CLEAN",
+    "invariants": [
+     {
+      "baseline": "the same run on the restored (unmutated) tree"
+     }
+    ]
+   }
   },
   {
    "id": "U1",
@@ -15601,10 +15932,18 @@
      "value set with the edits.json values"
     ]
    },
-   "source": "D:2886 with D:2291 (RD-31: \"'guard-pin' planted in an engine module, with the adapter companions in the value set: lint FAIL (the value occurs in edits.json)\")",
+   "source": "D:2886 with D:2291 (RD-31: \"'guard-pin' planted in an engine module, with the adapter companions in the value set: lint FAIL (the value occurs in edits.json)\"); second direction: r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B2)",
    "flags": [
     "VD-RESTORE: listed without a restored case by the conformance check (C-1)"
-   ]
+   ],
+   "restored": {
+    "outcome": "LINT_PASS",
+    "invariants": [
+     {
+      "baseline": "the same lint with 'guard-pin' removed from the engine module"
+     }
+    ]
+   }
   },
   {
    "id": "item11-T1p",
@@ -20759,6 +21098,588 @@
    "source": "r6 R6.EVID.8 (OC-3)",
    "flags": [
     "to implement (named obligation, OBL-28 row OC-3)"
+   ]
+  },
+  {
+   "id": "PIPE-STAGES",
+   "requirements": [
+    "R6.PIPE.1"
+   ],
+   "runner": null,
+   "operations": [
+    "terms"
+   ],
+   "expect": {
+    "cases": [
+     {
+      "case": "an unknown flag together with a ledger whose splice hash differs from H",
+      "outcome": "USAGE",
+      "invariants": [
+       {
+        "no_result_written": true
+       }
+      ]
+     },
+     {
+      "case": "a ledger whose splice hash differs from H together with a failing preflight control",
+      "outcome": "ERROR",
+      "stop_class": "LEDGER_INTEGRITY",
+      "invariants": [
+       {
+        "none": "items"
+       }
+      ]
+     },
+     {
+      "case": "a failing preflight control together with a planted deny match",
+      "outcome": "VOID",
+      "stop_class": "PREFLIGHT_FAILED",
+      "invariants": [
+       {
+        "none": "items[class=deny-match]"
+       }
+      ]
+     }
+    ]
+   },
+   "restored": {
+    "outcome": "RESULT_EQUAL_CLEAN",
+    "invariants": [
+     {
+      "baseline": "the same run on the restored (unmutated) tree"
+     }
+    ]
+   },
+   "source": "r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B1)",
+   "flags": [
+    "added by amendment 1 (B1); no runner records it before the tool revision implements it"
+   ]
+  },
+  {
+   "id": "PIPE-REPO",
+   "requirements": [
+    "R6.PIPE.4"
+   ],
+   "runner": null,
+   "operations": [
+    "terms"
+   ],
+   "expect": {
+    "outcome": "ERROR",
+    "stop_class": "UNRESOLVABLE"
+   },
+   "restored": {
+    "outcome": "RESULT_EQUAL_CLEAN",
+    "invariants": [
+     {
+      "baseline": "the same run with --repo naming the repository"
+     }
+    ]
+   },
+   "source": "r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B1)",
+   "flags": [
+    "added by amendment 1 (B1); no runner records it before the tool revision implements it"
+   ]
+  },
+  {
+   "id": "PIPE-CHAIN",
+   "requirements": [
+    "R6.PIPE.6"
+   ],
+   "runner": null,
+   "operations": [
+    "coverage"
+   ],
+   "direction": "both",
+   "expect": {
+    "cases": [
+     {
+      "case": [
+       "two segments whose consecutive endpoints differ",
+       "a chain that does not end at the named commit"
+      ],
+      "outcome": "ERROR",
+      "invariants": [
+       {
+        "no_result_written": false
+       }
+      ]
+     },
+     {
+      "case": "no --segment, an HP obligation of the configuration naming the segment (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "equals": "one segment from the pin to the named commit, of kind hp"
+       }
+      ]
+     },
+     {
+      "case": "no --segment and no HP obligation naming it (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "equals": "one unledgered segment from the pin to the named commit"
+       }
+      ]
+     }
+    ]
+   },
+   "restored": {
+    "outcome": "RESULT_EQUAL_CLEAN",
+    "invariants": [
+     {
+      "baseline": "the same run with an unbroken chain from the pin to the named commit"
+     }
+    ]
+   },
+   "source": "r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B1)",
+   "flags": [
+    "added by amendment 1 (B1); no runner records it before the tool revision implements it"
+   ]
+  },
+  {
+   "id": "PIPE-UNRESOLVED",
+   "requirements": [
+    "R6.PIPE.7"
+   ],
+   "runner": null,
+   "operations": [
+    "coverage"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "sites": [
+     {
+      "subject": "$site",
+      "state": "unresolved"
+     }
+    ],
+    "invariants": [
+     {
+      "items_include": [
+       {
+        "subject": "$site",
+        "segment": "$first_segment"
+       }
+      ]
+     },
+     {
+      "none": "items[subject=$site,segment=$second_segment]"
+     }
+    ]
+   },
+   "restored": {
+    "outcome": "RESULT_EQUAL_CLEAN",
+    "invariants": [
+     {
+      "baseline": "the same two segments with the site unchanged"
+     }
+    ]
+   },
+   "source": "r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B1)",
+   "flags": [
+    "added by amendment 1 (B1); no runner records it before the tool revision implements it"
+   ]
+  },
+  {
+   "id": "PIPE-PRIOR",
+   "requirements": [
+    "R6.PIPE.8"
+   ],
+   "runner": null,
+   "operations": [
+    "terms"
+   ],
+   "direction": "both",
+   "expect": {
+    "cases": [
+     {
+      "case": "a hit present at the prior endpoint and at the named commit",
+      "outcome": "REVIEW_REQUIRED",
+      "exit": 10,
+      "invariants": [
+       {
+        "items_include": [
+         {
+          "subject": "$old_hit",
+          "pre_existing": true
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "case": "a hit first present at the named commit (countercase)",
+      "outcome": "REVIEW_REQUIRED",
+      "exit": 10,
+      "invariants": [
+       {
+        "items_include": [
+         {
+          "subject": "$new_hit",
+          "pre_existing": false
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "source": "r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B1)",
+   "flags": [
+    "added by amendment 1 (B1); no runner records it before the tool revision implements it"
+   ]
+  },
+  {
+   "id": "ANCH-OVERRIDE",
+   "requirements": [
+    "R6.ANCH.8"
+   ],
+   "runner": null,
+   "operations": [
+    "record"
+   ],
+   "direction": "both",
+   "expect": {
+    "cases": [
+     {
+      "case": "an override whose anchor is not a substring of the pin line",
+      "outcome": "FAIL",
+      "classes_exact": [
+       "record-invalid"
+      ],
+      "invariants": [
+       {
+        "record_checks_failed_include": "pin_findings"
+       }
+      ]
+     },
+     {
+      "case": "a valid override whose pin-line text moves after the pin (positive: the anchor is never searched later)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "none": "items[class=record-invalid]"
+       }
+      ]
+     }
+    ]
+   },
+   "restored": {
+    "outcome": "RESULT_EQUAL_CLEAN",
+    "invariants": [
+     {
+      "baseline": "the same record with a valid anchor"
+     }
+    ]
+   },
+   "source": "r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B1)",
+   "flags": [
+    "added by amendment 1 (B1); no runner records it before the tool revision implements it"
+   ]
+  },
+  {
+   "id": "HP-MERGE-PR",
+   "requirements": [
+    "R6.HP.1"
+   ],
+   "runner": null,
+   "operations": [
+    "coverage"
+   ],
+   "expect": {
+    "outcome": "ERROR",
+    "stop_class": "CONFIG_INVALID",
+    "invariants": [
+     {
+      "none": "items"
+     }
+    ]
+   },
+   "restored": {
+    "outcome": "RESULT_EQUAL_CLEAN",
+    "invariants": [
+     {
+      "baseline": "the same configuration with the merge whose subject names its own pull request"
+     }
+    ]
+   },
+   "source": "r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B1)",
+   "flags": [
+    "added by amendment 1 (B1); no runner records it before the tool revision implements it"
+   ]
+  },
+  {
+   "id": "HP-SEMCLASS",
+   "requirements": [
+    "R6.HP.5"
+   ],
+   "runner": null,
+   "operations": [
+    "coverage"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "record-invalid"
+    ]
+   },
+   "restored": {
+    "outcome": "RESULT_EQUAL_CLEAN",
+    "invariants": [
+     {
+      "baseline": "the same adjudication with its semantic_classification"
+     }
+    ]
+   },
+   "source": "r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B1)",
+   "flags": [
+    "added by amendment 1 (B1); no runner records it before the tool revision implements it"
+   ]
+  },
+  {
+   "id": "HP-RECORDS",
+   "requirements": [
+    "R6.HP.14"
+   ],
+   "runner": null,
+   "operations": [
+    "coverage"
+   ],
+   "expect": {
+    "cases": [
+     {
+      "case": "an HP record supplied with --hp that fails its schema",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "an HP record whose fingerprint for the site differs (its semantic_classification edited after fingerprinting)",
+      "outcome": "FAIL",
+      "sites": [
+       {
+        "subject": "$site",
+        "classes_include": [
+         "hp-unadjudicated"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "a record supplied with --classify that the configuration does not reference",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     }
+    ]
+   },
+   "restored": {
+    "outcome": "RESULT_EQUAL_CLEAN",
+    "invariants": [
+     {
+      "baseline": "the same run with the valid record, which resolves the site"
+     }
+    ]
+   },
+   "source": "r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B1)",
+   "flags": [
+    "added by amendment 1 (B1); no runner records it before the tool revision implements it"
+   ]
+  },
+  {
+   "id": "CTX-INDICATOR",
+   "requirements": [
+    "R6.CTX.8"
+   ],
+   "runner": null,
+   "operations": [
+    "coverage"
+   ],
+   "expect": {
+    "outcome": "ERROR",
+    "stop_class": "CONFIG_UNREVIEWED"
+   },
+   "restored": {
+    "outcome": "RESULT_EQUAL_CLEAN",
+    "invariants": [
+     {
+      "baseline": "the same configuration with the preregistered indicator definitions"
+     }
+    ]
+   },
+   "source": "r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B1)",
+   "flags": [
+    "added by amendment 1 (B1); no runner records it before the tool revision implements it"
+   ]
+  },
+  {
+   "id": "OUT-FROZEN",
+   "requirements": [
+    "R6.OUT.16"
+   ],
+   "runner": null,
+   "operations": [
+    "record"
+   ],
+   "expect": {
+    "outcome": "INTERNAL",
+    "invariants": [
+     {
+      "message_names": "the exception class and the failing stage"
+     },
+     {
+      "none": "calls of the frozen main()"
+     }
+    ]
+   },
+   "restored": {
+    "outcome": "RESULT_EQUAL_CLEAN",
+    "invariants": [
+     {
+      "baseline": "the same run without the injected exception"
+     }
+    ]
+   },
+   "source": "r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B1)",
+   "flags": [
+    "added by amendment 1 (B1); no runner records it before the tool revision implements it"
+   ]
+  },
+  {
+   "id": "OUT-EXPLAIN",
+   "requirements": [
+    "R6.OUT.22"
+   ],
+   "runner": null,
+   "operations": [
+    "coverage",
+    "terms"
+   ],
+   "direction": "both",
+   "predicate_kind": "procedural",
+   "expect": {
+    "cases": [
+     {
+      "case": "a run with a site, a hit, a file, a pin and an item, one item REVIEW_REQUIRED",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "all": "subjects",
+        "have": {
+         "explanation": [
+          "subject id and kind",
+          "anchor and its hashes",
+          "provenance chain",
+          "rule id and rule blob hash, or null",
+          "each matcher's result",
+          "resulting state"
+         ]
+        }
+       },
+       {
+        "all": "items[decision=REVIEW_REQUIRED]",
+        "have": {
+         "resolution_needed": "record kind and fields"
+        }
+       },
+       {
+        "equal_field": "each explanation's rule blob hash equals the sha256 of the rule file's blob"
+       }
+      ]
+     },
+     {
+      "case": "the same result with one subject's explanation removed (countercase)",
+      "outcome": "PREDICATE",
+      "invariants": [
+       {
+        "schema_errors": [
+         "missing explanation"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "source": "r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B1)",
+   "flags": [
+    "added by amendment 1 (B1); no runner records it before the tool revision implements it"
+   ]
+  },
+  {
+   "id": "OUT-ADAPTERS",
+   "requirements": [
+    "R6.OUT.25"
+   ],
+   "runner": null,
+   "operations": [
+    "record"
+   ],
+   "direction": "both",
+   "expect": {
+    "cases": [
+     {
+      "case": "a run whose adapters read the Phase-0 and Phase-2 record directories (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "all": "adapter inputs read",
+        "have": {
+         "blob_hash_listed_in": "adapters"
+        }
+       }
+      ]
+     },
+     {
+      "case": "the same run with one adapter input blob changed (countercase)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "equals": "adapters differs from the first run only in the changed input's blob hash"
+       }
+      ]
+     }
+    ]
+   },
+   "source": "r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B1)",
+   "flags": [
+    "added by amendment 1 (B1); no runner records it before the tool revision implements it"
+   ]
+  },
+  {
+   "id": "OUT-NOTRUNC",
+   "requirements": [
+    "R6.OUT.28"
+   ],
+   "runner": null,
+   "operations": [
+    "terms"
+   ],
+   "direction": "both",
+   "expect": {
+    "cases": [
+     {
+      "case": "a synthetic file with 5000 unexplained repo hit lines",
+      "outcome": "REVIEW_REQUIRED",
+      "counts": {
+       "items[class=unclassified]": 5000
+      }
+     },
+     {
+      "case": "the same file with one hit line removed (countercase)",
+      "outcome": "REVIEW_REQUIRED",
+      "counts": {
+       "items[class=unclassified]": 4999
+      }
+     }
+    ]
+   },
+   "source": "r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B1)",
+   "flags": [
+    "added by amendment 1 (B1); no runner records it before the tool revision implements it"
    ]
   }
  ],

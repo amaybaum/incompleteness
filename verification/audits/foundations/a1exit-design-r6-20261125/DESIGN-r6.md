@@ -228,6 +228,42 @@ How r6 applies it; it authorizes preparation only, and nothing is adopted, froze
 - The statements of r6 about the tool commit a3799244, CI run 45569710442 and `T1'` are narrowed to what content on `main` establishes; each statement that stays unsupported is named in sec. 32 (historical statements) and in LANDING-MANIFEST.md sec. 4.
 - The round-4 delta review is recorded at #1169 comment 7170390944; its body lands in generator-round5/records-1169-round5.json. Its nits 2 to 5 are applied; nit 1 is left to the tool revision (OBL-28, C-4).
 
+
+### 0.2 Amendment 1 of 2026-11-26
+
+The owner decided on the brief of 2026-11-26 in the coordinating session; the decision is recorded at #1169 comment 7182798225 (amaybaum, 2026-11-26T04:39:58Z). Quoted, byte-exact as relayed (each line prefixed by "> "):
+
+> B1 | Approved. Add the missing test coverage. Reuse the existing schema test for R6.OUT.22 where it fully covers the requirement.
+>
+> B2 | Approved. Add the missing opposite-case tests to all 42 affected rows.
+>
+> B3 | Approved. Correct the reciprocal requirement references for TR28.
+>
+> B5 | Approved. Permit multi-key conditions when every key is recognized and the combined semantics are unambiguous.
+>
+> Identifier rename | Approved. Authorize the reviewed migration of the 40 test identifiers under §A.48.
+>
+> B4 | Approved. Draft the two required records on a separate branch and obtain independent review.
+>
+> Package the design and expectation corrections into one consolidated amendment with independent review.
+>
+> The ordinary implementation choices concerning plan location, refreshed references, release-condition evaluators and CI architecture are acceptable as described.
+>
+> Resume A1 tool implementation. Work that does not depend on the amendment may proceed in parallel with its review.
+>
+> Do not weaken requirements, introduce exemptions or bypass failed controls. Actual workflow dispatches and landing remain separately gated.
+
+Amendment 1 applies the decisions on B1, B2, B3 and B5; AMENDMENT-1.md maps each change to its decision. It weakens no requirement and adds no exemption:
+
+- B1. The 14 testable requirements that named no control (R6.PIPE.1, R6.PIPE.4, R6.PIPE.6, R6.PIPE.7, R6.PIPE.8, R6.ANCH.8, R6.HP.1, R6.HP.5, R6.HP.14, R6.CTX.8, R6.OUT.16, R6.OUT.22, R6.OUT.25, R6.OUT.28) each name a control: 14 new rows, and R6.OUT.22 also names S7-schema-and-checker, which validates every written result against the JSON Schema that holds the explanation. S7-schema-and-checker does not test the explanation's values, so it does not fully cover R6.OUT.22 alone; OUT-EXPLAIN tests them. Each new row records a second direction.
+- B2. Each of the 42 rows in the both-directions scope of R6.CTRL.3 that recorded no second direction records one: 35 by a `restored` expectation, N10 and N11 by `paired_with` (the same run differing only in the landing blob of `AGENTS.md`), and RT-L, RT-L2, RT-X, TT8 and TT13 by direction `both` (RT-L by its existing mutant case, the others by a countercase).
+- B3. R6.REC.18 and R6.CTRL.23 name the composite TR28, as Table 17.1 states.
+- B5. R6.GATE.3 states the reading of multi-key invariant objects.
+- The identifier migration of sec. 34 (OBL-22) is not applied by this amendment: OBL-22 places it in the tool revision that implements the gate. The owner's approval of it is quoted above ("Identifier rename"). The `runner` fields keep their cites; they are refreshed from the tool revision's final lines when it lands, and the gate never reads them (R6.GATE.9).
+- B4 (the reviewed RT-L2 records) is drafted on a separate branch and changes nothing here.
+
+Amendment 1 is a design change under its own independent review; it adopts nothing beyond the quoted decision and authorizes no merge, dispatch, freeze or trial.
+
 ***
 
 ## 1. Notation and symbols
@@ -457,8 +493,7 @@ later stages.
 Op B and op C rebuild the site anchors in memory from the record and pin objects, by the same
 derivation as op A; they do not re-run op A's replay.
 
-Sources: E-058, V1-035. Controls: none (no control checks the stage order directly; X1 and R6.OUT.9's
-precedence depend on it).
+Sources: E-058, V1-035. Controls: PIPE-STAGES.
 
 **R6.PIPE.2** Operations. The tool has four operations, which share the code paths of the pipeline
 stages:
@@ -490,7 +525,7 @@ Sources: V1-068. Controls: X3, X4, X5.
 containing the invocation directory. `git rev-parse --git-dir` must succeed in it; otherwise the run
 ends with ERROR `UNRESOLVABLE`. This safeguard is preserved from v1 and is confirmed at adoption
 (RD-15).
-Sources: V1-017. Controls: none.
+Sources: V1-017. Controls: PIPE-REPO.
 
 **R6.PIPE.5** Role commits. Every role commit is given as an explicit full 40-hex id (R6.NOTE.9), and
 every read is a read of `(commit, path)` through the verified object reader (sec. 11). No role is
@@ -505,20 +540,20 @@ at the named commit, and consecutive endpoints are equal; a broken chain is an i
 (R6.OUT.5). With no `--segment`, op B uses one segment from the pin to the named commit: it is of kind `hp`
 when an HP obligation of the configuration names it (as in RT-H0), and unledgered otherwise (OD-25;
 B-13).
-Sources: V1-022, V1-036, V1-069. Controls: none.
+Sources: V1-022, V1-036, V1-069. Controls: PIPE-CHAIN.
 
 **R6.PIPE.7** Site state across segments. A site's state is carried between segments: `resolved`
 (current file, byte span and bytes) or `unresolved` (with the segment in which it became so). An
 unresolved site stays unresolved in later segments, and its item is carried forward with its origin
 segment in the item's `segment` field. An HP site resumes tracking as sec. 5 states.
-Sources: V1-038. Controls: none.
+Sources: V1-038. Controls: PIPE-UNRESOLVED.
 
 **R6.PIPE.8** Prior endpoint. The prior endpoint is the `FROM` of the last segment; no flag names it.
 `pre_existing` on a hit or item is computed by the same scan at the prior endpoint. It is reporting
 only: a caller that wants "new since the prior endpoint" reads `items[*].pre_existing` from
 `result.json`, and the exit status still reports every item (R6.OUT.17). This is to be confirmed by
 the conformance check of OD-25.
-Sources: V1-024. Controls: none.
+Sources: V1-024. Controls: PIPE-PRIOR.
 
 **R6.PIPE.9** Op A integrity. Op A first resolves the pin and the record commit and checks `R`'s tree
 id and the pins. A pin that is not the recorded pin is ERROR `PIN_MISMATCH`; a record tree that is not
@@ -630,7 +665,7 @@ Sources: V1-042, V1-043, V2-005. Controls: RT-A.
 substring of the pin line, and the override is bound to the site id, so it is never searched for later.
 A failed check is recorded in `record_checks.pin_findings` and makes op A FAIL `record-invalid`
 (R6.OUT.27), pending the check of what the code emits (RD-27).
-Sources: V1-046. Controls: none.
+Sources: V1-046. Controls: ANCH-OVERRIDE.
 
 **R6.ANCH.9** File conformance first. For each file a ledgered segment touches, the expected `TO` file
 is rebuilt from `FROM` and the file's splices, applied in ascending `start`. If `TO`'s blob differs, the
@@ -738,7 +773,7 @@ Sources: V2-020, RV-026. Controls: N1, S11-12.
 (for A1, sec. 27). The engine contains no merge ids. The tool cross-checks each pinned merge against
 the pull-request number in its subject, and never resolves a merge from subject text. A pinned merge whose subject names another pull-request
 number is ERROR `CONFIG_INVALID`, detected before any subject is evaluated (RE-31).
-Sources: E-064, RV-020, V2-036. Controls: none.
+Sources: E-064, RV-020, V2-036. Controls: HP-MERGE-PR.
 
 **R6.HP.2** Region walk. For a site, the region is a block of whole lines. For each first-parent
 commit `c` with parent `p` in `E..H`, in order, the region is updated as follows.
@@ -804,7 +839,7 @@ Sources: E-068, V2-035. Controls: H6, H7.
 **R6.HP.5** `semantic_classification` is the reviewer's judgement of what the text means. Provenance
 shows where the text came from; the tool checks only that the classification is present and
 fingerprinted.
-Sources: V2-041. Controls: none.
+Sources: V2-041. Controls: HP-SEMCLASS.
 
 **R6.HP.6** Walk recomputation. The tool recomputes the walk of R6.HP.2 and compares it with the
 record. The result is:
@@ -873,7 +908,7 @@ Sources: E-075, RV-011. Controls: RT-H0.
 or `--classify` and admitted under the ownership chain and record lint of sec. 11; a record that fails
 its schema is FAIL `record-invalid` (R6.OUT.5). A record resolves a site only when every fingerprint it
 carries matches exactly.
-Sources: V1-023. Controls: none.
+Sources: V1-023. Controls: HP-RECORDS.
 
 ***
 
@@ -951,7 +986,7 @@ Sources: E-082, RV-013. Controls: K10.
 **R6.CTX.8** Indicators. All four indicators are computed on the site's pin line at `E`. They were
 preregistered at S0 with the definitions of R6.CTX.9, which are part of the A1 configuration
 (sec. 27). A change to any of them is a configuration change and is widening (sec. 25).
-Sources: E-083. Controls: none.
+Sources: E-083. Controls: CTX-INDICATOR.
 
 **R6.CTX.9** Indicator definitions.
 
@@ -1187,7 +1222,7 @@ Sources: E-098. Controls: TR45-opB.
 **R6.OUT.16** Frozen code. Every call into frozen code in op A is wrapped. An exception becomes a
 structured INTERNAL or ERROR with its class and message. The frozen `main()` is never called, so its
 line-523 `TypeError` cannot be reached.
-Sources: E-105. Controls: none.
+Sources: E-105. Controls: OUT-FROZEN.
 
 **R6.OUT.17** Flags and REVIEW_REQUIRED (R7, V3). No flag converts REVIEW_REQUIRED to PASS, no warning
 turns a failure into a pass, and no flag lowers the bar. A run of op B or op D names the plan check it
@@ -1308,7 +1343,7 @@ the subject id and kind; the anchor and its hashes; the provenance chain (segmen
 reconciliation id); the rule id and rule blob hash, or null; each matcher's result; the resulting
 state; and, for REVIEW_REQUIRED, `resolution_needed`: the record kind and the fields a reviewer must
 supply. The explanation is part of the JSON Schema.
-Sources: E-109, V2-066. Controls: none.
+Sources: E-109, V2-066. Controls: S7-schema-and-checker, OUT-EXPLAIN.
 
 **R6.OUT.23** Outcome function and independent checker (S7). The outcome is a pure function of
 `preflight`, `record_checks` and `items`: VOID if a preflight control failed; otherwise FAIL if
@@ -1336,7 +1371,7 @@ Sources: V2-042. Controls: RT-H0, RT-T0, H5, RT-C.
 
 **R6.OUT.25** Adapter inputs. The blob hash of every input an adapter reads (for A1, the Phase-0 and
 Phase-2 record directories at the record commit) is recorded in the result's `adapters` list.
-Sources: V1-020. Controls: none.
+Sources: V1-020. Controls: OUT-ADAPTERS.
 
 **R6.OUT.26** Tool identity. Each result names `T`, every tool blob and the engine hash, so that results
 from a defective version are identifiable after a forward fix.
@@ -1350,7 +1385,7 @@ Sources: V1-033. Controls: S11-2c, M7, M8.
 
 **R6.OUT.28** Every hit is listed; nothing is truncated. This safeguard is preserved from v1 and is
 confirmed at adoption (RD-15).
-Sources: V1-067. Controls: none.
+Sources: V1-067. Controls: OUT-NOTRUNC.
 
 ***
 
@@ -1407,15 +1442,9 @@ Statements that no control can test (status, definitions, purpose, non-goals, sc
 traceability): R6.STAT.1 to R6.STAT.9, R6.NOTE.1 to R6.NOTE.8, R6.NOTE.11 to R6.NOTE.13, R6.PUR.1,
 R6.PUR.2, R6.PUR.5, R6.PUR.6, R6.PUR.7, R6.PUR.10, R6.PIPE.12, R6.CTX.1 and R6.SPLIT.2. The requirement list gives each its kind and its verification (review, or the OBL ids that carry it); the correspondence check exempts them from naming a control (R6.GATE.12; RE-11 (a)).
 
-Testable requirements with no control in the expectation file; each needs a control row before r6 is final, and each is a named blocker on the correspondence check (rows added by r6 for R6.PUR.12, R6.ANCH.10, R6.ANCH.12, R6.ANCH.15, R6.HP.7, R6.OUT.7 and R6.OUT.20 are named in those requirements):
+Testable requirements that named no control in the adopted expectation file name one by amendment 1 (sec. 0.2, B1): R6.PIPE.1 (stage order) PIPE-STAGES; R6.PIPE.4 (`--repo`) PIPE-REPO; R6.PIPE.6 (segment chain and default segment) PIPE-CHAIN; R6.PIPE.7 (state carried across segments) PIPE-UNRESOLVED; R6.PIPE.8 (prior endpoint) PIPE-PRIOR; R6.ANCH.8 (override anchors; RD-27) ANCH-OVERRIDE; R6.HP.1 (merge cross-check) HP-MERGE-PR; R6.HP.5 (presence of `semantic_classification`) HP-SEMCLASS; R6.HP.14 (supply of HP records) HP-RECORDS; R6.CTX.8 (indicator change is widening) CTX-INDICATOR; R6.OUT.16 (frozen-code wrapping) OUT-FROZEN; R6.OUT.22 (explanation) S7-schema-and-checker and OUT-EXPLAIN; R6.OUT.25 (adapter input hashes) OUT-ADAPTERS; R6.OUT.28 (no truncation; RD-15) OUT-NOTRUNC. Rows added by r6 for R6.PUR.12, R6.ANCH.10, R6.ANCH.12, R6.ANCH.15, R6.HP.7, R6.OUT.7 and R6.OUT.20 are named in those requirements. Still covered only in part:
 
-- R6.PIPE.1 (stage order), R6.PIPE.4 (`--repo`), R6.PIPE.6 (segment chain and default segment),
-  R6.PIPE.7 (state carried across segments), R6.PIPE.8 (prior endpoint), R6.PIPE.15 (only partly: CLASS-RETAINED tests `retained-changed`; `ignored_fields` and the unknown schema id have no control);
-- R6.ANCH.8 (override anchors; RD-27);
-- R6.HP.1 (merge cross-check), R6.HP.5 (presence of `semantic_classification`), R6.HP.14 (supply of HP records);
-- R6.CTX.8 (indicator change is widening);
-- R6.OUT.16 (frozen-code wrapping), R6.OUT.22 (explanation),
-  R6.OUT.25 (adapter input hashes), R6.OUT.28 (no truncation; RD-15);
+- R6.PIPE.15 (CLASS-RETAINED tests `retained-changed`; `ignored_fields` and the unknown schema id have no control);
 - R6.SPLIT.3 (conformance check, OD-23; a reading check, not a control).
 
 Requirements whose controls cover only part of the statement: R6.OUT.4 (EI6 does not assert the
@@ -1981,7 +2010,7 @@ the workflow that the configuration at `F` pins, in the repository it names:
 No command-line option, environment value or other configuration field sets `tool` or
 `repository_id`; they are read only from the configuration at `F`.
 Confirmed by owner decision 1 of 2026-11-25 (#1169 comment 7166844576; sec. 0.1) as necessary for reliable verification.
-Sources: E-147, E-148, E-149, E-150, E-155. Controls: TR14, TR14-tool, TR15, TR28-tool, TR28-consumer,
+Sources: E-147, E-148, E-149, E-150, E-155. Controls: TR14, TR14-tool, TR15, TR28-tool, TR28-consumer, TR28,
 TR29, TR29-tool, TR30, TR48, TR50, TR51, TR52, EI1, EI2, EI2-consumer, EI3, EI5, EI14.
 
 **R6.REC.19** **The pre-run pin check.** The first step after the checkout and the fetch of `F`,
@@ -2609,7 +2638,10 @@ Sources: A-130, E-1080, RD-4, RD-32. Controls: GATE-12, GATE-17, GATE-26.
     alternatives.
 - **`sites`.** A list of `{subject, ...fields}` that must hold for the named site or subject.
 - **`invariants`.** A list of single-key objects from the closed vocabulary listed in the annex to this
-  section (16.10). An unknown key makes the file invalid.
+  section (16.10). An unknown key makes the file invalid. An object may hold several keys when every
+  key is in the vocabulary and their combined meaning is unambiguous (a key such as `all`, `condition`,
+  `arm` or `each_listed_line` with its companion `have`, `holds`, `equals`, `has` or `reason`); it
+  counts as one condition (amendment 1, B5).
 - **`gate_findings_include`** and **`gate_findings_exact`.** For the gate's own controls: the gate
   findings (R6.GATE.9) the self-test run must include, or must equal exactly.
 - **`cases`.** A list of case expectations, each with `case`. A list of names means each named case
@@ -2991,7 +3023,10 @@ A row outside the scope that has no second direction records `scope: "outside"` 
 mutant rows and the gate's own controls are outside the rule by their namespace. At the final
 expectation file, of 420 control rows 267 are in scope and 153 outside; 223 rows carry a `restored`
 expectation, 41 declare direction `both`, 6 name `paired_with` and 3 are exempt as observations;
-42 rows in scope record no second direction (`direction-missing`), and 217 rows are flagged VD-RESTORE.
+42 rows in scope recorded no second direction (`direction-missing`), and 217 rows are flagged VD-RESTORE.
+Amendment 1 (sec. 0.2) records a second direction on each of those 42 rows (35 by a `restored`
+expectation, N10 and N11 by `paired_with`, RT-L, RT-L2, RT-X, TT8 and TT13 by direction `both`) and adds
+14 rows, each with a second direction; no row in scope records no second direction.
 Sources: V1-101, V2-073, V1-138, Q7, RE-2, RE-3, RE-4, Q11. Controls: A11r, M1, N1, GATE-27.
 
 **R6.CTRL.4** Each expected FAIL names the class of sec. 15 that produces it; a FAIL expectation
@@ -3187,7 +3222,7 @@ is X1. GV4 includes the HP-merge case; EI6 includes its third case and the `json
 admission only.
 Confirmed by owner decision 1 of 2026-11-25 (#1169 comment 7166844576; sec. 0.1) as necessary for reliable verification.
 Sources: E-1162, E-1163, E-1164, E-1224, E-1225, E-1226, E-1227, E-1228, E-1229, E-1165, E-1166, E-1167, E-1168, E-1169, E-1170, E-1171, E-1172, E-1173, E-1174, E-1207, V2-096, V2-097, E-1208, E-1209, E-1210, E-1211, E-1212, E-1213, E-1214, E-1215, E-1216, E-1217, E-1219, E-1220, E-1221, E-1222, E-1223, E-1246, E-1247, E-1248, E-1249, E-1250, E-1251, E-1252, E-1253, E-1254, E-1255, E-1256, E-1257, E-1258, E-1259, E-1260, E-1261, E-1262, E-1263, E-1264, E-1265, E-1266, E-1267, V1-116. Controls: G1, G2, G3, G4, G5, G6, G7, G8, G9, G-A1, ACCEPT-SCHEMA, B4-MEANING, S7-schema-and-checker, X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11,
-ADM-CONFIG-AT-F, CHAIN-REFUSAL, CONFIG-LINT, EI1, EI2, EI2-consumer, EI3, EI4, EI5, EI6, EI7, EI7-consumer, EI7-tool, EI8, EI9, EI10, EI11, EI12, EI13, EI14, EI14-dispatch, EI15, GV1, GV2, GV3, GV4, GV5, GV6, GV6-disk, GV7, GV7-consumer, GV7-tool, GV-CACHE, GV-CACHE-AFTER-READ, GV-CACHE-IMMUTABLE, GV-CACHE-KEY, K1-GRAPH, O3-FILTER, TR1, TR2, TR3, TR5, TR5-sim, TR13, TR14, TR14-tool, TR15, TR15-consumer, TR28-consumer, TR28-tool, TR29, TR29-tool, TR30, TR45-opB, TR45-opC, TR46, TR48, TR50, TR50-consumer, TR51, TR51-consumer, TR52, TR52-consumer.
+ADM-CONFIG-AT-F, CHAIN-REFUSAL, CONFIG-LINT, EI1, EI2, EI2-consumer, EI3, EI4, EI5, EI6, EI7, EI7-consumer, EI7-tool, EI8, EI9, EI10, EI11, EI12, EI13, EI14, EI14-dispatch, EI15, GV1, GV2, GV3, GV4, GV5, GV6, GV6-disk, GV7, GV7-consumer, GV7-tool, GV-CACHE, GV-CACHE-AFTER-READ, GV-CACHE-IMMUTABLE, GV-CACHE-KEY, K1-GRAPH, O3-FILTER, TR1, TR2, TR3, TR5, TR5-sim, TR13, TR14, TR14-tool, TR15, TR15-consumer, TR28-consumer, TR28-tool, TR28, TR29, TR29-tool, TR30, TR45-opB, TR45-opC, TR46, TR48, TR50, TR50-consumer, TR51, TR51-consumer, TR52, TR52-consumer.
 
 **R6.CTRL.24** The plan-mapping controls are S11-1 to S11-14 (S11-2 composed of S11-2a, S11-2b and
 S11-2c) and the per-edit controls S11-56, S11-57a-d, S11-58a-f and S11-58g-k. S11-56 tests the tool's
@@ -3434,13 +3469,13 @@ row with a recorded restored case. Kind: `decl` declarative, `proc` procedural.
 | RT-H0 | R6.HP.2, R6.HP.6, R6.HP.13, R6.OUT.24, R6.CLASS.4, R6.CTRL.19, R6.TREE.16, R6.A1CFG.4, R6.EVID.4 | a1_controls.py:235 | decl | adv | `coverage --commit H`, no HP records |
 | RT-I7 | R6.CLASS.5, R6.CTRL.19, R6.CTRL.29, R6.PLAN.8, R6.A1CFG.7, R6.EVID.4, R6.EVID.8 | a1_controls.py:327 | decl | adv | `terms --commit X_rep --profile item7-literal` (R6.EVID.8); the same at H |
 | RT-I7A | R6.CTRL.19, R6.PLAN.8, R6.PLAN.18, R6.A1CFG.7, R6.EVID.4, R6.EVID.8 | a1_controls.py:342 | decl | adv | the proposed item-7 amendment check (sec. 18, item 7) at H and at `X_rep` (R6.EVID.8), no records |
-| RT-L | R6.CTRL.19, R6.PLAN.15, R6.TREE.12, R6.TREE.15 | a1_controls.py:930 | decl | pos | real objects: an in-memory landing with parents (W, `T1'`), built by the composition rule and never committed |
-| RT-L2 | R6.GATE.15, R6.GATE.16, R6.CTRL.5, R6.CTRL.19, R6.TREE.15, R6.RECON.20, R6.RECON.21, R6.EVID.6, R6.EVID.8 | a1_controls.py:976 | proc | pos | before the tool lands: as RT-L, at `X` = `C` = `X_rep` (R6.EVID.8), with `--main` set to the predicted `M` (a pinned `main` commit `M0` plus the tool's landing paths, R6.RECON.21) and the reviewed reconciliation record named from a commit outside those paths |
+| RT-L | R6.CTRL.19, R6.PLAN.15, R6.TREE.12, R6.TREE.15 | a1_controls.py:930 | decl | both | real objects: an in-memory landing with parents (W, `T1'`), built by the composition rule and never committed |
+| RT-L2 | R6.GATE.15, R6.GATE.16, R6.CTRL.5, R6.CTRL.19, R6.TREE.15, R6.RECON.20, R6.RECON.21, R6.EVID.6, R6.EVID.8 | a1_controls.py:976 | proc | both | before the tool lands: as RT-L, at `X` = `C` = `X_rep` (R6.EVID.8), with `--main` set to the predicted `M` (a pinned `main` commit `M0` plus the tool's landing paths, R6.RECON.21) and the reviewed reconciliation record named from a commit outside those paths |
 | RT-O9 | R6.GATE.15, R6.CTRL.17, R6.CTRL.19, R6.RDIR.12, R6.RDIR.14 | a1_controls.py:1025 | proc | pos | the predicted `M`: `main` plus the tool landing plus the plan's record directory as it stands at the stand-in `F` |
 | RT-O9-L2 | R6.GATE.15, R6.CTRL.5, R6.CTRL.17, R6.CTRL.19, R6.RDIR.14, R6.RECON.21, R6.EVID.8 | a1_controls.py (split from RT-O9) | proc | pos | the dependent clause of RT-O9: RT-L2 on the same predicted `M` plus the record directory of a representative stand-in `F` (the pinned ledger, edit list and configuration instance), at `X_rep` (R6.EVID.8) |
 | RT-T | R6.HIT.5, R6.HIT.6, R6.GATE.15, R6.CTRL.5, R6.CTRL.19, R6.PLAN.4, R6.EVID.8 | a1_controls.py:271 | decl | pos | RT-T0 with every reviewed record of sec. 14, at `X_rep` built from `F`'s ledger (R6.EVID.8) |
 | RT-T0 | R6.HP.3, R6.HP.9, R6.HP.10, R6.HP.11, R6.OUT.24, R6.HIT.3, R6.HIT.6, R6.CLASS.4, R6.CTRL.11, R6.CTRL.19, R6.CTRL.29, R6.PLAN.4, R6.A1CFG.4, R6.A1CFG.6, R6.EVID.4, R6.EVID.8 | a1_controls.py:262 | decl | adv | `coverage` at `X = X_rep` (R6.EVID.8), no records; the `T1'` measurement in `reference` |
-| RT-X | R6.CTRL.19, R6.TREE.6 | a1_controls.py:921 | decl | pos | real objects: `--scientific-base H --main W --candidate T1'` |
+| RT-X | R6.CTRL.19, R6.TREE.6 | a1_controls.py:921 | decl | both | real objects: `--scientific-base H --main W --candidate T1'` |
 | SW1 | R6.ANCH.17, R6.CTRL.11, R6.CTRL.19, R6.CTRL.29, R6.EVID.4 | a1_controls.py:1240 | proc | adv | per-site sweep at E: each of the 697 sites, one token deleted |
 | SW2 | R6.HP.8, R6.HP.9, R6.CTRL.19, R6.EVID.4 | a1_controls.py:1238 | proc | adv | per-site sweep at H: each of the 584 sites, one token deleted (segments E..H `hp`, H..X unledgered) |
 | item11-T1p | R6.CTRL.19, R6.CTRL.29, R6.PLAN.12, R6.EVID.4 | a1_controls.py:396 | decl | adv | item 11 run with `--final` at T1', no records; candidate evidence for the landing decision only (exact trial tree, OBL-23) |
@@ -3460,12 +3495,12 @@ row with a recorded restored case. Kind: `decl` declarative, `proc` procedural.
 | TT5 | R6.OUT.5, R6.CTRL.20, R6.TREE.1, R6.TREE.2, R6.TREE.3, R6.VALID.3 | controls_engine.py:526 | decl | adv | ledger `base` not equal to `--scientific-base` (was R5) |
 | TT6 | R6.OUT.5, R6.CTRL.20, R6.TREE.1, R6.TREE.4 | controls_engine.py:532 | decl | adv | `M` not descending from `H` (was R6) |
 | TT7 | R6.CLASS.10, R6.CTRL.20, R6.CTRL.29, R6.TREE.7, R6.TREE.12, R6.TREE.16, R6.TREE.17 | controls_engine.py:539 | decl | adv | `M` changes a ledgered file outside the splices; no reconciliation record (was R7) |
-| TT8 | R6.CTRL.20, R6.CTRL.29, R6.TREE.12, R6.TREE.13, R6.RECON.18 | controls_engine.py:542 | decl | pos | TT7 with a reviewed reconciliation record meeting RC1-RC13 whose `l` equals the computed composition (was R8) |
+| TT8 | R6.CTRL.20, R6.CTRL.29, R6.TREE.12, R6.TREE.13, R6.RECON.18 | controls_engine.py:542 | decl | both | TT7 with a reviewed reconciliation record meeting RC1-RC13 whose `l` equals the computed composition (was R8) |
 | TT9 | R6.CLASS.10, R6.CTRL.20, R6.TREE.11 | controls_engine.py:550 | decl | adv | `L` with its parents swapped (was R9) |
 | TT10 | R6.CLASS.10, R6.CTRL.20, R6.TREE.12 | controls_engine.py:552 | decl | adv | `L` that drops `M`'s workflow change (carries `H`'s copy) (was R10) |
 | TT11 | R6.CLASS.10, R6.CTRL.20, R6.TREE.12, R6.TREE.14 | controls_engine.py:554 | decl | adv | `L` with one extra word in an unledgered file (was R11) |
 | TT12 | R6.CTRL.20, R6.CTRL.28, R6.CTRL.29, R6.TREE.14 | controls_engine.py:556 | decl | adv | `L` that loses one splice of `X` (was R12) |
-| TT13 | R6.CTRL.20, R6.PLACE.8, R6.TREE.5, R6.TREE.18 | controls_engine.py:559 | decl | pos | `M` contains the tool's own landing (`tools/` and the audit directory only) (was R13) |
+| TT13 | R6.CTRL.20, R6.PLACE.8, R6.TREE.5, R6.TREE.18 | controls_engine.py:559 | decl | both | `M` contains the tool's own landing (`tools/` and the audit directory only) (was R13) |
 | TT14 | R6.CTRL.20, R6.PLACE.8, R6.TREE.7 | controls_engine.py:563 | decl | adv | the tool's landing touches a ledgered path (was R14) |
 | N1 | R6.ANCH.19, R6.REC.15, R6.CLASS.7, R6.CTRL.3, R6.CTRL.21 | controls_engine.py:574 | decl | adv +restored | a PIN_OK entry dated after `F` |
 | N2 | R6.REC.4, R6.CTRL.21, R6.TREE.16, R6.RECON.2, R6.RECON.3 | controls_engine.py:577 | decl | adv | a reconciliation record that changes a decision on `X` |
@@ -3743,6 +3778,20 @@ row with a recorded restored case. Kind: `decl` declarative, `proc` procedural.
 | LC-7 | R6.TREE.12 | to be implemented (tool revision) | decl | adv | composition case "derived artifact": a derived artifact changed on both sides; REVIEW_REQUIRED for every candidate `L` until LC-7's cases are restated by an owner-approved expectation change (R6.TREE.19; expected landing blob open, RE-18, OC-4) |
 | DELEG-REGEN | R6.DELEG.3, R6.CLASS.9 | to be implemented (tool revision) | proc | both | a re-executed generator in its own clone under `--out`: equal output, one-byte difference, missing output, timeout, extra write, and an evaluated tree whose checker copy accepts anything (Q13) |
 | REP-BUILD | R6.EVID.8 | to be implemented (tool revision) | decl | both | the representative candidate `X_rep` built from `H`, the pinned ledger and edit list and the configuration's control instance, twice with equal ids; a ledger with one splice changed by one byte; a builder importing the engine (R6.EVID.8) |
+| PIPE-STAGES | R6.PIPE.1 | to be implemented (tool revision) | decl | adv | two faults of different stages planted at once: usage with integrity, integrity with a failing preflight control, a failing preflight control with a deny match; the earlier stage decides and no later stage runs (amendment 1, B1) |
+| PIPE-REPO | R6.PIPE.4 | to be implemented (tool revision) | decl | adv | `--repo` naming an existing directory that is not a git repository (amendment 1, B1) |
+| PIPE-CHAIN | R6.PIPE.6 | to be implemented (tool revision) | decl | both | a broken segment chain (consecutive endpoints differ; a chain not ending at the named commit) is an integrity ERROR with `result.json` (C-12); with no `--segment`, the default segment is of kind `hp` where an HP obligation names it, else unledgered (amendment 1, B1) |
+| PIPE-UNRESOLVED | R6.PIPE.7 | to be implemented (tool revision) | decl | adv | a site removed without a splice in the first of two unledgered segments and untouched in the second: it stays unresolved and its item carries the first segment (amendment 1, B1) |
+| PIPE-PRIOR | R6.PIPE.8 | to be implemented (tool revision) | decl | both | `pre_existing` computed at the prior endpoint (the last segment's FROM): true for a hit already there, false for a new hit; the exit status reports every item either way (amendment 1, B1) |
+| ANCH-OVERRIDE | R6.ANCH.8 | to be implemented (tool revision) | decl | both | an override anchor checked once, at the pin: an anchor that is not a substring of the pin line FAILs `record-invalid` through `record_checks.pin_findings`; a valid anchor is not searched again (amendment 1, B1) |
+| HP-MERGE-PR | R6.HP.1 | to be implemented (tool revision) | decl | adv | a configuration (control harness) pinning an HP merge whose subject names a different pull-request number: ERROR `CONFIG_INVALID` before any subject is evaluated (amendment 1, B1) |
+| HP-SEMCLASS | R6.HP.5 | to be implemented (tool revision) | decl | adv | an HP adjudication entry without `semantic_classification` (amendment 1, B1) |
+| HP-RECORDS | R6.HP.14 | to be implemented (tool revision) | decl | adv | HP records enter through `--hp` or `--classify` under sec. 11: a schema-invalid record and an unreferenced record are `record-invalid`; a record resolves a site only when every fingerprint matches (amendment 1, B1) |
+| CTX-INDICATOR | R6.CTX.8 | to be implemented (tool revision) | decl | adv | a configuration whose definition of one meaning-context indicator differs from the configuration it supersedes, without a widening review (widening, R6.CFG.7; ERROR `CONFIG_UNREVIEWED`, R6.VALID.3) (amendment 1, B1) |
+| OUT-FROZEN | R6.OUT.16 | to be implemented (tool revision) | decl | adv | an exception injected into a frozen-code call of op A becomes a structured INTERNAL with its class and stage; the frozen `main()` is never called (amendment 1, B1) |
+| OUT-EXPLAIN | R6.OUT.22 | to be implemented (tool revision) | proc | both | every subject carries an explanation with the fields of R6.OUT.22, its values checked against the run's inputs; a result missing one fails schema validation (the schema part is also tested by S7-schema-and-checker) (amendment 1, B1) |
+| OUT-ADAPTERS | R6.OUT.25 | to be implemented (tool revision) | decl | both | the blob hash of every input an adapter reads is listed in `adapters`; changing one input changes exactly its entry (amendment 1, B1) |
+| OUT-NOTRUNC | R6.OUT.28 | to be implemented (tool revision) | decl | both | every hit is listed: 5000 hit lines give 5000 items; one fewer gives 4999 (amendment 1, B1) |
 
 **Table 17.2. Record-directory mutants** (set `o9`; each row names the change and the controls
 that distinguish it; the results on the correct implementation and on the mutant are in the
@@ -5498,8 +5547,9 @@ Discharged by: each row recorded and holding under the gate. Sources: RD-26, RD-
 R6.CTRL.3 runs in both directions. Each such control whose second direction is not recorded, or
 whose stated restored case or paired row is not executed, is a verification defect until its second
 direction is recorded and holds. At the final expectation file 217 rows are flagged VD-RESTORE, derived
-mechanically from the per-row decisions of R6.CTRL.3 (42 of them record no second direction and are
-reported as `direction-missing`). Gates: the tool's landing. Discharged by: a recorded and executed
+mechanically from the per-row decisions of R6.CTRL.3 (42 of them recorded no second direction and were
+reported as `direction-missing`; amendment 1 records one on each, so their remaining defect is the
+execution of the recorded case). Gates: the tool's landing. Discharged by: a recorded and executed
 second direction on every such row, holding under the gate.
 Sources: Q7, RD-8, RE-2, RE-3, Q11.
 

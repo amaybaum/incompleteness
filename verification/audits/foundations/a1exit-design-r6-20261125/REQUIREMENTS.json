@@ -687,7 +687,9 @@
    "E-058",
    "V1-035"
   ],
-  "controls": [],
+  "controls": [
+   "PIPE-STAGES"
+  ],
   "verification": [
    "controls"
   ],
@@ -747,7 +749,9 @@
   "sources": [
    "V1-017"
   ],
-  "controls": [],
+  "controls": [
+   "PIPE-REPO"
+  ],
   "verification": [
    "controls"
   ],
@@ -783,7 +787,9 @@
    "V1-036",
    "V1-069"
   ],
-  "controls": [],
+  "controls": [
+   "PIPE-CHAIN"
+  ],
   "verification": [
    "controls"
   ],
@@ -799,7 +805,9 @@
   "sources": [
    "V1-038"
   ],
-  "controls": [],
+  "controls": [
+   "PIPE-UNRESOLVED"
+  ],
   "verification": [
    "controls"
   ],
@@ -815,7 +823,9 @@
   "sources": [
    "V1-024"
   ],
-  "controls": [],
+  "controls": [
+   "PIPE-PRIOR"
+  ],
   "verification": [
    "controls"
   ],
@@ -1097,7 +1107,9 @@
   "sources": [
    "V1-046"
   ],
-  "controls": [],
+  "controls": [
+   "ANCH-OVERRIDE"
+  ],
   "verification": [
    "controls"
   ],
@@ -1360,7 +1372,9 @@
    "RV-020",
    "V2-036"
   ],
-  "controls": [],
+  "controls": [
+   "HP-MERGE-PR"
+  ],
   "verification": [
    "controls"
   ],
@@ -1437,7 +1451,9 @@
   "sources": [
    "V2-041"
   ],
-  "controls": [],
+  "controls": [
+   "HP-SEMCLASS"
+  ],
   "verification": [
    "controls"
   ],
@@ -1611,7 +1627,9 @@
   "sources": [
    "V1-023"
   ],
-  "controls": [],
+  "controls": [
+   "HP-RECORDS"
+  ],
   "verification": [
    "controls"
   ],
@@ -1786,7 +1804,9 @@
   "sources": [
    "E-083"
   ],
-  "controls": [],
+  "controls": [
+   "CTX-INDICATOR"
+  ],
   "verification": [
    "controls"
   ],
@@ -2261,7 +2281,9 @@
   "sources": [
    "E-105"
   ],
-  "controls": [],
+  "controls": [
+   "OUT-FROZEN"
+  ],
   "verification": [
    "controls"
   ],
@@ -2397,7 +2419,10 @@
    "E-109",
    "V2-066"
   ],
-  "controls": [],
+  "controls": [
+   "S7-schema-and-checker",
+   "OUT-EXPLAIN"
+  ],
   "verification": [
    "controls"
   ],
@@ -2455,7 +2480,9 @@
   "sources": [
    "V1-020"
   ],
-  "controls": [],
+  "controls": [
+   "OUT-ADAPTERS"
+  ],
   "verification": [
    "controls"
   ],
@@ -2510,7 +2537,9 @@
   "sources": [
    "V1-067"
   ],
-  "controls": [],
+  "controls": [
+   "OUT-NOTRUNC"
+  ],
   "verification": [
    "controls"
   ],
@@ -3671,6 +3700,7 @@
    "TR15",
    "TR28-tool",
    "TR28-consumer",
+   "TR28",
    "TR29",
    "TR29-tool",
    "TR30",
@@ -6698,6 +6728,7 @@
    "TR15-consumer",
    "TR28-consumer",
    "TR28-tool",
+   "TR28",
    "TR29",
    "TR29-tool",
    "TR30",
