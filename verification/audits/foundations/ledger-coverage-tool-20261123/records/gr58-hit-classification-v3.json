@@ -1,0 +1,57 @@
+{
+ "schema": "oi-hit-classification/1",
+ "record_id": "gr58-v1",
+ "status": "UNREVIEWED DRAFT: prepared by the implementation writer; no independent review and no owner authorization exist. The tool does not admit it under the review chain. It supersedes the record at records/gr58-hit-classification-v2.json, which stays unchanged (same record_id); it changes only the reason of the ptr hit, which now says what ptr detects.",
+ "author": "implementation-writer-20261123",
+ "supersedes": {
+  "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/gr58-hit-classification-v2.json",
+  "blob_sha256": "28c5a5706605cabc5c7542ca3b9ad11f96151d3e8c829aa73b391420ecea54c1"
+ },
+ "statement": "This record classifies meaning only; the splice provenance of the line is recorded separately in the ledger.",
+ "classifications": [
+  {
+   "id": "GR-58",
+   "file": "papers/GR.md",
+   "line_sha256": "3a7c10986d047df3b55cd559344bd09de4634ef453ec64777fbdbd647a6e65f4",
+   "tree": "14ac71b4b0a0c0aa2d7068d6799a73f474097060",
+   "segment": "H..X",
+   "profiles": [
+    "p0-core",
+    "p0-para",
+    "ptr"
+   ],
+   "semantic_classification": "\"For a finite total system\" restricts the derivation to a finite total system as its stated scope; it states no finiteness posit and no premise about the substratum. \"uniform counting\" names the equal weighting of the configurations of the conserved energy shell, the counting that the derivation applies to the finite total system of its own scope clause; it gives P(i) as a ratio of hidden-sector counts within that scope. The equal weighting is an input of the derivation, used under that scope; the hit states no finiteness premise about the substratum. Whether the equal weighting is itself justified is a question of the measure selection, which this record does not classify. The second \"uniform counting\" states the result of the same derivation (Gibbs as the leading finite-bath marginal of that counting, \"classically\"); it carries the same scope and adds no premise. The finiteness the counting needs is stated in the line, by its scope clause and by the named hypothesis H-count, which also requires the total system to be finite; neither restores the posit. This record classifies the four profile hits listed under hits (character offsets in the line at the tree named) and no other text.",
+   "author": "implementation-writer-20261123",
+   "hits": [
+    {
+     "profile": "p0-core",
+     "pattern": "P2",
+     "offset": 85,
+     "text": "finite total system",
+     "reason": "\"For a finite total system\" restricts the derivation to a finite total system as its stated scope; it states no finiteness posit and no premise about the substratum."
+    },
+    {
+     "profile": "ptr",
+     "pattern": "",
+     "offset": 85,
+     "text": "finite total system",
+     "reason": "ptr is the plan checker's residual pointer scan (PTR in edits_check.py): it detects lines that still point at the retired posit, among them the P2 form 'finite total system'. Here the match is the same span as the p0-core hit: the scope clause restricts the derivation to a finite total system and points at no posit (the plan checker's own RESIDUAL_ALLOW lists this wording of GR.md for the same reason)."
+    },
+    {
+     "profile": "p0-para",
+     "pattern": "P7",
+     "offset": 262,
+     "text": "uniform counting",
+     "reason": "\"uniform counting\" names the equal weighting of the configurations of the conserved energy shell, the counting that the derivation applies to the finite total system of its own scope clause; it gives P(i) as a ratio of hidden-sector counts within that scope. The equal weighting is an input of the derivation, used under that scope; the hit states no finiteness premise about the substratum. Whether the equal weighting is itself justified is a question of the measure selection, which this record does not classify."
+    },
+    {
+     "profile": "p0-para",
+     "pattern": "P7",
+     "offset": 486,
+     "text": "uniform counting",
+     "reason": "The second \"uniform counting\" states the result of the same derivation (Gibbs as the leading finite-bath marginal of that counting, \"classically\"); it carries the same scope and adds no premise."
+    }
+   ]
+  }
+ ]
+}

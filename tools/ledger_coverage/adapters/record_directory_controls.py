@@ -558,7 +558,7 @@ def arm_text(workflow_path):
 
 EXPECTED_ARM = ('item2-coverage) exec python3 -I -S -B tools/ledger_coverage.py coverage "$@" --commit "$X" '
                 '--segment "$E..$H" --segment "$H..$X=$F:$D/ledger.json" --hp "$F:$D/hp.json" '
-                '--classify "$F:$A/records/gr58-hit-classification-v2.json" '
+                '--classify "$F:$A/records/gr58-hit-classification-v3.json" '
                 '--classify "$F:$D/context-adjudications.json" --classify "$F:$D/hit-classifications.json" ;;')
 
 
