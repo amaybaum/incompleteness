@@ -980,3 +980,94 @@ def bk_controls(r, check):
     check('REASSESS-FORM', "a cited reassessment's form, review and citation are checked; a failure keeps the block",
           'each case FAIL record-invalid for the reassessment and retirement-blocked; restored: neither', rf, ok,
           cases=rnames)
+
+
+# RECON-SCI (design r6 as amended by amendment 3: R6.RECON.25, R6.RECON.1), as op C runs through the post-freeze
+# route, so that the review-dependent cases are record lint at admission
+SCI_CORPUS_PY = 'doc/check.py'
+
+
+def sci_world(r):
+    """A World whose corpus also holds doc/*.py (an executed path), changed on main in its own commit."""
+    w = World(r, variant=lambda w_: {'extra': {'corpus': {'patterns': [r'^doc/[^/]+\.md$', r'^doc/[^/]+\.py$']}}})
+    w.M = w.repo.derive(w.M, {SCI_CORPUS_PY: b'print("synthetic check")\n'}, parents=[w.M], subject='executed path')
+    return w
+
+
+def sci_controls(r, check):
+    from ledger_coverage.adapters import recon_controls as rcc
+    SCI = rcc.SCI
+    res, names = {}, []
+
+    def run(name, w, docs, review=None, binding_path=None):
+        files = {}
+        for path, doc in docs:
+            data = jb(doc)
+            files[path] = data
+            files[path[:-5] + '.review.json'] = (review or w.review)(path, data)
+        rv = w.rev(files)
+        code, out = w.run(['%s:%s' % (rv, p) for p, _d in docs], harness=True)
+        bp = binding_path or docs[0][0]
+        bad = any(i['class'] == 'record-invalid' and (i.get('subject') == bp or
+                                                      str(i.get('subject', '')).startswith(bp + ':'))
+                  for i in (out or {}).get('items', []))
+        res[name] = {'exit': code, 'classes': classes(out), 'invalid': bad, 'admitted': admitted(out, bp),
+                     'why': [d for i in (out or {}).get('items', []) if i['class'] == 'record-invalid'
+                             and str(i.get('subject', '')).startswith(bp) for d in
+                             (i.get('detail') if isinstance(i.get('detail'), list) else [i.get('detail')])][:2]}
+        names.append((name, {'record': bp}))
+
+    def py_rec(w, eff):
+        d = rcmod.draft(w.repo, w.ctx, w.syn.H, w.M, w.X, w.led, SCI_CORPUS_PY, scientific_effect=eff)
+        d.update(record_id='syn-py', author=sf.WRITER, supersedes=None, M=w.M, X=w.X)
+        return d
+
+    def both(w, py_eff=None, doc_mut=None):
+        """The two drifted paths of sci_world, each with its own record (the ledgered one first)."""
+        a = w.record()
+        if doc_mut is not None:
+            doc_mut(a)
+        b = py_rec(w, py_eff or dict(CONTROL_EFFECT, method='control: the check re-run at the composed blob %s'
+                                     % _l_of(w)))
+        return [(RD + 'doc.json', a), (RD2 + 'py.json', b)]
+
+    w = sci_world(r)
+    run(SCI[0], w, both(w, doc_mut=lambda d: d['paths'][0].pop('scientific_effect', None)))
+    w = sci_world(r)
+    run(SCI[1], w, both(w, doc_mut=lambda d: d['paths'][0].update(
+        scientific_effect=dict(CONTROL_EFFECT, conclusions=['NO-SUCH-EDIT']))))
+    w = sci_world(r)
+    run(SCI[2], w, both(w, doc_mut=lambda d: d['paths'][0].update(scientific_effect=dict(CONTROL_EFFECT, method=''))))
+    w = sci_world(r)
+
+    def rejecting(path, data, reviewer=sf.REVIEWER):
+        doc = json.loads(data)
+        return jb({'schema': rec.review_schema, 'reviewer': reviewer, 'reviewed': {'path': path,
+                                                                                   'blob_sha256': sha(data)},
+                   'method': 'read every object the record names',
+                   'verdicts': [{'item': i, 'verdict': 'reject' if i.endswith(':scientific_effect') else 'accept'}
+                                for i in rec.item_ids(doc)]})
+    run(SCI[3], w, both(w), review=rejecting)
+    w = sci_world(r)
+    run(SCI[4], w, both(w), review=lambda p, d: w.review(p, d, reviewer=sf.WRITER))
+    w = sci_world(r)
+    run(SCI[5], w, both(w, doc_mut=lambda d: d['paths'][0]['scientific_effect'].pop('verdict')))
+    w = sci_world(r)
+    run(SCI[6], w, both(w, py_eff=dict(CONTROL_EFFECT, method='control: nothing re-run')),
+        binding_path=RD2 + 'py.json')
+    # restored: a valid entry of an unledgered corpus path whose conclusions name an edit id of another path
+    w = sci_world(r)
+    run('restored', w, both(w, py_eff=dict(CONTROL_EFFECT, conclusions=['E1'],
+                                           method='control: the check re-run at the composed blob %s' % _l_of(w))),
+        binding_path=RD2 + 'py.json')
+    neg = [k for k in res if k != 'restored']
+    ok = all(res[k]['exit'] == 20 and res[k]['invalid'] for k in neg) and res['restored']['admitted'] and \
+        not res['restored']['invalid']
+    check('RECON-SCI', "scientific verification is the reviewer's: the tool checks the form of each entry's "
+          'scientific_effect and its review', 'each case record-invalid for the record; restored admitted', res, ok,
+          cases=names)
+
+
+def _l_of(w):
+    """The composed blob l of the executed path at w's main (its bytes at M: an unledgered corpus path)."""
+    return w.repo.blob_id(w.M, SCI_CORPUS_PY)

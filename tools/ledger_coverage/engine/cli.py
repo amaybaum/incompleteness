@@ -1371,7 +1371,8 @@ def op_execution(a, repo, ctx, loaded, records, result, control=None):
         rp = cfg['adapters'].get('replay') or {}
         rdir = rp.get('module_path', '').rsplit('/', 1)[0] if rp else None
         ex.main_role(set(led['files']) | corp, rp.get('record_tree'), rdir)
-        items += [i for i in ex.items if i['obligation'] == 'MAIN' and i not in items]
+        # the main role's own items: MAIN, and RECORD for a record entry's form or RC12 (amendment 3)
+        items += [i for i in ex.items if i['obligation'] in ('MAIN', 'RECORD') and i not in items]
         items += category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, records)
         result['side_changes'] = ex.side_changes
         result['dispositions'] = getattr(ex, 'dispositions', [])

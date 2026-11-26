@@ -2636,7 +2636,9 @@ def main(out_root):
               # design amendments 3 and 4: the category-3 block
               ('RECON-BLOCK', lambda: pfc.block_controls(r, check)),
               # design amendment 4: the category-3 keying and the reassessment
-              ('BLOCK-KEY', lambda: pfc.bk_controls(r, check))]
+              ('BLOCK-KEY', lambda: pfc.bk_controls(r, check)),
+              # design amendment 3: the scientific effect, through the post-freeze route
+              ('RECON-SCI', lambda: pfc.sci_controls(r, check))]
     for name, fn in groups:
         try:
             got = fn()

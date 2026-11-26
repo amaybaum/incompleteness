@@ -203,23 +203,7 @@ def recon_controls(cap):
                if d_k1.get('category') == 1 and d_k1.get('disposition') == 'reconciled' else {})
     out['RECON-CATEGORY'] = ok
 
-    # RECON-SCI: the form of scientific_effect (the review-dependent cases are record lint at admission and are
-    # not built in-process)
-    sci = {}
-    for case, eff in ((SCI[0], None), (SCI[1], dict(EFFECT, conclusions=['NO-SUCH-EDIT'])),
-                      (SCI[2], dict(EFFECT, assessment='')),
-                      (SCI[5], dict(EFFECT, verdict='invalidates'))):
-        r_ = copy.deepcopy(base_rec)
-        if eff is None:
-            r_['paths'][0].pop('scientific_effect', None)
-        else:
-            r_['paths'][0]['scientific_effect'] = eff
-        d_ = w5.stage(restored_M, [r_], cap, case)
-        name_last(cap, case)
-        sci[case] = classes(d_)
-    out['RECON-SCI'] = False  # the review cases and the executed-path case are not built
-    out['_RECON-SCI'] = {'built': sci, 'built_cases_hold': all('record-invalid' in v for v in sci.values()),
-                         'not_built': [SCI[3], SCI[4], SCI[6]]}
+    # RECON-SCI runs as op C runs through the post-freeze route in postfreeze_controls.py
 
     # RECON-TRIAL and RECON-OVERLAP need the reconciled-state trial and resolutions, which this tool revision does
     # not implement yet: recorded FAIL with no evidence. RECON-BLOCK runs as op C runs in postfreeze_controls.py.
