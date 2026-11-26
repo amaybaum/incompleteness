@@ -1,6 +1,6 @@
 {
  "schema": "oi-obl29-custody-controls/draft",
- "status": "paper design c3, pending independent review and adoption. Each control is a specification; on adoption each would become an expectation row with runner null. 'kills' names the implementation mutation the control must detect (mutation-tested in principle); a residual control documents a limit and kills nothing. A paired control is two runs whose outcomes are compared. 'variant' tags a control with the variant of decision D-1 it tests (i, ii, both, or a paired run of both); a control tagged with an unadopted variant is dropped on adoption.",
+ "status": "paper design c4, pending independent review and adoption. Each control is a specification; on adoption each would become an expectation row with runner null. 'kills' names the implementation mutation the control must detect (mutation-tested in principle); a residual control documents a limit and kills nothing. A paired control is two runs whose outcomes are compared. 'variant' tags a control with the variant of decision D-1 it tests (i, ii, both, or a paired run of both); a control tagged with an unadopted variant is dropped on adoption.",
  "authority": "Owner decision (amaybaum, received 2026-11-26T19:52Z, coordinating session; #1169 comment 7202075726), item 5.",
  "base": "OBL-29 remedy r9 at 77a73c022091f598cf807fcf89d66c3cf43208de (adopted, #1601 comment 7197486426); drafting snapshot origin/main 84e927b9b7c2bcc8cb9624cb036167dae233e408.",
  "fixture": "Fixture: the r9 fixture (a configuration K frozen at F citing reassessment A, repair Q superseding P, finding f) with custody constants PATH and BOOT in record_authority.py. V0 is the bootstrap version at BOOT with base B0. Unless stated, the run is op C execution at effective M with a cited discharge of A whose every other condition holds, K's freeze has not landed (K is not in R*(M), has no receipt and no freeze entry), every custody version that adds entries has an accepting non-author review of every added item, and every regular mode named is 100644 or 100755.",
@@ -39,10 +39,26 @@
     "R6.CUST.5 (c2)",
     "R6.CUST.5 (c3)"
    ],
-   "setup": "Variant (i): a synthetic native V3 round with record directory R, its preregistration.md declaring R, and the discharge-bearing configuration K1 with the PREREG.md beside it under R/amendments/ (control-plane paths accepted by S2); the receipt R1 is built by tools/v3_receipt.py and lands with the round by a merge (landing.object L1). Paired with Variant (ii): an A1-layout freeze F1 of K1 (configuration and PREREG.md in the admitted record directory, R6.CFG.1), landed by the merge L1, with a reviewed entry {config:K1, f:F1, landing:L1, type:freeze}. In each, V1 extends V0 and appends {f:F1, runs:[{m:M1, rev:null}], type:close} at a commit descending from L1, with its R6.CUST.8 review; F1's landed result files record exactly the run (M1, null); replay of (F1, M1) qualifies no witness.",
+   "setup": "Variant (i): a synthetic native V3 round with record directory R, its preregistration.md declaring R, and the discharge-bearing configuration K1 with the PREREG.md beside it under R/amendments/ (control-plane paths accepted by S2); the receipt R1 is built by tools/v3_receipt.py and lands with the round by a merge (landing.object L1). Paired with Variant (ii): an A1-layout freeze F1 of K1 (configuration and PREREG.md in the admitted record directory, R6.CFG.1), landed by the merge L1, with a reviewed entry {config:K1, f:F1, landing:L1, type:freeze}. In each, V1 extends V0 and appends {f:F1, runs:[{m:M1, rev:null}], type:close} at a commit descending from L1, with its R6.CUST.8 review; the landing tree holds one run result <dir>/op-c-runs/1/result.json (schema oi-ledger-coverage/5, inputs.freeze F1, inputs.config.blob_sha256 of K1, roles.M M1, no classify_records); replay of (F1, M1) qualifies no witness.",
    "expected": {
     "outcome": "PASS",
-    "custody": "established"
+    "custody": "established",
+    "contexts": [
+     "F1"
+    ],
+    "runs": [
+     [
+      "M1",
+      null
+     ]
+    ],
+    "witnesses_from_custody": 0,
+    "invariants.not_class": [
+     "custody-unclosed",
+     "custody-runs-mismatch",
+     "custody-early-close",
+     "custody-unsupported"
+    ]
    },
    "kills": "a successor rule that rejects any appended entry, or a context derivation that admits nothing (the c2 PREREG.md-in-receipt rule)",
    "variant": "paired (i) and (ii)"
@@ -183,13 +199,27 @@
    "requirements": [
     "R6.CUST.2"
    ],
-   "setup": "Variants: V_M has a trailing newline; an unknown key; an entry type 'freeze' or 'clear'; a short commit id; a free-text field; a run without rev.",
+   "setup": "Variants: V_M has a trailing newline; an unknown key; an entry type 'clear'; a short commit id; a free-text field; a run without rev.",
    "expected": {
     "outcome": "FAIL",
     "item": "custody-schema"
    },
    "kills": "a lenient parser that ignores unknown keys or entry types, or accepts non-canonical bytes",
    "variant": "both"
+  },
+  {
+   "id": "CU-N2i",
+   "kind": "negative",
+   "variant": "i",
+   "requirements": [
+    "R6.CUST.2"
+   ],
+   "setup": "Under variant (i), V_M contains an entry of type 'freeze' (a type that exists only in variant (ii)).",
+   "expected": {
+    "outcome": "FAIL",
+    "item": "custody-schema"
+   },
+   "kills": "accepting variant (ii) entry types under variant (i)"
   },
   {
    "id": "CU-N3",
@@ -752,7 +782,7 @@
    "requirements": [
     "R6.CUST.5 (c1)"
    ],
-   "setup": "Variant (i): a synthetic native V3 round with record directory R, its preregistration.md declaring R, and the discharge-bearing configuration K1 with the PREREG.md beside it under R/amendments/ (control-plane paths accepted by S2); the receipt R1 is built by tools/v3_receipt.py and lands with the round by a merge (landing.object L1). Variants: R1's control_plane_blobs lists R/preregistration.md with a blob different from the one in F1's tree; lists an amendment absent from F1's tree.",
+   "setup": "Variant (i): R1 is built by tools/v3_receipt.py for the round of CU-P2, then mutated (the builder reads the control plane from the repository and cannot itself produce a mismatch). Mutations: the listed blob of R/preregistration.md replaced by another blob id; an added member naming an amendment absent from F1's tree.",
    "expected": {
     "outcome": "FAIL",
     "item": "custody-receipt-mismatch"
@@ -773,6 +803,63 @@
    },
    "kills": "accepting a freeze entry without checking it against f's tree",
    "variant": "ii"
+  },
+  {
+   "id": "CU-N32",
+   "kind": "negative",
+   "variant": "paired (i) and (ii)",
+   "requirements": [
+    "R6.CUST.5 (c4) pin rule"
+   ],
+   "setup": "Kx lands on main in a planning commit P0 and an unfrozen entry for Kx is written at U0. Later the PREREG.md beside Kx lists Kx's SHA-256 at a commit P1 that descends from U0, Kx is frozen and landed, and no context is recorded for it (variant (ii): no freeze entry; variant (i): the freeze is made outside V3, so no receipt). Variant: the unfrozen entry is re-asserted in a version introduced after P1.",
+   "expected": {
+    "outcome": "FAIL custody-incomplete for the first case; the re-asserted variant passes the mechanical check and rests on its R6.CUST.8 review"
+   },
+   "kills": "letting an unfrozen entry written before the pin cover the later freeze"
+  },
+  {
+   "id": "CU-N33",
+   "kind": "negative",
+   "variant": "ii",
+   "requirements": [
+    "R6.CUST.5 (c1) variant (ii)"
+   ],
+   "setup": "A freeze entry for F1 names landing = F1.",
+   "expected": {
+    "outcome": "FAIL",
+    "item": "custody-unsupported"
+   },
+   "kills": "accepting landing as any ancestor-or-self descendant of f"
+  },
+  {
+   "id": "CU-N34",
+   "kind": "negative",
+   "variant": "ii",
+   "requirements": [
+    "R6.CUST.5 (c1) variant (ii)",
+    "R6.CUST.5 (c2)"
+   ],
+   "setup": "Variants: landing names an execution commit E1 on the round branch descending from F1 (not on M's first-parent chain); landing names a merge on M's first-parent chain whose first parent already contains F1 (a later merge). In both, a close for F1 is introduced after that commit but before the true landing merge, and the landing tree holds no run results.",
+   "expected": {
+    "outcome": "FAIL",
+    "item": "custody-unsupported"
+   },
+   "kills": "checking only that landing descends from f, which lets a writer move the early-close boundary and the run window"
+  },
+  {
+   "id": "CU-N35",
+   "kind": "negative",
+   "variant": "both",
+   "requirements": [
+    "R6.CUST.5 (c3) run results",
+    "OQ-17"
+   ],
+   "setup": "With OQ-17 adopted: F1's close lists (M1, null) and the landing tree holds no result.json under <dir>/op-c-runs/. Variant: a result.json there has inputs.freeze naming another freeze. Variant: a result.json there fails schema oi-ledger-coverage/5.",
+   "expected": {
+    "outcome": "FAIL",
+    "item": "custody-runs-mismatch"
+   },
+   "kills": "skipping the runs check when results are absent, or reading results without checking their freeze and schema"
   }
  ]
 }
