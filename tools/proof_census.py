@@ -8,8 +8,7 @@ counting them would inflate every coverage number this census exists to report.
 
 A statement is recognised by the corpus's own typographic convention: a line beginning with a bold
 `**Theorem`/`**Lemma`/`**Corollary`/`**Proposition`/`**Claim`/`**Definition`/`**Axiom`. That is the
-form the manuscripts actually use, and it is what `claims_check.py` and `voice_check.py` already
-read, so the census sees the same objects the rest of the gate does.
+form the manuscripts actually use.
 
 EACH ENTRY CARRIES A FINGERPRINT of the statement text. The ledger records what was mapped; the
 fingerprint records WHAT WAS MAPPED TO. When a manuscript statement is edited, its fingerprint
