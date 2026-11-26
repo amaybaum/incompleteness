@@ -57,14 +57,15 @@ claim is made for the Z/q level or for the nonlinear case.
   6 = T_1 + E + A_1; Schur's lemma. No symmetry of a dynamics is used.
 - **Layer Φ, P1.** P1 is a derived condition with U(6) acting through the real lift's J_F
   (Lemma 1). It fails through the site-local J_0. No site-local complex structure that is tamed, or
-  cubic-equivariant, commutes with the update ([L2] Proposition 2). P1 holds trivially only on the
-  doubled complexification.
+  cubic-equivariant, commutes with the update ([L2] Proposition 2). P1 also holds, trivially, on the
+  doubled complexification, which is not an action on SM:312's real field.
 - **Layer Φ, P2.** P2 splits into P2a–P2e:
   - **P2a** holds given H-PF.
   - **P2b** needs stationarity under the same scalar linear map, L-SDS (Counterexample 10).
   - **P2c** needs the two-point condensate clause under the on-site reading r1 of SM:374
     (Counterexample 9); under reading r2, SM:374 states it.
-  - **P2d** needs SMD, the condition that the state's U(6)-stabilizer equals its second moment's.
+  - **P2d** needs SMD, the condition that the state's U(6)-stabilizer equals its second moment's,
+    on T (Proposition A); open on Z (O3).
   - **P2e** is derived on the linear branch with b = 0 (Proposition D).
 - **Proposition A (new).** A mixture of two centred Gaussians meets every stated premise and lane
   2's conditions (L-SDS, TPC, H-PF), yet its U(6)-stabilizer is strictly smaller than U(3)×U(2)×U(1).
@@ -115,7 +116,7 @@ authorizes no work (§A.45 rule 3).
 | Q3 independence results (H-PF; TPC under r1) | §5 | partially verified; by witness | independent review | #1217 | a recorded review |
 | Control re-derivations CC1–CC3 | §3 | partially verified; inherit lane 2's model reviews | independent non-model verification; lane 2's controls X1–X6, C1–C2 | #1217 | as lane 2 |
 | r3 corrections D1, D2 | §6, §10, §12, §13 | applied, not separately reviewed | a delta check of r3 | #1217 | a recorded delta check |
-| Preregistration order (PLAN.md before the reports) | §5 here | established from commit timestamps only: `c6cb9170` at 10:32:51Z, `8f1ee17d` at 10:47:59Z | none available from commit order alone | #1217 | none; the limitation stands as stated |
+| Preregistration order (PLAN.md before the reports) | §5 here | established from commit ancestry and timestamps only (`8f1ee17d` has `c6cb9170` as its only parent, and `c6cb9170` adds PLAN.md alone): `c6cb9170` at 10:32:51Z, `8f1ee17d` at 10:47:59Z | none available from commit order alone | #1217 | none; the limitation stands as stated |
 | Open nodes O1–O5; findings for routing 1–8 | §9, §10 | open; routed, not edited | derivation, refutation or owner decision for each | #1217, #1049, #1029; unit C for O1 | a written derivation, a counterexample or an owner decision |
 
 ## 4. Off-`main` references (§A.42 item 8)
@@ -142,14 +143,14 @@ CI. Merging needs the owner's separate approval (§A.50 item 1).
 ## 6. Preservation rationale
 
 The report delivers the complete premise ledger of SM Theorem 5's proof that the acceptance
-criterion requires:
+criterion requires (its U entries are relative to the reading recorded in REPORT-r3 §12):
 - it separates the statement (layer M), supported by stated premises and exact algebra, from the
   proof's physical sentences (layer Φ);
 - it classifies every item as stated, derived or unsupported, with locations, derivations and
   carried hypotheses.
 
-It answers the symmetry question on the stated class: the full dynamical symmetry follows from the
-kinetic one, so the readings do not discriminate there. It locates the proof's remaining gaps in
+It reports the symmetry question as vacuous on the stated class: there the full dynamical symmetry
+follows from the kinetic one, so the readings do not discriminate. It locates the proof's remaining gaps in
 conditions on the state rather than in the ambient symmetry.
 
 Its §8 classifies as NEW:
