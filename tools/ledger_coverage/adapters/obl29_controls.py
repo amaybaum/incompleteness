@@ -329,6 +329,50 @@ def reassessment_controls(r):
                                      'reassessment applies', o,
          'retirement-blocked' not in o['classes'] and o['reassessments'])
 
+    # an operative predecessor of the reassessment: A supersedes P (same record id, both reviewed in the plan
+    # directory); an eligible review of P rejecting an item lands on main and is deleted
+    PP = 'syn/cfg/reassessment-p.json'
+
+    def cite_with_predecessor(mk):
+        def variant(w_):
+            pdoc = mk(w_)
+            pdoc = dict(pdoc, rederivation=pdoc['rederivation'] + ' (first version)')
+            pb = pfc.jb(pdoc)
+            adoc = dict(mk(w_), supersedes={'path': PP, 'blob_sha256': sf.sha(pb)})
+            ab = pfc.jb(adoc)
+            files, recs = {PP: pb, pfc.RA_PATH: ab}, [{'kind': 'reassessment', 'path': pfc.RA_PATH,
+                                                     'blob_sha256': sf.sha(ab)}]
+            for q, d, b in ((PP, pdoc, pb), (pfc.RA_PATH, adoc, ab)):
+                rv = pfc.jb({'schema': rec.review_schema, 'reviewer': sf.REVIEWER,
+                             'reviewed': {'path': q, 'blob_sha256': sf.sha(b)}, 'method': 'read',
+                             'verdicts': [{'item': i, 'verdict': 'accept'} for i in rec.item_ids(d)]})
+                files[q[:-5] + '.review.json'] = rv
+                recs.append({'kind': 'review', 'path': q[:-5] + '.review.json', 'blob_sha256': sf.sha(rv)})
+            return {'files': files, 'add_records': recs}
+        return variant
+
+    def pred_world(after=None):
+        w1 = pfc.finding_world(r, edits=pfc.EDITS_REWORDED)
+        w2 = pfc.finding_world(r, variant=cite_with_predecessor(lambda w_: pfc.reassessment(w1)),
+                               edits=pfc.EDITS_REWORDED)
+        if after:
+            after(w2)
+        return w2
+    o0 = outcome(pred_world())
+
+    def pred_dissent(w):
+        pdoc = json.loads(w.repo.read(w.c, PP))
+        name = 'verification/audits/syn-dissent/predecessor.review.json'
+        step(w, {name: adverse(pdoc, PP)}, 'a rejecting review of the predecessor')
+        step(w, {name: None}, 'delete it')
+    o1 = outcome(pred_world(pred_dissent))
+    case('P-REASSESS-OPERATIVE-SUPERSEDES', 'a reassessment superseding a reviewed predecessor, every review accepting: '
+                                            'the reassessment applies', o0,
+         'retirement-blocked' not in o0['classes'] and o0['reassessments'])
+    case('N-OPERATIVE-PREDECESSOR-DISSENT-DELETED', 'an eligible review of the operative predecessor rejecting an item, '
+                                                    'landed and deleted: the discharge fails and the block stands', o1,
+         'retirement-blocked' in o1['classes'] and 'record-invalid' in o1['classes'] and not o1['reassessments'])
+
     def rewrite(w):
         b = w.repo.read(w.M, FP)
         step(w, {FP: b.replace(b'"invalidates"', b'"no-effect"')}, 'rewrite f')
@@ -341,8 +385,143 @@ def reassessment_controls(r):
          'retirement-blocked' in o['classes'] and 'record-invalid' in o['classes'])
 
 
+def clearance_predicates(r):
+    """Sec. 2.2 at the level of its mechanical predicates (engine/obl29.py), over explicit records: the token rule,
+    reliance (r1)-(r3), NR-1, NR-3 to NR-5 and the decision. A run does not call them yet (custody format unfixed),
+    so these are predicate controls (id suffix -pred), not run outcomes."""
+    from ledger_coverage.engine import obl29 as o
+    from ledger_coverage.engine.gitobj import blob_id_of
+    jb = pfc.jb
+    case('TOKEN-RULE-pred', 'tokens split at runs of space, tab, LF and CR; exact bytes only (no case change, '
+                            'punctuation or abbreviation)',
+         [o.holds('a  b\tc\r\nd', 'c'), o.holds('(abc)', 'abc'), o.holds('ABC', 'abc'), o.holds(None, 'x'),
+          o.item_token('a' * 40, 'p q'), o.item_token('A' * 40, 'i')],
+         o.holds('a  b\tc\r\nd', 'c') and not o.holds('(abc)', 'abc') and not o.holds('ABC', 'abc') and
+         not o.holds(None, 'x') and o.item_token('a' * 40, 'p q') is None and o.item_token('A' * 40, 'i') is None)
+    p, p2 = 'doc/s.md', 'doc/t.md'
+    Q = {'schema': 'oi-reconciliation/2', 'record_id': 'q', 'author': 'writer-q', 'supersedes': None,
+         'paths': [{'path': p, 'side_change_commits': ['c' * 40]}, {'path': p2, 'side_change_commits': ['d' * 40]}]}
+    qb = jb(Q)
+    qref = {'path': 'verification/audits/q/rec.json', 'blob_sha256': sf.sha(qb)}
+    V = {'schema': rec.review_schema, 'reviewer': 'reviewer-v', 'reviewed': dict(qref), 'method': 'read',
+         'verdicts': [{'item': i, 'verdict': 'reject' if i == p + ':scientific_effect' else 'accept',
+                       'reason': 'the repair does not restore the basis'} for i in rec.item_ids(Q)]}
+    vb = jb(V)
+    W = {'kind': 'review', 'disputed': qref, 'disputed_doc': Q, 'disputed_git': blob_id_of(qb), 'edge': None,
+         'forming': [{'doc': V, 'git': blob_id_of(vb), 'path': 'verification/audits/q/rec.review.json'}],
+         'contested': [], 'original': (('f', 'item'), p + ':scientific_effect')}
+    fgit = 'f' * 40
+    Rd = {'schema': 'oi-reconciliation/2', 'record_id': 'r', 'author': 'writer-r', 'supersedes': None,
+          'paths': [{'path': p, 'side_change_commits': ['c' * 40]}]}
+    rb = jb(Rd)
+    R = {'ref': {'path': 'verification/audits/r/rec.json', 'blob_sha256': sf.sha(rb)}, 'doc': Rd,
+         'lineage_blobs': [], 'lineage_edges': []}
+    A = {'doc': {'author': 'writer-a'}}
+
+    def D(entry_ref, entry_doc, entry_path=p, finding=(('g', 'x'), 'i'), commits=('e' * 40,)):
+        return {'reassessment': A, 'finding': finding, 'lineage_blobs': [], 'lineage_edges': [],
+                'repair': {'entry': entry_ref, 'entry_doc': entry_doc, 'entry_path': entry_path,
+                           'commits': list(commits)}}
+    toks = [o.item_token(W['forming'][0]['git'], p + ':scientific_effect')]
+    ftok = o.item_token(fgit, 'i')
+    reason = 'the corrected record restores the basis ' + ' '.join(toks)
+
+    def Z(**kw):
+        z = {'schema': rec.review_schema, 'reviewer': 'reviewer-v', 'reviewed': dict(R['ref']),
+             'method': ' '.join([W['disputed_git'], W['forming'][0]['git']] + toks + [ftok]),
+             'verdicts': [{'item': i, 'verdict': 'accept', 'reason': reason} for i in rec.item_ids(Rd)],
+             '_dir': 'verification/audits/r'}
+        z.update(kw)
+        return z
+    d_other_entry = D(qref, Q, entry_path=p2)
+    got = o.reliance(d_other_entry, W)
+    case('N-REFREEZE-OTHER-ENTRY-SAME-Q-pred', 'a discharge citing another entry of the same multi-path disputed record '
+                                               'relies through (r1) (and (r3) on shared commits)', got, 'r1' in got)
+    copy_ref = {'path': 'verification/audits/copy/rec.json', 'blob_sha256': qref['blob_sha256']}
+    got = o.reliance(D(copy_ref, Q), W)
+    case('N-REFREEZE-REVIEW-WITNESS-COPY-pred', 'a byte-identical copy of the disputed record at another path relies '
+                                                'through (r1)', got, 'r1' in got)
+    unrelated = {'schema': 'oi-reconciliation/2', 'record_id': 'q', 'author': 'writer-u', 'supersedes': None,
+                 'paths': [{'path': p, 'side_change_commits': ['9' * 40]}]}
+    ub = jb(unrelated)
+    got = o.reliance(D({'path': 'verification/audits/u/rec.json', 'blob_sha256': sf.sha(ub)}, unrelated,
+                       commits=('8' * 40,)), W)
+    case('P-UNRELATED-FREEZE-NOT-BURDENED-pred', 'same schema, lineage label and path, different blob, disjoint '
+                                                 'commits, another finding: no reliance', got, got == [])
+    got = o.reliance(dict(D(R['ref'], Rd), unresolved=True), W)
+    case('RELIANCE-UNDECIDABLE-pred', 'a required reference that does not resolve counts as reliance', got,
+         got == ['undecidable'])
+    dR = D(R['ref'], Rd)
+    blocked, clauses, route = o.decide(dR, W, R=R, Z=Z(), nr2=True, finding_git=fgit)
+    case('P-REFREEZE-REVIEW-WITNESS-RESOLVED-pred', 'reliance through (r3) only; Z by V\'s reviewer carries every '
+                                                    'token and reason: cleared under NR-1, NR-2, NR-4 and NR-5',
+         [blocked, clauses, route], not blocked and clauses == ['r3'] and route and 'NR-5' in route)
+    negs = [
+        ('N-REFREEZE-REVIEW-WITNESS-OTHER-REVIEWER-pred', 'Z by an independent reviewer other than V\'s',
+         dict(Z=Z(reviewer='reviewer-x'))),
+        ('N-REFREEZE-REVIEW-WITNESS-SELF-pred', 'Z by V\'s reviewer who is also the reassessment\'s author',
+         dict(Z=Z(), A_author='reviewer-v')),
+        ('N-REFREEZE-REVIEW-WITNESS-NO-IDENTITY-pred', 'V\'s reviewer is not an identity string (a URL)',
+         dict(Z=Z(reviewer='https://example.invalid/run/1'), V_reviewer='https://example.invalid/run/1')),
+        ('NR5-MISSING-ITEM-TOKEN-pred', 'Z\'s method lacks the <b>#<item> token',
+         dict(Z=Z(method=' '.join([W['disputed_git'], W['forming'][0]['git'], ftok])))),
+        ('NR5-MISSING-FINDING-TOKEN-pred', 'Z\'s method lacks the finding token',
+         dict(Z=Z(method=' '.join([W['disputed_git'], W['forming'][0]['git']] + toks)))),
+        ('NR5-REASON-pred', 'the reason on the entry item lacks the token',
+         dict(Z=Z(verdicts=[{'item': i, 'verdict': 'accept', 'reason': 'fixed'} for i in rec.item_ids(Rd)]))),
+        ('NR5-GENERAL-ACCEPT-pred', 'a general accept by V\'s reviewer with no tokens',
+         dict(Z=Z(method='read', verdicts=[{'item': i, 'verdict': 'accept', 'reason': 'ok'}
+                                           for i in rec.item_ids(Rd)]))),
+        ('NR5-DISSENT-pred', 'Z carries a dissent', dict(Z=Z(dissent='still disputed'))),
+        ('NR5-WRONG-DIRECTORY-pred', 'Z outside R\'s directory', dict(Z=Z(_dir='verification/audits/other'))),
+        ('NR5-NO-NR2-pred', 'R not admitted through an operative route (NR-2 false)', dict(Z=Z(), nr2=False)),
+        ('NR5-SHA256-SPELLING-pred', 'the SHA-256 of V in place of its git blob id in the <b>#<item> token',
+         dict(Z=Z(method=' '.join([W['disputed_git'], W['forming'][0]['git'],
+                                   sf.sha(vb) + '#' + p + ':scientific_effect', ftok])))),
+    ]
+    for cid, what, kw in negs:
+        Wv = W
+        if 'V_reviewer' in kw:
+            Vx = dict(V, reviewer=kw['V_reviewer'])
+            Wv = dict(W, forming=[{'doc': Vx, 'git': W['forming'][0]['git'], 'path': W['forming'][0]['path']}])
+        dd = D(R['ref'], Rd)
+        if 'A_author' in kw:
+            dd['reassessment'] = {'doc': {'author': kw['A_author']}}
+        b, cl, rt = o.decide(dd, Wv, R=R, Z=kw['Z'], nr2=kw.get('nr2', True), finding_git=fgit)
+        case(cid, what + ': the witness stands (blocked)', [b, cl, rt], b and cl == ['r3'])
+    wsp = dict(Q, paths=[{'path': 'doc/s s.md', 'side_change_commits': ['c' * 40]}])
+    Vs = {'schema': rec.review_schema, 'reviewer': 'reviewer-v', 'reviewed': dict(qref), 'method': 'read',
+          'verdicts': [{'item': 'doc/s s.md', 'verdict': 'reject', 'reason': 'x'}]}
+    Ws = dict(W, disputed_doc=wsp, forming=[{'doc': Vs, 'git': blob_id_of(jb(Vs)), 'path': 'x'}])
+    got = o.nr5(Z(), Ws['forming'][0], Ws, R, D(R['ref'], Rd), fgit, [])
+    case('N-REFREEZE-REVIEW-WITNESS-WHITESPACE-ITEM-pred', 'an adverse item id with a space: no Z can meet NR-5', got,
+         got == ['an adverse item id of V cannot form a token'])
+    Wl = dict(W, kind='lineage', forming=[{'doc': {}, 'git': 'b' * 40, 'path': 's'}])
+    rv = {'reviewer': 'reviewer-n', 'reviewed': dict(R['ref']), '_dir': 'verification/audits/r',
+          'method': ' '.join([W['disputed_git'], 'b' * 40]),
+          'verdicts': [{'item': i, 'verdict': 'accept'} for i in rec.item_ids(Rd)]}
+    b1 = o.decide(dR, Wl, R=R, required_review=rv, excluded=['writer-r', 'writer-q', 'reviewer-v'], nr2=True)
+    b2 = o.decide(dR, Wl, R=R, required_review=dict(rv, reviewer='writer-q'),
+                  excluded=['writer-r', 'writer-q', 'reviewer-v'], nr2=True)
+    b3 = o.decide(dR, Wl, R=R, required_review=dict(rv, method='read'),
+                  excluded=['writer-r', 'writer-q', 'reviewer-v'], nr2=True)
+    case('P-REFREEZE-INDEPENDENT-REPLACEMENT-pred', 'a lineage witness, reliance through (r3) only, an independent '
+                                                    'replacement meeting NR-1 to NR-4: cleared', b1,
+         b1[0] is False and b1[2] and 'NR-1' in b1[2])
+    case('N-REFREEZE-NONRELIANCE-UNSUPPORTED-pred', 'the NR-3 reviewer is an excluded author, or NR-4\'s tokens are '
+                                                    'absent: the witness stands', [b2, b3], b2[0] and b3[0])
+    Rl = dict(R, lineage_blobs=[qref['blob_sha256']])
+    b4 = o.decide(dR, Wl, R=Rl, required_review=rv, excluded=[], nr2=True)
+    case('NR1-LINEAGE-pred', 'R\'s lineage holds the disputed record\'s blob: NR-1 fails, the witness stands', b4,
+         b4[0])
+    b5 = o.decide(D(qref, Q), W, R=R, Z=Z(), nr2=True, finding_git=fgit)
+    case('N-REFREEZE-INAPPLICABILITY-ASSERTED-pred', 'reliance through (r1) is conclusive: NR evidence cannot clear '
+                                                     'it (only Inapplicable(W) or route 2)', b5, b5[0])
+
+
 SUITES = [('removal', removal_controls), ('topology', topology_controls), ('unreadable', unreadable_controls),
-          ('positive', positive_controls), ('reassessment', reassessment_controls)]
+          ('positive', positive_controls), ('reassessment', reassessment_controls),
+          ('clearance-predicates', clearance_predicates)]
 
 
 def main(out):

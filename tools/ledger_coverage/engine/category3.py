@@ -229,6 +229,20 @@ def reassessment_problems(repo, M, led, doc, ref, store, admitted, found, m_scan
         # record's exact reference within its own directory, accepts every item; historical review evidence never
         # supplies the current accepting review (R6.OBL29.4, above)
         out += eligible_review_problems(cum.reviews_naming(ref), doc)
+        # predecessor reviews: every required supersedes hop of the reassessment's existing lineage check (resolved
+        # by that check's own inputs), each exact predecessor's eligible reviews in R*
+        cur, seen = doc, {ref.get('blob_sha256')}
+        while isinstance(cur, dict) and isinstance(cur.get('supersedes'), dict):
+            pref = cur['supersedes']
+            if pref.get('blob_sha256') in seen:
+                break
+            seen.add(pref.get('blob_sha256'))
+            prev = store.resolve(pref)
+            if not isinstance(prev, dict):
+                break  # an unresolvable predecessor is the lineage check's own failure (record lint, above)
+            out += ['predecessor %s: %s' % (pref.get('path'), x)
+                    for x in eligible_review_problems(cum.reviews_naming(pref), prev)]
+            cur = prev
         if isinstance(entry, dict) and isinstance(edoc, dict):
             out += eligible_review_problems(cum.reviews_naming(entry, posixpath.dirname(entry.get('path') or '')),
                                             edoc)
