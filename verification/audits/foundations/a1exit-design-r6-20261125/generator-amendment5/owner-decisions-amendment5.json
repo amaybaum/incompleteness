@@ -12,7 +12,6 @@
     "Drift reconciled; REVIEW_REQUIRED only from delegated classes.",
     "The control should establish successful reconciliation without incorrectly requiring an unconditional PASS when another valid review requirement remains outstanding.",
     "Do not exempt delegated classes. Verify that unrelated reconciliation failures still cause the appropriate failure outcome.",
-    null,
     "Authorize adding the 14 missing expectation rows and preparing one independently reviewed expectation-correction amendment.",
     "Rows | Decision",
     "M1, M2 | Approve includes unauthorized-edit.",

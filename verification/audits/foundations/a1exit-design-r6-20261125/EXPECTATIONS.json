@@ -4268,6 +4268,9 @@
    },
    "expect": {
     "outcome": "ANY",
+    "counts": {
+     "lines[rule=W2,state=PASS]": 4
+    },
     "invariants": [
      {
       "all": "lines[rule=W2]",
@@ -6342,7 +6345,9 @@
     "R6.CLASS.12",
     "R6.CTRL.20",
     "R6.TREE.5",
-    "R6.TREE.18"
+    "R6.TREE.18",
+    "R6.TREE.7",
+    "R6.RECON.16"
    ],
    "runner": "a1_conformance.py:552",
    "operations": [
@@ -6364,7 +6369,8 @@
       "subject": "$workflow_path",
       "classes_include": [
        "side-change-unclassified"
-      ]
+      ],
+      "decision": "REVIEW_REQUIRED"
      }
     ]
    },
@@ -8079,16 +8085,23 @@
     "why": "no mutation, but a positive control asserting acceptance of the 11 W1/W2 lines by their allow rules"
    },
    "expect": {
-    "outcome": "ANY",
+    "outcome": "REVIEW_REQUIRED",
+    "classes_exact": [
+     "unclassified"
+    ],
     "counts": {
      "items[class=deny-match]": 0,
-     "lines[state=PASS,rule=W1|W2]": 11,
+     "lines[state=PASS,rule=W1|W2]": 10,
      "lines[profile=resid,decision=REVIEW_REQUIRED]": 45,
      "lines[profile=resid,only_profile=true]": 17
     },
     "sites": [
      {
       "subject": "papers/GR.md:58",
+      "decision": "REVIEW_REQUIRED"
+     },
+     {
+      "subject": "papers/SM.md:1394",
       "decision": "REVIEW_REQUIRED"
      }
     ],
@@ -8099,9 +8112,6 @@
      {
       "scanned_paths_within": "ledgered and corpus paths of X_rep"
      }
-    ],
-    "classes_include": [
-     "unclassified"
     ]
    },
    "restored": {
@@ -8203,30 +8213,36 @@
          {
           "rule_id": "DR-1",
           "alternatives_include": "a",
-          "at": "book/The-Incompleteness-of-Observation-FULL.md:6504"
+          "file": "book/The-Incompleteness-of-Observation-FULL.md",
+          "line": 6504
          },
          {
           "rule_id": "DR-1",
           "alternatives_include": "a",
-          "at": "book/glossary.md:13"
+          "file": "book/glossary.md",
+          "line": 13
          },
          {
           "rule_id": "DR-1",
           "alternatives_include": "b",
-          "at": "ch09:104"
+          "file": "book/ch09-universality.md",
+          "line": 104
          },
          {
           "rule_id": "DR-1",
           "alternatives_include": "c",
-          "at": "book/The-Incompleteness-of-Observation-FULL.md:718"
+          "file": "book/The-Incompleteness-of-Observation-FULL.md",
+          "line": 718
          },
          {
           "rule_id": "DR-4",
-          "at": "papers/Substratum.md:92"
+          "file": "papers/Substratum.md",
+          "line": 92
          },
          {
           "rule_id": "DR-5",
-          "at": "papers/Main.md:736"
+          "file": "papers/Main.md",
+          "line": 736
          }
         ]
        }
@@ -8256,6 +8272,18 @@
       "counts": {
        "lines[class=deny-match]": 95
       }
+     },
+     {
+      "case": "countercase: at H with the DR-1 alternative-a match at book/The-Incompleteness-of-Observation-FULL.md:6504 removed (one target missing): the target item is absent",
+      "outcome": "FAIL",
+      "classes_include": [
+       "deny-match"
+      ],
+      "invariants": [
+       {
+        "none": "items[rule_id=DR-1,file=book/The-Incompleteness-of-Observation-FULL.md,line=6504]"
+       }
+      ]
      }
     ]
    },
@@ -9412,14 +9440,15 @@
     "why": "RE-3 (c): its governing source (D:2342 (first countercontrol)) is outside v6.0e sec. 10 and no source places it under the both-directions rule"
    },
    "expect": {
-    "outcome": "REVIEW_REQUIRED",
+    "outcome": "FAIL",
     "classes_include": [
-     "unclassified"
+     "unclassified",
+     "deny-match"
     ],
     "sites": [
      {
       "subject": "$new_line",
-      "classes_exact": [
+      "classes_include": [
        "unclassified"
       ]
      }
@@ -12496,7 +12525,7 @@
    "flags": [
     "the runner records the negative case under the id U15 today; the tool revision records it under U14",
     "Q12: the positive case asserts the distinct status provenance-adjudicated and its separate count (R6.HP.7); the tool commit marks the site only by its provenance reference, an implementation obligation (OBL-28)",
-    "Q12: the wrong-region-hash case expects provenance-mismatch (the record does not match the walk) and stale-adjudication (the entry then resolves no subject), exactly; any other class emitted is a defect"
+    "Q12: the wrong-region-hash case expects provenance-mismatch alone (the record does not match the walk; the entry names an existing site, so R6.REC.10 decides it by the site's own rule and no stale-adjudication is emitted), exactly; any other class emitted is a defect (amendment 5)"
    ]
   },
   {
@@ -13468,7 +13497,8 @@
       "items_include": [
        {
         "class": "final-unclassified",
-        "profile": "ptr"
+        "profile": "ptr",
+        "subject": "$planted"
        }
       ]
      }
@@ -13519,7 +13549,8 @@
       "items_include": [
        {
         "class": "final-unclassified",
-        "profile": "count-grep"
+        "profile": "count-grep",
+        "subject": "$planted"
        }
       ]
      }
@@ -13978,7 +14009,8 @@
       "items_include": [
        {
         "class": "rule-negative-match",
-        "rule_id": "W1-d"
+        "rule_id": "W1-d",
+        "subject": "$planted"
        }
       ]
      }
@@ -16106,12 +16138,12 @@
    },
    "expect": {
     "outcome": "FAIL",
+    "classes_exact": [
+     "final-unclassified"
+    ],
     "counts": {
      "lines[class=final-unclassified]": 176
-    },
-    "classes_include": [
-     "final-unclassified"
-    ]
+    }
    },
    "source": "D:2351",
    "flags": [
@@ -22300,11 +22332,22 @@
       ]
      },
      {
-      "case": "countercase: the same reconciled drift with an unclassified side change beside it (REVIEW_REQUIRED side-change-unclassified, not a delegated class)",
+      "case": "countercase: the same reconciled drift with a planted non-delegated REVIEW item that touches no reconciliation (an unclassified review hit on an unledgered line): the drift stays reconciled and the positive predicate (REVIEW_REQUIRED only from delegated classes) fails",
       "outcome": "REVIEW_REQUIRED",
       "invariants": [
        {
-        "rt_l2_status": "FAIL"
+        "drift_state_in": [
+         "reconciled"
+        ]
+       },
+       {
+        "items_include": [
+         {
+          "decision": "REVIEW_REQUIRED",
+          "class": "unclassified",
+          "subject": "$planted"
+         }
+        ]
        }
       ]
      }
@@ -23524,7 +23567,7 @@
    "expect": {
     "cases": [
      {
-      "case": "a record commit whose single parent is the run's M and which adds one regular file in a reconciliation directory (positive)",
+      "case": "a record commit whose single parent is the run's M and which adds the record and its review record in one reconciliation directory (positive; the same input as POSTF-1)",
       "outcome": "ANY",
       "invariants": [
        {
@@ -23538,7 +23581,7 @@
       ]
      },
      {
-      "case": "countercase: the same record commit also changing a path its parent holds",
+      "case": "countercase: without --record-base, a record commit whose parent lies below the run's M across only permitted tool-landing additions (pinned paths with matching blobs); the route of --record-base M0 would admit such a base, the default route, whose base is M, does not",
       "outcome": "FAIL",
       "classes_include": [
        "record-invalid"
@@ -23974,7 +24017,7 @@
       ]
      },
      {
-      "baseline": "the same record commit adding only the reconciliation-directory file"
+      "baseline": "the same record commit adding only the record and its review record in the reconciliation directory"
      }
     ]
    },
@@ -24032,7 +24075,7 @@
   {
    "old_id": "U15",
    "disposition": "retired (OD-19b, RD-9); the class name stale-adjudication stays live with v1 4.6's meaning (Q12)",
-   "underlying": "preserved-at U14 (its wrong-region-hash case: FAIL provenance-mismatch and stale-adjudication), H1, H2 and H6 (an adjudication that disagrees with the walk, or changes a row, FAILs) and RECLINT-ORPHAN (an HP adjudication entry matching no subject: FAIL stale-adjudication)"
+   "underlying": "preserved-at U14 (its wrong-region-hash case: FAIL provenance-mismatch, by R6.REC.10; amendment 5), H1, H2 and H6 (an adjudication that disagrees with the walk, or changes a row, FAILs) and RECLINT-ORPHAN (an HP adjudication entry matching no subject: FAIL stale-adjudication)"
   },
   {
    "old_id": "C1",

@@ -4927,7 +4927,9 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [],
+  "pending_owner_confirmation": [
+   "amendment 5 (expectation correction): drafted under the owner's authorization of 2026-11-26T08:28:18Z (#1169 comment 7186638587, items 8 and 9); needs independent review and the owner's acceptance"
+  ],
   "owner_decision": []
  },
  {
@@ -6278,7 +6280,9 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [],
+  "pending_owner_confirmation": [
+   "amendment 5 (expectation correction): drafted under the owner's authorization of 2026-11-26T08:28:18Z (#1169 comment 7186638587, items 8 and 9); needs independent review and the owner's acceptance"
+  ],
   "owner_decision": []
  },
  {
@@ -7337,7 +7341,9 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [],
+  "pending_owner_confirmation": [
+   "amendment 5 (expectation correction): drafted under the owner's authorization of 2026-11-26T08:28:18Z (#1169 comment 7186638587, items 8 and 9); needs independent review and the owner's acceptance"
+  ],
   "owner_decision": []
  },
  {
@@ -8059,13 +8065,16 @@
   "controls": [
    "TT7",
    "TT14",
-   "N16-file"
+   "N16-file",
+   "R18"
   ],
   "verification": [
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [],
+  "pending_owner_confirmation": [
+   "amendment 5 (expectation correction): drafted under the owner's authorization of 2026-11-26T08:28:18Z (#1169 comment 7186638587, items 8 and 9); needs independent review and the owner's acceptance"
+  ],
   "owner_decision": []
  },
  {
@@ -9143,14 +9152,16 @@
    "RDIR-19",
    "RDIR-20",
    "MUT:o9:RDIR-m11",
-   "RECON-MULTI"
+   "RECON-MULTI",
+   "R18"
   ],
   "verification": [
    "controls"
   ],
   "open": [],
   "pending_owner_confirmation": [
-   "amendment 3 (multi-path reconciliation): drafted under the owner's authorization of 2026-11-26T06:34:32Z (#1169 comment 7184569981); needs independent review and the owner's acceptance before any tool revision implements it"
+   "amendment 3 (multi-path reconciliation): drafted under the owner's authorization of 2026-11-26T06:34:32Z (#1169 comment 7184569981); needs independent review and the owner's acceptance before any tool revision implements it",
+   "amendment 5 (expectation correction): drafted under the owner's authorization of 2026-11-26T08:28:18Z (#1169 comment 7186638587, items 8 and 9); needs independent review and the owner's acceptance"
   ],
   "owner_decision": []
  },

@@ -550,8 +550,6 @@ The owner decided at #1169 comment 7186638587 (amaybaum, 2026-11-26T08:28:18Z, r
 >
 > Do not exempt delegated classes. Verify that unrelated reconciliation failures still cause the appropriate failure outcome.
 >
-> [...]
->
 > Authorize adding the 14 missing expectation rows and preparing one independently reviewed expectation-correction amendment.
 >
 > Rows | Decision
@@ -580,7 +578,7 @@ The owner decided at #1169 comment 7186638587 (amaybaum, 2026-11-26T08:28:18Z, r
 >
 > [...]
 
-Amendment 5 corrects expectations only where the design requires it, each correction citing its governing requirement (AMENDMENT-5.md sec. 2), adds the 14 rows the tool records (RB-P1, RB-C4 to RB-C11, LINE-PATCH-RC8), and resolves one contradiction in the design: R6.HP.7 required `stale-adjudication` for an adjudication entry that names an existing HP site but disagrees with its walk, while R6.REC.10 decides such an entry by the site's own rule. R6.HP.7 is corrected to agree with R6.REC.10, and U14's second case follows. The whole-result rows on `T1'` are scoped to the lines or subjects they plant or name; their obligation at those subjects is kept exactly (AMENDMENT-5.md sec. 3). No requirement is weakened and no row loses an obligation; amendment 5 is pending independent review and the owner's acceptance.
+Amendment 5 corrects expectations only where the design requires it, each correction citing its governing requirement (AMENDMENT-5.md sec. 2), adds the 14 rows the tool records (RB-P1, RB-C4 to RB-C11, LINE-PATCH-RC8), and resolves one contradiction in the design: R6.HP.7 required `stale-adjudication` for an adjudication entry that names an existing HP site but disagrees with its walk, while R6.REC.10 decides such an entry by the site's own rule. R6.HP.7 is corrected to agree with R6.REC.10, and U14's second case follows, as do its consequences in R6.CLASS.6, R6.CTRL.16, U14's flag, the U15 line of the migration table and the retired U15 entry. R6.PLAN.4 states the role in which S11-2a is evaluated. The whole-result rows on `T1'` that plant a subject are scoped to it, their obligation there kept exactly; RT-D and item11-T1p keep their whole-result class sets, which the design derives (AMENDMENT-5.md sec. 3). No requirement is weakened and no row loses an obligation; amendment 5 is pending independent review and the owner's acceptance.
 
 ***
 
@@ -2825,8 +2823,8 @@ Sources: E-1072, V1-079. Controls: V1, S11-5, RT-I7, WB2, L3, A1r, V23, X9.
 segment its record applies to is reported as `stale-adjudication`; a context adjudication or hit
 classification entry that matches no subject, and a duplicate entry, as `record-invalid` (R6.REC.10).
 An entry that names a subject and disagrees with it is reported by that subject's own class
-(R6.CLASS.4); an HP adjudication entry whose region hash differs from the walk gives both
-`provenance-mismatch` and `stale-adjudication` (R6.HP.7).
+(R6.CLASS.4); an HP adjudication entry whose region hash differs from the walk gives
+`provenance-mismatch` and no `stale-adjudication`, since it names an existing site (R6.HP.7) (amendment 5, sec. 0.6: pending independent review and the owner's acceptance).
 Sources: E-1072, Q12, RE-8. Controls: RECLINT-ORPHAN (new row), U14 (row restored), H1, H2.
 
 **R6.CLASS.7** **Pins and mirrors** (FAIL; sec. 4):
@@ -3483,8 +3481,7 @@ Sources: V2-080, RE-1. Controls: V4, V27, V27-glossary, V15.
 **R6.CTRL.16** The provenance controls are H1-H7 (H1-H3 restate v2's P1-P3), U14 and RECLINT-ORPHAN.
 U14 is a positive HP adjudication case: a synthetic HP site whose provenance walk a reviewed HP
 adjudication record matches, counted as `provenance-adjudicated`; its second case gives the entry a
-wrong region hash and expects exactly FAIL `provenance-mismatch` and FAIL `stale-adjudication`
-(R6.HP.7). RECLINT-ORPHAN plants a referenced HP adjudication record entry that matches no subject on
+wrong region hash and expects exactly FAIL `provenance-mismatch` (R6.HP.7, R6.REC.10) (amendment 5, sec. 0.6: pending independent review and the owner's acceptance). RECLINT-ORPHAN plants a referenced HP adjudication record entry that matches no subject on
 a tree and segment its record applies to (FAIL `stale-adjudication`), an orphan context adjudication
 or hit classification entry and a duplicate entry (FAIL `record-invalid`), and the same entries on a
 tree or segment the record does not apply to (no finding) (R6.REC.10). An adjudication that disagrees
@@ -3823,7 +3820,7 @@ row with a recorded restored case. Kind: `decl` declarative, `proc` procedural.
 | R15 | R6.CLASS.10, R6.CTRL.20, R6.TREE.11, R6.TREE.18 | controls_engine.py:566 | decl | adv | an `L` whose first parent is a `main` commit other than the recorded `M` |
 | R16 | R6.CTRL.20, R6.TREE.1, R6.TREE.10, R6.TREE.18 | conformance_controls.py:2469 | decl | adv | `C` = `X` plus one commit that changes an unledgered, undeclared path |
 | R17 | R6.CTRL.20, R6.TREE.10, R6.TREE.18 | conformance_controls.py:2472 | decl | pos | `C` = `X` plus one commit that changes only a record path the plan admits after `F` |
-| R18 | R6.CLASS.12, R6.CTRL.20, R6.TREE.5, R6.TREE.18 | a1_conformance.py:552 | decl | adv | a classified side-change path whose blob at `M` differs from its class pin |
+| R18 | R6.CLASS.12, R6.CTRL.20, R6.TREE.5, R6.TREE.18, R6.TREE.7, R6.RECON.16 | a1_conformance.py:552 | decl | adv | a classified side-change path whose blob at `M` differs from its class pin |
 | R18-engine | R6.CTRL.20, R6.TREE.5, R6.TREE.18 | controls_engine.py:513 | decl | adv | the engine form of R18 in the synthetic world |
 | R19 | R6.CLASS.12, R6.CTRL.20, R6.PLACE.8, R6.TREE.5, R6.TREE.18 | a1_conformance.py:563 | decl | adv | a path under the tool-landing prefix on `M` that the class does not list, and separately a listed path whose blob differs from its pin |
 | R19-engine | R6.CTRL.20, R6.TREE.5, R6.TREE.18 | controls_engine.py:561 | decl | adv | the engine form of R19 in the synthetic world |
@@ -4226,7 +4223,10 @@ with zero unqualified hits) maps to `record --pin E --record F` and `coverage --
 --segment H..X=F:ledger.json --hp F:hp.json --classify F:...`, where the `--classify` arguments
 include the two item-2 records of sec. 22. Countercontrols, from the frozen self-test at `E`: an
 unclassified new site (S11-2a); a dropped Phase-3 site (S11-2b); a J row with S1 Yes, detected by
-op A's `record_checks` (S11-2c). The run is not PASS until the reviewed records of sec. 14 exist
+op A's `record_checks` (S11-2c). S11-2a evaluates a child commit of `E` that adds the new site, named with
+`coverage --commit`; that child is not the `E` role (`roles.pin`), so R6.PROF.4's exemption does not apply
+to it, and its deny profiles run on the retired forms it carries from `E`, beside the site's
+REVIEW_REQUIRED `unclassified` (amendment 5, sec. 0.6: pending independent review and the owner's acceptance). The run is not PASS until the reviewed records of sec. 14 exist
 (RT-T0, RT-T).
 Sources: E-1270. Controls: S11-2, S11-2a, S11-2b, S11-2c, RT-T0, RT-T.
 
@@ -4494,7 +4494,7 @@ decided before any classification: the retirement's spans no longer describe `M`
 landing unless a reconciliation record applies under sec. 23, and it never makes `X` fail. A corpus
 path changed on `M` is `base-drift` and is not checked as an unledgered segment `H..M`; v2's op B on
 `L` is retired (sec. 33).
-Sources: V2-132, V2-133, A-052. Controls: TT7, TT14, N16-file.
+Sources: V2-132, V2-133, A-052. Controls: TT7, TT14, N16-file, R18.
 
 **R6.TREE.8** Outside the plan's record directory the side-change scan compares blob entries between
 `H` and `M`; the completeness check of sec. 21 applies inside that directory alone. The entry type of
@@ -4997,7 +4997,7 @@ the paths covered by the run's locally valid entries (R6.RECON.4) (amendment 3, 
 record-directory rule is active, the completeness check finds no unequal path. A non-regular side
 change inside `D_rec` fails RC11. A difference from the tool's evaluation of RC11 is a verification
 defect.
-Sources: E-1350, A-055. Controls: N17, RDIR-8, RDIR-15, RDIR-18, RDIR-19, RDIR-20, MUT:o9:RDIR-m11, RECON-MULTI.
+Sources: E-1350, A-055. Controls: N17, RDIR-8, RDIR-15, RDIR-18, RDIR-19, RDIR-20, MUT:o9:RDIR-m11, RECON-MULTI, R18.
 
 **R6.RECON.17** RC12: the record's `changes_decisions_on_X` is empty; otherwise the record is also
 `record-invalid`.
@@ -6326,7 +6326,7 @@ longer exists as a requirement).
 | Identifier or mechanism | Disposition of the underlying requirement | Sources |
 |---|---|---|
 | U13 (hit on a line in a converted `read` entry, held by read) | obsolete: the `read` route is withdrawn; a hit is held only by a tracked site (preserved-at U1-U11), and an unheld hit is REVIEW_REQUIRED `unclassified` (preserved-at U12) | V1-098, OD-19, OD-16 |
-| U15 (adjudication with a wrong `to_region_sha256`) | preserved-at U14's wrong-region-hash case (FAIL `provenance-mismatch` and `stale-adjudication`), H1, H2, H6 (an adjudication that disagrees with the walk or changes a row FAILs) and RECLINT-ORPHAN (an HP adjudication entry that matches no subject is FAIL `stale-adjudication`) | V1-100, V2-072, RD-9, Q12 |
+| U15 (adjudication with a wrong `to_region_sha256`) | preserved-at U14's wrong-region-hash case (FAIL `provenance-mismatch`; amendment 5), H1, H2, H6 (an adjudication that disagrees with the walk or changes a row FAILs) and RECLINT-ORPHAN (an HP adjudication entry that matches no subject is FAIL `stale-adjudication`) | V1-100, V2-072, RD-9, Q12 |
 | C1 (op C on the executed synthetic tree, PASS) | preserved-at TT1 and TT13 (op C on a correctly executed candidate gives no RET item; uniqueness tested at the base), Y6 and RL, and S11-56, S11-57a-d, S11-58a-k (application parity at the base, with OBL-1) | V2-093, OD-20, RD-17 |
 | C2 (op C with C's parent differing from the base in a ledgered file, ERROR `BASE_DRIFT`) | preserved-at TT3, TT4 (FAIL `candidate-parent`), TT5 (ERROR `SCIENTIFIC_BASE_MISMATCH`), TT7 and N16-file (FAIL `base-drift`); the class name `BASE_DRIFT` is obsolete | V2-094, OD-20 |
 | C3 (a pin literal removed without a guard-pin splice) | preserved-at S11-12 and N1 (FAIL `pin-broken`) | V2-095, OD-20 |
