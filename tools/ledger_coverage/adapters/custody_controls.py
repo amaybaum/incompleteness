@@ -362,15 +362,25 @@ def freeze_controls(r):
     KP = KD + 'config.json'
 
     def freeze_world(close=True, landing_kind='merge', runs=(), results=(), early_close=False, prereg_lists=True,
-                     config_at_f=True, pre=None):
+                     config_at_f=True, pre=None, classes=None):
         c = CW(r)
         v0 = c.bootstrap()
         main_before = c.w.M
         kb = config_doc(c.w)
+        cls_files = {}
+        if classes is not None:
+            # roles.side_change_classes names a class record at f; classes = (record bytes, pinned blob_sha256 or None)
+            cb, pin = classes
+            d = json.loads(kb)
+            d['roles'] = dict(d['roles'], side_change_classes={'path': KD + 'classes.json',
+                                                               'blob_sha256': pin or sf.sha(cb)})
+            kb = pfc.jb(d)
+            cls_files = {KD + 'classes.json': cb}
         files = {KD + 'PREREG.md': ('### 1.1 Record pins\n\n| file | sha256 |\n|---|---|\n| `config.json` | `%s` |\n'
                                     % (sf.sha(kb) if prereg_lists else '0' * 64)).encode()}
         if config_at_f:
             files[KP] = kb
+        files.update(cls_files)
         F1 = c.w.repo.derive(main_before, files, parents=[main_before], subject='freeze F1')
         tip = F1
         branch = dict(files)
@@ -444,6 +454,10 @@ def freeze_controls(r):
             parents = [m]
             if kind == 'plan-dir':
                 files = {KD + 'stray.json': pfc.jb(rec_doc)}
+            elif kind == 'tool-landing':
+                files = {'verification/audits/syn-tool/rec.json': pfc.jb(rec_doc)}
+            elif kind == 'outside-audits':
+                files = {'notes/recon/rec.json': pfc.jb(rec_doc)}
             elif kind == 'modifies':
                 files = dict(files, **{sf.DOC: b'changed\n'})
             elif kind == 'no-record':
@@ -460,11 +474,11 @@ def freeze_controls(r):
         return pre
     from ledger_coverage.engine import cli as cli_mod
 
-    def with_ledger(cw):
+    def with_ledger(cw, extra=()):
         # the ledgered paths supplied from the fixture's own ledger (see CU-REV-SHAPE-OK), so that each case fails for
-        # its own reason, not for an unreadable ledger
+        # its own reason, not for an unreadable ledger; `extra` adds ledgered paths to that set
         real = cli_mod.context_ledger_files
-        cli_mod.context_ledger_files = lambda repo: (lambda c_: set((cw.w.led.get('files') or {}).keys()))
+        cli_mod.context_ledger_files = lambda repo: (lambda c_: set((cw.w.led.get('files') or {}).keys()) | set(extra))
         try:
             return cw.run()
         finally:
@@ -473,10 +487,27 @@ def freeze_controls(r):
             'no-record': 'adds no oi-reconciliation/2 record', 'two-parents': 'exactly the one parent',
             'other-parent': 'exactly the one parent'}
     shapes = {k: with_ledger(freeze_world(pre=rev_pre(k))[0]) for k in want}
+    # the class record of the context: a tool-landing class whose prefix holds the REV's file, and another class
+    tl_classes = pfc.jb({'classes': [{'id': 'tool-landing', 'prefixes': ['verification/audits/syn-tool/']},
+                                     {'id': 'other-class', 'prefixes': ['verification/audits/syn-recon-r/']}]})
+    # the reasons are matched on a prefix that fits the truncated `whys` text
+    want.update({'tool-landing': 'under a prefix of the tool-landing',
+                 'ledgered-dir': 'its directory holds a ledgered or',
+                 'outside-audits': 'not under verification/audits/',
+                 'class-unverified': 'side-change class'})
+    shapes['tool-landing'] = with_ledger(freeze_world(pre=rev_pre('tool-landing'), classes=(tl_classes, None))[0])
+    # a ledgered path of the context in the REV file's directory (added to the substituted ledger set)
+    shapes['ledgered-dir'] = with_ledger(freeze_world(pre=rev_pre('ok'))[0],
+                                         extra=['verification/audits/syn-recon-r/ledgered.md'])
+    shapes['outside-audits'] = with_ledger(freeze_world(pre=rev_pre('outside-audits'))[0])
+    # roles.side_change_classes pins a blob other than the record at its path at f
+    shapes['class-unverified'] = with_ledger(freeze_world(pre=rev_pre('ok'), classes=(tl_classes, '6' * 64))[0])
     case('CU-N14', 'a close run\'s REV with two parents, a parent other than its m, a changed existing path, a file added '
                    'in the plan record directory (elsewhere under verification/audits/ than a reconciliation '
-                   'directory, R6.RECON.1), or no oi-reconciliation/2 record naming m: custody-run-shape, each for '
-                   'its own reason', {k: v['whys'][:1] for k, v in shapes.items()},
+                   'directory, R6.RECON.1), a file under a prefix of the context\'s tool-landing class, a file in a '
+                   'directory holding a ledgered path, a file outside verification/audits/, a context whose class '
+                   'record does not verify at f, or no oi-reconciliation/2 record naming m: custody-run-shape, each '
+                   'for its own reason', {k: v['whys'][:1] for k, v in shapes.items()},
          all(failed_with(o, 'custody-run-shape') and any(want[k] in w_ for w_ in o['whys'])
              for k, o in shapes.items()))
     # the context's configuration carries the synthetic `admission` key that stop 1 requires, which the configuration
