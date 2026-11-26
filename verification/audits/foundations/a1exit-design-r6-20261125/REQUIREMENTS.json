@@ -9270,7 +9270,8 @@
   "kind": "testable",
   "sources": [
    "#1169 comment 7184569981",
-   "#1169 comment 7184626125"
+   "#1169 comment 7184626125",
+   "#1169 comment 7184808247"
   ],
   "controls": [
    "RECON-ENUM",
@@ -9314,7 +9315,8 @@
   "kind": "testable",
   "sources": [
    "#1169 comment 7184569981",
-   "#1169 comment 7184626125"
+   "#1169 comment 7184626125",
+   "#1169 comment 7184808247"
   ],
   "controls": [
    "RECON-CONFLICT",
@@ -9360,7 +9362,8 @@
   "kind": "testable",
   "sources": [
    "#1169 comment 7184569981",
-   "#1169 comment 7184626125"
+   "#1169 comment 7184626125",
+   "#1169 comment 7184808247"
   ],
   "controls": [
    "RECON-BLOCK"

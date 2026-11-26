@@ -22733,7 +22733,7 @@
      }
     ]
    },
-   "source": "r6 amendment 3 (owner decisions of 2026-11-26T06:34:32Z, #1169 comment 7184569981, and 2026-11-26T06:37:58Z, #1169 comment 7184626125)",
+   "source": "r6 amendment 3 (owner decisions of 2026-11-26T06:34:32Z, #1169 comment 7184569981, and 2026-11-26T06:37:58Z, #1169 comment 7184626125); categories: #1169 comment 7184808247 (2026-11-26T06:48:37Z), item 3",
    "flags": [
     "added by amendment 3; no runner records it before the tool revision implements it"
    ]
@@ -22815,6 +22815,45 @@
       ]
      },
      {
+      "case": "a category-2 path whose change on M rewrote a splice's span (its old bytes no longer occur at M), resolved by a reviewed resolution whose window occurs once at M and whose resolved bytes carry the new bytes once; RC4 to RC6 read on the window and RC9 outside it (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "not_class": [
+         "base-drift",
+         "record-invalid"
+        ]
+       },
+       {
+        "equals": "the path's disposition is reconciled-resolved, category 2"
+       }
+      ]
+     },
+     {
+      "case": "countercase: a resolution window that occurs twice at M",
+      "outcome": "FAIL",
+      "classes_include": [
+       "base-drift"
+      ],
+      "invariants": [
+       {
+        "failed_conditions_include": "RC14"
+       }
+      ]
+     },
+     {
+      "case": "countercase: a conflict on a retained site's line with a resolution offered for it (no resolution route)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "base-drift"
+      ],
+      "invariants": [
+       {
+        "failed_conditions_include": "RC14"
+       }
+      ]
+     },
+     {
       "case": "countercase: scientific_effect that does not name the overlapped splice",
       "outcome": "FAIL",
       "classes_include": [
@@ -22830,7 +22869,7 @@
      }
     ]
    },
-   "source": "r6 amendment 3 (owner decisions of 2026-11-26T06:34:32Z, #1169 comment 7184569981, and 2026-11-26T06:37:58Z, #1169 comment 7184626125)",
+   "source": "r6 amendment 3 (owner decisions of 2026-11-26T06:34:32Z, #1169 comment 7184569981, and 2026-11-26T06:37:58Z, #1169 comment 7184626125); categories: #1169 comment 7184808247 (2026-11-26T06:48:37Z), item 3",
    "flags": [
     "added by amendment 3; no runner records it before the tool revision implements it"
    ]
@@ -22878,6 +22917,34 @@
       ]
      },
      {
+      "case": "the blocking record landed on main, and a later run naming a REV whose tree omits it in the reconciliation directory it used, or a chain run without --classify",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked"
+      ]
+     },
+     {
+      "case": "a writer's verdict no-effect with a non-author review whose verdict on the scientific_effect finds invalidation, naming the invalidated edit id and its sha256",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked"
+      ]
+     },
+     {
+      "case": "the same review finding, followed by a new record of the same path with verdict no-effect and an accepting review",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked"
+      ]
+     },
+     {
+      "case": "a later commit on M reverting the invalidating change, the plan unchanged",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked"
+      ]
+     },
+     {
       "case": "countercase: the same entry with verdict no-effect (positive)",
       "outcome": "ANY",
       "invariants": [
@@ -22901,7 +22968,7 @@
      }
     ]
    },
-   "source": "r6 amendment 3 (owner decisions of 2026-11-26T06:34:32Z, #1169 comment 7184569981, and 2026-11-26T06:37:58Z, #1169 comment 7184626125)",
+   "source": "r6 amendment 3 (owner decisions of 2026-11-26T06:34:32Z, #1169 comment 7184569981, and 2026-11-26T06:37:58Z, #1169 comment 7184626125); categories: #1169 comment 7184808247 (2026-11-26T06:48:37Z), item 3",
    "flags": [
     "added by amendment 3; no runner records it before the tool revision implements it"
    ]
