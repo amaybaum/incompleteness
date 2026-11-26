@@ -1,6 +1,6 @@
 {
   "schema": "oi-obl29-remedy-controls/draft",
-  "status": "paper design r2, pending independent review and adoption. All controls are specifications. Each would become an expectation row with runner null on adoption.",
+  "status": "paper design r3, pending independent review and adoption. All controls are specifications. Each would become an expectation row with runner null on adoption.",
   "authority": "Owner decisions, amaybaum, #1169 comments 7191104852 (11:44Z) and 7191665350 (12:10Z), 2026-11-26, item 2",
   "base": "design r6 amendment 6 r5 at 1f5764572a98b7ae2f306e121e2e410f79c29daf, cross-checked with amendment 6 r10 at 4fee62cff40b1acf52357fa177752f2d5b231dfa as a proposal",
   "fixture": "Fixture: H; a configuration K frozen at F (round branch from D on main) whose ledger carries edit e on path p; c0 = main at F's designation. f = an oi-review-record/1 file under verification/audits/r/ carrying a well-formed second-kind finding on e by an independent reviewer (verdict invalidates on <p>:scientific_effect, invalidated naming e, configuration naming K), reviewing reconciliation record q in the same directory. Unless stated, the run is op C execution with M = the last listed main commit and no REV. Unless a control changes that condition, q's side_change_commits meet R6.RECON.26's applicability condition at each named M.",
@@ -13,7 +13,10 @@
     "invariants.finding_absent": "the named reference and item do not appear in category3.findings",
     "invariants.finding_unblocked": "the finding remains visible but has no corresponding category3.blocked element",
     "invariants.reassessment_applies": "the named reassessment is present in category3.reassessments",
-    "invariants.reassessment_absent": "the named reassessment is absent from category3.reassessments"
+    "invariants.reassessment_absent": "the named reassessment is absent from category3.reassessments",
+    "invariants.record_invalid_for": "a record-invalid item naming the specified discharge record or its defective review",
+    "invariants.finding_observed": "the exact reference and item appear in the emitted category3.findings",
+    "invariants.admission_mode": "the named ordinary chain or harness admission completed successfully and the result contains category3"
   },
   "kinds": {
     "negative": "a removal that must not lift the block",
@@ -202,6 +205,31 @@
         "R6.OBL29.1",
         "R6.OBL29.6"
       ]
+    },
+    {
+      "id": "N-SYMLINK-SAME-BLOB",
+      "kind": "countercase",
+      "setup": [
+        "c1: land q and f as eligible regular entries.",
+        "c2: replace only the mode of f with 120000 and retain the exact path and blob id (synthetic verified tree).",
+        "Run on c2 and require the true category3.findings element for historical f."
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "retirement-blocked"
+        ],
+        "finding": {
+          "present_at_M": false,
+          "witness": "c1"
+        }
+      },
+      "requirements": [
+        "R6.OBL29.1",
+        "R6.OBL29.8",
+        "R6.REC.17"
+      ],
+      "note": "A matching blob in symlink mode is neither present_at_M nor a qualifying witness. A separate side-change diagnostic may also be emitted."
     },
     {
       "id": "N-GITLINK",
@@ -484,6 +512,32 @@
       "note": "Synthetic graph countercase. c1 remains an ancestor even though the first-parent walk loses it. This does not assert that the host normally accepts this update."
     },
     {
+      "id": "N-FOXTROT-SIDE-COMMIT",
+      "kind": "countercase",
+      "setup": [
+        "From c0 make side-change commit s on main, changing the ledgered path p. Main then advances to c1 carrying q and f. q records s in side_change_commits and f blocks at M=c1.",
+        "From c0 make unrelated branch commit b1. Make merge d with first parent b1 and second parent c1, retaining the changed p and q and f. Fast-forward the synthetic main ref from c1 to d.",
+        "Re-run on d with the same configuration. s remains reachable only through a second-parent edge. f stays current to isolate the applicability check from finding discovery."
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "retirement-blocked"
+        ],
+        "finding": {
+          "present_at_M": true,
+          "witness": "d"
+        }
+      },
+      "requirements": [
+        "R6.OBL29.1",
+        "R6.OBL29.2",
+        "R6.OBL29.8",
+        "R6.RECON.26"
+      ],
+      "note": "Synthetic graph. Exact all-parent reachability preserves the side-change match without changing RC1 or the first-parent condition on repair commits."
+    },
+    {
       "id": "N-PRE-F",
       "kind": "negative",
       "setup": [
@@ -562,7 +616,7 @@
       "setup": [
         "c1: land q1 (first-kind finding on e) and a non-author review accepting <p>:scientific_effect",
         "c2: delete that review",
-        "c3: land a second non-author review rejecting <p>:scientific_effect",
+        "c3: land a second non-author review rejecting <p>:scientific_effect. Keep q1 unchanged at M.",
         "F2: K2 carrying e, citing a reassessment with repair null under Keys (a)",
         "run on c3 with --freeze F2"
       ],
@@ -573,22 +627,23 @@
           "record-invalid"
         ],
         "finding": {
-          "present_at_M": false
+          "present_at_M": true,
+          "witness": "c3"
         }
       },
       "requirements": [
         "R6.OBL29.3",
         "R6.RECON.27"
       ],
-      "note": "the accepting review is in R*: an independent reviewer asserts the invalidation"
+      "note": "q1 still occupies its original regular path. The historical accepting review remains in R* and supplies an independent assertion of invalidation."
     },
     {
       "id": "N-REASSESS-DISSENT-DELETED",
       "kind": "countercase",
       "setup": [
-        "Use the applying reassessment in P-REASSESS-AFTER-DELETE at F2. Its accepting non-author review remains available through the required input path.",
-        "After F2 a second non-author review lands on main, names the exact reassessment reference and dissents on one item. The run fails with record-invalid and retirement-blocked.",
-        "A later main commit deletes only that dissenting review. Re-run on the later M with the same cited reassessment and no REV."
+        "Start with P-REASSESS-CURRENT-BASELINE and verify that the cited reassessment applies. Keep f, the current repair entry and both accepting reviews.",
+        "After F2 add a second non-author ordinary review at the location allowed for that review naming the exact reference of the cited reassessment. It dissents on one required item. Verify that this run fails record-invalid and retirement-blocked.",
+        "Commit a deletion of just the second review. Re-run on the later M with the same F2 and no REV."
       ],
       "expected": {
         "outcome": "FAIL",
@@ -599,8 +654,15 @@
         "invariants": [
           {
             "reassessment_absent": "the cited reassessment from category3.reassessments"
+          },
+          {
+            "record_invalid_for": "the cited reassessment"
           }
-        ]
+        ],
+        "finding": {
+          "present_at_M": true,
+          "witness": "M"
+        }
       },
       "requirements": [
         "R6.OBL29.3",
@@ -608,15 +670,15 @@
         "R6.REC.6",
         "R6.RECON.27"
       ],
-      "note": "The second review remains in R*. Snapshot lint would let the applicable discharge return after deletion."
+      "note": "Only the second review leaves the current tree. The applying baseline and the still-current finding isolate the historical-lint change."
     },
     {
       "id": "N-REPAIR-DISSENT-DELETED",
       "kind": "countercase",
       "setup": [
-        "Use the applying reassessment in P-REASSESS-AFTER-DELETE with a repair reconciliation record subject to lint. Its entry and accepting review remain in the scanned set at M.",
-        "After F2 a second non-author review in the repair record directory lands on main, names that exact repair record reference and rejects one item. The run fails with record-invalid and retirement-blocked.",
-        "A later main commit deletes only the dissenting review. Re-run on that M with the same cited reassessment and no REV."
+        "Start with P-REASSESS-CURRENT-BASELINE and verify that the cited reassessment applies. Keep f, the current repair entry and both accepting reviews.",
+        "After F2 add a second non-author ordinary review in the same reconciliation directory as the repair record naming the exact reference of the repair’s reconciliation record. It dissents on one required item. Verify that this run fails record-invalid and retirement-blocked.",
+        "Commit a deletion of just the second review. Re-run on the later M with the same F2 and no REV."
       ],
       "expected": {
         "outcome": "FAIL",
@@ -627,8 +689,15 @@
         "invariants": [
           {
             "reassessment_absent": "the cited reassessment from category3.reassessments"
+          },
+          {
+            "record_invalid_for": "the repair’s reconciliation record"
           }
-        ]
+        ],
+        "finding": {
+          "present_at_M": true,
+          "witness": "M"
+        }
       },
       "requirements": [
         "R6.OBL29.3",
@@ -637,7 +706,111 @@
         "R6.REC.6",
         "R6.RECON.27"
       ],
-      "note": "The surviving entry and positive review are necessary and insufficient when a dissent also qualifies."
+      "note": "Only the second review leaves the current tree. The applying baseline and the still-current finding isolate the historical-lint change."
+    },
+    {
+      "id": "N-HISTORICAL-REVIEW-ITEMS",
+      "kind": "countercase",
+      "setup": [
+        "Start with P-REASSESS-CURRENT-BASELINE and verify the discharge applies. Keep f, the repair entry and both original accepting reviews at their required inputs.",
+        "Run each variant against both the cited reassessment and the repair reconciliation record. Put the second exact-reference ordinary review at the prescribed location, including the same reconciliation directory for the repair.",
+        "Variant OMIT: the second review has only accept verdicts but omits one required item id. Variant DUP: all required item ids appear and one has two accept verdicts.",
+        "Verify failure with the second review current. Delete only that review and re-run against the same F2 and later M with no REV."
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "record-invalid",
+          "retirement-blocked"
+        ],
+        "finding": {
+          "present_at_M": true,
+          "witness": "M"
+        },
+        "invariants": [
+          {
+            "reassessment_absent": "the cited reassessment"
+          },
+          {
+            "record_invalid_for": "the discharge record targeted by this variant"
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.3",
+        "R6.OBL29.6",
+        "R6.REC.6",
+        "R6.RECON.27"
+      ],
+      "note": "A check limited to review verdict strings would miss both defects."
+    },
+    {
+      "id": "P-REPAIR-REVIEW-OTHER-DIRECTORY",
+      "kind": "positive",
+      "setup": [
+        "Start with P-REASSESS-CURRENT-BASELINE. Add a second non-author ordinary review of the repair record at a different directory from the repair record. In its exact-reference review put an ordinary reject on one item and no finding signal.",
+        "Keep the completed same-directory accepting review and all other evidence. Verify the discharge applies while the other-directory review is current and after deleting only that other-directory review."
+      ],
+      "expected": {
+        "outcome": "ANY",
+        "finding": {
+          "present_at_M": true,
+          "witness": "M"
+        },
+        "invariants": [
+          {
+            "reassessment_applies": "the cited reassessment"
+          },
+          {
+            "finding_unblocked": "f"
+          },
+          {
+            "not_class": [
+              "record-invalid",
+              "retirement-blocked"
+            ]
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.3",
+        "R6.OBL29.4",
+        "R6.RECON.1",
+        "R6.RECON.35"
+      ],
+      "note": "Exact reference alone does not make a review of a reconciliation record eligible. This does not suppress a category-3 finding from a review at the wrong location."
+    },
+    {
+      "id": "N-REPAIR-REVIEW-WRONG-LOCATION",
+      "kind": "countercase",
+      "setup": [
+        "Start with the applying P-REASSESS-CURRENT-BASELINE. Keep the current repair record and f.",
+        "Replace the only same-directory accepting repair review at M with a byte-identical regular copy at a different directory. Keep the old review reachable in M history.",
+        "Run with the same F2 and no REV. The reassessment’s accepting review remains available through its admitted input."
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "record-invalid",
+          "retirement-blocked"
+        ],
+        "finding": {
+          "present_at_M": true,
+          "witness": "M"
+        },
+        "invariants": [
+          {
+            "reassessment_absent": "the cited reassessment"
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.3",
+        "R6.OBL29.4",
+        "R6.RECON.27",
+        "R6.RECON.35"
+      ],
+      "note": "Neither historical acceptance nor an out-of-directory copy satisfies the current same-directory review requirement."
     },
     {
       "id": "P-FORM-IV-REVIEWED-ENTRY",
@@ -988,9 +1161,9 @@
       "id": "N-REPAIR-ENTRY-DELETED",
       "kind": "negative",
       "setup": [
-        "as P-REASSESS-AFTER-DELETE to F2",
-        "c4: delete the repair's reconciliation record (its entry is no longer at M)",
-        "run on c4 with --freeze F2"
+        "Start with P-REASSESS-CURRENT-BASELINE and verify the cited reassessment applies while f is current.",
+        "On the next main commit delete only the repair’s reconciliation record. Keep f, the current accepting review of the repair, the repair’s commits and all F2 inputs.",
+        "Re-run on the later M with the same F2 and no REV."
       ],
       "expected": {
         "outcome": "FAIL",
@@ -999,14 +1172,20 @@
           "record-invalid"
         ],
         "finding": {
-          "present_at_M": false
-        }
+          "present_at_M": true,
+          "witness": "M"
+        },
+        "invariants": [
+          {
+            "reassessment_absent": "the cited reassessment"
+          }
+        ]
       },
       "requirements": [
         "R6.OBL29.4",
         "R6.RECON.27"
       ],
-      "note": "presence-based discharge conditions are read at M, never from R*: removal can only take a discharge away Baseline guard with the same result under amendment 6 r5 and r10."
+      "note": "Baseline guard with the same comparison under amendment 6 r5 and r10. The historic record cannot substitute for the current repair entry."
     },
     {
       "id": "P-NONFINDING-REMOVAL",
@@ -1147,6 +1326,43 @@
         "R6.OBL29.6",
         "R6.OBL29.8"
       ]
+    },
+    {
+      "id": "P-REASSESS-CURRENT-BASELINE",
+      "kind": "positive",
+      "setup": [
+        "Use the independently reviewed f of P-REASSESS-AFTER-DELETE but leave q and f unchanged at M. Use a repair record qr distinct from q. q documents the older side change and is not an applying reconciliation record for the current run.",
+        "Keep the exact repair commits on the first-parent chain, the repair entry and its complete accepting non-author review in the scanned set at M, and the reassessment and its accepting non-author review in F2’s admitted inputs. There are no defective eligible reviews of either discharge record.",
+        "Use an otherwise valid reassessment which names f’s original reference and item and the repair entry and binds edit e in K2. Evaluate the actual category3 result."
+      ],
+      "expected": {
+        "outcome": "ANY",
+        "finding": {
+          "present_at_M": true,
+          "witness": "M"
+        },
+        "invariants": [
+          {
+            "reassessment_applies": "the cited reassessment"
+          },
+          {
+            "finding_unblocked": "f"
+          },
+          {
+            "not_class": [
+              "retirement-blocked",
+              "record-invalid"
+            ]
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.3",
+        "R6.OBL29.4",
+        "R6.OBL29.8",
+        "R6.RECON.27"
+      ],
+      "note": "Use this applying baseline when a control changes only discharge evidence. P-REASSESS-AFTER-DELETE independently tests historical finding lookup."
     },
     {
       "id": "P-REMOVE-EDIT",
@@ -1361,6 +1577,63 @@
       "note": "Checks the candidate and inherited history together for accidental findings. A genuine finding is handled by the usual binding rules."
     },
     {
+      "id": "P-TL-MALFORMED-NONFINDING",
+      "kind": "positive",
+      "setup": [
+        "Place a regular file at M inside a tool-landing prefix. Its blob is pinned by that class and begins a JSON value. It meets class (b) or (c) with a record-schema marker and contains no invalidation signal.",
+        "The run does not explicitly read the file. Evaluate its category-3 result and ordinary record lint. Compare P-HISTORICAL-MALFORMED-NONFINDING for a current file outside the exclusion and N-TL-WIDEN for a finding inside it."
+      ],
+      "expected": {
+        "outcome": "ANY",
+        "invariants": [
+          {
+            "finding_absent": "the tool-landing file"
+          },
+          {
+            "not_class": [
+              "record-invalid",
+              "retirement-blocked"
+            ]
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.2",
+        "R6.OBL29.5",
+        "R6.RECON.35"
+      ],
+      "note": "Widened category-3 detection does not widen ambient current malformed-nonfinding lint."
+    },
+    {
+      "id": "P-REPRESENTATIVE-READ-DOMAINS",
+      "kind": "positive",
+      "setup": [
+        "Use the representative fixtures behind N10, N11, RT-L2 and RT-O9-L2. Include a category-3 record read from an eligible verified ancestor at a path outside the representative comparison scope.",
+        "Check scanned_paths_within using the existing representative comparison scope. Check the history read separately using the category-3 source commit or predicted step, path, blob and role under R6.OBL29.1.",
+        "Countercase: attribute a candidate-only fixture read to category 3. The category-3 source check fails even if it is allowed in the representative comparison."
+      ],
+      "expected": {
+        "outcome": "ANY",
+        "invariants": [
+          {
+            "scanned_paths_within": "existing representative candidate and comparison scope"
+          },
+          {
+            "category3_read_sources_verified": true
+          },
+          {
+            "planted_candidate_only_category3_read_rejected": true
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.1",
+        "R6.OBL29.5",
+        "R6.EVID.8"
+      ],
+      "note": "Record both read domains. An eligible historical read outside the representative scope cannot be used to disable or broaden the representative guard."
+    },
+    {
       "id": "P-ACTUAL-MAIN",
       "kind": "positive",
       "setup": [
@@ -1457,7 +1730,7 @@
       "id": "B-REBASE-SIDE-COMMIT",
       "kind": "boundary",
       "setup": [
-        "The topic history forks from main at c0. It contains a side-change commit s followed by q and f. The entry q documents s under a topic M that used s before replay.",
+        "Use a synthetic topic graph with c0, side-change commit s, and then q and f. In an isolated comparator taking the topic tip as M, verify that the exact s is reachable and f binds. This is a graph control, not an earlier admitted main landing run.",
         "Rebase and land equivalent content under new first-parent commit id s2, replaying the exact path and blob of q and f, including the unchanged side_change_commits reference to s.",
         "Run on rebased M without the old topic history as a root. s is absent from M ancestry and s2 is present. All other binding conditions hold."
       ],
@@ -1482,7 +1755,7 @@
         "R6.OBL29.2",
         "R6.RECON.26"
       ],
-      "note": "Unaccepted R-1 gap. Replay can retain bytes and still change which findings bind. Verify the existing side-change applicability predicate against the exact fixture."
+      "note": "Unaccepted R-1 boundary. Replay retains the finding’s path and blob while the old exact side-change id becomes unreachable. The before-replay comparator is synthetic."
     },
     {
       "id": "B-ABANDONED-REV",
@@ -1562,22 +1835,33 @@
       "id": "B-CANDIDATE-ONLY",
       "kind": "boundary",
       "setup": [
-        "Create synthetic candidate-side commits X and C carrying a candidate fixture q and f, with q naming a side change already applicable at M.",
-        "Neither the candidate commits nor identical q/f entries are reachable from M, F or REV. Neither is explicitly read. Evaluate category-3 detection if the run reaches it."
+        "Run two fully admitted synthetic op C fixtures, one through chain admission and one through control-harness admission. Give both a valid configuration and a genuine control finding g whose witness is on M and whose side change binds.",
+        "In each fixture construct X and C through the normal candidate path (X_rep in the harness fixture). A declared ledger splice on a regular data path under verification/audits/ produces a JSON-leading malformed finding marker h only in the candidate tree. The path is not a record input. At H and in all trees reachable from M, F or REV, the path does not contain h.",
+        "Require successful admission, an emitted category3 result, and detection of g with its expected binding in each run. Compare category3.findings against the marker’s exact path and blob and require h to be absent."
       ],
       "expected": {
-        "outcome": "ANY",
+        "outcome": "FAIL",
+        "classes_include": [
+          "retirement-blocked"
+        ],
         "invariants": [
           {
-            "finding_absent": "f"
+            "admission_mode": "chain and control-harness, each in its own fixture"
+          },
+          {
+            "finding_observed": "g, the known M finding"
+          },
+          {
+            "finding_absent": "h, the candidate-only marker"
           }
         ]
       },
       "requirements": [
         "R6.OBL29.1",
-        "R6.OBL29.2"
+        "R6.OBL29.2",
+        "R6.EVID.8"
       ],
-      "note": "Incidental candidate content does not add a finding. Existing candidate-tree and admission checks retain their own outcomes."
+      "note": "The deliberate g block proves category-3 evaluation ran in both fixtures. Early admission failure, a missing category3 result or skipping all findings does not satisfy the control."
     },
     {
       "id": "B-MAIN-REWRITE",
