@@ -169,6 +169,23 @@ def postf_controls(r, check):
         w0.run(['%s:%s' % (rv, pth)])
         return pth
 
+    # the line-patch adapter's expected_sha256, in both directions: the stated value (the sha256 of the patched
+    # content) lets RC8 hold; a wrong value makes RC8 fail (coordinator's safeguard for option 1)
+    doc_ok = w.record()
+    entry = doc_ok['paths'][0]
+    ok_ev = rcmod.evaluate(w.repo, w.ctx, w.syn.H, w.M, w.X, w.led, doc_ok, entry, [], {})
+    bad_led = copy.deepcopy(w.led)
+    bad_led['files'][sf.DOC]['expected_sha256'] = '0' * 64
+    bad_ev = rcmod.evaluate(w.repo, w.ctx, w.syn.H, w.M, w.X, bad_led, doc_ok, entry, [], {})
+    x_bytes = w.repo.read(w.X, sf.DOC)
+    check('LINE-PATCH-RC8', "the line-patch ledger's expected_sha256 is the sha256 of the patched content, and RC8 "
+          'reads it: the stated value holds RC8, a wrong value fails it',
+          'expected_sha256 equals sha256 of the candidate document; RC8 holds with it and fails with a wrong value',
+          {'stated': w.led['files'][sf.DOC]['expected_sha256'], 'candidate_sha256': sha(x_bytes),
+           'rc8_stated': ok_ev['holds'].get('RC8'), 'rc8_wrong': bad_ev['holds'].get('RC8')},
+          w.led['files'][sf.DOC]['expected_sha256'] == sha(x_bytes) and ok_ev['holds'].get('RC8') is True and
+          bad_ev['holds'].get('RC8') is False)
+
     # POSTF-2
     w2 = World(r, pre_change=True)
     REV2, p2, _ = w2.standard()
