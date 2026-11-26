@@ -3,6 +3,7 @@ import argparse
 import hashlib
 import json
 import os
+import posixpath
 import re
 import subprocess
 import sys
@@ -16,6 +17,7 @@ from . import peredit
 from . import profiles as prmod
 from . import pipeline as pl
 from . import reconcile as rcmod
+from . import recon_route
 from . import records as rec
 from . import rules as rulemod
 from . import util
@@ -1193,10 +1195,50 @@ def op_execution(a, repo, ctx, loaded, records, result, control=None):
             record_refs[r['path']] = r['blob_sha256']
         else:
             recon.append(dict(d, _ref={'path': r['path'], 'blob_sha256': r['blob_sha256']}))
+    # the --classify records (sec. 22): a reconciliation record reaches the run only by the post-freeze route of
+    # R6.RECON.2; a review record is never a primary record; in the control harness every other record kind is
+    # linted at its record commit (OBL-28 C-29)
+    route_cands = []
     for r in a.classify:
+        rev_text, rpath = split_ref(r)
+        if not re.fullmatch(r'[0-9a-f]{40}', rev_text):
+            records.items.append(oc.make_item('RECORD', 'record-invalid', rpath, None,
+                                              {'why': 'the record commit is not a full commit id'},
+                                              detail='a --classify record commit must be a full commit id'))
+            continue
+        rev = resolve(repo, rev_text)
+        try:
+            data = repo.read(rev, rpath)
+        except Unresolvable as exc:
+            records.items.append(oc.make_item('RECORD', 'record-invalid', rpath, None, {'why': 'not a regular file'},
+                                              detail=str(exc)))
+            continue
+        if data is None:
+            raise oc.Stop(oc.error, 'SOURCE_CHANGED', 'record %s not present at %s' % (rpath, rev[:12]))
+        try:
+            doc = json.loads(data.decode('utf-8'))
+        except (ValueError, UnicodeDecodeError):
+            doc = None
+        schema = doc.get('schema') if isinstance(doc, dict) else None
+        if schema == recon_route.recon_schema:
+            records.used.append({'path': rpath, 'blob_sha256': util.sha256(data), 'kind': 'classification'})
+            route_cands.append((rev_text, rev, rpath, data, doc))
+            continue
+        if schema == recon_route.review_schema:
+            records.used.append({'path': rpath, 'blob_sha256': util.sha256(data), 'kind': 'classification'})
+            records.items.append(oc.make_item('RECORD', 'record-invalid', rpath, None,
+                                              {'sha': util.sha256(data), 'why': 'a review record named as the '
+                                                                                'primary record'}))
+            continue
         d = records.admit(repo, r, 'classification')
         if d is None:
             continue
+        if records.harness:
+            probs = recon_route.lint_classified(repo, rev, rpath, data, d, None)
+            if probs:
+                records.items.append(oc.make_item('RECORD', 'record-invalid', rpath, None,
+                                                  {'sha': d['_ref']['blob_sha256'], 'why': probs[0]}, detail=probs))
+                continue
         if d.get('schema') == 'oi-side-change-classes/1':
             missing = rec.item_list_problems(d) or ['%s entry %d lacks its id field' % m
                                                     for m in rec.entries_without_id(d)]
@@ -1208,13 +1250,29 @@ def op_execution(a, repo, ctx, loaded, records, result, control=None):
                 class_docs.append(d)
                 side += d.get('classes', [])
                 record_refs[d['_ref']['path']] = d['_ref']['blob_sha256']
-        elif d.get('schema') == 'oi-reconciliation/1' and \
-                d['_ref']['blob_sha256'] not in {x['_ref']['blob_sha256'] for x in recon}:
-            recon.append(d)
+    M = resolve(repo, a.main) if a.main else None
+    if route_cands:
+        if M is None:
+            for c in route_cands:
+                records.items.append(oc.make_item('RECORD', 'record-invalid', c[2], None,
+                                                  {'sha': util.sha256(c[3]), 'why': 'no --main: nothing to reconcile'}))
+        else:
+            scope = recon_route.Scope(repo, H, M, X, resolve(repo, a.freeze) if a.freeze else None, records.harness,
+                                      class_docs, posixpath.dirname(split_ref(a.config)[1]), led['files'],
+                                      ctx.in_corpus, recon)
+            got, listing, clash = recon_route.admit(repo, route_cands, scope, records.items)
+            if clash:
+                # (e): a configuration-referenced record that shares a path with another is not used either
+                for r_ in [x for x in recon if (x.get('_ref') or {}).get('blob_sha256') in clash]:
+                    records.items.append(oc.make_item('RECORD', 'record-invalid', r_['_ref']['path'], None,
+                                                      {'sha': r_['_ref']['blob_sha256'],
+                                                       'why': 'another record covers one of its paths'}))
+                recon = [x for x in recon if (x.get('_ref') or {}).get('blob_sha256') not in clash]
+            recon += got
+            result.setdefault('inputs', {})['classify_records'] = listing
     dup = rcmod.duplicate_class_ids(class_docs)
     if dup:
         raise oc.Stop(oc.error, 'CONFIG_INCONSISTENT', 'side-change class id defined more than once: %s' % dup[:3])
-    M = resolve(repo, a.main) if a.main else None
     L = resolve(repo, a.landing) if a.landing else None
     C = resolve(repo, a.certified) if a.certified else None
     ex = candidate_with_and_without(ctx, H, X, led, dele, M, L, C, side, recon, record_refs)

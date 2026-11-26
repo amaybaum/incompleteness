@@ -6,3 +6,7 @@ tool revision. It lies outside the engine, which carries no retirement constant 
 """
 
 authorized_record_directories = ('verification/audits/foundations/a1exit-deletion-20261121',)
+
+# The root under which reconciliation directories lie (design r6 as amended, R6.RECON.1 and the post-freeze route of
+# R6.RECON.2): a repository placement fact (AGENTS.md sec. A.36), kept outside the engine for the same reason.
+reconciliation_root = 'verification/audits/'
