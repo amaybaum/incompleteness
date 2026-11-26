@@ -99,8 +99,13 @@ class World:
             tm.deny()
             tm.review(held=pl.held_lines(cv.states))
             items += tm.items
-        _stage('coverage', items, sites=[dict(site_id=k, state=(v.get('statuses') or [{}])[-1].get('status'))
-                                         for k, v in sorted(cv.site_out.items())])
+        if capture_hook is not None:
+            from .cli import site_state
+            sites = [dict(site_id=k, state=site_state(v)) for k, v in sorted(cv.site_out.items())]
+            counts = {}
+            for x in sites:
+                counts[x['state']] = counts.get(x['state'], 0) + 1
+            _stage('coverage', items, sites=sites, site_counts=counts)
         return cv, items
 
 

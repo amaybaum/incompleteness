@@ -145,6 +145,18 @@ class Coverage:
             prev = seg['to']
         if prev != self.commit:
             raise oc.Stop(oc.usage, 'USAGE', 'segment chain does not end at the commit')
+        # R6.REC.10: an HP adjudication entry whose site_id no tracked site carries is FAIL stale-adjudication (an
+        # entry naming an existing site but disagreeing with it is decided by that site's own rule); R6.HP.7: a site
+        # its adjudication resolves carries the distinct state provenance-adjudicated
+        resolved = {st.site['site_id'] for st in self.states if getattr(st, 'adjudicated', False)}
+        tracked = set(self.site_out)
+        for sid in sorted(self.hp_records):
+            if sid not in tracked:
+                rec = self.hp_records[sid]
+                self.item('HP', 'stale-adjudication', sid, None, {'entry': util.sha256(util.canonical(
+                    {k: v for k, v in rec.items() if not k.startswith('_')}))}, record=rec.get('_ref'))
+        for sid in resolved:
+            self.site_out[sid]['provenance_adjudicated'] = True
         for st in self.states:
             so = self.site_out[st.site['site_id']]
             so['current'] = ({'file': st.file, 'lines': [st.start + 1, st.start + len(st.block)],

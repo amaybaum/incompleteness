@@ -50,6 +50,58 @@ class Capture(object):
                              control_records.stage_doc(items, operation=label, **facts))
 
 
+def extra_controls(cap):
+    """Rows whose runner is this adapter rather than the self-test: RECLINT-ORPHAN (R6.REC.10) and
+    PIPE-UNRESOLVED (R6.PIPE.7), on the engine's neutral in-memory trees."""
+    out = cap.result_map()
+    ce.capture_hook = cap
+    try:
+        # RECLINT-ORPHAN: an HP adjudication entry naming a site_id that no tracked site carries
+        w, h, sg = ce.hp_world()
+        sid = '%s:%d@%s' % (ce.doc_path, 5, w.pin[:8])
+        steps = ce.walk_steps(w, h, sg, 5)
+        good = {'site_id': sid, 'steps': steps, 'carried': {'row': 'row-x', 'code': 'code-x', 'owner': 'owner-x'},
+                'semantic_classification': 'stated', 'author': 'eng-writer'}
+        orphan_id = '%s:%d@%s' % (ce.doc_path, 99, w.pin[:8])
+        orphan = dict(good, site_id=orphan_id)
+        cv, it = w.coverage(h, [sg], adj={'hp': [good, orphan]}, hits=False)
+        ce._case('an HP adjudication record entry that, on a tree and in a segment to which the record applies, '
+                 'matches no subject (orphan)', entry=orphan_id)
+        c1 = any(i['class'] == 'stale-adjudication' and i['obligation'] == 'HP' and i['subject'] == orphan_id
+                 for i in it)
+        cv, it2 = w.coverage(h, [sg], adj={'hp': [good]}, hits=False)
+        ce._case('the record without the orphan and duplicate entries (positive)')
+        c5 = not [i for i in it2 if i['class'] in ('stale-adjudication', 'record-invalid')]
+        # the context and hit classification orphans, the duplicate and the out-of-scope cases are not run here
+        out['RECLINT-ORPHAN'] = False
+        out['_RECLINT-ORPHAN'] = {'hp_orphan': c1, 'positive': c5,
+                                  'not_run': ['context or hit classification orphan', 'duplicate', 'out of scope']}
+
+        # PIPE-UNRESOLVED: a site lost in the first of two segments is reported there only, its state unresolved
+        w = ce.World()
+        line = 'beta line two stands here.\n'
+        x1 = w.child(w.pin, ce.base_text.replace(line, ''), subject='site removed')
+        x2 = w.child(x1, files={ce.other_path: b'unrelated\n'}, subject='unrelated change')
+        s1, s2 = ce.seg(w.pin, x1), ce.seg(x1, x2)
+        cv, it = w.coverage(x2, [s1, s2], hits=False)
+        site = '%s:5@%s' % (ce.doc_path, w.pin[:8])
+        n1, n2 = '%s..%s' % (w.pin[:8], x1[:8]), '%s..%s' % (x1[:8], x2[:8])
+        ce._case('', site=site, first_segment=n1, second_segment=n2)
+        mine = [(i['class'], i['segment']) for i in it if i['subject'] == site]
+        x2r = w.child(w.pin, files={ce.other_path: b'unrelated\n'}, subject='restored')
+        w.coverage(x2r, [ce.seg(w.pin, x2r)], hits=False)
+        ce._case('baseline')
+        w.coverage(x2r, [ce.seg(w.pin, x2r)], hits=False)
+        ce._case('restored', baseline='baseline')
+        from ledger_coverage.engine.cli import site_state
+        state = site_state(cv.site_out[site])
+        out['PIPE-UNRESOLVED'] = mine == [('missing', n1)] and state == 'unresolved'
+        out['_PIPE-UNRESOLVED'] = {'items': mine, 'state': state}
+    finally:
+        ce.capture_hook = None
+    return out
+
+
 def main(out_dir):
     os.makedirs(out_dir, exist_ok=True)
     rec = control_records.Recorder(JOB, out_dir)
@@ -59,6 +111,16 @@ def main(out_dir):
         results = ce.run(None)
     finally:
         ce.capture_hook = None
+    try:
+        extra = extra_controls(cap)
+    except Exception as exc:
+        extra = {'extra-group-error': '%s: %s' % (type(exc).__name__, exc)}
+    for cid, v in sorted(extra.items()):
+        if cid.startswith('_'):
+            continue
+        rec.pending = cap.runs_of.get(cid, [])
+        rec.record(cid, 'PASS' if v is True else 'FAIL', {'value': v, 'detail': extra.get('_' + cid)},
+                   'the boolean computed for this id in adapters/engine_controls.py')
     for r in results:
         cid = r['id'] if 'error' not in r else '%s-group-error' % r['id']
         rec.pending = cap.runs_of.get(r['id'], []) if 'error' not in r else []

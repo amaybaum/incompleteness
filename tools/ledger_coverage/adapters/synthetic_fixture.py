@@ -43,6 +43,18 @@ def outmap():
     return control_records.RunMap(REC, RUNS)
 
 
+def name_runs(*names):
+    """Names the last len(names) captured runs, oldest first, as the expectation cases `names` (None leaves a run
+    unnamed). Only in the script, where a recorder is set."""
+    if REC is None or not names:
+        return
+    for run, n in zip(REC.pending[-len(names):], names):
+        if isinstance(n, tuple):
+            run['case'], run['bindings'] = n[0], dict(n[1])
+        elif n is not None:
+            run['case'] = n
+
+
 DOC = 'doc/s.md'
 TEXT = ('# synthetic\n\nAxiom Z is the named premise of the synthetic world.\n\nDefinition one states the base object.\n\n'
         'Remark two notes a side fact.\n\nIntro to the list:\n\n- item first here\n- item second here\n\n'
@@ -345,6 +357,7 @@ def y_controls(r):
     cv, pv, sv, _ = syn.build({'patch_sha': sha(pd), 'files': {'syn/patch.json': pd}, 'allow_widened': True,
                                'widening_review': True})
     codev, resv = r.cli(syn.repo, ['terms', '--commit', syn.H], cv, pv, sv)
+    name_runs('with its allow rule', 'rule widened without review', None)
     out['Y4'] = code4 == 0 and codew == 20 and 'record-invalid' in classes(resw) and codev == 0
     e5 = [('Axiom Z is the named premise of the synthetic world.',
            ['Axiom Z is the named premise of the synthetic world, restated.'])]
@@ -360,6 +373,7 @@ def y_controls(r):
     code_w, res_w = run_exec(r, syn, Xw, cw2, pw2, sw2)
     Xa, ca, pa, sa = y_world(syn, edits)
     code_a, res_a = run_exec(r, syn, Xa, ca, pa, sa)
+    name_runs(None, 'hash wrong', 'evidence absent')
     out['Y6'] = code_g == 0 and code_w == 20 and 'delegated-evidence-invalid' in classes(res_w) and code_a == 10 \
         and 'delegated-evidence-missing' in classes(res_a)
     code, res = r.cli(syn.repo, ['record', '--pin', syn.pin, '--record', syn.H], c, p, s)
@@ -406,9 +420,10 @@ def z_controls(r):
     # the run takes the configuration only from F: a --config-sha256 argument no longer exists and is USAGE
     code, res = r.cli(syn.repo, ['terms', '--commit', syn.H, '--config-sha256', s], c, p, s)
     out['Z6b'] = (code, res) == (64, None)
-    out['Z7'] = stop_of({'duplicate_profile': True}) == (65, 'CONFIG_INCONSISTENT') and \
-        stop_of({'final': ['Z-premise']}) == (65, 'CONFIG_INCONSISTENT') and \
-        stop_of({'bad_pattern_hash': True}) == (65, 'CONFIG_INCONSISTENT')
+    z7 = [stop_of({'duplicate_profile': True}), stop_of({'final': ['Z-premise']}),
+          stop_of({'bad_pattern_hash': True})]
+    name_runs('defect 1', 'defect 2', 'defect 3')
+    out['Z7'] = all(x == (65, 'CONFIG_INCONSISTENT') for x in z7)
     out['Z8'] = stop_of({'no_controls': True}) == (70, 'CONFIG_NO_CONTROLS')
     # Z10: a merge added to the HP obligation is widening
     s2 = Syn(two_merges=True)
@@ -460,6 +475,8 @@ def z_controls(r):
     code_b, res_b = r.cli(s2.repo, ['coverage', '--commit', s2.H, '--hp', '%s:syn/hp.json' % c4], c4, p4, h4)
     out['_Z10_detail'] = {'v1': classes(res), 'v2_no_widening_review': (code_u, (res_u or {}).get('stop', {}).get('class')),
                           'v2_with_widening_review': (code_a, classes(res_a)), 'v2_hp_only': (code_b, (res_b or {}).get('stop', {}).get('class'))}
+    name_runs('step before supersession', 'superseded without widening_review',
+              ('valid widening review and matching adjudication', {'step': '%s:7@%s' % (DOC, s2.pin[:8])}), None)
     out['Z10'] = foreign and unrev and adjudicated and (code_b, (res_b or {}).get('stop', {}).get('class')) == (65, 'CONFIG_UNREVIEWED')
     return out
 
@@ -528,6 +545,7 @@ def x_controls(r, repo_path):
     b, rb = r.cli(syn.repo, ['terms', '--commit', X9, '--check', 'zc', '--final'], c, p, s)
     d, rd = r.cli(syn.repo, ['terms', '--commit', X6, '--check', 'zc', '--final'], c, p, s)
     e, re_ = r.cli(syn.repo, ['terms', '--commit', X9, '--final'], c, p, s)
+    name_runs('without --final', 'with --final', 'other-profile REVIEW item with --final', '--final without --check')
     out['X9'] = a == 10 and b == 20 and 'final-unclassified' in classes(rb) and d == 10 and e == 64
     # X10: the acceptance predicate
     good, rg = r.cli(syn.repo, ['terms', '--commit', syn.H], c, p, s)

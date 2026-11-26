@@ -909,7 +909,8 @@ def op_coverage(a, repo, ctx, loaded, records, result):
     tm.review(held=held, region_info=ri)
     tm.stale_rules() if ctx.allow_rules else None
     items += tm.items
-    result['sites'] = sorted(cv.site_out.values(), key=lambda s: s['site_id'])
+    result['sites'] = sorted((dict({k: v for k, v in so.items() if k != 'provenance_adjudicated'},
+                                   state=site_state(so)) for so in cv.site_out.values()), key=lambda s: s['site_id'])
     result['hits'] = sorted(tm.hits, key=lambda h: (h['file'], h['line']))
     result['file_conformance'] = getattr(cv, 'file_conformance', [])
     result['segments'] = [{'name': s['name'], 'from': s['from'], 'to': s['to'], 'kind': s['kind']} for s in segs]
@@ -957,10 +958,21 @@ def hit_regions(ctx, cv, segs, commit):
     return info
 
 
+def site_state(so):
+    """A site's state: unresolved for a site no longer located (R6.PIPE.7: it stays unresolved in later segments);
+    provenance-adjudicated for a site its HP adjudication resolves (R6.HP.7, distinct from every segment status);
+    else its last segment status."""
+    if 'current' in so and so['current'] is None:
+        return 'unresolved'
+    if so.get('provenance_adjudicated'):
+        return 'provenance-adjudicated'
+    return so['statuses'][-1]['status'] if so['statuses'] else ('hp' if so.get('hp_steps') else 'unchanged')
+
+
 def site_counts(cv):
     c = {}
     for so in cv.site_out.values():
-        last = so['statuses'][-1]['status'] if so['statuses'] else ('hp' if so.get('hp_steps') else 'unchanged')
+        last = site_state(so)
         c[last] = c.get(last, 0) + 1
     return dict(sorted(c.items()))
 
