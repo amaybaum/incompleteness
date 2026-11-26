@@ -66,7 +66,7 @@ def sha(b):
 
 
 def w1c_sentence(a, commit, path):
-    rules = json.loads(a.repo.read(a.crev, a.ad + 'rules/w1-w2-allow-v1.json'))
+    rules = json.loads(a.repo.read(a.crev, a1c.allow_rule_path(a, 'W1-c')))
     w1c = [r for r in rules['rules'] if r['id'] == 'W1-c'][0]
     fp = [f for f in w1c['fingerprints'] if f['file'] == path][0]
     sents = util.sentences_of(a.lines(commit, path), a1c_abbrev(a), 2)
@@ -171,7 +171,7 @@ def wb_controls(a):
                                                                'fingerprinted': items_at(res, FULL, l_full)},
           'rule-negative-match' in items_at(res, FULL, end9) and not items_at(res, FULL, l_full))
     # WB10/WB11: lint through the pipeline: a mutated W1-c rule file gives record-invalid
-    rp = a.ad + 'rules/w1-w2-allow-v1.json'
+    rp = a1c.allow_rule_path(a, 'W1-c')
     base_rules = json.loads(a.repo.read(a.crev, rp))
 
     def with_w1c(mut):

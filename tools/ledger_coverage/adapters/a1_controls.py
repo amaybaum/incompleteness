@@ -817,6 +817,26 @@ def class_record_path(a):
         a.ad + 'records/side-change-classes-v1.json'
 
 
+def hit_record_path(a):
+    """The hit classification record of papers/GR.md:58: the one the configuration pins (records, kind
+    hit-classification), so that the runner names no record version of its own."""
+    cfg = json.loads(a.repo.read(a.crev, a.cpath))
+    got = [r['path'] for r in cfg.get('records', []) if r.get('kind') == 'hit-classification']
+    if len(got) != 1:
+        raise RuntimeError('the configuration pins %d hit classification records, not one' % len(got))
+    return got[0]
+
+
+def allow_rule_path(a, rule_id):
+    """The pinned rule file that defines rule_id, so that the runner names no rule-file version of its own."""
+    cfg = json.loads(a.repo.read(a.crev, a.cpath))
+    got = [r['path'] for r in cfg.get('rules', [])
+           if any(x.get('id') == rule_id for x in json.loads(a.repo.read(a.crev, r['path'])).get('rules', []))]
+    if len(got) != 1:
+        raise RuntimeError('the configuration pins %d rule files defining %s, not one' % (len(got), rule_id))
+    return got[0]
+
+
 def exec_args(a, x=T, extra=()):
     return ['execution', '--scientific-base', H, '--candidate', x, '--ledger', LEDGER, '--edits', EDITS,
             '--delegation', '%s:%sdelegation-draft.json' % (a.crev, a.ad),
