@@ -1,0 +1,31 @@
+POS one blank line PASS
+POS multi-paragraph, one blank line PASS
+POS internal triple newline is not the boundary PASS
+NEG two blank lines (PR 1591 case) PASS
+NEG three blank lines PASS
+NEG trailing spaces before boundary PASS
+NEG tab before boundary PASS
+NEG no blank line PASS
+NEG trailing newline after footer PASS
+NEG missing footer PASS
+NEG footer twice PASS
+NEG empty content PASS
+E2E post.py two blank lines (PR 1591 case) PASS
+E2E mkpr.py two blank lines (PR 1591 case) PASS
+E2E post.py three blank lines PASS
+E2E mkpr.py three blank lines PASS
+E2E post.py trailing spaces before boundary PASS
+E2E mkpr.py trailing spaces before boundary PASS
+E2E post.py tab before boundary PASS
+E2E mkpr.py tab before boundary PASS
+E2E post.py no blank line PASS
+E2E mkpr.py no blank line PASS
+E2E post.py trailing newline after footer PASS
+E2E mkpr.py trailing newline after footer PASS
+E2E post.py missing footer PASS
+E2E mkpr.py missing footer PASS
+E2E post.py footer twice PASS
+E2E mkpr.py footer twice PASS
+E2E post.py empty content PASS
+E2E mkpr.py empty content PASS
+RESULT ALL PASS

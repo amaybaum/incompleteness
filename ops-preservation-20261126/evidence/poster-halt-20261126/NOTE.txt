@@ -1,0 +1,2 @@
+2026-11-26T07:02:26Z
+cause: post.py precheck refused a body containing at-sign characters (diff header quoted in lane 1 review); nothing sent; #1583 had 0 comments

@@ -1,0 +1,13 @@
+{
+ "description": "Gate v2 operation registry: operations validated for routine use through gate2, as owner decisions record them. An operation not listed here is not validated and needs a single-write grant for each write (AGENTS.md section A.51 item 2).",
+ "operations": {
+  "issue.edit_body": {
+   "validated": true,
+   "send_form": null,
+   "allowlist": true,
+   "validated_by": "controlled validation write on #1548, outcome permitted footer-attribution-1 with its discrepancy record; evidence issue-1548/validation-3/ at evidence-branch commit 4f2326b6a5cc0ebbeb61c527e0b0518ec033a0df; record #1169 comment 7182050882",
+   "owner_decision": "amaybaum, 2026-11-26T04:06:43Z, coordinating session; recorded at #1169 comment 7182307169: \"Record issue.edit_body as validated under the allowlist. This approval does not extend to other write types.\""
+  }
+ },
+ "not_validated": ["comment.create", "issue.create", "pr.create", "pr.edit", "issue.close", "labels.add", "labels.remove", "push"]
+}

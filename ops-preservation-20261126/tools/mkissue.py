@@ -1,0 +1,26 @@
+import json,subprocess,sys,unicodedata,re,os,urllib.parse
+sys.path.insert(0,'/tmp/claude-0/-home-user-incompleteness/8a0f23ba-ffa7-50df-a785-676e090e9917/scratchpad/w2')
+from fcheck import footer_problem
+HALT=os.environ.get('POST_HALT','/tmp/claude-0/-home-user-incompleteness/8a0f23ba-ffa7-50df-a785-676e090e9917/scratchpad/w2/HALT')
+def die(m):
+    fd=os.open(HALT,os.O_CREAT|os.O_EXCL|os.O_WRONLY); os.write(fd,m.encode()); os.close(fd); print('HALT:',m); sys.exit(3)
+if os.path.exists(HALT): print('halt marker present'); sys.exit(3)
+title,path=sys.argv[1:3]
+body=open(path,encoding='utf-8').read()
+for t in (title,body):
+    if '\r' in t or '@' in t or '<!' in t or any(unicodedata.category(c)=='Cf' or (c.isspace() and ord(c)>127) for c in t): print('REFUSED precheck; nothing sent'); sys.exit(4)
+    if t.lstrip().lower().startswith('oi-'): print('REFUSED oi-'); sys.exit(4)
+    for u in re.findall(r'https?://github\.com/[^\s)\]>`]+',t):
+        if re.search(r'/(blob|tree)/',u) and len(u)>101 and '#' not in u: print('REFUSED long link'); sys.exit(4)
+fp=footer_problem(body)
+if fp or '\n' in title: print('REFUSED form:',fp or 'newline in title'); sys.exit(4)
+ex=subprocess.run(['gh','api','repos/amaybaum/incompleteness/issues?state=all&per_page=50&sort=created&direction=desc'],capture_output=True,text=True)
+if ex.returncode or any(i['title']==title for i in json.loads(ex.stdout)): die('existing issue with same title or listing failed')
+r=subprocess.run(['gh','api','-X','POST','repos/amaybaum/incompleteness/issues','--input','-'],input=json.dumps({'title':title,'body':body}),capture_output=True,text=True)
+if r.returncode: die('create failed/unknown: '+r.stderr[:300])
+n=json.loads(r.stdout)['number']
+g=subprocess.run(['gh','api',f'repos/amaybaum/incompleteness/issues/{n}'],capture_output=True,text=True)
+if g.returncode: die(f'readback failed issue {n}')
+o=json.loads(g.stdout)
+if o['body']!=body or o['title']!=title: die(f'MISMATCH issue {n}')
+print('OK ISSUE',n)
