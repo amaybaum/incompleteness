@@ -648,6 +648,59 @@ def monotone_controls(r):
          blocked(o, False, c1))
 
 
+def pairing_predecessor_controls(r):
+    """Half (b) of the monotone detection with a predecessor: each hop accepted on positive evidence found anywhere
+    in R*; no history-wide ambiguity scan or other review is read."""
+    def world(competing=False):
+        w = pfc.World(r)
+        doc = pfc.invalidating(w, sf.DOC)
+        P = w.record(record_id=doc['record_id'])
+        pb = pfc.jb(P)
+        PP = pfc.RD + 'predecessor.json'
+        pfc.land(w, [(PP, P)], 'P lands reviewed')
+        doc['supersedes'] = {'path': PP, 'blob_sha256': sf.sha(pb)}
+        b = pfc.jb(doc)
+        c1 = step(w, {FP: b}, 'f supersedes P, lands unreviewed')
+        step(w, {FP: None}, 'f is deleted')
+        step(w, {FP[:-5] + '.review.json': w.review(FP, b)}, "f's accepting review lands")
+        if competing:
+            S = dict(P, assessment='a competing successor of P')
+            S['supersedes'] = {'path': PP, 'blob_sha256': sf.sha(pb)}
+            pfc.land(w, [(pfc.RD2 + 'competing.json', S)], 'a competing successor of P lands later')
+        return w, c1
+    w, c1 = world()
+    o = outcome(w)
+    case('SET-PAIRING-PREDECESSOR', 'P lands reviewed; f supersedes P, lands unreviewed and is deleted; then f\'s '
+                                    'accepting review lands: f is detected (half (b), P accepted on its own review) and '
+                                    'blocks', o, blocked(o, False, c1))
+    w, c1 = world(competing=True)
+    o_norm = outcome(w)
+    # mutation: reintroduce a history-wide scan into half (b): every curated store also scans all of R*'s records
+    orig_curated = c3.Cumulative._curated
+    orig_init = c3.Cumulative.__init__
+    holder = {}
+
+    def init(self, *a, **k):
+        orig_init(self, *a, **k)
+        holder['cum'] = self
+
+    def curated(entries):
+        st = orig_curated(entries)
+        cum = holder['cum']
+        allr = [(p, cum.repo.read_blob_uncached(o)) for ents in cum.subtrees.values() for p, _m, o in ents]
+        st.scan = lambda: allr
+        return st
+    c3.Cumulative.__init__, c3.Cumulative._curated = init, staticmethod(curated)
+    try:
+        o_mut = outcome(w)
+    finally:
+        c3.Cumulative.__init__, c3.Cumulative._curated = orig_init, staticmethod(orig_curated)
+    case('SET-PAIRING-NO-HISTORY-SCAN', 'the same with a competing successor of P landing later: f still blocks; with '
+                                        'a history-wide scan reintroduced into half (b) (mutation) the later fork '
+                                        'erases f, which this control detects', {'normal': o_norm, 'mutated': o_mut},
+         blocked(o_norm, False, c1) and not blocked(o_mut, False, c1))
+
+
 def predecessor_widening_unit(r):
     """R6.OBL29.3 predecessor reviews, the widening review where the lineage requires one (review finding 9): a
     rejecting widening review of the exact predecessor in R*, since removed from the tree, keeps the discharge
@@ -674,6 +727,18 @@ def predecessor_widening_unit(r):
         return c3.predecessor_review_problems(doc, {'path': 'syn/cfg/ra.json', 'blob_sha256': '0' * 64}, st,
                                               Cum(verdict))
     rej, acc = problems('reject'), problems('accept')
+
+    class CumDup(Cum):
+        def reviews_naming(self, ref, directory=None):
+            got = Cum.reviews_naming(self, ref, directory)
+            for _p, d in got:
+                d['verdicts'] = d['verdicts'] * 2
+            return got
+    dup = c3.predecessor_review_problems(doc, {'path': 'syn/cfg/ra.json', 'blob_sha256': '0' * 64}, st,
+                                         CumDup('accept'))
+    case('PREDECESSOR-WIDENING-ITEMS', 'the predecessor\'s widening review lists its item twice: refused (item coverage '
+                                       'as widening_review_problems)', dup,
+         any('more than one verdict' in x for x in dup))
     case('PREDECESSOR-WIDENING-REJECT-DELETED', 'the operative predecessor\'s widening review in R* rejects (and has left '
                                                 'the tree): the discharge is inapplicable; an accepting one: no problem',
          {'reject': rej, 'accept': acc}, bool(rej) and acc == [])
@@ -790,7 +855,8 @@ SUITES = [('removal', removal_controls), ('topology', topology_controls), ('unre
           ('positive', positive_controls), ('reassessment', reassessment_controls),
           ('clearance-predicates', clearance_predicates), ('identity-and-set', identity_and_set_controls),
           ('more-negative', more_negative_controls), ('monotone', monotone_controls),
-          ('predecessor-widening', predecessor_widening_unit)]
+          ('predecessor-widening', predecessor_widening_unit),
+          ('pairing-predecessor', pairing_predecessor_controls)]
 
 
 def main(out):

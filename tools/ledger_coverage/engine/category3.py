@@ -229,13 +229,13 @@ def predecessor_review_problems(doc, ref, store, cum):
         # include a widening review where the original check requires one: every widening review in R* of the
         # exact predecessor accepts each of its verdicts
         older = store.resolve(prev['supersedes']) if isinstance(prev.get('supersedes'), dict) else None
-        if store.widening is not None and store.widening(older, prev):
+        changed = store.widening(older, prev) if store.widening is not None else []
+        if changed:
             for wp, wv in cum.reviews_naming(pref):
-                if isinstance(wv, dict) and wv.get('kind') == 'widening' and \
-                        any(not isinstance(v, dict) or v.get('verdict') != 'accept'
-                            for v in wv.get('verdicts') or [None]):
-                    out.append('predecessor %s: the widening review %s in the cumulative record set does not '
-                               'accept every item' % (pref.get('path'), wp))
+                if isinstance(wv, dict) and wv.get('kind') == 'widening':
+                    for x in rec.widening_verdict_problems(wv, changed):
+                        out.append('predecessor %s: the widening review %s in the cumulative record set: %s'
+                                   % (pref.get('path'), wp, x))
         cur = prev
     return out
 
@@ -330,16 +330,20 @@ class Cumulative:
         self.visited = []
         self.holders = {}
         self.subtrees = {}
-        keep = repo.__dict__.get('_c3_keep')
+        # one classifier per (reader, schemas): the classification depends on the schemas
+        cache = repo.__dict__.setdefault('_c3_keep', {})
+        ckey = (id(repo), tuple(schemas))
+        keep = cache.get(ckey)
         if keep is None:
             info = {}
+            classify = self._classify
 
             def keep(oid):
                 if oid not in info:
-                    info[oid] = self._classify(repo.read_blob_uncached(oid))
+                    info[oid] = classify(repo.read_blob_uncached(oid))
                 return info[oid] is not None
             keep.info = info
-            repo.__dict__['_c3_keep'] = keep
+            cache[ckey] = keep
         self.keep = keep
         self.info = keep.info
         seen, stack = set(), [r for r in roots if r]
@@ -381,8 +385,9 @@ class Cumulative:
         (a) the findings of each distinct reachable subtree that holds a candidate, judged as in that tree
             (`findings_in`), and
         (b) the set-wide pairings: a candidate record reference and an accepting review of its exact reference in its
-            own directory, wherever in history each appears, under which the record passes record lint read from
-            those two records and the predecessors they resolve (positive evidence only).
+            own directory, wherever in history each appears, under which the record passes record lint read only
+            from those records and, for each predecessor hop, the positive evidence `_hop` selects from R* (one
+            accepting review in the predecessor's directory, a widening review where one is required).
         No negative evidence read across R* (a competing successor, an adverse predecessor review) can remove a
         finding: (b) reads no ambiguity scan and no other review, and (a) is fixed per tree, so adding history only
         adds findings. One finding per record reference and entry (a copy at another path is another record)."""
@@ -401,7 +406,6 @@ class Cumulative:
                 out += findings_in([(p, self.repo.read_blob_uncached(o)) for p, _m, o in ents], self.schemas)
         if not cands:
             return []
-        pool = self.pool()
         for (p, sha), o in sorted(cands.items()):
             data = self.repo.read_blob_uncached(o)
             try:
@@ -410,46 +414,87 @@ class Cumulative:
                 continue
             ref = {'path': p, 'blob_sha256': sha}
             found = _entry_findings(ref, doc)
+            below = []
+            if isinstance(doc.get('supersedes'), dict):
+                below = self._hop(doc['supersedes'], reviews, set())
+                if below is None:
+                    continue
             d = posixpath.dirname(p)
             for rp, ro in sorted(reviews.get((p, sha), ())):
                 if posixpath.dirname(rp) != d:
                     continue
                 rb = self.repo.read_blob_uncached(ro)
-                st = rec.Store([(p, data), (rp, rb)])
-                # predecessors resolve from R* (positive evidence); no scan is set, so the ambiguity check and the
-                # predecessor review lint read only these two records and cannot be defeated by later history
-                st.resolver = pool.resolve
+                st = self._curated([(p, data), (rp, rb)] + below)
                 if not rec.lint_chain(ref, st, {sha, util.sha256(rb)}):
                     out += found
                     break
         return unique(out)
 
-    def pool(self):
-        """R*'s reconciliation records by exact reference, read on demand: resolve({path, blob_sha256}) (positive
-        evidence for the set-wide pairing's predecessors)."""
-        if getattr(self, '_pool', None) is None:
-            refs = {}
-            for ents in self.subtrees.values():
-                for p, _m, o in ents:
-                    inf = self.info[o]
-                    sha = inf[1] if inf[0] in ('candidate', 'record') else None
-                    refs[(p, o)] = sha
-            repo = self.repo
+    @staticmethod
+    def _curated(entries):
+        """A record store holding exactly `entries`: no resolver and no scan, so record lint reads only these records
+        (no ambiguity scan, no other review), with the widening rule of rule files for a predecessor."""
+        from . import rules as rulemod
+        st = rec.Store(entries)
 
-            class Pool:
-                def resolve(_s, ref):
-                    for (p, o), _sha in refs.items():
-                        if p == ref.get('path'):
-                            b = repo.read_blob_uncached(o)
-                            if util.sha256(b) == ref.get('blob_sha256'):
-                                try:
-                                    return json.loads(b.decode('utf-8'))
-                                except (ValueError, UnicodeDecodeError):
-                                    return None
-                    return None
+        def widening(old, new):
+            if isinstance(new, dict) and new.get('schema') == rulemod.rules_schema:
+                return rulemod.file_widening(old, new)
+            return []
+        st.widening = widening
+        return st
 
-            self._pool = Pool()
-        return self._pool
+    def _hop(self, pref, reviews, seen):
+        """Positive evidence for one predecessor hop of the set-wide pairing, from anywhere in R*: the predecessor at
+        its exact reference, one accepting ordinary review in its directory naming that reference, a widening review
+        of it where one is required, and the same for its own predecessors. Returns the entries, or None when R*
+        holds no such evidence. Reviews are tried one at a time, so an adverse review is never read with it."""
+        key = (pref.get('path'), pref.get('blob_sha256'))
+        if key in seen:
+            return None
+        seen = seen | {key}
+        got = self._bytes_of(pref)
+        if got is None:
+            return None
+        pdata, pdoc = got
+        below = []
+        if isinstance(pdoc.get('supersedes'), dict):
+            below = self._hop(pdoc['supersedes'], reviews, seen)
+            if below is None:
+                return None
+        d = posixpath.dirname(pref['path'])
+        ordinary, widening = [], []
+        for rp, ro in sorted(reviews.get(key, ())):
+            rb = self.repo.read_blob_uncached(ro)
+            try:
+                rv = json.loads(rb.decode('utf-8'))
+            except (ValueError, UnicodeDecodeError):
+                continue
+            if not isinstance(rv, dict):
+                continue
+            if rv.get('kind', 'review') == 'widening':
+                widening.append((rp, rb))
+            elif posixpath.dirname(rp) == d:
+                ordinary.append((rp, rb))
+        for r_ in ordinary:
+            for w_ in [None] + widening:
+                entries = [(pref['path'], pdata), r_] + ([w_] if w_ else []) + below
+                st = self._curated(entries)
+                if not rec.predecessor_problems(pref, pdoc, st):
+                    return entries
+        return None
+
+    def _bytes_of(self, ref):
+        for ents in self.subtrees.values():
+            for p, _m, o in ents:
+                if p == ref.get('path') and self.info[o][0] in ('candidate', 'record') and \
+                        self.info[o][1] == ref.get('blob_sha256'):
+                    b = self.repo.read_blob_uncached(o)
+                    try:
+                        return b, json.loads(b.decode('utf-8'))
+                    except (ValueError, UnicodeDecodeError):
+                        return None
+        return None
 
     def reviews_naming(self, ref, directory=None):
         """[(path, doc)] of every review record in R* whose `reviewed` names `ref` exactly (path and blob), only in

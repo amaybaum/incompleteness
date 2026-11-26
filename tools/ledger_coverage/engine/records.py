@@ -405,14 +405,26 @@ def widening_review_problems(ref, store, admitted_shas, regular_reviewers, autho
         who = d.get('reviewer')
         if not _person(who) or who == author or who in regular_reviewers:
             bad.append('reviewer is the author, a regular reviewer, or not a person')
-        verdicts = {v.get('item'): v.get('verdict') for v in d.get('verdicts', []) if isinstance(v, dict)}
-        miss = [c for c in changed if verdicts.get(c) != 'accept']
-        if miss or any(v != 'accept' for v in verdicts.values()) or not verdicts:
-            bad.append('verdicts do not accept every changed item (%s)' % ', '.join(miss[:3]))
+        bad += widening_verdict_problems(d, changed)
         if not bad:
             return []
         why.append('widening review %s: %s' % (path, '; '.join(bad)))
     return why or ['no widening review names the superseding blob']
+
+
+def widening_verdict_problems(review, changed):
+    """The item coverage of a widening review: a verdict for every changed item, each item listed once, every
+    verdict accept, and at least one verdict."""
+    entries = [v for v in (review.get('verdicts') or []) if isinstance(v, dict)] if isinstance(review, dict) else []
+    named = [v.get('item') for v in entries]
+    verdicts = {v.get('item'): v.get('verdict') for v in entries}
+    miss = [c for c in changed if verdicts.get(c) != 'accept']
+    out = []
+    if miss or any(v != 'accept' for v in verdicts.values()) or not verdicts:
+        out.append('verdicts do not accept every changed item (%s)' % ', '.join(str(m) for m in miss[:3]))
+    if len(named) != len(set(named)):
+        out.append('an item has more than one verdict')
+    return out
 
 
 def widening_review_ok(ref, store, admitted_shas, regular_reviewers, author, old_ref=None, changed=()):
