@@ -1,0 +1,2271 @@
+{
+ "schema": "oi-reconciliation/2",
+ "record_id": "a1exit-reconciliation-b4",
+ "status": "UNREVIEWED DRAFT: prepared by the writer named in author; no independent review record exists. Not usable by any run until an oi-review-record/1 by a non-author reviewer names this blob (design r6 as amended by amendments 3 and 4: R6.REC.2, R6.REC.6, R6.RECON.21, R6.RECON.25). Every scientific_effect is the writer's draft; the independent review judges each. It supersedes the record named in supersedes (the SM.md entry re-derived at M0 after #1589; the other entries unchanged), so it is usable only when that predecessor also passes record lint with its own review (R6.REC.7).",
+ "author": "b4-rebuild-writer-20261126",
+ "supersedes": {
+  "path": "verification/audits/foundations/a1exit-reconciliation-b4-20261126/records/reconciliation-b4-v2.json",
+  "blob_sha256": "82caebb9a95e2fa237082b191cbeba157b03fc3a3793400ccf09a34405beff35"
+ },
+ "M": null,
+ "X": null,
+ "M0": "c31d739c02911faaa9612824c48977b39717de05",
+ "ledger_base": "53c6601a10419b6b333cc992474272501ab542af",
+ "changes_decisions_on_X": [],
+ "run_binding": {
+  "H": "53c6601a10419b6b333cc992474272501ab542af",
+  "M": "the run's predicted M: the commit M0 above (main after the merge of #1589) plus the tool's landing paths (R6.TREE.15, R6.RECON.21, R6.EVID.8); null here, completed by a superseding record of this lineage with its own review.",
+  "X": "X_rep (R6.EVID.8), X = C = X_rep; null here. Each x below is the path's blob in every conforming candidate: H's bytes with all of the path's splices applied, whose sha256 equals the ledger's expected_sha256.",
+  "invariance": "The tool's landing touches no ledgered path (R6.PLACE.8), so every value below is the same at M0 and at the predicted M."
+ },
+ "statement": "Every one of the eleven ledgered paths that differ between H and M0 has one entry. Each splice's old bytes occur once at H and once at M0; the composition is M0's bytes with every splice applied at its translated offset and keeps every byte that main changed; each splice's context window at H (lines; for corpus paths widened to splitter-v2 sentences) occurs once at M0 at the translated position, and the retained site D032 keeps its line, so no conflict (category 2) is found. The record relabels no side change as a retirement edit and changes no decision of op C on X.",
+ "paths": [
+  {
+   "path": "AGENTS.md",
+   "ledger_binding": {
+    "files_entry_sha256": "926eaa8b21e933576422f1c7854f6cc8dd0aa178b8225e44b05067ac933dc514",
+    "splices_sha256": "dd0acccd6566e2e5f5e6b24bd3d0e6d2527cbb33210acb5fe368d0ac2c374119",
+    "edit_records_sha256": "fbb374e270690352e68e307a7e921fb6972b9efa03a0abcaa727ccdefa9f1395"
+   },
+   "scientific_effect": {
+    "conclusions": "none",
+    "assessment": "The changes on M (#1552, #1553, #1554, #1566) add and amend procedural sections (sec. A.42, A.43, A.45 and the new sec. A.49 to A.51 on GitHub writes, owner approvals and work packages). The one planned edit, D296, removes A1 from the posit list of the governing principle (sec. A.29); no change on M touches that paragraph or states anything about the posit ledger or total finiteness. Writer's draft, not a review: the independent reviewer re-derives the conclusions, assessment and verdict (R6.RECON.25, R6.REC.2).",
+    "method": "Each changed line range at M read against D296's paragraph; D296's line window found once at M at its translated position (RC14). No computation.",
+    "verdict": "no-effect"
+   },
+   "side_change_commits": [
+    "4fb2c1eed350edf95da2b316abcca93717246589",
+    "8e9b83341cf5bc7fd9fb260892d0385fc9bfab4d",
+    "9deb69568d8231210c7f39cb65be943dea566371",
+    "03fed3f5a0e9f8e87b9fca3723cdf5a9ecfe41c9"
+   ],
+   "m": "39433b94264cc7b10028a7fc263ea158099af169",
+   "m_sha256": "b2be2ff63bdf15237a06c1157d0d17ebf3c9c706401bc3856ae1455847c04f06",
+   "l": "2d9b374866ddbd090200ebd5c7db7de0cd537c8e",
+   "l_sha256": "aa6a746e07128978422a8e8b988c53f34c529b98481b559d3597a6a281639568",
+   "x": "9f4fc3e830707c90ffc105842d26d5b51f01760b",
+   "x_sha256": "59b68984e659ef808819e02d4653d80388f8bd2f4c009796b162fc2453882ce2",
+   "splices": [
+    {
+     "id": "D296",
+     "start_H": 2332,
+     "end_H": 2382,
+     "start_M": 2332,
+     "end_M": 2382,
+     "translation": "identity",
+     "new_sha256": "532c5919b0acfcb31e0c16b799e1b2832b1c07a77d2865d136267c044e9cf051"
+    }
+   ],
+   "protected": [
+    {
+     "start_M": 37993,
+     "end_M": 38233,
+     "sha256": "07f51264e83e3a73330bfa7f42298ebfa3f79e851feec57d26ee4c945a8d4798"
+    },
+    {
+     "start_M": 46764,
+     "end_M": 47118,
+     "sha256": "9b882ac167d7bc37c241c2111dc032004c002b4a684c89d167ee75d183a6404b"
+    },
+    {
+     "start_M": 76843,
+     "end_M": 77407,
+     "sha256": "fdd00b944e28bd2359ab14d7acb5763d0cd1d8d44eff6ed3348f6d8d2cba57dc"
+    },
+    {
+     "start_M": 77583,
+     "end_M": 77852,
+     "sha256": "7bf4b481ff0e95654435cfd8b1281f8899cffd45e94626a6993b93c5e19fab21"
+    },
+    {
+     "start_M": 82702,
+     "end_M": 82908,
+     "sha256": "9b6689fb56b5ef7a636d5601caf1c4a6309621b189cd2c0a19e9835047448a91"
+    },
+    {
+     "start_M": 103198,
+     "end_M": 118962,
+     "sha256": "c8233e7a921c071293873d44644a71e277431c9d131c0d9192e3df1789fcbaa3"
+    }
+   ]
+  },
+  {
+   "path": "book/The-Incompleteness-of-Observation-FULL.md",
+   "ledger_binding": {
+    "files_entry_sha256": "6da72eb4efcd60e15ac27f7711969eb39dac5254b839f11781348ac31f921cd2",
+    "splices_sha256": "49f63b6297717ebd4548fa45feae98a187dd937629c79744dd822a4ec6abbdd0",
+    "edit_records_sha256": "5f5f0079a8ddf48e0352ae883eaa3810e00f39d918f618040ec810b765181d0a"
+   },
+   "scientific_effect": {
+    "conclusions": "none",
+    "assessment": "The change on M is the reapplication of the reviewed corrections of #1560 by #1582 (after their temporary revert by #1580): statements about the Chandrasekaran-Longo-Penington-Witten construction (de Sitter static patch, type II_1, an entropy that is renormalized, finite for semiclassical states and fixed up to a state-independent constant) and about the status of quantum statistics in the framework (representation, not derivation; operational bridge conditional). The eleven changes mirror those of the five chapter files (each changed chapter line is present verbatim in this file at M) and lie outside the 83 planned edits. The writer finds no bearing on the justification of any planned edit. Writer's draft, not a review: the independent reviewer re-derives the conclusions, assessment and verdict (R6.RECON.25, R6.REC.2).",
+    "method": "Each changed sentence at M read against the planned edits of the file and their recorded reasons; every edit's sentence window (splitter version 2, line granularity) found once at M at its translated position (RC14). No computation.",
+    "verdict": "no-effect"
+   },
+   "side_change_commits": [
+    "4c3ad0796b578c6258d5aae58c9502d5155d74dc",
+    "38f018c0c240df8a8bfa21d8a276dc6b65d98b6a",
+    "eb3a69f402e9dcbe50f47e916b45c2b72772553b"
+   ],
+   "m": "8d9fc3ff9c7de3be67ef12cd7ca6fe1387789a34",
+   "m_sha256": "5ac3503d3324ff0649f1cfb8fd878521be10ce37cd7993d2e0232d15fb2b0573",
+   "l": "5a233b783ef3cf4d2ce2bf48c7309a94938a1ccf",
+   "l_sha256": "caea07cb51afa4d9af5b1c1a4908278b16c108261d3b646926b9f3141fa0fc1c",
+   "x": "c931331635dd8de7da180f6dcd00efe80192ca2b",
+   "x_sha256": "0864768eca02d2661ecbf107adf551e8c23ef0b39dcdcb7d4ceb2db0aa237f0c",
+   "splices": [
+    {
+     "id": "D101",
+     "start_H": 19674,
+     "end_H": 19695,
+     "start_M": 19674,
+     "end_M": 19695,
+     "translation": "identity",
+     "new_sha256": "b888dc9df1a93dc3257d685b16ec25d6e6bf681b89293ab6c23ddfbf00b99524"
+    },
+    {
+     "id": "D103",
+     "start_H": 56975,
+     "end_H": 57162,
+     "start_M": 56975,
+     "end_M": 57162,
+     "translation": "identity",
+     "new_sha256": "04c9e714681d7b0ef4a32d47eb4e2eadc02be8e94db83ebcd065f2a46f2a54b9"
+    },
+    {
+     "id": "D105",
+     "start_H": 71744,
+     "end_H": 71852,
+     "start_M": 71744,
+     "end_M": 71852,
+     "translation": "identity",
+     "new_sha256": "ca91652f1e0c1813b0a0e93e6e6c0645b8b2172bce5460cf017d5744510413f7"
+    },
+    {
+     "id": "D311",
+     "start_H": 71947,
+     "end_H": 72006,
+     "start_M": 71947,
+     "end_M": 72006,
+     "translation": "identity",
+     "new_sha256": "b0c94d8f55b9ec6eae0fa3e39e4107e34b184bbbcac015c53a4549c9ea0271d1"
+    },
+    {
+     "id": "D350",
+     "start_H": 73134,
+     "end_H": 73215,
+     "start_M": 73134,
+     "end_M": 73215,
+     "translation": "identity",
+     "new_sha256": "ca1f0db72bf305717b0646bb35d2e2682450d87475015fef4d96b665b15958e2"
+    },
+    {
+     "id": "D313",
+     "start_H": 73328,
+     "end_H": 73398,
+     "start_M": 73328,
+     "end_M": 73398,
+     "translation": "identity",
+     "new_sha256": "a5e7e0ef7044c28d346b3f892e34d01107fffc3cb2bc9578bacd947f0d5a490d"
+    },
+    {
+     "id": "D107",
+     "start_H": 105675,
+     "end_H": 106125,
+     "start_M": 105675,
+     "end_M": 106125,
+     "translation": "identity",
+     "new_sha256": "193e2ff596cbe670c7059535d32fdf829a54a8eafffa6827a95704f5c1f105dc"
+    },
+    {
+     "id": "D109",
+     "start_H": 113357,
+     "end_H": 113394,
+     "start_M": 113357,
+     "end_M": 113394,
+     "translation": "identity",
+     "new_sha256": "2666141c822241e540fe80ff674428bb098cb940950abb1d008592aa070b7467"
+    },
+    {
+     "id": "D111",
+     "start_H": 113753,
+     "end_H": 113834,
+     "start_M": 113753,
+     "end_M": 113834,
+     "translation": "identity",
+     "new_sha256": "bdeb0072996dc665a1cce031ce2444408ebe97564be98cd5257d9fc5f12cc1f9"
+    },
+    {
+     "id": "D113",
+     "start_H": 145711,
+     "end_H": 145770,
+     "start_M": 145724,
+     "end_M": 145783,
+     "translation": 13,
+     "new_sha256": "31d34ca998344eb4d139431153cd0032bec5e5423a28b6ba558e028314423685"
+    },
+    {
+     "id": "D115",
+     "start_H": 147162,
+     "end_H": 147322,
+     "start_M": 147175,
+     "end_M": 147335,
+     "translation": 13,
+     "new_sha256": "8e1e6d40ac25109b6a9ba0f72e5de704e5ed973401af0bf250c65af20ff70092"
+    },
+    {
+     "id": "D240",
+     "start_H": 161141,
+     "end_H": 161230,
+     "start_M": 161154,
+     "end_M": 161243,
+     "translation": 13,
+     "new_sha256": "3c6b40678cdbfa0d66f957d902d1a17ef43d9c4490601f59ba6141e80cef14e3"
+    },
+    {
+     "id": "D234",
+     "start_H": 161232,
+     "end_H": 161734,
+     "start_M": 161245,
+     "end_M": 161747,
+     "translation": 13,
+     "new_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+     "id": "D117",
+     "start_H": 164726,
+     "end_H": 164761,
+     "start_M": 164739,
+     "end_M": 164774,
+     "translation": 13,
+     "new_sha256": "c51ef4fca0f6ad903c434f4744d03c6fe512861452287c7c6455a5fd563f282c"
+    },
+    {
+     "id": "D119",
+     "start_H": 165379,
+     "end_H": 165429,
+     "start_M": 165392,
+     "end_M": 165442,
+     "translation": 13,
+     "new_sha256": "f364290963352a1460d65d9f1a57d8026a40846d530db12c2e44e762f3858eca"
+    },
+    {
+     "id": "D121",
+     "start_H": 172155,
+     "end_H": 172201,
+     "start_M": 172168,
+     "end_M": 172214,
+     "translation": 13,
+     "new_sha256": "84227ae74577e258badf573f7ed3a95c45f5d286195c94f0fc7b7347d6780fae"
+    },
+    {
+     "id": "D242",
+     "start_H": 173363,
+     "end_H": 173440,
+     "start_M": 173376,
+     "end_M": 173453,
+     "translation": 13,
+     "new_sha256": "c2f34416084e87ef05cbe60bc0ef7c2ae893bc42734b17e9298a7d691e6e702c"
+    },
+    {
+     "id": "D123",
+     "start_H": 174333,
+     "end_H": 174420,
+     "start_M": 174346,
+     "end_M": 174433,
+     "translation": 13,
+     "new_sha256": "ace563581392d460fbcf3f680f3a661ccb1ff0c0325aeb4b125d223f94b92cb6"
+    },
+    {
+     "id": "D125",
+     "start_H": 174527,
+     "end_H": 174541,
+     "start_M": 174540,
+     "end_M": 174554,
+     "translation": 13,
+     "new_sha256": "532bb8ef8cadc967d4e0326d70ee2f72ea27b50c5a2dfea8af3aa545fbae7a61"
+    },
+    {
+     "id": "D127",
+     "start_H": 174744,
+     "end_H": 174783,
+     "start_M": 174757,
+     "end_M": 174796,
+     "translation": 13,
+     "new_sha256": "c10430abbfadeb46bce9f97a20f0cd2564a8927a5a49272e9ca90a33c3b8b9d8"
+    },
+    {
+     "id": "D376",
+     "start_H": 176708,
+     "end_H": 176830,
+     "start_M": 176721,
+     "end_M": 176843,
+     "translation": 13,
+     "new_sha256": "8a5c56054ee28e522d3131570fc187b0d1d3600cf092c928417ea7265f238278"
+    },
+    {
+     "id": "D129",
+     "start_H": 177066,
+     "end_H": 177144,
+     "start_M": 177079,
+     "end_M": 177157,
+     "translation": 13,
+     "new_sha256": "3853f88c6093d39249ec84d0feb4f58ad8b55eb157b742f70eae92b365a22c64"
+    },
+    {
+     "id": "D371",
+     "start_H": 179205,
+     "end_H": 179429,
+     "start_M": 179218,
+     "end_M": 179442,
+     "translation": 13,
+     "new_sha256": "c71af565a4f865a2fada5033945e3aefaec2b98b8e94656eb51ec1eac10da533"
+    },
+    {
+     "id": "D373",
+     "start_H": 179667,
+     "end_H": 179864,
+     "start_M": 179680,
+     "end_M": 179877,
+     "translation": 13,
+     "new_sha256": "1cd1d4c5bdd7def2699bca9ec2490c14664d9b78946937f01e06bd870465537d"
+    },
+    {
+     "id": "D131",
+     "start_H": 183963,
+     "end_H": 184019,
+     "start_M": 183976,
+     "end_M": 184032,
+     "translation": 13,
+     "new_sha256": "797b14be61e9b94a3b83a811d93511ba78a1e16b0ac2621880599bb8137ad394"
+    },
+    {
+     "id": "D378",
+     "start_H": 186379,
+     "end_H": 186522,
+     "start_M": 186392,
+     "end_M": 186535,
+     "translation": 13,
+     "new_sha256": "93cd545c6173f00c7e77da97f57547b85b1247290604490c7981c1096bfc7c66"
+    },
+    {
+     "id": "D133",
+     "start_H": 203713,
+     "end_H": 203773,
+     "start_M": 203726,
+     "end_M": 203786,
+     "translation": 13,
+     "new_sha256": "39f1bde928320be8c7b987dfb579ffa575a75bea353dd28d2f78e558950ea09b"
+    },
+    {
+     "id": "D135",
+     "start_H": 219045,
+     "end_H": 219103,
+     "start_M": 219058,
+     "end_M": 219116,
+     "translation": 13,
+     "new_sha256": "de5d5289a7f4029da0077361b589519deef4cceb52b221e396a647c25f0ffed9"
+    },
+    {
+     "id": "D137",
+     "start_H": 223033,
+     "end_H": 223086,
+     "start_M": 223046,
+     "end_M": 223099,
+     "translation": 13,
+     "new_sha256": "2cb9c30d91734a39997cbc5dad306620f13ef7309d41996e85e06b82bfc0c668"
+    },
+    {
+     "id": "D139",
+     "start_H": 223246,
+     "end_H": 223323,
+     "start_M": 223259,
+     "end_M": 223336,
+     "translation": 13,
+     "new_sha256": "f8f6026466e738a5d87481d00d45de3f2f0496a328a27f5f1a549fb29230b10a"
+    },
+    {
+     "id": "D141",
+     "start_H": 223362,
+     "end_H": 223501,
+     "start_M": 223375,
+     "end_M": 223514,
+     "translation": 13,
+     "new_sha256": "d2557edf12a79a1bb4daf790d8116badedfa80f41ff6aa76fcd5e4ecdf177079"
+    },
+    {
+     "id": "D380",
+     "start_H": 232686,
+     "end_H": 232821,
+     "start_M": 232699,
+     "end_M": 232834,
+     "translation": 13,
+     "new_sha256": "6c863a22516b07829ad4fb787f8fa50caef7a212406281ff46d77666a0db745e"
+    },
+    {
+     "id": "D143",
+     "start_H": 233796,
+     "end_H": 233870,
+     "start_M": 233809,
+     "end_M": 233883,
+     "translation": 13,
+     "new_sha256": "1ec18c99dd8cf95abc12f859bcc696ff4e138ac6d024790cc5ac3139b10e2cd2"
+    },
+    {
+     "id": "D382",
+     "start_H": 245955,
+     "end_H": 246084,
+     "start_M": 245968,
+     "end_M": 246097,
+     "translation": 13,
+     "new_sha256": "e21c1f87870dc0151c78a3f1e65fe21f049a9745a452c4b68c4b246435ed041b"
+    },
+    {
+     "id": "D384",
+     "start_H": 247286,
+     "end_H": 247457,
+     "start_M": 247299,
+     "end_M": 247470,
+     "translation": 13,
+     "new_sha256": "55378203a35efb6bd24665f49d5fb0a319e62d5688b28d1a1824ac6f533a321b"
+    },
+    {
+     "id": "D145",
+     "start_H": 282758,
+     "end_H": 282878,
+     "start_M": 282771,
+     "end_M": 282891,
+     "translation": 13,
+     "new_sha256": "1b150d28076efe9c2b915c4f93372b8c927cb797f8773e23dc3f86bb9b45405d"
+    },
+    {
+     "id": "D147",
+     "start_H": 288619,
+     "end_H": 288683,
+     "start_M": 288632,
+     "end_M": 288696,
+     "translation": 13,
+     "new_sha256": "6a6f18c494eb39d108646ebec341172152a820235a722428ce2d08d03e5c36b4"
+    },
+    {
+     "id": "D149",
+     "start_H": 293909,
+     "end_H": 294111,
+     "start_M": 293922,
+     "end_M": 294124,
+     "translation": 13,
+     "new_sha256": "4e679603bf004f12f91319fd7dfbe98927d1e5edd0041014baab80c5285afad3"
+    },
+    {
+     "id": "D151",
+     "start_H": 294313,
+     "end_H": 294378,
+     "start_M": 294326,
+     "end_M": 294391,
+     "translation": 13,
+     "new_sha256": "ebfa7aace620cd0ebc94bc748192748df178e125adccadfc68449e6a60f3f8be"
+    },
+    {
+     "id": "D153",
+     "start_H": 294462,
+     "end_H": 294656,
+     "start_M": 294475,
+     "end_M": 294669,
+     "translation": 13,
+     "new_sha256": "c9603edd33697d2a0f6cd16cb1216cb2a6ad9d49fcf40e764de8c35c4f16c0ba"
+    },
+    {
+     "id": "D386",
+     "start_H": 342275,
+     "end_H": 342405,
+     "start_M": 342288,
+     "end_M": 342418,
+     "translation": 13,
+     "new_sha256": "b9c44dd32254cf1d29e3ec8231984af2b51525521bc637f3128153a2868cfa5e"
+    },
+    {
+     "id": "D155",
+     "start_H": 359592,
+     "end_H": 359666,
+     "start_M": 359605,
+     "end_M": 359679,
+     "translation": 13,
+     "new_sha256": "320fbfd6dc4d4281f714c5ec4f382a84032a5806462ef08cb66d708af7f9bd01"
+    },
+    {
+     "id": "D157",
+     "start_H": 362101,
+     "end_H": 362159,
+     "start_M": 362114,
+     "end_M": 362172,
+     "translation": 13,
+     "new_sha256": "7e1028b84ac6515c495bc112bbd81190c624fe5db9897f97a2b94335cdbce032"
+    },
+    {
+     "id": "D159",
+     "start_H": 362915,
+     "end_H": 362996,
+     "start_M": 362928,
+     "end_M": 363009,
+     "translation": 13,
+     "new_sha256": "bcf7cc54d845736e8073df8f14585c0a3e6d73cd63bd2b6e4d7a0f69d5c3fd29"
+    },
+    {
+     "id": "D161",
+     "start_H": 378184,
+     "end_H": 378238,
+     "start_M": 378197,
+     "end_M": 378251,
+     "translation": 13,
+     "new_sha256": "11e4584f04d7630cb94510fbbf41f98f2fdacf179861c78074f4f378e932d063"
+    },
+    {
+     "id": "D163",
+     "start_H": 379125,
+     "end_H": 379179,
+     "start_M": 379138,
+     "end_M": 379192,
+     "translation": 13,
+     "new_sha256": "0085c04400f0e4115e09d5bb19694a4671929862db2df32f142352b19cb3e67c"
+    },
+    {
+     "id": "D165",
+     "start_H": 492929,
+     "end_H": 492979,
+     "start_M": 492942,
+     "end_M": 492992,
+     "translation": 13,
+     "new_sha256": "a4ed2c32814fbab8f17293ad3336908a3198129d5bffd9a435f77b95c73cd654"
+    },
+    {
+     "id": "D167",
+     "start_H": 517820,
+     "end_H": 517873,
+     "start_M": 517833,
+     "end_M": 517886,
+     "translation": 13,
+     "new_sha256": "152f92b162fec5875677f43da5eb5f938fa68606b307264f53821ca0257dcb6b"
+    },
+    {
+     "id": "D169",
+     "start_H": 598617,
+     "end_H": 598679,
+     "start_M": 598660,
+     "end_M": 598722,
+     "translation": 43,
+     "new_sha256": "5408a59fc0cbf8349bab8a206646f81fbed6ea351a28dc78bea64c0f4440d425"
+    },
+    {
+     "id": "D171",
+     "start_H": 601811,
+     "end_H": 601926,
+     "start_M": 601854,
+     "end_M": 601969,
+     "translation": 43,
+     "new_sha256": "96ae65334f2fda62ef649a5ae1a3e166f36d99ad649d8a5c7215d1821757041b"
+    },
+    {
+     "id": "D256",
+     "start_H": 616540,
+     "end_H": 616610,
+     "start_M": 616583,
+     "end_M": 616653,
+     "translation": 43,
+     "new_sha256": "1b605dca8ef3c65f9b6ee8c21f68fdd7093a9738fb34a8434715598ddaec3375"
+    },
+    {
+     "id": "D173",
+     "start_H": 616612,
+     "end_H": 616754,
+     "start_M": 616655,
+     "end_M": 616797,
+     "translation": 43,
+     "new_sha256": "224572ea29c24e7fcc5e41618a9da3df8f75a765d9c35ed651b01f5b4fb3fe7f"
+    },
+    {
+     "id": "D175",
+     "start_H": 627226,
+     "end_H": 627386,
+     "start_M": 627269,
+     "end_M": 627429,
+     "translation": 43,
+     "new_sha256": "a9f6a3e91bb542201440814e9d76ee8ccfddf89c3e3acda25b69d9569a8f3b74"
+    },
+    {
+     "id": "D177",
+     "start_H": 628493,
+     "end_H": 628544,
+     "start_M": 628536,
+     "end_M": 628587,
+     "translation": 43,
+     "new_sha256": "01b0a10c858e30d382e28b1d31cda7cb6063aaa093ec4a9d873b748ca9c8a28a"
+    },
+    {
+     "id": "D258",
+     "start_H": 629018,
+     "end_H": 629094,
+     "start_M": 629061,
+     "end_M": 629137,
+     "translation": 43,
+     "new_sha256": "de9a35f0ef76fca9ea221b6f59a744a608337040ddd97bf2b1bd1347c9c912f7"
+    },
+    {
+     "id": "D179",
+     "start_H": 629096,
+     "end_H": 629163,
+     "start_M": 629139,
+     "end_M": 629206,
+     "translation": 43,
+     "new_sha256": "481a1f952f5f78ba5d9aed8a37ae4a6b9e45c0df7be3c0d629a67f8d4f3b7832"
+    },
+    {
+     "id": "D360",
+     "start_H": 629164,
+     "end_H": 629226,
+     "start_M": 629207,
+     "end_M": 629269,
+     "translation": 43,
+     "new_sha256": "b72218addaa7573e2315855afdae302e736546ec10c3f3274c1a28501cce658c"
+    },
+    {
+     "id": "D181",
+     "start_H": 629474,
+     "end_H": 629553,
+     "start_M": 629517,
+     "end_M": 629596,
+     "translation": 43,
+     "new_sha256": "baf367eebb3b1ba3a1d6dc0f2c16b95b4622d6efcf1482bcb6aab8b9636627b1"
+    },
+    {
+     "id": "D252",
+     "start_H": 961037,
+     "end_H": 961117,
+     "start_M": 961683,
+     "end_M": 961763,
+     "translation": 646,
+     "new_sha256": "0703473c745cd81933a979ba614d8e4d7f78f7d0e1173a3feb8b77d0963bbb55"
+    },
+    {
+     "id": "D183",
+     "start_H": 1070227,
+     "end_H": 1070677,
+     "start_M": 1071127,
+     "end_M": 1071577,
+     "translation": 900,
+     "new_sha256": "37431b95c1171d0657b520b9157befe9f16ba4d13c962a935914ed3eda9f514a"
+    },
+    {
+     "id": "D185",
+     "start_H": 1094762,
+     "end_H": 1094859,
+     "start_M": 1095662,
+     "end_M": 1095759,
+     "translation": 900,
+     "new_sha256": "ba6bd5ef402e78f9b4f31940fb00ee61f0f5937ceb85eb2cd522c4d6fc02aec9"
+    },
+    {
+     "id": "D187",
+     "start_H": 1095480,
+     "end_H": 1095538,
+     "start_M": 1096380,
+     "end_M": 1096438,
+     "translation": 900,
+     "new_sha256": "9aab0eb3a8b8b50fc873dd60272f637384b381d97b6fa0929b6dbf80425dc6d2"
+    },
+    {
+     "id": "D189",
+     "start_H": 1096058,
+     "end_H": 1096135,
+     "start_M": 1096958,
+     "end_M": 1097035,
+     "translation": 900,
+     "new_sha256": "d6ab351cc663f67e63eef595475d83be728d819fe218b8ded7910705d9bf202c"
+    },
+    {
+     "id": "D191",
+     "start_H": 1132292,
+     "end_H": 1132435,
+     "start_M": 1133192,
+     "end_M": 1133335,
+     "translation": 900,
+     "new_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+     "id": "D193",
+     "start_H": 1269384,
+     "end_H": 1269448,
+     "start_M": 1270284,
+     "end_M": 1270348,
+     "translation": 900,
+     "new_sha256": "1066521d9c389d6cf3742652ef869a6a4a1322c2c0e0666c2fa846daf6d79a0d"
+    },
+    {
+     "id": "D195",
+     "start_H": 1286420,
+     "end_H": 1286462,
+     "start_M": 1287320,
+     "end_M": 1287362,
+     "translation": 900,
+     "new_sha256": "8d4df6455a971b07653979150df5f2520978d1d8e523a58b41535f6e7d3e6cc9"
+    },
+    {
+     "id": "D197",
+     "start_H": 1286495,
+     "end_H": 1286692,
+     "start_M": 1287395,
+     "end_M": 1287592,
+     "translation": 900,
+     "new_sha256": "3e2708e85480dc5e2b4f6be727d5da65c29fb44e31292ed7e505a2f42be3f9ff"
+    },
+    {
+     "id": "D199",
+     "start_H": 1287099,
+     "end_H": 1287256,
+     "start_M": 1287999,
+     "end_M": 1288156,
+     "translation": 900,
+     "new_sha256": "1ff93ccf8435df0fda368f0900800ff7ec8ac0637a059d65c03c4e348e64b230"
+    },
+    {
+     "id": "D201",
+     "start_H": 1287297,
+     "end_H": 1287484,
+     "start_M": 1288197,
+     "end_M": 1288384,
+     "translation": 900,
+     "new_sha256": "647371056f620e4932121221f7a18b2e48e9f91ce4344b7af563314cce5138d4"
+    },
+    {
+     "id": "D203",
+     "start_H": 1288609,
+     "end_H": 1288816,
+     "start_M": 1289509,
+     "end_M": 1289716,
+     "translation": 900,
+     "new_sha256": "c2ca5087bfd0f43f06f6efc4474e0b92cd4037e192ce8c7894a07f10622f8091"
+    },
+    {
+     "id": "D205",
+     "start_H": 1289401,
+     "end_H": 1289505,
+     "start_M": 1290301,
+     "end_M": 1290405,
+     "translation": 900,
+     "new_sha256": "65e906c7481b14f578ad9fa5021d60b573aa2686dbe6b725647cd8ef0060b8a2"
+    },
+    {
+     "id": "D207",
+     "start_H": 1289782,
+     "end_H": 1289989,
+     "start_M": 1290682,
+     "end_M": 1290889,
+     "translation": 900,
+     "new_sha256": "bcecd59d3a9f37ab7f75f6272ec556e65bcf4eb77a02969649820a53e181200d"
+    },
+    {
+     "id": "D209",
+     "start_H": 1290345,
+     "end_H": 1290410,
+     "start_M": 1291245,
+     "end_M": 1291310,
+     "translation": 900,
+     "new_sha256": "fe2782b867155693f69c2fc97b6d437bc0bbfea97a668ac64d201623da396a3c"
+    },
+    {
+     "id": "D211",
+     "start_H": 1290681,
+     "end_H": 1290757,
+     "start_M": 1291581,
+     "end_M": 1291657,
+     "translation": 900,
+     "new_sha256": "6f6c89002c2a8ffda8d74deea9051ec8adfcabc707f8b234cd7119c927cc5afa"
+    },
+    {
+     "id": "D213",
+     "start_H": 1290930,
+     "end_H": 1290987,
+     "start_M": 1291830,
+     "end_M": 1291887,
+     "translation": 900,
+     "new_sha256": "6b3e954de10f17a607842f3787f86cbbb77925e5c7fa08a511af83cfff510125"
+    },
+    {
+     "id": "D215",
+     "start_H": 1291039,
+     "end_H": 1291267,
+     "start_M": 1291939,
+     "end_M": 1292167,
+     "translation": 900,
+     "new_sha256": "ece013bc81c3ba37684e232d6c201d5a902a058c1409a8aab8056e4d4bd8db5c"
+    },
+    {
+     "id": "D217",
+     "start_H": 1291388,
+     "end_H": 1291553,
+     "start_M": 1292288,
+     "end_M": 1292453,
+     "translation": 900,
+     "new_sha256": "2133d16d5c7cd63a8da9780bf75dc82ddcc66e117c04bca303f45c24deb88eb1"
+    },
+    {
+     "id": "D219",
+     "start_H": 1294545,
+     "end_H": 1294633,
+     "start_M": 1295445,
+     "end_M": 1295533,
+     "translation": 900,
+     "new_sha256": "ad375e59393d2f223040e12de89313484eb7b784a4c17688c262dcde21fae898"
+    },
+    {
+     "id": "D247",
+     "start_H": 1294947,
+     "end_H": 1295046,
+     "start_M": 1295847,
+     "end_M": 1295946,
+     "translation": 900,
+     "new_sha256": "baccb6dbdeea27aede0617246d1c8788e68a1135388c8781ba4798ae113630fc"
+    },
+    {
+     "id": "D236",
+     "start_H": 1335421,
+     "end_H": 1336058,
+     "start_M": 1336829,
+     "end_M": 1337466,
+     "translation": 1408,
+     "new_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+     "id": "D221",
+     "start_H": 1336092,
+     "end_H": 1336152,
+     "start_M": 1337500,
+     "end_M": 1337560,
+     "translation": 1408,
+     "new_sha256": "8b7bb2469e1a2ca4739929490948e3e6176aca8ad75013ad250b5b251cbf5dfb"
+    },
+    {
+     "id": "D238",
+     "start_H": 1355572,
+     "end_H": 1355602,
+     "start_M": 1356980,
+     "end_M": 1357010,
+     "translation": 1408,
+     "new_sha256": "620d79a5c19a2567be55bf56ebc1bc464e696aca229bdc96dc9108977e29cb22"
+    },
+    {
+     "id": "D223",
+     "start_H": 1374249,
+     "end_H": 1374345,
+     "start_M": 1375657,
+     "end_M": 1375753,
+     "translation": 1408,
+     "new_sha256": "26a5ac9086ec153e60b21f7bb0a7f4c86f5a0df57a59b3d9b18a50d4937eb459"
+    }
+   ],
+   "protected": []
+  },
+  {
+   "path": "book/appendix-c-objections.md",
+   "ledger_binding": {
+    "files_entry_sha256": "00e6690c30752cb5e5e6695a4ec6f411f669dcbe580b192c52a2d9901d20a356",
+    "splices_sha256": "8b255dc0f6752297568b11899a0edf5114d6de66883451116cf349f04f14fad9",
+    "edit_records_sha256": "ad1af69087a06277a3ffa0b36721caec5d3c93a0873913af69010aaa8f69b278"
+   },
+   "scientific_effect": {
+    "conclusions": "none",
+    "assessment": "The change on M is the reapplication of the reviewed corrections of #1560 by #1582 (after their temporary revert by #1580): statements about the Chandrasekaran-Longo-Penington-Witten construction (de Sitter static patch, type II_1, an entropy that is renormalized, finite for semiclassical states and fixed up to a state-independent constant) and about the status of quantum statistics in the framework (representation, not derivation; operational bridge conditional). The changes (Bohmian statistics, QBism, the measurement problem) lie outside the 15 planned edits. The writer finds no bearing on the justification of any planned edit. Writer's draft, not a review: the independent reviewer re-derives the conclusions, assessment and verdict (R6.RECON.25, R6.REC.2).",
+    "method": "Each changed sentence at M read against the planned edits of the file and their recorded reasons; every edit's sentence window (splitter version 2, line granularity) found once at M at its translated position (RC14). No computation.",
+    "verdict": "no-effect"
+   },
+   "side_change_commits": [
+    "4c3ad0796b578c6258d5aae58c9502d5155d74dc",
+    "38f018c0c240df8a8bfa21d8a276dc6b65d98b6a",
+    "eb3a69f402e9dcbe50f47e916b45c2b72772553b"
+   ],
+   "m": "1b2bb7cdf2cbe970b42e229ba981bcf9cec3343a",
+   "m_sha256": "5807de34f6ec4077bd51c5ec9f483960de4bc2f0f95011717ce0388bed06d165",
+   "l": "38338816e8859c59ac5df1cc4de71fbf19fef785",
+   "l_sha256": "42ebacd7d2d8cdf2b8fe4e8b420c6cb46c6f0b83ee3fbe5f7fb27e8fb1418c2f",
+   "x": "28641ec613225f33e446c35f128d36d4bddfbaef",
+   "x_sha256": "6f6d970e03574f472c99d8fbc8d658466b14da69984459edbbda05eb41be4e5c",
+   "splices": [
+    {
+     "id": "D192",
+     "start_H": 2331,
+     "end_H": 2395,
+     "start_M": 2331,
+     "end_M": 2395,
+     "translation": "identity",
+     "new_sha256": "1066521d9c389d6cf3742652ef869a6a4a1322c2c0e0666c2fa846daf6d79a0d"
+    },
+    {
+     "id": "D194",
+     "start_H": 19367,
+     "end_H": 19409,
+     "start_M": 19367,
+     "end_M": 19409,
+     "translation": "identity",
+     "new_sha256": "8d4df6455a971b07653979150df5f2520978d1d8e523a58b41535f6e7d3e6cc9"
+    },
+    {
+     "id": "D196",
+     "start_H": 19442,
+     "end_H": 19639,
+     "start_M": 19442,
+     "end_M": 19639,
+     "translation": "identity",
+     "new_sha256": "3e2708e85480dc5e2b4f6be727d5da65c29fb44e31292ed7e505a2f42be3f9ff"
+    },
+    {
+     "id": "D198",
+     "start_H": 20046,
+     "end_H": 20203,
+     "start_M": 20046,
+     "end_M": 20203,
+     "translation": "identity",
+     "new_sha256": "1ff93ccf8435df0fda368f0900800ff7ec8ac0637a059d65c03c4e348e64b230"
+    },
+    {
+     "id": "D200",
+     "start_H": 20244,
+     "end_H": 20431,
+     "start_M": 20244,
+     "end_M": 20431,
+     "translation": "identity",
+     "new_sha256": "647371056f620e4932121221f7a18b2e48e9f91ce4344b7af563314cce5138d4"
+    },
+    {
+     "id": "D202",
+     "start_H": 21556,
+     "end_H": 21763,
+     "start_M": 21556,
+     "end_M": 21763,
+     "translation": "identity",
+     "new_sha256": "c2ca5087bfd0f43f06f6efc4474e0b92cd4037e192ce8c7894a07f10622f8091"
+    },
+    {
+     "id": "D204",
+     "start_H": 22348,
+     "end_H": 22452,
+     "start_M": 22348,
+     "end_M": 22452,
+     "translation": "identity",
+     "new_sha256": "65e906c7481b14f578ad9fa5021d60b573aa2686dbe6b725647cd8ef0060b8a2"
+    },
+    {
+     "id": "D206",
+     "start_H": 22729,
+     "end_H": 22936,
+     "start_M": 22729,
+     "end_M": 22936,
+     "translation": "identity",
+     "new_sha256": "bcecd59d3a9f37ab7f75f6272ec556e65bcf4eb77a02969649820a53e181200d"
+    },
+    {
+     "id": "D208",
+     "start_H": 23292,
+     "end_H": 23357,
+     "start_M": 23292,
+     "end_M": 23357,
+     "translation": "identity",
+     "new_sha256": "fe2782b867155693f69c2fc97b6d437bc0bbfea97a668ac64d201623da396a3c"
+    },
+    {
+     "id": "D210",
+     "start_H": 23628,
+     "end_H": 23704,
+     "start_M": 23628,
+     "end_M": 23704,
+     "translation": "identity",
+     "new_sha256": "6f6c89002c2a8ffda8d74deea9051ec8adfcabc707f8b234cd7119c927cc5afa"
+    },
+    {
+     "id": "D212",
+     "start_H": 23877,
+     "end_H": 23934,
+     "start_M": 23877,
+     "end_M": 23934,
+     "translation": "identity",
+     "new_sha256": "6b3e954de10f17a607842f3787f86cbbb77925e5c7fa08a511af83cfff510125"
+    },
+    {
+     "id": "D214",
+     "start_H": 23986,
+     "end_H": 24214,
+     "start_M": 23986,
+     "end_M": 24214,
+     "translation": "identity",
+     "new_sha256": "ece013bc81c3ba37684e232d6c201d5a902a058c1409a8aab8056e4d4bd8db5c"
+    },
+    {
+     "id": "D216",
+     "start_H": 24335,
+     "end_H": 24500,
+     "start_M": 24335,
+     "end_M": 24500,
+     "translation": "identity",
+     "new_sha256": "2133d16d5c7cd63a8da9780bf75dc82ddcc66e117c04bca303f45c24deb88eb1"
+    },
+    {
+     "id": "D218",
+     "start_H": 27492,
+     "end_H": 27580,
+     "start_M": 27492,
+     "end_M": 27580,
+     "translation": "identity",
+     "new_sha256": "ad375e59393d2f223040e12de89313484eb7b784a4c17688c262dcde21fae898"
+    },
+    {
+     "id": "D246",
+     "start_H": 27894,
+     "end_H": 27993,
+     "start_M": 27894,
+     "end_M": 27993,
+     "translation": "identity",
+     "new_sha256": "baccb6dbdeea27aede0617246d1c8788e68a1135388c8781ba4798ae113630fc"
+    }
+   ],
+   "protected": [
+    {
+     "start_M": 32750,
+     "end_M": 33256,
+     "sha256": "1f5c479ef08276ad7c4371d9fd310f9253299ba309307162b8defefdd5d0a691"
+    },
+    {
+     "start_M": 34297,
+     "end_M": 34870,
+     "sha256": "b31dd98a039951b367115afc47fbb5bd01259f513d32a0f3ab49d2d84e773679"
+    },
+    {
+     "start_M": 64027,
+     "end_M": 64986,
+     "sha256": "5f7c430ba27ede964751a981ccbf36a8745aaa6c964ad637d3ae369d23e83a12"
+    }
+   ]
+  },
+  {
+   "path": "book/ch01-observation.md",
+   "ledger_binding": {
+    "files_entry_sha256": "9fd7b7464b65e9bd3c98ee4155e3515f1ca958faea227f4c21115cd22d4798dd",
+    "splices_sha256": "a242219b8686f672acd653e905b45ff302921f4e8bcaf72765d4be878125cfb8",
+    "edit_records_sha256": "2dcf59ca52088c51ed5e2f5be0c139604db2d278edac3b00de169dc24e4ad928"
+   },
+   "scientific_effect": {
+    "conclusions": "none",
+    "assessment": "The change on M is the reapplication of the reviewed corrections of #1560 by #1582 (after their temporary revert by #1580): statements about the Chandrasekaran-Longo-Penington-Witten construction (de Sitter static patch, type II_1, an entropy that is renormalized, finite for semiclassical states and fixed up to a state-independent constant) and about the status of quantum statistics in the framework (representation, not derivation; operational bridge conditional). The changes (indivisible odds sheet; \"on its proposed reading\") lie outside the seven planned edits. The writer finds no bearing on the justification of any planned edit. Writer's draft, not a review: the independent reviewer re-derives the conclusions, assessment and verdict (R6.RECON.25, R6.REC.2).",
+    "method": "Each changed sentence at M read against the planned edits of the file and their recorded reasons; every edit's sentence window (splitter version 2, line granularity) found once at M at its translated position (RC14). No computation.",
+    "verdict": "no-effect"
+   },
+   "side_change_commits": [
+    "4c3ad0796b578c6258d5aae58c9502d5155d74dc",
+    "38f018c0c240df8a8bfa21d8a276dc6b65d98b6a",
+    "eb3a69f402e9dcbe50f47e916b45c2b72772553b"
+   ],
+   "m": "a8ef82fe8d5cf888600cf2988f709b9390d58d19",
+   "m_sha256": "754fcc6abb0e9d8446fa322de2846d0e488736930ee667d00c11694e39ba0061",
+   "l": "020c14e5bca6f0ce46bd5162bb2cc31811ea1b74",
+   "l_sha256": "89505a229cdc7c3d2fde0bfec84e99f431a2a6f1c2a8685064398b9feffd999f",
+   "x": "58ccbe27724c6e7130c952c770025b8e41f6a849",
+   "x_sha256": "c4f7a874354cfcbba9838cd27f69e4df601b4db987ced764ca0618368baf1861",
+   "splices": [
+    {
+     "id": "D104",
+     "start_H": 6326,
+     "end_H": 6434,
+     "start_M": 6326,
+     "end_M": 6434,
+     "translation": "identity",
+     "new_sha256": "ca91652f1e0c1813b0a0e93e6e6c0645b8b2172bce5460cf017d5744510413f7"
+    },
+    {
+     "id": "D310",
+     "start_H": 6529,
+     "end_H": 6588,
+     "start_M": 6529,
+     "end_M": 6588,
+     "translation": "identity",
+     "new_sha256": "b0c94d8f55b9ec6eae0fa3e39e4107e34b184bbbcac015c53a4549c9ea0271d1"
+    },
+    {
+     "id": "D349",
+     "start_H": 7716,
+     "end_H": 7797,
+     "start_M": 7716,
+     "end_M": 7797,
+     "translation": "identity",
+     "new_sha256": "ca1f0db72bf305717b0646bb35d2e2682450d87475015fef4d96b665b15958e2"
+    },
+    {
+     "id": "D312",
+     "start_H": 7910,
+     "end_H": 7980,
+     "start_M": 7910,
+     "end_M": 7980,
+     "translation": "identity",
+     "new_sha256": "a5e7e0ef7044c28d346b3f892e34d01107fffc3cb2bc9578bacd947f0d5a490d"
+    },
+    {
+     "id": "D106",
+     "start_H": 40257,
+     "end_H": 40707,
+     "start_M": 40257,
+     "end_M": 40707,
+     "translation": "identity",
+     "new_sha256": "193e2ff596cbe670c7059535d32fdf829a54a8eafffa6827a95704f5c1f105dc"
+    },
+    {
+     "id": "D108",
+     "start_H": 47939,
+     "end_H": 47976,
+     "start_M": 47939,
+     "end_M": 47976,
+     "translation": "identity",
+     "new_sha256": "2666141c822241e540fe80ff674428bb098cb940950abb1d008592aa070b7467"
+    },
+    {
+     "id": "D110",
+     "start_H": 48335,
+     "end_H": 48416,
+     "start_M": 48335,
+     "end_M": 48416,
+     "translation": "identity",
+     "new_sha256": "bdeb0072996dc665a1cce031ce2444408ebe97564be98cd5257d9fc5f12cc1f9"
+    }
+   ],
+   "protected": [
+    {
+     "start_M": 74840,
+     "end_M": 75321,
+     "sha256": "17489d7931efe7c92d4c0a8983dfbff4aa1d94e1c9d7cea1e2dc4791a760700e"
+    },
+    {
+     "start_M": 77143,
+     "end_M": 78392,
+     "sha256": "37af51e32167a30537024a0879192f5521566a4f124004a192bac25661bc873e"
+    }
+   ]
+  },
+  {
+   "path": "book/ch07-gravity.md",
+   "ledger_binding": {
+    "files_entry_sha256": "8919d326c6f25f97f92076a312eb1ec6b9c0d65792dcbee2cbc271427293572a",
+    "splices_sha256": "2925735c25fda4828b5e854a3cf22a9d273984c762f8a0f88fc3dc501a54142f",
+    "edit_records_sha256": "a1a60a43a830e12b1f245103266778fbad4d6b36e16d59d3db93f168e00d5aa9"
+   },
+   "scientific_effect": {
+    "conclusions": "none",
+    "assessment": "The change on M is the reapplication of the reviewed corrections of #1560 by #1582 (after their temporary revert by #1580): statements about the Chandrasekaran-Longo-Penington-Witten construction (de Sitter static patch, type II_1, an entropy that is renormalized, finite for semiclassical states and fixed up to a state-independent constant) and about the status of quantum statistics in the framework (representation, not derivation; operational bridge conditional). The change (CLPW renormalized entropy, line 197) lies outside the two planned edits (lines 42 and 118, the A1 parentheticals). The writer finds no bearing on the justification of any planned edit. Writer's draft, not a review: the independent reviewer re-derives the conclusions, assessment and verdict (R6.RECON.25, R6.REC.2).",
+    "method": "Each changed sentence at M read against the planned edits of the file and their recorded reasons; every edit's sentence window (splitter version 2, line granularity) found once at M at its translated position (RC14). No computation.",
+    "verdict": "no-effect"
+   },
+   "side_change_commits": [
+    "4c3ad0796b578c6258d5aae58c9502d5155d74dc",
+    "38f018c0c240df8a8bfa21d8a276dc6b65d98b6a",
+    "eb3a69f402e9dcbe50f47e916b45c2b72772553b"
+   ],
+   "m": "662337d7045ff6131152de85bf333bf6d895ec98",
+   "m_sha256": "ab3914dca20d897e505cd13ee479be8eb5feace93881e4a3d0c9f2ac01e76f9f",
+   "l": "c476617a4a59b12dedcd783396de2c0747872f2b",
+   "l_sha256": "4479a37961f716b78019a719fc9e1a77d619aa6a304d6b7482723ecdbda43eb2",
+   "x": "afb9a90ddc487b1889f0d28c2cbeb9f6de00c883",
+   "x_sha256": "330f2dcc043187bc43fec8d82553d899b4b9c94a81c0b8e58be144b3bbfd4838",
+   "splices": [
+    {
+     "id": "D164",
+     "start_H": 8436,
+     "end_H": 8486,
+     "start_M": 8436,
+     "end_M": 8486,
+     "translation": "identity",
+     "new_sha256": "a4ed2c32814fbab8f17293ad3336908a3198129d5bffd9a435f77b95c73cd654"
+    },
+    {
+     "id": "D166",
+     "start_H": 33327,
+     "end_H": 33380,
+     "start_M": 33327,
+     "end_M": 33380,
+     "translation": "identity",
+     "new_sha256": "152f92b162fec5875677f43da5eb5f938fa68606b307264f53821ca0257dcb6b"
+    }
+   ],
+   "protected": [
+    {
+     "start_M": 58177,
+     "end_M": 59056,
+     "sha256": "1842420cb16382a0a873f9999b700772a7188eb785bbf5073b23e8a8e7313e3b"
+    }
+   ]
+  },
+  {
+   "path": "book/ch09-universality.md",
+   "ledger_binding": {
+    "files_entry_sha256": "cbf57da16286b0cc855cee3a6f814ff2c38699d01af90f28975bcb00d593ddfa",
+    "splices_sha256": "4e15b393faecf3d37c3f5652a6580869f2879c50b80bc7b10154a6bcab48573a",
+    "edit_records_sha256": "7e77dd43beb95faa835e87ee21d063bf2ff60bd7b5e297f7860e1b2a7a553af8"
+   },
+   "scientific_effect": {
+    "conclusions": "none",
+    "assessment": "The change on M is the reapplication of the reviewed corrections of #1560 by #1582 (after their temporary revert by #1580): statements about the Chandrasekaran-Longo-Penington-Witten construction (de Sitter static patch, type II_1, an entropy that is renormalized, finite for semiclassical states and fixed up to a state-independent constant) and about the status of quantum statistics in the framework (representation, not derivation; operational bridge conditional). The changes (CLPW paragraph, lines 294 to 298, removing \"finite von Neumann entropy\") lie outside the ten planned edits; the unchanged phrase \"a finite deterministic substratum\" on line 298 is in H's text and no edit touches it. The writer finds no bearing on the justification of any planned edit. Writer's draft, not a review: the independent reviewer re-derives the conclusions, assessment and verdict (R6.RECON.25, R6.REC.2).",
+    "method": "Each changed sentence at M read against the planned edits of the file and their recorded reasons; every edit's sentence window (splitter version 2, line granularity) found once at M at its translated position (RC14). No computation.",
+    "verdict": "no-effect"
+   },
+   "side_change_commits": [
+    "4c3ad0796b578c6258d5aae58c9502d5155d74dc",
+    "38f018c0c240df8a8bfa21d8a276dc6b65d98b6a",
+    "eb3a69f402e9dcbe50f47e916b45c2b72772553b"
+   ],
+   "m": "a93506d9d2ec2538af442cc102a288717dca7c88",
+   "m_sha256": "08d4ec2a7c6e6724e726e7fb28912bde61a5036c56d4c31c44d7f97aa6329628",
+   "l": "fc90bff56a90ebf091b49f3126c3c0fe02bf24cc",
+   "l_sha256": "992bd70f18e99ce5ec5a3df197a9b519f1dec2627ca000fc74368805b595d86f",
+   "x": "289d171045cad1775a56abc6c0753bf901ce24bc",
+   "x_sha256": "613fc1027fc3e882fddd1a685afceda256bea82f473cdd1a3ecf5ced0d2925c0",
+   "splices": [
+    {
+     "id": "D168",
+     "start_H": 3644,
+     "end_H": 3706,
+     "start_M": 3644,
+     "end_M": 3706,
+     "translation": "identity",
+     "new_sha256": "5408a59fc0cbf8349bab8a206646f81fbed6ea351a28dc78bea64c0f4440d425"
+    },
+    {
+     "id": "D170",
+     "start_H": 6838,
+     "end_H": 6953,
+     "start_M": 6838,
+     "end_M": 6953,
+     "translation": "identity",
+     "new_sha256": "96ae65334f2fda62ef649a5ae1a3e166f36d99ad649d8a5c7215d1821757041b"
+    },
+    {
+     "id": "D255",
+     "start_H": 21567,
+     "end_H": 21637,
+     "start_M": 21567,
+     "end_M": 21637,
+     "translation": "identity",
+     "new_sha256": "1b605dca8ef3c65f9b6ee8c21f68fdd7093a9738fb34a8434715598ddaec3375"
+    },
+    {
+     "id": "D172",
+     "start_H": 21639,
+     "end_H": 21781,
+     "start_M": 21639,
+     "end_M": 21781,
+     "translation": "identity",
+     "new_sha256": "224572ea29c24e7fcc5e41618a9da3df8f75a765d9c35ed651b01f5b4fb3fe7f"
+    },
+    {
+     "id": "D174",
+     "start_H": 32253,
+     "end_H": 32413,
+     "start_M": 32253,
+     "end_M": 32413,
+     "translation": "identity",
+     "new_sha256": "a9f6a3e91bb542201440814e9d76ee8ccfddf89c3e3acda25b69d9569a8f3b74"
+    },
+    {
+     "id": "D176",
+     "start_H": 33520,
+     "end_H": 33571,
+     "start_M": 33520,
+     "end_M": 33571,
+     "translation": "identity",
+     "new_sha256": "01b0a10c858e30d382e28b1d31cda7cb6063aaa093ec4a9d873b748ca9c8a28a"
+    },
+    {
+     "id": "D257",
+     "start_H": 34045,
+     "end_H": 34121,
+     "start_M": 34045,
+     "end_M": 34121,
+     "translation": "identity",
+     "new_sha256": "de9a35f0ef76fca9ea221b6f59a744a608337040ddd97bf2b1bd1347c9c912f7"
+    },
+    {
+     "id": "D178",
+     "start_H": 34123,
+     "end_H": 34190,
+     "start_M": 34123,
+     "end_M": 34190,
+     "translation": "identity",
+     "new_sha256": "481a1f952f5f78ba5d9aed8a37ae4a6b9e45c0df7be3c0d629a67f8d4f3b7832"
+    },
+    {
+     "id": "D359",
+     "start_H": 34191,
+     "end_H": 34253,
+     "start_M": 34191,
+     "end_M": 34253,
+     "translation": "identity",
+     "new_sha256": "b72218addaa7573e2315855afdae302e736546ec10c3f3274c1a28501cce658c"
+    },
+    {
+     "id": "D180",
+     "start_H": 34501,
+     "end_H": 34580,
+     "start_M": 34501,
+     "end_M": 34580,
+     "translation": "identity",
+     "new_sha256": "baf367eebb3b1ba3a1d6dc0f2c16b95b4622d6efcf1482bcb6aab8b9636627b1"
+    }
+   ],
+   "protected": [
+    {
+     "start_M": 61096,
+     "end_M": 61763,
+     "sha256": "9f342776529005a1643f5e871d75d7f5321508d17b0730c59064dcd6e8fc27a6"
+    },
+    {
+     "start_M": 61764,
+     "end_M": 62723,
+     "sha256": "85d3fee7bd04ea653e129cca6456238fca8adb944c754c409e0ed263578d0fb8"
+    },
+    {
+     "start_M": 62724,
+     "end_M": 63446,
+     "sha256": "2eace1f75002aa60897a4777eef57c1cbb0ee70809c97b95b0d399a2e03b4700"
+    }
+   ]
+  },
+  {
+   "path": "book/ch18-beyond.md",
+   "ledger_binding": {
+    "files_entry_sha256": "f2ad860fc2b05093f54b7ee1cc773d3f84060c2a97143724e68ca56bf596ecd9",
+    "splices_sha256": "454ff47c3d58b5484504fac17bd81ccc3c2452f4ea22f2072fc04b8cd91b9b22",
+    "edit_records_sha256": "efd3c5881284329eedd7062cd8b43ba123e1aaf7879b57590ec8673358fb3f13"
+   },
+   "scientific_effect": {
+    "conclusions": "none",
+    "assessment": "The change on M is the reapplication of the reviewed corrections of #1560 by #1582 (after their temporary revert by #1580): statements about the Chandrasekaran-Longo-Penington-Witten construction (de Sitter static patch, type II_1, an entropy that is renormalized, finite for semiclassical states and fixed up to a state-independent constant) and about the status of quantum statistics in the framework (representation, not derivation; operational bridge conditional). The changes (lines 110 and 112, indeterminacy and probabilities) lie outside the one planned edit, D251 (line 40, recurrence). The writer finds no bearing on the justification of any planned edit. Writer's draft, not a review: the independent reviewer re-derives the conclusions, assessment and verdict (R6.RECON.25, R6.REC.2).",
+    "method": "Each changed sentence at M read against the planned edits of the file and their recorded reasons; every edit's sentence window (splitter version 2, line granularity) found once at M at its translated position (RC14). No computation.",
+    "verdict": "no-effect"
+   },
+   "side_change_commits": [
+    "4c3ad0796b578c6258d5aae58c9502d5155d74dc",
+    "38f018c0c240df8a8bfa21d8a276dc6b65d98b6a",
+    "eb3a69f402e9dcbe50f47e916b45c2b72772553b"
+   ],
+   "m": "d44c29fc48a7b4042c6f3a5f947eade6f028d00c",
+   "m_sha256": "4a1bc86d7834b7681f6d8b11b14da937a2a15e7a63cb1c9fef94856249b82595",
+   "l": "dc77fa2c974dd1573948cc1273de7da57438cd2e",
+   "l_sha256": "2a3f282eb7d525919e06cca1bf287e79288469eabe16792f68a2a870c7c432ab",
+   "x": "215d16a1a5ffba7d693cd639a1cf9d78dcbc8c31",
+   "x_sha256": "eef7403e2a3cfe5667069d67f83a115ffda200847f99a575ec940df4b3d9b23c",
+   "splices": [
+    {
+     "id": "D251",
+     "start_H": 12817,
+     "end_H": 12897,
+     "start_M": 12817,
+     "end_M": 12897,
+     "translation": "identity",
+     "new_sha256": "0703473c745cd81933a979ba614d8e4d7f78f7d0e1173a3feb8b77d0963bbb55"
+    }
+   ],
+   "protected": [
+    {
+     "start_M": 37461,
+     "end_M": 38181,
+     "sha256": "d94c49d50b10f45604329e3d3ea98260d430bf90b9bfaf8417488d138c11fdc7"
+    },
+    {
+     "start_M": 38182,
+     "end_M": 38891,
+     "sha256": "19fccc170c1c79727bcf67062e2d201731e4e4cfd654b29df852a5fe7648a192"
+    }
+   ]
+  },
+  {
+   "path": "papers/Main.md",
+   "ledger_binding": {
+    "files_entry_sha256": "367f9d7141f43b8102a46865c0b48aff201488ccf52c4e69a3b1cd063efcfdae",
+    "splices_sha256": "b97880f967d13223d3204afe21743944c171cf036ccbf30715e9c75b08f0d3e1",
+    "edit_records_sha256": "606d26b94cbd1f0703751eaec341fee98b7514e626f25302dc63c9b2619bce0c"
+   },
+   "scientific_effect": {
+    "conclusions": [
+     "D012"
+    ],
+    "assessment": "The change on M is the reapplication of the reviewed corrections of #1560 by #1582 (after their temporary revert by #1580): statements about the Chandrasekaran-Longo-Penington-Witten construction (de Sitter static patch, type II_1, an entropy that is renormalized, finite for semiclassical states and fixed up to a state-independent constant) and about the status of quantum statistics in the framework (representation, not derivation; operational bridge conditional). Of the 25 planned edits, D012 (line 726 at H, the cardinality-neutral statement of the bijection) is nearest in meaning: the corrected sentence at line 724 narrows Witten's entropy statement ahead of the sentence on Lemma 1's finite distinguishability, which no edit changes. D012's justification (the owner decision and the finite-representative scope of the status Remark) does not rest on that statement. The other changes (lines 692, 716, 720) concern the operational bridge, QBism and CLPW, where no edit lies. The writer finds no bearing on the justification of any planned edit. Writer's draft, not a review: the independent reviewer re-derives the conclusions, assessment and verdict (R6.RECON.25, R6.REC.2).",
+    "method": "Each changed sentence at M read against the planned edits of the file and their recorded reasons; every edit's sentence window (splitter version 2, line granularity) found once at M at its translated position (RC14). No computation.",
+    "verdict": "no-effect"
+   },
+   "side_change_commits": [
+    "4c3ad0796b578c6258d5aae58c9502d5155d74dc",
+    "38f018c0c240df8a8bfa21d8a276dc6b65d98b6a",
+    "eb3a69f402e9dcbe50f47e916b45c2b72772553b"
+   ],
+   "m": "b38092d0d798c0119d1b64a4a1fdffc06ef653f6",
+   "m_sha256": "1b8310e921bd6ece03bb2935f179fca0f502033594443178af40c5aede9308e2",
+   "l": "5c107db18d3520d9f21f7c807560166b89fc8670",
+   "l_sha256": "8271a0e1c9f5338598c331c476e34e57d28b0f14c8783cc7803f82e7457c63d6",
+   "x": "111adb1d412fc3a27977aecdd32ea5d144cb5037",
+   "x_sha256": "037358cae01e4bc945aeb1c2c37977605fce0a21bad399ab68d714a57fdd73a8",
+   "splices": [
+    {
+     "id": "D001",
+     "start_H": 10569,
+     "end_H": 10742,
+     "start_M": 10569,
+     "end_M": 10742,
+     "translation": "identity",
+     "new_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+     "id": "D002",
+     "start_H": 14341,
+     "end_H": 14460,
+     "start_M": 14341,
+     "end_M": 14460,
+     "translation": "identity",
+     "new_sha256": "121f4c66258cdd2ec30613bc4862635ffc3da2b8186117845f1d1f9a15589be9"
+    },
+    {
+     "id": "D259",
+     "start_H": 14555,
+     "end_H": 14610,
+     "start_M": 14555,
+     "end_M": 14610,
+     "translation": "identity",
+     "new_sha256": "a210c7bdb2cb2f8f801848dd0349a3c29da0a0c7260a1a042f2b4c4a23a025ff"
+    },
+    {
+     "id": "D260",
+     "start_H": 15983,
+     "end_H": 16077,
+     "start_M": 15983,
+     "end_M": 16077,
+     "translation": "identity",
+     "new_sha256": "6669eab57d999523bc9f2d25e986fc0629f91c1ffc8deff071fb65fe7f55572f"
+    },
+    {
+     "id": "D309",
+     "start_H": 16518,
+     "end_H": 16628,
+     "start_M": 16518,
+     "end_M": 16628,
+     "translation": "identity",
+     "new_sha256": "4e5dbe8101dff2e2ee8bab73166fbea007b1089cab623b486e3f972b7f4d98e0"
+    },
+    {
+     "id": "D229",
+     "start_H": 18220,
+     "end_H": 18595,
+     "start_M": 18220,
+     "end_M": 18595,
+     "translation": "identity",
+     "new_sha256": "fc2fb3cee48b54706acbe2d3f956cc94898e500aee192a67216f0f0ec527f6db"
+    },
+    {
+     "id": "D230",
+     "start_H": 18831,
+     "end_H": 19163,
+     "start_M": 18831,
+     "end_M": 19163,
+     "translation": "identity",
+     "new_sha256": "b358b266d1ff2b0132ea57af2ce91a1f3baa54c968d83fa9fc37b083620073d2"
+    },
+    {
+     "id": "D231",
+     "start_H": 19895,
+     "end_H": 19959,
+     "start_M": 19895,
+     "end_M": 19959,
+     "translation": "identity",
+     "new_sha256": "3eb71aad6c585faef546dd2114632674942c796ef08cfad23dc05cc8368bb1a7"
+    },
+    {
+     "id": "D254",
+     "start_H": 20271,
+     "end_H": 20383,
+     "start_M": 20271,
+     "end_M": 20383,
+     "translation": "identity",
+     "new_sha256": "4d3255d3a71a4aca484e9177872b6cec5e1aea88b104bee67a07aeb9f3cfcef7"
+    },
+    {
+     "id": "D003",
+     "start_H": 45452,
+     "end_H": 45546,
+     "start_M": 45452,
+     "end_M": 45546,
+     "translation": "identity",
+     "new_sha256": "3730b72617cfb68f3442baafabe370049ac686b94d8e4ff72a7c81859c74abdc"
+    },
+    {
+     "id": "D004",
+     "start_H": 47882,
+     "end_H": 47957,
+     "start_M": 47882,
+     "end_M": 47957,
+     "translation": "identity",
+     "new_sha256": "80088feef5ba358262b13993ab65e6497f031d3bba30c219771adc935999a8d6"
+    },
+    {
+     "id": "D005",
+     "start_H": 88537,
+     "end_H": 88641,
+     "start_M": 88537,
+     "end_M": 88641,
+     "translation": "identity",
+     "new_sha256": "4cea362dcb42f5dfcf4c62cfa17738ce4fae964bfdc3acca55202a07ea6f91bc"
+    },
+    {
+     "id": "D006",
+     "start_H": 105956,
+     "end_H": 106019,
+     "start_M": 105956,
+     "end_M": 106019,
+     "translation": "identity",
+     "new_sha256": "de6f22c8cac95b39b141dccf4e05265c224e3c2d0d4636b57aa5034d68df2bbf"
+    },
+    {
+     "id": "D007",
+     "start_H": 231334,
+     "end_H": 231421,
+     "start_M": 231334,
+     "end_M": 231421,
+     "translation": "identity",
+     "new_sha256": "817b9bef2fdef53416bb5d01f786888b8b9fd38a3a42a6bcdb53e285d73ab1b7"
+    },
+    {
+     "id": "D008",
+     "start_H": 236822,
+     "end_H": 236898,
+     "start_M": 236822,
+     "end_M": 236898,
+     "translation": "identity",
+     "new_sha256": "8eb2d011c80e2876f5a8a95e2585ea9db3446a52f8ed71cac9fadb98b779a3a2"
+    },
+    {
+     "id": "D009",
+     "start_H": 274518,
+     "end_H": 274588,
+     "start_M": 274518,
+     "end_M": 274588,
+     "translation": "identity",
+     "new_sha256": "5244bf5f0a6f303d79d713951db46e08768d97fd1ff95b8dc958bd55f711d497"
+    },
+    {
+     "id": "D010",
+     "start_H": 303410,
+     "end_H": 303680,
+     "start_M": 303657,
+     "end_M": 303927,
+     "translation": 247,
+     "new_sha256": "8c8a026542111623748de1a22f078b90c8d38e41b93d5d9d4d5d5991a88e7b50"
+    },
+    {
+     "id": "D011",
+     "start_H": 304041,
+     "end_H": 304117,
+     "start_M": 304288,
+     "end_M": 304364,
+     "translation": 247,
+     "new_sha256": "6e27fdd6b003735158537fd85b41d385f4f885f31dcea34e0e345b5d1dcbb6e7"
+    },
+    {
+     "id": "D012",
+     "start_H": 313183,
+     "end_H": 313392,
+     "start_M": 313710,
+     "end_M": 313919,
+     "translation": 527,
+     "new_sha256": "3ed664b481f44d7d41f780eaa71ea510904279105bcfbbe8715fe78e64988ab8"
+    },
+    {
+     "id": "D253",
+     "start_H": 317309,
+     "end_H": 317417,
+     "start_M": 317836,
+     "end_M": 317944,
+     "translation": 527,
+     "new_sha256": "c3319f744eba812d41a19245c4baadc4f87eabf591b3a4485f04ceb3f98cf2b9"
+    },
+    {
+     "id": "D224",
+     "start_H": 317803,
+     "end_H": 320343,
+     "start_M": 318330,
+     "end_M": 320870,
+     "translation": 527,
+     "new_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+     "id": "D225",
+     "start_H": 320467,
+     "end_H": 320533,
+     "start_M": 320994,
+     "end_M": 321060,
+     "translation": 527,
+     "new_sha256": "1961178b7908f2cb6943ae642a466e1728ef76c7d0a236f85b0f7968cee54437"
+    },
+    {
+     "id": "D226",
+     "start_H": 325166,
+     "end_H": 325251,
+     "start_M": 325693,
+     "end_M": 325778,
+     "translation": 527,
+     "new_sha256": "8ed49241f05735a348615dbb3a830c69bfb342f185264a52fb1f3bd04ea903a1"
+    },
+    {
+     "id": "D227",
+     "start_H": 326137,
+     "end_H": 326225,
+     "start_M": 326664,
+     "end_M": 326752,
+     "translation": 527,
+     "new_sha256": "0626752565d395ddece153f4996f88e6b12c32496f3fb9c95f183d7bf38b3aae"
+    },
+    {
+     "id": "D228",
+     "start_H": 326650,
+     "end_H": 326859,
+     "start_M": 327177,
+     "end_M": 327386,
+     "translation": 527,
+     "new_sha256": "7b677d699e5fece464b505a819f1619ec429cf0840aefd7d5eecc0d55a06cd8e"
+    }
+   ],
+   "protected": []
+  },
+  {
+   "path": "papers/SM.md",
+   "ledger_binding": {
+    "files_entry_sha256": "55d9d4ab909fd04bbfbedb77c2e31f3d77d8336350e4802611b7dea0f35bcbbb",
+    "splices_sha256": "5c19c6bbaa004974978fe3c4a2b0403a2d6797526e7e693ebf8723ecbbbc60e6",
+    "edit_records_sha256": "f08bb0bd5c54efc33ac7a6b3dc6ed3260177e0a8165e6ffc88703faac71683a6"
+   },
+   "scientific_effect": {
+    "conclusions": [
+     "D034",
+     "D389",
+     "D390",
+     "D391"
+    ],
+    "assessment": "The first change on M is the reapplication of the reviewed corrections of #1560 by #1582 (after their temporary revert by #1580): statements about the Chandrasekaran-Longo-Penington-Witten construction (de Sitter static patch, type II_1, an entropy that is renormalized, finite for semiclassical states and fixed up to a state-independent constant) and about the status of quantum statistics in the framework (representation, not derivation; operational bridge conditional). The change of #1582 (line 1472, CLPW: static patch, type II_1) lies far from the nine planned edits and the retained site D032, whose line is found once at M. The change of #1589 (line 1394, after every planned edit) replaces the undefined \"six structural properties\" by \"the assumptions of the local spatial and gauge construction (§2.3)\", so the scope of the structural predictions now refers to the list in §2.3, whose sentence \"a set S, finite under A1\" D034 edits to \"a set S\". After the retirement the structural predictions are therefore stated without total finiteness. The writer finds this consistent with D034's justification: §2.3 states that further hypotheses are stated at each step, the predictions listed are conditional on H-link and H-cust, and the results that use a finite set carry that scope where they are stated (D389, D390, D391 add \"on a finite representative\" or \"on a finite C_H\"). Whether every listed structural prediction holds without a finite S, or uses finiteness at a step that does not state it, is the question the review must decide; it is the least certain of these drafts. Writer's draft, not a review: the independent reviewer re-derives the conclusions, assessment and verdict (R6.RECON.25, R6.REC.2).",
+    "method": "Each changed sentence at M read against the planned edits of the file and their recorded reasons; every edit's sentence window (splitter version 2, line granularity) found once at M at its translated position (RC14). No computation.",
+    "verdict": "no-effect"
+   },
+   "side_change_commits": [
+    "4c3ad0796b578c6258d5aae58c9502d5155d74dc",
+    "38f018c0c240df8a8bfa21d8a276dc6b65d98b6a",
+    "eb3a69f402e9dcbe50f47e916b45c2b72772553b",
+    "c31d739c02911faaa9612824c48977b39717de05"
+   ],
+   "m": "77002b7a553a487c5d485190b165ce8415d63f37",
+   "m_sha256": "02cf661d06eaaf346d2687a05f575d262a0a8b0f243041f789b01d78c44d9cca",
+   "l": "a640e011d9b6d14fbc1032094f5492b6761ae943",
+   "l_sha256": "088b09c1b2ecf8d5e7a9d3227e89ecbe4078427718ac00e48ffc3c0f6d49a1ca",
+   "x": "c358068f31be6d0a1f4f1a97f00fe2d394dc0904",
+   "x_sha256": "90fe2c154d7b5e8cc6e0c7d5d003ce1a47aaeda59d74a492db41489ebdbc7091",
+   "splices": [
+    {
+     "id": "D033",
+     "start_H": 11301,
+     "end_H": 11387,
+     "start_M": 11301,
+     "end_M": 11387,
+     "translation": "identity",
+     "new_sha256": "dc5d93046175c1e55be27f279848c91cf5eb15a7885379863037dd90eeea87e2"
+    },
+    {
+     "id": "D034",
+     "start_H": 22552,
+     "end_H": 22599,
+     "start_M": 22552,
+     "end_M": 22599,
+     "translation": "identity",
+     "new_sha256": "35a07a3cef9afc66d37576987854e6624e1419487ec4ffedd8851834d426da89"
+    },
+    {
+     "id": "D035",
+     "start_H": 74872,
+     "end_H": 74927,
+     "start_M": 74872,
+     "end_M": 74927,
+     "translation": "identity",
+     "new_sha256": "68aaf71120ebebb33bf7b3956fa10004bfd390179eb0ac8b65cb892bd0a5a8b6"
+    },
+    {
+     "id": "D036",
+     "start_H": 87594,
+     "end_H": 87687,
+     "start_M": 87594,
+     "end_M": 87687,
+     "translation": "identity",
+     "new_sha256": "5ea30a8717593997eaf954173769e5193ae8851e55b404f87464c15aa4297db4"
+    },
+    {
+     "id": "D037",
+     "start_H": 92283,
+     "end_H": 92350,
+     "start_M": 92283,
+     "end_M": 92350,
+     "translation": "identity",
+     "new_sha256": "b36d727c7bbb30c678c37eedc9ce06dbbc70ddc13666cb223db67f504eb1053c"
+    },
+    {
+     "id": "D389",
+     "start_H": 98100,
+     "end_H": 98178,
+     "start_M": 98100,
+     "end_M": 98178,
+     "translation": "identity",
+     "new_sha256": "8f19a65d36dfe8bb018e7738b0e2d338c231f9c23cceaaa59a4291ede834fd35"
+    },
+    {
+     "id": "D038",
+     "start_H": 121257,
+     "end_H": 121308,
+     "start_M": 121257,
+     "end_M": 121308,
+     "translation": "identity",
+     "new_sha256": "5c14ebdad401d59208f5bc6088129e0744eb63514b9d7397bba4a7ff930426d9"
+    },
+    {
+     "id": "D390",
+     "start_H": 123399,
+     "end_H": 123498,
+     "start_M": 123399,
+     "end_M": 123498,
+     "translation": "identity",
+     "new_sha256": "6dc15a8748fd371a857af1cf08a6133b78ab1dc2c2831b0ae99f0b810ded4dd8"
+    },
+    {
+     "id": "D391",
+     "start_H": 199841,
+     "end_H": 199890,
+     "start_M": 199841,
+     "end_M": 199890,
+     "translation": "identity",
+     "new_sha256": "246d66b5f4cd75ce66c6691614ab4d081a0034bd9d7db5bd7cafc8c0b1ebf5e5"
+    }
+   ],
+   "protected": [
+    {
+     "start_M": 405396,
+     "end_M": 406503,
+     "sha256": "f00652b94e3b0b56350e879d31b50f1c11f91344f18dd1827e6b706106af8efd"
+    },
+    {
+     "start_M": 434552,
+     "end_M": 436308,
+     "sha256": "e57508902afaa94e4161df1c4b87b298d932a78abc7de644fdfbc493e6dd4bba"
+    }
+   ]
+  },
+  {
+   "path": "papers/Substratum.md",
+   "ledger_binding": {
+    "files_entry_sha256": "1ce7d66eb80bd83cabe1c8e39e8a0cd9377a6407e2fc3e63b6aa7fc3434ca816",
+    "splices_sha256": "020867aea383cda55f3ba36378a8938e867d355c618658efd453679a4ae0422d",
+    "edit_records_sha256": "9b1bfe7c4407d1ab9ed838f1918021ffa7c2fbfd2de382c21dec992bcdc13e73"
+   },
+   "scientific_effect": {
+    "conclusions": "none",
+    "assessment": "The change on M is the reapplication of the reviewed corrections of #1560 by #1582 (after their temporary revert by #1580): statements about the Chandrasekaran-Longo-Penington-Witten construction (de Sitter static patch, type II_1, an entropy that is renormalized, finite for semiclassical states and fixed up to a state-independent constant) and about the status of quantum statistics in the framework (representation, not derivation; operational bridge conditional). The one change (line 463, the wave function as a non-unique representation) lies outside the 31 planned edits, which concern the retired posit. The writer finds no bearing on the justification of any planned edit. Writer's draft, not a review: the independent reviewer re-derives the conclusions, assessment and verdict (R6.RECON.25, R6.REC.2).",
+    "method": "Each changed sentence at M read against the planned edits of the file and their recorded reasons; every edit's sentence window (splitter version 2, line granularity) found once at M at its translated position (RC14). No computation.",
+    "verdict": "no-effect"
+   },
+   "side_change_commits": [
+    "4c3ad0796b578c6258d5aae58c9502d5155d74dc",
+    "38f018c0c240df8a8bfa21d8a276dc6b65d98b6a",
+    "eb3a69f402e9dcbe50f47e916b45c2b72772553b"
+   ],
+   "m": "176627420e31e1951e073286ad7631bd2c326770",
+   "m_sha256": "a1a92b9d29c48b99a2b0913b5da0079feb73c84eb676ffb1eeb8ba09bfdf5d7b",
+   "l": "fee324feed052e891d0bdb018979771811e6c319",
+   "l_sha256": "9b9334b96f276ab346238c7afc4b52b470bde1612c2d28e8c69e296dff4989c7",
+   "x": "7996212b59f17b5d4defac8c4729b1343833accc",
+   "x_sha256": "7233552c3a749920c0ab7009be6e0570d7fe0ad2fd4e39365b0b6b37326289f8",
+   "splices": [
+    {
+     "id": "D261",
+     "start_H": 17557,
+     "end_H": 17580,
+     "start_M": 17557,
+     "end_M": 17580,
+     "translation": "identity",
+     "new_sha256": "77ba8d19036a15aad130bee1200015271513e79b85c62631dacbaf5732368738"
+    },
+    {
+     "id": "D013",
+     "start_H": 17625,
+     "end_H": 17654,
+     "start_M": 17625,
+     "end_M": 17654,
+     "translation": "identity",
+     "new_sha256": "2180e6922fc2264b339a11485307b49d315445467f7bbe43f3ae2871205f2b73"
+    },
+    {
+     "id": "D014",
+     "start_H": 17765,
+     "end_H": 17800,
+     "start_M": 17765,
+     "end_M": 17800,
+     "translation": "identity",
+     "new_sha256": "7d436b583b43e959c42d48fcb9e006a81b5f95007a61ebcc9862717e31dc2c81"
+    },
+    {
+     "id": "D015",
+     "start_H": 21505,
+     "end_H": 21543,
+     "start_M": 21505,
+     "end_M": 21543,
+     "translation": "identity",
+     "new_sha256": "c84515c86dd14abc60844295309f34e5ed497b94d14c3a414cc4a76bc80951b8"
+    },
+    {
+     "id": "D367",
+     "start_H": 22443,
+     "end_H": 22538,
+     "start_M": 22443,
+     "end_M": 22538,
+     "translation": "identity",
+     "new_sha256": "54f56a9f3591da20b37ce88d35baf41b8f27faed9e04bb777c0fac725621661b"
+    },
+    {
+     "id": "D244",
+     "start_H": 23932,
+     "end_H": 23989,
+     "start_M": 23932,
+     "end_M": 23989,
+     "translation": "identity",
+     "new_sha256": "efc6ec7e0277d1c7c2dadc0e01e4e3c1ab9b196dbbfd17ae2b9ec398d8ec7f00"
+    },
+    {
+     "id": "D232",
+     "start_H": 29912,
+     "end_H": 31292,
+     "start_M": 29912,
+     "end_M": 31292,
+     "translation": "identity",
+     "new_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+     "id": "D374",
+     "start_H": 31753,
+     "end_H": 31905,
+     "start_M": 31753,
+     "end_M": 31905,
+     "translation": "identity",
+     "new_sha256": "3bf462034072408c2bac7598ba442da5c80bedc15517c5a29141d777cfbe4d91"
+    },
+    {
+     "id": "D016",
+     "start_H": 36487,
+     "end_H": 36530,
+     "start_M": 36487,
+     "end_M": 36530,
+     "translation": "identity",
+     "new_sha256": "3e8c908d18807d0d8e344271dd877e46a4d9e1d55bf3fb4ba2d65cb7e29d2f78"
+    },
+    {
+     "id": "D017",
+     "start_H": 36664,
+     "end_H": 36699,
+     "start_M": 36664,
+     "end_M": 36699,
+     "translation": "identity",
+     "new_sha256": "029e87e87cfefc0d48fbd148779fe7781ed5adcc255af913344398f0003e1554"
+    },
+    {
+     "id": "D018",
+     "start_H": 37263,
+     "end_H": 37297,
+     "start_M": 37263,
+     "end_M": 37297,
+     "translation": "identity",
+     "new_sha256": "b51c67ba709cc01364a269c05952480745905317e7e58b1c2175dbdca1a26d88"
+    },
+    {
+     "id": "D019",
+     "start_H": 39381,
+     "end_H": 39414,
+     "start_M": 39381,
+     "end_M": 39414,
+     "translation": "identity",
+     "new_sha256": "6bd2d7bf691709be83ca34752864831967ea2402be2907c99cf4b659b9c2e636"
+    },
+    {
+     "id": "D020",
+     "start_H": 40917,
+     "end_H": 40969,
+     "start_M": 40917,
+     "end_M": 40969,
+     "translation": "identity",
+     "new_sha256": "a2ae3a49d708bc84fbccafac89e1d97a77cf2fb2cb2aac00c7232a85ae63fbbb"
+    },
+    {
+     "id": "D021",
+     "start_H": 45252,
+     "end_H": 45321,
+     "start_M": 45252,
+     "end_M": 45321,
+     "translation": "identity",
+     "new_sha256": "59311347ba5943e1ea16524b72a68f6c3027c0ec73280a797339666f40d0bfae"
+    },
+    {
+     "id": "D245",
+     "start_H": 47303,
+     "end_H": 47360,
+     "start_M": 47303,
+     "end_M": 47360,
+     "translation": "identity",
+     "new_sha256": "bdd69ba17fc0b2073c93870fba7c75c940291a5a3410faaf49d19a715af02cbd"
+    },
+    {
+     "id": "D022",
+     "start_H": 60415,
+     "end_H": 60461,
+     "start_M": 60415,
+     "end_M": 60461,
+     "translation": "identity",
+     "new_sha256": "51e397250193e98197b20714791277639e269c6d6804ae902a21361f3caf4593"
+    },
+    {
+     "id": "D366",
+     "start_H": 63571,
+     "end_H": 63629,
+     "start_M": 63571,
+     "end_M": 63629,
+     "translation": "identity",
+     "new_sha256": "9193dca5a7dd2fce07803c3e06b61292be863dca5f6141c51ab5ac2e436afdc1"
+    },
+    {
+     "id": "D023",
+     "start_H": 67318,
+     "end_H": 67382,
+     "start_M": 67318,
+     "end_M": 67382,
+     "translation": "identity",
+     "new_sha256": "de6331bfb3763a9389cac0846bbeaab1ca55f405495edebe665a828f5ec38e65"
+    },
+    {
+     "id": "D024",
+     "start_H": 67411,
+     "end_H": 67458,
+     "start_M": 67411,
+     "end_M": 67458,
+     "translation": "identity",
+     "new_sha256": "6dc5ccedbe364c8e8cbc2cc61910571357d5cdd092bbfcbe2c71d0a5b534c2a0"
+    },
+    {
+     "id": "D025",
+     "start_H": 67971,
+     "end_H": 68018,
+     "start_M": 67971,
+     "end_M": 68018,
+     "translation": "identity",
+     "new_sha256": "33ad8905d5fc89926cbcab97dfb78c0ee28c3182fc384f65143644b2287f33ad"
+    },
+    {
+     "id": "D026",
+     "start_H": 68259,
+     "end_H": 68458,
+     "start_M": 68259,
+     "end_M": 68458,
+     "translation": "identity",
+     "new_sha256": "1096fea476ba417ae50a3868c3429b72c966f09110cb4f067bb51ceb96fb3a0e"
+    },
+    {
+     "id": "D027",
+     "start_H": 69525,
+     "end_H": 69562,
+     "start_M": 69525,
+     "end_M": 69562,
+     "translation": "identity",
+     "new_sha256": "23640bdcefefa8f580c853676c79601c363ef16d8c3f18cddf27caa771a54ea2"
+    },
+    {
+     "id": "D028",
+     "start_H": 74378,
+     "end_H": 74417,
+     "start_M": 74378,
+     "end_M": 74417,
+     "translation": "identity",
+     "new_sha256": "baaa85c29e2a0a42e6086d09568db96608ecd57f13410dcb212ea3181762f9e1"
+    },
+    {
+     "id": "D365",
+     "start_H": 78097,
+     "end_H": 78184,
+     "start_M": 78097,
+     "end_M": 78184,
+     "translation": "identity",
+     "new_sha256": "40d268884e951aeff44741d5c8d51e805789e94f89bd969aae2895631ef6d6b7"
+    },
+    {
+     "id": "D361",
+     "start_H": 78672,
+     "end_H": 78764,
+     "start_M": 78672,
+     "end_M": 78764,
+     "translation": "identity",
+     "new_sha256": "e1a1373f1ba3c7a6f78aa8e9943561851834cc0856892d87d13a70eb9416d0e0"
+    },
+    {
+     "id": "D363",
+     "start_H": 79996,
+     "end_H": 80227,
+     "start_M": 79996,
+     "end_M": 80227,
+     "translation": "identity",
+     "new_sha256": "1294dd887cb2f94979a1f647e6372d4aeaae7b4d3c189aea62d45abf99758b9d"
+    },
+    {
+     "id": "D362",
+     "start_H": 80933,
+     "end_H": 81051,
+     "start_M": 80933,
+     "end_M": 81051,
+     "translation": "identity",
+     "new_sha256": "d0944f1493a7b1c11931f5de48edfde356122378113d6d1d40463293dd2e070b"
+    },
+    {
+     "id": "D364",
+     "start_H": 81383,
+     "end_H": 81501,
+     "start_M": 81383,
+     "end_M": 81501,
+     "translation": "identity",
+     "new_sha256": "bc14a73d779c8691215c8b1b9a6114310b0b8301da90f5fdfc3a42f14485f770"
+    },
+    {
+     "id": "D029",
+     "start_H": 86149,
+     "end_H": 86197,
+     "start_M": 86149,
+     "end_M": 86197,
+     "translation": "identity",
+     "new_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+     "id": "D030",
+     "start_H": 91901,
+     "end_H": 91957,
+     "start_M": 91901,
+     "end_M": 91957,
+     "translation": "identity",
+     "new_sha256": "797b14be61e9b94a3b83a811d93511ba78a1e16b0ac2621880599bb8137ad394"
+    },
+    {
+     "id": "D031",
+     "start_H": 117827,
+     "end_H": 117881,
+     "start_M": 117827,
+     "end_M": 117881,
+     "translation": "identity",
+     "new_sha256": "320fbfd6dc4d4281f714c5ec4f382a84032a5806462ef08cb66d708af7f9bd01"
+    }
+   ],
+   "protected": [
+    {
+     "start_M": 140593,
+     "end_M": 141506,
+     "sha256": "a646fe620545da9e63637b549b1fa81b448bd4f36cb05c47828fcc6722ebb2a5"
+    }
+   ]
+  },
+  {
+   "path": "verification/lean/edge_rigidity_probe.py",
+   "ledger_binding": {
+    "files_entry_sha256": "8e85053ce36def7bcb50ec870495cbb5ddaca6796ff7015909ffcc85d66d44a2",
+    "splices_sha256": "245e00b48ad0ca67c0f565ae104e8c8bce58b9f9a9b5c4a80e09cd25a2c53f97",
+    "edit_records_sha256": "de36373e683be2bd16128677968e6b029fb1bf23e1b9e0266a1c39e960ebed6e"
+   },
+   "scientific_effect": {
+    "conclusions": "none",
+    "assessment": "The change on M (#1578) adds conditions to the R7-FWD guard: the redesigned claims checker tools/claims_check_r4.py must load, keep its OI rule list without marker words, flag three guarded sentences, and admit no OI licence without a review record and an owner adoption; the guard's explanatory string is extended. The 17 planned edits on this file lie elsewhere (lines 1908 to 11266 at H) and change strings that mention the retired posit; the writer finds no dependence of either on the other. Whether the probe still passes at the composed blob is not established: the check has not been re-run. Writer's draft, not a review: the independent reviewer re-derives the conclusions, assessment and verdict (R6.RECON.25, R6.REC.2).",
+    "method": "Required by R6.RECON.25: re-run verification/lean/edge_rigidity_probe.py at the composed blob l (with M's tree for its other inputs) and record its result. Not run in this rebuild, which is limited to the tool's own local checks; the re-run and the verdict are left to the review. Done: the changed range read against every planned edit on the file; each edit's line window found once at M at its translated position (RC14).",
+    "verdict": null
+   },
+   "side_change_commits": [
+    "b6c6b80bbd4a878452e54759cc85f16c9ffb72da"
+   ],
+   "m": "eb819b582594102d284248eb31009b2caa54acb4",
+   "m_sha256": "766b373a53616dad4d973b8c01875826989300e351d1085126e9872164857d72",
+   "l": "9c16290442e38db6fa018ad5eb2d3f3b88788148",
+   "l_sha256": "e270b0bf6f4dda9ef02569a7a2dc65dc6b67785fb3061907e36208471565730a",
+   "x": "41b452e8ee4ed04c7acf4e071aa4f6b4b0192718",
+   "x_sha256": "02b68e0e2387be7117acfcff696534259b24a246e24c3ec8859598f18ea2f648",
+   "splices": [
+    {
+     "id": "D308",
+     "start_H": 143127,
+     "end_H": 143194,
+     "start_M": 143127,
+     "end_M": 143194,
+     "translation": "identity",
+     "new_sha256": "392d6b60ed7fbc660deedddb645273c520a88f0509306dcff9afabc9d3cd243e"
+    },
+    {
+     "id": "D300",
+     "start_H": 143886,
+     "end_H": 143956,
+     "start_M": 143886,
+     "end_M": 143956,
+     "translation": "identity",
+     "new_sha256": "7f2cb47d92c5cd15ffa88c514e84517c69fe002d9c8f8ba67f7e24bfec2b8f26"
+    },
+    {
+     "id": "D302",
+     "start_H": 253483,
+     "end_H": 253563,
+     "start_M": 255659,
+     "end_M": 255739,
+     "translation": 2176,
+     "new_sha256": "000cbb57aa633e7c868bd7fe4acc9e30ed889c822fe885aac18c675b5d96c6b0"
+    },
+    {
+     "id": "D346",
+     "start_H": 254416,
+     "end_H": 254567,
+     "start_M": 256592,
+     "end_M": 256743,
+     "translation": 2176,
+     "new_sha256": "60dc899f1c4d7ba8e7ceac2a71e4ed3daafc0a142f0c77f0c722b4a58f728da9"
+    },
+    {
+     "id": "D303",
+     "start_H": 262924,
+     "end_H": 263036,
+     "start_M": 265100,
+     "end_M": 265212,
+     "translation": 2176,
+     "new_sha256": "2d40d3670f2fd2493a81dee980c4bbcd2f6f94e71f4b1dcccc38744820173cc8"
+    },
+    {
+     "id": "D304",
+     "start_H": 263781,
+     "end_H": 263873,
+     "start_M": 265957,
+     "end_M": 266049,
+     "translation": 2176,
+     "new_sha256": "f5dde6cfb9389e2cd52de282b2e63b94d373689cef0d8b0677b5068bf612e495"
+    },
+    {
+     "id": "D305",
+     "start_H": 264050,
+     "end_H": 264144,
+     "start_M": 266226,
+     "end_M": 266320,
+     "translation": 2176,
+     "new_sha256": "d4c0fc28a075335a4815472a4cac4a22e1e05270ac75db4fb9b3206b3d60298e"
+    },
+    {
+     "id": "D351",
+     "start_H": 264720,
+     "end_H": 264815,
+     "start_M": 266896,
+     "end_M": 266991,
+     "translation": 2176,
+     "new_sha256": "56440a2d3f1179f95d6f6263561fe78a4cfe7316fcb966c0df85914eb37bedf3"
+    },
+    {
+     "id": "D352",
+     "start_H": 265128,
+     "end_H": 265226,
+     "start_M": 267304,
+     "end_M": 267402,
+     "translation": 2176,
+     "new_sha256": "e542e966850d378236b2dfb62da188d61ca1a9093eacb99bd22ea939f90efe23"
+    },
+    {
+     "id": "D353",
+     "start_H": 288953,
+     "end_H": 289023,
+     "start_M": 291129,
+     "end_M": 291199,
+     "translation": 2176,
+     "new_sha256": "369de7c0ff592b173d67cbb67c86733a0f72ce41fbd8cc241841e3d01882ce8d"
+    },
+    {
+     "id": "D347",
+     "start_H": 736063,
+     "end_H": 736100,
+     "start_M": 738239,
+     "end_M": 738276,
+     "translation": 2176,
+     "new_sha256": "5ccba76f9dbc81804abab7d9a3814be6efc214a4ac23777cb83aacf1e6783b9c"
+    },
+    {
+     "id": "D354",
+     "start_H": 743854,
+     "end_H": 743947,
+     "start_M": 746030,
+     "end_M": 746123,
+     "translation": 2176,
+     "new_sha256": "5e3aabaff595d755ac479f4a69573329748fd9e84c52023d96ce301bbaeeaacd"
+    },
+    {
+     "id": "D306",
+     "start_H": 755917,
+     "end_H": 756023,
+     "start_M": 758093,
+     "end_M": 758199,
+     "translation": 2176,
+     "new_sha256": "484ed132b83ba84a965003a1d53dbfa8302f63672d23dc12242550cdc9034107"
+    },
+    {
+     "id": "D348",
+     "start_H": 829368,
+     "end_H": 829439,
+     "start_M": 831544,
+     "end_M": 831615,
+     "translation": 2176,
+     "new_sha256": "00681ca8cf97463ad7674cfd42033594b0fb0ba70f71cbb9c16967e548a115d8"
+    },
+    {
+     "id": "D355",
+     "start_H": 833127,
+     "end_H": 833182,
+     "start_M": 835303,
+     "end_M": 835358,
+     "translation": 2176,
+     "new_sha256": "d3fada151dd1fb8b94cae7b9546827c49c25b1b50881ad7a813d052792651150"
+    },
+    {
+     "id": "D356",
+     "start_H": 836307,
+     "end_H": 836356,
+     "start_M": 838483,
+     "end_M": 838532,
+     "translation": 2176,
+     "new_sha256": "8449576f5f440dd56044bfb4f3d100b6dce690fb5058fee6fa6a45de47d4c056"
+    },
+    {
+     "id": "D357",
+     "start_H": 849761,
+     "end_H": 849836,
+     "start_M": 851937,
+     "end_M": 852012,
+     "translation": 2176,
+     "new_sha256": "7dbd5dd856c2bf018cc96b79ef6010b134dc21b760adb0ef858f5e63a32ccfa1"
+    }
+   ],
+   "protected": []
+  }
+ ],
+ "evidence": {
+  "ledger": {
+   "commit": "4c79be642ca631573f06b444903be75ec4f5e2b6",
+   "path": "verification/audits/foundations/a1exit-deletion-20261121/ledger.json",
+   "git_blob": "ba37c1cdb560cb5fceeeb2b46a3091c832b4a80e",
+   "blob_sha256": "2055e68f2343d00cec93bc35ecbccae21d46d1da154ee1a842663f1e4fec32b5"
+  },
+  "edits": {
+   "commit": "4c79be642ca631573f06b444903be75ec4f5e2b6",
+   "path": "verification/audits/foundations/a1exit-deletion-20261121/edits.json",
+   "git_blob": "ec384fdfbc12937b860e2f226355e8c5d94820a5",
+   "blob_sha256": "528f146d03b29cbc3d7dc29948e3dd1d4cd26f4d36e6e009f032e24f9462dec1"
+  },
+  "derivation": "values derived from git objects by the writer; RC1 to RC9, RC12 and RC13 cross-checked with the tool's reconcile.compose and reconcile.evaluate at adb8fc43 (which do not implement amendment 3); the reviewer re-derives them independently (R6.REC.2)"
+ }
+}
