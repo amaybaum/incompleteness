@@ -12,8 +12,8 @@ review (PLAN.md §8).**
   re-read at [P] (SM:136, SM:290–296, SM:312–316, SM:322, SM:340, SM:342, SM:374).
 - **Evidence layers.** Theorem P and its lemmas: mathematical derivation on paper ([A]), using
   standard textbook facts named where used. Corollaries P3′ and Pα: conditional on imported
-  theorems [I], whose hypotheses are stated as recalled and were not re-checked against the source
-  (no external access was used). Witness identities: exact rational computation [C]
+  theorem [I-Stein], stated as recalled and not re-checked against its source (no external access
+  was used), and on the stated hypothesis H-αCLT, which no source theorem is yet pinned to. Witness identities: exact rational computation [C]
   (`controls.py`, output `controls-output.txt`). Spreading illustration: floating point, certifies
   nothing.
 - Labels as in PLAN.md §0. Premise statuses: proved / conditional / posited / open.
@@ -24,10 +24,10 @@ review (PLAN.md §8).**
 
 | Notion | 0 < abs(μ) < 1 | μ = 0 (boundary) |
 | --- | --- | --- |
-| K3, finite-range dependence, all moments | POSITIVE (Corollary P3, [A]) | OBSTRUCTION (CC-D) |
-| K3′, finite-range dependence, fourth moments | POSITIVE, conditional on [I-Stein] (Corollary P3′) | OBSTRUCTION (CC-D) |
-| K2, cumulant clustering, all moments | POSITIVE (Theorem P, [A]) | OBSTRUCTION (CC-D) |
-| Kα, strong mixing with summable rate, 2+δ moments | POSITIVE, conditional on [I-αCLT] (Corollary Pα) | OBSTRUCTION (CC-D) |
+| K3 (all-moments reading), finite-range dependence, uniformly bounded moments of all orders | POSITIVE (Corollary P3, [A]) | OBSTRUCTION (CC-D) |
+| K3′ (fourth-moment reading of K3), finite-range dependence, uniformly bounded fourth moments | POSITIVE, conditional on [I-Stein] (Corollary P3′) | OBSTRUCTION (CC-D) |
+| K2, cumulant clustering, uniformly bounded moments of all orders | POSITIVE (Theorem P, [A]) | OBSTRUCTION (CC-D) |
+| Kα, strong mixing with summable rate, uniformly bounded 2+δ moments | POSITIVE, conditional on H-αCLT (Corollary Pα) | OBSTRUCTION (CC-D) |
 | K1, translation mixing, no rate | OPEN (§5) | OBSTRUCTION (CC-D) |
 | K0, translation ergodicity | OPEN (§5) | OBSTRUCTION (CC-D) |
 | none (stationarity alone), d = 3 | OBSTRUCTION (CC-K); outside §2, recorded as the countercontrol | not examined |
@@ -35,10 +35,11 @@ review (PLAN.md §8).**
 **Generated verdict (PLAN.md §3; all controls green, §9):**
 - *On Z^d with 0 < abs(μ) < 1:* "Stationarity and clustering force SMD", with K2 (cumulant
   clustering with finite moments of all orders; unconditional, paper proof) and with Kα (strong
-  mixing with summable rate and 2+δ moments; conditional on [I-αCLT]). K2 and Kα are not comparable
+  mixing with summable rate and 2+δ moments; conditional on H-αCLT). K2 and Kα are not comparable
   as far as checked (§1.2), so both minimal notions are printed. The mechanism gives more than SMD:
   every such state is a centred Gaussian law.
-- *On Z^d with 0 < abs(μ) < 1:* no notion of §2 has an obstruction; K1 and K0 are open (§5).
+- *On Z^d with 0 < abs(μ) < 1:* no obstruction was found for any notion of §2; K1 and K0 are open
+  (§5).
 - *At the boundary μ = 0:* "Stationarity and clustering do not force SMD", with K3, the strongest
   notion of §2.
 - *Without clustering (d = 3, 0 < abs(μ) < 1):* stationarity with every premise of the fixed set
@@ -80,7 +81,27 @@ a partial order only:
 - K3 ⇒ K2 (Lemma K below), K3 ⇒ Kα (α(r) = 0 for r > R), Kα ⇒ K1 ⇒ K0 (for translation-invariant
   states).
 - Neither K2 ⇒ Kα nor Kα ⇒ K2 was established; they are treated as incomparable. The verdict
-  therefore prints both minimal positive notions (§0). No notion was added or redefined.
+  therefore prints both minimal positive notions (§0).
+- **K3 split into its two readings.** PLAN.md §2 defines K3 with "uniformly bounded fourth (or
+  all) moments". The report treats the two readings separately: K3 (all moments), for which the
+  unconditional positive Corollary P3 holds, and K3′ (fourth moments only), for which the positive
+  Corollary P3′ is conditional on [I-Stein]. No other notion was added or redefined.
+- **Uniformity of moments.** Theorem P, Lemma M and Lemma G use moment bounds uniform in the site
+  (sup_n). PLAN.md §2 states uniform bounds for Kα and K3 but says only "finite moments of all
+  orders" for K2, and translation invariance is not in the fixed set. K2 is read here with
+  uniformly bounded moments of all orders, as Theorem P states; for translation-invariant states
+  the two coincide.
+- **Two readings of the μ range (PLAN.md §1, §3, §5).** PLAN.md §1 sets the range abs(μ) < 1 "with
+  μ = 0 … treated separately as a boundary case"; §3 defines POSITIVE(K) over "the range of §1";
+  §5's S2 states no range. Two readings are recorded, and PLAN.md is left unchanged:
+  - *R1 (used for the table and the verdict):* μ = 0 and 0 < abs(μ) < 1 are separate ranges, each
+    assigned per notion. POSITIVE(K) is claimed on 0 < abs(μ) < 1 only, and S2 is read on that
+    range.
+  - *R2:* the range of §1 is all of abs(μ) < 1. Then no notion of §2 is POSITIVE on the whole
+    range, since ρ_D gives OBSTRUCTION for every notion at μ = 0; the positive results hold on
+    0 < abs(μ) < 1 only. S2 is then met through ρ_D.
+  The per-range statements of §0 and §7 are true under both readings; only the labelling of S2 and
+  of POSITIVE on the full range differs.
 
 ## 2. Theorem P (cumulant clustering forces Gaussianity, hence SMD)
 
@@ -217,14 +238,19 @@ sup_n E abs(x_n)^4 < ∞.
   both → 0 by Lemma S. So ⟨f, x⟩, whose law equals that of ⟨f_t, x⟩, is normal. Cramér–Wold and
   Lemma G conclude.
 
-**Corollary Pα (conditional on [I-αCLT]).** Theorem P holds with K2 replaced by Kα:
+**Corollary Pα (conditional on H-αCLT).** Theorem P holds with K2 replaced by Kα:
 sup_n E abs(x_n)^{2+δ} < ∞ and uniform Rosenblatt mixing α(r) with Σ_r r^{d−1} α(r)^{δ/(2+δ)} < ∞.
-- *[I-αCLT]* (as recalled: the Bernstein room–corridor argument for weighted sums of α-mixing
-  fields, of the kind used by Dudnikova, Komech and Spohn for harmonic crystals, J. Math. Phys. 44
-  (2003)): under these hypotheses, if a_t are finitely supported weights with ‖a_t‖_∞ → 0,
-  sup_t ‖a_t‖_2 < ∞ and Var Σ a_t(n)·x_n → σ², then Σ a_t(n)·x_n converges in law to N(0, σ²).
-  The exact rate condition in the source may differ from the one written here; Corollary Pα is
-  conditional on the import with whatever condition the source requires.
+- *H-αCLT (a stated hypothesis, not a pinned theorem).* Let α(r) be the uniform strong-mixing
+  coefficient indexed by distance alone: the supremum of abs(P(A ∩ B) − P(A)P(B)) over events A, B
+  measurable with respect to the variables in two sets of sites, of any sizes, at distance ≥ r.
+  H-αCLT states: under sup_n E abs(x_n)^{2+δ} < ∞ and Σ_r r^{d−1} α(r)^{δ/(2+δ)} < ∞, if a_t are
+  finitely supported weights with ‖a_t‖_∞ → 0, sup_t ‖a_t‖_2 < ∞ and Var Σ a_t(n)·x_n → σ², then
+  Σ a_t(n)·x_n converges in law to N(0, σ²). No specific source theorem is pinned. The Bernstein
+  room–corridor argument used by Dudnikova, Komech and Spohn for harmonic crystals (J. Math. Phys.
+  44 (2003)) is a candidate source, to be matched, together with its set-size indexing of α, by
+  the source check of N3. For d ≥ 2 that indexing decides which theorem applies; mixing
+  coefficients restricted by set size would need a different statement. Corollary Pα is
+  conditional on H-αCLT as stated here.
 - *Use.* As for P3′, with Lemma S supplying the weights. This route uses from the dynamics only
   Lemma S (non-constant θ, uniform gap of e^{±iθ} from ±1). The stronger dispersion conditions of
   the continuous-time literature (conditions on the Hessian of the dispersion relation) serve
@@ -234,9 +260,9 @@ sup_n E abs(x_n)^{2+δ} < ∞ and uniform Rosenblatt mixing α(r) with Σ_r r^{d
 ## 4. Witnesses and countercontrols
 
 The internal identities below are certified by exact rational arithmetic in `controls.py`
-(checks E8–E18). The spatial ones (F-invariance, J-Hermiticity, positivity, cubic and translation
+(checks E8–E18, negative control N5). The spatial ones (F-invariance, J-Hermiticity, positivity, cubic and translation
 invariance, finite range) are spot-checked exactly (E1–E7) on small tori (d = 1, L = 5, 6;
-d = 2, L = 4; d = 3, L = 3; μ = 1/3, −3/5, 1/3, 1/2), with the negative control E4 at each size.
+d = 2, L = 4; d = 3, L = 3; μ = 1/3, −3/5, 1/3, 1/2), with the negative controls E4 and N1–N4 at each size.
 The torus checks spot-check identities proved here in general by symbol calculus; they do not
 replace the proofs.
 
@@ -284,7 +310,7 @@ At μ = 0: A_s = 0, F_s(u, v) = (v, −u), and J_s = F_s (site-local; s_L = 1). 
   which O acts by signed permutations);
 - Φ_E = (2κ_E)^{1/2} i^{K′} ε̂_{j′}, with ε̂_j the three unit vectors at 120° obtained from the even
   combinations s_j minus their mean (O permutes them);
-- Φ_{A_1} = κ_A^{1/2} i^{K″}.
+- Φ_{A_1} = κ_A^{1/2} i^{K″} â, with â = (1, …, 1)/√6 the unit vector spanning A_1.
 
 **Checks [A], [C].**
 - E[ΦΦ†] = κ_T P_T1 + κ_E P_E + κ_A P_A1, from Σ_j ô_jô_jᵀ = P_T1 and Σ_j ε̂_jε̂_jᵀ = (3/2)P_E
@@ -304,10 +330,10 @@ and Lemmas C, M and G hold at μ = 0. The positive proof therefore does not prov
 
 ### 4.3 CC-K (clustering is load-bearing): an O-orbit mixture on Z^3
 
-Let d = 3, 0 < abs(μ) < 1, c as in §4.1, B = tê + ê t with t ∈ T_1, e ∈ E unit vectors
+Let d = 3, 0 < abs(μ) < 1, c as in §4.1, B = t eᵀ + e tᵀ with t ∈ T_1, e ∈ E real unit vectors
 (E11), and S = S_0 + εB with ε > 0 small enough that S > 0 (E15 for κ = (1, 2, 3), ε = 1/10). For
 h ∈ O put S_h = ρ(h)Sρ(h)ᵀ. Let ρ_K be the equal-weight mixture over h ∈ O of the centred
-Gaussian laws N(0, c ⊗ S_h) (equal components merged; 12 distinct S_h, E14).
+Gaussian laws N(0, c ⊗ S_h) (equal components merged; exactly 12 distinct S_h, E14).
 
 **Checks [A], [C].**
 - Each component is F-stationary (E1), J-Hermitian (E2), translation-invariant and of range 1.
@@ -328,7 +354,7 @@ Gaussian laws N(0, c ⊗ S_h) (equal components merged; 12 distinct S_h, E14).
   independence of e^{−λs²} for distinct λ, matches the components on an open set of f_0, hence as
   polynomials. So R(w) ∈ Stab(ρ_K) if and only if R(w) permutes the components (R(w) invertible
   keeps them distinct). The identity component of Stab(ρ_K) acts trivially on this finite set, so
-  by (★) it satisfies wSw† = S. For w_φ = e^{iφP_T1}, w_φBw_φ† = e^{iφ}tê† + e^{−iφ}ê t† ≠ B unless
+  by (★) it satisfies wSw† = S. For w_φ = e^{iφP_T1}, w_φBw_φ† = e^{iφ} t eᵀ + e^{−iφ} e tᵀ ≠ B unless
   e^{iφ} = 1 (E13), while w_φ commutes with S_0. So the T_1 phase circle lies in Stab(C) and is not
   contained in Stab(ρ_K). Since every symmetry of a law preserves its second moment,
   Stab(ρ_K) ⊆ Stab(C) always; hence Stab(ρ_K) ⊊ Stab(C).
@@ -383,7 +409,7 @@ argument found.
 **Precise gap.** Whether there exists a law on X, with 0 < abs(μ) < 1, that is F-invariant,
 translation-mixing (or only ergodic), with finite moments, and not Gaussian; and if so, whether one
 exists that also meets the fixed set and violates SMD. Any such law violates K2 (Theorem P) and,
-conditionally on [I-αCLT], Kα.
+conditionally on H-αCLT, Kα.
 
 ## 6. Premise audit of the infinite-lattice route (the successor assessment's request)
 
@@ -402,8 +428,8 @@ conditionally on [I-αCLT], Kα.
 ## 7. Decision rule applied (PLAN.md §3)
 
 - POSITIVE(K2): Theorem P, [A]; CC-N green (ρ_0), CC-E green. POSITIVE(K3): Corollary P3.
-- POSITIVE(K3′), POSITIVE(Kα): conditional positives, on [I-Stein] and [I-αCLT] respectively.
-- OBSTRUCTION: none on 0 < abs(μ) < 1 for any notion of §2. At μ = 0, OBSTRUCTION(K3) by ρ_D, hence
+- POSITIVE(K3′), POSITIVE(Kα): conditional positives, on [I-Stein] and H-αCLT respectively.
+- OBSTRUCTION: none found on 0 < abs(μ) < 1 for any notion of §2. At μ = 0, OBSTRUCTION(K3) by ρ_D, hence
   for every notion of §2 that K3 implies (K3′, K2, Kα, K1, K0).
 - OPEN(K1), OPEN(K0) on 0 < abs(μ) < 1, with the gap of §5.
 - No positive and obstruction for the same notion on the same range of μ.
@@ -437,7 +463,7 @@ and K0; no without clustering. Unit A's Proposition B does not transfer to Z (§
 | CC-K | ρ_K meets L-SDS and the fixed set, fails every notion of §2, violates SMD (§4.3, §4.4) | green |
 | CC-D | ρ_D at μ = 0 meets K3, L-SDS and the fixed set and violates SMD; the positive proof fails only at Lemma S(b) (§4.2) | green |
 | CC-G | Lemma G re-derives SMD for centred Gaussian states, both directions, with the a.s. domain of R(w) | green |
-| CC-E | `python3 -I controls.py`: exact checks E1–E18 (40 PASS lines, including the negative control E4 at each size); exit status 0 | green |
+| CC-E | `python3 -I controls.py`: exact checks E1–E18 and negative controls N1–N5 (56 PASS lines: 4 tori × 11, plus E8–E18 and N5); exit status 0. Negative controls: E4 (identity covariance fails E1); N1 (off-diagonal weight A/3 fails E1 and E2); N2 ([[1, 3A], [3A, 1]] fails E3); N3 (a one-site bump fails the reflection and translation checks); N4 ([[1, A²], [A², 1]] fails the range-1 check); N5 (ε = 10 fails E15) | green |
 | CC-X | part X of `controls-output.txt`: ‖f_t‖_∞ and ‖f_t‖_4 decrease for μ = 0.5, 0.9 (d = 1, 2) and stay at 1 for μ = 0; ‖f_t‖_2 stays bounded. Illustration only | n/a (certifies nothing) |
 | CC-W | itemized table §4.4 for ρ_0, ρ_D and ρ_K | green |
 | CC-P | quoted lines re-read at [P] | green |
@@ -460,7 +486,9 @@ proving too much (it does not apply at μ = 0, without clustering, or at μ = 1)
 - S3: the premise audit of §6 identifies the load-bearing hypotheses, with countercontrols for
   dispersion (CC-D) and clustering (CC-K), and records that the route needs only non-constancy of
   the dispersion relation, not Hessian conditions.
-- S2 is not met (no obstruction under K1 or stronger on 0 < abs(μ) < 1).
+- S2: not met under reading R1 of §1.2 (no obstruction found under K1 or stronger on
+  0 < abs(μ) < 1). Under reading R2 it is met through the μ = 0 obstruction ρ_D, which meets K3 and
+  hence K1; that obstruction lies at the uncoupled boundary point, and CC-D requires it in any case.
 
 | Class | Findings |
 | --- | --- |
@@ -475,8 +503,9 @@ proving too much (it does not apply at μ = 0, without clustering, or at μ = 1)
 - **N2 (μ = 1).** At the massless point the zero mode makes P_± unbounded near k = 0 (Lemma S(a)
   fails), the mean argument loses 2 − a > 0 at k = 0, and J is unbounded ([L2] Proposition 6);
   depends on unit C's H-ZM / H-top. Not pursued.
-- **N3 (imports).** [I-Stein] and [I-αCLT] are recalled, not re-checked against their sources;
-  Corollaries P3′ and Pα are conditional on them.
+- **N3 (imports).** [I-Stein] is recalled, not re-checked against its source; Corollary P3′ is
+  conditional on it. H-αCLT is a stated hypothesis with no pinned source theorem; Corollary Pα is
+  conditional on it until a specific theorem, with its indexing of α, is matched to it.
 - **N4 (offset).** The b ≠ 0 case (§6 item 5) is outside the fixed set.
 - **N5 (source of K2 and L-SDS).** Whether the observer-level law obtained from the substratum by
   trace-out is exactly stationary under F and K2-clustering is not addressed. SM:290 and SM:298
@@ -506,7 +535,7 @@ proving too much (it does not apply at μ = 0, without clustering, or at μ = 1)
 | commit `6a0a1165` (PLAN.md) and the commit adding this report | support on `main` only once merged without squash (the plan-before-report order is part of the record); not before |
 | unit A's record (`../theorem5-premise-ledger-20261126/`), lane 2's record (`../complex-carrier-20261126/`) | support on `main` at [P] |
 | kernel `theorem_7` | support on `main`; statement read, not built |
-| [I-Stein], [I-αCLT], Rosiński–Żak | external literature, recalled; Corollaries P3′ and Pα are conditional on the first two; the third is used only in an unsuccessful route (§5) |
+| [I-Stein], Rosiński–Żak; the candidate source of H-αCLT (Dudnikova, Komech and Spohn) | external literature, recalled; Corollary P3′ is conditional on [I-Stein]; Corollary Pα is conditional on the stated hypothesis H-αCLT, not on a pinned source; Rosiński–Żak is used only in an unsuccessful route (§5) |
 | #1049, #1217 | provenance: accountability and routing |
 
 Support off `main`: none.
@@ -518,7 +547,7 @@ Support off `main`: none.
 | Claim | Status | Missing | Issue | What would resolve it |
 | --- | --- | --- | --- | --- |
 | Theorem P; Lemmas C, S, M, G, K | unreviewed paper proof | independent review; a non-model check of Lemma S(b) (the pushforward Riemann–Lebesgue step and the analytic non-degeneracy) | #1217 | a recorded review; optionally a Lean formalization of Lemmas C and S |
-| Corollaries P3′, Pα | conditional on [I-Stein], [I-αCLT] | a check of the imports' exact statements against the sources | #1217 | a recorded source check |
+| Corollaries P3′, Pα | conditional on [I-Stein] and on the stated hypothesis H-αCLT | a check of [I-Stein] against its source; a specific source theorem for H-αCLT | #1217 | a recorded source check; a pinned theorem or a proof of H-αCLT |
 | Witnesses ρ_0, ρ_D, ρ_K | unreviewed; identities exact-checked on small tori [C] | review of the general symbol-calculus proofs and of the identifiability step | #1217 | a recorded review |
 | §5 (K1, K0) | open | a proof or a counterexample | #1217 | either |
 | §6 audit | unreviewed | review | #1217 | a recorded review |

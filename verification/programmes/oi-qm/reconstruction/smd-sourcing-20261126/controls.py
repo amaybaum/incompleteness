@@ -103,6 +103,11 @@ def spatial_checks(d, L, mu):
     # negative control: the identity covariance is not F-invariant
     I2 = eye(2 * n)
     check(f"[E4-neg] I_2n is NOT F-invariant (non-vacuity of E1) ({tag})", mul(mul(F, I2), tr(F)) != I2)
+    cp = block(I, scal(Fr(1, 3), A), scal(Fr(1, 3), A), I)  # perturbed off-diagonal weight A/3
+    check(f"[N1-neg] [[1, A/3], [A/3, 1]] fails E1 and E2 ({tag})",
+          mul(mul(F, cp), tr(F)) != cp and mul(mul(D, cp), tr(D)) != mul(s2b, cp))
+    c3 = block(I, scal(Fr(3), A), scal(Fr(3), A), I)       # eigenvalue 1 - 6 abs(mu) < 0 at k = 0
+    check(f"[N2-neg] [[1, 3A], [3A, 1]] is NOT positive definite (non-vacuity of E3) ({tag})", not is_pos_def(c3))
     # cubic invariance: axis permutations and reflections act by site permutations
     ok = True
     for perm in permutations(range(d)):
@@ -130,6 +135,25 @@ def spatial_checks(d, L, mu):
              for p in (0, 1) for q in (0, 1)
              for i, a in enumerate(S) for j, b in enumerate(S) if dist(a, b) > 1)
     check(f"[E7] c has range 1 ({tag})", ok)
+    # negative controls for E5-E7
+    cb = [row[:] for row in c]
+    s1 = [0] * d
+    s1[0] = 1
+    cb[idx[tuple(s1)]][idx[tuple(s1)]] += 1                # bump at one site off the origin
+    def perm_inv(Pm, M):
+        return mul(mul(Pm, M), tr(Pm)) == M
+    refl = zeros(n)
+    for s_ in S:
+        t = tuple((-x) % L for x in s_)
+        refl[idx[t]][idx[s_]] = Fr(1)
+    RR = block(refl, zeros(n), zeros(n), refl)
+    check(f"[N3-neg] a one-site bump fails the reflection (E5) and translation (E6) checks ({tag})",
+          not perm_inv(RR, cb) and not perm_inv(TT, cb))
+    c2 = block(I, A2, A2, I)
+    ok2 = all(c2[i + p * n][j + q * n] == 0
+              for p in (0, 1) for q in (0, 1)
+              for i, a in enumerate(S) for j, b in enumerate(S) if dist(a, b) > 1)
+    check(f"[N4-neg] [[1, A^2], [A^2, 1]] fails the range-1 check (non-vacuity of E7) ({tag})", not ok2)
 
 
 # ---------- internal part: the six signed links and the cubic rotation group O ----------
@@ -206,10 +230,12 @@ def internal_checks():
           mul(P_T1, B) != mul(B, P_T1))
     distinct = {tuple(map(tuple, mul(mul(R, B), tr(R)))) for R in reps}
     print(f"     number of distinct rho(h) B rho(h)^T over O: {len(distinct)}")
-    check("[E14] at least two distinct mixture components", len(distinct) >= 2)
+    check("[E14] exactly 12 distinct mixture components rho(h) B rho(h)^T", len(distinct) == 12)
     # positivity of S = sum kappa_b P_b + eps B for kappa = (1, 2, 3), eps = 1/10
     S = add(add(add(scal(Fr(1), P_T1), scal(Fr(2), P_E)), scal(Fr(3), P_A1)), scal(Fr(1, 10), B))
     check("[E15] S = P_T1 + 2 P_E + 3 P_A1 + B/10 positive definite", is_pos_def(S))
+    Sbig = add(add(add(scal(Fr(1), P_T1), scal(Fr(2), P_E)), scal(Fr(3), P_A1)), scal(Fr(10), B))
+    check("[N5-neg] with eps = 10 the matrix is NOT positive definite (non-vacuity of E15)", not is_pos_def(Sbig))
     # mu = 0 witness: single-site supports
     eps = [add([s[j]], [scal(Fr(1, 3), [add(add([s[0]], [s[1]]), [s[2]])[0]])[0]], -1)[0] for j in range(3)]
     check("[E16] the three E-vectors lie in E", all(mul(P_E, [[x] for x in v]) == [[x] for x in v] for v in eps))
