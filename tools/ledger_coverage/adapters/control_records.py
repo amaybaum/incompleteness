@@ -84,7 +84,7 @@ class Recorder(object):
         file and the --out listing are read now, so a later run that reuses the directory cannot change them."""
         run = {'argv': [str(a) for a in argv], 'exit': code, 'case': case, 'mutation': list(mutation or []),
                'bindings': dict(bindings or {}), 'stderr': stderr, 'baseline': baseline, 'listing': [],
-               'result': None, 'attested': attested}
+               'result': None, 'attested': attested, 'out_exists': bool(out) and os.path.isdir(out)}
         if out and os.path.isdir(out):
             run['listing'] = sorted(os.listdir(out))
             for rn in RESULT_NAMES:
@@ -143,6 +143,8 @@ class Recorder(object):
                 name = '' if unnamed == 1 else 'run%d' % unnamed
             tag = 'case%02d' % i
             entry = {'case': name, 'argv': run['argv'], 'mutation': run['mutation'], 'bindings': run['bindings']}
+            if 'out_exists' in run and run['argv'][:1] != ['in-process']:
+                entry['out_dir_exists'] = run['out_exists']
             if run['exit'] is not None:
                 entry['exit_file'] = put(tag + '.exit', ('%d\n' % run['exit']).encode())
             if run.get('result'):

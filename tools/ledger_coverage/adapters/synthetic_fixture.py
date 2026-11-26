@@ -486,6 +486,16 @@ def x_controls(r, repo_path):
     syn = Syn()
     edits = [('# synthetic', ['# synthetic', '', 'Preface line one.'])]
     X, c, p, s = y_world(syn, edits)
+
+    def restore_clean():
+        """The restored case: the same command made valid (no fault, no defective argument) on the unmutated
+        tree, against a clean run of it."""
+        if REC is None:
+            return
+        r.cli(syn.repo, ['terms', '--commit', syn.H], c, p, s)
+        base = REC.name_last('baseline')
+        r.cli(syn.repo, ['terms', '--commit', syn.H], c, p, s)
+        REC.name_last('restored', baseline=base)
     # X2: an exception injected in classification becomes INTERNAL through the wrapper
     import ledger_coverage as pkg  # noqa: F401
     entry = os.path.join(tools, 'ledger_coverage.py')
@@ -500,24 +510,33 @@ def x_controls(r, repo_path):
     o = r.out()
     real_run = cli.run
     cli.run = lambda argv: real_run(argv, repo=syn.repo, stderr=io.StringIO(), harness=True)
+    x2argv = ['terms', '--config', '%s:%s' % (c, p), '--out', o, '--commit', syn.H]
     try:
-        code = mod.main(['terms', '--config', '%s:%s' % (c, p), '--out', o, '--commit', syn.H])
+        code = mod.main(x2argv)
     finally:
         cli.op_terms = orig
         cli.run = real_run
+    if REC is not None:
+        # the INTERNAL result is written by the entry point's wrapper, outside cli.run
+        REC.capture(['ledger_coverage.py'] + x2argv, code, o)
     doc = json.load(open(os.path.join(o, 'result.json')))
+    restore_clean()
     out['X2'] = code == 71 and doc['outcome'] == 'INTERNAL'
     err = io.StringIO()
     o = r.out()
     code, res = cli.run(['terms', '--bogus', '--out', o], repo=syn.repo, stderr=err)
+    restore_clean()
     out['X3'] = code == 64 and res is None and not os.path.exists(o) and json.loads(err.getvalue())['outcome'] == 'USAGE'
     code, res = cli.run(['terms', '--help'], repo=syn.repo, stderr=io.StringIO())
     code2, _ = cli.run(['--help'], repo=syn.repo, stderr=io.StringIO())
+    restore_clean()
     out['X4'] = code == 64 and code2 == 64
     code, res = cli.run(['terms', '--out', r.out()], repo=syn.repo, stderr=io.StringIO())
+    restore_clean()
     out['X5'] = code == 64
     X6 = syn.repo.derive(syn.H, {DOC: (TEXT + '\nA beta word appears.\n').encode()}, parents=[syn.H])
     code, res = r.cli(syn.repo, ['terms', '--commit', X6], c, p, s)
+    restore_clean()
     out['X6'] = code == 10 and res['outcome'] == 'REVIEW_REQUIRED'
     # X7: a module of the package raises ImportError at import time
     tmp = tempfile.mkdtemp(prefix='x7-')
@@ -572,6 +591,7 @@ def x_controls(r, repo_path):
     code, res = cli.run(['terms', '--config', 'x:y', '--out',
                          os.path.join(repo_path, 'no-such-out-dir'), '--commit', 'x', '--repo', repo_path],
                         stderr=io.StringIO())
+    restore_clean()
     out['M10'] = code == 64 and not os.path.exists(os.path.join(repo_path, 'no-such-out-dir'))
     # schema: every result written above validates
     from ledger_coverage.engine import schema

@@ -865,6 +865,9 @@ def eval_invariant(k, v, result, case, attested, bindings):
         computed = _computed_invariant(k, v, result, bindings)
         if computed is not None:
             return computed
+    if k == 'out_dir_created' and isinstance(case.get('out_dir_exists'), bool):
+        # the recorder's observation of the --out directory right after the run (manifest field)
+        return case['out_dir_exists'] == v, case['out_dir_exists'], 'manifest'
     if k == 'no_result_written':
         a = case.get('_result_absent')
         if a is not None:
