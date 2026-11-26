@@ -79,7 +79,8 @@ derivation of the kinematics.
   - ε_c(η) = (1+β)^D − 1 + η_c(L)Σ_{j=0}^{D−2}(1+β)^j + η_b(L) + δ, with β = δ + 2d·η_e(2) and
     D = 3k + 1.
 
-  System histories add (1 + ε_c|_{n=1})η_d(1) + η_f. The bound tends to 0 as (δ, η) → 0. Under
+  System histories, which also assume the η-rules (d1) at r = 1 and (f), add
+  (1 + ε_c|_{n=1})η_d(1) + η_f. The bound tends to 0 as (δ, η) → 0. Under
   M_H it is obtained only through M_H ≤ M_C. Whether an η_r can be removed under M_H is open.
 - **Converse under M_C where the padding-defect floor is 0 (Corollary 7c; the verbatim case of
   Theorem 8η).** At a level with τ_min = 0, unit 2's Lemma 7 holds verbatim for every pair of
@@ -92,7 +93,7 @@ derivation of the kinematics.
   when g depends on ε it is a condition of type B2. m, K ≥ 2 and the level-set condition remain
   necessary.
 - **Obstruction (B4).** For bounds uniform over class(η) at a fixed η > 0, and for single
-  theories with a positive padding-defect floor τ_min, the padding's trace defect multiplies the
+  theories with a positive padding-defect floor τ_min and for which ω′(τ_min)·g is not small, the padding's trace defect multiplies the
   output norms of the test families. No hypothesis of Lemma 7 bounds those norms a priori. The
   bootstrap leaves the branch g ≳ 1/(8(3K−4)τ_min) unexcluded.
 - **The converse is not disproved.** The uniform converse remains open (O2-a). Every
@@ -150,8 +151,9 @@ checks and exact-head CI. Merging needs the owner's separate approval (§A.50 it
 ## 6. Preservation rationale
 
 Unit 2 left open node O2 ("approximate structure rules") and marker W2: its stability results
-used the six structure rules of Main:572 exactly. This record settles O2 at fixed (d, m, K),
-under the preregistered metrics M_H and M_C kept apart:
+used the six structure rules of Main:572 exactly. This record brings O2 to a status at fixed (d, m, K):
+B1 for Direction 1; the converse verbatim where τ_min = 0; B4, with O2-a open, for bounds uniform
+over class(η) at fixed η > 0. The preregistered metrics M_H and M_C are kept apart:
 - **Direction 1** survives relaxation of every rule, with an explicit bound, and its soundness
   part does not depend on the rules.
 - **The converse under M_C** survives verbatim wherever the paddings come arbitrarily close to
@@ -191,5 +193,5 @@ Per the owner decision of 2026-11-26T11:06Z ("Leave the three optional nits unap
     - For every η with each η_r ≥ s(1+s), class(η) contains a theory with τ_min > 0. So the scope
       of §5.3, "bounds uniform over class(η) at fixed η > 0", is not vacuous.
     - T_s is not a counterexample to Lemma 7. Its test families have norm about 1 + s, and V_s
-      holds, so sufficient condition (ii) gives (Hg).
+      holds, so for s and ε small enough sufficient condition (ii) gives (Hg).
     - O2-a is unchanged.
