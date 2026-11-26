@@ -1,8 +1,8 @@
-# OBL-29 custody: format, bootstrap inventory and mapping to admitted inputs (paper design c6)
+# OBL-29 custody: format, bootstrap inventory and mapping to admitted inputs (paper design c7)
 
 ## 0. Status, authority, scope and goal link
 
-**Status.** Paper design c6, pending an owner decision on the context source (§4.2, decision D-1), independent review and adoption. The proposed
+**Status.** Paper design c7, pending an owner decision on the context source (§4.2, decision D-1), independent review and adoption. The proposed
 requirements (ids `R6.CUST.n`) have no force until adoption. Adoption of this design does not
 discharge OBL-29, does not authorize implementing custody-dependent discharge, and changes no
 schema, admission rule or release-gate step by itself (§7).
@@ -23,7 +23,9 @@ decision (D-1); c3 at `ca82d23ef4b604b040660515e486fe6fdfdf1f9d` received a smal
 comment 7202781537), which c4 answers, keeping both variants; c4 at
 `3658ed49f210f83f633a47cf2546ea5606b005b2` received a REVISE with two targeted fixes (PR #1616
 comment 7202860517), which c5 answers; c5 at `9fe63de3402f444420ef3e6cc7c912fb28d31c82` received a
-confirmatory REVISE (PR #1616 comment 7202923040), which c6 answers. §9 maps findings to changes and records each choice made where a finding offered one.
+confirmatory REVISE (PR #1616 comment 7202923040), which c6 answers; the confirmatory check of c6 at
+`34c74c92334e52c170b7ce7bb1fda6ecfc2bd922` returned ACCEPT WITH NITS (PR #1616 comment 7202961828),
+whose two nits c7 applies. §9 maps findings to changes and records each choice made where a finding offered one.
 
 **Source requirements.** The adopted OBL-29 remedy r9: `DESIGN.md` and `CONTROLS.json` under
 `verification/audits/foundations/a1exit-obl29-remedy-20261126/` at
@@ -332,9 +334,10 @@ further `close`.
   discharge-bearing context or named by an `unfrozen` entry, and every `unfrozen` entry names a
   discharge-bearing configuration in `R*(M)`. An `unfrozen` entry whose configuration a later context
   admits is not a failure: it only acknowledges, and the context then needs its own `close` (c2).
-  **Pin rule.** A *pinning commit* of a discharge-bearing configuration is a commit reachable from
-  `M` whose tree lists the configuration's SHA-256 in the last `Record pins` subsection of the
-  `PREREG.md` beside it, while none of its parents' trees does (the commit that introduces the pin,
+  **Pin rule.** A tree *lists the pin* of a discharge-bearing configuration when it holds the
+  configuration at its path, at a regular mode (`100644` or `100755`), with that SHA-256, and the
+  `PREREG.md` beside it lists that SHA-256 in its last `Record pins` subsection. A *pinning commit* is
+  a commit reachable from `M` whose tree lists the pin while none of its parents' trees does (the commit that introduces the pin,
   on a branch or in a merge resolution; a root commit that lists it is one). A later merge of a branch
   forked before the pin has one parent that lists the pin, so it is not a pinning commit. An `unfrozen` entry covers such a
   configuration only when every commit reachable from `M` whose custody version contains that entry
@@ -525,7 +528,9 @@ outcome and named items match its `expected`, over the r9 fixture as amended in 
   entry repairs it, and this design does not accept the squash and rebase gap.
 - **R-C4. Liveness.** An entry that fails a mechanical check and lands despite R6.CUST.10 keeps
   custody unestablished permanently (§4.1; OQ-15). Under variant (ii), a later foxtrot fast-forward
-  that moves a landing merge off the first-parent chain has the same effect. So does a configuration
+  that moves a landing merge off the first-parent chain has the same effect, and the `freeze` entry
+  naming that landing cannot be corrected, for the same append-only reason (s2, s3); OQ-15 is the only
+  recovery route under discussion. So does a configuration
   that was pinned but never frozen while its only `unfrozen` entry predates the pin (pin rule of (c4);
   OQ-20).
 - **R-C5. Identity strings.** `author` and `reviewer` are not authenticated (r9 R-8).
@@ -648,6 +653,10 @@ The table above records c2's changes; where c3 changes them again, the table bel
 | 3. REV of admitted records | (c3): "the common `rev` of the admitted classify records, or null when none was admitted" |
 | Adoption list | new §12, from the reviewer's ten items |
 
+**Confirmatory check of c6 (PR #1616 comment 7202961828, ACCEPT WITH NITS):** c7 defines "lists the
+pin" in (c4), and states in R-C4 that a variant (ii) `freeze` entry whose landing later leaves the
+first-parent chain cannot be corrected, with OQ-15 as the only recovery route under discussion.
+
 ***
 
 ## 10. Open questions for the owner
@@ -690,6 +699,8 @@ this design; their ids are not reused.
 | Amendment 6 r13 at `5ad8837521de0a26734266a64f91548fd3dcff1e` | R6.CFG.*, R6.RECON.*, R6.REC.* cited here | support off `main` (PR #1593 open) |
 | PR #1577 at `e88ca375c35a278371f8bc1c70ba963ea61fef05` | the current fail-closed behaviour this design replaces | provenance |
 | c1 at `dc2b344c91c04979570ad58c5a554b3b7585008f` and its independent review (relayed by the coordinating session) | the findings answered in §9 | provenance |
+| c6 at `34c74c92334e52c170b7ce7bb1fda6ecfc2bd922` and its confirmatory check, PR #1616 comment 7202961828 (ACCEPT WITH NITS) | the two nits applied in c7 | provenance |
+| c5 at `9fe63de3402f444420ef3e6cc7c912fb28d31c82` and its confirmatory re-review, PR #1616 comment 7202923040 | the findings answered in §9 and the adoption list of §12 | provenance |
 | c2 at `b61467e9efecc435798861130a5ace5e40c18a91` and its re-review, PR #1616 comment 7202652276 | the findings answered in §9 | provenance |
 | c4 at `3658ed49f210f83f633a47cf2546ea5606b005b2` and its re-review, PR #1616 comment 7202860517 (result fields at `e88ca375`, `cli.py` freeze check) | the findings answered in §9 | provenance |
 | c3 at `ca82d23ef4b604b040660515e486fe6fdfdf1f9d` and its re-review, PR #1616 comment 7202781537 | the findings answered in §9; the reviewer's build of a variant (i) receipt with `tools/v3_receipt.py` | provenance |
