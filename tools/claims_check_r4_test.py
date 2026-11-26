@@ -353,8 +353,19 @@ def prev_hits(par):
 # ---- generated forms: what the blocking checker's patterns can match
 # Each pattern of tools/claims_check.py is expanded from its own alternatives (subjects, verbs,
 # objects, case) into sentence frames that state the withdrawn result; the frames carry no marker
-# of the blocking checker, so it flags each sentence that contains a match.  The list is fixed in
-# this file, not chosen from the outcome, and every sentence it yields is compared.
+# of the blocking checker, so it flags each sentence that contains a match.  The lists are
+# hand-transcribed from the old patterns and fixed in this file, not chosen from the outcome, and
+# every sentence they yield is compared.  They are not derived from tools/claims_check.py by
+# machine; OLD_PATTERNS_SHA256 pins the old checker's pattern definitions, so a change to them fails
+# the controls until these lists are re-transcribed and the pin is updated.
+OLD_PATTERNS_SHA256 = "3b050aa2de1b1b3ef54c622df3d5e891f3581f89243be79b858b09cb61cdf60b"
+
+
+def old_patterns_digest():
+    """SHA-256 of the old checker's pattern definitions: CLAIMS, OI_CLAIMS (pattern, flags, reason)
+    and its two marker lists."""
+    src = repr([(r.pattern, r.flags, w) for r, w in OLD.CLAIMS + OLD.OI_CLAIMS]) + repr((OLD.MARKERS, OLD.OI_MARKERS))
+    return hashlib.sha256(src.encode()).hexdigest()
 def _cap(s):
     return s[:1].upper() + s[1:]
 
@@ -536,7 +547,8 @@ def report(out):
         "findings_in_current_corpus": {
             "about": ("tools/claims_check_r4.py on this tree, report-only. findings: one per (rule, sentence unit); "
                       "sentences: distinct (path, sentence hash); texts: distinct sentence hashes; records needed: "
-                      "distinct (rule, path, sentence hash, code, window hash for code A)."),
+                      "distinct (rule, path, sentence hash, code, window hash for code A). Records clearable by a review "
+                      "record and sentences (path-sentence pairs) count different things, even where the numbers coincide."),
             "workload": scan["workload"], "counts": scan["counts"], "record_problems": scan["record_problems"],
             "active_findings": [{k: x[k] for k in ("path", "line", "rule", "code", "verdict", "sentence_sha256",
                                                     "window_sha256", "sentence")} for x in act],
@@ -551,6 +563,9 @@ def report(out):
     w, cc, g, k = scan["workload"], cov["corpus_comparison"], cov["generated_test_cases"], cov["known_coverage_gaps"]
     print("== 1. findings in the current corpus (report-only; not gating)")
     print("   " + ", ".join("%s %d" % kv for kv in w.items()))
+    print("   (findings count (rule, sentence) occurrences; sentences count distinct (path, sentence hash) pairs;"
+          " records needed count review-record keys. Records clearable by a review record and path-sentence"
+          " pairs count different things, even where the numbers coincide.)")
     print("   blocking-checker patterns: %d unexcused match(es) in this tree, %d in a sentence the new checker passes"
           % (cc["old_unexcused_matches"], cc["of_which_new_passes"]))
     print("== 2. generated test cases covering the old checker's patterns (a finite set, not a proof of coverage)")
@@ -583,6 +598,8 @@ def previous():
     for c in suite:
         if c.get("category") == "previous-gap":
             check("previous", "%s: the old checker's verdict is as pinned" % c["id"], bool(prev_hits(c["text"])) == c["old_flags"])
+    check("previous", "the old checker's pattern definitions are those the generated lists were transcribed from",
+          old_patterns_digest() == OLD_PATTERNS_SHA256, old_patterns_digest()[:16])
     # Generated test cases: the old-only list and the per-pattern counts must equal the pinned file, so
     # that a change in either direction is visible.  This records the gaps; it does not resolve them.
     rows, tot = gap()

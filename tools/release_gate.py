@@ -92,8 +92,9 @@ def run(name, argv, cwd=ROOT):
 # Steps whose whole output is printed after the summary line: report-only steps, whose findings are
 # the point of running them and would otherwise be reduced to their last line.
 REPORT_STEPS = ("claims-r4-report",)
-# Where the report-only withdrawn-claim step writes its structured report (CI sets the variable so the
-# workflow can keep the file).
+# Where the report-only withdrawn-claim step writes its structured report. CI does not set the
+# variable, so there the JSON goes to the temp directory and the findings are visible in the job log;
+# keeping the file as a CI artifact would need a change to .github/workflows/verify.yml.
 CLAIMS_R4_REPORT = os.environ.get("CLAIMS_R4_REPORT") or os.path.join(tempfile.gettempdir(), "claims-r4-report.json")
 
 def main():
