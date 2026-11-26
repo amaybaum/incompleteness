@@ -152,6 +152,39 @@ def rtl2_inputs(res, w, path, doc):
     return {'drift': drift, 'records': recs, 'roles': {'H': w.syn.H, 'M': w.M, 'C': w.X}}
 
 
+def line_patch_control(r, check, capture):
+    """R6.RECON.13: evaluate RC8 twice against one candidate and one entry."""
+    positive = ('the synthetic line-patch ledger stating expected_sha256 equal to the sha256 of the candidate\'s '
+                'patched bytes (positive)')
+    negative = 'countercase: the same ledger with a wrong expected_sha256'
+    w = World(r)
+    candidate = w.repo.read(w.X, sf.DOC)
+    candidate_digest = w.repo.read(w.X, 'out/digest.txt')
+    doc = w.record()
+    entry = doc['paths'][0]
+    original = w.led['files'][sf.DOC]
+    # Change the normalized expected hash only. The adapter's raw ledger view also holds the file entry and
+    # supplies the binding checked by RC13. A deepcopy would preserve the alias and perturb RC13 as well.
+    altered = dict(original, expected_sha256='0' * 64)
+    bad_ledger = dict(w.led, files={**w.led['files'], sf.DOC: altered})
+    context = {'H': w.syn.H, 'M': w.M, 'X': w.X, 'classes': [], 'record_refs': {}}
+    verdicts = {}
+    for name, ledger in ((positive, w.led), (negative, bad_ledger)):
+        evaluation = rcmod.evaluate(w.repo, w.ctx, w.syn.H, w.M, w.X, ledger, doc, entry, [], {})
+        # The line-patch adapter's ledger has one non-JSON value per splice: its replacement bytes.
+        retained = dict(ledger, splices=[dict(s, new_bytes=s['new_bytes'].hex()) for s in ledger['splices']])
+        capture('line-patch RC8 evaluation', {'operation': 'execution', 'context': context,
+                'candidate_blob': w.repo.blob_id(w.X, sf.DOC), 'record': doc, 'ledger': retained,
+                'evaluation': evaluation}, case=name)
+        verdicts[name] = evaluation['holds'].get('RC8')
+    check('LINE-PATCH-RC8', 'RC8 holds only with the patched candidate hash',
+          'candidate SHA-256 matches the stated hash and the evaluator changes its RC8 verdict', verdicts,
+          original['expected_sha256'] == sha(candidate) and verdicts[positive] is True and verdicts[negative] is False,
+          files={'candidate.bin': candidate, 'candidate-digest.bin': candidate_digest},
+          procedure={'name': 'line-patch-rc8', 'lib': 'oracle', 'tool_output': ['case01.result.json', 'case02.result.json'],
+                     'oracle_output': 'candidate.bin', 'candidate_digest': 'candidate-digest.bin'})
+
+
 def postf_controls(r, check):
     out = {}
     # POSTF-1 (both directions)
@@ -178,23 +211,6 @@ def postf_controls(r, check):
         rv, pth, _ = w0.standard()
         w0.run(['%s:%s' % (rv, pth)])
         return pth
-
-    # the line-patch adapter's expected_sha256, in both directions: the stated value (the sha256 of the patched
-    # content) lets RC8 hold; a wrong value makes RC8 fail (coordinator's safeguard for option 1)
-    doc_ok = w.record()
-    entry = doc_ok['paths'][0]
-    ok_ev = rcmod.evaluate(w.repo, w.ctx, w.syn.H, w.M, w.X, w.led, doc_ok, entry, [], {})
-    bad_led = copy.deepcopy(w.led)
-    bad_led['files'][sf.DOC]['expected_sha256'] = '0' * 64
-    bad_ev = rcmod.evaluate(w.repo, w.ctx, w.syn.H, w.M, w.X, bad_led, doc_ok, entry, [], {})
-    x_bytes = w.repo.read(w.X, sf.DOC)
-    check('LINE-PATCH-RC8', "the line-patch ledger's expected_sha256 is the sha256 of the patched content, and RC8 "
-          'reads it: the stated value holds RC8, a wrong value fails it',
-          'expected_sha256 equals sha256 of the candidate document; RC8 holds with it and fails with a wrong value',
-          {'stated': w.led['files'][sf.DOC]['expected_sha256'], 'candidate_sha256': sha(x_bytes),
-           'rc8_stated': ok_ev['holds'].get('RC8'), 'rc8_wrong': bad_ev['holds'].get('RC8')},
-          w.led['files'][sf.DOC]['expected_sha256'] == sha(x_bytes) and ok_ev['holds'].get('RC8') is True and
-          bad_ev['holds'].get('RC8') is False)
 
     # POSTF-2
     w2 = World(r, pre_change=True)

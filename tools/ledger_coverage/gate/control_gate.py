@@ -937,9 +937,111 @@ def _s11_unmutated_result(ev, case, result):
     return before
 
 
+def is_line_patch_rc8(row):
+    procedure = row.get('procedure') or {}
+    return row['id'] == 'LINE-PATCH-RC8' and procedure.get('name') == 'line-patch-rc8' and \
+        procedure.get('lib') == 'oracle'
+
+
+def line_patch_case(ev, case):
+    """Read one raw in-process RC8 evaluation and its inputs from the evidence set."""
+    if case.get('argv') != ['in-process', 'line-patch RC8 evaluation']:
+        raise ValueError('missing or malformed in-process RC8 invocation')
+    name = case.get('result_file')
+    data = ev.text(name) if isinstance(name, str) else None
+    if data is None:
+        raise ValueError('missing evaluation file')
+
+    def unique_fields(pairs):
+        obj = dict(pairs)
+        if len(obj) != len(pairs):
+            raise ValueError('duplicate evaluation or input key')
+        return obj
+
+    def reject_constant(value):
+        raise ValueError('invalid JSON constant %s' % value)
+
+    doc = json.loads(data.decode('utf-8'), object_pairs_hook=unique_fields,
+                     parse_constant=reject_constant, parse_float=reject_constant)
+    if not isinstance(doc, dict) or set(doc) != {'operation', 'context', 'candidate_blob', 'record', 'ledger',
+                                                 'evaluation'} or doc['operation'] != 'execution':
+        raise ValueError('invalid RC8 evaluation document')
+    context, record, ledger, evaluation = (doc[k] for k in ('context', 'record', 'ledger', 'evaluation'))
+    if not all(isinstance(v, dict) for v in (context, record, ledger, evaluation)):
+        raise ValueError('invalid RC8 inputs or result')
+    if set(context) != {'H', 'M', 'X', 'classes', 'record_refs'} or not all(
+            isinstance(context[k], str) and HEX40.fullmatch(context[k]) for k in ('H', 'M', 'X')) or \
+            context['classes'] != [] or context['record_refs'] != {}:
+        raise ValueError('invalid synthetic evaluator context')
+    entries = record.get('paths')
+    if not isinstance(entries, list) or len(entries) != 1 or not isinstance(entries[0], dict):
+        raise ValueError('the reconciliation record must retain one entry')
+    entry = entries[0]
+    path = entry.get('path')
+    files = ledger.get('files')
+    if path != 'doc/s.md' or path != evaluation.get('path') or \
+            not isinstance(files, dict) or set(files) != {path} or not isinstance(files[path], dict):
+        raise ValueError('the ledger and evaluation must name the record entry path')
+    if ledger.get('base') != context['H'] or record.get('ledger_base') != context['H'] or \
+            record.get('M') != context['M'] or record.get('X') != context['X']:
+        raise ValueError('the ledger or record does not name the evaluator roles')
+    list_fields = ('splices', 'retained', 'mirrors', 'ignored_fields', 'errors', 'edits')
+    if set(ledger) != {'base', 'splices', 'files', 'retained', 'mirrors', 'ignored_fields', 'errors', 'edits',
+                       'pin_rules', 'raw'} or not all(isinstance(ledger[key], list) for key in list_fields) or \
+            not ledger['splices'] or not isinstance(ledger['pin_rules'], dict) or \
+            not all(isinstance(splice, dict) and isinstance(splice.get('new'), str) and
+                    splice.get('new_bytes') == splice['new'].encode().hex() for splice in ledger['splices']) or \
+            not isinstance(ledger['raw'], dict):
+        raise ValueError('invalid retained line-patch ledger')
+    raw = ledger['raw']
+    raw_files = raw.get('files')
+    if set(raw) != {'files', 'splices', 'edits'} or not isinstance(raw_files, dict) or set(raw_files) != {path} or \
+            not isinstance(raw_files[path], dict) or set(raw_files[path]) != {'base_sha256', 'expected_sha256'} or \
+            not isinstance(raw['edits'], list) or raw['splices'] != [
+                {k: v for k, v in splice.items() if k != 'new_bytes'} for splice in ledger['splices']]:
+        raise ValueError('invalid raw line-patch ledger view')
+    if set(files[path]) != {'base_sha256', 'expected_sha256'} or \
+            files[path]['base_sha256'] != raw_files[path]['base_sha256']:
+        raise ValueError('raw and normalized file entries disagree on the base hash')
+    digest = files[path]['expected_sha256']
+    if not all(isinstance(value, str) and re.fullmatch('[0-9a-f]{64}', value)
+               for value in (digest, raw_files[path]['expected_sha256'], files[path]['base_sha256'])):
+        raise ValueError('invalid ledger file hash')
+    holds, failed = evaluation.get('holds'), evaluation.get('failed')
+    if not isinstance(holds, dict) or type(holds.get('RC8')) is not bool or not isinstance(failed, list) or \
+            not all(isinstance(name, str) for name in failed) or len(set(failed)) != len(failed) or \
+            holds['RC8'] == ('RC8' in failed):
+        raise ValueError('malformed or inconsistent RC8 verdict')
+    return doc, entry, digest
+
+
+def eval_line_patch_case(exp, name, ev, findings):
+    actual = {'case': name}
+    try:
+        cases = (ev.man or {}).get('cases', [])
+        case, = [c for c in cases if isinstance(c, dict) and c.get('case') == name]
+        doc, _, _ = line_patch_case(ev, case)
+    except ValueError as exc:
+        findings.append(('raw-evidence-missing', 'case %r: %s' % (name, exc)))
+        return actual
+    evaluation = doc['evaluation']
+    actual['outcome'] = 'RC_HOLDS' if evaluation['holds']['RC8'] else 'RC_FAILS'
+    if actual['outcome'] != exp.get('outcome'):
+        findings.append(('declarative-mismatch', 'case %r: unexpected RC8 verdict %s' % (name, actual['outcome'])))
+    if set(exp) - {'case', 'outcome', 'invariants'}:
+        findings.append(('raw-evidence-missing', 'case %r: unsupported RC8 expectation fields' % name))
+    for invariant in exp.get('invariants', []):
+        actual['failed_conditions'] = evaluation['failed']
+        if invariant != {'failed_conditions_include': 'RC8'} or 'RC8' not in evaluation['failed']:
+            findings.append(('declarative-mismatch', 'case %r: failed conditions %s' % (name, evaluation['failed'])))
+    return actual
+
+
 def eval_case(exp, case_name, ev, row, record, findings_out):
     """Evaluates one expectation (the row's, one of its cases, or its restored case) against the retained
     evidence of the case. Appends findings; returns the extracted actual."""
+    if is_line_patch_rc8(row):
+        return eval_line_patch_case(exp, case_name, ev, findings_out)
     rid = row['id']
     c = ev.case(case_name)
     actual = {'case': case_name}
@@ -1147,7 +1249,75 @@ def _tuples(result, decision=None):
                       if decision is None or i.get('decision') == decision))
 
 
+def eval_line_patch_oracle(row, ev, findings):
+    """Derive both RC8 expectations from one retained candidate blob and a one-field ledger change."""
+    actual = {'lib': 'oracle', 'agree': False}
+    try:
+        manifest = ev.man or {}
+        proc = manifest.get('procedure')
+        cases = manifest.get('cases', [])
+        names = [c['case'] for c in row['expect']['cases']]
+        if not isinstance(proc, dict) or proc.get('name') != 'line-patch-rc8' or proc.get('lib') != 'oracle' or \
+                len(cases) != 2 or not all(isinstance(case, dict) for case in cases) or \
+                [case.get('case') for case in cases] != names:
+            raise ValueError('expected the two named RC8 cases and their oracle inputs')
+        outputs = [case.get('result_file') for case in cases]
+        candidate_file = proc.get('oracle_output')
+        digest_file = proc.get('candidate_digest')
+        files = outputs + [candidate_file, digest_file]
+        if not all(isinstance(name, str) for name in files) or len(set(files)) != 4 or \
+                proc.get('tool_output') != outputs:
+            raise ValueError('oracle inputs do not name two distinct evaluations and both candidate blobs')
+        candidate = ev.text(candidate_file)
+        companion = ev.text(digest_file)
+        if candidate is None or companion is None:
+            raise ValueError('candidate or digest bytes are missing')
+        first, second = (line_patch_case(ev, case) for case in cases)
+        first_doc, entry, first_expected = first
+        second_doc, _, second_expected = second
+        path = entry['path']
+
+        def same_input(value):
+            doc = value[0]
+            ledger = doc['ledger']
+            file_entry = {k: v for k, v in ledger['files'][path].items() if k != 'expected_sha256'}
+            inputs = (doc['context'], doc['record'], dict(ledger, files={path: file_entry}))
+            return json.dumps(inputs, sort_keys=True, ensure_ascii=False)
+
+        if second[1]['path'] != path or same_input(first) != same_input(second):
+            raise ValueError('evaluator inputs differ beyond the normalized expected_sha256')
+        digest = hashlib.sha256(candidate).hexdigest()
+        git_blob = hashlib.sha1(('blob %d\0' % len(candidate)).encode() + candidate).hexdigest()
+        if first_doc['candidate_blob'] != git_blob or second_doc['candidate_blob'] != git_blob or \
+                entry.get('x') != git_blob or entry.get('x_sha256') != digest:
+            raise ValueError('candidate bytes do not match the observed blob and reconciliation entry')
+        if companion != (digest + '\n').encode('ascii'):
+            raise ValueError('the candidate digest file does not match the patched bytes')
+        companion_blob = hashlib.sha1(('blob %d\0' % len(companion)).encode() + companion).hexdigest()
+        # World derives the synthetic candidate from H as its sole parent with subject X and two regular files.
+        # Recompute the Overlay.derive identity without importing the engine or trusting a reported commit id.
+        base = first_doc['context']['H'].encode('ascii')
+        overlay = hashlib.sha1(b'X' + base)
+        for changed_path, blob in sorted(((path, git_blob), ('out/digest.txt', companion_blob))):
+            overlay.update(changed_path.encode('utf-8') + b'\0' + b'100644:' + blob.encode('ascii'))
+        overlay.update(base)
+        if overlay.hexdigest() != first_doc['context']['X']:
+            raise ValueError('the candidate blobs do not derive the reported synthetic X')
+        raw_expected = first_doc['ledger']['raw']['files'][path]['expected_sha256']
+        if raw_expected != digest or first_expected != digest or second_expected == digest:
+            raise ValueError('the stated and wrong hashes do not form an RC8 pair')
+        verdicts = [doc['evaluation']['holds']['RC8'] for doc in (first_doc, second_doc)]
+        if verdicts != [first_expected == digest, second_expected == digest]:
+            raise ValueError('the tool verdicts disagree with the candidate hash')
+        actual.update(agree=True, candidate_sha256=digest, candidate_commit=overlay.hexdigest())
+    except ValueError as exc:
+        findings.append(('procedural-failed', 'line-patch-rc8: %s' % exc))
+    return actual
+
+
 def eval_procedure(row, ev, findings_out, repo=None):
+    if is_line_patch_rc8(row):
+        return eval_line_patch_oracle(row, ev, findings_out)
     lib = row['procedure']['lib']
     proc = (ev.man or {}).get('procedure') or {}
     missing = [k for k in LIB_INPUTS[lib] if k not in proc]

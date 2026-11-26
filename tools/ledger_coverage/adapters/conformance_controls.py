@@ -2631,6 +2631,7 @@ def main(out_root):
               ('O9', lambda: rdc.o9_controls(r, check)), ('I2', lambda: rdc.i2_controls(r, check, WORKFLOW)),
               # design amendment 1: the post-freeze route
               ('POSTF', lambda: pfc.postf_controls(r, check)),
+              ('LINE-PATCH-RC8', lambda: pfc.line_patch_control(r, check, REC.capture_doc)),
               # design amendment 4: the record base of a predicted M
               ('RECORD-BASE', lambda: pfc.rb_controls(r, check)),
               # design amendments 3 and 4: the category-3 block
