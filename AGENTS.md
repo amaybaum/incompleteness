@@ -1771,16 +1771,17 @@ resetting the work.
    workstream the replacement cannot resolve from the records is put to the owner (§A.51 item 1). It
    may grant one validation write for each operation that the recorded authorizations already permit
    and whose tool and path are not validated for the replacement (§A.51 item 2), each within a
-   package's targets or, for the record below, on #1169. Such a grant permits only that write: it
-   adds no operation, widens no scope and waives no approval, and a mismatch is a stop under §A.49
-   rule 3. A push is not validated under §A.51 item 2; each push meets §A.51 item 3. Before any
-   write, the replacement reads #1169, the threads it will write to and the records they link for a
-   stop under §A.49 rule 3 or §A.51 item 5 that no recorded owner decision has lifted; while one
-   stands it writes nothing and tells the owner by the instruction's own channel. Its first write is
-   the record of the designation and the takeover on #1169, quoting the instruction (§A.42 item 7)
-   and listing each workstream the designation covers, and the replacement makes no other write
-   until that record has passed §A.49's read-back. Where the comment operation is not validated,
-   that record is its validation write. The replacement then:
+   package's targets or, for the record below, on the coordination Issue (item 6). Such a grant
+   permits only that write: it adds no operation, widens no scope and waives no approval, and a
+   mismatch is a stop under §A.49 rule 3. A push is not validated under §A.51 item 2; each push
+   meets §A.51 item 3. Before any write, the replacement reads the coordination Issue, the threads
+   it will write to and the records they link for a stop under §A.49 rule 3 or §A.51 item 5 that no
+   recorded owner decision has lifted; while one stands it writes nothing and tells the owner by the
+   instruction's own channel. Its first write is the record of the designation and the takeover on
+   the coordination Issue, quoting the instruction (§A.42 item 7) and listing each workstream the
+   designation covers, and the replacement makes no other write until that record has passed §A.49's
+   read-back. Where the comment operation is not validated, that record is its validation write. The
+   replacement then:
    - reconstructs the state as item 3 requires, reading each thread beyond its latest checkpoint; in
      place of item 3's equality check, a branch head that descends from the recorded commit is
      accepted once each later commit is accounted for as the interrupted session's unreviewed work,
@@ -1790,7 +1791,7 @@ resetting the work.
    - treats work that is not on GitHub as unavailable, not recovered, and reconstructs it where
      needed from the latest checkpoint and the preserved records;
    - posts a recovery checkpoint (item 1) on each workstream thread, linking the record of the
-     designation (item 2), and on #1169 a summary of the discrepancies, unavailable work and
+     designation (item 2), and on the coordination Issue a summary of the discrepancies, unavailable work and
      decisions that need the owner;
    - continues under the recorded authorizations, which a change of session does not renew or
      withdraw (§A.45 rule 3, §A.51); a recommendation, review or writer proposal is not one.
@@ -1800,16 +1801,16 @@ resetting the work.
    rule 3) and writes nothing to them.
 6. **Entry point and missing records.** Recovery needs only the repository's identity and the
    owner's instruction. It starts from this file on `main`, which names the coordination Issue,
-   #1169, the Project and the planning record in open Issues (§A.45 "Where things live"). No one of
-   these is indispensable: where one is missing or cannot be read, the replacement discovers the
-   workstreams from the others, from open pull requests and their branches, and from the records on
-   `main`. A record that something still references, but that cannot be read, is unavailable rather
-   than nonexistent, and is put to the owner. An authorization that cannot be read is not held, and
-   the work it would cover waits for the owner's confirmation. A stop record that cannot be read, or
-   the loss of a record that would show whether a stop stands, is treated as a stop under §A.49 rule
-   3 until the owner decides otherwise. So that an authorization survives the loss of an Issue, each
-   workstream's plan, or the commit that opens its branch, quotes the owner authorization it relies
-   on (§A.42 item 7).
+   #1169, and, in §A.45 "Where things live", the Project and the planning record in open Issues. No
+   one of these is indispensable: where one is missing or cannot be read, the replacement discovers
+   the workstreams from the others, from open pull requests and their branches, and from the records
+   on `main`; where #1169 is missing or cannot be read, the coordination Issue of item 5 is the one
+   the owner names. A record that something references, or that the host reports as deleted or
+   inaccessible, is unavailable rather than nonexistent; where recovery depends on it, it is put to
+   the owner. An authorization, review verdict or owner decision lifting a stop that cannot be read
+   is not held unless a record on `main` quotes it (§A.42 item 7). A stop record that cannot be
+   read, or the loss of a record that would show whether a stop stands, keeps the replacement from
+   writing, as under §A.49 rule 3, until the owner decides.
 
 A handover authorizes nothing new and changes no scientific status. No handover file is added to the
 repository.
