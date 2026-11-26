@@ -7,20 +7,22 @@ name: PDF build
 # plan, and neither it nor its dispatch is an A1 trial (§A.50 item 2); it only rebuilds manuscript PDFs.
 #
 # Inputs: `commit`, a full 40-hex commit id; `targets`, the arguments to build.sh, either `--book` alone or one or
-# more paper names from the allowlist below (space-separated, no repeats). It checks out exactly `commit`, installs
-# pandoc 3.1.3 (pinned .deb, sha256-checked) and TeX Live's xelatex on ubuntu-24.04 with versions recorded and
-# checked, and runs `sh ./build.sh <targets>` with ALLOW_MISSING_GLYPHS=0, so a dropped glyph fails the build. Each
-# rebuilt .tex must equal the committed .tex, so each PDF corresponds to the committed source, and the build may change
-# no other path. For each PDF it records its SHA-256, its source commit, the page count (pdfinfo) and the median number
-# of non-whitespace characters per page (pdftotext); a median below 1000 fails (the committed PDFs lie between about
-# 1800 and 2700; a document typeset into a narrow column falls far below).
+# more paper names from the allowlist below (space-separated, no repeats; any other character, a newline included, is
+# refused). It checks out exactly `commit`, installs pandoc 3.1.3 (pinned .deb, sha256-checked) and TeX Live's xelatex
+# on ubuntu-24.04 with versions recorded and checked, and runs `sh ./build.sh <targets>` with ALLOW_MISSING_GLYPHS=0,
+# so a dropped glyph fails the build. Each rebuilt .tex must equal the committed .tex, so each PDF corresponds to the
+# committed source, and the build may change no other path. For each PDF it records its SHA-256, its source commit,
+# the page count (pdfinfo) and the median number of non-whitespace characters per page (pdftotext); a median below
+# 1000 fails (the committed PDFs lie between about 1800 and 2700; a document typeset into a narrow column falls far
+# below). The SHA-256 values identify this run's output; they are not reproducible content hashes, since apt package
+# versions are recorded but not pinned and SOURCE_DATE_EPOCH is not set.
 #
 # Every run step writes its exit status to out/<step>.rc. result.json (schema `pdf-build-v1`, §A.44) records the
 # inputs, the run identity, the toolchain and package versions, each step's outcome and exit status, the TeX files
 # that differ and the per-PDF hashes and statistics, read from files the steps write, never from log text.
 # result.json, SHA256SUMS, the logs and the PDFs (under pdf/, at their repository paths) are uploaded as the artifact
-# `pdf-build-<commit>-<run id>`. No step continues on error and nothing is retried; the last step fails unless every
-# required step succeeded.
+# `pdf-build-<run id>`, also when input validation fails; the commit is in result.json. No step continues on error
+# and nothing is retried; the last step fails unless every required step succeeded.
 on:
   workflow_dispatch:
     inputs:
@@ -35,10 +37,6 @@ on:
 
 permissions:
   contents: read
-
-concurrency:
-  group: pdf-build-${{ inputs.commit }}
-  cancel-in-progress: false
 
 env:
   COMMIT: ${{ inputs.commit }}
@@ -62,7 +60,9 @@ jobs:
           (
             set -e
             test "$GITHUB_RUN_ATTEMPT" = 1 || { echo "re-runs are refused; dispatch afresh"; exit 1; }
-            [[ "$COMMIT" =~ ^[0-9a-f]{40}$ ]] || { echo "commit is not a full commit id"; exit 1; }
+            re_commit='^[0-9a-f]{40}$'; re_targets='^[A-Za-z -]+$'
+            [[ "$COMMIT" =~ $re_commit ]] || { echo "commit is not a full commit id"; exit 1; }
+            [[ "$TARGETS" =~ $re_targets ]] || { echo "targets may hold only letters, spaces and hyphens"; exit 1; }
             read -r -a t <<< "$TARGETS"
             test "${#t[@]}" -ge 1 || { echo "no targets"; exit 1; }
             : > "$RUNNER_TEMP/out/outputs.txt"
@@ -236,7 +236,7 @@ jobs:
         if: ${{ always() }}
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02  # v4.6.2
         with:
-          name: pdf-build-${{ inputs.commit }}-${{ github.run_id }}
+          name: pdf-build-${{ github.run_id }}
           path: ${{ runner.temp }}/out/
           if-no-files-found: error
 
