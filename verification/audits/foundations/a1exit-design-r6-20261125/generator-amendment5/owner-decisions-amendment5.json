@@ -1,0 +1,32 @@
+{
+ "schema": "oi-owner-decision-quote/1",
+ "decisions": [
+  {
+   "author": "amaybaum",
+   "time": "2026-11-26T08:28:18Z",
+   "record": "#1169 comment 7186638587",
+   "relayed_by": "coordinating session",
+   "quotes": [
+    null,
+    "Correct the expectation to:",
+    "Drift reconciled; REVIEW_REQUIRED only from delegated classes.",
+    "The control should establish successful reconciliation without incorrectly requiring an unconditional PASS when another valid review requirement remains outstanding.",
+    "Do not exempt delegated classes. Verify that unrelated reconciliation failures still cause the appropriate failure outcome.",
+    "Authorize adding the 14 missing expectation rows and preparing one independently reviewed expectation-correction amendment.",
+    "Rows | Decision",
+    "M1, M2 | Approve includes unauthorized-edit.",
+    "B5 | Require both labels.",
+    "H5 | Select RET, subject to confirming consistency with R6.CLASS.10.",
+    "U14 | Resolve toward R6.REC.10, explicitly correcting the conflicting design text if necessary.",
+    "Y4, S11-1, S11-2a | Require the specified items.",
+    "S11-5, S11-6 | Use rule_id.",
+    "R18 | Re-derive under amendment 3.",
+    "Whole-result T1′ rows | Scope to the intended lines or subjects, provided the original verification obligation remains fully enforced.",
+    "Every correction must cite the governing design requirement.",
+    "Do not change expectations merely because the implementation fails them. Where the design itself is contradictory, resolve that contradiction explicitly rather than disguising it as a test correction.",
+    "Return for adoption after independent review.",
+    null
+   ]
+  }
+ ]
+}

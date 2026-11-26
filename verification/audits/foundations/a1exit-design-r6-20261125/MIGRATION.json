@@ -1144,11 +1144,12 @@
   },
   {
    "old": "D2-D5 (r5 directory conditions)",
-   "new": "DIR2-DIR5",
+   "new": "Dir2-Dir5",
    "sources": [
     "OD-31",
     "RE-28"
-   ]
+   ],
+   "superseded": "DIR2-DIR5 (see the final_identifier_changes entry of amendment 2)"
   },
   {
    "old": "RT-T (v1 meaning: no records, FAIL)",
@@ -1329,8 +1330,9 @@
   },
   {
    "old": "RD2-RD5 (directory conditions, integration)",
-   "new": "DIR2-DIR5",
-   "basis": "RE-28 (amends OD-31's table; independent review under sec. A.48 item 3 with the migration, OBL-22)"
+   "new": "Dir2-Dir5",
+   "basis": "RE-28 (amends OD-31's table; independent review under sec. A.48 item 3 with the migration, OBL-22)",
+   "superseded": "DIR2-DIR5 (see the final_identifier_changes entry of amendment 2)"
   },
   {
    "old": "stale-adjudication (retired by RD-9 in the integration)",
@@ -1366,6 +1368,11 @@
    "old": "(none)",
    "new": "R6.STAT.10, R6.EVID.8, REP-BUILD, invariant keys representative_candidate and scanned_paths_within, notation X_rep, OBL-28 row OC-3",
    "basis": "OC-2, OC-3 (owner corrections of 2026-11-25); new ids recorded, not sec. A.48 migrations"
+  },
+  {
+   "old": "DIR2-DIR5 (approved migration, #1169 comment 7182798225)",
+   "new": "Dir2-Dir5",
+   "basis": "amendment 2 (#1169 comment 7183914927)"
   }
  ],
  "record_corrections": [

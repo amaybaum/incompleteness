@@ -1,0 +1,11 @@
+{
+ "schema": "oi-owner-decision-quote/1",
+ "author": "amaybaum",
+ "time": "2026-11-26T05:53:39Z",
+ "record": "#1169 comment 7183914927",
+ "relayed_by": "coordinating session",
+ "quotes": [
+  "F1 — Identifier conflict | Retain the lint rule. Choose compliant replacement identifiers instead of weakening or bypassing the lint. Independently review the revised mapping and return for approval under §A.48.",
+  "RT-T — Record kinds | Approve the proposed interpretation: HP, context-adjudication and hit-classification records. Correct the undefined §8.2 reference in the design."
+ ]
+}
