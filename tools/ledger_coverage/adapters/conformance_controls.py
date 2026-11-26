@@ -1741,7 +1741,7 @@ def meaning_controls(r):
                                                                                  '', 'Preface line two.'])]).encode()},
                          parents=[syn.H])
     seg = ['--segment', '%s..%s' % (syn.pin, syn.H), '--segment', '%s..%s=%s:syn/patch.json' % (syn.H, Xb, c)]
-    code, res = r.cli(syn.repo, ['coverage', '--commit', Xb] + seg, c, p, s_)
+    code, res = r.cli(syn.repo, ['coverage', '--commit', Xb, '--check', 'zc'] + seg, c, p, s_)
     found, missing = [], []
 
     def walk(x):

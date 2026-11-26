@@ -516,7 +516,8 @@ def o9_controls(r, check):
             built.append(1)
             orig_rd.__init__(self, *a, **k)
     syn, w, c, p, F = syn_world(CFG)
-    argv = ['coverage', '--config', '%s:%s' % (F, p), '--out', r.out()] + w.args(F) + ['--commit', syn.H]
+    argv = ['coverage', '--config', '%s:%s' % (F, p), '--out', r.out()] + w.args(F) + \
+        ['--commit', syn.H, '--check', 'zc']
     rc.RecordDirectory = Trap
     try:
         code, res = cli.run(argv, repo=syn.repo, stderr=io.StringIO(), control=w.control(w.checkout()), environ={})
@@ -556,8 +557,10 @@ def arm_text(workflow_path):
     return None
 
 
+# A1 staging amendment r2 (R6.PLAN.4, R6.ITEM2.1, I2-1): the named check `item2` directly after --commit "$X"; both
+# segments, the HP input and the three --classify operands keep their order and quoting.
 EXPECTED_ARM = ('item2-coverage) exec python3 -I -S -B tools/ledger_coverage.py coverage "$@" --commit "$X" '
-                '--segment "$E..$H" --segment "$H..$X=$F:$D/ledger.json" --hp "$F:$D/hp.json" '
+                '--check item2 --segment "$E..$H" --segment "$H..$X=$F:$D/ledger.json" --hp "$F:$D/hp.json" '
                 '--classify "$F:$A/records/gr58-hit-classification-v3.json" '
                 '--classify "$F:$D/context-adjudications.json" --classify "$F:$D/hit-classifications.json" ;;')
 
@@ -622,7 +625,9 @@ def coverage_via_arm(r, syn, w, F, p, d, arm, commit=None):
         if '$A/' in op:
             continue
         ops += ['--classify', op.replace('$F', F).replace('$D', d)]
-    argv = ['coverage', '--config', '%s:%s' % (F, p), '--out', r.out()] + w.args(F) + ['--commit', commit or syn.H] + ops
+    # the synthetic configuration's own check stands for the arm's `--check item2` (A1 staging amendment r2, sec. 1)
+    argv = ['coverage', '--config', '%s:%s' % (F, p), '--out', r.out()] + w.args(F) + \
+        ['--commit', commit or syn.H, '--check', 'zc'] + ops
     pl.Coverage = Cov
     try:
         code, res = cli.run(argv, repo=syn.repo, stderr=io.StringIO(), control=w.control(w.checkout()), environ={})
@@ -643,8 +648,9 @@ def hit_doc_of(cls, rid='hit-cls'):
 
 def i2_controls(r, check, workflow_path):
     arm = arm_text(workflow_path)
-    check('I2-1', 'the item2-coverage arm: exactly the existing arguments followed by the two --classify arguments of '
-          'B.2, every expansion quoted', 'the arm line equals the expected text', arm, arm == EXPECTED_ARM)
+    check('I2-1', 'the item2-coverage arm: the exact workflow arm with --check item2 after --commit "$X", retaining '
+          'both segments and all existing operands, every expansion quoted', 'the arm line equals the expected text',
+          arm, arm == EXPECTED_ARM)
 
     # I2-2: a meaning-context adjudication through context-adjudications.json resolves its site (as K10)
     w = ce.World(sites=[(3, 'sd'), (7, 'sr')])

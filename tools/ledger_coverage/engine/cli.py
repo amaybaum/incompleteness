@@ -65,7 +65,7 @@ def build_parser():
     c.add_argument('--segment', action='append', default=[])
     c.add_argument('--hp', action='append', default=[])
     c.add_argument('--classify', action='append', default=[])
-    c.add_argument('--check', default=None)
+    c.add_argument('--check', action='append', default=[])
     c.add_argument('--final', action='store_true')
     e = sub.add_parser('execution')
     common(e)
@@ -625,7 +625,7 @@ def stages(a, repo, harness, result, extra_records, preflight_fn, control, envir
         body = op_execution(a, repo, ctx, loaded, records, result, control)
     items += body + records.items
     if getattr(a, 'final', False):
-        chk = ctx.check(a.check)
+        chk = ctx.check(a.check[0] if isinstance(a.check, list) else a.check)
         if chk is None or not chk.get('final_profiles'):
             raise oc.Stop(oc.usage, 'USAGE', '--final with a check that has no final profiles')
         items = oc.apply_final(items, chk['final_profiles'])
@@ -897,9 +897,13 @@ def op_coverage(a, repo, ctx, loaded, records, result):
             ctx_recs += d.get('entries', [d])
         else:
             hit_recs += [dict(x, _ref=d['_ref']) for x in d.get('classifications', [d])]
-    chk = ctx.check(a.check) if a.check else ctx.default_check('coverage')
+    # R6.RECON.33 for coverage (A1 staging amendment r2, sec. 1): exactly one explicit --check naming a check of the
+    # admitted configuration; a missing, repeated or unknown selection is USAGE. No default check exists.
+    if len(a.check) != 1:
+        raise oc.Stop(oc.usage, 'USAGE', 'coverage takes exactly one --check (%d given)' % len(a.check))
+    chk = ctx.check(a.check[0])
     if chk is None:
-        raise oc.Stop(oc.usage, 'USAGE', 'no check selected for coverage and no default in the configuration')
+        raise oc.Stop(oc.usage, 'USAGE', 'unknown check %s' % a.check[0])
     cv = pl.Coverage(ctx, commit, segs, chk, {'hp': hp_recs, 'context': ctx_recs}, hit_recs).run()
     items = list(cv.items)
     review = [ctx.profiles[n] for n in chk['profiles'] if ctx.profiles[n].kind == 'review'

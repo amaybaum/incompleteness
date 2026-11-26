@@ -473,8 +473,27 @@
   },
   {
    "id": "S11-2",
+   "operations": [],
+   "direction": "adversarial"
+  },
+  {
+   "id": "S11-2a",
    "operations": [
-    "execution"
+    "coverage"
+   ],
+   "direction": "adversarial"
+  },
+  {
+   "id": "S11-2b",
+   "operations": [
+    "coverage"
+   ],
+   "direction": "adversarial"
+  },
+  {
+   "id": "S11-2c",
+   "operations": [
+    "record"
    ],
    "direction": "adversarial"
   },

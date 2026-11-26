@@ -223,7 +223,7 @@ class Syn:
                           'carried': {'row': 'r', 'code': 'c', 'owner': 'o'}, 'kind': 'remark'}],
                'profiles': profiles,
                'checks': [{'id': 'zc', 'profiles': ['axiom-Z', 'beta-word', 'Z-premise'],
-                           'final_profiles': v.get('final', ['axiom-Z']), 'default_for': ['coverage', 'terms']}],
+                           'final_profiles': v.get('final', ['axiom-Z'])}],
                'rules': rules,
                'context_mapping': {'source_field': 'kind', 'values': {'definition': True, 'remark': False},
                                    'default': 'invalid'},
@@ -336,19 +336,19 @@ def y_controls(r):
     edits = [('# synthetic', ['# synthetic', '', 'Preface line one.', '', 'Preface line two.'])]
     X, c, p, s = y_world(syn, edits)
     seg = ['--segment', '%s..%s' % (syn.pin, syn.H), '--segment', '%s..%s=%s:syn/patch.json' % (syn.H, X, c)]
-    code, res = r.cli(syn.repo, ['coverage', '--commit', X] + seg, c, p, s)
+    code, res = r.cli(syn.repo, ['coverage', '--commit', X, '--check', 'zc'] + seg, c, p, s)
     moved = all(st['statuses'][-1]['status'] == 'moved' for st in res.get('sites', [])) if res else False
     out['Y1'] = code == 0 and moved
     y1_engine = res and res['engine']['blob_sha256']
     Xb = syn.repo.derive(syn.H, {DOC: apply_text(TEXT, [('# synthetic', ['# synthetic', '', 'Preface line uno.',
                                                                           '', 'Preface line two.'])]).encode()},
                          parents=[syn.H])
-    code, res = r.cli(syn.repo, ['coverage', '--commit', Xb, '--segment', '%s..%s' % (syn.pin, syn.H),
+    code, res = r.cli(syn.repo, ['coverage', '--commit', Xb, '--check', 'zc', '--segment', '%s..%s' % (syn.pin, syn.H),
                                  '--segment', '%s..%s=%s:syn/patch.json' % (syn.H, Xb, c)], c, p, s)
     out['Y2'] = code == 20 and 'unauthorized-edit' in classes(res)
     e3 = [('Closing words of the file.', ['Closing words of the file.', '', 'Axiom Z is assumed.'])]
     X3, c3, p3, s3 = y_world(syn, e3)
-    code, res = r.cli(syn.repo, ['coverage', '--commit', X3, '--segment', '%s..%s' % (syn.pin, syn.H),
+    code, res = r.cli(syn.repo, ['coverage', '--commit', X3, '--check', 'zc', '--segment', '%s..%s' % (syn.pin, syn.H),
                                  '--segment', '%s..%s=%s:syn/patch.json' % (syn.H, X3, c3)], c3, p3, s3)
     out['Y3'] = code == 20 and 'deny-match' in classes(res)
     code4, res4 = r.cli(syn.repo, ['terms', '--commit', syn.H], c, p, s)
@@ -363,7 +363,7 @@ def y_controls(r):
     e5 = [('Axiom Z is the named premise of the synthetic world.',
            ['Axiom Z is the named premise of the synthetic world, restated.'])]
     X5, c5, p5, s5 = y_world(syn, e5)
-    code, res = r.cli(syn.repo, ['coverage', '--commit', X5, '--segment', '%s..%s' % (syn.pin, syn.H),
+    code, res = r.cli(syn.repo, ['coverage', '--commit', X5, '--check', 'zc', '--segment', '%s..%s' % (syn.pin, syn.H),
                                  '--segment', '%s..%s=%s:syn/patch.json' % (syn.H, X5, c5)], c5, p5, s5)
     out['Y5'] = code == 20 and [i['class'] for i in res['items'] if i['subject'].endswith(':5@%s' % syn.pin[:8])] \
         == ['context-meaning-unverified']
@@ -382,12 +382,12 @@ def y_controls(r):
     out['_Y8_engine'] = y1_engine
     e9 = [('Intro to the list:', ['Intro to the changed list:'])]
     X9, c9, p9, s9 = y_world(syn, e9)
-    code, res = r.cli(syn.repo, ['coverage', '--commit', X9, '--segment', '%s..%s' % (syn.pin, syn.H),
+    code, res = r.cli(syn.repo, ['coverage', '--commit', X9, '--check', 'zc', '--segment', '%s..%s' % (syn.pin, syn.H),
                                  '--segment', '%s..%s=%s:syn/patch.json' % (syn.H, X9, c9)], c9, p9, s9)
     out['Y9'] = code == 10 and 'context-structure-changed' in classes(res)
     lp = AD + 'line_patch.py'
     c10 = syn.repo.derive(c, {lp: syn.repo.read(c, lp) + b' '}, parents=syn.repo.parents(c))
-    code, res = r.cli(syn.repo, ['coverage', '--commit', X] + seg, c10, p, s)
+    code, res = r.cli(syn.repo, ['coverage', '--commit', X, '--check', 'zc'] + seg, c10, p, s)
     out['Y10'] = code == 65 and res['stop']['class'] == 'SOURCE_CHANGED'
     return out
 
@@ -431,7 +431,7 @@ def z_controls(r):
     pd2 = patch_doc(s2.H, [])
     b2 = {'patch_sha': sha(pd2), 'files': {'syn/patch.json': pd2}}
     c1, p1, h1, f1 = s2.build(b2)
-    code, res = r.cli(s2.repo, ['coverage', '--commit', s2.H], c1, p1, h1)
+    code, res = r.cli(s2.repo, ['coverage', '--commit', s2.H, '--check', 'zc'], c1, p1, h1)
     foreign = 'provenance-foreign' in classes(res)
     sup = {'path': p1, 'blob_sha256': h1}
     # the superseded configuration lies in the object store at F with its own review (DI-2: a predecessor passes the
@@ -440,7 +440,7 @@ def z_controls(r):
     v2 = dict(b2, second_merge=True, version=2, supersedes=sup, config_path='syn/cfg2/config.json',
               files=dict(b2['files'], **{p1: f1[p1], pd1 + 'review.json': f1[pd1 + 'review.json']}))
     c2, p2, h2, f2 = s2.build(v2)
-    code_u, res_u = r.cli(s2.repo, ['coverage', '--commit', s2.H], c2, p2, h2)
+    code_u, res_u = r.cli(s2.repo, ['coverage', '--commit', s2.H, '--check', 'zc'], c2, p2, h2)
     unrev = (code_u, (res_u or {}).get('stop', {}).get('class')) == (65, 'CONFIG_UNREVIEWED')
     # with a widening review by a third person and a matching HP adjudication
     from ledger_coverage.engine import segments as sgm
@@ -467,13 +467,13 @@ def z_controls(r):
         return {wp: jb(wr)}
     v3 = dict(v2, post=widening, records_extra={'syn/hp.json': adj})
     c3, p3, h3, f3 = s2.build(v3)
-    code_a, res_a = r.cli(s2.repo, ['coverage', '--commit', s2.H, '--hp', '%s:syn/hp.json' % c3], c3, p3, h3)
+    code_a, res_a = r.cli(s2.repo, ['coverage', '--commit', s2.H, '--check', 'zc', '--hp', '%s:syn/hp.json' % c3], c3, p3, h3)
     site = [x for x in (res_a or {}).get('sites', []) if x['site_id'].endswith(':7@%s' % s2.pin[:8])]
     adjudicated = bool(site) and site[0]['provenance'] is not None and \
         not [i for i in res_a['items'] if i['subject'] == site[0]['site_id']]
     v2b = dict(v2, records_extra={'syn/hp.json': adj})
     c4, p4, h4, f4 = s2.build(v2b)
-    code_b, res_b = r.cli(s2.repo, ['coverage', '--commit', s2.H, '--hp', '%s:syn/hp.json' % c4], c4, p4, h4)
+    code_b, res_b = r.cli(s2.repo, ['coverage', '--commit', s2.H, '--check', 'zc', '--hp', '%s:syn/hp.json' % c4], c4, p4, h4)
     out['_Z10_detail'] = {'v1': classes(res), 'v2_no_widening_review': (code_u, (res_u or {}).get('stop', {}).get('class')),
                           'v2_with_widening_review': (code_a, classes(res_a)), 'v2_hp_only': (code_b, (res_b or {}).get('stop', {}).get('class'))}
     name_runs('step before supersession', 'superseded without widening_review',
@@ -644,7 +644,7 @@ def b1_controls(r):
     pd = patch_doc(syn.H, [])
     base = {'patch_sha': sha(pd), 'files': {'syn/patch.json': pd}}
     c0, p0, s0, _ = syn.build(base)
-    r.cli(syn.repo, ['coverage', '--commit', syn.H], c0, p0, s0)
+    r.cli(syn.repo, ['coverage', '--commit', syn.H, '--check', 'zc'], c0, p0, s0)
     clean = named('baseline')
     bad = Syn()
     bad.m1 = bad.repo.derive(bad.pin, {'syn/note.txt': b'merge one\n'}, parents=[bad.pin],
@@ -652,9 +652,9 @@ def b1_controls(r):
     bad.H = bad.m1
     pdb = patch_doc(bad.H, [])
     cb, pb, sb, _ = bad.build({'patch_sha': sha(pdb), 'files': {'syn/patch.json': pdb}})
-    code, res = r.cli(bad.repo, ['coverage', '--commit', bad.H], cb, pb, sb)
+    code, res = r.cli(bad.repo, ['coverage', '--commit', bad.H, '--check', 'zc'], cb, pb, sb)
     named('')
-    r.cli(syn.repo, ['coverage', '--commit', syn.H], c0, p0, s0)
+    r.cli(syn.repo, ['coverage', '--commit', syn.H, '--check', 'zc'], c0, p0, s0)
     named('restored', baseline=clean)
     out['HP-MERGE-PR'] = code == 65 and (res or {}).get('stop', {}).get('class') == 'CONFIG_INVALID' and \
         not (res or {}).get('items')

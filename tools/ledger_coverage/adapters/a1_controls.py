@@ -230,10 +230,10 @@ def rt_record(a):
 
 
 def rt_coverage(a):
-    code, res, t = a.run(['coverage', '--commit', E])
+    code, res, t = a.run(['coverage', '--commit', E, '--check', 'item2'])
     a.record('RT-E', code == 0 and res.get('site_counts') == {'unchanged': 697}, 'PASS; 697 unchanged',
              {'exit': code, 'site_counts': res.get('site_counts'), 'hit_counts': res.get('hit_counts'), 'seconds': t})
-    code, res, t = a.run(['coverage', '--commit', H])
+    code, res, t = a.run(['coverage', '--commit', H, '--check', 'item2'])
     fc = res.get('finding_counts', {})
     nonhp = [i for i in res.get('items', []) if i['decision'] == 'FAIL' and i['obligation'] != 'HP']
     ind = [i for i in res.get('items', []) if i['class'] == 'context-structure-changed' and i['obligation'] != 'HP']
@@ -253,7 +253,7 @@ def rt_coverage(a):
                                   'Substratum.md:94, :253) are unique at E and H and rewritten in H..T1\'; the '
                                   'reference population required uniqueness at T1\' as well (sec. 14).')
     seg = ['--segment', '%s..%s' % (E, H), '--segment', '%s..%s=%s' % (H, T, LEDGER)]
-    code, res, t = a.run(['coverage', '--commit', T] + seg)
+    code, res, t = a.run(['coverage', '--commit', T, '--check', 'item2'] + seg)
     fc = res.get('finding_counts', {})
     sites = res.get('sites', [])
     moved = sum(1 for s in sites for x in s['statuses'] if x['segment'].startswith(H[:8]) and x['status'] == 'moved')
@@ -983,11 +983,11 @@ def ex_controls(a):
     # sec. 11 row 2 countercontrols at E
     f = 'book/ch18-beyond.md'
     el = a.lines(E, f)
-    _, unmutated, _ = a.run(['coverage', '--commit', E], case='unmutated')
+    _, unmutated, _ = a.run(['coverage', '--commit', E, '--check', 'item2'], case='unmutated')
     baseline = a.rec.name_last('unmutated')
     x = a.repo.derive(E, {f: ('\n'.join(el) + '\nA new line on total finiteness.\n').encode()}, parents=[E])
     nl = len(el) + 1
-    code, res, _ = a.run(['coverage', '--commit', x], case='', baseline=baseline,
+    code, res, _ = a.run(['coverage', '--commit', x, '--check', 'item2'], case='', baseline=baseline,
                          bindings={'new_line': '%s:%d' % (f, nl)},
                          mutation=[{'path': f, 'before': a.repo.blob_id(E, f), 'after': a.repo.blob_id(x, f)}])
     before = [i['class'] for i in items_on(unmutated, f, nl)]
@@ -1002,7 +1002,7 @@ def ex_controls(a):
     el = a.lines(E, p3['file'])
     del el[p3['line'] - 1]
     x = a.repo.derive(E, {p3['file']: ('\n'.join(el) + '\n').encode()}, parents=[E])
-    code, res, t = a.run(['coverage', '--commit', x])
+    code, res, t = a.run(['coverage', '--commit', x, '--check', 'item2'])
     sid = '%s:%d@%s' % (p3['file'], p3['line'], E[:8])
     a.record('S11-2b', [i['class'] for i in res.get('items', []) if i['subject'] == sid] == ['missing'],
              'dropped Phase-3 site gives FAIL missing', [i['class'] for i in res.get('items', []) if i['subject'] == sid])
@@ -1299,8 +1299,8 @@ def k1_graph(a, tool_files):
 
 
 def chain_refusal(a):
-    code, res, t = a.run(['coverage', '--commit', E], harness=False)
-    code2, res2, t2 = a.run(['coverage', '--commit', E, '--freeze', a.crev], harness=False)
+    code, res, t = a.run(['coverage', '--commit', E, '--check', 'item2'], harness=False)
+    code2, res2, t2 = a.run(['coverage', '--commit', E, '--check', 'item2', '--freeze', a.crev], harness=False)
     a.record('CHAIN-REFUSAL', code == 65 and res.get('stop', {}).get('class') == 'CONFIG_UNREVIEWED' and
              code2 == 65 and res2.get('stop', {}).get('class') == 'CONFIG_UNREVIEWED',
              'the unreviewed draft configuration is refused under the review chain: ERROR CONFIG_UNREVIEWED, without '
@@ -1412,7 +1412,7 @@ def sweeps(a):
 
 
 def engine_identity_y8(a, syn_engine):
-    code, res, t = a.run(['coverage', '--commit', E])
+    code, res, t = a.run(['coverage', '--commit', E, '--check', 'item2'])
     a.record('Y8', res.get('engine', {}).get('blob_sha256') == syn_engine,
              'identical engine hash recorded for the A1 and the synthetic configuration',
              {'a1': res.get('engine', {}).get('blob_sha256'), 'synthetic': syn_engine})

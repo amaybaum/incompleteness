@@ -399,6 +399,21 @@ def load(repo, rev, path, expected_sha, operation, mode, extra_records=(), admis
     if len(names) != len(set(names)):
         raise stop('CONFIG_INCONSISTENT', 'duplicate profile name')
     kinds = {p['name']: p['kind'] for p in cfg['profiles']}
+    # R6.CFG.4 and R6.RECON.33 as amended by the A1 staging amendment r2 (sec. 1): every check, of op `coverage` or
+    # op `terms`, keeps exactly {id, profiles, final_profiles}; any other key, such as `default_for`, is an unknown
+    # field (R6.VALID.2), so no default check is defined. An id names one check (as a profile name names one profile,
+    # R6.VALID.4).
+    if not isinstance(cfg['checks'], list):
+        raise stop('CONFIG_INVALID', 'checks is not a list')
+    for c in cfg['checks']:
+        if not isinstance(c, dict) or set(c) != {'id', 'profiles', 'final_profiles'} or \
+                not isinstance(c.get('id'), str) or not c['id'] or not isinstance(c.get('profiles'), list) or \
+                not isinstance(c.get('final_profiles'), list):
+            raise stop('CONFIG_INVALID', 'a check is not exactly {id, profiles, final_profiles}: %s'
+                       % (sorted(c) if isinstance(c, dict) else type(c).__name__))
+    cids = [c['id'] for c in cfg['checks']]
+    if len(cids) != len(set(cids)):
+        raise stop('CONFIG_INCONSISTENT', 'duplicate check id')
     for c in cfg['checks']:
         for n in c.get('profiles', []):
             if n not in kinds:

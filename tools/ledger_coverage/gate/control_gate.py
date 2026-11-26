@@ -883,6 +883,11 @@ def eval_invariant(k, v, result, case, attested, bindings):
     return False, None, 'unattested'
 
 
+def _check_of(shared):
+    """The --check operand of a parsed coverage invocation (exactly one, by _coverage_invocation)."""
+    return shared[shared.index('--check') + 1]
+
+
 def _coverage_invocation(argv):
     """Returns the evaluated commit and the arguments which must match across the pair."""
     if not (isinstance(argv, list) and argv and argv[0] == 'coverage'
@@ -907,6 +912,54 @@ def _coverage_invocation(argv):
     return commit, shared
 
 
+# The A1 staging amendment r2 (sec. 1, DELTA-PROPOSAL.json `item2`): the authoritative Item 2 check and the exact
+# approved source and pattern pins of its three tree review profiles. Each retained S11-2a invocation names this
+# check, and each result reports these profiles under the same reviewed configuration pin.
+ITEM2_CHECK = 'item2'
+ITEM2_PLANTED_PATH = 'book/ch18-beyond.md'
+ITEM2_PROFILES = {
+    'p0-core': ('9882df8f2d41eee47790560b0e22aac03e95370f',
+                'verification/audits/foundations/a1-scope-phase0-20261120/sites.json',
+                '00165404a6411a219a875ea1d9d6187e1d0d8f9951637fbb31ca0280212b4a5f',
+                '939cafdad4dbcb47762af98a82a357bf2f1ff0da17408177d806eaff18204d93'),
+    'p0-para': ('9882df8f2d41eee47790560b0e22aac03e95370f',
+                'verification/audits/foundations/a1-scope-phase0-20261120/sites.json',
+                '00165404a6411a219a875ea1d9d6187e1d0d8f9951637fbb31ca0280212b4a5f',
+                '28b482757bee068e79eaac85619b4fd0a0e6f23e4d72cdd2b8252fb22167bd42'),
+    'ledger-ext': ('9882df8f2d41eee47790560b0e22aac03e95370f',
+                   'verification/audits/foundations/a1exit-ledger-20261120/ledger_check.py',
+                   '34314041cff64f01287bd195d33c61cd17882166e11bd1296b005e72d4ad78e8',
+                   '63f19fbfea68e9468aadcb5fa52685f1c4f15f38f4b376dc9d48de5c0ef25a2e'),
+}
+
+
+def item2_profile_problems(result, commit, deny_exempt):
+    """The Item 2 profile selection of one retained coverage result: the result reports the three approved review
+    profiles at their exact pins, and `profiles_evaluated` at the evaluated commit is exactly those three plus every
+    deny profile the result's configuration reports, or the three alone where the commit is deny-exempt (exact E or H,
+    R6.PROF.4). A deny set that is required and empty is a missing scan, never a clean one."""
+    probs = []
+    profs = result.get('profiles')
+    if not isinstance(profs, list) or not all(isinstance(p, dict) for p in profs):
+        return ['no profile records']
+    by = {}
+    for p in profs:
+        by.setdefault(p.get('name'), []).append(p)
+    for name, (src_commit, path, blob, pattern) in sorted(ITEM2_PROFILES.items()):
+        got = by.get(name) or []
+        if len(got) != 1 or got[0].get('kind') != 'review' or got[0].get('source_commit') != src_commit or \
+                got[0].get('path') != path or got[0].get('blob_sha256') != blob or \
+                got[0].get('pattern_sha256') != pattern:
+            probs.append('profile %s is not at its approved pin' % name)
+    deny = sorted(n for n, ps in by.items() if any(p.get('kind') == 'deny' for p in ps))
+    want = sorted(set(ITEM2_PROFILES) | (set() if deny_exempt else set(deny)))
+    if not deny_exempt and not deny:
+        probs.append('no deny profile reported for a tree that requires the deny scan')
+    if result.get('profiles_evaluated') != {commit: want}:
+        probs.append('profiles_evaluated %r is not %r' % (result.get('profiles_evaluated'), {commit: want}))
+    return probs
+
+
 def _s11_unmutated_result(ev, case, result):
     """Bind S11-2a's subtraction to the retained R6.PLAN.4 coverage run on E."""
     named = ev.case('unmutated')
@@ -927,6 +980,21 @@ def _s11_unmutated_result(ev, case, result):
             and result.get('evaluated') == {'commit': mutated[0]}
             and before.get('config') and before.get('config') == result.get('config')
             and isinstance(before.get('items'), list)):
+        return None
+    # A1 staging amendment r2: both invocations name the authoritative check (a same wrong check in both is refused),
+    # and both results evaluate the approved profiles: the review set alone at exact E, the review set and the
+    # configured deny profiles at the planted child.
+    if _check_of(unmutated[1]) != ITEM2_CHECK or _check_of(mutated[1]) != ITEM2_CHECK or \
+            before.get('profiles') != result.get('profiles') or \
+            item2_profile_problems(before, pin, True) or item2_profile_problems(result, mutated[0], False):
+        return None
+    # the adopted mutation: one changed path, the planted file, with distinct before and after blobs
+    planted = str((case.get('bindings') or {}).get('new_line') or '').rsplit(':', 1)[0]
+    mut = case.get('mutation')
+    if planted != ITEM2_PLANTED_PATH or not isinstance(mut, list) or len(mut) != 1 or \
+            not isinstance(mut[0], dict) or mut[0].get('path') != planted or \
+            not all(isinstance(mut[0].get(k), str) and HEX40.match(mut[0][k]) for k in ('before', 'after')) or \
+            mut[0]['before'] == mut[0]['after']:
         return None
     outcome = recompute_outcome(before)
     if outcome not in ('PASS', 'REVIEW_REQUIRED', 'FAIL') or before.get('outcome') != outcome:
@@ -1067,6 +1135,12 @@ def eval_case(exp, case_name, ev, row, record, findings_out):
     if listing is not None:
         c['_result_absent'] = not any(str(x).endswith('result.json') for x in listing)
     actual['exit'] = exit_code
+    if rid == 'S11-2b' and case_name == '':
+        # A1 staging amendment r2: S11-2b runs coverage under the same named Item 2 check on its own child
+        inv = _coverage_invocation(c.get('argv'))
+        if not inv or _check_of(inv[1]) != ITEM2_CHECK:
+            findings_out.append(('declarative-mismatch', 'case %r: the coverage invocation does not name --check %s'
+                                 % (case_name, ITEM2_CHECK)))
     o = exp.get('outcome')
     try:
         if o in TOOL_OUTCOMES:
