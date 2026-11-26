@@ -16,27 +16,27 @@ from . import reconcile as rcmod
 from . import util
 from .gitobj import Overlay
 
-# A control runner may set CAPTURE to an object with `result_map()` (a dict that binds each control id to the stage
+# A control runner may set capture_hook to an object with `result_map()` (a dict that binds each control id to the stage
 # results captured before its assignment) and `stage(label, items, **facts)`. Unset (the self-test and the
 # preflight), the controls run unchanged.
-CAPTURE = None
+capture_hook = None
 
 
 def _out():
-    return CAPTURE.result_map() if CAPTURE is not None else {}
+    return capture_hook.result_map() if capture_hook is not None else {}
 
 
 def _stage(label, items, **facts):
-    if CAPTURE is not None:
-        CAPTURE.stage(label, items, **facts)
+    if capture_hook is not None:
+        capture_hook.stage(label, items, **facts)
     return items
 
 
 def _case(name, baseline=None, **bindings):
     """Names the last captured stage result as the expectation case `name`, with its bindings; `baseline` names the
     earlier case a restored case is compared with."""
-    if CAPTURE is not None:
-        CAPTURE.name_last(name, bindings, baseline)
+    if capture_hook is not None:
+        capture_hook.name_last(name, bindings, baseline)
 
 doc_path = 'notes/a.md'
 other_path = 'notes/b.md'
@@ -104,10 +104,11 @@ class World:
         return cv, items
 
 
+# the second direction of design r6 OBL-20
 def _restore(w, hits=True):
-    """The restored case of an unledgered mutation (OBL-20), captured only by a control runner: the same coverage
-    run over an identity segment from the pin to the unmutated tree, compared with the clean run on the pin."""
-    if CAPTURE is None:
+    """The restored case of an unledgered mutation, captured only by a control runner: the same coverage run over an
+    identity segment from the pin to the unmutated tree, compared with the clean run on the pin."""
+    if capture_hook is None:
         return
     w.coverage(w.pin, [], hits=hits)
     _case('baseline')

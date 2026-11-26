@@ -54,11 +54,11 @@ def main(out_dir):
     os.makedirs(out_dir, exist_ok=True)
     rec = control_records.Recorder(JOB, out_dir)
     cap = Capture(rec)
-    ce.CAPTURE = cap
+    ce.capture_hook = cap
     try:
         results = ce.run(None)
     finally:
-        ce.CAPTURE = None
+        ce.capture_hook = None
     for r in results:
         cid = r['id'] if 'error' not in r else '%s-group-error' % r['id']
         rec.pending = cap.runs_of.get(r['id'], []) if 'error' not in r else []

@@ -1003,6 +1003,15 @@ def tree_controls(a, tool_files):
              finding='Predicted main = %s (--main) plus this tool\'s landing files (the configuration not among '
                      'them, design sec. 16.2), with the drafted reconciliation record for AGENTS.md and pinned classes '
                      'for the trial workflow and .claude/settings.json.' % a.main[:8])
+    # R6.GATE.16: with no drift at the predicted main RT-L2 holds without a record; with drift it is NOT RUN until
+    # a reviewed reconciliation record exists (a run on the drafted record does not establish the safeguard). This
+    # runner has no input for a reviewed record, so a drifted RT-L2 is recorded NOT RUN, its runs on the drafted
+    # record kept as diagnostics in the evidence.
+    if any(c == 'base-drift' for c, _ in raw):
+        a.results['RT-L2'].update(passed=False, status='NOT RUN',
+                                  drafted_record_value=a.results['RT-L2']['passed'],
+                                  not_run_reason='no reviewed reconciliation record exists; the drafted AGENTS.md '
+                                                 'record is unreviewed (R6.GATE.16)')
     if main is not None:
         rt_o9(a, Mp, recon_arg)
 
@@ -1039,18 +1048,27 @@ def rt_o9(a, Mp, recon_arg):
            'side_change_unclassified': unc,
            'base_drift': sorted(i['subject'] for i in res.get('items', []) if i['class'] == 'base-drift'),
            'rt_l2': (a.results.get('RT-L2') or {}).get('status')}
+    # RT-O9 runs its own record-directory checks; its dependent clause (no base-drift, RT-L2 PASS) is RT-O9-L2,
+    # NOT RUN while RT-L2 is (R6.GATE.15)
     a.record('RT-O9', not res.get('stop') and out['authorized'] and len(expected) > 0 and got == expected and
-             rdsum.get('state') == 'active' and rdsum.get('unequal') == {} and not unc and not out['base_drift'] and
-             out['rt_l2'] == 'PASS',
+             rdsum.get('state') == 'active' and rdsum.get('unequal') == {} and not unc,
              'the plan record directory at the predicted main classified record-directory exactly as the stand-in F '
              'holds it; no side-change-unclassified; RT-L2 still PASS', out,
              predicate='the expected set (every entry inside the directory at the stand-in F, with its mode, blob id '
                        'and sha256, computed from that tree) equals the run\'s record-directory entries exactly (none '
                        'missing, none extra, modes and hashes equal); A.5 finds no unequal path; no '
-                       'side-change-unclassified and no base-drift among the items; RT-L2 PASS',
+                       'side-change-unclassified among the items',
              finding='Predicted main = %s plus the tool landing plus the plan record directory of a stand-in F (P\'s '
                      'plan files and the staged configuration), with the drafted AGENTS.md reconciliation record.'
                      % a.main[:8])
+    dep = (a.results.get('RT-L2') or {}).get('status')
+    a.results['RT-O9-L2'] = {'id': 'RT-O9-L2', 'passed': dep == 'PASS' and not out['base_drift'],
+                             'status': 'NOT RUN' if dep == 'NOT RUN' else
+                             ('PASS' if dep == 'PASS' and not out['base_drift'] else 'FAIL'),
+                             'expected': 'no base-drift at the predicted main with the record directory, and RT-L2 PASS',
+                             'predicate': 'RT-L2 PASS and no base-drift among the items of the RT-O9 run',
+                             'actual': {'rt_l2': dep, 'base_drift': out['base_drift'],
+                                        'note': 'NOT RUN while RT-L2 is NOT RUN (R6.GATE.15)'}}
 
 
 # ---- K1: the reference graph of the landing and the freeze ---------------------------------------------------

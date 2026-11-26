@@ -458,5 +458,9 @@ def hp_chain_check(repo, cfg):
                     not on_first_parent_chain(repo, frm, m['commit']):
                 raise stop('CONFIG_INCONSISTENT', 'merge %s is off the chain or has another first parent'
                            % m['commit'][:12])
-            if ('#%s' % str(m['pr']).lstrip('#')) not in repo.subject(m['commit']):
-                raise stop('CONFIG_INCONSISTENT', 'merge %s subject does not name its PR' % m['commit'][:12])
+            # R6.HP.1: the subject's pull-request numbers are exactly the pinned one; a subject that names another
+            # number (or none) is CONFIG_INVALID. Whole numbers only: #70 does not name #7.
+            named = set(re.findall(r'#(\d+)(?!\d)', repo.subject(m['commit'])))
+            if named != {str(m['pr']).lstrip('#')}:
+                raise stop('CONFIG_INVALID', 'merge %s subject names pull request %s, not its pinned %s'
+                           % (m['commit'][:12], sorted(named) or 'none', m['pr']))

@@ -592,11 +592,54 @@ def z9_controls():
     return out
 
 
+def b1_controls(r):
+    """Controls added by design r6 amendment 1 (B1) whose inputs the synthetic world supplies: HP-MERGE-PR
+    (R6.HP.1) and OUT-NOTRUNC (R6.OUT.28). Each case is one full sec. 6.3 run on the in-memory host."""
+    out = outmap()
+
+    def named(case, **kw):
+        return REC.name_last(case, **kw) if REC is not None else None
+
+    # HP-MERGE-PR: the HP obligation pins merge #7 whose commit subject names another pull request, #70
+    syn = Syn()
+    pd = patch_doc(syn.H, [])
+    base = {'patch_sha': sha(pd), 'files': {'syn/patch.json': pd}}
+    c0, p0, s0, _ = syn.build(base)
+    r.cli(syn.repo, ['coverage', '--commit', syn.H], c0, p0, s0)
+    clean = named('baseline')
+    bad = Syn()
+    bad.m1 = bad.repo.derive(bad.pin, {'syn/note.txt': b'merge one\n'}, parents=[bad.pin],
+                             subject='Merge #70: synthetic merge naming another pull request')
+    bad.H = bad.m1
+    pdb = patch_doc(bad.H, [])
+    cb, pb, sb, _ = bad.build({'patch_sha': sha(pdb), 'files': {'syn/patch.json': pdb}})
+    code, res = r.cli(bad.repo, ['coverage', '--commit', bad.H], cb, pb, sb)
+    named('')
+    r.cli(syn.repo, ['coverage', '--commit', syn.H], c0, p0, s0)
+    named('restored', baseline=clean)
+    out['HP-MERGE-PR'] = code == 65 and (res or {}).get('stop', {}).get('class') == 'CONFIG_INVALID' and \
+        not (res or {}).get('items')
+
+    # OUT-NOTRUNC: 5000 unexplained hit lines of the review pattern beta-word, every one reported
+    def notrunc(n):
+        text = TEXT + '\n' + ''.join('a beta word on line %d\n' % i for i in range(n))
+        x = syn.repo.derive(syn.H, {DOC: text.encode()}, parents=[syn.H], subject='many hits')
+        code_, res_ = r.cli(syn.repo, ['terms', '--commit', x], c0, p0, s0)
+        return code_, len([i for i in (res_ or {}).get('items') or [] if i.get('class') == 'unclassified'])
+    a = notrunc(5000)
+    named('a synthetic file with 5000 unexplained repo hit lines')
+    b = notrunc(4999)
+    named('the same file with one hit line removed (countercase)')
+    out['OUT-NOTRUNC'] = a == (10, 5000) and b == (10, 4999)
+    out['_OUT-NOTRUNC'] = [a, b]
+    return out
+
+
 def run_all(out_root, repo_path):
     r = Runner(out_root)
     res = {}
     for name, fn in (('Y', lambda: y_controls(r)), ('Z', lambda: z_controls(r)), ('X', lambda: x_controls(r, repo_path)),
-                     ('Z9', z9_controls)):
+                     ('Z9', z9_controls), ('B1', lambda: b1_controls(r))):
         try:
             res.update(fn())
         except Exception as exc:
