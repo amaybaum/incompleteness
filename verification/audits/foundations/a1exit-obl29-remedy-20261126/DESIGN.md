@@ -1,8 +1,8 @@
-# OBL-29 remedy for removal of finding evidence (paper design r6)
+# OBL-29 remedy for removal of finding evidence (paper design r7)
 
 ## 0. Status, authority, scope and goal link
 
-**Status.** Paper design r6, pending independent review of this revision and an owner decision.
+**Status.** Paper design r7, pending independent review of this revision and an owner decision.
 The proposed requirements (ids `R6.OBL29.n`) have no force until adoption. OBL-29 remains an explicit
 A1 retirement blocker until a remedy is implemented and independently verified. The interim
 procedural guards (AGENTS.md §A.50 item 3 and §A.46 item 6) and adoption alone do not discharge it.
@@ -50,6 +50,19 @@ frozen inputs and found two re-freeze bypasses (#1601 comment 7192888727).
 
 The decision calls for return of the exact revision for adoption. OBL-29 adoption,
 implementation, trial execution and merge remain outside this paper revision.
+
+**R7 authority.** The independent review of r6 at
+`af8ede8203a86532c8a7126be4be0e7fdb64735d` (#1601 comment 7195199735) found that a
+record-wide lineage witness could be missed when a new freeze cites another path entry
+of the same multi-path reconciliation record. Owner amaybaum, received 2026-11-26 at
+15:48 UTC (#1169 comment 7196789498), quoted: "Proceed as suggested". The recorded
+item 1 of that decision authorizes a focused paper correction that "requires independent
+evidence that a re-freeze genuinely stops relying on the disputed repair, including when
+it cites a different entry of the same multi-path record. It carries controls for both
+the same-repair case and a genuinely independent replacement, and an independent review
+follows." R7 changes only the same-repair test, the non-reliance evidence and the
+decision statement of §2.2, with their controls. No adoption, re-freeze, trial or merge
+is authorized.
 
 **Base text.** Amendment 6 r5 at `1f5764572a98b7ae2f306e121e2e410f79c29daf`
 establishes the original defect analysis. The operative comparison is Amendment 6
@@ -356,18 +369,67 @@ verdict is required when qualification is independently reproducible from the
 original inputs and authorized scope.
 
 **Same disputed repair.** The negative evidence follows use of the same repair
-basis. The match holds if the proposed discharge relies on the same reconciliation
-blob and entry path, including a byte-identical copy elsewhere, on the same exact
-disputed edge, or on an entry for the same repair path supported by an overlapping
-set of exact repair commits. Preserve the original path-plus-blob references
-for lookup and audit. A freeze id, selector, pin, review root, new record id or
-different spelling of a reference is never a clearance key. When the candidate
-still seeks to discharge the original finding for that repair path but uses
-different identities, the independent verification must establish a substantive
-replacement basis or resolve the retained witness. Changing every identifier supplies
-no such verification. The rule does not attach a dispute to unrelated repair
-entries on the strength of a matching schema, lineage label or shared path alone.
-Any correction or adjudication has only its independently verified scope.
+basis at the level at which the retained witness binds. Preserve the original
+path-plus-blob references for lookup and audit.
+
+*Binding level.* A witness binds at the level of the existing check whose failure
+qualified it. R6.REC.7 lints a reconciliation record's lineage as a whole and R6.REC.6
+lints a record's reviews as a whole (R6.RECON.1 allows one record to cover several
+paths). A qualified competing successor, a qualifying adverse review of a direct record
+and a failed required predecessor review are therefore record-wide witnesses against the
+record whose required check failed (the disputed record), together with the exact
+disputed edge where there is one. A witness is entry-level only where retained custody
+shows that an existing rule confined the qualifying check to one entry. Otherwise it is
+record-wide.
+
+*Reliance.* A candidate discharge relies on the disputed basis of a record-wide witness
+if any of the following holds.
+
+- (r1) Its repair cites any entry of a record whose blob equals the disputed record's
+  blob, at any path, whatever that entry's path, repair commits or finding.
+- (r2) The lineage of its repair record or of its cited reassessment, resolved under the
+  prescribed anchor, contains the disputed record's blob or the exact disputed edge.
+- (r3) It has a non-null repair and seeks to discharge the original finding reference
+  and `item`, or one of its repair entries shares an exact repair commit with any entry
+  of the disputed record.
+
+For an entry-level witness, (r1) is limited to the witnessed entry path and (r3) to that
+entry's repair commits. Whether the candidate freeze makes any lineage check operative
+does not matter: the witness was qualified under the original operative check, so a
+lookup at `M` of another entry or a byte-identical copy of the disputed record still
+relies on it. A freeze id, selector, pin, review root, new record id, entry path or
+spelling of a reference is never a clearance key. A reliance that cannot be decided
+because a required record or lineage reference does not resolve counts as reliance.
+The rule does not attach a dispute to a record that meets none of (r1)–(r3) on the
+strength of a matching schema, lineage label or shared path alone.
+
+*Non-reliance evidence.* Reliance through (r1) or (r2) is conclusive. Only the first
+case of route 1 below (the witness was objectively inapplicable in its original
+context) or route 2 clears it. Reliance only through (r3) is rebutted when a
+replacement reconciliation record `R` meets all of the following.
+
+- NR-1. `R` and every record in its resolved lineage differ in blob from the disputed
+  record. `R`'s lineage contains no disputed edge and names in `supersedes` no
+  predecessor on which a retained competing-successor witness rests.
+- NR-2. The candidate freeze admits `R` through an existing route that makes `R`'s own
+  R6.REC.6 and R6.REC.7 checks operative for this discharge. `R` reached solely through
+  the entry lookup at `M` does not qualify. Those checks pass on their prescribed inputs
+  and on the cumulative evidence of R6.OBL29.3, and `R`'s current entry and review meet
+  R6.OBL29.4.
+- NR-3. An accepting same-directory review of `R`'s exact `{path, blob_sha256}` meets
+  R6.REC.6. Its reviewer is not an author of `R`, of the cited reassessment, of the
+  disputed record or of any record or review forming the witness. No eligible review
+  of `R` in `R*` dissents.
+- NR-4. `R` or that review cites the exact references of the disputed record and of each
+  witness it answers, as audit references and not as `supersedes` or repair inputs.
+  Custody retains them. Where the existing record route has no place for these
+  references, NR-4 cannot be met.
+
+A statement of non-reliance in `R`, the reassessment, the freeze, a commit message, pull
+request or Issue text, a run log or an earlier verdict is no evidence. A review by an
+author that NR-3 excludes, or one naming a different exact reference, location or item
+set, is no evidence. Changing every identifier supplies none. If any of NR-1 to NR-4
+is missing, does not resolve or fails, the witness stands. Any correction or adjudication has only its independently verified scope.
 
 **Custody and lookup.** Discover the applicable witnesses and their subsequent
 dispositions from verified custody reachable from protected `main`, starting at
@@ -398,9 +460,7 @@ routes.
    the exact defect and previous and replacement evidence. Verify under the
    applicable existing record route either that the original witness was
    objectively inapplicable in its original context, or that a replacement repair
-   has an independently established unambiguous basis that no longer relies on the
-   disputed evidence. In the second case check the actual repair, current entry,
-   reviews and lineage of the replacement, with a new freeze where required.
+   relying only through (r3) meets NR-1 to NR-4, with a new freeze where required.
    A deletion, new selector, missing pin or assertion that the conflict was fixed
    supplies no correction.
 2. **Properly authorized and independently reviewed adjudication.** Retain both
@@ -427,6 +487,23 @@ for it. If the required authority or its inspectable admission route is absent,
 the dispute remains unresolved. The same rule applies on repeated runs with the
 same frozen inputs. A plan with none of the bound edits uses the existing
 R6.RECON.26 route.
+
+**Decision.** For a candidate discharge `D` and each retained witness `W`:
+
+    blocked(D, W) = Relies(D, W) and not Cleared(D, W)
+    Relies(D, W)  = (r1) or (r2) or (r3), or undecidable
+    Cleared(D, W) = Inapplicable(W) or Adjudicated(W)
+                    or (only (r3) holds and NR-1 to NR-4 hold for D's replacement R)
+
+Every term is evaluated over the trees of `M`, the candidate `F` and any admitted `REV`,
+the records in `R*`, the records the freeze cites and the custody records reachable
+from protected `main`, each read through the verified reader. Commit messages, pull
+request and Issue text, run logs, earlier verdicts, freeze ids, selectors and any
+decision not present as an admitted record are not inputs. When `blocked(D, W)` holds,
+the result is FAIL `record-invalid` naming `D`'s reassessment, `W`'s exact reference
+and the matching clause, with `retirement-blocked` for the finding. A cleared witness
+is reported with its route and the exact clearing records. A required unreadable or
+unverifiable Git object gives ERROR.
 
 ### 2.3 Persistence under ancestry extension
 
@@ -481,6 +558,7 @@ both under the weaker P-1 (§5.6).
 | deletion of a dissenting review of a reassessment, its repair record or an operative predecessor | R6.OBL29.3 preserves the review failure without changing the lineage anchor |
 | deletion of a qualifying sibling successor visible through a post-freeze scan | the durable witness still conflicts on the same already-operative discharge edge, including on a run that omits optional `REV` |
 | re-freeze covering the old sibling path with a tool-landing exclusion or dropping the operative repair pin | the original qualification is reproduced from verified custody for the same disputed repair (§2.2) |
+| re-freeze citing another entry or a byte-identical copy of the same multi-path reconciliation record | a record-wide witness binds every entry and copy of the disputed record (§2.2 (r1)) |
 | owner-approved evidence removal (AGENTS.md §A.46 item 6 and §A.50 item 3) | R6.OBL29.6 retains the obligation and §A.46 item 6 requires continued reachability of the evidence |
 | history rewrite of `main` | R-2 limits the guarantee to P-1 |
 | a finding seen only outside the protected history or selector | R-1 and R-7 bound what the scan can recover |
@@ -767,6 +845,8 @@ remain open.
 | #1601 r4 at `dd1ca3bc40ffe822928986bba9b8a5d67e8a91b9` and its focused REVISE (comment 7192760996) | r5 mutable-scan correction | provenance for the correction scope |
 | #1601 r5 at `c11e8d4aa82aa46f0557513d476c6fd5e4f03576` and #1601 comment 7192888727 | accepted same-freeze correction and re-freeze bypasses | provenance for the correction scope |
 | #1169 comment 7193274406 | r6 owner policy and scope | provenance, author and time quoted in §0 |
+| #1601 comment 7195199735 and r6 at `af8ede8203a86532c8a7126be4be0e7fdb64735d` | independent REVISE identifying the record-wide witness gap | provenance for the correction scope |
+| #1169 comment 7196789498 | r7 authority, item 1 | provenance, author and time quoted in §0 |
 | repository ruleset 21725642 (guardrail) | host permits merge, squash and rebase, and requires PRs and rejects non-fast-forward updates on the covered default branch | host configuration at the time of the comparison |
 | #1169 comments 7185092393 and 7185562871 | the lifecycle tables behind requirement (I) | support off `main`; quoted in r5 sec. 0.4 and 0.5 on the amendment branches |
 | Issue #1598 and comment 7191083365; PR #1593 comments 7189446310, 7190255132, 7190966287 | the defect statement and its wider scope | provenance |

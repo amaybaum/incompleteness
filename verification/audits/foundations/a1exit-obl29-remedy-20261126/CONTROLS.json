@@ -1,7 +1,7 @@
 {
   "schema": "oi-obl29-remedy-controls/draft",
-  "status": "paper design r6, pending independent review and adoption. All controls are specifications. Each would become an expectation row with runner null on adoption.",
-  "authority": "Owner decisions, amaybaum, #1169 comments 7191104852 (11:44Z) and 7191665350 (12:10Z), 2026-11-26, item 2. Owner’s r6 paper policy, amaybaum, #1169 comment 7193274406 at 13:22 UTC",
+  "status": "paper design r7, pending independent review and adoption. All controls are specifications. Each would become an expectation row with runner null on adoption.",
+  "authority": "Owner decisions, amaybaum, #1169 comments 7191104852 (11:44Z) and 7191665350 (12:10Z), 2026-11-26, item 2. Owner’s r6 paper policy, amaybaum, #1169 comment 7193274406 at 13:22 UTC. R7 focused correction, owner decision amaybaum, received 2026-11-26T15:48Z, #1169 comment 7196789498, item 1",
   "base": "defect analyzed against Amendment 6 r5 at 1f5764572a98b7ae2f306e121e2e410f79c29daf. Operative comparison is adopted Amendment 6 r13 at 5ad8837521de0a26734266a64f91548fd3dcff1e, #1593 comment 7193277489.",
   "fixture": "Fixture: H; a configuration K frozen at F (round branch from D on main) whose ledger carries edit e on path p; c0 = main at F's designation. f = an oi-review-record/1 file under verification/audits/r/ carrying a well-formed second-kind finding on e by an independent reviewer (verdict invalidates on <p>:scientific_effect, invalidated naming e, configuration naming K), reviewing reconciliation record q in the same directory. Unless stated, the run is op C execution with M = the last listed main commit and no REV. Unless a control changes that condition, q's side_change_commits meet R6.RECON.26's applicability condition at each named M. For an otherwise applying non-null repair, assume verifiable complete custody of its relevant historical inputs unless a control changes that condition. Proposed adjudication controls are conditional on an authorized admitted evidence route and confer no authority.",
   "expected_vocabulary": {
@@ -24,7 +24,9 @@
     "invariants.qualified_witness_retained": "independent replay verifies the exact original adverse evidence and its original scope, including any predecessor, repair and successor references",
     "invariants.custody_complete": "verification establishes the custody starting point and relevant historical coverage, including authorized originating scopes and retained decisions",
     "invariants.verified_clearance": "the substantive disposition is independently verified for the specified exact witness, with required authorization and positive admissibility",
-    "invariants.clearance_history_retained": "the original witness, original context, all reviewed corrections or adjudications, and their provenance remain available and verifiable"
+    "invariants.clearance_history_retained": "the original witness, original context, all reviewed corrections or adjudications, and their provenance remain available and verifiable",
+    "invariants.reliance": "the §2.2 reliance decision for the candidate discharge and the named retained witness: the binding level and each matching clause (r1), (r2) or (r3), or none",
+    "invariants.nonreliance_verified": "NR-1 to NR-4 of §2.2 hold for the named replacement record, decided from records and trees only"
   },
   "kinds": {
     "negative": "a removal that must not lift the block",
@@ -1838,6 +1840,196 @@
         "R6.RECON.33"
       ],
       "note": "The artifact can be a failed claim outside the configuration’s admitted inputs. An attempt to use an unrecognized configured record kind instead fails CONFIG_INVALID under the existing rules."
+    },
+    {
+      "id": "N-REFREEZE-OTHER-ENTRY-SAME-Q",
+      "kind": "countercase",
+      "setup": [
+        "Use N-REFREEZE-OPERATIVE-PIN-REMOVED with complete protected-main custody of the qualified S (competing with Q on exact P) under F2. Q is a multi-path reconciliation record (R6.RECON.1) with entries for p and for a second path p2. The F2 discharge used the entry for p.",
+        "Use a legitimately admitted F3 that removes Q's pin. Its reassessment A3 names the original f and item and cites Q's entry for p2. Variant same commits: the p2 entry lists the same exact repair commits as the p entry. Variant disjoint commits: the p2 entry lists repair commits disjoint from the p entry. Variant copy: a byte-identical copy of Q in another reconciliation directory, with its own accepting same-directory review of the copy's exact reference, supplies the p2 entry.",
+        "In each variant every existing positive condition of R6.OBL29.4 holds at M, and the M-only lookup introduces no operative R6.REC.7 check. Run each variant twice with identical frozen inputs."
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "record-invalid",
+          "retirement-blocked"
+        ],
+        "finding": {
+          "present_at_M": true,
+          "witness": "M"
+        },
+        "invariants": [
+          {
+            "qualified_witness_retained": "S under F2"
+          },
+          {
+            "custody_complete": true
+          },
+          {
+            "reliance": "record-wide witness against Q; (r1) in every variant, with (r3) also holding"
+          },
+          {
+            "record_invalid_for": "A3, naming S's exact reference and clause (r1)"
+          },
+          {
+            "reassessment_absent": "A3"
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.3",
+        "R6.OBL29.4",
+        "R6.OBL29.6",
+        "R6.REC.6",
+        "R6.REC.7",
+        "R6.RECON.1",
+        "R6.RECON.27"
+      ],
+      "note": "The witness binds Q as a whole because R6.REC.7 lints Q's lineage as a whole. A different entry path, disjoint repair commits or a copied path cannot put it out of scope, and no non-reliance evidence can rebut (r1)."
+    },
+    {
+      "id": "P-REFREEZE-INDEPENDENT-REPLACEMENT",
+      "kind": "positive",
+      "setup": [
+        "Use the qualified S witness, Q, P, f and complete custody from N-REFREEZE-OTHER-ENTRY-SAME-Q.",
+        "Land a reconciliation record R in its own reconciliation directory, with a blob different from Q's. R's lineage, resolved under its prescribed anchor, contains neither Q's blob nor the edge from Q to P, and R does not name P in supersedes. R's entry for p lists repair commits that include one of Q's, so only (r3) holds. R cites Q's and S's exact references as audit references, not as supersedes or repair inputs.",
+        "An accepting same-directory review of R's exact reference covers its items. Its reviewer is not an author of R, A4, Q, S, P or any review forming the witness. No eligible review of R in R* dissents.",
+        "Use a legitimately admitted F4 that pins R through an existing route making R's R6.REC.6 and R6.REC.7 checks operative. Those checks pass on their prescribed inputs and on R*. Its reviewed reassessment A4 names f and item and cites R's entry for p, with every ordinary current repair input present at M."
+      ],
+      "expected": {
+        "outcome": "ANY",
+        "finding": {
+          "present_at_M": true,
+          "witness": "M"
+        },
+        "invariants": [
+          {
+            "qualified_witness_retained": "S under F2"
+          },
+          {
+            "custody_complete": true
+          },
+          {
+            "reliance": "record-wide witness against Q; (r3) only"
+          },
+          {
+            "nonreliance_verified": "R"
+          },
+          {
+            "verified_clearance": "independently verified corrected evidence through NR-1 to NR-4 for S"
+          },
+          {
+            "clearance_history_retained": true
+          },
+          {
+            "reassessment_applies": "A4"
+          },
+          {
+            "finding_unblocked": "f"
+          },
+          {
+            "not_class": [
+              "record-invalid",
+              "retirement-blocked"
+            ]
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.3",
+        "R6.OBL29.4",
+        "R6.OBL29.6",
+        "R6.REC.6",
+        "R6.REC.7",
+        "R6.RECON.1",
+        "R6.RECON.27"
+      ],
+      "note": "Clearance follows from the replacement's own records, reviews and lineage, read from records and trees. N-REFREEZE-NONRELIANCE-UNSUPPORTED removes or forges each element of this evidence."
+    },
+    {
+      "id": "N-REFREEZE-NONRELIANCE-UNSUPPORTED",
+      "kind": "countercase",
+      "setup": [
+        "Start from P-REFREEZE-INDEPENDENT-REPLACEMENT and change one element per variant, keeping every other input.",
+        "Variant self-reviewed: R's only accepting review is by an author of R, of A4, of Q or of S. Variant forged: non-reliance is asserted only in R's own text, in A4, in F4, in a commit message or in pull request text, or the accepting review names a different exact reference, lies outside R's reconciliation directory or omits an item.",
+        "Variant lookup-only: F4 does not pin R, so R is reached solely through the entry lookup at M. Variant through-Q: R names Q in supersedes. Variant shared predecessor: R names P in supersedes. Variant unlinked: R and its review carry no exact references to Q and S. Variant dissent: an eligible review of R in R* dissents and is later deleted."
+      ],
+      "expected": {
+        "outcome": "FAIL",
+        "classes_include": [
+          "record-invalid",
+          "retirement-blocked"
+        ],
+        "finding": {
+          "present_at_M": true,
+          "witness": "M"
+        },
+        "invariants": [
+          {
+            "qualified_witness_retained": "S under F2"
+          },
+          {
+            "reliance": "record-wide witness against Q; (r2) in variant through-Q, otherwise (r3) with NR-1 to NR-4 not shown"
+          },
+          {
+            "record_invalid_for": "A4, naming S's exact reference"
+          },
+          {
+            "reassessment_absent": "A4"
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.3",
+        "R6.OBL29.4",
+        "R6.OBL29.6",
+        "R6.REC.6",
+        "R6.REC.7",
+        "R6.RECON.1",
+        "R6.RECON.27"
+      ],
+      "note": "Non-reliance fails closed. A required object that is unreadable or does not hash to its id is ERROR instead, as in B-CUSTODY-MISSING-REQUIRED-OBJECT. No variant supplies positive authority."
+    },
+    {
+      "id": "P-UNRELATED-FREEZE-NOT-BURDENED",
+      "kind": "positive",
+      "setup": [
+        "Keep the qualified S witness against Q under F2 in complete custody, unresolved.",
+        "Use a legitimately admitted F5 for a configuration K5 that carries an edit e2 and not e. A well-formed second-kind finding f2 on e2 by an independent reviewer lands in another directory. A5 names f2 and item and cites an entry of reconciliation record R5 in its own reconciliation directory, with its ordinary accepting review.",
+        "R5 shares Q's schema and lineage label and lists p among its entry paths. Its blob differs from Q's, its lineage contains neither Q, P nor the edge from Q to P, and its repair commits are disjoint from those of every entry of Q. R5 carries no reference to Q or S and no non-reliance evidence is tendered."
+      ],
+      "expected": {
+        "outcome": "ANY",
+        "invariants": [
+          {
+            "qualified_witness_retained": "S under F2"
+          },
+          {
+            "reliance": "none"
+          },
+          {
+            "reassessment_applies": "A5"
+          },
+          {
+            "finding_unblocked": "f2"
+          },
+          {
+            "not_class": [
+              "record-invalid",
+              "retirement-blocked"
+            ]
+          }
+        ]
+      },
+      "requirements": [
+        "R6.OBL29.3",
+        "R6.OBL29.6",
+        "R6.REC.7",
+        "R6.RECON.26",
+        "R6.RECON.27"
+      ],
+      "note": "A shared schema, lineage label or path does not attach the dispute. f is unblocked in K5 through the existing R6.RECON.26 route because K5 carries no edit f binds."
     },
     {
       "id": "P-SUCCESSOR-OUTSIDE-DISCHARGE-SCOPE",
