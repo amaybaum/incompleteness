@@ -1,0 +1,192 @@
+{
+ "source": "GET repos/amaybaum/incompleteness/git/trees/c33d5b71a3e4e15028d19ff153afcee8f5aa90a3?recursive=1, entries under verification/audits/foundations/a1exit-design-r6-20261125/",
+ "commit": "c33d5b71a3e4e15028d19ff153afcee8f5aa90a3",
+ "directory": "verification/audits/foundations/a1exit-design-r6-20261125",
+ "files": [
+  {
+   "path": "AUTHORIZATIONS.md",
+   "blob": "85309f7d35dc9892bb8435fbd0399ae35f12f012",
+   "size": 43582
+  },
+  {
+   "path": "CHECKS.txt",
+   "blob": "84230bd2dae6c4d8c81fa0bdacf449f725fcb603",
+   "size": 855
+  },
+  {
+   "path": "CONFORMANCE.md",
+   "blob": "74ecf04de9e2ccd32b7ef4e83138eb49ec5955b1",
+   "size": 28578
+  },
+  {
+   "path": "CORRECTION-REPORT-round3.md",
+   "blob": "5049cc257f0521612dea25d9c565aed8b6b53b9e",
+   "size": 56519
+  },
+  {
+   "path": "CORRECTION-REPORT.md",
+   "blob": "064a5ec624c86abd24db2249ef317bdb20787dac",
+   "size": 22355
+  },
+  {
+   "path": "DECISIONS.md",
+   "blob": "f02b8eebeb1b7db3acce68ac7f29c1f16c52a3cc",
+   "size": 32528
+  },
+  {
+   "path": "DESIGN-r6.md",
+   "blob": "bb1f85d8ff4dfa0d22302be82b97e651c5ac956a",
+   "size": 503113
+  },
+  {
+   "path": "EXPECTATION-SOURCES.json",
+   "blob": "303f23616d571954a056d5d0bde5fde2faf1c1bc",
+   "size": 103993
+  },
+  {
+   "path": "EXPECTATIONS-REPORT.md",
+   "blob": "12c3c2fad83616d7c1155e33b6b1dce389eb8f26",
+   "size": 16689
+  },
+  {
+   "path": "EXPECTATIONS-draft.json",
+   "blob": "5917b03bc7a57a6c2c517857c0e795365f5de4d3",
+   "size": 175207
+  },
+  {
+   "path": "EXPECTATIONS.json",
+   "blob": "895a25b458581619c1b59c487f1b52a959b895cb",
+   "size": 486971
+  },
+  {
+   "path": "FINAL-REPORT.md",
+   "blob": "aa2f161860b40263e4614f07cfc93ca000418610",
+   "size": 45184
+  },
+  {
+   "path": "FRESH-AUTHORIZATION.md",
+   "blob": "976fadffb1be3f80e6fe47d783e8473ec07ef9f0",
+   "size": 183034
+  },
+  {
+   "path": "GATE-draft.md",
+   "blob": "f35e68b9d7c15cb8b1d1cab971286d15ed06c450",
+   "size": 13734
+  },
+  {
+   "path": "INTEGRATION-REPORT.md",
+   "blob": "66bbaa563e2c6cec7a8ccc84274e4deb5babb383",
+   "size": 33730
+  },
+  {
+   "path": "INVENTORY.json",
+   "blob": "95d693f82be5a121049b5f2e73ca5754d88bddd9",
+   "size": 1047442
+  },
+  {
+   "path": "MAPPING-CHECK.txt",
+   "blob": "c0644e12d0e4bbe67936b24bf3493ebc95d74dc2",
+   "size": 572
+  },
+  {
+   "path": "MAPPING.json",
+   "blob": "f5d35cb490b0d8925ea7e242446837d567768021",
+   "size": 413685
+  },
+  {
+   "path": "MIGRATION.json",
+   "blob": "4ed66d207198ac12e5b7adcc637ce9325d21199c",
+   "size": 35230
+  },
+  {
+   "path": "OUTLINE.md",
+   "blob": "81aec76de8dca743467bc64ffd78d81f69eefb19",
+   "size": 5390
+  },
+  {
+   "path": "PARAPHRASED-DECISIONS.md",
+   "blob": "682270ac50f58555a77aa7a963267ce03aa7d398",
+   "size": 34032
+  },
+  {
+   "path": "PENDING-33.md",
+   "blob": "1e09093faf934094dc201c045468d7f96e77ffc4",
+   "size": 72825
+  },
+  {
+   "path": "RE2-ROWS.md",
+   "blob": "cde0e3f8b7c357c8c87ec0ee62409fcc35a78c86",
+   "size": 3537
+  },
+  {
+   "path": "REQUIREMENTS.json",
+   "blob": "f8ae46ab248a8b9a627a8ed21bc02a63116017fa",
+   "size": 156873
+  },
+  {
+   "path": "RESIDUAL-2.md",
+   "blob": "feb9e27cc69fed3e9b90a2147d3ea1272db2dd47",
+   "size": 44441
+  },
+  {
+   "path": "RESIDUAL.md",
+   "blob": "6932490ae1db2a1c2375f91359e9ace45fddab33",
+   "size": 17649
+  },
+  {
+   "path": "REVIEW-r6-round2.md",
+   "blob": "654bd76776042e1d2a135c8b15d2b447df0ef00a",
+   "size": 16213
+  },
+  {
+   "path": "V4-COMPARISON.md",
+   "blob": "4efb9826e59b3c58d4209f89fb6ef72549e16bda",
+   "size": 11072
+  },
+  {
+   "path": "generator-round2/PROVENANCE.json",
+   "blob": "aa22337f3ebcff9857f4fc243ecb4138ae627526",
+   "size": 3440
+  },
+  {
+   "path": "generator-round2/comments-1169.json",
+   "blob": "318fe33d6e7393184198f7e5af9f1272ad6a991e",
+   "size": 57717
+  },
+  {
+   "path": "generator-round2/correct.py",
+   "blob": "e846064c295cadd999317cd83e9a63386269e29d",
+   "size": 69919
+  },
+  {
+   "path": "generator-round2/correct2.py",
+   "blob": "809afa8448996c989879e285e6b66bb10033bd1f",
+   "size": 57317
+  },
+  {
+   "path": "generator-round2/report_text.py",
+   "blob": "f71d4c6d2ecf0f9c92a9b5f282592fdcd20c53aa",
+   "size": 29059
+  },
+  {
+   "path": "generator-round2/text2.py",
+   "blob": "3c469f71083f56c1d328cbcfffd8e529c0d34204",
+   "size": 56398
+  },
+  {
+   "path": "generator-round3/comments-round3.json",
+   "blob": "7e4467626c700c23906e2e807dcfb8f55b9e0206",
+   "size": 19003
+  },
+  {
+   "path": "generator-round3/correct3.py",
+   "blob": "f7a8aa4be68b6b6874e819fe0d9808102da0ef0d",
+   "size": 111890
+  },
+  {
+   "path": "generator-round3/review-r6-round2.md",
+   "blob": "6f172c4dd1b6e9f57ca969b5e422afb1aa906d1e",
+   "size": 15146
+  }
+ ]
+}
