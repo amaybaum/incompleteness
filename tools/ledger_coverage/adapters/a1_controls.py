@@ -811,7 +811,7 @@ def drift_classes(a):
 def exec_args(a, x=T, extra=()):
     return ['execution', '--scientific-base', H, '--candidate', x, '--ledger', LEDGER, '--edits', EDITS,
             '--delegation', '%s:%sdelegation-draft.json' % (a.crev, a.ad),
-            '--classify', '%s:%srecords/side-change-classes-v1.json' % (a.crev, a.ad),
+            '--classify', '%s:%srecords/side-change-classes-v2.json' % (a.crev, a.ad),
             '--classify', drift_classes(a)] + list(extra)
 
 
