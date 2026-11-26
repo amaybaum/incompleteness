@@ -22535,6 +22535,17 @@
         ]
        }
       ]
+     },
+     {
+      "case": "countercase: a result whose landing item for a matched finding whose resolution at X was not kept lacks resolution_validity, or whose other item carries it",
+      "outcome": "PREDICATE",
+      "invariants": [
+       {
+        "schema_errors": [
+         "resolution_validity not of the R6.RECON.36 form"
+        ]
+       }
+      ]
      }
     ]
    },
@@ -22911,7 +22922,7 @@
       ]
      },
      {
-      "case": "countercase: a site resolved at X by an HP adjudication whose line lies in a range of its path that M changes and off every line RC14 keeps intact, so that its segment condition is not established at the landing",
+      "case": "countercase: a site resolved at X by an HP adjudication whose byte-identical line is not located at the landing (M edits a neighbouring sentence of the line's window, the path is changed, and RC14 does not keep the line), so that its segment condition is not established",
       "outcome": "FAIL",
       "classes_include": [
        "context-meaning-unverified"
@@ -22940,7 +22951,7 @@
       ]
      },
      {
-      "case": "a hit resolved at X by a hit classification whose line M moves unchanged, the line still unique in the landing tree and hit by the same profiles: it keeps its resolution (positive)",
+      "case": "a hit resolved at X by a hit classification whose line M moves with its window byte-identical, the window occurring exactly once at X and at the landing, the line unique in the landing tree and hit by the same profiles: it keeps its resolution (positive)",
       "outcome": "ANY",
       "invariants": [
        {
@@ -22999,7 +23010,7 @@
       ]
      },
      {
-      "case": "a hit held at X by a tracked site (not an HP site) whose region lines M moves intact, outside every range M changes: it keeps its hold (positive)",
+      "case": "a hit held at X by a tracked site (not an HP site) that M moves with its region lines byte-identical, its whole-line occurrence count, context and structure unchanged: it keeps its hold (positive)",
       "outcome": "ANY",
       "invariants": [
        {
@@ -23044,7 +23055,7 @@
       ]
      },
      {
-      "case": "countercase (cannot be established): a hit held at X by a tracked site whose region lines M copies elsewhere in the file, so that the region cannot be located exactly once at the landing",
+      "case": "countercase (cannot be established): a hit held at X by a tracked site whose bytes M copies elsewhere in the file: the site's whole-line occurrence count at the landing differs from its count at X (R6.ANCH.17), so its position is not established and the hold is not kept",
       "outcome": "FAIL",
       "classes_include": [
        "context-meaning-unverified"
@@ -23060,7 +23071,7 @@
       ]
      },
      {
-      "case": "countercase (cannot be established): a hit resolved at X by a hit classification whose byte-identical line lies in a range of its path that M changes and off every line RC14 keeps intact, so that its segment condition is not established",
+      "case": "countercase (cannot be established): a hit resolved at X by a hit classification whose byte-identical line is not located at the landing (M edits a neighbouring sentence of the line's window, the path is changed, and RC14 does not keep the line), so that its segment condition is not established",
       "outcome": "FAIL",
       "classes_include": [
        "context-meaning-unverified"
@@ -23148,6 +23159,51 @@
       "invariants": [
        {
         "failed_conditions_include": "reconciled-state"
+       }
+      ]
+     },
+     {
+      "case": "countercase (does not hold): an unadjudicated meaning_context site whose neighbouring line M changes while its own line is untouched: R6.CTX.6 decides the changed context at the landing",
+      "outcome": "FAIL",
+      "classes_include": [
+       "context-meaning-unverified"
+      ],
+      "invariants": [
+       {
+        "items_include": [
+         {
+          "resolution_validity": "does-not-hold"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "case": "a hit held at X by a tracked site in a drifted path, the site unmoved, its context, structure and whole-line occurrence count unchanged at the landing: it keeps its hold (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "not_class": [
+         "base-drift",
+         "record-invalid",
+         "context-meaning-unverified"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "countercase (cannot be established): a hit in an HP region resolved at X by an entry of the HP adjudication's hit_classifications whose byte-identical line is not located at the landing (M edits a neighbouring sentence of the line's window, the path is changed, and RC14 does not keep the line), so that the entry's segment condition is not established",
+      "outcome": "FAIL",
+      "classes_include": [
+       "context-meaning-unverified"
+      ],
+      "invariants": [
+       {
+        "items_include": [
+         {
+          "resolution_validity": "not-established"
+         }
+        ]
        }
       ]
      }

@@ -152,6 +152,21 @@
     "Adoption and trial execution remain unauthorized.",
     null
    ]
+  },
+  {
+   "author": "amaybaum",
+   "time": "2026-11-26T12:03Z (as received)",
+   "record": "#1169 comment 7191506837",
+   "relayed_by": "coordinating session",
+   "item": "item 2",
+   "quotes": [
+    null,
+    "Require the following:\n- Carried-over site verdicts satisfy their full context and duplicate-count requirements.\n- Verification outcomes are deterministic functions of the relevant repository trees and records, independent of arbitrary diff-algorithm choices.\n- The result schema includes `resolution_validity` with precise semantics.\n- Each control genuinely exercises the condition it claims to test.\n- Previously verified resolution routes remain correct.",
+    "Preserve the distinction between a condition that holds, one that does not hold, and one that cannot be established.",
+    "Do not weaken existing expectations to accommodate implementation behavior.",
+    "Adoption and trial execution remain unauthorized.",
+    null
+   ]
   }
  ]
 }
