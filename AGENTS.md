@@ -1731,3 +1731,42 @@ Adopted 2026-11-24 by owner decision (`amaybaum`, #1169 comment 7124456482); ite
 amended 2026-11-25 by owner decision (`amaybaum`, #1169 comment 7171625550), to let a
 difference that §A.49 rule 2's allowlist permits pass a validation write, and to confine a §A.49
 mismatch to the failed operation where §A.49 rule 3 does.
+
+***
+
+## §A.52 Writer handover
+
+A designated writer (§A.45 rule 3, §A.51) may be replaced by another agent session, of the same or
+another provider, without repeating approvals already recorded, restarting completed reviews or
+resetting the work.
+
+1. **Checkpoint.** The outgoing writer pushes its work to the designated branch (§A.43 item 2) and
+   records a handover checkpoint as a comment on the guiding pull request, or on the accountable
+   Issue for work that has none. The checkpoint states:
+   - the exact branch and commit;
+   - the completed and outstanding obligations;
+   - the open scientific questions;
+   - the review status and unresolved findings;
+   - the authorized scope and restrictions;
+   - any artifact withheld from the branch under §A.43 item 5, and where it is held;
+   - the next concrete action.
+
+   The checkpoint is kept current under §A.43 item 2; where the outgoing writer cannot write one at
+   handover, its latest checkpoint and the pushed branch head are the state the replacement verifies.
+2. **Designation.** The owner's decision designating the replacement writer is recorded on the same
+   thread, or in a record linked from it (§A.51: quoted with its author and time when automation
+   writes it). The outgoing writer then stops writing to that branch, file or artifact; until then
+   it remains the writer (§A.45 rule 3).
+3. **Resumption.** The replacement writer:
+   - reconstructs the context from this file, the owner records, the accountable Issue, the plan, the
+     branch and its reviews;
+   - confirms that the branch head equals the recorded commit;
+   - continues under the existing scope, authorization and acceptance criteria.
+
+   A mismatch is a stop under §A.51 item 5.
+4. **Review.** A reviewer uninvolved in the work of either writer is preferred.
+
+A handover authorizes nothing new and changes no scientific status. No handover file is added to the
+repository.
+
+Adopted 2026-11-26 by owner decision (`amaybaum`, #1169 comment 7190776267).
