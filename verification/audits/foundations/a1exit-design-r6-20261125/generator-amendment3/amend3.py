@@ -112,25 +112,25 @@ ROWS = [
                  'splices, l equal to m, x equal to the path\'s blob at H, and null ledger_binding values (positive)',
          'outcome': 'ANY', 'invariants': [NONE_DRIFT]},
         fail('countercase: the same entry with l differing from m', ['RC7']),
+        fail('countercase: the same entry with x differing from the path\'s blob at H', ['RC8']),
         fail('countercase: the same entry with a non-null ledger_binding value', ['RC13']),
         fail('countercase: the same path with no record')]},
         None,
         'an unledgered corpus path changed on M is reconciled by an entry without splices under the same conditions; '
         'without an applying entry it stays base-drift'),
-    row('RECON-CONFLICT', ['R6.RECON.24', 'R6.RECON.4', 'R6.RECON.18'], 'declarative', 'adversarial', {'cases': [
+    row('RECON-CONFLICT', ['R6.RECON.24', 'R6.RECON.4', 'R6.RECON.18', 'R6.CTRL.21'], 'declarative', 'adversarial', {'cases': [
         fail('M changes a byte of the line holding a splice, outside the splice\'s span', ['RC14']),
         fail('M changes a byte of a sentence (splitter version 2) that overlaps a splice\'s span, on another line',
              ['RC14']),
         fail('M changes the line of a retained site of the path', ['RC14']),
         fail('M adds a second copy of a splice\'s context window elsewhere in the file', ['RC14']),
-        fail('a protected range of the record overlaps a translated splice\'s context window at M', ['RC14']),
         fail('M changes the bytes of a splice\'s span and the old bytes occur once elsewhere at M', ['RC14'])]},
         {'outcome': 'ANY', 'invariants': [NONE_DRIFT,
                                           {'baseline': 'the same path with M\'s changes outside every context window '
                                                        'and retained-site line'}]},
         'RC14: a change on M that touches a splice\'s context window (its lines, and for a corpus path its '
-        'sentences), a retained site\'s line, or that a protected range claims inside a window, fails the record; the '
-        'conflict is reported, never resolved by translation'),
+        'sentences) or a retained site\'s line fails the record; the conflict is reported, never resolved by '
+        'translation'),
     row('RECON-TRIAL', ['R6.RECON.23', 'R6.RECON.21'], 'declarative', 'both', {'cases': [
         {'case': 'two drifted ledgered corpus paths with applying records; M\'s changes add text no profile matches '
                  '(positive)',
@@ -139,7 +139,10 @@ ROWS = [
              ['reconciled-state']),
         fail('countercase: M\'s change adds an unclassified hit of a review profile with applies_to tree',
              ['reconciled-state']),
-        fail('countercase: M changes one file of a mirror pair and not the other', ['reconciled-state']),
+        fail('countercase: M changes one file of a mirror pair and not the other (a run-level item naming the drifted '
+             'file)', ['reconciled-state']),
+        fail('countercase: M adds a second occurrence of a deny match that X already has once (multiplicity)',
+             ['reconciled-state']),
         fail('countercase: M removes a literal that a pin of the configuration requires at X', ['reconciled-state']),
         {'case': 'countercase: RT-L2 with every drifted path covered by an applying record and the reconciled-state '
                  'trial failing',
@@ -150,31 +153,96 @@ ROWS = [
         'path base-drift and RT-L2 unresolved'),
     row('RECON-SCI', ['R6.RECON.25', 'R6.RECON.1'], 'declarative', 'adversarial', {'cases': [
         rinv('a path entry without scientific_effect'),
-        rinv('a scientific_effect whose conclusions name an edit id that is not a splice of the path'),
+        rinv('a scientific_effect whose conclusions name an id that is no edit id of the ledger'),
         rinv('a scientific_effect with an empty assessment or method'),
         rinv('a review record whose verdicts do not cover the entry\'s scientific_effect item, or do not accept it'),
-        rinv('a review record whose reviewer equals the record\'s author')]},
-        {'outcome': 'ANY', 'invariants': [{'record_admitted': '$record'}, {'not_class': ['record-invalid']}]},
+        rinv('a review record whose reviewer equals the record\'s author'),
+        rinv('a scientific_effect without verdict, or with verdict invalidates and no invalidated edit id, or an '
+             'invalidated sha256 that differs from the edit-list entry\'s'),
+        rinv('an executed path\'s entry whose method names no check re-run at the composed blob')]},
+        {'outcome': 'ANY', 'invariants': [{'record_admitted': '$record'}, {'not_class': ['record-invalid']},
+                                          {'baseline': 'a valid entry of an unledgered corpus path whose conclusions '
+                                                       'name an edit id of another path'}]},
         'scientific verification is the reviewer\'s: the tool checks only that each entry carries a '
         'scientific_effect of the stated form and that a non-author review accepts it; it cannot check the '
         'assessment\'s truth'),
+    row('RECON-CATEGORY', ['R6.RECON.22', 'R6.RECON.24'], 'declarative', 'both', {'cases': [
+        {'case': 'a drifted ledgered path whose changes on M lie outside every context window and retained-site line, '
+                 'covered by an applying entry (positive: category 1, mechanical)',
+         'outcome': 'ANY', 'invariants': [NONE_DRIFT, {'equals': 'the path\'s disposition is reconciled, category 1'}]},
+        fail('countercase: the same path with a change on M inside a splice\'s context window and no resolution '
+             '(category 2, unresolved)', ['RC14']),
+        fail('countercase: the same path with a change on M to a splice\'s span, so that its old bytes do not occur '
+             'at M (category 2, unresolved)', ['RC4', 'RC14'])]},
+        None,
+        'the category of a drifted path is computed: category 1 when every condition RC1-RC14 holds with no conflict; '
+        'category 2 when RC14 finds a conflict or a splice\'s old bytes do not occur once at M; category 2 is never '
+        'reconciled by translation'),
+    row('RECON-OVERLAP', ['R6.RECON.24', 'R6.TREE.12'], 'declarative', 'both', {'cases': [
+        {'case': 'a category-2 path whose entry carries a resolution for the conflicting splice: its window is the '
+                 'conflicting context window at M, its resolved bytes contain the splice\'s approved new bytes '
+                 'exactly once, l equals the composition outside the window, scientific_effect names the splice with '
+                 'verdict no-effect, and the review accepts the resolution and the scientific_effect (positive)',
+         'outcome': 'ANY',
+         'invariants': [NONE_DRIFT, {'equals': 'the path\'s disposition is reconciled-resolved, category 2'}]},
+        fail('countercase: the same entry without the resolution', ['RC14']),
+        fail('countercase: resolved bytes that do not contain the splice\'s new bytes', ['RC14']),
+        fail('countercase: l differing from the composition outside the resolution window', ['RC7']),
+        fail('countercase: a resolution window other than the conflicting context window', ['RC14']),
+        {'case': 'countercase: scientific_effect that does not name the overlapped splice',
+         'outcome': 'FAIL', 'classes_include': ['record-invalid']},
+        {'case': 'countercase: a review whose verdicts do not cover the resolution',
+         'outcome': 'FAIL', 'classes_include': ['record-invalid']}]},
+        None,
+        'category 2 is resolved only explicitly: a reviewed resolution that keeps the planned edit\'s new bytes, with '
+        'a renewed scientific review naming the splice; the landing then equals the resolved composition'),
+    row('RECON-BLOCK', ['R6.RECON.26', 'R6.RECON.25', 'R6.CLASS.10'], 'declarative', 'both', {'cases': [
+        {'case': 'a reviewed entry whose scientific_effect verdict is invalidates, naming an edit id of the path',
+         'outcome': 'FAIL', 'classes_include': ['retirement-blocked']},
+        {'case': 'a reviewed entry of an unledgered corpus path whose verdict invalidates an edit of a ledgered path',
+         'outcome': 'FAIL', 'classes_include': ['retirement-blocked']},
+        {'case': 'the same, with a later record superseding it whose verdict is no-effect',
+         'outcome': 'FAIL', 'classes_include': ['retirement-blocked']},
+        {'case': 'the same, with every other drifted path reconciled',
+         'outcome': 'FAIL', 'classes_include': ['retirement-blocked']},
+        {'case': 'countercase: the same entry with verdict no-effect (positive)',
+         'outcome': 'ANY', 'invariants': [{'not_class': ['retirement-blocked']}]},
+        {'case': 'countercase: the run under a revised plan, a new configuration whose ledger changes the invalidated '
+                 'edit\'s edit-list entry (positive)',
+         'outcome': 'ANY', 'invariants': [{'not_class': ['retirement-blocked']}]}]},
+        None,
+        'category 3: a reviewed finding that a change invalidates the basis of a planned edit blocks the retirement '
+        '(FAIL retirement-blocked); an entry with that verdict never applies; no reconciliation record clears the '
+        'block; only a revised plan that changes or removes the invalidated edit does'),
 ]
 NEW_IDS = [r['id'] for r, _ in ROWS]
 REQ_CONTROLS = {}
 for _r, _ in ROWS:
     for _q in _r['requirements']:
         REQ_CONTROLS.setdefault(_q, []).append(_r['id'])
-NEW_REQS = ['R6.RECON.22', 'R6.RECON.23', 'R6.RECON.24', 'R6.RECON.25']
+NEW_REQS = ['R6.RECON.22', 'R6.RECON.23', 'R6.RECON.24', 'R6.RECON.25', 'R6.RECON.26']
 TOUCHED = ['R6.RECON.1', 'R6.RECON.3', 'R6.RECON.4', 'R6.RECON.5', 'R6.RECON.8', 'R6.RECON.15', 'R6.RECON.16',
-           'R6.RECON.18', 'R6.RECON.21']
+           'R6.RECON.18', 'R6.RECON.21', 'R6.TREE.12', 'R6.CLASS.10', 'R6.CTRL.21', 'R6.RECON.2', 'R6.CORE.5']
 
 RESPONSIBILITIES = [
-    ('Mechanical verification', 'R6.RECON.22, R6.RECON.15 (RC10), R6.RECON.16 (RC11), R6.RECON.5 (RC13), R6.RECON.3 '
-     'and R6.RECON.8 (unledgered corpus paths), R6.RECON.4', 'RECON-ENUM, RECON-MULTI, RECON-CORPUS', 'the tool'),
-    ('Scientific verification', 'R6.RECON.25, R6.RECON.1 (`scientific_effect`)', 'RECON-SCI',
+    ('Mechanical verification', 'R6.RECON.22 (dispositions and categories), R6.RECON.15 (RC10), R6.RECON.16 (RC11), R6.RECON.5 (RC13), R6.RECON.3 '
+     'and R6.RECON.8 (unledgered corpus paths), R6.RECON.4', 'RECON-ENUM, RECON-MULTI, RECON-CORPUS, '
+     'RECON-CATEGORY', 'the tool'),
+    ('Scientific verification', 'R6.RECON.25, R6.RECON.1 (`scientific_effect`), R6.RECON.26 (the blocking state)',
+     'RECON-SCI, RECON-BLOCK',
      'the independent reviewer; the tool binds the review and checks its form only'),
-    ('Conflict detection', 'R6.RECON.24 (RC14), R6.RECON.4, R6.RECON.18', 'RECON-CONFLICT', 'the tool'),
+    ('Conflict detection', 'R6.RECON.24 (RC14 and explicit resolution), R6.TREE.12, R6.RECON.4, R6.RECON.18',
+     'RECON-CONFLICT, RECON-CATEGORY, RECON-OVERLAP', 'the tool; a resolution\'s wording by the reviewer'),
     ('Trial verification', 'R6.RECON.23, R6.RECON.21', 'RECON-TRIAL', 'the tool, on the reconciled state'),
+]
+CATEGORIES = [
+    ('1, mechanical', 'every condition RC1-RC14 holds; no conflict', '`reconciled`', 'the tool', 'RECON-CATEGORY'),
+    ('2, overlap', 'RC14 finds a conflict, or a splice\'s old bytes do not occur once at `M` (its span changed)',
+     '`reconciled-resolved` with an applying reviewed resolution and a renewed scientific review; otherwise '
+     '`base-drift`', 'the tool decides the category; the reviewer the resolution', 'RECON-CATEGORY, RECON-OVERLAP'),
+    ('3, invalidating', 'a reviewed `scientific_effect` with verdict `invalidates`, for an edit of any path', '`retirement-blocked` (FAIL), '
+     'which no reconciliation record clears; only a revised plan (a new freeze, AGENTS.md sec. A.50) does',
+     'the review; the tool enforces the block', 'RECON-BLOCK'),
 ]
 
 NEW_REQ_TEXT = '''
@@ -183,20 +251,37 @@ ledger-path check is mandatory: every op C run with `M` gives every path that di
 ledgered or corpus exactly one disposition in its result: `reconciled`, naming the record and entry that apply, or an
 item `base-drift` (FAIL), naming each failed condition or that no admitted record covers the path. No such path is
 omitted, none has two, and a path that does not differ has none; the result's JSON Schema refuses a result that breaks
-this. Drift is reported and assessed (R6.RECON.23 to R6.RECON.25); the tool changes no file and reverts nothing.
-Sources: %(src)s. Controls: RECON-ENUM, RECON-CORPUS.
+this. A run-level `reconciled-state` item of R6.RECON.23 is not a disposition. Each disposition carries the path's
+category: category 1 (mechanical), when every condition RC1-RC14 holds for an applying entry with no conflict,
+disposition `reconciled`; category 2 (overlap), when RC14 finds a conflict or a splice's old bytes do not occur once at
+`M`, disposition `reconciled-resolved` only under an explicit resolution (R6.RECON.24), otherwise `base-drift`;
+category 3 (invalidating), when a reviewed `scientific_effect` finds that the change invalidates the basis of a planned
+edit, disposition `retirement-blocked` (R6.RECON.26), which takes precedence over every other. Categories 1 and 2 are
+computed from git objects; category 3 is read from the bound review. Drift is reported and assessed (R6.RECON.23 to
+R6.RECON.26); the tool changes no file and reverts nothing.
+Sources: %(src)s. Controls: RECON-ENUM, RECON-CORPUS, RECON-CATEGORY.
 
 **R6.RECON.23** **Trial verification: the reconciled-state trial** %(mark)s. When a ledgered or
 corpus path differs between `H` and `M`, the run evaluates, besides `X` (or `C`), the landing `L`, or for a
 prediction the in-memory landing of R6.TREE.15 built from the run's `M` and `C`: (a) op D on it, with the A1
 configuration's deny profiles and its review profiles whose `applies_to` is `tree`, over the corpus; (b) the
 postconditions op C evaluates at `X` (R6.TREE.9), the pin postconditions and mirror identity among them, for the
-ledgered paths. A finding at the landing that the same evaluation at `X` (or `C`) does not have, matched by its
-fingerprint, is a FAIL `base-drift` of the path it lies in, naming the condition `reconciled-state`, unless records
-and rules resolve it there under their own rules (sec. 14, R6.HIT.1), exactly as they would at `X`. A drifted path is
-reconciled only if this holds, and RT-L2's validly reconciled state requires it (R6.RECON.21). The trial is recorded as
-its own run on the exact `M`; when `M` changes (R6.RECON.20), it is run again. No expectation of an existing control
-changes. Op B is not repeated at the landing: its segments are `E..H` and `H..X`, and drift lies in `H..M`.
+ledgered paths. Findings at the landing are matched with those of the same evaluation at `X` (or `C`) by fingerprint,
+the tree field excluded, counting multiplicities: a fingerprint found k times at the landing and j times at `X` gives
+k - j new findings when k > j. A new finding that records and rules do not resolve there under their own rules (sec.
+14, R6.HIT.1), exactly as they would at `X`, is a FAIL `base-drift` naming the condition `reconciled-state`: it is the
+disposition of the drifted path it lies in; a new finding in a path that does not differ (for example a mirror or pin
+finding produced by a change to its counterpart) is a run-level item naming the drifted paths whose changes produced
+it, and while it stands no drifted path of the run is reconciled. RT-L2's validly reconciled state requires that no
+such finding exists (R6.RECON.21). Records frozen at `F` are the only records that can resolve such a finding in a
+chain-admitted run (R6.RECON.2 (a)), so a new finding at the landing after `F` that they do not resolve needs a new
+configuration version and a new freeze (R6.CFG.3). The trial is recorded as its own run on the exact `M`; when `M`
+changes (R6.RECON.20), it is run again. The tool's trial is a scan: it executes no check of the repository. Executable
+checks bearing on a drifted path (Lean, verification scripts, generated artifacts) are re-run at the landing by the
+delegation contract where a delegated class covers the path (sec. 13, R6.TREE.19), and otherwise by the independent
+reviewer under R6.RECON.25. Op B is not repeated at the landing: RC14 (a) and (b) keep every spliced or retained
+site's line intact at its translated position, so op B's site verdicts at `X` carry over, and op D at the landing finds
+new hits. No expectation of an existing control changes.
 Sources: %(src)s. Controls: RECON-TRIAL.
 
 **R6.RECON.24** **Conflict detection: RC14** %(mark)s. For each entry of a reconciliation record:
@@ -204,23 +289,50 @@ Sources: %(src)s. Controls: RECON-TRIAL.
 to the end of the last such line, widened, for a corpus path, to the sentences of splitter version 2 that overlap the
 span) occurs exactly once at `M`, at the splice's translated offset less its distance from the window's start, with
 the same bytes; (b) the line of each retained site of the path (the ledger interface's `retained`, resolved at `H`
-through the site map) occurs exactly once at `M`, with the same bytes; (c) no protected range of the entry overlaps a
-translated splice's context window at `M`. Otherwise RC14 fails: the record does not apply, the path stays
-`base-drift`, and the result names RC14 and the splice or site. A change on `M` that touches a planned retirement
-edit's context is reported as a conflict and never resolved by translation; a translation that relocates a splice
-whose span `M` changed fails here.
-Sources: %(src)s. Controls: RECON-CONFLICT.
+through the site map) occurs exactly once at `M`, with the same bytes. Otherwise RC14 fails: the record does not apply,
+the path stays `base-drift`, and the result names RC14 and the splice or site. "Exactly once" is deliberately strict: a
+window or line repeated verbatim at `M` (for example identical table rows) fails RC14 even when the change on `M` lies
+elsewhere, and is resolved explicitly as below. A change on `M` that touches a planned retirement edit's context is
+reported as a conflict and never resolved by translation; a translation that relocates a splice whose span `M` changed
+fails here. **Explicit resolution (category 2).** A conflict is resolved only by an entry's `resolutions`, one for each
+conflicting splice: the window at `M` (`start_M`, `end_M`, `sha256`), which equals the splice's conflicting context
+window, and the resolved bytes' sha256. The resolution applies only if the resolved bytes contain the splice's approved
+new bytes exactly once, the entry's `l` equals the composition outside the resolution windows and the resolved bytes
+inside them, the entry's `scientific_effect` names the splice in `conclusions` with verdict `no-effect` (the renewed
+scientific review), and the review record covers each resolution and accepts it. The tool checks these from git
+objects; the resolution's wording within the window is the reviewer's judgement. With an applying resolution RC14 holds
+for the splice, and the path is reconciled with category 2.
+Sources: %(src)s. Controls: RECON-CONFLICT, RECON-CATEGORY, RECON-OVERLAP.
 
 **R6.RECON.25** **Scientific verification: the reviewed scientific effect** %(mark)s. Whether a
 change on `M` affects the scientific justification for the retirement is established by the independent review, not
-by the tool. Each path entry of a reconciliation record carries `scientific_effect`: `conclusions`, the ledger edit
-ids of the path whose justification the change could bear on (or `none`); `assessment`, the writer's statement of the
-effect; and `method`, what was re-derived or re-run to establish it. The review record covers `scientific_effect` as
-an item of the entry, and the reviewer re-derives it under R6.REC.2. The tool checks only the form: the field and its
-three parts are present and non-empty; each named edit id is a splice id of the path; the review's verdicts cover the
-item and accept it; record lint holds (R6.REC.6). It does not and cannot check that the assessment is true or that the
-conclusions listed are complete; those rest on the review. A failure of form is FAIL `record-invalid`.
-Sources: %(src)s. Controls: RECON-SCI.
+by the tool. Each path entry of a reconciliation record carries `scientific_effect`: `conclusions`, the ledger edit ids,
+of any path, whose justification the change could bear on (for example an executable change bearing on a manuscript
+claim), or `none`; `assessment`, the writer's statement of the effect; `method`, what was re-derived or re-run to
+establish it; and `verdict`, `no-effect` or `invalidates`, the latter with `invalidated`, each an edit id with the
+canonical sha256 of its edit-list entry. For an entry whose path is executed by a check (a script, a Lean file, a
+workflow), `method` names the check re-run at the entry's composed blob `l` and its result. The review record covers
+`scientific_effect` as an item of the entry, and the reviewer re-derives it under R6.REC.2; "accept" means the
+assessment and verdict are correct, whatever they conclude. An entry applies only if its reviewed verdict is
+`no-effect`; an entry whose reviewed verdict is `invalidates` never applies and blocks under R6.RECON.26. The tool
+checks only the form: the field and its parts are present and non-empty; each named edit id is an edit id of the
+ledger, and each `invalidated` sha256 equals that edit-list entry's; the review's verdicts cover the item and accept it;
+record lint holds (R6.REC.6). It does not and cannot check that the assessment is true, that the conclusions listed are
+complete, or that the files of the corpus stay consistent with one another in meaning; those rest on the review. A
+failure of form is FAIL `record-invalid`.
+Sources: %(src)s. Controls: RECON-SCI, RECON-BLOCK.
+
+**R6.RECON.26** **Category 3: the blocking state** %(mark)s. A reconciliation record entry whose review
+accepts a `scientific_effect` with verdict `invalidates` blocks the retirement: every run whose `M` contains one of the
+entry's `side_change_commits` gives the entry's path the disposition `retirement-blocked` and an item FAIL
+`retirement-blocked` (obligation `RET`), for as long as the configuration's ledger holds, for each `invalidated` edit
+id, an edit-list entry with the same canonical sha256. The tool finds such entries among the records the run reads and
+the scanned set of `F`'s tree and, for a post-freeze run, of `REV`'s tree (R6.RECON.2 (d)), whether or not a later
+record supersedes them; no reconciliation record, resolution or supersession clears the block. Only a revision of the
+retirement plan, a new configuration version with a new freeze (R6.CFG.3; AGENTS.md sec. A.50 item 5) whose ledger
+changes or removes an invalidated edit, ends it. The tool cannot find a category-3 change by itself: it relies on the
+review's verdict, and it enforces mechanically that a recorded verdict blocks.
+Sources: %(src)s. Controls: RECON-BLOCK.
 '''
 
 
@@ -242,20 +354,38 @@ def note(owner):
         '|---|---|---|---|',
     ] + ['| %s | %s | %s | %s |' % r for r in RESPONSIBILITIES] + [
         '',
+        'Each drifted path falls in one of three categories (R6.RECON.22):',
+        '',
+        '| Category | When | Disposition | Determined by | Controls |',
+        '|---|---|---|---|---|',
+    ] + ['| %s | %s | %s | %s | %s |' % c for c in CATEGORIES] + [
+        '',
         'What the tool can check mechanically: every changed ledgered or corpus path and its disposition; each record '
         'entry\'s binding and RC1-RC14 from git objects; the absence, at the landing, of any profile finding or '
-        'postcondition failure that the candidate does not have; the form of the scientific review. What it cannot '
+        'postcondition failure that the candidate does not have; category 1 and category 2; that a recorded '
+        'category-3 verdict blocks; the form of the scientific review and of a resolution. What it cannot '
         'check: whether a change bears on the scientific justification beyond what the profiles and postconditions '
         'detect (for example a change to a verification script\'s logic, or a change in a sentence\'s meaning that no '
-        'profile matches); that rests on the independent review of R6.RECON.25.',
+        'profile matches), and so it cannot find a category-3 change or judge a category-2 resolution\'s wording; '
+        'those rest on the independent review of R6.RECON.24 and R6.RECON.25.',
         '',
         'Preserved, stated before the change as its controls (AGENTS.md sec. A.29): the meaning of RC1-RC9, RC12 and '
-        'RC13 for each path; the composition and translation rules (R6.TREE.12, R6.TREE.13); `base-drift` for every '
+        'RC13 for each path; the composition and translation rules (R6.TREE.12, R6.TREE.13), extended only for a path '
+        'with an applying category-2 resolution; `base-drift` for every '
         'drifted path that no applying record covers (R6.TREE.7); identical items on `X` with and without the records '
         '(R6.RECON.3); the composition\'s authority over a record\'s `l` (R6.RECON.19); the post-freeze route and its '
         'one record per path (R6.RECON.2); RT-L2\'s three values; and every existing control row and expectation, none '
         'of which changes. With one drifted ledgered path and no other side change, RC10 and RC11 as amended give the '
-        'verdicts they gave before.',
+        'verdicts they gave before. Whether every existing positive control (TT8, POSTF-1 and the other positive '
+        'reconciliation fixtures) also satisfies RC14 and the reconciled-state trial is a check for the tool revision; '
+        'the independent review found no change of verdict for TT8 at 933b1efd or for the B4 AGENTS.md record (splice '
+        'D296).',
+        '',
+        'Design note for the owner: a configuration frozen at `F` that references a reconciliation record closes that '
+        'record\'s paths to the post-freeze route (R6.RECON.2 (d) and (e)), so a record that fails at a later `M` can be '
+        'replaced only by a new freeze. The recommendation is that the configuration at `F` reference no reconciliation '
+        'records. Cross-file semantic consistency (two files that stay byte-compatible but disagree in meaning) is left '
+        'to the independent review (R6.RECON.25).',
         '',
     ]
     return '\n'.join(out)
@@ -273,15 +403,17 @@ def amend_design(t, owner):
                 "Sources: V2-146. Controls: N3, N4, POSTF-5.",
              "and `sha256`. Its review record names the reviewer, under the ownership chain of sec. 11. The per-path\n"
              "`ledger_binding` and `scientific_effect` come from amendment 3 (sec. 0.4) and are pending independent\n"
-             "review and the owner's acceptance.\n"
+             "review and the owner's acceptance; they change the record's shape incompatibly, so its schema is\n"
+             "`oi-reconciliation/2`.\n"
              "Sources: V2-146. Controls: N3, N4, POSTF-5, RECON-SCI.",
              'R6.RECON.1 controls')
     t = once(t, "reconciliation records and requiring identical items on `X`; any difference is FAIL `record-invalid`.\n"
                 "Sources: E-1342, V2-147, RV-027. Controls: N2, N3, N3-config-route.",
              "reconciliation records and requiring identical items on `X`; any difference is FAIL `record-invalid`.\n"
              "A record may also name a corpus path that `M` changes and the ledger does not list (the only-`M`-changed\n"
-             "case of R6.TREE.12, `base-drift` under R6.TREE.7); its entry has no splices, its `l` is `m` and its `x` is\n"
-             "the path's blob at `H`, and the same conditions apply %s.\n"
+             "case of R6.TREE.12, `base-drift` under R6.TREE.7); its entry has no splices, and the same conditions\n"
+             "apply, with RC8 reading: `x` is the path's blob at `H` and the ledger has no `files` entry for the path;\n"
+             "and RC9 reading: over the whole file, `l` equals `m` %s.\n"
              "Sources: E-1342, V2-147, RV-027. Controls: N2, N3, N3-config-route, RECON-CORPUS." % MARK,
              'R6.RECON.3')
     t = once(t, "**R6.RECON.4** A reconciliation record applies only if every one of its conditions RC1-RC13 holds at\n"
@@ -334,6 +466,47 @@ def amend_design(t, owner):
     t = once(t, "Sources: E-1355, OC-3. Controls: RT-L2, RT-O9-L2, GATE-13, GATE-14, GATE-15, GATE-19, RTL2-BIND.",
              "Sources: E-1355, OC-3. Controls: RT-L2, RT-O9-L2, GATE-13, GATE-14, GATE-15, GATE-19, RTL2-BIND, "
              "RECON-TRIAL.", 'R6.RECON.21 controls')
+    t = once(t, "  - any other conflict, including a ledgered path whose `L[p]` differs from the composition, is FAIL\n"
+                "    `landing-conflict-unresolved`.",
+             "  - any other conflict, including a ledgered path whose `L[p]` differs from the composition, is FAIL\n"
+             "    `landing-conflict-unresolved`. For a path with an applying category-2 resolution (R6.RECON.24), the\n"
+             "    composition is the resolved composition: `M`'s bytes with the splices translated and each resolution\n"
+             "    window replaced by its resolved bytes %s." % MARK, 'R6.TREE.12 resolved composition')
+    t = once(t, "TT10, TT11, RL, RT-L, N10, N11, LC-1, LC-2, LC-3, LC-4, LC-5, LC-6, LC-7.\n",
+             "TT10, TT11, RL, RT-L, N10, N11, LC-1, LC-2, LC-3, LC-4, LC-5, LC-6, LC-7, RECON-OVERLAP.\n",
+             'R6.TREE.12 controls')
+    t = once(t, "| `base-drift` | a side change on `M` to a ledgered or corpus path not covered by a reconciliation record "
+                "that applies (sec. 23) |\n\nSources: E-1076, RV-057. Controls: TT3, TT4, TT9, R15, TT10, TT7, N10, "
+                "TT11, N4, N5, N16-file.",
+             "| `base-drift` | a side change on `M` to a ledgered or corpus path not covered by a reconciliation record "
+             "that applies (sec. 23) |\n| `retirement-blocked` | a change on `M` that a reviewed `scientific_effect` "
+             "finds to invalidate the basis of a planned edit (R6.RECON.26) %s |\n\nSources: E-1076, RV-057. "
+             "Controls: TT3, TT4, TT9, R15, TT10, TT7, N10, TT11, N4, N5, N16-file, RECON-BLOCK." % MARK,
+             'R6.CLASS.10')
+    t = once(t, "- (g) **Use.** It is used only to reconcile `base-drift` on `M` under RC1-RC13, and the comparison of",
+             "- (g) **Use.** It is used only to reconcile `base-drift` on `M` under RC1-RC14 %s, and the\n"
+             "  comparison of" % MARK, 'R6.RECON.2 (g)')
+    t = once(t, "R8-S6. Each condition RC1-RC13 of sec. 23 has its own control: N5 (RC1), N7 (RC2), N12 (RC3), N8\n"
+                "(RC4), N13 (RC5), N14 (RC6), N9 (RC7), N15 (RC8), N6 (RC9), N16 (RC10), N17 (RC11), N18 (RC12) and N4\n"
+                "(RC13).",
+             "R8-S6. Each condition RC1-RC14 of sec. 23 has its own control: N5 (RC1), N7 (RC2), N12 (RC3), N8\n"
+             "(RC4), N13 (RC5), N14 (RC6), N9 (RC7), N15 (RC8), N6 (RC9), N16 (RC10), N17 (RC11), N18 (RC12), N4\n"
+             "(RC13) and RECON-CONFLICT (RC14). The positive fixtures of TT8 and POSTF-1 must also satisfy RC14 and the\n"
+             "reconciled-state trial (R6.RECON.23); their rows are unchanged %s." % MARK, 'R6.CTRL.21')
+    t = once(t, "E-1324, E-1325, E-1326, E-1327, E-1328. Controls: N1, N2, N3, N3-config-route, N4, N5, N6, N7, N8, N9, N10, "
+                "N11, N12, N13, N14, N15, N16, N16-file, N17, N18, N18-record, R8-S6.",
+             "E-1324, E-1325, E-1326, E-1327, E-1328. Controls: N1, N2, N3, N3-config-route, N4, N5, N6, N7, N8, N9, N10, "
+             "N11, N12, N13, N14, N15, N16, N16-file, N17, N18, N18-record, R8-S6, RECON-CONFLICT.", 'R6.CTRL.21 ctl')
+    # schema bump: oi-reconciliation/2 in the requirements that define and admit the record
+    t = once(t, "**R6.RECON.1** A reconciliation record (schema `oi-reconciliation/1`) is reviewed and immutable, and",
+             "**R6.RECON.1** A reconciliation record (schema `oi-reconciliation/2`) is reviewed and immutable, and",
+             'R6.RECON.1 schema')
+    t = once(t, "- (a) **Kind and binding.** Its schema is `oi-reconciliation/1`, and it names",
+             "- (a) **Kind and binding.** Its schema is `oi-reconciliation/2`, and it names", 'R6.RECON.2 (a) schema')
+    t = once(t, "  `oi-reconciliation/1` (the scanned set; review records",
+             "  `oi-reconciliation/2` (the scanned set; review records", 'R6.RECON.2 (d) schema')
+    t = once(t, "  `oi-side-change-classes/1`, `oi-reconciliation/1`, `oi-review-record/1`);",
+             "  `oi-side-change-classes/1`, `oi-reconciliation/2` %s, `oi-review-record/1`);" % MARK, 'R6.CORE.5 schema')
     t = once(t, "\n***\n\n## 24. Engine, purity scope (Z9), generality",
              NEW_REQ_TEXT % {'mark': MARK, 'src': 'amendment 3 (#1169 comments 7184569981 and 7184626125)'}
              + "\n***\n\n## 24. Engine, purity scope (Z9), generality", 'new requirements')
@@ -412,7 +585,8 @@ def amend_requirements(R):
     i = [k for k, q in enumerate(R) if q['id'] == 'R6.RECON.21'][0]
     new = [{'id': q, 'section': 'RECON', 'section_number': 23, 'kind': 'testable',
             'sources': ['#1169 comment 7184569981', '#1169 comment 7184626125'],
-            'controls': list(REQ_CONTROLS[q]), 'verification': ['controls'], 'open': [],
+            'controls': list(REQ_CONTROLS[q]),
+            'verification': ['controls', 'review'] if q in ('R6.RECON.25', 'R6.RECON.26') else ['controls'], 'open': [],
             'pending_owner_confirmation': [PENDING], 'owner_decision': []} for q in NEW_REQS]
     return R[:i + 1] + new + R[i + 1:]
 
@@ -508,8 +682,8 @@ The single-path assumptions, each removed by amendment 3:
 
 1. RC10 (R6.RECON.15) requires every ledgered file other than the record's path to equal `H` at `M`. With two drifted
    ledgered paths every record fails RC10, whatever records exist (the tool at adb8fc43 evaluates it so, in
-   engine/reconcile.py). At `main` b6c6b80b, AGENTS.md and verification/lean/edge_rigidity_probe.py both differ from
-   `H`, so the B4 AGENTS.md record cannot apply. Amendment 3 reads RC10 over the run's locally valid entries.
+   engine/reconcile.py). At `main` eb3a69f4 eleven of the ledger's 44 paths differ from `H` (below), so the B4
+   AGENTS.md record cannot apply. Amendment 3 reads RC10 over the run's locally valid entries.
 2. RC11 (R6.RECON.16) excludes only the record's path and requires every other changed path to be non-corpus and
    classified; a second drifted ledgered or corpus path fails it for the same reason. Amendment 3 excludes every path
    covered by a locally valid entry.
@@ -532,8 +706,12 @@ The single-path assumptions, each removed by amendment 3:
 Not a single-path assumption, left unchanged: RT-L2's expectation text says "the reconciliation record" and its
 release-check key "a reconciliation record", but the predicate covers every drifted path.
 
-The eleven paths now affected are the two drifted ledgered paths at `main` b6c6b80b and the nine ledgered manuscript
-files that #1582 would restore; amendment 3 names none of them, and its rules apply to any path.
+Drift inventory at `main` eb3a69f4 (after #1582's merge), computed against `H` 53c6601a over the 44 paths of the
+retirement ledger (blob ba37c1cd): eleven paths differ, each needing a disposition under R6.RECON.22: AGENTS.md;
+verification/lean/edge_rigidity_probe.py; papers/Main.md, papers/SM.md and papers/Substratum.md;
+book/The-Incompleteness-of-Observation-FULL.md, book/appendix-c-objections.md, book/ch01-observation.md,
+book/ch07-gravity.md, book/ch09-universality.md and book/ch18-beyond.md. Amendment 3 names none of them in a rule; its
+rules apply to any path.
 '''
 
 
@@ -548,6 +726,18 @@ def change_record(owner, outs, gen_sha, owner_sha):
     lines += ANALYSIS.split('\n')
     lines += ['## 2. Responsibilities', '', '| Responsibility | Requirements | Controls | Established by |',
               '|---|---|---|---|'] + ['| %s | %s | %s | %s |' % r for r in RESPONSIBILITIES] + ['']
+    lines += ['## 2a. Categories (#1169 comment 7184808247, item 3)', '',
+              '| Category | When | Disposition | Determined by | Controls |', '|---|---|---|---|---|'] + \
+        ['| %s | %s | %s | %s | %s |' % c for c in CATEGORIES] + ['',
+                                                                     'Category 2 is computed from git objects and is '
+                                                                     'never reconciled by translation; its resolution '
+                                                                     'is explicit, reviewed, keeps the planned edit\'s '
+                                                                     'new bytes, and carries a renewed scientific '
+                                                                     'review. Category 3 cannot be found by the tool: '
+                                                                     'it is the review\'s verdict, and the tool '
+                                                                     'enforces that a recorded verdict blocks, whatever '
+                                                                     'later record exists, until a revised plan changes '
+                                                                     'the path\'s ledger binding.', '']
     lines += ['## 3. Changes', '', '| File | Place | Change |', '|---|---|---|',
               '| DESIGN-r6.md | sec. 0.4 (new) | the owner decisions quoted; responsibilities, mechanical scope and '
               'preserved results stated |',
@@ -559,17 +749,21 @@ def change_record(owner, outs, gen_sha, owner_sha):
               '| DESIGN-r6.md | R6.RECON.15 (RC10), R6.RECON.16 (RC11) | read over the run\'s locally valid entries |',
               '| DESIGN-r6.md | R6.RECON.18 | RECON-CONFLICT named as RC14\'s control |',
               '| DESIGN-r6.md | R6.RECON.21 | validly reconciled also requires the reconciled-state trial |',
-              '| DESIGN-r6.md | R6.RECON.22 to R6.RECON.25 (new) | mechanical verification, trial verification, '
-              'conflict detection (RC14), scientific verification |',
+              '| DESIGN-r6.md | R6.RECON.22 to R6.RECON.26 (new) | mechanical verification with categories, trial '
+              'verification, conflict detection (RC14 and explicit resolution), scientific verification, the '
+              'category-3 blocking state |',
+              '| DESIGN-r6.md | R6.TREE.12 | the resolved composition for a path with an applying category-2 '
+              'resolution |',
+              '| DESIGN-r6.md | R6.CLASS.10 | the class `retirement-blocked` |',
               '| DESIGN-r6.md | R6.CTRL.3, Table 17.1 | %d rows counted and added after RTL2-BIND |' % len(ROWS),
               '| EXPECTATIONS.json | rows %s (new) | each records both directions; runner null |' % ', '.join(NEW_IDS),
-              '| REQUIREMENTS.json | R6.RECON.22 to R6.RECON.25 (new); %s | controls appended; '
+              '| REQUIREMENTS.json | R6.RECON.22 to R6.RECON.26 (new); %s | controls appended; '
               '`pending_owner_confirmation` added |' % ', '.join(TOUCHED), '']
     lines += ['## 4. Preserved results (stated in advance; AGENTS.md sec. A.29)', '',
               '- The meaning of RC1 to RC9, RC12 and RC13 for each path, and their controls N3 to N18, TT8 and '
               'N3-config-route, unchanged.',
               '- The composition and translation rules R6.TREE.12 and R6.TREE.13 and their controls LC-1 to LC-7, RL, '
-              'RT-L, TT7 and TT8, unchanged.',
+              'RT-L, TT7 and TT8, unchanged for every path without an applying category-2 resolution.',
               '- `base-drift` for every drifted path that no applying entry covers (R6.TREE.7): no path is exempt.',
               '- Identical items on `X` with and without the records (R6.RECON.3), and the composition\'s authority '
               'over `l` (R6.RECON.19).',
@@ -577,11 +771,16 @@ def change_record(owner, outs, gen_sha, owner_sha):
               'GATE-15, GATE-19, RTL2-BIND).',
               '- No existing expectation row changes, and no requirement loses a control (checked by the generator).',
               '- Hard-to-vary check: with one drifted ledgered path and no other side change, RC10 and RC11 as amended '
-              'reduce to the old RC10 and RC11, so every existing control keeps its verdict. Beyond the case it was '
-              'built for, the amendment predicts checkable outcomes: with AGENTS.md alone reconciled at `main` '
-              'b6c6b80b, RC10 fails naming verification/lean/edge_rigidity_probe.py; and RC14 decides, from the bytes, '
-              'whether any of #1582\'s restored corrections touches the context of a retirement splice. The second is '
-              'to be checked when its records are drafted; amendment 3 does not assume its outcome.', '']
+              'reduce to the old RC10 and RC11. Whether the existing positive controls (TT8, POSTF-1 and the other '
+              'positive reconciliation fixtures) also satisfy RC14 and the reconciled-state trial is a check for the '
+              'tool revision; the independent review found no change of verdict for TT8 at 933b1efd or for the B4 '
+              'AGENTS.md record (D296), and found every one of the 201 splice windows on the eleven drifted paths '
+              'exactly once at #1582\'s head 7a01b4c9 at line level, so the line-level RC14 prediction comes out "no '
+              'conflict". Beyond the case it was '
+              'built for, the amendment predicts checkable outcomes at `main` eb3a69f4 (which carries #1582): with '
+              'AGENTS.md alone reconciled, RC10 fails naming the ten other drifted ledger paths; and RC14 decides, from '
+              'the bytes, whether any restored correction touches the context of a retirement splice (sentence-level '
+              'windows remain to be checked when the records are drafted).', '']
     lines += ['## 5. What the tool can and cannot check', '',
               '- Can, from git objects: every changed ledgered or corpus path and its one disposition; each entry\'s '
               'binding and RC1-RC14; RC10 and RC11 over the run\'s entries; profile findings and postconditions at the '
@@ -594,15 +793,27 @@ def change_record(owner, outs, gen_sha, owner_sha):
     lines += ['## 6. Tool changes implied (not made here)', '',
               '- engine/reconcile.py: RC10 and RC11 over locally valid entries; per-entry `ledger_binding` in RC13; '
               'entries without splices for unledgered corpus paths (RC3 to RC6, RC7, RC8); RC14 (context windows by '
-              'lines and, for corpus paths, splitter-v2 sentences; retained sites through the site map; protected '
-              'ranges); RC14 in `condition_order`.',
+              'lines and, for corpus paths, splitter-v2 sentences; retained sites through the site map); RC14 in '
+              '`condition_order`.',
               '- The result and its JSON Schema: one disposition per drifted ledgered or corpus path (R6.RECON.22).',
               '- The reconciled-state trial: op D and op C\'s postconditions at the landing or in-memory landing, '
               'compared with the candidate by fingerprint (R6.RECON.23); RT-L2\'s runner includes it.',
-              '- Record lint of `scientific_effect` (R6.RECON.25).',
+              '- Record lint of `scientific_effect` with its verdict (R6.RECON.25), and of `resolutions` with the '
+              'resolved composition (R6.RECON.24, R6.TREE.12).',
+              '- Categories in each disposition (R6.RECON.22); the blocking state and the class `retirement-blocked` '
+              '(R6.RECON.26, R6.CLASS.10), found over every reviewed entry regardless of supersession; the class added '
+              'to the result schema and the engine enumerations.',
+              '- The purity lint allowlist (R6.CORE.5) and schema list: the schema id `oi-reconciliation/2`; the '
+              'enumerations `RC14`, `reconciled-state`, `reconciled`, `reconciled-resolved`, `retirement-blocked`, '
+              '`no-effect` and `invalidates` where the engine holds them as literals; the field names '
+              '`scientific_effect`, `conclusions`, `assessment`, `invalidated`, `resolutions`, `ledger_binding` and '
+              '`ledger_base` (already-listed names such as `method`, `verdict`, `start_M` need no addition only where '
+              'present).',
+              '- Fingerprint matching at the landing that counts multiplicities and excludes the tree field; run-level '
+              '`reconciled-state` items (R6.RECON.23).',
               '- Runners for %s.' % ', '.join(NEW_IDS),
-              '- The B4 records rebuilt in the amended schema (per-path binding, `scientific_effect`), with a record '
-              'entry for each drifted path.', '']
+              '- The B4 records rebuilt in schema `oi-reconciliation/2` (per-path binding, `scientific_effect` with '
+              'its verdict), with an entry for each drifted path.', '']
     lines += ['## 7. Outputs', '', '| File | sha256 |', '|---|---|']
     for n in ('DESIGN-r6.md', 'EXPECTATIONS.json', 'REQUIREMENTS.json'):
         lines.append('| %s | %s |' % (n, sha(outs[n])))

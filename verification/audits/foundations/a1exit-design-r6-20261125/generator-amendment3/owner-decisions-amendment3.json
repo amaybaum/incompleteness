@@ -41,6 +41,22 @@
     "The mechanism must support future legitimate changes, not merely the eleven currently affected paths.",
     null
    ]
+  },
+  {
+   "author": "amaybaum",
+   "time": "2026-11-26T06:48:37Z",
+   "record": "#1169 comment 7184808247",
+   "relayed_by": "coordinating session",
+   "quotes": [
+    null,
+    "The four separate verification responsibilities are appropriate.",
+    "One particularly important requirement is that the amended mechanism must distinguish:",
+    "* Non-overlapping changes that can be reconciled mechanically.",
+    "* Overlapping changes requiring explicit resolution and renewed scientific review.",
+    "* Changes that invalidate the scientific basis of a planned retirement edit.",
+    "The third category must block retirement until resolved, rather than merely require another reconciliation record.",
+    null
+   ]
   }
  ]
 }

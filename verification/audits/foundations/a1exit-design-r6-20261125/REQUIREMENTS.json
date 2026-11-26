@@ -5010,13 +5010,16 @@
    "TT11",
    "N4",
    "N5",
-   "N16-file"
+   "N16-file",
+   "RECON-BLOCK"
   ],
   "verification": [
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [],
+  "pending_owner_confirmation": [
+   "amendment 3 (multi-path reconciliation): drafted under the owner's authorization of 2026-11-26T06:34:32Z (#1169 comment 7184569981); needs independent review and the owner's acceptance before any tool revision implements it"
+  ],
   "owner_decision": []
  },
  {
@@ -6552,13 +6555,16 @@
    "N17",
    "N18",
    "N18-record",
-   "R8-S6"
+   "R8-S6",
+   "RECON-CONFLICT"
   ],
   "verification": [
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [],
+  "pending_owner_confirmation": [
+   "amendment 3 (multi-path reconciliation): drafted under the owner's authorization of 2026-11-26T06:34:32Z (#1169 comment 7184569981); needs independent review and the owner's acceptance before any tool revision implements it"
+  ],
   "owner_decision": []
  },
  {
@@ -8181,7 +8187,8 @@
    "LC-4",
    "LC-5",
    "LC-6",
-   "LC-7"
+   "LC-7",
+   "RECON-OVERLAP"
   ],
   "verification": [
    "controls"
@@ -8189,7 +8196,9 @@
   "open": [
    "derived-artifact landing blob"
   ],
-  "pending_owner_confirmation": [],
+  "pending_owner_confirmation": [
+   "amendment 3 (multi-path reconciliation): drafted under the owner's authorization of 2026-11-26T06:34:32Z (#1169 comment 7184569981); needs independent review and the owner's acceptance before any tool revision implements it"
+  ],
   "owner_decision": []
  },
  {
@@ -8832,7 +8841,8 @@
   ],
   "open": [],
   "pending_owner_confirmation": [
-   "amendment 1, B4 part A (post-freeze route of R6.RECON.2, reconciliation records only): conditionally approved by the owner (amaybaum, 2026-11-26T05:21:04Z, #1169 comment 7183745781), subject to an independent review confirming that it preserves the frozen verification contract; if that review finds that it permits changing the verification contract after F, it returns to the owner; no tool revision implements it before that review accepts it"
+   "amendment 1, B4 part A (post-freeze route of R6.RECON.2, reconciliation records only): conditionally approved by the owner (amaybaum, 2026-11-26T05:21:04Z, #1169 comment 7183745781), subject to an independent review confirming that it preserves the frozen verification contract; if that review finds that it permits changing the verification contract after F, it returns to the owner; no tool revision implements it before that review accepts it",
+   "amendment 3 (multi-path reconciliation): drafted under the owner's authorization of 2026-11-26T06:34:32Z (#1169 comment 7184569981); needs independent review and the owner's acceptance before any tool revision implements it"
   ],
   "owner_decision": []
  },
@@ -9264,7 +9274,8 @@
   ],
   "controls": [
    "RECON-ENUM",
-   "RECON-CORPUS"
+   "RECON-CORPUS",
+   "RECON-CATEGORY"
   ],
   "verification": [
    "controls"
@@ -9306,7 +9317,9 @@
    "#1169 comment 7184626125"
   ],
   "controls": [
-   "RECON-CONFLICT"
+   "RECON-CONFLICT",
+   "RECON-CATEGORY",
+   "RECON-OVERLAP"
   ],
   "verification": [
    "controls"
@@ -9327,10 +9340,34 @@
    "#1169 comment 7184626125"
   ],
   "controls": [
-   "RECON-SCI"
+   "RECON-SCI",
+   "RECON-BLOCK"
   ],
   "verification": [
-   "controls"
+   "controls",
+   "review"
+  ],
+  "open": [],
+  "pending_owner_confirmation": [
+   "amendment 3 (multi-path reconciliation): drafted under the owner's authorization of 2026-11-26T06:34:32Z (#1169 comment 7184569981); needs independent review and the owner's acceptance before any tool revision implements it"
+  ],
+  "owner_decision": []
+ },
+ {
+  "id": "R6.RECON.26",
+  "section": "RECON",
+  "section_number": 23,
+  "kind": "testable",
+  "sources": [
+   "#1169 comment 7184569981",
+   "#1169 comment 7184626125"
+  ],
+  "controls": [
+   "RECON-BLOCK"
+  ],
+  "verification": [
+   "controls",
+   "review"
   ],
   "open": [],
   "pending_owner_confirmation": [
@@ -9484,7 +9521,9 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [],
+  "pending_owner_confirmation": [
+   "amendment 3 (multi-path reconciliation): drafted under the owner's authorization of 2026-11-26T06:34:32Z (#1169 comment 7184569981); needs independent review and the owner's acceptance before any tool revision implements it"
+  ],
   "owner_decision": [
    {
     "record": "owner decisions A1-A5 of 2026-11-25 (amaybaum, coordinating session; #1169 comment 7169906297)",
