@@ -57,11 +57,20 @@ on:
         description: the landing merge L, a full 40-hex id
         required: false
         type: string
+      job:
+        description: plan-check runs the plan check above; control-suite runs the tool's control suite and its gate (design r6 sec. 16, R6.GATE.14) with F's configuration as the staged draft, and ignores the plan check
+        required: false
+        default: plan-check
+        type: choice
+        options:
+          - plan-check
+          - control-suite
 permissions:
   actions: read
   contents: read
 jobs:
   run:
+    if: inputs.job != 'control-suite'
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
@@ -110,3 +119,95 @@ jobs:
         with:
           name: ledger-coverage-result
           path: ${{ runner.temp }}/out/result.json
+  suite:
+    if: inputs.job == 'control-suite'
+    runs-on: ubuntu-24.04
+    env:
+      EXP: verification/audits/foundations/a1exit-design-r6-20261125/EXPECTATIONS.json
+      REQ: verification/audits/foundations/a1exit-design-r6-20261125/REQUIREMENTS.json
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: fetch F
+        env:
+          F: ${{ inputs.freeze }}
+        run: git fetch --no-tags -- origin "$F"
+      - name: suite guard
+        env:
+          F: ${{ inputs.freeze }}
+          CFG: ${{ inputs.config }}
+        run: python3 -I -S -B -c 'exec("import sys, os, re, stat, json, hashlib, subprocess\ndef fail(m):\n    sys.stderr.write(\"SUITE GUARD FAIL \" + m + \"\\n\")\n    sys.exit(1)\nF = os.environ.get(\"F\", \"\")\nC = os.environ.get(\"CFG\", \"\")\nif not re.fullmatch(\"[0-9a-f]{40}\", F) or not C:\n    fail(\"F is not a full lowercase id or no configuration path\")\nh = subprocess.run([\"git\", \"rev-parse\", \"HEAD\"], capture_output=True, text=True).stdout.strip()\nif h != os.environ.get(\"GITHUB_SHA\"):\n    fail(\"the checkout is not the dispatched commit\")\nr = subprocess.run([\"git\", \"--no-replace-objects\", \"cat-file\", \"blob\", F + \":\" + C], capture_output=True)\nif r.returncode:\n    fail(\"the configuration is not readable at F\")\ntry:\n    pins = dict((e[\"path\"], e[\"blob_sha256\"]) for e in json.loads(r.stdout)[\"tool\"][\"files\"])\nexcept Exception as e:\n    fail(\"tool.files unreadable \" + repr(e))\nseen = {}\ndef walk(p):\n    st = os.lstat(p)\n    if stat.S_ISDIR(st.st_mode):\n        for n in sorted(os.listdir(p)):\n            walk(p + \"/\" + n)\n    elif stat.S_ISREG(st.st_mode):\n        with open(p, \"rb\") as f:\n            seen[p] = hashlib.sha256(f.read()).hexdigest()\n    else:\n        fail(\"non-regular entry \" + p)\ntry:\n    if not stat.S_ISDIR(os.lstat(\"tools\").st_mode):\n        fail(\"tools is not a real directory\")\n    walk(\"tools/ledger_coverage.py\")\n    walk(\"tools/ledger_coverage\")\nexcept OSError as e:\n    fail(\"missing \" + repr(e))\nif not pins or set(seen) != set(pins):\n    fail(\"path set differs \" + repr(sorted(set(seen) ^ set(pins))))\nfor p in pins:\n    if seen[p] != pins[p]:\n        fail(\"sha256 differs \" + p)\nwith open(os.environ[\"RUNNER_TEMP\"] + \"/staged-config.json\", \"wb\") as f:\n    f.write(r.stdout)\nprint(\"SUITE GUARD OK \" + str(len(seen)) + \" files\")\n")'
+      - name: tool self-test
+        run: |
+          O="$RUNNER_TEMP/suite"
+          mkdir -p "$O"
+          set +e
+          python3 -I -S -B tools/ledger_coverage.py self-test --out "$O/self-test"
+          echo "$?" > "$O/self-test.exit"
+      - name: engine controls
+        run: |
+          O="$RUNNER_TEMP/suite"
+          set +e
+          python3 -I -S -B tools/ledger_coverage/adapters/engine_controls.py "$O/engine"
+          echo "$?" > "$O/engine.exit"
+      - name: staged purity lint
+        env:
+          CFG: ${{ inputs.config }}
+        run: |
+          O="$RUNNER_TEMP/suite"
+          set +e
+          python3 -I -B tools/ledger_coverage/adapters/staged_purity_lint.py --repo . --config "$GITHUB_SHA:$CFG" --staged-config "$RUNNER_TEMP/staged-config.json" --out "$O/purity"
+          echo "$?" > "$O/purity.exit"
+      - name: synthetic fixture
+        run: |
+          O="$RUNNER_TEMP/suite"
+          set +e
+          python3 -I -B tools/ledger_coverage/adapters/synthetic_fixture.py "$O/synthetic" .
+          echo "$?" > "$O/synthetic.exit"
+      - name: conformance controls
+        run: |
+          O="$RUNNER_TEMP/suite"
+          set +e
+          python3 -I -B tools/ledger_coverage/adapters/conformance_controls.py "$O/conformance"
+          echo "$?" > "$O/conformance.exit"
+      - name: A1 conformance
+        env:
+          CFG: ${{ inputs.config }}
+        run: |
+          O="$RUNNER_TEMP/suite"
+          set +e
+          python3 -I -B tools/ledger_coverage/adapters/a1_conformance.py --repo . --config "$GITHUB_SHA:$CFG" --staged-config "$RUNNER_TEMP/staged-config.json" --out "$O/a1-conformance"
+          echo "$?" > "$O/a1-conformance.exit"
+      - name: A1 controls
+        env:
+          CFG: ${{ inputs.config }}
+          M: ${{ inputs.m }}
+        run: |
+          O="$RUNNER_TEMP/suite"
+          set +e
+          python3 -I -B tools/ledger_coverage/adapters/a1_controls.py --repo . --config "$GITHUB_SHA:$CFG" --staged-config "$RUNNER_TEMP/staged-config.json" --main "${M:-origin/main}" --out "$O/a1-controls"
+          echo "$?" > "$O/a1-controls.exit"
+      - name: control gate
+        id: gate
+        run: |
+          O="$RUNNER_TEMP/suite"
+          set --
+          for r in engine purity synthetic conformance a1-conformance a1-controls; do
+            if [ -f "$O/$r/control-records.json" ]; then set -- "$@" --records "$O/$r/control-records.json"; fi
+          done
+          python3 -I -S -B tools/ledger_coverage/gate/control_gate.py --expectations "$EXP" --requirements "$REQ" "$@" --repo . --out "$O/gate"
+      - name: control expectations hold
+        if: steps.gate.outcome == 'success'
+        run: "true"
+      - name: evidence digest
+        if: always()
+        run: |
+          cd "$RUNNER_TEMP/suite" && find . -type f ! -name evidence-digest.txt -print0 | sort -z | xargs -0 sha256sum > evidence-digest.txt
+          sha256sum evidence-digest.txt
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: ledger-coverage-suite
+          path: ${{ runner.temp }}/suite
