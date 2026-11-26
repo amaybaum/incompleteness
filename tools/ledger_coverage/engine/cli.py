@@ -207,7 +207,8 @@ def rule_files(loaded, harness, ctx_lookup):
         if doc is None or doc.get('schema') != rulemod.rules_schema:
             items.append(oc.make_item('RECORD', 'record-invalid', ref['path'], None, {'why': 'schema'}))
             continue
-        probs = [] if harness else rec.lint_chain(ref, loaded.store, loaded.admitted)
+        # record lint runs in every admission mode, the control harness included (design r6, OBL-28 C-29)
+        probs = rec.lint_chain(ref, loaded.store, loaded.admitted)
         sup = doc.get('supersedes')
         old_rules = {}
         od = None
@@ -1178,7 +1179,8 @@ def op_execution(a, repo, ctx, loaded, records, result, control=None):
         # side-change class records and reconciliation records referenced by the configuration (sec. 6.3, 13.1,
         # 16.2) have their chain linted like any record the run uses; a failing record is record-invalid and is
         # not used
-        probs = [] if records.harness else rec.lint_chain(r, loaded.store, loaded.admitted)
+        # in every admission mode, the control harness included (OBL-28 C-29)
+        probs = rec.lint_chain(r, loaded.store, loaded.admitted)
         # a class without its id field is a field error in every mode (sec. 6.3); it is never used
         probs = probs or ['record %s: %s' % (r['path'], m) for m in rec.item_list_problems(d)[:1]] or \
             ['record %s: %s entry %d lacks its id field' % ((r['path'],) + m) for m in rec.entries_without_id(d)[:1]]
