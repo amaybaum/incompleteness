@@ -1,0 +1,22 @@
+[
+ {"id":"H-P-1","rule":"W-GR-TQ-STATE","expect":"FAIL","text":"Because the horizon is bifurcate, the de Sitter temperature remains state-independent for every detector, and no further condition is needed."},
+ {"id":"H-P-2","rule":"W-GR-TQ-STATE","expect":"FAIL","text":"In this calibration $T_Q$, which cannot be measured directly, is state-independent."},
+ {"id":"H-P-3","rule":"W-GR-THERM-KIN","expect":"FAIL","text":"Horizon thermality is therefore purely kinematic; the premise list of §2 is not needed."},
+ {"id":"H-P-4","rule":"W-OI-REQ","expect":"FAIL","text":"As the containment theorem suggests, quantum mechanics presupposes observational incompleteness."},
+ {"id":"H-P-5","rule":"W-OI-EXPLAINS","expect":"FAIL","text":"Ignorance of the hidden sector gives rise to quantum mechanics, which is not a theorem of standard physics."},
+ {"id":"H-P-6","rule":"W-KDEG","expect":"FAIL","text":"Coupling-degree minimization, a definition* of the site, determines $K=2d$."},
+ {"id":"H-P-7","rule":"W-GR-CONE","expect":"FAIL","text":"At free level the free-level cone is exact per channel, though higher orders do not preserve it."},
+ {"id":"H-P-8","rule":"W-BM-EUCLID","expect":"FAIL","text":"The substratum symmetry forces a Euclidean metric at leading order, which does not depend on $b_m$."},
+ {"id":"H-N-1","rule":"W-GR-TQ-STATE","expect":"PASS","text":"The Bekenstein bound is state-independent, while $T_Q$ requires H-balance."},
+ {"id":"H-N-2","rule":"W-GR-TQ-STATE","expect":"PASS","text":"Nothing makes $T_Q$ state-independent: $\\alpha$-vacua violate detailed balance."},
+ {"id":"H-N-3","rule":"W-GR-TQ-STATE","expect":"PASS","text":"Given H-spectrum, the horizon temperature is state-independent on the probed window."},
+ {"id":"H-N-4","rule":"W-OI-REQ","expect":"PASS","text":"It is not the case that quantum mechanics requires observational incompleteness."},
+ {"id":"H-N-5","rule":"W-OI-HIDDEN","expect":"PASS","text":"Quantum mechanics does not need hidden variables, and the standard reading uses none."},
+ {"id":"H-N-6","rule":"W-KDEG","expect":"PASS","text":"Coupling-degree minimization fails to select the site factorization."},
+ {"id":"H-N-7","rule":"W-GR-KMS","expect":"PASS","text":"Under the H-Hawking conditions, any QFT on this background must be KMS at $T_Q$."},
+ {"id":"H-N-8","rule":"W-GR-THERM-KIN","expect":"PASS","text":"The redshift factor is purely kinematic."},
+ {"id":"H-A-1","rule":"W-GR-TQ-STATE","expect":"REVIEW","context":"We now turn to the horizon temperature $T_Q$.","text":"This temperature is state-independent once the window is fixed."},
+ {"id":"H-A-2","rule":"W-OI-REQ","expect":"REVIEW","text":"If the hidden sector is finite, quantum mechanics requires observational incompleteness."},
+ {"id":"H-A-3","rule":"W-KDEG","expect":"REVIEW","context":"Coupling-degree minimization is the natural starting point.","text":"It fixes $K=6$."},
+ {"id":"H-A-4","rule":"W-GR-CONE","expect":"REVIEW","text":"Assuming isotropic normalization, the free-level cone is exact."}
+]

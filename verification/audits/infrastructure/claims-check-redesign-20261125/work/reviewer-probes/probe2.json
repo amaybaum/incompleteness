@@ -1,0 +1,11 @@
+[
+{"id":"g1","rule":"W-GR-TQ-STATE","expect":"FAIL","text":"Even without H-balance, $T_Q$ is state-independent."},
+{"id":"g2","rule":"W-GR-TQ-STATE","expect":"FAIL","text":"If H-balance fails, $T_Q$ is still state-independent."},
+{"id":"g3","rule":"W-GR-TQ-STATE","expect":"FAIL","text":"$T_Q$ is state-independent with or without H-balance."},
+{"id":"g4","rule":"W-GR-KMS","expect":"FAIL","text":"Any QFT on this background must be KMS, independently of the H-Hawking conditions."},
+{"id":"g5","rule":"W-OI-REQ","expect":"FAIL","text":"Quantum mechanics requires observational incompleteness in a sense stronger than the core-containment sense."},
+{"id":"g6","rule":"W-BM-EUCLID","expect":"FAIL","text":"Cubic equivariance forces a Euclidean quadratic symbol even when $b_m = 0$."},
+{"id":"g7","rule":"W-GR-TQ-STATE","expect":"FAIL","text":"Whether the field is massive or massless, $T_Q$ is state-independent."},
+{"id":"g8","rule":"W-GR-TQ-STATE","expect":"FAIL","text":"It does not matter which vacuum is chosen: $T_Q$ is state-independent."},
+{"id":"g9","rule":"W-GR-TQ-STATE","expect":"FAIL","text":"No observer can tell the difference, because $T_Q$ is state-independent."}
+]

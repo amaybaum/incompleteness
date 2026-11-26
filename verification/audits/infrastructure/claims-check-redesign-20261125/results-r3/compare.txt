@@ -1,0 +1,56 @@
+batch 1 (63)
+   r2-fixture exact 63  blocked  0  load  0  MISS  0  FPFAIL  0   
+   r2-empty   exact 58  blocked  0  load  5  MISS  0  FPFAIL  0   
+   r3         exact 24  blocked 12  load 27  MISS  0  FPFAIL  0   
+batch H (20)
+   r2-fixture exact 20  blocked  0  load  0  MISS  0  FPFAIL  0   
+   r2-empty   exact 18  blocked  0  load  2  MISS  0  FPFAIL  0   
+   r3         exact  4  blocked  8  load  8  MISS  0  FPFAIL  0   
+batch C (5)
+   r2-fixture exact  5  blocked  0  load  0  MISS  0  FPFAIL  0   
+   r2-empty   exact  4  blocked  0  load  1  MISS  0  FPFAIL  0   
+   r3         exact  2  blocked  0  load  3  MISS  0  FPFAIL  0   
+batch D (4)
+   r2-fixture exact  4  blocked  0  load  0  MISS  0  FPFAIL  0   
+   r2-empty   exact  4  blocked  0  load  0  MISS  0  FPFAIL  0   
+   r3         exact  1  blocked  1  load  2  MISS  0  FPFAIL  0   
+batch X (34)
+   r2-fixture exact 34  blocked  0  load  0  MISS  0  FPFAIL  0   
+   r2-empty   exact 33  blocked  0  load  1  MISS  0  FPFAIL  0   
+   r3         exact 15  blocked  8  load 11  MISS  0  FPFAIL  0   
+batch R2 (26)
+   r2-fixture exact 26  blocked  0  load  0  MISS  0  FPFAIL  0   
+   r2-empty   exact 24  blocked  0  load  2  MISS  0  FPFAIL  0   
+   r3         exact 15  blocked  4  load  7  MISS  0  FPFAIL  0   
+batch Y (43)
+   r2-fixture exact 19  blocked  7  load  4  MISS 11  FPFAIL  2   Y-P-01:MISS Y-P-03:MISS Y-P-06:MISS Y-P-07:MISS Y-P-09:MISS Y-P-10:MISS Y-P-12:MISS Y-P-13:MISS Y-P-18:MISS Y-P-19:MISS Y-P-20:MISS Y-N-14:FPFAIL Y-N-16:FPFAIL
+   r2-empty   exact 17  blocked  9  load  6  MISS  9  FPFAIL  2   Y-P-01:MISS Y-P-07:MISS Y-P-09:MISS Y-P-10:MISS Y-P-12:MISS Y-P-13:MISS Y-P-18:MISS Y-P-19:MISS Y-P-20:MISS Y-N-14:FPFAIL Y-N-16:FPFAIL
+   r3         exact  6  blocked 21  load 16  MISS  0  FPFAIL  0   
+probe (13)
+   r2-fixture exact 12  blocked  1  load  0  MISS  0  FPFAIL  0   
+   r2-empty   exact 12  blocked  1  load  0  MISS  0  FPFAIL  0   
+   r3         exact  0  blocked  8  load  5  MISS  0  FPFAIL  0   
+probe2 (9)
+   r2-fixture exact  3  blocked  6  load  0  MISS  0  FPFAIL  0   
+   r2-empty   exact  3  blocked  6  load  0  MISS  0  FPFAIL  0   
+   r3         exact  0  blocked  9  load  0  MISS  0  FPFAIL  0   
+probe3 (2)
+   r2-fixture exact  2  blocked  0  load  0  MISS  0  FPFAIL  0   
+   r2-empty   exact  2  blocked  0  load  0  MISS  0  FPFAIL  0   
+   r3         exact  2  blocked  0  load  0  MISS  0  FPFAIL  0   
+probe4 (6)
+   r2-fixture exact  5  blocked  1  load  0  MISS  0  FPFAIL  0   
+   r2-empty   exact  5  blocked  1  load  0  MISS  0  FPFAIL  0   
+   r3         exact  0  blocked  6  load  0  MISS  0  FPFAIL  0   
+Z post-hoc (10)
+   r2-fixture exact  0  blocked  0  load  0  MISS 10  FPFAIL  0   Z-01:MISS Z-02:MISS Z-03:MISS Z-04:MISS Z-05:MISS Z-06:MISS Z-07:MISS Z-08:MISS Z-09:MISS Z-10:MISS
+   r2-empty   exact  0  blocked  7  load  0  MISS  3  FPFAIL  0   Z-08:MISS Z-09:MISS Z-10:MISS
+   r3         exact  0  blocked 10  load  0  MISS  0  FPFAIL  0   
+M1 diag (8)
+   r2-fixture exact  7  blocked  1  load  0  MISS  0  FPFAIL  0   
+   r2-empty   exact  7  blocked  1  load  0  MISS  0  FPFAIL  0   
+   r3         exact  6  blocked  2  load  0  MISS  0  FPFAIL  0   
+ALL CONTROL FILES (195)
+   r2-fixture exact 171  blocked   7  load   4  MISS 11  FPFAIL  2
+   r2-empty   exact 158  blocked   9  load  17  MISS  9  FPFAIL  2
+   r3         exact  67  blocked  54  load  74  MISS  0  FPFAIL  0

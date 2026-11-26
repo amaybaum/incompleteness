@@ -1,0 +1,12 @@
+paragraphs (papers/ and book/ .md, split on blank lines, longer than 200 characters): 6883
+pos-TQ                       expect notPASS      fixture {'FAIL': 6874, 'REVIEW': 9} | empty licences {'FAIL': 6874, 'REVIEW': 9} | current checker {'FAIL': 4344, 'PASS': 2539}
+pos-OI                       expect notPASS      fixture {'FAIL': 6874, 'REVIEW': 9} | empty licences {'FAIL': 6874, 'REVIEW': 9} | current checker {'FAIL': 6828, 'PASS': 55}
+gov-TQ                       expect PASS-fixture fixture {'PASS': 6757, 'REVIEW': 126} | empty licences {'REVIEW': 6883} | current checker {'PASS': 6883}
+gov-OI                       expect PASS         fixture {'PASS': 6883} | empty licences {'PASS': 6883} | current checker {'FAIL': 6828, 'PASS': 55}
+flip-TQ-even-without         expect notPASS      fixture {'REVIEW': 6883} | empty licences {'REVIEW': 6883} | current checker {'PASS': 6883}
+flip-TQ-fails                expect notPASS      fixture {'REVIEW': 6883} | empty licences {'REVIEW': 6883} | current checker {'PASS': 6883}
+flip-OI-stronger             expect notPASS      fixture {'REVIEW': 6883} | empty licences {'REVIEW': 6883} | current checker {'PASS': 6883}
+xclause-OI-yet               expect notPASS      fixture {'FAIL': 6879, 'REVIEW': 4} | empty licences {'FAIL': 6879, 'REVIEW': 4} | current checker {'FAIL': 6828, 'PASS': 55}
+xclause-TQ-whether-or-not    expect notPASS      fixture {'FAIL': 6877, 'REVIEW': 6} | empty licences {'FAIL': 6877, 'REVIEW': 6} | current checker {'FAIL': 4344, 'PASS': 2539}
+xclause-OI-reading           expect notPASS      fixture {'REVIEW': 6883} | empty licences {'REVIEW': 6883} | current checker {'FAIL': 6828, 'PASS': 55}
+near-OI-rests                expect notPASS      fixture {'REVIEW': 6883} | empty licences {'REVIEW': 6883} | current checker {'PASS': 6883}

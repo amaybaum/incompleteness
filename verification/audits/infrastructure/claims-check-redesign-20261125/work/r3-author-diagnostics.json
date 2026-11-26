@@ -1,0 +1,14 @@
+[
+{"id":"D-01","rule":"W-GR-TQ-STATE","expect":"FAIL","note":"no state/vacuum word and no universality word","text":"The Hawking temperature $T_Q$ never varies."},
+{"id":"D-02","rule":"W-GR-TQ-STATE","expect":"FAIL","note":"subject named only generically, no antecedent","text":"The temperature measured by any detector at the horizon is the same whatever is prepared."},
+{"id":"D-03","rule":"W-GR-TQ-STATE","expect":"FAIL","note":"anaphor two sentences away","context":"The calibration fixes $T_Q$ on the de Sitter horizon. The window is then closed.","text":"It is state-independent."},
+{"id":"D-04","rule":"W-OI-REQ","expect":"FAIL","note":"QM named only as 'the theory'","context":"Consider observational incompleteness.","text":"The Born-rule theory needs it."},
+{"id":"D-05","rule":"W-OI-REQ","expect":"FAIL","note":"relation word outside the necessity family","text":"Quantum mechanics is built on observational incompleteness."},
+{"id":"D-06","rule":"W-GR-CONE","expect":"FAIL","note":"subject outside the argument set","text":"The light cone at free level is exact in every channel."},
+{"id":"D-07","rule":"W-GR-KMS","expect":"FAIL","note":"subject 'every field state', not QFT","text":"Every field state on this background is KMS."},
+{"id":"D-08","rule":"W-GR-TQ-STATE","expect":"FAIL","note":"table row split over two units by a line break","text":"| $T_Q$ |\n| state-independent |"},
+{"id":"D-09","rule":"W-OI-EXPLAINS","expect":"FAIL","note":"relation word outside the causation family","text":"Observational incompleteness is why quantum mechanics looks the way it does."},
+{"id":"D-10","rule":"W-KDEG","expect":"FAIL","note":"minimization named without 'minim'","text":"Choosing the fewest couplings fixes $K = 6$."},
+{"id":"D-11","rule":"W-GR-TQ-STATE","expect":"FAIL","note":"in scope","text":"The Hawking temperature takes one value in all vacua."},
+{"id":"D-12","rule":"W-OI-REQ","expect":"FAIL","note":"in scope, reversed order","text":"Observational incompleteness is indispensable to quantum mechanics."}
+]

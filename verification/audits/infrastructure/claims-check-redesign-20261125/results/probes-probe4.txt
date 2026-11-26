@@ -1,0 +1,7 @@
+BAD f1             FAIL   REVIEW | empty: FAIL   REVIEW R3 qualifier in A's clause not in a governing position
+ok  f2             FAIL   FAIL   | empty: FAIL   FAIL   asserted; no governing qualifier
+ok  f3             FAIL   FAIL   | empty: FAIL   FAIL   asserted; no governing qualifier
+ok  f4             FAIL   FAIL   | empty: FAIL   FAIL   asserted; no governing qualifier
+ok  f5             FAIL   FAIL   | empty: FAIL   FAIL   copular; G2 subject is the immediate complement of whether; copular; asserted; no governing qualifier
+ok  f6             FAIL   FAIL   | empty: FAIL   FAIL   asserted; no governing qualifier
+mismatches: 1 of 6

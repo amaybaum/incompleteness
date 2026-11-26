@@ -1,0 +1,8 @@
+[
+{"id":"f1","rule":"W-OI-REQ","expect":"FAIL","text":"On the necessity reading, which we adopt, quantum mechanics requires observational incompleteness."},
+{"id":"f2","rule":"W-OI-REQ","expect":"FAIL","text":"We settle whether the hidden sector matters: quantum mechanics requires observational incompleteness."},
+{"id":"f3","rule":"W-OI-REQ","expect":"FAIL","text":"No experiment shows otherwise, and quantum mechanics requires observational incompleteness."},
+{"id":"f4","rule":"W-OI-REQ","expect":"FAIL","text":"Nothing in the data contradicts it: quantum mechanics requires observational incompleteness."},
+{"id":"f5","rule":"W-GR-TQ-STATE","expect":"FAIL","text":"The question is not whether $T_Q$ is state-independent but how to measure it, since $T_Q$ is state-independent."},
+{"id":"f6","rule":"W-OI-REQ","expect":"FAIL","text":"No theorem shows that hidden sectors are finite, yet quantum mechanics requires observational incompleteness."}
+]

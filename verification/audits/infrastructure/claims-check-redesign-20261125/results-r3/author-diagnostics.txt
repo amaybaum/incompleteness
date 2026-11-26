@@ -1,0 +1,13 @@
+MISS     D-01           FAIL   PASS   
+MISS     D-02           FAIL   PASS   
+blocked  D-03           FAIL   REVIEW P
+MISS     D-04           FAIL   PASS   
+MISS     D-05           FAIL   PASS   
+MISS     D-06           FAIL   PASS   
+blocked  D-07           FAIL   REVIEW P
+blocked  D-08           FAIL   REVIEW P
+MISS     D-09           FAIL   PASS   
+MISS     D-10           FAIL   PASS   
+blocked  D-11           FAIL   REVIEW C
+blocked  D-12           FAIL   REVIEW C
+outcomes: {'MISS': 7, 'blocked': 5} of 12
