@@ -1809,11 +1809,11 @@ resetting the work.
    interrupted session resumes, it is no longer the writer of the designated workstreams (§A.45
    rule 3) and writes nothing to them.
 6. **Entry point and missing records.** Recovery needs only the repository's identity and the
-   owner's instruction. It starts from this file on `main`, which names the coordination Issue, #OPS
-   (the operations Issue of §A.53), and, in §A.45 "Where things live", the Project and the planning
-   record in open Issues. No one of these is indispensable: where one is missing or cannot be read,
-   the replacement discovers the workstreams from the others, from open pull requests and their
-   branches, and from the records on `main`; where #OPS is missing or cannot be read, the
+   owner's instruction. It starts from this file on `main`, which names the coordination Issue,
+   #1609 (the operations Issue of §A.53), and, in §A.45 "Where things live", the Project and the
+   planning record in open Issues. No one of these is indispensable: where one is missing or cannot
+   be read, the replacement discovers the workstreams from the others, from open pull requests and
+   their branches, and from the records on `main`; where #1609 is missing or cannot be read, the
    coordination Issue of item 5 is the one the owner names. A record that something references, or
    that the host reports as deleted or inaccessible, is unavailable rather than nonexistent; where
    recovery depends on it, it is put to the owner. An authorization, review verdict or owner
@@ -1828,9 +1828,9 @@ resetting the work.
 A handover authorizes nothing new and changes no scientific status. No handover file is added to the
 repository.
 
-Adopted 2026-11-26 by owner decision (`amaybaum`, #1169 comment 7190776267); items 5 and 6 added
-the same day by owner decision (`amaybaum`, #1169 comments 7191506837 and
-7191552531).
+Adopted 2026-11-26 by owner decision (`amaybaum`, #1169 comment 7190776267); items 5 and 6 added the
+same day by owner decision (`amaybaum`, #1169 comments 7191506837 and 7191552531); item 6 amended
+the same day by owner decision (`amaybaum`, #1169 comment 7200549806).
 
 ***
 
@@ -1846,14 +1846,18 @@ every gate of this file apply unchanged. The active work packages (§A.51) are W
 one for each workstream in that order, whose records are #1169 comments 7199703288, 7199704501 and
 7199705637 (owner decision, `amaybaum`, 2026-11-26T17:49Z).
 
-The operations Issue, #OPS, holds only writer designations, takeovers and handovers; write stops,
+The operations Issue, #1609, holds only writer designations, takeovers and handovers; write stops,
 suspensions and resumptions; project-wide owner decisions, including changes to the shared agent
 cap; and recovery records and cross-workstream operational incidents. It records events, not rules;
 scientific summaries, routine progress reports and task-specific coordination go to the Issue or
 pull request they concern. Where an active package's record names #1169 as the place its writer is
-recorded or as a target for records of owner decisions and checkpoints, that place is #OPS for these
-events and otherwise the Issue or pull request concerned among the package's targets; the package is
-otherwise unchanged. #1169 is the accountable Issue of OI-QM-EXT-1. The records, owner decisions and
-authorizations it holds stay in force where they are cited, and a writer designation, stop or
-suspension recorded there before #OPS was opened stands until a record on #OPS supersedes it; where
-this file requires the coordination Issue to be read, those earlier records are read with it.
+recorded or as a target for records of owner decisions and checkpoints, that place is #1609 for
+these events and otherwise the Issue or pull request concerned among the package's targets; the
+package is otherwise unchanged. #1169 is the accountable Issue of OI-QM-EXT-1. The records, owner
+decisions and authorizations it holds stay in force where they are cited, and a writer designation,
+stop or suspension recorded there before #1609 was opened stands until a record on #1609 supersedes
+it; where this file requires the coordination Issue to be read, those earlier records are read with
+it.
+
+Adopted 2026-11-26 by owner decision (`amaybaum`, #1169 comment 7200549806), drafted under #1169
+comment 7200296577.
