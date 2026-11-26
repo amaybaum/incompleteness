@@ -576,7 +576,7 @@ INVARIANTS = [
      [],
      "combined with C1–C4, yields emergent quantum mechanics"),
     (r"load-bearing dependency",
-     "the fixed-basis representation is internal; Barandes is retained for interpretation, the ≤ n³ bound standing as the source's own result (Main §3.4, b135)",
+     "the fixed-basis representation is internal; Barandes is retained for compression and interpretation (Main §3.4, b135)",
      [],
      "an external result used as a load-bearing dependency"),
     # ---- b136 families: review-45 editorial-sweep regressions ----
