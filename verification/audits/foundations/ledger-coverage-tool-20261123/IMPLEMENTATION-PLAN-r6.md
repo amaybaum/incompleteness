@@ -1013,7 +1013,7 @@ carries items of lines the row does not touch.
   amendment (an explicit `--record-base M0` input with its checks) is before the owner. On a predicted `M` the route
   admits no record until that amendment is decided, and RT-L2 stays NOT RUN. The route's domain is the tool-landing
   class of the configuration-pinned class record only, and the plan's record directory counts only when authorized;
-  self-test controls ROUTE-P1 and ROUTE-C4 to ROUTE-C11 exercise the record commit in both directions (they have no
+  self-test controls RB-P1 and RB-C4 to RB-C11 exercise the record commit in both directions (they have no
   expectation rows yet).
 - The synthetic configuration's line-patch adapter states each patched file's `expected_sha256` and its raw entries
   (owner approval of option 1 with its safeguards), so that a reconciliation record can bind to the synthetic ledger.
