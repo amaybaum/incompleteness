@@ -83,6 +83,7 @@ class A1:
     def __init__(self, repo_path, config_ref, out_root, staged=None, main=None):
         self.base = gitobj.GitRepo(repo_path)
         self.main = main  # the main commit the safeguard is measured against (--main)
+        self.classify = []  # REV:PATH records for the RT-L2 and RT-O9 runs (--classify), REV a full id
         self.repo = gitobj.Overlay(self.base)
         self.repo_path = repo_path
         rev, self.cpath = config_ref.split(':', 1)
@@ -969,6 +970,9 @@ def tree_controls(a, tool_files):
         rc_ = a.repo.derive(a.crev, {a.ad + 'records/control-recon.json': (json.dumps(rdoc) + '\n').encode()},
                             parents=a.repo.parents(a.crev), subject='control reconciliation record')
         recon_arg = ['--classify', '%s:%srecords/control-recon.json' % (rc_, a.ad)]
+        if a.classify:
+            # records supplied with --classify REV:PATH (for example the B4 records) replace the drafted record
+            recon_arg = [x for ref in a.classify for x in ('--classify', ref)]
         code, res, t = a.run(exec_args(a, extra=['--main', Mp]))
         out['predicted_without_reconciliation'] = {
             'exit': code, 'main_items': sorted((i['class'], i['subject']) for i in res.get('items', [])
@@ -1325,6 +1329,9 @@ def main():
     ap.add_argument('--syn-engine', default=None)
     ap.add_argument('--staged-config', default=None,
                     help='the staged configuration file; --config REV:PATH names its path in the plan directory')
+    ap.add_argument('--classify', action='append', default=[],
+                    help='REV:PATH of a reconciliation or side-change class record given to the RT-L2 and RT-O9 '
+                         'runs in place of the drafted reconciliation record (repeatable; REV resolved here)')
     ap.add_argument('--main', default=None,
                     help='required: the main commit the sequencing safeguard (RT-L2) and the drift classes use')
     args = ap.parse_args()
@@ -1360,6 +1367,7 @@ def main():
         for p, b in a.base.paths(head).items():
             if p.startswith(('tools/ledger_coverage/', ad + '/')) or p in ('tools/ledger_coverage.py', WORKFLOW_PATH):
                 tool_files[p] = a.base.read_blob(b)
+    a.classify = ['%s:%s' % (rev_parse(args.repo, ref.split(':', 1)[0]), ref.split(':', 1)[1]) for ref in args.classify]
     groups = [('chain', chain_refusal), ('record', rt_record), ('coverage', rt_coverage), ('terms', rt_terms),
               ('v', v_controls), ('rules', rule_lint_controls), ('exec', ex_controls),
               ('trees', lambda x: tree_controls(x, tool_files)), ('k1', lambda x: k1_graph(x, tool_files)),
