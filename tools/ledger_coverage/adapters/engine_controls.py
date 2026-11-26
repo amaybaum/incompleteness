@@ -45,6 +45,11 @@ class Capture(object):
             base = next((r for r in self.rec.pending if r['case'] == baseline), None)
         self.rec.name_last(case, bindings=dict(bindings), baseline=base)
 
+    def bind_first(self, bindings):
+        run = next((r for r in self.rec.pending if r['case'] is None), None)
+        if run is not None:
+            run['case'], run['bindings'] = '', dict(bindings)
+
     def stage(self, label, items, **facts):
         self.rec.capture_doc('engine control stage: %s (controls_engine.py)' % label,
                              control_records.stage_doc(items, operation=label, **facts))

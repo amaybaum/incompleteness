@@ -32,6 +32,12 @@ def _stage(label, items, **facts):
     return items
 
 
+def _bind_first(**bindings):
+    """Binds the first unnamed stage result of the control being computed as its case '' (its row's case)."""
+    if capture_hook is not None:
+        capture_hook.bind_first(bindings)
+
+
 def _case(name, baseline=None, **bindings):
     """Names the last captured stage result as the expectation case `name`, with its bindings; `baseline` names the
     earlier case a restored case is compared with."""
@@ -101,7 +107,7 @@ class World:
             items += tm.items
         if capture_hook is not None:
             from .cli import site_state
-            sites = [dict(site_id=k, state=site_state(v)) for k, v in sorted(cv.site_out.items())]
+            sites = [dict(v, state=site_state(v)) for k, v in sorted(cv.site_out.items())]
             counts = {}
             for x in sites:
                 counts[x['state']] = counts.get(x['state'], 0) + 1
@@ -174,14 +180,18 @@ def u_controls():
     out = _out()
     w = World()
     cv, it = w.coverage(w.pin, [])
+    _restore(w)
     out['U1'] = decision(it) == oc.pass_ and all(not s['statuses'] for s in cv.site_out.values())
     x = w.child(w.pin, 'new one\nnew two\nnew three\n' + base_text)
     cv, it = w.coverage(x, [seg(w.pin, x)])
+    _bind_first(subject='%s:3@%s' % (doc_path, w.pin[:8]))
     _restore(w)
     out['U2'] = decision(it) == oc.pass_ and all(s['statuses'][-1]['status'] == 'moved' for s in cv.site_out.values())
     led = ledger(w.pin, [(doc_path, 0, 0, 'new one\nnew two\nnew three\n')], w.repo)
     x = w.child(w.pin, 'new one\nnew two\nnew three\n' + base_text)
     cv, it = w.coverage(x, [seg(w.pin, x, 'ledgered', ledger=led)])
+    _bind_first(subject='%s:3@%s' % (doc_path, w.pin[:8]))
+    _restore(w)
     out['U3'] = decision(it) == oc.pass_ and all(s['statuses'][-1]['status'] == 'moved' for s in cv.site_out.values())
     x = w.child(w.pin, base_text.replace('beta line two', 'beta line deux'))
     cv, it = w.coverage(x, [seg(w.pin, x)])
@@ -208,6 +218,7 @@ def u_controls():
     out['U8'] = classes(it) == ['missing']
     x = w.child(w.pin, base_text.replace('beta line two', 'beta  line two'))
     cv, it = w.coverage(x, [seg(w.pin, x)])
+    _bind_first(subject='%s:5@%s' % (doc_path, w.pin[:8]))
     _restore(w)
     out['U9'] = classes(it) == ['unauthorized-change'] and it[0]['detail'].get('whitespace_only') is True
     a = off(base_text, 'beta line two')
@@ -215,11 +226,15 @@ def u_controls():
     x = w.child(w.pin, base_text.replace('beta line two', 'beta line second'))
     cv, it = w.coverage(x, [seg(w.pin, x, 'ledgered', ledger=led)])
     st = [s['statuses'][-1] for s in cv.site_out.values() if s['statuses'][-1]['status'] == 'authorized-replacement']
+    _bind_first(subject='%s:5@%s' % (doc_path, w.pin[:8]))
+    _restore(w)
     out['U10'] = decision(it) == oc.pass_ and len(st) == 1 and st[0]['splice_ids'] == ['S1']
     b = a + len('beta line two stands here.\n')
     led = ledger(w.pin, [(doc_path, a, b, '')], w.repo)
     x = w.child(w.pin, base_text.replace('beta line two stands here.\n', ''))
     cv, it = w.coverage(x, [seg(w.pin, x, 'ledgered', ledger=led)])
+    _bind_first(subject='%s:5@%s' % (doc_path, w.pin[:8]))
+    _restore(w)
     out['U11'] = decision(it) == oc.pass_ and any(s['statuses'][-1]['status'] == 'authorized-removal'
                                                   for s in cv.site_out.values())
     x = w.child(w.pin, base_text + '\nzeta appears on a new line.\n')
@@ -318,6 +333,7 @@ def m_controls():
     x = w.child(w.pin, base_text.replace('beta line two stands here.\n', ''),
                 files={other_path: b'beta line two stands here.\n'})
     cv, it = w.coverage(x, [seg(w.pin, x)])
+    _restore(w)
     out['M6'] = classes(it) == ['missing']
     x = w.child(w.pin, base_text.replace('beta line two', 'beta line\rtwo'))
     try:
@@ -346,7 +362,9 @@ def k_controls():
     adj = {'context': [{'site_id': sd, 'segment': sg0['name'], 'from_context_sha256': from_ctx,
                         'to_context_sha256': to_ctx}]}
     cv10, it10 = w.coverage(x, [seg(w.pin, x)], adj=adj, hits=False)
+    _restore(w, hits=False)
     out['K10'] = not [i for i in it10 if i['subject'] == sd] and decision(it10) == oc.pass_
+    _restore(w, hits=False)
     out['K2'] = not [i for i in it if i['subject'] == sr] and cv.site_out[sr]['context_changed'] is True
     sw = base_text.replace('alpha line one stands here.\n\nbeta line two stands here.\n\ngamma line three stands here.',
                            'gamma line three stands here.\n\nbeta line two stands here.\n\nalpha line one stands here.')
@@ -388,6 +406,8 @@ def k_controls():
     s0 = cv.site_out['%s:3@%s' % (doc_path, w9.pin[:8])]
     w9.sitemap['sites'][0]['quote'] = None
     cv2, it2 = w9.coverage(w9.pin, [], hits=False)
+    _bind_first(subject='%s:3@%s' % (doc_path, w9.pin[:8]))
+    _restore(w9, hits=False)
     out['K9'] = s0['indicators']['prt'] is True and decision(it) == decision(it2) == oc.pass_
     return out
 
@@ -402,6 +422,8 @@ def b_controls():
     ctx = w.ctx()
     imgs = pl.image_lines(ctx, x, led, [doc_path])
     cv, it = w.coverage(x, [seg(w.pin, x, 'ledgered', ledger=led)])
+    _bind_first(subject='%s:5@%s' % (doc_path, w.pin[:8]))
+    _restore(w)
     out['B1'] = any(s['statuses'][-1]['status'] == 'authorized-removal' for s in cv.site_out.values()) and \
         bool(imgs.get(doc_path))
     a2 = off(base_text, 'beta line two')
@@ -411,29 +433,39 @@ def b_controls():
     x = w.child(w.pin, t2)
     cv, it = w.coverage(x, [seg(w.pin, x, 'ledgered', ledger=led)])
     reps = [s for s in cv.site_out.values() if s['statuses'][-1]['status'] == 'authorized-replacement']
+    _bind_first(subject='%s:5@%s' % (doc_path, w.pin[:8]))
+    _restore(w)
     out['B2'] = decision(it) == oc.pass_ and len(reps) == 2
     c = off(base_text, 'gamma line three')
     led = ledger(w.pin, [(doc_path, c, c, 'inserted\n\n')], w.repo)
     x = w.child(w.pin, base_text[:c] + 'inserted\n\n' + base_text[c:])
     cv, it = w.coverage(x, [seg(w.pin, x, 'ledgered', ledger=led)])
+    _case('insertion at a line boundary', subject='%s:7@%s' % (doc_path, w.pin[:8]))
     g = cv.site_out['%s:7@%s' % (doc_path, w.pin[:8])]['statuses'][-1]['status']
     led2 = ledger(w.pin, [(doc_path, c + 3, c + 3, 'X'.lower())], w.repo)
     x2 = w.child(w.pin, base_text[:c + 3] + 'x' + base_text[c + 3:])
     cv2, it2 = w.coverage(x2, [seg(w.pin, x2, 'ledgered', ledger=led2)])
+    _case('insertion inside the line', subject='%s:7@%s' % (doc_path, w.pin[:8]))
+    _restore(w)
     g2 = cv2.site_out['%s:7@%s' % (doc_path, w.pin[:8])]['statuses'][-1]['status']
     out['B3'] = g == 'moved' and g2 == 'authorized-replacement'
     wl = World(base_text.rstrip('\n'))
     last = len(util.lines_of(base_text.rstrip('\n')))
     cv, it = wl.coverage(wl.pin, [])
+    _bind_first(subject='%s:%d@%s' % (doc_path, last, wl.pin[:8]))
+    _restore(wl)
     out['B4'] = '%s:%d@%s' % (doc_path, last, wl.pin[:8]) in cv.site_out and decision(it) == oc.pass_
     led = ledger(w.pin, [(doc_path, a2, a2 + len('beta line two'), 'gamma line three')], w.repo)
     x = w.child(w.pin, base_text.replace('beta line two', 'gamma line three', 1))
     cv, it = w.coverage(x, [seg(w.pin, x, 'ledgered', ledger=led)])
+    _restore(w)
     out['B5'] = 'duplicated' in classes(it)
     e = off(base_text, 'beta line two stands here.\n') + len('beta line two stands here.\n')
     led = ledger(w.pin, [(doc_path, e, e, 'touch\n')], w.repo)
     x = w.child(w.pin, base_text[:e] + 'touch\n' + base_text[e:])
     cv, it = w.coverage(x, [seg(w.pin, x, 'ledgered', ledger=led)])
+    _bind_first(subject='%s:5@%s' % (doc_path, w.pin[:8]))
+    _restore(w)
     out['B6'] = cv.site_out['%s:5@%s' % (doc_path, w.pin[:8])]['statuses'][-1]['status'] == 'unchanged'
     return out
 

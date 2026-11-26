@@ -1002,6 +1002,15 @@ def eval_case(exp, case_name, ev, row, record, findings_out):
         for s in exp.get('sites') or []:
             subj = _bind(s.get('subject'), bindings) if 'subject' in s else None
             fields = {k: v for k, v in s.items() if k != 'subject'}
+            if subj is None and isinstance(s.get('all'), str) and \
+                    set(s) - {'all'} <= LITERAL_FIELDS and _select(s['all'], result or {}, bindings) is not None:
+                # every selected result site has the stated literal fields (read from the result)
+                sel = _select(s['all'], result or {}, bindings)
+                bad = [x.get('site_id') for x in sel if not all(x.get(k) == v for k, v in s.items() if k != 'all')]
+                if not sel or bad:
+                    findings_out.append(('declarative-mismatch', 'case %r: site condition %s fails for %s'
+                                         % (case_name, s, bad[:5] or 'no selected site')))
+                continue
             if subj is None:
                 got = attested.get('sites:' + json.dumps(s, sort_keys=True))
                 if got is not True:

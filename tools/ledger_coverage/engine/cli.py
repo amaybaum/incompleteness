@@ -962,7 +962,8 @@ def site_state(so):
     """A site's state: unresolved for a site no longer located (R6.PIPE.7: it stays unresolved in later segments);
     provenance-adjudicated for a site its HP adjudication resolves (R6.HP.7, distinct from every segment status);
     else its last segment status."""
-    if 'current' in so and so['current'] is None:
+    last = so['statuses'][-1]['status'] if so['statuses'] else None
+    if 'current' in so and so['current'] is None and last != 'authorized-removal':
         return 'unresolved'
     if so.get('provenance_adjudicated'):
         return 'provenance-adjudicated'
