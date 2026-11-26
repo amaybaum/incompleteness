@@ -828,6 +828,7 @@
    "expect": {
     "outcome": "FAIL",
     "classes_exact": [
+     "ambiguous",
      "duplicated"
     ]
    },
@@ -3360,14 +3361,13 @@
      {
       "items_include": [
        {
-        "obligation": "HP",
-        "class": "untracked-hp-overlap"
-       },
-       {
         "obligation": "RET",
         "class": "untracked-hp-overlap"
        }
       ]
+     },
+     {
+      "none": "items[obligation=HP,class=untracked-hp-overlap]"
      }
     ]
    },
@@ -4267,7 +4267,15 @@
     "why": "mutation: the W2 lines moved; also asserts acceptance (PASS)"
    },
    "expect": {
-    "outcome": "PASS"
+    "outcome": "ANY",
+    "invariants": [
+     {
+      "all": "lines[rule=W2]",
+      "have": {
+       "state": "PASS"
+      }
+     }
+    ]
    },
    "restored": {
     "outcome": "RESULT_EQUAL_CLEAN",
@@ -4660,7 +4668,7 @@
    ],
    "expect": {
     "outcome": "FAIL",
-    "classes_exact": [
+    "classes_include": [
      "unauthorized-edit"
     ]
    },
@@ -4746,7 +4754,7 @@
    ],
    "expect": {
     "outcome": "FAIL",
-    "classes_exact": [
+    "classes_include": [
      "unauthorized-edit"
     ]
    },
@@ -6346,9 +6354,10 @@
     "why": "in scope: v6.0e sec. 13.2 and the v2 addendum-2 role tests (RE-3 (c))"
    },
    "expect": {
-    "outcome": "REVIEW_REQUIRED",
+    "outcome": "FAIL",
     "classes_include": [
-     "side-change-unclassified"
+     "side-change-unclassified",
+     "base-drift"
     ],
     "sites": [
      {
@@ -8070,10 +8079,7 @@
     "why": "no mutation, but a positive control asserting acceptance of the 11 W1/W2 lines by their allow rules"
    },
    "expect": {
-    "outcome": "REVIEW_REQUIRED",
-    "classes_exact": [
-     "unclassified"
-    ],
+    "outcome": "ANY",
     "counts": {
      "items[class=deny-match]": 0,
      "lines[state=PASS,rule=W1|W2]": 11,
@@ -8093,6 +8099,9 @@
      {
       "scanned_paths_within": "ledgered and corpus paths of X_rep"
      }
+    ],
+    "classes_include": [
+     "unclassified"
     ]
    },
    "restored": {
@@ -9187,7 +9196,7 @@
    },
    "expect": {
     "outcome": "FAIL",
-    "classes_exact": [
+    "classes_include": [
      "unauthorized-edit"
     ]
    },
@@ -9404,7 +9413,7 @@
    },
    "expect": {
     "outcome": "REVIEW_REQUIRED",
-    "classes_exact": [
+    "classes_include": [
      "unclassified"
     ],
     "sites": [
@@ -9587,7 +9596,7 @@
       "items_include": [
        {
         "class": "deny-match",
-        "profile": "register"
+        "rule_id": "register"
        }
       ]
      }
@@ -10148,7 +10157,7 @@
       "items_include": [
        {
         "class": "deny-match",
-        "profile": "infinity"
+        "rule_id": "infinity"
        }
       ]
      }
@@ -12468,8 +12477,7 @@
        {
         "subject": "$site",
         "classes_exact": [
-         "provenance-mismatch",
-         "stale-adjudication"
+         "provenance-mismatch"
         ]
        }
       ]
@@ -13039,13 +13047,22 @@
     "terms"
    ],
    "expect": {
-    "outcome": "REVIEW_REQUIRED",
-    "classes_exact": [
+    "outcome": "ANY",
+    "classes_include": [
      "unclassified"
+    ],
+    "sites": [
+     {
+      "subject": "$planted",
+      "classes_exact": [
+       "unclassified"
+      ],
+      "decision": "REVIEW_REQUIRED"
+     }
     ],
     "invariants": [
      {
-      "all": "hits",
+      "all": "hits[subject=$planted]",
       "have": {
        "profiles": [
         "resid"
@@ -13330,13 +13347,22 @@
     "terms"
    ],
    "expect": {
-    "outcome": "REVIEW_REQUIRED",
-    "classes_exact": [
+    "outcome": "ANY",
+    "classes_include": [
      "unclassified"
+    ],
+    "sites": [
+     {
+      "subject": "$planted",
+      "classes_exact": [
+       "unclassified"
+      ],
+      "decision": "REVIEW_REQUIRED"
+     }
     ],
     "invariants": [
      {
-      "all": "hits",
+      "all": "hits[subject=$planted]",
       "have": {
        "profiles": [
         "resid"
@@ -13423,12 +13449,20 @@
    ],
    "expect": {
     "outcome": "FAIL",
-    "classes_exact": [
+    "classes_include": [
      "final-unclassified"
+    ],
+    "sites": [
+     {
+      "subject": "$planted",
+      "classes_exact": [
+       "final-unclassified"
+      ]
+     }
     ],
     "invariants": [
      {
-      "none": "items[class=deny-match]"
+      "none": "items[class=deny-match,subject=$planted]"
      },
      {
       "items_include": [
@@ -13466,12 +13500,20 @@
    ],
    "expect": {
     "outcome": "FAIL",
-    "classes_exact": [
+    "classes_include": [
      "final-unclassified"
+    ],
+    "sites": [
+     {
+      "subject": "$planted",
+      "classes_exact": [
+       "final-unclassified"
+      ]
+     }
     ],
     "invariants": [
      {
-      "none": "items[class=deny-match]"
+      "none": "items[class=deny-match,subject=$planted]"
      },
      {
       "items_include": [
@@ -13620,10 +13662,16 @@
     "why": "mutation: added text, alone and as the edited glossary line"
    },
    "expect": {
-    "outcome": "PASS",
+    "outcome": "ANY",
     "counts": {
-     "hits": 0
-    }
+     "hits[subject=$planted]": 0
+    },
+    "sites": [
+     {
+      "subject": "$planted",
+      "state": "PASS"
+     }
+    ]
    },
    "restored": {
     "outcome": "RESULT_EQUAL_CLEAN",
@@ -13663,10 +13711,16 @@
     "why": "mutation: added text as the edited glossary line"
    },
    "expect": {
-    "outcome": "PASS",
+    "outcome": "ANY",
     "counts": {
-     "hits": 0
-    }
+     "hits[subject=$planted]": 0
+    },
+    "sites": [
+     {
+      "subject": "$planted",
+      "state": "PASS"
+     }
+    ]
    },
    "restored": {
     "outcome": "RESULT_EQUAL_CLEAN",
@@ -13908,8 +13962,16 @@
    ],
    "expect": {
     "outcome": "FAIL",
-    "classes_exact": [
+    "classes_include": [
      "rule-negative-match"
+    ],
+    "sites": [
+     {
+      "subject": "$planted",
+      "classes_exact": [
+       "rule-negative-match"
+      ]
+     }
     ],
     "invariants": [
      {
@@ -13987,9 +14049,18 @@
     "terms"
    ],
    "expect": {
-    "outcome": "REVIEW_REQUIRED",
-    "classes_exact": [
+    "outcome": "ANY",
+    "classes_include": [
      "rule-fingerprint-mismatch"
+    ],
+    "sites": [
+     {
+      "subject": "$planted",
+      "classes_exact": [
+       "rule-fingerprint-mismatch"
+      ],
+      "decision": "REVIEW_REQUIRED"
+     }
     ]
    },
    "restored": {
@@ -14061,7 +14132,7 @@
     "why": "no mutation, but a positive control asserting acceptance of the W1-c sentence by its allow rule"
    },
    "expect": {
-    "outcome": "PASS",
+    "outcome": "ANY",
     "sites": [
      {
       "subject": "ch19:198",
@@ -14136,8 +14207,18 @@
    ],
    "expect": {
     "outcome": "FAIL",
-    "classes_exact": [
+    "classes_include": [
      "record-invalid"
+    ],
+    "invariants": [
+     {
+      "items_include": [
+       {
+        "class": "record-invalid",
+        "subject": "$rule_file"
+       }
+      ]
+     }
     ]
    },
    "restored": {
@@ -14165,12 +14246,20 @@
    ],
    "expect": {
     "outcome": "FAIL",
-    "classes_exact": [
+    "classes_include": [
      "rule-negative-match"
+    ],
+    "sites": [
+     {
+      "subject": "$planted",
+      "classes_exact": [
+       "rule-negative-match"
+      ]
+     }
     ],
     "invariants": [
      {
-      "none": "items[class=deny-match]"
+      "none": "items[class=deny-match,subject=$planted]"
      }
     ]
    },
@@ -14203,10 +14292,16 @@
     "why": "mutation: the fingerprinted sentence moved with its neighbours; also asserts acceptance (PASS)"
    },
    "expect": {
-    "outcome": "PASS",
+    "outcome": "ANY",
+    "sites": [
+     {
+      "subject": "$planted",
+      "state": "PASS"
+     }
+    ],
     "invariants": [
      {
-      "none": "items[class=rule-stale]"
+      "none": "items[class=rule-stale,rule_id=$rule]"
      }
     ]
    },
@@ -14283,8 +14378,16 @@
    ],
    "expect": {
     "outcome": "FAIL",
-    "classes_exact": [
+    "classes_include": [
      "rule-negative-match"
+    ],
+    "sites": [
+     {
+      "subject": "$planted",
+      "classes_exact": [
+       "rule-negative-match"
+      ]
+     }
     ]
    },
    "restored": {
@@ -14313,8 +14416,16 @@
    ],
    "expect": {
     "outcome": "FAIL",
-    "classes_exact": [
+    "classes_include": [
      "rule-negative-match"
+    ],
+    "sites": [
+     {
+      "subject": "$planted",
+      "classes_exact": [
+       "rule-negative-match"
+      ]
+     }
     ]
    },
    "restored": {
@@ -14456,8 +14567,16 @@
    ],
    "expect": {
     "outcome": "FAIL",
-    "classes_exact": [
+    "classes_include": [
      "rule-negative-match"
+    ],
+    "sites": [
+     {
+      "subject": "$planted",
+      "classes_exact": [
+       "rule-negative-match"
+      ]
+     }
     ]
    },
    "restored": {
@@ -14484,9 +14603,18 @@
     "terms"
    ],
    "expect": {
-    "outcome": "REVIEW_REQUIRED",
-    "classes_exact": [
+    "outcome": "ANY",
+    "classes_include": [
      "rule-fingerprint-mismatch"
+    ],
+    "sites": [
+     {
+      "subject": "$planted",
+      "classes_exact": [
+       "rule-fingerprint-mismatch"
+      ],
+      "decision": "REVIEW_REQUIRED"
+     }
     ]
    },
    "restored": {
@@ -14518,7 +14646,13 @@
     "why": "mutation: the fingerprinted sentence and neighbours shifted by 40 lines; also asserts acceptance (PASS)"
    },
    "expect": {
-    "outcome": "PASS"
+    "outcome": "ANY",
+    "sites": [
+     {
+      "subject": "$planted",
+      "state": "PASS"
+     }
+    ]
    },
    "restored": {
     "outcome": "RESULT_EQUAL_CLEAN",
@@ -15125,7 +15259,8 @@
       "case": "rule widened without review",
       "outcome": "FAIL",
       "classes_exact": [
-       "record-invalid"
+       "record-invalid",
+       "unclassified"
       ]
      }
     ]
@@ -15971,12 +16106,12 @@
    },
    "expect": {
     "outcome": "FAIL",
-    "classes_exact": [
-     "final-unclassified"
-    ],
     "counts": {
      "lines[class=final-unclassified]": 176
-    }
+    },
+    "classes_include": [
+     "final-unclassified"
+    ]
    },
    "source": "D:2351",
    "flags": [
@@ -22084,13 +22219,22 @@
    "expect": {
     "cases": [
      {
-      "case": "a reviewed reconciliation record bound to the run: ledger_base the run's H, naming the run's M and X, its m and x the path's blobs at the run's M and C (positive)",
-      "outcome": "PASS",
+      "case": "a reviewed reconciliation record bound to the run: ledger_base the run's H, naming the run's M and X, its m and x the path's blobs at the run's M and C (positive: drift reconciled; REVIEW_REQUIRED only from delegated classes)",
+      "outcome": "ANY",
       "invariants": [
        {
         "drift_state_in": [
          "reconciled"
         ]
+       },
+       {
+        "none": "items[decision=FAIL]"
+       },
+       {
+        "all": "items[decision=REVIEW_REQUIRED]",
+        "have": {
+         "class": "delegated-evidence-missing"
+        }
        }
       ]
      },
@@ -22152,6 +22296,15 @@
         "drift_state_in": [
          "unresolved"
         ]
+       }
+      ]
+     },
+     {
+      "case": "countercase: the same reconciled drift with an unclassified side change beside it (REVIEW_REQUIRED side-change-unclassified, not a delegated class)",
+      "outcome": "REVIEW_REQUIRED",
+      "invariants": [
+       {
+        "rt_l2_status": "FAIL"
        }
       ]
      }
@@ -23356,6 +23509,517 @@
    "source": "r6 amendment 4 (owner decision of 2026-11-26T07:31:59Z, #1169 comment 7185562871, items 2 and 3)",
    "flags": [
     "added by amendment 4; no runner records it before the tool revision implements it"
+   ]
+  },
+  {
+   "id": "RB-P1",
+   "requirements": [
+    "R6.RECON.2"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "direction": "both",
+   "expect": {
+    "cases": [
+     {
+      "case": "a record commit whose single parent is the run's M and which adds one regular file in a reconciliation directory (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "record_admitted": "$record"
+       },
+       {
+        "not_class": [
+         "record-invalid"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "countercase: the same record commit also changing a path its parent holds",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     }
+    ]
+   },
+   "source": "r6 amendment 5 (owner decision of 2026-11-26T08:28:18Z, #1169 comment 7186638587, item 9)",
+   "flags": [
+    "added by amendment 5; the tool records this id; the expectation follows from the design text"
+   ]
+  },
+  {
+   "id": "RB-C4",
+   "requirements": [
+    "R6.RECON.2"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "record-invalid"
+    ]
+   },
+   "restored": {
+    "outcome": "ANY",
+    "invariants": [
+     {
+      "record_admitted": "$record"
+     },
+     {
+      "not_class": [
+       "record-invalid"
+      ]
+     },
+     {
+      "baseline": "the same record commit built with the run's M as its single parent"
+     }
+    ]
+   },
+   "source": "r6 amendment 5 (owner decision of 2026-11-26T08:28:18Z, #1169 comment 7186638587, item 9)",
+   "flags": [
+    "added by amendment 5; the tool records this id; the expectation follows from the design text"
+   ]
+  },
+  {
+   "id": "RB-C4b",
+   "requirements": [
+    "R6.RECON.2"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "record-invalid"
+    ]
+   },
+   "restored": {
+    "outcome": "ANY",
+    "invariants": [
+     {
+      "record_admitted": "$record"
+     },
+     {
+      "not_class": [
+       "record-invalid"
+      ]
+     },
+     {
+      "baseline": "the same record commit built with the run's M as its single parent"
+     }
+    ]
+   },
+   "source": "r6 amendment 5 (owner decision of 2026-11-26T08:28:18Z, #1169 comment 7186638587, item 9)",
+   "flags": [
+    "added by amendment 5; the tool records this id; the expectation follows from the design text"
+   ]
+  },
+  {
+   "id": "RB-C4c",
+   "requirements": [
+    "R6.RECON.2"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "record-invalid"
+    ]
+   },
+   "restored": {
+    "outcome": "ANY",
+    "invariants": [
+     {
+      "record_admitted": "$record"
+     },
+     {
+      "not_class": [
+       "record-invalid"
+      ]
+     },
+     {
+      "baseline": "the same record commit built with the run's M as its single parent"
+     }
+    ]
+   },
+   "source": "r6 amendment 5 (owner decision of 2026-11-26T08:28:18Z, #1169 comment 7186638587, item 9)",
+   "flags": [
+    "added by amendment 5; the tool records this id; the expectation follows from the design text"
+   ]
+  },
+  {
+   "id": "RB-C4d",
+   "requirements": [
+    "R6.RECON.2"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "record-invalid"
+    ]
+   },
+   "restored": {
+    "outcome": "ANY",
+    "invariants": [
+     {
+      "record_admitted": "$record"
+     },
+     {
+      "not_class": [
+       "record-invalid"
+      ]
+     },
+     {
+      "baseline": "the same record commit built with the run's M as its single parent"
+     }
+    ]
+   },
+   "source": "r6 amendment 5 (owner decision of 2026-11-26T08:28:18Z, #1169 comment 7186638587, item 9)",
+   "flags": [
+    "added by amendment 5; the tool records this id; the expectation follows from the design text"
+   ]
+  },
+  {
+   "id": "RB-C4e",
+   "requirements": [
+    "R6.RECON.2"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "record-invalid"
+    ]
+   },
+   "restored": {
+    "outcome": "ANY",
+    "invariants": [
+     {
+      "record_admitted": "$record"
+     },
+     {
+      "not_class": [
+       "record-invalid"
+      ]
+     },
+     {
+      "baseline": "the same record commit built with the run's M as its single parent"
+     }
+    ]
+   },
+   "source": "r6 amendment 5 (owner decision of 2026-11-26T08:28:18Z, #1169 comment 7186638587, item 9)",
+   "flags": [
+    "added by amendment 5; the tool records this id; the expectation follows from the design text"
+   ]
+  },
+  {
+   "id": "RB-C5",
+   "requirements": [
+    "R6.RECON.2"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "record-invalid"
+    ]
+   },
+   "restored": {
+    "outcome": "ANY",
+    "invariants": [
+     {
+      "record_admitted": "$record"
+     },
+     {
+      "not_class": [
+       "record-invalid"
+      ]
+     },
+     {
+      "baseline": "the same record commit built with the run's M as its single parent"
+     }
+    ]
+   },
+   "source": "r6 amendment 5 (owner decision of 2026-11-26T08:28:18Z, #1169 comment 7186638587, item 9)",
+   "flags": [
+    "added by amendment 5; the tool records this id; the expectation follows from the design text"
+   ]
+  },
+  {
+   "id": "RB-C5b",
+   "requirements": [
+    "R6.RECON.2"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "record-invalid"
+    ]
+   },
+   "restored": {
+    "outcome": "ANY",
+    "invariants": [
+     {
+      "record_admitted": "$record"
+     },
+     {
+      "not_class": [
+       "record-invalid"
+      ]
+     },
+     {
+      "baseline": "the same record commit built with the run's M as its single parent"
+     }
+    ]
+   },
+   "source": "r6 amendment 5 (owner decision of 2026-11-26T08:28:18Z, #1169 comment 7186638587, item 9)",
+   "flags": [
+    "added by amendment 5; the tool records this id; the expectation follows from the design text"
+   ]
+  },
+  {
+   "id": "RB-C7",
+   "requirements": [
+    "R6.RECON.2"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "record-invalid"
+    ]
+   },
+   "restored": {
+    "outcome": "ANY",
+    "invariants": [
+     {
+      "record_admitted": "$record"
+     },
+     {
+      "not_class": [
+       "record-invalid"
+      ]
+     },
+     {
+      "baseline": "the same record commit built with the run's M as its single parent"
+     }
+    ]
+   },
+   "source": "r6 amendment 5 (owner decision of 2026-11-26T08:28:18Z, #1169 comment 7186638587, item 9)",
+   "flags": [
+    "added by amendment 5; the tool records this id; the expectation follows from the design text"
+   ]
+  },
+  {
+   "id": "RB-C7b",
+   "requirements": [
+    "R6.RECON.2"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "record-invalid"
+    ]
+   },
+   "restored": {
+    "outcome": "ANY",
+    "invariants": [
+     {
+      "record_admitted": "$record"
+     },
+     {
+      "not_class": [
+       "record-invalid"
+      ]
+     },
+     {
+      "baseline": "the same record commit built with the run's M as its single parent"
+     }
+    ]
+   },
+   "source": "r6 amendment 5 (owner decision of 2026-11-26T08:28:18Z, #1169 comment 7186638587, item 9)",
+   "flags": [
+    "added by amendment 5; the tool records this id; the expectation follows from the design text"
+   ]
+  },
+  {
+   "id": "RB-C8",
+   "requirements": [
+    "R6.RECON.2"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "record-invalid"
+    ]
+   },
+   "restored": {
+    "outcome": "ANY",
+    "invariants": [
+     {
+      "record_admitted": "$record"
+     },
+     {
+      "not_class": [
+       "record-invalid"
+      ]
+     },
+     {
+      "baseline": "the same record commit built with the run's M as its single parent"
+     }
+    ]
+   },
+   "source": "r6 amendment 5 (owner decision of 2026-11-26T08:28:18Z, #1169 comment 7186638587, item 9)",
+   "flags": [
+    "added by amendment 5; the tool records this id; the expectation follows from the design text"
+   ]
+  },
+  {
+   "id": "RB-C10",
+   "requirements": [
+    "R6.RECON.2"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "record-invalid"
+    ]
+   },
+   "restored": {
+    "outcome": "ANY",
+    "invariants": [
+     {
+      "record_admitted": "$record"
+     },
+     {
+      "not_class": [
+       "record-invalid"
+      ]
+     },
+     {
+      "baseline": "the same record commit built with the run's M as its single parent"
+     }
+    ]
+   },
+   "source": "r6 amendment 5 (owner decision of 2026-11-26T08:28:18Z, #1169 comment 7186638587, item 9)",
+   "flags": [
+    "added by amendment 5; the tool records this id; the expectation follows from the design text"
+   ]
+  },
+  {
+   "id": "RB-C11",
+   "requirements": [
+    "R6.RECON.2"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "expect": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "record-invalid"
+    ]
+   },
+   "restored": {
+    "outcome": "ANY",
+    "invariants": [
+     {
+      "record_admitted": "$record"
+     },
+     {
+      "not_class": [
+       "record-invalid"
+      ]
+     },
+     {
+      "baseline": "the same record commit adding only the reconciliation-directory file"
+     }
+    ]
+   },
+   "source": "r6 amendment 5 (owner decision of 2026-11-26T08:28:18Z, #1169 comment 7186638587, item 9)",
+   "flags": [
+    "added by amendment 5; the tool records this id; the expectation follows from the design text"
+   ]
+  },
+  {
+   "id": "LINE-PATCH-RC8",
+   "requirements": [
+    "R6.RECON.13"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "direction": "both",
+   "predicate_kind": "procedural",
+   "expect": {
+    "cases": [
+     {
+      "case": "the synthetic line-patch ledger stating expected_sha256 equal to the sha256 of the candidate's patched bytes (positive)",
+      "outcome": "RC_HOLDS"
+     },
+     {
+      "case": "countercase: the same ledger with a wrong expected_sha256",
+      "outcome": "RC_FAILS",
+      "invariants": [
+       {
+        "failed_conditions_include": "RC8"
+       }
+      ]
+     }
+    ]
+   },
+   "procedure": {
+    "name": "line-patch-rc8",
+    "lib": "oracle",
+    "tool_output": "RC8 evaluation with the stated and with the wrong expected_sha256",
+    "oracle_output": "sha256 of the candidate's patched bytes"
+   },
+   "source": "r6 amendment 5 (owner decision of 2026-11-26T08:28:18Z, #1169 comment 7186638587, item 9)",
+   "flags": [
+    "added by amendment 5; the tool records this id; the expectation follows from the design text"
    ]
   }
  ],

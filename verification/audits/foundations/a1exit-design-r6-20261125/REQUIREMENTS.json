@@ -1503,7 +1503,9 @@
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [],
+  "pending_owner_confirmation": [
+   "amendment 5 (expectation correction): drafted under the owner's authorization of 2026-11-26T08:28:18Z (#1169 comment 7186638587, items 8 and 9); needs independent review and the owner's acceptance"
+  ],
   "owner_decision": []
  },
  {
@@ -8838,7 +8840,20 @@
    "POSTF-3",
    "POSTF-4",
    "POSTF-5",
-   "RECORD-BASE"
+   "RECORD-BASE",
+   "RB-P1",
+   "RB-C4",
+   "RB-C4b",
+   "RB-C4c",
+   "RB-C4d",
+   "RB-C4e",
+   "RB-C5",
+   "RB-C5b",
+   "RB-C7",
+   "RB-C7b",
+   "RB-C8",
+   "RB-C10",
+   "RB-C11"
   ],
   "verification": [
    "controls"
@@ -8847,7 +8862,8 @@
   "pending_owner_confirmation": [
    "amendment 1, B4 part A (post-freeze route of R6.RECON.2, reconciliation records only): conditionally approved by the owner (amaybaum, 2026-11-26T05:21:04Z, #1169 comment 7183745781), subject to an independent review confirming that it preserves the frozen verification contract; if that review finds that it permits changing the verification contract after F, it returns to the owner; no tool revision implements it before that review accepts it",
    "amendment 3 (multi-path reconciliation): drafted under the owner's authorization of 2026-11-26T06:34:32Z (#1169 comment 7184569981); needs independent review and the owner's acceptance before any tool revision implements it",
-   "amendment 4 (category-3 keying and the predicted-M record base): drafted under the owner's direction of 2026-11-26T07:31:59Z (#1169 comment 7185562871); needs independent review and the owner's acceptance before any tool revision implements it"
+   "amendment 4 (category-3 keying and the predicted-M record base): drafted under the owner's direction of 2026-11-26T07:31:59Z (#1169 comment 7185562871); needs independent review and the owner's acceptance before any tool revision implements it",
+   "amendment 5 (expectation correction): drafted under the owner's authorization of 2026-11-26T08:28:18Z (#1169 comment 7186638587, items 8 and 9); needs independent review and the owner's acceptance"
   ],
   "owner_decision": []
  },
@@ -9058,13 +9074,16 @@
    "E-1349"
   ],
   "controls": [
-   "N15"
+   "N15",
+   "LINE-PATCH-RC8"
   ],
   "verification": [
    "controls"
   ],
   "open": [],
-  "pending_owner_confirmation": [],
+  "pending_owner_confirmation": [
+   "amendment 5 (expectation correction): drafted under the owner's authorization of 2026-11-26T08:28:18Z (#1169 comment 7186638587, items 8 and 9); needs independent review and the owner's acceptance"
+  ],
   "owner_decision": []
  },
  {

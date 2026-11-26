@@ -535,6 +535,53 @@ Amendment 4 is limited to these two questions; it is pending independent review 
   A plan that removes the edit needs no reassessment. The tool checks the reassessment's form, its review and its citation by the new freeze; it cannot check the soundness of the re-derivation. R6.RECON.26 as amended governs over the frozen Table 17.1 description of RECON-BLOCK: a revised plan proceeds when it removes the edit or cites an applying reassessment.
 - The predicted-M record base (R6.RECON.2 (c), R6.RECON.21, R6.GATE.16; control RECORD-BASE). A run on a predicted `M` names its record base with `--record-base M0`; the tool establishes `M0`'s admissibility from git objects (that `M0` is a real commit, that `M` descends from it by single-parent in-memory commits whose changes are tool-landing or authorized plan-directory paths, and that no ledgered, corpus or scanned-set path changes), so naming it establishes nothing. The gate compares the recorded `M0` with the runner's pinned `main`.
 
+
+### 0.6 Amendment 5 of 2026-11-26
+
+The owner decided at #1169 comment 7186638587 (amaybaum, 2026-11-26T08:28:18Z, relayed by the coordinating session). Excerpt of items 8 and 9, in the order of the source (table cells joined by " | ", table padding removed; headings left out; each line prefixed by "> "; "[...]" marks text left out):
+
+> [...]
+>
+> Correct the expectation to:
+>
+> Drift reconciled; REVIEW_REQUIRED only from delegated classes.
+>
+> The control should establish successful reconciliation without incorrectly requiring an unconditional PASS when another valid review requirement remains outstanding.
+>
+> Do not exempt delegated classes. Verify that unrelated reconciliation failures still cause the appropriate failure outcome.
+>
+> [...]
+>
+> Authorize adding the 14 missing expectation rows and preparing one independently reviewed expectation-correction amendment.
+>
+> Rows | Decision
+>
+> M1, M2 | Approve includes unauthorized-edit.
+>
+> B5 | Require both labels.
+>
+> H5 | Select RET, subject to confirming consistency with R6.CLASS.10.
+>
+> U14 | Resolve toward R6.REC.10, explicitly correcting the conflicting design text if necessary.
+>
+> Y4, S11-1, S11-2a | Require the specified items.
+>
+> S11-5, S11-6 | Use rule_id.
+>
+> R18 | Re-derive under amendment 3.
+>
+> Whole-result T1′ rows | Scope to the intended lines or subjects, provided the original verification obligation remains fully enforced.
+>
+> Every correction must cite the governing design requirement.
+>
+> Do not change expectations merely because the implementation fails them. Where the design itself is contradictory, resolve that contradiction explicitly rather than disguising it as a test correction.
+>
+> Return for adoption after independent review.
+>
+> [...]
+
+Amendment 5 corrects expectations only where the design requires it, each correction citing its governing requirement (AMENDMENT-5.md sec. 2), adds the 14 rows the tool records (RB-P1, RB-C4 to RB-C11, LINE-PATCH-RC8), and resolves one contradiction in the design: R6.HP.7 required `stale-adjudication` for an adjudication entry that names an existing HP site but disagrees with its walk, while R6.REC.10 decides such an entry by the site's own rule. R6.HP.7 is corrected to agree with R6.REC.10, and U14's second case follows. The whole-result rows on `T1'` are scoped to the lines or subjects they plant or name; their obligation at those subjects is kept exactly (AMENDMENT-5.md sec. 3). No requirement is weakened and no row loses an obligation; amendment 5 is pending independent review and the owner's acceptance.
+
 ***
 
 ## 1. Notation and symbols
@@ -1135,8 +1182,9 @@ its site with that status; this positive case is tested by U14, restated as an H
 reference and is counted under its last segment state; the distinct status and its separate counts
 are an implementation obligation (OBL-28; Q12, RE-6). An adjudication entry whose region hash
 differs from the walk (U14's second case) gives FAIL `provenance-mismatch`, because the record does
-not match the walk, and FAIL `stale-adjudication`, because the entry then resolves no subject
-(R6.REC.10); any other class emitted for that case is a defect (Q12, RE-7).
+not match the walk, and no `stale-adjudication`: the entry names an existing site, and R6.REC.10 decides
+such an entry by the site's own rule, not as an entry that resolves no subject; any other class emitted
+for that case is a defect (Q12, RE-7) (amendment 5, sec. 0.6: pending independent review and the owner's acceptance).
 Sources: V1-062. Controls: U14.
 
 **R6.HP.8** Resumed tracking. An adjudicated site resumes tracking in `H..X` from its final region at
@@ -3315,8 +3363,9 @@ expectation, 41 declare direction `both`, 6 name `paired_with` and 3 are exempt 
 42 rows in scope recorded no second direction (`direction-missing`), and 217 rows are flagged VD-RESTORE
 (these figures are those of the adopted file, before amendment 1). Amendment 1 (sec. 0.2) records a second
 direction on each of those 42 rows and adds 14 rows (B1) and 6 rows (B4), each with one, amendment 3
-adds 9 rows (sec. 0.4), and amendment 4 adds 3 rows (sec. 0.5), each with one. Counted
-mechanically over the amended file's rows outside the MUT and GATE namespaces (453 rows, 137 of them recording `scope: "outside"`; 273 carry a `restored` expectation, 65 declare direction `both`, 10 name `paired_with`, 3 are exempt as observations): no row in scope
+adds 9 rows (sec. 0.4), amendment 4 adds 3 rows (sec. 0.5), and amendment 5 adds 14 rows (sec. 0.6),
+each with one. Counted
+mechanically over the amended file's rows outside the MUT and GATE namespaces (467 rows, 137 of them recording `scope: "outside"`; 285 carry a `restored` expectation, 67 declare direction `both`, 10 name `paired_with`, 3 are exempt as observations): no row in scope
 records no second direction.
 Sources: V1-101, V2-073, V1-138, Q7, RE-2, RE-3, RE-4, Q11. Controls: A11r, M1, N1, GATE-27.
 
@@ -4102,6 +4151,20 @@ row with a recorded restored case. Kind: `decl` declarative, `proc` procedural.
 | BLOCK-KEY | R6.RECON.26, R6.RECON.27, R6.CFG.4 | to be implemented (tool revision) | decl | both | the block is keyed by the edit's stable id within the retirement's plan lineage, followed through recorded migrations and by its path and old bytes; wording changes and repairs do not lift it; a revised plan proceeds only by removing the edit or by citing an applying reassessment (amendment 4) |
 | REASSESS-FORM | R6.RECON.27 | to be implemented (tool revision) | decl | adv | the reassessment's form, review and citation are checked; a failure keeps the block (amendment 4) |
 | RECORD-BASE | R6.RECON.2, R6.RECON.21, R6.GATE.16 | to be implemented (tool revision) | decl | both | the predicted-M record base is named explicitly and admitted only after the tool establishes it from git objects; naming it establishes nothing (amendment 4) |
+| RB-P1 | R6.RECON.2 | to be implemented (tool revision) | decl | both | the record commit of R6.RECON.2 (c): single parent the record base `M`, only reconciliation-directory files added; admitted (amendment 5) |
+| RB-C4 | R6.RECON.2 | to be implemented (tool revision) | decl | adv +restored | a record commit whose parent lies below the run's M across a change to a ledgered path (amendment 5) |
+| RB-C4b | R6.RECON.2 | to be implemented (tool revision) | decl | adv +restored | a record commit whose parent lies below the run's M across a change to a corpus path (amendment 5) |
+| RB-C4c | R6.RECON.2 | to be implemented (tool revision) | decl | adv +restored | a record commit whose parent lies below the run's M across a change to another path (amendment 5) |
+| RB-C4d | R6.RECON.2 | to be implemented (tool revision) | decl | adv +restored | a record commit whose parent lies below the run's M across an added reconciliation record (amendment 5) |
+| RB-C4e | R6.RECON.2 | to be implemented (tool revision) | decl | adv +restored | a record commit whose parent lies below the run's M across a merge (amendment 5) |
+| RB-C5 | R6.RECON.2 | to be implemented (tool revision) | decl | adv +restored | a record commit whose parent lies below the run's M across a change to a tool-landing pin (amendment 5) |
+| RB-C5b | R6.RECON.2 | to be implemented (tool revision) | decl | adv +restored | a record commit whose parent lies below the run's M across the deletion of a tool-landing pin (amendment 5) |
+| RB-C7 | R6.RECON.2 | to be implemented (tool revision) | decl | adv +restored | a class record that the configuration does not pin, with prefixes over ledgered and corpus paths, named by --classify; the record commit's parent lies below M across a ledgered change (amendment 5) |
+| RB-C7b | R6.RECON.2 | to be implemented (tool revision) | decl | adv +restored | the same unpinned class record; the record commit's parent lies below M across a corpus change (amendment 5) |
+| RB-C8 | R6.RECON.2 | to be implemented (tool revision) | decl | adv +restored | a plan record directory that is not an authorized record directory; the record commit's parent lies below M across a corpus change (amendment 5) |
+| RB-C10 | R6.RECON.2 | to be implemented (tool revision) | decl | adv +restored | a chain-admitted run whose record commit's parent is a commit below the run's M (amendment 5) |
+| RB-C11 | R6.RECON.2 | to be implemented (tool revision) | decl | adv +restored | a record commit that also changes a path its parent holds (amendment 5) |
+| LINE-PATCH-RC8 | R6.RECON.13 | to be implemented (tool revision) | proc | both | RC8 reads the ledger's `expected_sha256` (R6.RECON.13): with the value equal to the sha256 of the candidate's bytes RC8 holds; with another value it fails (amendment 5) |
 
 **Table 17.2. Record-directory mutants** (set `o9`; each row names the change and the controls
 that distinguish it; the results on the correct implementation and on the mutant are in the
@@ -4846,7 +4909,7 @@ parent of the merge commit that brings them, so that every commit the run read i
 `main` (R6.EVID.7). The result records `REV` and lists each record this route admits in
 `inputs.classify_records`, with its path and sha256 and the path and sha256 of its review record.
 Configuration admission (R6.REC.16) and execution identity (R6.REC.18) are unchanged.
-Sources: E-1341, RV-027. Controls: O8, N2, POSTF-1, POSTF-2, POSTF-3, POSTF-4, POSTF-5, RECORD-BASE.
+Sources: E-1341, RV-027. Controls: O8, N2, POSTF-1, POSTF-2, POSTF-3, POSTF-4, POSTF-5, RECORD-BASE, RB-P1, RB-C4, RB-C4b, RB-C4c, RB-C4d, RB-C4e, RB-C5, RB-C5b, RB-C7, RB-C7b, RB-C8, RB-C10, RB-C11.
 
 **R6.RECON.3** A reconciliation record names a ledgered or corpus path that both `M` and the retirement
 change (the "both changed" case of R6.TREE.12); naming a path `X` changes is therefore valid and never
@@ -4912,7 +4975,7 @@ Sources: E-1349. Controls: N9.
 
 **R6.RECON.13** RC8 (candidate blob): the path's blob id and sha256 at `X` equal the record's `x` and
 `x_sha256`, and the ledger's `expected_sha256` for the path equals that sha256.
-Sources: E-1349. Controls: N15.
+Sources: E-1349. Controls: N15, LINE-PATCH-RC8.
 
 **R6.RECON.14** RC9 (protected bytes): the bytes of the composition after the last translated splice
 equal `M`'s bytes after it, and every protected range the record lists occurs exactly once at `M` and
