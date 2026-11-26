@@ -958,10 +958,11 @@ def hit_regions(ctx, cv, segs, commit):
     return info
 
 
+# design r6, R6.PIPE.7 (unresolved) and R6.HP.7 (provenance-adjudicated)
 def site_state(so):
-    """A site's state: unresolved for a site no longer located (R6.PIPE.7: it stays unresolved in later segments);
-    provenance-adjudicated for a site its HP adjudication resolves (R6.HP.7, distinct from every segment status);
-    else its last segment status."""
+    """A site's state: unresolved for a site that tracking cannot locate (it stays unresolved in later segments);
+    provenance-adjudicated for a site its HP adjudication resolves (distinct from every segment status); else its
+    last segment status."""
     last = so['statuses'][-1]['status'] if so['statuses'] else None
     # an authorized removal and an HP site keep their own state (an HP site's region is decided by its walk)
     if 'current' in so and so['current'] is None and last != 'authorized-removal' and not so.get('hp_steps'):
