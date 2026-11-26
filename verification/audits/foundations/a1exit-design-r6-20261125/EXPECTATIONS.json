@@ -8082,7 +8082,7 @@
    "direction": {
     "of": "positive",
     "required": "opposite direction",
-    "why": "no mutation, but a positive control asserting acceptance of the 11 W1/W2 lines by their allow rules"
+    "why": "no mutation, but a positive control asserting acceptance of the 10 W1/W2 lines by their allow rules, with the superseding rule file that drops W1-a"
    },
    "expect": {
     "outcome": "REVIEW_REQUIRED",
@@ -8102,7 +8102,10 @@
      },
      {
       "subject": "papers/SM.md:1394",
-      "decision": "REVIEW_REQUIRED"
+      "decision": "REVIEW_REQUIRED",
+      "classes_exact": [
+       "unclassified"
+      ]
      }
     ],
     "invariants": [
@@ -8135,7 +8138,8 @@
     "composed_of: the design id holds only if this row's own record and every component hold (RD-4)",
     "VD-RESTORE: no restored case executed",
     "Q14: aggregate precedence ERROR > FAIL > NOT RUN > PASS over its own record and its components; every component result is preserved in gate-result.json",
-    "OC-3: runs at X_rep (R6.EVID.8); the verdict reads only paths that H and the ledger determine, so T1''s identity and ancestry are not material; landing decision: kind 1 on the exact tool candidate; enduring claim: kind 2 once the landing merge is on main, kind 3 re-run on main, every input reachable from main"
+    "OC-3: runs at X_rep (R6.EVID.8); the verdict reads only paths that H and the ledger determine, so T1''s identity and ancestry are not material; landing decision: kind 1 on the exact tool candidate; enduring claim: kind 2 once the landing merge is on main, kind 3 re-run on main, every input reachable from main",
+    "amendment 6 (amendment 5 delta review, PR #1592 comment 7189385508, nit 3): the count of 10 W1/W2 PASS lines and the SM:1394 site hold only with the superseding rule file that drops W1-a, under the owner's decision on the W1-a row (amaybaum, 2026-11-26T07:55:49Z, #1169 comment 7185991140); rule content is plan content (R6.DENY.1), and until that rule file is written and reviewed RT-D is not run against these figures"
    ]
   },
   {
@@ -8274,7 +8278,7 @@
       }
      },
      {
-      "case": "countercase: at H with the DR-1 alternative-a match at book/The-Incompleteness-of-Observation-FULL.md:6504 removed (one target missing): the target item is absent",
+      "case": "countercase: at H with the DR-1 alternative-a match at book/The-Incompleteness-of-Observation-FULL.md:6504 replaced by neutral text on the same line (the line is kept, so no later line is renumbered; one target missing): the target item is absent",
       "outcome": "FAIL",
       "classes_include": [
        "deny-match"
@@ -9450,7 +9454,10 @@
       "subject": "$new_line",
       "classes_include": [
        "unclassified"
-      ]
+      ],
+      "added_relative_to_unmutated": {
+       "items[class=unclassified,subject=$new_line]": 1
+      }
      }
     ]
    },
@@ -22332,7 +22339,7 @@
       ]
      },
      {
-      "case": "countercase: the same reconciled drift with a planted non-delegated REVIEW item that touches no reconciliation (an unclassified review hit on an unledgered line): the drift stays reconciled and the positive predicate (REVIEW_REQUIRED only from delegated classes) fails",
+      "case": "countercase: the same reconciled drift with a planted non-delegated REVIEW item that touches no reconciliation: a hit on a line unchanged across H, M and X, surfaced by a review profile present only in the countercase configuration, so that no path changes and no side change is added, and unclassified: the drift stays reconciled and the positive predicate (REVIEW_REQUIRED only from delegated classes) fails",
       "outcome": "REVIEW_REQUIRED",
       "invariants": [
        {
@@ -24076,7 +24083,8 @@
    "id": "FINDING-FORM",
    "requirements": [
     "R6.RECON.26",
-    "R6.REC.2"
+    "R6.REC.2",
+    "R6.REC.6"
    ],
    "runner": null,
    "operations": [
@@ -24086,7 +24094,7 @@
    "expect": {
     "cases": [
      {
-      "case": "a writer's verdict no-effect and a non-author review whose verdict on the item <path>:scientific_effect is invalidates with a well-formed invalidated list, the review passing review-record lint",
+      "case": "a writer's verdict no-effect and a non-author review whose verdict on the item <path>:scientific_effect is invalidates with a well-formed invalidated list and configuration, the review passing review-record lint",
       "outcome": "FAIL",
       "classes_include": [
        "retirement-blocked"
@@ -24096,8 +24104,7 @@
       "case": "the same review: the reviewed entry fails its own chain lint and does not apply, and the review stays valid",
       "outcome": "FAIL",
       "classes_include": [
-       "retirement-blocked",
-       "base-drift"
+       "retirement-blocked"
       ],
       "invariants": [
        {
@@ -24122,6 +24129,57 @@
       ]
      },
      {
+      "case": "a non-author review with a well-formed invalidates verdict whose verdicts omit an unrelated item of the reviewed record (review-record lint fails elsewhere; detection precedes lint)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "the same, the verdicts duplicating an unrelated item",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "the same, the review without method",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "a well-formed invalidates verdict and invalidated list placed on an item other than <path>:scientific_effect (for example <path>:resolution:<splice>)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "a review verdict invalidates with an empty invalidated list on an entry with conclusions none for an unledgered corpus path (the fallback set is empty): a run-level retirement-blocked item binds the lineage",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "countercase: the same finding, the configuration frozen anew citing an applying reassessment that names the finding with edit null (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "not_class": [
+         "retirement-blocked"
+        ]
+       }
+      ]
+     },
+     {
       "case": "countercase: a review verdict reject without invalidated on the scientific_effect item (the path is not reconciled and is not blocked)",
       "outcome": "FAIL",
       "classes_include": [
@@ -24134,10 +24192,38 @@
         ]
        }
       ]
+     },
+     {
+      "case": "countercase: a review with a well-formed invalidates verdict whose reviewer equals the reviewed record's author after trimming and case-folding (an independence failure: not a finding; the record fails lint)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ],
+      "invariants": [
+       {
+        "not_class": [
+         "retirement-blocked"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "countercase: an accepting non-author review and a second non-author review of the same blob whose verdict on another item is reject (every review naming the blob counts; the record fails lint and is not blocked)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ],
+      "invariants": [
+       {
+        "not_class": [
+         "retirement-blocked"
+        ]
+       }
+      ]
      }
     ]
    },
-   "source": "r6 amendment 6 (owner direction of 2026-11-26, #1169 comment 7187418279, item 4; tool writer's points 1 to 5)",
+   "source": "r6 amendment 6 r2 (owner decisions of 2026-11-26, #1169 comments 7188752730, item 2, and 7189470338, items 1, 3 and 4; independent review of ed9faa8a, PR #1593 comment 7189446310; schema completeness audit, PR #1593 comment 7189621405)",
    "flags": [
     "added by amendment 6 (a proposal); no runner records it before the tool revision implements it"
    ]
@@ -24162,7 +24248,21 @@
       ]
      },
      {
-      "case": "countercase: a configuration of another retirement, outside the lineage, whose ledger reuses the edit id (positive)",
+      "case": "a fork outside the lineage (supersedes null, a new config_id, a new retirement name and Issue) carrying the invalidated edit under the same id and target with reworded new text, citing no reassessment",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked"
+      ]
+     },
+     {
+      "case": "the same fork carrying the invalidated edit's target (the same path and old bytes) under another id",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked"
+      ]
+     },
+     {
+      "case": "countercase: a configuration of another retirement, outside the lineage, whose ledger reuses the edit id with another target (another path, or old bytes whose sha256 differs from the recorded old_sha256) (positive)",
       "outcome": "ANY",
       "invariants": [
        {
@@ -24173,16 +24273,50 @@
       ]
      },
      {
-      "case": "a finding naming no configuration, or one that cannot be read: it binds every configuration whose ledger carries the edit, the other retirement's included",
+      "case": "a finding naming no configuration, or one that cannot be read: it binds every configuration whose ledger carries the edit by id, a migrated id or the target, the other retirement's id collision included",
       "outcome": "FAIL",
       "classes_include": [
        "retirement-blocked",
        "record-invalid"
       ]
+     },
+     {
+      "case": "a finding naming no configuration; a superseding configuration renames the edit id, keeps its old bytes and records no migration",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "a finding whose invalidated element differs from the named configuration's ledger (the id absent there, or another target): the fallback binds every configuration carrying the id, a migrated id or the target",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "a finding naming a readable configuration of another lineage whose ledger holds the same id and target: the retirement's own configuration carrying the target is still blocked",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked"
+      ]
+     },
+     {
+      "case": "countercase: the other retirement bound only by the fallback's id collision, frozen anew with the colliding id renamed under a recorded migration, its target different (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "not_class": [
+         "retirement-blocked"
+        ]
+       }
+      ]
      }
     ]
    },
-   "source": "r6 amendment 6 (owner direction of 2026-11-26, #1169 comment 7187418279, item 4; tool writer's points 1 to 5)",
+   "source": "r6 amendment 6 r2 (owner decisions of 2026-11-26, #1169 comments 7188752730, item 2, and 7189470338, items 1, 3 and 4; independent review of ed9faa8a, PR #1593 comment 7189446310; schema completeness audit, PR #1593 comment 7189621405)",
    "flags": [
     "added by amendment 6 (a proposal); no runner records it before the tool revision implements it"
    ]
@@ -24201,14 +24335,14 @@
    "expect": {
     "cases": [
      {
-      "case": "an invalidated element {id, sha256, target: {path, start_H, old_sha256}} matching the ledger splice of that id at H",
+      "case": "an invalidated element {id, sha256, target: {path, start_H, old_sha256}} matching the ledger edit of that id at the named configuration's H",
       "outcome": "FAIL",
       "classes_include": [
        "retirement-blocked"
       ]
      },
      {
-      "case": "an element whose target differs from the ledger splice of its id (form failure; the id still blocks)",
+      "case": "an element whose target differs from the ledger edit of its id (form failure; the element blocks through the fallback)",
       "outcome": "FAIL",
       "classes_include": [
        "retirement-blocked",
@@ -24224,7 +24358,22 @@
       ]
      },
      {
-      "case": "countercase: a revised configuration keeping only an edit of the same path that no finding names, without a reassessment (positive)",
+      "case": "an element whose start_H and old_sha256 are those of a commit other than the named configuration's H",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "an element naming a retained edit (no splice), its target the occurrence of the retained text at H",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked"
+      ]
+     },
+     {
+      "case": "countercase: a revised configuration keeping only an edit of the same path that no finding names, whose old bytes' sha256 differs from every recorded old_sha256, without a reassessment (positive)",
       "outcome": "ANY",
       "invariants": [
        {
@@ -24236,7 +24385,7 @@
      }
     ]
    },
-   "source": "r6 amendment 6 (owner direction of 2026-11-26, #1169 comment 7187418279, item 4; tool writer's points 1 to 5)",
+   "source": "r6 amendment 6 r2 (owner decisions of 2026-11-26, #1169 comments 7188752730, item 2, and 7189470338, items 1, 3 and 4; independent review of ed9faa8a, PR #1593 comment 7189446310; schema completeness audit, PR #1593 comment 7189621405)",
    "flags": [
     "added by amendment 6 (a proposal); no runner records it before the tool revision implements it"
    ]
@@ -24245,7 +24394,8 @@
    "id": "MIGRATION-RECORD",
    "requirements": [
     "R6.RECON.28",
-    "R6.CFG.4"
+    "R6.CFG.4",
+    "R6.RECON.32"
    ],
    "runner": null,
    "operations": [
@@ -24269,7 +24419,30 @@
       ]
      },
      {
+      "case": "two referenced migration records chaining A to B and B to C (transitive closure)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked"
+      ]
+     },
+     {
       "case": "a migration record that fails record lint, the renamed edit's old bytes unchanged (the path-and-old-bytes match still applies)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "a migration record whose new is an id in use (a configuration on the supersedes chain holds both the old and the new id), or that repeats an old: record lint fails and it maps nothing; the renamed edit's old bytes unchanged",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "a migration record whose approval lacks quote, author or time, or whose time is not of the stated form; the renamed edit's old bytes unchanged",
       "outcome": "FAIL",
       "classes_include": [
        "retirement-blocked",
@@ -24286,10 +24459,1104 @@
         ]
        }
       ]
+     },
+     {
+      "case": "countercase: a lint-passing migration record found at M that neither the configuration nor its supersedes chain references, mapping the invalidated id to an id of this configuration whose edit has another target (the mapping is not applied) (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "not_class": [
+         "retirement-blocked"
+        ]
+       }
+      ]
      }
     ]
    },
-   "source": "r6 amendment 6 (owner direction of 2026-11-26, #1169 comment 7187418279, item 4; tool writer's points 1 to 5)",
+   "source": "r6 amendment 6 r2 (owner decisions of 2026-11-26, #1169 comments 7188752730, item 2, and 7189470338, items 1, 3 and 4; independent review of ed9faa8a, PR #1593 comment 7189446310; schema completeness audit, PR #1593 comment 7189621405)",
+   "flags": [
+    "added by amendment 6 (a proposal); no runner records it before the tool revision implements it"
+   ]
+  },
+  {
+   "id": "REASSESS-KEYS",
+   "requirements": [
+    "R6.RECON.27",
+    "R6.RECON.32"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "direction": "both",
+   "expect": {
+    "cases": [
+     {
+      "case": "one record carrying findings on two entries (paths p and q) against the same edit; the revised configuration cites one reassessment whose finding names the record with item p only",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked"
+      ]
+     },
+     {
+      "case": "a reassessment whose finding lacks item",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "a reassessment whose repair.commits holds an abbreviated commit id, or a commit not on M's first-parent chain",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "a reassessment whose repair.entry names an entry_path that the named reconciliation record has no entry for",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "a reassessment whose edit.sha256 is computed over a non-canonical serialization of the edit-list entry (it differs from the canonical sha256)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "a reassessment with edit null for a finding bound to an edit (not at run level)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "a reassessment whose rederivation is not a non-empty string, or which carries a key outside the table",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "countercase: two reassessments, one for each finding, each naming its record and item, with repair and edit as defined (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "not_class": [
+         "retirement-blocked"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "source": "r6 amendment 6 r2 (owner decisions of 2026-11-26, #1169 comments 7188752730, item 2, and 7189470338, items 1, 3 and 4; independent review of ed9faa8a, PR #1593 comment 7189446310; schema completeness audit, PR #1593 comment 7189621405)",
+   "flags": [
+    "added by amendment 6 (a proposal); no runner records it before the tool revision implements it"
+   ]
+  },
+  {
+   "id": "RECON-RETAINED",
+   "requirements": [
+    "R6.RECON.24",
+    "R6.ADAPT.2"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "direction": "both",
+   "expect": {
+    "cases": [
+     {
+      "case": "M changes a byte of the line holding a retained edit's text at H",
+      "outcome": "FAIL",
+      "classes_include": [
+       "base-drift"
+      ],
+      "invariants": [
+       {
+        "failed_conditions_include": "RC14"
+       }
+      ]
+     },
+     {
+      "case": "M adds a second copy of a retained site's line elsewhere in the file",
+      "outcome": "FAIL",
+      "classes_include": [
+       "base-drift"
+      ],
+      "invariants": [
+       {
+        "failed_conditions_include": "RC14"
+       }
+      ]
+     },
+     {
+      "case": "a retained edit whose text spans two lines; M changes a byte of the second line",
+      "outcome": "FAIL",
+      "classes_include": [
+       "base-drift"
+      ],
+      "invariants": [
+       {
+        "failed_conditions_include": "RC14"
+       }
+      ]
+     },
+     {
+      "case": "a retained site that moved between E and H (its site-map pin_line differs from its line at H), M not touching its line: the line at H is found from the retained text, with no E..H walk (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "not_class": [
+         "base-drift",
+         "record-invalid"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "countercase: M changes bytes outside every context window and every retained site's line (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "not_class": [
+         "base-drift",
+         "record-invalid"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "source": "r6 amendment 6 r2 (owner decisions of 2026-11-26, #1169 comments 7188752730, item 2, and 7189470338, items 1, 3 and 4; independent review of ed9faa8a, PR #1593 comment 7189446310; schema completeness audit, PR #1593 comment 7189621405)",
+   "flags": [
+    "added by amendment 6 (a proposal); no runner records it before the tool revision implements it"
+   ]
+  },
+  {
+   "id": "RESOLUTION-SCHEMA",
+   "requirements": [
+    "R6.RECON.24",
+    "R6.REC.2"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "direction": "both",
+   "expect": {
+    "cases": [
+     {
+      "case": "a resolution {splice, start_M, end_M, sha256, resolved, resolved_sha256}: 0-based byte offsets into the entry's m blob, end exclusive; sha256 of m[start_M:end_M]; resolved the canonical base64 of the replacement bytes; resolved_sha256 their sha256; l equal to the composition; the review's verdict on <path>:resolution:<splice> accept with confirms equal to the window and resolved_sha256 (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "not_class": [
+         "base-drift",
+         "record-invalid"
+        ]
+       },
+       {
+        "equals": "the path's disposition is reconciled-resolved, category 2"
+       }
+      ]
+     },
+     {
+      "case": "countercase (window): end_M greater than the length of the m blob",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "base-drift"
+      ]
+     },
+     {
+      "case": "countercase (window): start_M equal to end_M",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "base-drift"
+      ]
+     },
+     {
+      "case": "countercase (window): start_M inside a multi-byte UTF-8 character",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "base-drift"
+      ]
+     },
+     {
+      "case": "countercase (window): a float (5.0), boolean or string offset",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "base-drift"
+      ]
+     },
+     {
+      "case": "countercase (window): a window one byte wider than H's context window, which still occurs exactly once at M, its sha256 that of the wider bytes",
+      "outcome": "FAIL",
+      "classes_include": [
+       "base-drift"
+      ],
+      "invariants": [
+       {
+        "failed_conditions_include": "RC14"
+       }
+      ]
+     },
+     {
+      "case": "countercase (hash): sha256 not the hash of m[start_M:end_M]",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "base-drift"
+      ]
+     },
+     {
+      "case": "countercase (hash): resolved_sha256 not the hash of the decoded resolved bytes",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "base-drift"
+      ]
+     },
+     {
+      "case": "countercase (encoding): resolved base64 with a line break, without padding, or with a character outside the standard alphabet",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "base-drift"
+      ]
+     },
+     {
+      "case": "countercase (replacement content): decoded resolved bytes carrying the splice's new bytes twice",
+      "outcome": "FAIL",
+      "classes_include": [
+       "base-drift"
+      ],
+      "invariants": [
+       {
+        "failed_conditions_include": "RC14"
+       }
+      ]
+     },
+     {
+      "case": "countercase (replacement content): the hashes consistent, l composed from other replacement bytes than the decoded resolved bytes",
+      "outcome": "FAIL",
+      "classes_include": [
+       "base-drift"
+      ],
+      "invariants": [
+       {
+        "failed_conditions_include": "RC7"
+       }
+      ]
+     },
+     {
+      "case": "countercase (splice identity): splice naming an id absent from the ledger, or a splice of another path",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "base-drift"
+      ]
+     },
+     {
+      "case": "countercase (splice identity): two resolutions naming one splice",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "base-drift"
+      ]
+     },
+     {
+      "case": "countercase (splice identity): a resolution naming a splice for which RC14 (a) holds and whose old bytes occur once at M",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "base-drift"
+      ]
+     },
+     {
+      "case": "countercase (windows): two resolution windows of the entry that overlap, or a window overlapping an unresolved splice's translated span",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "base-drift"
+      ]
+     },
+     {
+      "case": "countercase (review): the verdict accept on <path>:resolution:<splice> without confirms",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "base-drift"
+      ]
+     },
+     {
+      "case": "countercase (review): confirms whose resolved_sha256, start_M, end_M or sha256 differs from the resolution's",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "base-drift"
+      ]
+     },
+     {
+      "case": "countercase (review): no verdict on <path>:resolution:<splice>",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "base-drift"
+      ]
+     },
+     {
+      "case": "countercase: a resolution carrying a key outside the six",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "base-drift"
+      ]
+     }
+    ]
+   },
+   "source": "r6 amendment 6 r2 (owner decisions of 2026-11-26, #1169 comments 7188752730, item 2, and 7189470338, items 1, 3 and 4; independent review of ed9faa8a, PR #1593 comment 7189446310; schema completeness audit, PR #1593 comment 7189621405)",
+   "flags": [
+    "added by amendment 6 (a proposal); no runner records it before the tool revision implements it"
+   ]
+  },
+  {
+   "id": "RECON-SCHEMA",
+   "requirements": [
+    "R6.RECON.29",
+    "R6.RECON.30"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "direction": "both",
+   "expect": {
+    "cases": [
+     {
+      "case": "a record that passes the JSON Schema of R6.RECON.30 and every table rule, with record_id, supersedes null and author (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "not_class": [
+         "base-drift",
+         "record-invalid"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "countercase: changes_decisions_on_X missing",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "base-drift"
+      ]
+     },
+     {
+      "case": "countercase: changes_decisions_on_X null, {} or \"\"",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "base-drift"
+      ]
+     },
+     {
+      "case": "countercase: a splice offset written 5.0, or true",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "base-drift"
+      ]
+     },
+     {
+      "case": "countercase: a splice without start_M",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "base-drift"
+      ]
+     },
+     {
+      "case": "countercase: a splice translation \"shift\"",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "base-drift"
+      ]
+     },
+     {
+      "case": "countercase: a protected range with a non-integer offset",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "base-drift"
+      ]
+     },
+     {
+      "case": "countercase: a key outside the table, at the top level or in an entry",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "base-drift"
+      ]
+     },
+     {
+      "case": "countercase: two entries with one path",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "base-drift"
+      ]
+     },
+     {
+      "case": "countercase: an entry path with a leading /, a . or .. component, or a trailing /",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "base-drift"
+      ]
+     },
+     {
+      "case": "countercase: M, X or ledger_base in upper case or abbreviated",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "base-drift"
+      ]
+     },
+     {
+      "case": "countercase: a record without record_id",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "base-drift"
+      ]
+     },
+     {
+      "case": "countercase: a record of schema oi-reconciliation/1 read by the run",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "base-drift"
+      ]
+     },
+     {
+      "case": "countercase: a splice translation given as an integer other than start_M - start_H",
+      "outcome": "FAIL",
+      "classes_include": [
+       "base-drift"
+      ],
+      "invariants": [
+       {
+        "failed_conditions_include": "RC5"
+       }
+      ]
+     }
+    ]
+   },
+   "source": "r6 amendment 6 r2 (owner decisions of 2026-11-26, #1169 comments 7188752730, item 2, and 7189470338, items 1, 3 and 4; independent review of ed9faa8a, PR #1593 comment 7189446310; schema completeness audit, PR #1593 comment 7189621405)",
+   "flags": [
+    "added by amendment 6 (a proposal); no runner records it before the tool revision implements it"
+   ]
+  },
+  {
+   "id": "RECON-FIELDS",
+   "requirements": [
+    "R6.RECON.30",
+    "R6.RECON.21"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "direction": "both",
+   "expect": {
+    "cases": [
+     {
+      "case": "a mode-only change of a ledgered path on M (100644 to 100755), the commit listed in side_change_commits and every other condition holding (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "not_class": [
+         "base-drift",
+         "record-invalid"
+        ]
+       },
+       {
+        "equals": "the path's disposition is reconciled, category 1"
+       }
+      ]
+     },
+     {
+      "case": "countercase: the same mode-only change with side_change_commits empty",
+      "outcome": "FAIL",
+      "classes_include": [
+       "base-drift"
+      ],
+      "invariants": [
+       {
+        "failed_conditions_include": "RC1"
+       }
+      ]
+     },
+     {
+      "case": "countercase: a ledgered path deleted at M",
+      "outcome": "FAIL",
+      "classes_include": [
+       "base-drift"
+      ],
+      "invariants": [
+       {
+        "failed_conditions_include": "RC2"
+       }
+      ]
+     },
+     {
+      "case": "countercase: x naming the path's blob at C where C differs from X",
+      "outcome": "FAIL",
+      "classes_include": [
+       "base-drift"
+      ],
+      "invariants": [
+       {
+        "failed_conditions_include": "RC8"
+       }
+      ]
+     },
+     {
+      "case": "a no-effect entry whose conclusions name an edit removed by a revised plan, read against the configuration it names (positive: no form failure)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "not_class": [
+         "record-invalid"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "countercase: an entry for a .py path whose method does not contain the l blob id",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "base-drift"
+      ]
+     },
+     {
+      "case": "countercase: an entry for a path a delegation class covers whose method does not contain the l blob id",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "base-drift"
+      ]
+     }
+    ]
+   },
+   "source": "r6 amendment 6 r2 (owner decisions of 2026-11-26, #1169 comments 7188752730, item 2, and 7189470338, items 1, 3 and 4; independent review of ed9faa8a, PR #1593 comment 7189446310; schema completeness audit, PR #1593 comment 7189621405)",
+   "flags": [
+    "added by amendment 6 (a proposal); no runner records it before the tool revision implements it"
+   ]
+  },
+  {
+   "id": "CANON-JSON",
+   "requirements": [
+    "R6.RECON.29",
+    "R6.ADAPT.2"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "direction": "both",
+   "expect": {
+    "cases": [
+     {
+      "case": "a ledger_binding computed from the raw files entry, the path's raw splices in ledger order and the path's raw edit-list entries in edit-list order, canonical JSON with non-ASCII text written as UTF-8 (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "not_class": [
+         "base-drift",
+         "record-invalid"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "countercase: edit_records_sha256 computed with non-ASCII characters escaped as \\u sequences",
+      "outcome": "FAIL",
+      "classes_include": [
+       "base-drift"
+      ],
+      "invariants": [
+       {
+        "failed_conditions_include": "RC13"
+       }
+      ]
+     },
+     {
+      "case": "countercase: splices_sha256 computed over the splices in another order",
+      "outcome": "FAIL",
+      "classes_include": [
+       "base-drift"
+      ],
+      "invariants": [
+       {
+        "failed_conditions_include": "RC13"
+       }
+      ]
+     },
+     {
+      "case": "countercase: a ledger adapter that returns no raw edit-list entries (the interface is incomplete)",
+      "outcome": "ERROR",
+      "invariants": [
+       {
+        "stop_class_in": [
+         "LEDGER_INTEGRITY",
+         "CONFIG_INVALID"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "source": "r6 amendment 6 r2 (owner decisions of 2026-11-26, #1169 comments 7188752730, item 2, and 7189470338, items 1, 3 and 4; independent review of ed9faa8a, PR #1593 comment 7189446310; schema completeness audit, PR #1593 comment 7189621405)",
+   "flags": [
+    "added by amendment 6 (a proposal); no runner records it before the tool revision implements it"
+   ]
+  },
+  {
+   "id": "REVIEW-SCHEMA",
+   "requirements": [
+    "R6.RECON.31",
+    "R6.REC.2"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "direction": "both",
+   "expect": {
+    "cases": [
+     {
+      "case": "a review record with reviewer, reviewed {path, blob_sha256} matching the record, method naming a full object id, and verdicts {item, verdict, reason} covering the item ids of the table (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "not_class": [
+         "base-drift",
+         "record-invalid"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "countercase: a verdict entry without reason, or with a key outside the table",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "base-drift"
+      ]
+     },
+     {
+      "case": "countercase: reviewed naming the record's blob under another path",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "base-drift"
+      ]
+     },
+     {
+      "case": "countercase: method naming no full object id",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "base-drift"
+      ]
+     },
+     {
+      "case": "countercase: verdicts whose item strings are not the item ids of the table (for example \"entry 1\")",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "base-drift"
+      ]
+     },
+     {
+      "case": "countercase: a reconciliation record without a review in its own directory, its only review lying in another directory",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "base-drift"
+      ]
+     }
+    ]
+   },
+   "source": "r6 amendment 6 r2 (owner decisions of 2026-11-26, #1169 comments 7188752730, item 2, and 7189470338, items 1, 3 and 4; independent review of ed9faa8a, PR #1593 comment 7189446310; schema completeness audit, PR #1593 comment 7189621405)",
+   "flags": [
+    "added by amendment 6 (a proposal); no runner records it before the tool revision implements it"
+   ]
+  },
+  {
+   "id": "WIDENING-ITEMS",
+   "requirements": [
+    "R6.RECON.31"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "direction": "both",
+   "expect": {
+    "cases": [
+     {
+      "case": "a widening review of kind widening with replaces naming the superseded blob and one verdict for each item id of the difference rule, all accept (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "not_class": [
+         "base-drift",
+         "record-invalid"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "countercase: a widening review without kind widening, or without replaces",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "countercase: a widening review that omits the item field:<key> of a changed top-level key",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "countercase: a configuration carrying a widening_review key",
+      "outcome": "ERROR",
+      "invariants": [
+       {
+        "stop_class_in": [
+         "CONFIG_INVALID",
+         "CONFIG_UNREVIEWED"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "source": "r6 amendment 6 r2 (owner decisions of 2026-11-26, #1169 comments 7188752730, item 2, and 7189470338, items 1, 3 and 4; independent review of ed9faa8a, PR #1593 comment 7189446310; schema completeness audit, PR #1593 comment 7189621405)",
+   "flags": [
+    "added by amendment 6 (a proposal); no runner records it before the tool revision implements it"
+   ]
+  },
+  {
+   "id": "CONFIG-REFS",
+   "requirements": [
+    "R6.RECON.33",
+    "R6.CFG.4"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "direction": "both",
+   "expect": {
+    "cases": [
+     {
+      "case": "a configuration whose records entries each carry a kind of the enumeration with a record of the mapped schema, roles.side_change_classes also listed in records with the same blob, retirement {name, issue} (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "no_stop": true
+       }
+      ]
+     },
+     {
+      "case": "countercase: a records entry of a kind outside the enumeration",
+      "outcome": "ERROR",
+      "invariants": [
+       {
+        "stop_class_in": [
+         "CONFIG_INVALID",
+         "CONFIG_UNREVIEWED"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "countercase: a records entry whose record has a schema other than its kind's",
+      "outcome": "ERROR",
+      "invariants": [
+       {
+        "stop_class_in": [
+         "CONFIG_INVALID",
+         "CONFIG_UNREVIEWED"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "countercase: roles.side_change_classes not listed in records, or listed with another blob",
+      "outcome": "ERROR",
+      "invariants": [
+       {
+        "stop_class_in": [
+         "CONFIG_INVALID",
+         "CONFIG_UNREVIEWED"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "countercase: retirement.issue a string, or retirement without name",
+      "outcome": "ERROR",
+      "invariants": [
+       {
+        "stop_class_in": [
+         "CONFIG_INVALID",
+         "CONFIG_UNREVIEWED"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "countercase: a check carrying default_for (a key outside R6.CFG.4)",
+      "outcome": "ERROR",
+      "invariants": [
+       {
+        "stop_class_in": [
+         "CONFIG_INVALID",
+         "CONFIG_UNREVIEWED"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "source": "r6 amendment 6 r2 (owner decisions of 2026-11-26, #1169 comments 7188752730, item 2, and 7189470338, items 1, 3 and 4; independent review of ed9faa8a, PR #1593 comment 7189446310; schema completeness audit, PR #1593 comment 7189621405)",
+   "flags": [
+    "added by amendment 6 (a proposal); no runner records it before the tool revision implements it"
+   ]
+  },
+  {
+   "id": "SUPERSEDES-RESOLVE",
+   "requirements": [
+    "R6.RECON.33",
+    "R6.REC.7"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "direction": "both",
+   "expect": {
+    "cases": [
+     {
+      "case": "a configuration version 2 at the fixed configuration path whose supersedes names version 1, overwritten at F: version 1 resolves at the newest commit on F's first-parent chain whose tree holds that path with that blob (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "no_stop": true
+       }
+      ]
+     },
+     {
+      "case": "a finding made under version 1 binds version 2, resolved in that way, which carries the edit",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked"
+      ]
+     },
+     {
+      "case": "countercase: a supersedes blob that no commit on F's first-parent chain holds at that path",
+      "outcome": "ERROR",
+      "invariants": [
+       {
+        "stop_class_in": [
+         "CONFIG_INVALID",
+         "CONFIG_UNREVIEWED"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "source": "r6 amendment 6 r2 (owner decisions of 2026-11-26, #1169 comments 7188752730, item 2, and 7189470338, items 1, 3 and 4; independent review of ed9faa8a, PR #1593 comment 7189446310; schema completeness audit, PR #1593 comment 7189621405)",
+   "flags": [
+    "added by amendment 6 (a proposal); no runner records it before the tool revision implements it"
+   ]
+  },
+  {
+   "id": "CLASS-SCHEMA",
+   "requirements": [
+    "R6.RECON.34",
+    "R6.TREE.5"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "direction": "both",
+   "expect": {
+    "cases": [
+     {
+      "case": "a class record whose classes carry id, prefixes and pins [{path, git_blob, blob_sha256}] (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "not_class": [
+         "base-drift",
+         "record-invalid"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "countercase: a pin without git_blob",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "countercase: a class carrying the class-level paths form",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "countercase: a superseding class record that adds a pin without a widening review",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid"
+      ]
+     }
+    ]
+   },
+   "source": "r6 amendment 6 r2 (owner decisions of 2026-11-26, #1169 comments 7188752730, item 2, and 7189470338, items 1, 3 and 4; independent review of ed9faa8a, PR #1593 comment 7189446310; schema completeness audit, PR #1593 comment 7189621405)",
+   "flags": [
+    "added by amendment 6 (a proposal); no runner records it before the tool revision implements it"
+   ]
+  },
+  {
+   "id": "SCAN-PARSE",
+   "requirements": [
+    "R6.RECON.35",
+    "R6.RECON.2"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "direction": "both",
+   "expect": {
+    "cases": [
+     {
+      "case": "a review record carrying a finding, stored without a .json suffix in a reconciliation directory",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked"
+      ]
+     },
+     {
+      "case": "a file under verification/audits/ containing the string oi-review-record/1 that fails strict parsing (invalid UTF-8, a byte-order mark, a duplicate key, NaN): a malformed finding, run level",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "two byte-identical reconciliation records at different paths covering one path: two records",
+      "outcome": "FAIL",
+      "classes_include": [
+       "record-invalid",
+       "base-drift"
+      ]
+     },
+     {
+      "case": "a review carrying a finding that lies in a reconciliation directory other than its record's",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "countercase: a non-JSON file under verification/audits/ that contains no schema string of a scanned kind (not in the scanned set) (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "not_class": [
+         "record-invalid",
+         "retirement-blocked"
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "source": "r6 amendment 6 r2 (owner decisions of 2026-11-26, #1169 comments 7188752730, item 2, and 7189470338, items 1, 3 and 4; independent review of ed9faa8a, PR #1593 comment 7189446310; schema completeness audit, PR #1593 comment 7189621405)",
+   "flags": [
+    "added by amendment 6 (a proposal); no runner records it before the tool revision implements it"
+   ]
+  },
+  {
+   "id": "RESULT-FIELDS",
+   "requirements": [
+    "R6.RECON.36",
+    "R6.OUT.18"
+   ],
+   "runner": null,
+   "operations": [
+    "execution"
+   ],
+   "direction": "both",
+   "expect": {
+    "cases": [
+     {
+      "case": "an op C result with M: dispositions entries carry exactly path, disposition, category, record, failed, conflicts and why; category3 carries findings, blocked and reassessments; inputs.classify_records entries carry the review; inputs.record_base is present (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "schema_errors": 0
+       }
+      ]
+     },
+     {
+      "case": "countercase: a result whose dispositions entry lacks record",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "schema_errors": 1
+       }
+      ]
+     }
+    ]
+   },
+   "source": "r6 amendment 6 r2 (owner decisions of 2026-11-26, #1169 comments 7188752730, item 2, and 7189470338, items 1, 3 and 4; independent review of ed9faa8a, PR #1593 comment 7189446310; schema completeness audit, PR #1593 comment 7189621405)",
    "flags": [
     "added by amendment 6 (a proposal); no runner records it before the tool revision implements it"
    ]
