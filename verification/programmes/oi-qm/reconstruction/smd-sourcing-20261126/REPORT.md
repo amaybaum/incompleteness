@@ -341,7 +341,7 @@ e ≠ 0. The controls use the unnormalised vectors t = |+e_1⟩ − |−e_1⟩ (
 e = s_1 − s_2 (abs(e)² = 4) in the link basis (E11), and E15 checks S > 0 for κ = (1, 2, 3) and
 ε = 1/10 with that B. For
 h ∈ O put S_h = ρ(h)Sρ(h)ᵀ. Let ρ_K be the equal-weight mixture over h ∈ O of the centred
-Gaussian laws N(0, c ⊗ S_h) (equal components merged; exactly 12 distinct S_h, E14).
+Gaussian laws N(0, c ⊗ S_h) (equal components merged; exactly 12 distinct S_h for the vectors of the controls, E14; at least two for any nonzero t, e).
 
 **Checks [A], [C].**
 - Each component is F-stationary (E1), J-Hermitian (E2), translation-invariant and of range 1.
@@ -471,7 +471,7 @@ and K0; no without clustering. Unit A's Proposition B does not transfer to Z (§
 | CC-K | ρ_K meets L-SDS and the fixed set, fails every notion of §2, violates SMD (§4.3, §4.4) | green |
 | CC-D | ρ_D at μ = 0 meets K3, L-SDS and the fixed set and violates SMD; the positive proof fails only at Lemma S(b) (§4.2) | green |
 | CC-G | Lemma G re-derives SMD for centred Gaussian states, both directions, with the a.s. domain of R(w) | green |
-| CC-E | `python3 -I controls.py`: exact checks E1–E18 and negative controls N1–N5 (56 PASS lines: 4 tori × 11, plus E8–E18 and N5); exit status 0. Negative controls: E4 (identity covariance fails E1); N1 (off-diagonal weight A/3 fails E1 and E2); N2 ([[1, 3A], [3A, 1]] fails E3); N3 (a one-site bump fails the reflection and translation checks); N4 ([[1, A²], [A², 1]] fails the range-1 check); N5 (ε = 10 fails E15) | green |
+| CC-E | `python3 -I controls.py`: exact checks E1–E18 and negative controls N1–N5 (56 PASS lines: 4 tori × 11, plus E8–E18 and N5); exit status 0. Negative controls: E4 (identity covariance fails E1); N1 (off-diagonal weight A/3 fails E1 and E2); N2 ([[1, 3A], [3A, 1]] fails E3); N3 (a one-site bump fails E5 and E6); N4 ([[1, A²], [A², 1]] fails E7); N5 (ε = 10 fails E15) | green |
 | CC-X | part X of `controls-output.txt`: ‖f_t‖_∞ and ‖f_t‖_4 decrease for μ = 0.5, 0.9 (d = 1, 2) and stay at 1 for μ = 0; ‖f_t‖_2 stays bounded. Illustration only | n/a (certifies nothing) |
 | CC-W | itemized table §4.4 for ρ_0, ρ_D and ρ_K | green |
 | CC-P | quoted lines re-read at [P] | green |
