@@ -257,6 +257,81 @@ needs the owner's approval; nothing is dispatched from this branch.
 - Q6. Release checks are stated in prose. The gate evaluates each by a fixed evaluator keyed to its exact
   text; an unknown text is `file-invalid`. Is that the intended reading of R6.GATE.15?
 
+## 11. State of the branch (WIP / UNVERIFIED)
+
+Done:
+
+- The gate, `tools/ledger_coverage/gate/control_gate.py`, and its self-test, `gate_selftest.py` (GATE-1 to
+  GATE-30, each case a fixture run in-process; standard library only, checked by an AST scan of both files).
+  Six countercontrol mutants of the gate were each caught by the intended GATE row: duplicate detection
+  (GATE-3), the RT-L2 release check (GATE-11), composite precedence (GATE-28), the sha256 check (GATE-9),
+  direction-missing (GATE-27), the sweep count (GATE-10).
+- The runner evidence contract, `tools/ledger_coverage/adapters/control_records.py`, wired into
+  `a1_controls.py`, with restored cases for the rule-widening rows.
+- The tool's own self-test still passes with the gate files in the package (86 controls).
+
+Gate over the adopted files (local; only the self-test's records and the pilot): GATE_FAIL, as section 7
+predicts. Findings: `correspondence-orphan-requirement` 14 (B1), `direction-missing` 42 (B2),
+`correspondence-orphan-row` 1 (TR28, B3), and `missing-id` for every row without a record. All 30 GATE
+rows hold against the adopted expectations. Pilot on the `rules` group of `a1_controls.py` (harness
+admission, the staged draft configuration): A1r, A3r, A6r, A8r, A10r and A11r hold. A2r, A4r, A5r, A7r and
+A9r still lack evidence their expectations name (attested invariants, bindings, named cases, the `ast`
+procedure inputs).
+
+- **B5. Compound invariants.** R6.GATE.3 says `invariants` holds single-key objects. 28 invariant objects of
+  the adopted file have two keys (for example `{"all": ..., "have": ...}`, `{"condition": "RC11", "holds":
+  ...}`), all from the vocabulary of sec. 16.10. Read strictly, the file is invalid (GATE_ERROR). The gate
+  accepts an object whose every key is in the vocabulary, evaluates it as one invariant, and lists each
+  occurrence in `gate-result.json` `compound_invariants`. This reading is for the owner to confirm or
+  correct.
+
+Limitations of the gate as implemented, each to close or to put to the owner:
+
+- L1. Invariants. The gate computes `no_stop`, `stop_class_in`, `admission_mode`, `admission_mode_not`,
+  `not_class`, `items_include`, `tool_run_exit`, `stderr_json_outcome`, `no_result_written`,
+  `composite_status` and `component_results_preserved` from the retained results. Every other key, and
+  every compound invariant, must be attested in a sha256-checked file of the case and equal the expected
+  value. Many values are prose ("exactly one FAIL item names the site"), so an attested value amounts to a
+  runner's statement checked only for presence and integrity. Each key needs its own evaluator before it
+  is independent extraction in the sense of R6.GATE.8.
+- L2. Release checks. TR5's check and the constant-false deferral are evaluated from git objects or a
+  constant. The checks of EI14-dispatch, RT-L2 and RT-O9-L2, and RT-T read release facts retained in the
+  evidence named at the commit under check (`--release-evidence`). An absent fact counts as false, which
+  admits NOT RUN.
+- L3. Count keys. The adopted file uses keys outside R6.GATE.3's grammar (dotted paths such as
+  `region_lines.count`, `sites[...]`, and plain keys such as `merger_groups` and `sites_swept`). The gate reads
+  them from the result, falling back to an attested value.
+- L4. NO_ITEM and ITEM are evaluated over the items that the case's `classes_exact` filter selects, when it
+  states one.
+- L5. A `sites` entry without a `subject` (for example "all other merger-group sites") is attested.
+
+## 12. What must run in CI for the exact-head check
+
+Nothing has been dispatched. One job in `.github/workflows/ledger-coverage.yml`, on the exact
+implementation commit (a launch that needs the owner's approval, R6.PLACE.11 and AGENTS.md sec. A.40):
+
+1. Pre-run pin check of the tool files against the configuration under test (a re-staged configuration
+   whose `tool.files` includes the gate and recorder files).
+2. The entry point's self-test (`python3 -I -S -B tools/ledger_coverage.py self-test`).
+3. The staged purity lint (`adapters/staged_purity_lint.py`).
+4. The synthetic fixture (`adapters/synthetic_fixture.py`), the conformance controls
+   (`adapters/conformance_controls.py`) and the A1 conformance (`adapters/a1_conformance.py`).
+5. The record-directory controls (`adapters/record_directory_controls.py`).
+6. The A1 controls (`adapters/a1_controls.py --main M0`, including the sweeps), once without `--main` (USAGE).
+7. Y8 (`--syn-engine`).
+8. The mutation run, sets c1, c2, v60e, cache and o9 (renamed RDIR-m1 to RDIR-m17), writing
+   `mutation-records.json`.
+9. REPRO-DOUBLE (every operation run twice into fresh `--out` directories).
+10. The gate: `python3 -I -S -B tools/ledger_coverage/gate/control_gate.py --expectations
+    verification/audits/foundations/a1exit-design-r6-20261125/EXPECTATIONS.json --requirements
+    verification/audits/foundations/a1exit-design-r6-20261125/REQUIREMENTS.json --records <each job's
+    control-records.json> --mutation-records <file> --repo . --out <dir>`, its exit status the step's
+    conclusion, and a marker step "control expectations hold". Upload `gate-result.json` and the evidence
+    with its manifest digest.
+
+Runners 2 to 9 must first emit `control-records.json` and evidence (only `a1_controls.py` does so). The
+gate cannot hold until B1 to B3 are resolved by an owner-approved expectation change.
+
 ## Appendix: per-row classification (generated from EXPECTATIONS.json and the runner sources)
 
 | Row | Category | Runner | Notes |
