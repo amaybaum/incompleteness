@@ -215,6 +215,17 @@ def rt_record(a):
               'ck_errors': rc.get('ck_errors'), 'extended_unmapped': rc.get('extended_unmapped'),
               'frozen_self_test': rc.get('frozen_self_test'), 'anchors': rc.get('anchors'), 'seconds': t})
     code, res, t = a.run(['record', '--pin', H, '--record', H])
+    x1_run = a.rec.pending[-1]
+    # the restored pair shared by X1 and M7 to M9: the unmutated record run twice (baseline, restored)
+    a.run(['record', '--pin', E, '--record', H], case='baseline')
+    clean_pair = a.rec.pending[-1:]
+    a.run(['record', '--pin', E, '--record', H], case='restored', baseline=clean_pair[0])
+    clean_pair = a.rec.pending[-2:]
+    a.rec.pending = [x1_run]
+
+    def with_pair(runs):
+        return list(runs) + [dict(r_) for r_ in clean_pair]
+    a.rec.pending = with_pair(a.rec.pending)
     a.record('X1', code == 65 and res.get('stop', {}).get('class') == 'PIN_MISMATCH', 'ERROR PIN_MISMATCH, exit 65',
              {'exit': code, 'stop': res.get('stop', {}).get('class')})
     # M7-M9: altered frozen record files are refused at integrity (the record tree is pinned)
@@ -223,9 +234,12 @@ def rt_record(a):
     sm['sites'][0]['row'] = 'X-99'
     r7 = a.repo.derive(H, {R + 'sitemap.json': (json.dumps(sm, indent=1, ensure_ascii=False) + '\n').encode()})
     code7, res7, _ = a.run(['record', '--pin', E, '--record', r7])
+    run7 = a.rec.pending[-1]
     led_md = a.base.read(H, R + 'LEDGER.md').replace(b'| X-00 |', b'| X-0O |', 1)
     r8 = a.repo.derive(H, {R + 'LEDGER.md': led_md})
     code8, res8, _ = a.run(['record', '--pin', E, '--record', r8])
+    run8 = a.rec.pending[-1]
+    a.rec.take()
     # the replay itself, on the altered materializations, reports the equalities false
     from ledger_coverage.adapters import python_frozen_replay as rp
 
@@ -245,11 +259,17 @@ def rt_record(a):
     rr8 = rp.replay(Rd(r8), E, r8, R + 'ledger_check.py', corpus, tempfile.mkdtemp(dir=a.out_root))
     eq7 = {e['name']: e['equal'] for e in rr7['equalities']}
     eq8 = {e['name']: e['equal'] for e in rr8['equalities']}
+    # each of M7 to M9 retains its own refused run as case '' (M9 reads M7's run) with the shared restored pair
+    a.rec.pending = with_pair([dict(run7, case='', attested={
+        json.dumps({'replay_equality': 'build', 'value': False}, sort_keys=True): eq7.get('rebuild_equal') is False})])
     a.record('M7', code7 == 65 and eq7.get('rebuild_equal') is False,
              'FAILS rebuild_equal false (v1); under v5.1 the pinned record tree refuses the altered record first',
              {'cli': (code7, res7.get('stop', {}).get('class')), 'replay_equalities': eq7})
+    a.rec.pending = with_pair([dict(run8, case='', attested={
+        json.dumps({'replay_equality': 'render', 'value': False}, sort_keys=True): eq8.get('render_equal') is False})])
     a.record('M8', code8 == 65 and eq8.get('render_equal') is False, 'FAILS render_equal false (v1); refused at integrity',
              {'cli': (code8, res8.get('stop', {}).get('class')), 'replay_equalities': eq8})
+    a.rec.pending = with_pair([dict(run7, case='', attested=None)])
     a.record('M9', code7 == 65 and res7.get('stop', {}).get('class') == 'RECORD_TREE_MISMATCH', 'ERROR record tree',
              {'cli': (code7, res7.get('stop', {}).get('class'))})
     s11_2c(a)
@@ -1464,8 +1484,9 @@ def k1_graph(a, tool_files):
 
 
 def chain_refusal(a):
-    code, res, t = a.run(['coverage', '--commit', E, '--check', 'item2'], harness=False)
-    code2, res2, t2 = a.run(['coverage', '--commit', E, '--check', 'item2', '--freeze', a.crev], harness=False)
+    code, res, t = a.run(['coverage', '--commit', E, '--check', 'item2'], harness=False, case='without --freeze')
+    code2, res2, t2 = a.run(['coverage', '--commit', E, '--check', 'item2', '--freeze', a.crev], harness=False,
+                            case='with the stand-in for F')
     a.record('CHAIN-REFUSAL', code == 65 and res.get('stop', {}).get('class') == 'CONFIG_UNREVIEWED' and
              code2 == 65 and res2.get('stop', {}).get('class') == 'CONFIG_UNREVIEWED',
              'the unreviewed draft configuration is refused under the review chain: ERROR CONFIG_UNREVIEWED, without '
