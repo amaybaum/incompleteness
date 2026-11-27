@@ -7,66 +7,58 @@ Source of the gaps: the independent review of the r13 detection, form and bindin
 > An entry with `side_change_commits: []` never binds; r13's R6.RECON.30 table admits an empty array.
 > An element that is readable but names an edit id absent from every ledger binds nothing.
 
-Status: a proposal for owner disposition. It needs independent review and the owner's decision. This file is the only file it changes. DESIGN-r6.md, EXPECTATIONS.json, REQUIREMENTS.json and CONFORMANCE-MUTANTS.json are unchanged. On adoption, a generator-amendment7 applies the adopted wording and cases, as generator-amendment1 to generator-amendment6 did. It authorizes no merge, dispatch, freeze or trial, and it reopens nothing else of amendments 1 to 6.
+Status: a proposal for owner disposition, r2. r2 answers the independent review of r1 (`f5d85874`) on PR #1618, findings 3, 4, 5, 7, 8 and 9. It needs independent review and the owner's decision. This file is the only file it changes. DESIGN-r6.md, EXPECTATIONS.json, REQUIREMENTS.json and CONFORMANCE-MUTANTS.json are unchanged. On adoption, a generator-amendment7 applies the adopted wording and cases, as generator-amendment1 to generator-amendment6 did. It authorizes no merge, dispatch, freeze or trial, and it reopens nothing else of amendments 1 to 6.
 
-Goal link: the A1 retirement verification route (#1169, owner priority of comment 7207765697). This proposal decides whether a recorded category-3 finding blocks fail-closed in two cases where r13 lets it bind nothing. Item 4's bar is met: section 1 shows that both cases fail open in the tool at `7db52f38`, and a finding that binds nothing lets a frozen plan proceed over an invalidation that an independent reviewer recorded.
+Order of adoption: the wording uses three terms of the OBL-29 r9 design and its Amendment 1 (#1601 at `e79e7ca90f863115bc75b7ae5195dbba016125da`, `verification/audits/foundations/a1exit-obl29-remedy-20261126/`): `R*` (R6.OBL29.3), residual R-1 and residual R-8. That design is not yet on `main`. This amendment is therefore adopted with or after r9 Amendment 1, and its wording is aligned with A1.5. If it were adopted first, `R*` would read as r13's "the scan", and the R-1 sentence would be dropped.
 
-Safety rule, as in amendment 6: no reading may let a category-3 finding be lost or lifted by rewording, and no rule is weakened to match the tool. Both gaps are closed by binding more, never less.
+Goal link: the A1 retirement verification route (#1169, owner priority of comment 7207765697). This proposal decides whether a recorded category-3 finding blocks fail-closed in two cases where r13 lets it bind nothing. Item 4's bar is met: sec. 1 shows from r13's own text on `main` that both cases fail open. A finding that binds nothing lets a frozen plan proceed over an invalidation that an independent reviewer recorded.
 
-## 1. How the tool treats each case at `7db52f38`
+Safety rule, as in amendment 6: no reading may let a category-3 finding be lost or lifted by rewording, and no rule is weakened to match the tool. Each change below adds blocked runs or bindings. The one change to a lift condition, in R6.RECON.27 Keys, permits an edit reassessment where Keys forbade one only because r13 never bound an edit and a run level together. No binding or lift condition that r13 states becomes easier to meet (sec. 3).
 
-The evidence is the code on branch tools/a1-ledger-coverage-r6 at `7db52f380f1e51d4af52b84f0a7e728827ac5a60`. A probe that imports the engine from a `git archive` of that commit confirms the reading (recipe in sec. 6).
+## 1. The gaps in r13's text
 
-**Gap (i): `side_change_commits`.**
+The demonstration rests on DESIGN-r6.md on `main`. The tool and a probe confirm it; they are provenance, listed in sec. 6.
 
-- `engine/cli.py:356-363` reads the entry. If the entry is not an object, or `side_change_commits` is not a list, the run stops with ERROR `DESIGN_UNSETTLED` (fail-closed). This is the stop the review calls stop 1, and it covers malformed findings and reviews whose reviewed record is absent.
-- Otherwise `applies = c3.in_m(repo, M, entry['side_change_commits'])`. `engine/category3.py:114-121` returns `False` for an empty list. It also returns `False` for any element that is not a string or that the object store does not hold, because the exception is caught and the element is skipped.
-- When `applies` is false, `bind` is never called. The finding then has no edits, no run-level binding, and only the form problems it had before binding.
-- Probe results: `in_m([])`, `in_m(["junk"])` and `in_m([<40-hex id not in the store>])` are each `False`, and `in_m([<commit in M>])` is `True`.
-- Effect:
-  - With `[]`, which passes the R6.RECON.30 key table (`('arr', 'commit')`), the run emits no item for the finding at all.
-  - With a malformed element, the schema form failure gives FAIL `record-invalid` only while the record is present at `M` (`cli.py:415`, `form and (present or hits)`), and never `retirement-blocked`.
-  - With a well-formed id that names no commit, or a commit unrelated to the path that no run's `M` contains, the finding binds nothing and the record passes its schema.
-  - A deleted record leaves no trace in any of these cases.
+**Gap (i).**
+- The R6.RECON.30 entry table types `side_change_commits` as an "array of commit ids", so an empty array passes it.
+- The array's acceptance condition is RC1, which only decides reconciliation.
+- R6.RECON.26 limits blocking to "every run whose `M` contains one of the entry's `side_change_commits`". No `M` contains an element of `[]`.
+- Neither text constrains the elements beyond their encoding. A held commit that no relevant `M` can contain therefore also leaves the finding unbound, for example a commit on an abandoned branch or one made after the record.
+- The list is written by the reconciliation record's writer, the side a second-kind finding disputes.
+- For a finding that names no entry, the sentence presupposes an entry and says nothing.
 
-**Gap (ii): an element naming an unknown edit id.**
+**Gap (ii).**
+- Form (ii) makes an element whose `id` is absent from the named configuration's ledger a form failure that "blocks through the fallback of (iii)".
+- (iii) binds "every configuration whose ledger carries one of its edits", by id, migrated id or target.
+- An id that no ledger carries, with a target that no ledger holds, therefore binds no configuration.
+- Form (iv)'s run-level case requires the fallback set to be empty, and that set is reached only when `invalidated` is "absent, empty or unreadable". A readable element with an unknown id never reaches it.
+- An unresolvable `configuration` reaches (iii)'s scope through the same path, with the same result.
 
-- `engine/category3.py:705-798` (`bind`): an element that passes `element_ok` but whose `id` is absent from the named configuration's ledger adds the form problem "differs from the named configuration's ledger" and sets `global_scope` (`:743-749`).
-- `carry_id` (`:752-757`) then fails, because the id is not in the run's ledger either. The target match (`:765-775`) fails when no splice or retained edit of the run's ledger has the target's path and `old_sha256`.
-- `bind` returns `([], False, form)` at `:776`, so the result has no edits and no run-level binding.
-- The same holds when the configuration cannot be resolved: `unresolved` sets `global_scope`, but the usable-list path never reaches the run-level return at `:798`.
-- Probe results:
-  - unknown id with a resolvable configuration: `([], False, ["invalidated element NO-SUCH-EDIT differs from the named configuration's ledger (Form (ii))"])`;
-  - unknown id with an unresolvable configuration: `([], False, ['its configuration is absent or cannot be resolved (Form (iii))'])`;
-  - controls: a valid element gives `(['E1'], False, [])`, and `invalidated: ["junk"]` (review finding 1, fixed at `7db52f38`) gives `(['E1'], False, [...Form (iv) fallback])`.
-- Effect: the run shows FAIL `record-invalid` while the record is present, and never `retirement-blocked`. After the record is deleted it shows nothing.
-
-In both cases the tool follows the r13 text faithfully. The holes are in the design, as the review states.
+The tool at `7db52f38` follows this text faithfully. Its behaviour, quoted from the provenance in sec. 6:
+- gap (i): no `retirement-blocked` item; for a malformed element, `record-invalid` only while the record is present;
+- gap (ii): `bind` returns `([], False, form)`, so `record-invalid` while present and nothing after deletion.
 
 ## 2. Gap (i): an empty or untrustworthy `side_change_commits`
 
 ### Options
 
 - (a) A form failure: make `side_change_commits` a non-empty array in the R6.RECON.30 key table.
-  - This alone closes nothing. Form (i) says a form failure "still blocks", but the block still passes through the same gate, "every run whose `M` contains one of the entry's `side_change_commits`", which an empty list never meets.
-  - It also changes two existing controls:
-    - RECON-FIELDS countercase 2 (the mode-only change with `side_change_commits` empty) would become `record-invalid` before any condition, instead of `base-drift` with RC1 failing, because the RECON-SCHEMA conformance invariant forbids failed conditions on a schema-invalid record;
-    - CONFORMANCE-MUTANTS.json would gain an `empty-array` mutant, which changes its sha256, cited in RECON-SCHEMA and in amendment 6 sec. 6a.
-- (b) Binding at run scope: where the list cannot scope the finding, the finding blocks every run in which it is found. This is fail-closed whatever the list holds. It leaves the key table, RC1 and the mutant list unchanged.
+  - This alone closes nothing. A form failure "still blocks" (Form (i)), but only through the same gate, which an empty list never meets.
+  - It also changes RECON-FIELDS countercase 2 (`base-drift` with RC1 would become `record-invalid` before any condition) and the mutant list, whose sha256 is cited in RECON-SCHEMA.
+- (b) Binding at run scope: where the list cannot limit the finding's runs, the finding blocks every run in which it is found. This is fail-closed whatever the list holds, and it leaves the key table, RC1 and the mutant list unchanged.
 
 ### Proposal
 
-(b), with the untrustworthy list also counted as a form failure of the finding, so that the writer sees `record-invalid`. The key table is not changed.
+(b). The list limits the runs only when each element passes three tests:
+- it is a commit id naming a commit the object store holds;
+- that commit changes the entry's path against its first parent, as RC1 and drift define it (R6.RECON.30), merges included;
+- that commit is an ancestor of, or equal to, a commit whose tree holds the record carrying the entry at its path with its blob (a witness of that record in the run's `R*`).
 
-"Untrustworthy" covers:
-- an empty list;
-- an element that is not a commit id;
-- an id that names no commit;
-- a commit that does not change the entry's path.
+The third test closes the residual in review finding 3: an abandoned-branch commit, or a commit made after the record, is not an ancestor of any witness. A legitimate entry passes all three tests. RC1 makes the list exactly the commits on `M`'s first-parent chain after `H` that change the path, and a record lands after those commits, so each is an ancestor of the commit that lands it.
 
-The last two are included because they fail open in the same way as `[]`. A legitimate entry is never affected: RC1 makes the list exactly the commits on `M`'s first-parent chain after `H` that change the path, so each element names a held commit that changes it.
+Otherwise the finding blocks every run in which it is found, and the list is a form failure of the finding, so that the writer sees `record-invalid`. The key table is not changed.
 
-The same sentence must also say what happens to a finding with no entry, because the r13 sentence presupposes one. Owner item 5 has decided that case: run-level FAIL `retirement-blocked`, not ERROR. The replacement states that decision. It does not decide it again.
+A finding with no record in `R*` blocks in the same way, with the run-level item of Form (iv). Owner item 5 and r9 Amendment 1 A1.3 have already decided its outcome: FAIL `record-invalid` and `retirement-blocked`, never ERROR. The replacement states that outcome. It does not decide it again.
 
 ### Replacement wording (R6.RECON.26, body)
 
@@ -76,13 +68,13 @@ Current:
 
 Replacement:
 
-> A finding found there blocks every run whose `M` contains one of the entry's `side_change_commits`, with an item FAIL `retirement-blocked` (obligation `RET`): the entry's path takes the disposition `retirement-blocked` when it differs between `H` and `M`; when it does not (for example after a revert to `H`'s bytes), the item is a run-level item naming the path. The entry's `side_change_commits` limit the runs a finding blocks only when they are a non-empty array each of whose elements is a commit id (R6.RECON.29) naming a commit the object store holds that changes the entry's path (R6.RECON.30). Where the list is absent, is not an array, is empty or holds any other element, the finding blocks every run in which it is found, as if that run's `M` contained one of the listed commits, and the list is a form failure of the finding, FAIL `record-invalid` (Form (i)). A finding that names no entry the scan finds (a malformed finding of R6.RECON.35, or a review whose `reviewed` names no record the scan finds) likewise blocks every run in which it is found, with the run-level item of Form (iv).
+> A finding found there blocks every run whose `M` contains one of the entry's `side_change_commits`, with an item FAIL `retirement-blocked` (obligation `RET`): the entry's path takes the disposition `retirement-blocked` when it differs between `H` and `M`; when it does not (for example after a revert to `H`'s bytes), the item is a run-level item naming the path. The entry's `side_change_commits` limit the runs a finding blocks only when they are a non-empty array each of whose elements is a commit id (R6.RECON.29) naming a commit the object store holds, that changes the entry's path against its first parent as R6.RECON.30 defines it (a merge commit included), and that is an ancestor of, or equal to, a commit whose tree holds the record carrying the entry at its path with its blob (a witness of that record in `R*`, R6.OBL29.3). Where the list is absent, is not an array, is empty or holds any other element, the finding blocks every run in which it is found, as if that run's `M` contained one of the listed commits, and the list is a form failure of the finding, FAIL `record-invalid` (Form (i)). A finding that names no entry (a malformed finding of R6.RECON.35, or a review whose `reviewed` names no record in `R*`, R6.OBL29.3) likewise blocks every run in which it is found, with the run-level item of Form (iv). A finding found only through `REV`, `F` or an explicit input blocks with the narrower guarantee of r9 R-1.
 
 The configurations the finding binds are unchanged: Form (ii) to (v) decide them, as before. Only the set of runs changes.
 
 ### Controls (new cases; FINDING-FORM, R6.RECON.26)
 
-Each FAIL case below fails at `7db52f38` without the change: no `retirement-blocked` item is emitted, or, for the no-entry case, the run stops with ERROR.
+Each FAIL case below has no `retirement-blocked` item under r13's text.
 
 | # | Case | Outcome |
 |---|---|---|
@@ -93,17 +85,25 @@ Each FAIL case below fails at `7db52f38` without the change: no `retirement-bloc
 | 5 | the same, the list holding one commit that changes the path but is not in the run's `M`, plus one element `"junk"` | FAIL, `retirement-blocked` and `record-invalid` |
 | 6 | a second-kind finding (independent reviewer, `invalidates` on `<path>:scientific_effect`) on an entry whose `side_change_commits` is `[]` | FAIL, `retirement-blocked` and `record-invalid` |
 | 7 | a class (b) malformed file with an invalidation signal (for example the BOM-prefixed copy of a finding) | FAIL, run-level `retirement-blocked`; no ERROR |
-| C1 | countercase: a well-formed finding whose `side_change_commits` lists only commits that change the path and that the run's `M` does not contain (the run's `M` predates the change) (positive) | ANY, not `retirement-blocked` |
+| 8 | the list holding, as its only element, a held commit on an unmerged branch that changes the entry's path, not an ancestor of any witness of the record (an abandoned branch) | FAIL, `retirement-blocked` and `record-invalid` |
+| 9 | the list holding, as its only element, a merge commit whose tree entry for the path equals its first parent's (the path differs only from the second parent) | FAIL, `retirement-blocked` and `record-invalid` |
+| 10 | provisional, with r9 Amendment 1: a second-kind finding by a reviewer distinct from every author in `R*`, whose `reviewed` names no record in `R*` | FAIL, run-level `retirement-blocked` and `record-invalid`; no ERROR |
+| C1 | countercase: a well-formed finding whose `side_change_commits` lists only commits that change the path, are ancestors of the record's witness, and are not contained in the run's `M` (the run's `M` predates the change) (positive) | ANY, not `retirement-blocked` |
 | C2 | countercase: a `no-effect` entry, not a finding, with `side_change_commits: []` on a mode-only change | FAIL, `base-drift`, RC1 failing; not `retirement-blocked`, not `record-invalid` (RECON-FIELDS countercase 2, unchanged) |
+| C3 | countercase: C1 with its only element a merge commit that brings the change in (its tree entry for the path differs from its first parent's), an ancestor of the witness, not in the run's `M` (positive) | ANY, not `retirement-blocked` |
 
-C1 rules out a fix that drops the `M` scope altogether. C2 shows that the key table and RC1 are unchanged. Case 5 tells the two readings apart: under r13, the one valid commit not in `M` leaves the finding unbound.
+How the cases tell the readings apart:
+- C1 rules out a fix that drops the `M` scope altogether. C2 shows that the key table and RC1 are unchanged.
+- Case 5 separates the proposal from r13, where the one valid commit not in `M` leaves the finding unbound.
+- Case 8 separates the ancestry test from a path-change test alone.
+- Cases 9 and C3 pin the first-parent definition for a merge.
 
 ### Effect on existing controls
 
 - Design controls: none changes its expectation.
   - RECON-FIELDS countercase 2 is unchanged, because the key table is unchanged and the entry is not a finding.
   - RECON-SCHEMA and CONFORMANCE-MUTANTS.json are unchanged.
-  - RECON-BLOCK, BLOCK-KEY, FINDING-FORM, FINDING-LINEAGE and FINDING-KEYS use findings whose lists name the commits that changed the path, so their outcomes are unchanged.
+  - RECON-BLOCK, BLOCK-KEY, FINDING-FORM, FINDING-LINEAGE and FINDING-KEYS use findings whose lists name the commits that changed the path before the record landed, so their outcomes are unchanged.
   - The SCAN-PARSE malformed-finding cases ("run level") now have a stated run scope.
 - Tool controls (branch, not design): N-PREPEND changes from ERROR `DESIGN_UNSETTLED` to FAIL run-level `retirement-blocked`. That is the change owner item 5 already requires. The stop at `cli.py:358-361` is removed for these cases.
 
@@ -111,20 +111,24 @@ C1 rules out a fix that drops the `M` scope altogether. C2 shows that the key ta
 
 ### Options
 
-- (a) The Form (iv) fallback: treat such an element as unreadable, so that it binds the edits the entry's `conclusions` name, or every edit of the entry's path, and binds at run level only when that set is empty.
-  - Not proposed. `conclusions` is the writer's list, and a second-kind finding is the case where the reviewer disagrees with the writer. The edit the reviewer meant may be in neither set.
-  - A revised plan could then proceed by removing the edits the fallback names while it still carries the one the reviewer meant. That fails open through a route Form (iv) does not otherwise allow.
-- (b) Run-level binding of the lineage: the element names no edit, so the finding binds every configuration of its lineage at run level. Run-level binding is lifted only by a new freeze that cites an applying, reviewed reassessment naming the finding, with `edit` null (R6.RECON.27). It is the remedy Form (iv) already gives for an empty fallback set.
+- (a) The Form (iv) fallback: treat such an element as unreadable, so that it binds the edits the entry's `conclusions` name, or every edit of the entry's path.
+  - Not proposed. `conclusions` is the writer's list, and a second-kind finding is the case where the reviewer disagrees with the writer.
+  - A revised plan could proceed by removing the named edits while still carrying the one the reviewer meant.
+- (b) Run-level binding of the lineage. It is lifted only by a new freeze that cites an applying, reviewed reassessment naming the finding with `edit` null (R6.RECON.27), the remedy Form (iv) already gives an empty fallback set.
 
 ### Proposal
 
-(b), keyed on the element's `id` alone. The element binds the lineage at run level when its `id` is missing, is not a string, or is not an edit id of the named configuration's edit list (a retained edit included). This holds whether or not its `target` matches, so a fabricated `target` cannot keep it below run level. Configurations outside the lineage stay bound by the matches of (iii) and (v), as now.
+(b), keyed on the element's `id` alone. The element binds the lineage at run level when its `id` is missing, is not a string, or is not an edit id of the named configuration's edit list (a retained edit included). This holds whether or not its `target` matches, so a fabricated `target` cannot keep the finding below run level.
 
-Where the configuration cannot be resolved, no element can be checked against a ledger. A run cannot tell a valid id that another configuration carries from an id that no configuration carries: both look the same from a configuration that does not carry it. The only fail-closed reading is therefore the one Form (iv) already applies to an unresolvable configuration with an empty set: run-level binding of every configuration.
+The run-level binding is added to the finding's other bindings and replaces none of them (review finding 4, option (A)). Each anchored element keeps binding its edit, and the matches of (iii) and (v) keep binding configurations outside the lineage. r1 replaced the edit bindings of a run-level-bound configuration. A null-`edit` reassessment pins no wording, so a later version could then reword an anchored edit and re-cite the same reassessment, which r13 does not allow.
 
-For a configuration bound at run level, that binding takes the place of the finding's edit bindings of it. This blocks the same runs, since a run-level item fails the run. It also keeps R6.RECON.27 Keys unchanged ("`edit` is null exactly when the named finding is bound at run level"), and the tool's reassessment check (`category3.py:309-313`) already reads it that way. Keeping both bindings was considered and not proposed: it would need a Keys change allowing a null and a non-null reassessment of one finding for one configuration.
+R6.RECON.27 Keys needs one clause for this. Its "`edit` is null exactly when the named finding is bound at run level" assumes a finding never binds an edit and a run level together. Under the proposal a null reassessment lifts the run-level binding only, and each anchored edit still needs its own reassessment pinning its wording. This eases no lift condition: before the change no finding was both bound to an edit and bound at run level, and each binding keeps the remedy it had.
 
-### Replacement wording (R6.RECON.26, Form of a finding (iv); one sentence inserted, one clause added to (v))
+Where the configuration cannot be resolved, no element can be checked against a ledger. A run cannot tell a valid id that another configuration carries from one that no configuration carries. The fail-closed reading is therefore run-level binding of every configuration, the scope Form (iv) already gives an unresolvable configuration with an empty set. Its cost is stated below.
+
+### Replacement wording
+
+**R6.RECON.26, Form of a finding (iv): one sentence inserted.**
 
 Current opening of (iv):
 
@@ -132,7 +136,9 @@ Current opening of (iv):
 
 Replacement (the rest of (iv) is unchanged):
 
-> (iv) *The edits a finding binds.* A finding binds the edits its `invalidated` elements name, by id and, where an element carries one, by target. A finding whose `configuration` is absent or cannot be resolved, or one of whose `invalidated` elements has an `id` that is missing, is not a string, or is not an edit id of the named configuration's edit list (R6.ADAPT.2 `edits`, a retained edit included), whatever its `target`, binds at run level every configuration of its lineage, and every configuration when its `configuration` cannot be resolved, as an empty set does below; for each configuration it binds at run level, that binding takes the place of its edit bindings of that configuration, and every other configuration is bound by the matches of (iii) and (v).
+> (iv) *The edits a finding binds.* A finding binds the edits its `invalidated` elements name, by id and, where an element carries one, by target. A finding whose `configuration` is absent or cannot be resolved, or one of whose `invalidated` elements has an `id` that is missing, is not a string, or is not an edit id of the named configuration's edit list (R6.ADAPT.2 `edits`, a retained edit included), whatever its `target`, also binds at run level every configuration of its lineage, and every configuration when its `configuration` cannot be resolved, as an empty set does below; this binding is in addition to the edits its other elements name and to the matches of (iii) and (v).
+
+**R6.RECON.26, Form (v): one clause added.**
 
 Current sentence in (v):
 
@@ -142,24 +148,41 @@ Replacement:
 
 > A configuration bound only by an id collision (through the fallback of (iii), its edit of that id lying on another path, and not bound at run level under (iv)) proceeds by a new freeze that renames the colliding id, through an AGENTS.md sec. A.48 item 3 migration where records cite it;
 
-### Controls (new cases; FINDING-KEYS for a resolvable configuration, FINDING-LINEAGE for an unresolvable one)
+**R6.RECON.27, Keys: one sentence replaced.**
 
-Each FAIL case below fails at `7db52f38` without the change: no `retirement-blocked` item is emitted.
+Current:
+
+> `edit` is null exactly when the named finding is bound at run level (R6.RECON.26, Form of a finding (iv)).
+
+Replacement:
+
+> `edit` is null only when the named finding binds the citing configuration at run level (R6.RECON.26, Form of a finding (iv)); a reassessment with `edit` null lifts that run-level binding only, and each edit the finding also binds in that configuration is lifted only by a reassessment that names the finding and that edit.
+
+The body sentence of R6.RECON.27 ("unless it is null for a finding bound at run level (Keys, below)") reads with this and is unchanged.
+
+### Controls (new cases; FINDING-KEYS for a resolvable configuration, FINDING-LINEAGE for an unresolvable one, REASSESS-KEYS for the lift)
+
+Each FAIL case among 1 to 7 has no `retirement-blocked` item under r13's text.
 
 | # | Row | Case | Outcome |
 |---|---|---|---|
 | 1 | FINDING-KEYS | an element `{id: "NO-SUCH-EDIT", sha256, target}`, its target's path and `old_sha256` held by no ledger, under a configuration that resolves to the run's configuration | FAIL, run-level `retirement-blocked` naming the finding, and `record-invalid` |
 | 2 | FINDING-KEYS | the same, the record deleted by a later commit on `M` | FAIL, run-level `retirement-blocked` |
 | 3 | FINDING-KEYS | the same, the run under a later version, on the named configuration's `supersedes` chain, that carries no edit of that id | FAIL, run-level `retirement-blocked` |
-| 4 | FINDING-KEYS | a valid element naming edit `E1` and a second element with an unknown id: in the run's configuration the run-level binding takes the place of `E1`'s | FAIL, run-level `retirement-blocked`; `category3.blocked` holds one entry with `edit` null for the finding |
+| 4 | FINDING-KEYS | a valid element naming edit `E1` and a second element with an unknown id | FAIL; `category3.blocked` holds an entry for `E1` and a run-level entry with `edit` null for the finding |
 | 5 | FINDING-KEYS | a valid element and a second element that is an object without `id`, or whose `id` is a number | FAIL, run-level `retirement-blocked` and `record-invalid` |
 | 6 | FINDING-KEYS | an element with an unknown id whose `target` matches an edit of the run's ledger by path and `old_sha256` | FAIL, run-level `retirement-blocked` (the target match does not keep it below run level) |
 | 7 | FINDING-LINEAGE | an unknown-id element under a configuration that cannot be resolved, the run under a configuration of another retirement that carries neither the id nor the target | FAIL, run-level `retirement-blocked` and `record-invalid` |
+| 8 | REASSESS-KEYS | case 4, then a new freeze that rewords `E1` (the same id and target) and cites an applying reassessment naming the finding with `edit` null | FAIL, `retirement-blocked` on `E1` |
 | C1 | FINDING-KEYS | countercase: case 1's finding, the run under a configuration of another retirement outside the named configuration's lineage that carries neither the id nor the target (positive) | ANY, not `retirement-blocked` |
 | C2 | FINDING-KEYS | countercase: case 1's finding, the configuration frozen anew citing an applying reassessment that names the finding with `edit` null (positive) | ANY, not `retirement-blocked` |
-| C3 | FINDING-KEYS | countercase: case 1's finding and a reassessment naming it with a non-null `edit` | FAIL, `record-invalid` (Keys) and `retirement-blocked` |
+| C3 | REASSESS-KEYS | countercase: case 1's finding and an applying reassessment naming it with a non-null `edit` | FAIL, run-level `retirement-blocked` (an edit reassessment does not lift the run-level binding) |
+| C4 | REASSESS-KEYS | countercase: case 8's freeze also citing an applying reassessment naming the finding and `E1` as now worded (positive) | ANY, not `retirement-blocked` |
 
-C1 rules out a fix that binds every configuration when the configuration resolves. C2 shows the remedy works. C3 shows the run-level binding cannot be lifted through an edit reassessment.
+How the cases tell the readings apart:
+- C1 rules out a fix that binds every configuration when the configuration resolves.
+- C2 and C4 show the remedies work. C3 shows that the run-level binding needs the null reassessment.
+- Case 8 shows that the null reassessment does not lift an anchored edit's binding, and so separates option (A) from r1's replacement reading.
 
 ### Effect on existing controls
 
@@ -170,49 +193,52 @@ C1 rules out a fix that binds every configuration when the configuration resolve
 | FINDING-LINEAGE case 5 (a finding naming no configuration) | outcome unchanged (FAIL); the case text gains "and every configuration at run level" |
 | FINDING-LINEAGE case 6 | unchanged (FAIL) |
 | FINDING-LINEAGE countercase 4, cases 1 to 3 and 7 | unchanged: the named configuration resolves and the element is anchored |
-| FINDING-LINEAGE countercase 8 (the id-collision rename) | stays positive where the fallback comes from an element that differs from a resolvable configuration's ledger, because the other retirement is outside the lineage and is bound only by the global id match; the case text is narrowed to "the finding naming a readable configuration with which an element differs". Where the fallback comes from an unresolvable configuration, the other retirement is now bound at run level, and its remedy becomes an applying reassessment naming the finding with `edit` null. For a second-kind finding by an independent reviewer, R6.RECON.27 Keys then requires a `repair`, which is the cost noted below |
-| FINDING-FORM, RECON-BLOCK, BLOCK-KEY, REASSESS-FORM, REASSESS-KEYS | unchanged: their elements are anchored; REASSESS-KEYS "edit null for a finding bound to an edit (not at run level)" still FAILs |
-| Tool controls | the case for review finding 1 (`invalidated: ["junk"]`, present and then deleted) still blocks; in the lineage it now blocks at run level instead of through the `conclusions` edits; the run-level return of `bind` is reached for every unanchored or unresolvable finding |
+| FINDING-LINEAGE countercase 8 (the id-collision rename) | stays positive where the fallback comes from an element that differs from a resolvable configuration's ledger: the other retirement is outside the lineage and is bound only by the global id match. The case text is narrowed to "the finding naming a readable configuration with which an element differs". Where the fallback comes from an unresolvable configuration, the other retirement is bound at run level, and its remedy is a null reassessment naming the finding |
+| REASSESS-KEYS "a reassessment with edit null for a finding bound to an edit (not at run level)" | unchanged (FAIL) |
+| FINDING-FORM, RECON-BLOCK, BLOCK-KEY, REASSESS-FORM | unchanged: their elements are anchored and no finding binds at run level and to an edit together |
+| Tool controls | the case for review finding 1 (`invalidated: ["junk"]`, present and then deleted) still blocks: through the `conclusions` edits, and in the lineage also at run level |
 
-**Cost, stated for the owner.** For an unresolvable configuration, every configuration is bound at run level, including those of other retirements. An unrelated retirement can lift that binding only with a reassessment naming the finding. If the finding is a second-kind finding by an independent reviewer, that reassessment needs a `repair` on `main` (R6.RECON.27 Keys). The over-blocking falls only on findings that already fail their form, because a missing or unresolvable `configuration` is a form failure, and it is the scope Form (iv) already gives the empty-set case. The alternative, keeping r13's carrier-only scope for an unresolvable configuration, leaves gap (ii) open for that sub-case and is not proposed. A narrower anchor for the second kind was considered and not proposed, because owner item 4 rules out additions without a demonstrated defect: it would fall back to the reviewed entry's own `scientific_effect.configuration` when the review's `configuration` does not resolve.
+**Cost of the unresolvable-configuration reading, stated for the owner.** Binding every configuration is the only fail-closed reading. The carrier-only scope of r13 leaves an id that no ledger carries binding nothing, which is gap (ii) itself. Its cost:
+- It is a denial-of-service surface. One second-kind review that names an unresolvable `configuration` blocks every retirement in the corpus at run level.
+- Each affected plan needs a new freeze citing a reassessment naming the finding with `edit` null. Where the reviewer appears independent, that reassessment needs a `repair` on `main` (R6.RECON.27 Keys), which an unrelated retirement may have no way to supply.
+- Independence is not established by the records. Reviewer and author identities are self-declared strings (r9 R-8), so anyone able to land a file under `verification/audits/` can write a review that appears independent.
+- That such a finding already fails its form does not reduce this cost.
+
+A narrower anchor was considered and is not proposed: fall back to the reviewed entry's own `scientific_effect.configuration`. That configuration is chosen by the record's writer, the side the finding disputes, so the fallback would let the writer steer the finding's scope.
 
 ## 4. Requirements and rows touched on adoption
 
-- R6.RECON.26: the body sentence (sec. 2), Form (iv) and Form (v) (sec. 3). No other requirement changes. R6.RECON.27, R6.RECON.30 and the key tables of sec. 23.1 are unchanged.
-- EXPECTATIONS.json: FINDING-FORM (cases 1 to 7 and C1 to C2 of sec. 2), FINDING-KEYS (cases 1 to 6 and C1 to C3 of sec. 3; case 3 text), and FINDING-LINEAGE (case 7 of sec. 3; case 5 and countercase 8 text). No outcome of an existing case changes.
-- REQUIREMENTS.json: the amendment-7 mark on R6.RECON.26, with no control removed.
+- R6.RECON.26: the body sentence (sec. 2), Form (iv) and Form (v) (sec. 3).
+- R6.RECON.27: one Keys sentence (sec. 3).
+- No other requirement changes. R6.RECON.30 and the key tables of sec. 23.1 are unchanged.
+- EXPECTATIONS.json:
+  - FINDING-FORM: cases 1 to 10 and C1 to C3 of sec. 2;
+  - FINDING-KEYS: cases 1 to 6, C1 and C2 of sec. 3, and the case 3 text;
+  - FINDING-LINEAGE: case 7 of sec. 3, and the case 5 and countercase 8 text;
+  - REASSESS-KEYS: case 8, C3 and C4 of sec. 3.
+  - No outcome of an existing case changes.
+- REQUIREMENTS.json: the amendment-7 mark on R6.RECON.26 and R6.RECON.27, with no control removed.
 - CONFORMANCE-MUTANTS.json: unchanged.
 
 ## 5. Tool changes implied (not made here)
 
 - `engine/cli.py:356-363`:
-  - replace the ERROR stop and the `in_m` gate by a scope test;
-  - when the entry's list is a non-empty array of held commits that each change the entry's path, `applies = in_m(...)`;
+  - replace the ERROR stop and the `in_m` gate by the scope test of sec. 2: held commits, each changing the path against its first parent, each an ancestor of a witness of the record;
+  - when every element passes, `applies = in_m(...)`;
   - otherwise `applies = True`, with the form problem "side_change_commits does not scope the finding (R6.RECON.26)";
   - a finding with no readable entry binds at run level (owner item 5).
-- `engine/category3.py`, `bind`:
-  - when the configuration is unresolved, return `([], True, form)`;
-  - when it resolves, the run's configuration is in the lineage, and some element's `id` is missing, not a string, or absent from `_edits(fled)`, return `([], True, form)`;
-  - otherwise bind as now.
-- `blocked_items` and the reassessment check need no change.
-- Runners for the new FINDING-FORM, FINDING-KEYS and FINDING-LINEAGE cases.
+- `engine/category3.py`, `bind`: return the run-level flag `True`, together with the edits otherwise bound, when the configuration is unresolved, or when it resolves, the run's configuration is in the lineage, and some element's `id` is missing, not a string, or absent from `_edits(fled)`.
+- `engine/category3.py`, `reassessment_problems`: drop the check "edit is not null for a finding bound at run level" and keep its converse; `lifting` already lifts per `(finding, edit)`, with `None` for the run-level binding.
+- Runners for the new FINDING-FORM, FINDING-KEYS, FINDING-LINEAGE and REASSESS-KEYS cases.
 
-## 6. Probe recipe (provenance for sec. 1)
+## 6. References (AGENTS.md sec. A.42 item 8)
 
-Run from a checkout holding `7db52f38`, with `S` a scratch directory:
-
-```sh
-mkdir -p "$S/tool" && git archive 7db52f380f1e51d4af52b84f0a7e728827ac5a60 tools/ledger_coverage | tar -x -C "$S/tool"
-python3 -I probe.py "$S/tool"
-```
-
-`probe.py` imports `tools.ledger_coverage.engine.category3` from that directory. It then:
-
-1. calls `in_m` with a stub repository, on `[]`, `["junk"]`, an unheld 40-hex id and a commit in `M`;
-2. calls `bind` with a `Binding` whose run configuration has one edit `E1` (one splice on `doc.md`), on a second-kind finding whose `invalidated` is:
-   - `[valid E1]`;
-   - `[{id: "NO-SUCH-EDIT", ...}]` with the configuration resolving to the run's;
-   - the same with an unresolvable configuration;
-   - `["junk"]`.
-
-The results expected at `7db52f38` are those quoted in sec. 1. The probe reads the code. It is not a control, and it is kept off the repository under AGENTS.md sec. A.28.
+| Reference | Used for | Classification |
+|---|---|---|
+| DESIGN-r6.md on `main` (R6.RECON.26 to .30) | the demonstration of sec. 1 and the current wording quoted | support on `main` |
+| #1169 comments 7207734407 and 7207765697 | the owner directions, quoted with author and time | owner record, quoted here |
+| #1577 comment 7202940328, finding 6 | the source of the two gaps | provenance |
+| PR #1618, the review of r1 at `f5d85874` | the findings r2 answers | provenance |
+| r9 design and Amendment 1, #1601 at `e79e7ca90f863115bc75b7ae5195dbba016125da` (A1.3, A1.5, R6.OBL29.3, R-1, R-8) | the terms `R*`, R-1 and R-8 and the no-entry outcome the wording aligns with | support off `main`, closed by the order of adoption stated above |
+| tools/a1-ledger-coverage-r6 at `7db52f380f1e51d4af52b84f0a7e728827ac5a60`: `engine/cli.py:356-363`, `:415`; `engine/category3.py:114-121` (`in_m`), `:705-798` (`bind`), `:309-313` | the tool behaviour quoted in sec. 1 and the tool changes of sec. 5 | provenance |
+| a probe importing the engine from a `git archive` of `7db52f38`, run in a session scratchpad and not committed (AGENTS.md sec. A.28) | confirmation of the tool behaviour: `in_m` is `False` for `[]`, `["junk"]` and an unheld id; `bind` returns `([], False, form)` for an unknown id with a resolvable or an unresolvable configuration | provenance |
