@@ -178,11 +178,13 @@ def lint_sources(sources, values, profiles):
         for node in ast.walk(tree):
             if isinstance(node, ast.Constant) and isinstance(node.value, str):
                 s = node.value
-                # R6.CORE.3: the allowlist exempts a value from the value-set clause only; the hexadecimal and
-                # profile clauses apply to every literal
+                # the hexadecimal clause applies to every literal (R6.CORE.3); the allowlist exempts a value from the
+                # value-set clause and, as the design reads it (sec. 0.3 F1; amendment 2), from the profile clause
                 if _hex.search(s):
                     found.append('%s:%d: hexadecimal literal of 7 or more digits' % (name, node.lineno))
-                if s in values and s.strip() and not allowed(s):
+                if allowed(s):
+                    continue
+                if s in values and s.strip():
                     found.append('%s:%d: string literal %r occurs in a configuration or record'
                                  % (name, node.lineno, s[:60]))
                 for p in profiles:
@@ -202,6 +204,8 @@ def lint_sources(sources, values, profiles):
             elif isinstance(node, ast.arg):
                 ids.append(node.arg)
             for ident in ids:
+                if allowed(ident):
+                    continue
                 for p in profiles:
                     if p.matches(ident):
                         found.append('%s: identifier %r matched by profile %s' % (name, ident, p.name))
