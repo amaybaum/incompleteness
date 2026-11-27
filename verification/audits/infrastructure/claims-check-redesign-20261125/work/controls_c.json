@@ -1,0 +1,7 @@
+[
+ {"id":"C-P-1","rule":"W-GR-TQ-STATE","expect":"FAIL","text":"The horizon temperature $T_Q$ does not depend on the state."},
+ {"id":"C-N-1","rule":"W-GR-TQ-STATE","expect":"PASS","text":"CLPW's entropy is the renormalized entropy of a Type II$_1$ algebra, defined up to an additive constant that does not depend on the state; it is not the ordinary von Neumann entropy of a finite-dimensional density matrix used in the framework."},
+ {"id":"C-N-2","rule":"W-GR-TQ-STATE","expect":"PASS","text":"Under H-balance, $T_Q$ does not depend on the state within the probed window."},
+ {"id":"C-N-3","rule":"W-GR-TQ-STATE","expect":"PASS","text":"L4 (the graph of an additive update does not depend on the state) is proved in §4.2."},
+ {"id":"C-A-1","rule":"W-KDEG","expect":"REVIEW","text":"OLD: `The framework's coupling-degree minimization argument rules out this alternative by forcing $K = 2d = 6$ internal components.`"}
+]

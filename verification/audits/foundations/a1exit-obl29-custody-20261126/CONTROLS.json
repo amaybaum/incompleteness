@@ -1,0 +1,889 @@
+{
+ "schema": "oi-obl29-custody-controls/draft",
+ "status": "paper design c10, pending independent review and adoption. Each control is a specification; on adoption each would become an expectation row with runner null. 'kills' names the implementation mutation the control must detect (mutation-tested in principle); a residual control documents a limit and kills nothing. A paired control is two runs whose outcomes are compared. 'variant' tags a control with the variant of decision D-1 it tests (i, ii, both, or a paired run of both); a control tagged with an unadopted variant is dropped on adoption. Under D-1 = (ii), adopted at #1169 comment 7203030778, controls tagged variant (i) do not apply.",
+ "authority": "Owner decision (amaybaum, received 2026-11-26T19:52Z, coordinating session; #1169 comment 7202075726), item 5.",
+ "base": "OBL-29 remedy r9 at 77a73c022091f598cf807fcf89d66c3cf43208de (adopted, #1601 comment 7197486426); drafting snapshot origin/main 84e927b9b7c2bcc8cb9624cb036167dae233e408.",
+ "fixture": "Fixture: the r9 fixture (a configuration K frozen at F citing reassessment A, repair Q superseding P, finding f) with custody constants PATH and BOOT in record_authority.py. V0 is the bootstrap version at BOOT with base B0. Unless stated, the run is op C execution at effective M with a cited discharge of A whose every other condition holds, K's freeze has not landed (K is not in R*(M), has no receipt and no freeze entry), every custody version that adds entries has an accepting non-author review of every added item, and every regular mode named is 100644 or 100755.",
+ "expected_vocabulary": {
+  "outcome": "PASS, FAIL, ERROR or ANY, as in the r9 controls",
+  "item": "the custody condition named in the record-invalid item (R6.CUST.9)",
+  "classes_include": "result classes that must appear",
+  "invariants.not_class": "classes or items that must not appear",
+  "witness": "the custody witness the result must report",
+  "contexts": "the discharge-bearing contexts derived (R6.CUST.5 (c1))"
+ },
+ "controls": [
+  {
+   "id": "CU-P1",
+   "kind": "positive",
+   "requirements": [
+    "R6.CUST.3",
+    "R6.CUST.7"
+   ],
+   "setup": "M's tree holds V0 at PATH; no discharge-bearing configuration or receipt of a discharge-bearing freeze is reachable from M.",
+   "expected": {
+    "outcome": "PASS",
+    "custody": "established",
+    "witnesses_from_custody": 0
+   },
+   "kills": "a tool that keeps failing every cited discharge closed (the current custody_unverified behaviour)",
+   "variant": "both"
+  },
+  {
+   "id": "CU-P2",
+   "kind": "positive",
+   "requirements": [
+    "R6.CUST.4 (s1)",
+    "R6.CUST.4 (s2)",
+    "R6.CUST.5 (c1)",
+    "R6.CUST.5 (c2)",
+    "R6.CUST.5 (c3)"
+   ],
+   "setup": "Variant (i): a synthetic native V3 round with record directory R, its preregistration.md declaring R, and the discharge-bearing configuration K1 with the PREREG.md beside it under R/amendments/ (control-plane paths accepted by S2); the receipt R1 is built by tools/v3_receipt.py and lands with the round by a merge (landing.object L1). Paired with Variant (ii): an A1-layout freeze F1 of K1 (configuration and PREREG.md in the admitted record directory, R6.CFG.1), landed by the merge L1, with a reviewed entry {config:K1, f:F1, landing:L1, type:freeze}. In each, V1 extends V0 and appends {f:F1, runs:[{m:M1, rev:null}], type:close} at a commit descending from L1, with its R6.CUST.8 review; the landing tree holds one run result <dir>/op-c-runs/1/result.json (schema oi-ledger-coverage/5, inputs.freeze F1, inputs.config.blob_sha256 of K1, roles.M M1, no classify_records); replay of (F1, M1) qualifies no witness.",
+   "expected": {
+    "outcome": "PASS",
+    "custody": "established",
+    "contexts": [
+     "F1"
+    ],
+    "runs": [
+     [
+      "M1",
+      null
+     ]
+    ],
+    "witnesses_from_custody": 0,
+    "invariants.not_class": [
+     "custody-unclosed",
+     "custody-runs-mismatch",
+     "custody-early-close",
+     "custody-unsupported"
+    ]
+   },
+   "kills": "a successor rule that rejects any appended entry, or a context derivation that admits nothing (the c2 PREREG.md-in-receipt rule)",
+   "variant": "paired (i) and (ii)"
+  },
+  {
+   "id": "CU-P3",
+   "kind": "positive",
+   "requirements": [
+    "R6.CUST.4 (s3)"
+   ],
+   "setup": "From V1, branch a appends a close for context F2 and branch b a close for context F3, both after their landings. The merge keeps a's file; V2 names Va as predecessor and appends b's entry.",
+   "expected": {
+    "outcome": "PASS",
+    "custody": "established"
+   },
+   "kills": "an inclusion rule that demands a single linear chain, rejecting a resolved fork",
+   "variant": "both"
+  },
+  {
+   "id": "CU-P4",
+   "kind": "positive",
+   "requirements": [
+    "R6.CUST.4 (s4)"
+   ],
+   "setup": "A commit on main wrote unparseable bytes at PATH; the next version appends {blob:<that blob>, type:void}.",
+   "expected": {
+    "outcome": "PASS",
+    "custody": "established"
+   },
+   "kills": "a malformed-version rule with no acknowledgement route",
+   "variant": "both"
+  },
+  {
+   "id": "CU-P5",
+   "kind": "positive",
+   "requirements": [
+    "R6.CUST.5 (c4)"
+   ],
+   "setup": "A discharge-bearing configuration Kx landed on main without any receipt admitting it; the version lists {config:Kx, type:unfrozen}.",
+   "expected": {
+    "outcome": "PASS",
+    "custody": "established"
+   },
+   "kills": "a completeness rule with no accounting for unfrozen configurations",
+   "variant": "both"
+  },
+  {
+   "id": "CU-P6",
+   "kind": "positive",
+   "requirements": [
+    "R6.CUST.3"
+   ],
+   "setup": "Run the builder twice at B0 and run the independent method of sec. 3 (b).",
+   "expected": {
+    "outcome": "ANY",
+    "builder_bytes_equal": true,
+    "blob_id_equals": "BOOT",
+    "independent_sets_equal": true
+   },
+   "kills": "a nondeterministic builder (unsorted entries, timestamps, non-canonical JSON)",
+   "variant": "both"
+  },
+  {
+   "id": "CU-P7",
+   "kind": "positive",
+   "requirements": [
+    "R6.CUST.7",
+    "OQ-13"
+   ],
+   "setup": "No file at PATH; K carries none of the edits f binds.",
+   "expected": {
+    "outcome": "PASS",
+    "finding": "lifted by the R6.RECON.26 route",
+    "invariants.not_class": [
+     "custody-missing"
+    ]
+   },
+   "kills": "a gate that applies custody to the no-edit route",
+   "variant": "both"
+  },
+  {
+   "id": "CU-P8",
+   "kind": "positive",
+   "requirements": [
+    "R6.CUST.5 (c1)"
+   ],
+   "setup": "Variant (i): a synthetic native V3 round with record directory R, its preregistration.md declaring R, and the discharge-bearing configuration K1 with the PREREG.md beside it under R/amendments/ (control-plane paths accepted by S2); the receipt R1 is built by tools/v3_receipt.py and lands with the round by a merge (landing.object L1). A later unrelated native round lands receipt R9 built by tools/v3_receipt.py, whose record directory is R9dir; its f9 tree still contains R/amendments/ with K1. Custody holds a close for F1 only.",
+   "expected": {
+    "outcome": "PASS",
+    "contexts": [
+     "F1"
+    ],
+    "invariants.not_class": [
+     "custody-unclosed"
+    ]
+   },
+   "kills": "admitting a configuration from any receipt whose f tree contains it, instead of only under that receipt's own record directory",
+   "variant": "i"
+  },
+  {
+   "id": "CU-P9",
+   "kind": "positive",
+   "requirements": [
+    "R6.CUST.6"
+   ],
+   "setup": "F1's only run is (M1, null). Sibling S of P lands on main after M1, so S is not in R*(M1). A later freeze F2 reuses Q and its selector excludes S's path.",
+   "expected": {
+    "outcome": "PASS",
+    "witnesses_from_custody": 0
+   },
+   "kills": "replaying a context at the current M instead of each run's exact m",
+   "variant": "both"
+  },
+  {
+   "id": "CU-N1",
+   "kind": "negative",
+   "requirements": [
+    "R6.CUST.9"
+   ],
+   "setup": "No file at PATH in M's tree.",
+   "expected": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "record-invalid",
+     "retirement-blocked"
+    ],
+    "item": "custody-missing",
+    "invariants.not_class": [
+     "ERROR"
+    ]
+   },
+   "kills": "treating an absent record as an empty, established inventory",
+   "variant": "both"
+  },
+  {
+   "id": "CU-N2",
+   "kind": "negative",
+   "requirements": [
+    "R6.CUST.2"
+   ],
+   "setup": "Variants: V_M has a trailing newline; an unknown key; an entry type 'clear'; a short commit id; a free-text field; a run without rev.",
+   "expected": {
+    "outcome": "FAIL",
+    "item": "custody-schema"
+   },
+   "kills": "a lenient parser that ignores unknown keys or entry types, or accepts non-canonical bytes",
+   "variant": "both"
+  },
+  {
+   "id": "CU-N2i",
+   "kind": "negative",
+   "variant": "i",
+   "requirements": [
+    "R6.CUST.2"
+   ],
+   "setup": "Under variant (i), V_M contains an entry of type 'freeze' (a type that exists only in variant (ii)).",
+   "expected": {
+    "outcome": "FAIL",
+    "item": "custody-schema"
+   },
+   "kills": "accepting variant (ii) entry types under variant (i)"
+  },
+  {
+   "id": "CU-N3",
+   "kind": "negative",
+   "requirements": [
+    "R6.CUST.4 (s1)"
+   ],
+   "setup": "V_M's predecessor names a blob that never stood at PATH in any tree reachable from M (it exists only in the object store).",
+   "expected": {
+    "outcome": "FAIL",
+    "item": "custody-chain"
+   },
+   "kills": "resolving the predecessor from the object store instead of Vers(M)",
+   "variant": "both"
+  },
+  {
+   "id": "CU-N4",
+   "kind": "negative",
+   "requirements": [
+    "R6.CUST.3",
+    "R6.CUST.4 (s1)"
+   ],
+   "setup": "A forged predecessor-null version with a bootstrap entry and a blob different from BOOT heads the chain.",
+   "expected": {
+    "outcome": "FAIL",
+    "item": "custody-chain"
+   },
+   "kills": "accepting any predecessor-null version as the bootstrap",
+   "variant": "both"
+  },
+  {
+   "id": "CU-N4b",
+   "kind": "negative",
+   "requirements": [
+    "R6.CUST.1",
+    "R6.CUST.4 (s3)"
+   ],
+   "setup": "A later tool revision changes BOOT to a new bootstrap V0' whose chain omits a close entry of an earlier well-formed version V1 still in Vers(M).",
+   "expected": {
+    "outcome": "FAIL",
+    "item": "custody-regressed"
+   },
+   "kills": "limiting inclusion to versions that chain to the current bootstrap, so that re-bootstrapping truncates",
+   "variant": "both"
+  },
+  {
+   "id": "CU-N5",
+   "kind": "negative",
+   "requirements": [
+    "R6.CUST.4 (s2)"
+   ],
+   "setup": "Variants: a successor drops an earlier close entry; reorders two entries; changes a run's m; appends nothing.",
+   "expected": {
+    "outcome": "FAIL",
+    "item": "custody-prefix"
+   },
+   "kills": "a set-inclusion check without order, or a check against the bootstrap only",
+   "variant": "both"
+  },
+  {
+   "id": "CU-N6",
+   "kind": "negative",
+   "requirements": [
+    "R6.CUST.4 (s3)"
+   ],
+   "setup": "M's tree holds V1 again after V2 (with a further close) stood at PATH on an earlier commit: a revert.",
+   "expected": {
+    "outcome": "FAIL",
+    "item": "custody-regressed"
+   },
+   "kills": "reading only the current version without Vers(M)",
+   "variant": "both"
+  },
+  {
+   "id": "CU-N7",
+   "kind": "negative",
+   "requirements": [
+    "R6.CUST.4 (s3)"
+   ],
+   "setup": "Fork as in CU-P3, but the merge keeps a's file without b's entry.",
+   "expected": {
+    "outcome": "FAIL",
+    "item": "custody-regressed"
+   },
+   "kills": "a first-parent-only collection of versions",
+   "variant": "both"
+  },
+  {
+   "id": "CU-N8",
+   "kind": "negative",
+   "requirements": [
+    "R6.CUST.4 (s4)"
+   ],
+   "setup": "As CU-P4 without the void entry.",
+   "expected": {
+    "outcome": "FAIL",
+    "item": "custody-stray"
+   },
+   "kills": "skipping versions that do not parse",
+   "variant": "both"
+  },
+  {
+   "id": "CU-N8b",
+   "kind": "negative",
+   "requirements": [
+    "R6.CUST.4 (s4)"
+   ],
+   "setup": "Variants: a void entry names a blob not in Vers(M); a void entry names a well-formed version.",
+   "expected": {
+    "outcome": "FAIL",
+    "item": "custody-stray"
+   },
+   "kills": "accepting any blob id in a void entry, which would let a void hide a well-formed version from inclusion",
+   "variant": "both"
+  },
+  {
+   "id": "CU-N9",
+   "kind": "negative",
+   "requirements": [
+    "R6.CUST.5 (c2)"
+   ],
+   "setup": "Context F1 (variant (i): receipt R1 as in CU-P2; variant (ii): the freeze entry of CU-P2) has no close. Variant (i) also: R1 was later deleted from M's tree.",
+   "expected": {
+    "outcome": "FAIL",
+    "item": "custody-unclosed"
+   },
+   "kills": "reading receipts from M's tree only, or treating an unclosed context as having no runs",
+   "variant": "paired (i) and (ii)"
+  },
+  {
+   "id": "CU-N10",
+   "kind": "negative",
+   "requirements": [
+    "R6.CUST.5 (c2)"
+   ],
+   "setup": "Variants: a close names an f that is no context (variant (i): no receipt with that f; variant (ii): no freeze entry with that f); a close names an f whose admitted configuration cites no reassessment.",
+   "expected": {
+    "outcome": "FAIL",
+    "item": "custody-unsupported"
+   },
+   "kills": "checking close entries against contexts in one direction only",
+   "variant": "paired (i) and (ii)"
+  },
+  {
+   "id": "CU-N11",
+   "kind": "negative",
+   "requirements": [
+    "R6.CUST.5 (c4)"
+   ],
+   "setup": "A discharge-bearing configuration is in R*(M), no context admits it, and no unfrozen entry names it. Variant: it was later deleted from main. Variant: an unfrozen entry names a blob that is not a discharge-bearing configuration in R*(M).",
+   "expected": {
+    "outcome": "FAIL",
+    "item": "custody-incomplete or custody-unsupported"
+   },
+   "kills": "collecting configurations from M's tree instead of R*(M), or not checking unfrozen in both directions",
+   "variant": "both"
+  },
+  {
+   "id": "CU-N12",
+   "kind": "negative",
+   "requirements": [
+    "R6.CUST.5 (c5)"
+   ],
+   "setup": "A context's f, a run's m, or (variant (ii)) a freeze entry's landing is in the object store but not reachable from M (squash-landed round, R-C3).",
+   "expected": {
+    "outcome": "FAIL",
+    "item": "custody-unreachable or custody-replay",
+    "invariants.not_class": [
+     "ERROR"
+    ]
+   },
+   "kills": "treating store presence as reachability",
+   "variant": "both"
+  },
+  {
+   "id": "CU-N13",
+   "kind": "boundary",
+   "requirements": [
+    "R6.CUST.9"
+   ],
+   "setup": "A receipt's f, a run's m, a version in Vers(M), or a receipt blob is missing from the store or does not hash to its id.",
+   "expected": {
+    "outcome": "ERROR"
+   },
+   "kills": "converting an unreadable required object into FAIL or PASS",
+   "variant": "both"
+  },
+  {
+   "id": "CU-N14",
+   "kind": "negative",
+   "requirements": [
+    "R6.CUST.5 (c3)"
+   ],
+   "setup": "Variants: a run's rev has two parents; its single parent differs from the run's m; it changes a ledgered path; it adds no oi-reconciliation/2 record naming m as its M.",
+   "expected": {
+    "outcome": "FAIL",
+    "item": "custody-run-shape"
+   },
+   "kills": "accepting any commit id as a REV, or not binding REV to its run's m",
+   "variant": "both"
+  },
+  {
+   "id": "CU-N15",
+   "kind": "negative",
+   "requirements": [
+    "R6.CUST.8"
+   ],
+   "setup": "Variants: a version adds a close with no review; a review by the version's author; an accepting review plus a second review with a non-empty dissent; a review omitting one entry:<i> item.",
+   "expected": {
+    "outcome": "FAIL",
+    "item": "custody-unreviewed"
+   },
+   "kills": "counting only the latest or the accepting review, or ignoring dissent",
+   "variant": "both"
+  },
+  {
+   "id": "CU-N16",
+   "kind": "negative",
+   "requirements": [
+    "R6.CUST.6",
+    "R6.CUST.7"
+   ],
+   "setup": "Context F1: K1 pins Q, its selector admits sibling S of P, and S qualifies against Q to P over R*(M1) for run (M1, null). Current F2 cites A2 with the same Q, its class record covers S's path with a tool-landing prefix, and drops Q's pin.",
+   "expected": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "record-invalid",
+     "retirement-blocked"
+    ],
+    "witness": "lineage, context F1, run M1, S",
+    "reliance": [
+     "r1"
+    ]
+   },
+   "kills": "replaying a prior context with the current configuration or selector, or not replaying contexts other than the current freeze",
+   "variant": "both"
+  },
+  {
+   "id": "CU-N17",
+   "kind": "negative",
+   "requirements": [
+    "R6.CUST.6"
+   ],
+   "setup": "As CU-N16, but F1's repair Q was admitted through REV1 in run (M1, REV1), and S's competition is with the edge resolved at REV1.",
+   "expected": {
+    "outcome": "FAIL",
+    "witness": "lineage, context F1, run M1 via REV1"
+   },
+   "kills": "ignoring a run's rev in the replay",
+   "variant": "both"
+  },
+  {
+   "id": "CU-N18",
+   "kind": "negative",
+   "requirements": [
+    "R6.CUST.9",
+    "R6.CUST.6"
+   ],
+   "setup": "A context's reassessment names a finding reference that does not resolve in R*(m), or its repair entry does not resolve.",
+   "expected": {
+    "outcome": "FAIL",
+    "item": "custody-replay"
+   },
+   "kills": "skipping a run that does not replay",
+   "variant": "both"
+  },
+  {
+   "id": "CU-N19",
+   "kind": "negative",
+   "requirements": [
+    "R6.CUST.4 (s1)"
+   ],
+   "setup": "Two versions name each other as predecessor (a cycle reachable from V_M), or V_M names itself.",
+   "expected": {
+    "outcome": "FAIL",
+    "item": "custody-chain"
+   },
+   "kills": "following predecessors without a visited set, or treating a cycle as terminating",
+   "variant": "both"
+  },
+  {
+   "id": "CU-N20",
+   "kind": "negative",
+   "requirements": [
+    "R6.CUST.6"
+   ],
+   "setup": "As CU-N16 with S in R*(M1). After M1, a foxtrot fast-forward puts M1 and Q's repair commits on a merge's second-parent path, off the current M's first-parent chain (r9 P-FOXTROT, N-FOXTROT-SIDE-COMMIT).",
+   "expected": {
+    "outcome": "FAIL",
+    "witness": "lineage, context F1, run M1, S"
+   },
+   "kills": "evaluating the replay's M-dependent positive-route conditions (first-parent chain, R6.RECON.2 (b), applicability) at the current M instead of m",
+   "variant": "both"
+  },
+  {
+   "id": "CU-N21",
+   "kind": "negative",
+   "requirements": [
+    "R6.CUST.5 (c1)",
+    "R6.CUST.5 (c2)"
+   ],
+   "setup": "As CU-P8, with a close entry naming f9 as if R9 admitted K1.",
+   "expected": {
+    "outcome": "FAIL",
+    "item": "custody-unsupported"
+   },
+   "kills": "admitting a configuration from any receipt whose f tree contains it",
+   "variant": "i"
+  },
+  {
+   "id": "CU-N22",
+   "kind": "negative",
+   "requirements": [
+    "sec. 1",
+    "R6.CUST.5 (c1)",
+    "R6.CUST.5 (c4)"
+   ],
+   "setup": "Variants: the configuration beside the listed PREREG.md is a symbolic link or gitlink whose target bytes would be discharge-bearing; a discharge-bearing configuration in R*(M) is stored only as a symbolic link.",
+   "expected": {
+    "outcome": "PASS",
+    "contexts": [],
+    "invariants.not_class": [
+     "custody-unclosed",
+     "custody-incomplete"
+    ]
+   },
+   "kills": "treating a non-regular entry as a configuration",
+   "variant": "both"
+  },
+  {
+   "id": "CU-N23",
+   "kind": "negative",
+   "requirements": [
+    "sec. 1 (owner decision 2)",
+    "R6.CFG.4",
+    "R6.CUST.5 (c2)"
+   ],
+   "setup": "An A1-layout discharge-bearing configuration K1 conforming to R6.CFG.4, with no admission key (a configuration carries no mode), frozen at F1 and landed by L1 with a reviewed freeze entry (as CU-P2 variant (ii)). Positive variant: a close for F1 lands after L1 with its R6.CUST.8 review. Negative variant: no close for F1.",
+   "expected": {
+    "outcome": "positive: custody established, K1's context counted; negative: FAIL custody-unclosed",
+    "invariants.not_class": [
+     "custody-unsupported"
+    ]
+   },
+   "kills": "requiring an admission mode on the configuration as a condition of discharge-bearing (owner decision 2), which would make an R6.CFG.4 configuration form no context and lose its witnesses",
+   "variant": "ii"
+  },
+  {
+   "id": "CU-N24",
+   "kind": "negative",
+   "requirements": [
+    "R6.CUST.1",
+    "R6.TREE.5"
+   ],
+   "setup": "A custody successor lands on M after F. Variant a: K's side-change class record does not classify the custody directory. Variant b: it does.",
+   "expected": {
+    "outcome": "variant a: REVIEW_REQUIRED side-change-unclassified among the results; variant b: no such item for the custody path"
+   },
+   "kills": "exempting the custody path from side-change classification",
+   "variant": "both"
+  },
+  {
+   "id": "CU-N25",
+   "kind": "negative",
+   "requirements": [
+    "R6.CUST.4 liveness",
+    "R6.CUST.10"
+   ],
+   "setup": "A chained version on main appends a close whose run's m is not reachable from any later main (a wrong entry). Gate run: the commit adding it is checked by R6.CUST.10. Run: a later M.",
+   "expected": {
+    "outcome": "gate: fails on the adding commit; run: FAIL custody-unreachable at every later M"
+   },
+   "kills": "a gate that does not run the entry checks, or a run that drops or tolerates a chained invalid entry",
+   "variant": "both"
+  },
+  {
+   "id": "CU-X1",
+   "kind": "countercase",
+   "requirements": [
+    "R6.CUST.2",
+    "sec. 7"
+   ],
+   "setup": "After CU-N16, a further receipted context F3 cites A3 with replacement R and a review Z of R by another reviewer lacking NR-5's tokens, with its own close.",
+   "expected": {
+    "outcome": "FAIL",
+    "witness": "F1 lineage witness still blocks",
+    "route": null
+   },
+   "kills": "treating a later context as a clearance",
+   "variant": "both"
+  },
+  {
+   "id": "CU-X2",
+   "kind": "countercase",
+   "requirements": [
+    "R6.CUST.1"
+   ],
+   "setup": "Paired run: once without and once with a later freeze that widens a tool-landing prefix to cover PATH, or pins its blob.",
+   "expected": {
+    "outcome": "the two runs give the same custody status and items",
+    "custody": "read at PATH by the fixed constant"
+   },
+   "kills": "reading custody through a configuration's selector",
+   "paired": true,
+   "variant": "both"
+  },
+  {
+   "id": "CU-X3",
+   "kind": "countercase",
+   "requirements": [
+    "R6.CUST.1",
+    "R6.CUST.9"
+   ],
+   "setup": "The custody file is moved to another path in M's tree, with identical bytes.",
+   "expected": {
+    "outcome": "FAIL",
+    "item": "custody-missing"
+   },
+   "kills": "locating custody by schema search instead of the fixed path",
+   "variant": "both"
+  },
+  {
+   "id": "CU-X4",
+   "kind": "countercase",
+   "requirements": [
+    "R6.CUST.6",
+    "sec. 4.3"
+   ],
+   "setup": "Context F1's replay admits a replacement R' through its own configuration pin, with an accepting review. The current F2 does not admit R', and its candidate D relies on a witness only through (r3).",
+   "expected": {
+    "outcome": "FAIL",
+    "note": "NR-2 is not met: a custody context supplies no admission to the current freeze"
+   },
+   "kills": "letting a replayed context supply a positive input or NR-2 admission",
+   "variant": "both"
+  },
+  {
+   "id": "CU-B1",
+   "kind": "residual",
+   "requirements": [
+    "R-C1"
+   ],
+   "setup": "F_u is designated with a discharge-bearing configuration, its run qualifies S against Q, and its round never lands. A later freeze cites Q.",
+   "expected": {
+    "outcome": "ANY",
+    "note": "the tool cannot see F_u; the preconditions of sec. 5 item 4 and bootstrap item (c) are review"
+   },
+   "kills": null,
+   "variant": "both"
+  },
+  {
+   "id": "CU-B2",
+   "kind": "residual",
+   "requirements": [
+    "R-C2"
+   ],
+   "setup": "A run under F1 admitted REV1, and REV1 never lands on main.",
+   "expected": {
+    "outcome": "FAIL if the close lists the run (custody-unreachable); ANY if a reviewer omits it",
+    "note": "a never-landed REV cannot be listed; a correct close cannot exist and custody stays unestablished"
+   },
+   "kills": null,
+   "variant": "both"
+  },
+  {
+   "id": "CU-B4",
+   "kind": "boundary",
+   "requirements": [
+    "R6.CUST.2 Detection",
+    "r9 R-3"
+   ],
+   "setup": "Scan every custody version, and review records of custody versions, with category-3 detection. Variant: a custody review carries verdict invalidates on an entry:<i> item; it counts only through R6.RECON.26 Form (i)'s clause on a review whose reviewed names no record the scan finds.",
+   "expected": {
+    "outcome": "accepting custody reviews and custody versions: no finding; variant: a second-kind finding detected before lint, binding (form failure)"
+   },
+   "kills": "a schema key or literal carrying an invalidation token, or a detector that exempts custody review records",
+   "variant": "both"
+  },
+  {
+   "id": "CU-P10",
+   "kind": "positive",
+   "requirements": [
+    "R6.CUST.5 (c4)",
+    "R6.CUST.5 (c2)"
+   ],
+   "setup": "Kx is named by an unfrozen entry. Later Kx is frozen and lands (variant (i): a native round whose receipt admits Kx; variant (ii): a reviewed freeze entry), and a close for its f lands after the landing.",
+   "expected": {
+    "outcome": "PASS",
+    "custody": "established",
+    "invariants.not_class": [
+     "custody-unsupported"
+    ]
+   },
+   "kills": "keeping the converse 'no context admits it' for unfrozen entries, which would block forever after a later admission",
+   "variant": "both"
+  },
+  {
+   "id": "CU-N26",
+   "kind": "negative",
+   "requirements": [
+    "R6.CUST.5 (c3)",
+    "R6.CUST.8"
+   ],
+   "setup": "Context F1's close has runs: [] while F1's landed result files record the run (M1, null). Variant: no result files landed, and the close's R6.CUST.8 review is missing.",
+   "expected": {
+    "outcome": "FAIL",
+    "item": "custody-runs-mismatch (results landed); custody-unreviewed (no review)",
+    "note": "with results absent and an accepting review present, an empty close rests on review (R-C2)"
+   },
+   "kills": "accepting an empty close without results or review",
+   "variant": "both"
+  },
+  {
+   "id": "CU-N27",
+   "kind": "negative",
+   "requirements": [
+    "R6.CUST.5 (c3)"
+   ],
+   "setup": "Contexts F1 and F2 both closed. The run (M1, null), recorded by F1's landed results, is listed under F2's close and not under F1's.",
+   "expected": {
+    "outcome": "FAIL",
+    "item": "custody-runs-mismatch"
+   },
+   "kills": "checking runs as a global set instead of per context",
+   "variant": "both"
+  },
+  {
+   "id": "CU-N28",
+   "kind": "negative",
+   "requirements": [
+    "R6.CUST.5 (c3)",
+    "R6.CUST.7"
+   ],
+   "setup": "Context F1 has a close. The current run is an op C run whose own F is F1.",
+   "expected": {
+    "outcome": "FAIL",
+    "classes_include": [
+     "record-invalid",
+     "retirement-blocked"
+    ],
+    "item": "custody-closed-freeze"
+   },
+   "kills": "letting a freeze run after its close",
+   "variant": "both"
+  },
+  {
+   "id": "CU-N29",
+   "kind": "negative",
+   "requirements": [
+    "R6.CUST.5 (c2)",
+    "R6.CUST.10"
+   ],
+   "setup": "A close for F1 is contained in a custody version at a commit that does not descend from F1's landing. Gate: the commit adding it is checked.",
+   "expected": {
+    "outcome": "run: FAIL custody-early-close; gate: fails on the adding commit"
+   },
+   "kills": "not tying the close to the landing",
+   "variant": "both"
+  },
+  {
+   "id": "CU-N30",
+   "kind": "negative",
+   "requirements": [
+    "R6.CUST.5 (c1)"
+   ],
+   "setup": "Variant (i): R1 is built by tools/v3_receipt.py for the round of CU-P2, then mutated (the builder reads the control plane from the repository and cannot itself produce a mismatch). Mutations: the listed blob of R/preregistration.md replaced by another blob id; an added member naming an amendment absent from F1's tree.",
+   "expected": {
+    "outcome": "FAIL",
+    "item": "custody-receipt-mismatch"
+   },
+   "kills": "silently skipping a receipt whose listed control-plane member is missing or differs",
+   "variant": "i"
+  },
+  {
+   "id": "CU-N31",
+   "kind": "negative",
+   "requirements": [
+    "R6.CUST.5 (c1)"
+   ],
+   "setup": "Variant (ii): an A1-layout freeze F1 of K1 (configuration and PREREG.md in the admitted record directory, R6.CFG.1), landed by the merge L1, with a reviewed entry {config:K1, f:F1, landing:L1, type:freeze}. Variants: the freeze entry's config is not at its path in F1's tree; the PREREG.md beside it does not list its SHA-256; F1 is not an ancestor of landing.",
+   "expected": {
+    "outcome": "FAIL",
+    "item": "custody-unsupported"
+   },
+   "kills": "accepting a freeze entry without checking it against f's tree",
+   "variant": "ii"
+  },
+  {
+   "id": "CU-N32",
+   "kind": "negative",
+   "variant": "paired (i) and (ii)",
+   "requirements": [
+    "R6.CUST.5 (c4) pin rule"
+   ],
+   "setup": "Kx lands on main in a planning commit P0 and an unfrozen entry for Kx is written at U0. Later the PREREG.md beside Kx lists Kx's SHA-256 at a commit P1 that descends from U0 and introduces the pin, Kx is frozen and landed, and no context is recorded for it (variant (ii): no freeze entry; variant (i): the freeze is made outside V3, so no receipt).",
+   "expected": {
+    "outcome": "FAIL",
+    "item": "custody-incomplete",
+    "note": "recovery is only by a context for the freeze (OQ-20 default (a))"
+   },
+   "kills": "letting an unfrozen entry written before the pin cover the later freeze"
+  },
+  {
+   "id": "CU-N33",
+   "kind": "negative",
+   "variant": "ii",
+   "requirements": [
+    "R6.CUST.5 (c1) variant (ii)"
+   ],
+   "setup": "A freeze entry for F1 names landing = F1.",
+   "expected": {
+    "outcome": "FAIL",
+    "item": "custody-unsupported"
+   },
+   "kills": "accepting landing as any ancestor-or-self descendant of f"
+  },
+  {
+   "id": "CU-N34",
+   "kind": "negative",
+   "variant": "ii",
+   "requirements": [
+    "R6.CUST.5 (c1) variant (ii)",
+    "R6.CUST.5 (c2)"
+   ],
+   "setup": "Variants: landing names an execution commit E1 on the round branch descending from F1 (not on M's first-parent chain); landing names a merge on M's first-parent chain whose first parent already contains F1 (a later merge). In both, a close for F1 is introduced after that commit but before the true landing merge, and the landing tree holds no run results.",
+   "expected": {
+    "outcome": "FAIL",
+    "item": "custody-unsupported"
+   },
+   "kills": "checking only that landing descends from f, which lets a writer move the early-close boundary and the run window"
+  },
+  {
+   "id": "CU-N35",
+   "kind": "negative",
+   "variant": "both",
+   "requirements": [
+    "R6.CUST.5 (c3) run results",
+    "OQ-17",
+    "OQ-19"
+   ],
+   "setup": "With OQ-17 and OQ-19 adopted (M read from the named field OQ-19 fixes): F1's close lists (M1, null). Variant a: the landing tree holds no result.json under <dir>/op-c-runs/. Variant b: a result.json there has config.commit naming another freeze. Variant c: one has operation other than \"execution\", or config.admission.mode harness, or a harness field. Variant d: one fails schema oi-ledger-coverage/5. Variant e (errored result): the only result.json for F1 has outcome ERROR and records (M1, null).",
+   "expected": {
+    "outcome": "FAIL",
+    "item": "custody-runs-mismatch",
+    "note": "in variant e the errored result is not a run, so the listed run (M1, null) has no result and fails as missing; the same errored result beside an evaluating result for (M1, null) is ignored"
+   },
+   "kills": "reading nonexistent fields (inputs.operation, inputs.freeze), reading the diagnostic roles.M, skipping the check when results are absent, or counting a non-evaluating result as a run"
+  },
+  {
+   "id": "CU-P11",
+   "kind": "positive",
+   "variant": "paired (i) and (ii)",
+   "requirements": [
+    "R6.CUST.5 (c4) pin rule"
+   ],
+   "setup": "Variant a: Kx's PREREG.md pin is introduced at commit P1 (listed in P1's tree and in none of its parents') and remains present at every later commit, M included; no freeze of Kx is designated; an unfrozen entry for Kx is introduced in a custody version at a commit descending from P1, with its R6.CUST.8 review. Variant b: as variant a, and afterwards a branch forked from main before P1 is merged into main by a merge commit whose first parent lists the pin and whose second parent does not.",
+   "expected": {
+    "outcome": "PASS",
+    "custody": "established",
+    "invariants.not_class": [
+     "custody-incomplete"
+    ]
+   },
+   "kills": "treating a commit as pinning when any parent lacks the pin, so that a cover written after the pin's introduction fails after an ordinary merge of an older branch"
+  }
+ ]
+}

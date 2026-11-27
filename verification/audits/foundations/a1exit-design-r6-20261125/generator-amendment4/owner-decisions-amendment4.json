@@ -1,0 +1,34 @@
+{
+ "schema": "oi-owner-decision-quote/1",
+ "decisions": [
+  {
+   "author": "amaybaum",
+   "time": "2026-11-26T07:31:59Z",
+   "record": "#1169 comment 7185562871",
+   "relayed_by": "coordinating session",
+   "quotes": [
+    null,
+    "Prefer the reviewer's recommendation: key the block by the stable edit identifier, together with its plan lineage and independently reviewed reassessment.",
+    "Exact bytes should remain recorded as evidence, but should not be the sole identity of the blocked edit.",
+    "Otherwise, an incidental wording change could give the same scientifically invalidated edit a different identity.",
+    "The following requirements must hold:",
+    "Event | Outcome",
+    "Edit wording changes | Block persists.",
+    "Edit identifier is renamed | Block follows the recorded migration.",
+    "Scientific repair lands | Block persists for the original frozen plan.",
+    "Independent reassessment accepts the repair | Revised plan becomes eligible for review and freezing.",
+    "Revised plan is frozen | New verification and trials may proceed.",
+    "This is a proposed amendment to the accepted design, not permission to silently change its implementation.",
+    null,
+    "Prefer `--record-base M0` over inferring the nearest real commit.",
+    "Explicit inputs are easier to reproduce, audit and independently verify.",
+    "The tool must still mechanically establish the admissibility of M0. Supplying its identifier must not itself establish validity.",
+    "Prepare these two changes together as a narrowly scoped amendment 4, with independent review. Do not reopen amendment 3 unnecessarily.",
+    null,
+    "With amendment 3 accepted scientifically, the focus should increasingly shift from designing verification machinery to completing, reviewing and executing it.",
+    "Amendment 4 should remain strictly limited to the two identified questions. Avoid further design expansion unless a genuine correctness defect requires it.",
+    null
+   ]
+  }
+ ]
+}

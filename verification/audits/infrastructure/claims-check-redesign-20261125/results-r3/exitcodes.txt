@@ -1,0 +1,42 @@
+ok  clean active tree                                                expect 0 got 0 | 
+ok  bare FAIL in papers/                                             expect 1 got 1 | active/FAIL 1
+ok  REVIEW only in papers/                                           expect 2 got 2 | active/REVIEW 1
+ok  FAIL and REVIEW in papers/ (FAIL wins)                           expect 1 got 1 | active/REVIEW 1
+ok  FAIL in a verification record (reported, exit 0)                 expect 0 got 0 | record/FAIL 1
+ok  FAIL in verification/README.md (active)                          expect 1 got 1 | active/FAIL 1
+ok  FAIL in a README under verification/a/ (record)                  expect 0 got 0 | record/FAIL 1
+ok  FAIL in tools/README.md (active)                                 expect 1 got 1 | active/FAIL 1
+ok  FAIL in AGENTS.md record section                                 expect 0 got 0 | record/FAIL 1
+ok  FAIL in AGENTS.md ordinary section                               expect 1 got 1 | active/FAIL 1
+ok  negated REVIEW resolved by a valid unrelated record              expect 0 got 0 | active/REVIEW-resolved 1
+ok  valid record but no --repo                                       expect 3 got 3 | RECORD review records present but no --repo: revisions cannot be verified
+ok  record revision not on main                                      expect 3 got 3 | RECORD review[0]: revision is not an ancestor of the main ref
+ok  record revision abbreviated                                      expect 3 got 3 | RECORD review[0]: revision is not a full commit id
+ok  record missing reviewer                                          expect 3 got 3 | RECORD review[0]: missing reviewer
+ok  stale record (sentence edited)                                   expect 3 got 3 | RECORD review[0]: stale (no matching REVIEW finding at this tree)
+ok  record with a wrong code (F5: code is matched exactly)           expect 3 got 3 | RECORD review[0]: stale (no matching REVIEW finding at this tree)
+ok  record cannot resolve a FAIL                                     expect 3 got 3 | RECORD review[0]: a review record cannot resolve a FAIL
+ok  unreadable review file                                           expect 3 got 3 | RECORD file unreadable: Expecting property name enclosed in double quotes: line 1 column 2
+ok  F2: governed on unlicensed H-slope (no licence cited)            expect 3 got 3 | RECORD review[0]: 'governed' needs an owner-adopted licence entry; none is cited or it doe
+ok  F2: governed citing a licence id absent from the (empty) list    expect 3 got 3 | RECORD review[0]: 'governed' needs an owner-adopted licence entry; none is cited or it doe
+ok  F2: unrelated resting on the qualifier itself                    expect 3 got 3 | RECORD review[0]: evidence contains a qualifier token; non-assertion cannot rest on a qual
+ok  F2: unrelated 'other-subject' citing the rule's own subject      expect 3 got 3 | RECORD review[0]: other-subject: evidence contains the rule's own argument term
+ok  F1/F3: 'negated' basis on a polarity-flipped qualifier           expect 3 got 3 | RECORD review[0]: negated: the sentence contains a concessive or polarity-flipping token
+ok  double negation cannot be recorded as negated                    expect 3 got 3 | RECORD review[0]: negated: the sentence must contain exactly one negation word
+ok  mention basis outside any quotation                              expect 3 got 3 | RECORD review[0]: mention: evidence is not inside a quotation or code span of the sentence
+ok  question resolved by a valid question record                     expect 0 got 0 | active/REVIEW-resolved 1
+ok  anaphora REVIEW (code A) unresolved                              expect 2 got 2 | active/REVIEW 1
+ok  anaphora record without window hash                              expect 3 got 3 | RECORD review[0]: code A needs window_sha256
+ok  anaphora record with its window hash                             expect 0 got 0 | active/REVIEW-resolved 1
+ok  anaphora record with a stale window hash                         expect 3 got 3 | RECORD review[0]: stale (no matching REVIEW finding at this tree)
+ok  governed with a valid licence entry (synthetic)                  expect 0 got 0 | active/REVIEW-resolved 1
+ok  governed with a licence for another rule                         expect 3 got 3 | RECORD review[0]: licence entry is for another rule
+ok  licence without proposer                                         expect 3 got 3 | RECORD licence[0]: no proposer
+ok  licence reviewed by its proposer                                 expect 3 got 3 | RECORD licence[0]: reviewer is the proposer
+ok  licence without quoted owner adoption                            expect 3 got 3 | RECORD licence[0]: no quoted owner adoption (author, time, quote)
+ok  licence review record path absent on main                        expect 3 got 3 | RECORD licence[0]: review record path does not exist on the main ref
+ok  licence anchor quotation absent at its revision                  expect 3 got 3 | RECORD licence[0]: anchor quotation not found at its revision
+ok  licence entries but no --repo                                    expect 3 got 3 | RECORD licence entries present but no --repo: anchors and reviews cannot be verified
+ok  licence file with the r2 schema                                  expect 3 got 3 | RECORD licence file: schema must be claims-licences/3
+ok  usage error                                                      expect 4 got 4 | 
+exit-code controls: 41 mismatches: 0

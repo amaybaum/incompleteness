@@ -1,0 +1,214 @@
+{
+ "r3": {
+  "exit": 2,
+  "counts": {
+   "active/REVIEW": 256,
+   "record/REVIEW": 921
+  },
+  "active_FAIL": 0,
+  "active_REVIEW": 256,
+  "active_REVIEW_by_code": {
+   "A": 76,
+   "C": 172,
+   "P": 8
+  },
+  "active_REVIEW_by_rule": {
+   "W-BM-EUCLID": 14,
+   "W-GR-CONE": 3,
+   "W-GR-KMS": 26,
+   "W-GR-THERM-KIN": 16,
+   "W-GR-TQ-STATE": 31,
+   "W-KDEG": 38,
+   "W-OI-CONTRA": 5,
+   "W-OI-EXPLAINS": 43,
+   "W-OI-HIDDEN": 33,
+   "W-OI-NOEXIST": 14,
+   "W-OI-REQ": 33
+  },
+  "distinct_path_sentence": 219,
+  "distinct_sentence_texts": 160,
+  "files": 23,
+  "record_REVIEW": 921
+ },
+ "r4": {
+  "exit": 2,
+  "counts": {
+   "active/REVIEW": 234,
+   "record/REVIEW": 876
+  },
+  "active_FAIL": 0,
+  "active_REVIEW": 234,
+  "active_REVIEW_by_code": {
+   "A": 68,
+   "C": 158,
+   "P": 8
+  },
+  "active_REVIEW_by_rule": {
+   "W-BM-EUCLID": 5,
+   "W-GR-CONE": 3,
+   "W-GR-KMS": 26,
+   "W-GR-THERM-KIN": 2,
+   "W-GR-TQ-STATE": 31,
+   "W-KDEG": 39,
+   "W-OI-CONTRA": 5,
+   "W-OI-EXPLAINS": 43,
+   "W-OI-HIDDEN": 33,
+   "W-OI-NOEXIST": 14,
+   "W-OI-REQ": 33
+  },
+  "distinct_path_sentence": 198,
+  "distinct_sentence_texts": 145,
+  "files": 22,
+  "record_REVIEW": 876
+ },
+ "delta": {
+  "active_findings_only_r3": [
+   [
+    "W-BM-EUCLID",
+    "book/The-Incompleteness-of-Observation-FULL.md",
+    "2865864a9aba1bed7696257f9ca8adc5eae3096e40d4294ed512b0b9ddaba640",
+    "A"
+   ],
+   [
+    "W-BM-EUCLID",
+    "book/The-Incompleteness-of-Observation-FULL.md",
+    "5df4f4be3d8772f136edaf7a3edaf3213ec029dbd74402537edb2d87a34430b0",
+    "C"
+   ],
+   [
+    "W-BM-EUCLID",
+    "book/The-Incompleteness-of-Observation-FULL.md",
+    "7cb66ee7b19860b70cfdc8a28a885d8867a720140ca4191b769af29c0d916942",
+    "C"
+   ],
+   [
+    "W-BM-EUCLID",
+    "book/The-Incompleteness-of-Observation-FULL.md",
+    "9a072d104ba13591f75a2b3a249b4d6ef9cb044cf401e6d4458ed491ec7a32b6",
+    "C"
+   ],
+   [
+    "W-BM-EUCLID",
+    "book/ch07-gravity.md",
+    "2865864a9aba1bed7696257f9ca8adc5eae3096e40d4294ed512b0b9ddaba640",
+    "A"
+   ],
+   [
+    "W-BM-EUCLID",
+    "book/ch07-gravity.md",
+    "7cb66ee7b19860b70cfdc8a28a885d8867a720140ca4191b769af29c0d916942",
+    "C"
+   ],
+   [
+    "W-BM-EUCLID",
+    "book/ch07-gravity.md",
+    "9a072d104ba13591f75a2b3a249b4d6ef9cb044cf401e6d4458ed491ec7a32b6",
+    "C"
+   ],
+   [
+    "W-BM-EUCLID",
+    "book/ch19-open-problems.md",
+    "5df4f4be3d8772f136edaf7a3edaf3213ec029dbd74402537edb2d87a34430b0",
+    "C"
+   ],
+   [
+    "W-BM-EUCLID",
+    "papers/GR.md",
+    "7f0a66088d434b6cd1a046b4ae28f5104cc495abd8f49435dace394dc4efb876",
+    "C"
+   ],
+   [
+    "W-GR-THERM-KIN",
+    "book/The-Incompleteness-of-Observation-FULL.md",
+    "896ac1831c3cf837b45b5b5aebfc7f3d8945ac2d5a7003fae5f972a987bf590b",
+    "A"
+   ],
+   [
+    "W-GR-THERM-KIN",
+    "book/The-Incompleteness-of-Observation-FULL.md",
+    "d78c1a36ac1ef1c3d01184b90aec6f5e70b5e283860256dcefe590bd307937ca",
+    "A"
+   ],
+   [
+    "W-GR-THERM-KIN",
+    "book/ch02-substratum.md",
+    "d78c1a36ac1ef1c3d01184b90aec6f5e70b5e283860256dcefe590bd307937ca",
+    "A"
+   ],
+   [
+    "W-GR-THERM-KIN",
+    "book/ch19-open-problems.md",
+    "896ac1831c3cf837b45b5b5aebfc7f3d8945ac2d5a7003fae5f972a987bf590b",
+    "A"
+   ],
+   [
+    "W-GR-THERM-KIN",
+    "papers/GR.md",
+    "9272d306d4a5dbea746a751c0134f7d12daf9cc1e6a165e95c3150eed5b86aa0",
+    "C"
+   ],
+   [
+    "W-GR-THERM-KIN",
+    "papers/GR.md",
+    "d33487287f80499037b999529e3b03d1e699ca40b40a6e6a7e65db80a05bfc15",
+    "C"
+   ],
+   [
+    "W-GR-THERM-KIN",
+    "papers/Main.md",
+    "139451d28c5e5fed223664ce4b5fa32d77fe705c3f5fb08a19f4ed376682e62d",
+    "C"
+   ],
+   [
+    "W-GR-THERM-KIN",
+    "papers/Main.md",
+    "17813c1472fde7336c7fb3b99c01148506e42e70692bf74d61233a08717e64ac",
+    "A"
+   ],
+   [
+    "W-GR-THERM-KIN",
+    "papers/Main.md",
+    "3915459e12e58629bd7da931fb0ec361840fa023b775cb0657d4f0d968c69deb",
+    "C"
+   ],
+   [
+    "W-GR-THERM-KIN",
+    "papers/Methodology.md",
+    "10aebd87866845a62bc253006f9a4bca7451d427cb7d4baddb4320ec8f500eb7",
+    "A"
+   ],
+   [
+    "W-GR-THERM-KIN",
+    "papers/Methodology.md",
+    "ff355ebf937214abd7434e5869d00064880c16af21e597111dc8086b877c1d7a",
+    "C"
+   ],
+   [
+    "W-GR-THERM-KIN",
+    "papers/Substratum.md",
+    "7112feb19cd5df90774cd2bd2747a2ff04fabe67d5492c18073dcd58af938178",
+    "C"
+   ],
+   [
+    "W-GR-THERM-KIN",
+    "papers/Substratum.md",
+    "8c695620ad07e6cb4704292314fecc0a33de178e8e88e540d0511d7c1d56dc31",
+    "C"
+   ],
+   [
+    "W-GR-THERM-KIN",
+    "papers/Substratum.md",
+    "a46d4fe4d41c7c437546b04c190a9a2fe888f3872c973b6d3849290c387c3d09",
+    "C"
+   ]
+  ],
+  "active_findings_only_r4": [
+   [
+    "W-KDEG",
+    "papers/SM.md",
+    "0cafda3771820f654e4ef9fcbb04c20bfc7a2b44b16a16923c157a3845c54aa8",
+    "C"
+   ]
+  ]
+ }
+}

@@ -1,0 +1,64 @@
+ok  P-TQ-1         FAIL   FAIL   | empty: FAIL   FAIL   copular; asserted; no governing qualifier
+ok  P-TQ-2         FAIL   FAIL   | empty: FAIL   FAIL   copular; asserted; no governing qualifier
+ok  P-TQ-3         FAIL   FAIL   | empty: FAIL   FAIL   copular; asserted; no governing qualifier
+ok  P-TQ-4         FAIL   FAIL   | empty: FAIL   FAIL   copular; asserted; no governing qualifier
+ok  P-TQ-5         FAIL   FAIL   | empty: FAIL   FAIL   attributive; asserted; no governing qualifier
+ok  P-TQ-6         FAIL   FAIL   | empty: FAIL   FAIL   copular; asserted; no governing qualifier; asserted; no governing qualifier
+ok  N-TQ-1         PASS   PASS   | empty: PASS   PASS   copular; G1 negation in the assertion's slot
+ok  N-TQ-2         PASS   PASS   | empty: REVIEW REVIEW copular; G3 licensed qualifier heads the antecedent
+ok  N-TQ-3         PASS   PASS   | empty: REVIEW REVIEW copular; G3 licensed qualifier heads the antecedent
+ok  N-TQ-4         PASS   PASS   | empty: PASS   PASS   copular; G2 subject is the immediate complement of a negative frame
+ok  N-TQ-MAIN720   PASS   PASS   | empty: PASS   PASS   unrelated: predicate modifies 'additive constant'
+ok  N-TQ-MAIN724   PASS   PASS   | empty: PASS   PASS   unrelated: predicate modifies 'additive constant'
+ok  N-TQ-CH07      PASS   PASS   | empty: PASS   PASS   unrelated: predicate modifies 'additive constant'
+ok  N-TQ-CH09A     PASS   PASS   | empty: PASS   PASS   unrelated: predicate modifies 'additive constant'
+ok  N-TQ-CH09B     PASS   PASS   | empty: PASS   PASS   unrelated: predicate modifies 'additive constant'
+ok  N-TQ-TUNE1     PASS   PASS   | empty: PASS   PASS   unrelated: predicate modifies 'gate records of'
+ok  N-TQ-5         PASS   PASS   | empty: PASS   PASS   unrelated: copular subject 'the coupling constant'
+ok  A-TQ-1         REVIEW REVIEW | empty: REVIEW REVIEW R1 pronoun/elided subject; rule subject in window
+ok  A-TQ-2         REVIEW REVIEW | empty: REVIEW REVIEW copular; R3 qualifier after A not in a governing position
+ok  A-TQ-3         REVIEW REVIEW | empty: REVIEW REVIEW copular; R3 condition naming no licensed qualifier
+ok  A-TQ-4         REVIEW REVIEW | empty: REVIEW REVIEW R2 copular subject has a generic head
+ok  P-KIN-1        FAIL   FAIL   | empty: FAIL   FAIL   copular; asserted; no governing qualifier
+ok  N-KIN-1        PASS   PASS   | empty: PASS   PASS   copular; G1 negation in the assertion's slot
+ok  N-KIN-2        PASS   PASS   | empty: PASS   PASS   unrelated: copular subject 'The Lorentz boost relating the frames'
+ok  A-KIN-1        REVIEW REVIEW | empty: REVIEW REVIEW R1 pronoun/elided subject; rule subject in window
+ok  P-KMS-1        FAIL   FAIL   | empty: FAIL   FAIL   asserted; no governing qualifier
+ok  P-KMS-2        FAIL   FAIL   | empty: FAIL   FAIL   asserted; no governing qualifier
+ok  N-KMS-1        PASS   PASS   | empty: REVIEW REVIEW G3 licensed qualifier heads a post-posed restrictor
+ok  N-KMS-2        PASS   PASS   | empty: PASS   PASS   G2 subject is the immediate complement of a negative frame
+ok  A-KMS-1        REVIEW REVIEW | empty: REVIEW REVIEW R3 qualifier after A not in a governing position
+ok  P-CONE-1       FAIL   FAIL   | empty: FAIL   FAIL   copular; asserted; no governing qualifier
+ok  P-CONE-2       FAIL   FAIL   | empty: FAIL   FAIL   attributive; asserted; no governing qualifier
+ok  N-CONE-1       PASS   PASS   | empty: PASS   PASS   copular; G1 negation in the assertion's slot
+ok  A-CONE-1       REVIEW REVIEW | empty: REVIEW REVIEW copular; R3 qualifier in A's clause not in a governing position
+ok  P-EPS-1        FAIL   FAIL   | empty: FAIL   FAIL   formula error; no qualifier repairs it
+ok  N-EPS-1        PASS   PASS   | empty: PASS   PASS   
+ok  P-BM-1         FAIL   FAIL   | empty: FAIL   FAIL   asserted; no governing qualifier
+ok  P-BM-2         FAIL   FAIL   | empty: FAIL   FAIL   copular; asserted; no governing qualifier
+ok  N-BM-1         PASS   PASS   | empty: PASS   PASS   G1 negated; subject elided
+ok  N-BM-2         PASS   PASS   | empty: REVIEW REVIEW copular; G3 licensed qualifier heads the antecedent
+ok  P-KDEG-1       FAIL   FAIL   | empty: FAIL   FAIL   asserted; no governing qualifier
+ok  P-KDEG-2       FAIL   FAIL   | empty: FAIL   FAIL   asserted; no governing qualifier; G1 negated; subject elided
+ok  P-KDEG-3       FAIL   FAIL   | empty: FAIL   FAIL   asserted; no governing qualifier
+ok  P-KDEG-4       FAIL   FAIL   | empty: FAIL   FAIL   passive/nominal; asserted; no governing qualifier
+ok  N-KDEG-1       PASS   PASS   | empty: PASS   PASS   G1 negation in the assertion's slot
+ok  N-KDEG-2       PASS   PASS   | empty: PASS   PASS   unrelated: verb has another subject; G1 negation in the assertion's slot
+ok  N-KDEG-3       PASS   PASS   | empty: PASS   PASS   G1 negation in the assertion's slot
+ok  N-KDEG-4       PASS   PASS   | empty: PASS   PASS   G1 negated; subject elided; passive/nominal; G1 negation in the assertion's slot
+ok  N-KDEG-5       PASS   PASS   | empty: PASS   PASS   
+ok  N-KDEG-6       PASS   PASS   | empty: PASS   PASS   unrelated: verb has another subject
+ok  A-KDEG-1       REVIEW REVIEW | empty: REVIEW REVIEW R3 qualifier after A not in a governing position
+ok  P-OI-1         FAIL   FAIL   | empty: FAIL   FAIL   asserted; no governing qualifier
+ok  P-OI-2         FAIL   FAIL   | empty: FAIL   FAIL   asserted; no governing qualifier
+ok  P-OI-3         FAIL   FAIL   | empty: FAIL   FAIL   asserted; no governing qualifier
+ok  P-OI-4         FAIL   FAIL   | empty: FAIL   FAIL   asserted; no governing qualifier
+ok  P-OI-5         FAIL   FAIL   | empty: FAIL   FAIL   asserted; no governing qualifier
+ok  P-OI-6         FAIL   FAIL   | empty: FAIL   FAIL   asserted; no governing qualifier
+ok  P-OI-7         FAIL   FAIL   | empty: FAIL   FAIL   asserted; no governing qualifier
+ok  N-OI-1         PASS   PASS   | empty: PASS   PASS   G2 subject is the immediate complement of 'not claimed:'
+ok  N-OI-2         PASS   PASS   | empty: PASS   PASS   G1 negation in the assertion's slot
+ok  N-OI-3         PASS   PASS   | empty: PASS   PASS   G2 subject is the immediate complement of a negative frame
+ok  N-OI-4         PASS   PASS   | empty: REVIEW REVIEW G3 licensed qualifier heads a post-posed restrictor
+ok  A-OI-1         REVIEW REVIEW | empty: REVIEW REVIEW R3 qualifier in A's clause not in a governing position
+mismatches: 0 of 63

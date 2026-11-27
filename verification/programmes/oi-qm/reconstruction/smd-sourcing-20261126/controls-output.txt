@@ -1,0 +1,115 @@
+PASS [E1] F c F^T = c (d=1 L=5 mu=1/3)
+PASS [E2] D c D^T = (1 - A^2/4) c, i.e. J c J^T = c (d=1 L=5 mu=1/3)
+PASS [E3] c positive definite (d=1 L=5 mu=1/3)
+PASS [E4-neg] I_2n is NOT F-invariant (non-vacuity of E1) (d=1 L=5 mu=1/3)
+PASS [E5] c and F invariant under the hyperoctahedral site action (d=1 L=5 mu=1/3)
+PASS [E6] c translation invariant (d=1 L=5 mu=1/3)
+PASS [E7] c has range 1 (d=1 L=5 mu=1/3)
+PASS [N1-neg] [[1, A/3], [A/3, 1]] fails E1 and E2 (d=1 L=5 mu=1/3)
+PASS [N2-neg] [[1, 3A], [3A, 1]] fails E3 (d=1 L=5 mu=1/3)
+PASS [N3-neg] a one-site bump fails E5 and E6 (d=1 L=5 mu=1/3)
+PASS [N4-neg] [[1, A^2], [A^2, 1]] fails E7 (d=1 L=5 mu=1/3)
+PASS [E1] F c F^T = c (d=1 L=6 mu=-3/5)
+PASS [E2] D c D^T = (1 - A^2/4) c, i.e. J c J^T = c (d=1 L=6 mu=-3/5)
+PASS [E3] c positive definite (d=1 L=6 mu=-3/5)
+PASS [E4-neg] I_2n is NOT F-invariant (non-vacuity of E1) (d=1 L=6 mu=-3/5)
+PASS [E5] c and F invariant under the hyperoctahedral site action (d=1 L=6 mu=-3/5)
+PASS [E6] c translation invariant (d=1 L=6 mu=-3/5)
+PASS [E7] c has range 1 (d=1 L=6 mu=-3/5)
+PASS [N1-neg] [[1, A/3], [A/3, 1]] fails E1 and E2 (d=1 L=6 mu=-3/5)
+PASS [N2-neg] [[1, 3A], [3A, 1]] fails E3 (d=1 L=6 mu=-3/5)
+PASS [N3-neg] a one-site bump fails E5 and E6 (d=1 L=6 mu=-3/5)
+PASS [N4-neg] [[1, A^2], [A^2, 1]] fails E7 (d=1 L=6 mu=-3/5)
+PASS [E1] F c F^T = c (d=2 L=4 mu=1/3)
+PASS [E2] D c D^T = (1 - A^2/4) c, i.e. J c J^T = c (d=2 L=4 mu=1/3)
+PASS [E3] c positive definite (d=2 L=4 mu=1/3)
+PASS [E4-neg] I_2n is NOT F-invariant (non-vacuity of E1) (d=2 L=4 mu=1/3)
+PASS [E5] c and F invariant under the hyperoctahedral site action (d=2 L=4 mu=1/3)
+PASS [E6] c translation invariant (d=2 L=4 mu=1/3)
+PASS [E7] c has range 1 (d=2 L=4 mu=1/3)
+PASS [N1-neg] [[1, A/3], [A/3, 1]] fails E1 and E2 (d=2 L=4 mu=1/3)
+PASS [N2-neg] [[1, 3A], [3A, 1]] fails E3 (d=2 L=4 mu=1/3)
+PASS [N3-neg] a one-site bump fails E5 and E6 (d=2 L=4 mu=1/3)
+PASS [N4-neg] [[1, A^2], [A^2, 1]] fails E7 (d=2 L=4 mu=1/3)
+PASS [E1] F c F^T = c (d=3 L=3 mu=1/2)
+PASS [E2] D c D^T = (1 - A^2/4) c, i.e. J c J^T = c (d=3 L=3 mu=1/2)
+PASS [E3] c positive definite (d=3 L=3 mu=1/2)
+PASS [E4-neg] I_2n is NOT F-invariant (non-vacuity of E1) (d=3 L=3 mu=1/2)
+PASS [E5] c and F invariant under the hyperoctahedral site action (d=3 L=3 mu=1/2)
+PASS [E6] c translation invariant (d=3 L=3 mu=1/2)
+PASS [E7] c has range 1 (d=3 L=3 mu=1/2)
+PASS [N1-neg] [[1, A/3], [A/3, 1]] fails E1 and E2 (d=3 L=3 mu=1/2)
+PASS [N2-neg] [[1, 3A], [3A, 1]] fails E3 (d=3 L=3 mu=1/2)
+PASS [N3-neg] a one-site bump fails E5 and E6 (d=3 L=3 mu=1/2)
+PASS [N4-neg] [[1, A^2], [A^2, 1]] fails E7 (d=3 L=3 mu=1/2)
+PASS [E8] |O| = 24
+PASS [E9] P_T1 + P_E + P_A1 = I and the projections are idempotent with traces 3, 2, 1
+PASS [E10] the projections commute with every rho(g)
+PASS [E11] t in T_1 and e in E
+PASS [E12] sum over O of rho(h) B rho(h)^T = 0 (second moment of the CC-K mixture is block-scalar)
+PASS [E13] [P_T1, B] != 0 (the T_1 phase circle does not fix S = sum kappa_b P_b + eps B)
+     number of distinct rho(h) B rho(h)^T over O: 12
+PASS [E14] exactly 12 distinct mixture components rho(h) B rho(h)^T
+PASS [E15] S = P_T1 + 2 P_E + 3 P_A1 + B/10 positive definite
+PASS [N5-neg] with eps = 10 the matrix is NOT positive definite (non-vacuity of E15)
+PASS [E16] the three E-vectors lie in E
+PASS [E17] frame identities: sum o_j o_j^T = 2 P_T1, sum eps_j eps_j^T = 2 P_E
+PASS [E18] the mu = 0 witness supports {i^K o_j}, {i^K eps_j} are invariant under every rho(g)
+
+[X] illustration only (floating point): spreading of f_t = (F^T)^t f, f = delta at the origin in the u-slot
+  d=1 mu=0.5: t, sup|f_t|, ||f_t||_4, ||f_t||_2
+       0  1.0000e+00  1.0000e+00  1.0000e+00
+       1  1.0000e+00  1.0000e+00  1.0000e+00
+       2  1.0000e+00  1.0299e+00  1.2247e+00
+       3  5.0000e-01  6.6479e-01  9.3541e-01
+      50  2.5567e-01  4.5352e-01  1.0977e+00
+     100  2.0178e-01  3.8569e-01  1.0804e+00
+     200  1.6088e-01  3.3162e-01  1.0861e+00
+     400  1.2551e-01  2.8314e-01  1.0775e+00
+  d=1 mu=0.9: t, sup|f_t|, ||f_t||_4, ||f_t||_2
+       0  1.0000e+00  1.0000e+00  1.0000e+00
+       1  1.0000e+00  1.0000e+00  1.0000e+00
+       2  1.0000e+00  1.2331e+00  1.6186e+00
+       3  9.0000e-01  1.2343e+00  1.8212e+00
+      50  3.2323e-01  5.7203e-01  1.5032e+00
+     100  2.3683e-01  4.9701e-01  1.5655e+00
+     200  2.0567e-01  4.1836e-01  1.5103e+00
+     400  1.6454e-01  3.5842e-01  1.5448e+00
+  d=1 mu=0.0: t, sup|f_t|, ||f_t||_4, ||f_t||_2
+       0  1.0000e+00  1.0000e+00  1.0000e+00
+       1  1.0000e+00  1.0000e+00  1.0000e+00
+       2  1.0000e+00  1.0000e+00  1.0000e+00
+       3  1.0000e+00  1.0000e+00  1.0000e+00
+      50  1.0000e+00  1.0000e+00  1.0000e+00
+     100  1.0000e+00  1.0000e+00  1.0000e+00
+     200  1.0000e+00  1.0000e+00  1.0000e+00
+     400  1.0000e+00  1.0000e+00  1.0000e+00
+  d=2 mu=0.5: t, sup|f_t|, ||f_t||_4, ||f_t||_2
+       0  1.0000e+00  1.0000e+00  1.0000e+00
+       1  1.0000e+00  1.0000e+00  1.0000e+00
+       2  1.0000e+00  1.0039e+00  1.1180e+00
+       3  7.5000e-01  7.5968e-01  9.4373e-01
+      15  1.8791e-01  4.0223e-01  1.0243e+00
+      30  1.3062e-01  2.9294e-01  1.0308e+00
+      60  8.1558e-02  2.2027e-01  1.0334e+00
+     120  4.8527e-02  1.6437e-01  1.0347e+00
+  d=2 mu=0.9: t, sup|f_t|, ||f_t||_4, ||f_t||_2
+       0  1.0000e+00  1.0000e+00  1.0000e+00
+       1  1.0000e+00  1.0000e+00  1.0000e+00
+       2  1.0000e+00  1.0387e+00  1.3454e+00
+       3  4.5000e-01  7.2721e-01  1.2908e+00
+      15  1.5737e-01  3.5909e-01  1.2133e+00
+      30  1.0543e-01  2.7007e-01  1.2151e+00
+      60  6.6363e-02  1.9893e-01  1.2037e+00
+     120  4.1143e-02  1.4718e-01  1.2070e+00
+  d=2 mu=0.0: t, sup|f_t|, ||f_t||_4, ||f_t||_2
+       0  1.0000e+00  1.0000e+00  1.0000e+00
+       1  1.0000e+00  1.0000e+00  1.0000e+00
+       2  1.0000e+00  1.0000e+00  1.0000e+00
+       3  1.0000e+00  1.0000e+00  1.0000e+00
+      15  1.0000e+00  1.0000e+00  1.0000e+00
+      30  1.0000e+00  1.0000e+00  1.0000e+00
+      60  1.0000e+00  1.0000e+00  1.0000e+00
+     120  1.0000e+00  1.0000e+00  1.0000e+00
+
+EXACT CHECKS: ALL PASS

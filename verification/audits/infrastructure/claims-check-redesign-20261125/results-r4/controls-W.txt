@@ -1,0 +1,39 @@
+blocked  W-P-01         FAIL   REVIEW C
+blocked  W-P-02         FAIL   REVIEW C
+MISS     W-P-03         FAIL   PASS   
+MISS     W-P-04         FAIL   PASS   
+MISS     W-P-05         FAIL   PASS   
+blocked  W-P-06         FAIL   REVIEW C
+MISS     W-P-07         FAIL   PASS   
+MISS     W-P-08         FAIL   PASS   
+blocked  W-P-09         FAIL   REVIEW C
+MISS     W-P-10         FAIL   PASS   
+MISS     W-P-11         FAIL   PASS   
+MISS     W-P-12         FAIL   PASS   
+MISS     W-P-13         FAIL   PASS   
+MISS     W-P-14         FAIL   PASS   
+MISS     W-P-15         FAIL   PASS   
+MISS     W-P-16         FAIL   PASS   
+MISS     W-P-17         FAIL   PASS   
+MISS     W-P-18         FAIL   PASS   
+MISS     W-P-19         FAIL   PASS   
+blocked  W-P-20         FAIL   REVIEW A
+exact    W-P-21         FAIL   FAIL   B
+exact    W-P-22         FAIL   FAIL   B
+exact    W-P-23         FAIL   FAIL   B
+blocked  W-P-24         FAIL   REVIEW C
+blocked  W-P-25         FAIL   REVIEW C
+blocked  W-P-26         FAIL   REVIEW C
+blocked  W-P-27         FAIL   REVIEW C
+exact    W-A-01         REVIEW REVIEW C
+MISS     W-A-02         REVIEW PASS   
+exact    W-A-03         REVIEW REVIEW C
+load     W-N-01         PASS   REVIEW C
+load     W-N-02         PASS   REVIEW C
+exact    W-N-03         PASS   PASS   
+exact    W-N-04         PASS   PASS   
+load     W-N-05         PASS   REVIEW C
+exact    W-N-06         PASS   PASS   
+exact    W-N-07         PASS   PASS   
+load     W-N-08         PASS   REVIEW C
+outcomes: {'blocked': 9, 'MISS': 16, 'exact': 9, 'load': 4} of 38

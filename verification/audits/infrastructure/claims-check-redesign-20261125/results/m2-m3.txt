@@ -1,0 +1,7 @@
+markers 44 positives 25
+('clause', 'empty', 'FAIL') 1100
+('clause', 'fixture', 'FAIL') 1100
+('sentence', 'empty', 'FAIL') 1100
+('sentence', 'fixture', 'FAIL') 1100
+M2 non-FAIL: 0
+M3 current checker accepts 924 of 1100 sentence insertions

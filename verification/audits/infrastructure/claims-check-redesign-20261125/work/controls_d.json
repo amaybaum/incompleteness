@@ -1,0 +1,6 @@
+[
+ {"id":"D-P-1","rule":"W-OI-REQ","expect":"FAIL","text":"We adopt the view of quantum mechanics that requires observational incompleteness."},
+ {"id":"D-N-1","rule":"W-OI-HIDDEN","expect":"PASS","text":"Neither statement shows that quantum mechanics needs a hidden sub-quantum level, and nothing in the tree proves it."},
+ {"id":"D-N-2","rule":"W-OI-HIDDEN","expect":"PASS","text":"It does not say quantum mechanics requires a hidden ontology, that every quantum state is observationally incomplete, or that OI causes quantumness."},
+ {"id":"D-A-1","rule":"W-OI-REQ","expect":"REVIEW","text":"That quantum mechanics requires OI, or that passive incompleteness is evidence for a hidden ontology: `qm_implies_oiCore` is containment."}
+]

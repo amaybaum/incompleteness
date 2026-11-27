@@ -1,0 +1,1487 @@
+{
+ "schema": "claims-r4-previous-gap/1",
+ "about": "Generated test cases from the patterns of tools/claims_check.py that it flags and tools/claims_check_r4.py passes, and the per-pattern counts. Known, unresolved coverage gaps of a finite generated set; tools/claims_check_r4_test.py previous fails when the outcome differs from this file.",
+ "by_pattern": {
+  "coupling-degree minimi": {
+   "generated": 56,
+   "old_flags": 24,
+   "caught_by_both": 21,
+   "old_only": 3
+  },
+  "framework's answer is $K = 2d": {
+   "generated": 3,
+   "old_flags": 3,
+   "caught_by_both": 3,
+   "old_only": 0
+  },
+  "forces an Euclidean": {
+   "generated": 40,
+   "old_flags": 40,
+   "caught_by_both": 36,
+   "old_only": 4
+  },
+  "forcing an Euclidean": {
+   "generated": 13,
+   "old_flags": 13,
+   "caught_by_both": 13,
+   "old_only": 0
+  },
+  "leading scalar propagation geometry is Euclidean": {
+   "generated": 3,
+   "old_flags": 3,
+   "caught_by_both": 3,
+   "old_only": 0
+  },
+  "state-independent": {
+   "generated": 14,
+   "old_flags": 14,
+   "caught_by_both": 14,
+   "old_only": 0
+  },
+  "purely kinematic": {
+   "generated": 8,
+   "old_flags": 8,
+   "caught_by_both": 8,
+   "old_only": 0
+  },
+  "must therefore be periodic": {
+   "generated": 18,
+   "old_flags": 18,
+   "caught_by_both": 6,
+   "old_only": 12
+  },
+  "must be KMS": {
+   "generated": 12,
+   "old_flags": 12,
+   "caught_by_both": 12,
+   "old_only": 0
+  },
+  "any QFT on this background": {
+   "generated": 12,
+   "old_flags": 6,
+   "caught_by_both": 2,
+   "old_only": 4
+  },
+  "any QFT on a bifurcate": {
+   "generated": 12,
+   "old_flags": 6,
+   "caught_by_both": 2,
+   "old_only": 4
+  },
+  "exact free-level cone per channel": {
+   "generated": 3,
+   "old_flags": 3,
+   "caught_by_both": 3,
+   "old_only": 0
+  },
+  "free-level cone is exact": {
+   "generated": 4,
+   "old_flags": 4,
+   "caught_by_both": 4,
+   "old_only": 0
+  },
+  "epsilon kappa over c": {
+   "generated": 3,
+   "old_flags": 3,
+   "caught_by_both": 3,
+   "old_only": 0
+  },
+  "QM requires OI": {
+   "generated": 51,
+   "old_flags": 51,
+   "caught_by_both": 51,
+   "old_only": 0
+  },
+  "QM cannot exist without": {
+   "generated": 21,
+   "old_flags": 21,
+   "caught_by_both": 21,
+   "old_only": 0
+  },
+  "QM requires hidden": {
+   "generated": 36,
+   "old_flags": 36,
+   "caught_by_both": 36,
+   "old_only": 0
+  },
+  "OI explains quantum": {
+   "generated": 420,
+   "old_flags": 420,
+   "caught_by_both": 180,
+   "old_only": 240
+  },
+  "without OI there is no quantum": {
+   "generated": 30,
+   "old_flags": 30,
+   "caught_by_both": 24,
+   "old_only": 6
+  }
+ },
+ "generated_old_only": [
+  {
+   "pattern": "coupling-degree minimi",
+   "old_rule": "K=2d: coupling-degree minimization",
+   "sentence": "The lattice is chosen by coupling-degree minimization."
+  },
+  {
+   "pattern": "coupling-degree minimi",
+   "old_rule": "K=2d: coupling-degree minimization",
+   "sentence": "The lattice is chosen by coupling-degree minimisation."
+  },
+  {
+   "pattern": "coupling-degree minimi",
+   "old_rule": "K=2d: coupling-degree minimization",
+   "sentence": "The lattice is chosen by coupling-degree minimizing."
+  },
+  {
+   "pattern": "forces an Euclidean",
+   "old_rule": "b_m: 'forces a Euclidean quadratic symbol'",
+   "sentence": "The lattice symmetry forces an Euclidean dispersion relation."
+  },
+  {
+   "pattern": "forces an Euclidean",
+   "old_rule": "b_m: 'forces a Euclidean quadratic symbol'",
+   "sentence": "Finite observation forces an Euclidean dispersion relation."
+  },
+  {
+   "pattern": "forces an Euclidean",
+   "old_rule": "b_m: 'forces a Euclidean quadratic symbol'",
+   "sentence": "The substratum forces an Euclidean dispersion relation."
+  },
+  {
+   "pattern": "forces an Euclidean",
+   "old_rule": "b_m: 'forces a Euclidean quadratic symbol'",
+   "sentence": "The observer interface forces an Euclidean dispersion relation."
+  },
+  {
+   "pattern": "must therefore be periodic",
+   "old_rule": "GR: unconditional KMS periodicity (H-Hawking)",
+   "sentence": "The field must therefore be periodic with period $2\\pi/\\kappa$."
+  },
+  {
+   "pattern": "must therefore be periodic",
+   "old_rule": "GR: unconditional KMS periodicity (H-Hawking)",
+   "sentence": "The state must therefore be periodic with period $2\\pi/\\kappa$."
+  },
+  {
+   "pattern": "must therefore be periodic",
+   "old_rule": "GR: unconditional KMS periodicity (H-Hawking)",
+   "sentence": "Every correlator must therefore be periodic with period $2\\pi/\\kappa$."
+  },
+  {
+   "pattern": "must therefore be periodic",
+   "old_rule": "GR: unconditional KMS periodicity (H-Hawking)",
+   "sentence": "The two-point function must therefore be periodic with period $2\\pi/\\kappa$."
+  },
+  {
+   "pattern": "must therefore be periodic",
+   "old_rule": "GR: unconditional KMS periodicity (H-Hawking)",
+   "sentence": "Each mode must therefore be periodic with period $2\\pi/\\kappa$."
+  },
+  {
+   "pattern": "must therefore be periodic",
+   "old_rule": "GR: unconditional KMS periodicity (H-Hawking)",
+   "sentence": "The restricted state must therefore be periodic with period $2\\pi/\\kappa$."
+  },
+  {
+   "pattern": "must therefore be periodic",
+   "old_rule": "GR: unconditional KMS periodicity (H-Hawking)",
+   "sentence": "So the field must therefore be periodic with period 2π/κ."
+  },
+  {
+   "pattern": "must therefore be periodic",
+   "old_rule": "GR: unconditional KMS periodicity (H-Hawking)",
+   "sentence": "So the state must therefore be periodic with period 2π/κ."
+  },
+  {
+   "pattern": "must therefore be periodic",
+   "old_rule": "GR: unconditional KMS periodicity (H-Hawking)",
+   "sentence": "So every correlator must therefore be periodic with period 2π/κ."
+  },
+  {
+   "pattern": "must therefore be periodic",
+   "old_rule": "GR: unconditional KMS periodicity (H-Hawking)",
+   "sentence": "So the two-point function must therefore be periodic with period 2π/κ."
+  },
+  {
+   "pattern": "must therefore be periodic",
+   "old_rule": "GR: unconditional KMS periodicity (H-Hawking)",
+   "sentence": "So each mode must therefore be periodic with period 2π/κ."
+  },
+  {
+   "pattern": "must therefore be periodic",
+   "old_rule": "GR: unconditional KMS periodicity (H-Hawking)",
+   "sentence": "So the restricted state must therefore be periodic with period 2π/κ."
+  },
+  {
+   "pattern": "any QFT on this background",
+   "old_rule": "GR: unconditional KMS periodicity (H-Hawking)",
+   "sentence": "In this model, any QFT on this background is thermal."
+  },
+  {
+   "pattern": "any QFT on this background",
+   "old_rule": "GR: unconditional KMS periodicity (H-Hawking)",
+   "sentence": "In this model, any QFT on this background is in equilibrium."
+  },
+  {
+   "pattern": "any QFT on this background",
+   "old_rule": "GR: unconditional KMS periodicity (H-Hawking)",
+   "sentence": "In this model, any QFT on this background has a thermal spectrum."
+  },
+  {
+   "pattern": "any QFT on this background",
+   "old_rule": "GR: unconditional KMS periodicity (H-Hawking)",
+   "sentence": "In this model, any QFT on this background radiates at $T_Q$."
+  },
+  {
+   "pattern": "any QFT on a bifurcate",
+   "old_rule": "GR: paraphrase of a superseded unconditional claim",
+   "sentence": "In this model, any QFT on a bifurcate Killing horizon is thermal."
+  },
+  {
+   "pattern": "any QFT on a bifurcate",
+   "old_rule": "GR: paraphrase of a superseded unconditional claim",
+   "sentence": "In this model, any QFT on a bifurcate Killing horizon is in equilibrium."
+  },
+  {
+   "pattern": "any QFT on a bifurcate",
+   "old_rule": "GR: paraphrase of a superseded unconditional claim",
+   "sentence": "In this model, any QFT on a bifurcate Killing horizon has a thermal spectrum."
+  },
+  {
+   "pattern": "any QFT on a bifurcate",
+   "old_rule": "GR: paraphrase of a superseded unconditional claim",
+   "sentence": "In this model, any QFT on a bifurcate Killing horizon radiates at $T_Q$."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "OI causes quantum interference."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "OI causes quantum randomness."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "OI causes quantum entanglement."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "OI causes quantum probabilities."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "OI causes quantum indeterminacy."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "OI causes quantum phenomena."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "OI causes quantum superposition."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "OI causes quantum uncertainty."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "OI produces quantum interference."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "OI produces quantum randomness."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "OI produces quantum entanglement."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "OI produces quantum probabilities."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "OI produces quantum indeterminacy."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "OI produces quantum phenomena."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "OI produces quantum superposition."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "OI produces quantum uncertainty."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "OI explains quantum interference."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "OI explains quantum randomness."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "OI explains quantum entanglement."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "OI explains quantum probabilities."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "OI explains quantum indeterminacy."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "OI explains quantum phenomena."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "OI explains quantum superposition."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "OI explains quantum uncertainty."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "OI generates quantum interference."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "OI generates quantum randomness."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "OI generates quantum entanglement."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "OI generates quantum probabilities."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "OI generates quantum indeterminacy."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "OI generates quantum phenomena."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "OI generates quantum superposition."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "OI generates quantum uncertainty."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "OI gives rise to quantum interference."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "OI gives rise to quantum randomness."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "OI gives rise to quantum entanglement."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "OI gives rise to quantum probabilities."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "OI gives rise to quantum indeterminacy."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "OI gives rise to quantum phenomena."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "OI gives rise to quantum superposition."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "OI gives rise to quantum uncertainty."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness causes quantum interference."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness causes quantum randomness."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness causes quantum entanglement."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness causes quantum probabilities."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness causes quantum indeterminacy."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness causes quantum phenomena."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness causes quantum superposition."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness causes quantum uncertainty."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness produces quantum interference."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness produces quantum randomness."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness produces quantum entanglement."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness produces quantum probabilities."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness produces quantum indeterminacy."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness produces quantum phenomena."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness produces quantum superposition."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness produces quantum uncertainty."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness explains quantum interference."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness explains quantum randomness."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness explains quantum entanglement."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness explains quantum probabilities."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness explains quantum indeterminacy."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness explains quantum phenomena."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness explains quantum superposition."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness explains quantum uncertainty."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness generates quantum interference."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness generates quantum randomness."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness generates quantum entanglement."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness generates quantum probabilities."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness generates quantum indeterminacy."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness generates quantum phenomena."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness generates quantum superposition."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness generates quantum uncertainty."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness gives rise to quantum interference."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness gives rise to quantum randomness."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness gives rise to quantum entanglement."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness gives rise to quantum probabilities."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness gives rise to quantum indeterminacy."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness gives rise to quantum phenomena."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness gives rise to quantum superposition."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness gives rise to quantum uncertainty."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observation incompleteness causes quantum interference."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observation incompleteness causes quantum randomness."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observation incompleteness causes quantum entanglement."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observation incompleteness causes quantum probabilities."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observation incompleteness causes quantum indeterminacy."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observation incompleteness causes quantum phenomena."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observation incompleteness causes quantum superposition."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observation incompleteness causes quantum uncertainty."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observation incompleteness produces quantum interference."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observation incompleteness produces quantum randomness."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observation incompleteness produces quantum entanglement."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observation incompleteness produces quantum probabilities."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observation incompleteness produces quantum indeterminacy."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observation incompleteness produces quantum phenomena."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observation incompleteness produces quantum superposition."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observation incompleteness produces quantum uncertainty."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observation incompleteness explains quantum interference."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observation incompleteness explains quantum randomness."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observation incompleteness explains quantum entanglement."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observation incompleteness explains quantum probabilities."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observation incompleteness explains quantum indeterminacy."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observation incompleteness explains quantum phenomena."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observation incompleteness explains quantum superposition."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observation incompleteness explains quantum uncertainty."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observation incompleteness generates quantum interference."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observation incompleteness generates quantum randomness."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observation incompleteness generates quantum entanglement."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observation incompleteness generates quantum probabilities."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observation incompleteness generates quantum indeterminacy."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observation incompleteness generates quantum phenomena."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observation incompleteness generates quantum superposition."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observation incompleteness generates quantum uncertainty."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observation incompleteness gives rise to quantum interference."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observation incompleteness gives rise to quantum randomness."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observation incompleteness gives rise to quantum entanglement."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observation incompleteness gives rise to quantum probabilities."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observation incompleteness gives rise to quantum indeterminacy."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observation incompleteness gives rise to quantum phenomena."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observation incompleteness gives rise to quantum superposition."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observation incompleteness gives rise to quantum uncertainty."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance causes quantum interference."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance causes quantum randomness."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance causes quantum entanglement."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance causes quantum probabilities."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance causes quantum indeterminacy."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance causes quantum phenomena."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance causes quantum superposition."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance causes quantum uncertainty."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance produces quantum interference."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance produces quantum randomness."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance produces quantum entanglement."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance produces quantum probabilities."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance produces quantum indeterminacy."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance produces quantum phenomena."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance produces quantum superposition."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance produces quantum uncertainty."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance explains quantum interference."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance explains quantum randomness."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance explains quantum entanglement."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance explains quantum probabilities."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance explains quantum indeterminacy."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance explains quantum phenomena."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance explains quantum superposition."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance explains quantum uncertainty."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance generates quantum interference."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance generates quantum randomness."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance generates quantum entanglement."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance generates quantum probabilities."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance generates quantum indeterminacy."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance generates quantum phenomena."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance generates quantum superposition."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance generates quantum uncertainty."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance gives rise to quantum interference."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance gives rise to quantum randomness."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance gives rise to quantum entanglement."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance gives rise to quantum probabilities."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance gives rise to quantum indeterminacy."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance gives rise to quantum phenomena."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance gives rise to quantum superposition."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance gives rise to quantum uncertainty."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness causes quantum interference."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness causes quantum randomness."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness causes quantum entanglement."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness causes quantum probabilities."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness causes quantum indeterminacy."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness causes quantum phenomena."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness causes quantum superposition."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness causes quantum uncertainty."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness produces quantum interference."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness produces quantum randomness."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness produces quantum entanglement."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness produces quantum probabilities."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness produces quantum indeterminacy."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness produces quantum phenomena."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness produces quantum superposition."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness produces quantum uncertainty."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness explains quantum interference."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness explains quantum randomness."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness explains quantum entanglement."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness explains quantum probabilities."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness explains quantum indeterminacy."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness explains quantum phenomena."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness explains quantum superposition."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness explains quantum uncertainty."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness generates quantum interference."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness generates quantum randomness."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness generates quantum entanglement."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness generates quantum probabilities."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness generates quantum indeterminacy."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness generates quantum phenomena."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness generates quantum superposition."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness generates quantum uncertainty."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness gives rise to quantum interference."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness gives rise to quantum randomness."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness gives rise to quantum entanglement."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness gives rise to quantum probabilities."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness gives rise to quantum indeterminacy."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness gives rise to quantum phenomena."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness gives rise to quantum superposition."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Observational incompleteness gives rise to quantum uncertainty."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance causes quantum interference."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance causes quantum randomness."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance causes quantum entanglement."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance causes quantum probabilities."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance causes quantum indeterminacy."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance causes quantum phenomena."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance causes quantum superposition."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance causes quantum uncertainty."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance produces quantum interference."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance produces quantum randomness."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance produces quantum entanglement."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance produces quantum probabilities."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance produces quantum indeterminacy."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance produces quantum phenomena."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance produces quantum superposition."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance produces quantum uncertainty."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance explains quantum interference."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance explains quantum randomness."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance explains quantum entanglement."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance explains quantum probabilities."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance explains quantum indeterminacy."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance explains quantum phenomena."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance explains quantum superposition."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance explains quantum uncertainty."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance generates quantum interference."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance generates quantum randomness."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance generates quantum entanglement."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance generates quantum probabilities."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance generates quantum indeterminacy."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance generates quantum phenomena."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance generates quantum superposition."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance generates quantum uncertainty."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance gives rise to quantum interference."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance gives rise to quantum randomness."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance gives rise to quantum entanglement."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance gives rise to quantum probabilities."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance gives rise to quantum indeterminacy."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance gives rise to quantum phenomena."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance gives rise to quantum superposition."
+  },
+  {
+   "pattern": "OI explains quantum",
+   "old_rule": "OI necessity: OI asserted to explain quantum structure (the core is forward-redundant)",
+   "sentence": "Ignorance gives rise to quantum uncertainty."
+  },
+  {
+   "pattern": "without OI there is no quantum",
+   "old_rule": "OI necessity: contrapositive form of the same unproved claim",
+   "sentence": "Without OI there is no quantum interference."
+  },
+  {
+   "pattern": "without OI there is no quantum",
+   "old_rule": "OI necessity: contrapositive form of the same unproved claim",
+   "sentence": "Without OI there would be no quantum interference."
+  },
+  {
+   "pattern": "without OI there is no quantum",
+   "old_rule": "OI necessity: contrapositive form of the same unproved claim",
+   "sentence": "Without observational incompleteness there is no quantum interference."
+  },
+  {
+   "pattern": "without OI there is no quantum",
+   "old_rule": "OI necessity: contrapositive form of the same unproved claim",
+   "sentence": "Without observational incompleteness there would be no quantum interference."
+  },
+  {
+   "pattern": "without OI there is no quantum",
+   "old_rule": "OI necessity: contrapositive form of the same unproved claim",
+   "sentence": "Without observation incompleteness there is no quantum interference."
+  },
+  {
+   "pattern": "without OI there is no quantum",
+   "old_rule": "OI necessity: contrapositive form of the same unproved claim",
+   "sentence": "Without observation incompleteness there would be no quantum interference."
+  }
+ ]
+}

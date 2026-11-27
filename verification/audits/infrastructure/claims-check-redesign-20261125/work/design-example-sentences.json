@@ -1,0 +1,104 @@
+{
+ "schema": "design-example-sentences/1",
+ "purpose": "The example sentences that DESIGN-r2.md and DESIGN-r3.md use to illustrate detection rules, kept as test data apart from the design prose. Each text is verbatim from its source as it stood before this file was introduced; line breaks inside a text are those of the source.",
+ "examples": [
+  {
+   "id": "EX-1",
+   "source": {
+    "file": "DESIGN-r2.md",
+    "section": "3.3 Binding",
+    "line_at_1a489caf": 132
+   },
+   "text": "The Unruh temperature, which is state-independent, sets the calibration",
+   "rule": "W-GR-TQ-STATE",
+   "exercises": "binding of the relative pronoun `which` in a comma-introduced copular relative clause to a subject-lexicon term in the five tokens before it",
+   "expected": "FAIL (bound assertion), not R1",
+   "related_controls": [
+    "reviewer-heldout.json X-P-05",
+    "controls_r2.json R2-P-04"
+   ]
+  },
+  {
+   "id": "EX-2",
+   "source": {
+    "file": "DESIGN-r2.md",
+    "section": "3.11 Equivalence sets, derivation operation (iii)",
+    "line_at_1a489caf": 388
+   },
+   "text": "\"coupling-degree minimization\" → \"minimization of the coupling degree\", \"minimizing the coupling\ndegree\"",
+   "rule": "W-KDEG",
+   "exercises": "derivation of the nominalized and gerund forms of a subject that is itself a nominalization",
+   "expected": "the anchor subject and both derived forms are members of the rule's subject equivalence set",
+   "related_controls": [
+    "controls.json P-KDEG-4",
+    "reviewer-heldout.json X-P-10"
+   ]
+  },
+  {
+   "id": "EX-3",
+   "source": {
+    "file": "DESIGN-r2.md",
+    "section": "3.11 Equivalence sets, derivation operation (iv)",
+    "line_at_1a489caf": 390
+   },
+   "text": "\"state-independent\" ≡ \"independent of the state\" ≡ \"the same / identical / unchanged in every\nstate\" ≡ \"insensitive to the state\"",
+   "rule": "W-GR-TQ-STATE",
+   "exercises": "predicate synonyms that state the same quantified content as the anchor predicate",
+   "expected": "every listed predicate form is a member of the rule's predicate equivalence set",
+   "related_controls": [
+    "controls.json P-TQ-1",
+    "controls.json P-TQ-6",
+    "controls_r2.json R2-P-04",
+    "reviewer-heldout.json X-P-07"
+   ]
+  },
+  {
+   "id": "EX-4",
+   "source": {
+    "file": "DESIGN-r3.md",
+    "section": "3.3 Detection, Literal (code L)",
+    "line_at_1a489caf": 159
+   },
+   "text": "`\\varepsilon\\kappa/c`",
+   "rule": "W-GR-EPSKAPPA",
+   "exercises": "literal detection of the formula without the square",
+   "expected": "a unit containing the formula has a finding with code L (not PASS)",
+   "related_controls": [
+    "controls.json P-EPS-1",
+    "controls.json N-EPS-1 (countercontrol, with the square)"
+   ]
+  },
+  {
+   "id": "EX-5",
+   "source": {
+    "file": "DESIGN-r3.md",
+    "section": "6.1 Controls",
+    "line_at_1a489caf": 345
+   },
+   "text": "\"The framework's answer is $K = 2d$, …\"",
+   "rule": "W-KDEG",
+   "exercises": "literal rule whose subject is \"the framework's answer\"; the quoted opening of control P-KDEG-3",
+   "expected": "FAIL (the first r3 run passed it, the single first-run failure)",
+   "related_controls": [
+    "controls.json P-KDEG-3"
+   ]
+  },
+  {
+   "id": "EX-6",
+   "source": {
+    "file": "DESIGN-r3.md",
+    "section": "7 Mechanisms added after the first measurements",
+    "line_at_1a489caf": 465
+   },
+   "text": "\"It is state-independent.\"",
+   "rule": "W-GR-TQ-STATE",
+   "exercises": "predicate stated without its subject in reach, the antecedent two sentences back (code P, strong cue)",
+   "expected": "FAIL (code P); lost by r3 before code P was added, caught by r2",
+   "related_controls": [
+    "r3-author-diagnostics.json D-03",
+    "controls.json A-TQ-1",
+    "reviewer-heldout-Y.json Y-A-02"
+   ]
+  }
+ ]
+}

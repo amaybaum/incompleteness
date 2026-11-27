@@ -1,0 +1,1 @@
+[{"id":"s1","rule":"W-GR-TQ-STATE","expect":"REVIEW","text":"Under H-slope, $T_Q$ is state-independent."},{"id":"s2","rule":"W-GR-THERM-KIN","expect":"REVIEW","text":"Under H-slope, horizon thermality is purely kinematic."}]

@@ -1,0 +1,5 @@
+blocked  D-P-1          FAIL   REVIEW C
+load     D-N-1          PASS   REVIEW C
+load     D-N-2          PASS   REVIEW C
+exact    D-A-1          REVIEW REVIEW C
+outcomes: {'blocked': 1, 'load': 2, 'exact': 1} of 4

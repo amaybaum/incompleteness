@@ -464,7 +464,7 @@ Begin with the apparent opposition, because dissolving it is the crux. Gauge fre
 
 This identification must be delimited, because not every observational incompleteness is gauge, and the cases that are not are as instructive as the cases that are. Consider two ways the framework's embedded observer fails to have a fact.
 
-In the first case, two representatives preserve all records of a specified observation interface. A hidden-state relabelling and an independently prepared, exactly decoupled finite enlargement give examples at the stated scope of [Substratum Theorem 24]. A gauge comparison between tenseless and temporal readings requires an established correspondence preserving the accessible records. That comparison remains open.
+In the first case, two representatives preserve all records of a specified observation interface. A hidden-state relabelling and an independently prepared, exactly decoupled enlargement give examples at the stated scope of [Substratum Theorem 24]. A gauge comparison between tenseless and temporal readings requires an established correspondence preserving the accessible records. That comparison remains open.
 
 In the second case, the deterministic future is fixed by the full initial configuration. An available record determines a particular future quantity when the quantity is constant on the supported states compatible with that record. Some proper observers can identify the current state or its future on particular records [Substratum Proposition 24.5]. Wolpert's restrictions concern the inference tasks quantified in his results (Wolpert 2008, Proposition 1 and Theorem 1, [Main] reference 50).
 

@@ -1,0 +1,15 @@
+[
+{"id":"v1","rule":"W-GR-TQ-STATE","expect":"PASS","text":"The claim that $T_Q$ is state-independent is withdrawn."},
+{"id":"v2","rule":"W-GR-TQ-STATE","expect":"PASS","text":"The claim that the horizon temperature is state-independent is withdrawn."},
+{"id":"v3","rule":"W-GR-TQ-STATE","expect":"PASS","text":"The claim that the horizon temperature is state-independent remains unproved."},
+{"id":"v4","rule":"W-OI-REQ","expect":"PASS","text":"The claim that quantum mechanics requires observational incompleteness is withdrawn."},
+{"id":"v5","rule":"W-GR-TQ-STATE","expect":"FAIL","text":"The horizon temperature is state-independent, a result that is withdrawn in some readings."},
+{"id":"v6","rule":"W-OI-REQ","expect":"PASS","text":"It is not shown that quantum mechanics requires observational incompleteness."},
+{"id":"v7","rule":"W-OI-REQ","expect":"FAIL","text":"It is not surprising that quantum mechanics requires observational incompleteness."},
+{"id":"v8","rule":"W-GR-TQ-STATE","expect":"FAIL","text":"Whether or not the detector is inertial, $T_Q$ is state-independent."},
+{"id":"v9","rule":"W-GR-TQ-STATE","expect":"FAIL","text":"No matter which state is prepared, $T_Q$ is state-independent."},
+{"id":"v10","rule":"W-GR-TQ-STATE","expect":"FAIL","text":"$T_Q$ is state-independent, which is not the case for the entropy."},
+{"id":"v11","rule":"W-GR-TQ-STATE","expect":"FAIL","text":"$T_Q$ is state-independent (not merely approximately)."},
+{"id":"v12","rule":"W-OI-REQ","expect":"FAIL","text":"Quantum mechanics requires observational incompleteness, not hidden variables."},
+{"id":"v13","rule":"W-GR-TQ-STATE","expect":"FAIL","text":"$T_Q$ is state-independent whenever H-balance fails."}
+]

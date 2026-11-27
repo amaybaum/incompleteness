@@ -1651,7 +1651,25 @@ explicit approval each time:
    any run that uses the plan's designated trial records, executes its trial procedure, or could
    change the plan's scientific status. Unit tests, synthetic controls and ordinary CI controls
    that do none of these are not trials; a case that may be one is put to the owner first;
-3. deleting branches, Issues, pull requests or evidence;
+3. deleting branches, Issues, pull requests or evidence, except deleting a branch reference when
+   all of the following are checked before the deletion and the check is recorded, under §A.49, on
+   the pull request that merged the branch or on its accountable Issue, stating the branch, the head
+   commit checked, the `main` commit checked against and the result of each condition:
+   - the head commit is an ancestor of `main`, so that every commit on the branch is reachable from
+     `main` and nothing on the branch exists only there (§A.42 items 5 and 8);
+   - no frozen record or protocol, verification mechanism (a workflow, including one whose trigger
+     pattern matches the branch, a guard, a check or a tool) or operative record (a work package, an
+     active workstream's checkpoint, or an open pull request whose base is the branch) depends on
+     the branch by its name rather than on commits reachable from `main`; a record that cites the
+     branch only as provenance does not count;
+   - the branch is not protected by branch protection or a ruleset, and is not held at a candidate
+     `F` or `E` (§A.43 item 3).
+
+   The deletion is made only if the branch still points at the head commit checked. A deletion the
+   host makes automatically at a merge is covered only when the merge is a merge commit into `main`
+   made at the head commit checked, the repository permits no other merge method into `main`, and
+   the other conditions were checked and recorded before the merge. Every other deletion of a
+   branch, and every deletion of an Issue, a pull request or evidence, needs the owner's approval;
 4. sending material outside GitHub;
 5. freezing a preregistration, protocol or experimental plan, including designating a round's `F`
    or `E` (§A.39), or amending one once frozen;
@@ -1662,7 +1680,8 @@ Other work follows this file: work packages under §A.51, GitHub writes under §
 
 Adopted 2026-11-23 by owner decision (`amaybaum`, coordinating session); item 2 amended, items 5
 and 6 added and the closing line reworded 2026-11-24 by owner decision (`amaybaum`, #1169 comment
-7124456482).
+7124456482); item 3's exception for fully merged branch references added 2026-11-26 by owner
+decision (`amaybaum`, #1169 comment 7202467295), drafted under #1169 comment 7202329986, item 3.
 
 ***
 
@@ -1701,12 +1720,15 @@ permission broader than the instruction grants.
 3. **Pushes.** A package's writers push only to the branches it designates. None of them is `main`,
    a protected branch, a branch held at a candidate `F` or `E` (§A.43 item 3), or a trigger branch
    whose push starts a launch the package does not name. Before each push the writer confirms that
-   no stop is in force (item 5); that the push creates a ref or fast-forwards one; that the commits
-   meet §A.43 items 1 and 5, the applicable checks of §A.40 have been run on them and any that fail
-   are stated as §A.43 item 2 requires; and that the push starts no launch the package does not name
-   (§A.43 item 4). After the push the remote ref is read back and must equal the commit pushed. No
-   force-push, history rewrite or ref deletion is made under a package. An agent's push under
-   another authorization meets the same conditions, with that authorization in place of the package.
+   no stop is in force (item 5); that the push creates a ref, fast-forwards one or, as this item
+   permits, deletes one with a lease on the head commit checked; that the commits meet §A.43 items 1
+   and 5, the applicable checks of §A.40 have been run on them and any that fail are stated as §A.43
+   item 2 requires; and that the push starts no launch the package does not name (§A.43 item 4).
+   After the push the remote ref is read back and must equal the commit pushed, or, after a
+   deletion, be absent. No force-push or history rewrite is made under a package, and no ref
+   deletion except the deletion, under §A.50 item 3's exception, of a branch the package designates
+   and names for deletion in its scope. An agent's push under another authorization meets the same
+   conditions, with that authorization in place of the package.
 4. **CI.** The workflows that run automatically on the package's pushes and pull requests run under
    it, within its resource limits. The package may name further workflows that its writers may
    dispatch or launch, each with its branch, its inputs or the rule that fixes them, and its limit;
@@ -1730,4 +1752,141 @@ permission broader than the instruction grants.
 Adopted 2026-11-24 by owner decision (`amaybaum`, #1169 comment 7124456482); items 2 and 5
 amended 2026-11-25 by owner decision (`amaybaum`, #1169 comment 7171625550), to let a
 difference that §A.49 rule 2's allowlist permits pass a validation write, and to confine a §A.49
-mismatch to the failed operation where §A.49 rule 3 does.
+mismatch to the failed operation where §A.49 rule 3 does; item 3 amended 2026-11-26 by owner
+decision (`amaybaum`, #1169 comment 7202467295), to admit a leased deletion of a branch reference
+under §A.50 item 3's exception.
+
+***
+
+## §A.52 Writer handover
+
+A designated writer (§A.45 rule 3, §A.51) may be replaced by another agent session, of the same or
+another provider, without repeating approvals already recorded, restarting completed reviews or
+resetting the work.
+
+1. **Checkpoint.** The outgoing writer pushes its work to the designated branch (§A.43 item 2) and
+   records a handover checkpoint as a comment on the guiding pull request, or on the accountable
+   Issue for work that has none. The checkpoint states:
+   - the exact branch and commit;
+   - the completed and outstanding obligations;
+   - the open scientific questions;
+   - the review status and unresolved findings;
+   - the authorized scope and restrictions;
+   - any artifact withheld from the branch under §A.43 item 5, and where it is held;
+   - the next concrete action.
+
+   The checkpoint is kept current under §A.43 item 2; where the outgoing writer cannot write one at
+   handover, its latest checkpoint and the pushed branch head are the state the replacement verifies.
+2. **Designation.** The owner's decision designating the replacement writer is recorded on the same
+   thread, or in a record linked from it (§A.51: quoted with its author and time when automation
+   writes it). The outgoing writer then stops writing to that branch, file or artifact; until then
+   it remains the writer (§A.45 rule 3). At a handover between sessions, the owner's decision also
+   establishes the writer of each branch, file and artifact it covers and, from the records, which
+   stops of every automated text write and which suspended operations stand (§A.49 rule 3, §A.51
+   item 5); an unresolved incident stands across the change of session.
+3. **Resumption.** The replacement writer:
+   - reconstructs the context from this file, the owner records, the accountable Issue, the plan, the
+     branch and its reviews;
+   - confirms that the branch head equals the recorded commit;
+   - continues under the existing scope, authorization and acceptance criteria.
+
+   A mismatch is a stop under §A.51 item 5.
+4. **Review.** A reviewer uninvolved in the work of either writer is preferred.
+5. **Interrupted session.** When a writer's session stops without a handover, one owner instruction
+   may start the recovery. It identifies the interrupted session and designates the replacement for
+   the workstreams it names, directly or as those whose recorded writer is that session (item 2); a
+   workstream the replacement cannot resolve from the records is put to the owner (§A.51 item 1). It
+   may grant one validation write for each operation that the recorded authorizations already permit
+   and whose tool and path are not validated for the replacement (§A.51 item 2), each within a
+   package's targets or, for the record below, on the thread that record goes to. Such a grant
+   permits only that write: it adds no operation, widens no scope and waives no approval, and a
+   mismatch is handled under §A.49 rule 3. Neither the designation nor such a grant lifts a stop of
+   every automated text write or resumes a suspended operation (§A.49 rule 3, §A.51 item 5); a write
+   through a suspended operation, its validation write included, is made only as its resumption
+   under those rules provides. A push is not validated under §A.51 item 2; each push meets §A.51
+   item 3. Before any write, the replacement establishes which stops of every automated text write
+   and which suspended operations stand (§A.49 rule 3, §A.51 item 5), from the owner's instruction
+   or a later owner decision, which establishes them from the records rather than assuming that none
+   stands (item 2), and from the threads it will write to and the records they link. A record that
+   the replacement reads and that shows a restriction no recorded owner decision has lifted or
+   resumed keeps that restriction in force. A record it cannot read, the interrupted session's halt
+   record included, is not evidence that none stands. Until an owner statement establishes the
+   status, the replacement treats a stop as standing (item 6). While a stop stands it writes
+   nothing; it makes no write through a suspended operation; and it tells the owner by the
+   instruction's own channel. Its first write is the record of the designation and the takeover on
+   the guiding pull request or accountable Issue of a workstream it takes over (item 1), quoting the
+   instruction (§A.42 item 7) and listing each workstream the designation covers; its writes are a
+   run of its own plan (§A.49 rule 3), and the replacement makes no other write until that record
+   has passed §A.49's read-back. Where the comment operation is not validated, that record is its
+   validation write. The replacement then:
+   - reconstructs the state as item 3 requires, reading each thread beyond its latest checkpoint; in
+     place of item 3's equality check, a branch head that descends from the recorded commit is
+     accepted once each later commit is accounted for as the interrupted session's unreviewed work,
+     and any other difference is a stop under §A.51 item 5;
+   - reconciles every write, push, merge or launch the interrupted session may have begun against
+     GitHub before repeating it; an outcome it cannot determine is a stop (§A.51 item 5);
+   - treats work that is not on GitHub as unavailable, not recovered, and reconstructs it where
+     needed from the latest checkpoint and the preserved records;
+   - posts a recovery checkpoint (item 1) on each workstream thread, linking the record of the
+     designation (item 2), and tells the owner, by the instruction's own channel, of the
+     discrepancies, unavailable work and decisions that need the owner;
+   - continues under the recorded authorizations, which a change of session does not renew or
+     withdraw (§A.45 rule 3, §A.51); a recommendation, review or writer proposal is not one.
+
+   The replacement writer reviews none of the work it or the interrupted session wrote. If the
+   interrupted session resumes, it is no longer the writer of the designated workstreams (§A.45
+   rule 3) and writes nothing to them.
+6. **Entry point and missing records.** Recovery needs only the repository's identity and the
+   owner's instruction. It starts from this file on `main`, which names, in §A.45 "Where things
+   live", the Project and the planning record in open Issues. No one of these is indispensable:
+   where one is missing or cannot be read, the replacement discovers the workstreams from the
+   others, from open pull requests and their branches, and from the records on `main`. A record that
+   something references, or that the host reports as deleted or inaccessible, is unavailable rather
+   than nonexistent; where recovery depends on it, it is put to the owner. An authorization, review
+   verdict or owner decision lifting a stop that cannot be read is not held unless a record on
+   `main` quotes it (§A.42 item 7). No change of session, writer or environment lifts a stop or
+   resumes a suspended operation, and no change of tool lifts a stop (§A.49 rule 3). A record of a
+   stop or suspension that cannot be read, or the loss of a record that would show whether one
+   stands, keeps in force the restriction it could show until the owner decides: no write for a
+   possible stop, no write through the operation for a possible suspension, and no write where the
+   kind cannot be established.
+
+A handover authorizes nothing new and changes no scientific status. No handover file is added to the
+repository.
+
+Adopted 2026-11-26 by owner decision (`amaybaum`, #1169 comment 7190776267); items 5 and 6 added
+the same day by owner decision (`amaybaum`, #1169 comments 7191506837 and
+7191552531); items 2, 5 and 6 amended the same day by owner decision (`amaybaum`, #1169 comment
+7202075726).
+
+***
+
+## §A.53 Workstreams and session providers
+
+Work falls in three permanent workstreams: **framework integrity**, which maintains and improves the
+existing framework; **scientific research**, which produces new mathematical and physical results;
+and **verification and operations**, which maintains verification tools, infrastructure and
+governance. The designated writer assigns work to a workstream dynamically, as the active packages
+provide; no label records the assignment and no allocation of resources between workstreams is
+fixed. Priorities and status stay in the planning record and the Project, and §A.45's rules and
+every gate of this file apply unchanged. In §A.43, §A.45 and §A.52 a workstream is a unit of work
+with its own branch and thread, not one of these three. The active work packages (§A.51) are WP-1,
+WP-2 and WP-3, one for each workstream in that order, whose records are #1169 comments 7199703288,
+7199704501 and 7199705637 (owner decision, `amaybaum`, 2026-11-26T17:49Z).
+
+This file governs the repository: what work is authorized, how it is reviewed and verified, and what
+lands. The management of agents inside a session, their number, concurrency, scheduling and
+resources, and the recovery of a session's internal state are the session provider's, within the
+provider's limits, any budget the owner sets and §A.40; the active packages' shared agent cap no
+longer applies. No coordination Issue is kept. Where an active package's record names #1169 as the
+place its writer is recorded, the writer is the one the owner's latest designation names (§A.52 item
+2); where it names #1169 as a target for records of owner decisions and checkpoints, that target is
+the Issue or pull request concerned among the package's targets; the package is otherwise unchanged.
+#1169 is the accountable Issue of OI-QM-EXT-1. The records, owner decisions and authorizations it
+holds stay in force as they apply, and a writer designation, stop or suspension recorded there
+stands until a recorded owner decision lifts, resumes or replaces it (§A.49 rule 3, §A.51 item 5,
+§A.52 item 2).
+
+Adopted 2026-11-26 by owner decision (`amaybaum`, #1169 comment 7202075726), including the changes
+to the active packages' writer reference and record targets stated above and the removal of their
+shared agent cap, first decided at #1169 comment 7201128226.
