@@ -38,6 +38,9 @@ from ledger_coverage.adapters import identity_fixture as idf  # noqa: E402
 # set by the script entry: the recorder and the runs captured per control id
 REC = None
 RUNS = {}
+# per control id: the procedure of its manifest and the evidence files it names (R6.GATE.7)
+PROCS = {}
+FILES = {}
 
 
 def outmap():
@@ -671,14 +674,24 @@ def z9_controls():
                      [r'\bA1\b'])
     vals = {'per unit Q2', 'a1exit deletion exact-edit ledger v2', r'\bA1\b'}
 
-    def lint(src):
-        return purity.lint_sources({'engine/m.py': src}, vals, [a1])
+    def lint(src, cid=None):
+        smap = {'engine/m.py': src}
+        found = purity.lint_sources(smap, vals, [a1])
+        if cid is not None and REC is not None:
+            # the purity lint as retained evidence: its findings and the linted source map (the lint library)
+            REC.capture_doc('purity lint of an in-memory engine tree (synthetic_fixture.py)',
+                            {'findings': found, 'source_map': sorted(smap), 'exit_status': None},
+                            attested={'outcome': 'LINT_FAIL' if found else 'LINT_PASS'})
+            FILES[cid] = {'lint-findings.json': found, 'lint-source-map.json': smap}
+            PROCS[cid] = {'name': 'purity-lint', 'lib': 'lint', 'findings': 'lint-findings.json',
+                          'source_map': 'lint-source-map.json'}
+        return found
     out = outmap()
-    out['Z9a'] = bool(lint('x = %r\n' % hexid))
-    out['Z9b'] = bool(lint('x = %r\n' % hexid[:7]))
-    out['Z9c'] = bool(lint('x = %r\n' % r'\bA1\b'))
-    out['Z9d'] = bool(lint("x = 'per unit Q2'\n"))
-    out['Z9e'] = not lint("x = {'splices': []}\n")
+    out['Z9a'] = bool(lint('x = %r\n' % hexid, 'Z9a'))
+    out['Z9b'] = bool(lint('x = %r\n' % hexid[:7], 'Z9b'))
+    out['Z9c'] = bool(lint('x = %r\n' % r'\bA1\b', 'Z9c'))
+    out['Z9d'] = bool(lint("x = 'per unit Q2'\n", 'Z9d'))
+    out['Z9e'] = not lint("x = {'splices': []}\n", 'Z9e')
     adapter_ok = not purity.lint_sources({}, vals, [a1])
     out['Z9f'] = adapter_ok and bool(lint("x = 'a1exit deletion exact-edit ledger v2'\n"))
     return out
@@ -747,7 +760,8 @@ def write_records(out_dir, res):
     for cid in sorted(k for k in res if not k.startswith('_')):
         v = res[cid]
         REC.pending = RUNS.get(cid, [])
-        REC.record(cid, 'PASS' if v is True else 'FAIL', v, 'the boolean computed for this id in synthetic_fixture.py')
+        REC.record(cid, 'PASS' if v is True else 'FAIL', v, 'the boolean computed for this id in synthetic_fixture.py',
+                   files=FILES.get(cid), procedure=PROCS.get(cid))
     return REC.write()
 
 
