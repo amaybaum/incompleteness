@@ -33,6 +33,7 @@ if 'ledger_coverage' not in sys.modules:
 from ledger_coverage.engine import checker, cli, gitobj, outcome as oc, pipeline as pl, purity, util  # noqa: E402
 from ledger_coverage.adapters import host_fixture as hf  # noqa: E402
 from ledger_coverage.adapters import control_records  # noqa: E402
+from ledger_coverage.adapters import identity_fixture as idf  # noqa: E402
 
 # set by the script entry: the recorder and the runs captured per control id
 REC = None
@@ -60,7 +61,7 @@ TEXT = ('# synthetic\n\nAxiom Z is the named premise of the synthetic world.\n\n
         'Remark two notes a side fact.\n\nIntro to the list:\n\n- item first here\n- item second here\n\n'
         'Closing words of the file.\n')
 WITNESS = 'syn/witness.md'
-WRITER, REVIEWER, WIDENER = 'writer-a', 'reviewer-b', 'widener-d'
+WRITER, REVIEWER, WIDENER = idf.WRITER, idf.REVIEWER, idf.WIDENER
 AD = 'tools/ledger_coverage/adapters/'
 
 
@@ -212,6 +213,31 @@ class Syn:
             profiles.append(dict(profiles[0]))
         if v.get('bad_pattern_hash'):
             profiles[0] = dict(profiles[0], pattern_sha256='0' * 64)
+        # S-1: the fixture's own session registry beside the configuration, and the sec. 3 binding of every review
+        # the records lint reads: C1 holds the records and the registry; their reviews name C1 as their revision
+        path = v.get('config_path', 'syn/cfg/config.json')
+        cdir = path.rsplit('/', 1)[0]
+        reg_path = cdir + '/' + idf.REGISTRY_FILE
+        files[reg_path] = idf.registry_bytes(idf.registry())
+        subject = self.repo.subject(at)
+        c1 = self.repo.derive(at, {p_: b_ for p_, b_ in files.items() if not idf.is_review(b_)},
+                              parents=self.repo.parents(at), subject=subject)
+        # `revisions` reuses the commits an earlier build bound its reviews to, so that a configuration rebuilt
+        # unchanged at a later position keeps its bytes; they must still hold the same bytes and be reachable
+        r1, r2 = v.get('revisions') or (c1, None)
+        rebound = {}
+        for p_, b_ in sorted(files.items()):
+            if idf.is_review(b_):
+                d_ = json.loads(b_)
+                target = files.get((d_.get('reviewed') or {}).get('path'))
+                if 'revision' not in d_ and not (target is not None and _deferred_schema(target)):
+                    files[p_] = jb(idf.bind(d_, r1))
+                    rebound[p_] = (sha(b_), sha(files[p_]))
+        for r_ in recs:
+            if r_.get('kind') == 'review' and r_.get('path') in rebound and \
+                    r_.get('blob_sha256') == rebound[r_['path']][0]:
+                r_['blob_sha256'] = rebound[r_['path']][1]
+        files[reg_path[:-5] + '.review.json'] = jb(idf.registry_review(reg_path, files[reg_path], r1))
         lp = AD + 'line_patch.py'
         cfg = {'schema': 'oi-retirement-config/1', 'config_id': 'synthetic-retirement-config',
                'version': v.get('version', 1), 'supersedes': v.get('supersedes'),
@@ -260,18 +286,22 @@ class Syn:
             cfg['schema'] = v['schema']
         if v.get('adapter_version'):
             cfg['adapters']['ledger']['adapter_version'] = v['adapter_version']
-        path = v.get('config_path', 'syn/cfg/config.json')
         cb = jb(cfg)
         files[path] = cb
         cref = {'path': path, 'blob_sha256': sha(cb)}
+        # C2 holds the configuration; its review names C2 as its revision, and the built commit adds that review and
+        # the variant's own files (each layer a single-parent child of the one before)
+        c2 = self.repo.derive(c1, dict(files), parents=[c1], subject=subject)
         rv = {'schema': 'oi-review-record/1', 'reviewer': v.get('cfg_reviewer', REVIEWER), 'reviewed': cref,
               'method': 'read every referenced object', 'verdicts': [{'item': 'synthetic-retirement-config',
                                                                      'verdict': 'accept'}]}
-        files[path.rsplit('/', 1)[0] + '/review.json'] = jb(rv)
+        r2 = r2 or c2
+        self.last_revisions = (r1, r2)
+        files[path.rsplit('/', 1)[0] + '/review.json'] = jb(idf.bind(rv, r2))
         files.update(v.get('files', {}))
         if v.get('post'):
             files.update(v['post'](path, sha(cb)))
-        commit = self.repo.derive(at, files, parents=self.repo.parents(at), subject=self.repo.subject(at))
+        commit = self.repo.derive(c2, dict(files), parents=[c2], subject=subject)
         return commit, path, sha(cb), files
 
     def chain(self, files, path, reviewer):
@@ -283,6 +313,20 @@ class Syn:
         rp = path[:-5] + '.review.json'
         files[rp] = jb(rv)
         return [{'kind': 'review', 'path': rp, 'blob_sha256': sha(files[rp])}]
+
+
+# reviews of these record kinds are read by key-table checks that list no `revision` or `platform_ref` until the
+# review.record rows of S-1 sec. 5 land with the registry wiring; they stay unbound until then
+_DEFERRED = ('oi-reconciliation/1', 'oi-reconciliation/2', 'oi-reassessment/1', 'oi-adjudication/1',
+             'oi-obl29-custody/1')
+
+
+def _deferred_schema(data):
+    try:
+        d = json.loads(data.decode('utf-8'))
+    except (ValueError, UnicodeDecodeError, AttributeError):
+        return False
+    return isinstance(d, dict) and d.get('schema') in _DEFERRED
 
 
 def patch_doc(base, edits, first_id=1):

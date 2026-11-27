@@ -833,26 +833,27 @@ def role_chain(root):
     # the freezes unless a case changes it; the descriptor alone puts the transition in play)
     B, t1 = W.chain(steps=[f1])
     c1, p_, s1, _ = W.config(t1, None, B)
+    rev1 = {'revisions': W.syn.last_revisions}  # an unchanged configuration keeps its reviews' revisions (S-1 sec. 3)
     g1 = W.run(c1, p_)
     Fprev = g1[4]
     t2 = W.repo.derive(Fprev, f2, parents=[Fprev], subject='successor after F_prev')
-    c2, p_, s2, _ = W.config(t2, None, B, prior={'schema': 'oi-a1-staging-prior/1', 'freeze': Fprev})
+    c2, p_, s2, _ = W.config(t2, None, B, prior={'schema': 'oi-a1-staging-prior/1', 'freeze': Fprev}, variant=rev1)
     got = W.run(c2, p_)
     case('STAGING-ROLE-CHAIN/21', 'a later F extends the declared prior freeze on the first-parent path, the same '
                                   'descriptor bound there, the configuration unchanged: admitted', got[:4],
          g1[1] is None and got[1] is None and (got[3] or {}).get('prior', {}).get('freeze') == Fprev)
     # a sibling freeze: a real freeze of the same configuration and descriptor on a branch from t1, off F's path
     sib_tip = W.repo.derive(t1, {'syn/sibling.txt': b's'}, parents=[t1], subject='sibling branch')
-    cs, ps_, ss_, _ = W.config(sib_tip, None, B)
+    cs, ps_, ss_, _ = W.config(sib_tip, None, B, variant=rev1)
     gs = W.run(cs, ps_)
     sib = gs[4]
-    c3, p_, s3, _ = W.config(t2, None, B, prior={'schema': 'oi-a1-staging-prior/1', 'freeze': sib})
+    c3, p_, s3, _ = W.config(t2, None, B, prior={'schema': 'oi-a1-staging-prior/1', 'freeze': sib}, variant=rev1)
     got = W.run(c3, p_)
     case('STAGING-ROLE-CHAIN/22', 'the declared prior freeze is a sibling freeze descending from B with the same '
                                   'descriptor and configuration, not on F\'s first-parent path: refused as not a strict '
                                   'ancestor', {'sibling_admitted': gs[:3], 'run': got[:3]},
          gs[1] is None and refused(got, 'not a strict ancestor'))
-    c4, p_, s4, _ = W.config(t2, None, B, prior={'schema': 'oi-a1-staging-prior/1', 'freeze': None})
+    c4, p_, s4, _ = W.config(t2, None, B, prior={'schema': 'oi-a1-staging-prior/1', 'freeze': None}, variant=rev1)
     got = W.run(c4, p_)
     case('STAGING-ROLE-CHAIN/23', 'a null prior declaration after an earlier designation: admitted by the tool (the '
                                   'return to null is refused procedurally, by the owner decision and review)',
@@ -865,6 +866,7 @@ def role_chain(root):
                                           'allow_root': {'path': ALLOW_ROOT,
                                                          'blob_sha256': sf.sha(sf.jb(allow_doc()))}},
                    extra_files={'syn/cfg/padding.json': b'{"x": 1}\n'})
+    rev_a = {'revisions': W.syn.last_revisions}
     ga = W.run(alt[0], alt[1])
     Fa = ga[4]
     t3 = W.repo.derive(Fa, f2, parents=[Fa], subject='after F_a')
@@ -873,20 +875,21 @@ def role_chain(root):
                                    'custody': {'path': CUSTODY, 'blob_sha256': sf.sha(b'{"archive": true}\n')},
                                    'class_root': {'path': CLS_ROOT, 'blob_sha256': sf.sha(c0)},
                                    'allow_root': {'path': ALLOW_ROOT, 'blob_sha256': sf.sha(sf.jb(allow_doc()))},
-                                   })
+                                   }, variant=rev_a)
     # same descriptor content, so this one is admitted; then a different descriptor at F (a key order change)
     got = W.run(c5, p_)
     d_other = sf.jb({'schema': 'oi-a1-staging-transition/1', 'base': B,
                      'custody': {'path': CUSTODY, 'blob_sha256': sf.sha(b'{"archive": true}\n')},
                      'class_root': {'path': CLS_ROOT, 'blob_sha256': sf.sha(c0)},
                      'allow_root': {'path': ALLOW_ROOT, 'blob_sha256': sf.sha(sf.jb(allow_doc()))}}).rstrip() + b'\n\n'
-    c6, p_, s6, _ = W.config(t3, None, B, prior={'schema': 'oi-a1-staging-prior/1', 'freeze': Fa}, desc=d_other)
+    c6, p_, s6, _ = W.config(t3, None, B, prior={'schema': 'oi-a1-staging-prior/1', 'freeze': Fa}, desc=d_other,
+                             variant=rev_a)
     got6 = W.run(c6, p_)
     case('STAGING-ROLE-CHAIN/24', 'the prior freeze binds a descriptor whose bytes differ from F\'s: refused',
          {'same': got[:3], 'differs': got6[:3]}, got[1] is None and refused(got6, 'same transition descriptor'))
     # a changed configuration that does not supersede the configuration the prior freeze binds
     c7, p_, s7, _ = W.config(t2, None, B, prior={'schema': 'oi-a1-staging-prior/1', 'freeze': Fprev},
-                             variant={'version': 2})
+                             variant=dict(rev1, version=2))
     got = W.run(c7, p_)
     case('STAGING-ROLE-CHAIN/25', 'the configuration changed since the prior freeze without superseding it: refused',
          got[:3], refused(got, 'does not supersede'))
