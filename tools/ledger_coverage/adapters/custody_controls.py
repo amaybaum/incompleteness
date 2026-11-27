@@ -254,6 +254,16 @@ class CW:
                 'classes': sorted({i['class'] for i in out.get('items', [])})}
 
 
+def guarded_run(make):
+    """Runs one control world on its own: an exception is recorded for that case (which then fails its own assertion)
+    instead of ending the suite's group."""
+    try:
+        return make()
+    except Exception as e:  # noqa: BLE001 - a crash is the case's failure, reported in it
+        return {'error': '%s: %s' % (type(e).__name__, str(e)[:200]), 'status': None, 'items': [], 'classes': [],
+                'reassessments': None, 'full_whys': [], 'whys': [], 'witnesses': [], 'shape_whys': []}
+
+
 def failed_with(o, item):
     return o['status'] == 'unestablished' and item in o['items'] and 'retirement-blocked' in o['classes'] and \
         not o['reassessments']
@@ -787,9 +797,8 @@ def freeze_controls(r):
         return rev_pre('ok')(cc, mb)
     c, F1, L, kref = freeze_world(pre=rev_run)
     (m_r, rev_r), = c.runs_seen
-    c2, F2, L2, kref2 = freeze_world(pre=rev_run, results=[result(F1, kref, m_r, inputs={
-        'classify_records': [{'rev': rev_r}]})])
-    o = c2.run()
+    o = guarded_run(lambda: freeze_world(pre=rev_run, results=[result(F1, kref, m_r, inputs={
+        'classify_records': [{'rev': rev_r}]})])[0].run())
     case('CU-N17-NO-X', 'a run (m, REV) whose landed result records no roles.X: the replay of R6.RECON.2 (a)-(g) has no '
                         'X, so the run does not replay (custody-replay)', o,
          failed_with(o, 'custody-replay') and any('roles.X' in w_ for w_ in o['full_whys']))
@@ -906,9 +915,8 @@ def replay_controls(r, freeze_world, result):
                                      pre=rev1)
     res = result(F1, kref1, m1, inputs={'classify_records': [{'rev': c1.rev1, 'path': QREV, 'sha256': sf.sha(qb_)}]},
                  roles={'M': m1, 'X': c1.w.X})
-    c2, F2, L2, kref2 = freeze_world(world=CW.lineage, main_steps=[s_add], main_files=s_del, ctx_reassessment=a_rev,
-                                     pre=rev1, results=[res])
-    o = c2.run()
+    o = guarded_run(lambda: freeze_world(world=CW.lineage, main_steps=[s_add], main_files=s_del,
+                                         ctx_reassessment=a_rev, pre=rev1, results=[res])[0].run())
     case('CU-N17', 'F1\'s repair Q_rev was admitted through REV1 in run (M1, REV1): REV1\'s admission replays with X '
                    'from the landed result, but Q_rev is not in the scanned set of M1, so the run does not replay '
                    '(custody-replay)', o['full_whys'],
@@ -934,8 +942,19 @@ def replay_controls(r, freeze_world, result):
     for name, listing in (('recorded-admitted', lst),
                           ('recorded-both', lst + [{'rev': c1.rev2, 'path': QBAD, 'sha256': sf.sha(badb)}])):
         res2 = result(F1, kref1, m1, inputs={'classify_records': listing}, roles={'M': m1, 'X': c1.w.X})
-        cx, _a, _b, _c = freeze_world(world=CW.lineage, main_steps=[s_add], main_files=s_del, pre=rev2, results=[res2])
-        outs[name] = cx.run()
+        outs[name] = guarded_run(lambda res2=res2: freeze_world(world=CW.lineage, main_steps=[s_add],
+                                                                main_files=s_del, pre=rev2,
+                                                                results=[res2])[0].run())
+    # two landed results for the same (M1, REV2) listing different admitted sets: custody-replay
+    r_a = result(F1, kref1, m1, inputs={'classify_records': lst}, roles={'M': m1, 'X': c1.w.X})
+    r_b = result(F1, kref1, m1, inputs={'classify_records': lst + [{'rev': c1.rev2, 'path': QBAD,
+                                                                    'sha256': sf.sha(badb)}]},
+                 roles={'M': m1, 'X': c1.w.X})
+    o2 = guarded_run(lambda: freeze_world(world=CW.lineage, main_steps=[s_add], main_files=s_del, pre=rev2,
+                                          results=[r_a, r_b])[0].run())
+    case('CU-N17-RESULTS-DISAGREE', 'two landed results for the same (M1, REV2) list different admitted sets: the run '
+                                    'does not replay (custody-replay)', o2.get('error') or o2['full_whys'][:1],
+         failed_with(o2, 'custody-replay') and any('disagree on the records' in w_ for w_ in o2['full_whys']))
     case('CU-N17-REFUSED-RECORD', 'a REV with one refused record whose landed result records the admitted one: it '
                                   'replays (custody established); a landed result recording both differs from the '
                                   'replayed admitted set: custody-replay',
@@ -954,15 +973,16 @@ def replay_controls(r, freeze_world, result):
              d_ + 'b/result.json': pfc.jb({'outcome': 'FAIL', 'roles': {'M': 'c' * 40, 'X': 'd' * 40},
                                            'inputs': {'classify_records': lst_}})}
     land_ = repo.add_commit(files, [])
-    got = c3m.run_roles_x(repo, {'config': rx, 'landing': land_}, 'a' * 40, 'e' * 40)
+    try:
+        got = c3m.run_roles_x(repo, {'config': rx, 'landing': land_}, 'a' * 40, 'e' * 40)[0]
+    except c3m.ReplayFailure as exc:
+        got = 'ReplayFailure: %s' % exc
     case('CU-N17-ROLES-M-FILTER', 'two landed results naming the same REV, for M1 and for another M with another X: '
-                                  'the replay reads the X of the result whose roles.M is M1', got[0],
-         got[0] == 'b' * 40)
+                                  'the replay reads the X of the result whose roles.M is M1', got, got == 'b' * 40)
     # the same run with REV1's record failing R6.RECON.2 in the replay (the result names another X): custody-replay
     res_bad = dict(res, roles={'M': m1, 'X': '7' * 40})
-    c3_, F3, L3, kref3 = freeze_world(world=CW.lineage, main_steps=[s_add], main_files=s_del, ctx_reassessment=a_rev,
-                                      pre=rev1, results=[res_bad])
-    o = c3_.run()
+    o = guarded_run(lambda: freeze_world(world=CW.lineage, main_steps=[s_add], main_files=s_del,
+                                         ctx_reassessment=a_rev, pre=rev1, results=[res_bad])[0].run())
     case('CU-N17-REV-NOT-ADMITTED', 'the same run whose landed roles.X differs from the X REV1\'s record binds: REV1 '
                                     'does not replay under R6.RECON.2 (a), custody-replay', o,
          failed_with(o, 'custody-replay') and any('R6.RECON.2' in w_ for w_ in o['full_whys']))

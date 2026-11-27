@@ -1025,12 +1025,14 @@ def replay_rev_admission(repo, f, m, rev, X, cfg, loaded, cref, pinned_doc, ledg
     rscope = recon_route.Scope(repo, roles.get('scientific_base'), m, X, f, False, pinned_doc,
                                posixpath.dirname(cref['path']), ledgered,
                                lambda p: p in exact or any(x.search(p) for x in rx), config_recon)
-    ps = repo.parents(rev)
-    a, b = repo.entries(ps[0]) if ps else {}, repo.entries(rev)
+    # the candidates are the records the run named and admitted, as its landed result lists them, read at REV (a
+    # record REV adds that the run did not name plays no part: the original run took only its --classify records; a
+    # listed record absent from REV, or of another blob, fails the comparison below)
     cands = []
-    for p_ in sorted(set(b) - set(a)):
-        if b[p_][0] not in ('100644', '100755'):
-            continue
+    for p_, sha_ in sorted(landed_admitted, key=str):
+        e = repo.entries(rev).get(p_) if isinstance(p_, str) else None
+        if e is None or e[0] not in ('100644', '100755'):
+            raise ReplayFailure('the run\'s REV %s does not hold the listed record %s' % (rev, p_))
         data = repo.read(rev, p_)
         doc = fd.strict_parse(data)
         if isinstance(doc, dict) and doc.get('schema') in recon_route.recon_schemas:
