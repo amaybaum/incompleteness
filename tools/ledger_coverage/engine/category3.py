@@ -73,7 +73,7 @@ def second_kind_findings(doc, ref, record_at):
         out.append({'kind': 2, 'record': ref, 'item': v.get('item'), 'entry': entry,
                     'path': entry.get('path') if isinstance(entry, dict) else ref.get('path'),
                     'configuration': v.get('configuration'), 'invalidated': v.get('invalidated'),
-                    'verdict_item': v.get('item'), 'form': form})
+                    'verdict_item': v.get('item'), 'form': form, 'entry_record': doc.get('reviewed')})
     return out
 
 
@@ -95,7 +95,7 @@ def findings_of_records(records, schemas, record_at=lambda ref: None):
             out.append({'kind': 1, 'record': r.get('_ref'), 'item': e.get('path'), 'entry': e,
                         'path': e.get('path') if isinstance(e.get('path'), str) else (r.get('_ref') or {}).get('path'),
                         'configuration': se.get('configuration'), 'invalidated': se.get('invalidated'),
-                        'verdict_item': None, 'form': list(form)})
+                        'verdict_item': None, 'form': list(form), 'entry_record': r.get('_ref')})
     return out
 
 
@@ -108,6 +108,44 @@ def unique(found):
         if key not in seen:
             seen.add(key)
             out.append(f)
+    return out
+
+
+def scope_problems(repo, scc, path, entry_record, cum, cum_m, explicit_source=None):
+    """r13 Amendment 7 gap (i): [] when the entry's side_change_commits limit the runs the finding blocks: a non-empty
+    array each of whose elements is a commit id naming a commit the object store holds, that changes the entry's path
+    against its first parent (a merge commit included), and that is an ancestor of, or equal to, a witness of the
+    record carrying the entry (a commit whose tree holds it at its path with its blob): a witness in M's ancestry
+    (`cum_m`, the walk from M alone) where the record has one, and otherwise a witness in R* (`cum`) reached through F
+    or REV, or the source commit of an explicit input. Otherwise the reasons the list does not scope the finding."""
+    if not isinstance(scc, list) or not scc:
+        return ['side_change_commits is absent, not an array or empty']
+    ref = entry_record if isinstance(entry_record, dict) else {}
+
+    def witnesses(c_):
+        return {c for (p_, o), cs in c_.holders.items() if p_ == ref.get('path') and c_.info[o] and
+                c_.info[o][2] == ref.get('blob_sha256') for c in cs}
+    w_m = witnesses(cum_m)
+    w = w_m or (witnesses(cum) | ({explicit_source} if explicit_source else set()))
+    out = []
+    for e in scc:
+        if not isinstance(e, str) or not re.match(r'^[0-9a-f]{40}$', e):
+            out.append('%r is not a commit id' % (e,))
+            continue
+        try:
+            ps = repo.parents(e)
+        except Exception as exc:  # a commit the store does not hold limits nothing (not ERROR: the list is a claim)
+            if type(exc).__name__ != 'Unresolvable':
+                raise
+            out.append('%s is not a commit the object store holds' % e)
+            continue
+        before = repo.entries(ps[0]).get(path) if ps else None
+        if repo.entries(e).get(path) == before:
+            out.append('%s does not change %s against its first parent' % (e, path))
+            continue
+        if not any(e == x or repo.is_ancestor(e, x) for x in w):
+            out.append('%s is not an ancestor of a witness of the record carrying the entry%s'
+                       % (e, ' in M\'s ancestry' if w_m else ''))
     return out
 
 
@@ -306,9 +344,10 @@ def reassessment_problems(repo, M, led, doc, ref, store, admitted, found, m_scan
             if edoc.get('author') in reviewers:
                 out.append("the reviewer is the author of the repair's reconciliation record entry")
         entry = eref
+    # Keys as r13 Amendment 7 amends them: edit is null only when the finding binds the citing configuration at run
+    # level; a null-edit reassessment lifts that run-level binding only, and each edit the finding also binds is lifted
+    # only by a reassessment naming that edit (lifting(), per finding and edit)
     rl = bool(named) and all(run_level(f) for f in named)
-    if rl and doc.get('edit') is not None:
-        out.append('edit is not null for a finding bound at run level (Keys)')
     if not rl and doc.get('edit') is None:
         out.append('edit is null for a finding not bound at run level (Keys)')
     if cum is not None:
@@ -401,7 +440,9 @@ class Cumulative:
                 self.subtrees[key] = ents
             for p, _m, o in ents:
                 self.first_seen.setdefault((p, o), c)
-                if self.info[o][3]:
+                if self.info[o][3] or self.info[o][0] == 'a':
+                    # the commits holding each class (a) record: the witnesses of a finding's record and of the record
+                    # carrying its entry (r13 Amendment 7)
                     self.holders.setdefault((p, o), set()).add(c)
             stack.extend(ps)
 
@@ -473,7 +514,7 @@ class Cumulative:
                     out.append({'kind': 1, 'record': ref, 'item': e.get('path'), 'entry': e,
                                 'path': e.get('path') if isinstance(e.get('path'), str) else p,
                                 'configuration': se.get('configuration'), 'invalidated': se.get('invalidated'),
-                                'verdict_item': None, 'form': list(form)})
+                                'verdict_item': None, 'form': list(form), 'entry_record': ref})
                 continue
             out += second_kind_findings(doc, ref, self.resolve_reviewed)
         return unique(out)
@@ -763,6 +804,19 @@ def _bind(f, b):
         lineage = b.in_lineage(fdoc, f['configuration'])
     run_edits = _edits(b.led)
     global_scope = unresolved
+    inv = f.get('invalidated')
+    # r13 Amendment 7 gap (ii), with every-configuration binding: a finding whose configuration is absent or cannot be
+    # resolved binds every configuration at run level; one of whose invalidated elements has an id that is missing,
+    # not a string, or not an edit id of the named configuration's edit list (a retained edit included), whatever its
+    # target, binds every configuration of its lineage at run level. The binding is in addition to the edits bound
+    # otherwise (Form (iv) as amended)
+    known = set(_edits(fled)) | {r.get('id') for r in (fled or {}).get('retained') or [] if isinstance(r, dict)}
+    bad_id = isinstance(inv, list) and any(not isinstance(x, dict) or not isinstance(x.get('id'), str) or
+                                           x['id'] not in known for x in inv)
+    amend7 = unresolved or (lineage and bad_id)
+    if amend7 and not unresolved:
+        form.append('an invalidated element names no edit id of the named configuration\'s edit list; the finding '
+                    'binds its lineage at run level (Form (iv), r13 Amendment 7)')
     if f['kind'] == 1:
         beside = beside_table_problems(b, f, fled, fH, fdoc)
         if beside:
@@ -770,7 +824,6 @@ def _bind(f, b):
             # level with FAIL record-invalid (owner decision 5 of 2026-11-27)
             return [], True, form + ['beside its tables (R6.RECON.30): %s' % x for x in beside]
     elems = []
-    inv = f.get('invalidated')
     # Form (iv): `invalidated` absent, empty or unreadable (no element is a readable {id, sha256, target}), or the
     # verdict on another item than <path>:scientific_effect, falls back to the conclusions or the entry's path
     usable = isinstance(inv, list) and any(fd.element_ok(x) for x in inv) and \
@@ -819,7 +872,7 @@ def _bind(f, b):
                                 and util.sha256(r['text'].encode('utf-8')) == tgt['old_sha256']:
                             bound.append(r.get('id'))
                             break
-        return sorted(set(x for x in bound if x)), False, form
+        return sorted(set(x for x in bound if x)), amend7, form
     # Form (iv) fallback: the entry's conclusions, or every edit of the entry's path. Elements that carry an id but
     # lack another key "block through the fallback of (iii)" (Form (ii)): the id match is then global, and those ids
     # are bound as well
@@ -841,11 +894,11 @@ def _bind(f, b):
     else:
         named = [(eid, e.get('file')) for eid, e in _edits(fled).items() if e.get('file') == entry.get('path')]
     if not named:
-        return sorted(set(bound)), (lineage or unresolved), form
+        return sorted(set(bound)), (lineage or unresolved or amend7), form
     for eid, path in named:
         if carry_id(eid, path):
             bound.append(eid)
-    return sorted(set(bound)), False, form
+    return sorted(set(bound)), amend7, form
 
 
 # ---- OBL-29 custody R6.CUST.6: the replay of each run of each context, and r9 sec. 2.2 over its witnesses --------

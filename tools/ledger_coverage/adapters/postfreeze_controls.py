@@ -978,7 +978,7 @@ RA_PATH = 'syn/cfg/reassessment.json'
 REPAIR_AUTHOR = 'writer-r'
 
 
-def finding_world(r, variant=None, edits=None, two=False, first_id=1):
+def finding_world(r, variant=None, edits=None, two=False, first_id=1, extra_elems=None):
     """A World whose main carries the change, a landed finding on it (and with two=True a second one, in another
     reconciliation directory), then a repair of the change recorded by its own reviewed no-effect entry. Commit ids
     are content hashes, so the same construction in another World yields the same main commits."""
@@ -993,6 +993,14 @@ def finding_world(r, variant=None, edits=None, two=False, first_id=1):
     if 'target' in base['paths'][0]['scientific_effect']['invalidated'][0]:
         f['paths'][0]['scientific_effect']['invalidated'][0]['target'] = \
             base['paths'][0]['scientific_effect']['invalidated'][0]['target']
+    # the base world's configuration, which the finding names, lands on main so that it resolves (R6.RECON.33) and
+    # the finding binds by its own Forms; an unresolvable configuration binds every configuration at run level (r13
+    # Amendment 7, every-configuration binding)
+    bw = World(r)
+    w.M = w.repo.derive(w.M, {q: b for q, b in bw.files.items() if isinstance(b, bytes)}, parents=[w.M],
+                        subject='the base configuration lands')
+    if extra_elems:
+        f['paths'][0]['scientific_effect']['invalidated'] += [dict(x) for x in extra_elems]
     docs = [(RD + 'finding.json', f)]
     if two:
         f2 = dict(f, record_id='syn-finding-two')

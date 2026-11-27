@@ -93,6 +93,15 @@ def blocked(o, present=False, witness=None):
     return ok
 
 
+def land_original_plan(w, r):
+    """The original plan's configuration files (the base World's) land on w's main, so that a finding naming that
+    configuration resolves (R6.RECON.33)."""
+    bw = pfc.World(r)
+    files = {q: bw.repo.read(bw.c, q) for q, e in bw.repo.entries(bw.c).items()
+             if q.startswith('syn/') and e[0] in ('100644', '100755')}
+    step(w, {q: b for q, b in files.items() if w.repo.read(w.M, q) != b}, 'the original plan lands')
+
+
 def landed(r):
     """f landed on main by its own commit c1 (with its review); returns (world, c1, f's bytes)."""
     w = pfc.World(r)
@@ -327,12 +336,14 @@ def positive_controls(r):
     # a revised plan that no longer carries the edit: the finding remains visible and binds nothing
     w = pfc.World(r, edits=pfc.EDITS_OTHER, first_id=2)
     # the finding was made under the original plan: a readable element for E1 with its target there, naming that
-    # plan's configuration (not resolvable from this run, so the id match is global: E1 is not carried, and E2's old
-    # bytes differ from E1's target)
+    # plan's configuration, which lands on main and resolves (an unresolvable one binds every configuration at run
+    # level, r13 Amendment 7); its E1 is not carried by the revised plan, and E2's old bytes differ from E1's target
+    land_original_plan(w, r)
     old_se = pfc.invalidating(pfc.World(r), sf.DOC)['paths'][0]['scientific_effect']
     eff = dict(pfc.CONTROL_EFFECT, conclusions='none', verdict='invalidates', invalidated=old_se['invalidated'],
                configuration=old_se['configuration'])
-    doc = pfc.rcmod.draft(w.repo, w.ctx, w.syn.H, w.M, w.X, w.led, sf.DOC, scientific_effect=eff)
+    # its splice table is the original plan's (R6.RECON.30 beside the tables)
+    doc = pfc.rcmod.draft(w.repo, w.ctx, w.syn.H, w.M, w.X, pfc.World(r).led, sf.DOC, scientific_effect=eff)
     doc.update(record_id='syn-finding-old-plan', author=sf.WRITER, supersedes=None, M=w.M, X=w.X)
     pfc.land(w, [(FP, doc)])
     step(w, {FP: None, rv: None}, 'delete f')
@@ -980,8 +991,11 @@ def r13_form_controls(r):
          code == 20 and bool(rl))
     w0 = pfc.World(r)
     d0 = pfc.invalidating(w0, sf.DOC)
-    del d0['paths'][0]['scientific_effect']['configuration']
+    # a form failure (an empty assessment) under the original plan's configuration, resolvable on main; the revised
+    # plan carries no edit it binds (an absent configuration would bind every configuration, r13 Amendment 7)
+    d0['paths'][0]['scientific_effect']['assessment'] = ''
     w = pfc.World(r, edits=pfc.EDITS_OTHER, first_id=2)
+    land_original_plan(w, r)
     pfc.land(w, [(FP, d0)])
     step(w, {FP: None, rv: None}, 'deleted')
     o = outcome(w)
@@ -1376,6 +1390,144 @@ def more_negative_controls(r):
          bool(fs) and all(f['witness'] == F and f['present_at_M'] is False for f in fs))
 
 
+def amendment_7_controls(r):
+    """r13 Amendment 7 (adopted at fbfeac8a with every-configuration binding). Gap (i): side_change_commits limit the
+    runs a finding blocks only when every element is a held commit that changes the entry's path against its first
+    parent and is an ancestor of a witness of the record carrying the entry; otherwise the finding blocks every run in
+    which it is found and the list is a form failure. Gap (ii): an element whose id is missing, not a string or not an
+    edit id of the named configuration binds its lineage at run level, in addition to the edits bound otherwise; an
+    unresolvable configuration binds every configuration at run level."""
+    rv = FP[:-5] + '.review.json'
+
+    def scope_fail(o):
+        return 'retirement-blocked' in o['classes'] and 'record-invalid' in o['classes'] and \
+            any('does not scope the finding' in d for d in o['invalid'] + o['reassess_why'])
+
+    def with_scc(scc, prep=None, delete=False):
+        w = pfc.World(r)
+        extra = prep(w) if prep else None
+        doc = pfc.invalidating(w, sf.DOC)
+        doc['paths'][0]['side_change_commits'] = scc(w, extra) if callable(scc) else scc
+        pfc.land(w, [(FP, doc)])
+        if delete:
+            step(w, {FP: None, rv: None}, 'delete f')
+        return outcome(w)
+    o = with_scc([])
+    case('A7-I-1', 'a first-kind finding whose entry has side_change_commits []: FAIL retirement-blocked and '
+                   'record-invalid', o, scope_fail(o))
+    o = with_scc([], delete=True)
+    case('A7-I-2', 'the same, the record deleted later: FAIL retirement-blocked', o,
+         'retirement-blocked' in o['classes'] and FP in o['blocked'])
+    o = with_scc(['1' * 40])
+    case('A7-I-3', 'the list holds a well-formed commit id the store does not hold: FAIL retirement-blocked and '
+                   'record-invalid', o, scope_fail(o))
+
+    def notes_commit(w):
+        return step(w, {'notes/other.txt': b'other\n'}, 'a commit that does not change the path')
+    o = with_scc(lambda w, c: [c], prep=notes_commit)
+    case('A7-I-4', 'the list holds a held commit that does not change the entry\'s path: FAIL retirement-blocked and '
+                   'record-invalid', o, scope_fail(o))
+
+    def branch_commit(w):
+        return w.repo.derive(w.M, {sf.DOC: w.repo.read(w.M, sf.DOC) + b'branch\n'}, parents=[w.M],
+                             subject='a change on an unmerged branch')
+    o = with_scc(lambda w, c: [c, 'junk'], prep=branch_commit)
+    case('A7-I-5', 'the list holds a commit that changes the path but is not in the run\'s M, and "junk": FAIL '
+                   'retirement-blocked and record-invalid', o, scope_fail(o))
+    o = with_scc(lambda w, c: [c], prep=branch_commit)
+    case('A7-I-8', 'the list holds only a held commit on an unmerged branch that changes the path and is no ancestor '
+                   'of a witness of the record: FAIL retirement-blocked and record-invalid', o, scope_fail(o))
+
+    def merge_same_first(w):
+        side = w.repo.derive(w.M, {sf.DOC: w.repo.read(w.M, sf.DOC) + b'side\n'}, parents=[w.M], subject='side')
+        return step(w, {'notes/merge.txt': b'm\n'}, 'a merge keeping the first parent\'s path', parents=[w.M, side])
+    o = with_scc(lambda w, c: [c], prep=merge_same_first)
+    case('A7-I-9', 'the list holds only a merge commit whose tree entry for the path equals its first parent\'s: FAIL '
+                   'retirement-blocked and record-invalid', o, scope_fail(o))
+    w, c1, fb = landed(r)
+    o = outcome(w)
+    case('A7-I-SCOPED', 'a well-formed finding whose list names the commits that changed the path before the record '
+                        'landed: no scope failure, it blocks as before', o,
+         'retirement-blocked' in o['classes'] and not any('does not scope' in d for d in o['invalid']))
+    # a second-kind finding on an entry whose side_change_commits is []
+    w = pfc.World(r)
+    q = w.record(record_id='syn-recon-q')
+    q['paths'][0]['side_change_commits'] = []
+    qb = pfc.jb(q)
+    QP = pfc.RD + 'q.json'
+    pfc.land(w, [(QP, q)], 'a no-effect record with an empty list')
+    inv = pfc.invalidating(w, sf.DOC)['paths'][0]['scientific_effect']
+    verdicts = [{'item': i, 'verdict': 'accept', 'reason': ''} for i in rec.item_ids(q)]
+    for v in verdicts:
+        if v['item'] == sf.DOC + ':scientific_effect':
+            v.update(verdict='invalidates', reason='x', invalidated=inv['invalidated'],
+                     configuration=inv['configuration'])
+    z = pfc.jb({'schema': rec.review_schema, 'reviewer': 'reviewer-x', 'reviewed': {'path': QP,
+                                                                                  'blob_sha256': sf.sha(qb)},
+                'method': 'read ' + 'a' * 40, 'verdicts': verdicts})
+    step(w, {pfc.RD + 'q.second.review.json': z}, 'an independent review finds invalidation')
+    o = outcome(w)
+    case('A7-I-6', 'a second-kind finding on an entry whose side_change_commits is []: FAIL retirement-blocked and '
+                   'record-invalid', o, scope_fail(o))
+
+    # gap (ii)
+    unknown = {'id': 'NO-SUCH-EDIT', 'sha256': '0' * 64,
+               'target': {'path': 'nowhere.md', 'start_H': 0, 'old_sha256': '0' * 64}}
+
+    def with_elems(mk, world=None, cfg=None, delete=False, pre=None):
+        w = world() if world else pfc.World(r)
+        if pre:
+            pre(w)
+        doc = pfc.invalidating(w, sf.DOC)
+        se = doc['paths'][0]['scientific_effect']
+        se['invalidated'] = mk(se['invalidated'][0])
+        se['conclusions'] = 'none'
+        if cfg is not None:
+            se['configuration'] = cfg
+        pfc.land(w, [(FP, doc)])
+        if delete:
+            step(w, {FP: None, rv: None}, 'delete f')
+        return outcome(w)
+
+    def run_level(o):
+        return 'retirement-blocked' in o['classes'] and FP in o['runlevel']
+    o = with_elems(lambda e: [dict(unknown)])
+    case('A7-II-1', 'an element whose id is no edit of the named configuration (its target held by no ledger), under '
+                    'the run\'s configuration: FAIL run-level retirement-blocked and record-invalid', o,
+         run_level(o) and 'record-invalid' in o['classes'])
+    o = with_elems(lambda e: [dict(unknown)], delete=True)
+    case('A7-II-2', 'the same, the record deleted later: FAIL run-level retirement-blocked', o, run_level(o))
+    w_ = pfc.World(r)
+    o4 = with_elems(lambda e: [e, dict(unknown)])
+    case('A7-II-4', 'a valid element naming E1 and an unknown id: category3.blocked holds E1 and a run-level entry',
+         {'blocked': o4['blocked'], 'runlevel': o4['runlevel']},
+         FP in o4['runlevel'] and o4['blocked'].count(FP) >= 2)
+    o5 = {'no id': with_elems(lambda e: [e, {k: v for k, v in unknown.items() if k != 'id'}]),
+          'numeric id': with_elems(lambda e: [e, dict(unknown, id=5)])}
+    case('A7-II-5', 'a valid element and a second element without id, or with a numeric id: FAIL run-level '
+                    'retirement-blocked and record-invalid', {k: v['runlevel'] for k, v in o5.items()},
+         all(run_level(v) and 'record-invalid' in v['classes'] for v in o5.values()))
+    o = with_elems(lambda e: [dict(unknown, target=dict(e['target']))])
+    case('A7-II-6', 'an unknown id whose target matches the run\'s E1 by path and old_sha256: FAIL run-level (the '
+                    'target match does not keep it below run level)', o, run_level(o))
+
+    def other_retirement():
+        return pfc.World(r, variant=lambda w_: {'extra': {'retirement': {'name': 'other', 'issue': 'other'},
+                                                           'config_id': 'other-retirement-config'}})
+    o = with_elems(lambda e: [dict(unknown)], world=other_retirement,
+                   cfg={'path': 'syn/none/config.json', 'blob_sha256': '0' * 64})
+    case('A7-II-7', 'an unknown id under a configuration that cannot be resolved, the run under another retirement: '
+                    'FAIL run-level retirement-blocked and record-invalid (every configuration)', o,
+         run_level(o) and 'record-invalid' in o['classes'])
+    base_cfg = pfc.invalidating(pfc.World(r), sf.DOC)['paths'][0]['scientific_effect']['configuration']
+    o = with_elems(lambda e: [dict(unknown)], world=other_retirement, cfg=base_cfg,
+                   pre=lambda w: land_original_plan(w, r))
+    case('A7-II-C1', 'case 1\'s finding naming the original plan (resolvable), the run under another retirement '
+                     'outside its lineage that carries neither the id nor the target: not retirement-blocked', o,
+         'retirement-blocked' not in o['classes'])
+    del w_
+
+
 def run_level_ledger_controls(r):
     """Owner decision of 2026-11-27: a resolvable configuration whose ledger cannot be read, several splices for one
     edit, retained text not unique at H, an edit with neither splice nor retained text, and an unreadable delegation
@@ -1436,7 +1588,7 @@ SUITES = [('removal', removal_controls), ('topology', topology_controls), ('unre
           ('predecessor-widening', predecessor_widening_unit),
           ('pairing-predecessor', pairing_predecessor_controls),
           ('pairing-review-order', pairing_review_order_control), ('r13-form', r13_form_controls),
-          ('run-level-ledger', run_level_ledger_controls),
+          ('run-level-ledger', run_level_ledger_controls), ('amendment-7', amendment_7_controls),
           ('read-domain', read_domain_controls), ('milestone', milestone_controls),
           ('explicit-review', explicit_review_controls), ('nits-0cafbdc0', nits_0cafbdc0_controls)]
 

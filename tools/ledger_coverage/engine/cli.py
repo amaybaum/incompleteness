@@ -352,6 +352,14 @@ def category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, r
     def fkey(f):
         return ((f['record'] or {}).get('path'), (f['record'] or {}).get('blob_sha256'), f['kind'], f.get('item'),
                 f['path'])
+    cum_m_holder = []
+
+    def cum_m():
+        # the walk from M alone: the M-derived portion of R* (R6.OBL29.3 competing successors; the witnesses in M's
+        # ancestry of r13 Amendment 7)
+        if not cum_m_holder:
+            cum_m_holder.append(c3.Cumulative(repo, [M], schemas, recon_route.audits_root))
+        return cum_m_holder[0]
     try:
         bview = c3.Binding(repo, M, cfg, {'path': loaded.ref['path'], 'blob_sha256': loaded.ref['blob_sha256']}, led,
                            resolve_cfg, ledger_of, record_at=lambda ref: cum.record_at(ref) or explicit_at(ref),
@@ -359,15 +367,28 @@ def category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, r
         for f in found:
             present, wit = cum.witness(f['record'] or {}, M, revs, F)
             entry = f.get('entry')
-            if not isinstance(entry, dict) or not isinstance(entry.get('side_change_commits'), list):
+            if not isinstance(entry, dict):
                 # a malformed finding, or one with no readable entry: a run-level block (owner decision 5 of
-                # 2026-11-27), with FAIL record-invalid; its evidence and provenance stay in the result
+                # 2026-11-27, r13 Amendment 7: the run-level item of Form (iv)), with FAIL record-invalid; its evidence
+                # and provenance stay in the result
                 form = list(f.get('form') or []) + ['the finding has no readable entry with side_change_commits; it '
                                                     'blocks at run level']
                 bound[fkey(f)] = ([], True, form, present)
             else:
-                applies = c3.in_m(repo, M, entry['side_change_commits'])
+                # r13 Amendment 7 gap (i): the list limits the runs only when it passes the scope test; otherwise the
+                # finding blocks every run in which it is found, and the list is a form failure
+                er = f.get('entry_record')
+                src = None
+                for r_ in recon:
+                    if isinstance(er, dict) and r_.get('_ref') == {'path': er.get('path'),
+                                                                   'blob_sha256': er.get('blob_sha256')}:
+                        src = r_.get('_source')
+                why = c3.scope_problems(repo, entry.get('side_change_commits'), entry.get('path'), er, cum, cum_m(),
+                                        src)
+                applies = c3.in_m(repo, M, entry['side_change_commits']) if not why else True
                 edits, run_level, form = c3.bind(f, bview) if applies else ([], False, list(f.get('form') or []))
+                if why:
+                    form = list(form) + ['side_change_commits does not scope the finding (R6.RECON.26): %s' % why[0]]
                 bound[fkey(f)] = (edits, run_level, form, present)
             findings.append({'record': f['record'], 'item': f.get('item'), 'kind': f['kind'], 'path': f['path'],
                              'class': f.get('class'), 'present_at_M': present, 'witness': wit})
@@ -404,13 +425,6 @@ def category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, r
                                     {'custody': p_['item'], 'why': p_['why']},
                                     detail=['%s: %s' % (p_['item'], p_['why'])]))
     applying = []
-    cum_m_holder = []
-
-    def cum_m():
-        # the walk from M alone: the M-derived portion of R* (R6.OBL29.3 competing successors)
-        if not cum_m_holder:
-            cum_m_holder.append(c3.Cumulative(repo, [M], schemas, recon_route.audits_root))
-        return cum_m_holder[0]
     for r in cfg['records']:
         if r.get('kind') != 'reassessment':
             continue

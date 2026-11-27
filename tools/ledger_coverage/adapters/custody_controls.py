@@ -79,6 +79,9 @@ def lineage_finding_world(r, variant=None, edits=None, two_hop=False):
     if 'target' in base['paths'][0]['scientific_effect']['invalidated'][0]:
         f['paths'][0]['scientific_effect']['invalidated'][0]['target'] = \
             base['paths'][0]['scientific_effect']['invalidated'][0]['target']
+    bw = pfc.World(r)
+    w.M = w.repo.derive(w.M, {q: b for q, b in bw.files.items() if isinstance(b, bytes)}, parents=[w.M],
+                        subject='the base configuration lands (it resolves, R6.RECON.33)')
     pfc.land(w, [(pfc.RD + 'finding.json', f)])
     w.findings = [{'path': pfc.RD + 'finding.json', 'blob_sha256': sf.sha(pfc.jb(f))}]
     w.M = w.repo.derive(w.M, {sf.DOC: w.repo.read(w.M, sf.DOC).replace(b'changed on main', b'repaired on main')},
@@ -249,6 +252,7 @@ class CW:
                 'reassess_why': [d for i in out.get('items', []) if i['class'] == 'record-invalid' and
                                  i.get('subject') == pfc.RA_PATH for d in (i.get('detail') or [])],
                 'findings': c3.get('findings') or [],
+                'blocked_full': [(b['record']['path'], b.get('edit')) for b in c3.get('blocked') or []],
                 'reassessments': c3.get('reassessments'), 'blocked': [b['record']['path'] for b in c3.get('blocked')
                                                                        or []],
                 'classes': sorted({i['class'] for i in out.get('items', [])})}
@@ -568,7 +572,10 @@ def freeze_controls(r):
             files[corpus_path] = b'# a corpus path of the context\n'
         F1 = c.w.repo.derive(main_before, files, parents=[main_before], subject='freeze F1')
         tip = F1
-        branch = dict(files)
+        # the landing carries the plan's own files; the configuration's adapter inputs stay in f's tree (they would
+        # otherwise overwrite the base configuration's inputs on main, which the finding's configuration resolves to)
+        wfiles = {q for q in c.w.files if q != c.w.p}
+        branch = {q: b for q, b in files.items() if q not in wfiles or q in (f_files or {}) or q in ctx_files}
         for i, res in enumerate(results):
             rf = {KD + 'op-c-runs/run%d/result.json' % i: pfc.jb(res)}
             branch.update(rf)
@@ -1412,9 +1419,53 @@ def amendment_1_controls(r):
          bool(o_later['reassessments']) and ZP not in o_later['blocked'] and provisional(o_bare, ZP))
 
 
+def amendment_7_keys_controls(r):
+    """r13 Amendment 7, Keys as amended: a finding with a valid element naming E1 and an element with an unknown id
+    binds E1 and, additively, its lineage at run level. A null-edit reassessment lifts the run-level binding only; a
+    reassessment naming E1 lifts E1 only; both together lift the finding."""
+    unknown = {'id': 'NO-SUCH-EDIT', 'sha256': '0' * 64,
+               'target': {'path': 'nowhere.md', 'start_H': 0, 'old_sha256': '0' * 64}}
+    w1 = pfc.finding_world(r, edits=pfc.EDITS_REWORDED, extra_elems=[unknown])
+    a_edit = pfc.reassessment(w1)
+    a_null = pfc.reassessment(w1, edit=None, record_id='syn-reassessment-null')
+
+    def cite_all(docs):
+        def variant(w_):
+            files, recs = {}, []
+            for i, d in enumerate(docs):
+                p_ = pfc.RA_PATH if i == 0 else 'syn/cfg/reassessment-%d.json' % i
+                b = pfc.jb(d)
+                files[p_] = b
+                recs.append({'kind': 'reassessment', 'path': p_, 'blob_sha256': sf.sha(b)})
+                recs += sf.Syn.chain(None, files, p_, sf.REVIEWER)
+            return {'files': files, 'add_records': recs}
+        return variant
+
+    def run(docs):
+        c = CW.__new__(CW)
+        c.w = pfc.finding_world(r, variant=cite_all(docs), edits=pfc.EDITS_REWORDED, extra_elems=[unknown])
+        c.boot, c.n = None, 0
+        c.bootstrap()
+        o = c.run()
+        return o
+    outs = {'edit only': run([a_edit]), 'null only': run([a_null]), 'both': run([a_edit, a_null])}
+
+    def bl(o):
+        return o['blocked_full']
+    case('A7-KEYS-EDIT-ONLY', 'an applying reassessment naming E1 (C3): E1 is lifted, the run-level binding stays, '
+                              'retirement-blocked; the reassessment itself is well formed and applies',
+         {k: [v['blocked_full'], v['reassessments'] and len(v['reassessments'])] for k, v in outs.items()},
+         [e for _p, e in bl(outs['edit only'])] == [None] and len(outs['edit only']['reassessments'] or []) == 1)
+    case('A7-KEYS-NULL-ONLY', 'an applying reassessment with edit null: the run-level binding is lifted, E1 stays '
+                              'bound, retirement-blocked on E1 (case 8)', bl(outs['null only']),
+         [e for _p, e in bl(outs['null only'])] == ['E1'] and len(outs['null only']['reassessments'] or []) == 1)
+    case('A7-KEYS-BOTH', 'both reassessments (C2 and C4): the finding is lifted, not retirement-blocked',
+         bl(outs['both']), bl(outs['both']) == [] and 'retirement-blocked' not in outs['both']['classes'])
+
+
 SUITES = [('schema-chain', schema_chain_controls), ('configurations', configuration_controls),
           ('freeze', freeze_controls), ('unit', unit_controls), ('live-lineage', live_lineage_controls),
-          ('amendment-1', amendment_1_controls)]
+          ('amendment-1', amendment_1_controls), ('amendment-7-keys', amendment_7_keys_controls)]
 TMP = None
 
 
