@@ -67,13 +67,17 @@ def second_kind_findings(doc, ref, record_at):
     reconciliation record the review names, or None when the scan finds none."""
     reviewed = record_at(doc.get('reviewed'))
     who = doc.get('reviewer')
-    if isinstance(reviewed, dict) and fd.same_identity(who, reviewed.get('author')):
-        return []  # an independence failure disqualifies the review (Form (i))
-    if fd.run_like(who):
-        return []
+    if isinstance(reviewed, dict) and fd.identity_ok(who) and who == reviewed.get('author'):
+        return []  # staging S-2 S2.5: only a reviewer byte-equal to the author disqualifies the review (Form (i))
     out = []
     for v in fd.second_kind_verdicts(doc):
         form = fd.second_kind_form_problems(doc, reviewed, v)
+        # S2.5: a malformed reviewer, or a reviewer the same identity as the author without being byte-equal, is a
+        # form failure that still blocks (the independence declaration's checks join with the review.record row)
+        if not fd.identity_ok(who):
+            form.append('the reviewer is not an identity string')
+        elif isinstance(reviewed, dict) and fd.same_identity(who, reviewed.get('author')):
+            form.append('the reviewer is the same identity as the author without being byte-equal')
         if reviewed is None:
             form.append('its reviewed names no record the scan finds')
         entry = fd.entry_of_item(reviewed, v.get('item')) if isinstance(reviewed, dict) else None

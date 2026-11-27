@@ -137,8 +137,49 @@ def classify(data):
 
 # ---- identity strings (R6.RECON.29) ---------------------------------------------------------------------------
 
+_identity = re.compile(r'[A-Za-z0-9][A-Za-z0-9._:-]{0,127}\Z')
+_key_drop = str.maketrans('', '', '._:-')
+
+
+def identity_ok(v):
+    """Staging S-2 S2.1: an identity string matches [A-Za-z0-9][A-Za-z0-9._:-]{0,127} as a whole and is not made
+    only of digits (a run or check id): no whitespace, no `/`, no non-ASCII character."""
+    return isinstance(v, str) and v.isascii() and _identity.match(v) is not None and not v.isdigit()
+
+
+def identity_key(v):
+    """S2.2: ASCII letters made lowercase and `.`, `_`, `:` and `-` removed."""
+    return v.lower().translate(_key_drop)
+
+
 def same_identity(a, b):
-    return isinstance(a, str) and isinstance(b, str) and a.strip().casefold() == b.strip().casefold()
+    """S2.2: two identity strings whose keys are equal (a string that is not an identity string is the same
+    identity as nothing)."""
+    return identity_ok(a) and identity_ok(b) and identity_key(a) == identity_key(b)
+
+
+def independence_problems(review, X):
+    """S2.4: [] when the review is independent of the identity strings X (members of X that are not identity
+    strings are skipped): its reviewer an identity string; `independence` exactly {not_author: true, depends_on: an
+    array of identity strings, no two the same identity}; the reviewer and every depends_on element the same identity
+    as no member of X."""
+    out = []
+    who = review.get('reviewer') if isinstance(review, dict) else None
+    if not identity_ok(who):
+        out.append('the reviewer is not an identity string')
+    ind = review.get('independence') if isinstance(review, dict) else None
+    deps = ind.get('depends_on') if isinstance(ind, dict) else None
+    if not (isinstance(ind, dict) and set(ind) == {'not_author', 'depends_on'} and ind['not_author'] is True and
+            isinstance(deps, list) and all(identity_ok(d) for d in deps) and
+            len({identity_key(d) for d in deps}) == len(deps)):
+        out.append('the independence declaration is missing or malformed')
+        deps = []
+    xs = [x for x in X if identity_ok(x)]
+    if identity_ok(who) and any(same_identity(who, x) for x in xs):
+        out.append('the reviewer is the same identity as a party it must be independent of')
+    if any(same_identity(d, x) for d in deps for x in xs):
+        out.append('the independence declaration names a party the reviewer must be independent of')
+    return out
 
 
 def run_like(v):
@@ -159,7 +200,7 @@ def _enc(t, v):
         return isinstance(v, str) and bool(v) and not v.startswith('/') and not v.endswith('/') and \
             all(p not in ('', '.', '..') for p in v.split('/'))
     if t == 'identity':
-        return isinstance(v, str) and bool(v.strip()) and not run_like(v) and '/' not in v
+        return identity_ok(v)
     if t == 'nestr':
         return isinstance(v, str) and bool(v)
     if t == 'str':

@@ -85,7 +85,8 @@ def item_ids(doc):
 
 
 def _person(v):
-    return isinstance(v, str) and v.strip() and not _url.search(v) and '/' not in v and not v.isdigit()
+    """An identity string (staging S-2 S2.1)."""
+    return fd.identity_ok(v)
 
 
 class Store:
