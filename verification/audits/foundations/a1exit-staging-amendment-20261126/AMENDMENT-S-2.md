@@ -1,6 +1,6 @@
-# A1 staging amendment r2, supplement S-2: procedural reviewer independence (paper draft r1)
+# A1 staging amendment r2, supplement S-2: procedural reviewer independence (paper draft r2)
 
-**Status.** Draft r1, for independent review and the owner's adoption of the exact reviewed text. It
+**Status.** Draft r2, for independent review and the owner's adoption of the exact reviewed text. It
 supersedes supplement S-1 (`AMENDMENT-S-1.md` in this directory, adopted at
 `3bc3693c66c65d768bc072b65d07f045fe8a23f5`, with the defaults OQ-S1-1 to OQ-S1-5). S-1 stays in force
 until the owner adopts S-2. Adoption, implementation, staging, freeze and execution keep their
@@ -37,8 +37,8 @@ each checked by the controls named in §7.
 |---|---|---|---|
 | P1 | Every fail-closed outcome that does not rest on authenticating an identity: a missing or malformed `author` or `reviewer` fails record lint; a review that cannot show independence counts as no review; an unreadable required object is ERROR | R6.REC.6, R6.REC.17, R6.OBL29.7, S-1 S1.8 | O1, O5, S2-MALFORMED, S2-DECL-MISSING |
 | P2 | Exact evidence binding: `reviewed` names the exact `{path, blob_sha256}`; `revision` names a commit reachable from the review's root that holds those bytes | R6.RECON.31 `reviewed`, S-1 §3 | S1-REVISION-MISMATCH, S1-REVISION-POST-F, O2 |
-| P3 | Adverse-evidence preservation: a finding is detected before lint; an invalidating review lapses only when its reviewer is the same identity as the exact named record's author; every other defect is a form failure that still blocks; a genuine finding stays in `Obl` | R6.RECON.26 Form (i), r9 R6.OBL29.1/.6, r9 Amendment 1 A1.1–A1.5 | S1-INVALIDATING-SAME-ID, S2-INVALIDATING-DECLARED, S2-INVALIDATING-MALFORMED, S2-NO-RETRO-LAPSE, the r9 Amendment 1 rows |
-| P4 | S1.9's permanent block, where it does not depend on the registry: an invalidating review whose `reviewer` is not an identity string can never be resolved under r9 NR-5 | S-1 S1.9 "For the owner", r9 NR-5 | N-REFREEZE-REVIEW-WITNESS-NO-IDENTITY, S2-INVALIDATING-MALFORMED |
+| P3 | Adverse-evidence preservation: a finding is detected before lint; an invalidating review lapses only when its reviewer is byte-equal to the exact named record's author; every other defect is a form failure that still blocks; a genuine finding stays in `Obl` | R6.RECON.26 Form (i), r9 R6.OBL29.1/.6, r9 Amendment 1 A1.1–A1.5 | S1-INVALIDATING-SAME-ID, S2-INVALIDATING-DECLARED, S2-INVALIDATING-MALFORMED, S2-INVALIDATING-RESPELL, S2-NO-RETRO-LAPSE, the r9 Amendment 1 rows |
+| P4 | S1.9's block, where it does not depend on the registry, as unresolvable under NR-5: an invalidating review whose `reviewer` is not an identity string can never be resolved under r9 NR-5 | S-1 S1.9 "For the owner", r9 NR-5 | N-REFREEZE-REVIEW-WITNESS-NO-IDENTITY, S2-INVALIDATING-MALFORMED |
 | P5 | The S11-2a binding to the configuration admitted at `F` | `AMENDMENT-S11-2a.md` (adopted at `6de7efa4`) | its own controls, unchanged |
 | P6 | The r9 rules (NR-1 to NR-5, the token rule, R6.OBL29.*) and the custody rules (R6.CUST.*), apart from the words that compare identities | r9 `DESIGN.md`, custody `DESIGN.md` on `main` | the r9 and custody controls, unchanged |
 | P7 | A writer never reviews its own record; item coverage and verdict rules of R6.REC.6 and R6.REC.13; the widening reviewer differs from the author and from every ordinary reviewer; OD-4 (the owner is neither adjudicator nor technical reviewer) | R6.REC.2, R6.REC.6, R6.REC.13, R6.ADJ.4 | O3, A4r, A12r, Z5, S2-ROOT-ROLES, ADJ-* |
@@ -62,8 +62,8 @@ replaced by `-`; the tool cannot tell, and does not check, which form was used.
 and the characters `.`, `_`, `:` and `-` removed. Two identity strings are the **same identity** when
 their keys are equal. So `Session_Fixture-Writer`, `session.fixture-writer` and `SESSIONFIXTUREWRITER`
 are one identity; a respelling by case or separator does not make two. Two distinct platform
-identifiers whose keys collide are treated as one, which can only refuse a review in lint (P1); its
-effect in detection is stated in S2.5.
+identifiers whose keys collide are treated as one, which can only refuse a review in lint (P1). In
+detection a review lapses only on byte equality (S2.5), so a collision there can only keep a finding.
 
 **S2.3 What a review records.** Each `oi-review-record/1` carries:
 - `reviewer`: an identity string (S2.1);
@@ -96,14 +96,13 @@ member of `X` contradicts the independence it would otherwise claim, so conditio
   whose `revision` fails §3 of S-1, counts as no review; the reviewed record then lacks its required
   review and is FAIL `record-invalid`. A record whose `author` is not an identity string fails lint.
 - *Detection* (R6.RECON.26 Form (i), r9 Amendment 1). A review carrying `invalidates` or
-  `invalidated` is disqualified, with no finding, only when its `reviewer` is an identity string that
-  is the same identity as the `author` of the exact record its `reviewed` names, that record being in
-  `R*`. When that record is absent from `R*`, the review is a provisional block (Amendment 1). In every
+  `invalidated` is disqualified, with no finding, only when its `reviewer` is an identity string
+  byte-equal to the `author` of the exact record its `reviewed` names, that record being in `R*`. When that record is absent from `R*`, the review is a provisional block (Amendment 1). In every
   other case it is a genuine finding; a malformed `reviewer`, a missing or malformed `independence`,
-  a `depends_on` naming the author, or a failed `revision` is a form failure that still blocks. A key
-  collision (S2.2) in this position needs the record's author field to carry the reviewer's key, which
-  is fixed in the exact bytes the reviewer read; it is the same residual as a self-review.
-- *Permanent block* (P4). An invalidating review whose `reviewer` is not an identity string cannot be
+  a `depends_on` naming the author, a `reviewer` that is the same identity as the author (S2.2) without
+  being byte-equal to it, or a failed `revision` is a form failure that still blocks. Key equality thus
+  refuses a review in lint, and byte equality alone lapses one in detection: each fails closed.
+- *Unresolvable under NR-5* (P4). An invalidating review whose `reviewer` is not an identity string cannot be
   resolved under NR-5, since no `Z` can be the same identity. It is lifted only by dropping the bound
   edit (R6.RECON.26), or by a repair-bearing reassessment whose review witness is cleared through
   route 2 as the adopted #1605 §6 rows provide (R6.ADJ.9), with a new freeze. S-1 S1.9 stated that
@@ -171,7 +170,7 @@ are unchanged.
 | S1.7 independence | replaced by S2.4 and §3 |
 | §3 what a review binds | `reviewed` and `revision` kept as written; `platform_ref` and the posted digest withdrawn; `independence` added (S2.3) |
 | S1.8 lint | replaced by S2.5 (lint) |
-| S1.9 detection and permanent block | replaced by S2.5 (detection, permanent block); lapse on same identity only, as before |
+| S1.9 detection and permanent block | replaced by S2.5 (detection; unresolvable under NR-5); lapse on byte equality only, as S-1's same id |
 | §5 "Registry source for controls" | withdrawn, except its last sentence, kept as P8 and S2.6 |
 | §6 inventory effect | superseded by §8 |
 | §7 tool changes | superseded by §8 |
@@ -195,19 +194,22 @@ are unchanged.
 | r13 R6.REC.6 | "`reviewer` equal to `author`" reads "a review that is not independent of the record's `author` (S-2 S2.4)"; "a `reviewer` value that points to a tool run, a CI run, a check run or an Issue" reads "an `author` or `reviewer` value that is not an identity string (S-2 S2.1)" |
 | r13 R6.REC.13 | "by a non-author reviewer other than the record's own reviewer" reads "by a reviewer independent of the record's author and of every ordinary reviewer of the record (S-2 S2.4)" |
 | r13 R6.REC.3 (with the adopted #1605 row) | its sentence on owner approval reads as S-2 S2.7; the #1605 attribution sentence stands, with `OWNER_IDENTITIES` compared by S2.2 |
-| r13 R6.RECON.26 Form (i) | "… unless its `reviewer` is an identity string that is the same identity as the `author` of the record its `reviewed` names (S-2 S2.2). Only that disqualifies it. A malformed `reviewer`, a missing or malformed `independence`, a `depends_on` naming that author, or a failed `revision` is a form failure that still blocks (S-2 S2.5)." The provisional-block clause of r9 A1.5 follows |
+| r13 R6.RECON.26 Form (i) | "… unless its `reviewer` is an identity string byte-equal to the `author` of the record its `reviewed` names (S-2 S2.5). Only that disqualifies it. A malformed `reviewer`, a missing or malformed `independence`, a `depends_on` naming that author, a `reviewer` that is the same identity as that author without being byte-equal, or a failed `revision` is a form failure that still blocks (S-2 S2.5)." The provisional-block clause of r9 A1.5 follows |
 | r13 table `review.record` | `reviewer`: acceptance "independent (S-2 S2.4) of the reviewed record's `author`; for a widening review, also of every ordinary reviewer of the superseding record". Row `revision` kept (S-1 §3). Row `platform_ref` withdrawn. New row `independence`: object `{not_author: true, depends_on: array of identity strings}`, required, acceptance S-2 S2.4 |
 | r13 R6.RECON.33 kind table | S-1's row `sessions` withdrawn |
 | r13 R6.RECON.31 item-id table | S-1's row for the registry withdrawn |
 | r13 table `migration.approval`, `author` | "the owner's identity string; the same identity as a member of `OWNER_IDENTITIES` (S-2 S2.8)" |
-| r9 Amendment 1, genuine finding (§1) and A1.1 | "whose `reviewer` is not the same identity as that record's `author` (S-2 S2.2); any other defect of the review is a form failure (S-2 S2.5)" |
-| r9 Amendment 1, A1.2 | "shows `author` the same identity as `reviewer`" |
-| r9 Amendment 1, A1.5 | "is disqualified if its `reviewer` is an identity string that is the same identity as that record's `author`" |
+| r9 Amendment 1, genuine finding (§1) and A1.1 | "whose `reviewer` is not byte-equal to that record's `author` (S-2 S2.5); any other defect of the review is a form failure (S-2 S2.5)" |
+| r9 Amendment 1, A1.2 | "shows `author` byte-equal to `reviewer`" (S-2 S2.5) |
+| r9 Amendment 1, A1.4 | "Once the record shows a same-author review" reads "Once the record shows a review whose `reviewer` is byte-equal to its `author` (S-2 S2.5)" |
+| r9 Amendment 1, A1.5 | "is disqualified if its `reviewer` is an identity string byte-equal to that record's `author` (S-2 S2.5)" |
+| r9 R-8 and #1605 R-ADJ-2 | wording only: "login" reads "identity string (S-2 S2.1)"; the residuals are unchanged |
 | r9 NR-3 | "Its `reviewer` is independent (S-2 S2.4) of the `author` of …, and of the `reviewer` of …" (the same lists) |
 | r9 NR-5, Resolver | "`Z`'s `reviewer` is the same identity as `V`'s `reviewer`, and `Z` is independent (S-2 S2.4) of the `author` of `R`, of the disputed record and of the cited reassessment" |
 | custody R6.CUST.8 | "whose review is independent (S-2 S2.4) of the version's `author`, and which meets S-1 §3 with root effective `M`" |
-| #1605 R6.ADJ.3 | `ADJ-AUTH-OWNER` compares by S2.2 (S2.8); otherwise unchanged |
+| #1605 R6.ADJ.3 | `ADJ-AUTH-OWNER` compares by S2.2 (S2.8); `authorization.adjudicator` "equals the record's `author`" reads "is the same identity as the record's `author` (S-2 S2.2)"; otherwise unchanged |
 | #1605 R6.ADJ.4 | "usable identity" is an identity string (S-2 S2.1); comparisons are by S2.2; the technical reviewer's review is independent of `Parties`, the adjudicator and `OWNER_IDENTITIES` (S2.4); OD-4 as S2.8; `conflicts` stays reviewed, not checked |
+| #1605 R6.ADJ.12 | membership of a later dissenter's reviewer in `Answered(J)` is by S2.2 (the same identity as a member) |
 
 R6.REC.2, R6.REC.12, and every item-coverage, exact-blob and verdict rule are unchanged.
 
@@ -251,9 +253,10 @@ S2-INVALIDATING-MALFORMED.
 | S2-MALFORMED | reviewer (or author) with surrounding space, inner space, a Cyrillic look-alike letter, digits only, empty, 129 characters, a URL | not an identity string: FAIL `record-invalid` |
 | S2-DECL-MISSING | `independence` absent; variants: `not_author` false or `"true"`, an extra key, `depends_on` not an array, holding a malformed string, or two same-identity elements | review counts as no review |
 | S2-DECL-AUTHOR | `depends_on` names the author; variant: names it respelled | review counts as no review |
-| S2-ROOT-ROLES | allow root: widening reviewer the same identity as the writer; as the ordinary reviewer; ordinary reviewer declaring a dependency on the widening reviewer; widening reviewer declaring one on the writer | each: FAIL `record-invalid` |
+| S2-ROOT-ROLES | allow root: ordinary reviewer the same identity as the writer; widening reviewer the same identity as the writer; as the ordinary reviewer; ordinary reviewer declaring a dependency on the widening reviewer; widening reviewer declaring one on the writer | each: FAIL `record-invalid` |
 | S2-INVALIDATING-DECLARED | invalidating review, record in `R*`, `depends_on` naming the author, reviewer a different identity | genuine finding with a form failure; FAIL `record-invalid` and `retirement-blocked` |
 | S2-INVALIDATING-MALFORMED | as above, reviewer not an identity string; variant: `independence` missing | genuine finding with a form failure; blocks; no `Z` meets NR-5 |
+| S2-INVALIDATING-RESPELL | invalidating review, record in `R*` by `session.fixture-writer`, reviewer `Session_Fixture-Writer` (same identity, not byte-equal) | not disqualified: genuine finding with a form failure; FAIL `record-invalid` and `retirement-blocked` |
 | S2-NO-RETRO-LAPSE | a genuine finding; later, a record or review declaring that its reviewer depends on the author, or a record at another path naming the reviewer as author | the finding keeps binding |
 | S2-OWNER-ROLES | adjudicator, or technical reviewer, `AMaybaum`; migration `approval.author` not an owner identity; adjudication `authorization.author` not an owner identity | `ADJ-INDEP`; FAIL `record-invalid`; `ADJ-AUTH-OWNER` |
 | S2-FIELD-ONLY | identities offered by argument or derivable from commit authors, with record fields that fail | ignored; the record-field outcome stands |
@@ -263,7 +266,10 @@ S2-INVALIDATING-MALFORMED.
 stands instead of clearing; the control is restated with `Session_Fixture-Reviewer-V` to keep its
 positive meaning, and the padded form becomes a negative case. NR5-REVIEWER-AUTHOR-ALIAS and
 NR3-EXCLUDED-AUTHOR-ALIAS keep their outcome (blocked) and are respelled without whitespace so that
-they still test aliasing. Each change is toward failing closed.
+they still test aliasing. ADJ-N-CURRENT-ACCEPTANCE-AUTHOR-ALIAS (`custody_controls.py:1255`, reviewer
+`' ' + author.upper() + ' '`) stays blocked, but only because the padded string is not an identity
+string; it is respelled without whitespace (the author upper-cased with its separators changed) so that
+it tests aliasing again, and the padded form is kept as a negative case. Each change is toward failing closed.
 
 ## 8. Effect on the completed implementation in #1577
 
@@ -284,7 +290,7 @@ No implementation is made by this paper; it stays paused until adoption.
 
 | Id | Question | Recommended default | Alternative |
 |---|---|---|---|
-| OQ-S2-1 | Comparison of identity strings | ASCII grammar and key equality (S2.1, S2.2) | byte equality under a lowercase-only grammar (separator respelling passes); or r13's trim and case fold (look-alike and separator respelling pass) |
+| OQ-S2-1 | Comparison of identity strings | ASCII grammar; key equality in lint and in every independence check (S2.1, S2.2); byte equality alone lapses a review in detection (S2.5) | key equality also lapsing a review in detection (broader lapse); byte equality under a lowercase-only grammar (separator respelling passes); or r13's trim and case fold (look-alike and separator respelling pass) |
 | OQ-S2-2 | Does a declared dependency on a party the role must be independent of disqualify? | yes in lint; a form failure that still blocks in detection | record only, for review (weaker; the declaration would bind nothing) |
 | OQ-S2-3 | Who authorizes an adjudicator (R6.ADJ.3)? | the owner, as an explicitly reserved decision kept from the adopted #1605 rows, since route 2 overrides an independent adverse reviewer | delegated authority of the responsible agent; `ADJ-AUTH-OWNER` then compares with that agent, and OD-4 bars the authorizer from both judging roles |
 | OQ-S2-4 | `migration.approval.author` | the same identity as a member of `OWNER_IDENTITIES` | form only, as r13 had before S-1 |
