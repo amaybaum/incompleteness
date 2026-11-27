@@ -160,7 +160,7 @@ BQ1, QOPS, GATE-A (not traced).
 
 ### 2.5 Summary counts
 
-30 rows: 22 surviving (P1-01 to P1-06, P1-08 to P1-14, P1-21 to P1-30, with P1-16 carrying two
+30 rows: 23 surviving (P1-01 to P1-06, P1-08 to P1-14, P1-21 to P1-30, with P1-16 carrying two
 surviving forms), 6 reopened (P1-15 to P1-20; one escaped, five unproved), 1 unclear (P1-07). The
 coherent-control column contains no reopened row.
 
