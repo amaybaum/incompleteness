@@ -12515,8 +12515,55 @@
      {
       "case": "landing under the computed composition",
       "outcome": "FAIL",
-      "classes_include": [
+      "classes_exact": [
+       "base-drift"
+      ],
+      "invariants": [
+       {
+        "items_include": [
+         {
+          "class": "base-drift",
+          "obligation": "MAIN",
+          "file": "$ledgered"
+         }
+        ]
+       },
+       {
+        "composed_blob": "e5cfde9c8f69036d38ec8f8d89b87993b9268d7e"
+       },
+       {
+        "L_blob": "e5cfde9c8f69036d38ec8f8d89b87993b9268d7e"
+       }
+      ]
+     },
+     {
+      "case": "landing that drops the main-side edit",
+      "outcome": "FAIL",
+      "classes_exact": [
+       "base-drift",
        "landing-conflict-unresolved"
+      ],
+      "invariants": [
+       {
+        "items_include": [
+         {
+          "class": "base-drift",
+          "obligation": "MAIN",
+          "file": "$ledgered"
+         },
+         {
+          "class": "landing-conflict-unresolved",
+          "obligation": "MAIN",
+          "file": "$ledgered"
+         }
+        ]
+       },
+       {
+        "composed_blob": "e5cfde9c8f69036d38ec8f8d89b87993b9268d7e"
+       },
+       {
+        "L_blob": "80a00051601605443377fcb9b9f3f03ad52f30ac"
+       }
       ]
      }
     ]

@@ -1035,6 +1035,31 @@ def _tt2_comparison_paths(result):
     return [entry['path'] for entry in changed] if result.get('unledgered_changes') == changed else None
 
 
+def _tt7_landing_roles(result):
+    """Validate the retained landing's role and blob identities before comparing the TT7 cases."""
+    if not isinstance(result, dict) or result.get('operation') != 'execution':
+        return None
+    keys = ('scientific_base', 'main', 'candidate', 'landing', 'candidate_blob', 'landing_blob')
+    roles = {key: result.get(key) for key in keys}
+    if not all(isinstance(value, str) and HEX40.fullmatch(value) for value in roles.values()):
+        return None
+    return roles if result.get('landing_parents') == [roles['main'], roles['candidate']] else None
+
+
+def _tt7_landing_blobs(result, roles, bindings):
+    comps = result.get('landing_compositions') if roles else None
+    if not (isinstance(comps, list) and len(comps) == 1 and isinstance(comps[0], dict)):
+        return None
+    record = comps[0]
+    computed = record.get('composed_blob')
+    landed = roles['landing_blob']
+    if not isinstance(computed, str) or not HEX40.fullmatch(computed) or record.get('l') != landed:
+        return None
+    if not bindings.get('ledgered') or record.get('path') != bindings['ledgered']:
+        return None
+    return {'composed_blob': computed, 'L_blob': landed}
+
+
 def eval_invariant(k, v, result, case, attested, bindings, declared_sites=()):
     """Returns (holds, actual, source). Keys the gate can compute from the retained result are computed; any
     other key must be attested in the case's sha256-checked attested file, equal to the expectation."""
@@ -2448,6 +2473,21 @@ def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None, phase=Non
             if not same:
                 findings_out.append(('declarative-mismatch', 'case %r: no clean restored TT2 comparison of X and H'
                                      % case_name))
+        elif rid == 'TT7' and o == 'RESULT_EQUAL_CLEAN':
+            baseline = ev.json(c['baseline_file']) if c.get('baseline_file') else None
+            composed = ev.case('landing under the computed composition') or {}
+            adverse = ev.json(composed['result_file']) if composed.get('result_file') else None
+            restored, original = _tt7_landing_roles(result), _tt7_landing_roles(adverse)
+            same = (restored is not None and original is not None and result == baseline and
+                    restored['scientific_base'] == restored['main'] == original['scientific_base'] and
+                    original['main'] != restored['main'] and restored['candidate'] == original['candidate'] and
+                    restored['candidate_blob'] == restored['landing_blob'] == original['candidate_blob'] and
+                    result.get('landing_compositions') == [] and result.get('items') == [] and
+                    recompute_outcome(result) == 'PASS')
+            actual['outcome'] = o if same else 'RESULT_DIFFERS'
+            if not same:
+                findings_out.append(('declarative-mismatch', 'case %r: no clean TT7 landing with M restored to H'
+                                     % case_name))
         elif o in ('RESULT_EQUAL_CLEAN', 'RESULT_EQUAL_FULL_STORE', 'RESULT_EQUAL_WITHOUT_AMENDMENT',
                    'REPLAY_EQUAL') and c.get('baseline_file'):
             # gate-computed: the case's item tuples and outcome equal those of the retained baseline run
@@ -2559,7 +2599,22 @@ def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None, phase=Non
                 k, v = next(iter(inv.items()))
             if k == 'baseline':
                 continue
-            holds, got, src = eval_invariant(k, v, result, c, attested, bindings, exp.get('sites') or ())
+            if rid == 'TT7' and k in ('L_blob', 'composed_blob'):
+                roles = _tt7_landing_roles(result)
+                blobs = _tt7_landing_blobs(result, roles, bindings)
+                got = (blobs or {}).get(k)
+                holds, src = got is not None and got == v, 'result' if got is not None else 'unattested'
+                if holds and case_name == 'landing that drops the main-side edit':
+                    composed = ev.case('landing under the computed composition') or {}
+                    paired = ev.json(composed['result_file']) if composed.get('result_file') else None
+                    other = _tt7_landing_roles(paired)
+                    holds = bool(other and all(roles[key] == other[key]
+                                               for key in ('scientific_base', 'main', 'candidate')) and
+                                 roles['landing'] != other['landing'] and
+                                 roles['candidate_blob'] == other['candidate_blob'] == roles['landing_blob'] and
+                                 roles['landing_blob'] != other['landing_blob'])
+            else:
+                holds, got, src = eval_invariant(k, v, result, c, attested, bindings, exp.get('sites') or ())
             actual.setdefault('invariants', {})[k] = {'value': got, 'source': src}
             if not holds:
                 findings_out.append(('raw-evidence-missing' if src == 'unattested' else 'declarative-mismatch',

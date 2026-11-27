@@ -817,7 +817,7 @@ def r_controls():
     X = w.child(H, base_text.replace('beta line two', 'betx line two', 1), subject='candidate')
     ctx = w.ctx()
 
-    def run(m=None, l=None, x=X, side=(), recon=(), cand=True):
+    def run(m=None, l=None, x=X, side=(), recon=(), cand=True, trace_landing=False):
         e = exmod.Execution(ctx, H, x, led, None, m, l, None, list(side), list(recon))
         if cand:
             e.candidate()
@@ -825,7 +825,12 @@ def r_controls():
             e.main_role(set(led['files']) | {doc_path})
         if l:
             e.landing()
-        _stage('execution', e.items, side_changes=e.side_changes)
+        facts = {'side_changes': e.side_changes}
+        if trace_landing and capture_hook is not None:
+            facts.update(scientific_base=H, main=m, candidate=x, landing=l,
+                         landing_parents=w.repo.parents(l), landing_blob=w.repo.blob_id(l, doc_path),
+                         candidate_blob=w.repo.blob_id(x, doc_path), landing_compositions=e.compositions)
+        _stage('execution', e.items, **facts)
         return e
 
     def pin(cid, commit, *paths):
@@ -906,21 +911,43 @@ def r_controls():
         tt6 = s.cls == 'MAIN_NOT_DESCENDANT'
     _restore_with(lambda: run(M, side=[wfc], cand=False).items, 'execution')
     out['TT6'] = tt6
-    M7 = w.child(H, base_text.replace('epsilon closing', 'epsilon finale'), subject='main edits ledgered file')
-    if capture_hook is not None:
-        run()
-        _case('candidate X')
+    main_text = base_text.replace('epsilon closing', 'epsilon finale')
+    M7 = w.child(H, main_text, subject='main edits ledgered file')
+    candidate7 = run()
+    _case('candidate X')
     e7 = run(M7)
     _case('M side')
     L7 = exmod.compose_landing(w.repo, H, M7, X, led, w.repo)
-    e7l = run(M7, L7)
-    _case('landing under the computed composition')
-    _restore_with(clean_l, 'execution')
-    # R6.CTRL.20: TT7 asserts its landing run as the frozen expectation states it: FAIL with
-    # landing-conflict-unresolved. Whether the landing carries that class is the owner's open question for this row;
-    # the runner asserts the expectation as written and does not settle it
-    out['TT7'] = not [i for i in e7.items if i['obligation'] == 'RET'] and 'base-drift' in classes(e7.items) and \
-        decision(e7l.items) == oc.fail and 'landing-conflict-unresolved' in classes(e7l.items)
+    e7l = run(M7, L7, trace_landing=True)
+    _case('landing under the computed composition', ledgered=doc_path)
+    candidate_bytes = w.repo.read(X, doc_path)
+    wrong_landing = w.repo.derive(L7, {doc_path: candidate_bytes}, parents=[M7, X],
+                                  subject='landing drops the side edit')
+    wrong7 = run(M7, wrong_landing, trace_landing=True)
+    _case('landing that drops the main-side edit', ledgered=doc_path)
+    restored_landing = exmod.compose_landing(w.repo, H, H, X, led, w.repo)
+    clean7 = run(H, restored_landing, trace_landing=True)
+    if capture_hook is not None:
+        _case('baseline')
+        run(H, restored_landing, trace_landing=True)
+        _case('restored', baseline='baseline')
+    # The edit on main is after the fixture's splice. Apply the splice to that text independently of the composer.
+    expected_bytes = (main_text[:a] + 'betx' + main_text[a + 4:]).encode()
+    expected_blob = rcmod.blob_id_of(expected_bytes)
+    candidate_blob = rcmod.blob_id_of(candidate_bytes)
+    drift = ('base-drift', 'MAIN', doc_path)
+    conflict = ('landing-conflict-unresolved', 'MAIN', doc_path)
+
+    def has_findings(execution, expected):
+        return decision(execution.items) == oc.fail and \
+            sorted((i['class'], i['obligation'], i['subject']) for i in execution.items) == sorted(expected)
+
+    out['TT7'] = not candidate7.items and has_findings(e7, [drift]) and has_findings(e7l, [drift]) and \
+        w.repo.read(L7, doc_path) == expected_bytes and \
+        e7l.compositions == [{'path': doc_path, 'composed_blob': expected_blob, 'l': expected_blob}] and \
+        has_findings(wrong7, [drift, conflict]) and candidate_blob != expected_blob and \
+        wrong7.compositions == [{'path': doc_path, 'composed_blob': expected_blob, 'l': candidate_blob}] and \
+        not clean7.items and w.repo.blob_id(restored_landing, doc_path) == candidate_blob
     rec8 = rcmod.draft(w.repo, ctx, H, M7, X, led, doc_path, scientific_effect=control_effect)
     e8 = run(M7, L7, recon=[rec8])
     _case('the control input (positive)')
