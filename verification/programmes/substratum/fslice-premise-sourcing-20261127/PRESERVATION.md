@@ -145,7 +145,7 @@ scope. The remediation plan below authorizes no work (§A.45 rule 3).
 | R8.2, the amplitude-scale gauge | §3.1 | exploratory; conditional on an open warrant | review | #1217 | a recorded review |
 | R9.1, relying on [A-rec] Proposition C | §4.1 | partially verified (Proposition C model-reviewed in unit A) | independent non-model review | #1217 | a recorded independent review |
 | R9.2, R9.3, R9.4 | §4.1 | partially verified (r1 review) | independent non-model review | #1217 | a recorded independent review |
-| R9.6 and ρ_T′ | §4.1 | partially verified (delta review; ρ_T′ specified in r3, pending the r3 confirmation) | the r3 confirmation; independent review | #1217 | a recorded review |
+| R9.6 and ρ_T′ | §4.1 | partially verified: model-reviewed (delta review; ρ_T′ as specified in r3, r3 confirmation 7209338201) | independent non-model review | #1217 | a recorded independent review |
 | ρ_T, even L ≥ 8 | §4.2 | partially verified ([FS] §3.4) | independent non-model review | #1217 | a recorded independent review |
 | ρ_T extended to odd L ≥ 7 | §4.2 | partially verified (r1 review) | independent non-model review | #1217 | a recorded independent review |
 | ρ_P, every even L ≥ 2 | §4.2 | partially verified (r1 review checked large L; the delta review checked the extension) | independent review; an exact finite control on L = 2 or 4 | #1217 | a recorded review; an exact control run under authorization |
@@ -162,7 +162,7 @@ attached to:
 |---|---|---|
 | #1169 comments 7199704501, 7208939261, 7209325168 (owner decisions) | report header; §1 here | provenance: authority records quoted with author and time; no result uses them |
 | #1169 comment 7202075726, item 4 (owner ruling on N-1, N-2, N-8, N-9) | report §1; §2 here | support on `main`: quoted with author and time in `verification/programmes/substratum/f-slice-hzm-20261126/PRESERVATION.md` §1 |
-| PR #1624 comments 7209242260, 7209316524 and the r3 confirmation | report header; §1 here | provenance: evidence of review; no result uses them |
+| PR #1624 comments 7209242260, 7209316524 and 7209338201 | report header; §1 here | provenance: evidence of review; no result uses them |
 | Issues #1217, #1169, #1049, #1216, #1622, #1623 | PLAN; §1 here | provenance: accountability, scope boundary, consolidated decision |
 | commits `158f4155` (PLAN), `b3500e31` (r1), `f4bd7b2f` (r2), `2706ae17` (r3) and the commit adding this file | report header; §1, §3 here | support on `main` once the merge of §5 lands: the record's own content and preregistration order; not before |
 | [FS], [L2], [A-rec], [C3], SMD-SRC-1 records and their PRESERVATION.md files | report §2–§4 | support on `main` at [P] |
