@@ -9,6 +9,15 @@ REVISE, minor to moderate, with no class changes). r1 is `REPORT.md` at
 `b3500e3194e4db04372c6ed2bf9b4ab4962c3dc8` and is kept unchanged. `CHANGES-r2.md` maps each finding
 to its change.
 
+**Revision r3** edits this file in place. It applies the nits D1–D4 of the delta review of r2, which
+accepted r2 with nits, as the coordinator directed:
+- D1: ρ_T′ specified (R9.6);
+- D2: the χ-orbit condition in R2.2(a), and its consequence in O-1a;
+- D3: wording in §2.2 step 3;
+- D4: the §4.3 even-L entry.
+
+Nothing else changes.
+
 - **Plan:** `PLAN.md` in this directory, commit `158f4155c9b80f220bb6543b11e04497c3ec0328`,
   committed alone before r1. The rule is applied per carrier (§0, §4.3). That is a refinement of
   PLAN §4, which has no carrier axis, and is labelled where it is used.
@@ -101,7 +110,8 @@ translations, the cubic group O and the custodial action.
 - The custodial action: the slice-dependent actions R_±(w) = I⊗X + J_±⊗Y form a group action on the
   support that commutes with F and the translations, since F J_± = J_∓ F.
 - O: on a carrier where O acts freely on the orbit of a chosen momentum k (generic k_0 with L ≥ 7),
-  S_t can be transported along the orbit to an O-equivariant family [W].
+  and the O-orbit of χ is disjoint from the O-orbit of χ̄, S_t can be transported along the orbit
+  to an O-equivariant family [W].
 - The staggered shift τ_c is not a symmetry of F: τ_c⁻¹Fτ_c x = Fx − 2cv ([C3] §5.2).
 - The constant shift σ_c is a symmetry, but it only relates c-sectors. Each of those is a single
   F-invariant slice, on which J is already J_F.
@@ -142,8 +152,8 @@ eigenvectors of F with eigenvalue e^{iθ}, θ ∈ (0, π), and −i on their con
 2. **The family is not J_F.** On E = P ⊕ N ([FS] §3.3), J_t = iS_t with S_t ≠ diag(1, −1) for
    t ≠ 0. So J_t ≠ J_F, and J_F is the unique F-positive-frequency structure.
 3. **No slice-preserving dynamics gives a tamed structure.** Let J be any structure that is a
-   function of the slice-preserving group 𝒢_+: an element of the algebra 𝒢_+ generates, with
-   J² = −1. Then J acts as a scalar ±i on each joint eigenspace E_χ. E_χ contains P, where
+   function of the slice-preserving group 𝒢_+: an element of the algebra that 𝒢_+ generates,
+   with J² = −1. Then J acts as a scalar ±i on each joint eigenspace E_χ. E_χ contains P, where
    h(z, z) = 2iω(z, z̄) > 0, and N, where h < 0 ([L2] Theorem 1's Krein sign). Since
    ω(Jx, x) = Re h(Sz, z) for x = z + z̄, the scalar fails taming on P or on N. So no
    positive-frequency structure of any slice-preserving dynamics (F², T_j⁻¹F, or any other element
@@ -271,9 +281,9 @@ formula-only reading.
     I would become class R. ρ_P is not R_π-invariant, because R_π exchanges ν|_S and ν|_{S^c}
     between the two labels.
   - **R_0.** ρ_T, with a = 0, is R_π-invariant but not R_0-invariant. R_0-invariance does not
-    rescue N-9. The variant ρ_T′, with labels c ∈ {±e} carrying conditionals ν|_S and c ∈ {±2e}
-    carrying ν|_{S^c}, each with weight ¼ (e ∈ A_1), is R_0-invariant, F-stationary,
-    translation-invariant and cubic-invariant. It has P_rest∗ρ_T′ = ν and still excludes the T_1
+    rescue N-9. The variant ρ_T′ (L ≥ 7) uses the set S = {q > m} of ρ_T. With a = 0 and e ∈ A_1, it gives
+    weight ¼ to each of (c = e, 2ν|_S), (c = −e, 2ν|_S), (c = 2e, 2ν|_{S^c}) and (c = −2e, 2ν|_{S^c}). It
+    is R_0-invariant, F-stationary, translation-invariant and cubic-invariant. It has P_rest∗ρ_T′ = ν and still excludes the T_1
     phase from its stabilizer, by the ray argument of [FS] §3.4.
 
 ### 4.2 Witnesses (countercontrol N-c)
@@ -353,7 +363,7 @@ Both witnesses violate N-9.
 
 | Carrier | Without the label-sector reading | Under the label-sector reading |
 | --- | --- | --- |
-| even L ≥ 2 | I (ρ_P; also ρ_T for L ≥ 8) | I (ρ_P), unless the state is required to be R_π-invariant, in which case R (R9.6) |
+| even L ≥ 2 | I (ρ_P; also ρ_T for L ≥ 8), unless R_π-invariance is required (for L ≤ 6) | I (ρ_P), unless the state is required to be R_π-invariant, in which case R (R9.6) |
 | odd L ≥ 7 | I (ρ_T) | R (R9.2, a = 0) |
 | odd L ∈ {3, 5} | O: no witness found | R (R9.2) |
 
@@ -420,7 +430,8 @@ Correctness bands unchanged: consistency-axis work (§A.23).
 
 - **O-1a (owner question, N-2).** Does H-PF's positive-frequency clause refer to the update F on
   V_rest, which is its stated domain? If yes, N-2 is class R. Dropping the clause weakens H-PF and
-  makes N-2 class I. No other tamed reading exists (§2.2 step 3).
+  makes N-2 class I. No other tamed reading exists (§2.2 step 3). If O-equivariance of J is
+  required, this class I rests on the [W] transport step of R2.2(a), and holds only for L ≥ 7.
 - **O-1b (owner question, N-8).** Is H-PF's clause extended to the stationary support in the
   trajectory form? If yes, N-8 is class R; this is equivalent to N-8 (§3.2). If H-PF is read as the
   formula on V_rest only, N-8 is class I. [FS] §4.2 records that H-PF does not say how φ extends.

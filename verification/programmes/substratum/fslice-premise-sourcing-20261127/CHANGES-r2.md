@@ -18,3 +18,14 @@ applied as the coordinator directed.
 | 9 (Low): the mirror case of Lemma PF | Dropped, with a sentence noting that it would be inconsistent with φ = Φ_n unless Φ_n = 0 |
 | 10 (Low): §11 table | Rows added for R8.2, R9.1 (relying on Proposition C), §2.2 step 4, ρ_T on odd L, and the new r2 items. §A.46 item 4 categories are used, and §1 uses PLAN §8's status words ("open" for unstated premises) |
 | 11 (Low): §10 tracing | Added Issues #1217, #1169, #1049, #1216 and PR #1624 as provenance, and the owner ruling (#1169 comment 7202075726, item 4) as support on `main` through [FS] PRESERVATION.md. "Merge without squash" is stated as a landing condition |
+
+## r3 (in-place edit of REPORT-r2.md)
+
+The delta review of r2 accepted it with nits. The nits are applied as the coordinator directed:
+
+| Nit | Change |
+| --- | --- |
+| D1 | ρ_T′ is specified. It uses S = {q > m} of ρ_T, conditionals 2ν\|_S and 2ν\|_{S^c}, weight ¼ on each of (±e, 2ν\|_S) and (±2e, 2ν\|_{S^c}), and range L ≥ 7 (R9.6) |
+| D2 | R2.2(a) adds the condition that the O-orbit of χ is disjoint from the O-orbit of χ̄. O-1a notes that, if O-equivariance of J is required, N-2's class I without the clause rests on that [W] step and holds only for L ≥ 7 |
+| D3 | §2.2 step 3 now reads "an element of the algebra that 𝒢_+ generates" |
+| D4 | §4.3, row "even L ≥ 2", column "without the label-sector reading": adds "unless R_π-invariance is required (for L ≤ 6)" |
