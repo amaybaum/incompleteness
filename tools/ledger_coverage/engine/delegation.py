@@ -113,6 +113,22 @@ def _bytes_record(b):
         return {'base64': base64.b64encode(b).decode('ascii'), 'sha256': util.sha256(b)}
 
 
+
+# environment variables through which git reads configuration, or is pointed at another repository, index or object
+# store; none of them passes to a delegated clone (R6.DELEG.3: no clone runs a configured smudge filter)
+_git_env_drop = ('GIT_CONFIG_PARAMETERS', 'GIT_CONFIG_COUNT', 'GIT_CONFIG', 'GIT_DIR', 'GIT_WORK_TREE',
+                 'GIT_INDEX_FILE', 'GIT_OBJECT_DIRECTORY', 'GIT_ALTERNATE_OBJECT_DIRECTORIES', 'GIT_COMMON_DIR')
+
+
+def clone_env(environ):
+    """The git environment of a delegated clone and its checks: the caller's environment less every variable that
+    carries configuration (GIT_CONFIG_PARAMETERS, GIT_CONFIG_COUNT, GIT_CONFIG_KEY_n, GIT_CONFIG_VALUE_n,
+    GIT_CONFIG) or redirects the repository, with the system configuration off and the global configuration empty."""
+    env = {k: v for k, v in environ.items()
+           if k not in _git_env_drop and not k.startswith(('GIT_CONFIG_KEY_', 'GIT_CONFIG_VALUE_'))}
+    env.update(GIT_CONFIG_NOSYSTEM='1', GIT_CONFIG_GLOBAL=os.devnull)
+    return env
+
 class Native:
     """The disposable clones, the checker blobs from F and the run records of one tool run."""
 
@@ -144,9 +160,9 @@ class Native:
         if os.path.exists(d):
             shutil.rmtree(d)
         os.makedirs(os.path.dirname(d), exist_ok=True)
-        # the runner's global and system git configuration (for example a filter driver) does not apply to the
-        # clone, so its working tree is checked out from X's blobs as they are (O-3)
-        env = dict(os.environ, GIT_CONFIG_NOSYSTEM='1', GIT_CONFIG_GLOBAL=os.devnull)
+        # no configuration from the runner (for example a filter driver) applies to the clone, so its working tree is
+        # checked out from X's blobs as they are (O-3, R6.DELEG.3)
+        env = clone_env(os.environ)
         r = subprocess.run(['git', 'clone', '--no-local', '--no-checkout', '--quiet', self.repo_path, d],
                            capture_output=True, text=True, env=env)
         if r.returncode != 0:
@@ -158,7 +174,7 @@ class Native:
         if r.returncode != 0:
             raise RuntimeError('checkout failed: %s' % r.stderr[-300:])
         head = subprocess.run(['git', '-C', d, 'log', '-1', '--format=%H %T'], capture_output=True,
-                              text=True).stdout.split()
+                              text=True, env=env).stdout.split()
         if head != [commit, self.repo.tree_id(commit)]:
             raise RuntimeError('the clone\'s commit or tree differs from %s' % commit)
         self.clones[commit] = d
