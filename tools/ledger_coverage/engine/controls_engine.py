@@ -179,16 +179,6 @@ def _restore_ledgered(w, clean, led):
     _case('restored', baseline='baseline')
 
 
-def _capture_site_case(name, coverage, items, site, **bindings):
-    if capture_hook is None:
-        return
-    from .cli import site_state
-    selected = coverage.site_out[site]
-    _stage('coverage of the named site', [i for i in items if i['subject'] == site],
-           sites=[dict(selected, state=site_state(selected))])
-    _case(name, **bindings)
-
-
 def seg(f, t, kind='unledgered', **kw):
     d = {'from': f, 'to': t, 'kind': kind}
     d.update(kw)
@@ -469,11 +459,19 @@ def k_controls():
     mv = base_text.replace('alpha line one stands here.\n\n', '') + '\nfar away.\n\nalpha line one stands here.\n'
     x = w4.child(w4.pin, mv)
     cv, it = w4.coverage(x, [seg(w4.pin, x)], hits=False)
-    _capture_site_case('required site', cv, it, sd4, subject_required=sd4)
-    _capture_site_case('non-required site', cv, it, sr4, subject_nonrequired=sr4)
+    _case('required site', subject_required=sd4)
+    # the non-required case (as K3's): the same move where only the non-required site (line 5, the moved
+    # paragraph's neighbour) has its context changed; the required site (line 9) is outside every changed context,
+    # so the run carries no item and is retained whole
+    w4n = World(sites=[(5, 'sr'), (9, 'sd')])
+    x4n = w4n.child(w4n.pin, mv)
+    cv4n, it4n = w4n.coverage(x4n, [seg(w4n.pin, x4n)], hits=False)
+    sr4n, sd4n = '%s:5@%s' % (doc_path, w4n.pin[:8]), '%s:9@%s' % (doc_path, w4n.pin[:8])
+    _case('non-required site', subject_nonrequired=sr4n)
     _restore(w4, hits=False)
     out['K4'] = [i['class'] for i in it if i['subject'] == sd4] == ['context-meaning-unverified'] and \
-        not [i for i in it if i['subject'] == sr4] and cv.site_out[sr4]['context_changed'] is True
+        not [i for i in it if i['subject'] == sr4] and cv.site_out[sr4]['context_changed'] is True and \
+        not it4n and cv4n.site_out[sr4n]['context_changed'] is True and cv4n.site_out[sd4n]['context_changed'] is False
     at = '# h\n\nlead sentence here.\nThis bound holds below.\n\nother text.\n'
     w5 = World(at, sites=[(4, 'sr')])
     x = w5.child(w5.pin, at.replace('lead sentence here.', 'lead sentence changed.'))
