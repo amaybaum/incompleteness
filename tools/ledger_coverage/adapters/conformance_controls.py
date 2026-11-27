@@ -928,10 +928,26 @@ def o3_controls(r):
         else:
             os.environ['GIT_CONFIG_GLOBAL'] = os.devnull
             os.environ['GIT_CONFIG_SYSTEM'] = cfg
+        def take_marker():
+            # the marker listing after one step; the marker is removed so that each step is observed on its own
+            got = ['MARKER'] if os.path.exists(marker) else []
+            if got:
+                os.remove(marker)
+            return got
         try:
             cl = delmod.Native(gitobj.GitRepo(src), src, os.path.join(d, 'out'), c, True).clone(c)
             native = {'clone': bool(cl), 'file_checked_out': bool(cl) and os.path.exists(os.path.join(cl, 'a.txt')),
                       'marker': os.path.exists(marker)}
+            native_markers = take_marker()
+            # the oracle: a plain clone and checkout with the system and global configuration disabled
+            oc_ = os.path.join(d, 'oracle')
+            env_o = dict(os.environ, GIT_CONFIG_NOSYSTEM='1', GIT_CONFIG_GLOBAL=os.devnull)
+            env_o.pop('GIT_CONFIG_SYSTEM', None)
+            subprocess.run(['git', 'clone', '-q', '--no-local', '--no-checkout', src, oc_], capture_output=True,
+                           env=env_o)
+            oracle_exit = subprocess.run(['git', '-C', oc_, 'checkout', '-q', '--detach', c], capture_output=True,
+                                         env=env_o).returncode
+            oracle_markers = take_marker()
             cc = os.path.join(d, 'counter')
             subprocess.run(['git', 'clone', '-q', '--no-local', '--no-checkout', src, cc], capture_output=True)
             rc = subprocess.run(['git', '-C', cc, 'checkout', '-q', '--detach', c], capture_output=True).returncode
@@ -942,8 +958,26 @@ def o3_controls(r):
                     os.environ.pop(k, None)
                 else:
                     os.environ[k] = v
-        return {'native': native, 'countercontrol': counter}
+        return {'native': native, 'countercontrol': counter, 'native_markers': native_markers,
+                'oracle': {'checkout_exit': oracle_exit, 'markers': oracle_markers}}
     out = {scope: case(scope) for scope in ('global', 'system')}
+    names = {'global': 'filter in a global configuration file', 'system': 'filter in a system configuration file'}
+    counter_case = 'plain clone and checkout with that configuration (countercontrol)'
+    for scope, o in out.items():
+        REC.capture_doc('delegation.Native.clone with the smudge filter in force (%s)' % scope,
+                        dict(o['native'], exit_status=None), case=names[scope],
+                        attested={'outcome': 'PREDICATE', 'clone_checked_out': o['native']['file_checked_out'],
+                                  'marker_written': o['native']['marker']})
+    for scope, o in out.items():
+        cc_ok = o['countercontrol']['checkout_exit'] == 0 and o['countercontrol']['marker']
+        REC.capture_doc('plain git clone and checkout with the smudge filter in force (%s)' % scope,
+                        dict(o['countercontrol'], exit_status=None),
+                        case=counter_case if scope == 'global' else counter_case + ', ' + scope,
+                        attested={'outcome': 'COUNTERCONTROL' if cc_ok else None,
+                                  'marker_written': o['countercontrol']['marker']})
+    o3_files = {'tool-marker-listing.json': {scope: o['native_markers'] for scope, o in out.items()},
+                'oracle-marker-listing.json': {scope: o['oracle']['markers'] for scope, o in out.items()},
+                'oracle-checkout-exits.json': {scope: o['oracle']['checkout_exit'] for scope, o in out.items()}}
     check('O3-FILTER', 'review impl-v6.0e D-11 (O-3): a git configuration defining a required smudge filter and a '
           'commit whose .gitattributes names it, each case separately: the filter in a global configuration file and '
           'in a system configuration file; the delegated runs\' disposable clone (Native.clone) checks the commit out '
@@ -952,7 +986,12 @@ def o3_controls(r):
           "checkout of the same commit with that configuration in force writes it (the countercontrol)",
           out,
           all(o['native']['clone'] and o['native']['file_checked_out'] and not o['native']['marker'] and
-              o['countercontrol']['checkout_exit'] == 0 and o['countercontrol']['marker'] for o in out.values()))
+              o['countercontrol']['checkout_exit'] == 0 and o['countercontrol']['marker'] and
+              o['oracle']['checkout_exit'] == 0 and o['native_markers'] == o['oracle']['markers']
+              for o in out.values()),
+          files=o3_files, procedure={'name': 'smudge-filter', 'lib': 'oracle',
+                                     'tool_output': 'tool-marker-listing.json',
+                                     'oracle_output': 'oracle-marker-listing.json'})
 
 
 # ---- the verified reader on small on-disk repositories (GV1-GV6) -------------------------------------------------
@@ -1844,14 +1883,20 @@ def ei_controls(r):
     clean_res = e.entry(e.fresh('EI14 clean reference'))[1]
     d14 = o14b['dir']
     same14 = e.entry(d14, out_name='again')[1] == clean_res
-    check('EI14', 'the CX-3 tree, a branch T\' holding the pinned files and unpinned tools/hashlib.py (re.py, '
+    # the retained cases are the two pre-run halves this runner executes; 'reaching the tool' and 'consumer' are
+    # TR29's runs on the in-memory host and are not retained here
+    branch14, main14 = 'pre-run check given GITHUB_REF of a branch (simulated)', 'same file at an on-main T'
+    check_prerun('EI14', 'the CX-3 tree, a branch T\' holding the pinned files and unpinned tools/hashlib.py (re.py, '
           'subprocess.py, json.py): dispatched on the branch the pre-run check fails (GITHUB_REF), so nothing runs; '
           'the same files at an on-main T: the pre-run check passes, the files never execute, the run is unaffected '
           '(the tool\'s head_branch refusal and the consumer\'s first-parent walk are TR29)',
           "branch: pre-run exit nonzero naming GITHUB_REF, no marker; main: pre-run exit 0, entry exit 0, no marker, "
           "and the result equals that of the clean tree", {'branch': o14a, 'main': o14b, 'result_equal': same14},
           failed(o14a) and 'GITHUB_REF' in o14a['prerun'] and o14b['prerun_exit'] == 0 and
-          o14b.get('entry_exit') == 0 and not o14b['markers'] and same14)
+          o14b.get('entry_exit') == 0 and not o14b['markers'] and same14,
+          {branch14: o14a, main14: o14b}, clean_name=main14,
+          attest={branch14: {'message_names': 'GITHUB_REF' if 'GITHUB_REF' in o14a['prerun'] else None},
+                  main14: {'file_executed': bool(o14b['markers']), 'result_equal_without_file': same14}})
     # EI14's branch-dispatch half needs a host dispatch of the pinned workflow on a branch holding T' (its
     # expectation admits NOT RUN until that run exists); recorded NOT RUN, with no evidence of its own
     not_run('EI14-dispatch', 'the pinned workflow dispatched on a branch holding T\': the pre-run check fails naming '
@@ -1899,11 +1944,12 @@ def ei_controls(r):
         return ei6_allowed(os.path.realpath(f), pinned, stdlib, installed)
     stray = [f for f in loaded if not allowed_file(f)]
     neg6 = ei6_installed_cases(e, stdlib, installed)
-    same6 = res6 == e.entry(e.fresh('EI6 clean reference'))[1]
+    code6c, res6c, _ = e.entry(e.fresh('EI6 clean reference'))
+    same6 = res6 == res6c
     d6b = e.fresh('EI6 no isolation')
     with open(os.path.join(d6b, 'tools', 'json.py'), 'wb') as f:
         f.write(MARKER)
-    code_no_i = e.entry(d6b, flags=('-B',))[0]
+    code_no_i, res_no_i, err_no_i = e.entry(d6b, flags=('-B',))
     marks_no_i = e.markers(d6b)
     code_no_i2 = e.entry(d6b, flags=('-B', '-E', '-s', '-P'))[0]  # not isolated, no checkout directory on sys.path
     d6c = e.fresh('EI6 checkout on sys.path')
@@ -1921,6 +1967,35 @@ def ei_controls(r):
                                                                              'markers': e.markers(d6b)},
             'checkout directory on sys.path': {'exit': p6c.returncode, 'markers': e.markers(d6c)},
             'installed packages': neg6}
+    # the retained cases: the shadow run and the clean reference run as its restored case, and the installed-package
+    # predicate cases. The run without -I is not a case: the entry point refuses before any import and writes no
+    # result document, so only its exit status, stderr and markers are retained (in the procedure files)
+    shadow = 'unpinned shadow modules (tools/hashlib.py, re.py, subprocess.py, json.py, importlib.py) under -I -S -B'
+    within = 'tool.files or stdlib (-I -S path less purelib, platlib, site-packages, dist-packages, by real path)'
+    run6 = REC.capture_doc('entry point purity-lint, -I -S -B, shadow modules present',
+                           json.loads(res6) if res6 else {'exit_status': code6}, case=shadow, raw=res6,
+                           attested={'marker_written': bool(e.markers(d6)),
+                                     'imported_files_within': within if loaded and not stray else None,
+                                     'items_equal_run_without_file': same6})
+    fx6, cert6 = neg6['fixture package'], neg6['installed package certifi']
+    refused6 = fx6['exit'] == 0 and fx6['traced'] > 0 and not fx6['admitted'] and \
+        (not cert6['present'] or (cert6['traced'] > 0 and not cert6['admitted']))
+    REC.capture_doc('EI6 predicate on traced imports (conformance_controls.ei6_installed_cases)',
+                    dict(neg6, exit_status=None), case='fixture and installed-package files',
+                    attested={'outcome': 'REFUSED' if refused6 else 'NOT_REFUSED',
+                              'self_test_imports_all_accepted': neg6['self-test run']['exit'] == 0 and
+                              neg6['self-test run']['out_of_tree_imports'] > 0 and not neg6['self-test run']['refused']})
+    REC.capture_doc('entry point purity-lint, -I -S -B, clean checkout', json.loads(res6c) if res6c else
+                    {'exit_status': code6c}, case='restored', raw=res6c, baseline=run6)
+    files6 = {'entry-exits.json': {shadow: code6, 'without -I': code_no_i,
+                                   'without -I, with -E -s -P': code_no_i2, 'checkout directory on sys.path':
+                                   p6c.returncode, 'restored': code6c},
+              'markers.json': {shadow: e.markers(d6), 'without -I': marks_no_i, 'checkout directory on sys.path':
+                               e.markers(d6c)},
+              'entry-invocations.json': {shadow: {'ran': True, 'exit': code6},
+                                         'without -I': {'ran': True, 'exit': code_no_i}},
+              'import-trace.json': {'loaded': loaded, 'stray': stray},
+              'refusal-stderr.json': {'without -I': err_no_i, 'without -I result written': res_no_i is not None}}
     check('EI6', 'the checkout of a T holding, besides the pinned files, unpinned tools/hashlib.py (re.py, '
           'subprocess.py, json.py, importlib.py) whose bodies write a marker: the marker is never written, every '
           'imported module\'s file lies in tool.files or the interpreter\'s standard library, and the run\'s result '
@@ -1939,7 +2014,9 @@ def ei_controls(r):
           "present) is refused, and every out-of-tree import of the self-test run is accepted", out6,
           code6 == 0 and not out6['shadow run']['markers'] and not stray and loaded and same6 and
           code_no_i == 65 and not marks_no_i and code_no_i2 == 65 and not e.markers(d6b) and p6c.returncode == 65 and not out6['checkout directory on sys.path'][
-              'markers'] and neg6['holds'])
+              'markers'] and neg6['holds'],
+          files=files6, procedure={'lib': 'prerun', 'step_exit': 'entry-exits.json', 'marker_listing': 'markers.json',
+                                   'sentinel': 'entry-invocations.json', 'import_trace': 'import-trace.json'})
 
 
 # the directory names under which an interpreter keeps installed packages (EI6)
