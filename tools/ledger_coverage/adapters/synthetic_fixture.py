@@ -772,13 +772,64 @@ def x_controls(r, repo_path):
     return out
 
 
+def z9f_scope(literal, values, profiles):
+    """Exercise the production path selector with the real adapter present in both halves."""
+    adapter_name = 'a1exit_exact_edit.py'
+    adapter_path = AD + adapter_name
+    engine_path = 'tools/ledger_coverage/engine/scope_probe.py'
+    entry_path = 'tools/ledger_coverage.py'
+    files = {'adapter.py': module_bytes(adapter_name), 'entry.py': b'value = None\n',
+             'engine-clean.py': b'value = None\n', 'engine-literal.py': ('value = %r\n' % literal).encode()}
+    cases = (('adapter module containing the string', 'engine-clean.py'),
+             ('the string in the engine', 'engine-literal.py'))
+    findings, sources = {}, {}
+    production_paths = sorted(purity.engine_sources())
+    holds = (repr(literal).encode() in files['adapter.py'] and 'ledger_coverage.py' in production_paths and
+             any(p.startswith('engine/') for p in production_paths) and
+             all(p == 'ledger_coverage.py' or p.startswith('engine/') for p in production_paths))
+    with tempfile.TemporaryDirectory(prefix='purity-scope-') as tree:
+        for case, engine_file in cases:
+            inputs = {adapter_path: 'adapter.py', entry_path: 'entry.py', engine_path: engine_file}
+            for path, member in inputs.items():
+                target = os.path.join(tree, path)
+                os.makedirs(os.path.dirname(target), exist_ok=True)
+                with open(target, 'wb') as f:
+                    f.write(files[member])
+            sources[case] = purity.engine_sources(os.path.dirname(os.path.join(tree, engine_path)))
+            findings[case] = purity.lint_sources(sources[case], values, profiles)
+            wanted = (["engine/scope_probe.py:1: string literal %r occurs in a configuration or record" % literal]
+                      if engine_file == 'engine-literal.py' else [])
+            holds = holds and findings[case] == wanted and sources[case] == {
+                'ledger_coverage.py': files['entry.py'].decode(), 'engine/scope_probe.py': files[engine_file].decode()}
+            if REC is not None:
+                REC.capture_doc('purity lint with the production source selector (synthetic_fixture.py)',
+                                {'operation': 'purity-lint', 'findings': findings[case], 'input_files': inputs,
+                                 'selected_paths': sorted(sources[case]), 'exit_status': 20 if findings[case] else 0},
+                                case=case)
+    if REC is not None:
+        verifier_sources = {'tools/ledger_coverage/engine/' + name + '.py': 'verifier-' + name + '.py'
+                            for name in ('purity', 'selftest', 'cli')}
+        verifier_sources[entry_path] = 'verifier-entry.py'
+        for path, member in verifier_sources.items():
+            with open(os.path.join(os.path.dirname(tools), path), 'rb') as f:
+                files[member] = f.read()
+        FILES['Z9f'] = dict(files, **{'lint-findings.json': findings, 'lint-source-map.json': sources,
+                                    'lint-value-set.json': sorted(values),
+                                    'production-paths.json': production_paths})
+        PROCS['Z9f'] = {'name': 'purity-lint', 'lib': 'lint', 'findings': 'lint-findings.json',
+                        'source_map': 'lint-source-map.json', 'value_set': 'lint-value-set.json',
+                        'production_paths': 'production-paths.json', 'verifier_sources': verifier_sources}
+    return holds
+
+
 def z9_controls():
     """Z9a-Z9f on in-memory engine trees; values and patterns are planted here, outside the purity scope."""
     from ledger_coverage.engine import profiles as prf
     hexid = hashlib.sha1(b'planted').hexdigest()
     a1 = prf.Profile({'name': 'p', 'kind': 'review', 'applies_to': 'tree', 'source': {'extractor': {'kind': 'x'}}},
                      [r'\bA1\b'])
-    vals = {'per unit Q2', 'a1exit deletion exact-edit ledger v2', r'\bA1\b'}
+    literal = 'a1exit deletion exact-edit ledger v2'
+    vals = {'per unit Q2', literal, r'\bA1\b'}
 
     def lint(src, cid=None):
         smap = {'engine/m.py': src}
@@ -800,8 +851,7 @@ def z9_controls():
     out['Z9c'] = bool(lint('x = %r\n' % r'\bA1\b', 'Z9c'))
     out['Z9d'] = bool(lint("x = 'per unit Q2'\n", 'Z9d'))
     out['Z9e'] = not lint("x = {'splices': []}\n", 'Z9e')
-    adapter_ok = not purity.lint_sources({}, vals, [a1])
-    out['Z9f'] = adapter_ok and bool(lint("x = 'a1exit deletion exact-edit ledger v2'\n"))
+    out['Z9f'] = z9f_scope(literal, vals, [a1])
     return out
 
 
