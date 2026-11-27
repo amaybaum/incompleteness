@@ -206,7 +206,7 @@ def load(main, companions, read=None):
     for rid in led.get('retained_unchanged', []):
         e = byid.get(rid)
         pair = (e['old'], e['new']) if e else None
-        if e is not None and read is not None:
+        if e is not None and read is not None and not errors:
             data = read(led['base'], e['file'])
             pair = select(e, data.decode('utf-8')) if data is not None else None
         identity = pair is not None and pair[0] == pair[1]
