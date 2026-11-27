@@ -644,14 +644,22 @@ def h_controls():
     return out
 
 
+CHAIN_ROOT = []
+
+
 def chain_world():
     """A record and its review, with fixture identities."""
     rule = {'schema': 'oi-term-rules/2', 'record_id': 'r1', 'author': 'eng-writer', 'supersedes': None,
             'rules': [{'id': 'q1'}]}
     rb = util.canonical(rule)
     ref = {'path': 'rec/r.json', 'blob_sha256': util.sha256(rb)}
+    # the commit the reviewer read: it holds the record (S-1 sec. 3, kept by staging S-2 S2.3); lint reads it as root
+    ov = Overlay()
+    root = ov.add_commit({'rec/r.json': rb}, [], 'record')
+    CHAIN_ROOT[:] = [ov, root]
     review = {'schema': rec.review_schema, 'reviewer': 'eng-reviewer', 'reviewed': ref, 'method': 'read the objects',
-              'verdicts': [{'item': 'q1', 'verdict': 'accept'}], 'independence': {'not_author': True, 'depends_on': []}}
+              'verdicts': [{'item': 'q1', 'verdict': 'accept'}], 'independence': {'not_author': True, 'depends_on': []},
+              'revision': root}
     vb = util.canonical(review)
     vref = {'path': 'rec/r.review.json', 'blob_sha256': util.sha256(vb)}
     return rule, review, ref, vref
@@ -660,7 +668,7 @@ def chain_world():
 def chain_probs(rule, review, admitted_extra=(), mutate_ref=None):
     rb, vb = util.canonical(rule), util.canonical(review)
     entries = [('rec/r.json', rb), ('rec/r.review.json', vb)]
-    st = rec.Store(entries)
+    st = rec.Store(entries, CHAIN_ROOT[0], CHAIN_ROOT[1:])
     ref = {'path': 'rec/r.json', 'blob_sha256': util.sha256(rb)}
     admitted = {util.sha256(b) for _, b in entries} | set(admitted_extra)
     checked = mutate_ref or ref

@@ -128,11 +128,14 @@ def suite_s2_lint():
         ref = {'path': D + '/r.json', 'blob_sha256': util.sha256(rb)}
         rv = review_record({'schema': records.review_schema, 'reviewer': 'session.fixture-reviewer', 'reviewed': ref,
                             'method': 'read', 'verdicts': [{'item': 'q1', 'verdict': 'accept'}]})
+        ov = gitobj.Overlay()
+        root = ov.add_commit({ref['path']: rb}, [], 'record')
+        rv['revision'] = root
         rv.update(kw)
         if review is not None:
             review(rv)
         entries = [(ref['path'], rb), (D + '/r.review.json', util.canonical(rv))]
-        return records.lint_chain(ref, records.Store(entries), {util.sha256(b) for _, b in entries})
+        return records.lint_chain(ref, records.Store(entries, ov, [root]), {util.sha256(b) for _, b in entries})
     got = lint()
     case('PRED:S2-POS', 'a review by another identity carrying a well-formed declaration: the record passes lint',
          got, got == [])
@@ -186,14 +189,16 @@ def suite_field_only():
            'rules': [{'id': 'q1'}]}
     rb = util.canonical(doc)
     ref = {'path': D + '/r.json', 'blob_sha256': util.sha256(rb)}
+    ov = gitobj.Overlay()
+    root = ov.add_commit({ref['path']: rb}, [], 'record')
     rv = review_record({'schema': records.review_schema, 'reviewer': 'Session_Fixture-Writer', 'reviewed': ref,
-                        'method': 'read', 'verdicts': [{'item': 'q1', 'verdict': 'accept'}]})
+                        'revision': root, 'method': 'read', 'verdicts': [{'item': 'q1', 'verdict': 'accept'}]})
     reg = {'schema': 'oi-a1-staging-sessions/1', 'author': 'session.fixture-writer', 'withdrawn': [],
            'parties': [{'id': x, 'kind': 'session', 'same_party': [], 'spawned_by': None, 'scope': [D]}
                        for x in ('session.fixture-writer', 'Session_Fixture-Writer')]}
     entries = [(ref['path'], rb), (D + '/r.review.json', util.canonical(rv)),
                (D + '/a1-staging-sessions.json', util.canonical(reg))]
-    got = records.lint_chain(ref, records.Store(entries), {util.sha256(b) for _, b in entries})
+    got = records.lint_chain(ref, records.Store(entries, ov, [root]), {util.sha256(b) for _, b in entries})
     case('PRED:S2-FIELD-ONLY', 'no command-line option takes an identity and one offered is refused; a registry beside '
                                'the record naming the author and the respelled reviewer as different parties is '
                                'ignored: the record-field outcome (the same identity, no review) stands. The '

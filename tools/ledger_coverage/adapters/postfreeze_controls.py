@@ -13,6 +13,7 @@ import json
 
 from ledger_coverage.engine import cli, config as cfgmod, pipeline as pl, reconcile as rcmod, records as rec, util
 from ledger_coverage.adapters import host_fixture as hf, synthetic_fixture as sf
+from ledger_coverage.adapters import identity_fixture as idf
 from ledger_coverage.adapters.identity_fixture import review_record
 from ledger_coverage import record_authority as ra
 from ledger_coverage.engine import gitobj
@@ -63,7 +64,11 @@ class World:
         self.p = p
         if pre_change:
             self.M = repo.derive(syn.H, changed, parents=[syn.H], subject='main change before F')
-            self.c = repo.derive(self.M, {k: v for k, v in files.items()}, parents=[self.M], subject='plan at M')
+            # the plan is rebuilt on M, so that its reviews name commits F descends from (S-1 sec. 3)
+            slot = repo.derive(self.M, {}, parents=[self.M], subject='plan at M')
+            c, p, s, files = syn.build(base, at=slot)
+            self.p = p
+            self.c = c
         else:
             self.M = repo.derive(syn.H, changed, parents=[syn.H], subject='main change after F')
             self.c = c
@@ -87,8 +92,11 @@ class World:
                    'verdicts': [{'item': i, 'verdict': 'accept', 'reason': ''} for i in rec.item_ids(doc)]}))
 
     def rev(self, files, parent=None, parents=None):
+        """A record commit REV; the reviews it adds name its parent, the record base, as their revision (r6
+        Amendment 10)."""
         parent = parent or self.M
-        return self.repo.derive(parent, files, parents=parents or [parent], subject='record commit')
+        return self.repo.derive(parent, idf.bind_files(files, parent), parents=parents or [parent],
+                                subject='record commit')
 
     def standard(self, doc=None, path=RD + 'rec.json', reviewer=sf.REVIEWER, review_path=None, extra=None,
                  parent=None, parents=None):

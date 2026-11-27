@@ -318,7 +318,7 @@ def load(repo, rev, path, expected_sha, operation, mode, extra_records=(), admis
                     mode in ('100644', '100755'):
                 entries.append((p, repo.read_blob(bid)))
     entries.append((path, data))
-    L.store = rec.Store(entries)
+    L.store = rec.Store(entries, repo, [commit])
 
     def resolver(ref, _c=commit):
         try:

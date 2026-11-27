@@ -29,6 +29,8 @@ if 'ledger_coverage' not in sys.modules:
     _spec.loader.exec_module(sys.modules['ledger_coverage'])
 
 from ledger_coverage.adapters import control_records  # noqa: E402
+from ledger_coverage.adapters import identity_fixture as idf  # noqa: E402
+from ledger_coverage.engine import gitobj  # noqa: E402
 from ledger_coverage.adapters.identity_fixture import review_record  # noqa: E402
 from ledger_coverage.adapters import synthetic_fixture as sf  # noqa: E402
 from ledger_coverage.adapters import record_directory_controls as rdc  # noqa: E402
@@ -848,8 +850,10 @@ def role_chain(root):
     case('STAGING-ROLE-CHAIN/21', 'a later F extends the declared prior freeze on the first-parent path, the same '
                                   'descriptor bound there, the configuration unchanged: admitted', got[:4],
          g1[1] is None and got[1] is None and (got[3] or {}).get('prior', {}).get('freeze') == Fprev)
-    # a sibling freeze: a real freeze of the same configuration and descriptor on a branch from t1, off F's path
-    sib_tip = W.repo.derive(t1, {'syn/sibling.txt': b's'}, parents=[t1], subject='sibling branch')
+    # a sibling freeze: a real freeze of the same configuration and descriptor on a branch off F's path. It branches
+    # from the commit its reused reviews name (rev1), so they bind there (S-1 sec. 3); that commit lies on F's path
+    sib_tip = W.repo.derive(rev1['revisions'][1], {'syn/sibling.txt': b's'}, parents=[rev1['revisions'][1]],
+                            subject='sibling branch')
     cs, ps_, ss_, _ = W.config(sib_tip, None, B, variant=rev1)
     gs = W.run(cs, ps_)
     sib = gs[4]
@@ -987,18 +991,18 @@ def config_reviews(root):
                                      'refused (no file is discovered outside the table)', got[:3],
          got[:2] == (65, 'CONFIG_UNREVIEWED'))
     rv_ref = {'kind': 'review', 'path': 'syn/cfg/self.review.json', 'blob_sha256': '0' * 64}
-    selfrev = sf.jb(review_record({'schema': 'oi-review-record/1', 'reviewer': 'session.fixture-reviewer-c', 'kind': 'widening',
+    selfrev = sf.jb(idf.bind({'schema': 'oi-review-record/1', 'reviewer': 'session.fixture-reviewer-c', 'kind': 'widening',
                      'reviewed': {'path': 'syn/cfg/config.json', 'blob_sha256': '0' * 64}, 'replaces': None,
-                     'method': 'read', 'verdicts': []}))
+                     'method': 'read', 'verdicts': []}, tip))
     rv_ref['blob_sha256'] = sf.sha(selfrev)
     c3, p3, s3, _ = W.config(tip, None, B, extra_files={'syn/cfg/self.review.json': selfrev},
                              records_extra=[rv_ref])
     got = W.run(c3, p3)
     case('STAGING-CONFIG-REVIEWS/4', 'the configuration\'s records reference a widening review of the configuration '
                                      'itself: ERROR CONFIG_INVALID', got[:3], got[:2] == (65, 'CONFIG_INVALID'))
-    outside = sf.jb(review_record({'schema': 'oi-review-record/1', 'reviewer': 'session.fixture-reviewer-c',
+    outside = sf.jb(idf.bind({'schema': 'oi-review-record/1', 'reviewer': 'session.fixture-reviewer-c',
                      'reviewed': {'path': 'syn/cfg/config.json', 'blob_sha256': '0' * 64}, 'method': 'read',
-                     'verdicts': []}))
+                     'verdicts': []}, tip))
     out_ref = {'kind': 'review', 'path': 'syn/elsewhere/self.review.json', 'blob_sha256': sf.sha(outside)}
     c5, p5, s5, _ = W.config(tip, None, B, extra_files={'syn/elsewhere/self.review.json': outside},
                              records_extra=[out_ref])
@@ -1042,7 +1046,8 @@ def config_widening(root):
         return post
 
     def run(post):
-        c, p, h, _ = syn.build(dict(v2, post=post) if post else v2)
+        # built on the first configuration's commit, so the predecessor's review names an ancestor (S-1 sec. 3)
+        c, p, h, _ = syn.build(dict(v2, post=post) if post else v2, at=c1)
         code, res = r.cli(syn.repo, ['coverage', '--commit', syn.H, '--check', 'zc'], c, p, h)
         st = (res or {}).get('stop') or {}
         return code, st.get('class'), st.get('message', '')
@@ -1073,11 +1078,17 @@ def first_allow(root):
     ordinary = review_doc(ALLOW_ROOT, b)
 
     def problems(wide, designated=True, old_ref=None, path=ALLOW_ROOT, data=b, ord_doc=None, more=()):
-        entries = [(path, data), ('syn/cfg/r.json', sf.jb(ord_doc or ordinary))]
-        entries += [('syn/cfg/r%d.json' % (k + 2), sf.jb(x)) for k, x in enumerate(more)]
+        # the commit the reviewers read holds the root; each review names it (S-1 sec. 3)
+        ov = gitobj.Overlay()
+        root_c = ov.add_commit({path: data}, [], 'allow root')
+
+        def bound(x):
+            return sf.jb(x if 'revision' in x else dict(x, revision=root_c))
+        entries = [(path, data), ('syn/cfg/r.json', bound(ord_doc or ordinary))]
+        entries += [('syn/cfg/r%d.json' % (k + 2), bound(x)) for k, x in enumerate(more)]
         if wide is not None:
-            entries.append(('syn/cfg/w.json', sf.jb(wide)))
-        st = rec.Store(entries)
+            entries.append(('syn/cfg/w.json', bound(wide)))
+        st = rec.Store(entries, ov, [root_c])
         st.designated_roots = {(ALLOW_ROOT, sf.sha(b))} if designated else set()
         adm = {sf.sha(x) for _, x in entries}
         r = {'path': path, 'blob_sha256': sf.sha(data)}

@@ -259,7 +259,7 @@ VERDICT = {'item': ('nestr', True), 'verdict': (('lit', ('accept', 'reject', 'di
 REVIEW = {'schema': (('lit', (review_schema,)), True), 'kind': (('lit', ('review', 'widening')), False),
           'reviewer': ('identity', True), 'reviewed': (('table', REF), True), 'replaces': (('table', REF), False),
           'method': ('nestr', True), 'verdicts': (('arr', ('table', VERDICT)), True), 'dissent': ('str', False),
-          'independence': ('independence', True)}
+          'revision': ('commit', True), 'independence': ('independence', True)}
 
 
 def _type_ok(t, v, where, out):

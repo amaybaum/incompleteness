@@ -62,9 +62,10 @@ def _reviewed(store, ref, sha, disregarded=()):
     return rec.lint_chain(ref, store, {sha, reviews[0]})
 
 
-def second_kind_findings(doc, ref, record_at):
+def second_kind_findings(doc, ref, record_at, revision=None):
     """Form (i) second-kind findings of one review record (its reference `ref`); record_at(reference) returns the
-    reconciliation record the review names, or None when the scan finds none."""
+    reconciliation record the review names, or None when the scan finds none; revision(review) returns the problems of
+    its `revision` against the roots it is read from (S-1 sec. 3; with no such function it binds nothing)."""
     reviewed = record_at(doc.get('reviewed'))
     who = doc.get('reviewer')
     if isinstance(reviewed, dict) and fd.identity_ok(who) and who == reviewed.get('author'):
@@ -82,6 +83,8 @@ def second_kind_findings(doc, ref, record_at):
         # author is a form failure that still blocks
         if isinstance(reviewed, dict) and fd.declared_dependency(doc, [reviewed.get('author')]):
             form.append('the independence declaration names the author')
+        # staging S-2 S2.5: a failed revision is a form failure that still blocks
+        form += revision(doc) if revision is not None else rec.revision_problems(None, (), doc)
         if reviewed is None:
             form.append('its reviewed names no record the scan finds')
         entry = fd.entry_of_item(reviewed, v.get('item')) if isinstance(reviewed, dict) else None
@@ -92,7 +95,7 @@ def second_kind_findings(doc, ref, record_at):
     return out
 
 
-def findings_of_records(records, schemas, record_at=lambda ref: None):
+def findings_of_records(records, schemas, record_at=lambda ref: None, revision=None):
     """The first-kind findings among records the run reads explicitly (R6.OBL29.1), in the form of
     Cumulative.findings."""
     out = []
@@ -100,7 +103,8 @@ def findings_of_records(records, schemas, record_at=lambda ref: None):
         doc = {k: v for k, v in r.items() if k not in ('_ref', '_source')}
         if r.get('schema') == fd.review_schema:
             # an explicitly read review record carries second-kind findings like a scanned one
-            out += second_kind_findings(doc, r.get('_ref') or {}, record_at)
+            out += second_kind_findings(doc, r.get('_ref') or {}, record_at,
+                                        (lambda d, _r=r: revision(_r, d)) if revision is not None else None)
             continue
         if r.get('schema') not in schemas:
             continue
@@ -348,7 +352,8 @@ def reassessment_problems(repo, M, led, doc, ref, store, admitted, found, m_scan
         if not (isinstance(commits, list) and commits and all(isinstance(c, str) and c in chain for c in commits)):
             out.append("the repair's commits do not lie on M's first-parent chain")
         entry = _part(doc, 'repair_entry')
-        m_store = rec.Store(m_scan)
+        # S-1 sec. 3: a finding lookup's reviews bind against effective M, and F and REV where the walk reaches them
+        m_store = rec.Store(m_scan, repo, cum.roots if cum is not None else [M])
         eref = _ref(entry)
         edoc = m_store.get(eref) if eref else None
         if not isinstance(edoc, dict) or edoc.get('schema') not in schemas:
@@ -548,7 +553,8 @@ class Cumulative:
                                 'configuration': se.get('configuration'), 'invalidated': se.get('invalidated'),
                                 'verdict_item': None, 'form': list(form), 'entry_record': ref})
                 continue
-            out += second_kind_findings(doc, ref, self.resolve_reviewed)
+            out += second_kind_findings(doc, ref, self.resolve_reviewed,
+                                        lambda d: rec.revision_problems(self.repo, self.roots, d))
         return unique(out)
 
     def git_id(self, ref):
@@ -1229,7 +1235,7 @@ def replay_run(repo, c_, m, rev, load_config, schemas, prefix, context_ledger=No
         replay_rev_admission(repo, f, m, rev, X, cfg, loaded, cref, pinned_doc, ledgered, landed_admitted)
         cum_s = Cumulative(repo, [m, rev], schemas, prefix)
     chain = _first_parent_chain(repo, m)
-    m_store = rec.Store(recon_route.scanned(repo, m, scope))
+    m_store = rec.Store(recon_route.scanned(repo, m, scope), repo, [m, rev])
     cited = {(r.get('path'), r.get('blob_sha256')) for r in cfg.get('records') or [] if isinstance(r, dict)}
     out = []
     for r in cfg.get('records') or []:
@@ -1341,7 +1347,7 @@ class _Either:
 def adjudication_run(repo, M, Fprime, loaded, m_scan, cum, explicit_at, witnesses_at, owners):
     """The inputs of #1605's evaluation for this run (adjudication.Run)."""
     from . import adjudication as adjm
-    m_store = rec.Store(m_scan)
+    m_store = rec.Store(m_scan, repo, cum.roots if cum is not None else [M])
 
     def doc_of(ref):
         if not isinstance(ref, dict):
@@ -1384,7 +1390,7 @@ def custody_decisions(repo, witnesses, applying, loaded, m_scan, cum, schemas, M
     (blocked witnesses, blocked repair reviews, witness reports, adjudication reports)."""
     from . import obl29
     from . import adjudication as adjm
-    m_store = rec.Store(m_scan)
+    m_store = rec.Store(m_scan, repo, cum.roots if cum is not None else [M])
     cited = {(r.get('path'), r.get('blob_sha256')) for r in loaded.config.get('records') or [] if isinstance(r, dict)}
     blocked, blocked_reviews, rows, adjudication_rows = [], [], [], []
 
@@ -1423,9 +1429,12 @@ def custody_decisions(repo, witnesses, applying, loaded, m_scan, cum, schemas, M
                 if (eref['path'], eref['blob_sha256']) in cited:
                     R = {'ref': eref, 'doc': Q, 'lineage_blobs': qb, 'lineage_edges': qe}
                     nr2 = not rec.lint_chain(eref, loaded.store, loaded.admitted)
+                    # an NR-3 review or NR-5 resolver meets R6.REC.6, its revision included (S-1 sec. 3, roots of
+                    # R*); the reviews that can dissent (reviews_of_R) are not filtered
                     candidates = [dict(x, _dir=posixpath.dirname(p)) for p, x in m_store.by_sha.values()
                                   if isinstance(x, dict) and x.get('schema') == rec.review_schema and
-                                  x.get('reviewed') == eref] or [None]
+                                  x.get('reviewed') == eref and
+                                  not rec.revision_problems(repo, m_store.roots, x)] or [None]
             else:
                 D['unresolved'] = True
         # R6.ADJ.12 strata 1–3 are independent of the dissent and clearance outcomes at stratum 4.

@@ -102,7 +102,8 @@ class Fx:
         self.landing_time = datetime(2026, 11, 27, 12, 0, tzinfo=timezone.utc)
 
     def T(self, reviewer='t', **upd):
-        rv = review_record({'schema': fd.review_schema, 'reviewer': reviewer, 'reviewed': dict(self.jref),
+        # its revision has the form a review.record row requires; the predicates read no repository
+        rv = review_record({'schema': fd.review_schema, 'reviewer': reviewer, 'reviewed': dict(self.jref), 'revision': h40('9'),
               'method': 'read %s %s' % (h40('f'), h40('c')),
               'verdicts': [{'item': i, 'verdict': 'accept', 'reason': 'checked'} for i in adj.item_ids(self.J)]})
         rv.update(upd)
@@ -386,7 +387,8 @@ def dissents():
                                          'addressed: not exempt, it blocks', o,
          o['admitted'] and o['blocking'] == [early])
     R = {'schema': 'oi-reconciliation/2', 'author': 'ra', 'paths': [{'path': P}]}
-    dvdoc = review_record({'schema': 'oi-review-record/1', 'reviewer': 'v', 'reviewed': fx.rref, 'method': 'read ' + h40('d'),
+    dvdoc = review_record({'schema': 'oi-review-record/1', 'reviewer': 'v', 'reviewed': fx.rref, 'revision': h40('9'),
+             'method': 'read ' + h40('d'),
              'verdicts': [{'item': P, 'verdict': 'accept', 'reason': 'checked'},
                           {'item': P + ':scientific_effect', 'verdict': 'dissent', 'reason': 'repair disputed'}]})
     ok = adj.dissents_addressed_problems(J, [(dv, dvdoc)], R)

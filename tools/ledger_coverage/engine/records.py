@@ -84,6 +84,40 @@ def _person(v):
     return fd.identity_ok(v)
 
 
+def revision_problems(repo, roots, review, record_commit=None):
+    """S-1 sec. 3, kept by staging S-2 S2.3: `revision` is a commit id reachable through any parent from one of
+    `roots` (the roots the review is read from) whose tree holds reviewed.path at a regular mode with bytes hashing
+    to reviewed.blob_sha256. For the review R6.RECON.2 (d) admits with a record read by the post-freeze route
+    (`record_commit` = REV; r6 Amendment 10), `revision` equals the record base, REV's single parent, and the reviewed
+    bytes are read from REV's tree. [] when it binds; a review read with no root binds nothing."""
+    from .gitobj import Unresolvable
+    rev = review.get('revision') if isinstance(review, dict) else None
+    rv = review.get('reviewed') if isinstance(review, dict) and isinstance(review.get('reviewed'), dict) else {}
+    roots = [r for r in (roots or ()) if r]
+    if repo is None or not (roots or record_commit):
+        return ['revision cannot be checked: the review is read with no root']
+    if not (isinstance(rev, str) and re.match(r'[0-9a-f]{40}\Z', rev)):
+        return ['revision is missing or not a commit id']
+    try:
+        if record_commit is not None:
+            base = repo.parents(record_commit)
+            if base != [rev]:
+                return ['revision is not the record base, the single parent of the record commit']
+            holder = record_commit
+        else:
+            if not any(rev == r or repo.is_ancestor(rev, r) for r in roots):
+                return ['revision is not reachable from the root the review is read from']
+            holder = rev
+        ent = repo.entries(holder).get(rv.get('path'))
+        if ent is None or ent[0] not in ('100644', '100755') or \
+                util.sha256(repo.read(holder, rv['path'])) != rv.get('blob_sha256'):
+            return ['revision does not hold the reviewed bytes' if record_commit is None else
+                    'the record commit does not hold the reviewed bytes']
+    except Unresolvable:  # an unheld revision binds nothing
+        return ['revision is not held']
+    return []
+
+
 class Store:
     """Records read from the object store: {path: (sha256, doc)}; nothing is read from a working tree.
 
@@ -91,7 +125,10 @@ class Store:
     plan's record directory at F; it is read only when a `supersedes` chain is walked (DI-2). `widening` maps (old doc,
     new doc) to the widening items of a rule file or configuration."""
 
-    def __init__(self, entries):
+    def __init__(self, entries, repo=None, roots=(), record_commit=None):
+        # the repository and the roots a review's revision is checked against (S-1 sec. 3); for a record read by
+        # the post-freeze route, its record commit REV (r6 Amendment 10)
+        self.repo, self.roots, self.record_commit = repo, list(roots), record_commit
         self.by_path = {}
         self.by_sha = {}
         for path, data in entries:
@@ -291,6 +328,8 @@ def lint_chain(ref, store, admitted_shas, predecessor=False):
     for sha, path, rv in exact:
         # R6.REC.6 as staging S-2 S2.5 restates it: a review not independent (S2.4) of the record's author is no review
         bad = fd.independence_problems(rv, [author])
+        # r6 Amendment 10 binds the admitted review of the post-freeze route; a predecessor's review keeps S-1 sec. 3
+        bad += revision_problems(store.repo, store.roots, rv, None if predecessor else store.record_commit)
         verdicts = {v.get('item'): v.get('verdict') for v in rv.get('verdicts', []) if isinstance(v, dict)}
         named = [v.get('item') for v in rv.get('verdicts', []) if isinstance(v, dict)]
         if len(named) != len(set(named)):
@@ -418,6 +457,7 @@ def widening_review_problems(ref, store, admitted_shas, regular_reviewers, autho
         if designated and any(fd.declared_dependency(o, [who]) for o in ordinary_reviews(ref, pool, usable)):
             # S-2 sec. 3, allow root: the ordinary reviewer is independent of the widening reviewer as well
             bad.append('an ordinary reviewer declares a dependency on the widening reviewer')
+        bad += revision_problems(store.repo, store.roots, d, None if predecessor else store.record_commit)
         bad += widening_verdict_problems(d, changed)
         if not bad:
             return []

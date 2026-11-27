@@ -121,8 +121,14 @@ def module_bytes(name):
 class Syn:
     """Builds the synthetic world. variant: dict of configuration changes for the Z controls."""
 
+    # a world written into an on-disk repository replaces this, so that a review names the stored id of the commit
+    # it binds (S-1 sec. 3)
+    @staticmethod
+    def materialize(cid):
+        return cid
+
     def __init__(self, two_merges=False):
-        self.repo = gitobj.Overlay(None)
+        self.repo = idf.BindingOverlay(None)
         base = {DOC: TEXT.encode(), WITNESS: b'Axiom Z holds in the witness text.\n',
                 AD + 'line_patch.py': module_bytes('line_patch.py'),
                 AD + 'artifact_hash.py': module_bytes('artifact_hash.py')}
@@ -186,7 +192,7 @@ class Syn:
         files['syn/rules-pat.json'] = jb(pats)
         files['syn/rules-allow.json'] = jb(allow)
         recs = []
-        recs += list(v.get('add_records', []))
+        recs += [dict(r_) for r_ in v.get('add_records', [])]  # copies: binding repins them, a rebuild reuses the spec
         for p in ('syn/rules-pat.json', 'syn/rules-allow.json'):
             recs += self.chain(files, p, v.get('reviewer', REVIEWER) if p.endswith('allow.json') else REVIEWER)
         wr0 = review_record({'schema': 'oi-review-record/1', 'kind': 'widening', 'reviewer': WIDENER,
@@ -258,19 +264,31 @@ class Syn:
         # records; their reviews name C1 as their revision
         path = v.get('config_path', 'syn/cfg/config.json')
         subject = self.repo.subject(at)
-        c1 = self.repo.derive(at, {p_: b_ for p_, b_ in files.items() if not idf.is_review(b_)},
-                              parents=self.repo.parents(at), subject=subject)
+        c1 = self.materialize(self.repo.derive(at, {p_: b_ for p_, b_ in files.items() if not idf.is_review(b_)},
+                                               parents=self.repo.parents(at), subject=subject))
         # `revisions` reuses the commits an earlier build bound its reviews to, so that a configuration rebuilt
         # unchanged at a later position keeps its bytes; they must still hold the same bytes and be reachable
         r1, r2 = v.get('revisions') or (c1, None)
+        # the variant's own reviews are bound too: to C1 when it holds what they review, to C1b (C1 with the variant's
+        # other files, a layer added only when such a review needs it) when those files hold it, and, for a review of
+        # the configuration itself, to C2 below
+        vfiles = dict(v.get('files', {}))
+        vrev = {p_: json.loads(b_) for p_, b_ in vfiles.items() if b_ is not None and idf.is_review(b_) and
+                'revision' not in json.loads(b_) and (json.loads(b_).get('reviewed') or {}).get('path') != path}
+        vplain = {p_: b_ for p_, b_ in vfiles.items() if b_ is not None and not idf.is_review(b_)}
+        c1b = None
+        if any((d_.get('reviewed') or {}).get('path') in vplain for d_ in vrev.values()):
+            c1b = self.materialize(self.repo.derive(c1, vplain, parents=[c1], subject=subject))
         rebound = {}
         for p_, b_ in sorted(files.items()):
             if idf.is_review(b_):
                 d_ = json.loads(b_)
-                target = files.get((d_.get('reviewed') or {}).get('path'))
-                if 'revision' not in d_ and not (target is not None and _deferred_schema(target)):
+                if 'revision' not in d_:
                     files[p_] = jb(idf.bind(d_, r1))
                     rebound[p_] = (sha(b_), sha(files[p_]))
+        for p_, d_ in sorted(vrev.items()):
+            vfiles[p_] = jb(idf.bind(d_, c1b if (d_.get('reviewed') or {}).get('path') in vplain else r1))
+            rebound[p_] = (sha(v['files'][p_]), sha(vfiles[p_]))
         for r_ in recs:
             if r_.get('kind') == 'review' and r_.get('path') in rebound and \
                     r_.get('blob_sha256') == rebound[r_['path']][0]:
@@ -319,6 +337,13 @@ class Syn:
         for k in v.get('drop', []):
             cfg.pop(k, None)
         cfg.update(v.get('extra', {}))
+        # a variant's own record list pins the reviews as written: they follow their binding as the built list does
+        if isinstance(cfg.get('records'), list):
+            cfg['records'] = [dict(r_) if isinstance(r_, dict) else r_ for r_ in cfg['records']]
+        for r_ in cfg.get('records') or []:
+            if isinstance(r_, dict) and r_.get('kind') == 'review' and r_.get('path') in rebound and \
+                    r_.get('blob_sha256') == rebound[r_['path']][0]:
+                r_['blob_sha256'] = rebound[r_['path']][1]
         if v.get('schema'):
             cfg['schema'] = v['schema']
         if v.get('adapter_version'):
@@ -328,14 +353,18 @@ class Syn:
         cref = {'path': path, 'blob_sha256': sha(cb)}
         # C2 holds the configuration; its review names C2 as its revision, and the built commit adds that review and
         # the variant's own files (each layer a single-parent child of the one before)
-        c2 = self.repo.derive(c1, dict(files), parents=[c1], subject=subject)
+        c2 = self.materialize(self.repo.derive(c1b or c1, dict(files), parents=[c1b or c1], subject=subject))
         rv = review_record({'schema': 'oi-review-record/1', 'reviewer': v.get('cfg_reviewer', REVIEWER), 'reviewed': cref,
               'method': 'read every referenced object', 'verdicts': [{'item': 'synthetic-retirement-config',
                                                                      'verdict': 'accept'}]})
         r2 = r2 or c2
         self.last_revisions = (r1, r2)
         files[path.rsplit('/', 1)[0] + '/review.json'] = jb(idf.bind(rv, r2))
-        files.update(v.get('files', {}))
+        for p_, b_ in sorted(vfiles.items()):
+            # a variant's review of the configuration itself names C2, which holds it
+            if b_ is not None and idf.is_review(b_) and 'revision' not in json.loads(b_):
+                vfiles[p_] = jb(idf.bind(json.loads(b_), r2))
+        files.update(vfiles)
         if v.get('post'):
             files.update(v['post'](path, sha(cb)))
         commit = self.repo.derive(c2, dict(files), parents=[c2], subject=subject)
@@ -350,20 +379,6 @@ class Syn:
         rp = path[:-5] + '.review.json'
         files[rp] = jb(rv)
         return [{'kind': 'review', 'path': rp, 'blob_sha256': sha(files[rp])}]
-
-
-# reviews of these record kinds are read by key-table checks that list no `revision` until the review.record row
-# `revision` (S-1 sec. 3, kept by staging S-2 S2.3) lands; they stay unbound until then
-_DEFERRED = ('oi-reconciliation/1', 'oi-reconciliation/2', 'oi-reassessment/1', 'oi-adjudication/1',
-             'oi-obl29-custody/1')
-
-
-def _deferred_schema(data):
-    try:
-        d = json.loads(data.decode('utf-8'))
-    except (ValueError, UnicodeDecodeError, AttributeError):
-        return False
-    return isinstance(d, dict) and d.get('schema') in _DEFERRED
 
 
 def patch_doc(base, edits, first_id=1):

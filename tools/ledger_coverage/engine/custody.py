@@ -12,6 +12,7 @@ import posixpath
 import re
 
 from . import findings as fd
+from . import records as rec
 from . import util
 
 schema = 'oi-obl29-custody/1'
@@ -264,8 +265,10 @@ class Check:
         here = [(p, r) for p, r in reviews if posixpath.dirname(p) + '/' == self.h.dir]
         ok = False
         for p, r in here:
-            # R6.CUST.8 as staging S-2 restates it: a review independent (S2.4) of the version's author
-            if r.get('kind', 'review') != 'review' or fd.independence_problems(r, [d.get('author')]):
+            # R6.CUST.8 as staging S-2 restates it: a review independent (S2.4) of the version's author, whose revision
+            # meets S-1 sec. 3 with root effective M
+            if r.get('kind', 'review') != 'review' or fd.independence_problems(r, [d.get('author')]) or \
+                    rec.revision_problems(self.repo, [self.M], r):
                 continue
             vs = [v for v in r.get('verdicts') or [] if isinstance(v, dict)]
             names = [v.get('item') for v in vs]
