@@ -343,8 +343,9 @@ def o9_controls(r, check, recorder):
           procedure={'name': 'predicate', 'lib': 'ast', 'inputs': 'paths.json', 'attested': 'observed.json'})
 
     # RDIR-8: a mode change, a symbolic link and a submodule in D, each in its own world, each through the full
-    # `execution --main` path (the M role) and, in the same run, through the RC11 of a reconciliation record the
-    # configuration references; compared with the same world with D equal to F, where RC11 holds
+    # `execution --main` path (the M role: a run of the same world without the corpus change, where no record is
+    # evaluated) and, in a separate run, through the RC11 of a reconciliation record the configuration references;
+    # compared with the same world with D equal to F, where RC11 holds
     cases = {'mode': 'differs from F', 'symlink': 'not a regular file', 'submodule': 'not a regular file'}
     o8 = {'baseline': o98_run(r, None)}
     recorder.name_last('RC11 holds with the original directory')
