@@ -220,11 +220,29 @@ def tr_controls(r):
           "CONFIG_UNREVIEWED, naming F", of, of['exit'] == 65 and of['stop'] == 'CONFIG_UNREVIEWED' and
           'from F only' in of['message'])
     # TR13: a local run, all inputs otherwise valid; and a run whose environment imitates a host job without a token
-    o13 = show(*t.run(w, F, control={}, environ={}))
-    o13b = show(*t.run(w, F, control={}, environ={'GITHUB_ACTIONS': 'true', 'GITHUB_RUN_ID': '7'}))
+    code13, res13 = t.run(w, F, control={}, environ={})
+    o13 = show(code13, res13)
+    local13 = REC.name_last('local run, all inputs valid')
+    code13b, res13b = t.run(w, F, control={}, environ={'GITHUB_ACTIONS': 'true', 'GITHUB_RUN_ID': '7'})
+    o13b = show(code13b, res13b)
+    REC.name_last('host-imitating environment without a token')
+    # the consumer given the local run's result: never acceptable
+    pins13 = {'config': {'path': t.p, 'blob_sha256': t.s}, 'freeze': F}
+    acc13 = checker.accept(res13 or {}, code13, pins13)
+    REC.capture_doc('checker.accept', res13 or {}, case='acceptance',
+                    attested={'outcome': 'ACCEPTED' if acc13 else 'NON_ACCEPTANCE'})
+    t.run(w, F, control={}, environ={})
+    REC.name_last('restored', baseline=local13)
+    files13 = {'results.json': {'local run, all inputs valid': {'raw': res13, 'exit': code13},
+                                'host-imitating environment without a token': {'raw': res13b, 'exit': code13b}},
+               'landing.json': {'used_by_accept': False}, 'snapshot.json': {'pins': pins13},
+               'acceptance.json': {'acceptance': acc13}}
     check('TR13', 'a local run, all inputs otherwise valid: no "chain" admission; never acceptable',
           "both exit 65 with stop 'CONFIG_UNREVIEWED'", [o13, o13b],
-          all(o['exit'] == 65 and o['stop'] == 'CONFIG_UNREVIEWED' for o in (o13, o13b)))
+          all(o['exit'] == 65 and o['stop'] == 'CONFIG_UNREVIEWED' for o in (o13, o13b)) and not acc13,
+          files=files13, procedure={'name': 'acceptance', 'lib': 'consumer', 'results': 'results.json',
+                                    'landing_record': 'landing.json', 'snapshot': 'snapshot.json',
+                                    'attested': 'acceptance.json'})
     # TR14 at the tool
     out14 = {}
     for name, run in (('fork', {'repository_id': 78, 'head_repository_id': 78}),
