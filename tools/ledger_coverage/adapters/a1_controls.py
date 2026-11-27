@@ -1453,6 +1453,183 @@ PREDICATES = {
 }
 
 
+# ---- R6.EVID.8: the representative retirement candidate X_rep (OC-3) ---------------------------------------------
+
+REP_LEDGER_GIT = 'ba37c1cdb560cb5fceeeb2b46a3091c832b4a80e'  # the retirement ledger's git blob (R6.EVID.8)
+REP_EDITS_GIT = 'ec384fdfbc12937b860e2f226355e8c5d94820a5'  # the edit list's git blob (R6.EVID.8)
+REP_ALLOWED_IMPORTS = ('hashlib', 'json')
+REP_CANDIDATE = ("X_rep (R6.EVID.8): single parent H; ledgered paths H plus the ledger's splices, sha256 equal to the "
+                 "ledger's expected_sha256; plan record-directory paths the pinned ledger and edit list; delegated paths "
+                 "a fixed marker blob; every other path H's")
+REP_CASES = ("build X_rep from H, the pinned ledger and edit list, and the configuration's control instance",
+             "the pinned ledger with one splice's new bytes changed by one byte",
+             'a builder that imports a module under tools/ledger_coverage/engine/')
+
+
+class RepRefused(Exception):
+    pass
+
+
+def rep_builder(source):
+    """The X_rep builder loaded from its source, after its import set is read from the source's own syntax tree:
+    only the standard library modules it names (R6.EVID.8), never the engine under test."""
+    import ast
+    import types
+    mods = set()
+    for n in ast.walk(ast.parse(source)):
+        if isinstance(n, ast.Import):
+            mods |= {x.name for x in n.names}
+        elif isinstance(n, ast.ImportFrom):
+            mods.add('.' * n.level + (n.module or ''))
+    bad = sorted(m for m in mods if m not in REP_ALLOWED_IMPORTS)
+    if any(m.startswith('.') or m.split('.')[0] == 'ledger_coverage' for m in bad):
+        raise RepRefused('the builder imports from the engine under test')
+    if bad:
+        raise RepRefused('the builder imports outside the standard library modules it is allowed: %s' % bad)
+    mod = types.ModuleType('rep_build')
+    exec(compile(source, 'rep_build.py', 'exec'), mod.__dict__)
+    return mod, sorted(mods)
+
+
+def rep_inputs(a):
+    """The pinned ledger and edit list of the tool revision (R6.EVID.8), verified by git blob id, and the delegation
+    contract of the configuration's control instance."""
+    led = a.repo.read(a.tool_rev, a.ad + 'rep/ledger.json')
+    eds = a.repo.read(a.tool_rev, a.ad + 'rep/edits.json')
+    if led is None or eds is None or gitobj.blob_id_of(led) != REP_LEDGER_GIT or gitobj.blob_id_of(eds) != REP_EDITS_GIT:
+        raise RepRefused('the pinned ledger or edit list of the tool revision is not the retirement ledger\'s blob')
+    cfg = json.loads(a.repo.read(a.crev, a.cpath))
+    dref = cfg.get('delegation') or {}
+    deleg = json.loads(a.repo.read(a.crev, dref['path'])) if dref.get('path') else {}
+    return led, eds, deleg
+
+
+def build_x_rep(a, repo=None, ledger=None, source=None):
+    """X_rep in `repo` (default the runner's reader): (commit id, change set). Refuses (RepRefused) when the inputs
+    determine no representative candidate, or a marker blob equals the run's M blob."""
+    repo = repo or a.repo
+    with open(os.path.join(here, 'rep_build.py'), 'rb') as f:
+        src = f.read() if source is None else source
+    rb, _mods = rep_builder(src)
+    led, eds, deleg = rep_inputs(a)
+    if ledger is not None:
+        led = ledger
+
+    def read_h(p):
+        return a.base.read(H, p) if a.base.blob_id(H, p) else None
+    try:
+        ch = rb.changes(H, led, eds, deleg, read_h, PL)
+    except rb.Refused as exc:
+        raise RepRefused(str(exc))
+    if a.main is not None:
+        for p in rb.delegated_paths(deleg):
+            if p in ch and a.base.blob_id(a.main, p) and a.base.read(a.main, p) == ch[p]:
+                raise RepRefused('the marker blob equals the run\'s M blob at %s' % p)
+    return repo.derive(H, ch, parents=[H], subject=rb.SUBJECT), ch
+
+
+def x_rep(a):
+    if getattr(a, '_x_rep', None) is None:
+        a._x_rep = build_x_rep(a)[0]
+    return a._x_rep
+
+
+def rep_conforms(a, x, ch):
+    """The representative_candidate invariant checked on the built commit: [] when it holds."""
+    out = []
+    led = json.loads(rep_inputs(a)[0])
+    if a.repo.parents(x) != [H]:
+        out.append('the parent is not H')
+    for p, want in led['files'].items():
+        b = a.repo.read(x, p)
+        if b is None or sha(b) != want['expected_sha256']:
+            out.append('ledgered path %s does not carry its expected_sha256' % p)
+    for p in (PL + 'ledger.json', PL + 'edits.json'):
+        if gitobj.blob_id_of(a.repo.read(x, p) or b'') not in (REP_LEDGER_GIT, REP_EDITS_GIT):
+            out.append('plan record-directory path %s does not carry the pinned input' % p)
+    deleg = rep_inputs(a)[2]
+    for p in sorted({q for c in deleg.get('classes') or [] for q in c.get('paths') or []
+                     if not q.endswith('/') and q not in led['files']}):
+        b = a.repo.read(x, p)
+        if b is None or b == a.base.read(H, p) or (a.main is not None and a.base.blob_id(a.main, p) and
+                                                   b == a.base.read(a.main, p)):
+            out.append('delegated path %s carries no marker blob differing from H and M' % p)
+    hx, xx = a.base.paths(H), a.repo.paths(x)
+    changed = {p for p in set(hx) | set(xx) if hx.get(p) != xx.get(p)}
+    if changed - set(ch):
+        out.append('paths outside the change set differ from H: %s' % sorted(changed - set(ch))[:5])
+    return out
+
+
+def rep_build_control(a):
+    """REP-BUILD (R6.EVID.8): two builds in two readers with equal commit and tree ids, conforming; a ledger with one
+    splice's new bytes changed by one byte refused for the expected_sha256; a builder importing the engine refused."""
+    acts = {}
+    try:
+        x1, ch = build_x_rep(a)
+        r2 = gitobj.Overlay(a.base)
+        x2, _ = build_x_rep(a, repo=r2)
+        ids = [(x1, a.repo.tree_id(x1)), (x2, r2.tree_id(x2))]
+        why = rep_conforms(a, x1, ch)
+        with open(os.path.join(here, 'rep_build.py'), 'rb') as f:
+            _, mods = rep_builder(f.read())
+        ok1 = ids[0] == ids[1] and not why
+        att = {'outcome': 'HASH_EQUAL' if ids[0] == ids[1] else 'HASH_DIFFERS'}
+        if not why:
+            att['representative_candidate'] = REP_CANDIDATE
+        if ids[0] == ids[1]:
+            att['equal_across'] = 'two builds: commit id and tree id'
+        if all(m in REP_ALLOWED_IMPORTS for m in mods):
+            att['imported_files_within'] = 'the builder and the standard library; no module under tools/ledger_coverage/engine/'
+        acts['build'] = {'commit_ids': [ids[0][0], ids[1][0]], 'tree_ids': [ids[0][1], ids[1][1]],
+                         'changed_paths': len(ch), 'nonconforming': why, 'imports': mods}
+    except RepRefused as exc:
+        ok1, att = False, {'outcome': 'REFUSED', 'reason': str(exc)}
+        acts['build'] = {'refused': str(exc)}
+    a.rec.capture_doc('X_rep build (a1_controls.py rep_build_control)', dict(acts['build'], exit_status=None),
+                      case=REP_CASES[0], attested=att)
+    # the pinned ledger with the first splice's new bytes changed by one byte (its new_sha256 kept consistent, so
+    # that only the ledgered path's expected_sha256 can refuse it)
+    led = json.loads(rep_inputs(a)[0])
+    s0 = led['splices'][0]
+    s0['new'] = s0['new'][:-1] + ('x' if s0['new'][-1:] != 'x' else 'y')
+    s0['new_sha256'] = sha(s0['new'].encode('utf-8'))
+    bad_ledger = json.dumps(led).encode('utf-8')
+    try:
+        build_x_rep(a, repo=gitobj.Overlay(a.base), ledger=bad_ledger)
+        att2, ok2 = {'outcome': 'NOT_REFUSED'}, False
+    except RepRefused as exc:
+        reason = str(exc)
+        ok2 = reason.startswith("a ledgered path's sha256 differs from the ledger's expected_sha256")
+        att2 = {'outcome': 'REFUSED',
+                'reason': "a ledgered path's sha256 differs from the ledger's expected_sha256" if ok2 else reason}
+    acts['mutated_ledger'] = {'splice': s0['id'], 'file': s0['file'], 'attested': att2}
+    a.rec.capture_doc('X_rep build with a mutated ledger (a1_controls.py rep_build_control)',
+                      dict(acts['mutated_ledger'], exit_status=None), case=REP_CASES[1],
+                      mutation=[{'path': a.ad + 'rep/ledger.json', 'splice': s0['id'], 'change': 'one byte of new'}],
+                      attested=att2)
+    # a builder whose source also imports a module of the engine
+    with open(os.path.join(here, 'rep_build.py'), 'rb') as f:
+        src = f.read()
+    evil = src.replace(b'import hashlib\n', b'import hashlib\nfrom ledger_coverage.engine import util\n', 1)
+    try:
+        build_x_rep(a, repo=gitobj.Overlay(a.base), source=evil)
+        att3, ok3 = {'outcome': 'NOT_REFUSED'}, False
+    except RepRefused as exc:
+        ok3 = str(exc) == 'the builder imports from the engine under test'
+        att3 = {'outcome': 'REFUSED', 'reason': str(exc)}
+    acts['engine_import'] = {'source_differs': evil != src, 'attested': att3}
+    a.rec.capture_doc('X_rep builder importing the engine (a1_controls.py rep_build_control)',
+                      dict(acts['engine_import'], exit_status=None), case=REP_CASES[2],
+                      mutation=[{'path': 'tools/ledger_coverage/adapters/rep_build.py',
+                                 'change': 'adds from ledger_coverage.engine import util'}], attested=att3)
+    a.record('REP-BUILD', ok1 and ok2 and ok3 and evil != src,
+             'HASH_EQUAL over two builds, conforming, stdlib imports only; the mutated ledger REFUSED for the '
+             'expected_sha256; the engine-importing builder REFUSED', acts,
+             predicate='two builds give equal commit and tree ids and the built commit conforms to R6.EVID.8; the '
+                       'one-byte ledger mutant and the engine-importing builder are refused for the stated reasons')
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--repo', required=True)
@@ -1507,7 +1684,7 @@ def main():
     groups = [('chain', chain_refusal), ('record', rt_record), ('coverage', rt_coverage), ('terms', rt_terms),
               ('v', v_controls), ('rules', rule_lint_controls), ('exec', ex_controls),
               ('trees', lambda x: tree_controls(x, tool_files)), ('k1', lambda x: k1_graph(x, tool_files)),
-              ('z9g', z9g)]
+              ('z9g', z9g), ('rep', rep_build_control)]
     if args.syn_engine:
         groups.append(('y8', lambda x: engine_identity_y8(x, args.syn_engine)))
     if not args.skip_sweeps:
