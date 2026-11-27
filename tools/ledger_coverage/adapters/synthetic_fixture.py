@@ -421,7 +421,9 @@ def y_controls(r):
     X5, c5, p5, s5 = y_world(syn, e5)
     code, res = r.cli(syn.repo, ['coverage', '--commit', X5, '--check', 'zc', '--segment', '%s..%s' % (syn.pin, syn.H),
                                  '--segment', '%s..%s=%s:syn/patch.json' % (syn.H, X5, c5)], c5, p5, s5)
-    out['Y5'] = code == 20 and [i['class'] for i in res['items'] if i['subject'].endswith(':5@%s' % syn.pin[:8])] \
+    y5_subject = '%s:5@%s' % (DOC, syn.pin[:8])
+    name_runs(('', {'subject': y5_subject}))
+    out['Y5'] = code == 20 and [i['class'] for i in res['items'] if i['subject'] == y5_subject] \
         == ['context-meaning-unverified']
     good_digest = (hashlib.sha256(apply_text(TEXT, edits).encode()).hexdigest() + '\n').encode()
     Xg, cg, pg, sg_ = y_world(syn, edits, {'out/digest.txt': good_digest})
@@ -621,7 +623,16 @@ def x_controls(r, repo_path):
     b, rb = r.cli(syn.repo, ['terms', '--commit', X9, '--check', 'zc', '--final'], c, p, s)
     d, rd = r.cli(syn.repo, ['terms', '--commit', X6, '--check', 'zc', '--final'], c, p, s)
     e, re_ = r.cli(syn.repo, ['terms', '--commit', X9, '--final'], c, p, s)
-    name_runs('without --final', 'with --final', 'other-profile REVIEW item with --final', '--final without --check')
+    other_item = next((i['subject'] for i in (rd or {}).get('items') or [] if i.get('decision') == 'REVIEW_REQUIRED'),
+                      None)
+    name_runs('without --final', 'with --final', ('other-profile REVIEW item with --final', {'other_item': other_item}),
+              '--final without --check')
+    # restored: the same check on the unmutated tree, against a clean run of it
+    r.cli(syn.repo, ['terms', '--commit', syn.H, '--check', 'zc'], c, p, s)
+    clean9 = REC.name_last('baseline') if REC is not None else None
+    r.cli(syn.repo, ['terms', '--commit', syn.H, '--check', 'zc'], c, p, s)
+    if REC is not None:
+        REC.name_last('restored', baseline=clean9)
     out['X9'] = a == 10 and b == 20 and 'final-unclassified' in classes(rb) and d == 10 and e == 64
     # X10: the acceptance predicate
     good, rg = r.cli(syn.repo, ['terms', '--commit', syn.H], c, p, s)
