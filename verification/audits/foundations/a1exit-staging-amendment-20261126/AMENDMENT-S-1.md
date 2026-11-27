@@ -299,7 +299,7 @@ Each is a specification until implemented.
 | R3-4. Independence from a spawning session | S1.3 and OQ-S1-3: shown only by the owner's `oi-designate` comment for that entry |
 | R3-5. Dangling withdrawal | S1.4 and S1-DANGLING-LINK |
 
-**The r4 delta re-review on #1620 (accepted with nits):** r5 names the guiding pull request as the one named in the owner's adoption record of this supplement (S1.2, §3, OQ-S1-5) and adds the r3 and r4 reviews to §11.
+**The r4 delta re-review (PR #1620 comment 7209127764, accepted with nits):** r5 names the guiding pull request as the one named in the owner's adoption record of this supplement (S1.2, §3, OQ-S1-5) and adds the r3 and r4 reviews to §11.
 
 ## 10. Open questions for the owner
 
@@ -316,7 +316,7 @@ Each is a specification until implemented.
 | Reference | Used for | Classification |
 |---|---|---|
 | #1169 comment 7208869709, item S-1 | authority, quoted above | provenance |
-| PR #1620 comments 7208980804, 7209044224 and 7209091683, and the r4 delta re-review on #1620 | the reviews answered in §9 | provenance |
+| PR #1620 comments 7208980804, 7209044224, 7209091683 and 7209127764 | the reviews answered in §9 | provenance |
 | AGENTS.md §A.49 rule 4 on `main` | attribution of owner form comments | support on `main` |
 | `AMENDMENT.md` (staging r2) at `e3fb631ec9c29535f73ee6c180169d794846df67` | the clauses amended | support off `main`; it lands with #1577 |
 | r13 R6.RECON.26, R6.RECON.29, R6.REC.2, R6.REC.3, R6.REC.6, R6.REC.12, R6.REC.13, R6.REC.16, tables `review.record` and `migration.approval`, at `5ad8837521de0a26734266a64f91548fd3dcff1e` | the clauses amended | support on `main` (landed by #1604) |
