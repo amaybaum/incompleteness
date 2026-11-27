@@ -128,11 +128,11 @@ def detection_shape_problems(J):
     return out
 
 
-def record_id_problems(J, jref, adjudications):
-    """R6.ADJ.2 acceptance of `record_id`: unique among the adjudication records in R* (`adjudications`, [(reference,
-    doc)] of every oi-adjudication/1 record in R*, until the R* wiring exists). Reported as ADJ-FORM."""
+def record_id_problems(J, jref, adjudications, visible=lambda ref: True):
+    """R6.ADJ.2 uniqueness among the adjudications in the applicable R*. Reported as ADJ-FORM."""
     rid = J.get('record_id') if isinstance(J, dict) else None
-    others = [r for r, d in adjudications if r != jref and isinstance(d, dict) and d.get('record_id') == rid]
+    others = [r for r, d in adjudications if r != jref and isinstance(d, dict) and d.get('record_id') == rid
+              and visible(r)]
     return [('ADJ-FORM', 'record_id %r is also the record_id of %s' % (rid, others[0].get('path')))] if others else []
 
 
@@ -746,6 +746,9 @@ def validity(run, jref, J, joid):
             return 'invalid', None
         return 'unknown', None
     evidence = run.evidence_at(L)
+    others = [(r, d) for r, _oid, d in run.cum.adjudications()]
+    if record_id_problems(J, jref, others, evidence.git_of):
+        return 'invalid', L
     pj = parties_j(run, J, L)
     t = run.repo.committer_time(L)
     lt = datetime.fromtimestamp(t, timezone.utc) if t is not None else None
@@ -780,7 +783,8 @@ def evaluate(run, D, W, dissents_on_R):
     Wd = describe(W)
     cited = [r for r in run.cfg_records if isinstance(r, dict) and r.get('kind') == 'adjudication']
     all_adj = run.cum.adjudications()
-    rows, ok_any = [], False
+    rows, qualified = [], []
+    records = [(r, d) for r, _oid, d in all_adj]
     disregarded = []
     upheld_valid = []
     for jr, jo, J2 in all_adj:
@@ -807,6 +811,7 @@ def evaluate(run, D, W, dissents_on_R):
         failures += [c for c, _m in citation_problems(run.cfg_records, jref, qual)]
         failures += [c for c, _m in location_problems(jref, rv_refs, J)]
         form = form_problems(J)
+        form += record_id_problems(J, jref, records)
         failures += [c for c, _m in form]
         L = qualifying_landing(run, jref, J, joid, run.reviews_of(jref)) if not form else None
         t = run.repo.committer_time(L) if L else None
@@ -854,13 +859,13 @@ def evaluate(run, D, W, dissents_on_R):
             failures += [c for c, _m in contra]
             applies = admitted and not contra
             if applies:
+                qualified.append({'adjudication': jref, 'review': qual[0]})
                 for item in st['disregarded']:
                     target = {'ref': item['review'], 'item': item['item']}
                     basis = 'addressed' if target in J['dissents_addressed'] else 'exempt'
                     disregarded.append({'review': item['review'], 'item': item['item'], 'basis': basis,
                                         'adjudication': jref})
-            ok_any = ok_any or applies
         elif pre:
             failures.append('ADJ-UPHELD' if J.get('disposition') == 'upheld' else 'ADJ-FORM')
         rows.append(result_entry(jref, J, L, False, pre, admitted, applies, failures, exempt))
-    return ok_any, rows, upheld_valid, disregarded
+    return qualified, rows, upheld_valid, disregarded

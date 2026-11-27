@@ -251,6 +251,8 @@ class CW:
                 'decisions': [(d['blocked'], d['route'], d['clauses']) for d in cu.get('decisions') or []],
                 'review_disregards': [p for d in cu.get('decisions') or []
                                       for p in d.get('disregarded_review_items') or []],
+                'adjudication_evidence': [p for d in cu.get('decisions') or []
+                                          for p in d.get('adjudication_evidence') or []],
                 'adjudications': cu.get('adjudications') or [],
                 'reassess_why': [d for i in out.get('items', []) if i['class'] == 'record-invalid' and
                                  i.get('subject') == pfc.RA_PATH for d in (i.get('detail') or [])],
@@ -1128,7 +1130,7 @@ def adjudication_run_controls(r, two_pass, pin_q, sib, drop_sib):
     dissenter = 'reviewer-adverse'
 
     def write_dissent(c, entry, path, reviewer=dissenter, items=(scientific_effect,), omit=None,
-                      reason='repair disputed'):
+                      reason='repair disputed', text_dissent=None):
         data = c.w.repo.read(c.w.M, entry['path'])
         reviewed = {'path': entry['path'], 'blob_sha256': entry['blob_sha256']}
         review = {'schema': rec.review_schema, 'reviewer': reviewer, 'reviewed': reviewed,
@@ -1136,13 +1138,16 @@ def adjudication_run_controls(r, two_pass, pin_q, sib, drop_sib):
                   'verdicts': [{'item': i, 'verdict': 'dissent' if i in items else 'accept',
                                 'reason': reason if i in items else 'checked'}
                                for i in rec.item_ids(json.loads(data)) if i != omit]}
+        if text_dissent is not None:
+            review['dissent'] = text_dissent
         encoded = pfc.jb(review)
         c.step({path: encoded}, 'retain an exact dissenting review of the repair')
         return {'path': path, 'blob_sha256': sf.sha(encoded)}, gitobj.blob_id_of(encoded)
 
-    def address_dissent(c, J, jdir, items=(scientific_effect,)):
-        ref, oid = write_dissent(c, J['replacement'], jdir + 'dissent.review.json', items=items)
-        target = {'ref': ref, 'item': scientific_effect}
+    def address_dissent(c, J, jdir, items=(scientific_effect,), text_dissent=None):
+        ref, oid = write_dissent(c, J['replacement'], jdir + 'dissent.review.json', items=items,
+                                 text_dissent=text_dissent)
+        target = {'ref': ref, 'item': 'dissent' if text_dissent is not None else scientific_effect}
         J['dissents_addressed'] = [target]
         J['grounds'].append({'id': 'g2', 'target': target, 'reasoning': 'addresses the exact disputed item',
                              'evidence': [oid, *J['grounds'][0]['evidence'][1:]]})
@@ -1164,7 +1169,9 @@ def adjudication_run_controls(r, two_pass, pin_q, sib, drop_sib):
          o.get('error') or [o['reassess_why'], o['decisions'], o['adjudications'], o['review_disregards']],
          cleared(o) and any(p['basis'] == 'addressed' and p['item'] == scientific_effect and
                             p['review']['path'].endswith('/dissent.review.json') and
-                            p['adjudication']['path'].endswith('/adj.json') for p in o['review_disregards']))
+                            any(e['adjudication'] == p['adjudication'] and
+                                e['review']['path'].endswith('/adj.review.json') for e in o['adjudication_evidence'])
+                            for p in o['review_disregards']))
 
     o = guarded_run(lambda: world(setup=review_setup, before_landing=address_dissent, after_landing=redissent))
     case('ADJ-P-ADDRESSED-REDISSENT', 'the answered reviewer repeats the dissent on R and rejects ground:g1 later. '
@@ -1205,6 +1212,56 @@ def adjudication_run_controls(r, two_pass, pin_q, sib, drop_sib):
                                         'from the current repair record at M',
          o.get('error') or o['reassess_why'],
          still_blocked(o) and any('no accepting non-author review' in why for why in o['reassess_why']))
+
+    def address_text_dissent(c, J, jdir):
+        address_dissent(c, J, jdir, items=(), text_dissent='the repair stays disputed')
+
+    o = guarded_run(lambda: world(setup=review_setup, before_landing=address_text_dissent))
+    case('ADJ-P-TEXT-DISSENT-WITH-ACCEPTANCE', 'the addressed dissent field is disregarded while an independent '
+                                               'accepting review remains present at M',
+         o.get('error') or [o['reassess_why'], o['review_disregards']],
+         cleared(o) and any(p['item'] == 'dissent' and p['basis'] == 'addressed' for p in o['review_disregards']))
+    o = guarded_run(lambda: world(setup=review_setup, before_landing=address_text_dissent,
+                                  after_landing=remove_acceptance))
+    case('ADJ-N-TEXT-DISSENT-WITHOUT-ACCEPTANCE', 'all verdicts accept in the review with an addressed dissent field. '
+                                                  'That review cannot supply independent current acceptance',
+         o.get('error') or [o['reassess_why'], o['review_disregards']],
+         still_blocked(o) and not o['review_disregards'] and
+         any('no accepting non-author review' in why for why in o['reassess_why']))
+
+    def malformed_acceptance(c, J, T, jp, jb, jdir):
+        path = J['replacement']['path'][:-5] + '.review.json'
+        data = c.w.repo.read(c.w.M, path)
+        review = dict(json.loads(data), unexpected=True)
+        c.step({path: pfc.jb(review)}, 'the only positive review at M has an unlisted field')
+
+    o = guarded_run(lambda: world(setup=review_setup, before_landing=address_dissent,
+                                  after_landing=malformed_acceptance))
+    case('ADJ-N-MALFORMED-CURRENT-ACCEPTANCE', 'a current review accepting every item still fails the closed review '
+                                            'schema. It cannot support a discharge using dissent disregard',
+         o.get('error') or [o['reassess_why'], o['review_disregards']],
+         still_blocked(o) and not o['review_disregards'] and
+         any('no accepting non-author review' in why for why in o['reassess_why']))
+
+    def duplicate_adjudication(c, J, T, jp, jb, jdir):
+        c.step({jdir + 'duplicate-adj.json': jb}, 'the current record set has two adjudications with the same id')
+
+    o = guarded_run(lambda: world(setup=review_setup, before_landing=address_dissent,
+                                  after_landing=duplicate_adjudication))
+    case('ADJ-N-DUPLICATE-ID-DISREGARD', 'a duplicate adjudication id invalidates current admission. '
+                                        'The duplicate cannot supply a dissent disregard',
+         o.get('error') or [o['reassess_why'], o['adjudications']],
+         still_blocked(o, 'ADJ-FORM') and not o['review_disregards'])
+
+    def duplicate_upheld(c, J, T, jp, jb, jdir):
+        original = c.w.repo.read(c.w.M, jdir + 'adj2.json')
+        c.step({jdir + 'duplicate-upheld.json': original}, 'a copy of the upheld ruling appears after its landing')
+
+    o = guarded_run(lambda: world(extra_upheld=upheld, after_landing=duplicate_upheld))
+    case('ADJ-N-LATE-DUPLICATE-CANNOT-CANCEL-UPHELD', 'the upheld record id was unique at its landing. '
+                                                    'A duplicate added later leaves the contradiction in force',
+         o.get('error') or [o['reassess_why'], reported_upholds(o)],
+         still_blocked(o, 'ADJ-CONTRA') and any(e['valid_adverse'] for e in reported_upholds(o)))
 
     o = guarded_run(lambda: world(setup=lambda: review_setup(with_lineage=True), before_landing=address_dissent))
     case('ADJ-P-MIXED-RETAINED-WITNESSES', 'two witnesses rely on R, one cleared through adjudication and the other '

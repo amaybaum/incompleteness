@@ -52,6 +52,14 @@ def _reviewed(store, ref, sha, disregarded=()):
                and rv['reviewed'].get('path') == ref['path'] and (p, s) not in disregarded]
     if len(reviews) != 1:
         return ['%d review records in the record directory name its blob, not one' % len(reviews)]
+    review = store.by_sha[reviews[0]][1]
+    dissent = review.get('dissent')
+    if isinstance(dissent, str) and dissent.strip():
+        return ['the current repair review carries dissent']
+    if disregarded:
+        problems = fd.review_schema_problems(review)
+        if problems:
+            return problems
     return rec.lint_chain(ref, store, {sha, reviews[0]})
 
 
@@ -673,7 +681,7 @@ def repair_review_problems(store, ref, repair, retained, disregarded):
     # A disregarded dissent is never positive review evidence. Keep the existing current-review lint and admit
     # extra review records only when their dissent is fully accounted for by the same discharge.
     current = []
-    if _reviewed(store, ref, ref['blob_sha256']) and _reviewed(store, ref, ref['blob_sha256'], dismissed):
+    if _reviewed(store, ref, ref['blob_sha256'], dismissed):
         current.append("the repair's reconciliation record entry has no accepting non-author review")
     return current, historical, remaining
 
@@ -1410,7 +1418,7 @@ def custody_decisions(repo, witnesses, applying, loaded, m_scan, cum, schemas, M
                         'config': loaded.config}
         disregarded, current_adj, witness_inputs = set(), [], []
         for W in witnesses:
-            adjudicated, upheld, covered = False, [], []
+            adjudicated, upheld, covered = [], [], []
             if adj_run is not None and obl29.reliance(D, W):
                 adjudicated, reports, upheld, covered = adjm.evaluate(adj_run, adjudication, W, dissents)
                 current_adj.extend(reports)
@@ -1451,7 +1459,7 @@ def custody_decisions(repo, witnesses, applying, loaded, m_scan, cum, schemas, M
             for z in zs:
                 b, clauses, route = obl29.decide(D, W, R=R, Z=[z] if z else None, required_review=z,
                                                  excluded=excluded, reviews_of_R=reviews_of_R, nr2=nr2,
-                                                 finding_git=fgit, adjudicated=adjudicated)
+                                                 finding_git=fgit, adjudicated=bool(adjudicated))
                 got = (b, clauses, route)
                 if not b:
                     break
@@ -1460,17 +1468,22 @@ def custody_decisions(repo, witnesses, applying, loaded, m_scan, cum, schemas, M
                    'blocked': b, 'route': route}
             if covered:
                 row['disregarded_review_items'] = covered
+            if route == 'adjudication':
+                row['adjudication_evidence'] = adjudicated
             witness_rows.append(row)
             if b:
                 witness_blocks.append(((d, r), W, clauses))
         # The provisional disregard is usable only when all relying witnesses clear and the repair review check passes.
         if disregarded and (current or historical or witness_blocks):
-            current, historical, _ = repair_review_problems(m_store, eref, Q, retained, ())
+            raw_current, historical, _ = repair_review_problems(m_store, eref, Q, retained, ())
+            current = current or raw_current
         if current or historical:
             blocked_reviews.append(((d, r), current + historical))
         if current or historical or witness_blocks:
             for row in witness_rows:
                 row.pop('disregarded_review_items', None)
+                if current or historical:
+                    row.pop('adjudication_evidence', None)
             for report in current_adj:
                 if report['applies']:
                     report['applies'] = False
