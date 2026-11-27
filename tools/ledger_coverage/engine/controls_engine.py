@@ -66,6 +66,24 @@ def _case(name, baseline=None, **bindings):
     if capture_hook is not None:
         capture_hook.name_last(name, bindings, baseline)
 
+def _attest(case, bindings=None, **values):
+    """States values for the named case (checked by the gate for integrity only); a string equal to a bound value is
+    stated by its binding name, as the expectation writes it."""
+    if capture_hook is None:
+        return
+    inv = {v: '$' + k for k, v in (bindings or {}).items() if isinstance(v, str)}
+
+    def sub(x):
+        if isinstance(x, str):
+            return inv.get(x, x)
+        if isinstance(x, list):
+            return [sub(y) for y in x]
+        if isinstance(x, dict):
+            return {k: sub(v) for k, v in x.items()}
+        return x
+    capture_hook.attest(case, sub(values))
+
+
 doc_path = 'notes/a.md'
 other_path = 'notes/b.md'
 base_text = ('# heading one\n\nalpha line one stands here.\n\nbeta line two stands here.\n\n'
@@ -481,6 +499,7 @@ def b_controls():
     imgs = pl.image_lines(ctx, x, led, [doc_path])
     cv, it = w.coverage(x, [seg(w.pin, x, 'ledgered', ledger=led)])
     _bind_first(subject='%s:5@%s' % (doc_path, w.pin[:8]))
+    _attest('', hit_at_offset_in_image=bool(imgs.get(doc_path)))
     _restore(w)
     out['B1'] = any(s['statuses'][-1]['status'] == 'authorized-removal' for s in cv.site_out.values()) and \
         bool(imgs.get(doc_path))
@@ -667,7 +686,26 @@ def o_controls():
     out['O5'] = bool(checked_lint(rule, dict(review, reviewer='https://ci.example/runs/7')))
     rb = util.canonical(rule)
     st = rec.Store([('rec/r.json', rb + b' ')])
-    out['O6'] = st.get({'path': 'rec/r.json', 'blob_sha256': util.sha256(rb)}) is None
+    o6_store = st.get({'path': 'rec/r.json', 'blob_sha256': util.sha256(rb)}) is None
+    # the same record read through the tool's pinned-reference reader (config.read_ref) from an object store whose
+    # blob differs from its pin by one byte: a source change; the restored store holds the pinned bytes
+    from . import config as cfgmod
+    o6_ref = {'path': 'rec/r.json', 'blob_sha256': util.sha256(rb)}
+
+    def o6_read(data):
+        repo = Overlay(None)
+        c = repo.add_commit({'rec/r.json': data}, [], 'record store')
+        cfgmod.read_ref(repo, c, o6_ref, 'record')
+        return []
+    o6_stop = None
+    try:
+        o6_read(rb + b' ')
+    except oc.Stop as s:
+        o6_stop = s.cls
+        _stage_stop('record read', s)
+    _case('', record=o6_ref['path'])
+    _restore_with(lambda: o6_read(rb), 'record read')
+    out['O6'] = o6_store and o6_stop == 'SOURCE_CHANGED'
     sup = dict(rule, record_id='r1b', supersedes=ref)
     out['O7'] = bool(checked_lint(sup, review, mutate_ref={'path': ref['path'],
                                                         'blob_sha256': util.sha256(util.canonical(sup))}))
@@ -716,6 +754,13 @@ def r_controls():
     def clean_l():
         return run(M, exmod.compose_landing(w.repo, H, M, X, led, w.repo), side=[wfc]).items
     e = run(M, side=[wfc])
+    _bind_first(workflow=wf)
+    _attest('', {'workflow': wf},
+            side_changes_exact=[{'path': sc['path'], 'classified_by': 'side-change class record'
+                                 if sc.get('class') not in (None, 'base-drift', rcmod.record_directory_class)
+                                 else sc.get('class')} for sc in e.side_changes],
+            side_change_obligation='MAIN' if e.side_changes and not [i for i in e.items if i['obligation'] == 'RET']
+            else None)
     _restore_with(clean_c, 'execution')
     out['TT1'] = not e.items and e.side_changes[0]['class'] == 'wf'
     # R18 (S3): a listed path whose blob at M differs from its pin; R19 (V3): a prefix alone classifies nothing
@@ -724,8 +769,13 @@ def r_controls():
         wfc['pins'][0], blob_sha256='0' * 64)])]).items)
     xm = w.repo.derive(M, {doc_path: w.repo.read(X, doc_path)}, parents=[H])
     e2 = run(x=xm)
+    _bind_first(workflow=wf)
+    tt2 = any(i['subject'] == wf for i in e2.items)
+    # the countercontrol: comparing X with a candidate built on M (the old-style comparison) reports M's workflow
+    _attest('', {'workflow': wf}, outcome='COUNTERCONTROL' if tt2 else None,
+            old_style_X_vs_M_comparison_reports=wf if tt2 else None)
     _restore_with(clean_c, 'execution')
-    out['TT2'] = any(i['subject'] == wf for i in e2.items)
+    out['TT2'] = tt2
     X3 = w.repo.derive(M, {doc_path: w.repo.read(X, doc_path)}, parents=[M])
     _restore_with(clean_c, 'execution')
     out['TT3'] = 'candidate-parent' in classes(run(x=X3).items)
@@ -810,7 +860,11 @@ def r_controls():
     out['R19-engine'] = 'side-change-unclassified' in classes(run(M19, side=[tool]).items)
     M14 = w.child(H, base_text.replace('epsilon closing', 'epsilon tool edit'), subject='tool touches ledgered')
     _restore_with(lambda: run(M13, side=[tool]).items, 'execution')
-    out['TT14'] = 'base-drift' in classes(run(M14, side=[tool]).items)
+    tt14 = 'base-drift' in classes(run(M14, side=[tool]).items)
+    _bind_first()
+    # evaluated as the tool pull request's landing check: M carries the tool landing under the tool-landing class
+    _attest('', evaluated_in='tool-landing check of the tool pull request (OD-26)' if tt14 else None)
+    out['TT14'] = tt14
     Mo = w.child(M, files={'ops/other.yml': b'z\n'}, subject='another main')
     L15 = exmod.compose_landing(w.repo, H, Mo, X, led, w.repo)
     _restore_with(clean_l, 'execution')
