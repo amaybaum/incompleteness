@@ -622,6 +622,7 @@ def h_controls():
     x = wm.child(hm, ht.text.replace('second merged', 'other  merged'))
     cv2, it2 = wm.coverage(x, [sm, seg(hm, x, 'ledgered', ledger=led)], hits=False)
     s1, s2 = ['%s:%d@%s' % (doc_path, n, wm.pin[:8]) for n in (5, 7)]
+    _case('fields', site1=s1, site2=s2, splice='S1')
     so1, so2 = cv2.site_out[s1], cv2.site_out[s2]
     basic = len(shared) == 2 and so1['region_shared_with']['with'] == [s2] and so1['region_splices'] == ['S1'] and \
         so2['region_splices'] == ['S1'] and so1['line_splices'] == [] and so2['line_splices'] == ['S1']
@@ -638,8 +639,13 @@ def h_controls():
     hp_ok = not [i for i in it3 if i['class'] == 'record-invalid']
     unassigned = [adj(s1, st5, [util.sha256(reg[0])], {'S1': [s2]}), adj(s2, st7, [], {'S1': [s2]})]
     cv4, it4 = wm.coverage(x, [sm, seg(hm, x, 'ledgered', ledger=led)], adj={'hp': unassigned}, hits=False)
+    # the in-memory adjudications have no record file, so $record is left unbound
+    _case('own_lines leaves a line unassigned')
     unattr = [adj(s1, st5, [util.sha256(reg[0])], {}), adj(s2, st7, [util.sha256(reg[2])], {})]
     cv5, it5 = wm.coverage(x, [sm, seg(hm, x, 'ledgered', ledger=led)], adj={'hp': unattr}, hits=False)
+    _case('splice attributed to no site')
+    _restore_with(lambda: wm.coverage(x, [sm, seg(hm, x, 'ledgered', ledger=led)], adj={'hp': good}, hits=False)[1],
+                  'coverage')
     out['H7'] = basic and hp_ok and 'record-invalid' in classes(it4) and 'record-invalid' in classes(it5)
     return out
 
