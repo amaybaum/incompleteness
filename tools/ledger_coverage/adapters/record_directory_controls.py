@@ -193,11 +193,13 @@ def without_rule(fn):
         exmod.Execution._record_directory = orig
 
 
-def o98_run(r, case):
+def o98_run(r, case, rc11=True):
     """RDIR-8, one case: the synthetic host world with the configuration in the authorized directory and a reconciliation
     record for the corpus file (referenced by the configuration and reviewed); M = H plus the plan directory as F holds
     it, with the case's change, plus a change of the corpus file, so that the M role evaluates the record's RC11. Runs
-    `execution --main` through cli.run. case None: the baseline, D equal to F."""
+    `execution --main` through cli.run. case None: the baseline, D equal to F. rc11 False: the M-role run of the same
+    world without the corpus change, so that no record is evaluated and the case path is the run's only finding; the
+    candidate is a child of H in both runs (R6.TREE.11: X's parent is H)."""
     path = AUTH + {'mode': '/mode.sh', 'symlink': '/link', 'submodule': '/sub', None: '/mode.sh'}[case]
     syn = sf.Syn()
     pd = sf.patch_doc(syn.H, [])
@@ -220,11 +222,13 @@ def o98_run(r, case):
         plan[path] = ('symlink', plan[path])
     elif case == 'submodule':
         plan[path] = ('submodule', '1' * 40)
-    plan[sf.DOC] = syn.repo.read(syn.H, sf.DOC) + b'\nA change on main.\n'
+    if rc11:
+        plan[sf.DOC] = syn.repo.read(syn.H, sf.DOC) + b'\nA change on main.\n'
+    X = syn.repo.derive(syn.H, {}, parents=[syn.H], subject='X')
     M = syn.repo.derive(syn.H, plan, parents=[syn.H], subject='M with the plan directory and a corpus change')
     repo = ModeOverlay(syn.repo, [(M, path)] if case == 'mode' else [])
     argv = ['execution', '--config', '%s:%s' % (F, p), '--out', r.out()] + w.args(F) + \
-        ['--scientific-base', syn.H, '--candidate', syn.H, '--ledger', '%s:syn/patch.json' % F, '--main', M]
+        ['--scientific-base', syn.H, '--candidate', X, '--ledger', '%s:syn/patch.json' % F, '--main', M]
     try:
         code, res = cli.run(argv, repo=repo, stderr=io.StringIO(), control=w.control(w.checkout()), environ={})
     except Exception as exc:
@@ -238,6 +242,7 @@ def o98_run(r, case):
     return {'exit': code, 'path': path, 'record_directory': res.get('record_directory'),
             'case_items': sorted((i['class'], i['subject'], i.get('why')) for i in res.get('items', [])
                                  if i['subject'] == path),
+            'fail_items': sorted((i['class'], i['subject']) for i in res.get('items', []) if i['decision'] == 'FAIL'),
             'RC11': holds.get('RC11'), 'other_conditions': {k: v for k, v in sorted(holds.items()) if k != 'RC11'},
             'record_evaluated': bool(evs)}
 
@@ -346,12 +351,18 @@ def o9_controls(r, check, recorder):
     ok = o8['baseline'].get('RC11') is True and not o8['baseline'].get('stop') and \
         not o8['baseline'].get('exception') and not o8['baseline'].get('case_items')
     for case, why in cases.items():
+        # the M role and RC11 separately (the row's design text): the M-role run's only finding is the case path
+        mrole = o98_run(r, case, rc11=False)
+        label = 'mode change, M role' if case == 'mode' else case + ', M role'
+        recorder.name_last(label, bindings={'p': mrole.get('path')},
+                           attested={'no_exception': 'exception' not in mrole and mrole.get('exit') != 71})
         got = o98_run(r, case)
         o8[case] = got
-        label = 'mode change, M role' if case == 'mode' else case + ', M role'
-        recorder.name_last(label, bindings={'p': got.get('path')},
-                           attested={'no_exception': 'exception' not in got and got.get('exit') != 71})
-        ok = ok and not got.get('stop') and not got.get('exception') and \
+        o8[case + ' (M role)'] = mrole
+        recorder.name_last(label.replace('M role', 'through RC11'), bindings={'p': got.get('path')})
+        ok = ok and not mrole.get('stop') and not mrole.get('exception') and mrole.get('exit') == 10 and \
+            not mrole.get('fail_items') and mrole.get('case_items') == [('side-change-unclassified', mrole['path'], why)] \
+            and not got.get('stop') and not got.get('exception') and \
             got.get('case_items') == [('side-change-unclassified', got['path'], why)] and got.get('RC11') is False and \
             got.get('other_conditions') == o8['baseline'].get('other_conditions')
     rc11_failed = all(o8[case].get('RC11') is False for case in cases)
