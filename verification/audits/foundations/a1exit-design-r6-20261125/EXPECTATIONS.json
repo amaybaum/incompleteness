@@ -67,7 +67,16 @@
    "flags": [
     "VD-7: restored (clean-lint) half unreachable in the runner today",
     "VD-RESTORE: no restored case executed (the restored half is unreachable in the runner, VD-7)"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "A12r",
@@ -187,7 +196,16 @@
    "flags": [
     "VD-RESTORE: no restored case executed",
     "RE-20 (b): the case runs on W2-a, whose literal \"(A1)\" is a true shortening, and asserts that the finding is a widening by shortening; the runner shortens W1-d to \"six structural\" today (verification defect, OBL-21)"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "A3r",
@@ -251,7 +269,16 @@
    "source": "D:2166",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "A5r",
@@ -305,7 +332,16 @@
    "flags": [
     "RD-35: D:2083-2084 requires the deny FAIL to name the rule that produces it (DR-3, the profile the runner evaluates); the runner asserts no rule id today (verification defect)",
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "A5r-generic",
@@ -410,7 +446,16 @@
    "source": "D:2169",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "A8r",
@@ -500,7 +545,16 @@
    "flags": [
     "VD-7: the runner check of this half is unreachable today",
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "ACCEPT-SCHEMA",
@@ -2220,7 +2274,16 @@
    "source": "D:2186",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "G2",
@@ -2253,7 +2316,16 @@
    "source": "D:2187",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "G3",
@@ -2294,7 +2366,16 @@
    "flags": [
     "design says FAIL without a class; MC-17 names delegated-evidence-invalid (controls.json agrees)",
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "G4",
@@ -4246,7 +4327,16 @@
    "source": "D:2130",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "L2",
@@ -4291,7 +4381,16 @@
    "source": "D:2131",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "L3",
@@ -4321,7 +4420,16 @@
    "source": "D:2132",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "L4",
@@ -4351,7 +4459,16 @@
    "source": "D:2133",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "LN1",
@@ -5027,7 +5144,16 @@
    "source": "D:2158",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "N1",
@@ -5652,7 +5778,16 @@
    "source": "D:2508; second direction: r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B2)",
    "flags": [
     "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "N4",
@@ -7995,7 +8130,16 @@
    "source": "D:2206",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "RT-C",
@@ -8058,7 +8202,16 @@
     "inputs off main: acceptance reference only for runs with those pinned inputs (RD-23)",
     "RD-3: the 399/23/21 figures are design figures the runner does not assert today (verification defect)",
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "RT-D",
@@ -8140,7 +8293,16 @@
     "Q14: aggregate precedence ERROR > FAIL > NOT RUN > PASS over its own record and its components; every component result is preserved in gate-result.json",
     "OC-3: runs at X_rep (R6.EVID.8); the verdict reads only paths that H and the ledger determine, so T1''s identity and ancestry are not material; landing decision: kind 1 on the exact tool candidate; enduring claim: kind 2 once the landing merge is on main, kind 3 re-run on main, every input reachable from main",
     "amendment 6 (amendment 5 delta review, PR #1592 comment 7189385508, nit 3): the count of 10 W1/W2 PASS lines and the SM:1394 site hold only with the superseding rule file that drops W1-a, under the owner's decision on the W1-a row (amaybaum, 2026-11-26T07:55:49Z, #1169 comment 7185991140); rule content is plan content (R6.DENY.1), and until that rule file is written and reviewed RT-D is not run against these figures"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "RT-D-gr58",
@@ -8177,7 +8339,16 @@
      }
     ]
    },
-   "source": "D:2212 (with its record)"
+   "source": "D:2212 (with its record)",
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "RT-DR",
@@ -8304,7 +8475,16 @@
     "targets checked by rule id, not by the run outcome (O3); ch09 path abbreviated in the design, the evidence manifest gives the full path",
     "the T1' case: inputs off main: acceptance reference only for runs with those pinned inputs (RD-23)",
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "RT-DR3W",
@@ -8420,7 +8600,16 @@
      }
     ]
    },
-   "source": "D:2207"
+   "source": "D:2207",
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "RT-H0",
@@ -8535,7 +8724,16 @@
    "flags": [
     "MC-1 applied (7 structure items, not 3); MC-3 removes the runner reference_difference",
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "RT-I7",
@@ -8800,7 +8998,16 @@
    "flags": [
     "RD-25: composed landing REVIEW_REQUIRED exit 10 (delegated evidence missing), as controls.json and the runner have it",
     "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "RT-L2",
@@ -8942,12 +9149,18 @@
     ]
    },
    "status_allowed": [
-    "PASS"
+    "PASS",
+    "NOT RUN"
    ],
    "source": "r5:220 (MC-4, OD-18; split per RD-6 and Q6)",
    "flags": [
     "Q6/RD-6: its own record-directory checks are gated and run whatever RT-L2's status; the clause \"RT-L2 still PASS\" and the absence of base-drift, which rests on the drafted reconciliation record, are RT-O9-L2"
-   ]
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "RT-O9-L2",
@@ -9156,7 +9369,16 @@
     "RD-3: region_splices_distinct 31 is asserted by the runner and kept; site_counts:unchanged 383, the 18 line-attributed overlaps and the D029-only overlap are design figures the runner does not assert today (verification defect)",
     "VD-RESTORE: the paired row is not executed (no runner, or NOT RUN)",
     "OC-3: runs at X_rep (R6.EVID.8); the verdict reads only paths that H and the ledger determine, so T1''s identity and ancestry are not material; landing decision: kind 1 on the exact tool candidate; enduring claim: kind 2 once the landing merge is on main, kind 3 re-run on main, every input reachable from main"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "RT-X",
@@ -9207,7 +9429,16 @@
    "source": "v2:628 (D:2502 stands; OD-17 translation; OD-21); second direction: r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B2)",
    "flags": [
     "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "S11-1",
@@ -9289,7 +9520,16 @@
      }
     ]
    },
-   "source": "D:2351"
+   "source": "D:2351",
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "S11-12",
@@ -9397,7 +9637,16 @@
    "source": "D:2354",
    "flags": [
     "VD-10: landing half asserted (today only in RT-L)"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "S11-2",
@@ -9461,7 +9710,16 @@
      }
     ]
    },
-   "source": "D:2342 (first countercontrol)"
+   "source": "D:2342 (first countercontrol)",
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "S11-2b",
@@ -9557,7 +9815,16 @@
      }
     ]
    },
-   "source": "D:2343"
+   "source": "D:2343",
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "S11-4",
@@ -9600,7 +9867,16 @@
      }
     ]
    },
-   "source": "D:2344 (class per MC-17)"
+   "source": "D:2344 (class per MC-17)",
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "S11-5",
@@ -9690,7 +9966,16 @@
    "source": "D:2292",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "S11-57a",
@@ -10360,7 +10645,16 @@
    "source": "D:2175",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "S4a",
@@ -12853,7 +13147,16 @@
    "source": "D:2134",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "V10",
@@ -12893,7 +13196,16 @@
    "source": "D:2145",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "V11",
@@ -12933,7 +13245,16 @@
    "source": "D:2146",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "V12",
@@ -12973,7 +13294,16 @@
    "source": "D:2147",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "V13",
@@ -13013,7 +13343,16 @@
    "source": "D:2148",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "V14",
@@ -13064,7 +13403,16 @@
    "source": "D:2149",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "V15",
@@ -13123,7 +13471,16 @@
     "VD-RESTORE: no restored case executed",
     "owner decision 3 of 2026-11-25 (#1169 comment 7166844576): resolution (a); `expect` is the candidate expectation recorded under RE-1 as \"reversal adopted (REVIEW_REQUIRED unclassified through resid only)\"; the candidate \"reversal rejected (a plan rule record of this form under a new identifier, sec. 12; DR-1d and DR-2 stay retired, sec. 33)\" is not selected (V4-COMPARISON.md)",
     "rests on V5-D1, whose reversal owner decision 3 accepts in the owner's words; no deny rule is added"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "V16",
@@ -13164,7 +13521,16 @@
    "flags": [
     "design By column names the rule; alternative a is the runner value, measured on the control text (D:2083-2085)",
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "V17",
@@ -13205,7 +13571,16 @@
    "flags": [
     "design By column names the rule; alternative a is the runner value, measured on the control text (D:2083-2085)",
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "V18",
@@ -13246,7 +13621,16 @@
    "flags": [
     "design By column names the rule; alternative a is the runner value, measured on the control text (D:2083-2085)",
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "V19",
@@ -13287,7 +13671,16 @@
    "flags": [
     "design By column names the rule; alternative a is the runner value, measured on the control text (D:2083-2085)",
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "V2",
@@ -13328,7 +13721,16 @@
    "source": "D:2135",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "V20",
@@ -13368,7 +13770,16 @@
    "source": "D:2155",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "V21",
@@ -13418,7 +13829,16 @@
    "source": "D:2156",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "V22",
@@ -13469,7 +13889,16 @@
    "source": "D:2157",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "V23",
@@ -13620,7 +14049,16 @@
      }
     ]
    },
-   "source": "D:2161"
+   "source": "D:2161",
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "V26",
@@ -13679,7 +14117,16 @@
    "source": "D:2162",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "V27",
@@ -13729,7 +14176,16 @@
     "owner decision 3 of 2026-11-25 (#1169 comment 7166844576): resolution (a); `expect` is the candidate expectation recorded under RE-1 as \"reversal adopted (accepted residual: PASS, no hit)\"; the candidate \"reversal rejected (a plan rule record of this form under a new identifier, sec. 12; DR-1d and DR-2 stay retired, sec. 33)\" is not selected (V4-COMPARISON.md)",
     "rests on V5-D1, whose reversal owner decision 3 accepts in the owner's words; no deny rule is added",
     "Q14: aggregate precedence ERROR > FAIL > NOT RUN > PASS over its own record and its components; every component result is preserved in gate-result.json"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "V27-glossary",
@@ -13773,7 +14229,16 @@
     "VD-RESTORE: no restored case executed",
     "owner decision 3 of 2026-11-25 (#1169 comment 7166844576): resolution (a); `expect` is the candidate expectation recorded under RE-1 as \"reversal adopted (accepted residual: PASS, no hit)\"; the candidate \"reversal rejected (a plan rule record of this form under a new identifier, sec. 12; DR-1d and DR-2 stay retired, sec. 33)\" is not selected (V4-COMPARISON.md)",
     "rests on V5-D1, whose reversal owner decision 3 accepts in the owner's words; no deny rule is added"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "V3",
@@ -13815,7 +14280,16 @@
    "flags": [
     "design By column names the rule; alternative a is the runner value, measured on the control text (D:2083-2085)",
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "V3-countercontrol",
@@ -13897,7 +14371,16 @@
     "VD-RESTORE: no restored case executed",
     "owner decision 3 of 2026-11-25 (#1169 comment 7166844576): resolution (a); `expect` is the candidate expectation recorded under RE-1 as \"reversal adopted (accepted residual: PASS, no hit)\"; the candidate \"reversal rejected (a plan rule record of this form under a new identifier, sec. 12; DR-1d and DR-2 stay retired, sec. 33)\" is not selected (V4-COMPARISON.md)",
     "rests on V5-D1, whose reversal owner decision 3 accepts in the owner's words; no deny rule is added"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "V5",
@@ -13939,7 +14422,16 @@
    "flags": [
     "design By column names the rule; alternative a is the runner value, measured on the control text (D:2083-2085)",
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "V6",
@@ -13983,7 +14475,16 @@
    "source": "D:2140",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "V7a",
@@ -14034,7 +14535,16 @@
    "source": "D:2141",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "V7b",
@@ -14074,7 +14584,16 @@
    "source": "D:2142",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "V7c",
@@ -14113,7 +14632,16 @@
    "source": "D:2143",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "V9",
@@ -14153,7 +14681,16 @@
    "source": "D:2144",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "WB1",
@@ -14194,7 +14731,16 @@
    "source": "D:2250",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "WB10",
@@ -14232,7 +14778,16 @@
    "source": "D:2259",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "WB11",
@@ -14313,7 +14868,16 @@
    "source": "D:2261",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "WB13",
@@ -14355,7 +14919,16 @@
    "source": "D:2262",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "WB14",
@@ -14403,7 +14976,16 @@
    "source": "D:2263",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "WB15",
@@ -14440,7 +15022,16 @@
    "source": "D:2264",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "WB2",
@@ -14478,7 +15069,16 @@
    "source": "D:2251",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "WB3",
@@ -14522,7 +15122,16 @@
    "source": "D:2252",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "WB4",
@@ -14552,7 +15161,16 @@
    "source": "D:2253",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "WB5",
@@ -14592,7 +15210,16 @@
    "source": "D:2254",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "WB6",
@@ -14629,7 +15256,16 @@
    "source": "D:2255",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "WB7",
@@ -14667,7 +15303,16 @@
    "source": "D:2256",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "WB8",
@@ -14704,7 +15349,16 @@
    "source": "D:2257",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "WB9",
@@ -14745,7 +15399,16 @@
    "source": "D:2258",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "X1",
@@ -16193,7 +16856,16 @@
     "VD-10: 176-line count asserted",
     "inputs off main: candidate evidence only, not acceptance support (owner decision A2 of 2026-11-25; RD-23)",
     "OC-3: the repo scan reads the content of T1''s delegated and record paths (two of the 176 lines lie in generated artifacts), which H and the ledger do not determine: the exact trial tree is material; the run on the exact tool candidate with X = T1' is candidate evidence only, not acceptance support; no enduring claim rests on it (owner decision A2 of 2026-11-25; OBL-23)"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "reads the configuration's rule records, which are reviewed and adopted with the amended plan at F (OBL-3); it gates plan freeze F, not the tool's landing (amendment 9)",
+    "release_condition": "every rule record the configuration at the commit under check references carries an accepting review (OBL-3)",
+    "release_check": "every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)"
+   }
   },
   {
    "id": "lint-ok",

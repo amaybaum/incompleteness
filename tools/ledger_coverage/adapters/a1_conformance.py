@@ -700,12 +700,14 @@ def main():
         f.write(json.dumps(doc, indent=1, sort_keys=True, default=str) + '\n')
     # R6.GATE.5 and R6.GATE.7: one record per control with its retained evidence, read by the gate
     done = set()
+    not_due = a1c.rules_not_due(a, args.repo)
     for r in doc['controls']:
         if r['id'] in done:
             continue
         done.add(r['id'])
         REC.pending = RUNS.get(r['id'], [])
-        REC.record(r['id'], r['status'], r['actual'], r['predicate'] or r['expected'])
+        REC.record(r['id'], 'NOT RUN' if r['id'] in not_due else r['status'], r['actual'],
+                   r['predicate'] or r['expected'])
     REC.write()
     print(json.dumps(summary, sort_keys=True))
     for r in doc['controls']:

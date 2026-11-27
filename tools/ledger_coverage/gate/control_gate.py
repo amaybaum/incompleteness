@@ -151,7 +151,9 @@ RC_RTL2 = ('a reconciliation record named by the run from a commit outside the t
 RC_RTT = 'a reviewed record of a sec. 8.2 kind referenced by the configuration at the commit under check'
 RC_TR5 = ('the configuration path at the candidate F named by --freeze is listed in the last Record pins subsection of '
           'the PREREG.md beside it')
-RELEASE_CHECKS = frozenset([RC_FALSE, RC_TR5_PASS, RC_EI14, RC_RTL2, RC_RTT, RC_TR5])
+# r6 amendment 9 (owner-approved; rows that read the configuration's rule records gate plan freeze F, OBL-3)
+RC_RULES = 'every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)'
+RELEASE_CHECKS = frozenset([RC_FALSE, RC_TR5_PASS, RC_EI14, RC_RTL2, RC_RTT, RC_TR5, RC_RULES])
 # amendment 8, M8-3 and M8-4 (R6.GATE.15): a row outside the A1 path admits NOT RUN with this reason and RC_FALSE;
 # where no runner records it, the gate records it NOT RUN
 A8_REASON = 'outside the A1 path (amendment 8)'
@@ -296,6 +298,50 @@ def rtt_release(ctx):
     return False
 
 
+def rule_records_reviewed(cfg, read):
+    """RC_RULES: the configuration lists at least one rule record, and each, its bytes hashing to the pinned
+    sha256, is reviewed by an accepting review record listed among the configuration's `records` that names exactly
+    that blob. `read(path)` returns the bytes of a path in the tree the configuration is read from, or None."""
+    if not isinstance(cfg, dict):
+        return False
+    rules = [r for r in (cfg.get('rules') or []) if isinstance(r, dict)]
+    if not rules:
+        return False
+    reviews = []
+    for r in (cfg.get('records') or []):
+        if isinstance(r, dict) and r.get('kind') == 'review':
+            b = read(r.get('path'))
+            try:
+                rv = json.loads(b.decode('utf-8')) if b is not None else None
+            except ValueError:
+                rv = None
+            if isinstance(rv, dict) and rv.get('schema') == 'oi-review-record/1':
+                reviews.append(rv)
+    for r in rules:
+        b = read(r.get('path'))
+        if b is None or hashlib.sha256(b).hexdigest() != r.get('blob_sha256'):
+            return False
+        if not any((rv.get('reviewed') or {}).get('path') == r.get('path') and
+                   (rv.get('reviewed') or {}).get('blob_sha256') == r.get('blob_sha256') and rv.get('verdicts') and
+                   all(isinstance(v, dict) and v.get('verdict') == 'accept' for v in rv['verdicts'])
+                   for rv in reviews):
+            return False
+    return True
+
+
+def rules_release(ctx):
+    """RC_RULES at the commit under check, the configuration given by --config."""
+    if not (ctx.repo and ctx.commit and ctx.config_path):
+        return False
+    data = git_show(ctx.repo, '%s:%s' % (ctx.commit, ctx.config_path))
+    try:
+        cfg = json.loads(data.decode('utf-8')) if data is not None else None
+    except ValueError:
+        cfg = None
+    return rule_records_reviewed(cfg, lambda p: git_show(ctx.repo, '%s:%s' % (ctx.commit, p))
+                                 if isinstance(p, str) else None)
+
+
 def git_show(repo, rev_path):
     r = subprocess.run(['git', '--no-replace-objects', '-C', repo, 'cat-file', 'blob', rev_path],
                        stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -332,6 +378,8 @@ def evaluate_release(ctx, text, statuses):
         return rtt_release(ctx)
     if text == RC_TR5:
         return tr5_release(ctx)
+    if text == RC_RULES:
+        return rules_release(ctx)
     raise FileInvalid('unknown release check %r' % text)
 
 

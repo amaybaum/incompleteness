@@ -79,6 +79,34 @@ def simulated_freeze(repo, rev, path, staged_bytes):
                        subject='stand-in for F: the staged configuration in the plan record directory')
 
 
+def rules_not_due(a, repo_root):
+    """r6 amendment 9: the ids of the expectation rows released by RC_RULES when the configuration under test does not
+    yet reference reviewed rule records (OBL-3). Such a row is recorded NOT RUN; its evidence is kept as its actual.
+    The configuration and its records are read from the tree the run reads (the staged draft over the commit)."""
+    import importlib.util as _ilu
+    gp = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'gate', 'control_gate.py')
+    spec = _ilu.spec_from_file_location('control_gate_a9', gp)
+    cg = _ilu.module_from_spec(spec)
+    spec.loader.exec_module(cg)
+    try:
+        cfg = json.loads(a.repo.read(a.crev, a.cpath).decode('utf-8'))
+    except Exception:
+        cfg = None
+
+    def read(path):
+        try:
+            return a.repo.read(a.crev, path) if isinstance(path, str) else None
+        except Exception:
+            return None
+    if cg.rule_records_reviewed(cfg, read):
+        return set()
+    ep = os.path.join(repo_root, 'verification', 'audits', 'foundations', 'a1exit-design-r6-20261125',
+                      'EXPECTATIONS.json')
+    with open(ep, encoding='utf-8') as f:
+        rows = json.load(f)['rows']
+    return {r['id'] for r in rows if (r.get('not_run') or {}).get('release_check') == cg.RC_RULES}
+
+
 class A1:
     def __init__(self, repo_path, config_ref, out_root, staged=None, main=None):
         self.base = gitobj.GitRepo(repo_path)
@@ -1792,10 +1820,13 @@ def main():
                'failed': sorted(k for k, v in a.results.items() if not v.get('passed'))}
     # R6.GATE.5 and R6.GATE.7: one record per control with its retained evidence, read by the gate
     a.rec.out_dir = args.out
+    not_due = rules_not_due(a, args.repo)
     for cid in sorted(a.results):
         v = a.results[cid]
         a.rec.pending = a.runs_of.get(cid, [])
         st = v['status'] if v['status'] in ('PASS', 'FAIL', 'NOT RUN') else 'FAIL'
+        if cid in not_due:
+            st = 'NOT RUN'
         files = proc = None
         if cid == 'RT-L2' and isinstance(v.get('actual'), dict) and v['actual'].get('rtl2_inputs'):
             ri = v['actual']['rtl2_inputs']
