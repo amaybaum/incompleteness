@@ -1979,7 +1979,26 @@ def ei_controls(r):
                         attested={'outcome': 'ACCEPTED' if consumer14['accepted_branch'] else 'NON_ACCEPTANCE'})
     except Exception as exc:
         consumer14['error'] = '%s: %s' % (type(exc).__name__, exc)
-    tool14 = {'run': a14, 'markers': markers14}
+    # the observability countercontrol of file_executed: the CX-3 shadow file's bytes as T' holds them, executed
+    # directly with the same marker directory variable, write a marker, so an import of it would have been seen. The
+    # in-process tool reads T' through git objects and imports nothing from it, so file_executed false there is weak
+    # evidence; the substantive evidence that nothing unpinned executes on a branch dispatch is EI14-dispatch (a real
+    # dispatch of the pinned workflow, NOT RUN until the owner approves the launch)
+    obs_dir = tempfile.mkdtemp(prefix='ei14-observe-', dir=r.out_root)
+    shadow_py = os.path.join(obs_dir, 'shadow_json.py')
+    with open(shadow_py, 'wb') as f:
+        f.write(t14.repo.read(w14.T, 'tools/json.py') or b'')
+    os.makedirs(os.path.join(obs_dir, 'm'))
+    p_obs = subprocess.run([sys.executable, '-I', '-S', '-B', shadow_py], capture_output=True,
+                           env={'PATH': os.environ.get('PATH', ''), 'PROBE_MARKER_DIR': os.path.join(obs_dir, 'm')})
+    observed14 = sorted(os.listdir(os.path.join(obs_dir, 'm')))
+    REC.capture_doc('the CX-3 shadow file tools/json.py of T\' executed directly (observability countercontrol)',
+                    {'exit_status': None, 'exit': p_obs.returncode, 'markers': observed14},
+                    case="reaching the tool: the CX-3 shadow file executed directly writes its marker "
+                         "(observability countercontrol)",
+                    attested={'outcome': 'COUNTERCONTROL' if observed14 else None, 'marker_written': bool(observed14)})
+    tool14 = {'run': a14, 'markers': markers14, 'observability_countercontrol': {'exit': p_obs.returncode,
+                                                                                'markers': observed14}}
     o14a = e.case('EI14 branch', cx3, ref='refs/heads/feature')
     o14b = e.case('EI14 on main', cx3)
     clean_res = e.entry(e.fresh('EI14 clean reference'))[1]
@@ -1999,7 +2018,8 @@ def ei_controls(r):
           failed(o14a) and 'GITHUB_REF' in o14a['prerun'] and o14b['prerun_exit'] == 0 and
           o14b.get('entry_exit') == 0 and not o14b['markers'] and same14 and
           a14['exit'] == 65 and a14['stop'] == 'CONFIG_UNREVIEWED' and 'head branch' in (a14.get('message') or '') and
-          not markers14 and consumer14.get('accepted_branch') is False and consumer14.get('accepted_on_main') is True,
+          not markers14 and bool(observed14) and consumer14.get('accepted_branch') is False and
+          consumer14.get('accepted_on_main') is True,
           {branch14: o14a, main14: o14b}, clean_name=main14,
           attest={branch14: {'message_names': 'GITHUB_REF' if 'GITHUB_REF' in o14a['prerun'] else None},
                   main14: {'file_executed': bool(o14b['markers']), 'result_equal_without_file': same14}})
