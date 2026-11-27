@@ -1,14 +1,15 @@
-# OBL-29 custody: format, bootstrap inventory and mapping to admitted inputs (paper design c9)
+# OBL-29 custody: format, bootstrap inventory and mapping to admitted inputs (paper design c10)
 
 ## 0. Status, authority, scope and goal link
 
-**Status.** Paper design c9. Adopted at c7 (`4cf463945f1ce1a078bf98f23e9ee3d091ecebe4`) by owner
+**Status.** Paper design c10. Adopted at c7 (`4cf463945f1ce1a078bf98f23e9ee3d091ecebe4`) by owner
 decision (amaybaum, received 2026-11-26T21:40Z, coordinating session; recorded at #1169 comment
 7203030778), whose item 2 reads in part: "Select D-1 option (ii), adopt OQ-17, adopt OQ-19 using
 roles.M as a named verdict-readable field, and decline OQ-20." **D-1 = (ii)**: every clause and
-control marked variant (i) is not adopted. c8 and c9 change provenance and anchoring only, from the
+control marked variant (i) is not adopted. c8 to c10 change provenance and anchoring only, from the
 landing check on PR #1616, plus the reword of "discharge-bearing" that owner decision 2 of #1169
-comment 7207734407 made after adoption (no admission mode is a condition). The proposed
+comment 7207734407 made after adoption (no admission mode is a condition) and the CU-N23 rebuild. The
+proposed
 requirements (ids `R6.CUST.n`) have no force until adoption. Adoption of this design does not
 discharge OBL-29, does not authorize implementing custody-dependent discharge, and changes no
 schema, admission rule or release-gate step by itself (§7).
@@ -692,9 +693,9 @@ this design; their ids are not reused.
 | OQ-14 | Is a custody failure global or per repair? | global to the run's cited discharges | per repair: needs a relevance test that itself depends on the failed replay |
 | OQ-15 | Recovery when a mechanically invalid entry lands despite R6.CUST.10 | none: custody stays unestablished (fail closed) | an owner-authorized correction route, for example a tool revision listing the offending entries as excluded; a new mechanism needing its own design |
 | OQ-16 | Adopt R6.CUST.10 as a release-gate step? | yes (review finding 5) | no: run-time checks only, accepting that a malformed or invalid entry is found only at the next run and cannot then be removed |
-| OQ-17 | Must a discharge-bearing round land the `result.json` of each op C run under `<dir>/op-c-runs/` of its configuration's directory, so that (c3) checks `runs` mechanically and a missing result is a custody failure? | yes, at that location | no: the equality is checked only where results landed, and otherwise completeness and attribution rest on review (R-C2); or another location fixed by the same rule |
-| OQ-20 | May a stale `unfrozen` entry be re-asserted after a pin? | (a) no: a stale entry is recovered only by a context; a configuration pinned but never frozen whose `unfrozen` entry predates the pin has no recovery (R-C4) | (b) an exception to (s5) for re-asserted `unfrozen` entries, with the pin rule judged by the version that last adds the entry: recovers that case, at the cost of a small schema and rule change the owner must adopt |
-| OQ-19 | Which named result field carries a run's `M` for (c3)? A dependency: an r6 and tool change adopted with this design | adopt `roles.M` as a named field a verdict may read (R6.OUT) | emit `inputs.main` under OBL-28 C-24; until either is made, (c3) cannot read `M` from results and takes its review form |
+| OQ-17 (adopted) | Must a discharge-bearing round land the `result.json` of each op C run under `<dir>/op-c-runs/` of its configuration's directory, so that (c3) checks `runs` mechanically and a missing result is a custody failure? | yes, at that location | no: the equality is checked only where results landed, and otherwise completeness and attribution rest on review (R-C2); or another location fixed by the same rule |
+| OQ-20 (decided: declined, default (a)) | May a stale `unfrozen` entry be re-asserted after a pin? | (a) no: a stale entry is recovered only by a context; a configuration pinned but never frozen whose `unfrozen` entry predates the pin has no recovery (R-C4) | (b) an exception to (s5) for re-asserted `unfrozen` entries, with the pin rule judged by the version that last adds the entry: recovers that case, at the cost of a small schema and rule change the owner must adopt |
+| OQ-19 (decided: `roles.M` as a named field) | Which named result field carries a run's `M` for (c3)? A dependency: an r6 and tool change adopted with this design | adopt `roles.M` as a named field a verdict may read (R6.OUT) | emit `inputs.main` under OBL-28 C-24; until either is made, (c3) cannot read `M` from results and takes its review form |
 | OQ-18 | Under variant (i) of D-1, which plan layout reconciles the V3 record directory with R6.CFG.1 and R6.A1CFG.1? | the configuration and its `PREREG.md` under `R/amendments/` of the round, with the admitted record directory of R6.A1CFG.1 set to that round's record directory by a tool revision | the configuration landed under `R` on `main` before `D`; either needs an r6 amendment |
 
 ***
@@ -729,8 +730,8 @@ with OQ-17, R6.CUST.8 and R6.CUST.10, are:
 1. **D-1 = (ii)**, adopted (owner amaybaum, #1169 comment 7203030778, 2026-11-26: "Select D-1
    option (ii)"): the `freeze` entry type with its `landing` rule. Variant (i), with OQ-18's plan
    layout and r6 amendment, is not adopted.
-2. **OQ-19 (r6 and tool).** A named result field for a run's `M`: `roles.M` moved from declared
-   diagnostics to named fields in R6.OUT, or `inputs.main` emitted under OBL-28 C-24.
+2. **OQ-19 adopted:** `roles.M` moved from declared diagnostics to named fields in R6.OUT (r6 and
+   tool change).
 3. **OQ-17 (r6 and plan rule).** Every discharge-bearing round lands each op C run's `result.json`
    under `<dir>/op-c-runs/` beside its configuration.
 4. **R6.CUST.8 (review-lint schema).** Item ids `entry:<i>` for `oi-review-record/1` reviews of
@@ -740,14 +741,13 @@ with OQ-17, R6.CUST.8 and R6.CUST.10, are:
    constants in `tools/ledger_coverage/record_authority.py` (a tool revision), and in
    `engine/purity.py`'s schema list if that list must name every schema.
 7. **A tool revision implementing R6.CUST.1–10:** replacing `custody_unverified` in
-   `engine/category3.py`, adding the custody path (and, under variant (i), `verification/receipts/`)
-   to the R6.OBL29.7 walk's fixed selection, and adding the `custody-*` item names under the existing
+   `engine/category3.py`, adding the custody path to the R6.OBL29.7 walk's fixed selection, and adding the `custody-*` item names under the existing
    `record-invalid` class.
 8. **OQ-12, if its default is kept.** A `category3.custody` result field, a change to the
    `oi-ledger-coverage/5` schema file.
 9. **The procedural preconditions of OQ-7 and §5 item 4:** admitted `REV`s land by merges that keep
    their ids, each `close` comes after its landing, and freezes are ordered as OQ-7 states.
-10. **OQ-20, if option (b) is chosen.** The (s5) exception for re-asserted `unfrozen` entries.
+10. **OQ-20 declined;** no (s5) exception.
 
 The remaining open questions of §10 keep their recommended defaults unless the owner decides
 otherwise. None of these items authorizes implementation, a freeze, a trial, a dispatch or a merge
