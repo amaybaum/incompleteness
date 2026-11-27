@@ -236,7 +236,8 @@ def u_controls():
     cv, it = w.coverage(x, [seg(w.pin, x)])
     _bind_first(subject='%s:3@%s' % (doc_path, w.pin[:8]))
     _restore(w)
-    out['U2'] = decision(it) == oc.pass_ and all(s['statuses'][-1]['status'] == 'moved' for s in cv.site_out.values())
+    out['U2'] = decision(it) == oc.pass_ and all(s['statuses'][-1]['status'] == 'moved' and s.get('line_delta') == 3
+                                                 for s in cv.site_out.values())
     led = ledger(w.pin, [(doc_path, 0, 0, 'new one\nnew two\nnew three\n')], w.repo)
     x = w.child(w.pin, 'new one\nnew two\nnew three\n' + base_text)
     cv, it = w.coverage(x, [seg(w.pin, x, 'ledgered', ledger=led)])
@@ -276,9 +277,14 @@ def u_controls():
     x = w.child(w.pin, base_text.replace('beta line two', 'beta line second'))
     cv, it = w.coverage(x, [seg(w.pin, x, 'ledgered', ledger=led)])
     st = [s['statuses'][-1] for s in cv.site_out.values() if s['statuses'][-1]['status'] == 'authorized-replacement']
-    _bind_first(subject='%s:5@%s' % (doc_path, w.pin[:8]))
+    _bind_first(subject='%s:5@%s' % (doc_path, w.pin[:8]), splices=['S1'],
+                splice_hashes={'S1': {'old_sha256': util.sha256(b'beta line two'),
+                                      'new_sha256': util.sha256(b'beta line second')}})
     _restore(w)
-    out['U10'] = decision(it) == oc.pass_ and len(st) == 1 and st[0]['splice_ids'] == ['S1']
+    u10 = cv.site_out['%s:5@%s' % (doc_path, w.pin[:8])]
+    out['U10'] = decision(it) == oc.pass_ and len(st) == 1 and st[0]['splice_ids'] == ['S1'] and \
+        u10.get('per_splice_hashes') == {'S1': {'old_sha256': util.sha256(b'beta line two'),
+                                                'new_sha256': util.sha256(b'beta line second')}}
     b = a + len('beta line two stands here.\n')
     led = ledger(w.pin, [(doc_path, a, b, '')], w.repo)
     x = w.child(w.pin, base_text.replace('beta line two stands here.\n', ''))
