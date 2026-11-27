@@ -1793,10 +1793,34 @@ def rep_inputs(a):
     eds = a.repo.read(a.tool_rev, a.ad + 'rep/edits.json')
     if led is None or eds is None or gitobj.blob_id_of(led) != REP_LEDGER_GIT or gitobj.blob_id_of(eds) != REP_EDITS_GIT:
         raise RepRefused('the pinned ledger or edit list of the tool revision is not the retirement ledger\'s blob')
-    cfg = json.loads(a.repo.read(a.crev, a.cpath))
+    # the configuration's control instance when the runner bound one (rep_instance, R6.EVID.8; staging r2 sec. 2),
+    # else the configuration
+    inst = getattr(a, 'rep_instance_doc', None)
+    cfg = inst if inst is not None else json.loads(a.repo.read(a.crev, a.cpath))
     dref = cfg.get('delegation') or {}
     deleg = json.loads(a.repo.read(a.crev, dref['path'])) if dref.get('path') else {}
     return led, eds, deleg
+
+
+def bind_control_instance(a, template, snapshot, descriptor_sha256):
+    """R6.EVID.8: the configuration's control instance, the landed template filled from the class tip in the run's
+    M, with the role binding at the reviewed snapshot S (rep_instance.bind and fill). Sets a.rep_instance_doc and
+    a.rep_binding; a refused binding is kept as {'refused': reason} and leaves REP-BUILD open (FAIL)."""
+    from ledger_coverage.adapters import rep_instance as ri
+    trev, tpath = template.split(':', 1)
+    try:
+        tb = a.base.read(a.base.resolve(trev), tpath)
+        if tb is None:
+            raise ri.Refused('no control-instance template at %s' % template)
+        b = ri.bind(a.base, a.base.resolve(snapshot), a.main, descriptor_sha256)
+        inst = ri.fill(tb, b)
+        a.rep_instance_doc = json.loads(inst)
+        a.rep_binding = {'template': {'path': tpath, 'blob_sha256': sha(tb)}, 'S': b['S'], 'M': b['M'],
+                         'class_tip': b[ri.CLASS_FILL], 'allow_tip': b[ri.ALLOW_FILL],
+                         'pins_checked': b['pins_checked'], 'instance_sha256': sha(inst)}
+    except (ri.Refused, gitobj.Unresolvable) as exc:
+        a.rep_instance_doc = None
+        a.rep_binding = {'template': template, 'refused': str(exc)}
 
 
 def build_x_rep(a, repo=None, ledger=None, source=None):
@@ -1929,7 +1953,8 @@ def rep_build_control(a):
         why = rep_conforms(a, x1, ch)
         with open(os.path.join(here, 'rep_build.py'), 'rb') as f:
             _, mods = rep_builder(f.read())
-        ok1 = ids[0] == ids[1] and not why
+        bound = getattr(a, 'rep_binding', None)
+        ok1 = ids[0] == ids[1] and not why and not (bound or {}).get('refused')
         att = {'outcome': 'HASH_EQUAL' if ids[0] == ids[1] else 'HASH_DIFFERS'}
         if not why:
             att['representative_candidate'] = REP_CANDIDATE
@@ -1938,7 +1963,10 @@ def rep_build_control(a):
         if all(m in REP_ALLOWED_IMPORTS for m in mods):
             att['imported_files_within'] = 'the builder and the standard library; no module under tools/ledger_coverage/engine/'
         acts['build'] = {'commit_ids': [ids[0][0], ids[1][0]], 'tree_ids': [ids[0][1], ids[1][1]],
-                         'changed_paths': len(ch), 'nonconforming': why, 'imports': mods}
+                         'changed_paths': len(ch), 'nonconforming': why, 'imports': mods,
+                         'control_instance': bound if bound is not None else
+                         'not bound: no template and snapshot S supplied (--rep-template, --rep-snapshot); the '
+                         'configuration itself supplies the delegation contract'}
     except RepRefused as exc:
         ok1, att = False, {'outcome': 'REFUSED', 'reason': str(exc)}
         acts['build'] = {'refused': str(exc)}
@@ -2003,7 +2031,15 @@ def main():
                          'runs in place of the drafted reconciliation record (repeatable; REV resolved here)')
     ap.add_argument('--main', default=None,
                     help='required: the main commit the sequencing safeguard (RT-L2) and the drift classes use')
+    ap.add_argument('--rep-template', default=None,
+                    help='REV:PATH of the landed control-instance template (R6.EVID.8); with --rep-snapshot and '
+                         '--rep-descriptor-sha256 the runner binds and fills the control instance (rep_instance)')
+    ap.add_argument('--rep-snapshot', default=None, help='the reviewed record snapshot S (staging r2 sec. 2)')
+    ap.add_argument('--rep-descriptor-sha256', default=None, help='the sha256 of the transition descriptor S carries')
     args = ap.parse_args()
+    rep_opts = (args.rep_template, args.rep_snapshot, args.rep_descriptor_sha256)
+    if any(rep_opts) and not all(rep_opts):
+        ap.error('--rep-template, --rep-snapshot and --rep-descriptor-sha256 are given together')
     if not args.main:
         ap.error('--main is required: the main commit the sequencing safeguard is measured against')
     try:
@@ -2038,6 +2074,10 @@ def main():
             if p.startswith(('tools/ledger_coverage/', ad + '/')) or p in ('tools/ledger_coverage.py', WORKFLOW_PATH):
                 tool_files[p] = a.base.read_blob(b)
     a.classify = ['%s:%s' % (rev_parse(args.repo, ref.split(':', 1)[0]), ref.split(':', 1)[1]) for ref in args.classify]
+    if all(rep_opts):
+        trev, tpath = args.rep_template.split(':', 1)
+        bind_control_instance(a, '%s:%s' % (rev_parse(args.repo, trev), tpath), rev_parse(args.repo, args.rep_snapshot),
+                              args.rep_descriptor_sha256)
     groups = [('chain', chain_refusal), ('record', rt_record), ('coverage', rt_coverage), ('terms', rt_terms),
               ('v', v_controls), ('rules', rule_lint_controls), ('exec', ex_controls),
               ('trees', lambda x: tree_controls(x, tool_files)), ('k1', lambda x: k1_graph(x, tool_files)),
