@@ -1000,7 +1000,14 @@ def _computed_invariant(k, v, result, bindings):
     return None
 
 
-def eval_invariant(k, v, result, case, attested, bindings):
+def _side_changes(result):
+    scan = (result or {}).get('side_changes')
+    if isinstance(scan, list) and all(isinstance(s, dict) and isinstance(s.get('path'), str) for s in scan):
+        return scan
+    return None
+
+
+def eval_invariant(k, v, result, case, attested, bindings, declared_sites=()):
     """Returns (holds, actual, source). Keys the gate can compute from the retained result are computed; any
     other key must be attested in the case's sha256-checked attested file, equal to the expectation."""
     if isinstance(result, dict) and result.get('schema') == SCHEMA_GATE:
@@ -1013,8 +1020,8 @@ def eval_invariant(k, v, result, case, attested, bindings):
                                     for r in comps)
             return a == v, a, 'gate result'
     if k in ('not_in_H_to_M_scan', 'class_route_entry_stands'):
-        scan = (result or {}).get('side_changes')
-        if not isinstance(scan, list) or any(not isinstance(s, dict) or not isinstance(s.get('path'), str) for s in scan):
+        scan = _side_changes(result)
+        if scan is None:
             return False, None, 'unattested'
         if k == 'not_in_H_to_M_scan':
             path = _bind(v, bindings)
@@ -1039,9 +1046,18 @@ def eval_invariant(k, v, result, case, attested, bindings):
             a = ((result.get('config') or {}).get('admission') or {}).get('mode')
             return (a == v) if k == 'admission_mode' else (a != v), a, 'result'
         if k == 'not_class':
-            a = sorted({i.get('class') for i in result.get('items') or []})
+            classes = {i.get('class') for i in result.get('items') or []}
             vals = v if isinstance(v, list) else [v]
-            return not (set(vals) & set(a)), a, 'result'
+            if 'record-directory' in vals:
+                scan = _side_changes(result)
+                paths = [_bind(site['subject'], bindings) for site in declared_sites if 'subject' in site]
+                if scan is None or not paths or any(not isinstance(p, str) or not p for p in paths):
+                    return False, None, 'unattested'
+                # R6.RDIR.1 and R6.RDIR.10: the reserved class must be absent for the named
+                # path. Other paths in the same record directory may legitimately have it.
+                if any(entry['path'] in paths and entry.get('class') == 'record-directory' for entry in scan):
+                    classes.add('record-directory')
+            return not (set(vals) & classes), sorted(classes), 'result'
         if k == 'items_include':
             items = result.get('items') or []
             miss = [w for w in v if not any(all(_has(i, kk, _bind(vv, bindings)) for kk, vv in w.items())
@@ -1594,7 +1610,7 @@ def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None):
                 k, v = next(iter(inv.items()))
             if k == 'baseline':
                 continue
-            holds, got, src = eval_invariant(k, v, result, c, attested, bindings)
+            holds, got, src = eval_invariant(k, v, result, c, attested, bindings, exp.get('sites') or ())
             actual.setdefault('invariants', {})[k] = {'value': got, 'source': src}
             if not holds:
                 findings_out.append(('raw-evidence-missing' if src == 'unattested' else 'declarative-mismatch',
