@@ -166,7 +166,7 @@ def authorization_problems(J, landing_time, owner_identities):
         return [('ADJ-AUTH-FORM', 'no authorization object')]
     out = []
     if not member(a.get('author'), owner_identities):
-        out.append(('ADJ-AUTH-OWNER', 'the authorization\'s author is not a member of OWNER_IDENTITIES'))
+        out.append(('ADJ-AUTH-OWNER', 'the authorization\'s author is outside the declared owner identity set'))
     if not same(a.get('adjudicator'), J.get('author')):
         out.append(('ADJ-AUTH-SCOPE', 'the authorized adjudicator is not the record\'s author'))
     if a.get('finding') != J.get('finding'):
@@ -229,7 +229,7 @@ def independence_problems(J, tech_reviewer, party_set, owner_identities, declare
     elif member(j, party_set):
         out.append(('ADJ-INDEP', 'the adjudicator is a party'))
     if member(j, owner_identities):
-        out.append(('ADJ-INDEP', 'the adjudicator is a member of OWNER_IDENTITIES'))
+        out.append(('ADJ-INDEP', 'the adjudicator is in the declared owner identity set'))
     if tech_reviewer is not None:
         if not usable(tech_reviewer):
             out.append(('ADJ-INDEP', 'the technical reviewer is not a usable identity'))
@@ -239,7 +239,7 @@ def independence_problems(J, tech_reviewer, party_set, owner_identities, declare
             out.append(('ADJ-INDEP', 'the technical reviewer is, or declares a dependency on, the adjudicator'))
         if member(tech_reviewer, owner_identities) or any(member(d, owner_identities) for d in declared):
             out.append(('ADJ-INDEP', 'the technical reviewer is, or declares a dependency on, a member of '
-                                     'OWNER_IDENTITIES'))
+                                     'the declared owner identity set'))
     return out
 
 
@@ -279,7 +279,7 @@ def self_consistency(J, reproduced, resolves):
     out = [('ADJ-BIND', 'a reference does not resolve: %r' % (r,)) for r in unresolved_references(J, resolves)]
     w = J.get('witness') if isinstance(J.get('witness'), dict) else {}
     if reproduced is None:
-        return out + [('ADJ-BIND', 'the retained witness cannot be reproduced from custody (R6.OBL29.3)')]
+        return out + [('ADJ-BIND', 'the retained witness cannot be reproduced from custody')]
     # a lineage witness's edge is the operative edge U -> P {successor, predecessor} as r9 retains it (#1605 sec. 6
     # rows adopted with the U -> P edge)
     for k in ('class', 'disputed', 'edge', 'original_configuration'):
@@ -336,7 +336,7 @@ def substance_problems(J, git_of):
     f = J.get('finding') if isinstance(J.get('finding'), dict) else {}
     need = [git_of(_ref(f)), q, r, git_of(J.get('reassessment'))] + [git_of(s) for s in w.get('sources') or []]
     if not all(need) or not all(obl29.holds(J.get('method'), x) for x in need):
-        out.append(('ADJ-SUBST', 'method lacks a git blob id R6.ADJ.6 requires'))
+        out.append(('ADJ-SUBST', 'method lacks a required git blob id'))
     return out
 
 

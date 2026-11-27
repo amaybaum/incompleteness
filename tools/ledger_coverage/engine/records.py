@@ -85,11 +85,11 @@ def _person(v):
 
 
 def revision_problems(repo, roots, review, record_commit=None):
-    """S-1 sec. 3, kept by staging S-2 S2.3: `revision` is a commit id reachable through any parent from one of
-    `roots` (the roots the review is read from) whose tree holds reviewed.path at a regular mode with bytes hashing
-    to reviewed.blob_sha256. For the review R6.RECON.2 (d) admits with a record read by the post-freeze route
-    (`record_commit` = REV; r6 Amendment 10), `revision` equals the record base, REV's single parent, and the reviewed
-    bytes are read from REV's tree. [] when it binds; a review read with no root binds nothing."""
+    # S-1 sec. 3, kept by staging S-2 S2.3: `revision` is a commit id reachable through any parent from one of
+    # `roots` (the roots the review is read from) whose tree holds reviewed.path at a regular mode with bytes hashing
+    # to reviewed.blob_sha256. For the review R6.RECON.2 (d) admits with a record read by the post-freeze route
+    # (`record_commit` = REV; r6 Amendment 10), `revision` equals the record base, REV's single parent, and the reviewed
+    # bytes are read from REV's tree. [] when it binds; a review read with no root binds nothing.
     rev = review.get('revision') if isinstance(review, dict) else None
     rv = review.get('reviewed') if isinstance(review, dict) and isinstance(review.get('reviewed'), dict) else {}
     roots = [r for r in (roots or ()) if r]

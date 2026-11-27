@@ -91,8 +91,8 @@ def held_lines(states):
 
 
 def record_of(entry):
-    """R6.HP.6 / R6.REC.10: a record-invalid item of an HP adjudication names its record: `file` the record's path
-    and `record` its reference, when the entry came from an admitted record (`_ref`)."""
+    # R6.HP.6 / R6.REC.10: a record-invalid item of an HP adjudication names its record: `file` the record's path
+    # and `record` its reference, when the entry came from an admitted record (`_ref`).
     ref = (entry or {}).get('_ref')
     return {'file': ref['path'], 'record': ref} if isinstance(ref, dict) and ref.get('path') else {}
 
@@ -135,8 +135,8 @@ class Coverage:
         self.items.append(oc.make_item(obligation, cls, subject, segment, fp, **kw))
 
     def _unique(self, kind, entries, key):
-        """{key: entry} of the entries whose key no other entry of the same kind names; each duplicated key gives
-        one FAIL record-invalid naming the record and every entry that names it (R6.REC.10)."""
+        # {key: entry} of the entries whose key no other entry of the same kind names; each duplicated key gives
+        # one FAIL record-invalid naming the record and every entry that names it (R6.REC.10).
         by = {}
         for e in entries:
             by.setdefault(key(e), []).append(e)
@@ -605,12 +605,12 @@ class Terms:
         self.evaluated = []
 
     def _hit_scope(self, recs, chain_segments):
-        """R6.REC.10 for hit classification records. Two in-scope entries naming the same `{file, line_sha256}`
-        are duplicates: FAIL record-invalid naming both, and neither is applied. With the run's chain given (op B; empty in op D), an
-        entry applies to this tree when it names no tree or this tree, and no segment or a segment of the chain; such
-        an entry whose line matches no line of its file on this tree resolves nothing and is FAIL record-invalid. An
-        entry naming another tree or a segment outside the chain is out of scope (no finding). Without a chain (None) the
-        entries are applied as given and no orphan is checked."""
+        # R6.REC.10 for hit classification records. Two in-scope entries naming the same `{file, line_sha256}`
+        # are duplicates: FAIL record-invalid naming both, and neither is applied. With the run's chain given (op B;
+        # empty in op D), an entry applies to this tree when it names no tree or this tree, and no segment or a segment
+        # of the chain. Such an entry whose line matches no line of its file on this tree resolves nothing and is
+        # FAIL record-invalid. An entry naming another tree or a segment outside the chain is out of scope (no
+        # finding). Without a chain (None) the entries are applied as given and no orphan is checked.
         if chain_segments is None:
             scoped = recs
         else:

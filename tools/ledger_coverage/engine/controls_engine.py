@@ -702,7 +702,7 @@ def h_controls():
     return out
 
 
-CHAIN_ROOT = []
+chain_root = []
 
 
 def chain_world():
@@ -714,7 +714,7 @@ def chain_world():
     # the commit the reviewer read: it holds the record (S-1 sec. 3, kept by staging S-2 S2.3); lint reads it as root
     ov = Overlay()
     root = ov.add_commit({'rec/r.json': rb}, [], 'record')
-    CHAIN_ROOT[:] = [ov, root]
+    chain_root[:] = [ov, root]
     review = {'schema': rec.review_schema, 'reviewer': 'eng-reviewer', 'reviewed': ref, 'method': 'read the objects',
               'verdicts': [{'item': 'q1', 'verdict': 'accept'}], 'independence': {'not_author': True, 'depends_on': []},
               'revision': root}
@@ -726,7 +726,7 @@ def chain_world():
 def chain_probs(rule, review, admitted_extra=(), mutate_ref=None):
     rb, vb = util.canonical(rule), util.canonical(review)
     entries = [('rec/r.json', rb), ('rec/r.review.json', vb)]
-    st = rec.Store(entries, CHAIN_ROOT[0], CHAIN_ROOT[1:])
+    st = rec.Store(entries, chain_root[0], chain_root[1:])
     ref = {'path': 'rec/r.json', 'blob_sha256': util.sha256(rb)}
     admitted = {util.sha256(b) for _, b in entries} | set(admitted_extra)
     checked = mutate_ref or ref

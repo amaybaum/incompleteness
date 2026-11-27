@@ -126,11 +126,8 @@ _git_env_drop = ('GIT_CONFIG_PARAMETERS', 'GIT_CONFIG_COUNT', 'GIT_CONFIG', 'GIT
 
 
 def clone_env(environ):
-    """The git environment of a delegated clone and its checks: the caller's environment less every variable that
-    carries configuration (GIT_CONFIG_PARAMETERS, GIT_CONFIG_COUNT, GIT_CONFIG_KEY_n, GIT_CONFIG_VALUE_n,
-    GIT_CONFIG), redirects the repository, names a template directory (whose config and hooks a clone copies) or
-    replaces git's helper programs (GIT_EXEC_PATH), with the system configuration off and the global configuration
-    empty."""
+    # The delegated clone and its checks omit caller variables carrying configuration, redirecting the repository,
+    # naming a template directory or replacing git's helper programs. System and global configuration are disabled.
     env = {k: v for k, v in environ.items()
            if k not in _git_env_drop and not k.startswith(('GIT_CONFIG_KEY_', 'GIT_CONFIG_VALUE_'))}
     env.update(GIT_CONFIG_NOSYSTEM='1', GIT_CONFIG_GLOBAL=os.devnull)
