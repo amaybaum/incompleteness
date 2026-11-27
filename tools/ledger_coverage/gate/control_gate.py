@@ -1395,7 +1395,9 @@ def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None):
                                      % (case_name, key, got, want)))
         for s in exp.get('sites') or []:
             subj = _bind(s.get('subject'), bindings) if 'subject' in s else None
-            fields = {k: v for k, v in s.items() if k != 'subject'}
+            # `$name` values are bindings the runner's manifest supplies (R6.GATE.3), in a site's fields as in its subject
+            fields = {k: (v if k in ('classes_exact', 'classes_include') else _bind(v, bindings))
+                      for k, v in s.items() if k != 'subject'}
             if subj is None and isinstance(s.get('all'), str) and \
                     set(s) - {'all'} <= LITERAL_FIELDS and _select(s['all'], result or {}, bindings) is not None:
                 # every selected result site has the stated literal fields (read from the result)
