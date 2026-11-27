@@ -430,18 +430,32 @@ def k_controls():
     cv10, it10 = w.coverage(x, [seg(w.pin, x)], adj=adj, hits=False)
     _restore(w, hits=False)
     out['K10'] = not [i for i in it10 if i['subject'] == sd] and decision(it10) == oc.pass_
-    _capture_site_case('', cv, it, sr, subject=sr)
+    # K2: the neighbour line of the non-required site (line 7) is negated; the required site (line 3) does not
+    # neighbour the change, so the run is the one the row asserts
+    x2 = w.child(w.pin, base_text.replace('delta line four stands here.', 'delta line four does not stand.'),
+                 files={})
+    cv2, it2 = w.coverage(x2, [seg(w.pin, x2)], hits=False)
+    _case('', subject=sr)
     _restore(w, hits=False)
-    out['K2'] = not [i for i in it if i['subject'] == sr] and cv.site_out[sr]['context_changed'] is True
+    out['K2'] = not [i for i in it2 if i['subject'] == sr] and cv2.site_out[sr]['context_changed'] is True and \
+        cv2.site_out[sd]['context_changed'] is False and decision(it2) == oc.pass_
     sw = base_text.replace('alpha line one stands here.\n\nbeta line two stands here.\n\ngamma line three stands here.',
                            'gamma line three stands here.\n\nbeta line two stands here.\n\nalpha line one stands here.')
     x = w.child(w.pin, sw)
     cv, it = w.coverage(x, [seg(w.pin, x)], hits=False)
-    _capture_site_case('required site', cv, it, sd, subject_required=sd)
-    _capture_site_case('non-required site', cv, it, sr, subject_nonrequired=sr)
+    _case('required site', subject_required=sd)
+    # the non-required case: the same swap where only a non-required site (line 7) is in a swapped paragraph; the
+    # required site (line 11) is outside every changed context
+    w3 = World(sites=[(7, 'sr'), (11, 'sd')])
+    x3 = w3.child(w3.pin, sw)
+    cv3, it3 = w3.coverage(x3, [seg(w3.pin, x3)], hits=False)
+    sr3 = '%s:7@%s' % (doc_path, w3.pin[:8])
+    sd3 = '%s:11@%s' % (doc_path, w3.pin[:8])
+    _case('non-required site', subject_nonrequired=sr3)
     _restore(w, hits=False)
     out['K3'] = [i['class'] for i in it if i['subject'] == sd] == ['context-meaning-unverified'] and \
-        not [i for i in it if i['subject'] == sr]
+        not [i for i in it if i['subject'] == sr] and not it3 and cv3.site_out[sr3]['context_changed'] is True and \
+        cv3.site_out[sd3]['context_changed'] is False
     mv = base_text.replace('alpha line one stands here.\n\n', '') + '\nfar away.\n\nalpha line one stands here.\n'
     x = w.child(w.pin, mv)
     cv, it = w.coverage(x, [seg(w.pin, x)], hits=False)
@@ -760,12 +774,18 @@ def r_controls():
         return run(M, exmod.compose_landing(w.repo, H, M, X, led, w.repo), side=[wfc]).items
     e = run(M, side=[wfc])
     _bind_first(workflow=wf)
+    # the obligation the side change falls under, read from the same execution without its class record (not
+    # captured): the obligation of the item the unclassified side change gives
+    if capture_hook is not None:
+        bare = exmod.Execution(ctx, H, X, led, None, M, None, None, [], [])
+        bare.candidate()
+        bare.main_role(set(led['files']) | {doc_path})
+        obl = sorted({i['obligation'] for i in bare.items if i['subject'] == wf})
     _attest('', {'workflow': wf},
             side_changes_exact=[{'path': sc['path'], 'classified_by': 'side-change class record'
                                  if sc.get('class') not in (None, 'base-drift', rcmod.record_directory_class)
                                  else sc.get('class')} for sc in e.side_changes],
-            side_change_obligation='MAIN' if e.side_changes and not [i for i in e.items if i['obligation'] == 'RET']
-            else None)
+            side_change_obligation=obl[0] if capture_hook is not None and len(obl) == 1 else None)
     _restore_with(clean_c, 'execution')
     out['TT1'] = not e.items and e.side_changes[0]['class'] == 'wf'
     # R18 (S3): a listed path whose blob at M differs from its pin; R19 (V3): a prefix alone classifies nothing
@@ -776,9 +796,9 @@ def r_controls():
     e2 = run(x=xm)
     _bind_first(workflow=wf)
     tt2 = any(i['subject'] == wf for i in e2.items)
-    # the countercontrol: comparing X with a candidate built on M (the old-style comparison) reports M's workflow
-    _attest('', {'workflow': wf}, outcome='COUNTERCONTROL' if tt2 else None,
-            old_style_X_vs_M_comparison_reports=wf if tt2 else None)
+    # this run emulates the old-style X-vs-M comparison (the new tool on a candidate with M's tree and X's document,
+    # parent H); the old-style comparison itself is not run, so the row's countercontrol outcome and invariant are
+    # not attested (VD-5 stays open)
     _restore_with(clean_c, 'execution')
     out['TT2'] = tt2
     X3 = w.repo.derive(M, {doc_path: w.repo.read(X, doc_path)}, parents=[M])
@@ -867,8 +887,9 @@ def r_controls():
     _restore_with(lambda: run(M13, side=[tool]).items, 'execution')
     tt14 = 'base-drift' in classes(run(M14, side=[tool]).items)
     _bind_first()
-    # evaluated as the tool pull request's landing check: M carries the tool landing under the tool-landing class
-    _attest('', evaluated_in='tool-landing check of the tool pull request (OD-26)' if tt14 else None)
+    # an execution run with M14 (a child of H touching a ledgered path) as main and the tool-landing class as a side
+    # class; it is not the landing check of the tool's own pull request (R6.PLACE.8), which no operation runs, so the
+    # row's evaluation context is not attested
     out['TT14'] = tt14
     Mo = w.child(M, files={'ops/other.yml': b'z\n'}, subject='another main')
     L15 = exmod.compose_landing(w.repo, H, Mo, X, led, w.repo)
@@ -1068,7 +1089,7 @@ def route_controls():
     # C8: a plan directory that is not an authorized record directory counts for nothing
     top = child(mp, {'corpus/b.md': b'changed again\n'}, 'corpus change')
     sc8 = scope(top, plan_dir='corpus')
-    out['RB-C8'] = sc8.plan_dir is None and pair((rev(mp), sc8), (rev(top), scope(top)))
+    out['RB-C8'] = sc8.plan_dir is None and pair((rev(mp), sc8), (rev(top), sc8))
     # C10: chain mode, base m0 under the predicted main
     out['RB-C10'] = pair((rev(m0), scope(mp, harness=False)), (rev(mp), scope(mp, harness=False)))
     # C11: the record commit also changes a path its parent holds

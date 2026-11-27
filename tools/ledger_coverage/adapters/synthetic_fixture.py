@@ -669,8 +669,11 @@ def x_controls(r, repo_path):
     b, rb = r.cli(syn.repo, ['terms', '--commit', X9, '--check', 'zc', '--final'], c, p, s)
     d, rd = r.cli(syn.repo, ['terms', '--commit', X6, '--check', 'zc', '--final'], c, p, s)
     e, re_ = r.cli(syn.repo, ['terms', '--commit', X9, '--final'], c, p, s)
-    other_item = next((i['subject'] for i in (rd or {}).get('items') or [] if i.get('decision') == 'REVIEW_REQUIRED'),
-                      None)
+    # the other-profile item is chosen by its profile: beta-word, a profile of check zc outside its final profiles
+    # (the configuration above), which X6's added line matches; its decision is what the case checks
+    def _profiles(i):
+        return set([i['profile']] if i.get('profile') else []) | set(i.get('profiles') or [])
+    other_item = next((i['subject'] for i in (rd or {}).get('items') or [] if 'beta-word' in _profiles(i)), None)
     name_runs('without --final', 'with --final', ('other-profile REVIEW item with --final', {'other_item': other_item}),
               '--final without --check')
     # restored: the same check on the unmutated tree, against a clean run of it
@@ -771,9 +774,11 @@ def z9_controls():
         if cid is not None and REC is not None:
             # the purity lint as retained evidence: its findings and the linted source map (the lint library)
             REC.capture_doc('purity lint of an in-memory engine tree (synthetic_fixture.py)',
-                            {'findings': found, 'source_map': sorted(smap), 'exit_status': None},
+                            {'findings': found, 'source_map': sorted(smap), 'value_set': sorted(vals),
+                             'exit_status': None},
                             attested={'outcome': 'LINT_FAIL' if found else 'LINT_PASS'})
-            FILES[cid] = {'lint-findings.json': found, 'lint-source-map.json': smap}
+            FILES[cid] = {'lint-findings.json': found, 'lint-source-map.json': smap,
+                          'lint-value-set.json': sorted(vals)}
             PROCS[cid] = {'name': 'purity-lint', 'lib': 'lint', 'findings': 'lint-findings.json',
                           'source_map': 'lint-source-map.json'}
         return found

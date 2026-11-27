@@ -858,6 +858,9 @@ def ei5_controls(r):
     positive = "one main line equal to L's first parent (countercontrol)"
     clean_input = (0, '%s\tHEAD\n%s\trefs/heads/main\n' % (w.T, L1), L1)
 
+    # the landing check's exit status is mapped from the in-process call, not read from a process exit
+    EI5_EXIT_SOURCE = 'mapped: 0 when checker.resolve_main returns, 1 when it raises ValueError (no process exit)'
+
     def evaluate(name, remote_exit, stdout, first_parent):
         def ls_remote():
             if remote_exit is None:
@@ -866,10 +869,10 @@ def ei5_controls(r):
 
         try:
             resolved = checker.resolve_main(ls_remote, t.repo, first_parent)
-            observed = {'resolved': resolved, 'exit_status': 0}
+            observed = {'resolved': resolved, 'exit_status': 0, 'exit_status_source': EI5_EXIT_SOURCE}
             outcome = 'RESOLVED'
         except ValueError as exc:
-            observed = {'error': str(exc), 'exit_status': 1}
+            observed = {'error': str(exc), 'exit_status': 1, 'exit_status_source': EI5_EXIT_SOURCE}
             outcome = 'LANDING_REFUSED'
         run = REC.capture_doc('checker.resolve_main', observed, case=name, attested={'outcome': outcome})
         return observed, run
@@ -2816,9 +2819,8 @@ def g_controls(r):
     dele_ev = delmod.Delegation({'schema': 'oi-delegation/1', 'classes': [dict(cls, evidence=['sc42-rerun.json'])]},
                                 {'rerun-equal': rerun})
     items8b, _ = evaluate('', dele_ev, repo, dict(roles, freeze=None), env(r.out()), null_plan)
-    subjects = {item['class']: item['subject'] for item in items8b}
-    REC.name_last('', bindings={'class': subjects.get('delegated-evidence-missing'),
-                               'field': subjects.get('delegated-evidence-invalid')})
+    # bound independently of the result: the delegation class id and the name its evidence field lists
+    REC.name_last('', bindings={'class': cls['id'], 'field': dele_ev.doc['classes'][0]['evidence'][0]})
     retain_restored(lambda: clean_sc42('restored'), baseline)
     c8 = sorted({i['class'] for i in items8b})
     check('G8', 'delegated evidence with plan null and no F: never PASS: REVIEW_REQUIRED delegated-evidence-missing '
