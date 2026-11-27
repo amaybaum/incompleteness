@@ -1905,11 +1905,11 @@ def r4_b3_duplicate_controls(r):
     from ledger_coverage.engine import records as rec
 
     def lint(ids, verdicts):
-        d = {'schema': 'oi-hit-classification/1', 'record_id': 'h', 'author': 'writer-a', 'supersedes': None,
+        d = {'schema': 'oi-hit-classification/1', 'record_id': 'h', 'author': 'session.fixture-writer-a', 'supersedes': None,
              'classifications': [{'id': i} for i in ids]}
         db = util.canonical(d)
         ref = {'path': 'r/h.json', 'blob_sha256': sha(db)}
-        rb = util.canonical({'schema': 'oi-review-record/1', 'reviewer': 'reviewer-b', 'reviewed': ref,
+        rb = util.canonical({'schema': 'oi-review-record/1', 'reviewer': 'session.fixture-reviewer-b', 'reviewed': ref,
                              'method': 'read', 'verdicts': [{'item': i, 'verdict': v} for i, v in verdicts]})
         st = rec.Store([('r/h.json', db), ('r/h.review.json', rb)])
         return rec.lint_chain(ref, st, {sha(x) for x in (db, rb)})
@@ -2085,12 +2085,12 @@ def ln1_ln8(r):
         def chained(path, doc):
             db = util.canonical(doc)
             ref = {'path': path, 'blob_sha256': sha(db)}
-            rv = util.canonical({'schema': rec.review_schema, 'reviewer': 'rv', 'reviewed': ref, 'method': 'read',
+            rv = util.canonical({'schema': rec.review_schema, 'reviewer': 'session.fixture-rv', 'reviewed': ref, 'method': 'read',
                                  'verdicts': [{'item': doc[idf], 'verdict': 'accept'}]})
             entries.extend([(path, db), (path + '.review', rv)])
             return ref
-        pref = chained('r/p.json', {'schema': k, idf: 'p', 'author': 'w', 'supersedes': None})
-        sref = chained('r/s.json', {'schema': k, idf: 's', 'author': 'w', 'supersedes': pref})
+        pref = chained('r/p.json', {'schema': k, idf: 'p', 'author': 'session.fixture-w', 'supersedes': None})
+        sref = chained('r/s.json', {'schema': k, idf: 's', 'author': 'session.fixture-w', 'supersedes': pref})
         st = rec.Store(entries)
         probs = rec.lint_chain(sref, st, {sha(b) for _, b in entries})
         out[k] = probs[:1]
@@ -2111,7 +2111,7 @@ def ln1_ln8(r):
            'record_id not a string': _ln_pat_v2(r, record_id=7)}
 
     def no_id_predecessor(x):
-        _variant_doc(x.files, PAT, 'syn/rules-pat-r1.json', record_id=None, author='writer-c')
+        _variant_doc(x.files, PAT, 'syn/rules-pat-r1.json', record_id=None, author='session.fixture-writer-c')
         _chain(x.files, 'syn/rules-pat-r1.json')
     res['predecessor without record_id'] = _ln_pat_v2(r, sup='syn/rules-pat-r1.json', setup=no_id_predecessor)
     check('LN3', 'a superseding record whose record_id is missing, empty or not a string; separately, a valid '
@@ -2128,9 +2128,9 @@ def ln1_ln8(r):
             if widened:
                 # the predecessor changes a deny rule's pattern against its own predecessor (PAT), which is widening
                 # (sec. 6.3), with a regular review and, as given, a widening review of it
-                _variant_doc(x.files, PAT, 'syn/rules-pat-r1.json', sup=PAT, author='writer-c', rules=narrowed)
+                _variant_doc(x.files, PAT, 'syn/rules-pat-r1.json', sup=PAT, author='session.fixture-writer-c', rules=narrowed)
             else:
-                _variant_doc(x.files, PAT, 'syn/rules-pat-r1.json', author='writer-c')
+                _variant_doc(x.files, PAT, 'syn/rules-pat-r1.json', author='session.fixture-writer-c')
             _chain(x.files, 'syn/rules-pat-r1.json', **kw)
             if widening_review is not None:
                 x.files['syn/rules-pat-r1.widen.json'] = sf.jb(widening_review(x.files))
@@ -2164,14 +2164,14 @@ def ln1_ln8(r):
         fake = {'a': '1' * 64, 'b': '2' * 64, 's': '3' * 64}
         docs = {}
         if case == 'two-record cycle':
-            docs[('r/a.json', fake['a'])] = {'schema': 'oi-scope/1', 'record_id': 'x', 'author': 'w',
+            docs[('r/a.json', fake['a'])] = {'schema': 'oi-scope/1', 'record_id': 'x', 'author': 'session.fixture-w',
                                              'supersedes': {'path': 'r/b.json', 'blob_sha256': fake['b']}}
-            docs[('r/b.json', fake['b'])] = {'schema': 'oi-scope/1', 'record_id': 'x', 'author': 'w',
+            docs[('r/b.json', fake['b'])] = {'schema': 'oi-scope/1', 'record_id': 'x', 'author': 'session.fixture-w',
                                              'supersedes': {'path': 'r/a.json', 'blob_sha256': fake['a']}}
-            top = {'schema': 'oi-scope/1', 'record_id': 'x', 'author': 'w',
+            top = {'schema': 'oi-scope/1', 'record_id': 'x', 'author': 'session.fixture-w',
                    'supersedes': {'path': 'r/a.json', 'blob_sha256': fake['a']}}
         else:
-            top = {'schema': 'oi-scope/1', 'record_id': 'x', 'author': 'w',
+            top = {'schema': 'oi-scope/1', 'record_id': 'x', 'author': 'session.fixture-w',
                    'supersedes': {'path': 'r/t.json', 'blob_sha256': fake['s']}}
         tb = util.canonical(top)
         tref = {'path': 'r/t.json', 'blob_sha256': sha(tb)}
@@ -2179,7 +2179,7 @@ def ln1_ln8(r):
             docs[('r/t.json', fake['s'])] = top
         entries = [('r/t.json', tb)]
         for (q, h) in list(docs) + [('r/t.json', sha(tb))]:
-            rv = util.canonical({'schema': rec.review_schema, 'reviewer': 'rv', 'reviewed': {'path': q,
+            rv = util.canonical({'schema': rec.review_schema, 'reviewer': 'session.fixture-rv', 'reviewed': {'path': q,
                                                                                             'blob_sha256': h},
                                  'method': 'read', 'verdicts': [{'item': 'x', 'verdict': 'accept'}]})
             entries += [(q + '.review', rv)]
@@ -2195,7 +2195,7 @@ def ln1_ln8(r):
 
     # LN6: a fork in the audit directory
     def fork(x):
-        _variant_doc(x.files, PAT, 'syn/rules-pat-v2b.json', sup=PAT, author='writer-c')
+        _variant_doc(x.files, PAT, 'syn/rules-pat-v2b.json', sup=PAT, author='session.fixture-writer-c')
         _chain(x.files, 'syn/rules-pat-v2b.json')
     o = _ln_pat_v2(r, setup=fork)
     check('LN6', 'two records of one lineage superseding the same predecessor, both in the audit directory at F, only '
@@ -2206,12 +2206,12 @@ def ln1_ln8(r):
     res = {}
     x = LN(r)
     beta = [dict(rr, id='syn-beta-b') for rr in json.loads(x.files[PAT])['rules'] if rr['id'] == 'syn-beta']
-    _variant_doc(x.files, PAT, 'syn/rules-pat-b.json', rules=beta, author='writer-c')
+    _variant_doc(x.files, PAT, 'syn/rules-pat-b.json', rules=beta, author='session.fixture-writer-c')
     x.add_rules('syn/rules-pat-b.json', _chain(x.files, 'syn/rules-pat-b.json'))
     res['two first records'] = x.run()
     x = LN(r)
     _variant_doc(x.files, PAT, 'syn/rules-pat-v2.json', sup=PAT)
-    _variant_doc(x.files, PAT, 'syn/rules-pat-v2b.json', sup=PAT, author='writer-c')
+    _variant_doc(x.files, PAT, 'syn/rules-pat-v2b.json', sup=PAT, author='session.fixture-writer-c')
     refs = _chain(x.files, 'syn/rules-pat-v2.json') + _chain(x.files, 'syn/rules-pat-v2b.json')
     x.use_rules({PAT: 'syn/rules-pat-v2.json'}, refs)
     x.add_rules('syn/rules-pat-v2b.json', [])
@@ -2227,7 +2227,7 @@ def ln1_ln8(r):
     # LN8: an unrelated chain
     def middle(**fields):
         def setup(x):
-            _variant_doc(x.files, PAT, 'syn/rules-pat-m.json', sup=PAT, author='writer-c', **fields)
+            _variant_doc(x.files, PAT, 'syn/rules-pat-m.json', sup=PAT, author='session.fixture-writer-c', **fields)
         return setup
     res = {'middle record with another record_id': _ln_pat_v2(r, sup='syn/rules-pat-m.json',
                                                               setup=middle(record_id='other')),
@@ -2243,7 +2243,7 @@ def ln1_ln8(r):
     # LN10 (positive)
     x = LN(r)
     beta = [dict(rr, id='syn-beta-x') for rr in json.loads(x.files[PAT])['rules'] if rr['id'] == 'syn-beta']
-    _variant_doc(x.files, PAT, 'syn/rules-extra.json', rules=beta, record_id=None, author='writer-c')
+    _variant_doc(x.files, PAT, 'syn/rules-extra.json', rules=beta, record_id=None, author='session.fixture-writer-c')
     x.add_rules('syn/rules-extra.json', _chain(x.files, 'syn/rules-extra.json'))
     o = x.run()
     check('LN10', '(positive) a record with supersedes: null and no record_id, named by no supersedes: no '
@@ -2254,7 +2254,7 @@ def ln1_ln8(r):
 def r6_g6(r):
     """G-6: a record_id carried by a record off the referenced record's supersedes chain is a reused id."""
     x = LN(r)
-    _variant_doc(x.files, PAT, 'syn/rules-pat-dup.json', author='writer-c')
+    _variant_doc(x.files, PAT, 'syn/rules-pat-dup.json', author='session.fixture-writer-c')
     reused = x.run()
     clean = LN(r).run()
     out = {'a second record with the rule file\'s record_id, off its chain': reused, '(positive) no such record': clean}
@@ -2557,11 +2557,11 @@ def z11_s4a(r):
     out = {}
     for k in kinds:
         other = {'schema': 'oi-scope/1' if k != 'oi-scope/1' else 'oi-term-rules/2', 'record_id': 'o',
-                 'supersedes': None, 'author': 'w'}
+                 'supersedes': None, 'author': 'session.fixture-w'}
         ob = util.canonical(other)
         for case, sup in (('absent', {'path': 'r/none.json', 'blob_sha256': '0' * 64}),
                           ('other-kind', {'path': 'r/o.json', 'blob_sha256': sha(ob)})):
-            doc = {'schema': k, 'record_id': 'r', 'config_id': 'r', 'author': 'w', 'supersedes': sup}
+            doc = {'schema': k, 'record_id': 'r', 'config_id': 'r', 'author': 'session.fixture-w', 'supersedes': sup}
             db = util.canonical(doc)
             st = rec.Store([('r/r.json', db), ('r/o.json', ob)])
             probs = rec.supersedes_problems({'path': 'r/r.json', 'blob_sha256': sha(db)}, doc, st)

@@ -32,7 +32,7 @@ from ledger_coverage.engine import records as rec  # noqa: E402
 RESULTS = []
 PATH = ra.custody_path
 CDIR = PATH.rsplit('/', 1)[0] + '/'
-WRITER_C, REVIEWER_C = 'writer-c', 'reviewer-c'
+WRITER_C, REVIEWER_C = 'session.fixture-writer-c', 'session.fixture-reviewer-c'
 
 
 def case(cid, expected, actual, holds):
@@ -106,12 +106,12 @@ def lineage_finding_world(r, variant=None, edits=None, two_hop=False):
 R_PATH = 'verification/audits/syn-repl/r.json'
 
 
-def replacement(w, reviewer='reviewer-z', tokens=True):
+def replacement(w, reviewer='session.fixture-reviewer-z', tokens=True):
     """R': a reconciliation record of another lineage (syn-repl) for the same path, and Z, its only review in its
     directory: an accepting review by a reviewer outside NR-3's exclusions whose method holds, when `tokens`, the git
     blob ids of Q (the disputed record of the lineage witness) and of S (the record forming it) (NR-4). Both land on
     main in main2. Returns (R' path, R' bytes, Z path, Z bytes)."""
-    rb = pfc.jb(w.record(record_id='syn-repl', author='writer-r2'))
+    rb = pfc.jb(w.record(record_id='syn-repl', author='session.fixture-writer-r2'))
     sb = sibling(w)[S_PATH]
     qb = w.repo.read(w.M, w.repair_entry['path'])
     method = 'read ' + (' '.join([gitobj.blob_id_of(qb), gitobj.blob_id_of(sb)]) if tokens else 'every object')
@@ -122,14 +122,14 @@ def replacement(w, reviewer='reviewer-z', tokens=True):
     return R_PATH, rb, R_PATH[:-5] + '.review.json', zb
 
 
-def sibling2(w, author='writer-s2'):
+def sibling2(w, author='session.fixture-writer-s2'):
     """S2: a record of the lineage naming P2 in supersedes, a sibling of P (the second edge P -> P2)."""
     S = w.record(record_id='syn-repair', author=author, supersedes=dict(w.p2_ref))
     data = pfc.jb(S)
     return {S2_PATH: data, S2_PATH[:-5] + '.review.json': w.review(S2_PATH, data)}
 
 
-def sibling(w, author='writer-s'):
+def sibling(w, author='session.fixture-writer-s'):
     """S: another record of Q's lineage and schema naming the same exact P in supersedes, with its review."""
     S = w.record(record_id='syn-repair', author=author, supersedes=dict(w.p_ref))
     data = pfc.jb(S)
@@ -324,7 +324,7 @@ def schema_chain_controls(r):
          failed_with(o, 'custody-chain'))
     c = CW(r)
     v0 = c.bootstrap()
-    forged = version([{'base': c.w.M, 'type': 'bootstrap'}], author='writer-z')
+    forged = version([{'base': c.w.M, 'type': 'bootstrap'}], author='session.fixture-writer-z')
     c.step({PATH: forged})
     o = c.run()
     case('CU-N4', 'a forged predecessor-null version other than BOOT heads the chain: custody-chain', o,
@@ -406,7 +406,7 @@ def schema_chain_controls(r):
             c.succ(v0, new, reviewed=False)
         elif kw == 'dissent':
             v1 = c.succ(v0, new)
-            c.step({CDIR + 'dissent.review.json': review(v1, ['entry:1', 'entry:2'], reviewer='reviewer-d',
+            c.step({CDIR + 'dissent.review.json': review(v1, ['entry:1', 'entry:2'], reviewer='session.fixture-reviewer-d',
                                                          dissent='the void entries are not justified')})
         elif kw == 'omit':
             v1 = version(json.loads(v0)['entries'] + new, pred=blob(v0))
@@ -843,7 +843,7 @@ def adjudication_run_controls(r, two_pass, pin_q, sib, drop_sib):
         qref = base.repair_entry
         qb = base.repo.read(base.M, qref['path'])
         item = sf.DOC + ':scientific_effect'
-        reviewer = 'reviewer-adverse'
+        reviewer = 'session.fixture-reviewer-adverse'
         vp = qref['path'][:-5] + '.adverse.review.json'
         vb = pfc.jb({'schema': rec.review_schema, 'reviewer': reviewer, 'reviewed': qref,
                      'method': 'read ' + gitobj.blob_id_of(qb),
@@ -1127,7 +1127,7 @@ def adjudication_run_controls(r, two_pass, pin_q, sib, drop_sib):
          any(e['valid_adverse'] and e['landing'] for e in reported_upholds(o)))
 
     scientific_effect = sf.DOC + ':scientific_effect'
-    dissenter = 'reviewer-adverse'
+    dissenter = 'session.fixture-reviewer-adverse'
 
     def write_dissent(c, entry, path, reviewer=dissenter, items=(scientific_effect,), omit=None,
                       reason='repair disputed', text_dissent=None):
@@ -1274,7 +1274,7 @@ def adjudication_run_controls(r, two_pass, pin_q, sib, drop_sib):
     def retain_malformed_review(c, J, jdir, field, value):
         address_dissent(c, J, jdir)
         current = J['replacement']['path'][:-5] + '.review.json'
-        review = dict(json.loads(c.w.repo.read(c.w.M, current)), reviewer='reviewer-form')
+        review = dict(json.loads(c.w.repo.read(c.w.M, current)), reviewer='session.fixture-reviewer-form')
         review[field] = value
         path = jdir + 'withdrawn-malformed.review.json'
         c.step({path: pfc.jb(review)}, 'land an exact repair review with invalid form')
@@ -1429,7 +1429,7 @@ def replay_controls(r, freeze_world, result):
     # run's landed result (owner decision of 2026-11-27). The REV admission replays, but the repair entry is read in
     # the scanned set of M1 only (mapping table; R6.CUST.9; r9 sec. 2.2: no witness for a frozen discharge that never
     # made the lineage check operative), and Q_rev is not there: custody-replay
-    sq = wb.record(record_id='syn-repair', author='writer-s', supersedes=dict(wb.repair_entry))
+    sq = wb.record(record_id='syn-repair', author='session.fixture-writer-s', supersedes=dict(wb.repair_entry))
     sqb = pfc.jb(sq)
     sib_q = {S_PATH: sqb, S_PATH[:-5] + '.review.json': wb.review(S_PATH, sqb)}
     s_add = sib_q
@@ -1440,7 +1440,7 @@ def replay_controls(r, freeze_world, result):
         save = cc.w.M
         cc.w.M = m_
         try:
-            q = cc.w.record(record_id='syn-repair', author='writer-q2', supersedes=dict(cc.w.repair_entry))
+            q = cc.w.record(record_id='syn-repair', author='session.fixture-writer-q2', supersedes=dict(cc.w.repair_entry))
         finally:
             cc.w.M = save
         qb_ = pfc.jb(q)
@@ -1573,7 +1573,7 @@ def replay_controls(r, freeze_world, result):
     # CU-X1: the CU-X4 world, plus a later context F3 citing A2 that admits R' with a review Z' by another reviewer
     # lacking NR-4's tokens, with its own close: a later context is not a clearance; F1's witness still blocks
     zb3 = json.loads(zb)
-    zb3.update(reviewer='reviewer-other', method='read every object')
+    zb3.update(reviewer='session.fixture-reviewer-other', method='read every object')
     zb3 = pfc.jb(zb3)
     z3p = 'verification/audits/syn-plan3/z.review.json'
     c, m = two_pass(world=repl_world(False), cfg_records=pin_q + pin_r, main_files=dict(sib, **repl_files),
@@ -1619,7 +1619,7 @@ def replay_controls(r, freeze_world, result):
     # the replay qualifies it over R*(M1) and reports it
     qd = w0.w.repair_entry['path'].rsplit('/', 1)[0] + '/'
     qdoc = json.loads(w0.w.repo.read(w0.w.M, w0.w.repair_entry['path']))
-    adverse = pfc.jb({'schema': rec.review_schema, 'reviewer': 'reviewer-adverse', 'reviewed': dict(w0.w.repair_entry),
+    adverse = pfc.jb({'schema': rec.review_schema, 'reviewer': 'session.fixture-reviewer-adverse', 'reviewed': dict(w0.w.repair_entry),
                       'method': 'read', 'verdicts': [{'item': i, 'verdict': 'reject', 'reason': 'x'}
                                                      for i in rec.item_ids(qdoc)]})
     adv = {qd + 'q.adverse.review.json': adverse}
@@ -1850,7 +1850,7 @@ def amendment_1_controls(r):
         return 'retirement-blocked' in o['classes'] and zp in o['blocked'] and bool(z_finding(o, zp)) and \
             not any('names no record the scan finds' in d for d in o['invalid_details'])
 
-    qb, zb, ZP = records('reviewer-x', 'writer-q')
+    qb, zb, ZP = records('session.fixture-reviewer-x', 'session.fixture-writer-q')
     c = world()
     c.step({ZP: zb}, 'the invalidating review lands first')
     before = c.run()
@@ -1870,7 +1870,7 @@ def amendment_1_controls(r):
     o = c.run()
     case('A1-PROVISIONAL-RECORD-NEVER-LANDS', 'the named record never enters R*: FAIL record-invalid and '
                                               'retirement-blocked at a later M', o['classes'], provisional(o, ZP))
-    qb_s, zb_s, _ = records('reviewer-x', 'reviewer-x')
+    qb_s, zb_s, _ = records('session.fixture-reviewer-x', 'session.fixture-reviewer-x')
     forged = json.loads(qb_s)
     forged['record_id'] = 'syn-recon-forged'
     c = world()
@@ -1891,15 +1891,15 @@ def amendment_1_controls(r):
     c = world()
     c.step({ZP: zb}, 'the review lands')
     copy_q = json.loads(qb)
-    copy_q['author'] = 'reviewer-x'
+    copy_q['author'] = 'session.fixture-reviewer-x'
     c.step({pfc.RD + 'q-copy.json': qb, pfc.RD + 'q-forged.json': pfc.jb(copy_q)},
            'a byte-identical copy at another path')
     o = c.run()
     case('A1-PROVISIONAL-COPY-AT-OTHER-PATH', 'a byte-identical copy of the named record at another path while the '
                                               'named reference stays absent: the block stays provisional', o['classes'],
          provisional(o, ZP))
-    qb1, zb1, Z1 = records('writer-q', 'writer-q', pfc.RD + 'q.self.review.json')
-    _qb2, zb2, Z2 = records('reviewer-y', 'writer-q', pfc.RD + 'q.other.review.json')
+    qb1, zb1, Z1 = records('session.fixture-writer-q', 'session.fixture-writer-q', pfc.RD + 'q.self.review.json')
+    _qb2, zb2, Z2 = records('session.fixture-reviewer-y', 'session.fixture-writer-q', pfc.RD + 'q.other.review.json')
     c = world()
     c.step({Z1: zb1, Z2: zb2}, 'two invalidating reviews name the same record')
     c.step({QP: qb1}, 'the record lands, its author the first reviewer')
