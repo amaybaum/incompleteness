@@ -838,15 +838,25 @@ def r_controls():
     _restore_with(clean_c, 'execution')
     out['R18-engine'] = 'side-change-unclassified' in classes(run(M, side=[dict(wfc, pins=[dict(
         wfc['pins'][0], blob_sha256='0' * 64)])]).items)
-    xm = w.repo.derive(M, {doc_path: w.repo.read(X, doc_path)}, parents=[H])
-    e2 = run(x=xm)
-    _bind_first(workflow=wf)
-    tt2 = any(i['subject'] == wf for i in e2.items)
-    # this run emulates the old-style X-vs-M comparison (the new tool on a candidate with M's tree and X's document,
-    # parent H); the old-style comparison itself is not run, so the row's countercontrol outcome and invariant are
-    # not attested (VD-5 stays open)
-    _restore_with(clean_c, 'execution')
-    out['TT2'] = tt2
+    def old_comparison(m):
+        """Compare X directly with M and report unledgered differences, as in the v2 countercontrol."""
+        mp, xp = w.repo.paths(m), w.repo.paths(X)
+        changed = [{'path': p, 'm': mp.get(p), 'x': xp.get(p)}
+                   for p in sorted((mp.keys() | xp.keys()) - led['files'].keys())
+                   if mp.get(p) != xp.get(p)]
+        _stage('direct tree comparison', [], main=m, candidate=X, unledgered_changes=changed)
+        return [entry['path'] for entry in changed]
+
+    tt2 = old_comparison(M)
+    _case('', workflow=wf)
+    _attest('', {'workflow': wf}, outcome='COUNTERCONTROL',
+            old_style_X_vs_M_comparison_reports=tt2[0] if len(tt2) == 1 else tt2)
+    restored_tt2 = old_comparison(H)
+    if capture_hook is not None:
+        _case('baseline')
+        old_comparison(H)
+        _case('restored', baseline='baseline')
+    out['TT2'] = tt2 == [wf] and not restored_tt2
     X3 = w.repo.derive(M, {doc_path: w.repo.read(X, doc_path)}, parents=[M])
     _restore_with(clean_c, 'execution')
     out['TT3'] = 'candidate-parent' in classes(run(x=X3).items)
