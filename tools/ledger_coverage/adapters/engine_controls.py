@@ -112,12 +112,27 @@ def extra_controls(cap):
                               hit_records=[dict(hit_orphan, segment=None, tree='2' * 40)])
         ce._case('the orphan entry naming a segment outside the chain, or a tree the record does not apply to')
         c4 = not [i for i in it_o if i['class'] in ('stale-adjudication', 'record-invalid')]
+        # operation D (terms, no chain; cli op_terms passes an empty chain): an entry naming no tree and no segment
+        # applies to the terms tree, and one matching no line is FAIL record-invalid; an entry naming a segment is
+        # out of scope there (no finding)
+        from ledger_coverage.engine import pipeline as pl
+        ctx_d = w.ctx()
+        tm = pl.Terms(ctx_d, h, [ctx_d.profiles['np-review']], [ctx_d.profiles['np-deny']],
+                      hit_records=[dict(hit_orphan, id='hit-orphan-d', segment=None),
+                                   dict(hit_orphan, id='hit-segment-d')], chain_segments=[])
+        tm.deny()
+        tm.review()
+        ce._stage('terms', tm.items)
+        ce._case('operation D: a hit classification entry naming no tree and no segment, matching no line of the '
+                 'terms tree (orphan)', entry='hit-orphan-d')
+        c6 = any(i['class'] == 'record-invalid' and i['subject'] == 'hit-orphan-d' for i in tm.items) and \
+            not [i for i in tm.items if i['subject'] == 'hit-segment-d']
         cv, it2 = w.coverage(h, [sg], adj={'hp': [good]}, hits=False)
         ce._case('the record without the orphan and duplicate entries (positive)')
         c5 = not [i for i in it2 if i['class'] in ('stale-adjudication', 'record-invalid')]
-        out['RECLINT-ORPHAN'] = c1 and c2 and c3 and c4 and c5
+        out['RECLINT-ORPHAN'] = c1 and c2 and c3 and c4 and c5 and c6
         out['_RECLINT-ORPHAN'] = {'hp_orphan': c1, 'context_and_hit_orphan': c2, 'duplicate': c3,
-                                  'out_of_scope': c4, 'positive': c5}
+                                  'out_of_scope': c4, 'positive': c5, 'operation_d_hit_orphan': c6}
 
         # PIPE-UNRESOLVED: a site lost in the first of two segments is reported there only, its state unresolved
         w = ce.World()

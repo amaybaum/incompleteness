@@ -1409,8 +1409,10 @@ def op_terms(a, repo, ctx, loaded, records, result):
     review = [p for p in profs if p.kind == 'review']
     deny = [p for p in profs if p.kind == 'deny']
     counter = [p for p in profs if p.kind == 'countercontrol']
+    # R6.REC.10: operation D has no chain; an entry naming no tree or this tree, and no segment, applies to this tree
+    # and is checked on it (chain_segments empty)
     tm = pl.Terms(ctx, commit, review, deny, added=added, hit_records=hit_recs, check=chk, scope_paths=scope_paths,
-                  splice_texts=stexts)
+                  splice_texts=stexts, chain_segments=[])
     tm.deny()
     tm.review()
     if ctx.allow_rules:

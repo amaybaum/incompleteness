@@ -593,10 +593,10 @@ class Terms:
 
     def _hit_scope(self, recs, chain_segments):
         """R6.REC.10 for hit classification records. Two in-scope entries naming the same `{file, line_sha256}`
-        are duplicates: FAIL record-invalid naming both, and neither is applied. With the run's chain given (op B), an
+        are duplicates: FAIL record-invalid naming both, and neither is applied. With the run's chain given (op B; empty in op D), an
         entry applies to this tree when it names no tree or this tree, and no segment or a segment of the chain; such
         an entry whose line matches no line of its file on this tree resolves nothing and is FAIL record-invalid. An
-        entry naming another tree or a segment outside the chain is out of scope (no finding). Without a chain the
+        entry naming another tree or a segment outside the chain is out of scope (no finding). Without a chain (None) the
         entries are applied as given and no orphan is checked."""
         if chain_segments is None:
             scoped = recs
