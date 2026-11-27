@@ -386,8 +386,10 @@ def category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, r
 
             def load_context_config(f_, cref_):
                 return cfgmod.load(repo, f_, cref_['path'], cref_['blob_sha256'], None, 'harness')
+            def context_ledger(loaded_):
+                return set((load_adapter_input(repo, loaded_, 'ledger').get('files') or {}).keys())
             chk.replayer = lambda c_, m_, rev_: c3.replay_run(repo, c_, m_, rev_, load_context_config, schemas,
-                                                              recon_route.audits_root)
+                                                              recon_route.audits_root, context_ledger)
             custody = chk.run()
         except fd.Unsettled as exc:
             raise oc.Stop(oc.error, 'DESIGN_UNSETTLED', str(exc))

@@ -508,7 +508,8 @@ def freeze_controls(r):
 
     def freeze_world(close=True, landing_kind='merge', runs=(), results=(), early_close=False, prereg_lists=True,
                      config_at_f=True, pre=None, classes=None, corpus_path=None, admission=None, world=None,
-                     main_files=None, cfg_records=(), ctx_reassessment=None, extra_ctx=None, f_files=None):
+                     main_files=None, cfg_records=(), ctx_reassessment=None, extra_ctx=None, f_files=None,
+                     main_steps=None):
         c = world(r) if world is not None else CW(r)
         v0 = c.bootstrap()
         main_before = c.w.M
@@ -559,6 +560,8 @@ def freeze_controls(r):
             rf = {KD + 'op-c-runs/run%d/result.json' % i: pfc.jb(res)}
             branch.update(rf)
             tip = c.w.repo.derive(tip, rf, parents=[tip], subject='run result')
+        for i_, mf in enumerate(main_steps or ()):
+            c.step(mf, 'main step %d' % i_)
         main2 = c.step(dict({'notes/main.txt': b'main moves\n'}, **(main_files or {})), 'main moves')
         c.main2 = main2
         # a merge's tree carries the branch's files (the in-memory reader derives a tree from its first parent)
@@ -784,9 +787,9 @@ def freeze_controls(r):
     c2, F2, L2, kref2 = freeze_world(pre=rev_run, results=[result(F1, kref, m_r, inputs={
         'classify_records': [{'rev': rev_r}]})])
     o = c2.run()
-    case('CU-STOP-REPLAY-REV', 'a run (m, REV): the replay of R6.RECON.2 (a)-(g) needs the run\'s X, which the design\'s '
-                               'mapping table does not name: ERROR DESIGN_UNSETTLED (fail closed, no discharge)', o,
-         o['exit'] == 65 and o['stop'] == 'DESIGN_UNSETTLED' and 'X' in o['stop_msg'])
+    case('CU-N17-NO-X', 'a run (m, REV) whose landed result records no roles.X: the replay of R6.RECON.2 (a)-(g) has no '
+                        'X, so the run does not replay (custody-replay)', o,
+         failed_with(o, 'custody-replay') and any('roles.X' in w_ for w_ in o['full_whys']))
     replay_controls(r, freeze_world, result)
 
 
@@ -861,6 +864,61 @@ def replay_controls(r, freeze_world, result):
     case('CU-N16-SELECTOR', 'as CU-N16 with S under a prefix of F1\'s tool-landing class: F1\'s selector excludes S, no '
                             'lineage witness', o,
          o['status'] == 'established' and not [x for x in o['witnesses'] if x['kind'] == 'lineage'])
+    # CU-N17: as CU-N16, but F1's repair Q_rev is admitted through REV1 in run (M1, REV1): Q_rev supersedes Q (the
+    # head of the lineage on main) and lies only in REV1 (child of M1); a sibling S of Q_rev (naming Q) is in M1's
+    # history, landed and removed before M1, so REV1's scan does not hold it and REV1 admits Q_rev. X is roles.X of the
+    # run's landed result (owner decision of 2026-11-27). The replay admits Q_rev through REV1 with REV1 as its anchor,
+    # and S competes with the edge Q_rev -> Q resolved at REV1
+    sq = wb.record(record_id='syn-repair', author='writer-s', supersedes=dict(wb.repair_entry))
+    sqb = pfc.jb(sq)
+    sib_q = {S_PATH: sqb, S_PATH[:-5] + '.review.json': wb.review(S_PATH, sqb)}
+    s_add = sib_q
+    s_del = dict({x: None for x in sib_q}, **{sf.DOC: wb.repo.read(wb.M, sf.DOC) + b'changed after F1\n'})
+    QREV = 'verification/audits/syn-rev/q.json'
+
+    def q_rev_bytes(cc, m_):
+        save = cc.w.M
+        cc.w.M = m_
+        try:
+            q = cc.w.record(record_id='syn-repair', author='writer-q2', supersedes=dict(cc.w.repair_entry))
+        finally:
+            cc.w.M = save
+        qb_ = pfc.jb(q)
+        return qb_, cc.w.review(QREV, qb_)
+
+    # pass 0: M1 (main2) does not depend on the configuration or the results
+    c0, _f, _l, _k = freeze_world(runs=[], world=CW.lineage, main_steps=[s_add], main_files=s_del)
+    m1 = c0.main2
+    qb_, qrv = q_rev_bytes(c0, m1)
+    a_rev = pfc.reassessment(wb, repair={'commits': [wb.repair_commit],
+                                         'entry': {'path': QREV, 'blob_sha256': sf.sha(qb_), 'entry_path': sf.DOC}})
+
+    def rev1(cc, mb):
+        r1 = cc.w.repo.derive(m1, {QREV: qb_, QREV[:-5] + '.review.json': qrv}, parents=[m1], subject='REV1')
+        cc.step({QREV: qb_, QREV[:-5] + '.review.json': qrv}, 'merge REV1', parents=[cc.w.M, r1])
+        cc.rev1 = r1
+        return [(m1, r1)]
+    c1, F1, L1, kref1 = freeze_world(world=CW.lineage, main_steps=[s_add], main_files=s_del, ctx_reassessment=a_rev,
+                                     pre=rev1)
+    res = result(F1, kref1, m1, inputs={'classify_records': [{'rev': c1.rev1}]}, roles={'M': m1, 'X': c1.w.X})
+    c2, F2, L2, kref2 = freeze_world(world=CW.lineage, main_steps=[s_add], main_files=s_del, ctx_reassessment=a_rev,
+                                     pre=rev1, results=[res])
+    o = c2.run()
+    lw = [x for x in o['witnesses'] if x['kind'] == 'lineage']
+    case('CU-N17', 'F1\'s repair Q_rev was admitted through REV1 in run (M1, REV1): the replay admits it through REV1 '
+                   'with X from the landed result and REV1 as anchor; S competes with Q_rev -> P: a lineage witness '
+                   '(context F1, run M1 via REV1)', {'o': o, 'lineage': lw},
+         o['status'] == 'established' and len(lw) == 1 and lw[0]['rev'] == c2.rev1 and lw[0]['run'] == m1 and
+         lw[0]['disputed']['path'] == QREV and lw[0]['forming'][0]['path'] == S_PATH and
+         'retirement-blocked' in o['classes'])
+    # the same run with REV1's record failing R6.RECON.2 in the replay (the result names another X): custody-replay
+    res_bad = dict(res, roles={'M': m1, 'X': '7' * 40})
+    c3_, F3, L3, kref3 = freeze_world(world=CW.lineage, main_steps=[s_add], main_files=s_del, ctx_reassessment=a_rev,
+                                      pre=rev1, results=[res_bad])
+    o = c3_.run()
+    case('CU-N17-REV-NOT-ADMITTED', 'the same run whose landed roles.X differs from the X REV1\'s record binds: REV1 '
+                                    'does not replay under R6.RECON.2 (a), custody-replay', o,
+         failed_with(o, 'custody-replay') and any('R6.RECON.2' in w_ for w_ in o['full_whys']))
     # CU-N16-ROUTE: as CU-N16, with the run's m a foxtrot commit whose first-parent chain lacks the repair commit
     # (main2, with S, is its second parent): the original positive route was not operative at m, so S forms no
     # lineage witness
