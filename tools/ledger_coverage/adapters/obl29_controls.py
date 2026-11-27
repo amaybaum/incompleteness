@@ -142,7 +142,9 @@ def removal_controls(r):
     # invalidation signal; a malformed finding blocks at run level (owner decision 5)
     case('N-PREPEND', 'bytes prepended to f: the prefixed copy is a class (b) malformed finding: run-level FAIL '
                       'retirement-blocked and FAIL record-invalid, with its path, blob, witness and class in the '
-                      'result', o, runlevel_fail(o, FP, 'b'))
+                      'result, the entry-less reason stated', o,
+         runlevel_fail(o, FP, 'b') and any('no readable entry' in d and 'blocks at run level' in d
+                                           for d in o['invalid']))
     w, c1, fb = landed(r)
     step(w, {FP: fb[:len(fb) // 2]}, 'truncate')
     o = outcome(w)
@@ -873,7 +875,9 @@ def r13_form_controls(r):
     o = outcome(w)
     case('N-MALFORMED-DELETED', 'a class (c) malformed finding landed and deleted: still in R*; run-level FAIL '
                                 'retirement-blocked and FAIL record-invalid (it binds), with its path, blob, witness '
-                                'and class in the result', o, runlevel_fail(o, MP, 'c'))
+                                'and class in the result, the entry-less reason stated', o,
+         runlevel_fail(o, MP, 'c') and any('no readable entry' in d and 'blocks at run level' in d
+                                           for d in o['invalid']))
     TLP = 'verification/audits/syn-tl/'
     w = pfc.World(r, variant=tl_variant(TLP))
     step(w, {TLP + 'broken.json': b'{"schema": "oi-review-record/1", "a": 1, "a": 2}'}, 'malformed under a TL prefix')
