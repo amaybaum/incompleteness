@@ -664,15 +664,29 @@ def x_controls(r, repo_path):
     # schema: every result written above validates
     from ledger_coverage.engine import schema
     bad = []
+    validated = []
     for root, dirs, fs in os.walk(r.out_root):
         for f in fs:
             if f in ('result.json', 'control-result.json'):
                 d_ = json.load(open(os.path.join(root, f)))
+                validated.append(os.path.relpath(os.path.join(root, f), r.out_root))
                 if schema.validate(d_):
                     bad.append((root, schema.validate(d_)[:2]))
                 if d_.get('outcome') not in ('USAGE', 'INTERNAL', 'ERROR', 'VOID') and checker.recompute(d_) != d_['outcome']:
                     bad.append((root, 'checker disagrees'))
-    out['S7-schema-and-checker'] = not bad
+    if REC is not None:
+        # the predicate over every result written by this runner: each validates against the schema and its outcome
+        # equals the checker's recomputation
+        have = json.dumps({'all': 'results_written', 'have': {'schema_valid': True, 'recomputed_outcome_equal': True}},
+                          sort_keys=True)
+        REC.capture_doc('schema and checker over the results written (synthetic_fixture.py)',
+                        {'validated': sorted(validated), 'problems': [list(map(str, b)) for b in bad],
+                         'exit_status': None},
+                        attested={'outcome': 'PREDICATE' if validated and not bad else None,
+                                  have: bool(validated) and not bad,
+                                  'results_validated_min': 1 if validated else 0,
+                                  'results_validated': len(validated)})
+    out['S7-schema-and-checker'] = bool(validated) and not bad
     out['_S7_bad'] = bad[:3]
     return out
 
