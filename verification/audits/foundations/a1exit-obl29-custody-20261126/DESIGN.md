@@ -1,11 +1,14 @@
-# OBL-29 custody: format, bootstrap inventory and mapping to admitted inputs (paper design c8)
+# OBL-29 custody: format, bootstrap inventory and mapping to admitted inputs (paper design c9)
 
 ## 0. Status, authority, scope and goal link
 
-**Status.** Paper design c8. c8 changes provenance and anchoring only, from the landing check on
-PR #1616, plus the reword of "discharge-bearing" that owner decision 2 of #1169 comment 7207734407
-made after adoption (it drops the `admission.mode` condition). Decision D-1 (§4.2) is as the owner
-records it. The proposed
+**Status.** Paper design c9. Adopted at c7 (`4cf463945f1ce1a078bf98f23e9ee3d091ecebe4`) by owner
+decision (amaybaum, received 2026-11-26T21:40Z, coordinating session; recorded at #1169 comment
+7203030778), whose item 2 reads in part: "Select D-1 option (ii), adopt OQ-17, adopt OQ-19 using
+roles.M as a named verdict-readable field, and decline OQ-20." **D-1 = (ii)**: every clause and
+control marked variant (i) is not adopted. c8 and c9 change provenance and anchoring only, from the
+landing check on PR #1616, plus the reword of "discharge-bearing" that owner decision 2 of #1169
+comment 7207734407 made after adoption (no admission mode is a condition). The proposed
 requirements (ids `R6.CUST.n`) have no force until adoption. Adoption of this design does not
 discharge OBL-29, does not authorize implementing custody-dependent discharge, and changes no
 schema, admission rule or release-gate step by itself (§7).
@@ -74,8 +77,8 @@ list of negative witnesses". Custody supplies that list and lets a run show it i
 
 **Discharge-bearing.** A configuration is discharge-bearing when it is a regular file (mode `100644`
 or `100755`) of schema `oi-retirement-config/1` whose `records` (R6.CFG.4) include at least one
-reference of kind `reassessment`. The configuration's `admission.mode` is not a condition (owner
-decision, amaybaum, 2026-11-27, #1169 comment 7207734407, item 2: "Drop the `admission.mode`
+reference of kind `reassessment`. No admission mode is a condition: a configuration carries no
+mode (R6.CFG.4), and a run's admission is recorded in its result (R6.CFG.8) (owner decision, amaybaum, 2026-11-27, #1169 comment 7207734407, item 2: "Drop the `admission.mode`
 condition from "discharge-bearing" and remove the fixture workaround"). A **discharge-bearing
 context** is a freeze that admits such a configuration under R6.CUST.5 (c1), whose wording depends
 on decision D-1 (§4.2). Only such a freeze can
@@ -257,7 +260,7 @@ further `close`.
 **R6.CUST.5 Completeness.** At effective `M`:
 - (c1) **Contexts. This clause depends on decision D-1; exactly one variant is adopted.**
 
-  *Variant (i): native V3 rounds only.* Every discharge-bearing freeze is the `F` of a native V3
+  *Variant (i): native V3 rounds only (not adopted: D-1 = (ii)).* Every discharge-bearing freeze is the `F` of a native V3
   round (AGENTS.md §A.39). The receipts are the regular entries `verification/receipts/<name>.json`
   with schema `v3-receipt` in any tree reachable from `M`, read by the walk of R6.OBL29.7 with that
   prefix added to its fixed selection, so deletion removes nothing. For a receipt with freeze commit
@@ -311,9 +314,8 @@ further `close`.
   records, in the fields R6.OUT.18 names: top-level `operation` equal to `"execution"`; `config`
   with `path` equal to the configuration's path, `commit` equal to `f` and `blob_sha256` equal to the
   configuration's SHA-256 (R6.CFG.2 requires the configuration to be read only as `--config F:<path>`
-  from `F`, so a chain run's `config.commit` is its `F`); `config.admission.mode` equal to `"chain"`,
-  the configuration's R6.CFG.4 field read from `f`, which identifies a chain-admitted run and is not a
-  condition of discharge-bearing (§1); and no `harness` field (a named field of R6.OUT.18, present
+  from `F`, so a chain run's `config.commit` is its `F`); `config.admission.mode` equal to `"chain"`
+  (R6.CFG.8, R6.OUT.18: the run's recorded admission); and no `harness` field (a named field of R6.OUT.18, present
   only in a control harness). The tool at `e88ca375` emits these fields (provenance). A result whose `outcome` is USAGE, ERROR, VOID or INTERNAL did
   not evaluate and is not a run; it is ignored by the equality below. The run's `REV` is the common
   `rev` of the admitted classify records, the members of `inputs.classify_records` (R6.RECON.2 (c)
@@ -374,7 +376,7 @@ with these inputs and no others:
 |---|---|---|
 | the original configuration, by exact reference | (c1): derived from the receipt (variant (i)) or the `freeze` entry (variant (ii)) | admitted from `f` as in (c1) and by R6.CFG.1–.2; a failure is a custody failure (R6.CUST.9) |
 | the original freeze, by verified commit | the receipt's or the `freeze` entry's `f` | (c1) and (c5); read through the verified reader |
-| the applicable mode | the configuration's `admission.mode`, read from `f` (R6.CFG.4) | not a condition of discharge-bearing (§1, owner decision 2); the replay uses the recorded mode |
+| the applicable mode | the run's admission, `config.admission` in its result (R6.CFG.8) | only `chain` is acceptable; a configuration carries no mode (R6.CFG.4) |
 | the original selector | the side-change class record named by `roles.side_change_classes` | resolved from anchor `f` (R6.RECON.33); its prefixes and pins apply to that context only |
 | the proposed reassessment | each `records` member of kind `reassessment` | resolved from anchor `f` (R6.RECON.33) and linted as at that freeze |
 | the original finding reference and `item` | the reassessment's `finding` | looked up in `R*(m)` (R6.OBL29.3) |
@@ -724,8 +726,9 @@ Adopting the design adopts nothing by itself (§0, §7). Taken from the confirma
 (PR #1616 comment 7202923040), the decisions and changes that must be adopted with it, for D-1 = (ii)
 with OQ-17, R6.CUST.8 and R6.CUST.10, are:
 
-1. **D-1.** The context source: variant (ii), the `freeze` entry type with its `landing` rule, or
-   variant (i) with OQ-18's plan layout and r6 amendment.
+1. **D-1 = (ii)**, adopted (owner amaybaum, #1169 comment 7203030778, 2026-11-26: "Select D-1
+   option (ii)"): the `freeze` entry type with its `landing` rule. Variant (i), with OQ-18's plan
+   layout and r6 amendment, is not adopted.
 2. **OQ-19 (r6 and tool).** A named result field for a run's `M`: `roles.M` moved from declared
    diagnostics to named fields in R6.OUT, or `inputs.main` emitted under OBL-28 C-24.
 3. **OQ-17 (r6 and plan rule).** Every discharge-bearing round lands each op C run's `result.json`

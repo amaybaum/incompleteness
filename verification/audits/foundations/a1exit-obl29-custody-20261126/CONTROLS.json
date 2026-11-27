@@ -1,6 +1,6 @@
 {
  "schema": "oi-obl29-custody-controls/draft",
- "status": "paper design c8, pending independent review and adoption. Each control is a specification; on adoption each would become an expectation row with runner null. 'kills' names the implementation mutation the control must detect (mutation-tested in principle); a residual control documents a limit and kills nothing. A paired control is two runs whose outcomes are compared. 'variant' tags a control with the variant of decision D-1 it tests (i, ii, both, or a paired run of both); a control tagged with an unadopted variant is dropped on adoption.",
+ "status": "paper design c9, pending independent review and adoption. Each control is a specification; on adoption each would become an expectation row with runner null. 'kills' names the implementation mutation the control must detect (mutation-tested in principle); a residual control documents a limit and kills nothing. A paired control is two runs whose outcomes are compared. 'variant' tags a control with the variant of decision D-1 it tests (i, ii, both, or a paired run of both); a control tagged with an unadopted variant is dropped on adoption. Under D-1 = (ii), adopted at #1169 comment 7203030778, controls tagged variant (i) do not apply.",
  "authority": "Owner decision (amaybaum, received 2026-11-26T19:52Z, coordinating session; #1169 comment 7202075726), item 5.",
  "base": "OBL-29 remedy r9 at 77a73c022091f598cf807fcf89d66c3cf43208de (adopted, #1601 comment 7197486426); drafting snapshot origin/main 84e927b9b7c2bcc8cb9624cb036167dae233e408.",
  "fixture": "Fixture: the r9 fixture (a configuration K frozen at F citing reassessment A, repair Q superseding P, finding f) with custody constants PATH and BOOT in record_authority.py. V0 is the bootstrap version at BOOT with base B0. Unless stated, the run is op C execution at effective M with a cited discharge of A whose every other condition holds, K's freeze has not landed (K is not in R*(M), has no receipt and no freeze entry), every custody version that adds entries has an accepting non-author review of every added item, and every regular mode named is 100644 or 100755.",
@@ -554,17 +554,18 @@
    "kind": "negative",
    "requirements": [
     "sec. 1 (owner decision 2)",
+    "R6.CFG.4",
     "R6.CUST.5 (c2)"
    ],
-   "setup": "Built as in CU-P2 for each variant of D-1. Variants: the context's configuration K1 has admission.mode harness and cites a reassessment, with a close for F1; the same K1 with admission.mode chain and a close; either mode with no close.",
+   "setup": "An A1-layout discharge-bearing configuration K1 conforming to R6.CFG.4, with no admission key (a configuration carries no mode), frozen at F1 and landed by L1 with a reviewed freeze entry (as CU-P2 variant (ii)). Positive variant: a close for F1 lands after L1 with its R6.CUST.8 review. Negative variant: no close for F1.",
    "expected": {
-    "outcome": "first two variants: custody established, K1's context counted; third: FAIL custody-unclosed",
+    "outcome": "positive: custody established, K1's context counted; negative: FAIL custody-unclosed",
     "invariants.not_class": [
      "custody-unsupported"
     ]
    },
-   "kills": "keeping admission.mode as a condition of discharge-bearing, contrary to owner decision 2 (a harness-mode configuration frozen at F would then form no context and its witnesses would be lost)",
-   "variant": "paired (i) and (ii)"
+   "kills": "requiring an admission mode on the configuration as a condition of discharge-bearing (owner decision 2), which would make an R6.CFG.4 configuration form no context and lose its witnesses",
+   "variant": "ii"
   },
   {
    "id": "CU-N24",
