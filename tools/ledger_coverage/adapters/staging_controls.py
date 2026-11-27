@@ -277,6 +277,29 @@ def s11_binding_controls(root):
                                     earlier=[('retirement-config.json', CFG['blob_sha256'])])}))
     case('S11-2a-PIN-EARLIER-SUBSECTION', 'P listed only in an earlier Record pins subsection: refused', (v, rows),
          refused(v, rows))
+    v, rows = gate_rows(root, 'bind-pin-two-rows', lambda fx: s11_fixture(fx, repo_files={
+        d + '/PREREG.md': pin_table([('retirement-config.json', CFG['blob_sha256']),
+                                     ('retirement-config.json', CFG['blob_sha256'])])}))
+    case('S11-2a-PIN-TWO-ROWS', 'the last Record pins subsection lists P in two rows (both with S): refused',
+         (v, rows), refused(v, rows))
+    later = pin_table([('other.json', '7' * 64)]) + (
+        '\n### 3.1 Record inventory\n\n| file | sha256 |\n|---|---|\n| `retirement-config.json` | `%s` |\n'
+        % CFG['blob_sha256']).encode()
+    v, rows = gate_rows(root, 'bind-pin-later-heading', lambda fx: s11_fixture(fx, repo_files={
+        d + '/PREREG.md': later}))
+    case('S11-2a-PIN-LATER-HEADING', 'a later heading that is not Record pins carries a table listing P with S, while '
+                                     'the last Record pins subsection does not list P: refused', (v, rows),
+         refused(v, rows))
+
+    def literal_other_freeze(st):
+        f2 = GST.git_commit(st['repo'], {'notes.txt': b'later\n'})
+        st['fx'].ctx = G.Ctx(st['repo'], st['F'], f2, A1P)
+        for k in ('argv0', 'argv1'):
+            st[k][st[k].index('--config') + 1] = f2 + ':' + A1P
+    v, rows = gate_rows(root, 'bind-literal-other-freeze', lambda fx: s11_fixture(fx, literal_other_freeze))
+    case('S11-2a-LITERAL-OTHER-FREEZE', 'both runs name a literal --config F\':P and the gate\'s --freeze is F\', a '
+                                        'commit whose pin table lists P with S and which holds P, other than the '
+                                        'commit under check: refused', (v, rows), refused(v, rows))
     out = {}
     for name, ctxf in (('no freeze', lambda st: G.Ctx(st['repo'], st['F'], None, A1P)),
                        ('no config', lambda st: G.Ctx(st['repo'], st['F'], st['F'], None))):
