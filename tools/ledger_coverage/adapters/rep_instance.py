@@ -411,18 +411,23 @@ def control_cases():
                     'custody': ref(custody, b'{"archive": true}\n'), 'class_root': ref(croot, c0),
                     'allow_root': ref(aroot, allow0)})
         tip = cls(1, ref(croot, c0), more=more)
-        s_ = rp.derive(b_, dict(landed, **{p1: tip, rec_dir + ra.transition_descriptor: d_}), parents=[b_],
-                       subject='S')
-        m_ = rp.derive(s_, {'notes/landing.txt': b'm\n'}, parents=[s_], subject='M')
+        role_base = rp.derive(b_, dict(landed, **{p1: tip}), parents=[b_], subject='shared class tip')
+        allow_next = allow_role['directory'] + 'a1-staging-allow-v1.json'
+        successor = _dump(dict(json.loads(allow0), supersedes=ref(aroot, allow0)))
+        s_ = rp.derive(role_base, {rec_dir + ra.transition_descriptor: d_, allow_next: successor},
+                       parents=[role_base], subject='S with staged allow successor')
+        m_ = rp.derive(role_base, {'notes/landing.txt': b'm\n'}, parents=[role_base], subject='M')
         return bind(rp, s_, m_, _sha(d_), template=template)
 
     tp = ref(tpl_path, t_tool)
-    manifest = _dump({'files': [ref(tpl_path, t_tool)]})
+    leaf_path = 'tools/ledger_coverage/rep/manifest-leaf.txt'
+    leaf = b'leaf reachable only through the manifest\n'
+    manifest = _dump({'files': [ref(tpl_path, t_tool), ref(leaf_path, leaf)]})
     alias_path = 'tools/ledger_coverage/rep/alias.json'
     alias = _dump({'files': [ref('old/manifest.json', manifest)]})
     isolated = world({}, ())
     pinned = world({tpl_path: t_tool}, [(tpl_path, t_tool)], tp)
-    indirect = world({tpl_path: t_tool, man_path: manifest, alias_path: alias},
+    indirect = world({tpl_path: t_tool, man_path: manifest, alias_path: alias, leaf_path: leaf},
                      [(tpl_path, t_tool), (man_path, manifest), (alias_path, alias)], tp)
     case('REP-INSTANCE/11', 'the template exists at M but has no class pin: refused',
          lambda: world({tpl_path: t_tool}, [], tp),
@@ -434,6 +439,7 @@ def control_cases():
          lambda: world({tpl_path: t_tool, tpl_path + '.other': t_tool}, [(tpl_path, t_tool)],
                        ref(tpl_path + '.other', t_tool)),
          lambda g: g[0] == 'refused' and 'no exact tool-landing pin at M' in g[1])
+
     def expected_instance_digest(binding):
         instance = copy.deepcopy(cfg_tool)
         instance['roles']['side_change_classes'] = binding[CLASS_FILL]
@@ -445,7 +451,6 @@ def control_cases():
     iic = expected_instance_digest(indirect)
     cp = pinned[CLASS_FILL]['blob_sha256']
     icp = indirect[CLASS_FILL]['blob_sha256']
-    ma = _sha(manifest)
 
     def with_edge(binding, source, target):
         # Rule edges are synthetic. Content-addressed blobs cannot be made to reference their own future hash
@@ -462,13 +467,14 @@ def control_cases():
          indirect, True),
         ('REP-ACYCLIC/instance-direct', 'a required class edge to the filled instance closes a cycle',
          with_edge(pinned, cp, ic), False),
-        ('REP-ACYCLIC/instance-transitive', 'the manifest remains visible through the verified path despite an '
-                                          'absent alias, so its required edge to the filled instance closes a cycle',
-         with_edge(indirect, ma, iic), False),
-        ('REP-ACYCLIC/class-cycle', 'a required manifest edge to the class closes a cycle within the inputs',
-         with_edge(indirect, ma, icp), False),
-        ('REP-ACYCLIC/allow-cycle', 'a required staged allow edge to the filled instance closes a cycle',
-         with_edge(pinned, pinned[ALLOW_FILL]['blob_sha256'], ic), False),
+        ('REP-ACYCLIC/instance-transitive', 'despite the absent alias, the manifest at the verified path exposes its '
+                                          'child, whose required edge to the filled instance closes a cycle',
+         with_edge(indirect, _sha(leaf), iic), False),
+        ('REP-ACYCLIC/class-cycle', 'a required edge from the manifest child to the class closes a cycle',
+         with_edge(indirect, _sha(leaf), icp), False),
+        ('REP-ACYCLIC/allow-cycle', 'only the allow tip at S reaches its predecessor, whose required edge to the '
+                                  'filled instance closes a cycle',
+         with_edge(pinned, _sha(allow0), ic), False),
     ]
     real = globals()['reference_cycle']
 
