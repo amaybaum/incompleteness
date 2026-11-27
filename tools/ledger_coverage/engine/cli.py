@@ -295,6 +295,8 @@ def category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, r
                 if r_.get('_ref') == {'path': (ref or {}).get('path'), 'blob_sha256': (ref or {}).get('blob_sha256')}:
                     return {k: v for k, v in r_.items() if k not in ('_ref', '_source')}
             return None
+        # a record the run reads explicitly resolves a review naming it (r9 Amendment 1 A1.4, A1.5)
+        cum.explicit_record_at = explicit_at
         found = c3.unique(cum.findings() + c3.findings_of_records(
             recon + explicit_reviews, schemas, lambda ref: cum.record_at(ref) or explicit_at(ref)))
     except Unresolvable as exc:

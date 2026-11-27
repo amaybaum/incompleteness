@@ -241,11 +241,14 @@ class CW:
                 'witnesses': cu.get('witnesses') or [],
                 'full_whys': [p['why'] for p in cu.get('problems') or []],
                 'contexts': len(cu.get('contexts') or []),
+                'invalid_details': [d for i in out.get('items', []) if i['class'] == 'record-invalid'
+                                    for d in (i.get('detail') or [])],
                 'invalid_subjects': sorted({i.get('subject') for i in out.get('items', [])
                                             if i['class'] == 'record-invalid'}),
                 'decisions': [(d['blocked'], d['route'], d['clauses']) for d in cu.get('decisions') or []],
                 'reassess_why': [d for i in out.get('items', []) if i['class'] == 'record-invalid' and
                                  i.get('subject') == pfc.RA_PATH for d in (i.get('detail') or [])],
+                'findings': c3.get('findings') or [],
                 'reassessments': c3.get('reassessments'), 'blocked': [b['record']['path'] for b in c3.get('blocked')
                                                                        or []],
                 'classes': sorted({i['class'] for i in out.get('items', [])})}
@@ -1231,8 +1234,167 @@ def live_lineage_controls(r):
          not live(o) and bool(o['reassessments']))
 
 
+def amendment_1_controls(r):
+    """r9 Amendment 1 (adopted at e79e7ca9): provisional blocks and genuine findings. A second-kind review whose
+    reviewed names a record absent from R* is a provisional block (FAIL record-invalid and retirement-blocked, A1.3);
+    once the exact record is in R* it resolves: disqualified when the record's author is the reviewer, otherwise a
+    genuine finding, permanent where the record has a durable witness in M's ancestry (A1.1, A1.2); Keys (b) applies
+    only while the record is absent from the run's whole R* (A1.4)."""
+    QP = pfc.RD + 'q.json'
+    item = sf.DOC + ':scientific_effect'
+
+    def records(reviewer, q_author, zp=pfc.RD + 'q.second.review.json'):
+        w0 = pfc.World(r)
+        qb = pfc.jb(w0.record(record_id='syn-recon-q', author=q_author))
+        inv = pfc.invalidating(w0, sf.DOC)['paths'][0]['scientific_effect']
+        verdicts = [{'item': i, 'verdict': 'accept', 'reason': ''} for i in rec.item_ids(json.loads(qb))]
+        for v in verdicts:
+            if v['item'] == item:
+                v.update(verdict='invalidates', reason='the change invalidates the planned edit',
+                         invalidated=inv['invalidated'], configuration=inv['configuration'])
+        zb = pfc.jb({'schema': rec.review_schema, 'reviewer': reviewer, 'reviewed': {'path': QP,
+                                                                                     'blob_sha256': sf.sha(qb)},
+                     'method': 'read ' + 'a' * 40, 'verdicts': verdicts})
+        return qb, zb, zp
+
+    def a_null(zp, zb):
+        return {'schema': 'oi-reassessment/1', 'record_id': 'syn-reassessment-null', 'author': sf.WRITER,
+                'supersedes': None, 'finding': {'path': zp, 'blob_sha256': sf.sha(zb), 'item': item},
+                'repair': None, 'edit': None,
+                'rederivation': 'control fixture: the review names no record the scan finds (Keys (b))',
+                'verdict': 'no-effect'}
+
+    def world(variant=None):
+        c = CW.__new__(CW)
+        c.w = pfc.World(r, variant=variant)
+        c.boot, c.n = None, 0
+        c.bootstrap()
+        return c
+
+    def z_finding(o, zp):
+        return [f for f in o['findings'] if (f.get('record') or {}).get('path') == zp]
+
+    def provisional(o, zp):
+        return o['exit'] == 20 and 'retirement-blocked' in o['classes'] and 'record-invalid' in o['classes'] and \
+            zp in o['blocked'] and bool(z_finding(o, zp)) and \
+            any('names no record the scan finds' in d for d in o['reassess_why'] + o['invalid_details'])
+
+    def genuine(o, zp):
+        return 'retirement-blocked' in o['classes'] and zp in o['blocked'] and bool(z_finding(o, zp)) and \
+            not any('names no record the scan finds' in d for d in o['invalid_details'])
+
+    qb, zb, ZP = records('reviewer-x', 'writer-q')
+    c = world()
+    c.step({ZP: zb}, 'the invalidating review lands first')
+    before = c.run()
+    c.step({QP: qb}, 'the named record lands, another author')
+    after = c.run()
+    case('A1-INDEPENDENT-RECORD-LANDS-LATER', 'before the record lands: FAIL record-invalid and retirement-blocked '
+                                              '(A1.3); after, with another author: a genuine finding that binds',
+         {'before': before['classes'], 'after': after['classes']}, provisional(before, ZP) and genuine(after, ZP))
+    c.step({QP: None, ZP: None}, 'the record and the review are deleted')
+    o = c.run()
+    case('A1-INDEPENDENT-RECORD-THEN-DELETED', 'the record and the review deleted from later trees: the genuine finding '
+                                               'still binds (A1.1, R6.OBL29.6)', o['classes'], genuine(o, ZP))
+    c = world()
+    c.step({ZP: zb}, 'the review lands')
+    for i in range(3):
+        c.step({'notes/n%d.txt' % i: b'n\n'}, 'later commit %d' % i)
+    o = c.run()
+    case('A1-PROVISIONAL-RECORD-NEVER-LANDS', 'the named record never enters R*: FAIL record-invalid and '
+                                              'retirement-blocked at a later M', o['classes'], provisional(o, ZP))
+    qb_s, zb_s, _ = records('reviewer-x', 'reviewer-x')
+    forged = json.loads(qb_s)
+    forged['record_id'] = 'syn-recon-forged'
+    c = world()
+    c.step({ZP: zb}, 'the review lands')
+    c.step({QP: pfc.jb(forged)}, 'a byte-different record at the named path, author the reviewer')
+    o = c.run()
+    case('A1-PROVISIONAL-FORGED-SAME-PATH', 'a byte-different record at the named path whose author is the reviewer: '
+                                            'another reference, the block stays provisional', o['classes'],
+         provisional(o, ZP))
+    c = world()
+    c.step({ZP: zb}, 'the review lands')
+    c.step({QP: qb}, 'the record lands, another author')
+    c.step({QP: pfc.jb(forged)}, 'a byte-different record at the same path naming the reviewer as author')
+    o = c.run()
+    case('A1-GENUINE-THEN-SAME-PATH-REWRITE', 'after the genuine finding, a byte-different record at the same path '
+                                              'naming the reviewer as author: the genuine finding still binds (A1.2)',
+         o['classes'], genuine(o, ZP))
+    c = world()
+    c.step({ZP: zb}, 'the review lands')
+    copy_q = json.loads(qb)
+    copy_q['author'] = 'reviewer-x'
+    c.step({pfc.RD + 'q-copy.json': qb, pfc.RD + 'q-forged.json': pfc.jb(copy_q)},
+           'a byte-identical copy at another path')
+    o = c.run()
+    case('A1-PROVISIONAL-COPY-AT-OTHER-PATH', 'a byte-identical copy of the named record at another path while the '
+                                              'named reference stays absent: the block stays provisional', o['classes'],
+         provisional(o, ZP))
+    qb1, zb1, Z1 = records('writer-q', 'writer-q', pfc.RD + 'q.self.review.json')
+    _qb2, zb2, Z2 = records('reviewer-y', 'writer-q', pfc.RD + 'q.other.review.json')
+    c = world()
+    c.step({Z1: zb1, Z2: zb2}, 'two invalidating reviews name the same record')
+    c.step({QP: qb1}, 'the record lands, its author the first reviewer')
+    o = c.run()
+    case('A1-TWO-REVIEWS-ONE-RECORD', 'two reviews name the same record, one by its eventual author: the first is '
+                                      'disqualified, the second is a genuine finding that binds',
+         {'z1': z_finding(o, Z1), 'z2_blocked': Z2 in o['blocked']}, not z_finding(o, Z1) and genuine(o, Z2))
+    # Keys (b), A1.4
+    c = world(pfc.cite(a_null(ZP, zb)))
+    c.step({ZP: zb}, 'the review lands')
+    before = c.run()
+    c.step({QP: qb}, 'the named record lands, another author')
+    after = c.run()
+    case('A1-PROVISIONAL-NULL-DISCHARGE-THEN-INDEPENDENT-LANDS', 'while provisional, a repair: null reassessment '
+                                                                 'under Keys (b) applies; once the named record lands '
+                                                                 'with another author the finding binds and the '
+                                                                 'reassessment no longer applies (A1.4)',
+         {'before': [before['status'], before['reassessments'], before['reassess_why']],
+          'after': [after['reassessments'], after['reassess_why'][:2]]},
+         bool(before['reassessments']) and ZP not in before['blocked'] and
+         not after['reassessments'] and genuine(after, ZP) and
+         any('repair is null where an independent reviewer' in d for d in after['reassess_why']))
+
+    # the named record seen only through an explicit input (the configuration cites it, with its review), never on
+    # main: r9 R-1. INDEPENDENT-RECORD-VIA-REV-ONLY itself is not built in the control harness: a record REV admits
+    # must name the run's M, which holds the review naming that record's bytes (a cycle); the explicit input exercises
+    # the same rule (A1.4: entries seen only through F, REV or an explicit input)
+    def cite_q_and(doc):
+        base = pfc.cite(doc)
+
+        def variant(w_):
+            v = base(w_)
+            files = dict(v['files'], **{QP: qb})
+            review = sf.Syn.chain(None, files, QP, sf.REVIEWER)
+            return {'files': files, 'add_records': list(v['add_records']) +
+                    [{'kind': 'reconciliation', 'path': QP, 'blob_sha256': sf.sha(qb)}] + review}
+        return variant
+    c = world(cite_q_and(a_null(ZP, zb)))
+    c.step({ZP: zb}, 'the review lands')
+    first = c.run()
+    later = world(pfc.cite(a_null(ZP, zb)))
+    later.step({ZP: zb}, 'the review lands')
+    o_later = later.run()
+    bare = world()
+    bare.step({ZP: zb}, 'the review lands')
+    o_bare = bare.run()
+    case('A1-INDEPENDENT-RECORD-VIA-EXPLICIT-ONLY', 'the named record, with an independent author, is seen only as an '
+                                                    'explicit input (the configuration cites it): the Keys (b) '
+                                                    'reassessment does not apply and the genuine finding binds; a '
+                                                    'later run that does not read it and cites no reassessment sees '
+                                                    'the review provisional again; a later run citing the same Keys '
+                                                    '(b) reassessment applies there (the r9 R-1 residual)',
+         {'first': [first['reassessments'], first['reassess_why'][:1], ZP in first['blocked']],
+          'later-null': [o_later['reassessments'], ZP in o_later['blocked']], 'later-bare': o_bare['classes']},
+         not first['reassessments'] and genuine(first, ZP) and
+         any('repair is null where an independent reviewer' in d for d in first['reassess_why']) and
+         bool(o_later['reassessments']) and ZP not in o_later['blocked'] and provisional(o_bare, ZP))
+
+
 SUITES = [('schema-chain', schema_chain_controls), ('configurations', configuration_controls),
-          ('freeze', freeze_controls), ('unit', unit_controls), ('live-lineage', live_lineage_controls)]
+          ('freeze', freeze_controls), ('unit', unit_controls), ('live-lineage', live_lineage_controls),
+          ('amendment-1', amendment_1_controls)]
 TMP = None
 
 

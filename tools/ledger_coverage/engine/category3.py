@@ -427,6 +427,17 @@ class Cumulative:
                 out.add((p, o))
         return sorted(out)
 
+    explicit_record_at = None
+
+    def resolve_reviewed(self, ref):
+        """The record a second-kind review names, by exact reference, in the run's whole R*: the walk's record set, or a
+        record the run reads explicitly (`explicit_record_at`, set by the run). r9 Amendment 1 A1.4 and A1.5: a record
+        seen through F, REV or an explicit input resolves a provisional block for the runs that reach it."""
+        got = self.record_at(ref)
+        if got is None and self.explicit_record_at is not None:
+            got = self.explicit_record_at(ref)
+        return got
+
     def record_at(self, ref):
         """The class (a) reconciliation record of R* at exactly {path, blob_sha256}: its parsed content, or None."""
         if getattr(self, '_recon_index', None) is None:
@@ -464,7 +475,7 @@ class Cumulative:
                                 'configuration': se.get('configuration'), 'invalidated': se.get('invalidated'),
                                 'verdict_item': None, 'form': list(form)})
                 continue
-            out += second_kind_findings(doc, ref, self.record_at)
+            out += second_kind_findings(doc, ref, self.resolve_reviewed)
         return unique(out)
 
     def git_id(self, ref):
