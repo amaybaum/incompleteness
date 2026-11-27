@@ -467,6 +467,28 @@ class Cumulative:
             out += second_kind_findings(doc, ref, self.record_at)
         return unique(out)
 
+    def git_id(self, ref):
+        """The git blob id of the R* entry at exactly {path, blob_sha256}, or None."""
+        for p, o in self.entries():
+            if isinstance(ref, dict) and p == ref.get('path') and self.info[o][2] == ref.get('blob_sha256'):
+                return o
+        return None
+
+    def reviews_naming_ids(self, ref, directory=None):
+        """As reviews_naming, as [(path, git blob id, doc)]."""
+        out = []
+        for p, o in self.entries():
+            inf = self.info[o]
+            if inf[0] != 'a' or inf[1] != fd.review_schema or inf[4] != ref.get('path') or \
+                    inf[5] != ref.get('blob_sha256'):
+                continue
+            if directory is not None and posixpath.dirname(p) != directory:
+                continue
+            doc = fd.strict_parse(self.repo.read_blob_uncached(o))
+            if doc is not None:
+                out.append((p, o, doc))
+        return out
+
     def reviews_naming(self, ref, directory=None):
         """[(path, doc)] of every review record in R* whose `reviewed` names `ref` exactly (path and blob), only in
         `directory` when one is given."""
@@ -800,3 +822,269 @@ def bind(f, b):
         if carry_id(eid, path):
             bound.append(eid)
     return sorted(set(bound)), False, form
+
+
+# ---- OBL-29 custody R6.CUST.6: the replay of each run of each context, and r9 sec. 2.2 over its witnesses --------
+
+class ReplayFailure(Exception):
+    """A mapping input of R6.CUST.6 that does not admit, resolve or verify as its row states: a custody failure
+    (R6.CUST.9), reported as custody-replay."""
+
+
+replay_selector_schema = 'oi-reconciliation/2'
+
+
+def _ref(r):
+    return {'path': r.get('path'), 'blob_sha256': r.get('blob_sha256')} if isinstance(r, dict) else None
+
+
+def _git_at(repo, commit, ref):
+    """The git blob id of the regular entry at ref's path in commit's tree when its bytes have ref's SHA-256."""
+    e = repo.entries(commit).get(ref.get('path')) if isinstance(ref, dict) else None
+    if e is None or e[0] not in ('100644', '100755'):
+        return None
+    data = repo.read(commit, ref['path'])
+    return e[1] if data is not None and util.sha256(data) == ref.get('blob_sha256') else None
+
+
+def _review_witnesses(cum, ref, doc, git, base, directory=None, contested=()):
+    """Review witnesses (r9 sec. 2.2): each eligible ordinary review in R* of the record's exact reference (kind review,
+    reviewer a person other than the record's author; for a reconciliation record, in its own directory) that is
+    adverse or defective (R6.OBL29.3, the checks of eligible_review_problems) stands against that record."""
+    from . import obl29
+    out = []
+    author = doc.get('author') if isinstance(doc, dict) else None
+    for path, oid, rv in cum.reviews_naming_ids(ref, directory):
+        if not isinstance(rv, dict) or rv.get('kind', 'review') != 'review':
+            continue
+        who = rv.get('reviewer')
+        if not rec._person(who) or who == author:
+            continue
+        if obl29.adverse_items(rv, doc):
+            out.append(dict(base, kind='review', disputed=dict(ref), disputed_doc=doc, disputed_git=git, edge=None,
+                            forming=[{'doc': rv, 'git': oid, 'path': path,
+                                      'ref': {'path': path, 'blob_sha256': cum.info[oid][2]}}],
+                            contested=list(contested)))
+    return out
+
+
+def replay_run(repo, c_, m, rev, load_config, schemas, prefix):
+    """R6.CUST.6 for one run (m, rev) of the context c_ = {f, config}: the run's operative discharge checks
+    re-established and their witnesses qualified under R6.OBL29.3 as a run with roots m, f and rev would have, from the
+    inputs of the design's mapping table only. Returns the witnesses (r9 sec. 2.2). A mapping input that does not
+    admit or resolve raises ReplayFailure (custody-replay); an unreadable object raises the reader's Unresolvable."""
+    from . import recon_route
+    if rev is not None:
+        raise fd.Unsettled('R6.CUST.6 "R6.RECON.2 (a)-(g) replayed with that REV, m and the context\'s configuration": '
+                           '(a) binds the record to the run\'s X, which no row of the mapping table names as an input '
+                           '(recommended default: the roles.X of the run\'s landed result, the result whose '
+                           'config.admission the mode row reads, with roles.M equal to m)')
+    f, cref = c_['f'], c_['config']
+    try:
+        loaded = load_config(f, cref)
+    except fd.Unsettled:
+        raise
+    except Exception as exc:  # the configuration does not admit at f (R6.CFG.1-.2); an unreadable object is ERROR
+        if type(exc).__name__ == 'Unresolvable':
+            raise
+        raise ReplayFailure('the configuration %s does not admit at %s: %s' % (cref.get('path'), f, exc))
+    cfg = loaded.config
+    roles = cfg.get('roles') if isinstance(cfg.get('roles'), dict) else {}
+    pinned = roles.get('side_change_classes')
+    pinned_doc = None
+    if isinstance(pinned, dict) and pinned.get('path'):
+        pinned_doc = loaded.store.get(pinned)
+        if not isinstance(pinned_doc, dict):
+            raise ReplayFailure('the original selector %s does not resolve at %s' % (pinned.get('path'), f))
+    # the original selector: the context's class record, its prefixes and the plan's record directory at f
+    scope = recon_route.Scope(repo, roles.get('scientific_base'), m, None, f, False, pinned_doc,
+                              posixpath.dirname(cref['path']), (), lambda p: False, [])
+    # R*(m): the finding lookup, the reviews that qualify witnesses for this run and the competing successors are
+    # read over the record set of m (the mapping table's rows; rev is null here)
+    cum_m = Cumulative(repo, [m], schemas, prefix)
+    found = cum_m.findings()
+    chain = _first_parent_chain(repo, m)
+    m_store = rec.Store(recon_route.scanned(repo, m, scope))
+    cited = {(r.get('path'), r.get('blob_sha256')) for r in cfg.get('records') or [] if isinstance(r, dict)}
+    out = []
+    for r in cfg.get('records') or []:
+        if not isinstance(r, dict) or r.get('kind') != 'reassessment':
+            continue
+        aref = _ref(r)
+        A = loaded.store.get(aref)
+        if not isinstance(A, dict) or A.get('schema') != reassessment_schema:
+            raise ReplayFailure('the reassessment %s does not resolve at %s' % (aref['path'], f))
+        fref = A.get('finding')
+        named = finding_of(found, fref)
+        if not named:
+            raise ReplayFailure('the finding the reassessment %s names does not resolve in R*(m) at %s'
+                                % (aref['path'], m))
+        base = {'context': f, 'run': m, 'rev': rev, 'original': (_ref(fref), fref.get('item'))}
+        out += _review_witnesses(cum_m, aref, A, _git_at(repo, f, aref), base)
+        # the predecessors of the reassessment's existing lineage check, resolved from the context's anchor f
+        cur, seen = A, {aref['blob_sha256']}
+        while isinstance(cur, dict) and isinstance(cur.get('supersedes'), dict):
+            pref = _ref(cur['supersedes'])
+            if pref['blob_sha256'] in seen:
+                break
+            seen.add(pref['blob_sha256'])
+            prev = loaded.store.resolve(pref)
+            if not isinstance(prev, dict):
+                raise ReplayFailure('a predecessor %s of the reassessment %s does not resolve from %s'
+                                    % (pref['path'], aref['path'], f))
+            out += _review_witnesses(cum_m, pref, prev, cum_m.git_id(pref) or _git_at(repo, f, pref), base,
+                                     contested=[pref['blob_sha256']])
+            cur = prev
+        if A.get('repair') is None:
+            continue
+        entry = _part(A, 'repair_entry')
+        eref = _ref(entry)
+        Q = m_store.get(eref) if eref else None
+        if not isinstance(Q, dict) or Q.get('schema') not in schemas:
+            raise ReplayFailure('the repair entry the reassessment %s names does not resolve in the scanned set of %s'
+                                % (aref['path'], m))
+        qgit = cum_m.git_id(eref) or _git_at(repo, m, eref)
+        out += _review_witnesses(cum_m, eref, Q, qgit, base, directory=posixpath.dirname(eref['path']))
+        # lineage witnesses: the repair record's existing R6.REC.7 check is operative only where the context's
+        # configuration admits it (a repair found solely by the entry lookup at m has no lineage check), and only
+        # where the original positive route made its edge operative at m: the repair commits on m's first-parent
+        # chain, the finding applicable at m (R6.RECON.26) and the edge resolved from f without failure
+        sup = Q.get('supersedes')
+        if (eref['path'], eref['blob_sha256']) not in cited or not isinstance(sup, dict):
+            continue
+        commits = _part(A, 'repair_commits')
+        applies = any(in_m(repo, m, (x.get('entry') or {}).get('side_change_commits') or []) for x in named
+                      if isinstance(x.get('entry'), dict))
+        if not (isinstance(commits, list) and commits and all(c in chain for c in commits)) or not applies or \
+                rec.supersedes_problems(eref, Q, loaded.store):
+            continue
+        pref, lid = _ref(sup), rec.lineage_id(Q)
+        counted = set()
+        for p, o in cum_m.entries():
+            inf = cum_m.info[o]
+            if inf[0] != 'a' or inf[1] != replay_selector_schema or not p.endswith('.json') or \
+                    not p.startswith(recon_route.audits_root) or any(p.startswith(x) for x in scope.prefixes) or \
+                    (scope.plan_dir and p.startswith(scope.plan_dir)):
+                continue
+            if (p, inf[2]) == (eref['path'], eref['blob_sha256']) or (p, inf[2]) in counted:
+                continue
+            S = fd.strict_parse(repo.read_blob_uncached(o))
+            if not isinstance(S, dict) or S.get('schema') != Q.get('schema') or rec.lineage_id(S) != lid or \
+                    _ref(S.get('supersedes')) != pref:
+                continue
+            counted.add((p, inf[2]))
+            out.append(dict(base, kind='lineage', disputed=dict(eref), disputed_doc=Q, disputed_git=qgit,
+                            edge=(eref['blob_sha256'], pref['blob_sha256']),
+                            forming=[{'doc': S, 'git': o, 'path': p, 'ref': {'path': p, 'blob_sha256': inf[2]}}],
+                            contested=[pref['blob_sha256']]))
+    return out
+
+
+def witness_report(W):
+    """A witness as the result reports it (OQ-12): its context, run, kind and exact references."""
+    return {'context': W['context'], 'run': W['run'], 'rev': W.get('rev'), 'kind': W['kind'],
+            'disputed': W['disputed'], 'edge': list(W['edge']) if W.get('edge') else None,
+            'forming': [x['ref'] for x in W.get('forming') or []],
+            'original': {'finding': W['original'][0], 'item': W['original'][1]}}
+
+
+def _lineage(store, ref, doc):
+    """(blobs, edges, unresolved) of a record's resolved lineage, the record included. `store` resolves a reference
+    (an object with resolve(ref))."""
+    blobs, edges, unresolved = [ref['blob_sha256']], [], False
+    cur, cref = doc, ref
+    while isinstance(cur, dict) and isinstance(cur.get('supersedes'), dict):
+        pref = _ref(cur['supersedes'])
+        if pref['blob_sha256'] in blobs:
+            break
+        edges.append((cref['blob_sha256'], pref['blob_sha256']))
+        prev = store.resolve(pref)
+        if not isinstance(prev, dict):
+            unresolved = True
+            break
+        blobs.append(pref['blob_sha256'])
+        cur, cref = prev, pref
+    return blobs, edges, unresolved
+
+
+class _Either:
+    def __init__(self, *stores):
+        self.stores = stores
+
+    def resolve(self, ref):
+        for st in self.stores:
+            got = st.resolve(ref)
+            if isinstance(got, dict):
+                return got
+        return None
+
+
+def custody_decisions(repo, witnesses, applying, loaded, m_scan, cum, schemas):
+    """r9 sec. 2.2 `blocked(D, W)` for each applying discharge D of the current run and each witness W from custody
+    (R6.CUST.6). Custody only adds witnesses: clearance reads only the current freeze's own admitted records. Returns
+    (blocked [(D's (doc, ref), W, clauses)], report rows)."""
+    from . import obl29
+    m_store = rec.Store(m_scan)
+    cited = {(r.get('path'), r.get('blob_sha256')) for r in loaded.config.get('records') or [] if isinstance(r, dict)}
+    blocked, rows = [], []
+    for d, r in applying:
+        aref = _ref(r)
+        ab, ae, au = _lineage(loaded.store, aref, d)
+        fref = d.get('finding') if isinstance(d.get('finding'), dict) else {}
+        D = {'reassessment': {'doc': d, 'ref': aref}, 'finding': (_ref(fref), fref.get('item')), 'repair': None,
+             'lineage_blobs': list(ab), 'lineage_edges': list(ae), 'unresolved': au}
+        R, nr2, reviews_of_R, candidates = None, False, [], [None]
+        if d.get('repair') is not None:
+            entry = _part(d, 'repair_entry')
+            eref = _ref(entry)
+            Q = m_store.get(eref) if eref else None
+            D['repair'] = {'entry': eref, 'entry_doc': Q, 'entry_path': (entry or {}).get('entry_path'),
+                           'commits': _part(d, 'repair_commits')}
+            if isinstance(Q, dict):
+                # a repair found by the entry lookup at M resolves its lineage in M's scanned set, where it was found,
+                # then from F; an unresolved reference counts as reliance (undecidable)
+                qb, qe, qu = _lineage(_Either(m_store, loaded.store), eref, Q)
+                D['lineage_blobs'] += qb
+                D['lineage_edges'] += qe
+                D['unresolved'] = D['unresolved'] or qu
+                # NR-2: the current freeze admits R through an existing route making its R6.REC.6 and R6.REC.7 checks
+                # operative (the configuration cites it), and they pass on their prescribed inputs and on R*
+                qdir = posixpath.dirname(eref['path'])
+                reviews_of_R = [dict(x, _dir=qdir) for _p, x in cum.reviews_naming(eref, qdir)]
+                if (eref['path'], eref['blob_sha256']) in cited:
+                    R = {'ref': eref, 'doc': Q, 'lineage_blobs': qb, 'lineage_edges': qe}
+                    nr2 = not rec.lint_chain(eref, loaded.store, loaded.admitted) and \
+                        not eligible_review_problems(cum.reviews_naming(eref, qdir), Q)
+                    candidates = [dict(x, _dir=posixpath.dirname(p)) for p, x in m_store.by_sha.values()
+                                  if isinstance(x, dict) and x.get('schema') == rec.review_schema and
+                                  x.get('reviewed') == eref] or [None]
+            else:
+                D['unresolved'] = True
+        fgit = cum.git_id(_ref(fref))
+        for W in witnesses:
+            disputed_reviewers = [x.get('reviewer') for _p, x in cum.reviews_naming(W['disputed'])
+                                  if isinstance(x, dict) and not obl29.adverse_items(x, W.get('disputed_doc'))]
+            excluded = {d.get('author'), (W.get('disputed_doc') or {}).get('author')}
+            excluded |= {(x['doc'] or {}).get('author') for x in W.get('forming') or []}
+            excluded |= {(x['doc'] or {}).get('reviewer') for x in W.get('forming') or []}
+            excluded |= set(disputed_reviewers)
+            if R is not None:
+                excluded.add(Q.get('author'))
+            for sha in W.get('contested') or []:
+                prev = [x for _s, (_p, x) in loaded.store.scanned().items() if _s == sha]
+                excluded |= {(x or {}).get('author') for x in prev}
+            got = None
+            for z in candidates:
+                b, clauses, route = obl29.decide(D, W, R=R, Z=[z] if z else None, required_review=z,
+                                                 excluded=excluded, reviews_of_R=reviews_of_R, nr2=nr2,
+                                                 finding_git=fgit)
+                got = (b, clauses, route)
+                if not b:
+                    break
+            b, clauses, route = got
+            row = {'reassessment': aref, 'witness': witness_report(W), 'clauses': clauses,
+                   'blocked': b, 'route': route}
+            rows.append(row)
+            if b:
+                blocked.append(((d, r), W, clauses))
+    return blocked, rows

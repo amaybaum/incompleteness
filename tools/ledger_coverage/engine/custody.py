@@ -180,6 +180,10 @@ class Check:
         self.gate = False
         self.ledger_files = None
         self.tool_landing_id = None
+        self.replayer = None
+        from .category3 import ReplayFailure
+        self.replay_failure = ReplayFailure
+        self.witnesses = []
 
     def fail(self, item, msg):
         self.problems.append((item, msg))
@@ -391,13 +395,18 @@ class Check:
         for e in unfrozen:
             if (e['config']['path'], e['config']['blob_sha256']) not in bearing:
                 self.fail('custody-unsupported', 'an unfrozen entry names no discharge-bearing configuration in R*(M)')
-        # R6.CUST.6: replaying the runs of earlier contexts
-        # (only when nothing else has already left custody unestablished: the cited discharges are then inapplicable
-        # whatever a replay would add)
+        # R6.CUST.6: replaying every run of every context at its exact m (only when nothing else has already left
+        # custody unestablished: the cited discharges are then inapplicable whatever a replay would add). A run that
+        # does not replay is a custody failure (custody-replay); its witnesses join the current run's (R6.CUST.7)
         if not self.gate and not self.problems and any(self.runs.get(c_['f']) for c_ in self.contexts):
-            raise Unimplemented('R6.CUST.6 replay of the runs of a discharge-bearing context needs the R6.REC.7 '
-                                'competing-successor evidence of the R6.RECON.2 (d) scope and the retained-witness '
-                                'route of r9 sec. 2.2, which this tool revision does not implement')
+            if self.replayer is None:
+                raise Unimplemented('R6.CUST.6 replay: no replayer is configured for this check')
+            for c_ in self.contexts:
+                for m, rev in self.runs.get(c_['f']) or []:
+                    try:
+                        self.witnesses += self.replayer(c_, m, rev)
+                    except self.replay_failure as exc:
+                        self.fail('custody-replay', 'run %s of context %s does not replay: %s' % (m, c_['f'], exc))
 
     def commits_with_version(self):
         return [c for c in self.h.commits if self.h.version_at.get(c) is not None]
@@ -511,5 +520,6 @@ class Check:
                     problems=[{'item': i, 'why': w} for i, w in self.problems])
         base.setdefault('contexts', self.contexts)
         base.setdefault('runs', self.runs)
-        base['witnesses'] = []
+        from .category3 import witness_report
+        base['witnesses'] = [witness_report(w) for w in self.witnesses]
         return base

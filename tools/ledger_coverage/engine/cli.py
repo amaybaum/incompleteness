@@ -381,6 +381,11 @@ def category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, r
                              cfgmod.read_pin_table, recon_route.audits_root)
             chk.tool_landing_id = ra_.tool_landing_class_id
             chk.ledger_files = context_ledger_files(repo)
+
+            def load_context_config(f_, cref_):
+                return cfgmod.load(repo, f_, cref_['path'], cref_['blob_sha256'], None, 'harness')
+            chk.replayer = lambda c_, m_, rev_: c3.replay_run(repo, c_, m_, rev_, load_context_config, schemas,
+                                                              recon_route.audits_root)
             custody = chk.run()
         except fd.Unsettled as exc:
             raise oc.Stop(oc.error, 'DESIGN_UNSETTLED', str(exc))
@@ -405,6 +410,27 @@ def category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, r
                                     {'sha': r.get('blob_sha256'), 'why': probs[0]}, detail=probs))
         else:
             applying.append((d, r))
+    # r9 sec. 2.2 over the witnesses custody supplies (R6.CUST.6): a discharge blocked by one is inapplicable
+    if custody is not None and custody.get('status') == 'established' and chk.witnesses and applying:
+        try:
+            wblocked, rows = c3.custody_decisions(repo, chk.witnesses, applying, loaded, m_scan, cum, schemas)
+        except Unresolvable as exc:
+            raise oc.Stop(oc.error, 'UNRESOLVABLE', 'a custody witness input cannot be read: %s' % exc)
+        custody['decisions'] = rows
+        gone = set()
+        for (d_, r_), W, clauses in wblocked:
+            gone.add(id(r_))
+            wr = c3.witness_report(W)
+            out.append(oc.make_item('RECORD', 'record-invalid', r_['path'], None,
+                                    {'sha': r_.get('blob_sha256'), 'why': 'blocked by a custody witness',
+                                     'witness': wr},
+                                    detail=['blocked by the %s witness of context %s, run %s, against %s (%s): '
+                                            'clauses %s' % (W['kind'], W['context'], W['run'],
+                                                            W['disputed'].get('path'),
+                                                            ', '.join(x['path'] for x in wr['forming']),
+                                                            ', '.join(clauses))],
+                                    witness=wr))
+        applying = [(d_, r_) for d_, r_ in applying if id(r_) not in gone]
     lifted = c3.lifting(applying)
     wit_of = {fkey(f): x['witness'] for f, x in zip(found, findings)}
     for f in found:
