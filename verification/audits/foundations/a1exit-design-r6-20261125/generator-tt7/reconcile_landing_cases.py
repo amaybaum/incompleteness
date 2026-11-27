@@ -22,8 +22,9 @@ def landing_case(name, blob, expected_classes):
         'case': name,
         'outcome': 'FAIL',
         'classes_exact': expected_classes,
+        'counts': {'items': len(expected_classes)},
         'invariants': [
-            {'items_include': [{'class': k, 'obligation': 'MAIN', 'file': '$ledgered'}
+            {'items_include': [{'class': k, 'decision': 'FAIL', 'obligation': 'MAIN', 'file': '$ledgered'}
                                for k in expected_classes]},
             {'composed_blob': COMPOSED_BLOB},
             {'L_blob': blob},

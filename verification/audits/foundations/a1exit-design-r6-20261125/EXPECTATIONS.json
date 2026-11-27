@@ -12518,11 +12518,15 @@
       "classes_exact": [
        "base-drift"
       ],
+      "counts": {
+       "items": 1
+      },
       "invariants": [
        {
         "items_include": [
          {
           "class": "base-drift",
+          "decision": "FAIL",
           "obligation": "MAIN",
           "file": "$ledgered"
          }
@@ -12543,16 +12547,21 @@
        "base-drift",
        "landing-conflict-unresolved"
       ],
+      "counts": {
+       "items": 2
+      },
       "invariants": [
        {
         "items_include": [
          {
           "class": "base-drift",
+          "decision": "FAIL",
           "obligation": "MAIN",
           "file": "$ledgered"
          },
          {
           "class": "landing-conflict-unresolved",
+          "decision": "FAIL",
           "obligation": "MAIN",
           "file": "$ledgered"
          }

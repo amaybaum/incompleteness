@@ -1043,6 +1043,9 @@ def _tt7_landing_roles(result):
     roles = {key: result.get(key) for key in keys}
     if not all(isinstance(value, str) and HEX40.fullmatch(value) for value in roles.values()):
         return None
+    if roles['candidate'] in (roles['scientific_base'], roles['main']) or \
+            roles['landing'] in (roles['scientific_base'], roles['main'], roles['candidate']):
+        return None
     return roles if result.get('landing_parents') == [roles['main'], roles['candidate']] else None
 
 
@@ -2474,13 +2477,22 @@ def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None, phase=Non
                 findings_out.append(('declarative-mismatch', 'case %r: no clean restored TT2 comparison of X and H'
                                      % case_name))
         elif rid == 'TT7' and o == 'RESULT_EQUAL_CLEAN':
-            baseline = ev.json(c['baseline_file']) if c.get('baseline_file') else None
+            baseline_file = c.get('baseline_file')
+            clean = (ev.case('baseline') or {}).get('result_file')
+            baseline = ev.json(baseline_file) if baseline_file else None
+            clean_result = ev.json(clean) if clean else None
             composed = ev.case('landing under the computed composition') or {}
+            dropped = ev.case('landing that drops the main-side edit') or {}
             adverse = ev.json(composed['result_file']) if composed.get('result_file') else None
+            wrong = ev.json(dropped['result_file']) if dropped.get('result_file') else None
             restored, original = _tt7_landing_roles(result), _tt7_landing_roles(adverse)
-            same = (restored is not None and original is not None and result == baseline and
+            incorrect = _tt7_landing_roles(wrong)
+            same = (restored is not None and original is not None and incorrect is not None and
+                    bool(baseline_file and clean and c.get('result_file')) and
+                    len({baseline_file, clean, c['result_file']}) == 3 and result == baseline == clean_result and
                     restored['scientific_base'] == restored['main'] == original['scientific_base'] and
                     original['main'] != restored['main'] and restored['candidate'] == original['candidate'] and
+                    restored['landing'] not in (original['landing'], incorrect['landing']) and
                     restored['candidate_blob'] == restored['landing_blob'] == original['candidate_blob'] and
                     result.get('landing_compositions') == [] and result.get('items') == [] and
                     recompute_outcome(result) == 'PASS')
