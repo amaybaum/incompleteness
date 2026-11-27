@@ -482,10 +482,12 @@ def k_controls():
     s0 = cv.site_out['%s:3@%s' % (doc_path, w9.pin[:8])]
     w9.sitemap['sites'][0]['quote'] = None
     cv2, it2 = w9.coverage(w9.pin, [], hits=False)
+    _case('partial_quote toggled')
     _bind_first(subject='%s:3@%s' % (doc_path, w9.pin[:8]))
     if capture_hook is not None:
-        # toggle-invariant: the result as built (case '') and with the quote removed (run2) carry the same items
-        capture_hook.procedures['K9'] = {'name': 'toggle-invariant', 'lib': 'rel-equal', 'run_cases': ['', 'run2']}
+        # toggle-invariant: the result as built (case '') and with the quote removed carry the same items
+        capture_hook.procedures['K9'] = {'name': 'toggle-invariant', 'lib': 'rel-equal',
+                                         'run_cases': ['', 'partial_quote toggled']}
     _restore(w9, hits=False)
     out['K9'] = s0['indicators']['prt'] is True and decision(it) == decision(it2) == oc.pass_
     return out

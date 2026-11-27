@@ -2668,12 +2668,20 @@ def replay_controls(r, t, F, chain, raw, gz, snap):
                         stderr=io.StringIO())
     eq = (res or {}).get('replay', {}).get('equal_to_committed')
     mode = ((res or {}).get('config') or {}).get('admission', {}).get('mode')
+    REC.name_last('op-B replay', attested={'outcome': 'REPLAY_EQUAL' if eq is True else None,
+                                           'acceptable_as_new_run': checker.accept(res or {}, code, {})})
+    op_b = REC.pending[-1]
     bad = tempfile.mkdtemp(prefix='landing-bad-', dir=r.out_root)
     for f in ('landing.json', 'snapshot.json'):
         shutil.copy(os.path.join(d, f), bad)
     open(os.path.join(bad, 'result.json.gz'), 'wb').write(checker.deterministic_gzip(raw + b'\n'))
     code_b, res_b = cli.run(['replay', '--snapshot', os.path.join(bad, 'landing.json'), '--out', r.out()],
                             repo=t.repo, stderr=io.StringIO())
+    REC.name_last('recorded result hash differs')
+    # restored: the same replay of the unaltered landing, against the op-B replay
+    cli.run(['replay', '--snapshot', os.path.join(d, 'landing.json'), '--out', r.out()], repo=t.repo,
+            stderr=io.StringIO())
+    REC.name_last('restored', baseline=op_b)
     check('TR45-opB', 'the offline replay of an op-B/D result from its committed snapshot: output equal to the '
           'committed result except config.admission.mode = "replay"; never acceptable; a result file that does not '
           'hash to its recorded sha256 makes the replay refuse',
@@ -2681,7 +2689,9 @@ def replay_controls(r, t, F, chain, raw, gz, snap):
           "the altered landing refuses with REPLAY_REFUSED",
           {'exit': code, 'equal': eq, 'mode': mode, 'altered': (code_b, stop(res_b))},
           code == chain['exit_status'] and eq is True and mode == 'replay' and
-          not checker.accept(res or {}, code, {}) and (code_b, stop(res_b)) == (65, 'REPLAY_REFUSED'))
+          not checker.accept(res or {}, code, {}) and (code_b, stop(res_b)) == (65, 'REPLAY_REFUSED'),
+          files={'committed-result.json': raw, 'landing.json': land, 'snapshot.json': snap},
+          procedure={'name': 'landing-verify', 'lib': 'replay', 'run_cases': ['op-B replay', 'restored']})
 
 
 SC42 = 'audit/sc42-result.json'

@@ -168,10 +168,11 @@ class Recorder(object):
                                         (json.dumps(att, sort_keys=True, default=str) + '\n').encode())
             man['cases'].append(entry)
         if isinstance(procedure, dict) and 'run_cases' in procedure:
-            # a procedure that names its runs by case: each case's retained result file
+            # a procedure that names its runs by case: each case's retained result file (an entry naming no case
+            # is a file of the manifest, kept as it stands)
             by_case = {e['case']: e.get('result_file') for e in man['cases']}
             procedure = dict(procedure)
-            procedure['runs'] = [by_case.get(c) for c in procedure.pop('run_cases')]
+            procedure['runs'] = [by_case[c] if c in by_case else c for c in procedure.pop('run_cases')]
         for name, data in sorted((files or {}).items()):
             put(name, data if isinstance(data, bytes) else
                 (json.dumps(data, indent=1, sort_keys=True, default=str) + '\n').encode())
