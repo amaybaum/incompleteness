@@ -236,6 +236,20 @@ def independence():
                               'fail-closed (R6.RECON.28 is not read; category3 raises Unsettled), so no '
                               'migration.approval is ever evaluated'})
     LOCAL.case('PRED:S2-OWNER-ROLES/migration')
+    # the reason, checked: the binding of a run refuses a configuration referencing an edit-id-migration record
+    from ledger_coverage.engine import category3 as c3
+
+    def binding_of(records):
+        try:
+            c3.Binding(None, None, {'records': records}, None, None, None, None)
+            return 'bound'
+        except fd.Unsettled as exc:
+            return 'refused: %s' % exc
+    mig = {'kind': 'edit-id-migration', 'path': 'syn/cfg/migration.json', 'blob_sha256': h64('m')}
+    got = {'with a migration record': binding_of([mig]), 'without one': binding_of([])}
+    case('PRED:S2-OWNER-ROLES/migration-refused', 'the reason the migration variant is not runnable: a configuration '
+         'referencing an edit-id-migration record is refused (Unsettled) before any binding, and one without it is not',
+         got, got['with a migration record'].startswith('refused') and got['without one'] == 'bound')
     variants('PRED:ADJ-N-OWNER-TECH-REVIEWER', 'the owner as technical reviewer (OD-4): ADJ-INDEP',
              {'a': lambda fx, J: {'T': fx.T(OWNERS[0])}}, 'ADJ-INDEP')
 
@@ -450,7 +464,9 @@ def main(out):
                   sort_keys=True, default=str)
         f.write('\n')
     LOCAL.write(out, RESULTS)
-    bad = [c['id'] for c in RESULTS if c['status'] not in ('PASS', 'NOT RUN')]
+    # the one case admitted NOT RUN, with its stated reason; any other non-PASS case fails the suite
+    bad = [c['id'] for c in RESULTS if c['status'] != 'PASS' and
+           not (c['status'] == 'NOT RUN' and c['id'] == 'PRED:S2-OWNER-ROLES/migration')]
     print(json.dumps({'cases': len(RESULTS), 'failed': bad}))
     return 0 if not bad else 1
 
