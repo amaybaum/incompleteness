@@ -10,11 +10,13 @@ Usage: python3 -I -B tools/ledger_coverage/adapters/staging_controls.py OUT
 Writes OUT/staging-controls.json and exits 0 when every sub-case holds, 1 otherwise.
 """
 import copy
+import hashlib
 import importlib.util
 import io
 import json
 import os
 import shutil
+import subprocess
 import sys
 import tempfile
 
@@ -345,6 +347,190 @@ def s11_binding_controls(root):
          tool == gate)
 
 
+def tr5_release_controls(root):
+    """RC_TR5 reads the pin table as DESIGN-r6 sec. 6.3 fixes it (R6.REC.16): the last subsection headed
+    `### N.N Record pins`, the reader the gate shares with the S11-2a binding."""
+    d = G.S11_A1_DIRECTORY
+    numbered = pin_table([('retirement-config.json', CFG['blob_sha256'])])
+    variants = {
+        'numbered': numbered,
+        'unnumbered ###': numbered.replace(b'### 2.1 Record pins', b'### Record pins'),
+        'unnumbered ##': numbered.replace(b'### 2.1 Record pins', b'## Record pins'),
+        'earlier only': pin_table([('other.json', '7' * 64)], earlier=[('retirement-config.json', CFG['blob_sha256'])]),
+        'later non-pins table': pin_table([('other.json', '7' * 64)]) + (
+            '\n### 3.1 Record inventory\n\n| file | sha256 |\n|---|---|\n| `retirement-config.json` | `%s` |\n'
+            % CFG['blob_sha256']).encode(),
+    }
+    out = {}
+    for name, prereg in variants.items():
+        fx = GST.Fixture(os.path.join(root, 'tr5-' + name.replace(' ', '-').replace('#', 'h')))
+        repo, F = s11_repo(fx, {d + '/PREREG.md': prereg})
+        ctx = G.Ctx(repo, F, F, A1P)
+        out[name] = {'tr5_release': G.tr5_release(ctx), 'evaluate_release': G.evaluate_release(ctx, G.RC_TR5, {}),
+                     's11_binding': G.s11_binding(ctx) is not None}
+    want = {'numbered': True, 'unnumbered ###': False, 'unnumbered ##': False, 'earlier only': False,
+            'later non-pins table': False}
+    case('TR5-RELEASE-PIN-HEADING', 'the TR5 release check holds at F whose last `### N.N Record pins` subsection '
+                                    'lists the configuration, and agrees with the S11-2a binding; an unnumbered '
+                                    'Record pins heading, a listing only in an earlier pins subsection, or one only '
+                                    'in a later table that is not Record pins does not count', out,
+         all(out[k]['tr5_release'] is want[k] and out[k]['evaluate_release'] is want[k] and
+             out[k]['s11_binding'] is want[k] for k in want))
+
+
+def _release_gate(root, name, rid, rc, files, ctx_fn, mode='NOT RUN'):
+    """A gate run at a fixture F (s11_repo plus `files`): one clean row and the deferred row `rid` with release check
+    `rc`, recorded NOT RUN ('NOT RUN'), run with its evidence ('run'), or run with its evidence missing ('missing').
+    Returns {release, verdict, findings of rid}."""
+    fx = GST.Fixture(os.path.join(root, 'rel-' + name))
+    GST.clean(fx)
+    fx.row(rid, {'outcome': 'PASS'}, status_allowed=['PASS', 'NOT RUN'],
+           not_run={'reason': 'deferred', 'release_condition': 'c', 'release_check': rc})
+    if mode == 'NOT RUN':
+        fx.record(rid, 'NOT RUN', None)
+    else:
+        ev = fx.evidence(rid, {'': {'exit': 0, 'result': GST.tool_result('PASS')}})
+        if mode == 'missing':
+            ev = ev + '-absent'
+        fx.record(rid, 'PASS', ev, {'exit': 0, 'outcome': 'PASS'})
+    repo, F = s11_repo(fx, files)
+    fx.ctx = ctx_fn(repo, F)
+    release = G.evaluate_release(fx.ctx, rc, {})
+    code, res = fx.run()
+    rows = {r['id']: sorted(set(r.get('findings', []))) for r in res.get('rows', [])}
+    return {'release': release, 'verdict': res.get('verdict'), 'findings': rows.get(rid)}
+
+
+def release_gate_controls(root):
+    """TR5 and RT-T at a fixture F carrying the configuration and a design-form pin table (DESIGN-r6 sec. 6.3): a
+    release check that holds makes NOT RUN a gate failure, so the obligation can only be met by a run with its
+    evidence; one that does not hold leaves the row deferred. Wrong bindings and inadmissible evidence do not hold."""
+    d = G.S11_A1_DIRECTORY
+    sha = CFG['blob_sha256']
+    pins = lambda rows, **kw: {d + '/PREREG.md': pin_table(rows, **kw)}
+    good = pins([('retirement-config.json', sha)])
+    at_f = lambda repo, F: G.Ctx(repo, F, F, A1P)
+
+    def held(x):
+        return x['release'] is True
+    def deferred_ok(x):
+        return x['release'] is False and x['verdict'] == 'GATE_HOLDS' and x['findings'] == []
+    def demanded(x, finding):
+        return x['release'] is True and x['verdict'] == 'GATE_FAIL' and finding in (x['findings'] or [])
+
+    # TR5 (RC_TR5)
+    t = lambda n, files, ctx_fn=at_f, mode='NOT RUN': _release_gate(root, 'tr5-' + n, 'TR5', G.RC_TR5, files,
+                                                                    ctx_fn, mode)
+    x = t('pos-run', good, mode='run')
+    case('TR5-REL-POS-RUN', 'at F listing the configuration in its last `### N.N Record pins` subsection, the release '
+                            'check holds and TR5 run with its evidence passes the gate', x,
+         held(x) and x['verdict'] == 'GATE_HOLDS' and x['findings'] == [])
+    x = t('not-run', good)
+    case('TR5-REL-NOT-RUN', 'the same F with TR5 recorded NOT RUN: the gate fails (status-not-allowed)', x,
+         demanded(x, 'status-not-allowed'))
+    x = t('evidence-missing', good, mode='missing')
+    case('TR5-REL-EVIDENCE-MISSING', 'the same F with TR5 recorded PASS and its evidence absent: the gate fails '
+                                     '(raw-evidence-missing)', x, demanded(x, 'raw-evidence-missing'))
+    later = pin_table([('other.json', '7' * 64)]) + (
+        '\n### 3.1 Record inventory\n\n| file | sha256 |\n|---|---|\n| `retirement-config.json` | `%s` |\n'
+        % sha).encode()
+    num = pin_table([('retirement-config.json', sha)])
+    variants = {
+        'no-freeze-or-config': (good, lambda repo, F: G.Ctx(repo, F, None, None)),
+        'wrong-config-path': (good, lambda repo, F: G.Ctx(repo, F, F, d + '/other-config.json')),
+        'config-absent-at-f': (dict(good, **{A1P: None}), at_f),
+        'earlier-subsection-only': (pins([('other.json', '7' * 64)], earlier=[('retirement-config.json', sha)]),
+                                    at_f),
+        'unnumbered-h3': ({d + '/PREREG.md': num.replace(b'### 2.1 Record pins', b'### Record pins')}, at_f),
+        'unnumbered-h2': ({d + '/PREREG.md': num.replace(b'### 2.1 Record pins', b'## Record pins')}, at_f),
+        'numbered-h4': ({d + '/PREREG.md': num.replace(b'### 2.1 Record pins', b'#### 2.1 Record pins')}, at_f),
+        'later-numbered-non-pins': ({d + '/PREREG.md': later}, at_f),
+        'freeze-abbreviated': (good, lambda repo, F: G.Ctx(repo, F, F[:12], A1P)),
+    }
+    out = {}
+    for n, (files, cf) in variants.items():
+        out[n] = t(n, files, cf)
+    # --freeze naming another commit F', whose pin table does not list the configuration
+    def other_f(repo, F):
+        f2 = GST.git_commit(repo, {d + '/PREREG.md': pin_table([('other.json', '7' * 64)])})
+        return G.Ctx(repo, F, f2, A1P)
+    out['freeze-another-f'] = t('freeze-another-f', good, other_f)
+    case('TR5-REL-WRONG-BINDING', 'no --freeze/--config; --config naming another path; the configuration absent at F; '
+                                  'listed only in an earlier pins subsection, under an unnumbered or #### heading, or '
+                                  'in a later numbered heading that is not Record pins; --freeze abbreviated or naming '
+                                  'another F\' that does not list it: the release check does not hold and TR5 stays '
+                                  'deferred', out, all(deferred_ok(v) for v in out.values()))
+    x = t('digest-mismatch', pins([('retirement-config.json', '7' * 64)]))
+    x['s11_binding'] = G.s11_binding(G.Ctx(*_repo_of(root, 'tr5-digest-mismatch'), A1P)) is not None
+    case('TR5-REL-DIGEST-MISMATCH', 'F lists the configuration with another SHA-256: RC_TR5 (a listing test) holds, '
+                                    'so TR5 NOT RUN still fails the gate; the S11-2a binding refuses the same F', x,
+         demanded(x, 'status-not-allowed') and x['s11_binding'] is False)
+
+    # RT-T (RC_RTT): a reviewed record of a sec. 8.2 kind referenced by the configuration at the commit under check
+    kind = sorted(G.SEC82_KINDS)[0]
+    rec = b'{"record": 1}\n'
+    rsha = hashlib.sha256(rec).hexdigest()
+
+    def rtt_files(kind=kind, listed_sha=None, review=None, list_review=True, schema='oi-review-record/1'):
+        rv = review if review is not None else {
+            'schema': schema, 'reviewer': 'reviewer-y', 'reviewed': {'path': d + '/rec.json', 'blob_sha256': rsha},
+            'verdicts': [{'item': 'i', 'verdict': 'accept'}]}
+        refs = [{'kind': kind, 'path': d + '/rec.json', 'blob_sha256': listed_sha or rsha}]
+        if list_review:
+            refs.append({'kind': 'review', 'path': d + '/rec.review.json'})
+        cfg = dict(json.loads(CFG_BYTES.decode()), records=refs)
+        cb = (json.dumps(cfg, indent=1, sort_keys=True) + '\n').encode()
+        return {A1P: cb, d + '/rec.json': rec, d + '/rec.review.json': (json.dumps(rv) + '\n').encode(),
+                d + '/PREREG.md': pin_table([('retirement-config.json', hashlib.sha256(cb).hexdigest())])}
+    r = lambda n, files, ctx_fn=at_f, mode='NOT RUN': _release_gate(root, 'rtt-' + n, 'RT-T', G.RC_RTT, files,
+                                                                    ctx_fn, mode)
+    x = r('pos-run', rtt_files(), mode='run')
+    case('RT-T-REL-POS-RUN', 'the configuration at the commit under check references a sec. 8.2 record with its '
+                             'SHA-256 and a review accepting exactly that blob: the release check holds and RT-T run '
+                             'with its evidence passes the gate', x,
+         held(x) and x['verdict'] == 'GATE_HOLDS' and x['findings'] == [])
+    x = r('not-run', rtt_files())
+    case('RT-T-REL-NOT-RUN', 'the same with RT-T recorded NOT RUN: the gate fails (status-not-allowed)', x,
+         demanded(x, 'status-not-allowed'))
+    x = r('evidence-missing', rtt_files(), mode='missing')
+    case('RT-T-REL-EVIDENCE-MISSING', 'the same with RT-T recorded PASS and its evidence absent: the gate fails '
+                                      '(raw-evidence-missing)', x, demanded(x, 'raw-evidence-missing'))
+    base_rv = {'schema': 'oi-review-record/1', 'reviewer': 'reviewer-y',
+               'reviewed': {'path': d + '/rec.json', 'blob_sha256': rsha}}
+    out = {
+        'no-config-argument': r('no-config', rtt_files(), lambda repo, F: G.Ctx(repo, F, F, None)),
+        'wrong-config-path': r('wrong-path', rtt_files(), lambda repo, F: G.Ctx(repo, F, F, d + '/other.json')),
+        'record-digest-mismatch': r('digest', rtt_files(listed_sha='7' * 64)),
+        'record-bytes-differ-from-listing-and-review': r('bytes', rtt_files(listed_sha='7' * 64, review=dict(
+            base_rv, reviewed={'path': d + '/rec.json', 'blob_sha256': '7' * 64},
+            verdicts=[{'item': 'i', 'verdict': 'accept'}]))),
+        'not-a-sec82-kind': r('kind', rtt_files(kind='review-scope')),
+        'review-of-another-blob': r('other-blob', rtt_files(review=dict(base_rv, reviewed={
+            'path': d + '/rec.json', 'blob_sha256': '7' * 64}, verdicts=[{'item': 'i', 'verdict': 'accept'}]))),
+        'review-rejects': r('rejects', rtt_files(review=dict(base_rv, verdicts=[{'item': 'i', 'verdict': 'reject'}]))),
+        'review-no-verdicts': r('no-verdicts', rtt_files(review=dict(base_rv, verdicts=[]))),
+        'review-wrong-schema': r('schema', rtt_files(schema='oi-review-record/0')),
+        'review-not-listed': r('unlisted', rtt_files(list_review=False)),
+    }
+    # the configuration at F only, not at the commit under check
+    def later_commit(repo, F):
+        c = GST.git_commit(repo, {A1P: CFG_BYTES})
+        return G.Ctx(repo, c, F, A1P)
+    out['config-only-at-f'] = r('only-at-f', rtt_files(), later_commit)
+    case('RT-T-REL-INADMISSIBLE', 'no --config or another path; the record\'s SHA-256 differs from its listing (also where '
+                                  'the listing and the review agree with each other); a kind '
+                                  'outside sec. 8.2; a review of another blob, rejecting, without verdicts, of another '
+                                  'schema, or not listed; the reviewed record referenced only at F and not at the '
+                                  'commit under check: the release check does not hold and RT-T stays deferred', out,
+         all(deferred_ok(v) for v in out.values()))
+
+
+def _repo_of(root, name):
+    repo = os.path.join(root, 'rel-' + name, 'repo')
+    head = subprocess.run(['git', '-C', repo, 'rev-parse', 'HEAD'], stdout=subprocess.PIPE).stdout.decode().strip()
+    return repo, head, head
+
+
 def item2_gate(root):
     def wrong_check(st):
         for k in ('argv0', 'argv1'):
@@ -408,6 +594,8 @@ def item2_gate(root):
                            'refused (a missing deny scan is not a clean one)', (v, rows),
          v == 'GATE_FAIL' and 'raw-evidence-missing' in rows.get('S11-2a', []))
     s11_binding_controls(root)
+    tr5_release_controls(root)
+    release_gate_controls(root)
     v, rows = gate_rows(root, 's11b-positive', lambda fx: s11b_fixture(fx))
     case('ITEM2-CHECK/22', 'S11-2b run under --check item2: the gate holds', (v, rows),
          v == 'GATE_HOLDS' and rows.get('S11-2b') == [])

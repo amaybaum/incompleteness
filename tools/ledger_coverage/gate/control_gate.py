@@ -297,8 +297,9 @@ def git_show(repo, rev_path):
 
 
 def tr5_release(ctx):
-    """True iff the configuration path at the candidate F (--freeze) is listed in the last `Record pins`
-    subsection of the PREREG.md in the configuration's directory at F. Evaluated from git objects."""
+    """True iff the configuration at the candidate F (--freeze) is listed, as a pin row naming its file, in the last
+    Record pins subsection (the heading `### N.N Record pins` of DESIGN-r6 sec. 6.3, R6.REC.16; `last_pin_rows`) of the
+    PREREG.md in the configuration's directory at F. Evaluated from git objects."""
     if not (ctx.repo and ctx.freeze and ctx.config_path):
         return False
     if not re.fullmatch('[0-9a-f]{40}', ctx.freeze):
@@ -307,20 +308,9 @@ def tr5_release(ctx):
     prereg = git_show(ctx.repo, '%s:%s' % (ctx.freeze, (d + '/' if d else '') + 'PREREG.md'))
     if prereg is None or git_show(ctx.repo, '%s:%s' % (ctx.freeze, ctx.config_path)) is None:
         return False
-    text = prereg.decode('utf-8', 'replace').splitlines()
-    starts = [i for i, ln in enumerate(text) if re.match(r'#+\s+Record pins\s*$', ln)]
-    if not starts:
-        return False
-    i = starts[-1]
-    level = len(text[i]) - len(text[i].lstrip('#'))
-    body = []
-    for ln in text[i + 1:]:
-        m = re.match(r'(#+)\s', ln)
-        if m and len(m.group(1)) <= level:
-            break
-        body.append(ln)
     name = ctx.config_path.rsplit('/', 1)[-1]
-    return any(('`%s`' % ctx.config_path) in ln or ('`%s`' % name) in ln for ln in body)
+    rows = last_pin_rows(prereg)
+    return rows is not None and any(f == name for f, _ in rows)
 
 
 def evaluate_release(ctx, text, statuses):
@@ -970,6 +960,26 @@ _RECORD_PINS = re.compile(r'^### \d+\.\d+ Record pins\b')
 _PIN_ROW = re.compile(r'^\|\s*`([^`]+)`\s*\|\s*`([^`]*)`\s*\|\s*$')
 
 
+def last_pin_rows(prereg):
+    """The pin rows (file, value) of the last Record pins subsection of a PREREG.md: the last line matching
+    `### N.N Record pins` (DESIGN-r6 sec. 6.3, R6.REC.16, as the tool's config.read_pin_table reads it), up to the
+    next line beginning with `#`. None when there is no such subsection. Shared by tr5_release and s11_binding."""
+    if prereg is None:
+        return None
+    lines = prereg.decode('utf-8', 'replace').splitlines()
+    starts = [i for i, ln in enumerate(lines) if _RECORD_PINS.match(ln)]
+    if not starts:
+        return None
+    rows = []
+    for ln in lines[starts[-1] + 1:]:
+        if ln.startswith('#'):
+            break
+        m = _PIN_ROW.match(ln.strip())
+        if m:
+            rows.append((m.group(1), m.group(2)))
+    return rows
+
+
 def git_entry(repo, commit, path):
     """(mode, object id) of the tree entry at `path` in `commit`, or None; read from git objects."""
     r = subprocess.run(['git', '--no-replace-objects', '-C', repo, 'ls-tree', '-z', commit, '--', path],
@@ -1013,17 +1023,7 @@ def s11_binding(ctx):
     prereg = git_show(ctx.repo, pe[1])
     if prereg is None:
         return None
-    lines = prereg.decode('utf-8', 'replace').splitlines()
-    starts = [i for i, ln in enumerate(lines) if _RECORD_PINS.match(ln)]
-    if not starts:
-        return None
-    rows = []
-    for ln in lines[starts[-1] + 1:]:
-        if ln.startswith('#'):
-            break
-        m = _PIN_ROW.match(ln.strip())
-        if m and m.group(1) == name:
-            rows.append(m.group(2))
+    rows = [h for f, h in last_pin_rows(prereg) or () if f == name]
     if len(rows) != 1 or not re.fullmatch('[0-9a-f]{64}', rows[0]):
         return None
     S = rows[0]
