@@ -1473,6 +1473,26 @@ def k1_graph(a, tool_files):
     landed4[d_p] = n4[d_p]
     n4, r4 = layout(landed4, rec_dir)
     out['descriptor_landed'] = {'cycle': reference_graph(n4, r4)[1]}
+    # the retained evidence: the actual layout's node listing with blob ids and its edges; the procedure checks that
+    # the landed paths the graph uses are exactly the listed paths under the tool-landing paths
+    ad = a.ad.rstrip('/')
+    landing_paths = ['tools/ledger_coverage/', 'tools/ledger_coverage.py', ad + '/', WORKFLOW_PATH]
+    listing = sorted(nodes)
+    a.rec.capture_doc('reference graph of the tool landing and the freeze (a1_controls.py k1_graph)',
+                      {'nodes': {q: {'sha256': sha(b), 'git_blob': git_blob(b)} for q, b in sorted(nodes.items())},
+                       'edges': {q: sorted(v) for q, v in sorted(edges.items())}, 'cycle': cyc,
+                       'countercontrol_cycles': {k: v['cycle'] for k, v in out.items() if k != 'actual'},
+                       'exit_status': None},
+                      attested={'outcome': 'PREDICATE', 'reference_graph_cycle': cyc,
+                                'config_in_landing': out['actual']['config_in_landing'],
+                                'countercontrol_config_landed_cycle': bool(out['config_landed']['cycle']),
+                                'countercontrol_class_review_landed_cycle': bool(out['class_review_landed']['cycle'])})
+    a.files_of['K1-GRAPH'] = {'graph-listing.json': listing, 'graph-landed-set.json': sorted(tool_files),
+                              'graph-nodes.json': {q: {'sha256': sha(b), 'git_blob': git_blob(b)}
+                                                   for q, b in sorted(nodes.items())}}
+    a.procedures['K1-GRAPH'] = {'name': 'reference-graph', 'lib': 'set', 'listing': 'graph-listing.json',
+                                'actual_set': 'graph-landed-set.json', 'rule': {'prefixes': landing_paths},
+                                'nodes': 'graph-nodes.json'}
     a.record('K1-GRAPH', cyc is None and out['actual']['config_in_landing'] is False and
              bool(out['config_landed']['cycle']) and bool(out['class_review_landed']['cycle']) and
              bool(out['config_names_own_widening_review']['cycle']) and bool(out['descriptor_landed']['cycle']),
@@ -1508,13 +1528,45 @@ def z9g(a):
     found = purity.lint_engine(values, profs)
     a.record('Z9g', not found, 'the real engine tree: lint PASS', found[:40])
     # Z9h: 'guard-pin' planted in an engine module, with the adapter companions in the value set
-    src = open(os.path.join(tools, 'ledger_coverage', 'engine', 'outcome.py')).read() + "\nPLANTED = 'guard-pin'\n"
+    clean_src = open(os.path.join(tools, 'ledger_coverage', 'engine', 'outcome.py')).read()
+    src = clean_src + "\nPLANTED = 'guard-pin'\n"
     planted = purity.lint_sources({'engine/outcome.py': src}, values, [])
     dotted = purity.lint_sources({'engine/outcome.py': "X = '%s.json'\n" % hashlib.sha1(b'z9').hexdigest()},
                                  set(), [])
-    a.record('Z9h', any('guard-pin' in f for f in planted) and 'guard-pin' in values and bool(dotted),
+    # the retained lint evidence: the findings, the linted source map and the value set; the adapter companions'
+    # own values and the companion files the planted literal occurs in are measured from the configuration's
+    # adapter specifications, not stated
+    companion_values, occurs_in = set(), []
+    for spec in (cfg.get('adapters') or {}).values():
+        for comp in (spec.get('companion') or []) if isinstance(spec, dict) else []:
+            data = a.repo.read(comp.get('commit') or spec.get('commit') or a.crev, comp['path'])
+            if data is None:
+                continue
+            got = purity.source_values(data, comp['path'])
+            companion_values |= got
+            if 'guard-pin' in got:
+                occurs_in.append(comp['path'].rsplit('/', 1)[-1])
+    names = [f for f in planted if 'guard-pin' in f]
+    a.rec.capture_doc('purity lint of the engine tree with a planted literal (a1_controls.py z9g)',
+                      {'findings': planted, 'source_map': ['engine/outcome.py'], 'value_set': sorted(values),
+                       'exit_status': None},
+                      attested={'outcome': 'LINT_FAIL' if planted else 'LINT_PASS',
+                                'finding_value': 'guard-pin' if names else None,
+                                'value_set_includes': 'the adapter companions'
+                                if companion_values and companion_values <= values else None,
+                                'value_occurs_in': occurs_in[0] if len(occurs_in) == 1 else (occurs_in or None)})
+    clean = purity.lint_sources({'engine/outcome.py': clean_src}, values, [])
+    a.rec.capture_doc('purity lint of the engine tree with the planted literal removed (a1_controls.py '
+                      'z9g)', {'findings': clean, 'source_map': ['engine/outcome.py'], 'exit_status': None},
+                      case='restored', attested={'outcome': 'LINT_FAIL' if clean else 'LINT_PASS'})
+    a.files_of['Z9h'] = {'lint-findings.json': planted, 'lint-source-map.json': {'engine/outcome.py': src},
+                         'lint-value-set.json': sorted(values)}
+    a.procedures['Z9h'] = {'name': 'purity-lint', 'lib': 'lint', 'findings': 'lint-findings.json',
+                           'source_map': 'lint-source-map.json', 'value_set': 'lint-value-set.json'}
+    a.record('Z9h', any('guard-pin' in f for f in planted) and 'guard-pin' in values and bool(dotted) and not clean,
              "'guard-pin' planted in an engine module, with the adapter companions in the value set: lint FAIL",
-             {'planted': planted[:3], 'in_value_set': 'guard-pin' in values, 'dotted_40_hex': dotted[:2]},
+             {'planted': planted[:3], 'in_value_set': 'guard-pin' in values, 'dotted_40_hex': dotted[:2],
+              'restored_findings': clean[:3]},
              predicate="a finding names the planted literal, which occurs in the companions' values; a planted "
                        "40-hex file name is a finding too (the allowlist exempts only its listed values)")
     return values
