@@ -8,6 +8,7 @@ from . import findings as fd
 from . import util
 
 review_schema = 'oi-review-record/1'
+sessions_schema = 'oi-a1-staging-sessions/1'  # staging S-1: admitted from F's pin table, not a record kind of R*
 record_schemas = ('oi-term-rules/2', 'oi-hp-adjudication/1', 'oi-context-adjudication/1', 'oi-hit-classification/1',
                   'oi-scope/1', 'oi-side-change-classes/1', 'oi-reconciliation/1', 'oi-reconciliation/2', 'oi-retirement-config/1',
                   'oi-delegation/1', 'oi-reassessment/1', 'oi-adjudication/1')
@@ -51,6 +52,10 @@ def item_ids(doc):
         # ground:<id> for each ground
         return ['authorization', 'binding', 'dissents', 'disposition', 'conflicts'] + \
             ['ground:%s' % g.get('id') for g in doc.get('grounds') or [] if isinstance(g, dict)]
+    if doc.get('schema') == sessions_schema:
+        # staging S-1, R6.RECON.31 row: party:<id> for each entry, withdrawn:<id> for each withdrawal
+        return ['party:%s' % e.get('id') for e in doc.get('parties') or [] if isinstance(e, dict)] + \
+            ['withdrawn:%s' % w.get('id') for w in doc.get('withdrawn') or [] if isinstance(w, dict)]
     if doc.get('schema') == 'oi-obl29-custody/1':
         # R6.CUST.8: a custody version's review covers `entry:<i>` for each index it adds; without its predecessor
         # every index is listed (custody.item_ids computes the added indices)

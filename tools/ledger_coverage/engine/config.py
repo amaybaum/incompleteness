@@ -294,13 +294,23 @@ def load(repo, rev, path, expected_sha, operation, mode, extra_records=(), admis
             doc = json.loads(b.decode('utf-8'))
         except (ValueError, UnicodeDecodeError):
             continue
-        if isinstance(doc, dict) and 'schema' in doc and doc['schema'] not in rec.record_schemas + (rec.review_schema,):
+        if isinstance(doc, dict) and 'schema' in doc and \
+                doc['schema'] not in rec.record_schemas + (rec.review_schema, rec.sessions_schema):
             raise stop('CONFIG_INVALID', 'record %s has a kind this design does not define: %r'
                        % (r['path'], doc['schema']))
         # #1605 sec. 6, R6.RECON.33 and R6.CFG.4 kind row: kind adjudication -> oi-adjudication/1, both ways
         if isinstance(doc, dict) and ((r.get('kind') == 'adjudication') != (doc.get('schema') == 'oi-adjudication/1')):
             raise stop('CONFIG_INVALID', 'record %s: the kind adjudication and the schema oi-adjudication/1 go '
                        'together' % r['path'])
+        # staging S-1, R6.RECON.33 kind row: kind sessions -> oi-a1-staging-sessions/1, both ways; under the chain the
+        # reference equals a blob F's pin table pins (sessions.admit checks it is the registry's own path)
+        if isinstance(doc, dict) and ((r.get('kind') == 'sessions') != (doc.get('schema') == rec.sessions_schema)):
+            raise stop('CONFIG_INVALID', 'record %s: the kind sessions and the schema %s go together'
+                       % (r['path'], rec.sessions_schema))
+        if r.get('kind') == 'sessions' and mode == 'chain' and \
+                (table.get(r['path']) is None or util.sha256(table[r['path']]) != r.get('blob_sha256')):
+            raise stop('CONFIG_INVALID', 'record %s: the sessions reference is not the path and blob F\'s pin table '
+                       'pins' % r['path'])
     controls_b = read_ref(repo, commit, cfg['controls'], 'controls file')
     for r in extra_records:
         entries.append((r['path'], r['data']))
