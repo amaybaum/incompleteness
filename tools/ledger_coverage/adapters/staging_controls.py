@@ -1072,8 +1072,9 @@ def first_allow(root):
     changed = rulemod.file_widening(None, doc)
     ordinary = review_doc(ALLOW_ROOT, b)
 
-    def problems(wide, designated=True, old_ref=None, path=ALLOW_ROOT, data=b, ord_doc=None):
+    def problems(wide, designated=True, old_ref=None, path=ALLOW_ROOT, data=b, ord_doc=None, more=()):
         entries = [(path, data), ('syn/cfg/r.json', sf.jb(ord_doc or ordinary))]
+        entries += [('syn/cfg/r%d.json' % (k + 2), sf.jb(x)) for k, x in enumerate(more)]
         if wide is not None:
             entries.append(('syn/cfg/w.json', sf.jb(wide)))
         st = rec.Store(entries)
@@ -1136,6 +1137,15 @@ def first_allow(root):
     ]
     for n, what, got in roles:
         case('S2-ROOT-ROLES/' + n, what + ': refused', got, bool(got))
+    # R6.REC.13 against every ordinary reviewer (P7): a second ordinary review; the widening reviewer is that second
+    # ordinary reviewer respelled, against a widening reviewer distinct from both
+    second = review_doc(ALLOW_ROOT, b, reviewer='session.fixture-reviewer-two')
+    got = {'distinct widening reviewer': problems(wide(), more=[second]),
+           'the second ordinary reviewer respelled': problems(wide(reviewer='SESSION_FIXTURE_REVIEWER_TWO'),
+                                                              more=[second])}
+    case('S2-ROOT-ROLES/widening-respells-second-ordinary', 'two ordinary reviews; the widening reviewer the second '
+         'ordinary reviewer respelled: refused; a widening reviewer distinct from both: no problem', got,
+         got['distinct widening reviewer'] == [] and bool(got['the second ordinary reviewer respelled']))
     got = problems(wide(replaces='__drop__'), designated=False)
     case('STAGING-FIRST-ALLOW/15', 'a root that is not the designated root, its widening review omitting replaces: '
                                    'refused (R6.RECON.31; no predecessor can be named)', got,
