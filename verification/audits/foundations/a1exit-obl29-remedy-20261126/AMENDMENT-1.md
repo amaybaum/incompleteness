@@ -1,10 +1,11 @@
-# OBL-29 remedy r9, amendment 1: provisional blocks and genuine findings (paper draft a3)
+# OBL-29 remedy r9, amendment 1: provisional blocks and genuine findings (paper draft a4)
 
 ## 0. Status, authority and goal link
 
-**Status.** Draft a3. a2 answered the independent review of a1 at
-`23454e92fa254c9b80a21b65424edd02e670b505`, and a3 the re-review of a2 at
-`8567b84147891e49b49d3e8beb8e0f97132ea291` (both posted on PR #1601). Clarifying amendment to the adopted OBL-29 remedy r9 (`DESIGN.md` in this directory at
+**Status.** Draft a4. a2 answered the independent review of a1 at
+`23454e92fa254c9b80a21b65424edd02e670b505`, a3 the re-review of a2 at
+`8567b84147891e49b49d3e8beb8e0f97132ea291`, and a4 the nits of the confirmation of a3 at
+`b7c36eb9923a19eb674a51d4f80d95ba48852788` (all posted on PR #1601). Clarifying amendment to the adopted OBL-29 remedy r9 (`DESIGN.md` in this directory at
 `77a73c022091f598cf807fcf89d66c3cf43208de`, adopted at #1601 comment 7197486426). Paper draft,
 pending independent review and the owner's adoption. It changes no predicate of r9 that decides a
 genuine finding; it states how r9 and the r13 Form (i) clause treat a second-kind review whose
@@ -82,7 +83,7 @@ finding through a record with a durable witness in `M`'s ancestry adds it to `Ob
 evidence that establishes a same-author review is a determination from the evidence, as r9 §2.3
 already states for a lack of independence, not a removal and not a discharge. It applies only where
 the named record, by exact reference, is in `R*` and shows `author` equal to `reviewer`. It never
-applies to a genuine finding in `Obl`: the named record's bytes are fixed and stay in `R*_M`, so no
+applies to a genuine finding in `Obl`: the named record's bytes are fixed and keep a durable witness in `M`'s ancestry, so no
 later record, review or rewrite can disqualify it. Deleting, moving or rewriting the named record
 after it entered `R*_M` changes nothing (R6.OBL29.6).
 
@@ -125,7 +126,7 @@ runner null until implemented.
 | SELF-REVIEW-RECORD-LANDS-LATER (tool control; expectation changed) | The invalidating review lands first with its named record absent; then the record lands on `main` with `author` equal to the review's `reviewer` | before the record lands: FAIL `record-invalid` and `retirement-blocked` (A1.3); after: no second-kind finding and no block from that review (A1.2) |
 | INDEPENDENT-RECORD-LANDS-LATER | As above, but the record's `author` differs from the reviewer | before: as above; after: a genuine finding that binds |
 | INDEPENDENT-RECORD-THEN-DELETED | Continue the previous case: the record and the review are deleted from later trees | the genuine finding still binds (A1.1, R6.OBL29.6) |
-| INDEPENDENT-RECORD-VIA-REV-ONLY | The named record, with an independent author, is seen only in an admitted `REV`, which never reaches `main`; the first run cites a reassessment with `repair: null` under Keys (b); a later run omits that `REV` | the first run: the Keys (b) reassessment does not apply and the genuine finding binds, FAIL `retirement-blocked` (A1.4); the later run: the review is provisional again, FAIL `record-invalid` and `retirement-blocked` (r9 R-1) |
+| INDEPENDENT-RECORD-VIA-REV-ONLY | The named record, with an independent author, is seen only in an admitted `REV`, which never reaches `main`; the first run cites a reassessment with `repair: null` under Keys (b); a later run omits that `REV` and cites no reassessment. Sub-case: the later run omits that `REV` and cites the same `repair: null` reassessment, the record being absent from its `R*` | the first run: the Keys (b) reassessment does not apply and the genuine finding binds, FAIL `retirement-blocked` (A1.4); the later run: the review is provisional again, FAIL `record-invalid` and `retirement-blocked` (r9 R-1); sub-case: the Keys (b) reassessment applies in the later run, and the review's block is lifted there; this is the r9 R-1 residual, since the record never gained a durable witness in `M`'s ancestry |
 | PROVISIONAL-RECORD-NEVER-LANDS | The named record never enters `R*` | FAIL `record-invalid` and `retirement-blocked` at every later `M` |
 | PROVISIONAL-FORGED-SAME-PATH (countercase) | While the block is provisional, a byte-different record at the named path, whose `author` equals the reviewer, lands on `main` before the true record | the block stays provisional: the forged record is another reference and resolves nothing |
 | GENUINE-THEN-SAME-PATH-REWRITE (countercase) | After INDEPENDENT-RECORD-LANDS-LATER, a byte-different record at the same path naming the reviewer as `author` lands | the genuine finding still binds (A1.2) |
