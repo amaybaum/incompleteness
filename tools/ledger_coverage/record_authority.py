@@ -49,15 +49,3 @@ transition_prior_schema = 'oi-a1-staging-prior/1'
 # is never established and every cited discharge stays inapplicable (fail closed). Changing either is a tool revision.
 custody_path = 'verification/audits/foundations/a1exit-obl29-custody/custody.json'
 custody_bootstrap_blob = 'PLACEHOLDER-UNTIL-B0-IS-DESIGNATED'
-
-# Staging r2 supplement S-1 (recorded session identities): the session registry, a direct file of the admitted record
-# directory read only through F's Record pins table (S1.1), and where an owner `oi-designate` or `oi-withdraw` form
-# comment may be posted to count (S1.2: #1169 and the guiding pull request named in the owner's adoption record),
-# and from when. The
-# tool reads such comments only as recorded URLs; it never writes `oi-` text.
-session_registry = 'a1-staging-sessions.json'
-session_registry_schema = 'oi-a1-staging-sessions/1'
-session_repository = 'amaybaum/incompleteness'
-# {thread: the comment id of the record that admitted it}: a form comment counts only when posted in the thread after
-# its admission (S1.2). Both threads are admitted by the owner's adoption of S-1, #1169 comment 7209167255.
-session_designation_threads = {1169: 7209167255, 1577: 7209167255}

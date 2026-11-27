@@ -23,6 +23,8 @@ if 'ledger_coverage' not in sys.modules:
     _spec.loader.exec_module(sys.modules['ledger_coverage'])
 
 from ledger_coverage.adapters import control_records  # noqa: E402
+from ledger_coverage.adapters import identity_fixture as idf  # noqa: E402
+from ledger_coverage.adapters.identity_fixture import review_record  # noqa: E402
 from ledger_coverage import record_authority as ra  # noqa: E402
 from ledger_coverage.adapters import synthetic_fixture as sf  # noqa: E402
 from ledger_coverage.adapters import postfreeze_controls as pfc  # noqa: E402
@@ -56,11 +58,13 @@ def blob(b):
     return gitobj.blob_id_of(b)
 
 
-def review(vbytes, items, reviewer=REVIEWER_C, dissent=None, path=None):
-    d = {'schema': rec.review_schema, 'reviewer': reviewer, 'reviewed': {'path': PATH, 'blob_sha256': sf.sha(vbytes)},
-         'method': 'read ' + blob(vbytes), 'verdicts': [{'item': i, 'verdict': 'accept', 'reason': ''} for i in items]}
+def review(vbytes, items, reviewer=REVIEWER_C, dissent=None, path=None, independence=None):
+    d = review_record({'schema': rec.review_schema, 'reviewer': reviewer, 'reviewed': {'path': PATH, 'blob_sha256': sf.sha(vbytes)},
+         'method': 'read ' + blob(vbytes), 'verdicts': [{'item': i, 'verdict': 'accept', 'reason': ''} for i in items]})
     if dissent:
         d['dissent'] = dissent
+    if independence is not None:
+        d['independence'] = independence
     return pfc.jb(d)
 
 
@@ -120,10 +124,10 @@ def replacement(w, reviewer='session.fixture-reviewer-z', tokens=True):
     sb = sibling(w)[S_PATH]
     qb = w.repo.read(w.M, w.repair_entry['path'])
     method = 'read ' + (' '.join([gitobj.blob_id_of(qb), gitobj.blob_id_of(sb)]) if tokens else 'every object')
-    zb = pfc.jb({'schema': rec.review_schema, 'reviewer': reviewer, 'reviewed': {'path': R_PATH,
+    zb = pfc.jb(review_record({'schema': rec.review_schema, 'reviewer': reviewer, 'reviewed': {'path': R_PATH,
                                                                                  'blob_sha256': sf.sha(rb)},
                  'method': method, 'verdicts': [{'item': i, 'verdict': 'accept', 'reason': ''}
-                                                for i in rec.item_ids(json.loads(rb))]})
+                                                for i in rec.item_ids(json.loads(rb))]}))
     return R_PATH, rb, R_PATH[:-5] + '.review.json', zb
 
 
@@ -185,7 +189,8 @@ class CW:
             if two_hop:
                 with_p += (P2_PATH, P2_PATH[:-5] + '.review.json')
             for pth in (qp, qp[:-5] + '.review.json') + with_p:
-                extra_files[pth] = w1.repo.read(w1.M, pth)
+                # a review copied from main to F is bound again where F's build adds it (S-1 sec. 3: root F)
+                extra_files[pth] = idf.unbind(w1.repo.read(w1.M, pth))
             extra_recs += [dict(q, kind='reconciliation'),
                            {'kind': 'review', 'path': qp[:-5] + '.review.json',
                             'blob_sha256': sf.sha(extra_files[qp[:-5] + '.review.json'])}]
@@ -400,6 +405,8 @@ def schema_chain_controls(r):
     # R6.CUST.8
     revs = {}
     for name, kw in (('no review', None), ('author review', {'reviewer': WRITER_C}),
+                     ('review declaring a dependency on the author',
+                      {'independence': {'not_author': True, 'depends_on': [WRITER_C]}}),
                      ('second review dissents', 'dissent'), ('omits an item', 'omit')):
         c = CW(r)
         v0 = c.bootstrap()
@@ -580,7 +587,35 @@ def freeze_controls(r):
         files.update(f_files or {})
         if corpus_path is not None:
             files[corpus_path] = b'# a corpus path of the context\n'
-        F1 = c.w.repo.derive(main_before, files, parents=[main_before], subject='freeze F1')
+        # S-1 sec. 3: a review among f's files of a record that first appears there names a commit, F1's parent,
+        # that adds f's other files first; the configuration's pins and the PREREG pin follow the bound bytes
+        f_base, rebound = main_before, {}
+        held = c.w.repo.entries(main_before)
+        unbound = {q: json.loads(b) for q, b in files.items() if isinstance(b, bytes) and idf.is_review(b) and
+                   'revision' not in json.loads(b)}
+        if any((d.get('reviewed') or {}).get('path') in files and
+               (d.get('reviewed') or {}).get('path') not in held for d in unbound.values()):
+            f_base = c.w.repo.derive(main_before, {q: b for q, b in files.items() if q not in unbound and
+                                                   q not in (KP, KD + 'PREREG.md')},
+                                     parents=[main_before], subject='freeze F1 (reviewed files)')
+            for q in unbound:
+                old = files[q]
+                files[q] = idf.bind_files({q: old}, f_base)[q]
+                rebound[sf.sha(old)] = (old, files[q])
+            if config_at_f:
+                d_ = json.loads(kb)
+                for x in d_['records']:
+                    if x.get('path') in unbound:
+                        x['blob_sha256'] = sf.sha(files[x['path']])
+                kb = pfc.jb(d_)
+                files[KP] = kb
+                files[KD + 'PREREG.md'] = ('### 1.1 Record pins\n\n| file | sha256 |\n|---|---|\n| `config.json` | '
+                                           '`%s` |\n' % (sf.sha(kb) if prereg_lists else '0' * 64)).encode()
+        if rebound and main_files:
+            # the same reviews landing on main carry the same bound bytes
+            main_files = {q: (rebound[sf.sha(b)][1] if isinstance(b, bytes) and sf.sha(b) in rebound else b)
+                          for q, b in main_files.items()}
+        F1 = c.w.repo.derive(f_base, files, parents=[f_base], subject='freeze F1')
         tip = F1
         # the landing carries the plan's own files; the configuration's adapter inputs stay in f's tree (they would
         # otherwise overwrite the base configuration's inputs on main, which the finding's configuration resolves to)
@@ -698,6 +733,7 @@ def freeze_controls(r):
             if kind == 'other-parent':
                 base = c.w.repo.parents(m)[0]
                 parents = [base]
+            files = idf.bind_files(files, base)  # REV's reviews name the record base (r6 Amendment 10)
             rev = c.w.repo.derive(base, files, parents=parents, subject='REV')
             c.step(files, 'merge REV', parents=[c.w.M, rev])
             return [(m, rev)]
@@ -850,10 +886,11 @@ def adjudication_run_controls(r, two_pass, pin_q, sib, drop_sib):
         item = sf.DOC + ':scientific_effect'
         reviewer = 'session.fixture-reviewer-adverse'
         vp = qref['path'][:-5] + '.adverse.review.json'
-        vb = pfc.jb({'schema': rec.review_schema, 'reviewer': reviewer, 'reviewed': qref,
-                     'method': 'read ' + gitobj.blob_id_of(qb),
-                     'verdicts': [{'item': i, 'verdict': 'reject' if i == item else 'accept', 'reason': 'checked'}
-                                  for i in rec.item_ids(json.loads(qb))]})
+        # bound to base.M, which holds Q (S-1 sec. 3); the current world's main reaches the same commit
+        vb = pfc.jb(idf.bind({'schema': rec.review_schema, 'reviewer': reviewer, 'reviewed': qref,
+                              'method': 'read ' + gitobj.blob_id_of(qb),
+                              'verdicts': [{'item': i, 'verdict': 'reject' if i == item else 'accept',
+                                            'reason': 'checked'} for i in rec.item_ids(json.loads(qb))]}, base.M))
         vref = {'path': vp, 'blob_sha256': sf.sha(vb)}
         vg = gitobj.blob_id_of(vb)
         token = obl29.item_token(vg, item)
@@ -888,6 +925,12 @@ def adjudication_run_controls(r, two_pass, pin_q, sib, drop_sib):
                    'sources': [vref], 'adverse': [{'ref': vref, 'item': item}],
                    'original_configuration': c.kref}
         return c, witness, vg, records
+
+    def reviewed_adjudication(c, path, payload, review):
+        """The reviewed J exists on the side branch before its dedicated first-parent landing."""
+        repo, base = c.w.repo, c.w.M
+        subject = repo.derive(base, {path: payload}, parents=[base], subject='reviewed adjudication bytes')
+        return subject, idf.bind(review, subject)
 
     def world(mut=None, cite=True, land=True, extra_upheld=None, setup=lineage_setup, late_close=False,
               before_landing=None, after_landing=None):
@@ -934,14 +977,17 @@ def adjudication_run_controls(r, two_pass, pin_q, sib, drop_sib):
         if before_landing:
             before_landing(c, J, jdir)
         jb = pfc.jb(J)
-        T = {'schema': rec.review_schema, 'reviewer': 't', 'reviewed': {'path': jp, 'blob_sha256': sf.sha(jb)},
+        T = review_record({'schema': rec.review_schema, 'reviewer': 't', 'reviewed': {'path': jp, 'blob_sha256': sf.sha(jb)},
              'method': 'read %s %s' % (gitobj.blob_id_of(jb), g_source),
              'verdicts': [{'item': i, 'verdict': 'accept', 'reason': 'checked against the git objects'}
-                          for i in adjm.item_ids(J)]}
+                          for i in adjm.item_ids(J)]})
+        subject, T = reviewed_adjudication(c, jp, jb, T)
         tb = pfc.jb(T)
         if land:
-            lc = c.step({jp: jb, tp: tb}, 'the adjudication lands (dedicated)')
+            lc = c.step({jp: jb, tp: tb}, 'the adjudication lands (dedicated)', parents=[w.M, subject])
             w.repo.mem[lc]['time'] = int(_dt(2026, 11, 27, 12, 0, tzinfo=_tz.utc).timestamp())
+        else:
+            c.step({}, 'side history is reachable but J is absent from main', parents=[w.M, subject])
         if extra_upheld is not None:
             extra_upheld(c, J, jdir)
         if after_landing:
@@ -1006,10 +1052,12 @@ def adjudication_run_controls(r, two_pass, pin_q, sib, drop_sib):
             change(J2)
         j2b = pfc.jb(J2)
         j2p = jdir + 'adj2.json'
-        T2 = {'schema': rec.review_schema, 'reviewer': 't2', 'reviewed': {'path': j2p, 'blob_sha256': sf.sha(j2b)},
+        T2 = review_record({'schema': rec.review_schema, 'reviewer': 't2', 'reviewed': {'path': j2p, 'blob_sha256': sf.sha(j2b)},
               'method': 'read %s %s' % (gitobj.blob_id_of(j2b), J2['grounds'][0]['evidence'][0]),
-              'verdicts': [{'item': i, 'verdict': review_verdict, 'reason': 'checked'} for i in adjm.item_ids(J2)]}
-        lc = c.step({j2p: j2b, j2p[:-5] + '.review.json': pfc.jb(T2)}, 'an upheld adjudication lands, cited by none')
+              'verdicts': [{'item': i, 'verdict': review_verdict, 'reason': 'checked'} for i in adjm.item_ids(J2)]})
+        subject, T2 = reviewed_adjudication(c, j2p, j2b, T2)
+        lc = c.step({j2p: j2b, j2p[:-5] + '.review.json': pfc.jb(T2)}, 'an upheld adjudication lands, cited by none',
+                    parents=[c.w.M, subject])
         c.w.repo.mem[lc]['time'] = int(_dt(2026, 11, 27, 13, 0, tzinfo=_tz.utc).timestamp())
 
     def reported_upholds(o):
@@ -1078,10 +1126,10 @@ def adjudication_run_controls(r, two_pass, pin_q, sib, drop_sib):
     def party_review(c, J):
         qref = J['witness']['disputed']
         q_bytes = c.w.repo.read(c.w.M, qref['path'])
-        review = {'schema': rec.review_schema, 'reviewer': 'adj-k', 'reviewed': qref,
+        review = review_record({'schema': rec.review_schema, 'reviewer': 'adj-k', 'reviewed': qref,
                   'method': 'read ' + gitobj.blob_id_of(q_bytes),
                   'verdicts': [{'item': i, 'verdict': 'accept', 'reason': 'checked against Q'}
-                               for i in rec.item_ids(json.loads(q_bytes))]}
+                               for i in rec.item_ids(json.loads(q_bytes))]})
         return {'verification/audits/adj-party/q.review.json': pfc.jb(review)}
 
     def upheld_then_review(c, J, jdir):
@@ -1138,14 +1186,14 @@ def adjudication_run_controls(r, two_pass, pin_q, sib, drop_sib):
                       reason='repair disputed', text_dissent=None):
         data = c.w.repo.read(c.w.M, entry['path'])
         reviewed = {'path': entry['path'], 'blob_sha256': entry['blob_sha256']}
-        review = {'schema': rec.review_schema, 'reviewer': reviewer, 'reviewed': reviewed,
+        review = review_record({'schema': rec.review_schema, 'reviewer': reviewer, 'reviewed': reviewed,
                   'method': 'read ' + gitobj.blob_id_of(data),
                   'verdicts': [{'item': i, 'verdict': 'dissent' if i in items else 'accept',
                                 'reason': reason if i in items else 'checked'}
-                               for i in rec.item_ids(json.loads(data)) if i != omit]}
+                               for i in rec.item_ids(json.loads(data)) if i != omit]})
         if text_dissent is not None:
             review['dissent'] = text_dissent
-        encoded = pfc.jb(review)
+        encoded = pfc.jb(idf.bind(review, c.w.M))  # main's tip holds the reviewed entry (S-1 sec. 3)
         c.step({path: encoded}, 'retain an exact dissenting review of the repair')
         return {'path': path, 'blob_sha256': sf.sha(encoded)}, gitobj.blob_id_of(encoded)
 
@@ -1468,8 +1516,9 @@ def replay_controls(r, freeze_world, result):
                                          'entry': {'path': QREV, 'blob_sha256': sf.sha(qb_), 'entry_path': sf.DOC}})
 
     def rev1(cc, mb):
-        r1 = cc.w.repo.derive(m1, {QREV: qb_, QREV[:-5] + '.review.json': qrv}, parents=[m1], subject='REV1')
-        cc.step({QREV: qb_, QREV[:-5] + '.review.json': qrv}, 'merge REV1', parents=[cc.w.M, r1])
+        files = idf.bind_files({QREV: qb_, QREV[:-5] + '.review.json': qrv}, m1)
+        r1 = cc.w.repo.derive(m1, files, parents=[m1], subject='REV1')
+        cc.step(files, 'merge REV1', parents=[cc.w.M, r1])
         cc.rev1 = r1
         return [(m1, r1)]
     c1, F1, L1, kref1 = freeze_world(world=CW.lineage, main_steps=[s_add], main_files=s_del, ctx_reassessment=a_rev,
@@ -1493,6 +1542,7 @@ def replay_controls(r, freeze_world, result):
     def rev2(cc, mb):
         files = {QREV: qb_, QREV[:-5] + '.review.json': qrv, QBAD: badb,
                  QBAD[:-5] + '.review.json': cc.w.review(QBAD, badb)}
+        files = idf.bind_files(files, m1)
         r2 = cc.w.repo.derive(m1, files, parents=[m1], subject='REV2')
         cc.step(files, 'merge REV2', parents=[cc.w.M, r2])
         cc.rev2 = r2
@@ -1633,9 +1683,9 @@ def replay_controls(r, freeze_world, result):
     # the replay qualifies it over R*(M1) and reports it
     qd = w0.w.repair_entry['path'].rsplit('/', 1)[0] + '/'
     qdoc = json.loads(w0.w.repo.read(w0.w.M, w0.w.repair_entry['path']))
-    adverse = pfc.jb({'schema': rec.review_schema, 'reviewer': 'session.fixture-reviewer-adverse', 'reviewed': dict(w0.w.repair_entry),
+    adverse = pfc.jb(review_record({'schema': rec.review_schema, 'reviewer': 'session.fixture-reviewer-adverse', 'reviewed': dict(w0.w.repair_entry),
                       'method': 'read', 'verdicts': [{'item': i, 'verdict': 'reject', 'reason': 'x'}
-                                                     for i in rec.item_ids(qdoc)]})
+                                                     for i in rec.item_ids(qdoc)]}))
     adv = {qd + 'q.adverse.review.json': adverse}
 
     def drop_adv(cc, mb):
@@ -1833,9 +1883,11 @@ def amendment_1_controls(r):
             if v['item'] == item:
                 v.update(verdict='invalidates', reason='the change invalidates the planned edit',
                          invalidated=inv['invalidated'], configuration=inv['configuration'])
-        zb = pfc.jb({'schema': rec.review_schema, 'reviewer': reviewer, 'reviewed': {'path': QP,
-                                                                                     'blob_sha256': sf.sha(qb)},
-                     'method': 'read ' + 'a' * 40, 'verdicts': verdicts})
+        # the review lands before the record it names, so no commit it can name holds those bytes: its revision (main
+        # at the start) fails S-1 sec. 3, a form failure that still blocks (S-2 S2.5; r6 Amendment 10)
+        zb = pfc.jb(idf.bind({'schema': rec.review_schema, 'reviewer': reviewer, 'reviewed': {'path': QP,
+                                                                                   'blob_sha256': sf.sha(qb)},
+                              'method': 'read ' + 'a' * 40, 'verdicts': verdicts}, w0.M))
         return qb, zb, zp
 
     def a_null(zp, zb):

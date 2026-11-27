@@ -8,7 +8,6 @@ from . import findings as fd
 from . import util
 
 review_schema = 'oi-review-record/1'
-sessions_schema = 'oi-a1-staging-sessions/1'  # staging S-1: admitted from F's pin table, not a record kind of R*
 record_schemas = ('oi-term-rules/2', 'oi-hp-adjudication/1', 'oi-context-adjudication/1', 'oi-hit-classification/1',
                   'oi-scope/1', 'oi-side-change-classes/1', 'oi-reconciliation/1', 'oi-reconciliation/2', 'oi-retirement-config/1',
                   'oi-delegation/1', 'oi-reassessment/1', 'oi-adjudication/1')
@@ -52,10 +51,6 @@ def item_ids(doc):
         # ground:<id> for each ground
         return ['authorization', 'binding', 'dissents', 'disposition', 'conflicts'] + \
             ['ground:%s' % g.get('id') for g in doc.get('grounds') or [] if isinstance(g, dict)]
-    if doc.get('schema') == sessions_schema:
-        # staging S-1, R6.RECON.31 row: party:<id> for each entry, withdrawn:<id> for each withdrawal
-        return ['party:%s' % e.get('id') for e in doc.get('parties') or [] if isinstance(e, dict)] + \
-            ['%s:%s' % ('withdrawn', w.get('id')) for w in doc.get('withdrawn') or [] if isinstance(w, dict)]
     if doc.get('schema') == 'oi-obl29-custody/1':
         # R6.CUST.8: a custody version's review covers `entry:<i>` for each index it adds; without its predecessor
         # every index is listed (custody.item_ids computes the added indices)
@@ -89,6 +84,40 @@ def _person(v):
     return fd.identity_ok(v)
 
 
+def revision_problems(repo, roots, review, record_commit=None):
+    """S-1 sec. 3, kept by staging S-2 S2.3: `revision` is a commit id reachable through any parent from one of
+    `roots` (the roots the review is read from) whose tree holds reviewed.path at a regular mode with bytes hashing
+    to reviewed.blob_sha256. For the review R6.RECON.2 (d) admits with a record read by the post-freeze route
+    (`record_commit` = REV; r6 Amendment 10), `revision` equals the record base, REV's single parent, and the reviewed
+    bytes are read from REV's tree. [] when it binds; a review read with no root binds nothing."""
+    from .gitobj import Unresolvable
+    rev = review.get('revision') if isinstance(review, dict) else None
+    rv = review.get('reviewed') if isinstance(review, dict) and isinstance(review.get('reviewed'), dict) else {}
+    roots = [r for r in (roots or ()) if r]
+    if repo is None or not (roots or record_commit):
+        return ['revision cannot be checked: the review is read with no root']
+    if not (isinstance(rev, str) and re.match(r'[0-9a-f]{40}\Z', rev)):
+        return ['revision is missing or not a commit id']
+    try:
+        if record_commit is not None:
+            base = repo.parents(record_commit)
+            if base != [rev]:
+                return ['revision is not the record base, the single parent of the record commit']
+            holder = record_commit
+        else:
+            if not any(rev == r or repo.is_ancestor(rev, r) for r in roots):
+                return ['revision is not reachable from the root the review is read from']
+            holder = rev
+        ent = repo.entries(holder).get(rv.get('path'))
+        if ent is None or ent[0] not in ('100644', '100755') or \
+                util.sha256(repo.read(holder, rv['path'])) != rv.get('blob_sha256'):
+            return ['revision does not hold the reviewed bytes' if record_commit is None else
+                    'the record commit does not hold the reviewed bytes']
+    except Unresolvable:  # an unheld revision binds nothing
+        return ['revision is not held']
+    return []
+
+
 class Store:
     """Records read from the object store: {path: (sha256, doc)}; nothing is read from a working tree.
 
@@ -96,7 +125,10 @@ class Store:
     plan's record directory at F; it is read only when a `supersedes` chain is walked (DI-2). `widening` maps (old doc,
     new doc) to the widening items of a rule file or configuration."""
 
-    def __init__(self, entries):
+    def __init__(self, entries, repo=None, roots=(), record_commit=None):
+        # the repository and the roots a review's revision is checked against (S-1 sec. 3); for a record read by
+        # the post-freeze route, its record commit REV (r6 Amendment 10)
+        self.repo, self.roots, self.record_commit = repo, list(roots), record_commit
         self.by_path = {}
         self.by_sha = {}
         for path, data in entries:
@@ -294,11 +326,10 @@ def lint_chain(ref, store, admitted_shas, predecessor=False):
         out.append('record %s: no item ids can be identified' % ref['path'])
         return out
     for sha, path, rv in exact:
-        bad = []
-        if not _person(rv.get('reviewer')):
-            bad.append('reviewer is not a person')
-        if fd.same_identity(rv.get('reviewer'), author):
-            bad.append('reviewer equals author')
+        # R6.REC.6 as staging S-2 S2.5 restates it: a review not independent (S2.4) of the record's author is no review
+        bad = fd.independence_problems(rv, [author])
+        # r6 Amendment 10 binds the admitted review of the post-freeze route; a predecessor's review keeps S-1 sec. 3
+        bad += revision_problems(store.repo, store.roots, rv, None if predecessor else store.record_commit)
         verdicts = {v.get('item'): v.get('verdict') for v in rv.get('verdicts', []) if isinstance(v, dict)}
         named = [v.get('item') for v in rv.get('verdicts', []) if isinstance(v, dict)]
         if len(named) != len(set(named)):
@@ -420,14 +451,26 @@ def widening_review_problems(ref, store, admitted_shas, regular_reviewers, autho
                                       d['replaces'].get('blob_sha256') != old_ref.get('blob_sha256') or
                                       d['replaces'].get('path') != old_ref.get('path')):
             bad.append('does not name the record it replaces by path and blob')
+        # R6.REC.13 as staging S-2 S2.5 restates it: independent (S2.4) of the author and of every ordinary reviewer
         who = d.get('reviewer')
-        if not _person(who) or who == author or who in regular_reviewers:
-            bad.append('reviewer is the author, a regular reviewer, or not a person')
+        bad += fd.independence_problems(d, [author] + sorted(x for x in regular_reviewers if isinstance(x, str)))
+        if designated and any(fd.declared_dependency(o, [who]) for o in ordinary_reviews(ref, pool, usable)):
+            # S-2 sec. 3, allow root: the ordinary reviewer is independent of the widening reviewer as well
+            bad.append('an ordinary reviewer declares a dependency on the widening reviewer')
+        bad += revision_problems(store.repo, store.roots, d, None if predecessor else store.record_commit)
         bad += widening_verdict_problems(d, changed)
         if not bad:
             return []
         why.append('widening review %s: %s' % (path, '; '.join(bad)))
     return why or ['no widening review names the superseding blob']
+
+
+def ordinary_reviews(ref, pool, usable):
+    """The ordinary reviews among `pool` naming the exact reference `ref` whose blob `usable` admits."""
+    return [d for sha, (p, d) in sorted(pool.items()) if usable(sha) and isinstance(d, dict) and
+            d.get('schema') == review_schema and d.get('kind', 'review') == 'review' and
+            isinstance(d.get('reviewed'), dict) and d['reviewed'].get('path') == ref.get('path') and
+            d['reviewed'].get('blob_sha256') == ref.get('blob_sha256')]
 
 
 def widening_verdict_problems(review, changed):

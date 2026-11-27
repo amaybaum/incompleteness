@@ -43,6 +43,7 @@ if 'ledger_coverage' not in sys.modules:
 from ledger_coverage.engine import cli, gitobj, execution as exmod, pipeline as pl, purity, util  # noqa: E402
 from ledger_coverage.engine import profiles as prf, rules as rulemod, records as rec  # noqa: E402
 from ledger_coverage.adapters import control_records  # noqa: E402
+from ledger_coverage.adapters.identity_fixture import review_record  # noqa: E402
 
 E = 'e837e3dbaa605efc867a213f3345cee14c36d8f5'
 H = '53c6601a10419b6b333cc992474272501ab542af'
@@ -926,11 +927,13 @@ def rule_lint_controls(a):
     res['A2r'] = bool(rulemod.allow_widening(w1, dict(w1, matcher=dict(w1['matcher'], literal='six structural'))))
     fp = dict(w1['fingerprints'][0], sentence_sha256=sha(b'another sentence'))
     res['A3r'] = bool(rulemod.allow_widening(w1, dict(w1, fingerprints=[fp, w1['fingerprints'][1]])))
-    st = rec.Store([('r.json', b'{}'), ('w.json', util.canonical({'schema': rec.review_schema, 'kind': 'widening',
+    from ledger_coverage.adapters import identity_fixture as idf_
+    ov_, root_, ents_ = idf_.unit_store([('r.json', b'{}'), ('w.json', util.canonical(review_record({'schema': rec.review_schema, 'kind': 'widening',
                                                                    'reviewer': w1['author'],
                                                                    'reviewed': {'path': 'r.json',
                                                                                 'blob_sha256': sha(b'{}')},
-                                                                   'verdicts': [{'item': 'x', 'verdict': 'accept'}]}))])
+                                                                   'verdicts': [{'item': 'x', 'verdict': 'accept'}]})))])
+    st = rec.Store(ents_, ov_, [root_])
     res['A4r'] = not rec.widening_review_ok({'path': 'r.json', 'blob_sha256': sha(b'{}')}, st,
                                             set(st.by_sha), set(), w1['author'])
     res['A6r'] = bool(lint(dict(w1, matcher=dict(w1['matcher'], literal='further narrow it'))))
@@ -1455,8 +1458,8 @@ def k1_graph(a, tool_files):
         return (json.dumps(o, indent=1, sort_keys=True) + '\n').encode()
 
     def review(path, b, reviewer):
-        return jb({'schema': 'oi-review-record/1', 'reviewer': reviewer, 'reviewed': {'path': path,
-                   'blob_sha256': sha(b)}, 'method': 'graph fixture', 'verdicts': [{'item': '*', 'verdict': 'accept'}]})
+        return jb(review_record({'schema': 'oi-review-record/1', 'reviewer': reviewer, 'reviewed': {'path': path,
+                   'blob_sha256': sha(b)}, 'method': 'graph fixture', 'verdicts': [{'item': '*', 'verdict': 'accept'}]}))
 
     def layout(landed, cls_review_dir, config_self=False):
         """nodes and required edges for one placement. cls_review_dir: where the class record's review lies.

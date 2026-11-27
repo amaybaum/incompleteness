@@ -89,8 +89,6 @@ class Fixture(object):
         self.reqs = []
         self.records = {}
         self.muts = []
-        self.release = None
-        self.release_fact = None
         self.raw_exp = None
 
     def req(self, rid, controls, kind='testable', verification=None):
@@ -164,14 +162,6 @@ class Fixture(object):
         exp = self.raw_exp if self.raw_exp is not None else {'schema': G.SCHEMA_EXP, 'record_id': 'self-test',
                                                              'rows': self.rows, 'retired': []}
         ctx = getattr(self, 'ctx', None) or G.Ctx()
-        if self.release:
-            # a fixture repository: one commit holding the files, then the commit under check adding the release
-            # fact that names that commit's objects
-            repo = os.path.join(self.root, 'repo')
-            c1 = git_commit(repo, self.release)
-            name, fact = self.release_fact
-            c2 = git_commit(repo, {'%s/%s.json' % (G.FACTS_DIR, name): (json.dumps(fact(c1)) + '\n').encode()})
-            ctx = G.Ctx(repo, c2)
         return G.run_gate(None, None, paths, mp, ctx, exp_doc=copy.deepcopy(exp),
                           req_doc=copy.deepcopy(self.reqs))
 
@@ -308,25 +298,48 @@ def case_10(fx):
     sweep(fx, True)
 
 
-def case_11(fx):
+def case_11(fx, author='session.fixture-writer-x', reviewer='session.fixture-reviewer-y',
+            independence={'not_author': True, 'depends_on': []}):
     clean(fx)
     fx.row('RT-L2', {'outcome': 'PASS'}, status_allowed=['PASS', 'NOT RUN'],
            not_run={'reason': 'r', 'release_condition': 'c', 'release_check': G.RC_RTL2})
     fx.record('RT-L2', 'NOT RUN', None)
-    # the release fact and the objects it names, in the tree of the commit under check (a fixture repository)
+    # Hold the reconciliation record and its review in REV, one commit above the run's M.
     agents = b'reconciled text\n'
-    rec = {'schema': 'oi-reconciliation/1', 'record_id': 'r', 'author': 'session.fixture-writer-x', 'ledger_binding': {},
+    repo = os.path.join(fx.root, 'repo')
+    main = git_commit(repo, {'AGENTS.md': agents})
+    rp, vp = 'plan/rec.json', 'plan/rec.review.json'
+    rec = {'schema': 'oi-reconciliation/1', 'record_id': 'r', 'author': author, 'ledger_binding': {},
            'paths': [{'path': 'AGENTS.md', 'm': blob_id(agents), 'x': blob_id(agents)}],
            'changes_decisions_on_X': []}
     rb = (json.dumps(rec, indent=1) + '\n').encode()
-    rev = {'schema': 'oi-review-record/1', 'reviewer': 'session.fixture-reviewer-y', 'method': 'read',
-           'reviewed': {'path': 'plan/rec.json', 'blob_sha256': hashlib.sha256(rb).hexdigest()},
-           'verdicts': [{'item': 'AGENTS.md', 'verdict': 'accept'}]}
-    fx.release = {'AGENTS.md': agents, 'plan/rec.json': rb,
-                  'plan/rec.review.json': (json.dumps(rev, indent=1) + '\n').encode()}
-    fx.release_fact = ('RT-L2', lambda c: {'record': {'commit': c, 'path': 'plan/rec.json'},
-                                           'review': {'commit': c, 'path': 'plan/rec.review.json'},
-                                           'roles': {'H': c, 'M': c, 'C': c}})
+    rev = {'schema': 'oi-review-record/1', 'reviewer': reviewer, 'method': 'read', 'revision': main,
+           'reviewed': {'path': rp, 'blob_sha256': hashlib.sha256(rb).hexdigest()},
+           'verdicts': [{'item': 'AGENTS.md', 'verdict': 'accept'}],
+           'independence': independence}
+    if independence is None:
+        rev.pop('independence')
+    record_commit = git_commit(repo, {rp: rb, vp: (json.dumps(rev, indent=1) + '\n').encode()})
+    fact = {'record': {'commit': record_commit, 'path': rp}, 'review': {'commit': record_commit, 'path': vp},
+            'roles': {'H': main, 'M': main, 'C': main}}
+    head = git_commit(repo, {'%s/RT-L2.json' % G.FACTS_DIR: (json.dumps(fact) + '\n').encode()})
+    fx.ctx = G.Ctx(repo, head)
+
+
+def case_11b(fx):
+    """Staging S-2 S2.2 in the RT-L2 release check: the record's author amaybaum reviewed by AMaybaum, the same
+    identity respelled, is no independent review, so the release check is false and NOT RUN stays admitted."""
+    case_11(fx, author='amaybaum', reviewer='AMaybaum')
+
+
+def case_11c(fx):
+    """S2.3 in the RT-L2 release check: a review without its independence declaration is no independent review."""
+    case_11(fx, independence=None)
+
+
+def case_11d(fx):
+    """S2.4 in the RT-L2 release check: a declaration naming the author, respelled, is no independent review."""
+    case_11(fx, independence={'not_author': True, 'depends_on': ['Session_Fixture-Writer-X']})
 
 
 def case_12(fx):
@@ -506,7 +519,10 @@ TABLE = {
     'GATE-8': [('', [case_8], 'GATE_FAIL', ['correspondence-orphan-requirement'], None)],
     'GATE-9': [('', [case_9], 'GATE_FAIL', ['raw-evidence-missing'], None)],
     'GATE-10': [('', [case_10], 'GATE_FAIL', ['procedural-failed'], None)],
-    'GATE-11': [('', [case_11], 'GATE_FAIL', ['status-not-allowed'], None)],
+    'GATE-11': [('', [case_11], 'GATE_FAIL', ['status-not-allowed'], None),
+                ('(b)', [case_11b], 'GATE_HOLDS', [], []),
+                ('(c)', [case_11c], 'GATE_HOLDS', [], []),
+                ('(d)', [case_11d], 'GATE_HOLDS', [], [])],
     'GATE-12': [('', [case_12], 'GATE_FAIL', ['missing-id'], None)],
     'GATE-13': [('', [case_13], 'GATE_FAIL', ['procedural-failed'], None)],
     'GATE-14': [('', [case_14], 'GATE_FAIL', ['procedural-failed'], None)],

@@ -162,26 +162,31 @@ def same_identity(a, b):
     return identity_ok(a) and identity_ok(b) and identity_key(a) == identity_key(b)
 
 
+def declaration_ok(ind):
+    # S2.3 requires exactly not_author: true and distinct identities in depends_on.
+    deps = ind.get('depends_on') if isinstance(ind, dict) else None
+    return isinstance(ind, dict) and set(ind) == {'not_author', 'depends_on'} and ind['not_author'] is True and \
+        isinstance(deps, list) and all(identity_ok(d) for d in deps) and \
+        len({identity_key(d) for d in deps}) == len(deps)
+
+
+def declared_dependency(review, parties):
+    # S2.4 condition 4: a valid declaration omits every party.
+    ind = review.get('independence') if isinstance(review, dict) else None
+    return declaration_ok(ind) and any(same_identity(d, party) for d in ind['depends_on'] for party in parties)
+
+
 def independence_problems(review, X):
-    """S2.4: [] when the review is independent of the identity strings X (members of X that are not identity
-    strings are skipped): its reviewer an identity string; `independence` exactly {not_author: true, depends_on: an
-    array of identity strings, no two the same identity}; the reviewer and every depends_on element the same identity
-    as no member of X."""
+    # S2.4: the reviewer and all declared identities must differ from every party in X.
     out = []
     who = review.get('reviewer') if isinstance(review, dict) else None
     if not identity_ok(who):
         out.append('the reviewer is not an identity string')
-    ind = review.get('independence') if isinstance(review, dict) else None
-    deps = ind.get('depends_on') if isinstance(ind, dict) else None
-    if not (isinstance(ind, dict) and set(ind) == {'not_author', 'depends_on'} and ind['not_author'] is True and
-            isinstance(deps, list) and all(identity_ok(d) for d in deps) and
-            len({identity_key(d) for d in deps}) == len(deps)):
+    if not declaration_ok(review.get('independence') if isinstance(review, dict) else None):
         out.append('the independence declaration is missing or malformed')
-        deps = []
-    xs = [x for x in X if identity_ok(x)]
-    if identity_ok(who) and any(same_identity(who, x) for x in xs):
+    if identity_ok(who) and any(same_identity(who, x) for x in X):
         out.append('the reviewer is the same identity as a party it must be independent of')
-    if any(same_identity(d, x) for d in deps for x in xs):
+    if declared_dependency(review, X):
         out.append('the independence declaration names a party the reviewer must be independent of')
     return out
 
@@ -205,6 +210,8 @@ def _enc(t, v):
             all(p not in ('', '.', '..') for p in v.split('/'))
     if t == 'identity':
         return identity_ok(v)
+    if t == 'independence':
+        return declaration_ok(v)
     if t == 'nestr':
         return isinstance(v, str) and bool(v)
     if t == 'str':
@@ -252,7 +259,8 @@ verdict_keys = {'item': ('nestr', True), 'verdict': (('lit', ('accept', 'reject'
            'configuration': (('keyed', ref_keys), False), 'confirms': (('keyed', confirms_keys), False)}
 review_keys = {'schema': (('lit', (review_schema,)), True), 'kind': (('lit', ('review', 'widening')), False),
           'reviewer': ('identity', True), 'reviewed': (('keyed', ref_keys), True), 'replaces': (('keyed', ref_keys), False),
-          'method': ('nestr', True), 'verdicts': (('arr', ('keyed', verdict_keys)), True), 'dissent': ('str', False)}
+          'method': ('nestr', True), 'verdicts': (('arr', ('keyed', verdict_keys)), True), 'dissent': ('str', False),
+          'revision': ('commit', True), 'independence': ('independence', True)}
 
 
 def _type_ok(t, v, where, out):

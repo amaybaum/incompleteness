@@ -227,29 +227,75 @@ def ei14_release(ctx):
                 and isinstance(head, str) and HEX40.match(head) and git_is_ancestor(ctx.repo, T_PRIME, head))
 
 
+_IDENTITY = re.compile(r'[A-Za-z0-9][A-Za-z0-9._:-]{0,127}\Z')
+_KEY_DROP = str.maketrans('', '', '._:-')
+
+
+def _identity_ok(v):
+    """Staging S-2 S2.1: an identity string matches [A-Za-z0-9][A-Za-z0-9._:-]{0,127} as a whole and is not made
+    only of digits."""
+    return isinstance(v, str) and v.isascii() and _IDENTITY.match(v) is not None and not v.isdigit()
+
+
+def _identity_key(v):
+    """S2.2: ASCII letters made lowercase and `.`, `_`, `:` and `-` removed."""
+    return v.lower().translate(_KEY_DROP)
+
+
+def _independent_of_author(rev, author):
+    """S2.5 lint and S2.4 with X = {author}: the author and the reviewer identity strings; the declaration
+    {not_author: true, depends_on: identity strings, no two the same identity}; neither the reviewer nor any
+    depends_on element the same identity (S2.2) as the author."""
+    who, ind = rev.get('reviewer'), rev.get('independence')
+    deps = ind.get('depends_on') if isinstance(ind, dict) else None
+    if not (_identity_ok(author) and _identity_ok(who) and isinstance(ind, dict) and
+            set(ind) == {'not_author', 'depends_on'} and ind['not_author'] is True and isinstance(deps, list) and
+            all(_identity_ok(d) for d in deps) and len({_identity_key(d) for d in deps}) == len(deps)):
+        return False
+    return all(_identity_key(x) != _identity_key(author) for x in [who] + deps)
+
+
 def rtl2_release(ctx, name='RT-L2'):
-    """A reconciliation record named by the run from a commit outside the tool's landing paths, whose review record
-    passes the gate's structural lint (schema, reviewed path and sha256, a reviewer other than the author, every
-    verdict accept) and whose per-path blob ids at H, M and C equal those of the predicted run roles."""
+    """Reconciliation evidence from outside the tool's landing paths, with an independent, accepting review.
+
+    Under Amendment 10 the review names REV's single parent (M, or the pinned M0 for a predicted M). The record
+    and review are both read from REV, and per-path blob ids must match the run's H, M and C.
+    """
     f = _release_fact(ctx, name)
     if not f:
         return False
     roles = f.get('roles') or {}
-    if not all(isinstance(roles.get(k), str) and HEX40.match(roles[k]) for k in ('H', 'M', 'C')):
+    if not isinstance(roles, dict) or not all(isinstance(roles.get(k), str) and HEX40.fullmatch(roles[k])
+                                               for k in ('H', 'M', 'C')):
         return False
     ref = f.get('record') or {}
     path = ref.get('path') if isinstance(ref, dict) else None
     if not isinstance(path, str) or path.startswith(LANDING_PREFIXES) or path == WORKFLOW_PATH:
         return False
+    review_ref = f.get('review')
+    if not isinstance(review_ref, dict) or review_ref.get('commit') != ref.get('commit'):
+        return False
     rb, rec = _json_blob(ctx.repo, ref)
-    _, rev = _json_blob(ctx.repo, f.get('review'))
+    _, rev = _json_blob(ctx.repo, review_ref)
     if not (isinstance(rec, dict) and rec.get('schema') == 'oi-reconciliation/1' and isinstance(rev, dict)):
+        return False
+    record_base = roles.get('M0', roles['M'])
+    if not isinstance(record_base, str) or not HEX40.fullmatch(record_base) or rev.get('revision') != record_base:
+        return False
+    record_commit = ref['commit']
+    parents = subprocess.run(['git', '--no-replace-objects', '-C', ctx.repo, 'cat-file', 'commit', record_commit],
+                             stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    if parents.returncode != 0 or [line for line in parents.stdout.split(b'\n\n', 1)[0].splitlines()
+                                   if line.startswith(b'parent ')] != [b'parent ' + record_base.encode('ascii')]:
+        return False
+    entry = git_entry(ctx.repo, record_commit, path)
+    if entry is None or entry[0] not in ('100644', '100755'):
         return False
     reviewed = rev.get('reviewed') or {}
     verdicts = rev.get('verdicts') or []
-    if not (rev.get('schema') == 'oi-review-record/1' and reviewed.get('path') == path
+    if not (rev.get('schema') == 'oi-review-record/1' and isinstance(reviewed, dict) and reviewed.get('path') == path
             and reviewed.get('blob_sha256') == hashlib.sha256(rb).hexdigest()
-            and isinstance(rev.get('reviewer'), str) and rev['reviewer'] and rev['reviewer'] != rec.get('author')
+            and _independent_of_author(rev, rec.get('author'))
             and verdicts and all(isinstance(v, dict) and v.get('verdict') == 'accept' for v in verdicts)):
         return False
     entries = rec.get('paths') or []

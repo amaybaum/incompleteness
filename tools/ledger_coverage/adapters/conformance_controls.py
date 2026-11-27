@@ -46,6 +46,8 @@ from ledger_coverage.engine import gitobj, host as hostmod, purity, schema as sc
 from ledger_coverage.adapters import host_fixture as hf, synthetic_fixture as sf  # noqa: E402
 from ledger_coverage.adapters import record_directory_controls as rdc  # noqa: E402
 from ledger_coverage.adapters import control_records  # noqa: E402
+from ledger_coverage.adapters import identity_fixture as idf_  # noqa: E402
+from ledger_coverage.adapters.identity_fixture import review_record  # noqa: E402
 from ledger_coverage.adapters import postfreeze_controls as pfc  # noqa: E402
 
 RESULTS = []
@@ -388,9 +390,9 @@ def ei4_controls(t, w):
     other['notes'] = 'a second configuration'
     other['config_id'] = 'synthetic-retirement-config-b'
     ob = sf.jb(other)
-    orv = sf.jb({'schema': 'oi-review-record/1', 'reviewer': sf.REVIEWER, 'method': 'read',
+    orv = sf.jb(review_record({'schema': 'oi-review-record/1', 'reviewer': sf.REVIEWER, 'method': 'read',
                  'reviewed': {'path': d + 'other.json', 'blob_sha256': sha(ob)},
-                 'verdicts': [{'item': other['config_id'], 'verdict': 'accept'}]})
+                 'verdicts': [{'item': other['config_id'], 'verdict': 'accept'}]}))
     second = {'syn/second/PREREG.md': hf.pin_table({'other.json': sha(ob), 'other-review.json': sha(orv)}),
               'syn/second/other.json': ob, 'syn/second/other-review.json': orv,
               d + 'other.json': ob, d + 'other-review.json': orv}
@@ -1124,6 +1126,7 @@ def disk_world(r, name):
     disk_repo = gitobj.GitRepo(dk.d)
     syn.repo = gitobj.Overlay(disk_repo)
     syn.pin, syn.m1, syn.H = real['pin'], real['m1'], real['H']
+    syn.materialize = lambda cid: dk.commit(syn.repo, cid)
     pd = sf.patch_doc(syn.H, [])
     c, p, s, _ = syn.build({'patch_sha': sha(pd), 'files': {'syn/patch.json': pd}})
     w = hf.World(syn.repo, syn.H)
@@ -2440,8 +2443,8 @@ def _r4_class_scenario(r, case, cls_mut=None, verdicts=None):
     files['syn/classes.json'] = cb
     ref = {'path': 'syn/classes.json', 'blob_sha256': sha(cb)}
     vs = verdicts if verdicts is not None else [{'item': 'notes', 'verdict': 'accept'}]
-    rv = {'schema': 'oi-review-record/1', 'reviewer': sf.REVIEWER, 'reviewed': ref, 'method': 'read',
-          'verdicts': vs}
+    rv = review_record({'schema': 'oi-review-record/1', 'reviewer': sf.REVIEWER, 'reviewed': ref, 'method': 'read',
+          'verdicts': vs})
     files['syn/classes.review.json'] = sf.jb(rv)
     extra = [{'kind': 'side-change-classes', 'path': 'syn/classes.json', 'blob_sha256': sha(cb)},
              {'kind': 'review', 'path': 'syn/classes.review.json',
@@ -2504,9 +2507,11 @@ def r4_b3_duplicate_controls(r):
              'classifications': [{'id': i} for i in ids]}
         db = util.canonical(d)
         ref = {'path': 'r/h.json', 'blob_sha256': sha(db)}
-        rb = util.canonical({'schema': 'oi-review-record/1', 'reviewer': 'session.fixture-reviewer-b', 'reviewed': ref,
-                             'method': 'read', 'verdicts': [{'item': i, 'verdict': v} for i, v in verdicts]})
-        st = rec.Store([('r/h.json', db), ('r/h.review.json', rb)])
+        rb = util.canonical(review_record({'schema': 'oi-review-record/1', 'reviewer': 'session.fixture-reviewer-b', 'reviewed': ref,
+                             'method': 'read', 'verdicts': [{'item': i, 'verdict': v} for i, v in verdicts]}))
+        ov, root, ents = idf_.unit_store([('r/h.json', db), ('r/h.review.json', rb)])
+        rb = ents[1][1]
+        st = rec.Store(ents, ov, [root])
         observed = rec.lint_chain(ref, st, {sha(x) for x in (db, rb)})
         REC.capture_doc('records.lint_chain', {'problems': observed, 'record': db.decode('utf-8'),
                                              'review': rb.decode('utf-8')}, case=case,
@@ -2597,8 +2602,8 @@ def _chain(files, path, verdict='accept', review=True):
     files.pop(rp, None)
     out = []
     if review:
-        files[rp] = sf.jb({'schema': 'oi-review-record/1', 'reviewer': sf.REVIEWER, 'reviewed': ref, 'method': 'read',
-                           'verdicts': [{'item': i, 'verdict': verdict} for i in rec.item_ids(doc)]})
+        files[rp] = sf.jb(review_record({'schema': 'oi-review-record/1', 'reviewer': sf.REVIEWER, 'reviewed': ref, 'method': 'read',
+                           'verdicts': [{'item': i, 'verdict': verdict} for i in rec.item_ids(doc)]}))
         out.append({'kind': 'review', 'path': rp, 'blob_sha256': sha(files[rp])})
     return out
 
@@ -2628,8 +2633,12 @@ class LN:
         pd = sf.patch_doc(self.syn.H, [])
         v = dict({'patch_sha': sha(pd), 'files': {'syn/patch.json': pd}}, **(variant or {}))
         _, self.p, _, files = self.syn.build(v)
-        self.files = dict(files)
+        # the commit is rebuilt in place of H (commit), so the reviews are bound again there
+        self.files = {q: idf_.unbind(b) for q, b in files.items()}
         self.cfg = json.loads(self.files[self.p])
+        for x in self.cfg['records']:
+            if x.get('path') in files and files[x['path']] != self.files[x['path']]:
+                x['blob_sha256'] = sha(self.files[x['path']])
 
     def use_rules(self, replace, extra_records=()):
         """The configuration uses the rule files `replace` maps to (old path -> new path, or None to drop), with
@@ -2657,13 +2666,15 @@ class LN:
         self.files[self.p] = cb
         d = self.p.rsplit('/', 1)[0] + '/'
         cref = {'path': self.p, 'blob_sha256': sha(cb)}
-        rv = sf.jb({'schema': 'oi-review-record/1', 'reviewer': sf.REVIEWER, 'reviewed': cref, 'method': 'read',
-                    'verdicts': [{'item': self.cfg['config_id'], 'verdict': 'accept'}]})
+        rv = sf.jb(review_record({'schema': 'oi-review-record/1', 'reviewer': sf.REVIEWER, 'reviewed': cref, 'method': 'read',
+                    'verdicts': [{'item': self.cfg['config_id'], 'verdict': 'accept'}]}))
         self.files[d + 'review.json'] = rv
         for q, b in (extra_cfg_files or {}).items():
             self.files[q] = b(cref) if callable(b) else b
-        return self.syn.repo.derive(self.syn.H, self.files, parents=self.syn.repo.parents(self.syn.H),
-                                    subject=self.syn.repo.subject(self.syn.H)), sha(cb)
+        c, _f = idf_.commit_bound(self.syn.repo, self.syn.H, self.files, self.syn.repo.parents(self.syn.H),
+                                 self.syn.repo.subject(self.syn.H), config_path=self.p)
+        self.cfg = json.loads(self.files[self.p])
+        return c, sha(self.files[self.p])
 
     def run(self, **kw):
         c, csha = self.commit(**kw)
@@ -2707,13 +2718,14 @@ def ln1_ln8(r):
         def chained(path, doc):
             db = util.canonical(doc)
             ref = {'path': path, 'blob_sha256': sha(db)}
-            rv = util.canonical({'schema': rec.review_schema, 'reviewer': 'session.fixture-rv', 'reviewed': ref, 'method': 'read',
-                                 'verdicts': [{'item': doc[idf], 'verdict': 'accept'}]})
+            rv = util.canonical(review_record({'schema': rec.review_schema, 'reviewer': 'session.fixture-rv', 'reviewed': ref, 'method': 'read',
+                                 'verdicts': [{'item': doc[idf], 'verdict': 'accept'}]}))
             entries.extend([(path, db), (path + '.review', rv)])
             return ref
         pref = chained('r/p.json', {'schema': k, idf: 'p', 'author': 'session.fixture-w', 'supersedes': None})
         sref = chained('r/s.json', {'schema': k, idf: 's', 'author': 'session.fixture-w', 'supersedes': pref})
-        st = rec.Store(entries)
+        ov, root, entries = idf_.unit_store(entries)
+        st = rec.Store(entries, ov, [root])
         probs = rec.lint_chain(sref, st, {sha(b) for _, b in entries})
         out[k] = probs[:1]
         retain_lineage_lint(case, sref, probs, inputs={path: data.decode('utf-8') for path, data in entries})
@@ -2765,10 +2777,10 @@ def ln1_ln8(r):
 
     def wr(items):
         def make(files):
-            return {'schema': 'oi-review-record/1', 'kind': 'widening', 'reviewer': sf.WIDENER, 'method': 'read',
+            return review_record({'schema': 'oi-review-record/1', 'kind': 'widening', 'reviewer': sf.WIDENER, 'method': 'read',
                     'reviewed': {'path': 'syn/rules-pat-r1.json', 'blob_sha256': sha(files['syn/rules-pat-r1.json'])},
                     'replaces': {'path': PAT, 'blob_sha256': sha(files[PAT])},
-                    'verdicts': [{'item': i, 'verdict': 'accept'} for i in items]}
+                    'verdicts': [{'item': i, 'verdict': 'accept'} for i in items]})
         return make
     res = {case: predecessor(case, **options) for case, options in (
         ('predecessor without review', {'review': False}),
@@ -2805,12 +2817,17 @@ def ln1_ln8(r):
             docs[('r/t.json', fake['s'])] = top
         entries = [('r/t.json', tb)]
         for (q, h) in list(docs) + [('r/t.json', sha(tb))]:
-            rv = util.canonical({'schema': rec.review_schema, 'reviewer': 'session.fixture-rv', 'reviewed': {'path': q,
+            rv = util.canonical(review_record({'schema': rec.review_schema, 'reviewer': 'session.fixture-rv', 'reviewed': {'path': q,
                                                                                             'blob_sha256': h},
-                                 'method': 'read', 'verdicts': [{'item': 'x', 'verdict': 'accept'}]})
+                                 'method': 'read', 'verdicts': [{'item': 'x', 'verdict': 'accept'}]}))
             entries += [(q + '.review', rv)]
-        st = rec.Store(entries)
+        ov, root, entries = idf_.unit_store(entries)
+        st = rec.Store(entries, ov, [root])
         st.resolver = lambda ref, docs=docs: docs.get((ref.get('path'), ref.get('blob_sha256')))
+        # no commit can hold bytes that hash to the invented digests, so no review of these predecessors binds its
+        # revision (S-1 sec. 3); the predecessors' own lint is taken as passing, so that the chain walk itself, and
+        # its termination, is what this control measures
+        st._pred_cache.update({h: [] for (_q, h) in docs})
         probs = rec.lint_chain(tref, st, {sha(b) for _, b in entries})
         res[case] = probs[:2]
         retain_lineage_lint(case, tref, probs, inputs=[[path, data.decode('utf-8')] for path, data in entries],

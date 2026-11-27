@@ -29,6 +29,9 @@ if 'ledger_coverage' not in sys.modules:
     _spec.loader.exec_module(sys.modules['ledger_coverage'])
 
 from ledger_coverage.adapters import control_records  # noqa: E402
+from ledger_coverage.adapters import identity_fixture as idf  # noqa: E402
+from ledger_coverage.engine import gitobj  # noqa: E402
+from ledger_coverage.adapters.identity_fixture import review_record  # noqa: E402
 from ledger_coverage.adapters import synthetic_fixture as sf  # noqa: E402
 from ledger_coverage.adapters import record_directory_controls as rdc  # noqa: E402
 
@@ -477,9 +480,9 @@ def release_gate_controls(root):
     rsha = hashlib.sha256(rec).hexdigest()
 
     def rtt_files(kind=kind, listed_sha=None, review=None, list_review=True, schema='oi-review-record/1'):
-        rv = review if review is not None else {
+        rv = review if review is not None else review_record({
             'schema': schema, 'reviewer': 'session.fixture-reviewer-y', 'reviewed': {'path': d + '/rec.json', 'blob_sha256': rsha},
-            'verdicts': [{'item': 'i', 'verdict': 'accept'}]}
+            'verdicts': [{'item': 'i', 'verdict': 'accept'}]})
         refs = [{'kind': kind, 'path': d + '/rec.json', 'blob_sha256': listed_sha or rsha}]
         if list_review:
             refs.append({'kind': 'review', 'path': d + '/rec.review.json'})
@@ -500,8 +503,8 @@ def release_gate_controls(root):
     x = r('evidence-missing', rtt_files(), mode='missing')
     case('RT-T-REL-EVIDENCE-MISSING', 'the same with RT-T recorded PASS and its evidence absent: the gate fails '
                                       '(raw-evidence-missing)', x, demanded(x, 'raw-evidence-missing'))
-    base_rv = {'schema': 'oi-review-record/1', 'reviewer': 'session.fixture-reviewer-y',
-               'reviewed': {'path': d + '/rec.json', 'blob_sha256': rsha}}
+    base_rv = review_record({'schema': 'oi-review-record/1', 'reviewer': 'session.fixture-reviewer-y',
+               'reviewed': {'path': d + '/rec.json', 'blob_sha256': rsha}})
     out = {
         'no-config-argument': r('no-config', rtt_files(), lambda repo, F: G.Ctx(repo, F, F, None)),
         'wrong-config-path': r('wrong-path', rtt_files(), lambda repo, F: G.Ctx(repo, F, F, d + '/other.json')),
@@ -639,9 +642,9 @@ def allow_doc():
 
 def review_doc(path, b, reviewer=sf.REVIEWER, kind=None, replaces=None, items=None, **extra):
     from ledger_coverage.engine import records as rec
-    d = {'schema': 'oi-review-record/1', 'reviewer': reviewer, 'reviewed': {'path': path, 'blob_sha256': sf.sha(b)},
+    d = review_record({'schema': 'oi-review-record/1', 'reviewer': reviewer, 'reviewed': {'path': path, 'blob_sha256': sf.sha(b)},
          'method': 'read', 'verdicts': [{'item': i, 'verdict': 'accept'} for i in
-                                        (items if items is not None else rec.item_ids(json.loads(b)))]}
+                                        (items if items is not None else rec.item_ids(json.loads(b)))]})
     if kind:
         d['kind'] = kind
         d['replaces'] = replaces
@@ -847,8 +850,10 @@ def role_chain(root):
     case('STAGING-ROLE-CHAIN/21', 'a later F extends the declared prior freeze on the first-parent path, the same '
                                   'descriptor bound there, the configuration unchanged: admitted', got[:4],
          g1[1] is None and got[1] is None and (got[3] or {}).get('prior', {}).get('freeze') == Fprev)
-    # a sibling freeze: a real freeze of the same configuration and descriptor on a branch from t1, off F's path
-    sib_tip = W.repo.derive(t1, {'syn/sibling.txt': b's'}, parents=[t1], subject='sibling branch')
+    # a sibling freeze: a real freeze of the same configuration and descriptor on a branch off F's path. It branches
+    # from the commit its reused reviews name (rev1), so they bind there (S-1 sec. 3); that commit lies on F's path
+    sib_tip = W.repo.derive(rev1['revisions'][1], {'syn/sibling.txt': b's'}, parents=[rev1['revisions'][1]],
+                            subject='sibling branch')
     cs, ps_, ss_, _ = W.config(sib_tip, None, B, variant=rev1)
     gs = W.run(cs, ps_)
     sib = gs[4]
@@ -986,18 +991,18 @@ def config_reviews(root):
                                      'refused (no file is discovered outside the table)', got[:3],
          got[:2] == (65, 'CONFIG_UNREVIEWED'))
     rv_ref = {'kind': 'review', 'path': 'syn/cfg/self.review.json', 'blob_sha256': '0' * 64}
-    selfrev = sf.jb({'schema': 'oi-review-record/1', 'reviewer': 'session.fixture-reviewer-c', 'kind': 'widening',
+    selfrev = sf.jb(idf.bind({'schema': 'oi-review-record/1', 'reviewer': 'session.fixture-reviewer-c', 'kind': 'widening',
                      'reviewed': {'path': 'syn/cfg/config.json', 'blob_sha256': '0' * 64}, 'replaces': None,
-                     'method': 'read', 'verdicts': []})
+                     'method': 'read', 'verdicts': []}, tip))
     rv_ref['blob_sha256'] = sf.sha(selfrev)
     c3, p3, s3, _ = W.config(tip, None, B, extra_files={'syn/cfg/self.review.json': selfrev},
                              records_extra=[rv_ref])
     got = W.run(c3, p3)
     case('STAGING-CONFIG-REVIEWS/4', 'the configuration\'s records reference a widening review of the configuration '
                                      'itself: ERROR CONFIG_INVALID', got[:3], got[:2] == (65, 'CONFIG_INVALID'))
-    outside = sf.jb({'schema': 'oi-review-record/1', 'reviewer': 'session.fixture-reviewer-c',
+    outside = sf.jb(idf.bind({'schema': 'oi-review-record/1', 'reviewer': 'session.fixture-reviewer-c',
                      'reviewed': {'path': 'syn/cfg/config.json', 'blob_sha256': '0' * 64}, 'method': 'read',
-                     'verdicts': []})
+                     'verdicts': []}, tip))
     out_ref = {'kind': 'review', 'path': 'syn/elsewhere/self.review.json', 'blob_sha256': sf.sha(outside)}
     c5, p5, s5, _ = W.config(tip, None, B, extra_files={'syn/elsewhere/self.review.json': outside},
                              records_extra=[out_ref])
@@ -1032,16 +1037,17 @@ def config_widening(root):
         def post(path, cfg_sha):
             out = {}
             for k in range(n):
-                wr = {'schema': 'oi-review-record/1', 'kind': 'widening', 'reviewer': reviewer if k == 0 else
+                wr = review_record({'schema': 'oi-review-record/1', 'kind': 'widening', 'reviewer': reviewer if k == 0 else
                       'session.fixture-widener-e', 'reviewed': {'path': path, 'blob_sha256': cfg_sha},
                       'replaces': replaces if replaces is not None else sup, 'method': 'read the widened corpus',
-                      'verdicts': [{'item': 'synthetic-retirement-config:changed corpus', 'verdict': 'accept'}]}
+                      'verdicts': [{'item': 'synthetic-retirement-config:changed corpus', 'verdict': 'accept'}]})
                 out[path.rsplit('/', 1)[0] + '/widening-%d.json' % k] = sf.jb(wr)
             return out
         return post
 
     def run(post):
-        c, p, h, _ = syn.build(dict(v2, post=post) if post else v2)
+        # built on the first configuration's commit, so the predecessor's review names an ancestor (S-1 sec. 3)
+        c, p, h, _ = syn.build(dict(v2, post=post) if post else v2, at=c1)
         code, res = r.cli(syn.repo, ['coverage', '--commit', syn.H, '--check', 'zc'], c, p, h)
         st = (res or {}).get('stop') or {}
         return code, st.get('class'), st.get('message', '')
@@ -1071,20 +1077,27 @@ def first_allow(root):
     changed = rulemod.file_widening(None, doc)
     ordinary = review_doc(ALLOW_ROOT, b)
 
-    def problems(wide, designated=True, old_ref=None, path=ALLOW_ROOT, data=b):
-        entries = [(path, data), ('syn/cfg/r.json', sf.jb(ordinary))]
+    def problems(wide, designated=True, old_ref=None, path=ALLOW_ROOT, data=b, ord_doc=None, more=()):
+        # the commit the reviewers read holds the root; each review names it (S-1 sec. 3)
+        ov = gitobj.Overlay()
+        root_c = ov.add_commit({path: data}, [], 'allow root')
+
+        def bound(x):
+            return sf.jb(x if 'revision' in x else dict(x, revision=root_c))
+        entries = [(path, data), ('syn/cfg/r.json', bound(ord_doc or ordinary))]
+        entries += [('syn/cfg/r%d.json' % (k + 2), bound(x)) for k, x in enumerate(more)]
         if wide is not None:
-            entries.append(('syn/cfg/w.json', sf.jb(wide)))
-        st = rec.Store(entries)
+            entries.append(('syn/cfg/w.json', bound(wide)))
+        st = rec.Store(entries, ov, [root_c])
         st.designated_roots = {(ALLOW_ROOT, sf.sha(b))} if designated else set()
         adm = {sf.sha(x) for _, x in entries}
         r = {'path': path, 'blob_sha256': sf.sha(data)}
         return rec.widening_review_problems(r, st, adm, rec.reviewers_of(r, st), sf.WRITER, old_ref, changed)
 
     def wide(**kw):
-        d = {'schema': 'oi-review-record/1', 'kind': 'widening', 'reviewer': sf.WIDENER,
+        d = review_record({'schema': 'oi-review-record/1', 'kind': 'widening', 'reviewer': sf.WIDENER,
              'reviewed': dict(ref), 'replaces': None, 'method': 'read',
-             'verdicts': [{'item': i, 'verdict': 'accept'} for i in changed]}
+             'verdicts': [{'item': i, 'verdict': 'accept'} for i in changed]})
         d.update(kw)
         for k in [k for k, v in kw.items() if v == '__drop__']:
             d.pop(k)
@@ -1116,6 +1129,34 @@ def first_allow(root):
     ]
     for n, what, got in negs:
         case('STAGING-FIRST-ALLOW/' + n, what + ': refused', got, bool(got))
+    # staging S-2 sec. 7 S2-ROOT-ROLES: writer, ordinary and widening reviewer pairwise not the same identity (S2.2),
+    # each reviewer declaring no dependency on another of the three (S2.4)
+    respelled = sf.WRITER.upper().replace('.', '_')
+    roles = [
+        ('widening-respells-writer', 'the widening reviewer is the writer respelled',
+         problems(wide(reviewer=respelled))),
+        ('widening-respells-ordinary', 'the widening reviewer is the ordinary reviewer respelled',
+         problems(wide(reviewer=sf.REVIEWER.upper()))),
+        ('ordinary-on-widening', 'the ordinary reviewer declares a dependency on the widening reviewer',
+         problems(wide(), ord_doc=dict(ordinary, independence={'not_author': True, 'depends_on': [sf.WIDENER]}))),
+        ('widening-on-writer', 'the widening reviewer declares a dependency on the writer',
+         problems(wide(independence={'not_author': True, 'depends_on': [sf.WRITER]}))),
+        ('widening-on-ordinary', 'the widening reviewer declares a dependency on the ordinary reviewer',
+         problems(wide(independence={'not_author': True, 'depends_on': [sf.REVIEWER]}))),
+        ('widening-undeclared', 'the widening review carries no independence declaration',
+         problems(wide(independence='__drop__'))),
+    ]
+    for n, what, got in roles:
+        case('S2-ROOT-ROLES/' + n, what + ': refused', got, bool(got))
+    # R6.REC.13 against every ordinary reviewer (P7): a second ordinary review; the widening reviewer is that second
+    # ordinary reviewer respelled, against a widening reviewer distinct from both
+    second = review_doc(ALLOW_ROOT, b, reviewer='session.fixture-reviewer-two')
+    got = {'distinct widening reviewer': problems(wide(), more=[second]),
+           'the second ordinary reviewer respelled': problems(wide(reviewer='SESSION_FIXTURE_REVIEWER_TWO'),
+                                                              more=[second])}
+    case('S2-ROOT-ROLES/widening-respells-second-ordinary', 'two ordinary reviews; the widening reviewer the second '
+         'ordinary reviewer respelled: refused; a widening reviewer distinct from both: no problem', got,
+         got['distinct widening reviewer'] == [] and bool(got['the second ordinary reviewer respelled']))
     got = problems(wide(replaces='__drop__'), designated=False)
     case('STAGING-FIRST-ALLOW/15', 'a root that is not the designated root, its widening review omitting replaces: '
                                    'refused (R6.RECON.31; no predecessor can be named)', got,
@@ -1142,9 +1183,9 @@ def first_allow_admission(root):
 
     def run(dup):
         verdicts = [{'item': i, 'verdict': 'accept'} for i in changed]
-        wide = sf.jb({'schema': 'oi-review-record/1', 'kind': 'widening', 'reviewer': sf.WIDENER,
+        wide = sf.jb(review_record({'schema': 'oi-review-record/1', 'kind': 'widening', 'reviewer': sf.WIDENER,
                       'reviewed': {'path': ALLOW_ROOT, 'blob_sha256': sf.sha(ab)}, 'replaces': None,
-                      'method': 'read the initial allow rules', 'verdicts': verdicts + (verdicts[:1] if dup else [])})
+                      'method': 'read the initial allow rules', 'verdicts': verdicts + (verdicts[:1] if dup else [])}))
         files = {'syn/cfg/allow-root.review.json': ordinary, 'syn/cfg/allow-root.widening.json': wide}
         recs = [{'kind': 'review', 'path': q, 'blob_sha256': sf.sha(b)} for q, b in sorted(files.items())]
         c, p, s_, _ = W.config(tip, None, B, extra_files=files, records_extra=recs,
@@ -1207,9 +1248,15 @@ def k1_layout(root):
          got[0] is None and all(bool(x) for x in got[1:]))
 
 
+def record_revisions(root):
+    from ledger_coverage.adapters import postfreeze_controls as pfc
+    pfc.record_revision_controls(sf.Runner(root), case)
+
+
 SUITES = [('representative-snapshot', representative_snapshot), ('item2-engine', item2_engine), ('item2-gate', item2_gate), ('role-chain', role_chain),
           ('config-reviews', config_reviews), ('config-widening', config_widening), ('first-allow', first_allow),
-          ('first-allow-admission', first_allow_admission), ('k1-layout', k1_layout)]
+          ('first-allow-admission', first_allow_admission), ('k1-layout', k1_layout),
+          ('record-revisions', record_revisions)]
 
 
 def main(out):

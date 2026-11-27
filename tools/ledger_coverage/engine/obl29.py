@@ -129,8 +129,8 @@ def nr3(R, review, excluded, reviews_of_R):
     if not isinstance(review, dict) or review.get('reviewed') != R['ref'] or \
             review.get('_dir') != R['ref']['path'].rsplit('/', 1)[0]:
         return False
-    reviewer = review.get('reviewer')
-    if not rec._person(reviewer) or any(fd.same_identity(reviewer, identity) for identity in excluded):
+    # staging S-2 sec. 5: the NR-3 reviewer is independent (S2.4) of every excluded party
+    if fd.independence_problems(review, excluded):
         return False
     if adverse_items(review, R['doc']):
         return False
@@ -164,6 +164,10 @@ def nr5(Z, V, W, R, D, finding_git, reviews_of_R):
                (D.get('reassessment') or {}).get('doc', {}).get('author')}
     if isinstance(Z, dict) and any(fd.same_identity(Z.get('reviewer'), author) for author in authors):
         bad.append("Z's reviewer is an author of R, the disputed record or the reassessment")
+    if isinstance(Z, dict) and (fd.declared_dependency(Z, authors) or not fd.declaration_ok(Z.get('independence'))):
+        # staging S-2 sec. 5: Z is independent (S2.4) of those authors
+        bad.append("Z's independence declaration is missing or malformed, or names an author of R, the disputed "
+                   "record or the reassessment")
     if not isinstance(Z, dict) or Z.get('_dir') != R['ref']['path'].rsplit('/', 1)[0] or Z.get('kind', 'review') != \
             'review' or adverse_items(Z, R['doc']):
         bad.append('Z does not meet the record lint in R\'s reconciliation directory')

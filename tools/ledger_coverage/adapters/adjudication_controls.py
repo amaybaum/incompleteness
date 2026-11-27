@@ -25,10 +25,12 @@ if 'ledger_coverage' not in sys.modules:
     _spec.loader.exec_module(sys.modules['ledger_coverage'])
 
 from ledger_coverage.adapters import control_records  # noqa: E402
+from ledger_coverage.adapters.identity_fixture import review_record  # noqa: E402
 from ledger_coverage import record_authority as ra  # noqa: E402
 from ledger_coverage.engine import adjudication as adj  # noqa: E402
 from ledger_coverage.engine import findings as fd  # noqa: E402
 from ledger_coverage.engine import gitobj  # noqa: E402
+from ledger_coverage.engine import util  # noqa: E402
 
 RESULTS = []
 # R6.GATE.5 and R6.GATE.7: the runs captured since the previous case are its evidence
@@ -101,9 +103,10 @@ class Fx:
         self.landing_time = datetime(2026, 11, 27, 12, 0, tzinfo=timezone.utc)
 
     def T(self, reviewer='t', **upd):
-        rv = {'schema': fd.review_schema, 'reviewer': reviewer, 'reviewed': dict(self.jref),
+        # its revision has the form a review.record row requires; the predicates read no repository
+        rv = review_record({'schema': fd.review_schema, 'reviewer': reviewer, 'reviewed': dict(self.jref), 'revision': h40('9'),
               'method': 'read %s %s' % (h40('f'), h40('c')),
-              'verdicts': [{'item': i, 'verdict': 'accept', 'reason': 'checked'} for i in adj.item_ids(self.J)]}
+              'verdicts': [{'item': i, 'verdict': 'accept', 'reason': 'checked'} for i in adj.item_ids(self.J)]})
         rv.update(upd)
         return rv
 
@@ -127,8 +130,8 @@ class Fx:
         out += adj.self_consistency(J, W, resolves)
         out += adj.binds(J, self.aref, self.A, W)
         out += adj.substance_problems(J, self.git_of)
-        out += adj.review_problems(T, J, self.jref, self.git_of(self.jref),
-                                   [self.git_of(s) for s in J['witness']['sources']], ps, OWNERS)
+        out += adj.review_form_problems(T, J, self.jref, self.git_of(self.jref),
+                                        [self.git_of(s) for s in J['witness']['sources']], ps, OWNERS)
         return out
 
 
@@ -210,6 +213,45 @@ def independence():
     got = conds(adj.authorization_problems(J, fx.landing_time, OWNERS))
     case('PRED:ADJ-AUTH-CASE', 'the owner check and the adjudicator equality compare under R6.RECON.29: a case variant '
                                'of the owner\'s login, and J for j, pass', got, got == [])
+    def undeclared(fx, J):
+        T = fx.T()
+        T.pop('independence')
+        return {'T': T}
+
+    def declares(who):
+        return lambda fx, J: {'T': fx.T(independence={'not_author': True, 'depends_on': [who]})}
+    variants('PRED:S2-ADJ-TECH-DECLARATION', 'the technical review declares a dependency on the adjudicator, on v or '
+                                             'on the owner respelled (staging S-2 S2.4): ADJ-INDEP',
+             {'b': declares('j'), 'c': declares('v'), 'd': declares(OWNERS[0].upper())}, 'ADJ-INDEP')
+    fx = Fx()
+    got = fx.all_problems(T=undeclared(fx, fx.J)['T'])
+    case('PRED:S2-ADJ-TECH-UNDECLARED', 'the technical review carries no independence declaration: it fails the '
+                                        'review.record row once (ADJ-REVIEW), with no second report', got,
+         conds(got) == ['ADJ-REVIEW'] and sum('independence' in m for _c, m in got) == 1)
+    # staging S-2 sec. 7 S2-OWNER-ROLES: an owner identity respelled (S2.2) in either judging role (OD-4)
+    variants('PRED:S2-OWNER-ROLES', 'the adjudicator, or the technical reviewer, AMaybaum: ADJ-INDEP',
+             {'adjudicator': author('AMaybaum'), 'technical reviewer': lambda fx, J: {'T': fx.T('AMaybaum')}},
+             'ADJ-INDEP')
+    RESULTS.append({'id': 'PRED:S2-OWNER-ROLES/migration', 'expected': 'a migration approval.author that is not an '
+                    'owner identity: FAIL record-invalid', 'actual': None, 'status': 'NOT RUN', 'attested': None,
+                    'reason': 'not runnable: the tool refuses a configuration referencing an edit-id-migration record '
+                              'fail-closed (R6.RECON.28 is not read; category3 raises Unsettled), so no '
+                              'migration.approval is ever evaluated'})
+    LOCAL.case('PRED:S2-OWNER-ROLES/migration')
+    # the reason, checked: the binding of a run refuses a configuration referencing an edit-id-migration record
+    from ledger_coverage.engine import category3 as c3
+
+    def binding_of(records):
+        try:
+            c3.Binding(None, None, {'records': records}, None, None, None, None)
+            return 'bound'
+        except fd.Unsettled as exc:
+            return 'refused: %s' % exc
+    mig = {'kind': 'edit-id-migration', 'path': 'syn/cfg/migration.json', 'blob_sha256': h64('m')}
+    got = {'with a migration record': binding_of([mig]), 'without one': binding_of([])}
+    case('PRED:S2-OWNER-ROLES/migration-refused', 'the reason the migration variant is not runnable: a configuration '
+         'referencing an edit-id-migration record is refused (Unsettled) before any binding, and one without it is not',
+         got, got['with a migration record'].startswith('refused') and got['without one'] == 'bound')
     variants('PRED:ADJ-N-OWNER-TECH-REVIEWER', 'the owner as technical reviewer (OD-4): ADJ-INDEP',
              {'a': lambda fx, J: {'T': fx.T(OWNERS[0])}}, 'ADJ-INDEP')
 
@@ -346,9 +388,10 @@ def dissents():
                                          'addressed: not exempt, it blocks', o,
          o['admitted'] and o['blocking'] == [early])
     R = {'schema': 'oi-reconciliation/2', 'author': 'ra', 'paths': [{'path': P}]}
-    dvdoc = {'schema': 'oi-review-record/1', 'reviewer': 'v', 'reviewed': fx.rref, 'method': 'read ' + h40('d'),
+    dvdoc = review_record({'schema': 'oi-review-record/1', 'reviewer': 'v', 'reviewed': fx.rref, 'revision': h40('9'),
+             'method': 'read ' + h40('d'),
              'verdicts': [{'item': P, 'verdict': 'accept', 'reason': 'checked'},
-                          {'item': P + ':scientific_effect', 'verdict': 'dissent', 'reason': 'repair disputed'}]}
+                          {'item': P + ':scientific_effect', 'verdict': 'dissent', 'reason': 'repair disputed'}]})
     ok = adj.dissents_addressed_problems(J, [(dv, dvdoc)], R)
     J_bad = copy.deepcopy(J)
     J_bad['dissents_addressed'] = [{'ref': dict(dv), 'item': P}, {'ref': {'path': 'x/none.json',
@@ -380,7 +423,6 @@ def admission():
     # the dedicated landing (M5', OD-3) over an in-memory history
     repo = gitobj.Overlay()
     jb, tb = b'{"j": 1}\n', b'{"t": 1}\n'
-    from ledger_coverage.engine import util
     jref = {'path': 'verification/audits/rr/j.json', 'blob_sha256': util.sha256(jb)}
     tref = {'path': 'verification/audits/rr/j.review.json', 'blob_sha256': util.sha256(tb)}
     c0 = repo.add_commit({'a.txt': b'a\n'}, [])
@@ -402,9 +444,35 @@ def admission():
     del T
 
 
+def review_revision():
+    fx = Fx()
+    repo = gitobj.Overlay()
+    root = repo.add_commit({'README.md': b'base\n'}, [])
+    payload = util.canonical(fx.J)
+    jref = dict(fx.jref, blob_sha256=util.sha256(payload))
+    joid = gitobj.blob_id_of(payload)
+    sources = [fx.git_of(s) for s in fx.J['witness']['sources']]
+    subject = repo.derive(root, {jref['path']: payload}, parents=[root], subject='reviewed J on side branch')
+    review = fx.T(revision=subject, reviewed=jref, method='read ' + ' '.join([joid] + sources))
+    review_bytes = util.canonical(review)
+    tref = dict(fx.tref, blob_sha256=util.sha256(review_bytes))
+    additions = {jref['path']: payload, tref['path']: review_bytes}
+    dedicated = repo.derive(root, additions, parents=[root, subject], subject='dedicated landing')
+    unbound = repo.derive(root, additions, parents=[root], subject='same files, subject unreachable')
+    run = adj.Run(repo, dedicated, dedicated, [], None, None, None, None, OWNERS)
+    args = (review, fx.J, jref, joid, sources, fx.parties())
+    good = run.review_problems(*args, at=dedicated)
+    bad = run.review_problems(*args, at=unbound)
+    layout = adj.dedicated_landing_problems(repo, dedicated, jref, tref)
+    case('S2-ADJ-REVISION', 'a dedicated merge adds only J and its review to the first parent and reaches the '
+                            'reviewed J through the second parent; an unreachable revision fails ADJ-REVIEW',
+         {'dedicated': good, 'layout': layout, 'unreachable': bad},
+         not good and not layout and conds(bad) == ['ADJ-REVIEW'])
+
+
 SUITES = [('form-authorization', form_and_authorization), ('independence', independence),
           ('substance-binding', substance_and_binding), ('decision', decision), ('dissents', dissents),
-          ('admission', admission)]
+          ('admission', admission), ('review-revision', review_revision)]
 
 
 def main(out):
@@ -424,7 +492,9 @@ def main(out):
                   sort_keys=True, default=str)
         f.write('\n')
     LOCAL.write(out, RESULTS)
-    bad = [c['id'] for c in RESULTS if c['status'] != 'PASS']
+    # the one case admitted NOT RUN, with its stated reason; any other non-PASS case fails the suite
+    bad = [c['id'] for c in RESULTS if c['status'] != 'PASS' and
+           not (c['status'] == 'NOT RUN' and c['id'] == 'PRED:S2-OWNER-ROLES/migration')]
     print(json.dumps({'cases': len(RESULTS), 'failed': bad}))
     return 0 if not bad else 1
 

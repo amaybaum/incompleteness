@@ -13,6 +13,8 @@ import json
 
 from ledger_coverage.engine import cli, config as cfgmod, pipeline as pl, reconcile as rcmod, records as rec, util
 from ledger_coverage.adapters import host_fixture as hf, synthetic_fixture as sf
+from ledger_coverage.adapters import identity_fixture as idf
+from ledger_coverage.adapters.identity_fixture import review_record
 from ledger_coverage import record_authority as ra
 from ledger_coverage.engine import gitobj
 
@@ -62,7 +64,11 @@ class World:
         self.p = p
         if pre_change:
             self.M = repo.derive(syn.H, changed, parents=[syn.H], subject='main change before F')
-            self.c = repo.derive(self.M, {k: v for k, v in files.items()}, parents=[self.M], subject='plan at M')
+            # the plan is rebuilt on M, so that its reviews name commits F descends from (S-1 sec. 3)
+            slot = repo.derive(self.M, {}, parents=[self.M], subject='plan at M')
+            c, p, s, files = syn.build(base, at=slot)
+            self.p = p
+            self.c = c
         else:
             self.M = repo.derive(syn.H, changed, parents=[syn.H], subject='main change after F')
             self.c = c
@@ -80,14 +86,17 @@ class World:
 
     def review(self, path, data, reviewer=sf.REVIEWER):
         doc = json.loads(data)
-        return jb({'schema': rec.review_schema, 'reviewer': reviewer, 'reviewed': {'path': path,
+        return jb(review_record({'schema': rec.review_schema, 'reviewer': reviewer, 'reviewed': {'path': path,
                                                                                    'blob_sha256': sha(data)},
                    'method': 'read every object the record names',
-                   'verdicts': [{'item': i, 'verdict': 'accept', 'reason': ''} for i in rec.item_ids(doc)]})
+                   'verdicts': [{'item': i, 'verdict': 'accept', 'reason': ''} for i in rec.item_ids(doc)]}))
 
     def rev(self, files, parent=None, parents=None):
+        """A record commit REV; the reviews it adds name its parent, the record base, as their revision (r6
+        Amendment 10)."""
         parent = parent or self.M
-        return self.repo.derive(parent, files, parents=parents or [parent], subject='record commit')
+        return self.repo.derive(parent, idf.bind_files(files, parent), parents=parents or [parent],
+                                subject='record commit')
 
     def standard(self, doc=None, path=RD + 'rec.json', reviewer=sf.REVIEWER, review_path=None, extra=None,
                  parent=None, parents=None):
@@ -675,6 +684,60 @@ def res_base(res):
     return ((res or {}).get('inputs') or {}).get('record_base')
 
 
+def record_revision_controls(r, case):
+    """Amendment 10 controls through R6.RECON.2(d)'s actual record admission."""
+    from unittest.mock import patch
+
+    def run(w, revision, digest=None, predicted=False):
+        base = w.M0 if predicted else w.M
+        path = RD + 'revision.json'
+        data = jb(w.record())
+        review = json.loads(w.review(path, data))
+        review['revision'] = revision
+        if digest is not None:
+            review['reviewed']['blob_sha256'] = digest
+        rev = w.rev({path: data, RD + 'revision.review.json': jb(review)}, parent=base)
+        code, result = w.run(['%s:%s' % (rev, path)], harness=predicted,
+                             extra=['--record-base', base] if predicted else ())
+        return {'exit': code, 'admitted': admitted(result, path), 'record_invalid': invalid(result, path)}
+
+    def accepted(result):
+        return result['admitted'] and not result['record_invalid']
+
+    def refused(result):
+        return result['exit'] == 20 and result['record_invalid'] and not result['admitted']
+
+    w = World(r)
+    base = run(w, w.M)
+    case('A10-REV-BASE', "revision is REV's base M, which admits the reviewed bytes in REV", base, accepted(base))
+    ancestor = run(w, w.syn.H)
+    case('A10-REV-ANCESTOR', 'an earlier ancestor of M does not qualify', ancestor, refused(ancestor))
+    sibling = w.repo.derive(w.M, {RD + 'revision.json': jb(w.record())}, parents=[w.M], subject='sibling of REV')
+    other = {'sibling with reviewed bytes': run(w, sibling), 'no revision': run(w, idf.UNBOUND),
+             'abbreviated base': run(w, w.M[:8])}
+    case('A10-REV-OTHER', 'a sibling, missing revision and abbreviated base do not qualify',
+         other, all(refused(result) for result in other.values()))
+    predicted = rb_world(r)
+    m0 = run(predicted, predicted.M0, predicted=True)
+    m = run(predicted, predicted.M, predicted=True)
+    case('A10-REV-PREDICTED', 'M0 qualifies and predicted M does not', {'M0': m0, 'predicted M': m},
+         accepted(m0) and refused(m))
+    wrong_bytes = run(w, w.M, '0' * 64)
+    case('A10-REV-BYTES', 'the record at REV must match the reviewed digest', wrong_bytes, refused(wrong_bytes))
+
+    original = rec.revision_problems
+
+    def permits_ancestor(repo, roots, review, record_commit=None):
+        if record_commit is not None and repo.is_ancestor(review.get('revision'), record_commit):
+            review = dict(review, revision=repo.parents(record_commit)[0])
+        return original(repo, roots, review, record_commit)
+
+    with patch.object(rec, 'revision_problems', permits_ancestor):
+        loosened = run(w, w.syn.H)
+    case('A10-REV-MUTANT', 'accepting any reachable revision makes the ancestor control fail',
+         {'rule': ancestor, 'mutant': loosened}, refused(ancestor) and accepted(loosened))
+
+
 def rb_gate_case(res, roles_m0):
     """The gate's rtl2 procedure (R6.GATE.16) over one retained result and the runner's pinned main: the rt_l2 value."""
     import os
@@ -1059,9 +1122,9 @@ def cite(doc, reviewer=sf.REVIEWER, review=True):
         files = {RA_PATH: b}
         recs = [{'kind': 'reassessment', 'path': RA_PATH, 'blob_sha256': sha(b)}]
         if review:
-            rv = jb({'schema': rec.review_schema, 'reviewer': reviewer,
+            rv = jb(review_record({'schema': rec.review_schema, 'reviewer': reviewer,
                      'reviewed': {'path': RA_PATH, 'blob_sha256': sha(b)}, 'method': 'read',
-                     'verdicts': [{'item': i, 'verdict': 'accept'} for i in rec.item_ids(doc)]})
+                     'verdicts': [{'item': i, 'verdict': 'accept'} for i in rec.item_ids(doc)]}))
             files[RA_PATH[:-5] + '.review.json'] = rv
             recs.append({'kind': 'review', 'path': RA_PATH[:-5] + '.review.json', 'blob_sha256': sha(rv)})
         return {'files': files, 'add_records': recs}
@@ -1213,11 +1276,11 @@ def sci_controls(r, check):
 
     def rejecting(path, data, reviewer=sf.REVIEWER):
         doc = json.loads(data)
-        return jb({'schema': rec.review_schema, 'reviewer': reviewer, 'reviewed': {'path': path,
+        return jb(review_record({'schema': rec.review_schema, 'reviewer': reviewer, 'reviewed': {'path': path,
                                                                                    'blob_sha256': sha(data)},
                    'method': 'read every object the record names',
                    'verdicts': [{'item': i, 'verdict': 'reject' if i.endswith(':scientific_effect') else 'accept'}
-                                for i in rec.item_ids(doc)]})
+                                for i in rec.item_ids(doc)]}))
     run(SCI[3], w, both(w), review=rejecting)
     w = sci_world(r)
     run(SCI[4], w, both(w), review=lambda p, d: w.review(p, d, reviewer=sf.WRITER))

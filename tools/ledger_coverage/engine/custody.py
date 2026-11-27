@@ -265,8 +265,10 @@ class Check:
         here = [(p, r) for p, r in reviews if posixpath.dirname(p) + '/' == self.h.dir]
         ok = False
         for p, r in here:
-            if r.get('kind', 'review') != 'review' or fd.same_identity(r.get('reviewer'), d.get('author')) or \
-                    not rec._person(r.get('reviewer')):
+            # R6.CUST.8 as staging S-2 restates it: a review independent (S2.4) of the version's author, whose revision
+            # meets S-1 sec. 3 with root effective M
+            if r.get('kind', 'review') != 'review' or fd.independence_problems(r, [d.get('author')]) or \
+                    rec.revision_problems(self.repo, [self.M], r):
                 continue
             vs = [v for v in r.get('verdicts') or [] if isinstance(v, dict)]
             names = [v.get('item') for v in vs]

@@ -299,8 +299,10 @@ def category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, r
         # defensive: in a control-harness run there is no F root, so a record the configuration cites is outside R*
         # (control A1-INDEPENDENT-RECORD-VIA-EXPLICIT-ONLY fails without it)
         cum.explicit_record_at = explicit_at
+        # an explicitly read review's revision is checked against the roots of R* and the commit it is read from
         found = c3.unique(cum.findings() + c3.findings_of_records(
-            recon + explicit_reviews, schemas, lambda ref: cum.record_at(ref) or explicit_at(ref)))
+            recon + explicit_reviews, schemas, lambda ref: cum.record_at(ref) or explicit_at(ref),
+            lambda r_, d_: rec.revision_problems(repo, cum.roots + [r_.get('_source')], d_)))
     except Unresolvable as exc:
         raise oc.Stop(oc.error, 'UNRESOLVABLE', 'the cumulative record set cannot be read: %s' % exc)
     out = []

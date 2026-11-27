@@ -241,7 +241,8 @@ def binding_problems(doc, scope):
 def lint_problems(repo, rev, path, data, doc, scope, scan, config_shas):
     sha = util.sha256(data)
     ref = {'path': path, 'blob_sha256': sha}
-    st = rec.Store(scan)
+    # r6 Amendment 10: the admitted review's revision is the record base, REV's single parent
+    st = rec.Store(scan, repo, [rev], record_commit=rev)
     if st.get(ref) is None:
         st.add(path, data)
     d = posixpath.dirname(path)
@@ -332,7 +333,7 @@ def lint_classified(repo, rev, path, data, doc, scope):
     review record in its directory, and the chain lint over the records of that directory."""
     scan = scanned_all(repo, rev, posixpath.dirname(path))
     sha = util.sha256(data)
-    st = rec.Store(scan)
+    st = rec.Store(scan, repo, [rev])
     if st.get({'path': path, 'blob_sha256': sha}) is None:
         st.add(path, data)
     d = posixpath.dirname(path)
