@@ -117,17 +117,25 @@ def _bytes_record(b):
 # environment variables through which git reads configuration, or is pointed at another repository, index or object
 # store; none of them passes to a delegated clone (R6.DELEG.3: no clone runs a configured smudge filter)
 _git_env_drop = ('GIT_CONFIG_PARAMETERS', 'GIT_CONFIG_COUNT', 'GIT_CONFIG', 'GIT_DIR', 'GIT_WORK_TREE',
-                 'GIT_INDEX_FILE', 'GIT_OBJECT_DIRECTORY', 'GIT_ALTERNATE_OBJECT_DIRECTORIES', 'GIT_COMMON_DIR')
+                 'GIT_INDEX_FILE', 'GIT_OBJECT_DIRECTORY', 'GIT_ALTERNATE_OBJECT_DIRECTORIES', 'GIT_COMMON_DIR',
+                 'GIT_TEMPLATE_DIR', 'GIT_EXEC_PATH')
 
 
 def clone_env(environ):
     """The git environment of a delegated clone and its checks: the caller's environment less every variable that
     carries configuration (GIT_CONFIG_PARAMETERS, GIT_CONFIG_COUNT, GIT_CONFIG_KEY_n, GIT_CONFIG_VALUE_n,
-    GIT_CONFIG) or redirects the repository, with the system configuration off and the global configuration empty."""
+    GIT_CONFIG), redirects the repository, names a template directory (whose config and hooks a clone copies) or
+    replaces git's helper programs (GIT_EXEC_PATH), with the system configuration off and the global configuration
+    empty."""
     env = {k: v for k, v in environ.items()
            if k not in _git_env_drop and not k.startswith(('GIT_CONFIG_KEY_', 'GIT_CONFIG_VALUE_'))}
     env.update(GIT_CONFIG_NOSYSTEM='1', GIT_CONFIG_GLOBAL=os.devnull)
     return env
+
+
+def clone_options():
+    """Options of the delegated clone: an empty template, so no template config or hook reaches the clone."""
+    return ['--template=']
 
 class Native:
     """The disposable clones, the checker blobs from F and the run records of one tool run."""
@@ -163,7 +171,8 @@ class Native:
         # no configuration from the runner (for example a filter driver) applies to the clone, so its working tree is
         # checked out from X's blobs as they are (O-3, R6.DELEG.3)
         env = clone_env(os.environ)
-        r = subprocess.run(['git', 'clone', '--no-local', '--no-checkout', '--quiet', self.repo_path, d],
+        r = subprocess.run(['git', 'clone'] + clone_options() + ['--no-local', '--no-checkout', '--quiet',
+                                                                  self.repo_path, d],
                            capture_output=True, text=True, env=env)
         if r.returncode != 0:
             raise RuntimeError('clone failed: %s' % r.stderr[-300:])

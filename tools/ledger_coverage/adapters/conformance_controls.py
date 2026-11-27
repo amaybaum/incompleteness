@@ -922,7 +922,7 @@ def o3_controls(r):
         with open(cfg, 'w') as f:
             f.write('[filter "smudge-probe"]\n\tsmudge = "sh -c \'touch %s; cat\'"\n\trequired = true\n' % marker)
         keys = ('GIT_CONFIG_GLOBAL', 'GIT_CONFIG_SYSTEM', 'GIT_CONFIG_NOSYSTEM', 'GIT_CONFIG_COUNT',
-                'GIT_CONFIG_KEY_0', 'GIT_CONFIG_VALUE_0', 'GIT_CONFIG_KEY_1', 'GIT_CONFIG_VALUE_1')
+                'GIT_CONFIG_KEY_0', 'GIT_CONFIG_VALUE_0', 'GIT_CONFIG_KEY_1', 'GIT_CONFIG_VALUE_1', 'GIT_TEMPLATE_DIR')
         saved = {k: os.environ.get(k) for k in keys}
         os.environ.pop('GIT_CONFIG_NOSYSTEM', None)
         if scope == 'global':
@@ -930,6 +930,15 @@ def o3_controls(r):
         elif scope == 'system':
             os.environ['GIT_CONFIG_GLOBAL'] = os.devnull
             os.environ['GIT_CONFIG_SYSTEM'] = cfg
+        elif scope == 'template':
+            # the same filter in the config of a template directory named by GIT_TEMPLATE_DIR (a clone copies it
+            # into the new repository's .git/config)
+            tpl = os.path.join(d, 'template')
+            os.makedirs(tpl)
+            shutil.copyfile(cfg, os.path.join(tpl, 'config'))
+            os.environ['GIT_CONFIG_GLOBAL'] = os.devnull
+            os.environ.pop('GIT_CONFIG_SYSTEM', None)
+            os.environ['GIT_TEMPLATE_DIR'] = tpl
         else:
             # the same filter injected through the caller's environment (GIT_CONFIG_COUNT, _KEY_n, _VALUE_n)
             os.environ['GIT_CONFIG_GLOBAL'] = os.devnull
@@ -955,12 +964,13 @@ def o3_controls(r):
             counter = {'checkout_exit': rc, 'marker': os.path.exists(marker)}
             take_marker()
             unstripped = None
-            if scope == 'environment':
-                # the countercontrol on the tool's own path: Native.clone with the stripping of the environment
-                # disabled (its environment as before R6.DELEG.3's fix: the caller's, system configuration off and
-                # global configuration empty) runs the injected filter
-                real_env = delmod.clone_env
+            if scope in ('environment', 'template'):
+                # the countercontrol on the tool's own path: Native.clone with the stripping disabled (its environment
+                # as before R6.DELEG.3's fix: the caller's, system configuration off and global configuration empty;
+                # no empty --template) runs the injected filter
+                real_env, real_opts = delmod.clone_env, delmod.clone_options
                 delmod.clone_env = lambda environ: dict(environ, GIT_CONFIG_NOSYSTEM='1', GIT_CONFIG_GLOBAL=os.devnull)
+                delmod.clone_options = lambda: []
                 try:
                     try:
                         cl2 = delmod.Native(gitobj.GitRepo(src), src, os.path.join(d, 'out-unstripped'), c,
@@ -971,7 +981,7 @@ def o3_controls(r):
                     else:
                         unstripped_error = None
                 finally:
-                    delmod.clone_env = real_env
+                    delmod.clone_env, delmod.clone_options = real_env, real_opts
                 unstripped = {'clone': bool(cl2), 'error': unstripped_error, 'marker': take_marker() == ['MARKER']}
         finally:
             for k, v in saved.items():
@@ -981,12 +991,13 @@ def o3_controls(r):
                     os.environ[k] = v
         return {'native': native, 'countercontrol': counter, 'native_markers': native_markers,
                 'unstripped': unstripped}
-    out = {scope: case(scope) for scope in ('global', 'system', 'environment')}
+    out = {scope: case(scope) for scope in ('global', 'system', 'environment', 'template')}
     # the environment case has no expectation row case: it is recorded under its own case names in the control's
     # evidence (R6.DELEG.3; added beside the two cases the expectation states)
     names = {'global': 'filter in a global configuration file', 'system': 'filter in a system configuration file',
              'environment': 'filter injected through GIT_CONFIG_COUNT, GIT_CONFIG_KEY_n and GIT_CONFIG_VALUE_n in the '
-                            "caller's environment"}
+                            "caller's environment",
+             'template': 'filter in the config of a template directory named by GIT_TEMPLATE_DIR'}
     counter_case = 'plain clone and checkout with that configuration (countercontrol)'
     for scope, o in out.items():
         REC.capture_doc('delegation.Native.clone with the smudge filter in force (%s)' % scope,
@@ -1000,12 +1011,13 @@ def o3_controls(r):
                         case=counter_case if scope == 'global' else counter_case + ', ' + scope,
                         attested={'outcome': 'COUNTERCONTROL' if cc_ok else None,
                                   'marker_written': o['countercontrol']['marker']})
-    un = out['environment']['unstripped']
-    REC.capture_doc('delegation.Native.clone with the environment not stripped, the filter injected through the '
-                    'environment', dict(un, exit_status=None),
-                    case='Native.clone with the environment stripping disabled, filter injected through the '
-                         'environment (countercontrol)',
-                    attested={'outcome': 'COUNTERCONTROL' if un['marker'] else None, 'marker_written': un['marker']})
+    for scope in ('environment', 'template'):
+        un = out[scope]['unstripped']
+        REC.capture_doc('delegation.Native.clone with the stripping disabled (%s)' % scope, dict(un, exit_status=None),
+                        case='Native.clone with the stripping disabled, %s (countercontrol)' % names[scope],
+                        attested={'outcome': 'COUNTERCONTROL' if un['marker'] else None,
+                                  'marker_written': un['marker']})
+    unstripped_all = all(out[sc]['unstripped']['marker'] for sc in ('environment', 'template'))
     # The expectation names lib `oracle`, which DESIGN-r6 sec. 16.4 defines as the tool result against P's retained
     # output; the frozen plan P has no output for a smudge filter, so no oracle output exists. A plain clone run with
     # the clone recipe Native.clone itself uses (delegation.py) would not be independent of the thing under test and
@@ -1014,16 +1026,17 @@ def o3_controls(r):
     o3_files = {'tool-marker-listing.json': {scope: o['native_markers'] for scope, o in out.items()}}
     check('O3-FILTER', 'review impl-v6.0e D-11 (O-3): a git configuration defining a required smudge filter and a '
           'commit whose .gitattributes names it, each case separately: the filter in a global configuration file, '
-          'in a system configuration file, and injected through the caller\'s environment; the delegated runs\' disposable clone (Native.clone) checks the commit out '
+          'in a system configuration file, injected through the caller\'s environment, and in a template directory\'s '
+          'config (GIT_TEMPLATE_DIR); the delegated runs\' disposable clone (Native.clone) checks the commit out '
           'without running the filter (implementation control)',
           "in each case Native.clone checks the commit out and the filter's marker is not written; a plain clone and "
           "checkout of the same commit with that configuration in force writes it (the countercontrol); with the "
-          "environment injection, Native.clone with its environment stripping disabled writes it too",
+          "environment and template cases, Native.clone with its stripping disabled writes it too",
           out,
           all(o['native']['clone'] and o['native']['file_checked_out'] and not o['native']['marker'] and
               o['countercontrol']['checkout_exit'] == 0 and o['countercontrol']['marker'] and
               o['native_markers'] == []
-              for o in out.values()) and un['marker'],
+              for o in out.values()) and unstripped_all,
           files=o3_files, procedure={'name': 'smudge-filter', 'lib': 'oracle',
                                      'tool_output': 'tool-marker-listing.json'})
 
