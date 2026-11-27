@@ -755,6 +755,12 @@ def hit_doc_of(cls, rid='hit-cls'):
             'classifications': cls}
 
 
+
+def _entries(routed):
+    """The routed record entries as the record states them: without the record reference (`_ref`) the entry point
+    attaches to an admitted record's entries."""
+    return [{k: v for k, v in e.items() if k != '_ref'} for e in routed]
+
 def i2_controls(r, check, workflow_path, recorder):
     arm = arm_text(workflow_path)
     matches = arm == EXPECTED_ARM
@@ -798,10 +804,10 @@ def i2_controls(r, check, workflow_path, recorder):
     check('I2-2', 'a meaning-context adjudication supplied through context-adjudications.json, matching both context '
           'hashes of a meaning-context site: that site PASS (sec. 4.1 row 2), as K10',
           'the adjudication reaches the context collection through the arm\'s --classify; with it the site has no '
-          'item, without it context-meaning-unverified', {'exit': code, 'stop': res.get('stop'), 'routed': routed,
+          'item, without it context-meaning-unverified', {'exit': code, 'stop': res.get('stop'), 'routed': _entries(routed),
                                                          'without': ce.classes([i for i in it if i['subject'] == sd]),
                                                          'with': [i['class'] for i in it10 if i['subject'] == sd]},
-          not res.get('stop') and routed == [entry] and
+          not res.get('stop') and _entries(routed) == [entry] and
           [i['class'] for i in it if i['subject'] == sd] == ['context-meaning-unverified'] and
           not [i for i in it10 if i['subject'] == sd])
 
@@ -933,8 +939,8 @@ def i2_controls(r, check, workflow_path, recorder):
           'both structure hashes of a LIST or TABLE site: the context-structure-changed item resolved; without it '
           'REVIEW_REQUIRED context-structure-changed', 'the adjudication reaches the context collection through the '
           'arm; without it context-structure-changed, with it no item on the site',
-          {'exit': code, 'routed': routed, 'without': ce.classes(it6), 'with': ce.classes(it6b), 'site': out6},
-          not res.get('stop') and routed == [entry6] and ce.classes(it6) == ['context-structure-changed'] and
+          {'exit': code, 'routed': _entries(routed), 'without': ce.classes(it6), 'with': ce.classes(it6b), 'site': out6},
+          not res.get('stop') and _entries(routed) == [entry6] and ce.classes(it6) == ['context-structure-changed'] and
           not [i for i in it6b if i['subject'] == s6])
 
 
