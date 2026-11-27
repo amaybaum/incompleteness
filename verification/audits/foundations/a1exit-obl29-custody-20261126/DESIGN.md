@@ -36,7 +36,7 @@ whose two nits c7 applies. §9 maps findings to changes and records each choice 
 
 **Source requirements.** The adopted OBL-29 remedy r9: `DESIGN.md` and `CONTROLS.json` under
 `verification/audits/foundations/a1exit-obl29-remedy-20261126/` at
-`77a73c022091f598cf807fcf89d66c3cf43208de` (branch `design/a1-obl29-remedy-20261126`), adopted by
+`77a73c022091f598cf807fcf89d66c3cf43208de` (on `main` by #1601, merge 13c05b4f), adopted by
 owner amaybaum at #1601 comment 7197486426 (2026-11-26T16:19:17Z) with the token convention
 `<blob>#<item>`. Its §2.2 "Custody and lookup" states the requirements this design serves and leaves
 "the custody format, bootstrap record and mapping to admitted inputs" to be fixed and independently
@@ -705,7 +705,7 @@ this design; their ids are not reused.
 | Reference | Used for | Classification |
 |---|---|---|
 | #1169 comment 7202075726, item 5 | authority, quoted with author and time in §0 | provenance |
-| r9 at `77a73c022091f598cf807fcf89d66c3cf43208de` | the source requirements of §2.2 and their definitions | support on `main` once #1601 lands (landing commit: to be filled once #1601 lands); until then support off `main`, and it must reach `main` no later than this design |
+| r9 at `77a73c022091f598cf807fcf89d66c3cf43208de` | the source requirements of §2.2 and their definitions | support on `main` (landed by #1601, merge 13c05b4f) |
 | #1601 comment 7197486426 | r9's adoption and the token convention | provenance |
 | Amendment 6 r13 at `5ad8837521de0a26734266a64f91548fd3dcff1e` | R6.CFG.*, R6.RECON.*, R6.REC.*, R6.OUT.* cited here | support on `main` (landed by #1604, merge a8d4ab96; unchanged since) |
 | PR #1577 at `e88ca375c35a278371f8bc1c70ba963ea61fef05` | the fail-closed behaviour this design replaces, and confirmation that the tool emits the R6.OUT.18 fields (c3) reads | provenance only; no claim rests on it |
