@@ -21,19 +21,18 @@ Mutable record under §A.46 items 4 and 8. It cites the report and does not chan
   section maps D1–D4.
 - **Plan:** `PLAN.md` (commit `158f4155c9b80f220bb6543b11e04497c3ec0328`), committed alone before
   r1. It is recorded, not frozen, and is not superseded. It states that the writer is the author of
-  the F-slice record and had read the inputs before writing it. The report labels its per-carrier
-  application of the rule as a refinement of PLAN §4.
+  the F-slice record, had read the inputs, and "had begun considering the question while reading".
+  The report labels its per-carrier application of the rule as a refinement of PLAN §4.
 - **Status in the header.** The header of `REPORT-r2.md` records the report's status before
   acceptance ("WIP / UNVERIFIED"). The reviews are recorded here.
 - **Accountable Issue:** #1217 (programme #1169). Guiding pull request: #1624.
 - **Owner decisions** (#1169 comments posted from the account `amaybaum`, quoting the owner):
-  - **Comment 7199704501** (created 2026-11-26T17:49:03Z): activation of work package WP-2,
-    "Proceed as suggested".
-  - **Comment 7208939261** (created 2026-11-27T03:22:49Z; decision received 2026-11-27): "Proceed
-    as suggested". This authorizes, under WP-2, the paper-only investigation "F-slice premise
-    sourcing (#1217)": "Whether N-2 (label independence), N-8 (the centred field reading) and N-9
-    (SMD on the full state) can be derived from native OI dynamics, or whether at least one remains
-    an independent premise."
+  - **Comment 7199704501** (created 2026-11-26T17:49:03Z; decision received 2026-11-26T17:49Z):
+    activation of work package WP-2, "Proceed as suggested".
+  - **Comment 7208939261** (created 2026-11-27T03:22:49Z; decision received 2026-11-27): the owner's
+    "Proceed as suggested" approves the quoted WP-2 paper-only proposal. The coordinating writer
+    describes unit 2 as testing whether N-2 (label independence), N-8 (the centred field reading)
+    and N-9 (SMD on the full state) follow from native OI dynamics or remain independent premises.
   - **Comment 7209325168** (created 2026-11-27T03:51:22Z), quoting the owner: "Prepare #1623
     together with UN-1 and F-slice for a consolidated preservation decision." and "Preserve the
     negative results and their exact limitations. No new premise is adopted, and no merge is
@@ -51,6 +50,8 @@ Mutable record under §A.46 items 4 and 8. It cites the report and does not chan
   - **Comment 7209316524**, delta review of r2 at `f4bd7b2f`: ACCEPT WITH NITS. Findings 1–11
     resolved; nits D1–D4. It checked the new and widened items by hand.
   - **Comment 7209338201**, confirmation of r3 at `2706ae17` (nits D1–D4): ACCEPT.
+  - **Comment 7209436597**, preservation review at `cf0b3401`: REVISE (minor), including the carrier
+    qualifications in the preservation rationale and the limitation of the preregistration evidence.
   - **Reviewer identity:** the records do not state whether the reviews were written by one
     reviewer agent or by several.
 
@@ -64,8 +65,10 @@ Mutable record under §A.46 items 4 and 8. It cites the report and does not chan
   H-cust, H5, H-PF, L-SDS, TPC, and SMD on the fluctuation law (open).
 - The stabilizer statements are under N-1's extension reading, a candidate reading under the
   owner's ruling (#1169 comment 7202075726, item 4, quoted on `main` in the F-slice
-  PRESERVATION.md §1).
-- Not addressed: carrier Z, the nonlinear lift, consumers outside Theorem 5, and the Z/q level.
+  PRESERVATION.md §1). The ρ_P stabilizer argument holds for a translation-commuting extension
+  by [FS] Lemma L, a model-reviewed input.
+- Outside the scope are carrier Z, H-PF-int, the nonlinear lift, consumers outside Theorem 5, and
+  the Z/q level.
 - Each independence claim is relative to the stated premises of Main and SM, C*, N-1, and the
   premises listed in the report's §4.2 table. It is not a claim that no extension of OI could
   supply the premise.
@@ -102,7 +105,8 @@ Mutable record under §A.46 items 4 and 8. It cites the report and does not chan
       w_φ ∈ SU(6), φ = 2π/3.
     - ρ_T comes from the F-slice record, here extended to odd L ≥ 7.
   - **The closed and conditional routes.**
-    - Measure selection is vacuous for Theorem 5 ([A-rec] Proposition C).
+    - Measure selection is vacuous for Theorem 5 under Proposition 4b's hypotheses ([A-rec]
+      Proposition C).
     - Extremality excludes the conclusion ([A-rec] Proposition B).
     - Joint Gaussianity would give N-9, but it is open and stronger than SMD.
     - Label–fluctuation independence is sufficient, and open.
@@ -131,27 +135,32 @@ record adopts nothing and changes no status.
 
 ## 3. Verification status and remediation (§A.46 items 4 and 8)
 
-Every result is a paper derivation, checked only by the model reviews of §1. "Partially verified"
-means checked by a model review. "Exploratory" means not yet reviewed beyond the delta review's
-scope. The remediation plan below authorizes no work (§A.45 rule 3).
+The results are paper derivations. "Partially verified" means checked by hand in a model review.
+"Exploratory" marks a step for which the reviews record no hand check. The remediation plan below
+authorizes no work (§A.45 rule 3).
 
 | Claim class | Where (REPORT-r2.md) | Status | Missing verification | Accountable Issue | What would resolve it |
 |---|---|---|---|---|---|
 | H-PF implies N-2 (§2.2 steps 1–3, step 3 over all of 𝒢_+) | §2.2 | partially verified (r1 review checked step 3 for F²; delta review accepted r2) | independent non-model review | #1217 | a recorded independent review |
-| Identification of H6-M's structure with H-PF's J (§2.2 step 4) | §2.2 | partially verified (delta review) | independent review | #1217 | a recorded independent review |
+| Identification of H6-M's structure with H-PF's J (§2.2 step 4) | §2.2 | exploratory | independent review | #1217 | a recorded independent review |
 | R2.2(a), the stated symmetries do not force LI; the O-equivariant transport | §2.1 | exploratory; the transport is [W], under the χ-orbit condition | a written transport argument; review | #1217 | a written derivation and a recorded review |
 | R2.2(b) and NAT-C | §2.1 | partially verified (delta review checked R_π) | independent review | #1217 | a recorded independent review; any adoption of NAT-C is an owner decision (§A.50 item 6) |
+| R2.3, custodial covariance | §2.1 | partially verified | independent non-model verification | #1217 | a recorded independent review |
 | Lemma PF, both directions, and §3.3 | §3.2–§3.3 | partially verified (r1 review checked (⇒); delta review checked r2) | independent non-model review | #1217 | a recorded independent review |
 | R8.2, the amplitude-scale gauge | §3.1 | exploratory; conditional on an open warrant | review | #1217 | a recorded review |
-| R9.1, relying on [A-rec] Proposition C | §4.1 | partially verified (Proposition C model-reviewed in unit A) | independent non-model review | #1217 | a recorded independent review |
+| R9.1, relying on [A-rec] Proposition C under Proposition 4b's hypotheses | §4.1 | partially verified (Proposition C model-reviewed in unit A) | independent non-model review | #1217 | a recorded independent review |
 | R9.2, R9.3, R9.4 | §4.1 | partially verified (r1 review) | independent non-model review | #1217 | a recorded independent review |
 | R9.6 and ρ_T′ | §4.1 | partially verified: model-reviewed (delta review; ρ_T′ as specified in r3, r3 confirmation 7209338201) | independent non-model review | #1217 | a recorded independent review |
 | ρ_T, even L ≥ 8 | §4.2 | partially verified ([FS] §3.4) | independent non-model review | #1217 | a recorded independent review |
 | ρ_T extended to odd L ≥ 7 | §4.2 | partially verified (r1 review) | independent non-model review | #1217 | a recorded independent review |
 | ρ_P, every even L ≥ 2 | §4.2 | partially verified (r1 review checked large L; the delta review checked the extension) | independent review; an exact finite control on L = 2 or 4 | #1217 | a recorded review; an exact control run under authorization |
 | Odd L ∈ {3, 5} without the label-sector reading | §4.3 | open: class O, no witness found | a witness or a derivation | #1217 | a construction or a proof |
+| Overall outcome of the three premise checks | §4.3, §11 | conditional on owner readings O-1a, O-1b and O-2, and on C* | owner readings and independent review | #1217 | recorded owner decisions and review |
 | Owner readings O-1a, O-1b, O-2 | §8 | open | owner decisions | #1217 | recorded owner decisions |
-| Preregistration order (PLAN before r1) | §1 here | established from commit order: `158f4155` (03:30:31Z) precedes `b3500e31` | none beyond the commit order | #1217 | none; it stands as stated |
+| O-4, joint Gaussianity and a torus clustering theorem | §8 | open | a derivation | #1217 | a proof or obstruction |
+| O-5, conditioned selected measure | §8 | open | derivation of the conditionally selected law and its required properties | #1217 | a proof or obstruction |
+| O-7, H-PF | §8 | open, as recorded in [A-rec] §5 | an independent source for H-PF | #1217 | a source or obstruction |
+| Preregistration order (PLAN before r1) | §1 here | evidence is commit order only: `158f4155` at 03:30:31Z precedes `b3500e31` at 03:33:58Z (2026-11-27), with the chronology disclosure in §1 | none available from the commit order alone | #1217 | none, the limitation stands |
 
 ## 4. Off-`main` references (§A.42 item 8)
 
@@ -162,17 +171,20 @@ attached to:
 |---|---|---|
 | #1169 comments 7199704501, 7208939261, 7209325168 (owner decisions) | report header; §1 here | provenance: authority records quoted with author and time; no result uses them |
 | #1169 comment 7202075726, item 4 (owner ruling on N-1, N-2, N-8, N-9) | report §1; §2 here | support on `main`: quoted with author and time in `verification/programmes/substratum/f-slice-hzm-20261126/PRESERVATION.md` §1 |
-| PR #1624 comments 7209242260, 7209316524 and 7209338201 | report header; §1 here | provenance: evidence of review; no result uses them |
+| PR #1624 comments 7209242260, 7209316524, 7209338201 and 7209436597 | report header; §1 here | provenance: evidence of review; no result uses them |
 | Issues #1217, #1169, #1049, #1216, #1622, #1623 | PLAN; §1 here | provenance: accountability, scope boundary, consolidated decision |
-| commits `158f4155` (PLAN), `b3500e31` (r1), `f4bd7b2f` (r2), `2706ae17` (r3) and the commit adding this file | report header; §1, §3 here | support on `main` once the merge of §5 lands: the record's own content and preregistration order; not before |
+| commits `158f4155` (PLAN), `b3500e31` (r1), `f4bd7b2f` (r2), `2706ae17` (r3) and the commits adding and completing this file | report header; §1, §3 here | support off `main` (gap), closed by the landing condition of §5: the record's own content and preregistration order |
+| pin `a8d4ab96` | `PLAN.md` | support on `main`: the F-slice pin is an ancestor of `13c05b4f` |
 | [FS], [L2], [A-rec], [C3], SMD-SRC-1 records and their PRESERVATION.md files | report §2–§4 | support on `main` at [P] |
 
-Support off `main`: none, once the record lands as §5 requires.
+The support off `main` is the record's own published history, listed above. The gap closes when the
+reviewed landing makes those commits reachable from `main`.
 
 ## 5. Landing condition
 
 The record is preserved only through a merge commit that keeps `158f4155`, `b3500e31`, `f4bd7b2f`,
-`2706ae17` and the commit adding this file reachable from `main`. The order of the plan's commit
+`2706ae17` and the commits adding and completing this file through the reviewed landing head reachable
+from `main`. The order of the plan's commit
 before the report commits is part of the record's provenance. Merging needs the owner's separate
 approval (§A.50 item 1), which this file does not record.
 
@@ -181,8 +193,9 @@ approval (§A.50 item 1), which this file does not record.
 The record answers the authorized question for each of N-2, N-8 and N-9 separately, with checked
 witnesses and stated limits. It contains negative results that narrow the search:
 - none of the three candidate premises is derived from native dynamics;
-- N-9 remains independent on every even L and on odd L ≥ 7, by witnesses that meet every stated and
-  carried premise;
+- N-9 remains independent on every even L for states without a requirement of R_π-invariance,
+  and on odd L ≥ 7 without the label-sector reading. Under the label-sector reading on odd L ≥ 7,
+  N-9 is class R (§2);
 - the natural routes to N-9 (measure selection, extremality, conditioning on records) are closed or
   only conditional, with the conditions stated.
 
@@ -195,3 +208,9 @@ Each of these is recorded and none is adopted. The owner asked that these negati
 preserved with their exact limitations (#1169 comment 7209325168). The result is nonredundant with
 the F-slice record: that record named N-2, N-8 and N-9 as candidate premises, and this record
 classifies each. The new results are Lemma PF and ρ_P.
+
+## 7. Standing of this record
+
+Preservation records the scoped results and their limitations under §A.46 item 8. Establishment of a
+claim requires its own verification under §A.46 item 1. The model reviews retain their evidence
+layer, and the candidate premises remain unadopted. The record proposes no manuscript change.
