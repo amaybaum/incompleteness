@@ -218,10 +218,14 @@ def independence():
 
     def declares(who):
         return lambda fx, J: {'T': fx.T(independence={'not_author': True, 'depends_on': [who]})}
-    variants('PRED:S2-ADJ-TECH-DECLARATION', 'the technical review carries no independence declaration, or declares a '
-                                             'dependency on the adjudicator, on v or on the owner respelled (staging '
-                                             'S-2 S2.4): ADJ-INDEP',
-             {'a': undeclared, 'b': declares('j'), 'c': declares('v'), 'd': declares(OWNERS[0].upper())}, 'ADJ-INDEP')
+    variants('PRED:S2-ADJ-TECH-DECLARATION', 'the technical review declares a dependency on the adjudicator, on v or '
+                                             'on the owner respelled (staging S-2 S2.4): ADJ-INDEP',
+             {'b': declares('j'), 'c': declares('v'), 'd': declares(OWNERS[0].upper())}, 'ADJ-INDEP')
+    fx = Fx()
+    got = fx.all_problems(T=undeclared(fx, fx.J)['T'])
+    case('PRED:S2-ADJ-TECH-UNDECLARED', 'the technical review carries no independence declaration: it fails the '
+                                        'review.record row once (ADJ-REVIEW), with no second report', got,
+         conds(got) == ['ADJ-REVIEW'] and sum('independence' in m for _c, m in got) == 1)
     variants('PRED:ADJ-N-OWNER-TECH-REVIEWER', 'the owner as technical reviewer (OD-4): ADJ-INDEP',
              {'a': lambda fx, J: {'T': fx.T(OWNERS[0])}}, 'ADJ-INDEP')
 

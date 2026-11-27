@@ -218,9 +218,10 @@ def parties(finding_record=None, finding_review=None, Q=None, R=None, A=None, co
     return out
 
 
-def independence_problems(J, tech_reviewer, party_set, owner_identities):
+def independence_problems(J, tech_reviewer, party_set, owner_identities, declared=()):
     """ADJ-INDEP: the adjudicator and the technical reviewer usable identities, outside Parties and OWNER_IDENTITIES
-    (OD-4), the reviewer not the adjudicator. Identity strings compare as strings (R6.RECON.29)."""
+    (OD-4), the reviewer not the adjudicator, and no identity the technical review declares in depends_on (`declared`,
+    staging S-2 S2.4) a party, the adjudicator or an owner identity. Identities compare by key (S-2 S2.2)."""
     out = []
     j = J.get('author') if isinstance(J, dict) else None
     if not usable(j):
@@ -232,12 +233,13 @@ def independence_problems(J, tech_reviewer, party_set, owner_identities):
     if tech_reviewer is not None:
         if not usable(tech_reviewer):
             out.append(('ADJ-INDEP', 'the technical reviewer is not a usable identity'))
-        elif member(tech_reviewer, party_set):
-            out.append(('ADJ-INDEP', 'the technical reviewer is a party'))
-        if same(tech_reviewer, j):
-            out.append(('ADJ-INDEP', 'the technical reviewer is the adjudicator'))
-        if member(tech_reviewer, owner_identities):
-            out.append(('ADJ-INDEP', 'the technical reviewer is a member of OWNER_IDENTITIES'))
+        elif member(tech_reviewer, party_set) or any(member(d, party_set) for d in declared):
+            out.append(('ADJ-INDEP', 'the technical reviewer is, or declares a dependency on, a party'))
+        if same(tech_reviewer, j) or any(same(d, j) for d in declared):
+            out.append(('ADJ-INDEP', 'the technical reviewer is, or declares a dependency on, the adjudicator'))
+        if member(tech_reviewer, owner_identities) or any(member(d, owner_identities) for d in declared):
+            out.append(('ADJ-INDEP', 'the technical reviewer is, or declares a dependency on, a member of '
+                                     'OWNER_IDENTITIES'))
     return out
 
 
@@ -380,14 +382,12 @@ def review_problems(review, J, jref, j_git, source_gits, party_set, owner_identi
     if _adverse_items(review, J):
         out.append(('ADJ-REVIEW', 'it does not accept every item of J, or dissents'))
     # the reviewer's own independence conditions (the adjudicator's are checked by independence_problems on J)
-    out += [p for p in independence_problems(J, review.get('reviewer'), party_set, owner_identities)
+    # staging S-2 sec. 3: the technical review is independent (S2.4) of Parties, the adjudicator and OWNER_IDENTITIES;
+    # a missing or malformed declaration fails the review.record row above (ADJ-REVIEW)
+    ind = review.get('independence')
+    declared = ind['depends_on'] if fd.declaration_ok(ind) else ()
+    out += [p for p in independence_problems(J, review.get('reviewer'), party_set, owner_identities, declared)
             if 'technical reviewer' in p[1]]
-    # staging S-2 sec. 3: the technical review is independent (S2.4) of Parties, the adjudicator and OWNER_IDENTITIES
-    X = sorted(x for x in party_set if isinstance(x, str)) + [J.get('author') if isinstance(J, dict) else None] + \
-        list(owner_identities)
-    if fd.declared_dependency(review, X) or not fd.declaration_ok(review.get('independence')):
-        out.append(('ADJ-INDEP', 'the technical reviewer\'s independence declaration is missing or malformed, or names '
-                                 'a party, the adjudicator or an owner identity'))
     if not j_git or not all(source_gits) or not obl29.holds(review.get('method'), j_git) or \
             not all(obl29.holds(review.get('method'), x) for x in source_gits):
         out.append(('ADJ-REVIEW', 'its method lacks the git blob id of J or of a source'))
