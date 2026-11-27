@@ -1,8 +1,11 @@
-# OBL-29 custody: format, bootstrap inventory and mapping to admitted inputs (paper design c7)
+# OBL-29 custody: format, bootstrap inventory and mapping to admitted inputs (paper design c8)
 
 ## 0. Status, authority, scope and goal link
 
-**Status.** Paper design c7, pending an owner decision on the context source (§4.2, decision D-1), independent review and adoption. The proposed
+**Status.** Paper design c8. c8 changes provenance and anchoring only, from the landing check on
+PR #1616, plus the reword of "discharge-bearing" that owner decision 2 of #1169 comment 7207734407
+made after adoption (it drops the `admission.mode` condition). Decision D-1 (§4.2) is as the owner
+records it. The proposed
 requirements (ids `R6.CUST.n`) have no force until adoption. Adoption of this design does not
 discharge OBL-29, does not authorize implementing custody-dependent discharge, and changes no
 schema, admission rule or release-gate step by itself (§7).
@@ -37,7 +40,7 @@ verified before implementation relies on them. Section numbers prefixed "r9" ref
 requirement ids `R6.*` refer to it or to the Amendment 6 r13 contract at
 `5ad8837521de0a26734266a64f91548fd3dcff1e` that it amends.
 
-**Implementation reference.** PR #1577 at `e88ca375c35a278371f8bc1c70ba963ea61fef05`
+**Implementation reference (provenance only).** PR #1577 at `e88ca375c35a278371f8bc1c70ba963ea61fef05`
 (`tools/a1-ledger-coverage-r6`): `tools/ledger_coverage/engine/obl29.py` (the predicates of r9 §2.2
 over explicit witnesses, not yet called by a run) and `engine/category3.py`, whose
 `reassessment_problems` appends `custody_unverified` to every cited discharge, so every cited
@@ -70,8 +73,10 @@ discharge that never made the lineage check operative". A later run's own inputs
 list of negative witnesses". Custody supplies that list and lets a run show it is complete.
 
 **Discharge-bearing.** A configuration is discharge-bearing when it is a regular file (mode `100644`
-or `100755`) of schema `oi-retirement-config/1` whose `admission.mode` is `"chain"` and whose
-`records` (R6.CFG.4) include at least one reference of kind `reassessment`. A **discharge-bearing
+or `100755`) of schema `oi-retirement-config/1` whose `records` (R6.CFG.4) include at least one
+reference of kind `reassessment`. The configuration's `admission.mode` is not a condition (owner
+decision, amaybaum, 2026-11-27, #1169 comment 7207734407, item 2: "Drop the `admission.mode`
+condition from "discharge-bearing" and remove the fixture workaround"). A **discharge-bearing
 context** is a freeze that admits such a configuration under R6.CUST.5 (c1), whose wording depends
 on decision D-1 (§4.2). Only such a freeze can
 make a reassessment discharge operative under an authorized freeze (R6.RECON.27), and so only it can
@@ -302,11 +307,14 @@ further `close`.
 
   *Run results.* A run result of context `f` is a regular file named `result.json` anywhere under
   `<dir>/op-c-runs/` in the landing commit's tree, where `<dir>` is the directory of the context's
-  configuration, that strict-parses with schema `oi-ledger-coverage/5` (R6.OUT.11) and records, in
-  fields the tool at `e88ca375` emits: top-level `operation` equal to `"execution"`; `config.commit`
-  equal to `f` (in a chain run the tool refuses unless the configuration's commit equals `--freeze`);
-  `config.blob_sha256` equal to the configuration's SHA-256; `config.admission.mode` equal to
-  `"chain"`; and no `harness` field. A result whose `outcome` is USAGE, ERROR, VOID or INTERNAL did
+  configuration, that strict-parses with schema `oi-ledger-coverage/5` (R6.OUT.11, R6.OUT.18) and
+  records, in the fields R6.OUT.18 names: top-level `operation` equal to `"execution"`; `config`
+  with `path` equal to the configuration's path, `commit` equal to `f` and `blob_sha256` equal to the
+  configuration's SHA-256 (R6.CFG.2 requires the configuration to be read only as `--config F:<path>`
+  from `F`, so a chain run's `config.commit` is its `F`); `config.admission.mode` equal to `"chain"`,
+  the configuration's R6.CFG.4 field read from `f`, which identifies a chain-admitted run and is not a
+  condition of discharge-bearing (§1); and no `harness` field (a named field of R6.OUT.18, present
+  only in a control harness). The tool at `e88ca375` emits these fields (provenance). A result whose `outcome` is USAGE, ERROR, VOID or INTERNAL did
   not evaluate and is not a run; it is ignored by the equality below. The run's `REV` is the common
   `rev` of the admitted classify records, the members of `inputs.classify_records` (R6.RECON.2 (c)
   requires one `REV` per run; refused records become items, not members), or null when none was
@@ -366,7 +374,7 @@ with these inputs and no others:
 |---|---|---|
 | the original configuration, by exact reference | (c1): derived from the receipt (variant (i)) or the `freeze` entry (variant (ii)) | admitted from `f` as in (c1) and by R6.CFG.1–.2; a failure is a custody failure (R6.CUST.9) |
 | the original freeze, by verified commit | the receipt's or the `freeze` entry's `f` | (c1) and (c5); read through the verified reader |
-| the applicable mode | the configuration's `admission.mode` | `chain` by definition (§1) |
+| the applicable mode | the configuration's `admission.mode`, read from `f` (R6.CFG.4) | not a condition of discharge-bearing (§1, owner decision 2); the replay uses the recorded mode |
 | the original selector | the side-change class record named by `roles.side_change_classes` | resolved from anchor `f` (R6.RECON.33); its prefixes and pins apply to that context only |
 | the proposed reassessment | each `records` member of kind `reassessment` | resolved from anchor `f` (R6.RECON.33) and linted as at that freeze |
 | the original finding reference and `item` | the reassessment's `finding` | looked up in `R*(m)` (R6.OBL29.3) |
@@ -675,7 +683,7 @@ this design; their ids are not reused.
 | OQ-6 | Are discharge-bearing configurations without a context accounted for by `unfrozen` (R6.CUST.5 (c4))? | yes | drop (c4) and `unfrozen`: smaller, but a configuration landed outside a receipted round goes unaccounted |
 | OQ-7 | What procedural preconditions order freezes? | every earlier discharge-bearing round, of any retirement, has landed with ancestry, its admitted `REV`s have landed on `main` by merges keeping their ids, and its `close` has landed, before a later discharge-bearing freeze is designated (any retirement, because reliance (r1) crosses retirements) | the same retirement only; or none, accepting R-C1 and the fail-closed outcome of R-C2 |
 | OQ-8 | Path and constants | `verification/audits/foundations/a1exit-obl29-custody/custody.json`; path and bootstrap blob id in `record_authority.py` | another directory under `verification/audits/`; a path outside it needs a second selector in the walk |
-| OQ-10 | Do harness-admitted runs form contexts? | no; discharge-bearing requires `admission.mode` `chain` and a freeze under (c1) | include harness runs: they have no authorized freeze to derive |
+| OQ-10 | Do harness-admitted runs form contexts? | no; a context requires a freeze under (c1), which a harness run does not have (R6.RECON.21) | include harness runs: they have no authorized freeze to derive |
 | OQ-11 | Which commit is `B0`? | the `main` commit designated in the decision adopting the implementing tool revision | the current `main` at adoption of this design |
 | OQ-12 | Result fields for custody | add `category3.custody` with the status, `V_M`'s blob id, the contexts, runs and each witness with its route; a result-schema change beside R6.OBL29.8 | report custody failures only through the existing `record-invalid` items |
 | OQ-13 | Does a custody failure affect the R6.RECON.26 no-edit route? | no (r9 ties custody to "the repair under consideration") | yes: simpler, but blocks retirements that drop the bound edit |
@@ -694,10 +702,11 @@ this design; their ids are not reused.
 | Reference | Used for | Classification |
 |---|---|---|
 | #1169 comment 7202075726, item 5 | authority, quoted with author and time in §0 | provenance |
-| r9 at `77a73c022091f598cf807fcf89d66c3cf43208de` | the source requirements of §2.2 and their definitions | support off `main`: the adopted design is on `design/a1-obl29-remedy-20261126`; it must reach `main` no later than this design |
+| r9 at `77a73c022091f598cf807fcf89d66c3cf43208de` | the source requirements of §2.2 and their definitions | support on `main` once #1601 lands (landing commit: to be filled once #1601 lands); until then support off `main`, and it must reach `main` no later than this design |
 | #1601 comment 7197486426 | r9's adoption and the token convention | provenance |
-| Amendment 6 r13 at `5ad8837521de0a26734266a64f91548fd3dcff1e` | R6.CFG.*, R6.RECON.*, R6.REC.* cited here | support off `main` (PR #1593 open) |
-| PR #1577 at `e88ca375c35a278371f8bc1c70ba963ea61fef05` | the current fail-closed behaviour this design replaces | provenance |
+| Amendment 6 r13 at `5ad8837521de0a26734266a64f91548fd3dcff1e` | R6.CFG.*, R6.RECON.*, R6.REC.*, R6.OUT.* cited here | support on `main` (landed by #1604, merge a8d4ab96; unchanged since) |
+| PR #1577 at `e88ca375c35a278371f8bc1c70ba963ea61fef05` | the fail-closed behaviour this design replaces, and confirmation that the tool emits the R6.OUT.18 fields (c3) reads | provenance only; no claim rests on it |
+| #1169 comment 7207734407, item 2 | the reword of "discharge-bearing" in §1 | provenance, quoted with author and date in §1 |
 | c1 at `dc2b344c91c04979570ad58c5a554b3b7585008f` and its independent review (relayed by the coordinating session) | the findings answered in §9 | provenance |
 | c6 at `34c74c92334e52c170b7ce7bb1fda6ecfc2bd922` and its confirmatory check, PR #1616 comment 7202961828 (ACCEPT WITH NITS) | the two nits applied in c7 | provenance |
 | c5 at `9fe63de3402f444420ef3e6cc7c912fb28d31c82` and its confirmatory re-review, PR #1616 comment 7202923040 | the findings answered in §9 and the adoption list of §12 | provenance |
