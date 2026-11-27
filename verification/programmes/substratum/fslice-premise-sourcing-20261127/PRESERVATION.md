@@ -50,8 +50,7 @@ Mutable record under §A.46 items 4 and 8. It cites the report and does not chan
     overstated.
   - **Comment 7209316524**, delta review of r2 at `f4bd7b2f`: ACCEPT WITH NITS. Findings 1–11
     resolved; nits D1–D4. It checked the new and widened items by hand.
-  - **The r3 confirmation** of `2706ae17` (nits D1–D4): pending at the time of this draft. Its
-    comment id is to be added when it is posted.
+  - **Comment 7209338201**, confirmation of r3 at `2706ae17` (nits D1–D4): ACCEPT.
   - **Reviewer identity:** the records do not state whether the reviews were written by one
     reviewer agent or by several.
 
