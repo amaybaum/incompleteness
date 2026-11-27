@@ -153,7 +153,9 @@ class CW:
                            {'kind': 'review', 'path': zp, 'blob_sha256': sf.sha(zb)}]
         if cite_q:
             q, qp = w1.repair_entry, w1.repair_entry['path']
-            for pth in (qp, qp[:-5] + '.review.json', P_PATH, P_PATH[:-5] + '.review.json'):
+            # cite_q == 'without-p': P and its review are left out of F, so Q's edge does not resolve there
+            with_p = (P_PATH, P_PATH[:-5] + '.review.json') if cite_q != 'without-p' else ()
+            for pth in (qp, qp[:-5] + '.review.json') + with_p:
                 extra_files[pth] = w1.repo.read(w1.M, pth)
             extra_recs += [dict(q, kind='reconciliation'),
                            {'kind': 'review', 'path': qp[:-5] + '.review.json',
@@ -210,6 +212,8 @@ class CW:
                 'witnesses': cu.get('witnesses') or [],
                 'full_whys': [p['why'] for p in cu.get('problems') or []],
                 'contexts': len(cu.get('contexts') or []),
+                'invalid_subjects': sorted({i.get('subject') for i in out.get('items', [])
+                                            if i['class'] == 'record-invalid'}),
                 'decisions': [(d['blocked'], d['route'], d['clauses']) for d in cu.get('decisions') or []],
                 'reassess_why': [d for i in out.get('items', []) if i['class'] == 'record-invalid' and
                                  i.get('subject') == pfc.RA_PATH for d in (i.get('detail') or [])],
@@ -987,8 +991,58 @@ def unit_controls(r):
                            'ends at it', ra.custody_bootstrap_blob, ra.custody_bootstrap_blob.startswith('PLACEHOLDER'))
 
 
+def live_lineage_controls(r):
+    """r9 R6.OBL29.3 on the current run's own lineage checks: where the current configuration cites the repair record
+    Q (Q -> P operative from F), a qualifying competing successor S of P in M's ancestry fails the cited discharge
+    (FAIL record-invalid), with or without custody."""
+    wb = lineage_finding_world(r, edits=pfc.EDITS_REWORDED)
+    sib = sibling(wb)
+    live_why = 'competing successor %s in M\'s ancestry' % S_PATH
+
+    def world(cite_q=True, s_files=None, boot=True):
+        c = CW.lineage(r, cite_q=cite_q)
+        if boot:
+            c.bootstrap()
+        if s_files:
+            # S lands on main and leaves it again: it stays in M's ancestry, and neither F nor M's tree holds it
+            c.step(s_files, 'S lands')
+            c.step({x: None for x in s_files}, 'S removed')
+        return c.run()
+
+    def live(o):
+        return [x for x in o['reassess_why'] if live_why in x]
+    o = world(s_files=sib)
+    case('LIVE-N', 'the current freeze cites Q (Q -> P operative from F) and sibling S of P is in M\'s ancestry: FAIL '
+                   'record-invalid for the cited discharge naming S, and retirement-blocked', o,
+         o['status'] == 'established' and live(o) and not o['reassessments'] and
+         'retirement-blocked' in o['classes'])
+    o = world(s_files=sib, boot=False)
+    case('LIVE-N-NOCUSTODY', 'the same without any custody record: the competing successor still fails the discharge '
+                             '(with or without custody)', o, o['status'] == 'unestablished' and live(o) and
+         not o['reassessments'])
+    o = world()
+    case('LIVE-P', 'the current freeze cites Q and no competing successor of P is in M\'s ancestry: no live lineage '
+                   'failure, the discharge applies', o, o['status'] == 'established' and not live(o) and
+         bool(o['reassessments']))
+    other = json.loads(sib[S_PATH])
+    other['record_id'] = 'syn-other-lineage'
+    ob = pfc.jb(other)
+    o = world(s_files={S_PATH: ob, S_PATH[:-5] + '.review.json': wb.review(S_PATH, ob)})
+    case('LIVE-OTHER-LINEAGE', 'a record naming the same P in supersedes but of another lineage: not a competing '
+                               'successor under R6.REC.7, the discharge applies', o,
+         not live(o) and bool(o['reassessments']))
+    o = world(cite_q='without-p', s_files=sib)
+    case('LIVE-EDGE-UNRESOLVED', 'the current freeze cites Q but P is not at F, so Q -> P does not resolve under its '
+                                 'anchor: the edge is not operative and S adds nothing (Q\'s own lint fails it)', o,
+         not live(o) and any(i_ == 'verification/audits/syn-repair/repair.json' for i_ in o['invalid_subjects']))
+    o = world(cite_q=False, s_files=sib)
+    case('LIVE-UNCITED', 'S in M\'s ancestry but the current freeze does not cite Q (Q found only by the entry lookup at '
+                         'M): no lineage check is operative, the discharge applies', o,
+         not live(o) and bool(o['reassessments']))
+
+
 SUITES = [('schema-chain', schema_chain_controls), ('configurations', configuration_controls),
-          ('freeze', freeze_controls), ('unit', unit_controls)]
+          ('freeze', freeze_controls), ('unit', unit_controls), ('live-lineage', live_lineage_controls)]
 TMP = None
 
 

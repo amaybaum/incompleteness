@@ -895,6 +895,29 @@ def competing_successors(repo, cum_m, scope, uref, U):
     return out
 
 
+def live_lineage_problems(repo, M, doc, cfg, store, scope, m_scan, cum_m, schemas):
+    """r9 R6.OBL29.3 on the current run's own lineage checks: where the configuration cites the repair record of a
+    cited reassessment (an existing route making its R6.REC.7 check operative for the discharge, in every admission
+    mode in which the R6.RECON.2 (d) scan can run) and that record's edge U -> P resolves under the prescribed anchor
+    F, each qualifying competing successor S in M's ancestry fails the discharge (FAIL record-invalid), with or
+    without custody. `cum_m` is a callable returning the walk from M alone (built only when needed)."""
+    if not isinstance(doc, dict) or doc.get('repair') is None:
+        return []
+    eref = _ref(_part(doc, 'repair_entry'))
+    cited = {(r.get('path'), r.get('blob_sha256')) for r in cfg.get('records') or [] if isinstance(r, dict)
+             and r.get('kind') == 'reconciliation'}
+    if not eref or (eref['path'], eref['blob_sha256']) not in cited:
+        return []
+    U = store.get(eref)
+    if not isinstance(U, dict) or U.get('schema') not in schemas or not isinstance(U.get('supersedes'), dict):
+        return []
+    if rec.supersedes_problems(eref, U, store):
+        return []  # the edge is not operative; the record's own lint already fails it
+    return ['the competing successor %s in M\'s ancestry supersedes %s, which the cited repair record %s supersedes '
+            '(R6.OBL29.3, R6.REC.7)' % (sref['path'], U['supersedes'].get('path'), eref['path'])
+            for _S, sref, _g in competing_successors(repo, cum_m(), scope, eref, U)]
+
+
 def replay_run(repo, c_, m, rev, load_config, schemas, prefix):
     """R6.CUST.6 for one run (m, rev) of the context c_ = {f, config}: the run's operative discharge checks
     re-established and their witnesses qualified under R6.OBL29.3 as a run with roots m, f and rev would have, from the

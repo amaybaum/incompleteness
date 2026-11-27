@@ -398,6 +398,13 @@ def category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, r
                                     {'custody': p_['item'], 'why': p_['why']},
                                     detail=['%s: %s' % (p_['item'], p_['why'])]))
     applying = []
+    cum_m_holder = []
+
+    def cum_m():
+        # the walk from M alone: the M-derived portion of R* (R6.OBL29.3 competing successors)
+        if not cum_m_holder:
+            cum_m_holder.append(c3.Cumulative(repo, [M], schemas, recon_route.audits_root))
+        return cum_m_holder[0]
     for r in cfg['records']:
         if r.get('kind') != 'reassessment':
             continue
@@ -405,6 +412,10 @@ def category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, r
         probs = c3.reassessment_problems(repo, M, led, d, r, loaded.store, loaded.admitted, found, m_scan, schemas,
                                          cum, run_level=lambda f: bound.get(fkey(f), ([], False))[1],
                                          custody=custody)
+        try:
+            probs = c3.live_lineage_problems(repo, M, d, cfg, loaded.store, scope, m_scan, cum_m, schemas) + probs
+        except Unresolvable as exc:
+            raise oc.Stop(oc.error, 'UNRESOLVABLE', 'a category-3 input cannot be read: %s' % exc)
         if probs:
             out.append(oc.make_item('RECORD', 'record-invalid', r['path'], None,
                                     {'sha': r.get('blob_sha256'), 'why': probs[0]}, detail=probs))
