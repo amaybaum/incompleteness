@@ -1579,16 +1579,23 @@ settings:
    through the REST API and sent without the footer were stored with it appended after one blank
    line, and one sent with two blank lines before the footer was stored with one. These are
    observations, not rules of the tooling. No normalization or fuzzy comparison is allowed. Any
-   other difference, or a read-back that fails or cannot be completed, is a mismatch.
+   other difference, or a read-back that fails or cannot be completed, is a mismatch, resolved under
+   rule 3.
 3. **Resolve each write by its read-back.** Whatever the request returned, rule 2's read-back,
    made in full, decides:
    - *stored exactly as intended* (accepted under rule 2, in one object, with no field the write did
      not send, no label and no state changed): the sequence continues, with no owner decision;
-   - *confirmed not stored* (a complete read-back shows the write created and changed nothing): the
-     write is retried once through the same operation and resolved in the same way, and any outcome
-     of the retry but the first is a stop;
-   - *stored with unintended modifications, duplicate or conflicting records,* or *uncertain*, a
-     read-back that fails, is partial or cannot be completed included: a stop, never a retry.
+   - *confirmed not stored* (a complete read-back, made after the request has ended and after the
+     interval the agent service sets for a result to become visible, and for a create whose request
+     returned no id repeated after that interval, shows the write created and changed nothing): the
+     write is retried once, counting any earlier attempt of the same write, through the same
+     operation and resolved in the same way, and any outcome of the retry but the first is a stop. A
+     retry is the same write under the same grant, and validates the operation if it is stored
+     exactly as intended (§A.51 item 2);
+   - *stored with unintended modifications, duplicate or conflicting records,* or *uncertain*, an
+     absence seen sooner and a read-back that fails, is partial or cannot be completed included: a
+     stop, never a retry. Every stop keeps the evidence under §A.26, whatever was found, and tells
+     the owner through a channel other than an automated GitHub write.
 
    A stop ends the sequence in which it occurs: no further GitHub write
    or push is made in that sequence, whatever the writer does on the failure; catching or ignoring
@@ -1604,27 +1611,26 @@ settings:
    session, then stops as well, unless every one of the following conditions holds, each decided
    mechanically from the write, its read-back and the local halt record; a stop the writer
    cannot see there does not count:
-   - the read-back succeeded, and no field the write did not send, no label and no state differs
-     from what the write should leave, judged against the read made before the write or, for a
-     created object, the values a new object has;
+   - the read-back succeeded and found the write in exactly one object, and no field the write did
+     not send, no label and no state differs from what the write should leave, judged against the
+     read made before the write or, for a created object, the values a new object has;
    - every rejected difference lies wholly in a footer-shaped tail after the last character of the
      sent content: the text sent, less the newlines and any attribution footer at its very end
      (rule 2), is not empty and is stored unchanged as the start of the stored text, and what
      follows it there consists only of newlines and at most one exact copy of the attribution
      footer. Any other appended text stops every automated text write. This shape decides only how
      far the stop extends; a difference is accepted only as rule 2 provides;
-   - no other operation has a stop outstanding, that is, one that no recorded owner decision has
-     yet resolved.
+   - no other operation has a stop under this rule outstanding, that is, one that no recorded owner
+     decision has yet resolved.
 
    When all of them hold, only the failed operation is suspended, for every agent and session: its
    tool (the client, such as `gh api`), its path (the API endpoint, such as
    `PATCH /repos/{owner}/{repo}/issues/{number}`) and its kind of write (such as a body edit, as
    distinct from closing an Issue through the same endpoint). Other operations may then continue, in
-   a later sequence, through validated mechanisms. Before any later sequence writes, the text sent
-   and the text stored are kept as evidence under §A.26 and the owner is told, through a channel
-   other than an automated GitHub write. Only a recorded owner decision resumes a suspended
-   operation, after it is corrected and validated (§A.51 item 2), or lifts a stop of every automated
-   text write; a later correction does not make a failed write a pass.
+   a later sequence, through validated mechanisms, once that evidence is kept and the owner told.
+   Only a recorded owner decision resumes a suspended operation, after it is corrected and
+   validated (§A.51 item 2), or lifts a stop of every automated text write; a later correction does
+   not make a failed write a pass.
 4. **No automated form comments.** In a governed thread, an Issue or pull request in which a frozen
    plan, an authority record or an owner decision admits the owner's form comments, no automated
    text whose first line begins, after leading whitespace and in any letter case, with `oi-` is
@@ -1643,7 +1649,7 @@ confine the mismatch to the failed operation; rule 2 amended 2026-11-25 by owner
 (`amaybaum`, #1169 comment 7171625550; drafted under #1548 comment 7166079053), to accept a
 difference from the expected text only when it is a transformation listed in the allowlist the
 rule states, with a record of it; rule 3 amended YYYY-MM-DD by owner decision (`amaybaum`,
-<adoption record>; drafted under #1577 comment 7220195853, item 2), to retry once a write
+<adoption record>), drafted under #1577 comment 7220195853, item 2, to retry once a write
 confirmed not stored and to stop only on the other unresolved outcomes.
 
 ***
