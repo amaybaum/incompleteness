@@ -285,25 +285,32 @@ def case_10(fx):
     sweep(fx, True)
 
 
-def case_11(fx):
+def case_11(fx, author='session.fixture-writer-x', reviewer='session.fixture-reviewer-y'):
     clean(fx)
     fx.row('RT-L2', {'outcome': 'PASS'}, status_allowed=['PASS', 'NOT RUN'],
            not_run={'reason': 'r', 'release_condition': 'c', 'release_check': G.RC_RTL2})
     fx.record('RT-L2', 'NOT RUN', None)
     # the release fact and the objects it names, in the tree of the commit under check (a fixture repository)
     agents = b'reconciled text\n'
-    rec = {'schema': 'oi-reconciliation/1', 'record_id': 'r', 'author': 'session.fixture-writer-x', 'ledger_binding': {},
+    rec = {'schema': 'oi-reconciliation/1', 'record_id': 'r', 'author': author, 'ledger_binding': {},
            'paths': [{'path': 'AGENTS.md', 'm': blob_id(agents), 'x': blob_id(agents)}],
            'changes_decisions_on_X': []}
     rb = (json.dumps(rec, indent=1) + '\n').encode()
-    rev = {'schema': 'oi-review-record/1', 'reviewer': 'session.fixture-reviewer-y', 'method': 'read',
+    rev = {'schema': 'oi-review-record/1', 'reviewer': reviewer, 'method': 'read',
            'reviewed': {'path': 'plan/rec.json', 'blob_sha256': hashlib.sha256(rb).hexdigest()},
-           'verdicts': [{'item': 'AGENTS.md', 'verdict': 'accept'}]}
+           'verdicts': [{'item': 'AGENTS.md', 'verdict': 'accept'}],
+           'independence': {'not_author': True, 'depends_on': []}}
     fx.release = {'AGENTS.md': agents, 'plan/rec.json': rb,
                   'plan/rec.review.json': (json.dumps(rev, indent=1) + '\n').encode()}
     fx.release_fact = ('RT-L2', lambda c: {'record': {'commit': c, 'path': 'plan/rec.json'},
                                            'review': {'commit': c, 'path': 'plan/rec.review.json'},
                                            'roles': {'H': c, 'M': c, 'C': c}})
+
+
+def case_11b(fx):
+    """Staging S-2 S2.2 in the RT-L2 release check: the record's author amaybaum reviewed by AMaybaum, the same
+    identity respelled, is no independent review, so the release check is false and NOT RUN stays admitted."""
+    case_11(fx, author='amaybaum', reviewer='AMaybaum')
 
 
 def case_12(fx):
@@ -483,7 +490,8 @@ TABLE = {
     'GATE-8': [('', [case_8], 'GATE_FAIL', ['correspondence-orphan-requirement'], None)],
     'GATE-9': [('', [case_9], 'GATE_FAIL', ['raw-evidence-missing'], None)],
     'GATE-10': [('', [case_10], 'GATE_FAIL', ['procedural-failed'], None)],
-    'GATE-11': [('', [case_11], 'GATE_FAIL', ['status-not-allowed'], None)],
+    'GATE-11': [('', [case_11], 'GATE_FAIL', ['status-not-allowed'], None),
+                ('(b)', [case_11b], 'GATE_HOLDS', [], [])],
     'GATE-12': [('', [case_12], 'GATE_FAIL', ['missing-id'], None)],
     'GATE-13': [('', [case_13], 'GATE_FAIL', ['procedural-failed'], None)],
     'GATE-14': [('', [case_14], 'GATE_FAIL', ['procedural-failed'], None)],

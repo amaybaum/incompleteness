@@ -227,10 +227,39 @@ def ei14_release(ctx):
                 and isinstance(head, str) and HEX40.match(head) and git_is_ancestor(ctx.repo, T_PRIME, head))
 
 
+_IDENTITY = re.compile(r'[A-Za-z0-9][A-Za-z0-9._:-]{0,127}\Z')
+_KEY_DROP = str.maketrans('', '', '._:-')
+
+
+def _identity_ok(v):
+    """Staging S-2 S2.1: an identity string matches [A-Za-z0-9][A-Za-z0-9._:-]{0,127} as a whole and is not made
+    only of digits."""
+    return isinstance(v, str) and v.isascii() and _IDENTITY.match(v) is not None and not v.isdigit()
+
+
+def _identity_key(v):
+    """S2.2: ASCII letters made lowercase and `.`, `_`, `:` and `-` removed."""
+    return v.lower().translate(_KEY_DROP)
+
+
+def _independent_of_author(rev, author):
+    """S2.5 lint and S2.4 with X = {author}: the author and the reviewer identity strings; the declaration
+    {not_author: true, depends_on: identity strings, no two the same identity}; neither the reviewer nor any
+    depends_on element the same identity (S2.2) as the author."""
+    who, ind = rev.get('reviewer'), rev.get('independence')
+    deps = ind.get('depends_on') if isinstance(ind, dict) else None
+    if not (_identity_ok(author) and _identity_ok(who) and isinstance(ind, dict) and
+            set(ind) == {'not_author', 'depends_on'} and ind['not_author'] is True and isinstance(deps, list) and
+            all(_identity_ok(d) for d in deps) and len({_identity_key(d) for d in deps}) == len(deps)):
+        return False
+    return all(_identity_key(x) != _identity_key(author) for x in [who] + deps)
+
+
 def rtl2_release(ctx, name='RT-L2'):
     """A reconciliation record named by the run from a commit outside the tool's landing paths, whose review record
-    passes the gate's structural lint (schema, reviewed path and sha256, a reviewer other than the author, every
-    verdict accept) and whose per-path blob ids at H, M and C equal those of the predicted run roles."""
+    passes the gate's structural lint (schema, reviewed path and sha256, a reviewer independent of the author under
+    staging S-2 S2.4, every verdict accept) and whose per-path blob ids at H, M and C equal those of the predicted
+    run roles."""
     f = _release_fact(ctx, name)
     if not f:
         return False
@@ -249,7 +278,7 @@ def rtl2_release(ctx, name='RT-L2'):
     verdicts = rev.get('verdicts') or []
     if not (rev.get('schema') == 'oi-review-record/1' and reviewed.get('path') == path
             and reviewed.get('blob_sha256') == hashlib.sha256(rb).hexdigest()
-            and isinstance(rev.get('reviewer'), str) and rev['reviewer'] and rev['reviewer'] != rec.get('author')
+            and _independent_of_author(rev, rec.get('author'))
             and verdicts and all(isinstance(v, dict) and v.get('verdict') == 'accept' for v in verdicts)):
         return False
     entries = rec.get('paths') or []
