@@ -1016,8 +1016,24 @@ def route_controls():
         ch.update(extra or {})
         return repo.derive(parent, ch, parents=parents or [parent], subject='record commit')
 
-    def probs(r, sc):
-        return rr.rev_problems(repo, r, r, sc)
+    rec_path = rec_dir + 'r.json'
+
+    def probs(r, sc, case=None):
+        # a record-commit admission check; with `case`, retained as a stage result (record-invalid on the record
+        # when the commit is refused) and named as that expectation case of the control being computed
+        p = rr.rev_problems(repo, r, r, sc)
+        if case is not None and capture_hook is not None:
+            items = [oc.make_item('RECORD', 'record-invalid', rec_path, None, {'why': p[0]}, file=rec_path,
+                                  detail=p)] if p else []
+            _stage('record commit admission', items, record_commit=r, problems=p)
+            _case(case, record=rec_path)
+            if case == 'restored':
+                _attest('restored', {'record': rec_path}, record_admitted=rec_path if not p else None)
+        return p
+
+    def pair(mutant, clean):
+        # the refused record commit (case '') and the admitted one over the same scope (restored)
+        return ok and probs(*mutant, case='') != [] and probs(*clean, case='restored') == []
     good = probs(rev(mp), scope(mp))
     ok = good == []
 
@@ -1028,34 +1044,33 @@ def route_controls():
                     ('RB-C4c', {'misc/readme.txt': b'changed\n'}),
                     ('RB-C4d', {rec_dir + 'other.json': b'{"schema": "oi-reconciliation/1"}\n'})):
         top = child(mp, ch, cid)
-        out[cid] = ok and probs(rev(mp), scope(top)) != [] and probs(rev(top), scope(top)) == []
+        out[cid] = pair((rev(mp), scope(top)), (rev(top), scope(top)))
     side = repo.derive(m0, {'misc/side.txt': b'side\n'}, parents=[m0])
     merged = repo.derive(mp, {'misc/side.txt': b'side\n'}, parents=[mp, side], subject='merge')
-    out['RB-C4e'] = ok and probs(rev(mp), scope(merged)) != [] and probs(rev(merged), scope(merged)) == []
+    out['RB-C4e'] = pair((rev(mp), scope(merged)), (rev(merged), scope(merged)))
     # C5, C5b: a tool-landing pin changed or deleted between the base and M
     top = child(mp, {pin_path: b'arbitrary\n'}, 'pin changed')
-    out['RB-C5'] = ok and probs(rev(mp), scope(top)) != [] and probs(rev(top), scope(top)) == []
+    out['RB-C5'] = pair((rev(mp), scope(top)), (rev(top), scope(top)))
     top = repo.derive(mp, {pin_path: None}, parents=[mp], subject='pin deleted')
-    out['RB-C5b'] = ok and probs(rev(mp), scope(top)) != [] and probs(rev(top), scope(top)) == []
+    out['RB-C5b'] = pair((rev(mp), scope(top)), (rev(top), scope(top)))
     # C7, C7b: a class record that the configuration does not pin, with prefixes over ledgered and corpus paths,
     # neither widens the domain nor admits a base across those changes
     extra = {'classes': [{'id': 'neutral-extra', 'prefixes': ['notes/', 'corpus/']}]}
     top = child(mp, {'notes/a.md': b'changed on main\n'}, 'ledgered change')
     sc7 = scope(top, pinned=cls_doc)
-    out['RB-C7'] = ok and probs(rev(mp), sc7) != [] and \
+    out['RB-C7'] = pair((rev(mp), sc7), (rev(top), sc7)) and \
         rr.Scope(repo, m0, top, top, None, True, extra, plan, ['notes/a.md'], lambda p: p.startswith('corpus/'),
                  []).prefixes == []
     top = child(mp, {'corpus/b.md': b'changed\n'}, 'corpus change')
-    out['RB-C7b'] = ok and probs(rev(mp), scope(top)) != [] and probs(rev(top), scope(top)) == []
+    out['RB-C7b'] = pair((rev(mp), scope(top)), (rev(top), scope(top)))
     # C8: a plan directory that is not an authorized record directory counts for nothing
     top = child(mp, {'corpus/b.md': b'changed again\n'}, 'corpus change')
     sc8 = scope(top, plan_dir='corpus')
-    out['RB-C8'] = ok and sc8.plan_dir is None and probs(rev(mp), sc8) != []
+    out['RB-C8'] = sc8.plan_dir is None and pair((rev(mp), sc8), (rev(top), scope(top)))
     # C10: chain mode, base m0 under the predicted main
-    out['RB-C10'] = ok and probs(rev(m0), scope(mp, harness=False)) != [] and \
-        probs(rev(mp), scope(mp, harness=False)) == []
+    out['RB-C10'] = pair((rev(m0), scope(mp, harness=False)), (rev(mp), scope(mp, harness=False)))
     # C11: the record commit also changes a path its parent holds
-    out['RB-C11'] = ok and probs(rev(mp, {'notes/a.md': b'edited by the record commit\n'}), scope(mp)) != []
+    out['RB-C11'] = pair((rev(mp, {'notes/a.md': b'edited by the record commit\n'}), scope(mp)), (rev(mp), scope(mp)))
     out['RB-P1'] = ok
     return out
 
