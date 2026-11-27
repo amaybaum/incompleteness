@@ -196,7 +196,9 @@ def suite_field_only():
     got = records.lint_chain(ref, records.Store(entries), {util.sha256(b) for _, b in entries})
     case('PRED:S2-FIELD-ONLY', 'no command-line option takes an identity and one offered is refused; a registry beside '
                                'the record naming the author and the respelled reviewer as different parties is '
-                               'ignored: the record-field outcome (the same identity, no review) stands',
+                               'ignored: the record-field outcome (the same identity, no review) stands. The '
+                               'commit-author variant is covered structurally: the lint reads a Store of record bytes '
+                               'and no commit object, so no commit author can reach it',
          {'identity options': offered, 'offered by argument refused': refused, 'lint': got},
          offered == [] and refused and any('same identity' in x for x in got))
 

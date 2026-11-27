@@ -959,24 +959,29 @@ def r13_form_controls(r):
          'retirement-blocked' in o['classes'] and sk and sk[0]['record']['path'] == ZP)
     # staging S-2 sec. 7 S2-NO-RETRO-LAPSE (P3): later records cannot lapse a genuine finding
     later = {}
+    from ledger_coverage import record_authority as ra_
     for name in ('a later review declaring a dependency on the author', 'a later record naming the reviewer as author'):
         w, c1, ZP = second_kind_world()
         q = w.record(record_id='syn-recon-q')
         qref = {'path': pfc.RD + 'q.json', 'blob_sha256': sf.sha(pfc.jb(q))}
+        lp = pfc.RD + ('q.later.review.json' if name.startswith('a later review') else 'other.json')
         if name.startswith('a later review'):
-            step(w, {pfc.RD + 'q.later.review.json': pfc.jb(review_record(
+            step(w, {lp: pfc.jb(review_record(
                 {'schema': rec.review_schema, 'reviewer': 'session.fixture-reviewer-x', 'reviewed': qref,
                  'method': 'read', 'verdicts': [{'item': i, 'verdict': 'accept', 'reason': ''} for i in rec.item_ids(q)],
                  'independence': {'not_author': True, 'depends_on': [sf.WRITER]}}))}, name)
         else:
-            step(w, {pfc.RD + 'other.json': pfc.jb(w.record(record_id='syn-recon-other',
+            step(w, {lp: pfc.jb(w.record(record_id='syn-recon-other',
                                                             author='session.fixture-reviewer-x'))}, name)
         o = outcome(w)
         sk = [f for f in o['all'] if f.get('kind') == 2]
-        later[name] = bool(sk) and sk[0]['record']['path'] == ZP and 'retirement-blocked' in o['classes']
+        # the later file is in the scanned set R* of the run's M, so the detection read it
+        scanned = lp in {p_ for p_, _o in c3.Cumulative(w.repo, [w.M], ('oi-reconciliation/1', 'oi-reconciliation/2'),
+                                                         ra_.reconciliation_root).entries()}
+        later[name] = scanned and bool(sk) and sk[0]['record']['path'] == ZP and 'retirement-blocked' in o['classes']
     case('S2-NO-RETRO-LAPSE', 'a genuine second-kind finding; later a review by its reviewer declaring a dependency on '
-                              'the author, or a record at another path naming the reviewer as author: the finding '
-                              'keeps binding', later, all(later.values()))
+                              'the author, or a record at another path naming the reviewer as author, each in the '
+                              'scanned set: the finding keeps binding', later, all(later.values()))
     w, c1, ZP = second_kind_world(withdraw=True)
     o = outcome(w)
     sk = [f for f in o['all'] if f.get('kind') == 2]

@@ -285,7 +285,8 @@ def case_10(fx):
     sweep(fx, True)
 
 
-def case_11(fx, author='session.fixture-writer-x', reviewer='session.fixture-reviewer-y'):
+def case_11(fx, author='session.fixture-writer-x', reviewer='session.fixture-reviewer-y',
+            independence={'not_author': True, 'depends_on': []}):
     clean(fx)
     fx.row('RT-L2', {'outcome': 'PASS'}, status_allowed=['PASS', 'NOT RUN'],
            not_run={'reason': 'r', 'release_condition': 'c', 'release_check': G.RC_RTL2})
@@ -299,7 +300,9 @@ def case_11(fx, author='session.fixture-writer-x', reviewer='session.fixture-rev
     rev = {'schema': 'oi-review-record/1', 'reviewer': reviewer, 'method': 'read',
            'reviewed': {'path': 'plan/rec.json', 'blob_sha256': hashlib.sha256(rb).hexdigest()},
            'verdicts': [{'item': 'AGENTS.md', 'verdict': 'accept'}],
-           'independence': {'not_author': True, 'depends_on': []}}
+           'independence': independence}
+    if independence is None:
+        rev.pop('independence')
     fx.release = {'AGENTS.md': agents, 'plan/rec.json': rb,
                   'plan/rec.review.json': (json.dumps(rev, indent=1) + '\n').encode()}
     fx.release_fact = ('RT-L2', lambda c: {'record': {'commit': c, 'path': 'plan/rec.json'},
@@ -311,6 +314,16 @@ def case_11b(fx):
     """Staging S-2 S2.2 in the RT-L2 release check: the record's author amaybaum reviewed by AMaybaum, the same
     identity respelled, is no independent review, so the release check is false and NOT RUN stays admitted."""
     case_11(fx, author='amaybaum', reviewer='AMaybaum')
+
+
+def case_11c(fx):
+    """S2.3 in the RT-L2 release check: a review without its independence declaration is no independent review."""
+    case_11(fx, independence=None)
+
+
+def case_11d(fx):
+    """S2.4 in the RT-L2 release check: a declaration naming the author, respelled, is no independent review."""
+    case_11(fx, independence={'not_author': True, 'depends_on': ['Session_Fixture-Writer-X']})
 
 
 def case_12(fx):
@@ -491,7 +504,9 @@ TABLE = {
     'GATE-9': [('', [case_9], 'GATE_FAIL', ['raw-evidence-missing'], None)],
     'GATE-10': [('', [case_10], 'GATE_FAIL', ['procedural-failed'], None)],
     'GATE-11': [('', [case_11], 'GATE_FAIL', ['status-not-allowed'], None),
-                ('(b)', [case_11b], 'GATE_HOLDS', [], [])],
+                ('(b)', [case_11b], 'GATE_HOLDS', [], []),
+                ('(c)', [case_11c], 'GATE_HOLDS', [], []),
+                ('(d)', [case_11d], 'GATE_HOLDS', [], [])],
     'GATE-12': [('', [case_12], 'GATE_FAIL', ['missing-id'], None)],
     'GATE-13': [('', [case_13], 'GATE_FAIL', ['procedural-failed'], None)],
     'GATE-14': [('', [case_14], 'GATE_FAIL', ['procedural-failed'], None)],
