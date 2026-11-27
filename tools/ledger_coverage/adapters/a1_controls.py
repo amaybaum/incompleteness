@@ -1801,7 +1801,13 @@ def rep_inputs(a):
     inst = getattr(a, 'rep_instance_doc', None)
     cfg = inst if inst is not None else json.loads(a.repo.read(a.crev, a.cpath))
     dref = cfg.get('delegation') or {}
-    deleg = json.loads(a.repo.read(a.crev, dref['path'])) if dref.get('path') else {}
+    deleg = {}
+    if dref.get('path'):
+        revision = a.rep_binding['template']['commit'] if inst is not None else a.crev
+        encoded = a.repo.read(revision, dref['path'])
+        if encoded is None or sha(encoded) != dref.get('blob_sha256'):
+            raise RepRefused('the delegation contract differs from its configuration pin')
+        deleg = json.loads(encoded)
     return led, eds, deleg
 
 
@@ -1812,13 +1818,15 @@ def bind_control_instance(a, template, snapshot, descriptor_sha256):
     from ledger_coverage.adapters import rep_instance as ri
     trev, tpath = template.split(':', 1)
     try:
-        tb = a.base.read(a.base.resolve(trev), tpath)
+        template_commit = a.base.resolve(trev)
+        tb = a.base.read(template_commit, tpath)
         if tb is None:
             raise ri.Refused('no control-instance template at %s' % template)
         b = ri.bind(a.base, a.base.resolve(snapshot), a.main, descriptor_sha256)
         inst = ri.fill(tb, b)
         a.rep_instance_doc = json.loads(inst)
-        a.rep_binding = {'template': {'path': tpath, 'blob_sha256': sha(tb)}, 'S': b['S'], 'M': b['M'],
+        a.rep_binding = {'template': {'commit': template_commit, 'path': tpath, 'blob_sha256': sha(tb)},
+                         'S': b['S'], 'M': b['M'],
                          'class_tip': b[ri.CLASS_FILL], 'allow_tip': b[ri.ALLOW_FILL],
                          'pins_checked': b['pins_checked'], 'instance_sha256': sha(inst)}
     except (ri.Refused, gitobj.Unresolvable) as exc:
@@ -1948,7 +1956,14 @@ def rep_build_control(a):
     """REP-BUILD (R6.EVID.8): two builds in two readers with equal commit and tree ids, conforming; a ledger with one
     splice's new bytes changed by one byte refused for the expected_sha256; a builder importing the engine refused."""
     acts = {}
+    bound = getattr(a, 'rep_binding', None)
     try:
+        if bound is None:
+            raise RepRefused('no representative template and snapshot binding supplied')
+        if bound.get('refused'):
+            raise RepRefused(bound['refused'])
+        if getattr(a, 'rep_instance_doc', None) is None:
+            raise RepRefused('the verified binding has no filled control instance')
         x1, ch = build_x_rep(a)
         r2 = gitobj.Overlay(a.base)
         x2, _ = build_x_rep(a, repo=r2)
@@ -1956,8 +1971,7 @@ def rep_build_control(a):
         why = rep_conforms(a, x1, ch)
         with open(os.path.join(here, 'rep_build.py'), 'rb') as f:
             _, mods = rep_builder(f.read())
-        bound = getattr(a, 'rep_binding', None)
-        ok1 = ids[0] == ids[1] and not why and not (bound or {}).get('refused')
+        ok1 = ids[0] == ids[1] and not why
         att = {'outcome': 'HASH_EQUAL' if ids[0] == ids[1] else 'HASH_DIFFERS'}
         if not why:
             att['representative_candidate'] = REP_CANDIDATE
@@ -1967,9 +1981,7 @@ def rep_build_control(a):
             att['imported_files_within'] = 'the builder and the standard library; no module under tools/ledger_coverage/engine/'
         acts['build'] = {'commit_ids': [ids[0][0], ids[1][0]], 'tree_ids': [ids[0][1], ids[1][1]],
                          'changed_paths': len(ch), 'nonconforming': why, 'imports': mods,
-                         'control_instance': bound if bound is not None else
-                         'not bound: no template and snapshot S supplied (--rep-template, --rep-snapshot); the '
-                         'configuration itself supplies the delegation contract'}
+                         'control_instance': bound}
     except RepRefused as exc:
         ok1, att = False, {'outcome': 'REFUSED', 'reason': str(exc)}
         acts['build'] = {'refused': str(exc)}
@@ -2013,7 +2025,8 @@ def rep_build_control(a):
     a.record('REP-BUILD', ok1 and ok2 and ok3 and evil != src,
              'HASH_EQUAL over two builds, conforming, stdlib imports only; the mutated ledger REFUSED for the '
              'expected_sha256; the engine-importing builder REFUSED', acts,
-             predicate='two builds give equal commit and tree ids and the built commit conforms to R6.EVID.8; the '
+             predicate='the bound control instance gives two builds with equal commit and tree ids and the built '
+                       'commit conforms to R6.EVID.8; the '
                        'one-byte ledger mutant and the engine-importing builder are refused for the stated reasons')
 
 
