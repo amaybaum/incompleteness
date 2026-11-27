@@ -92,6 +92,15 @@ def suite_retained():
     out['not held'] = lint(w, R1, mutate=lambda rv: rv.__setitem__('revision', '7' * 40))
     case('PRED:S1-REVISION-MISMATCH', 'revision holding other bytes, unreachable from the root, missing or not held: '
                                       'the review counts as no review', out, all(out.values()))
+    from unittest.mock import patch
+    with patch.object(w.ov, 'read', side_effect=gitobj.Unresolvable('indexed review subject unreadable')):
+        unreadable = None
+        try:
+            lint(w, R1)
+        except gitobj.Unresolvable as exc:
+            unreadable = str(exc)
+    case('S2-REVISION-UNREADABLE', 'an unreadable object at a verified revision propagates to the caller',
+         unreadable, unreadable == 'indexed review subject unreadable')
     # post-F: a review whose revision is a commit after F, reachable from effective M, binds; and a post-F finding
     rev = w.ov.add_commit({REC_PATH: REC_B, 'post.txt': b'x\n'}, [w.F], 'after F')
     M = w.ov.add_commit({'later.txt': b'x\n'}, [rev], 'M')

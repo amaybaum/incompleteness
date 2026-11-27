@@ -299,7 +299,8 @@ def case_10(fx):
 
 
 def case_11(fx, author='session.fixture-writer-x', reviewer='session.fixture-reviewer-y',
-            independence={'not_author': True, 'depends_on': []}):
+            independence={'not_author': True, 'depends_on': []}, record_changes=None, predicted=False,
+            review_path='plan/rec.review.json'):
     clean(fx)
     fx.row('RT-L2', {'outcome': 'PASS'}, status_allowed=['PASS', 'NOT RUN'],
            not_run={'reason': 'r', 'release_condition': 'c', 'release_check': G.RC_RTL2})
@@ -308,10 +309,15 @@ def case_11(fx, author='session.fixture-writer-x', reviewer='session.fixture-rev
     agents = b'reconciled text\n'
     repo = os.path.join(fx.root, 'repo')
     main = git_commit(repo, {'AGENTS.md': agents})
-    rp, vp = 'plan/rec.json', 'plan/rec.review.json'
-    rec = {'schema': 'oi-reconciliation/1', 'record_id': 'r', 'author': author, 'ledger_binding': {},
+    rp = 'plan/rec.json'
+    roles = {'H': main, 'M': main, 'C': main}
+    if predicted:
+        roles.update(M='f' * 40, M0=main)  # the runner's synthetic M is not in the Git object store
+    rec = {'schema': 'oi-reconciliation/2', 'record_id': 'r', 'author': author, 'supersedes': None,
+           'ledger_base': roles['H'], 'M': roles['M'], 'X': roles['C'],
            'paths': [{'path': 'AGENTS.md', 'm': blob_id(agents), 'x': blob_id(agents)}],
            'changes_decisions_on_X': []}
+    rec.update(record_changes or {})
     rb = (json.dumps(rec, indent=1) + '\n').encode()
     rev = {'schema': 'oi-review-record/1', 'reviewer': reviewer, 'method': 'read', 'revision': main,
            'reviewed': {'path': rp, 'blob_sha256': hashlib.sha256(rb).hexdigest()},
@@ -319,9 +325,9 @@ def case_11(fx, author='session.fixture-writer-x', reviewer='session.fixture-rev
            'independence': independence}
     if independence is None:
         rev.pop('independence')
-    record_commit = git_commit(repo, {rp: rb, vp: (json.dumps(rev, indent=1) + '\n').encode()})
-    fact = {'record': {'commit': record_commit, 'path': rp}, 'review': {'commit': record_commit, 'path': vp},
-            'roles': {'H': main, 'M': main, 'C': main}}
+    record_commit = git_commit(repo, {rp: rb, review_path: (json.dumps(rev, indent=1) + '\n').encode()})
+    fact = {'record': {'commit': record_commit, 'path': rp},
+            'review': {'commit': record_commit, 'path': review_path}, 'roles': roles}
     head = git_commit(repo, {'%s/RT-L2.json' % G.FACTS_DIR: (json.dumps(fact) + '\n').encode()})
     fx.ctx = G.Ctx(repo, head)
 
@@ -330,6 +336,22 @@ def case_11b(fx):
     """Staging S-2 S2.2 in the RT-L2 release check: the record's author amaybaum reviewed by AMaybaum, the same
     identity respelled, is no independent review, so the release check is false and NOT RUN stays admitted."""
     case_11(fx, author='amaybaum', reviewer='AMaybaum')
+
+
+def case_11_legacy_schema(fx):
+    case_11(fx, record_changes={'schema': 'oi-reconciliation/1'})
+
+
+def case_11_foreign_main(fx):
+    case_11(fx, record_changes={'M': '0' * 40})
+
+
+def case_11_predicted_main(fx):
+    case_11(fx, predicted=True)
+
+
+def case_11_separate_directory(fx):
+    case_11(fx, review_path='elsewhere/rec.review.json')
 
 
 def case_11c(fx):
@@ -519,8 +541,9 @@ TABLE = {
     'GATE-8': [('', [case_8], 'GATE_FAIL', ['correspondence-orphan-requirement'], None)],
     'GATE-9': [('', [case_9], 'GATE_FAIL', ['raw-evidence-missing'], None)],
     'GATE-10': [('', [case_10], 'GATE_FAIL', ['procedural-failed'], None)],
-    'GATE-11': [('', [case_11], 'GATE_FAIL', ['status-not-allowed'], None),
-                ('(b)', [case_11b], 'GATE_HOLDS', [], []),
+    'GATE-11': [('', [case_11, case_11_predicted_main], 'GATE_FAIL', ['status-not-allowed'], None),
+                ('(b)', [case_11b, case_11_legacy_schema, case_11_foreign_main, case_11_separate_directory],
+                 'GATE_HOLDS', [], []),
                 ('(c)', [case_11c], 'GATE_HOLDS', [], []),
                 ('(d)', [case_11d], 'GATE_HOLDS', [], [])],
     'GATE-12': [('', [case_12], 'GATE_FAIL', ['missing-id'], None)],

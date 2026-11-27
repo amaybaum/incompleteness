@@ -429,6 +429,28 @@ def schema_chain_controls(r):
     case('CU-N15', 'a version adding entries without an accepting non-author review of every added entry:<i> item, '
                    'or with a dissenting review: custody-unreviewed', revs,
          all(failed_with(o, 'custody-unreviewed') for o in revs.values()))
+    from ledger_coverage.engine import category3 as c3
+    c = CW(r)
+    v0 = c.bootstrap()
+    bad_version = b'{bad version'
+    c.step({PATH: bad_version})
+    v1 = c.succ(v0, [{'blob': blob(bad_version), 'type': 'void'}], reviewed=False)
+    repo, main = c.w.repo, c.w.M
+    accepting = {CDIR + 'v1.review.json': review(v1, ['entry:1'])}
+    other_root = repo.derive(main, idf.bind_files(accepting, main), parents=[main], subject='review at F only')
+    prefix = 'verification/audits/'
+    cum = c3.Cumulative(repo, [main, other_root], ('oi-reconciliation/1', 'oi-reconciliation/2'), prefix)
+
+    def review_at(m):
+        check = cust.Check(repo, m, None, PATH, c.boot, cum, prefix, None, prefix)
+        check.h = cust.History(repo, m, PATH, prefix)
+        check.review_check(blob(v1), json.loads(v1), json.loads(v0))
+        return check.problems
+
+    absent, on_main = review_at(main), review_at(other_root)
+    case('S2-CUST-REVIEW-M', "the accepting review's exact subject is at M, but the review itself must be in M's "
+                            'history to establish custody', {'only_F': absent, 'on_M': on_main},
+         [p[0] for p in absent] == ['custody-unreviewed'] and not on_main)
     c = CW(r)
     v0 = c.bootstrap()
     a = version(json.loads(v0)['entries'] + [{'blob': '3' * 40, 'type': 'void'}], pred='4' * 40)
@@ -1044,7 +1066,7 @@ def adjudication_run_controls(r, two_pass, pin_q, sib, drop_sib):
     case('ADJ-N-NOT-LANDED-RUN', 'the adjudication cited but never on M\'s first-parent chain: ADJ-LANDED, the witness '
                                  'stands', o.get('error') or o['reassess_why'], still_blocked(o, 'ADJ-LANDED'))
 
-    def upheld(c, J, jdir, change=None, review_verdict='accept'):
+    def upheld(c, J, jdir, change=None, review_verdict='accept', wrong_revision=False):
         J2 = json.loads(pfc.jb(J))
         J2.update(record_id='adj-2', author='adj-k', disposition='upheld')
         J2['authorization'].update(adjudicator='adj-k')
@@ -1056,6 +1078,8 @@ def adjudication_run_controls(r, two_pass, pin_q, sib, drop_sib):
               'method': 'read %s %s' % (gitobj.blob_id_of(j2b), J2['grounds'][0]['evidence'][0]),
               'verdicts': [{'item': i, 'verdict': review_verdict, 'reason': 'checked'} for i in adjm.item_ids(J2)]})
         subject, T2 = reviewed_adjudication(c, j2p, j2b, T2)
+        if wrong_revision:
+            T2['revision'] = c.w.M  # the first parent does not hold J2's bytes
         lc = c.step({j2p: j2b, j2p[:-5] + '.review.json': pfc.jb(T2)}, 'an upheld adjudication lands, cited by none',
                     parents=[c.w.M, subject])
         c.w.repo.mem[lc]['time'] = int(_dt(2026, 11, 27, 13, 0, tzinfo=_tz.utc).timestamp())
@@ -1122,6 +1146,12 @@ def adjudication_run_controls(r, two_pass, pin_q, sib, drop_sib):
     case('ADJ-P-DEFINITIVELY-NONQUALIFYING-REVIEW', 'the upheld record has a single technically rejecting '
                                                 'review. Its known failure leaves the cleared adjudication applicable',
          o.get('error') or [o['decisions'], reported_upholds(o)], cleared(o))
+    o = guarded_run(lambda: world(extra_upheld=lambda c, J, jdir: upheld(c, J, jdir, wrong_revision=True)))
+    rows = reported_upholds(o) if not o.get('error') else []
+    case('S2-ADJ-REVISION-NO-CONTRADICTION', 'the upheld record\'s review points to a reachable revision without '
+                                          'the reviewed bytes, so it cannot qualify and the cleared adjudication applies',
+         o.get('error') or [o['decisions'], rows],
+         cleared(o) and bool(rows) and all(not e['valid_adverse'] and e['landing'] is None for e in rows))
 
     def party_review(c, J):
         qref = J['witness']['disputed']

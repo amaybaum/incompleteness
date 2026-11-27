@@ -277,10 +277,14 @@ def rtl2_release(ctx, name='RT-L2'):
         return False
     rb, rec = _json_blob(ctx.repo, ref)
     _, rev = _json_blob(ctx.repo, review_ref)
-    if not (isinstance(rec, dict) and rec.get('schema') == 'oi-reconciliation/1' and isinstance(rev, dict)):
+    if not (isinstance(rec, dict) and rec.get('schema') == 'oi-reconciliation/2' and isinstance(rev, dict)):
+        return False
+    if any(rec.get(field) != roles[role] for field, role in (('ledger_base', 'H'), ('M', 'M'), ('X', 'C'))):
         return False
     record_base = roles.get('M0', roles['M'])
     if not isinstance(record_base, str) or not HEX40.fullmatch(record_base) or rev.get('revision') != record_base:
+        return False
+    if 'M0' in roles and record_base == roles['M']:
         return False
     record_commit = ref['commit']
     parents = subprocess.run(['git', '--no-replace-objects', '-C', ctx.repo, 'cat-file', 'commit', record_commit],
@@ -288,9 +292,13 @@ def rtl2_release(ctx, name='RT-L2'):
     if parents.returncode != 0 or [line for line in parents.stdout.split(b'\n\n', 1)[0].splitlines()
                                    if line.startswith(b'parent ')] != [b'parent ' + record_base.encode('ascii')]:
         return False
-    entry = git_entry(ctx.repo, record_commit, path)
-    if entry is None or entry[0] not in ('100644', '100755'):
+    review_path = review_ref['path']
+    if os.path.dirname(review_path) != os.path.dirname(path):
         return False
+    for file in (path, review_path):
+        entry = git_entry(ctx.repo, record_commit, file)
+        if entry is None or entry[0] not in ('100644', '100755'):
+            return False
     reviewed = rev.get('reviewed') or {}
     verdicts = rev.get('verdicts') or []
     if not (rev.get('schema') == 'oi-review-record/1' and isinstance(reviewed, dict) and reviewed.get('path') == path
@@ -301,13 +309,17 @@ def rtl2_release(ctx, name='RT-L2'):
     entries = rec.get('paths') or []
     if not entries:
         return False
+    # R6.RECON.2(c)(4) excludes changes to covered ledgered and corpus paths between M0 and a predicted M.
+    # The release check can match their m pins at M0 even when the predicted commit exists only in the runner.
+    compare_main = roles['M']
+    if 'M0' in roles and git_blob_id(ctx.repo, roles['M'] + '^{commit}') is None:
+        compare_main = record_base
     for e in entries:
         if not isinstance(e, dict) or not isinstance(e.get('path'), str):
             return False
-        for field, role in (('h', 'H'), ('m', 'M'), ('x', 'C')):
-            if field == 'h' and field not in e:
-                continue
-            if git_blob_id(ctx.repo, '%s:%s' % (roles[role], e['path'])) != e.get(field):
+        for field, commit in (('m', compare_main), ('x', roles['C'])):
+            blob = git_blob_id(ctx.repo, '%s:%s' % (commit, e['path']))
+            if blob is None or blob != e.get(field):
                 return False
     return True
 

@@ -261,10 +261,13 @@ class Check:
     def review_check(self, oid, d, pred):
         ref = {'path': self.path, 'blob_sha256': util.sha256(self.h.vers[oid])}
         items = item_ids(d, pred)
-        reviews = self.cum.reviews_naming(ref) if self.cum is not None else []
-        here = [(p, r) for p, r in reviews if posixpath.dirname(p) + '/' == self.h.dir]
+        reviews = self.cum.reviews_naming_ids(ref) if self.cum is not None else []
         ok = False
-        for p, r in here:
+        for p, review_oid, r in reviews:
+            # Accepting reviews belong in M's history. Dissent is still checked across all R* roots below.
+            if posixpath.dirname(p) + '/' != self.h.dir or \
+                    self.h.seen.isdisjoint(self.cum.holders.get((p, review_oid), ())):
+                continue
             # R6.CUST.8 as staging S-2 restates it: a review independent (S2.4) of the version's author, whose revision
             # meets S-1 sec. 3 with root effective M
             if r.get('kind', 'review') != 'review' or fd.independence_problems(r, [d.get('author')]) or \
@@ -275,7 +278,7 @@ class Check:
             if sorted(names) == sorted(items) and len(set(names)) == len(names) and \
                     all(v.get('verdict') == 'accept' for v in vs):
                 ok = True
-        for p, r in reviews:
+        for p, _, r in reviews:
             if r.get('kind', 'review') != 'review' or fd.same_identity(r.get('reviewer'), d.get('author')):
                 continue
             vs = [v for v in r.get('verdicts') or [] if isinstance(v, dict)]

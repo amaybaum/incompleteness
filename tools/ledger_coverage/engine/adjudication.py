@@ -753,9 +753,10 @@ def validity(run, jref, J, joid):
         return 'invalid', None
     L = qualifying_landing(run, jref, J, joid, reviews)
     if L is None:
-        # Without L(J), only defects independent of the unresolved party snapshot can disqualify the review.
+        # Without L(J), only defects independent of its party snapshot can disqualify a review.
+        # Every possible L(J) is in M's ancestry, so an exact revision that fails at M cannot bind at L(J).
         srcs = [run.evidence_at(run.M).git_of(s) for s in J['witness']['sources']]
-        if all(srcs) and all(review_form_problems(d, J, jref, joid, srcs, set(), run.owners)
+        if all(srcs) and all(run.review_problems(d, J, jref, joid, srcs, set(), at=run.M)
                              for _p, _o, d in reviews):
             return 'invalid', None
         return 'unknown', None

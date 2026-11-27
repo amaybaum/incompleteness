@@ -90,7 +90,6 @@ def revision_problems(repo, roots, review, record_commit=None):
     to reviewed.blob_sha256. For the review R6.RECON.2 (d) admits with a record read by the post-freeze route
     (`record_commit` = REV; r6 Amendment 10), `revision` equals the record base, REV's single parent, and the reviewed
     bytes are read from REV's tree. [] when it binds; a review read with no root binds nothing."""
-    from .gitobj import Unresolvable
     rev = review.get('revision') if isinstance(review, dict) else None
     rv = review.get('reviewed') if isinstance(review, dict) and isinstance(review.get('reviewed'), dict) else {}
     roots = [r for r in (roots or ()) if r]
@@ -98,23 +97,20 @@ def revision_problems(repo, roots, review, record_commit=None):
         return ['revision cannot be checked: the review is read with no root']
     if not (isinstance(rev, str) and re.match(r'[0-9a-f]{40}\Z', rev)):
         return ['revision is missing or not a commit id']
-    try:
-        if record_commit is not None:
-            base = repo.parents(record_commit)
-            if base != [rev]:
-                return ['revision is not the record base, the single parent of the record commit']
-            holder = record_commit
-        else:
-            if not any(rev == r or repo.is_ancestor(rev, r) for r in roots):
-                return ['revision is not reachable from the root the review is read from']
-            holder = rev
-        ent = repo.entries(holder).get(rv.get('path'))
-        if ent is None or ent[0] not in ('100644', '100755') or \
-                util.sha256(repo.read(holder, rv['path'])) != rv.get('blob_sha256'):
-            return ['revision does not hold the reviewed bytes' if record_commit is None else
-                    'the record commit does not hold the reviewed bytes']
-    except Unresolvable:  # an unheld revision binds nothing
-        return ['revision is not held']
+    if record_commit is not None:
+        if repo.parents(record_commit) != [rev]:
+            return ['revision is not the record base, the single parent of the record commit']
+        holder = record_commit
+    else:
+        if not any(rev == r or repo.is_ancestor(rev, r) for r in roots):
+            return ['revision is not reachable from the root the review is read from']
+        holder = rev
+    # A referenced object reached in the verified walk may be unreadable. Let that error reach the caller.
+    ent = repo.entries(holder).get(rv.get('path'))
+    if ent is None or ent[0] not in ('100644', '100755') or \
+            util.sha256(repo.read(holder, rv['path'])) != rv.get('blob_sha256'):
+        return ['revision does not hold the reviewed bytes' if record_commit is None else
+                'the record commit does not hold the reviewed bytes']
     return []
 
 
