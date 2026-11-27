@@ -41,8 +41,12 @@ def case(cid, expected, actual, holds):
     RESULTS.append({'id': cid, 'expected': expected, 'actual': actual, 'status': 'PASS' if holds else 'FAIL'})
 
 
-def url(n, thread=1169, repo=REPO, kind='issues'):
-    return 'https://github.com/%s/%s/%d#issuecomment-%d' % (repo, kind, thread, n)
+ADMITTED = THREADS[1169]
+
+
+def url(n, thread=1169, repo=REPO, kind='issues', absolute=False):
+    """A form comment URL; n counts from the thread's admission unless absolute."""
+    return 'https://github.com/%s/%s/%d#issuecomment-%d' % (repo, kind, thread, n if absolute else ADMITTED + n)
 
 
 def entry(pid, ref, spawned_by=None, same_party=(), scope=(D,), n=None):
@@ -259,8 +263,13 @@ def suite_wellformed():
     out['withdrawal designation not a comment URL'] = probs(registry(withdrawn=[{'id': X1, 'designation': 'x'}]))
     ok = {'#1169 issue': probs(with_entries(lambda m: m[R1].__setitem__('designation', url(5)))),
           '#1577 pull': probs(with_entries(lambda m: m[R1].__setitem__('designation', url(5, 1577, kind='pull'))))}
-    case('PRED:S1-DESIGNATION', 'a designation empty, not a comment URL, in another repository or in an unadmitted '
-                                'thread: the registry fails; a comment URL in #1169 or #1577 is accepted', (out, ok),
+    out['#1577 before its admission'] = probs(with_entries(lambda m: m[R1].__setitem__(
+        'designation', url(THREADS[1577] - 1, 1577, kind='pull', absolute=True))))
+    out['#1169 at its admission record'] = probs(with_entries(lambda m: m[R1].__setitem__(
+        'designation', url(THREADS[1169], absolute=True))))
+    case('PRED:S1-DESIGNATION', 'a designation empty, not a comment URL, in another repository, in an unadmitted '
+                                'thread, or posted in an admitted thread no later than its admission: the registry '
+                                'fails; a comment URL in #1169 or #1577 after admission is accepted', (out, ok),
          all(out.values()) and not any(ok.values()))
     out = {'bare login': 'amaybaum', 'prefix differs': 'person.w1', 'upper case': 'session.W1',
            'absent from the registry': 'session.ghost', 'a URL': url(5)}
@@ -412,9 +421,33 @@ def suite_detection():
          all(v[0] == 'genuine' and v[1] for v in out.values()))
 
 
+def suite_detection_identity():
+    w = World()
+    out = {}
+    # a login equal to the author's login: not an identity string, so a genuine finding with a form failure
+    rv, _ = review_of(w, 'amaybaum', REC_PATH, REC_B, invalidates={'path': REC_PATH})
+    out['login'] = S.detection_outcome(w.ov, rv, D + '/i.json', dict(REC, author='amaybaum'), True, w.reg,
+                                       rv['revision'], False)
+    case('PRED:S1-INVALIDATING-LOGIN', 'an invalidating review whose reviewer equals the record\'s author as a login: '
+                                       'genuine with a form failure, not disqualified', out['login'],
+         out['login'][0] == 'genuine' and out['login'][1] != [])
+    reg = registry(withdrawn=[{'id': W1, 'designation': url(9)}])
+    w2 = World(reg=reg)
+    rv, _ = review_of(w2, W1, REC_PATH, REC_B, invalidates={'path': REC_PATH})
+    out['withdrawn'] = S.detection_outcome(w2.ov, rv, D + '/i.json', REC, True, reg, rv['revision'], False)
+    case('PRED:S1-INVALIDATING-WITHDRAWN-SAME', 'reviewer and author the same withdrawn id: genuine with a form '
+                                                'failure, not disqualified', out['withdrawn'],
+         out['withdrawn'][0] == 'genuine' and out['withdrawn'][1] != [])
+    rv, _ = review_of(w, W1, REC_PATH, REC_B, invalidates={'path': REC_PATH})
+    out['registry failed'] = S.detection_outcome(w.ov, rv, D + '/i.json', REC, True, w.reg, rv['revision'], True)
+    case('PRED:S1-INVALIDATING-REGISTRY-FAILED', 'reviewer and author the same id under a failed registry: genuine with '
+                                                 'a form failure, not disqualified', out['registry failed'],
+         out['registry failed'][0] == 'genuine' and out['registry failed'][1] != [])
+
+
 SUITES = [('admission', suite_admission), ('wellformed', suite_wellformed), ('party', suite_party),
           ('withdrawal', suite_withdrawal), ('continuity', suite_continuity), ('binding', suite_binding),
-          ('detection', suite_detection)]
+          ('detection', suite_detection), ('detection-identity', suite_detection_identity)]
 
 
 def main(out):

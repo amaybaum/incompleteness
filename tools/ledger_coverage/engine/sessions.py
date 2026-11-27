@@ -24,12 +24,16 @@ _hex40 = re.compile(r'^[0-9a-f]{40}$')
 
 
 def comment_url_ok(url, repository, threads):
-    """A comment URL in this repository, in one of the admitted threads (S1.2): https://github.com/<repository>/
-    (issues|pull)/<n>#issuecomment-<id>, with n in `threads`."""
+    """A comment URL in this repository, in an admitted thread, posted after that thread's admission (S1.2):
+    https://github.com/<repository>/(issues|pull)/<n>#issuecomment-<id>, with n a key of `threads` and id greater than
+    threads[n], the comment id of the record that admitted the thread (comment ids increase with posting time)."""
     if not isinstance(url, str):
         return False
     m = re.match(r'^https://github\.com/([^/]+/[^/]+)/(issues|pull)/(\d+)#issuecomment-(\d+)$', url)
-    return bool(m) and m.group(1) == repository and int(m.group(3)) in threads
+    if not m or m.group(1) != repository or int(m.group(3)) not in threads:
+        return False
+    after = threads[int(m.group(3))]
+    return type(after) is int and int(m.group(4)) > after
 
 
 def registry_problems(data, doc, repository, threads):
@@ -244,7 +248,9 @@ def detection_outcome(repo, review, review_path, reviewed_doc, in_rstar, doc, ro
         return 'provisional', []
     author = (reviewed_doc or {}).get('author')
     who = review.get('reviewer') if isinstance(review, dict) else None
-    if isinstance(who, str) and who == author:
+    # only a registered, unwithdrawn id equal to the author's, under a registry that holds, disqualifies: a login, a
+    # withdrawn id or any equal string under a failed registry is a genuine finding with a form failure
+    if not registry_failed and is_identity(doc, who) and who == author:
         return 'disqualified', []
     form = []
     if registry_failed:
