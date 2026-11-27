@@ -16,9 +16,9 @@ Mutable record under §A.46 items 4 and 8. It cites the report and does not chan
   delta review accepted.
 - `4ccf2548` changes only one row of r2's §7, the remediation row for Prop I (iii). It applies the
   optional nit of that review: the row now names all three inherited steps, [U2] Proposition 9,
-  [U3] Corollary 7c and [UNC] Theorem U (U-b), in its evidence-level and missing-verification
-  columns. No result, proof, outcome or other line changes. No review has yet confirmed the
-  wording of that row; the review of this file is the check of it.
+  [U3] Corollary 7c and [UNC] Theorem U (U-b), in its evidence-level, missing-verification and
+  "What would resolve it" columns. No result, proof, outcome or other line changes. The
+  preservation review, #1622 comment 7209435768, confirmed the changed row.
 
 **Superseded version,** kept unchanged: `REPORT.md` (r1, commit
 `d4d9846146f73f3ed80cb4f0846646a2d08aeb08`).
@@ -70,8 +70,8 @@ verification.
 - **Comment 7209077894, delta review of r2 at `4e84b2f2`: ACCEPT WITH NITS,** one optional nit. It
   confirmed findings 1–5 applied, with nothing else changed in substance, and checked by hand the
   new argument for M_C(T^{(L)}, Q) ≥ 1/184. The nit is applied at `4ccf2548`.
-- **Both reviews are by one reviewer agent.** The delta review is written "against my review of
-  r1". All review evidence for this record therefore comes from a single model reviewer.
+- **Both report reviews are by one reviewer agent.** The delta review is written "against my review
+  of r1". Comment 7209435768 separately reviews the preservation record at `bf59a2e9`.
 
 ## 2. Substantive result and its precise scope
 
@@ -87,7 +87,7 @@ of the converse identified by the predecessor's Theorem U. Every result is [A].
   particular φ(c′) ≤ 184ε + 16ω′C_Gν.
 - **The dichotomy.** For each admissible c′, either ν ≥ ν_+ := (1/8 − 6ε)/(ω′C_G), or, when
   16ω′C_G < 1, φ(c′) ≤ φ_− := (184ε + 16ω′C_G)/(1 − 16ω′C_G). As (ε, η) → 0 at fixed (d, n, m, K),
-  φ_− → 0 and ν_+ → ∞.
+  φ_− → 0 and ν_+ → ∞, using τ_min ≤ τ(n) → 0 from [U3] §3.
 - **Corollary D1 (same conditions).** Along any family of pairs (T, c′) in class(η) with
   ‖c′(P)‖ ≤ ν for a fixed ν, φ(c′) → 0 as (ε, η) → 0; by [UNC] Theorem U (U-a), the converse then
   holds for the pair (c̃, c′) with constants tending to 0. This answers positively, inside class(η),
@@ -96,8 +96,10 @@ of the converse identified by the predecessor's Theorem U. Every result is [A].
 - **Prop I (i), (ii).** τ_min ≤ ι ≤ φ_min, where ι is the distance from the identity of the
   nearest available single-outcome family. If some admissible c′ lies on the small branch of
   Theorem D, an idle step within φ_− exists.
-- **Report §5 classifies Theorem D, Corollary D1 and Prop I as ELABORATING.** They combine [U3]
-  Lemma 7η with [UNC] Corollary G1 and add no estimate of their own. No NEW finding is claimed.
+- **Report §5 classifies Theorem D, Corollary D1 and Prop I as ELABORATING.** Theorem D and
+  Corollary D1 combine [U3] Lemma 7η with [UNC] Corollary G1 and add no estimate of their own. Prop I
+  locates the idle-step question within the existing rules and shows that the rules alone do not
+  supply it at levels. The §3 sketch is BORDERLINE. No NEW finding is claimed.
 
 **Negative results, with their exact limitations.**
 - **Prop I (iii): the six exact rules alone do not give an idle step at levels.** The witness is
@@ -117,8 +119,9 @@ of the converse identified by the predecessor's Theorem U. Every result is [A].
     X1 for p ≤ 4ε;
   - T_− and T_ω, by scope: they lie outside class(η) at small η.
 
-  Limitations: these are the named families only. Their exclusion inherits the status of the
-  predecessor's results it applies, and shows nothing about any other theory on the large branch.
+  The norm-based exclusions are for small η, where ν_+ exceeds the reported bounds. The rescaled
+  QM comparison uses the small-branch condition 16ω′C_G < 1. The exclusions inherit the status of
+  the predecessor's results and concern only the named families.
 - **What remains unexcluded is the large branch.** In class(η) where τ_min > 0, no φ_bound is
   obtained for every admissible c′. A D3 theory would need ‖c′(P)‖ ≥ ν_+ ≈ 1/(8(3K − 4)τ_min C_G)
   for every admissible c′. No such theory was found, and none was shown impossible: failure to
@@ -146,15 +149,15 @@ below authorizes no work (§A.45 rule 3).
 
 | Claim class | Where | Status | Missing verification | Accountable Issue | What would resolve it |
 |---|---|---|---|---|---|
-| Theorem D, the dichotomy, Corollary D1 | report §1 | partially verified: hand derivation, model-reviewed; conditional on [U3] Lemma 7η and [UNC] Corollary G1, reviewed and not independently verified | independent non-model review; independent verification of Lemma 7η and G1 | #1216 | a recorded independent review; a verification of the inherited steps |
+| Theorem D, the dichotomy, Corollary D1 | report §1 | partially verified: hand derivation, model-reviewed; conditional on [U3] Lemma 7η and [UNC] Corollary G1, [U3] §3 for τ_min ≤ τ(n) → 0 in the limit, and [UNC] Theorem U (U-a) for D1's converse conclusion | independent non-model review; independent verification of the inherited inputs | #1216 | a recorded independent review; a verification of the inherited steps |
 | Prop I (i), (ii) | report §2 | partially verified, as above | independent review | #1216 | a recorded independent review |
 | Prop I (iii), with M_C(T^{(L)}, Q) ≥ 1/184 | report §2 | partially verified, as above; relative to [U2] Proposition 9, [U3] Corollary 7c and [UNC] Theorem U (U-b), reviewed and not independently verified | independent review; independent verification of the three inherited steps | #1216 | a recorded independent review; a verification of the inherited steps |
-| Exclusions of the four D3 candidate families | report §3 | partially verified: applications of [UNC] Prop X1, CC-s and CC-p, and of scope; CC-s rests on unit 3's item D1, partially verified | as for those results, recorded in the predecessor's `PRESERVATION.md` §3 | #1216 | as recorded there |
+| Exclusions of the four D3 candidate families at small η | report §3 | partially verified: applications of [UNC] Prop X1, CC-s and CC-p, and of scope; ν_+ exceeds the reported bounds and the small-branch comparison uses 16ω′C_G < 1; CC-s rests on unit 3's item D1, partially verified | as for those results, recorded in the predecessor's `PRESERVATION.md` §3 | #1216 | as recorded there |
 | K = 2 tail-effect route (UN1-d) | report §3, §6 | a sketch, not claimed; constants not written out | a written derivation | #1216 | a written derivation with its constants |
 | The large branch (UN1-a) | report §3, §6 | open | a proof that excludes it for some admissible c′, or a D3 theory on it | #1216 | a written derivation or an explicit construction |
 | Idle step on the large branch (UN1-b) | report §2, §6 | open; candidate premise, not adopted | a proof or a counterexample; an owner decision on the premise | #1216 | a written derivation, a counterexample, or an owner decision (§A.29, §A.50 item 6) |
 | UN-2 (UN1-c): idle step implies φ_min small | report §2, §6 | open | a proof or a counterexample | #1216 | a written derivation or an explicit theory |
-| §7 row for Prop I (iii) as changed at `4ccf2548` | report §7 | applies the delta review's optional nit; not yet confirmed by a review | a review of the changed row | #1216 | the review of this file |
+| §7 row for Prop I (iii) as changed at `4ccf2548` | report §7 | applies the delta review's optional nit; confirmed in #1622 comment 7209435768 | the independent mathematical verification listed for Prop I (iii) above | #1216 | verification of the inherited steps |
 | Preregistration order (`PLAN.md` before the report) | `PLAN.md`; §1 here | evidence is commit order only: `b2adbd64` at 03:24:03Z precedes `d4d98461` at 03:26:58Z (2026-11-27); the plan discloses earlier informal exploration | none available from commit order alone | #1216 | none; the limitation stands as stated |
 
 ## 4. Off-`main` references (§A.42 item 8)
@@ -166,18 +169,20 @@ in `PLAN.md`, `REPORT.md`, `REPORT-r2.md`, `CHANGES-r2.md` and this file, and is
 | Reference | Where | Classification |
 |---|---|---|
 | #1169 comments 7199704501, 7208939261, 7209325168 (owner decisions) | `PLAN.md`; §1 here | provenance: authority records quoted with author and time; no result uses them |
-| PR #1622 comments 7209032832, 7209077894 (reviews) | report header, §8; §1 here | provenance: evidence of review; no result uses them |
+| PR #1622 comments 7209032832, 7209077894, 7209435768 (reviews) | report header, §8; §1 here | provenance: evidence of review; no result uses them |
 | PR #1614 | report header | provenance: lineage; no result uses its discussion |
 | commit `b2adbd64` (`PLAN.md`) | report header; §1, §3 here | support off `main` (gap), closed by the landing condition of §5: it holds the plan and the evidence of its order |
 | commit `d4d98461` (r1) | report header; §3 here, preregistration-order row | support off `main` (gap), closed by the landing condition of §5: the order claim uses its commit time. For identifying the r1 text it is provenance |
 | commit `4e84b2f2` (r2 as reviewed) | §1 here | provenance: cited to identify the text the delta review accepted |
 | commit `4ccf2548` (r2 with the nit applied) | §1 here | support off `main` (gap), closed by the landing condition of §5: the authoritative report |
-| the commit adding this file | — | support off `main` (gap), closed by the landing condition of §5: this record's own content |
+| the commits adding and completing this file | — | support off `main` (gap), closed by the landing condition of §5: this record's own content |
 | pin `13c05b4f` | report header, `PLAN.md` | support on `main`: an ancestor of `main` at `650c8053` |
 | `../uniform-norm-control-20261126/REPORT-r4.md` and `PRESERVATION.md` | throughout | support on `main`: at the pin (landed through #1614) and unchanged at `650c8053`; reviewed paper derivations, carried as conditions of the steps that use them |
 | `../unit3/REPORT-r3.md` (Lemma 7η, (Hg), Corollary 7c, τ_min, τ(n), ω′) and unit 3's item D1 | report §1–§3 | support on `main`: at the pin and unchanged at `650c8053`; reviewed paper derivations (D1 partially verified) |
 | `../unit2/REPORT-r3.md` (Proposition 9, Lemma 7) | report §2, §4 | support on `main`: at the pin and unchanged at `650c8053`; reviewed paper derivations |
+| `../unit2/PLAN.md`, `../unit3/PLAN.md` | `PLAN.md` | support on `main`: inherited setting, unchanged at `650c8053` |
 | #1216, #1169 | headers | provenance: accountability |
+| #1049, #1217, #1623, #1624 | `PLAN.md`; §1 and §5 here | provenance: programme links and the consolidated preservation decision |
 
 **Support off `main` (gaps), and how they close.** Each gap below is closed when the merge commit
 of §5 lands with the commit reachable from `main`. None is closed before that, and keeping the
@@ -185,14 +190,14 @@ branch does not close it.
 - `b2adbd64`: `PLAN.md` and the preregistration order.
 - `d4d98461`: its commit time, for the preregistration-order row.
 - `4ccf2548`: the authoritative report.
-- The commit that adds this file: this record.
+- The commits adding and completing this file: this record.
 
 ## 5. Landing condition
 
 The record is preserved only through a **merge commit, not a squash**. The merge keeps these
 commits reachable from `main`:
 - `b2adbd64`, `d4d98461`, `4e84b2f2` and `4ccf2548`;
-- the commit that adds this file, which adds only this file.
+- the commits adding and completing this file, through the reviewed landing head.
 
 That `PLAN.md`'s commit precedes every report commit is part of the record's provenance.
 
@@ -216,7 +221,8 @@ It establishes, conditionally on the inherited steps named in §2:
   identity partner, ‖c′(P)‖ ≥ ν_+ with ν_+ ∝ 1/τ_min (Theorem D);
 - **that the idle step is not a consequence of the six rules alone at levels** (Prop I (iii), with
   the limitations of §2), while it follows from M_C on the small branch (Prop I (ii));
-- **the exclusion of four named D3 candidate families**, and the precise statement of the
+- **the exclusion of four named D3 candidate families at small η**, where ν_+ exceeds the recorded
+  norm bounds and the small-branch comparison applies, and the precise statement of the
   unexcluded large branch, open as UN1-a.
 
 These are the negative results and their exact limitations that the owner's direction of
