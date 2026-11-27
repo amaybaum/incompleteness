@@ -1,8 +1,9 @@
-# A1 staging amendment r2, supplement S-1: recorded session identities (paper draft r3)
+# A1 staging amendment r2, supplement S-1: recorded session identities (paper draft r4)
 
-**Status.** Draft r3, for independent review and the owner's adoption of the exact reviewed text. r1
+**Status.** Draft r4, for independent review and the owner's adoption of the exact reviewed text. r1
 at `dae2468ee4ceb7c46df97dba529cc584e620f91a` received REVISE (PR #1620 comment 7208980804), and r2 at
-`bfac322211b3e00303154e6cd96247ac1e48e9be` a narrow REVISE (PR #1620 comment 7209044224); §9 maps both
+`bfac322211b3e00303154e6cd96247ac1e48e9be` a narrow REVISE (PR #1620 comment 7209044224), and r3 at
+`075d68515f5280bde3cc3bec58ce5bff71595278` a further REVISE (PR #1620 comment 7209091683); §9 maps the
 reviews' findings to changes. It amends staging amendment r2 (`AMENDMENT.md` in this directory), the
 Amendment 6 r13 identity rules, the identity comparisons of r9 and its Amendment 1, and the custody
 design's R6.CUST.8, replacing GitHub-identity requirements with explicitly recorded session
@@ -51,14 +52,20 @@ required:
 record a session can write. Every session writes to GitHub through the owner's account, so only a
 form that an automated writer may not produce is attributable to the owner:
 - **Designation.** Each entry's `designation` is the URL of an owner form comment, posted by hand, in
-  #1169 or the guiding pull request, whose first line is exactly `oi-designate` and whose second line
-  is the entry's canonical JSON, byte for byte. AGENTS.md §A.49 rule 4 bars any automated text whose
-  first line begins with `oi-` in a governed thread, so such a comment is the owner's by rule.
+  an admitted thread (below), whose first line is exactly `oi-designate` and whose second line is the
+  canonical JSON of the entry without its `designation` key, byte for byte (the comment's own URL
+  cannot exist before it is posted). AGENTS.md §A.49 rule 4 bars any automated text whose first line
+  begins with `oi-` in a governed thread, so such a comment is the owner's by rule.
 - **Withdrawal.** A wrong entry is never edited (S1.5). The owner retires it with a form comment whose
-  first line is exactly `oi-withdraw` and whose second line is the entry's `id`; the registry records
+  first line is exactly `oi-withdraw` and whose second line is the entry's `id` (which carries no
+  self-reference), posted in an admitted thread; the registry records
   `{id, designation}` in `withdrawn`, with `designation` that comment's URL. A withdrawn `id` is not an
   identity string for any review or record at a freeze whose registry lists the withdrawal. Its links
   stay in the party relation, so withdrawal never makes two parties independent.
+- **Admitted threads.** The owner's adoption of this supplement admits `oi-designate` and `oi-withdraw`
+  form comments in #1169 and in the guiding pull request it names, so both are governed threads for
+  AGENTS.md §A.49 rule 4. A designation or withdrawal is accepted only from a thread that was admitted
+  when the comment was posted.
 - **Freeze approval.** The owner's approval of `F` quotes the registry's SHA-256 and states that the
   owner checked each entry's `id`, `platform_ref`, `spawned_by` and `same_party` against the
   platform's session list, and each designation and withdrawal against its form comment.
@@ -76,14 +83,16 @@ in the owner's form, and whether the owner's approval states the checks above, a
 (R6.REC.3) and are recorded in the record that relies on the approval (AGENTS.md §A.42 item 7).
 
 **S1.3 Party.** The party of `x` is the closure of `{x}` under `same_party` and `spawned_by`, each read
-in both directions. A spawning lineage is therefore one party unless an owner record designates the
-sessions as independent, in which case the entries omit the link (OQ-S1-3). Two identity strings are
+in both directions. A spawning lineage is therefore one party unless the owner's `oi-designate`
+comment for the spawned entry shows it as independent, by `spawned_by: null` or by omitting the link;
+no other owner record shows independence (OQ-S1-3). Two identity strings are
 the **same id** when byte-equal; they are in the **same party** when either is in the other's party.
 
 **S1.4 Well-formed and unambiguous.** The registry fails, and with it every review and record whose
 admission needs an identity, when: it is missing, unpinned, malformed, or lacks its review (S1.2); two
 entries have equal `id`; an `id` breaks its grammar or its prefix differs from `kind`; a `spawned_by`
-or `same_party` member names no entry; or two entries share a `platform_ref`. (The grammar admits only
+or `same_party` member, or the `id` of a `withdrawn` element, names no entry; or two entries share a
+`platform_ref`. (The grammar admits only
 lowercase ASCII, so case folding cannot make two distinct ids equal; no control is claimed for it.)
 
 **S1.5 Append-only across freezes.** Where staging r2's `a1-staging-prior.json` names a non-null
@@ -235,7 +244,7 @@ Each is a specification until implemented.
 | S1-MISSING-LINK | `r1` was spawned by `w1` but its entry has `spawned_by: null`; the registry review finds the mismatch against the owner's form comment | registry review rejects the item; registry fails; every dependent review disqualified |
 | S1-WIDENING-SAME-PARTY | The widening reviewer is in an ordinary reviewer's party | widening review disqualified; FAIL `record-invalid` |
 | S1-WIDENING-AUTHOR-PARTY | The widening reviewer is in the author's party | widening review disqualified; FAIL `record-invalid` |
-| S1-DANGLING-LINK | A `same_party` or `spawned_by` member names no entry | registry fails |
+| S1-DANGLING-LINK | A `same_party` or `spawned_by` member, or a `withdrawn` element's `id`, names no entry | registry fails |
 | S1-DUP-ID | Two entries with equal `id`; variant: an `id` whose prefix differs from its `kind`; variant: two entries share `platform_ref` | registry fails; FAIL `record-invalid` for every record needing an identity |
 | S1-NO-REGISTRY | The registry is absent from `F`'s pin table, differs from the pinned SHA-256, or lacks its accepting review | registry fails |
 | S1-REGISTRY-BY-ARGUMENT | A registry is supplied by argument, or identities are derived from commit authors, with none pinned at `F` | ignored; registry fails |
@@ -280,15 +289,25 @@ Each is a specification until implemented.
 | N4. Schema plumbing | §5 adds the R6.RECON.33 kind row and the R6.RECON.31 item-id row; the registry review meets §3 |
 | N5. Permanent self-inflicted block | S1.9 states it for the owner |
 
+**Re-review of r3 (PR #1620 comment 7209091683):**
+
+| Finding | Change in r4 |
+|---|---|
+| R3-1. Self-referencing designation | S1.2: the `oi-designate` second line is the canonical JSON of the entry without its `designation` key; `oi-withdraw` carries only the `id`, with no self-reference, so it is unchanged; OQ-S1-5 aligned |
+| R3-2. Governed threads | S1.2 "Admitted threads": adoption of S-1 admits the form comments in #1169 and the named guiding pull request; a comment is accepted only from a thread admitted when it was posted |
+| R3-3. OQ-S1-4 | default aligned with §3: S-1 does not narrow the R6.REC.12 residual limit |
+| R3-4. Independence from a spawning session | S1.3 and OQ-S1-3: shown only by the owner's `oi-designate` comment for that entry |
+| R3-5. Dangling withdrawal | S1.4 and S1-DANGLING-LINK |
+
 ## 10. Open questions for the owner
 
 | Id | Question | Recommended default | Alternative |
 |---|---|---|---|
 | OQ-S1-1 | Scope of the identity change | every record the tool reads; §6 shows no review, finding or witness is lost, and the affected records already lack reviews | only the staging roots and their reviews, leaving other records on logins that cannot establish independence |
 | OQ-S1-2 | Can a party registered after `F` review a post-freeze reconciliation record? | no: the registry is read from `F` only | admit a registry pinned at `REV`, which would let a post-freeze commit add identities |
-| OQ-S1-3 | Which sessions count as one party? | a spawning lineage (`spawned_by`) and the owner's `same_party` links, unless an owner record designates the sessions as independent | `same_party` only, leaving undeclared spawning links undetected |
-| OQ-S1-4 | Are identity strings authenticated? | no; the residual limit of R6.REC.12 stands, narrowed by the owner's designations, `platform_ref` and the posted digest | a signed attestation per session, a new mechanism needing its own design |
-| OQ-S1-5 | Which owner records count as designations and withdrawals? | owner form comments posted by hand, first line `oi-designate` (then the entry's canonical JSON) or `oi-withdraw` (then the `id`), in #1169 or the guiding pull request; attributable to the owner by AGENTS.md §A.49 rule 4 | any owner record linked from the guiding pull request, which a session could also write through the shared account |
+| OQ-S1-3 | Which sessions count as one party? | a spawning lineage (`spawned_by`) and the owner's `same_party` links, unless the owner's `oi-designate` comment for the spawned entry shows it as independent (`spawned_by: null` or the link omitted) | `same_party` only, leaving undeclared spawning links undetected |
+| OQ-S1-4 | Are identity strings authenticated? | no; S-1 does not narrow the residual limit of R6.REC.12 (§3) | a signed attestation per session, a new mechanism needing its own design |
+| OQ-S1-5 | Which owner records count as designations and withdrawals? | owner form comments posted by hand, first line `oi-designate` (then the entry's canonical JSON without its `designation` key) or `oi-withdraw` (then the `id`), in #1169 or the guiding pull request; attributable to the owner by AGENTS.md §A.49 rule 4 | any owner record linked from the guiding pull request, which a session could also write through the shared account |
 
 ## 11. References (AGENTS.md §A.42 item 8)
 
