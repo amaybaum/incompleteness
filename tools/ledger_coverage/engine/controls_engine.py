@@ -873,10 +873,11 @@ def r_controls():
     e7l = run(M7, L7)
     _case('landing under the computed composition')
     _restore_with(clean_l, 'execution')
-    # R6.CTRL.20: TT7 asserts its landing run: FAIL with base-drift (R6.TREE.7, no record). Whether the landing also
-    # carries landing-conflict-unresolved is the owner's open question for this row; the runner does not settle it
+    # R6.CTRL.20: TT7 asserts its landing run as the frozen expectation states it: FAIL with
+    # landing-conflict-unresolved. Whether the landing carries that class is the owner's open question for this row;
+    # the runner asserts the expectation as written and does not settle it
     out['TT7'] = not [i for i in e7.items if i['obligation'] == 'RET'] and 'base-drift' in classes(e7.items) and \
-        decision(e7l.items) == oc.fail and 'base-drift' in classes(e7l.items)
+        decision(e7l.items) == oc.fail and 'landing-conflict-unresolved' in classes(e7l.items)
     rec8 = rcmod.draft(w.repo, ctx, H, M7, X, led, doc_path, scientific_effect=control_effect)
     e8 = run(M7, L7, recon=[rec8])
     _case('the control input (positive)')
