@@ -321,6 +321,27 @@ def context_windows(h, sps, corpus, sentences=None):
     return out
 
 
+def retained_windows(repo, H, led, paths):
+    """Read the whole lines containing each retained edit's selected text at the scientific base."""
+    windows, base = {}, {}
+    for item in led['retained']:
+        path = item.get('file')
+        if path not in paths:
+            continue
+        if path not in base:
+            base[path] = repo.read(H, path) or b''
+        h, text = base[path], item.get('text')
+        text = text.encode('utf-8') if isinstance(text, str) else b''
+        window = None
+        if text and h.count(text) == 1:
+            start = h.find(text)
+            begin = h.rfind(b'\n', 0, start) + 1
+            end = h.find(b'\n', start + len(text) - 1)
+            window = h[begin:] if end < 0 else h[begin:end + 1]
+        windows.setdefault(path, []).append((item.get('site_ref') or item['id'], window))
+    return windows
+
+
 # design r6 R6.RECON.24 (RC14)
 def rc14(h, m, windows, placed, retained_lines):
     """RC14: each window occurs exactly once at M, at the splice's translated offset less its distance
@@ -337,7 +358,12 @@ def rc14(h, m, windows, placed, retained_lines):
             out.append('%s: its context window occurs %d times at M, not once at the translated offset'
                        % (sp['id'], len(occ)))
     for site, line in retained_lines:
-        if len(occurrences(m, line)) != 1:
+        if line is None:
+            out.append('%s: the retained site text does not occur exactly once at the scientific base' % site)
+            continue
+        whole = [p for p in occurrences(m, line) if (not p or m[p - 1:p] == b'\n')
+                 and (line.endswith(b'\n') or p + len(line) == len(m))]
+        if len(whole) != 1:
             out.append('%s: the retained site line does not occur exactly once at M' % site)
     return out
 
@@ -466,7 +492,7 @@ def evaluate(repo, ctx, H, M, X, led, rdoc, entry, classes, record_refs, rd=None
         res['RC8'] = entry.get('x') == repo.blob_id(H, path) and fe is None and \
             entry.get('x_sha256') == util.sha256(repo.read(H, path) or b'')
         res['RC9'] = res['RC7']
-        res['RC14'] = True
+        res['RC14'] = not rc14(h, m, [], [], retained_lines)
     else:
         r3 = r4 = r5 = bool(sps)
         common = 0
