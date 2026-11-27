@@ -705,10 +705,16 @@ class Unbound(Exception):
 
 
 def _bind(v, bindings):
+    """A `$name` is replaced by its binding wherever it appears in an expectation value: the value itself, or any
+    member of a list or value of an object nested in it (R6.GATE.3 does not restrict where a `$name` may appear)."""
     if isinstance(v, str) and v.startswith('$'):
         if v[1:] not in bindings:
             raise Unbound(v)
         return bindings[v[1:]]
+    if isinstance(v, list):
+        return [_bind(x, bindings) for x in v]
+    if isinstance(v, dict):
+        return {k: _bind(x, bindings) for k, x in v.items()}
     return v
 
 

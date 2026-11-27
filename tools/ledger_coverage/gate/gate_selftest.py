@@ -253,6 +253,29 @@ def case_6(fx):
     fx.record('A1r', 'PASS', ev, {'exit': 20, 'outcome': 'FAIL', 'lint_problems': ['W1-d']})
 
 
+def nested_binding(fx, bound):
+    """A row whose site field holds `$name`s inside a list and an object (R6.GATE.3 places no restriction on where a
+    `$name` appears); `bound` is the value the manifest binds to `$other`."""
+    fx.row('NB1', {'outcome': 'FAIL', 'sites': [{'subject': '$site', 'shared_with': ['$other'],
+                                                 'pair': {'with': '$other'}}]})
+    res = tool_result('FAIL', [item('deny-match', 'FAIL', subject='papers/x.md:1')],
+                      sites=[{'subject': 'papers/x.md:1', 'shared_with': ['papers/x.md:3'],
+                              'pair': {'with': 'papers/x.md:3'}}])
+    ev = fx.evidence('NB1', {'': {'exit': 20, 'result': res,
+                                  'bindings': {'site': 'papers/x.md:1', 'other': bound}}})
+    fx.record('NB1', 'PASS', ev, {'exit': 20, 'outcome': 'FAIL'})
+
+
+def case_6b(fx):
+    # a nested `$name` bound to a value the result does not carry
+    nested_binding(fx, 'papers/x.md:5')
+
+
+def case_18b(fx):
+    # a nested `$name` bound to the value the result carries
+    nested_binding(fx, 'papers/x.md:3')
+
+
 def case_7(fx):
     clean(fx)
     fx.rows[0]['requirements'] = []
@@ -478,7 +501,7 @@ TABLE = {
     'GATE-3': [('', [case_3], 'GATE_FAIL', ['duplicate-id'], None)],
     'GATE-4': [('', [case_4], 'GATE_FAIL', ['unexpected-id'], None)],
     'GATE-5': [('', [case_5], 'GATE_FAIL', ['status-not-allowed'], None)],
-    'GATE-6': [('', [case_6], 'GATE_FAIL', ['declarative-mismatch'], None)],
+    'GATE-6': [('', [case_6, case_6b], 'GATE_FAIL', ['declarative-mismatch'], None)],
     'GATE-7': [('', [case_7], 'GATE_FAIL', ['correspondence-orphan-row'], None)],
     'GATE-8': [('', [case_8], 'GATE_FAIL', ['correspondence-orphan-requirement'], None)],
     'GATE-9': [('', [case_9], 'GATE_FAIL', ['raw-evidence-missing'], None)],
@@ -490,7 +513,7 @@ TABLE = {
     'GATE-15': [('', [case_15], 'GATE_FAIL', ['procedural-failed'], None)],
     'GATE-16': [('', [case_16], 'GATE_HOLDS', [], ['reference-difference'])],
     'GATE-17': [('', [case_17, case_17b, case_17c], 'GATE_ERROR', ['file-invalid'], None)],
-    'GATE-18': [('', [case_18], 'GATE_HOLDS', [], [])],
+    'GATE-18': [('', [case_18, case_18b], 'GATE_HOLDS', [], [])],
     'GATE-19': [('', [case_19], 'GATE_HOLDS', [], [])],
     'GATE-20': [('', [case_20], 'GATE_FAIL', ['status-actual-inconsistent'], None)],
     'GATE-21': [('', [case_21], 'GATE_FAIL', ['status-not-allowed'], None)],
