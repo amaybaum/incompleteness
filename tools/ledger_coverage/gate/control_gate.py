@@ -1053,9 +1053,16 @@ def eval_invariant(k, v, result, case, attested, bindings, declared_sites=()):
                 paths = [_bind(site['subject'], bindings) for site in declared_sites if 'subject' in site]
                 if scan is None or not paths or any(not isinstance(p, str) or not p for p in paths):
                     return False, None, 'unattested'
-                # R6.RDIR.1 and R6.RDIR.10: the reserved class must be absent for the named
-                # path. Other paths in the same record directory may legitimately have it.
-                if any(entry['path'] in paths and entry.get('class') == 'record-directory' for entry in scan):
+                paths = set(paths)
+                entries = [entry for entry in scan if entry['path'] in paths]
+                # R6.RDIR.1 and R6.RDIR.10: verify each named addition's scan entry.
+                # Other paths in the same record directory may legitimately have the reserved class.
+                if (len(entries) != len(paths) or {entry['path'] for entry in entries} != paths or
+                        any('class' not in entry or
+                            (entry['class'] is not None and not isinstance(entry['class'], str))
+                            for entry in entries)):
+                    return False, None, 'unattested'
+                if any(entry['class'] == 'record-directory' for entry in entries):
                     classes.add('record-directory')
             return not (set(vals) & classes), sorted(classes), 'result'
         if k == 'items_include':
