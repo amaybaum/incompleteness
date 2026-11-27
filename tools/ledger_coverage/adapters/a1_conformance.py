@@ -27,7 +27,7 @@ if 'ledger_coverage' not in sys.modules:
     _spec.loader.exec_module(sys.modules['ledger_coverage'])
 
 from ledger_coverage.engine import cli, execution as exmod, peredit, pipeline as pl, reconcile as rc  # noqa: E402
-from ledger_coverage.engine import rules as rulemod, util  # noqa: E402
+from ledger_coverage.engine import outcome as oc, rules as rulemod, util  # noqa: E402
 from ledger_coverage.adapters import a1_controls as a1c, a1exit_exact_edit as le  # noqa: E402
 from ledger_coverage.adapters import control_records  # noqa: E402
 
@@ -567,11 +567,25 @@ def n_controls(a):
           lambda r: entry(r, l='0' * 40))
     H12 = repo.derive(H, {path: repo.read(H, path) + b'\n' + old + b'\n'}, parents=repo.parents(H),
                       subject='old bytes twice at H (synthetic copy)')
-    e12 = exmod.Execution(rcn.ctx, H12, T, rcn.led, None, M, None, T, rcn.classes, [rec])
+    # the execution main role with the synthetic copy as its scientific base and M's tree on a first-parent child
+    # of it, retained as the row's run
+    M12 = repo.derive(M, {}, parents=[H12], subject="M's tree over the synthetic copy")
+    try:
+        e12 = rcn.run(rec, h=H12, m=M12)
+        f12 = rcn.failed(e12)
+        drift12 = any(i['class'] == 'base-drift' and i.get('file') == path for i in e12.items)
+        stop12 = None
+    except oc.Stop as exc:
+        f12, drift12, stop12 = [], False, '%s: %s' % (exc.cls, exc)
+        if REC is not None:
+            REC.capture_doc('execution main role (a1_conformance.Recon.run)', {'items': [], 'stop': {
+                'class': exc.cls, 'message': str(exc)}, 'exit_status': None})
     restored()
     ev12 = rc.evaluate(repo, rcn.ctx, H12, M, T, rcn.led, rec, rec['paths'][0], rcn.classes, {})
     check('N12', 'the record\'s RC3: D296\'s old bytes made to occur twice at H in a synthetic copy: does not apply, '
-          'naming RC3', "the evaluated failed conditions include RC3", ev12['failed'], 'RC3' in ev12['failed'])
+          'naming RC3', "the execution's failed conditions include RC3, with base-drift for the path; the direct "
+          "evaluation agrees", {'failed': f12, 'base_drift': drift12, 'stop': stop12, 'evaluated': ev12['failed']},
+          'RC3' in f12 and drift12 and 'RC3' in ev12['failed'])
     M13 = repo.derive(M, {path: b'inserted line\n' + comp}, parents=[M], subject='insertion before D296')
     named('N13', 'an insertion on M before D296\'s offset while the record states the identity translation: does not '
           'apply, naming RC5', 'RC5', m=M13)
@@ -675,16 +689,39 @@ def n_controls(a):
           'REVIEW_REQUIRED side-change-unclassified at the workflow and FAIL base-drift',
           {'workflow': workflow_path, 'workflow_review': workflow_review, 'drift_fail': drift_fail},
           workflow_review and drift_fail)
-    M19 = repo.derive(M, {'tools/ledger_coverage/extra.py': b'x = 1\n', 'tools/ledger_coverage/listed.py': b'y\n'},
-                      parents=[M], subject='tool landing on M')
-    tool = {'id': 'tool-landing', 'prefixes': ['tools/ledger_coverage/'],
-            'pins': [{'path': 'tools/ledger_coverage/listed.py', 'git_blob': None, 'blob_sha256': '0' * 64}]}
-    e19 = rcn.run(None, m=M19, classes=rcn.classes + [tool])
-    u19 = sorted(i.get('file') for i in e19.items if i['class'] == 'side-change-unclassified')
+    extra_p, listed_p = 'tools/ledger_coverage/extra.py', 'tools/ledger_coverage/listed.py'
+    # M is a child of H that carries the tool landing alone, so no ledgered drift enters the outcome
+    M19 = repo.derive(H, {listed_p: b'y\n'}, parents=[H], subject='tool landing on M')
+    M19u = repo.derive(M19, {extra_p: b'x = 1\n'}, parents=[M19], subject='an unlisted tool path on M')
+
+    def tool(blob_sha256, git_blob):
+        return {'id': 'tool-landing', 'prefixes': ['tools/ledger_coverage/'],
+                'pins': [{'path': listed_p, 'git_blob': git_blob, 'blob_sha256': blob_sha256}]}
+    good = tool(sha(b'y\n'), repo.blob_id(M19, listed_p))
+    # separately: an unlisted path under the prefix (the listed path matching its pin), and the listed path whose
+    # blob differs from its pin (no unlisted path)
+    e19u = rcn.run(None, m=M19u, classes=rcn.classes + [good])
+    if REC is not None:
+        REC.name_last('unlisted path under the tool-landing prefix')
+    e19b = rcn.run(None, m=M19, classes=rcn.classes + [tool('0' * 64, None)])
+    if REC is not None:
+        REC.name_last('listed path with a differing blob')
+    # restored: the same run on M with the listed path matching its pin, against a clean run of it
+    c19 = rcn.run(None, m=M19, classes=rcn.classes + [good])
+    if REC is not None:
+        REC.name_last('baseline')
+    r19 = rcn.run(None, m=M19, classes=rcn.classes + [good])
+    if REC is not None:
+        REC.name_last('restored', baseline=getattr(c19, 'captured', None))
+
+    def unclassified(e_):
+        return sorted(i.get('file') for i in e_.items if i['class'] == 'side-change-unclassified')
+    u19 = {'unlisted': unclassified(e19u), 'differing_blob': unclassified(e19b), 'restored': unclassified(r19)}
     check('R19', 'a path under the tool-landing prefix on M that the class does not list, and separately a listed path '
           'whose blob differs from its pin: REVIEW_REQUIRED side-change-unclassified each',
-          "side-change-unclassified for both tool paths", u19,
-          u19 == ['tools/ledger_coverage/extra.py', 'tools/ledger_coverage/listed.py'])
+          "side-change-unclassified for the unlisted path, and separately for the listed path; none when the listed "
+          "path matches its pin", u19,
+          u19 == {'unlisted': [extra_p], 'differing_blob': [listed_p], 'restored': []})
 
 
 def main():
