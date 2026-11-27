@@ -895,14 +895,31 @@ def rule_controls():
     lk = (lambda n: w.ctx().profiles.get(n),
           lambda c, f, sh: next(((s, [], rulemod.sentence_context_sha(sents, i)) for i, (s, _, _) in enumerate(sents)
                                  if util.sha256(s) == sh), None))
-    out['lint-ok'] = rulemod.lint_rule(rule, lk[0], lk[1], [], lambda cc: None) == []
-    out['E-A6r'] = bool(rulemod.lint_rule(dict(rule, matcher=dict(rule['matcher'], literal='counts seven')), lk[0],
-                                        lk[1], [], lambda cc: None))
-    out['E-A8r'] = bool(rulemod.lint_rule(dict(rule, negative_examples=[]), lk[0], lk[1], [], lambda cc: None))
-    out['E-A1r'] = bool(rulemod.allow_widening(rule, dict(rule, scope={'files': [doc_path, other_path]})))
-    out['E-A2r'] = bool(rulemod.allow_widening(rule, dict(rule, matcher=dict(rule['matcher'], literal='zeta'))))
+    rule_file = 'rec/rules.json'
+
+    def rule_lint(problems):
+        # the rule record's lint as a stage result: one record-invalid item on the rule file when lint fails
+        items = [oc.make_item('RECORD', 'record-invalid', rule_file, None, {'why': problems[0]}, file=rule_file,
+                              detail=problems)] if problems else []
+        _stage('rule lint', items, lint_problems=list(problems))
+        _case('', rule_file=rule_file)
+        return problems
+
+    lint_problems = rulemod.lint_rule(rule, lk[0], lk[1], [], lambda cc: None)
+    rule_lint(lint_problems)
+    if capture_hook is not None:
+        capture_hook.attest('', {'outcome': 'LINT_PASS' if lint_problems == [] else 'LINT_FAIL',
+                                 'lint_problems': lint_problems})
+    out['lint-ok'] = lint_problems == []
+    out['E-A6r'] = bool(rule_lint(rulemod.lint_rule(dict(rule, matcher=dict(rule['matcher'], literal='counts seven')),
+                                                    lk[0], lk[1], [], lambda cc: None)))
+    out['E-A8r'] = bool(rule_lint(rulemod.lint_rule(dict(rule, negative_examples=[]), lk[0], lk[1], [],
+                                                    lambda cc: None)))
+    out['E-A1r'] = bool(rule_lint(rulemod.allow_widening(rule, dict(rule, scope={'files': [doc_path, other_path]}))))
+    out['E-A2r'] = bool(rule_lint(rulemod.allow_widening(rule, dict(rule, matcher=dict(rule['matcher'],
+                                                                                        literal='zeta')))))
     fp2 = dict(rule['fingerprints'][0], sentence_sha256=util.sha256('another'))
-    out['E-A3r'] = bool(rulemod.allow_widening(rule, dict(rule, fingerprints=[fp2])))
+    out['E-A3r'] = bool(rule_lint(rulemod.allow_widening(rule, dict(rule, fingerprints=[fp2]))))
     return out
 
 
