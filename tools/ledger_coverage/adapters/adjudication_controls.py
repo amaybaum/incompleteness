@@ -24,18 +24,23 @@ if 'ledger_coverage' not in sys.modules:
     sys.modules['ledger_coverage'] = importlib.util.module_from_spec(_spec)
     _spec.loader.exec_module(sys.modules['ledger_coverage'])
 
+from ledger_coverage.adapters import control_records  # noqa: E402
 from ledger_coverage import record_authority as ra  # noqa: E402
 from ledger_coverage.engine import adjudication as adj  # noqa: E402
 from ledger_coverage.engine import findings as fd  # noqa: E402
 from ledger_coverage.engine import gitobj  # noqa: E402
 
 RESULTS = []
+# R6.GATE.5 and R6.GATE.7: the runs captured since the previous case are its evidence
+LOCAL = control_records.LocalSuite('adjudication')
 OWNERS = ra.OWNER_IDENTITIES
 P = 'doc/s.md'
 
 
-def case(cid, expected, actual, holds):
-    RESULTS.append({'id': cid, 'expected': expected, 'actual': actual, 'status': 'PASS' if holds else 'FAIL'})
+def case(cid, expected, actual, holds, attested=None):
+    RESULTS.append({'id': cid, 'expected': expected, 'actual': actual, 'status': 'PASS' if holds else 'FAIL',
+                    'attested': attested})
+    LOCAL.case(cid)
 
 
 def h64(c):
@@ -406,6 +411,7 @@ def main(out):
     if os.path.exists(out):
         shutil.rmtree(out)
     os.makedirs(out)
+    LOCAL.start()
     for name, fn in SUITES:
         try:
             fn()
@@ -417,6 +423,7 @@ def main(out):
         json.dump({'schema': 'oi-local-controls/1', 'suite': 'adjudication', 'cases': RESULTS}, f, indent=1,
                   sort_keys=True, default=str)
         f.write('\n')
+    LOCAL.write(out, RESULTS)
     bad = [c['id'] for c in RESULTS if c['status'] != 'PASS']
     print(json.dumps({'cases': len(RESULTS), 'failed': bad}))
     return 0 if not bad else 1

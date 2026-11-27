@@ -1506,6 +1506,11 @@ def ei_controls(r):
           "and the result equals that of the clean tree", {'branch': o14a, 'main': o14b, 'result_equal': same14},
           failed(o14a) and 'GITHUB_REF' in o14a['prerun'] and o14b['prerun_exit'] == 0 and
           o14b.get('entry_exit') == 0 and not o14b['markers'] and same14)
+    # EI14's branch-dispatch half needs a host dispatch of the pinned workflow on a branch holding T' (its
+    # expectation admits NOT RUN until that run exists); recorded NOT RUN, with no evidence of its own
+    not_run('EI14-dispatch', 'the pinned workflow dispatched on a branch holding T\': the pre-run check fails naming '
+            'GITHUB_REF, the entry point never runs, no marker', 'no dispatch of the pinned workflow on a branch '
+            'holding T\' has been made; it needs the tool landed and a launch the owner approves')
 
     # EI15
     def changed_code(d):

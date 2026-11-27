@@ -133,6 +133,7 @@ class A1:
         self.rec = control_records.Recorder('a1-controls', out_root)
         self.runs_of = {}
         self.files_of = {}  # retained evidence files of a control, beside its runs
+        self.procedures = {}  # the procedure inputs naming them (R6.GATE.8)
 
     def out(self):
         self.n += 1
@@ -1575,11 +1576,28 @@ def sweeps(a):
                  'prev_t is a subset of allt; 584 sites')
 
 
-def engine_identity_y8(a, syn_engine):
+def engine_identity_y8(a, syn_engine=None):
+    """Y8: the engine hash recorded by an A1 coverage run equals the one a synthetic-configuration coverage run
+    records; both runs are retained, compared by the hash procedure (engine.blob_sha256). `syn_engine`, when given,
+    is a hash measured elsewhere (--syn-engine) that must also equal it."""
+    from ledger_coverage.adapters import synthetic_fixture as sf
     code, res, t = a.run(['coverage', '--commit', E, '--check', 'item2'])
-    a.record('Y8', res.get('engine', {}).get('blob_sha256') == syn_engine,
-             'identical engine hash recorded for the A1 and the synthetic configuration',
-             {'a1': res.get('engine', {}).get('blob_sha256'), 'synthetic': syn_engine})
+    syn = sf.Syn()
+    c, p, _, _ = syn.build()
+    out = a.out()
+    argv = ['coverage', '--config', '%s:%s' % (c, p), '--out', out, '--commit', syn.H, '--check', 'zc']
+    code_s, res_s = cli.run(argv, repo=syn.repo, harness=True, stderr=io.StringIO())
+    run_s = a.rec.capture(argv, code_s, out)
+    run_a = a.rec.pending[-2] if len(a.rec.pending) >= 2 else None
+    h_a = (res.get('engine') or {}).get('blob_sha256')
+    h_s = ((res_s or {}).get('engine') or {}).get('blob_sha256')
+    equal = h_a is not None and h_a == h_s and (syn_engine is None or syn_engine == h_a)
+    if run_a is not None:
+        run_a['attested'] = {'outcome': 'HASH_EQUAL' if equal else 'HASH_DIFFERS'}
+    names = ['case%02d.%s' % (n, r['result'][0]) for n, r in ((1, run_a), (2, run_s)) if r and r.get('result')]
+    a.record('Y8', equal and len(names) == 2, 'identical engine hash recorded for the A1 and the synthetic configuration',
+             {'a1': h_a, 'synthetic': h_s, 'syn_engine': syn_engine, 'exits': [code, code_s]})
+    a.procedures['Y8'] = {'name': 'engine-identity', 'lib': 'hash', 'runs': names}
 
 
 PREDICATES = {
@@ -1889,8 +1907,7 @@ def main():
               ('v', v_controls), ('rules', rule_lint_controls), ('exec', ex_controls),
               ('trees', lambda x: tree_controls(x, tool_files)), ('k1', lambda x: k1_graph(x, tool_files)),
               ('z9g', z9g), ('rep', rep_build_control)]
-    if args.syn_engine:
-        groups.append(('y8', lambda x: engine_identity_y8(x, args.syn_engine)))
+    groups.append(('y8', lambda x: engine_identity_y8(x, args.syn_engine)))
     if not args.skip_sweeps:
         groups.append(('sweeps', sweeps))
     only = set(args.only.split(',')) if args.only else None
@@ -1923,7 +1940,7 @@ def main():
         st = v['status'] if v['status'] in ('PASS', 'FAIL', 'NOT RUN') else 'FAIL'
         if cid in not_due:
             st = 'NOT RUN'
-        files, proc = a.files_of.get(cid), None
+        files, proc = a.files_of.get(cid), a.procedures.get(cid)
         if cid == 'RT-L2' and isinstance(v.get('actual'), dict) and v['actual'].get('rtl2_inputs'):
             ri = v['actual']['rtl2_inputs']
             files = {'rtl2-drift.json': ri['drift'], 'rtl2-records.json': ri['records'], 'rtl2-roles.json': ri['roles']}

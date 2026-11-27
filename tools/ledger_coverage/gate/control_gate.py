@@ -1438,6 +1438,10 @@ def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None):
                         additions[query] = after - before
                     actual.setdefault(k, {})[subj] = additions
                     ok = ok and additions == v
+                elif k == 'reason':
+                    # the reason a site or side change carries its class (sec. 13: "reason `not a regular file`"),
+                    # which the result states in its `why` field
+                    ok = ok and any(x.get('reason', x.get('why')) == v for x in sites + sitems)
                 else:
                     ok = ok and any(x.get(k) == v for x in sites + sitems)
             if not ok:

@@ -211,3 +211,45 @@ class Recorder(object):
                       sort_keys=True, default=str)
             f.write('\n')
         return p
+
+
+EXPECTATIONS = os.path.join('verification', 'audits', 'foundations', 'a1exit-design-r6-20261125', 'EXPECTATIONS.json')
+
+
+def expectation_ids(repo_root=None):
+    """The row ids of the expectation file in the runner's own tree (empty when the file is absent)."""
+    root = repo_root or os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+    try:
+        with open(os.path.join(root, EXPECTATIONS), encoding='utf-8') as f:
+            return {r['id'] for r in json.load(f)['rows']}
+    except (OSError, ValueError, KeyError, TypeError):
+        return set()
+
+
+class LocalSuite(object):
+    """The evidence contract for a local control suite whose cases are mostly sub-cases of no expectation row
+    (obl29, custody, adjudication, staging, sessions). Every in-process `cli.run` is captured from `start`; `case`
+    closes a case, taking the runs captured since the previous one; `write` records, with their evidence, the cases
+    whose id is an expectation row, and writes `control-records.json`. The other cases stay in the suite's own
+    report; recorded to the gate they would be ids the expectation file does not hold."""
+
+    def __init__(self, job):
+        self.rec = Recorder(job, None)
+        self.runs = {}
+
+    def start(self):
+        from ledger_coverage.engine import cli
+        return self.rec.wrap_cli(cli)
+
+    def case(self, cid):
+        self.runs.setdefault(cid, []).extend(self.rec.take())
+
+    def write(self, out_dir, results, repo_root=None):
+        rows = expectation_ids(repo_root)
+        self.rec.out_dir = out_dir
+        for r in results:
+            if r['id'] in rows and r['id'] not in self.rec.ids:
+                self.rec.pending = self.runs.get(r['id'], [])
+                self.rec.record(r['id'], r['status'] if r['status'] in STATUSES else 'FAIL', r.get('actual'),
+                                r.get('predicate') or r.get('expected'), attested=r.get('attested'))
+        return self.rec.write()

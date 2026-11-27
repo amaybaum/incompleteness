@@ -172,6 +172,36 @@ jobs:
           set +e
           python3 -I -B tools/ledger_coverage/adapters/conformance_controls.py "$O/conformance"
           echo "$?" > "$O/conformance.exit"
+      - name: obl29 controls
+        run: |
+          O="$RUNNER_TEMP/suite"
+          set +e
+          python3 -I -B tools/ledger_coverage/adapters/obl29_controls.py "$O/obl29"
+          echo "$?" > "$O/obl29.exit"
+      - name: custody controls
+        run: |
+          O="$RUNNER_TEMP/suite"
+          set +e
+          python3 -I -B tools/ledger_coverage/adapters/custody_controls.py "$O/custody"
+          echo "$?" > "$O/custody.exit"
+      - name: adjudication controls
+        run: |
+          O="$RUNNER_TEMP/suite"
+          set +e
+          python3 -I -B tools/ledger_coverage/adapters/adjudication_controls.py "$O/adjudication"
+          echo "$?" > "$O/adjudication.exit"
+      - name: staging controls
+        run: |
+          O="$RUNNER_TEMP/suite"
+          set +e
+          python3 -I -B tools/ledger_coverage/adapters/staging_controls.py "$O/staging"
+          echo "$?" > "$O/staging.exit"
+      - name: sessions controls
+        run: |
+          O="$RUNNER_TEMP/suite"
+          set +e
+          python3 -I -B tools/ledger_coverage/adapters/sessions_controls.py "$O/sessions"
+          echo "$?" > "$O/sessions.exit"
       - name: A1 conformance
         env:
           CFG: ${{ inputs.config }}
@@ -197,7 +227,7 @@ jobs:
         run: |
           O="$RUNNER_TEMP/suite"
           set --
-          for r in engine purity synthetic conformance a1-conformance a1-controls; do
+          for r in engine purity synthetic conformance obl29 custody adjudication staging sessions a1-conformance a1-controls; do
             if [ -f "$O/$r/control-records.json" ]; then set -- "$@" --records "$O/$r/control-records.json"; fi
           done
           python3 -I -S -B tools/ledger_coverage/gate/control_gate.py --expectations "$EXP" --requirements "$REQ" "$@" --repo . --freeze "$F" --config "$CFG" --out "$O/gate"

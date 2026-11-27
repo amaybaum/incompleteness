@@ -25,17 +25,22 @@ if 'ledger_coverage' not in sys.modules:
     sys.modules['ledger_coverage'] = importlib.util.module_from_spec(_spec)
     _spec.loader.exec_module(sys.modules['ledger_coverage'])
 
+from ledger_coverage.adapters import control_records  # noqa: E402
 from ledger_coverage.adapters import synthetic_fixture as sf  # noqa: E402
 from ledger_coverage.adapters import postfreeze_controls as pfc  # noqa: E402
 from ledger_coverage.engine import records as rec  # noqa: E402
 from ledger_coverage.engine import category3 as c3  # noqa: E402
 
 RESULTS = []
+# R6.GATE.5 and R6.GATE.7: the runs captured since the previous case are its evidence
+LOCAL = control_records.LocalSuite('obl29')
 FP = pfc.RD + 'finding.json'
 
 
-def case(cid, expected, actual, holds):
-    RESULTS.append({'id': cid, 'expected': expected, 'actual': actual, 'status': 'PASS' if holds else 'FAIL'})
+def case(cid, expected, actual, holds, attested=None):
+    RESULTS.append({'id': cid, 'expected': expected, 'actual': actual, 'status': 'PASS' if holds else 'FAIL',
+                    'attested': attested})
+    LOCAL.case(cid)
 
 
 def outcome(w, classify=(), **kw):
@@ -142,11 +147,39 @@ def removal_controls(r):
     case('N-SYMLINK', 'f replaced by a symbolic link: still blocked, present_at_M false', o, blocked(o, False, c1))
     # SIDE-NONREG: a symbolic-link and a submodule side change outside the plan record directory
     w = pfc.World(r)
+    # M is H plus the two side changes only (no drift of a ledgered path), so that they decide the outcome
+    w.M = w.syn.H
     step(w, {'notes/link': ('symlink', b'target'), 'notes/sub': ('submodule', '9' * 40)}, 'non-regular side changes')
-    code, out = w.run([], harness=True)
+    # the byte reads of the two non-regular paths the run attempts (R6.PUR.12: the mode is read before any byte)
+    reads, real_read = [], w.repo.read
+
+    def logged_read(cid, path):
+        if path in ('notes/link', 'notes/sub'):
+            reads.append(path)
+        return real_read(cid, path)
+    w.repo.read = logged_read
+    try:
+        code, out = w.run([], harness=True)
+    finally:
+        w.repo.read = real_read
     out = out or {}
     nonreg = sorted(i.get('subject') for i in out.get('items', []) if i['class'] == 'side-change-unclassified'
                     and i.get('why') == 'not a regular file')
+    # the one run is the evidence of both expectation cases, each binding $p to its path
+    run = LOCAL.rec.pending[-1] if LOCAL.rec.pending else None
+    if run is not None:
+        LOCAL.rec.pending[-1:] = [dict(run, case=n, bindings={'p': q}) for n, q in (
+            ('a side change outside the plan record directory that is a symbolic link at M', 'notes/link'),
+            ('a side change outside the plan record directory that is a submodule entry at M', 'notes/sub'))]
+    att = {'no_exception': code != 70, 'bytes_read_before_type_check': bool(reads)}
+    case('SIDE-NONREG', 'a symbolic-link and a submodule side change outside the plan record directory: each '
+                        'REVIEW_REQUIRED side-change-unclassified with the reason "not a regular file", no ERROR',
+         {'exit': code, 'stop': out.get('stop'), 'nonreg': nonreg, 'reads': reads},
+         code != 65 and nonreg == ['notes/link', 'notes/sub'] and
+         all(i['decision'] == 'REVIEW_REQUIRED' for i in out.get('items', []) if i['class'] == 'side-change-unclassified'
+             and i.get('subject') in nonreg) and not reads,
+         attested={n: att for n in ('a side change outside the plan record directory that is a symbolic link at M',
+                                    'a side change outside the plan record directory that is a submodule entry at M')})
     # same-blob mode changes: syn/note.txt (a regular file at H) becomes a symbolic link with the same blob id, and
     # syn/witness.md flips from 100644 to 100755 with the same bytes
     note = w.repo.read(w.syn.H, 'syn/note.txt')
@@ -188,12 +221,6 @@ def removal_controls(r):
           'classes': sorted({i['class'] for i in out3.get('items', [])})},
          code3 != 65 and len(d3) == 1 and d3[0].get('class') == 'base-drift' and d3[0].get('h_mode') == '100644' and
          d3[0].get('m_mode') == '100755' and 'base-drift' in {i['class'] for i in out3.get('items', [])})
-    case('SIDE-NONREG', 'a symbolic-link and a submodule side change outside the plan record directory: each '
-                        'REVIEW_REQUIRED side-change-unclassified with the reason "not a regular file", no ERROR',
-         {'exit': code, 'stop': out.get('stop'), 'nonreg': nonreg},
-         code != 65 and nonreg == ['notes/link', 'notes/sub'] and
-         all(i['decision'] == 'REVIEW_REQUIRED' for i in out.get('items', []) if i['class'] == 'side-change-unclassified'
-             and i.get('subject') in nonreg))
     w, c1, fb = landed(r)
     step(w, {FP: ('submodule', '9' * 40)}, 'replace by a gitlink')
     o = outcome(w)
@@ -1719,6 +1746,7 @@ def main(out):
     if os.path.exists(out):
         shutil.rmtree(out)
     os.makedirs(out)
+    LOCAL.start()
     root = tempfile.mkdtemp(prefix='obl29-', dir=out)
     r = sf.Runner(root)
     for name, fn in SUITES:
@@ -1732,6 +1760,7 @@ def main(out):
         json.dump({'schema': 'oi-local-controls/1', 'suite': 'obl29', 'cases': RESULTS}, f, indent=1,
                   sort_keys=True, default=str)
         f.write('\n')
+    LOCAL.write(out, RESULTS)
     bad = [c['id'] for c in RESULTS if c['status'] != 'PASS']
     print(json.dumps({'cases': len(RESULTS), 'failed': bad}))
     return 0 if not bad else 1
