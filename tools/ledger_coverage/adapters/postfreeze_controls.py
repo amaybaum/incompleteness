@@ -81,7 +81,7 @@ class World:
         return jb({'schema': rec.review_schema, 'reviewer': reviewer, 'reviewed': {'path': path,
                                                                                    'blob_sha256': sha(data)},
                    'method': 'read every object the record names',
-                   'verdicts': [{'item': i, 'verdict': 'accept'} for i in rec.item_ids(doc)]})
+                   'verdicts': [{'item': i, 'verdict': 'accept', 'reason': ''} for i in rec.item_ids(doc)]})
 
     def rev(self, files, parent=None, parents=None):
         parent = parent or self.M

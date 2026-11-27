@@ -4,6 +4,7 @@ approval is procedural and outside the tool: no record kind stands in for it."""
 import json
 import re
 
+from . import findings as fd
 from . import util
 
 review_schema = 'oi-review-record/1'
@@ -290,7 +291,7 @@ def lint_chain(ref, store, admitted_shas, predecessor=False):
         bad = []
         if not _person(rv.get('reviewer')):
             bad.append('reviewer is not a person')
-        if rv.get('reviewer') == author:
+        if fd.same_identity(rv.get('reviewer'), author):
             bad.append('reviewer equals author')
         verdicts = {v.get('item'): v.get('verdict') for v in rv.get('verdicts', []) if isinstance(v, dict)}
         named = [v.get('item') for v in rv.get('verdicts', []) if isinstance(v, dict)]
@@ -298,6 +299,8 @@ def lint_chain(ref, store, admitted_shas, predecessor=False):
             bad.append('an item has more than one verdict')
         if set(ids) - set(verdicts):
             bad.append('verdicts do not cover every item')
+        if doc.get('schema') in fd.recon_schemas and set(verdicts) - set(ids):
+            bad.append('a verdict names an item outside the reconciliation record')
         if any(verdicts.get(i) != 'accept' for i in ids):
             bad.append('an item is not accepted')
         if not rv.get('method'):

@@ -365,7 +365,7 @@ def reassessment_controls(r):
 
     def adverse(ref_doc, ref_path, reviewer='reviewer-z', verdict='reject', drop_item=False, dissent=None):
         ids = rec.item_ids(ref_doc)
-        v = [{'item': i, 'verdict': verdict if k == 0 else 'accept'} for k, i in enumerate(ids)]
+        v = [{'item': i, 'verdict': verdict if k == 0 else 'accept', 'reason': ''} for k, i in enumerate(ids)]
         if drop_item:
             v = v[1:]
         d = {'schema': rec.review_schema, 'reviewer': reviewer,
@@ -575,11 +575,16 @@ def clearance_predicates(r):
     case('P-REFREEZE-REVIEW-WITNESS-RESOLVED-pred', 'reliance through (r3) only; Z by V\'s reviewer carries every '
                                                     'token and reason: cleared under NR-1, NR-2, NR-4 and NR-5',
          [blocked, clauses, route], not blocked and clauses == ['r3'] and route and 'NR-5' in route)
+    got = o.decide(dR, W, R=R, Z=Z(reviewer=' REVIEWER-V '), nr2=True, finding_git=fgit)
+    case('NR5-SAME-NORMALIZED-REVIEWER-pred', 'Z is by the same reviewer as V under the adopted identity comparison',
+         got, not got[0] and got[2] and 'NR-5' in got[2])
     negs = [
         ('N-REFREEZE-REVIEW-WITNESS-OTHER-REVIEWER-pred', 'Z by an independent reviewer other than V\'s',
          dict(Z=Z(reviewer='reviewer-x'))),
         ('N-REFREEZE-REVIEW-WITNESS-SELF-pred', 'Z by V\'s reviewer who is also the reassessment\'s author',
          dict(Z=Z(), A_author='reviewer-v')),
+        ('NR5-REVIEWER-AUTHOR-ALIAS-pred', 'the reassessment author names the same identity as V and Z',
+         dict(Z=Z(), A_author=' REVIEWER-V ')),
         ('N-REFREEZE-REVIEW-WITNESS-NO-IDENTITY-pred', 'V\'s reviewer is not an identity string (a URL)',
          dict(Z=Z(reviewer='https://example.invalid/run/1'), V_reviewer='https://example.invalid/run/1')),
         ('NR5-MISSING-ITEM-TOKEN-pred', 'Z\'s method lacks the <b>#<item> token',
@@ -646,6 +651,10 @@ def clearance_predicates(r):
          b1[0] is False and b1[2] and 'NR-1' in b1[2])
     case('N-REFREEZE-NONRELIANCE-UNSUPPORTED-pred', 'the NR-3 reviewer is an excluded author, or NR-4\'s tokens are '
                                                     'absent: the witness stands', [b2, b3], b2[0] and b3[0])
+    got = o.decide(dR, Wl, R=R, required_review=dict(rv, reviewer=' WRITER-Q '),
+                   excluded=['writer-r', 'writer-q', 'reviewer-v'], nr2=True)
+    case('NR3-EXCLUDED-AUTHOR-ALIAS-pred', 'the required reviewer matches an excluded author after normalization',
+         got, got[0])
     Rl = dict(R, lineage_blobs=[qref['blob_sha256']])
     b4 = o.decide(dR, Wl, R=Rl, required_review=rv, excluded=[], nr2=True)
     case('NR1-LINEAGE-pred', 'R\'s lineage holds the disputed record\'s blob: NR-1 fails, the witness stands', b4,

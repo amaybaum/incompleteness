@@ -117,7 +117,7 @@ def replacement(w, reviewer='reviewer-z', tokens=True):
     method = 'read ' + (' '.join([gitobj.blob_id_of(qb), gitobj.blob_id_of(sb)]) if tokens else 'every object')
     zb = pfc.jb({'schema': rec.review_schema, 'reviewer': reviewer, 'reviewed': {'path': R_PATH,
                                                                                  'blob_sha256': sf.sha(rb)},
-                 'method': method, 'verdicts': [{'item': i, 'verdict': 'accept'}
+                 'method': method, 'verdicts': [{'item': i, 'verdict': 'accept', 'reason': ''}
                                                 for i in rec.item_ids(json.loads(rb))]})
     return R_PATH, rb, R_PATH[:-5] + '.review.json', zb
 
@@ -1242,6 +1242,53 @@ def adjudication_run_controls(r, two_pass, pin_q, sib, drop_sib):
          o.get('error') or [o['reassess_why'], o['review_disregards']],
          still_blocked(o) and not o['review_disregards'] and
          any('no accepting non-author review' in why for why in o['reassess_why']))
+
+    def acceptance_by_repair_author(c, J, T, jp, jb, jdir):
+        entry = J['replacement']['path']
+        path = entry[:-5] + '.review.json'
+        author = json.loads(c.w.repo.read(c.w.M, entry))['author']
+        review = dict(json.loads(c.w.repo.read(c.w.M, path)), reviewer=' ' + author.upper() + ' ')
+        c.step({path: pfc.jb(review)}, 'the sole current accepting review uses a spelling of the repair author')
+
+    o = guarded_run(lambda: world(setup=review_setup, before_landing=address_dissent,
+                                  after_landing=acceptance_by_repair_author))
+    case('ADJ-N-CURRENT-ACCEPTANCE-AUTHOR-ALIAS', 'current acceptance by the repair author is ineligible after '
+                                                'identity normalization, even when other dissent is addressed',
+         o.get('error') or [o['reassess_why'], o['review_disregards']],
+         still_blocked(o) and not o['review_disregards'] and
+         any('no accepting non-author review' in why for why in o['reassess_why']))
+
+    def review_extra_item(c, J, T, jp, jb, jdir):
+        path = J['replacement']['path'][:-5] + '.review.json'
+        review = json.loads(c.w.repo.read(c.w.M, path))
+        review['verdicts'].append({'item': 'foreign-item', 'verdict': 'reject', 'reason': 'outside this record'})
+        c.step({path: pfc.jb(review)}, 'the only current acceptance names an extra item')
+
+    o = guarded_run(lambda: world(setup=review_setup, before_landing=address_dissent, after_landing=review_extra_item))
+    case('ADJ-N-CURRENT-REVIEW-EXTRA-ITEM', 'an eligible repair review must cover exactly the required items. The '
+                                          'extra nonaccepting verdict cannot be silently disregarded',
+         o.get('error') or [o['reassess_why'], o['review_disregards']],
+         still_blocked(o) and not o['review_disregards'] and
+         any('a verdict names an item outside' in why for why in o['reassess_why']))
+
+    def retain_malformed_review(c, J, jdir, field, value):
+        address_dissent(c, J, jdir)
+        current = J['replacement']['path'][:-5] + '.review.json'
+        review = dict(json.loads(c.w.repo.read(c.w.M, current)), reviewer='reviewer-form')
+        review[field] = value
+        path = jdir + 'withdrawn-malformed.review.json'
+        c.step({path: pfc.jb(review)}, 'land an exact repair review with invalid form')
+        c.step({path: None}, 'withdraw the malformed review while its bytes remain in the cumulative record set')
+
+    for cid, field, value in (('ADJ-N-RETAINED-REVIEW-FORM', 'unexpected', True),
+                              ('ADJ-N-RETAINED-VERDICTS-TYPE', 'verdicts', 7)):
+        o = guarded_run(lambda: world(setup=review_setup,
+                                      before_landing=lambda *a: retain_malformed_review(*a, field, value)))
+        case(cid, 'a withdrawn exact repair review has invalid form and still blocks after another dissent '
+                  'is addressed',
+             o.get('error') or [o['reassess_why'], o['review_disregards']],
+             still_blocked(o) and not o['review_disregards'] and
+             any('withdrawn-malformed.review.json' in why and 'invalid form' in why for why in o['reassess_why']))
 
     def duplicate_adjudication(c, J, T, jp, jb, jdir):
         c.step({jdir + 'duplicate-adj.json': jb}, 'the current record set has two adjudications with the same id')

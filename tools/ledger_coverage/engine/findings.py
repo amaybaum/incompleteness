@@ -291,7 +291,8 @@ def review_schema_problems(doc):
     validate(REVIEW, doc, '$', out)
     if isinstance(doc, dict) and ('replaces' in doc) != (doc.get('kind') == 'widening'):
         out.append('$.replaces: present exactly when the kind is widening')
-    for i, v in enumerate(doc.get('verdicts') or [] if isinstance(doc, dict) else []):
+    verdicts = doc.get('verdicts') if isinstance(doc, dict) else None
+    for i, v in enumerate(verdicts if isinstance(verdicts, list) else []):
         if isinstance(v, dict) and v.get('verdict') != 'invalidates':
             for k in ('invalidated', 'configuration'):
                 if k in v:
@@ -329,8 +330,11 @@ def first_kind_entries(doc):
 
 def second_kind_verdicts(doc):
     """Form (i): the verdict entries of a review record that carry a finding of the second kind."""
-    return [v for v in doc.get('verdicts') or [] if isinstance(doc, dict) and isinstance(doc.get('verdicts'), list)
-            and isinstance(v, dict) and (v.get('verdict') == 'invalidates' or 'invalidated' in v)]
+    verdicts = doc.get('verdicts') if isinstance(doc, dict) else None
+    if not isinstance(verdicts, list):
+        return []
+    return [v for v in verdicts if isinstance(v, dict) and
+            (v.get('verdict') == 'invalidates' or 'invalidated' in v)]
 
 
 def second_kind_form_problems(review, reviewed_doc, verdict):

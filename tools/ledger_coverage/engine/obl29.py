@@ -25,6 +25,7 @@ with `_dir`, the directory of its path, added by the caller.
 """
 import re
 
+from . import findings as fd
 from . import records as rec
 
 _split = re.compile(r'[ \t\n\r]+')
@@ -129,7 +130,8 @@ def nr3(R, review, excluded, reviews_of_R):
     if not isinstance(review, dict) or review.get('reviewed') != R['ref'] or \
             review.get('_dir') != R['ref']['path'].rsplit('/', 1)[0]:
         return False
-    if not rec._person(review.get('reviewer')) or review.get('reviewer') in set(excluded):
+    reviewer = review.get('reviewer')
+    if not rec._person(reviewer) or any(fd.same_identity(reviewer, identity) for identity in excluded):
         return False
     if adverse_items(review, R['doc']):
         return False
@@ -157,11 +159,11 @@ def nr5(Z, V, W, R, D, finding_git, reviews_of_R):
         if t is None:
             return ['an adverse item id of V cannot form a token']
         toks.append(t)
-    if not isinstance(Z, dict) or Z.get('reviewer') != who:
+    if not isinstance(Z, dict) or not fd.same_identity(Z.get('reviewer'), who):
         bad.append("Z's reviewer is not V's reviewer")
     authors = {R['doc'].get('author'), (W.get('disputed_doc') or {}).get('author'),
                (D.get('reassessment') or {}).get('doc', {}).get('author')}
-    if isinstance(Z, dict) and Z.get('reviewer') in authors:
+    if isinstance(Z, dict) and any(fd.same_identity(Z.get('reviewer'), author) for author in authors):
         bad.append("Z's reviewer is an author of R, the disputed record or the reassessment")
     if not isinstance(Z, dict) or Z.get('_dir') != R['ref']['path'].rsplit('/', 1)[0] or Z.get('kind', 'review') != \
             'review' or adverse_items(Z, R['doc']):

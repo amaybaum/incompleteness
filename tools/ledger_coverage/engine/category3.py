@@ -53,13 +53,12 @@ def _reviewed(store, ref, sha, disregarded=()):
     if len(reviews) != 1:
         return ['%d review records in the record directory name its blob, not one' % len(reviews)]
     review = store.by_sha[reviews[0]][1]
+    problems = fd.review_schema_problems(review)
+    if problems:
+        return problems
     dissent = review.get('dissent')
     if isinstance(dissent, str) and dissent.strip():
         return ['the current repair review carries dissent']
-    if disregarded:
-        problems = fd.review_schema_problems(review)
-        if problems:
-            return problems
     return rec.lint_chain(ref, store, {sha, reviews[0]})
 
 
@@ -351,7 +350,7 @@ def reassessment_problems(repo, M, led, doc, ref, store, admitted, found, m_scan
                 out.append("the repair's reconciliation record has no entry for entry_path")
             if not defer_repair_review and _reviewed(m_store, eref, eref['blob_sha256']):
                 out.append("the repair's reconciliation record entry has no accepting non-author review")
-            if edoc.get('author') in reviewers:
+            if any(fd.same_identity(edoc.get('author'), reviewer) for reviewer in reviewers):
                 out.append("the reviewer is the author of the repair's reconciliation record entry")
     # Keys as r13 Amendment 7 amends them: edit is null only when the finding binds the citing configuration at run
     # level; a null-edit reassessment lifts that run-level binding only, and each edit the finding also binds is lifted
@@ -627,12 +626,18 @@ def eligible_review_problems(reviews, doc):
     out = []
     ids = rec.item_ids(doc) if isinstance(doc, dict) else []
     author = doc.get('author') if isinstance(doc, dict) else None
+    reconciliation = isinstance(doc, dict) and doc.get('schema') in fd.recon_schemas
     for path, rv in reviews:
         if not isinstance(rv, dict) or rv.get('kind', 'review') != 'review':
             continue
         who = rv.get('reviewer')
-        if not rec._person(who) or who == author:
+        if not rec._person(who) or fd.same_identity(who, author):
             continue
+        if reconciliation:
+            problems = fd.review_schema_problems(rv)
+            if problems:
+                out.append('the review %s in the cumulative record set has invalid form: %s' % (path, problems[0]))
+                continue
         named = [v.get('item') for v in rv.get('verdicts') or [] if isinstance(v, dict)]
         verdicts = {v.get('item'): v.get('verdict') for v in rv.get('verdicts') or [] if isinstance(v, dict)}
         bad = []
@@ -640,6 +645,8 @@ def eligible_review_problems(reviews, doc):
             bad.append('an item has more than one verdict')
         if set(ids) - set(verdicts):
             bad.append('an item is omitted')
+        if reconciliation and set(verdicts) - set(ids):
+            bad.append('a verdict names an item outside the reconciliation record')
         if any(verdicts.get(i) != 'accept' for i in ids):
             bad.append('an item is not accepted')
         if isinstance(rv.get('dissent'), str) and rv['dissent'].strip():
@@ -997,7 +1004,7 @@ def _review_witnesses(cum, ref, doc, git, base, directory=None, contested=()):
         if not isinstance(rv, dict) or rv.get('kind', 'review') != 'review':
             continue
         who = rv.get('reviewer')
-        if not rec._person(who) or who == author:
+        if not rec._person(who) or fd.same_identity(who, author):
             continue
         if obl29.adverse_items(rv, doc):
             out.append(dict(base, kind='review', disputed=dict(ref), disputed_doc=doc, disputed_git=git, edge=None,
