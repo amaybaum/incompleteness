@@ -227,13 +227,15 @@ def tr_controls(r):
           all(o['exit'] == 65 and o['stop'] == 'CONFIG_UNREVIEWED' for o in (o13, o13b)))
     # TR14 at the tool
     out14 = {}
-    for name, run in (('fork run', {'repository_id': 78, 'head_repository_id': 78}),
-                      ('another repository', {'repository_id': 79, 'head_repository_id': 79}),
-                      ('pull_request from a fork, listed in the canonical repository',
+    for name, run in (('fork', {'repository_id': 78, 'head_repository_id': 78}),
+                      ('other repository', {'repository_id': 79, 'head_repository_id': 79}),
+                      ('pull_request from a fork',
                        {'head_repository_id': 78, 'event': 'pull_request'}),
                       ('head repository a fork, event workflow_dispatch', {'head_repository_id': 78}),
                       ('repository another, head repository canonical', {'repository_id': 79})):
         out14[name] = show(*t.run(t.world(run=run), F))
+        REC.name_last(name)
+    retain_restored(lambda: t.run(w, F), clean)
     check('TR14-tool', 'the same workflow and tool run in a fork, or in another repository; separately, a '
           'pull_request run from a fork, executed and listed in the canonical repository: ERROR at the tool (repository or head '
           'repository id differs from repository_id); the consumer half is reported with the acceptance controls',
@@ -491,9 +493,6 @@ EI7_FORMS = {
     'a parent path with a 40-hex suffix': _STEPS + '      - uses: ../x/y@%s\n' % _HEX,
     'an owner name beginning with a hyphen, with a 40-hex suffix': _STEPS + '      - uses: -foo/bar@%s\n' % _HEX,
 }
-# the forms of review impl-v6.0e B-1: an owner component that is a local or parent path, with a full-id suffix
-EI7_B1 = ('a local action with a 40-hex suffix', 'a local reusable workflow with a 40-hex suffix',
-          'a parent path with a 40-hex suffix')
 
 
 def ei7_blob(name):
@@ -504,14 +503,23 @@ def ei7_blob(name):
 
 def ei7_controls(r):
     tool, cons = {}, {}
+    labels = {'local action ./.github/actions/x': 'local action',
+              'a whole-document flow mapping after ---': 'whole-document flow mapping',
+              'a tab after the dash': 'tab after dash',
+              'a tab after a colon before a flow collection': 'tab after colon before flow collection'}
     for name in EI7_FORMS:
         blob = ei7_blob(name)
         t, w, F = with_tool(r, wf=blob)
         code, res = t.run(w, F)
         tool[name] = show(code, res)
+        label = labels.get(name, name.removeprefix('a ').removeprefix('an '))
+        label = label.replace('after a dash', 'after dash')
+        REC.name_last(label, attested={'message_names': 'line rule' if 'uses' in tool[name]['message'] else None})
         cons[name] = bool(checker.uses_line_problems(blob))
     t, w, F = with_tool(r)
     pos = show(*t.run(w, F))
+    clean = REC.name_last('conforming 40-hex uses line (positive)')
+    retain_restored(lambda: t.run(w, F), clean)
     check('EI7-tool', 'a pinned workflow blob with each form the `uses:` line rule refuses (a local action, a local '
           'reusable workflow, a tag, a branch, a quoted or escaped key, a flow mapping or sequence, an anchor and '
           'alias, a block scalar, a complex key, the forms of review v6.0d B-1, a local action, a local reusable '
@@ -566,6 +574,52 @@ def acceptance_controls(r, t):
     def consumer(raw_=raw, pins_=pins, host=w.h, landing_=landing, repo=t.repo):
         return checker.accept_with_host(raw_, 0, pins_, host, landing_, repo)
 
+    def retain_consumer_case(name, evidence, raw_=raw, pins_=pins, host=w.h, landing_=landing, repo=t.repo):
+        accepted = consumer(raw_, pins_, host, landing_, repo)
+        result = json.loads(raw_)
+        reported = result['config']['admission']['snapshot']
+        artifact_digests = [{'run_id': rid, 'name': artifact, 'sha256': digest}
+                            for (rid, artifact), digest in sorted(host.artifacts.items())]
+        evidence[name] = {'raw_result': raw_.decode('utf-8'), 'input_exit': 0, 'accepted': accepted,
+                          'landing': copy.deepcopy(landing_), 'pins': copy.deepcopy(pins_),
+                          'snapshot': reported, 'host_runs': copy.deepcopy(host.runs),
+                          'host_artifact_digests': artifact_digests,
+                          'host_failure_modes': {'failed': sorted(host.fail), 'incomplete': sorted(host.incomplete)},
+                          'tool_entries': {path: entry for path, entry in repo.entries(reported['tool_commit']).items()
+                                           if path.startswith((hf.PKG, '.github/workflows/')) or path == hf.ENTRY}}
+        run = REC.capture_doc('checker.accept_with_host', result, case=name, raw=raw_,
+                              attested={'outcome': 'ACCEPTED' if accepted else 'NON_ACCEPTANCE'})
+        return accepted, run
+
+    def consumer_cases(cid, description, negative, positive, good=None, aggregate=None):
+        evidence, rejected = {}, {}
+        for name, variant in negative:
+            accepted, _ = retain_consumer_case(name, evidence, **variant)
+            rejected[name] = not accepted
+        if aggregate is not None:
+            REC.capture_doc('aggregate of retained checker.accept_with_host calls', {'rejected': rejected},
+                            case=aggregate,
+                            attested={'outcome': 'NON_ACCEPTANCE' if all(rejected.values()) else 'ACCEPTED'})
+        good = good or {}
+        accepted, clean = retain_consumer_case(positive, evidence, **good)
+        restored, restoration = retain_consumer_case('restored', evidence, **good)
+        restoration['baseline'] = clean
+        files = {
+            'results.json': {name: {'raw': row['raw_result'], 'exit': row['input_exit']}
+                             for name, row in evidence.items()},
+            'landings.json': {name: row['landing'] for name, row in evidence.items()},
+            'snapshots.json': {name: {k: row[k] for k in ('snapshot', 'pins', 'host_runs', 'host_failure_modes',
+                                                          'host_artifact_digests', 'tool_entries')}
+                               for name, row in evidence.items()},
+            'acceptance.json': {name: row['accepted'] for name, row in evidence.items()},
+        }
+        check(cid, description, 'consumer refuses the variants and accepts the original and restored cases',
+              dict(rejected=rejected, accepted=accepted, restored=restored),
+              all(rejected.values()) and accepted and restored, files=files,
+              procedure={'name': 'acceptance', 'lib': 'consumer', 'results': 'results.json',
+                         'landing_record': 'landings.json', 'snapshot': 'snapshots.json',
+                         'attested': 'acceptance.json'})
+
     def doc_with(**snap_changes):
         d = copy.deepcopy(chain)
         d['config']['admission']['snapshot'].update(snap_changes)
@@ -578,7 +632,6 @@ def acceptance_controls(r, t):
         if art_raw is not None:
             h.artifacts[(w.run_id, 'ledger-coverage-result')] = sha(art_raw)
         return h
-    ok = consumer()
     old_schema = copy.deepcopy(chain)
     old_schema['schema'] = 'oi-ledger-coverage/4'
     # review impl-v6.0e N-2: the /5 schema requires config.admission wherever a result carries config (sec. 5)
@@ -592,10 +645,9 @@ def acceptance_controls(r, t):
           {'v5': checker.accept(chain, 0, pins), 'v4': checker.accept(old_schema, 0, pins), 'schema': schema_errs},
           checker.accept(chain, 0, pins) and not checker.accept(old_schema, 0, pins) and not schema_errs['chain']
           and schema_errs['without config.admission'] == ['$.config: missing admission'])
-    check('TR30', 'a result whose evaluated commits differ from the landing record\'s: non-acceptance',
-          "accept_with_host is true for the matching landing record and false for the other",
-          {'matching': ok, 'differing': consumer(landing_=dict(landing, evaluated={'commit': '0' * 40}))},
-          ok and not consumer(landing_=dict(landing, evaluated={'commit': '0' * 40})))
+    consumer_cases('TR30', 'the consumer checks the evaluated commits against the landing record', [
+        ('evaluated commits differ', {'landing_': dict(landing, evaluated={'commit': '0' * 40})})],
+        'matching (positive)')
     gz_bad = checker.deterministic_gzip(raw + b' ')
     check('TR46', 'a committed compressed result whose uncompressed sha256 differs from the recorded one: refused '
           'at landing', "verify_compressed is true for the exact bytes and false for the altered ones, and the gzip "
@@ -605,37 +657,44 @@ def acceptance_controls(r, t):
           checker.verify_compressed(gz, sha(raw)) and not checker.verify_compressed(gz_bad, sha(raw))
           and gz[4:8] == b'\x00\x00\x00\x00' and gz[9] == 255)
     # consumer halves
-    cases = {}
-    cases['TR14: the run in a fork'] = consumer(host=host_with(repository_id=78, head_repository_id=78))
-    cases['TR14: a pull_request run from a fork, listed in the canonical repository'] = consumer(
-        host=host_with(head_repository_id=78, event='pull_request'))
     fork_host = copy.deepcopy(w.h)
     fork_host.runs[w.run_id].update(repository_id=78, head_repository_id=78)
-    cases['TR14: a consumer that runs in a fork (its host reports the fork)'] = consumer(host=fork_host)
-    check('TR14', 'the same results presented to a consumer: a run in a fork or another repository, a pull_request '
-          'run from a fork, a consumer running in a fork: non-acceptance in every case (the tool half: ERROR, '
-          'reported above)', "accept_with_host is false in every case and true for the canonical run",
-          dict(cases, canonical=ok), ok and not any(cases.values()))
+    consumer_cases('TR14', 'the consumer rejects a run or a reader outside the configured repository', [
+        ('fork', {'host': host_with(repository_id=78, head_repository_id=78)}),
+        ('other repository', {'host': host_with(repository_id=79, head_repository_id=79)}),
+        ('pull_request from a fork', {'host': host_with(head_repository_id=78, event='pull_request')}),
+        ('consumer in a fork', {'host': fork_host})], 'canonical (positive)')
     # TR15 / TR50 / TR28 / TR51 / TR52 / EI7 at the consumer: a T whose files or workflow differ from the pins
-    def forged_T(**kw):
+    def forged_inputs(**kw):
         w2 = t.world(**kw)
         b = doc_with(tool_commit=w2.T, run=dict(snap['run'], head_sha=w2.T))
         h = host_with(art_raw=b, head_sha=w2.T)
         lnd = dict(landing, result_sha256=sha(b), main=t.repo.derive(w2.T, {}, parents=[w2.T], subject='main'))
-        return consumer(raw_=b, host=h, landing_=lnd)
-    con = {
-        'TR15 changed workflow at T': forged_T(wf=hf.WF + b'# a changed step\n'),
-        'TR15 the run\'s workflow path another': consumer(host=host_with(workflow_path='.github/workflows/o.yml')),
-        'TR50 workflow one byte': forged_T(wf=hf.WF + b'#'),
-        'TR28 tool blob differs': forged_T(tool_files=dict(hf.TOOL_FILES, **{hf.PKG + 'engine/x.py': b'x = 2\n'})),
-        'TR51 symlink': forged_T(tool_files=dict(hf.TOOL_FILES, **{hf.PKG + 'engine/x.py': ('symlink', 'e.py')})),
-        'TR51 submodule': forged_T(extra={hf.PKG + 'engine/z': ('submodule', 'ab' * 20)}),
-        'TR52 extra file': forged_T(extra={hf.PKG + 'engine/y.py': b'y = 1\n'}),
-        'EI7 a workflow with a local action, pinned': None,
-        '(countercontrol) a forged T equal to the pins': forged_T(),
-    }
+        if kw.get('wf_path'):
+            h.runs[w.run_id]['workflow_path'] = kw['wf_path']
+        return {'raw_': b, 'host': h, 'landing_': lnd}
+    equal = forged_inputs()
+    extra_file = forged_inputs(extra={hf.PKG + 'engine/y.py': b'y = 1\n'})
+    consumer_cases('TR15-consumer', 'the consumer checks the exact workflow path and blob', [
+        ('workflow blob differs at T', forged_inputs(wf=hf.WF + b'# a changed step\n')),
+        ('same-named workflow at another path', forged_inputs(wf_path='.github/workflows/other/lc.yml'))],
+        'workflow equal to its pin (positive)', equal)
+    consumer_cases('TR28-consumer', 'the consumer checks every pinned tool blob and the exact path set', [
+        ('tool blob differs', forged_inputs(tool_files=dict(hf.TOOL_FILES, **{hf.PKG + 'engine/x.py': b'x = 2\n'}))),
+        ('extra file', extra_file)], 'equal (positive)', equal)
+    consumer_cases('TR50-consumer', 'the consumer refuses a one-byte workflow difference', [
+        ('workflow at tool.workflow.path one byte different', forged_inputs(wf=hf.WF + b'#'))],
+        'workflow equal to its pin (positive)', equal)
+    consumer_cases('TR51-consumer', 'the consumer requires regular tool entries', [
+        ('symlink under tools/ledger_coverage/', forged_inputs(
+            tool_files=dict(hf.TOOL_FILES, **{hf.PKG + 'engine/x.py': ('symlink', 'e.py')}))),
+        ('submodule entry', forged_inputs(extra={hf.PKG + 'engine/z': ('submodule', 'ab' * 20)}))],
+        'regular files only (positive)', equal)
+    consumer_cases('TR52-consumer', 'the consumer refuses an additional tool path', [
+        ('an additional file under tools/ledger_coverage/ not in tool.files', extra_file)],
+        'exactly tool.files (positive)', equal)
 
-    def ei7_consumer(form):
+    def ei7_inputs(form):
         t7, w7, F7 = with_tool(r, wf=ei7_blob(form))
         cfg7 = json.loads(t7.repo.read(F7, t7.p))
         d7 = copy.deepcopy(chain)
@@ -643,48 +702,31 @@ def acceptance_controls(r, t):
                                                      run=dict(snap['run'], head_sha=w7.T))
         b7 = util.dump_result(d7).encode('utf-8')
         h7 = host_with(art_raw=b7, head_sha=w7.T)
-        return checker.accept_with_host(
-            b7, 0, dict(pins, tool=cfg7['tool']), h7,
-            dict(landing, result_sha256=sha(b7), main=t7.repo.derive(w7.T, {}, parents=[w7.T])), t7.repo)
-    con['EI7 a workflow with a local action, pinned'] = ei7_consumer('local action ./.github/actions/x')
-    for form in EI7_B1:
-        con['EI7 %s, pinned' % form] = ei7_consumer(form)
-    check('TR28-consumer', 'the consumer reads T\'s tool files and workflow itself from its verified store: a T whose '
-          'tool blob differs from the pins (TR28), whose workflow differs or is one byte different (TR15, TR50), that '
-          'holds a symlink or submodule (TR51) or an extra file (TR52), or whose pinned workflow fails the uses: line '
-          'rule (EI7), is non-acceptance; the run\'s workflow path differing from the pin likewise',
-          "accept_with_host is false in every mutant case and true for a T equal to the pins", con,
-          con['(countercontrol) a forged T equal to the pins'] is True and
-          not any(v for k, v in con.items() if not k.startswith('(countercontrol)')))
+        return {'raw_': b7, 'pins_': dict(pins, tool=cfg7['tool']), 'host': h7,
+                'landing_': dict(landing, result_sha256=sha(b7), main=t7.repo.derive(w7.T, {}, parents=[w7.T])),
+                'repo': t7.repo}
+    consumer_cases('EI7-consumer', 'the consumer refuses each of the twenty-three workflow forms', [
+        (form, ei7_inputs(form)) for form in EI7_FORMS], 'the conforming workflow (positive)',
+        aggregate='each workflow form the uses: line rule refuses (23 forms, as EI7-tool)')
     # TR29 at the consumer
-    c29 = {'T not on main\'s first-parent chain': consumer(landing_=dict(landing, main=t.syn.H)),
-           'the recorded T differs from the run\'s head_sha': (lambda b: consumer(
-               raw_=b, host=host_with(art_raw=b), landing_=dict(landing, result_sha256=sha(b))))(
-               doc_with(tool_commit=t.syn.H)),
-           'head_sha is the evaluated commit X': consumer(host=host_with(head_sha=t.syn.H))}
-    check('TR29', 'a run whose head_sha is not on main\'s first-parent chain; separately a run whose head_sha is X; '
-          'separately a result whose recorded T differs from the producing run\'s head_sha: non-acceptance at the '
-          'consumer (T on the first-parent chain of M, resolved as sec. 13.4 states); the tool half (ERROR on the '
-          'head branch) is TR29-tool',
-          "accept_with_host is false in each case and true for T on M's first-parent chain", dict(c29, canonical=ok),
-          ok and not any(c29.values()))
+    other_tool_result = doc_with(tool_commit=t.syn.H)
+    consumer_cases('TR29', "the consumer checks the producing tool commit and main's first-parent chain", [
+        ('branch', {'landing_': dict(landing, main=t.syn.H)}),
+        ('head_sha is X', {'host': host_with(head_sha=t.syn.H)}),
+        ('recorded T differs from head_sha', {'raw_': other_tool_result, 'host': host_with(art_raw=other_tool_result),
+                                             'landing_': dict(landing, result_sha256=sha(other_tool_result))})],
+        'on chain (positive)')
     # EI2 at the consumer
-    e2 = {ev: consumer(host=host_with(event=ev)) for ev in ('pull_request', 'schedule', 'workflow_run')}
-    e2['(countercontrol) push'] = consumer(host=host_with(event='push'))
-    check('EI2-consumer', 'a run whose event is pull_request, schedule or workflow_run: non-acceptance at the consumer',
-          "false for the three events; true for push", e2,
-          not any(e2[k] for k in ('pull_request', 'schedule', 'workflow_run')) and e2['(countercontrol) push'])
+    consumer_cases('EI2-consumer', 'the consumer rejects runs from disallowed events', [
+        (event, {'host': host_with(event=event)}) for event in ('pull_request', 'schedule', 'workflow_run')],
+        'push (positive)', {'host': host_with(event='push')})
     # EI3: F, pin table and configuration path against the landing record
-    e3 = {'F differs': consumer(pins_=dict(pins, freeze=t.c)),
-          'pin table differs': consumer(pins_=dict(pins, pin_table=dict(pins['pin_table'], blob_sha256='0' * 64))),
-          'pin table path differs': consumer(pins_=dict(pins, pin_table=dict(pins['pin_table'],
-                                                                             path='syn/second/PREREG.md'))),
-          'configuration path differs': consumer(pins_=dict(pins, config=dict(pins['config'],
-                                                                              path='syn/cfg/other.json')))}
-    check('EI3', 'a result whose F differs from the landing record\'s; separately whose pin table {path, '
-          'blob_sha256} differs; separately whose configuration path differs: non-acceptance in each case',
-          "false in each case; true for the matching landing record", dict(e3, matching=ok),
-          ok and not any(e3.values()))
+    consumer_cases('EI3', 'the consumer checks the freeze, pin table and configuration reference', [
+        ('F differs', {'pins_': dict(pins, freeze=t.c)}),
+        ('pin table differs', {'pins_': dict(pins, pin_table=dict(pins['pin_table'], blob_sha256='0' * 64))}),
+        ('pin table path differs', {'pins_': dict(pins, pin_table=dict(pins['pin_table'], path='syn/second/PREREG.md'))}),
+        ('configuration path differs', {'pins_': dict(pins, config=dict(pins['config'], path='syn/cfg/other.json'))})],
+        'matching landing record (positive)')
     # GV7 at the consumer; R4-N2 (the result bound to the run's artifact)
     failing = copy.deepcopy(w.h)
     failing.fail.add('artifacts')
@@ -692,12 +734,12 @@ def acceptance_controls(r, t):
     incomplete.incomplete.add('artifacts')
     run_fail = copy.deepcopy(w.h)
     run_fail.fail.add('run')
-    g7 = {'artifact list fails': consumer(host=failing), 'artifact list incomplete': consumer(host=incomplete),
-          'run record fails': consumer(host=run_fail),
-          'R4-N2: the artifact digest differs from the result': consumer(raw_=raw + b'\n')}
-    check('GV7-consumer', 'the consumer\'s artifact list or run record failing or incomplete: non-acceptance, no '
-          'fallback; a result file whose sha256 is not the run\'s artifact digest: non-acceptance (R4-N2)',
-          "false in each case", g7, not any(g7.values()))
+    consumer_cases('GV7-consumer', 'the consumer rejects absent host data and a different artifact hash', [
+        ('artifact list fails', {'host': failing}),
+        ('incomplete records', {'host': incomplete}),
+        ('run record fails', {'host': run_fail}),
+        ('R4-N2: the artifact digest differs from the result', {'raw_': raw + b'\n'})],
+        'complete host data')
     replay_controls(r, t, F, chain, raw, gz, snap)
 
 

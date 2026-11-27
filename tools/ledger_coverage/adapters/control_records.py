@@ -96,11 +96,12 @@ class Recorder(object):
         self.pending.append(run)
         return run
 
-    def capture_doc(self, label, doc, case=None, mutation=None, bindings=None, baseline=None, attested=None):
+    def capture_doc(self, label, doc, case=None, mutation=None, bindings=None, baseline=None, attested=None, raw=None):
         """An in-process evaluation (no command line): `doc` is the result document the evaluated stage produced
         (its items, and the outcome and exit status the tool's precedence gives them); `label` names the stage.
-        The argv is recorded as ['in-process', label] so the evidence never reads as a command-line run."""
-        data = (json.dumps(doc, indent=1, sort_keys=True, default=str) + '\n').encode()
+        The argv is recorded as ['in-process', label] so the evidence never reads as a command-line run.
+        A consumer supplies `raw` when the original input bytes are themselves part of what it verifies."""
+        data = raw if raw is not None else (json.dumps(doc, indent=1, sort_keys=True, default=str) + '\n').encode()
         run = {'argv': ['in-process', label], 'exit': doc.get('exit_status'), 'case': case,
                'mutation': list(mutation or []), 'bindings': dict(bindings or {}), 'stderr': None,
                'baseline': baseline, 'listing': ['result.json'], 'result': ('result.json', data),
