@@ -1461,6 +1461,9 @@ def eval_z9f_case(exp, case_name, ev, findings_out, ctx):
     entry = 'tools/ledger_coverage.py'
     package = 'tools/ledger_coverage/'
     engine = package + 'engine/scope_probe.py'
+    verifier_sources = {package + 'engine/' + name + '.py': 'verifier-' + name + '.py'
+                        for name in ('purity', 'selftest', 'cli')}
+    verifier_sources[entry] = 'verifier-entry.py'
     literal = 'a1exit deletion exact-edit ledger v2'
     cases = {'adapter module containing the string': 'engine-clean.py', 'the string in the engine': 'engine-literal.py'}
     try:
@@ -1486,6 +1489,17 @@ def eval_z9f_case(exp, case_name, ev, findings_out, ctx):
         if (not git_adapter or git_adapter[0] not in ('100644', '100755') or
                 git_show(ctx.repo, ctx.commit + ':' + adapter) != blobs[adapter]):
             raise ValueError('the real adapter bytes differ from the blob at the checked commit')
+        if proc.get('verifier_sources') != verifier_sources:
+            raise ValueError('the production verifier and dispatch sources must name the required files')
+        verifier_hashes = {}
+        for path, member in verifier_sources.items():
+            raw = ev.text(member)
+            git_source = git_entry(ctx.repo, ctx.commit, path)
+            if (raw is None or not git_source or git_source[0] not in ('100644', '100755') or
+                    git_show(ctx.repo, ctx.commit + ':' + path) != raw):
+                raise ValueError('the retained verifier source %s differs from the regular blob at the checked commit'
+                                 % path)
+            verifier_hashes[path] = hashlib.sha256(raw).hexdigest()
         tree = subprocess.run(['git', '--no-replace-objects', '-C', ctx.repo, 'ls-tree', '-r', '--name-only', '-z',
                                ctx.commit, '--', package + 'engine', entry], capture_output=True)
         if tree.returncode:
@@ -1522,6 +1536,7 @@ def eval_z9f_case(exp, case_name, ev, findings_out, ctx):
             raise ValueError('the retained lint findings and status do not match the exact literal control')
         actual.update(outcome='LINT_FAIL' if planted else 'LINT_PASS', exit=exit_code,
                       adapter_path=adapter, adapter_sha256=hashlib.sha256(blobs[adapter]).hexdigest(),
+                      production_verifier_sha256=verifier_hashes,
                       fixture_selected_paths=sorted(selected), production_selected_count=len(production_paths),
                       production_excludes_adapter=True)
         # The owner-approved reading of the legacy linted_paths_include key checks the inputs to

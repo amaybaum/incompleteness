@@ -807,12 +807,18 @@ def z9f_scope(literal, values, profiles):
                                  'selected_paths': sorted(sources[case]), 'exit_status': 20 if findings[case] else 0},
                                 case=case)
     if REC is not None:
+        verifier_sources = {'tools/ledger_coverage/engine/' + name + '.py': 'verifier-' + name + '.py'
+                            for name in ('purity', 'selftest', 'cli')}
+        verifier_sources[entry_path] = 'verifier-entry.py'
+        for path, member in verifier_sources.items():
+            with open(os.path.join(os.path.dirname(tools), path), 'rb') as f:
+                files[member] = f.read()
         FILES['Z9f'] = dict(files, **{'lint-findings.json': findings, 'lint-source-map.json': sources,
                                     'lint-value-set.json': sorted(values),
                                     'production-paths.json': production_paths})
         PROCS['Z9f'] = {'name': 'purity-lint', 'lib': 'lint', 'findings': 'lint-findings.json',
                         'source_map': 'lint-source-map.json', 'value_set': 'lint-value-set.json',
-                        'production_paths': 'production-paths.json'}
+                        'production_paths': 'production-paths.json', 'verifier_sources': verifier_sources}
     return holds
 
 
