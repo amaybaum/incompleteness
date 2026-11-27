@@ -261,6 +261,18 @@ def case_6b(fx):
     nested_binding(fx, 'papers/x.md:5')
 
 
+def case_6c(fx):
+    # A TT2 assertion names the workflow even though the retained comparison reports another path.
+    field = 'old_style_X_vs_M_comparison_reports'
+    fx.row('TT2', {'outcome': 'COUNTERCONTROL', 'invariants': [{field: '$workflow'}]})
+    res = tool_result('PASS', operation='direct tree comparison', scientific_base='1' * 40,
+                      main='2' * 40, candidate='3' * 40, tree_entries={'m': {'other.yml': '4' * 40}, 'x': {}},
+                      ledgered_paths=[], unledgered_changes=[{'path': 'other.yml', 'm': '4' * 40, 'x': None}])
+    ev = fx.evidence('TT2', {'': {'exit': 0, 'result': res, 'bindings': {'workflow': 'ops/flow.yml'},
+                                 'attested': {'outcome': 'COUNTERCONTROL', field: '$workflow'}}})
+    fx.record('TT2', 'PASS', ev)
+
+
 def case_18b(fx):
     # a nested `$name` bound to the value the result carries
     nested_binding(fx, 'papers/x.md:3')
@@ -536,7 +548,7 @@ TABLE = {
     'GATE-3': [('', [case_3], 'GATE_FAIL', ['duplicate-id'], None)],
     'GATE-4': [('', [case_4], 'GATE_FAIL', ['unexpected-id'], None)],
     'GATE-5': [('', [case_5], 'GATE_FAIL', ['status-not-allowed'], None)],
-    'GATE-6': [('', [case_6, case_6b], 'GATE_FAIL', ['declarative-mismatch'], None)],
+    'GATE-6': [('', [case_6, case_6b, case_6c], 'GATE_FAIL', ['declarative-mismatch'], None)],
     'GATE-7': [('', [case_7], 'GATE_FAIL', ['correspondence-orphan-row'], None)],
     'GATE-8': [('', [case_8], 'GATE_FAIL', ['correspondence-orphan-requirement'], None)],
     'GATE-9': [('', [case_9], 'GATE_FAIL', ['raw-evidence-missing'], None)],
