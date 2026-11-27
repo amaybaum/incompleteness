@@ -161,6 +161,16 @@ def _restore_ledgered(w, clean, led):
     _case('restored', baseline='baseline')
 
 
+def _capture_site_case(name, coverage, items, site, **bindings):
+    if capture_hook is None:
+        return
+    from .cli import site_state
+    selected = coverage.site_out[site]
+    _stage('coverage of the named site', [i for i in items if i['subject'] == site],
+           sites=[dict(selected, state=site_state(selected))])
+    _case(name, **bindings)
+
+
 def seg(f, t, kind='unledgered', **kw):
     d = {'from': f, 'to': t, 'kind': kind}
     d.update(kw)
@@ -402,17 +412,24 @@ def k_controls():
     cv10, it10 = w.coverage(x, [seg(w.pin, x)], adj=adj, hits=False)
     _restore(w, hits=False)
     out['K10'] = not [i for i in it10 if i['subject'] == sd] and decision(it10) == oc.pass_
+    _capture_site_case('', cv, it, sr, subject=sr)
     _restore(w, hits=False)
     out['K2'] = not [i for i in it if i['subject'] == sr] and cv.site_out[sr]['context_changed'] is True
     sw = base_text.replace('alpha line one stands here.\n\nbeta line two stands here.\n\ngamma line three stands here.',
                            'gamma line three stands here.\n\nbeta line two stands here.\n\nalpha line one stands here.')
     x = w.child(w.pin, sw)
     cv, it = w.coverage(x, [seg(w.pin, x)], hits=False)
+    _capture_site_case('required site', cv, it, sd, subject_required=sd)
+    _capture_site_case('non-required site', cv, it, sr, subject_nonrequired=sr)
+    _restore(w, hits=False)
     out['K3'] = [i['class'] for i in it if i['subject'] == sd] == ['context-meaning-unverified'] and \
         not [i for i in it if i['subject'] == sr]
     mv = base_text.replace('alpha line one stands here.\n\n', '') + '\nfar away.\n\nalpha line one stands here.\n'
     x = w.child(w.pin, mv)
     cv, it = w.coverage(x, [seg(w.pin, x)], hits=False)
+    _capture_site_case('required site', cv, it, sd, subject_required=sd)
+    _capture_site_case('non-required site', cv, it, sr, subject_nonrequired=sr)
+    _restore(w, hits=False)
     out['K4'] = [i['class'] for i in it if i['subject'] == sd] == ['context-meaning-unverified']
     at = '# h\n\nlead sentence here.\nThis bound holds below.\n\nother text.\n'
     w5 = World(at, sites=[(4, 'sr')])
@@ -430,9 +447,12 @@ def k_controls():
     w7 = World(tt, sites=[(6, 'sr')])
     x = w7.child(w7.pin, tt.replace('| head a | head b |', '| head x | head b |'))
     cv, it = w7.coverage(x, [seg(w7.pin, x)], hits=False)
+    _case('header row changed')
     k7a = classes(it) == ['context-structure-changed']
     x = w7.child(w7.pin, tt.replace('| row one | v |', '| row uno | v |'))
     cv, it = w7.coverage(x, [seg(w7.pin, x)], hits=False)
+    _case('neighbour row changed')
+    _restore(w7, hits=False)
     out['K7'] = k7a and classes(it) == ['context-structure-changed']
     x = w6.child(w6.pin, lt.replace('trailer paragraph.', 'trailer changed.'))
     cv, it = w6.coverage(x, [seg(w6.pin, x)], hits=False)
@@ -516,21 +536,31 @@ def h_controls():
     good = {'site_id': sid, 'steps': steps, 'carried': {'row': 'row-x', 'code': 'code-x', 'owner': 'owner-x'},
             'semantic_classification': 'stated', 'author': 'eng-writer'}
     wrong = dict(good, steps=[dict(steps[0], commit=w.pin)])
+
+    def clean_hp():
+        return w.coverage(h, [s], adj={'hp': [good]}, hits=False)[1]
+
     cv, it = w.coverage(h, [s], adj={'hp': [wrong]}, hits=False)
+    _restore_with(clean_hp, 'coverage')
     out['H1'] = [i['class'] for i in it if i['subject'] == sid] == ['provenance-mismatch']
     w2, h2, s2 = hp_world(two_steps=True)
     st2 = walk_steps(w2, h2, s2, 5)
     one = {'site_id': '%s:5@%s' % (doc_path, w2.pin[:8]), 'steps': st2[:1],
            'carried': {'row': 'row-x', 'code': 'code-x', 'owner': 'owner-x'}, 'semantic_classification': 'stated', 'author': 'eng-writer'}
     cv, it = w2.coverage(h2, [s2], adj={'hp': [one]}, hits=False)
+    full = dict(one, steps=st2)
+    _restore_with(lambda: w2.coverage(h2, [s2], adj={'hp': [full]}, hits=False)[1], 'coverage')
     out['H2'] = 'provenance-gap' in classes(it) and len(st2) == 2
     w3, h3, s3 = hp_world(foreign=True)
     cv, it = w3.coverage(h3, [s3], hits=False)
+    _restore_with(clean_hp, 'coverage')
     out['H3'] = 'provenance-foreign' in classes(it)
     x = w.child(h, w.ctx().ft(h, doc_path).text.replace('beta line revised', 'beta line rewritten'))
     cv, it = w.coverage(x, [s, seg(h, x)], adj={'hp': [good]}, hits=False)
+    _case('', subject=sid)
     x0 = w.child(h, 'top\n' + w.ctx().ft(h, doc_path).text)
     cv0, it0 = w.coverage(x0, [s, seg(h, x0)], adj={'hp': [good]}, hits=False)
+    _restore_with(clean_hp, 'coverage')
     out['H4'] = [(i['obligation'], i['class']) for i in it if i['subject'] == sid] == \
         [('RET', 'unauthorized-change')] and not [i for i in it0 if i['subject'] == sid]
     ht = w.ctx().ft(h, doc_path)
@@ -538,10 +568,12 @@ def h_controls():
     led = ledger(h, [(doc_path, a, a + 7, 'amended')], w.repo)
     x = w.child(h, ht.text.replace('revised', 'amended'))
     cv, it = w.coverage(x, [s, seg(h, x, 'ledgered', ledger=led)], hits=False)
+    _restore_with(lambda: w.coverage(h, [s], hits=False)[1], 'coverage')
     out['H5'] = 'untracked-hp-overlap' in classes(it) and 'hp-unadjudicated' in classes(it) and \
         cv.site_out[sid]['hp_overlap'] is True
     cv, it = w.coverage(h, [s], adj={'hp': [dict(good, carried={'row': 'other', 'code': 'code-x', 'owner': 'owner-x'})]},
                         hits=False)
+    _restore_with(clean_hp, 'coverage')
     out['H6'] = [i['class'] for i in it if i['subject'] == sid] == ['adjudication-row-changed']
     wm, hm, sm = hp_world(shared=True)
     cv, it = wm.coverage(hm, [sm], hits=False)
@@ -593,32 +625,59 @@ def chain_probs(rule, review, admitted_extra=(), mutate_ref=None):
     st = rec.Store(entries)
     ref = {'path': 'rec/r.json', 'blob_sha256': util.sha256(rb)}
     admitted = {util.sha256(b) for _, b in entries} | set(admitted_extra)
-    return rec.lint_chain(mutate_ref or ref, st, admitted)
+    checked = mutate_ref or ref
+    problems = rec.lint_chain(checked, st, admitted)
+    _capture_record_lint(checked, entries, admitted, problems)
+    return problems
+
+
+def _capture_record_lint(ref, entries, admitted, problems):
+    if capture_hook is None:
+        return
+    items = []
+    if problems:
+        items.append(oc.make_item('RECORD', 'record-invalid', ref['path'], None,
+                                  {'sha': ref['blob_sha256'], 'why': problems[0]}, detail=problems))
+    _stage('record lint', items, record_blobs={path: data.decode('utf-8') for path, data in entries},
+           admitted_blob_hashes=sorted(admitted), inputs={'classify_records': [] if problems else [ref]})
 
 
 def o_controls():
     out = _out()
     rule, review, ref, vref = chain_world()
-    out['O9'] = chain_probs(rule, review) == []
-    out['O1'] = bool(chain_probs(rule, dict(review, reviewer='eng-writer')))
+
+    def clean_lint():
+        return chain_probs(rule, review)
+
+    def checked_lint(check_rule, check_review, **options):
+        problems = chain_probs(check_rule, check_review, **options)
+        _case('', record=ref['path'])
+        _restore_with(clean_lint, 'record lint')
+        return problems
+
+    out['O9'] = checked_lint(rule, review) == []
+    out['O1'] = bool(checked_lint(rule, dict(review, reviewer='eng-writer')))
     other = dict(rule, record_id='r2')
     r2 = dict(review, reviewed={'path': 'rec/r.json', 'blob_sha256': util.sha256(util.canonical(other))})
-    out['O2'] = bool(chain_probs(rule, r2))
+    out['O2'] = bool(checked_lint(rule, r2))
     r3 = dict(rule, rules=[{'id': 'q1'}, {'id': 'q2'}])
     nref = {'path': 'rec/r.json', 'blob_sha256': util.sha256(util.canonical(r3))}
     rv3 = dict(review, reviewed=nref)
-    out['O3'] = bool(chain_probs(r3, rv3))
-    out['O5'] = bool(chain_probs(rule, dict(review, reviewer='https://ci.example/runs/7')))
+    out['O3'] = bool(checked_lint(r3, rv3))
+    out['O5'] = bool(checked_lint(rule, dict(review, reviewer='https://ci.example/runs/7')))
     rb = util.canonical(rule)
     st = rec.Store([('rec/r.json', rb + b' ')])
     out['O6'] = st.get({'path': 'rec/r.json', 'blob_sha256': util.sha256(rb)}) is None
     sup = dict(rule, record_id='r1b', supersedes=ref)
-    out['O7'] = bool(chain_probs(sup, review, mutate_ref={'path': 'rec/r.json',
-                                                           'blob_sha256': util.sha256(util.canonical(sup))}))
+    out['O7'] = bool(checked_lint(sup, review, mutate_ref={'path': ref['path'],
+                                                        'blob_sha256': util.sha256(util.canonical(sup))}))
     rb2 = util.canonical(rule)
     st = rec.Store([('rec/r.json', rb2)])
-    out['O8'] = any('not referenced' in p for p in rec.lint_chain({'path': 'rec/r.json',
-                                                                   'blob_sha256': util.sha256(rb2)}, st, set()))
+    problems = rec.lint_chain(ref, st, set())
+    _capture_record_lint(ref, [('rec/r.json', rb2)], set(), problems)
+    _case('', record=ref['path'])
+    _restore_with(clean_lint, 'record lint')
+    out['O8'] = any('not referenced' in p for p in problems)
     return out
 
 
@@ -697,12 +756,22 @@ def r_controls():
     _restore_with(lambda: run(M, side=[wfc], cand=False).items, 'execution')
     out['TT6'] = tt6
     M7 = w.child(H, base_text.replace('epsilon closing', 'epsilon finale'), subject='main edits ledgered file')
+    if capture_hook is not None:
+        run()
+        _case('candidate X')
     e7 = run(M7)
+    _case('M side')
     L7 = exmod.compose_landing(w.repo, H, M7, X, led, w.repo)
     e7l = run(M7, L7)
+    _case('landing under the computed composition')
+    _restore_with(clean_l, 'execution')
     out['TT7'] = not [i for i in e7.items if i['obligation'] == 'RET'] and 'base-drift' in classes(e7.items)
     rec8 = rcmod.draft(w.repo, ctx, H, M7, X, led, doc_path, scientific_effect=control_effect)
     e8 = run(M7, L7, recon=[rec8])
+    _case('the control input (positive)')
+    if capture_hook is not None:
+        run(M7, L7)
+        _case('countercase: the same landing with a ledgered path changed on main after H')
     out['TT8'] = not [i for i in e8.items if i['class'] in ('base-drift', 'landing-conflict-unresolved',
                                                          'record-invalid')]
     bad8 = dict(rec8, paths=[dict(rec8['paths'][0], l=w.repo.blob_id(X, doc_path))])
@@ -724,7 +793,18 @@ def r_controls():
     out['TT12'] = bool(classes(run(M, L12, side=[wfc]).items))
     M13 = w.child(H, files={'tools/t.py': b'x = 1\n'}, subject='tool landing')
     tool = dict(pin('tool', M13, 'tools/t.py'), prefixes=['tools/'])
-    out['TT13'] = not run(M13, side=[tool]).items
+    L13 = exmod.compose_landing(w.repo, H, M13, X, led, w.repo)
+    e13 = run(M13, L13, side=[tool])
+    positive13 = 'the control input (positive)'
+    _case(positive13)
+    classified = bool(e13.side_changes) and all(side.get('class') == tool['id'] for side in e13.side_changes)
+    if capture_hook is not None:
+        capture_hook.attest(positive13, {'side_changes_classified_by': 'tool-landing class pin' if classified else None,
+                                         'candidate_and_landing_pass': not e13.items})
+    changed13 = w.child(H, files={'tools/t.py': b'x = 2\n'}, subject='changed tool blob')
+    invalid13 = run(changed13, side=[tool])
+    _case('countercase: a tool-landing path whose blob differs from its class pin')
+    out['TT13'] = not e13.items and classified and 'side-change-unclassified' in classes(invalid13.items)
     M19 = w.child(M13, files={'tools/u.py': b'y = 2\n'}, subject='unlisted tool file')
     _restore_with(lambda: run(M13, side=[tool]).items, 'execution')
     out['R19-engine'] = 'side-change-unclassified' in classes(run(M19, side=[tool]).items)
@@ -739,9 +819,12 @@ def r_controls():
     e16 = exmod.Execution(ctx, H, X, led, None, pin_ok=[{'file': 'tools/t.py', 'prefix': 'x', 'recorded_at': M}])
     e16.freeze = H
     e16.pins({'min_len': 20, 'skip_prefixes': [], 'ok': []})
+    _stage('execution pins', e16.items)
     e17 = exmod.Execution(ctx, H, X, led, None, pin_ok=[{'file': 'tools/t.py', 'prefix': 'x', 'recorded_at': H}])
     e17.freeze = M
     e17.pins({'min_len': 20, 'skip_prefixes': [], 'ok': []})
+    _stage('execution pins', e17.items)
+    _case('restored')
     out['N1'] = 'pin-broken' in classes(e16.items) and not e17.items
     # N2 (S2): op C's items on X with and without the records must be identical; a candidate stage that let a
     # record change a decision on X is caught by that comparison (the defect is injected here)
@@ -763,7 +846,13 @@ def n2_control(w, ctx, H, X, led, rec):
         items = climod.candidate_with_and_without(ctx, H, Xu, led, None, None, None, Xu, [], [rec]).items
     finally:
         exmod.Execution.candidate = real
-    clean = climod.candidate_with_and_without(ctx, H, Xu, led, None, None, None, Xu, [], [rec]).items
+    _stage('compare candidate evaluations', items)
+
+    def clean_candidate():
+        return climod.candidate_with_and_without(ctx, H, Xu, led, None, None, None, Xu, [], [rec]).items
+
+    clean = clean_candidate()
+    _restore_with(clean_candidate, 'compare candidate evaluations')
     return 'record-invalid' in classes(items) and 'record-invalid' not in classes(clean) and \
         'unauthorized-edit' in classes(clean)
 

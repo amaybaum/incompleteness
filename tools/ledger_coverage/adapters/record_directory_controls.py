@@ -10,12 +10,13 @@ constant (`record_authority.authorized_record_directories`).
 import io
 import json
 import re
+from functools import partial
 
 from ledger_coverage import record_authority
 from ledger_coverage.engine import cli, execution as exmod, outcome as oc, pipeline as pl, reconcile as rc, util
 from ledger_coverage.engine import controls_engine as ce
 from ledger_coverage.engine.gitobj import Overlay
-from ledger_coverage.adapters import host_fixture as hf, synthetic_fixture as sf
+from ledger_coverage.adapters import control_records, host_fixture as hf, synthetic_fixture as sf
 
 AUTH = record_authority.authorized_record_directories[0]
 CFG = AUTH + '/retirement-config.json'
@@ -86,7 +87,8 @@ def world(m_change=None, f_extra=None, h_extra=None, m_extra=None, d=AUTH):
     return repo, H, F, M
 
 
-def run_main(repo, H, F, M, cpath=CFG, classes=(), authorized=(AUTH,), ledgered=(), corpus=(), rule=True):
+def run_main(repo, H, F, M, cpath=CFG, classes=(), authorized=(AUTH,), ledgered=(), corpus=(), rule=True,
+             recorder=None):
     """The M role (Execution.main_role) over H..M, with the record-directory rule when `rule`."""
     led = {'base': H, 'files': {p: {} for p in ledgered}, 'splices': [], 'retained': []}
     ex = exmod.Execution(Ctx(repo, corpus), H, H, led, None, M, None, None, list(classes), ())
@@ -96,12 +98,21 @@ def run_main(repo, H, F, M, cpath=CFG, classes=(), authorized=(AUTH,), ledgered=
     try:
         ex.main_role(set(ledgered) | set(corpus))
     except oc.Stop as s:
+        if recorder is not None:
+            doc = control_records.stage_doc(ex.items, operation='execution.main_role', stop=s)
+            recorder.capture_doc('execution.main_role', doc)
         return {'stop': s.cls, 'condition': (s.detail or {}).get('condition'), 'message': s.message}
     except Exception as exc:  # recorded, so that a control can require its absence
         return {'exception': '%s: %s' % (type(exc).__name__, exc)}
+    summary = ex.rd.summary() if ex.rd else None
+    if recorder is not None:
+        doc = control_records.stage_doc(ex.items, operation='execution.main_role',
+                                        record_directory=summary, side_changes=ex.side_changes,
+                                        inputs={'H': H, 'F': F, 'M': M, 'config_path': cpath})
+        recorder.capture_doc('execution.main_role', doc)
     return {'items': sorted((i['class'], i['subject'], i.get('why')) for i in ex.items),
             'side': sorted((e['path'], e['class'], e.get('why')) for e in ex.side_changes),
-            'rd': ex.rd.summary() if ex.rd else None, 'entries': ex.side_changes}
+            'rd': summary, 'entries': ex.side_changes}
 
 
 def r11(repo, H, F, M, cpath=CFG, classes=(), authorized=(AUTH,), ledgered=(), corpus=()):
@@ -233,31 +244,51 @@ def o98_run(r, case):
 
 # ---- the O-9 controls -----------------------------------------------------------------------------------------
 
-def o9_controls(r, check):
+def o9_controls(r, check, recorder):
     names = sorted(plan_files())
+    main_role = partial(run_main, recorder=recorder)
+
+    def equal_without(with_run, without_run):
+        with_run['baseline'] = without_run
+        return {'files': {'with-rule.json': with_run['result'][1], 'without-rule.json': without_run['result'][1]},
+                'procedure': {'name': 'relational', 'lib': 'rel-equal',
+                              'runs': ['with-rule.json', 'without-rule.json']}}
+
+    def rc11_case(observed):
+        holds = observed.get('RC11')
+        recorder.capture_doc('reconcile.evaluate RC11', observed, case='',
+                             attested={'outcome': 'RC_HOLDS' if holds is True else 'RC_FAILS',
+                                       json.dumps({'condition': 'RC11', 'holds': holds}, sort_keys=True): True})
 
     # RDIR-1
     repo, H, F, M = world()
-    res = run_main(repo, H, F, M)
+    res = main_role(repo, H, F, M)
+    all_paths_classified = all(side_of(res, p) == [(p, 'record-directory', None)] for p in names)
+    all_invariant = json.dumps({'all': 'paths_in_D', 'have': {'class': 'record-directory'}}, sort_keys=True)
+    recorder.name_last('', attested={all_invariant: all_paths_classified})
     check('RDIR-1', 'every entry of D at M equal to F: each record-directory; A.5 no unequal path; no '
           'side-change-unclassified', 'each D path classified record-directory; rd.unequal empty; no unclassified item',
-          res, all(side_of(res, p) == [(p, 'record-directory', None)] for p in names) and
+          res, all_paths_classified and
           (res.get('rd') or {}).get('unequal') == {} and not [x for x in res.get('items', [])
                                                               if x[0] == 'side-change-unclassified'])
 
     # RDIR-2
     mod = AUTH + '/review.json'
     repo, H, F, M = world({mod: b'{"synthetic": "review", "changed": true}\n'})
-    res = run_main(repo, H, F, M)
+    res = main_role(repo, H, F, M)
+    others_classified = all(side_of(res, p) == [(p, 'record-directory', None)] for p in names if p != mod)
+    recorder.name_last('', bindings={'modified': mod},
+                       attested={'others_class': 'record-directory' if others_classified else None})
     check('RDIR-2', 'one file in D modified on M after F: that file side-change-unclassified (differs from F); the others '
           'record-directory', 'the modified file unclassified "differs from F"; the other three record-directory',
           res, unclassified(res, mod) == [('side-change-unclassified', mod, 'differs from F')] and
-          all(side_of(res, p) == [(p, 'record-directory', None)] for p in names if p != mod))
+          others_classified)
 
     # RDIR-3
     add = AUTH + '/added.json'
     repo, H, F, M = world(m_extra={add: b'{}\n'})
-    res = run_main(repo, H, F, M)
+    res = main_role(repo, H, F, M)
+    recorder.name_last('', bindings={'added': add})
     check('RDIR-3', 'a file added in D on M, absent at F: side-change-unclassified (absent at F)',
           'the added file unclassified "absent at F"', res,
           unclassified(res, add) == [('side-change-unclassified', add, 'absent at F')])
@@ -265,8 +296,9 @@ def o9_controls(r, check):
     # RDIR-4
     dele = AUTH + '/ledger.json'
     repo, H, F, M = world({dele: None})
-    res = run_main(repo, H, F, M)
+    res = main_role(repo, H, F, M)
     scan_lists = bool(side_of(res, dele))
+    recorder.name_last('', bindings={'deleted': dele}, attested={'not_in_H_to_M_scan': None if scan_lists else dele})
     check('RDIR-4', 'a file of F in D deleted on M (absent at H and M): side-change-unclassified (absent at M), reported '
           'by A.5 although the H-to-M scan does not list it', 'an unclassified item "absent at M" for the deleted path, '
           'and no side-change entry for it from the scan', res,
@@ -275,7 +307,8 @@ def o9_controls(r, check):
     # RDIR-5
     out_p = 'notes/same.txt'
     repo, H, F, M = world(f_extra={out_p: b'same\n'}, m_extra={out_p: b'same\n'})
-    res = run_main(repo, H, F, M)
+    res = main_role(repo, H, F, M)
+    recorder.name_last('', bindings={'outside': out_p})
     check('RDIR-5', 'a path outside D whose blob at M equals its blob at F: side-change-unclassified (outside the record '
           'directory)', 'unclassified "outside the record directory"', res,
           unclassified(res, out_p) == [('side-change-unclassified', out_p, 'outside the record directory')])
@@ -283,7 +316,8 @@ def o9_controls(r, check):
     # RDIR-6
     sib = AUTH + '-x/f.json'
     repo, H, F, M = world(f_extra={sib: b'{}\n'}, m_extra={sib: b'{}\n'})
-    res = run_main(repo, H, F, M)
+    res = main_role(repo, H, F, M)
+    recorder.name_last('', bindings={'sibling': sib})
     check('RDIR-6', 'a sibling path D-x/f sharing D as a string prefix, equal at F and M: side-change-unclassified',
           'the sibling path unclassified (outside the record directory); not record-directory', res,
           unclassified(res, sib) == [('side-change-unclassified', sib, 'outside the record directory')] and
@@ -293,23 +327,39 @@ def o9_controls(r, check):
     bad = [AUTH + '/./x', AUTH + '/../x', AUTH + '//x', AUTH + '/x/..', AUTH + '/']
     good = [AUTH + '/x', AUTH + '/a/b.json']
     got = {p: rc.clean_path(p) for p in bad + good}
+    predicate = {'.': got[bad[0]], '..': got[bad[1]] or got[bad[3]],
+                 'empty component': got[bad[2]] or got[bad[4]], 'good path': all(got[p] for p in good)}
+    recorder.capture_doc('reconcile.clean_path', {'paths': got}, case='',
+                         attested={'outcome': 'PREDICATE', 'clean_path': predicate})
     check('RDIR-7', 'the clean-path predicate applied to paths with a ., .. or empty component: each refused (tested on the '
           'predicate)', 'clean_path false for each bad path, true for each good path', got,
-          not any(got[p] for p in bad) and all(got[p] for p in good))
+          not any(got[p] for p in bad) and all(got[p] for p in good),
+          files={'paths.json': bad + good, 'observed.json': got},
+          procedure={'name': 'predicate', 'lib': 'ast', 'inputs': 'paths.json', 'attested': 'observed.json'})
 
     # RDIR-8: a mode change, a symbolic link and a submodule in D, each in its own world, each through the full
     # `execution --main` path (the M role) and, in the same run, through the RC11 of a reconciliation record the
     # configuration references; compared with the same world with D equal to F, where RC11 holds
     cases = {'mode': 'differs from F', 'symlink': 'not a regular file', 'submodule': 'not a regular file'}
     o8 = {'baseline': o98_run(r, None)}
+    recorder.name_last('RC11 holds with the original directory')
     ok = o8['baseline'].get('RC11') is True and not o8['baseline'].get('stop') and \
         not o8['baseline'].get('exception') and not o8['baseline'].get('case_items')
     for case, why in cases.items():
         got = o98_run(r, case)
         o8[case] = got
+        label = 'mode change, M role' if case == 'mode' else case + ', M role'
+        recorder.name_last(label, bindings={'p': got.get('path')},
+                           attested={'no_exception': 'exception' not in got and got.get('exit') != 71})
         ok = ok and not got.get('stop') and not got.get('exception') and \
             got.get('case_items') == [('side-change-unclassified', got['path'], why)] and got.get('RC11') is False and \
             got.get('other_conditions') == o8['baseline'].get('other_conditions')
+    rc11_failed = all(o8[case].get('RC11') is False for case in cases)
+    rc11_invariant = json.dumps({'condition': 'RC11', 'holds': False}, sort_keys=True)
+    recorder.capture_doc('combined RC11 observations', o8, case='each case through RC11',
+                         attested={'outcome': 'RC_FAILS' if rc11_failed else 'RC_HOLDS',
+                                   rc11_invariant: rc11_failed,
+                                   'no_group_error': all('exception' not in observed for observed in o8.values())})
     check('RDIR-8', 'in D: the same blob with a mode change (100644 to 100755); a symbolic link at M where F has a regular '
           'file of the same bytes; a submodule entry at M; each case run through the full execution --main path (the M '
           'role) and, separately, through a reconciliation record\'s RC11: each side-change-unclassified (differs from '
@@ -321,8 +371,10 @@ def o9_controls(r, check):
     # RDIR-9: a ledgered path, and separately a corpus path, inside D
     lp = AUTH + '/ledger.json'
     repo, H, F, M = world()
-    a = run_main(repo, H, F, M, ledgered=[lp])
-    b = run_main(repo, H, F, M, corpus=[lp])
+    a = main_role(repo, H, F, M, ledgered=[lp])
+    recorder.name_last('ledgered path in D', attested={'reason': a.get('condition')})
+    b = main_role(repo, H, F, M, corpus=[lp])
+    recorder.name_last('corpus path in D', attested={'reason': b.get('condition')})
     check('RDIR-9', 'a ledgered path, and separately a corpus path, inside D: ERROR CONFIG_INCONSISTENT (Dir3)',
           'both runs stop CONFIG_INCONSISTENT with condition Dir3', {'ledgered': a, 'corpus': b},
           all(x.get('stop') == 'CONFIG_INCONSISTENT' and x.get('condition') == 'Dir3' for x in (a, b)))
@@ -332,8 +384,10 @@ def o9_controls(r, check):
     H = repo.add_commit({'doc/a.md': b'base\n'}, [], 'H')
     F = repo.derive(H, {'retirement-config.json': b'{}\n', 'PREREG.md': b'# p\n'}, parents=[H], subject='F')
     M = repo.derive(H, {'retirement-config.json': b'{}\n', 'PREREG.md': b'# p\n'}, parents=[H], subject='M')
-    res = run_main(repo, H, F, M, cpath='retirement-config.json')
-    res0 = run_main(repo, H, F, M, cpath='retirement-config.json', rule=False)
+    res = main_role(repo, H, F, M, cpath='retirement-config.json')
+    with_rule = recorder.name_last('')
+    res0 = main_role(repo, H, F, M, cpath='retirement-config.json', rule=False)
+    without = recorder.name_last('without the amendment')
     check('RDIR-10', 'a configuration in the root directory: the rule inactive, the run unchanged (items and side changes '
           'equal to the same run without this amendment), no record-directory classification (amendment r5)',
           'no stop and no exception; items and side changes equal to the run without the rule; no side change '
@@ -341,11 +395,13 @@ def o9_controls(r, check):
           'stop' not in res and 'exception' not in res and res.get('items') == res0.get('items') and
           res.get('side') == res0.get('side') and
           not [x for x in res.get('side', []) if x[1] == rc.record_directory_class] and
-          (res.get('rd') or {}).get('state', '').startswith('inactive'))
+          (res.get('rd') or {}).get('state', '').startswith('inactive'),
+          **equal_without(with_rule, without))
 
     # RDIR-11
     repo, H, F, M = world(h_extra={AUTH + '/old.txt': b'old\n'})
-    res = run_main(repo, H, F, M)
+    res = main_role(repo, H, F, M)
+    recorder.name_last('', attested={'reason': res.get('condition')})
     check('RDIR-11', 'a path inside D that exists at H: ERROR CONFIG_INCONSISTENT (Dir2)', 'stop CONFIG_INCONSISTENT, Dir2',
           res, res.get('stop') == 'CONFIG_INCONSISTENT' and res.get('condition') == 'Dir2')
 
@@ -353,7 +409,8 @@ def o9_controls(r, check):
     sub = AUTH + '/sub/f.json'
     repo, H, F, M = world(f_extra={sub: b'{}\n'}, m_extra={sub: b'{}\n'})
     cls = [{'id': 'c', 'prefixes': [AUTH + '/sub/'], 'pins': []}]
-    res = run_main(repo, H, F, M, classes=cls)
+    res = main_role(repo, H, F, M, classes=cls)
+    recorder.name_last('', attested={'reason': res.get('condition')})
     check('RDIR-12', 'the authorized D, with a side-change class whose prefix lies inside D: ERROR CONFIG_INCONSISTENT '
           '(Dir3)', 'stop CONFIG_INCONSISTENT, Dir3', res,
           res.get('stop') == 'CONFIG_INCONSISTENT' and res.get('condition') == 'Dir3')
@@ -361,10 +418,14 @@ def o9_controls(r, check):
     # RDIR-12b: a configuration under .github/, (a) present at H, (b) absent at H
     gd = '.github/plan'
     repo, H, F, M = world(d=gd, h_extra={gd + '/existing.txt': b'x\n'})
-    a = run_main(repo, H, F, M, cpath=gd + '/retirement-config.json')
-    a0 = run_main(repo, H, F, M, cpath=gd + '/retirement-config.json', rule=False)
+    a = main_role(repo, H, F, M, cpath=gd + '/retirement-config.json')
+    with_rule = recorder.name_last('(a) directory present at H')
+    a0 = main_role(repo, H, F, M, cpath=gd + '/retirement-config.json', rule=False)
+    without = recorder.name_last('without the amendment')
     repo, H, F, M = world(d=gd)
-    b = run_main(repo, H, F, M, cpath=gd + '/retirement-config.json')
+    b = main_role(repo, H, F, M, cpath=gd + '/retirement-config.json')
+    reason = 'directory not admitted' if 'directory not admitted' in b.get('message', '') else b.get('condition')
+    recorder.name_last('(b) directory absent at H', attested={'reason': reason})
     check('RDIR-12b', 'a configuration under .github/ with an entry inside it on M: (a) present at H: the rule inactive, no '
           'record-directory, the result equal to the run without this amendment; (b) absent at H: ERROR '
           'CONFIG_INCONSISTENT (directory not admitted)', '(a) items and side changes equal to the run without the rule, state '
@@ -372,13 +433,15 @@ def o9_controls(r, check):
           a.get('items') == a0.get('items') and a.get('side') == a0.get('side') and
           not [x for x in a.get('side', []) if x[1] == 'record-directory'] and
           (a.get('rd') or {}).get('state', '').startswith('inactive') and
-          b.get('stop') == 'CONFIG_INCONSISTENT' and b.get('condition') == 'authority')
+          b.get('stop') == 'CONFIG_INCONSISTENT' and b.get('condition') == 'authority',
+          **equal_without(with_rule, without))
 
     # RDIR-13: a class pin naming a D path, differing from M
     p13 = AUTH + '/review.json'
     repo, H, F, M = world()
     cls = [{'id': 'pinned', 'pins': [{'path': p13, 'git_blob': None, 'blob_sha256': '0' * 64}]}]
-    res = run_main(repo, H, F, M, classes=cls)
+    res = main_role(repo, H, F, M, classes=cls)
+    recorder.name_last('', bindings={'p': p13})
     check('RDIR-13', 'a path in D, equal at F and M, that a class names with a pin differing from M: '
           'side-change-unclassified naming the class; not record-directory',
           'unclassified with the class-pin reason naming class pinned', res,
@@ -394,10 +457,15 @@ def o9_controls(r, check):
     code, res = cli.run(argv, repo=syn.repo, harness=True, stderr=io.StringIO())
     res = res or {}
     dpaths = [e for e in res.get('side_changes', []) if rc.inside(AUTH, e['path'])]
+    no_record_directory = 'record_directory' not in res
+    unclassified_paths = bool(dpaths) and all(e['class'] is None for e in dpaths)
+    invariant = json.dumps({'all': 'paths_in_D', 'have': {'class': 'side-change-unclassified'}}, sort_keys=True)
+    recorder.name_last('', attested={'rule_active': not no_record_directory, 'a5_evaluated': not no_record_directory,
+                                     invariant: unclassified_paths})
     check('RDIR-14', 'no --freeze: the rule inactive; files in D side-change-unclassified; A.5 not evaluated',
           'no record_directory in the result; every D side change unclassified', {'exit': code, 'side': dpaths,
                                                                                  'rd': res.get('record_directory')},
-          'record_directory' not in res and dpaths and all(e['class'] is None for e in dpaths))
+          no_record_directory and unclassified_paths)
 
     # RDIR-15, RDIR-18, RDIR-19: RC11
     repo, H, F, M = world()
@@ -406,9 +474,12 @@ def o9_controls(r, check):
     b = r11(repo, H, F, M)
     repo, H, F, M = world({AUTH + '/ledger.json': None})
     c_ = r11(repo, H, F, M)
+    rc11_case(a)
     check('RDIR-15', 'a reconciliation record, M with D equal to F: RC11 holds', 'RC11 true', a, a.get('RC11') is True)
+    rc11_case(b)
     check('RDIR-18', 'a reconciliation record, M with one file of D modified after F: RC11 fails', 'RC11 false', b,
           b.get('RC11') is False)
+    rc11_case(c_)
     check('RDIR-19', 'a reconciliation record, M with one file of F\'s D deleted: RC11 fails (A.5)', 'RC11 false', c_,
           c_.get('RC11') is False)
 
@@ -417,6 +488,8 @@ def o9_controls(r, check):
     syn, w, c, p, F = syn_world(other)
     M = plan_on(syn, F, p, syn.H)
     code, res = exec_run(r, syn, w, F, p, M)
+    reason = (res.get('stop') or {}).get('message', '')
+    recorder.name_last('', attested={'reason': 'directory not admitted' if 'directory not admitted' in reason else None})
     check('RDIR-16', 'a configuration in a newly introduced, unrelated directory (absent at H, holding the configuration '
           'and a file of record pins, no ledgered, corpus, class or .github/ path): ERROR CONFIG_INCONSISTENT '
           '(directory not admitted)', 'exit 65, stop CONFIG_INCONSISTENT, condition authority',
@@ -425,7 +498,8 @@ def o9_controls(r, check):
 
     # RDIR-17, RDIR-24: the reserved class id; RDIR-24 through --classify (full path)
     repo, H, F, M = world()
-    res = run_main(repo, H, F, M, classes=[{'id': rc.record_directory_class, 'pins': []}])
+    res = main_role(repo, H, F, M, classes=[{'id': rc.record_directory_class, 'pins': []}])
+    recorder.name_last('', attested={'reason': res.get('condition')})
     check('RDIR-17', 'a class record defining class id record-directory: ERROR CONFIG_INCONSISTENT (Dir5)',
           'stop CONFIG_INCONSISTENT, Dir5', res, res.get('stop') == 'CONFIG_INCONSISTENT' and res.get('condition') == 'Dir5')
     cls_doc = {'schema': 'oi-side-change-classes/1', 'record_id': 'reserved', 'author': sf.WRITER, 'supersedes': None,
@@ -447,6 +521,7 @@ def o9_controls(r, check):
     F1 = hf.freeze(syn_.repo, c1, p1)
     M1 = plan_on(syn_, F1, p1, syn_.H)
     code, res = exec_run(r, syn_, w1, F1, p1, M1, extra=['--classify', '%s:%s' % (F1, cp)])
+    recorder.name_last('', attested={'reason': ((res.get('stop') or {}).get('detail') or {}).get('condition')})
     check('RDIR-24', 'a class record admitted through --classify that defines the class id record-directory: ERROR '
           'CONFIG_INCONSISTENT (Dir5)', 'exit 65, stop CONFIG_INCONSISTENT, condition Dir5',
           {'exit': code, 'stop': res.get('stop')}, code == 65 and (res.get('stop') or {}).get('class') ==
@@ -462,6 +537,7 @@ def o9_controls(r, check):
     ud = 'unauth/plan/dir'
     repo, H, F, M = world(d=ud)
     rc.evaluate = spy
+    observed_stop = None
     try:
         led = {'base': H, 'files': {'doc/a.md': {}}, 'splices': [], 'retained': []}
         M2 = repo.derive(M, {'doc/a.md': b'drift\n'}, parents=[M], subject='M drift')
@@ -473,10 +549,16 @@ def o9_controls(r, check):
             ex.main_role({'doc/a.md'})
             got = {'stop': None}
         except oc.Stop as s:
+            observed_stop = s
             got = {'stop': s.cls, 'condition': (s.detail or {}).get('condition')}
     finally:
         rc.evaluate = orig
     got['evaluations'] = len(calls)
+    reason = 'directory not admitted' if observed_stop and 'directory not admitted' in observed_stop.message else None
+    recorder.capture_doc('execution.main_role with observed reconciliation calls',
+                         control_records.stage_doc(ex.items, operation='execution.main_role', stop=observed_stop,
+                                                   reconciliation_calls=len(calls)), case='',
+                         attested={'reason': reason, 'rc11_evaluated': bool(calls)})
     check('RDIR-20', 'a reconciliation record, M with a file of D equal to F, but D not authorized: ERROR '
           'CONFIG_INCONSISTENT (directory not admitted) before RC11 is evaluated', 'stop CONFIG_INCONSISTENT, authority; no call of '
           'reconcile.evaluate', got, got.get('stop') == 'CONFIG_INCONSISTENT' and got.get('condition') == 'authority'
@@ -487,25 +569,30 @@ def o9_controls(r, check):
     new = b'{"changed on M": true}\n'
     repo, H, F, M = world({p21: new})
     cls = [{'id': 'matching', 'pins': [{'path': p21, 'git_blob': repo.blob_id(M, p21), 'blob_sha256': sha(new)}]}]
-    res = run_main(repo, H, F, M, classes=cls)
+    res = main_role(repo, H, F, M, classes=cls)
+    class_route_stands = side_of(res, p21) == [(p21, 'matching', None)]
+    recorder.name_last('', attested={'class_route_entry_stands': class_route_stands})
     check('RDIR-21', 'a file in D that differs between F and M, and a class pin naming it that matches M: the class '
           'route\'s entry stands and A.5 issues side-change-unclassified (differs from F); not accepting',
           'side-change entry class matching; an unclassified item "differs from F"', res,
-          side_of(res, p21) == [(p21, 'matching', None)] and
+          class_route_stands and
           unclassified(res, p21) == [('side-change-unclassified', p21, 'differs from F')])
 
     # RDIR-22: an unauthorized D with no entry on M (full path), compared with the tool without the rule
     syn, w, c, p, F = syn_world('syn/cfg/config.json')
     M = syn.repo.derive(syn.H, {'notes/m.txt': b'main\n'}, parents=[syn.H], subject='M')
     with_r = exec_run(r, syn, w, F, p, M)
+    with_run = recorder.name_last('', attested={'no_error': not with_r[1].get('stop')})
     without = without_rule(lambda: exec_run(r, syn, w, F, p, M))
+    without_run = recorder.name_last('without the amendment')
     check('RDIR-22', 'an unauthorized D with no entry inside it on M, under execution --main --freeze: no ERROR; side '
           'changes classified exactly as without this amendment', 'no stop; record_directory state inactive; result '
           'equal to the run without the rule', {'exit': with_r[0], 'rd': with_r[1].get('record_directory'),
                                                'exit_without': without[0]},
           not with_r[1].get('stop') and with_r[0] == without[0] and
           strip_run(with_r[1]) == strip_run(without[1]) and
-          (with_r[1].get('record_directory') or {}).get('state', '').startswith('inactive'))
+          (with_r[1].get('record_directory') or {}).get('state', '').startswith('inactive'),
+          **equal_without(with_run, without_run))
 
     # RDIR-23: the authorized D under coverage (no M): A.3-A.5 never evaluated
     built = []
@@ -524,10 +611,18 @@ def o9_controls(r, check):
     finally:
         rc.RecordDirectory = orig_rd
     res = res or {}
+    rd_evaluated = bool(built) or 'record_directory' in res
+    with_run = recorder.name_last('', attested={'a3_a5_evaluated': rd_evaluated})
+    opts = {'repo': syn.repo, 'stderr': io.StringIO(), 'control': w.control(w.checkout()), 'environ': {}}
+    clean_argv = argv.copy()
+    clean_argv[clean_argv.index('--out') + 1] = r.out()
+    code0, res0 = without_rule(lambda: cli.run(clean_argv, **opts))
+    without_run = recorder.name_last('without the amendment')
     check('RDIR-23', 'the authorized D and a configuration whose run is coverage (no M): no evaluation of A.3-A.5',
           'no RecordDirectory built; no record_directory in the result; no stop', {'exit': code, 'built': len(built),
                                                                                  'stop': res.get('stop')},
-          not built and 'record_directory' not in res and not res.get('stop'))
+          not rd_evaluated and not res.get('stop') and code0 == code and strip_run(res or {}) == strip_run(res0 or {}),
+          **equal_without(with_run, without_run))
 
     # RDIR-25: the synthetic world of the conformance controls: an unauthorized D (syn) present at H, entries on M
     syn, w, c, p, F = syn_world('syn/config.json')
@@ -535,7 +630,9 @@ def o9_controls(r, check):
     present_h = any(rc.inside('syn', q) for q in syn.repo.entries(syn.H))
     on_m = any(rc.inside('syn', q) for q in syn.repo.entries(M))
     with_r = exec_run(r, syn, w, F, p, M)
+    with_run = recorder.name_last('', attested={'no_error': not with_r[1].get('stop')})
     without = without_rule(lambda: exec_run(r, syn, w, F, p, M))
+    without_run = recorder.name_last('without the amendment')
     check('RDIR-25', 'the synthetic world: an unauthorized D (syn) present at H, with entries inside it on M, under '
           'execution --main --freeze: no ERROR; the rule inactive; side changes, items and outcome equal to the same '
           'run without this amendment (the existing conformance controls are checked by their own results)',
@@ -544,7 +641,8 @@ def o9_controls(r, check):
            'exit_without': without[0]},
           present_h and on_m and not with_r[1].get('stop') and with_r[0] == without[0] and
           strip_run(with_r[1]) == strip_run(without[1]) and
-          (with_r[1].get('record_directory') or {}).get('state') == 'inactive: unauthorized, present at H')
+          (with_r[1].get('record_directory') or {}).get('state') == 'inactive: unauthorized, present at H',
+          **equal_without(with_run, without_run))
 
 
 # ---- the item-2 controls --------------------------------------------------------------------------------------
@@ -646,11 +744,29 @@ def hit_doc_of(cls, rid='hit-cls'):
             'classifications': cls}
 
 
-def i2_controls(r, check, workflow_path):
+def i2_controls(r, check, workflow_path, recorder):
     arm = arm_text(workflow_path)
+    matches = arm == EXPECTED_ARM
+    with open(workflow_path, 'rb') as f:
+        workflow = f.read()
+    invariant = json.dumps({'arm': 'item2-coverage',
+                            'equals': 'existing arguments followed by the two --classify arguments of B.2, '
+                                      'every expansion quoted'}, sort_keys=True)
+    recorder.capture_doc('the item2-coverage workflow arm', {'observed': arm}, case='',
+                         attested={'outcome': 'TEXT_EQUAL' if matches else 'TEXT_DIFFERS', invariant: matches})
     check('I2-1', 'the item2-coverage arm: the exact workflow arm with --check item2 after --commit "$X", retaining '
           'both segments and all existing operands, every expansion quoted', 'the arm line equals the expected text',
-          arm, arm == EXPECTED_ARM)
+          arm, matches, files={'workflow.yml': workflow, 'expected.txt': EXPECTED_ARM.encode('utf-8'),
+                               'observed.json': {'arm': arm, 'matches': matches}},
+          procedure={'name': 'workflow-text', 'lib': 'ast', 'inputs': ['workflow.yml', 'expected.txt'],
+                     'attested': 'observed.json'})
+
+    def site_case(name, site, coverage, items, **inputs):
+        selected = [item for item in items if item['subject'] == site]
+        recorder.capture_doc('coverage of the named site',
+                             control_records.stage_doc(selected, operation='coverage', sites=[coverage.site_out[site]],
+                                                       inputs=inputs),
+                             case=name, bindings={'site': site})
 
     # I2-2: a meaning-context adjudication through context-adjudications.json resolves its site (as K10)
     w = ce.World(sites=[(3, 'sd'), (7, 'sr')])
@@ -663,8 +779,11 @@ def i2_controls(r, check, workflow_path):
              'statement': 'the qualification is still stated', 'author': sf.WRITER}
     syn, sw, F, p, d, names = i2_world(ctx_doc_of([entry]), hit_doc_of([]))
     code, res, got = coverage_via_arm(r, syn, sw, F, p, d, arm)
+    recorder.name_last('workflow coverage')
     routed = [e for e in got.get('context', []) if e.get('id') == 'c1']
     cv10, it10 = w.coverage(x, [ce.seg(w.pin, x)], adj={'context': routed}, hits=False)
+    site_case('with record', sd, cv10, it10, routed=routed)
+    site_case('without', sd, cv, it, routed=[])
     check('I2-2', 'a meaning-context adjudication supplied through context-adjudications.json, matching both context '
           'hashes of a meaning-context site: that site PASS (sec. 4.1 row 2), as K10',
           'the adjudication reaches the context collection through the arm\'s --classify; with it the site has no '
@@ -725,12 +844,18 @@ def i2_controls(r, check, workflow_path):
     syn, sw, F, p, d, names = i2_world(ctx_doc_of([]), hit_doc_of([]))
     code, res, got = coverage_via_arm(r, syn, sw, F, p, d, arm)
     ok = not [i for i in res.get('items', []) if i['class'] == 'record-invalid'] and not res.get('stop')
+    routed_context = got.get('context')
+    recorder.name_last('empty entries with record_id and review',
+                       attested={'record_admitted': ok and routed_context == [],
+                                 'sites_resolved_by_it': len(routed_context) if routed_context is not None else None})
     nid = ctx_doc_of([])
     nid.pop('record_id')
     syn2, sw2, F2, p2, d2, n2 = i2_world(nid, hit_doc_of([]))
     code2, res2, got2 = coverage_via_arm(r, syn2, sw2, F2, p2, d2, arm)
+    recorder.name_last('without record_id')
     syn3, sw3, F3, p3, d3, n3 = i2_world(ctx_doc_of([]), hit_doc_of([]), review=False)
     code3, res3, got3 = coverage_via_arm(r, syn3, sw3, F3, p3, d3, arm)
+    recorder.name_last('without review')
     inv2 = [i['subject'] for i in res2.get('items', []) if i['class'] == 'record-invalid']
     inv3 = [i['subject'] for i in res3.get('items', []) if i['class'] == 'record-invalid']
     check('I2-6', 'an empty entries list with its record_id, referenced, with a valid review bound to that record_id: '
@@ -781,8 +906,11 @@ def i2_controls(r, check, workflow_path):
               'author': sf.WRITER}
     syn, sw, F, p, d, names = i2_world(ctx_doc_of([entry6]), hit_doc_of([]))
     code, res, got = coverage_via_arm(r, syn, sw, F, p, d, arm)
+    recorder.name_last('workflow coverage')
     routed = [e for e in got.get('context', []) if e.get('id') == 'i1']
     cv6b, it6b = w6.coverage(x6, [ce.seg(w6.pin, x6)], adj={'context': routed}, hits=False)
+    site_case('with adjudication', s6, cv6b, it6b, routed=routed)
+    site_case('without', s6, cv6, it6, routed=[])
     check('I2-8', 'an indicator adjudication supplied through context-adjudications.json, matching both context hashes and '
           'both structure hashes of a LIST or TABLE site: the context-structure-changed item resolved; without it '
           'REVIEW_REQUIRED context-structure-changed', 'the adjudication reaches the context collection through the '

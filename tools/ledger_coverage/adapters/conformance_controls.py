@@ -2910,7 +2910,7 @@ def main(out_root):
               ('LN', lambda: ln1_ln8(r)), ('R6-G6', lambda: r6_g6(r)),
               ('CONFIG-LINT', lambda: config_lint_controls(r)), ('B4-MEANING', lambda: meaning_controls(r)),
               # design amendment r4: the record-directory rule (O-9) and the item-2 record interfaces
-              ('O9', lambda: rdc.o9_controls(r, check)), ('I2', lambda: rdc.i2_controls(r, check, WORKFLOW)),
+              ('O9', lambda: rdc.o9_controls(r, check, REC)), ('I2', lambda: rdc.i2_controls(r, check, WORKFLOW, REC)),
               # design amendment 1: the post-freeze route
               ('POSTF', lambda: pfc.postf_controls(r, check)),
               ('LINE-PATCH-RC8', lambda: pfc.line_patch_control(r, check, REC.capture_doc)),
