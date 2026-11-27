@@ -819,45 +819,86 @@ def adjudication_run_controls(r, two_pass, pin_q, sib, drop_sib):
     only Inapplicable or an adjudication clears. An adjudication J by adj-j, authorized by the owner, reviewed by t,
     lands in a dedicated commit on main; the current configuration, rebuilt at main's tip (in a control-harness run the
     configuration's commit is F'), cites J and its review."""
-    from ledger_coverage.engine import adjudication as adjm
+    from ledger_coverage.engine import adjudication as adjm, obl29
     from datetime import datetime as _dt, timezone as _tz
 
-    def world(mut=None, cite=True, land=True, extra_upheld=None):
-        c, m = two_pass(world=CW.lineage, cfg_records=pin_q, main_files=sib, pre=drop_sib)
-        w = c.w
-        q, p_ref = dict(w.repair_entry), dict(w.p_ref)
+    def lineage_setup():
+        c, _m = two_pass(world=CW.lineage, cfg_records=pin_q, main_files=sib, pre=drop_sib)
+        q = dict(c.w.repair_entry)
         sref = {'path': S_PATH, 'blob_sha256': sf.sha(sib[S_PATH])}
+        witness = {'class': 'lineage', 'disputed': q,
+                   'edge': {'successor': q, 'predecessor': dict(c.w.p_ref)},
+                   'sources': [sref], 'adverse': [{'ref': sref, 'item': 'edge'}],
+                   'original_configuration': c.kref}
+        return c, witness, gitobj.blob_id_of(sib[S_PATH]), {}
+
+    def review_setup():
+        # The closed context used Q. The current reassessment instead names a distinct replacement R, and cites
+        # an accepting same-reviewer resolution Z that meets NR-5 on its own.
+        base = lineage_finding_world(r, edits=pfc.EDITS_REWORDED)
+        qref = base.repair_entry
+        qb = base.repo.read(base.M, qref['path'])
+        item = sf.DOC + ':scientific_effect'
+        reviewer = 'reviewer-adverse'
+        vp = qref['path'][:-5] + '.adverse.review.json'
+        vb = pfc.jb({'schema': rec.review_schema, 'reviewer': reviewer, 'reviewed': qref,
+                     'method': 'read ' + gitobj.blob_id_of(qb),
+                     'verdicts': [{'item': i, 'verdict': 'reject' if i == item else 'accept', 'reason': 'checked'}
+                                  for i in rec.item_ids(json.loads(qb))]})
+        vref = {'path': vp, 'blob_sha256': sf.sha(vb)}
+        vg = gitobj.blob_id_of(vb)
+        token = obl29.item_token(vg, item)
+        rp, rb, zp, zb = replacement(base, reviewer=reviewer)
+        z = json.loads(zb)
+        fg = gitobj.blob_id_of(base.repo.read(base.M, pfc.RD + 'finding.json'))
+        z['method'] = 'read ' + ' '.join([gitobj.blob_id_of(qb), vg, token, obl29.item_token(fg, sf.DOC)])
+        for verdict in z['verdicts']:
+            verdict['reason'] = 'resolves ' + token
+        records = {rp: rb, zp: pfc.jb(z)}
+
+        def drop_review(c, main_before):
+            c.step({vp: None}, 'the adverse review leaves the current tree')
+
+        c, _m = two_pass(world=lambda fixture: CW.lineage(fixture, repl=True),
+                         main_files={**records, vp: vb}, pre=drop_review, ctx_reassessment=pfc.reassessment(base))
+        witness = {'class': 'review', 'disputed': qref, 'edge': None,
+                   'sources': [vref], 'adverse': [{'ref': vref, 'item': item}],
+                   'original_configuration': c.kref}
+        return c, witness, vg, records
+
+    def world(mut=None, cite=True, land=True, extra_upheld=None, setup=lineage_setup):
+        c, witness, g_source, replacement_records = setup()
+        w = c.w
+        q = witness['disputed']
         a_bytes = w.files[pfc.RA_PATH]
         A = json.loads(a_bytes)
         aref = {'path': pfc.RA_PATH, 'blob_sha256': sf.sha(a_bytes)}
 
         def git_at_m(path):
             return w.repo.entries(w.M)[path][1]
-        g_s, g_q, g_f, g_a = gitobj.blob_id_of(sib[S_PATH]), git_at_m(q['path']), \
-            git_at_m(pfc.RD + 'finding.json'), gitobj.blob_id_of(a_bytes)
+        g_q, g_f, g_a = git_at_m(q['path']), git_at_m(pfc.RD + 'finding.json'), gitobj.blob_id_of(a_bytes)
         entry = dict(A['repair']['entry'])
+        g_r = git_at_m(entry['path'])
         J = {'schema': adjm.schema, 'record_id': 'adj-1', 'supersedes': None, 'author': 'adj-j',
              'authorization': {'quote': 'I authorize adj-j to adjudicate this witness for this replacement.',
                                'author': ra.OWNER_IDENTITIES[0], 'time': '2026-11-27T10:00Z',
                                'source': '#1169 (owner record)', 'adjudicator': 'adj-j',
-                               'finding': dict(A['finding']), 'witness_sources': [dict(sref)],
+                               'finding': dict(A['finding']), 'witness_sources': list(witness['sources']),
                                'replacement': dict(entry)},
              'finding': dict(A['finding']),
-             'witness': {'class': 'lineage', 'disputed': dict(q), 'edge': {'successor': dict(q), 'predecessor': p_ref},
-                         'sources': [dict(sref)], 'adverse': [{'ref': dict(sref), 'item': 'edge'}],
-                         'original_configuration': dict(c.kref)},
+             'witness': witness,
              'replacement': dict(entry), 'reassessment': aref, 'dissents_addressed': [], 'disposition': 'cleared',
-             'grounds': [{'id': 'g1', 'target': {'ref': dict(sref), 'item': 'edge'},
-                          'reasoning': 'S was withdrawn before any run relied on it; Q -> P stands',
-                          'evidence': [g_s, g_q, g_q]}],
-             'method': 'read %s %s %s %s' % (g_f, g_s, g_q, g_a), 'conflicts': 'none'}
+             'grounds': [{'id': 'g1', 'target': dict(witness['adverse'][0]),
+                          'reasoning': 'the retained concern was resolved by checking the basis of the repair',
+                          'evidence': [g_source, g_q, g_r]}],
+             'method': 'read ' + ' '.join([g_f, g_source, g_q, g_r, g_a]), 'conflicts': 'none'}
         if mut:
             mut(J)
-        jdir = q['path'].rsplit('/', 1)[0] + '/'
+        jdir = entry['path'].rsplit('/', 1)[0] + '/'
         jp, tp = jdir + 'adj.json', jdir + 'adj.review.json'
         jb = pfc.jb(J)
         T = {'schema': rec.review_schema, 'reviewer': 't', 'reviewed': {'path': jp, 'blob_sha256': sf.sha(jb)},
-             'method': 'read %s %s' % (gitobj.blob_id_of(jb), g_s),
+             'method': 'read %s %s' % (gitobj.blob_id_of(jb), g_source),
              'verdicts': [{'item': i, 'verdict': 'accept', 'reason': 'checked against the git objects'}
                           for i in adjm.item_ids(J)]}
         tb = pfc.jb(T)
@@ -870,6 +911,10 @@ def adjudication_run_controls(r, two_pass, pin_q, sib, drop_sib):
         # one more main commit makes the landing an ancestor of it
         c.step({'notes/after-adjudication.txt': b'later\n'}, 'a later main commit')
         spec = dict(w.build_spec)
+        spec['files'] = dict(spec['files'], **replacement_records)
+        spec['add_records'] = list(spec.get('add_records') or []) + [
+            {'kind': 'review' if path.endswith('.review.json') else 'reconciliation',
+             'path': path, 'blob_sha256': sf.sha(data)} for path, data in replacement_records.items()]
         if cite:
             spec['files'] = dict(spec['files'], **{jp: jb, tp: tb})
             spec['add_records'] = list(spec.get('add_records') or []) + [
@@ -927,6 +972,62 @@ def adjudication_run_controls(r, two_pass, pin_q, sib, drop_sib):
     case('ADJ-N-UPHELD-UNCITED-RUN', 'a matching upheld adjudication by another adjudicator, valid for adverse use and '
                                      'cited by none: it contradicts J (ADJ-CONTRA), the witness stands',
          o.get('error') or o['reassess_why'], still_blocked(o, 'ADJ-CONTRA'))
+
+    def party_review(c, J):
+        qref = J['witness']['disputed']
+        q_bytes = c.w.repo.read(c.w.M, qref['path'])
+        review = {'schema': rec.review_schema, 'reviewer': 'adj-k', 'reviewed': qref,
+                  'method': 'read ' + gitobj.blob_id_of(q_bytes),
+                  'verdicts': [{'item': i, 'verdict': 'accept', 'reason': 'checked against Q'}
+                               for i in rec.item_ids(json.loads(q_bytes))]}
+        return {'verification/audits/adj-party/q.review.json': pfc.jb(review)}
+
+    def upheld_then_review(c, J, jdir):
+        upheld(c, J, jdir)
+        c.step(party_review(c, J), 'the upheld adjudicator reviews Q after landing')
+
+    def review_then_upheld(c, J, jdir):
+        c.step(party_review(c, J), 'the upheld adjudicator reviews Q before landing')
+        upheld(c, J, jdir)
+
+    def side_review_then_upheld(c, J, jdir):
+        w = c.w
+        reviewed = w.repo.derive(w.M, party_review(c, J), parents=[w.M], subject='Q review on side branch')
+        c.step({}, 'merge side history without the review path', parents=[w.M, reviewed])
+        upheld(c, J, jdir)
+
+    o = guarded_run(lambda: world(extra_upheld=upheld_then_review))
+    case('ADJ-N-LATE-PARTY-REVIEW', 'a review of Q after the upheld adjudication lands does not enter Parties_J at '
+                                     'its landing: ADJ-CONTRA and retirement-blocked remain',
+         o.get('error') or o['reassess_why'], still_blocked(o, 'ADJ-CONTRA'))
+
+    o = guarded_run(lambda: world(extra_upheld=review_then_upheld))
+    case('ADJ-P-EARLY-PARTY-REVIEW', 'the same review before landing makes the upheld adjudicator a party: the '
+                                      'upheld record is invalid for adverse use and the cleared adjudication applies',
+         o.get('error') or [o['decisions'], o['adjudications']], cleared(o))
+
+    o = guarded_run(lambda: world(extra_upheld=side_review_then_upheld))
+    case('ADJ-P-ANCESTOR-PARTY-REVIEW', 'the same earlier review survives in merged ancestry even when absent from '
+                                         'the landing tree: the upheld adjudicator is a party',
+         o.get('error') or [o['decisions'], o['adjudications']], cleared(o))
+
+    o = guarded_run(lambda: world(setup=review_setup))
+    case('ADJ-P-REVIEW-WITNESS-RUN', 'the exact reassessment and replacement are bound to a retained review witness; '
+                                    'a valid admitted adjudication clears through route 2',
+         o.get('error') or [o['witnesses'], o['decisions'], o['adjudications']],
+         cleared(o) and [w['kind'] for w in o['witnesses']] == ['review'])
+    o = guarded_run(lambda: world(cite=False, land=False, setup=review_setup))
+    case('ADJ-P-REVIEW-NR5-RUN', 'without adjudication, the existing same-reviewer resolution meets NR-5',
+         o.get('error') or [o['decisions'], o['reassess_why']],
+         o['status'] == 'established' and bool(o['reassessments']) and
+         o['decisions'] == [(False, 'explicit resolution (NR-1, NR-2, NR-4, NR-5)', ['r3'])])
+    o = guarded_run(lambda: world(cite=False, land=False, extra_upheld=upheld, setup=review_setup))
+    case('ADJ-N-REVIEW-UPHELD-NR5-RUN', 'the same NR-5 resolution with a matching, valid, uncited upheld '
+                                       'adjudication: NR-5 is false and the finding remains retirement-blocked',
+         o.get('error') or [o['decisions'], o['reassess_why'], o['findings']],
+         still_blocked(o) and o['decisions'] == [(True, None, ['r3'])] and
+         any(e['valid_adverse'] and e['disposition'] == 'upheld'
+             for f in o['findings'] for e in f.get('adjudications') or []))
 
 
 def replay_controls(r, freeze_world, result):

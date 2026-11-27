@@ -9,10 +9,10 @@ The #1605 sec. 6 amendment rows are adopted with the lineage witness edge read a
 adjudications in R* (Cumulative.adjudications, for R6.ADJ.9's contradiction and upheld rules), route 2 in the decision
 (obl29.decide `adjudicated`) and the result field `adjudications` (R6.ADJ.13).
 
-Readings stated: in a control-harness run, which has no freeze, the candidate freeze F' of ADJ-LANDED is the
-configuration's commit; Parties are computed over the run's whole R* (a superset of R*(C), stricter). R6.ADJ.12's
-disregard reaches NR-3 and NR-5 here; R6.REC.6 on R in reassessment_problems keeps every dissent (stricter: a
-disregarded item still fails the discharge there), recorded as a remaining gap.
+In a control-harness run, which has no freeze, the candidate freeze F' of ADJ-LANDED is the configuration's commit.
+Clearing uses the run's whole R*. Adverse use evaluates qualifying reviews and parties at the adjudication's landing.
+R6.ADJ.12's disregard reaches NR-3 and NR-5 here. R6.REC.6 on R in reassessment_problems still keeps every dissent,
+which can block discharge on an otherwise disregarded item.
 """
 import posixpath
 import re
@@ -616,23 +616,28 @@ class Run:
                 return e[1]
         return None
 
-    def reviews_of(self, ref, directory=None):
-        return [(p, o, d) for p, o, d in self.cum.reviews_naming_ids(ref, directory)]
+    def reviews_of(self, ref, directory=None, *, at=None):
+        """Reviews in the run's R*, or in R*(at) through verified ancestry for adverse use."""
+        rows = self.cum.reviews_naming_ids(ref, directory)
+        if at is None:
+            return rows
+        return [(p, o, d) for p, o, d in rows
+                if any(self.repo.is_ancestor(holder, at) for holder in self.cum.holders.get((p, o), ()))]
 
 
-def _parties_for(run, finding_ref, Q, R, A, config, sources, predecessor, refs_reviewed):
+def _parties_for(run, finding_ref, Q, R, A, config, sources, predecessor, refs_reviewed, *, at=None):
     frec = run.doc_of(finding_ref)
     reviews = []
     for r_ in refs_reviewed:
         if isinstance(r_, dict):
-            reviews += [d for _p, _o, d in run.reviews_of(r_)]
+            reviews += [d for _p, _o, d in run.reviews_of(r_, at=at)]
     return parties(finding_record=frec if isinstance(frec, dict) and 'author' in frec else None,
                    finding_review=frec if isinstance(frec, dict) and 'reviewer' in frec else None,
                    Q=Q, R=R, A=A, config=config, sources=sources, predecessor=predecessor, reviews=reviews)
 
 
-def parties_j(run, J):
-    """Parties_J: from J's own bindings (R6.ADJ.4)."""
+def parties_j(run, J, at):
+    """Parties_J(at): J's own bindings and reviews in R*(at) (R6.ADJ.4)."""
     w = J.get('witness') if isinstance(J.get('witness'), dict) else {}
     f = J.get('finding') if isinstance(J.get('finding'), dict) else {}
     fref = {'path': f.get('path'), 'blob_sha256': f.get('blob_sha256')}
@@ -641,23 +646,31 @@ def parties_j(run, J):
     return _parties_for(run, fref, run.doc_of(w.get('disputed')), run.doc_of(_ref(J.get('replacement'))),
                         run.doc_of(J.get('reassessment')), None, [x for x in srcs if isinstance(x, dict)],
                         run.doc_of(pred) if pred else None,
-                        [w.get('disputed'), _ref(J.get('replacement')), J.get('reassessment')] + ([pred] if pred else []))
+                        [w.get('disputed'), _ref(J.get('replacement')), J.get('reassessment')] + ([pred] if pred else []),
+                        at=at)
 
 
 def validity(run, jref, J, joid):
     """'valid', 'invalid' (a definite failure) or 'unknown' for adverse use (R6.ADJ.8, R6.ADJ.9 (4))."""
     if form_problems(J):
         return 'invalid'
-    pj = parties_j(run, J)
-    reviews = [(p, o, d) for p, o, d in run.reviews_of(jref)]
-    srcs = [run.git_of(s_) for s_ in (J['witness'].get('sources') or [])]
-    qual = [(p, o, d) for p, o, d in reviews if not review_problems(d, J, jref, joid, srcs, pj, run.owners)]
+    reviews = run.reviews_of(jref)
     if not reviews:
         return 'invalid'
-    L = landing(run.repo, run.M, jref, lambda c: any(
-        (run.repo.entries(c).get(p) or (None, None))[1] == o for p, o, _d in qual))
+    srcs = [run.git_of(s_) for s_ in (J['witness'].get('sources') or [])]
+
+    def qualifying_review_at(commit):
+        entries = run.repo.entries(commit)
+        present = [d for p, o, d in reviews if entries.get(p) in (('100644', o), ('100755', o))]
+        if not present:
+            return False
+        pj = parties_j(run, J, commit)
+        return any(not review_problems(d, J, jref, joid, srcs, pj, run.owners) for d in present)
+
+    L = landing(run.repo, run.M, jref, qualifying_review_at)
     if L is None:
         return 'unknown'
+    pj = parties_j(run, J, L)
     t = run.repo.committer_time(L)
     lt = datetime.fromtimestamp(t, timezone.utc) if t is not None else None
     if authorization_problems(J, lt, run.owners) or independence_problems(J, None, pj, run.owners) or \
