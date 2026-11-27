@@ -1628,12 +1628,14 @@ def amendment_7_unit_controls(r):
     out = out or {}
     cls = sorted({i['class'] for i in out.get('items', [])})
     inv = [i.get('subject') for i in out.get('items', []) if i['class'] == 'record-invalid']
+    doc_side = [e for e in out.get('side_changes', []) if e.get('path') == sf.DOC]
+    evs = (doc_side[0].get('record_conditions') or []) if doc_side else []
+    rc1 = evs[0].get('holds', {}).get('RC1') if evs else None
     case('A7-I-C2', 'a no-effect entry (not a finding) with side_change_commits [] on a mode-only change: FAIL '
-                    'base-drift, not retirement-blocked; the record is not record-invalid unless the post-freeze '
-                    'route refuses it, which it does here: R6.RECON.2 (b) compares blobs, so a mode-only path is no '
-                    'drifted path (the recorded mode gap)',
-         {'classes': cls, 'invalid': inv},
-         'base-drift' in cls and 'retirement-blocked' not in cls)
+                    'base-drift, RC1 failing; not retirement-blocked, not record-invalid (a mode-only change is a '
+                    'change of the path for R6.RECON.2 (b) and RC1)',
+         {'classes': cls, 'invalid': inv, 'RC1': rc1},
+         'base-drift' in cls and rc1 is False and 'retirement-blocked' not in cls and 'record-invalid' not in cls)
     # gap (ii): an element naming a retained edit of the named configuration is a known id (no run-level binding)
     class B:
         repo = None

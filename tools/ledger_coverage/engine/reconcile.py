@@ -9,7 +9,7 @@ independently of any record (S6).
 from . import outcome as oc
 from . import segments as sg
 from . import util
-from .gitobj import Unresolvable, blob_id_of, on_first_parent_chain, regular_modes
+from .gitobj import Unresolvable, blob_id_of, on_first_parent_chain, regular_modes, tree_entry
 
 condition_order = ['RC13', 'RC1', 'RC2', 'RC3', 'RC4', 'RC5', 'RC6', 'RC7', 'RC8', 'RC9', 'RC10', 'RC11', 'RC12',
                    'RC14']
@@ -443,7 +443,7 @@ def evaluate(repo, ctx, H, M, X, led, rdoc, entry, classes, record_refs, rd=None
             c = repo.parents(c)[0]
         prev = H
         for c in reversed(chain):
-            if repo.blob_id(c, path) != repo.blob_id(prev, path):
+            if tree_entry(repo, c, path) != tree_entry(repo, prev, path):
                 changes.append(c)
             prev = c
         res['RC1'] = changes == list(entry.get('side_change_commits') or [])

@@ -18,6 +18,12 @@ _full = re.compile(r'^[0-9a-f]{40}$')
 regular_modes = ('100644', '100755')
 
 
+def tree_entry(repo, cid, path):
+    """(mode, object id) of the path's entry in the commit's tree, or None: a commit changes a path when this
+    differs from its parent's, so a mode-only change is a change (R6.RECON.2 (b), RC1)."""
+    return repo.entries(cid).get(path)
+
+
 def full_id(rev):
     """A role commit or object is named by its full 40-hex id; no ref name, abbreviation or upper case is resolved
     (sec. 6.3, object integrity)."""
