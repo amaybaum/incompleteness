@@ -96,7 +96,7 @@ def build_parser():
     rp.add_argument('--snapshot', required=True, help='a committed landing record (oi-ledger-landing/1)')
     rp.add_argument('--out', required=True)
     rp.add_argument('--repo', default=None)
-    cu = sub.add_parser('custody', help='the R6.CUST.10 gate check of the OBL-29 custody record at a commit')
+    cu = sub.add_parser('custody', help='the gate check of the custody record of obligation 29 at a commit')
     cu.add_argument('--commit', required=True)
     cu.add_argument('--out', required=True)
     cu.add_argument('--repo', default=None)
@@ -311,13 +311,13 @@ def category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, r
     for path in cum.malformed_at(M, lambda q: q not in read_paths and (
             any(q.startswith(x) for x in scope.prefixes) or (scope.plan_dir and q.startswith(scope.plan_dir)))):
         out.append(oc.make_item('RECORD', 'record-invalid', path, None, {'why': 'malformed record'},
-                                detail=['a malformed record (R6.RECON.35 class (b) or (c)) at M']))
+                                detail=['a malformed record of the scan, class (b) or (c), at M']))
     anchors = [F] if F else (revs or [M])
     rcache = {}
 
     def resolve_cfg(ref):
-        """R6.RECON.33: a configuration reference resolves at the newest commit on the anchor's first-parent chain
-        whose tree holds the path with a blob of that sha256."""
+        # R6.RECON.33: a configuration reference resolves at the newest commit on the anchor's first-parent chain
+        # whose tree holds the path with a blob of that sha256.
         key = (ref.get('path'), ref.get('blob_sha256'))
         if key not in rcache:
             rcache[key] = None
@@ -390,7 +390,7 @@ def category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, r
                 applies = c3.in_m(repo, M, entry['side_change_commits']) if not why else True
                 edits, run_level, form = c3.bind(f, bview) if applies else ([], False, list(f.get('form') or []))
                 if why:
-                    form = list(form) + ['side_change_commits does not scope the finding (R6.RECON.26): %s' % why[0]]
+                    form = list(form) + ['side_change_commits does not scope the finding: %s' % why[0]]
                 bound[fkey(f)] = (edits, run_level, form, present)
             findings.append({'record': f['record'], 'item': f.get('item'), 'kind': f['kind'], 'path': f['path'],
                              'class': f.get('class'), 'present_at_M': present, 'witness': wit})
@@ -471,7 +471,7 @@ def category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, r
             from .. import record_authority as ra2
             wblocked, review_blocked, rows, adj_rows = c3.custody_decisions(
                 repo, chk.witnesses, applying, loaded, m_scan, cum, schemas, M=M,
-                Fprime=F or loaded.ref['commit'], explicit_at=explicit_at, owners=ra2.OWNER_IDENTITIES,
+                Fprime=F or loaded.ref['commit'], explicit_at=explicit_at, owners=ra2.owner_identities,
                 witnesses_at=witnesses_at)
             custody['adjudications'] = adj_rows
         except Unresolvable as exc:
@@ -523,7 +523,7 @@ def category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, r
     if cum.adjudications():
         from .. import record_authority as ra3
         arun = c3.adjudication_run(repo, M, F or loaded.ref['commit'], loaded, m_scan, cum, explicit_at,
-                                   witnesses_at, ra3.OWNER_IDENTITIES)
+                                   witnesses_at, ra3.owner_identities)
         evaluated = {(x['path'], x['blob_sha256']): x for x in (custody or {}).get('adjudications') or []}
         for f, x in zip(found, findings):
             x['adjudications'] = c3.adjudication_entries(arun, f, evaluated)
@@ -612,8 +612,8 @@ def invocation(argv):
 
 
 def context_ledger_files(repo):
-    """files(context) -> the set of ledgered paths of a custody context's configuration, read at its freeze through
-    the configuration's own ledger adapter (R6.RECON.1), or None when they cannot be read."""
+    # files(context) -> the set of ledgered paths of a custody context's configuration, read at its freeze through
+    # the configuration's own ledger adapter (R6.RECON.1), or None when they cannot be read.
     def files(c_):
         try:
             other = cfgmod.load(repo, c_['f'], c_['config']['path'], c_['config']['blob_sha256'], None, 'harness')
@@ -625,10 +625,10 @@ def context_ledger_files(repo):
 
 
 def custody_gate(a, out, repo, repo_path, argv):
-    """R6.CUST.10: at the commit under check as M, R6.CUST.2 for the version in its tree, R6.CUST.4, the mechanical
-    parts of R6.CUST.5 (c1) for freeze entries, (c3), (c4)'s second clause and (c5), the second and third clauses of
-    (c2), and R6.CUST.8; it does not require a close for every context and establishes nothing for a run. Exit 0 when
-    every clause holds, 20 with record-invalid items otherwise, 65 on an unreadable object or an unsettled clause."""
+    # R6.CUST.10: at the commit under check as M, R6.CUST.2 for the version in its tree, R6.CUST.4, the mechanical
+    # parts of R6.CUST.5 (c1) for freeze entries, (c3), (c4)'s second clause and (c5), the second and third clauses of
+    # (c2), and R6.CUST.8; it does not require a close for every context and establishes nothing for a run. Exit 0 when
+    # every clause holds, 20 with record-invalid items otherwise, 65 on an unreadable object or an unsettled clause.
     from .. import record_authority as ra_
     from . import custody as cust
     res = {'schema': oc.result_schema, 'operation': 'custody', 'engine': engine_identity(), 'preflight': [],

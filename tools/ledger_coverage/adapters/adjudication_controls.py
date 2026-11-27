@@ -310,7 +310,7 @@ def dissents():
     J['dissents_addressed'] = [{'ref': dict(dv), 'item': P + ':scientific_effect'}]
     docs = {fx.vref['blob_sha256']: {'reviewer': 'v'}, dv['blob_sha256']: {'reviewer': 'v'}}
     ans = adj.answered(J, lambda r: docs.get((r or {}).get('blob_sha256')))
-    pre = [{'J': J, 'ref': dict(fx.jref), 'binds': True, 'landing_index': 5, 'answered': ans}]
+    pre = [{'adjudication': J, 'ref': dict(fx.jref), 'binds': True, 'landing_index': 5, 'answered': ans}]
 
     def run(reviews_of_j, dissents_on_r):
         return adj.strata(pre, lambda ref: reviews_of_j, dissents_on_r)

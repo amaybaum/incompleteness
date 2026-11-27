@@ -1,19 +1,18 @@
-"""Category-3 detection, finding form and binding (Amendment 6 r13 R6.RECON.26 Form of a finding (i)-(v), R6.RECON.29,
-.30, .31, .35, as the OBL-29 remedy r9 applies them to the cumulative record set R*).
-
-- R6.RECON.35 selection and classes: a selected file (optional BOM, ASCII whitespace, then `{` or `[`) is class (a)
-  when it parses strictly (R6.RECON.29) as an object whose `schema` is exactly a reconciliation or review schema;
-  class (b) when some object at any depth, parsed with duplicate keys and non-finite numbers admitted, has a schema
-  string beginning (trimmed, case folded) `oi-review-record/` or `oi-reconciliation/`, or a review's shape; class (c)
-  when it does not parse even so and its lossy text, `\\uXXXX` escapes resolved and case folded, contains one of those
-  prefixes. A class (b) or (c) file whose text, escapes resolved, contains `invalidates` or `invalidated` is a
-  malformed finding.
-- Form (i): detection precedes lint. A first-kind finding is a reconciliation entry whose `scientific_effect` has the
-  verdict `invalidates` or carries `invalidated`, whatever its review says; a second-kind finding is a review verdict
-  entry with the verdict `invalidates` or the key `invalidated`, unless the reviewer equals the reviewed record's
-  author or is a run, check or Issue.
-- The key tables of R6.RECON.30 and .31 decide a record's schema (a form failure of a finding still blocks).
-"""
+# Category-3 detection, finding form and binding (Amendment 6 r13 R6.RECON.26 Form of a finding (i)-(v), R6.RECON.29,
+# .30, .31, .35, as the OBL-29 remedy r9 applies them to the cumulative record set R*).
+#
+# - R6.RECON.35 selection and classes: a selected file (optional BOM, ASCII whitespace, then `{` or `[`) is class (a)
+# when it parses strictly (R6.RECON.29) as an object whose `schema` is exactly a reconciliation or review schema;
+# class (b) when some object at any depth, parsed with duplicate keys and non-finite numbers admitted, has a schema
+# string beginning (trimmed, case folded) `oi-review-record/` or `oi-reconciliation/`, or a review's shape; class (c)
+# when it does not parse even so and its lossy text, `\uXXXX` escapes resolved and case folded, contains one of those
+# prefixes. A class (b) or (c) file whose text, escapes resolved, contains `invalidates` or `invalidated` is a
+# malformed finding.
+# - Form (i): detection precedes lint. A first-kind finding is a reconciliation entry whose `scientific_effect` has the
+# verdict `invalidates` or carries `invalidated`, whatever its review says; a second-kind finding is a review verdict
+# entry with the verdict `invalidates` or the key `invalidated`, unless the reviewer equals the reviewed record's
+# author or is a run, check or Issue.
+# - The key tables of R6.RECON.30 and .31 decide a record's schema (a form failure of a finding still blocks).
 import json
 import re
 
@@ -30,14 +29,16 @@ _runlike = re.compile(r'://|/runs/|/actions|check[-_ ]run|/issues/\d+$|^#\d+$|/p
 
 
 class Unsettled(Exception):
-    """A point the design text does not settle: the run stops with ERROR, never a verdict (fail closed)."""
+    # A point the design text does not settle: the run stops with ERROR, never a verdict (fail closed).
+    pass
 
 
 class RunLevelBlock(Exception):
-    """A finding whose binding cannot be decided from readable inputs: the named configuration's ledger cannot be read,
-    or a ledger target is ambiguous or missing. Owner decision of 2026-11-27: a run-level FAIL retirement-blocked with
-    FAIL record-invalid, its evidence and provenance kept; ERROR stays only for an unreadable object and for edit-id
-    migrations (R6.RECON.28, not implemented)."""
+    # A finding whose binding cannot be decided from readable inputs: the named configuration's ledger cannot be read,
+    # or a ledger target is ambiguous or missing. Owner decision of 2026-11-27: a run-level FAIL retirement-blocked with
+    # FAIL record-invalid, its evidence and provenance kept; ERROR stays only for an unreadable object and for edit-id
+    # migrations (R6.RECON.28, not implemented).
+    pass
 
 
 # ---- R6.RECON.35 selection and classes ------------------------------------------------------------------------
@@ -62,7 +63,7 @@ def _decode(data):
 
 
 def strict_parse(data):
-    """R6.RECON.29 strict parse: UTF-8 without a BOM, one JSON object, no duplicate key, no NaN or Infinity."""
+    # R6.RECON.29 strict parse: UTF-8 without a BOM, one JSON object, no duplicate key, no NaN or Infinity.
     if data.startswith(b'\xef\xbb\xbf'):
         return None
 
@@ -75,7 +76,7 @@ def strict_parse(data):
         return d
 
     def nonfinite(_x):
-        raise ValueError('non-finite')
+        raise ValueError('a NaN or Infinity constant')
     try:
         doc = json.loads(data.decode('utf-8'), object_pairs_hook=pairs, parse_constant=nonfinite)
     except (ValueError, UnicodeDecodeError):
@@ -142,13 +143,13 @@ _key_drop = str.maketrans('', '', '._:-')
 
 
 def identity_ok(v):
-    """Staging S-2 S2.1: an identity string matches [A-Za-z0-9][A-Za-z0-9._:-]{0,127} as a whole and is not made
-    only of digits (a run or check id): no whitespace, no `/`, no non-ASCII character."""
+    # Staging S-2 S2.1: an identity string matches [A-Za-z0-9][A-Za-z0-9._:-]{0,127} as a whole and is not made
+    # only of digits (a run or check id): no whitespace, no `/`, no non-ASCII character.
     return isinstance(v, str) and v.isascii() and _identity.match(v) is not None and not v.isdigit()
 
 
 def identity_key(v):
-    """S2.2: ASCII letters made lowercase and `.`, `_`, `:` and `-` removed."""
+    # S2.2: ASCII letters made lowercase and `.`, `_`, `:` and `-` removed.
     return v.lower().translate(_key_drop)
 
 
@@ -183,7 +184,7 @@ def independence_problems(review, X):
 
 
 def run_like(v):
-    """A run, check or Issue named where an identity string belongs (R6.REC.6)."""
+    # A run, check or Issue named where an identity string belongs (R6.REC.6).
     return isinstance(v, str) and (bool(_runlike.search(v.strip())) or v.strip().isdigit())
 
 
@@ -218,37 +219,37 @@ def _enc(t, v):
     raise AssertionError(t)
 
 
-REF = {'path': ('path', True), 'blob_sha256': ('sha256', True)}
-TARGET = {'path': ('path', True), 'start_H': ('offset', True), 'old_sha256': ('sha256', True)}
-INVALIDATED = {'id': ('nestr', True), 'sha256': ('sha256', True), 'target': (('table', TARGET), True)}
-SCI = {'conclusions': (('or', ('lit', ('none',)), ('distinct_ids',)), True), 'assessment': ('nestr', True),
+ref_keys = {'path': ('path', True), 'blob_sha256': ('sha256', True)}
+target_keys = {'path': ('path', True), 'start_H': ('offset', True), 'old_sha256': ('sha256', True)}
+invalidated_keys = {'id': ('nestr', True), 'sha256': ('sha256', True), 'target': (('keyed', target_keys), True)}
+sci_keys = {'conclusions': (('or', ('lit', ('none',)), ('distinct_ids',)), True), 'assessment': ('nestr', True),
        'method': ('nestr', True), 'verdict': (('lit', ('no-effect', 'invalidates')), True),
-       'configuration': (('table', REF), True), 'invalidated': (('nearray', ('table', INVALIDATED)), False)}
-BINDING = {k: (('or', ('null',), 'sha256'), True) for k in ('files_entry_sha256', 'splices_sha256',
+       'configuration': (('keyed', ref_keys), True), 'invalidated': (('nearray', ('keyed', invalidated_keys)), False)}
+binding_keys = {k: (('or', ('null',), 'sha256'), True) for k in ('files_entry_sha256', 'splices_sha256',
                                                             'edit_records_sha256')}
-SPLICE = {'id': ('nestr', True), 'start_H': ('offset', True), 'end_H': ('offset', True), 'start_M': ('offset', True),
+splice_keys = {'id': ('nestr', True), 'start_H': ('offset', True), 'end_H': ('offset', True), 'start_M': ('offset', True),
           'end_M': ('offset', True), 'new_sha256': ('sha256', True),
           'translation': (('or', ('lit', ('identity',)), ('int',)), True)}
-PROTECTED = {'start_M': ('offset', True), 'end_M': ('offset', True), 'sha256': ('sha256', True)}
-RESOLUTION = {'splice': ('nestr', True), 'start_M': ('offset', True), 'end_M': ('offset', True),
+protected_keys = {'start_M': ('offset', True), 'end_M': ('offset', True), 'sha256': ('sha256', True)}
+resolution_keys = {'splice': ('nestr', True), 'start_M': ('offset', True), 'end_M': ('offset', True),
               'sha256': ('sha256', True), 'resolved': ('b64', True), 'resolved_sha256': ('sha256', True)}
-ENTRY = {'path': ('path', True), 'ledger_binding': (('table', BINDING), True),
-         'side_change_commits': (('arr', 'commit'), True), 'scientific_effect': (('table', SCI), True),
+entry_keys = {'path': ('path', True), 'ledger_binding': (('keyed', binding_keys), True),
+         'side_change_commits': (('arr', 'commit'), True), 'scientific_effect': (('keyed', sci_keys), True),
          'm': ('blob', True), 'm_sha256': ('sha256', True), 'l': ('blob', True), 'l_sha256': ('sha256', True),
-         'x': ('blob', True), 'x_sha256': ('sha256', True), 'splices': (('arr', ('table', SPLICE)), True),
-         'protected': (('arr', ('table', PROTECTED)), True), 'resolutions': (('arr', ('table', RESOLUTION)), False)}
+         'x': ('blob', True), 'x_sha256': ('sha256', True), 'splices': (('arr', ('keyed', splice_keys)), True),
+         'protected': (('arr', ('keyed', protected_keys)), True), 'resolutions': (('arr', ('keyed', resolution_keys)), False)}
 RECORD = {'schema': (('lit', ('oi-reconciliation/2',)), True), 'record_id': ('nestr', True),
-          'supersedes': (('or', ('null',), ('table', REF)), True), 'author': ('identity', True),
+          'supersedes': (('or', ('null',), ('keyed', ref_keys)), True), 'author': ('identity', True),
           'M': ('commit', True), 'X': ('commit', True), 'ledger_base': ('commit', True),
-          'changes_decisions_on_X': ('array', True), 'paths': (('nearray', ('table', ENTRY)), True)}
-CONFIRMS = {'start_M': ('offset', True), 'end_M': ('offset', True), 'sha256': ('sha256', True),
+          'changes_decisions_on_X': ('array', True), 'paths': (('nearray', ('keyed', entry_keys)), True)}
+confirms_keys = {'start_M': ('offset', True), 'end_M': ('offset', True), 'sha256': ('sha256', True),
             'resolved_sha256': ('sha256', True)}
-VERDICT = {'item': ('nestr', True), 'verdict': (('lit', ('accept', 'reject', 'dissent', 'invalidates')), True),
-           'reason': ('str', True), 'invalidated': (('nearray', ('table', INVALIDATED)), False),
-           'configuration': (('table', REF), False), 'confirms': (('table', CONFIRMS), False)}
-REVIEW = {'schema': (('lit', (review_schema,)), True), 'kind': (('lit', ('review', 'widening')), False),
-          'reviewer': ('identity', True), 'reviewed': (('table', REF), True), 'replaces': (('table', REF), False),
-          'method': ('nestr', True), 'verdicts': (('arr', ('table', VERDICT)), True), 'dissent': ('str', False)}
+verdict_keys = {'item': ('nestr', True), 'verdict': (('lit', ('accept', 'reject', 'dissent', 'invalidates')), True),
+           'reason': ('str', True), 'invalidated': (('nearray', ('keyed', invalidated_keys)), False),
+           'configuration': (('keyed', ref_keys), False), 'confirms': (('keyed', confirms_keys), False)}
+review_keys = {'schema': (('lit', (review_schema,)), True), 'kind': (('lit', ('review', 'widening')), False),
+          'reviewer': ('identity', True), 'reviewed': (('keyed', ref_keys), True), 'replaces': (('keyed', ref_keys), False),
+          'method': ('nestr', True), 'verdicts': (('arr', ('keyed', verdict_keys)), True), 'dissent': ('str', False)}
 
 
 def _type_ok(t, v, where, out):
@@ -280,7 +281,7 @@ def _type_ok(t, v, where, out):
             if not tmp:
                 return
         out.append('%s: of no admitted type' % where)
-    elif head == 'table':
+    elif head == 'keyed':
         validate(t[1], v, where, out)
     elif head in ('arr', 'nearray'):
         if not isinstance(v, list) or (head == 'nearray' and not v):
@@ -308,8 +309,8 @@ def validate(table, doc, where, out):
 
 
 def record_schema_problems(doc):
-    """R6.RECON.30 key tables of an oi-reconciliation/2 record, with its conditional presence (`invalidated` exactly
-    when the verdict is `invalidates`) and each entry path once. A record of schema oi-reconciliation/1 fails."""
+    # R6.RECON.30 key tables of an oi-reconciliation/2 record, with its conditional presence (`invalidated` exactly
+    # when the verdict is `invalidates`) and each entry path once. A record of schema oi-reconciliation/1 fails.
     out = []
     if isinstance(doc, dict) and doc.get('schema') == 'oi-reconciliation/1':
         return ['$.schema: oi-reconciliation/1 is not accepted']
@@ -326,10 +327,10 @@ def record_schema_problems(doc):
 
 
 def review_schema_problems(doc):
-    """R6.RECON.31 key tables of a review record, with its conditional presence (`replaces` exactly when the kind
-    is widening; `invalidated` and `configuration` only with `invalidates`)."""
+    # R6.RECON.31 key tables of a review record, with its conditional presence (`replaces` exactly when the kind
+    # is widening; `invalidated` and `configuration` only with `invalidates`).
     out = []
-    validate(REVIEW, doc, '$', out)
+    validate(review_keys, doc, '$', out)
     if isinstance(doc, dict) and ('replaces' in doc) != (doc.get('kind') == 'widening'):
         out.append('$.replaces: present exactly when the kind is widening')
     verdicts = doc.get('verdicts') if isinstance(doc, dict) else None
@@ -397,7 +398,7 @@ def second_kind_form_problems(review, reviewed_doc, verdict):
         out.append('invalidated with a verdict value other than invalidates')
     inv = verdict.get('invalidated')
     tmp = []
-    _type_ok(('nearray', ('table', INVALIDATED)), inv, 'invalidated', tmp)
+    _type_ok(('nearray', ('keyed', invalidated_keys)), inv, 'invalidated', tmp)
     if tmp:
         out.append('an empty or malformed invalidated')
     if not isinstance(verdict.get('configuration'), dict):
@@ -407,5 +408,5 @@ def second_kind_form_problems(review, reviewed_doc, verdict):
 
 def element_ok(x):
     tmp = []
-    validate(INVALIDATED, x, 'invalidated', tmp)
+    validate(invalidated_keys, x, 'invalidated', tmp)
     return not tmp

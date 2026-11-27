@@ -1,19 +1,18 @@
-"""Formal adjudication of retained witnesses (design r4 of PR #1605 at its adopted head, adopted with OD-1 to OD-7 at
-their defaults): the mechanical predicates of R6.ADJ.1 to R6.ADJ.14 over explicit
-records.
-
-The #1605 sec. 6 amendment rows are adopted with the lineage witness edge read as U -> P (owner decision of
-2026-11-27). A run calls `evaluate` for each discharge D and custody witness W
-(category3.custody_decisions): the configuration kind row `adjudication` (config.py), the review item ids
-(records.item_ids), the R6.REC.3 owner check (authorization_problems), R6.REC.4/.5 reading of unreferenced
-adjudications in R* (Cumulative.adjudications, for R6.ADJ.9's contradiction and upheld rules), route 2 in the decision
-(obl29.decide `adjudicated`) and the result field `adjudications` (R6.ADJ.13).
-
-In a control-harness run, which has no freeze, the candidate freeze F' of ADJ-LANDED is the configuration's commit.
-Clearing uses the run's whole R*. Adverse use evaluates qualifying reviews and parties at the adjudication's landing.
-R6.ADJ.12's eligible dissent items are collected per witness here. Category 3 combines them per discharge
-and verifies R6.REC.6 and all relying witnesses before the disregard can affect the result.
-"""
+# Formal adjudication of retained witnesses (design r4 of PR #1605 at its adopted head, adopted with OD-1 to OD-7 at
+# their defaults): the mechanical predicates of R6.ADJ.1 to R6.ADJ.14 over explicit
+# records.
+#
+# The #1605 sec. 6 amendment rows are adopted with the lineage witness edge read as U -> P (owner decision of
+# 2026-11-27). A run calls `evaluate` for each discharge D and custody witness W
+# (category3.custody_decisions): the configuration kind row `adjudication` (config.py), the review item ids
+# (records.item_ids), the R6.REC.3 owner check (authorization_problems), R6.REC.4/.5 reading of unreferenced
+# adjudications in R* (Cumulative.adjudications, for R6.ADJ.9's contradiction and upheld rules), route 2 in the decision
+# (obl29.decide `adjudicated`) and the result field `adjudications` (R6.ADJ.13).
+#
+# In a control-harness run, which has no freeze, the candidate freeze F' of ADJ-LANDED is the configuration's commit.
+# Clearing uses the run's whole R*. Adverse use evaluates qualifying reviews and parties at the adjudication's landing.
+# R6.ADJ.12's eligible dissent items are collected per witness here. Category 3 combines them per discharge
+# and verifies R6.REC.6 and all relying witnesses before the disregard can affect the result.
 import posixpath
 import re
 from datetime import datetime, timezone
@@ -28,24 +27,24 @@ _time = re.compile(r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(:\d{2})?Z$')
 _hex40 = re.compile(r'^[0-9a-f]{40}$')
 _ground_id = re.compile(r'^\S+$')
 
-ITEMREF = {'ref': (('table', fd.REF), True), 'item': ('nestr', True)}
-AUTHORIZATION = {'quote': ('nestr', True), 'author': ('identity', True), 'time': ('nestr', True),
+item_ref_keys = {'ref': (('keyed', fd.ref_keys), True), 'item': ('nestr', True)}
+authorization_keys = {'quote': ('nestr', True), 'author': ('identity', True), 'time': ('nestr', True),
                  'source': ('nestr', True), 'adjudicator': ('identity', True),
-                 'finding': (('table', c3.REASSESS_FINDING), True),
-                 'witness_sources': (('nearray', ('table', fd.REF)), True),
-                 'replacement': (('table', c3.REASSESS_ENTRY), True)}
-EDGE = {'successor': (('table', fd.REF), True), 'predecessor': (('table', fd.REF), True)}
-WITNESS = {'class': (('lit', ('review', 'lineage')), True), 'disputed': (('table', fd.REF), True),
-           'edge': (('or', ('null',), ('table', EDGE)), True), 'sources': (('nearray', ('table', fd.REF)), True),
-           'adverse': (('arr', ('table', ITEMREF)), True), 'original_configuration': (('table', fd.REF), True)}
-GROUND = {'id': ('nestr', True), 'target': (('table', ITEMREF), True), 'reasoning': ('nestr', True),
+                 'finding': (('keyed', c3.reassess_finding_keys), True),
+                 'witness_sources': (('nearray', ('keyed', fd.ref_keys)), True),
+                 'replacement': (('keyed', c3.reassess_entry_keys), True)}
+edge_keys = {'successor': (('keyed', fd.ref_keys), True), 'predecessor': (('keyed', fd.ref_keys), True)}
+witness_keys = {'class': (('lit', ('review', 'lineage')), True), 'disputed': (('keyed', fd.ref_keys), True),
+           'edge': (('or', ('null',), ('keyed', edge_keys)), True), 'sources': (('nearray', ('keyed', fd.ref_keys)), True),
+           'adverse': (('arr', ('keyed', item_ref_keys)), True), 'original_configuration': (('keyed', fd.ref_keys), True)}
+ground_keys = {'id': ('nestr', True), 'target': (('keyed', item_ref_keys), True), 'reasoning': ('nestr', True),
           'evidence': (('nearray', 'blob'), True)}
 RECORD = {'schema': (('lit', (schema,)), True), 'record_id': ('nestr', True), 'supersedes': (('null',), True),
-          'author': ('identity', True), 'authorization': (('table', AUTHORIZATION), True),
-          'finding': (('table', c3.REASSESS_FINDING), True), 'witness': (('table', WITNESS), True),
-          'replacement': (('table', c3.REASSESS_ENTRY), True), 'reassessment': (('table', fd.REF), True),
-          'dissents_addressed': (('arr', ('table', ITEMREF)), True),
-          'disposition': (('lit', ('cleared', 'upheld')), True), 'grounds': (('nearray', ('table', GROUND)), True),
+          'author': ('identity', True), 'authorization': (('keyed', authorization_keys), True),
+          'finding': (('keyed', c3.reassess_finding_keys), True), 'witness': (('keyed', witness_keys), True),
+          'replacement': (('keyed', c3.reassess_entry_keys), True), 'reassessment': (('keyed', fd.ref_keys), True),
+          'dissents_addressed': (('arr', ('keyed', item_ref_keys)), True),
+          'disposition': (('lit', ('cleared', 'upheld')), True), 'grounds': (('nearray', ('keyed', ground_keys)), True),
           'method': ('nestr', True), 'conflicts': ('nestr', True)}
 fixed_items = ('authorization', 'binding', 'dissents', 'disposition', 'conflicts')
 never_exempt = ('authorization', 'binding', 'conflicts')
@@ -74,9 +73,9 @@ def parse_time(s):
 # ---- R6.ADJ.2 and R6.ADJ.14: form ------------------------------------------------------------------------------
 
 def form_problems(J):
-    """[(condition, message)] of R6.ADJ.2's closed key tables: ADJ-AUTH-FORM for the authorization object, ADJ-FORM for
-    the rest (with the no-duplicate arrays, `edge` non-null exactly for a lineage witness, unique ground ids without
-    whitespace, and a time of R6.RECON.29's encoding)."""
+    # [(condition, message)] of R6.ADJ.2's closed key tables: ADJ-AUTH-FORM for the authorization object, ADJ-FORM for
+    # the rest (with the no-duplicate arrays, `edge` non-null exactly for a lineage witness, unique ground ids without
+    # whitespace, and a time of R6.RECON.29's encoding).
     out = []
     if not isinstance(J, dict):
         return [('ADJ-FORM', 'not an object')]
@@ -88,9 +87,9 @@ def form_problems(J):
         out.append(('ADJ-AUTH-FORM', '$.authorization: missing'))
     else:
         tmp = []
-        fd.validate(AUTHORIZATION, J['authorization'], '$.authorization', tmp)
+        fd.validate(authorization_keys, J['authorization'], '$.authorization', tmp)
         if isinstance(J['authorization'], dict) and parse_time(J['authorization'].get('time')) is None:
-            tmp.append('$.authorization.time: not a time (YYYY-MM-DDTHH:MM[:SS]Z)')
+            tmp.append('$.authorization.time: not a time (yyyy-mm-ddThh:mm[:ss]Z)')
         out += [('ADJ-AUTH-FORM', x) for x in tmp]
     w = J.get('witness') if isinstance(J.get('witness'), dict) else {}
     if isinstance(w.get('class'), str) and (w.get('edge') is None) == (w.get('class') == 'lineage'):
@@ -108,18 +107,18 @@ def form_problems(J):
 
 
 def detection_shape_problems(J):
-    """R6.ADJ.14: no key `reviewed` or `verdicts` and no `schema` value beginning `oi-review-record/` or
-    `oi-reconciliation/` at any depth. A record that violates it is classed by R6.RECON.35 as it stands (this
-    function only reports the shape)."""
+    # R6.ADJ.14: no key `reviewed` or `verdicts` and no `schema` value beginning `oi-review-record/` or
+    # `oi-reconciliation/` at any depth. A record that violates it is classed by R6.RECON.35 as it stands (this
+    # function only reports the shape).
     out = []
 
     def walk(x, where):
         if isinstance(x, dict):
             for k, v in x.items():
                 if k in ('reviewed', 'verdicts'):
-                    out.append('%s.%s: a key R6.RECON.35 reads' % (where, k))
+                    out.append('%s.%s: a key the category-3 scan reads' % (where, k))
                 if k == 'schema' and isinstance(v, str) and v.startswith(('oi-review-record/', 'oi-reconciliation/')):
-                    out.append('%s.schema: a schema value R6.RECON.35 selects' % where)
+                    out.append('%s.schema: a schema value the category-3 scan selects' % where)
                 walk(v, '%s.%s' % (where, k))
         elif isinstance(x, list):
             for i, v in enumerate(x):
@@ -129,7 +128,7 @@ def detection_shape_problems(J):
 
 
 def record_id_problems(J, jref, adjudications, visible=lambda ref: True):
-    """R6.ADJ.2 uniqueness among the adjudications in the applicable R*. Reported as ADJ-FORM."""
+    # R6.ADJ.2 uniqueness among the adjudications in the applicable R*. Reported as ADJ-FORM.
     rid = J.get('record_id') if isinstance(J, dict) else None
     others = [r for r, d in adjudications if r != jref and isinstance(d, dict) and d.get('record_id') == rid
               and visible(r)]
@@ -137,10 +136,10 @@ def record_id_problems(J, jref, adjudications, visible=lambda ref: True):
 
 
 def dissents_addressed_problems(J, reviews_of_R, R):
-    """R6.ADJ.2 acceptance of `dissents_addressed`: each element names a review of R in R*(L(J)) (`reviews_of_R`,
-    [(reference, doc)] of the reviews in R*(L(J)) naming R's exact reference, until the R* wiring exists) and an item
-    adverse in it (a verdict other than accept, an omitted or duplicated item id, or `dissent` for a non-empty dissent
-    field). Reported as ADJ-FORM."""
+    # R6.ADJ.2 acceptance of `dissents_addressed`: each element names a review of R in R*(L(J)) (`reviews_of_R`,
+    # [(reference, doc)] of the reviews in R*(L(J)) naming R's exact reference, until the R* wiring exists) and an item
+    # adverse in it (a verdict other than accept, an omitted or duplicated item id, or `dissent` for a non-empty dissent
+    # field). Reported as ADJ-FORM.
     out = []
     by_ref = {_key(r): d for r, d in reviews_of_R}
     for x in J.get('dissents_addressed') or [] if isinstance(J, dict) else []:
@@ -157,10 +156,10 @@ def dissents_addressed_problems(J, reviews_of_R, R):
 # ---- R6.ADJ.3: authorization -----------------------------------------------------------------------------------
 
 def authorization_problems(J, landing_time, owner_identities):
-    """[(condition, message)]: the author a member of OWNER_IDENTITIES (ADJ-AUTH-OWNER); adjudicator, finding,
-    witness_sources (set equality) and replacement equal to the record's own (ADJ-AUTH-SCOPE); time earlier than the
-    committer time of L(J), a form check of chronology only (ADJ-AUTH-TIME; `landing_time` a datetime or None when
-    L(J) does not exist, which fails)."""
+    # [(condition, message)]: the author a member of OWNER_IDENTITIES (ADJ-AUTH-OWNER); adjudicator, finding,
+    # witness_sources (set equality) and replacement equal to the record's own (ADJ-AUTH-SCOPE); time earlier than the
+    # committer time of L(J), a form check of chronology only (ADJ-AUTH-TIME; `landing_time` a datetime or None when
+    # L(J) does not exist, which fails).
     a = J.get('authorization') if isinstance(J, dict) else None
     if not isinstance(a, dict):
         return [('ADJ-AUTH-FORM', 'no authorization object')]
@@ -190,7 +189,7 @@ def usable(v):
 
 
 def same(a, b):
-    """Identity strings compare under R6.RECON.29 (findings.same_identity)."""
+    # Identity strings compare under R6.RECON.29 (findings.same_identity).
     return fd.same_identity(a, b)
 
 
@@ -219,8 +218,8 @@ def parties(finding_record=None, finding_review=None, Q=None, R=None, A=None, co
 
 
 def independence_problems(J, tech_reviewer, party_set, owner_identities):
-    """ADJ-INDEP: the adjudicator and the technical reviewer usable identities, outside Parties and OWNER_IDENTITIES
-    (OD-4), the reviewer not the adjudicator. Identity strings compare as strings (R6.RECON.29)."""
+    # ADJ-INDEP: the adjudicator and the technical reviewer usable identities, outside Parties and OWNER_IDENTITIES
+    # (OD-4), the reviewer not the adjudicator. Identity strings compare as strings (R6.RECON.29).
     out = []
     j = J.get('author') if isinstance(J, dict) else None
     if not usable(j):
@@ -244,7 +243,7 @@ def independence_problems(J, tech_reviewer, party_set, owner_identities):
 # ---- R6.ADJ.5: binding -----------------------------------------------------------------------------------------
 
 def witness_description(kind, disputed, sources, adverse, original_configuration, edge=None):
-    """A reproduced witness as R6.ADJ.5 compares it: references and item references only."""
+    # A reproduced witness as R6.ADJ.5 compares it: references and item references only.
     return {'class': kind, 'disputed': disputed, 'edge': edge, 'sources': list(sources), 'adverse': list(adverse),
             'original_configuration': original_configuration}
 
@@ -273,7 +272,7 @@ def unresolved_references(J, resolves):
 
 
 def self_consistency(J, reproduced, resolves):
-    """ADJ-BIND, self-consistency: every reference of J resolves and witness reproduces from custody."""
+    # ADJ-BIND, self-consistency: every reference of J resolves and witness reproduces from custody.
     out = [('ADJ-BIND', 'a reference does not resolve: %r' % (r,)) for r in unresolved_references(J, resolves)]
     w = J.get('witness') if isinstance(J.get('witness'), dict) else {}
     if reproduced is None:
@@ -290,9 +289,9 @@ def self_consistency(J, reproduced, resolves):
 
 
 def binds(J, aref, A, reproduced):
-    """ADJ-BIND, binding to a discharge D (reassessment A at `aref`) and witness W (`reproduced`): finding equal to A's
-    (path, blob sha256 and item), reassessment equal to A's reference, replacement equal to A's repair.entry, and
-    witness describing W."""
+    # ADJ-BIND, binding to a discharge D (reassessment A at `aref`) and witness W (`reproduced`): finding equal to A's
+    # (path, blob sha256 and item), reassessment equal to A's reference, replacement equal to A's repair.entry, and
+    # witness describing W.
     out = []
     if not isinstance(A, dict) or J.get('finding') != A.get('finding'):
         out.append(('ADJ-BIND', 'the finding is not the reassessment\'s finding'))
@@ -311,10 +310,10 @@ def binds(J, aref, A, reproduced):
 # ---- R6.ADJ.6: substance ---------------------------------------------------------------------------------------
 
 def substance_problems(J, git_of):
-    """ADJ-SUBST: the grounds' targets equal witness.adverse union dissents_addressed, one each; each ground's
-    evidence holds the git blob ids of its target's record, of Q and of R; `method` holds (token rule) the git blob
-    ids of the record carrying the finding, of each source, of Q, of R and of A. `git_of(ref)` is the git blob id of a
-    reference, or None when it does not resolve (which fails)."""
+    # ADJ-SUBST: the grounds' targets equal witness.adverse union dissents_addressed, one each; each ground's
+    # evidence holds the git blob ids of its target's record, of Q and of R; `method` holds (token rule) the git blob
+    # ids of the record carrying the finding, of each source, of Q, of R and of A. `git_of(ref)` is the git blob id of a
+    # reference, or None when it does not resolve (which fails).
     out = []
     w = J.get('witness') if isinstance(J.get('witness'), dict) else {}
     want = {_key(x) for x in (w.get('adverse') or []) + (J.get('dissents_addressed') or [])}
@@ -345,8 +344,8 @@ def _ref(x):
 # ---- R6.ADJ.7: technical review ---------------------------------------------------------------------------------
 
 def item_ids(J):
-    """The review item ids of an adjudication (R6.ADJ.2): authorization, binding, dissents, disposition, conflicts,
-    and ground:<id> for each ground."""
+    # The review item ids of an adjudication (R6.ADJ.2): authorization, binding, dissents, disposition, conflicts,
+    # and ground:<id> for each ground.
     return list(fixed_items) + ['ground:%s' % g.get('id') for g in J.get('grounds') or [] if isinstance(g, dict)]
 
 
@@ -368,9 +367,9 @@ def _adverse_items(review, J):
 
 
 def review_problems(review, J, jref, j_git, source_gits, party_set, owner_identities):
-    """ADJ-REVIEW / ADJ-INDEP: [] when the review qualifies (R6.REC.6 and R6.RECON.31 form, kind review, reviewed J's
-    exact reference, every item accepted once, empty or absent dissent, reviewer allowed by R6.ADJ.4, and a method
-    holding the git blob ids of J and of each source)."""
+    # ADJ-REVIEW / ADJ-INDEP: [] when the review qualifies (R6.REC.6 and R6.RECON.31 form, kind review, reviewed J's
+    # exact reference, every item accepted once, empty or absent dissent, reviewer allowed by R6.ADJ.4, and a method
+    # holding the git blob ids of J and of each source).
     out = []
     if not isinstance(review, dict):
         return [('ADJ-REVIEW', 'not a review')]
@@ -391,9 +390,9 @@ def review_problems(review, J, jref, j_git, source_gits, party_set, owner_identi
 # ---- R6.ADJ.8: admission conditions ----------------------------------------------------------------------------
 
 def landing(repo, M, jref, qualifying_review_at):
-    """L(J): the earliest commit C on M's first-parent chain whose tree holds J (at its path, with its blob) and a review
-    of J that qualifies under R6.ADJ.7 evaluated over R*(C) with Parties_J(C). `qualifying_review_at(C)` decides the
-    second condition (the caller evaluates R6.ADJ.7 over R*(C)). None when there is none."""
+    # L(J): the earliest commit C on M's first-parent chain whose tree holds J (at its path, with its blob) and a review
+    # of J that qualifies under R6.ADJ.7 evaluated over R*(C) with Parties_J(C). `qualifying_review_at(C)` decides the
+    # second condition (the caller evaluates R6.ADJ.7 over R*(C)). None when there is none.
     chain, c = [], M
     while c:
         chain.append(c)
@@ -410,7 +409,7 @@ def landing(repo, M, jref, qualifying_review_at):
 
 
 def location_problems(jref, review_refs, J):
-    """ADJ-ADMIT: J and its cited review lie in the reconciliation directory of J's replacement (R6.ADJ.1)."""
+    # ADJ-ADMIT: J and its cited review lie in the reconciliation directory of J's replacement (R6.ADJ.1).
     d = posixpath.dirname(((J.get('replacement') or {}).get('path')) or '')
     out = []
     for r in [jref] + list(review_refs):
@@ -420,8 +419,8 @@ def location_problems(jref, review_refs, J):
 
 
 def citation_problems(cfg_records, jref, qualifying_review_refs):
-    """ADJ-ADMIT: the configuration references J with kind adjudication and exactly one qualifying review of J with
-    kind review (R6.REC.4; R6.ADJ.11: two cited reviews of J fail)."""
+    # ADJ-ADMIT: the configuration references J with kind adjudication and exactly one qualifying review of J with
+    # kind review (R6.REC.4; R6.ADJ.11: two cited reviews of J fail).
     recs = [r for r in cfg_records or [] if isinstance(r, dict)]
     out = []
     if not any(r.get('kind') == 'adjudication' and _ref(r) == jref for r in recs):
@@ -434,8 +433,8 @@ def citation_problems(cfg_records, jref, qualifying_review_refs):
 
 
 def dedicated_landing_problems(repo, M, jref, review_ref):
-    """ADJ-DEDICATED (M5', OD-3): the commit L1 on M's first-parent chain that first holds J's blob at its path differs
-    from its first parent only by adding J and that review. No such commit fails."""
+    # ADJ-DEDICATED (M5', OD-3): the commit L1 on M's first-parent chain that first holds J's blob at its path differs
+    # from its first parent only by adding J and that review. No such commit fails.
     chain, c = [], M
     while c:
         chain.append(c)
@@ -473,9 +472,9 @@ def matches(J1, J2):
 
 
 def contradiction_problems(J, others):
-    """ADJ-CONTRA: `others` is [(J2, validity)] of every other oi-adjudication/1 record in R*, validity 'valid',
-    'invalid' (established invalid for adverse use by a definite failure) or 'unknown' (its validity cannot be
-    established). A matching upheld record that is not established invalid contradicts J."""
+    # ADJ-CONTRA: `others` is [(J2, validity)] of every other oi-adjudication/1 record in R*, validity 'valid',
+    # 'invalid' (established invalid for adverse use by a definite failure) or 'unknown' (its validity cannot be
+    # established). A matching upheld record that is not established invalid contradicts J.
     return [('ADJ-CONTRA', 'a matching upheld adjudication %s' % ('is valid' if v == 'valid' else
                                                                    'cannot be established invalid'))
             for J2, v in others if J2 is not J and isinstance(J2, dict) and J2.get('disposition') == 'upheld'
@@ -483,31 +482,31 @@ def contradiction_problems(J, others):
 
 
 def upheld_blocks_nr5(replacement, witness, finding, upheld_valid):
-    """ADJ-UPHELD (OD-6): an upheld adjudication valid for adverse use makes NR-5 false for a replacement and witness
-    it matches (with R in place of J.replacement)."""
+    # ADJ-UPHELD (OD-6): an upheld adjudication valid for adverse use makes NR-5 false for a replacement and witness
+    # it matches (with R in place of J.replacement).
     probe = {'finding': finding, 'replacement': replacement, 'witness': witness}
     return any(matches(probe, J2) for J2 in upheld_valid)
 
 
 def adjudicated(admitted_cleared_binding, contradicted):
-    """R6.ADJ.9: Adjudicated(W, D) holds exactly when some admitted adjudication that binds D and W, with disposition
-    cleared, has no contradiction. `admitted_cleared_binding` lists those adjudications; `contradicted(J)` returns
-    ADJ-CONTRA problems. False unless verified records establish it (R6.ADJ.11)."""
+    # R6.ADJ.9: Adjudicated(W, D) holds exactly when some admitted adjudication that binds D and W, with disposition
+    # cleared, has no contradiction. `admitted_cleared_binding` lists those adjudications; `contradicted(J)` returns
+    # ADJ-CONTRA problems. False unless verified records establish it (R6.ADJ.11).
     return any(not contradicted(J) for J in admitted_cleared_binding)
 
 
 # ---- R6.ADJ.12: dissents in four strata ------------------------------------------------------------------------
 
 def strata(pre_admitted, reviews_of, dissents_on_R):
-    """R6.ADJ.12 for one discharge D. `pre_admitted` is [{J, ref, binds, landing_index, answered}] of stratum 1 (each
-    pre-admitted adjudication with whether it binds D and W and is cleared, `landing_index` the position of L(J) on
-    M's first-parent chain, `answered` = Answered(J)); `reviews_of(ref)` lists [{reviewer, verdicts, dissent,
-    first_index, ref}] of the reviews of J in R*; `dissents_on_R` is [{reviewer, item, first_index, review}] of the
-    dissent items on R. Returns {admitted: [refs], exempt_reviews: {J ref: [review refs]}, disregarded: [dissent
-    items], blocking: [dissent items neither addressed nor exempt]}."""
+    # R6.ADJ.12 for one discharge D. `pre_admitted` is [{J, ref, binds, landing_index, answered}] of stratum 1 (each
+    # pre-admitted adjudication with whether it binds D and W and is cleared, `landing_index` the position of L(J) on
+    # M's first-parent chain, `answered` = Answered(J)); `reviews_of(ref)` lists [{reviewer, verdicts, dissent,
+    # first_index, ref}] of the reviews of J in R*; `dissents_on_R` is [{reviewer, item, first_index, review}] of the
+    # dissent items on R. Returns {admitted: [refs], exempt_reviews: {J ref: [review refs]}, disregarded: [dissent
+    # items], blocking: [dissent items neither addressed nor exempt]}.
     exempt, admitted = {}, []
     for p in pre_admitted:
-        J = p['J']
+        J = p['adjudication']
         ex, ok = [], True
         for rv in reviews_of(p['ref']):
             bad = _adverse_items(rv, J)
@@ -527,7 +526,7 @@ def strata(pre_admitted, reviews_of, dissents_on_R):
     disregarded, blocking = [], []
     for d in dissents_on_R:
         addressed = any(p['binds'] and {'ref': d['review'], 'item': d['item']} in
-                        (p['J'].get('dissents_addressed') or []) for p in admitted)
+                        (p['adjudication'].get('dissents_addressed') or []) for p in admitted)
         late = [p for p in admitted if p['binds'] and d['first_index'] > p['landing_index']
                 and member(d['reviewer'], p['answered'])]
         for p in late:
@@ -565,7 +564,7 @@ def result_entry(jref, J, landing, valid_adverse, pre_admitted, admitted, applie
 # ---- the run: Adjudicated(W, D) from admitted records -------------------------------------------------------------
 
 def describe(W):
-    """The retained witness W of custody (category3.replay_run) as R6.ADJ.5 compares it."""
+    # The retained witness W of custody (category3.replay_run) as R6.ADJ.5 compares it.
     sources = [x['ref'] for x in W.get('forming') or []]
     if W.get('kind') == 'lineage':
         er = W.get('edge_refs') or (None, None)
@@ -586,9 +585,9 @@ def fp_chain(repo, M):
 
 
 class Run:
-    """What `evaluate` reads: the reader, M, the candidate freeze F' (the run's F, or the configuration's commit in a
-    control-harness run), the configuration's records and store, R* (cum), a document lookup doc_of(ref), the custody
-    historical witness replay and OWNER_IDENTITIES."""
+    # What `evaluate` reads: the reader, M, the candidate freeze F' (the run's F, or the configuration's commit in a
+    # control-harness run), the configuration's records and store, R* (cum), a document lookup doc_of(ref), the custody
+    # historical witness replay and OWNER_IDENTITIES.
 
     def __init__(self, repo, M, Fprime, cfg_records, store, cum, doc_of, witnesses_at, owners):
         self.repo, self.M, self.Fprime = repo, M, Fprime
@@ -691,7 +690,7 @@ def _parties_for(run, finding_ref, Q, R, A, config, sources, predecessor, refs_r
 
 
 def parties_j(run, J, at):
-    """Parties_J(at): J's own bindings and reviews in R*(at) (R6.ADJ.4)."""
+    # Parties_J(at): J's own bindings and reviews in R*(at) (R6.ADJ.4).
     w = J.get('witness') if isinstance(J.get('witness'), dict) else {}
     f = J.get('finding') if isinstance(J.get('finding'), dict) else {}
     fref = {'path': f.get('path'), 'blob_sha256': f.get('blob_sha256')}
@@ -732,7 +731,7 @@ def addressed_problems_at(run, J, L):
 
 
 def validity(run, jref, J, joid):
-    """Return the adverse verdict and L(J). Unresolved evidence stays unknown under R6.ADJ.9 (4)."""
+    # Return the adverse verdict and L(J). Unresolved evidence stays unknown under R6.ADJ.9 (4).
     if form_problems(J):
         return 'invalid', None
     reviews = run.reviews_of(jref)
@@ -848,7 +847,7 @@ def evaluate(run, D, W, dissents_on_R):
             rj = [{'reviewer': d.get('reviewer'), 'verdicts': d.get('verdicts'), 'dissent': d.get('dissent'),
                    'first_index': run.first_index({'path': p, 'blob_sha256': run.cum.info[o][2]}),
                    'ref': {'path': p, 'blob_sha256': run.cum.info[o][2]}} for p, o, d in run.reviews_of(jref)]
-            st = strata([{'J': J, 'ref': jref, 'binds': True, 'landing_index': li, 'answered': ans}],
+            st = strata([{'adjudication': J, 'ref': jref, 'binds': True, 'landing_index': li, 'answered': ans}],
                         lambda ref_: rj, dissents_on_R)
             exempt = st['exempt_reviews'].get(_key(jref), [])
             admitted = bool(st['admitted'])

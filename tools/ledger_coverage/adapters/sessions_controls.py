@@ -171,7 +171,7 @@ def suite_admission():
     out['two pinned reviews'] = S.admit(_with_file(w3, D + '/reg.review2.json', w3.rv_bytes, pin=True), w3.F2, D,
                                         config.read_pin_table, (), ra.session_registry, REPO, THREADS)[1]
     out['not canonical'] = World(registry_bytes=json.dumps(registry(), indent=1).encode()).admit()[1]
-    want = {'absent from the pin table': 'not pinned', 'differs from its pinned SHA-256': 'pinned SHA-256',
+    want = {'absent from the pin table': 'not pinned', 'differs from its pinned SHA-256': 'pinned sha256',
             'no pinned review': 'no pinned review', 'two pinned reviews': 'more than one',
             'not canonical': 'not canonical'}
     case('PRED:S1-NO-REGISTRY', 'absent from F\'s pin table, differing from its pinned SHA-256, without its pinned '

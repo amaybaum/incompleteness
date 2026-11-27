@@ -1,15 +1,14 @@
 # design r6 as amended by amendments 3 and 4: R6.RECON.25, R6.RECON.26 (first kind of finding), R6.RECON.27
-"""Category 3: the blocking state (Amendment 6 r13 R6.RECON.26-.27, .35, as the OBL-29 remedy r9 applies them).
-
-Every run that evaluates M detects findings over the cumulative record set R* (R6.OBL29.1-.7): every tree reachable
-through any parent from M, F and each record commit the run names, with a fixed selector, and the records the run
-reads. Detection precedes lint (Form of a finding (i)): a first-kind finding is an invalidating reconciliation entry,
-a second-kind finding an independent reviewer's invalidating verdict, a malformed finding a class (b) or (c) file
-with an invalidation signal (R6.RECON.35). A finding blocks a run whose M contains one of its entry's
-side_change_commits when it binds the run's configuration (Form (ii)-(v)); removing, rewriting, moving or superseding
-a record never lifts it (R6.OBL29.6). A reassessment the configuration cites lifts the binding it names, for its edit,
-when it applies; until custody exists none applies (sec. 2.2).
-"""
+# Category 3: the blocking state (Amendment 6 r13 R6.RECON.26-.27, .35, as the OBL-29 remedy r9 applies them).
+#
+# Every run that evaluates M detects findings over the cumulative record set R* (R6.OBL29.1-.7): every tree reachable
+# through any parent from M, F and each record commit the run names, with a fixed selector, and the records the run
+# reads. Detection precedes lint (Form of a finding (i)): a first-kind finding is an invalidating reconciliation entry,
+# a second-kind finding an independent reviewer's invalidating verdict, a malformed finding a class (b) or (c) file
+# with an invalidation signal (R6.RECON.35). A finding blocks a run whose M contains one of its entry's
+# side_change_commits when it binds the run's configuration (Form (ii)-(v)); removing, rewriting, moving or superseding
+# a record never lifts it (R6.OBL29.6). A reassessment the configuration cites lifts the binding it names, for its edit,
+# when it applies; until custody exists none applies (sec. 2.2).
 import json
 import re
 import posixpath
@@ -20,7 +19,7 @@ from . import records as rec
 from . import util
 
 reassessment_schema = 'oi-reassessment/1'
-custody_unverified = ('the custody of the relevant historical inputs is not established (OBL-29 sec. 2.2): the cited '
+custody_unverified = ('the custody of the relevant historical inputs is not established (obligation 29, sec. 2.2): the cited '
                       'discharge is inapplicable')
 blocked_class = 'retirement-blocked'
 
@@ -42,9 +41,9 @@ def read_invalidated(x):
 
 
 def _reviewed(store, ref, sha, disregarded=()):
-    """Problems of the record's review: exactly one review record in its directory naming its exact reference (path
-    and blob; a review naming the same bytes at another path is not its review, which narrows the current-review
-    check of R6.OBL29.4 in the fail-closed direction), and the chain lint with that review admitted."""
+    # Problems of the record's review: exactly one review record in its directory naming its exact reference (path
+    # and blob; a review naming the same bytes at another path is not its review, which narrows the current-review
+    # check of R6.OBL29.4 in the fail-closed direction), and the chain lint with that review admitted.
     d = posixpath.dirname(ref['path'])
     reviews = [s for s, (p, rv) in store.by_sha.items()
                if isinstance(rv, dict) and rv.get('schema') == rec.review_schema and posixpath.dirname(p) == d
@@ -89,8 +88,8 @@ def second_kind_findings(doc, ref, record_at):
 
 
 def findings_of_records(records, schemas, record_at=lambda ref: None):
-    """The first-kind findings among records the run reads explicitly (R6.OBL29.1), in the form of
-    Cumulative.findings."""
+    # The first-kind findings among records the run reads explicitly (R6.OBL29.1), in the form of
+    # Cumulative.findings.
     out = []
     for r in records:
         doc = {k: v for k, v in r.items() if k not in ('_ref', '_source')}
@@ -224,9 +223,9 @@ def _first_parent_chain(repo, M):
 
 
 def predecessor_review_problems(doc, ref, store, cum):
-    """R6.OBL29.3 predecessor reviews: every required supersedes hop of the reassessment's existing lineage check
-    (resolved by that check's own inputs); each exact predecessor's eligible ordinary reviews in R* accept every item,
-    and, where the lineage requires a widening review, every widening review in R* of it accepts each verdict."""
+    # R6.OBL29.3 predecessor reviews: every required supersedes hop of the reassessment's existing lineage check
+    # (resolved by that check's own inputs); each exact predecessor's eligible ordinary reviews in R* accept every item,
+    # and, where the lineage requires a widening review, every widening review in R* of it accepts each verdict.
     out = []
     # predecessor reviews: every required supersedes hop of the reassessment's existing lineage check (resolved
     # by that check's own inputs), each exact predecessor's eligible reviews in R*
@@ -255,22 +254,22 @@ def predecessor_review_problems(doc, ref, store, cum):
     return out
 
 
-REASSESS_FINDING = {'path': ('path', True), 'blob_sha256': ('sha256', True),
+reassess_finding_keys = {'path': ('path', True), 'blob_sha256': ('sha256', True),
                     'item': (('or', ('null',), 'nestr'), True)}
-REASSESS_ENTRY = {'path': ('path', True), 'blob_sha256': ('sha256', True), 'entry_path': ('path', True)}
-REASSESS_REPAIR = {'commits': (('distinct_commits',), True), 'entry': (('table', REASSESS_ENTRY), True)}
-REASSESS_EDIT = {'id': ('nestr', True), 'sha256': ('sha256', True)}
-REASSESS_RECORD = {'schema': (('lit', (reassessment_schema,)), True), 'record_id': ('nestr', True),
-                   'supersedes': (('or', ('null',), ('table', fd.REF)), True), 'author': ('identity', True),
-                   'finding': (('table', REASSESS_FINDING), True),
-                   'repair': (('or', ('null',), ('table', REASSESS_REPAIR)), True),
-                   'edit': (('or', ('null',), ('table', REASSESS_EDIT)), True), 'rederivation': ('nestr', True),
+reassess_entry_keys = {'path': ('path', True), 'blob_sha256': ('sha256', True), 'entry_path': ('path', True)}
+reassess_repair_keys = {'commits': (('distinct_commits',), True), 'entry': (('keyed', reassess_entry_keys), True)}
+reassess_edit_keys = {'id': ('nestr', True), 'sha256': ('sha256', True)}
+reassess_record_keys = {'schema': (('lit', (reassessment_schema,)), True), 'record_id': ('nestr', True),
+                   'supersedes': (('or', ('null',), ('keyed', fd.ref_keys)), True), 'author': ('identity', True),
+                   'finding': (('keyed', reassess_finding_keys), True),
+                   'repair': (('or', ('null',), ('keyed', reassess_repair_keys)), True),
+                   'edit': (('or', ('null',), ('keyed', reassess_edit_keys)), True), 'rederivation': ('nestr', True),
                    'verdict': (('lit', ('no-effect',)), True)}
 
 
 def custody_problems(custody):
-    """The custody conditions a cited discharge fails: none when custody is established (R6.CUST.7), each custody-*
-    failure otherwise; without a custody check (no report) the discharge fails closed."""
+    # The custody conditions a cited discharge fails: none when custody is established (R6.CUST.7), each custody-*
+    # failure otherwise; without a custody check (no report) the discharge fails closed.
     if custody is None:
         return [custody_unverified]
     if custody.get('status') == 'established':
@@ -279,10 +278,10 @@ def custody_problems(custody):
 
 
 def keys_problems(doc):
-    """R6.RECON.27 Keys and R6.RECON.32 tables: a key missing, of another type or outside the table is a form
-    failure (the reassessment does not apply)."""
+    # R6.RECON.27 Keys and R6.RECON.32 tables: a key missing, of another type or outside the table is a form
+    # failure (the reassessment does not apply).
     out = []
-    fd.validate(REASSESS_RECORD, doc, '$', out)
+    fd.validate(reassess_record_keys, doc, '$', out)
     return out
 
 
@@ -317,10 +316,10 @@ def repair_null_admitted(f, cum):
 
 def reassessment_problems(repo, M, led, doc, ref, store, admitted, found, m_scan, schemas, cum=None,
                           run_level=lambda f: False, custody=None, defer_repair_review=False):
-    """Why a cited reassessment does not apply (empty if it applies). m_scan: [(path, bytes)], the scanned set of M's
-    tree; `found`: the findings of the cumulative record set; `cum`: that set, whose eligible reviews of the
-    reassessment must all accept (R6.OBL29.3). When an adjudication could supply a disregard for the exact repair,
-    custody_decisions completes its review checks. run_level(finding) checks Form (iv)."""
+    # Why a cited reassessment does not apply (empty if it applies). m_scan: [(path, bytes)], the scanned set of M's
+    # tree; `found`: the findings of the cumulative record set; `cum`: that set, whose eligible reviews of the
+    # reassessment must all accept (R6.OBL29.3). When an adjudication could supply a disregard for the exact repair,
+    # custody_decisions completes its review checks. run_level(finding) checks Form (iv).
     out = []
     if not isinstance(doc, dict) or doc.get('schema') != reassessment_schema:
         return ['not a reassessment record']
@@ -398,21 +397,21 @@ def lifting(reassessments):
 # ---- the cumulative record set R* (OBL-29 remedy r9, R6.OBL29.1-.8) ---------------------------------------------
 
 class Cumulative:
-    """R*: the regular-file entries under the fixed category-3 prefix in every tree reachable through any parent from
-    the roots (R6.OBL29.1, .7). One walk through the verified reader visits each commit once, keyed by full id, until
-    no unvisited parent remains; parents are read only from verified commit content (no ref, reflog, replace ref,
-    graft, shallow file or commit-graph). A commit, tree or blob the walk needs that the store lacks or that does not
-    hash to its id raises the reader's Unresolvable (ERROR, no verdict). There is no depth or count limit.
-
-    Selection is fixed (R6.OBL29.5): the prefix, the regular mode and the file's bytes; no tool-landing or plan
-    directory exclusion. Each distinct blob is classified once by R6.RECON.35 (findings.classify): class (a)
-    reconciliation and review records, and malformed class (b) and (c) files, are kept. Detection follows Form (i)
-    ("detection precedes lint"): a first-kind finding is an invalidating entry of a class (a) reconciliation record,
-    whatever its review says; a second-kind finding is an invalidating verdict entry of a class (a) review whose
-    reviewer is independent of the reviewed record's author; a class (b) or (c) file with an invalidation signal is a
-    malformed finding (R6.OBL29.2). Each is decided from the one file and the reviewed record it names, so detection
-    is monotone: adding history only adds findings.
-    """
+    # R*: the regular-file entries under the fixed category-3 prefix in every tree reachable through any parent from
+    # the roots (R6.OBL29.1, .7). One walk through the verified reader visits each commit once, keyed by full id, until
+    # no unvisited parent remains; parents are read only from verified commit content (no ref, reflog, replace ref,
+    # graft, shallow file or commit-graph). A commit, tree or blob the walk needs that the store lacks or that does not
+    # hash to its id raises the reader's Unresolvable (ERROR, no verdict). There is no depth or count limit.
+    #
+    # Selection is fixed (R6.OBL29.5): the prefix, the regular mode and the file's bytes; no tool-landing or plan
+    # directory exclusion. Each distinct blob is classified once by R6.RECON.35 (findings.classify): class (a)
+    # reconciliation and review records, and malformed class (b) and (c) files, are kept. Detection follows Form (i)
+    # ("detection precedes lint"): a first-kind finding is an invalidating entry of a class (a) reconciliation record,
+    # whatever its review says; a second-kind finding is an invalidating verdict entry of a class (a) review whose
+    # reviewer is independent of the reviewed record's author; a class (b) or (c) file with an invalidation signal is a
+    # malformed finding (R6.OBL29.2). Each is decided from the one file and the reviewed record it names, so detection
+    # is monotone: adding history only adds findings.
+    #
 
     def __init__(self, repo, roots, schemas, prefix):
         self.repo, self.schemas, self.prefix = repo, schemas, prefix
@@ -485,8 +484,8 @@ class Cumulative:
     explicit_record_at = None
 
     def adjudications(self):
-        """[(reference, git blob id, doc)] of every oi-adjudication/1 record in R* (#1605 R6.ADJ.10: a removed
-        adjudication is evaluated as one that is present)."""
+        # [(reference, git blob id, doc)] of every oi-adjudication/1 record in R* (#1605 R6.ADJ.10: a removed
+        # adjudication is evaluated as one that is present).
         out, seen = [], set()
         for p, o in self.entries():
             inf = self.info[o]
@@ -499,9 +498,9 @@ class Cumulative:
         return out
 
     def resolve_reviewed(self, ref):
-        """The record a second-kind review names, by exact reference, in the run's whole R*: the walk's record set, or a
-        record the run reads explicitly (`explicit_record_at`, set by the run). r9 Amendment 1 A1.4 and A1.5: a record
-        seen through F, REV or an explicit input resolves a provisional block for the runs that reach it."""
+        # The record a second-kind review names, by exact reference, in the run's whole R*: the walk's record set, or a
+        # record the run reads explicitly (`explicit_record_at`, set by the run). r9 Amendment 1 A1.4 and A1.5: a record
+        # seen through F, REV or an explicit input resolves a provisional block for the runs that reach it.
         got = self.record_at(ref)
         if got is None and self.explicit_record_at is not None:
             got = self.explicit_record_at(ref)
@@ -519,9 +518,9 @@ class Cumulative:
         return fd.strict_parse(self.repo.read_blob_uncached(o)) if o is not None else None
 
     def findings(self):
-        """Every finding of R* (Form (i), R6.RECON.35, R6.OBL29.2), one per carrying file reference and item:
-        {kind (1, 2 or 'malformed'), record, item, entry, path, configuration, invalidated, verdict_item, form}.
-        `entry` is the reconciliation entry the finding names, or None where the scan finds none."""
+        # Every finding of R* (Form (i), R6.RECON.35, R6.OBL29.2), one per carrying file reference and item:
+        # {kind (1, 2 or 'malformed'), record, item, entry, path, configuration, invalidated, verdict_item, form}.
+        # `entry` is the reconciliation entry the finding names, or None where the scan finds none.
         out = []
         for p, o in self.entries():
             inf = self.info[o]
@@ -532,7 +531,7 @@ class Cumulative:
             if inf[0] in ('b', 'c'):
                 out.append({'kind': 'malformed', 'class': inf[0], 'record': ref, 'item': None, 'entry': None, 'path': p,
                             'configuration': None, 'invalidated': None, 'verdict_item': None,
-                            'form': ['a malformed record of R6.RECON.35 class (%s)' % inf[0]]})
+                            'form': ['a malformed record of class (%s)' % inf[0]]})
                 continue
             doc = fd.strict_parse(data)
             if inf[1] in fd.recon_schemas:
@@ -586,25 +585,25 @@ class Cumulative:
         return out
 
     def malformed_at(self, commit, excluded):
-        """The class (b) and (c) files without an invalidation signal in one tree, outside `excluded(path)`: the
-        ordinary malformed-nonfinding lint of the current snapshot (R6.OBL29.2, R6.RECON.35)."""
+        # The class (b) and (c) files without an invalidation signal in one tree, outside `excluded(path)`: the
+        # ordinary malformed-nonfinding lint of the current snapshot (R6.OBL29.2, R6.RECON.35).
         key, ents = self.repo.prefix_entries(commit, self.prefix, self.keep)
         return sorted(p for p, _m, o in ents if self.info[o][0] in ('b', 'c') and not self.info[o][3]
                       and not excluded(p))
 
     def read_domain(self, explicit=()):
-        """The category-3 read domain (OBL-29 r9 sec. 5.3): the roots of the walk, and for each record the scan read
-        from a tree, the commit it was first read from (a root or a commit of its verified history), its path and its
-        blob; and each explicitly read record with its admitted source."""
+        # The category-3 read domain (OBL-29 r9 sec. 5.3): the roots of the walk, and for each record the scan read
+        # from a tree, the commit it was first read from (a root or a commit of its verified history), its path and its
+        # blob; and each explicitly read record with its admitted source.
         return {'prefix': self.prefix, 'roots': list(self.roots),
                 'reads': [{'commit': c, 'path': p, 'blob_sha256': self.info[o][2]}
                           for (p, o), c in sorted(self.first_seen.items())],
                 'explicit': [dict(x) for x in explicit]}
 
     def witness(self, ref, M, rev, F):
-        """(present_at_M, witness) of a finding's record reference (R6.OBL29.8): present_at_M when M's tree holds
-        its path and blob at a regular mode; the witness chosen from M, REV, F, then the newest commit on M's
-        first-parent chain, then the smallest full id among the other commits that supply it."""
+        # (present_at_M, witness) of a finding's record reference (R6.OBL29.8): present_at_M when M's tree holds
+        # its path and blob at a regular mode; the witness chosen from M, REV, F, then the newest commit on M's
+        # first-parent chain, then the smallest full id among the other commits that supply it.
         holders = set()
         for (p, o), cs in self.holders.items():
             if p == ref.get('path') and self.info[o][2] == ref.get('blob_sha256'):
@@ -631,10 +630,10 @@ def ordinary_review_by_non_author(review, record):
 
 
 def eligible_review_problems(reviews, doc):
-    """R6.OBL29.3 direct review checks over R*: every eligible ordinary review of the record's exact reference (kind
-    review; reviewer a person other than the record's author) accepts every item id of the record exactly once and
-    carries no dissent. A review whose verdict is not accept, that omits or duplicates an item, or that dissents fails
-    the discharge even if it has left the current tree."""
+    # R6.OBL29.3 direct review checks over R*: every eligible ordinary review of the record's exact reference (kind
+    # review; reviewer a person other than the record's author) accepts every item id of the record exactly once and
+    # carries no dissent. A review whose verdict is not accept, that omits or duplicates an item, or that dissents fails
+    # the discharge even if it has left the current tree.
     out = []
     ids = rec.item_ids(doc) if isinstance(doc, dict) else []
     reconciliation = isinstance(doc, dict) and doc.get('schema') in fd.recon_schemas
@@ -683,7 +682,7 @@ def repair_dissent_items(review, repair):
 
 
 def repair_review_problems(store, ref, repair, retained, disregarded):
-    """R6.REC.6 on the exact R for one discharge, with a separate current acceptance under R6.OBL29.4."""
+    # R6.REC.6 on the exact R for one discharge, with a separate current acceptance under R6.OBL29.4.
     remaining, dismissed = [], set()
     for path, digest, review in retained:
         if not ordinary_review_by_non_author(review, repair):
@@ -705,9 +704,9 @@ def repair_review_problems(store, ref, repair, retained, disregarded):
 # ---- the binding of a finding (R6.RECON.26, Form of a finding (ii)-(v)) -------------------------------------------
 
 class Binding:
-    """The run's view for binding: its reader, M, configuration (doc and reference) and ledger, and two callbacks
-    the CLI supplies: resolve_cfg(ref) -> (doc, commit) or None (R6.RECON.33 resolution), and ledger_of(ref, commit)
-    -> the configuration's ledger (raises findings.Unsettled when it cannot be read)."""
+    # The run's view for binding: its reader, M, configuration (doc and reference) and ledger, and two callbacks
+    # the CLI supplies: resolve_cfg(ref) -> (doc, commit) or None (R6.RECON.33 resolution), and ledger_of(ref, commit)
+    # -> the configuration's ledger (raises findings.Unsettled when it cannot be read).
 
     def __init__(self, repo, M, cfg, cfg_ref, led, resolve_cfg, ledger_of, record_at=None, cfg_commit=None):
         self.repo, self.M, self.cfg, self.cfg_ref, self.led = repo, M, cfg, cfg_ref, led
@@ -717,7 +716,7 @@ class Binding:
         if any(isinstance(r, dict) and r.get('kind') == 'edit-id-migration' for r in cfg.get('records') or []):
             # Form (iv)-(vi) follow R6.RECON.28 migrations, which this tool revision does not read; a configuration
             # that references one cannot be bound faithfully
-            raise fd.Unsettled('the configuration references an edit-id-migration record (R6.RECON.28), which this '
+            raise fd.Unsettled('the configuration references an edit-id-migration record, which this '
                                'tool revision does not implement')
 
     def finding_config(self, cref):
@@ -740,8 +739,8 @@ class Binding:
         return self._ledgers[key]
 
     def delegated_paths(self, fdoc):
-        """The paths of the delegation classes of a configuration (R6.RECON.30 executed paths), read at its commit;
-        an unreadable delegation contract stops the run (the floor cannot be decided)."""
+        # The paths of the delegation classes of a configuration (R6.RECON.30 executed paths), read at its commit;
+        # an unreadable delegation contract stops the run (the floor cannot be decided).
         dref = fdoc.get('delegation')
         if not isinstance(dref, dict):
             return set()
@@ -753,14 +752,14 @@ class Binding:
             # an in-scope reading of the owner's decision of 2026-11-27 (ledger-unreadable and ledger-target stops
             # bind at run level): the contract's object reads (an unreadable object stays ERROR), only its content
             # is unusable, so the named configuration's binding inputs cannot be read
-            raise fd.RunLevelBlock('R6.RECON.30 executed paths: the delegation contract of the named configuration '
+            raise fd.RunLevelBlock('executed paths: the delegation contract of the named configuration '
                                    'cannot be read')
         return {q for c in doc.get('classes') or [] if isinstance(c, dict) for q in c.get('paths') or []
                 if isinstance(q, str)}
 
     def in_lineage(self, fdoc, fref):
-        """R6.RECON.33 plan lineage of the finding's configuration: the run's configuration lies on whose supersedes
-        chain (itself included) the finding's configuration lies, or names the same retirement by name or Issue."""
+        # R6.RECON.33 plan lineage of the finding's configuration: the run's configuration lies on whose supersedes
+        # chain (itself included) the finding's configuration lies, or names the same retirement by name or Issue.
         ra, rb = self.cfg.get('retirement') or {}, (fdoc or {}).get('retirement') or {}
         if (ra.get('name') is not None and ra.get('name') == rb.get('name')) or \
                 (ra.get('issue') is not None and ra.get('issue') == rb.get('issue')):
@@ -806,11 +805,11 @@ def expected_target(repo, led, H, eid):
 
 
 def beside_table_problems(b, f, fled, fH, fdoc):
-    """The checks R6.RECON.30 makes beside its key tables, on the finding's reconciliation record: each entry's
-    splices are exactly the named configuration's ledger splices of the path, in order, with their start_H and end_H;
-    end_M = start_M + end_H - start_H; the translation agrees with the offsets (R6.RECON.10: identity requires
-    start_M = start and H and M equal up to the splice's end; an integer equals start_M - start); and, for an executed
-    path (a floor or configured suffix, or a delegated path), `method` names the entry's l blob id."""
+    # The checks R6.RECON.30 makes beside its key tables, on the finding's reconciliation record: each entry's
+    # splices are exactly the named configuration's ledger splices of the path, in order, with their start_H and end_H;
+    # end_M = start_M + end_H - start_H; the translation agrees with the offsets (R6.RECON.10: identity requires
+    # start_M = start and H and M equal up to the splice's end; an integer equals start_M - start); and, for an executed
+    # path (a floor or configured suffix, or a delegated path), `method` names the entry's l blob id.
     rdoc = b.record_at(f['record']) if b.record_at else None
     if not isinstance(rdoc, dict):
         return []
@@ -859,9 +858,9 @@ def beside_table_problems(b, f, fled, fH, fdoc):
 
 
 def bind(f, b):
-    """(bound edit ids, run_level, form problems) of one finding for the run's configuration (Form (ii)-(v)). A finding
-    whose binding cannot be decided from readable inputs (findings.RunLevelBlock) binds at run level, with the reason
-    as a form failure (FAIL record-invalid)."""
+    # (bound edit ids, run_level, form problems) of one finding for the run's configuration (Form (ii)-(v)). A finding
+    # whose binding cannot be decided from readable inputs (findings.RunLevelBlock) binds at run level, with the reason
+    # as a form failure (FAIL record-invalid).
     try:
         return _bind(f, b)
     except fd.RunLevelBlock as exc:
@@ -900,7 +899,7 @@ def _bind(f, b):
         if beside:
             # a failure of the record's form beside its tables (R6.RECON.30): a malformed finding, which blocks at run
             # level with FAIL record-invalid (owner decision 5 of 2026-11-27)
-            return [], True, form + ['beside its tables (R6.RECON.30): %s' % x for x in beside]
+            return [], True, form + ['beside its tables: %s' % x for x in beside]
     elems = []
     # Form (iv): `invalidated` absent, empty or unreadable (no element is a readable {id, sha256, target}), or the
     # verdict on another item than <path>:scientific_effect, falls back to the conclusions or the entry's path
@@ -982,8 +981,9 @@ def _bind(f, b):
 # ---- OBL-29 custody R6.CUST.6: the replay of each run of each context, and r9 sec. 2.2 over its witnesses --------
 
 class ReplayFailure(Exception):
-    """A mapping input of R6.CUST.6 that does not admit, resolve or verify as its row states: a custody failure
-    (R6.CUST.9), reported as custody-replay."""
+    # A mapping input of R6.CUST.6 that does not admit, resolve or verify as its row states: a custody failure
+    # (R6.CUST.9), reported as custody-replay.
+    pass
 
 
 replay_selector_schema = 'oi-reconciliation/2'
@@ -994,7 +994,7 @@ def _ref(r):
 
 
 def _git_at(repo, commit, ref):
-    """The git blob id of the regular entry at ref's path in commit's tree when its bytes have ref's SHA-256."""
+    # The git blob id of the regular entry at ref's path in commit's tree when its bytes have ref's SHA-256.
     e = repo.entries(commit).get(ref.get('path')) if isinstance(ref, dict) else None
     if e is None or e[0] not in ('100644', '100755'):
         return None
@@ -1003,9 +1003,9 @@ def _git_at(repo, commit, ref):
 
 
 def _review_witnesses(cum, ref, doc, git, base, directory=None, contested=()):
-    """Review witnesses (r9 sec. 2.2): each eligible ordinary review in R* of the record's exact reference (kind review,
-    reviewer a person other than the record's author; for a reconciliation record, in its own directory) that is
-    adverse or defective (R6.OBL29.3, the checks of eligible_review_problems) stands against that record."""
+    # Review witnesses (r9 sec. 2.2): each eligible ordinary review in R* of the record's exact reference (kind review,
+    # reviewer a person other than the record's author; for a reconciliation record, in its own directory) that is
+    # adverse or defective (R6.OBL29.3, the checks of eligible_review_problems) stands against that record.
     from . import obl29
     out = []
     for path, oid, rv in cum.reviews_naming_ids(ref, directory):
@@ -1020,12 +1020,12 @@ def _review_witnesses(cum, ref, doc, git, base, directory=None, contested=()):
 
 
 def competing_successors(repo, cum_m, scope, uref, U):
-    """r9 R6.OBL29.3, qualifying competing successors from the mutable scan, for the operative edge U -> P (P the
-    exact reference U names in `supersedes`): each durable record S in the M-derived portion of R* (`cum_m`, the walk
-    from M alone) whose regular entry the R6.RECON.2 (d) scan would select under `scope` (a json file under the
-    reconciliation root, outside the tool-landing prefixes and the plan's record directory, of schema
-    oi-reconciliation/2), whose exact reference differs from U's, and which names the same exact P in `supersedes`
-    with U's schema and lineage (R6.REC.7). Each exact reference is counted once. Returns [(S, ref, git blob id)]."""
+    # r9 R6.OBL29.3, qualifying competing successors from the mutable scan, for the operative edge U -> P (P the
+    # exact reference U names in `supersedes`): each durable record S in the M-derived portion of R* (`cum_m`, the walk
+    # from M alone) whose regular entry the R6.RECON.2 (d) scan would select under `scope` (a json file under the
+    # reconciliation root, outside the tool-landing prefixes and the plan's record directory, of schema
+    # oi-reconciliation/2), whose exact reference differs from U's, and which names the same exact P in `supersedes`
+    # with U's schema and lineage (R6.REC.7). Each exact reference is counted once. Returns [(S, ref, git blob id)].
     from . import recon_route
     pref, lid = _ref(U.get('supersedes')), rec.lineage_id(U)
     out, counted = [], set()
@@ -1065,18 +1065,18 @@ def lineage_edges(store, ref, doc):
 
 
 def live_lineage_problems(repo, M, doc, cfg, store, scope, m_scan, cum_m, schemas):
-    """r9 R6.OBL29.3 on the current run's own lineage checks: where the configuration cites the repair record U of a
-    cited reassessment (an existing route making its R6.REC.7 check operative for the discharge, in every admission
-    mode in which the R6.RECON.2 (d) scan can run), every edge of U's lineage resolved under the prescribed anchor F
-    (U -> P1, P1 -> P2, ...) is checked, and each qualifying competing successor S in M's ancestry fails the discharge
-    (FAIL record-invalid), with or without custody. A lineage that does not resolve under F, or whose required check
-    fails, fails the discharge as well. `cum_m` is a callable returning the walk from M alone (built only when needed).
-
-    Citation is the only route that makes a repair record's lineage check operative for a discharge in this tool
-    revision: the discharge reads its repair entry only from M's scanned set (R6.OBL29.4), and a record admitted
-    through the post-freeze route (R6.RECON.2, REV) serves the reconciliation of drifted paths, not a discharge's
-    repair (its record lies in REV's tree, not M's, so an entry naming it is not present at M). A REV-admitted record
-    therefore needs no separate trigger here."""
+    # r9 R6.OBL29.3 on the current run's own lineage checks: where the configuration cites the repair record U of a
+    # cited reassessment (an existing route making its R6.REC.7 check operative for the discharge, in every admission
+    # mode in which the R6.RECON.2 (d) scan can run), every edge of U's lineage resolved under the prescribed anchor F
+    # (U -> P1, P1 -> P2, ...) is checked, and each qualifying competing successor S in M's ancestry fails the discharge
+    # (FAIL record-invalid), with or without custody. A lineage that does not resolve under F, or whose required check
+    # fails, fails the discharge as well. `cum_m` is a callable returning the walk from M alone (built only when needed).
+    #
+    # Citation is the only route that makes a repair record's lineage check operative for a discharge in this tool
+    # revision: the discharge reads its repair entry only from M's scanned set (R6.OBL29.4), and a record admitted
+    # through the post-freeze route (R6.RECON.2, REV) serves the reconciliation of drifted paths, not a discharge's
+    # repair (its record lies in REV's tree, not M's, so an entry naming it is not present at M). A REV-admitted record
+    # therefore needs no separate trigger here.
     if not isinstance(doc, dict) or doc.get('repair') is None:
         return []
     eref = _ref(_part(doc, 'repair_entry'))
@@ -1089,7 +1089,7 @@ def live_lineage_problems(repo, M, doc, cfg, store, scope, m_scan, cum_m, schema
         return []
     edges, unresolved = lineage_edges(store, eref, U)
     if unresolved:
-        return ['the required lineage of the cited repair record %s does not resolve under F (R6.REC.7, R6.OBL29.3)'
+        return ['the required lineage of the cited repair record %s does not resolve under F'
                 % eref['path']]
     lint = rec.supersedes_problems(eref, U, store)
     if lint:
@@ -1097,7 +1097,7 @@ def live_lineage_problems(repo, M, doc, cfg, store, scope, m_scan, cum_m, schema
     out = []
     for xref, X, pref in edges:
         out += ['the competing successor %s in M\'s ancestry supersedes %s, which %s in the lineage of the cited '
-                'repair record %s supersedes (R6.OBL29.3, R6.REC.7)' % (sref['path'], pref['path'], xref['path'],
+                'repair record %s supersedes' % (sref['path'], pref['path'], xref['path'],
                                                                         eref['path'])
                 for _S, sref, _g in competing_successors(repo, cum_m(), scope, xref, X)]
     return out
@@ -1133,11 +1133,11 @@ def run_roles_x(repo, c_, m, rev):
 
 
 def replay_rev_admission(repo, f, m, rev, X, cfg, loaded, cref, pinned_doc, ledgered, landed_admitted):
-    """R6.RECON.2 (a)-(g) replayed with that REV, m, the run's X and the context's configuration: the reconciliation
-    records REV adds, admitted under the context's scope as the run's route admitted them. The replayed admitted set
-    {(path, sha256)} must equal the set the landed result records in inputs.classify_records (`landed_admitted`) and
-    be non-empty; a record the route refuses is not by itself a failure. Returns the admitted records {(path, sha256):
-    record}; a difference or an empty set is a custody failure (ReplayFailure)."""
+    # R6.RECON.2 (a)-(g) replayed with that REV, m, the run's X and the context's configuration: the reconciliation
+    # records REV adds, admitted under the context's scope as the run's route admitted them. The replayed admitted set
+    # {(path, sha256)} must equal the set the landed result records in inputs.classify_records (`landed_admitted`) and
+    # be non-empty; a record the route refuses is not by itself a failure. Returns the admitted records {(path, sha256):
+    # record}; a difference or an empty set is a custody failure (ReplayFailure).
     from . import recon_route
     corpus = cfg.get('corpus') or {}
     rx = [re.compile(x) for x in corpus.get('patterns') or [] if isinstance(x, str)]
@@ -1169,7 +1169,7 @@ def replay_rev_admission(repo, f, m, rev, X, cfg, loaded, cref, pinned_doc, ledg
     got = {(r['_ref']['path'], r['_ref']['blob_sha256']) for r in admitted}
     if not got or got != set(landed_admitted):
         why = [d for i in items for d in (i.get('detail') or [i.get('why')]) if d]
-        raise ReplayFailure('the run\'s REV %s does not replay under R6.RECON.2: the replayed admitted records %s '
+        raise ReplayFailure('the run\'s REV %s does not replay under the post-freeze route: the replayed admitted records %s '
                             'differ from those its landed result records %s%s'
                             % (rev, sorted(got), sorted(landed_admitted), ('; ' + why[0]) if why else ''))
     return {(r['_ref']['path'], r['_ref']['blob_sha256']): {k: v for k, v in r.items() if k not in ('_ref', '_source')}
@@ -1177,10 +1177,10 @@ def replay_rev_admission(repo, f, m, rev, X, cfg, loaded, cref, pinned_doc, ledg
 
 
 def replay_run(repo, c_, m, rev, load_config, schemas, prefix, context_ledger=None):
-    """R6.CUST.6 for one run (m, rev) of the context c_ = {f, config}: the run's operative discharge checks
-    re-established and their witnesses qualified under R6.OBL29.3 as a run with roots m, f and rev would have, from the
-    inputs of the design's mapping table only. Returns the witnesses (r9 sec. 2.2). A mapping input that does not
-    admit or resolve raises ReplayFailure (custody-replay); an unreadable object raises the reader's Unresolvable."""
+    # R6.CUST.6 for one run (m, rev) of the context c_ = {f, config}: the run's operative discharge checks
+    # re-established and their witnesses qualified under R6.OBL29.3 as a run with roots m, f and rev would have, from the
+    # inputs of the design's mapping table only. Returns the witnesses (r9 sec. 2.2). A mapping input that does not
+    # admit or resolve raises ReplayFailure (custody-replay); an unreadable object raises the reader's Unresolvable.
     from . import recon_route
     f, cref = c_['f'], c_['config']
     try:
@@ -1354,8 +1354,8 @@ def adjudication_run(repo, M, Fprime, loaded, m_scan, cum, explicit_at, witnesse
 
 
 def adjudication_entries(run, f, evaluated):
-    """R6.ADJ.13: an entry for every oi-adjudication/1 record in R* that names the finding f (its reference and
-    item); an adjudication evaluated for a discharge carries its evaluation, any other its validity for adverse use."""
+    # R6.ADJ.13: an entry for every oi-adjudication/1 record in R* that names the finding f (its reference and
+    # item); an adjudication evaluated for a discharge carries its evaluation, any other its validity for adverse use.
     from . import adjudication as adjm
     out = []
     fr = f.get('record') or {}
@@ -1375,9 +1375,9 @@ def adjudication_entries(run, f, evaluated):
 
 def custody_decisions(repo, witnesses, applying, loaded, m_scan, cum, schemas, M=None, Fprime=None, explicit_at=None,
                       owners=(), witnesses_at=None):
-    """r9 sec. 2.2 `blocked(D, W)` for each applying discharge D of the current run and each witness W from custody
-    (R6.CUST.6). Custody only adds witnesses: clearance reads only the current freeze's own admitted records. Returns
-    (blocked witnesses, blocked repair reviews, witness reports, adjudication reports)."""
+    # r9 sec. 2.2 `blocked(D, W)` for each applying discharge D of the current run and each witness W from custody
+    # (R6.CUST.6). Custody only adds witnesses: clearance reads only the current freeze's own admitted records. Returns
+    # (blocked witnesses, blocked repair reviews, witness reports, adjudication reports).
     from . import obl29
     from . import adjudication as adjm
     m_store = rec.Store(m_scan)

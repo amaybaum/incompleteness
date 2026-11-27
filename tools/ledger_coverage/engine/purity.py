@@ -39,6 +39,8 @@ field_names = frozenset([
     # design r6 amendment 4: the record base and the reassessment record (R6.RECON.2 (c), R6.RECON.27)
     'record_base', 'finding', 'repair', 'edit', 'rederivation', 'commits', 'target', 'start_H',
     'side_change_commits', 'category3', 'findings', 'blocked', 'reassessments', 'run_level',
+    # the site field of R6.CTX.10 and the key of the session registry's withdrawals (oi-a1-staging-sessions/1)
+    'partial_quote', 'withdrawn',
 ])
 schema_ids = frozenset([
     'oi-ledger-coverage/5', 'oi-retirement-config/1', 'oi-term-rules/2', 'oi-delegation/1', 'oi-hp-adjudication/1',
@@ -70,6 +72,8 @@ enumerations = frozenset([
     'authorized-replacement', 'authorized-removal', 'unresolved', 'carried', 'changed', 'removed', 'conforms',
     'pass', 'fail', 'missing', 'widening', 'edits', 'checker', 'identity', 'scope', 'classification',
     'none', 'side-change-classes', 'REPLAY_REFUSED', 'REPLAY_MISMATCH', 'reassessment',
+    # ERROR classes of a fail-closed stop, and the outcome names of R6.GATE.3 the engine controls attest
+    'DESIGN_UNSETTLED', 'NOT_IMPLEMENTED', 'COUNTERCONTROL', 'LINT_PASS', 'LINT_FAIL',
     'RC1', 'RC2', 'RC3', 'RC4', 'RC5', 'RC6', 'RC7', 'RC8', 'RC9', 'RC10', 'RC11', 'RC12', 'RC13',
     'U', 'M', 'K', 'B', 'H', 'O', 'R', 'S1', 'N2', 'B1', 'B2', 'B3', 'B4', 'B6', 'K1', 'K2', 'K3', 'K4', 'K5',
     'M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M11', 'O1', 'O9',

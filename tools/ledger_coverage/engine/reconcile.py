@@ -66,12 +66,12 @@ def classify_side(repo, M, path, classes, record_refs):
 
 
 def classify_side_named(repo, M, path, classes, record_refs):
-    """classify_side with a third value, `named`: true when a class pin names the path or the path is a class record
-    the configuration pins, whether or not it matches (amendment r4, A.6 rows 1 and 2); false otherwise (row 3).
-
-    R6.PUR.12, R6.RDIR.7, R6.TREE.8: the entry's mode is read before any byte, inside the record directory or outside
-    it; a symbolic link or submodule is never read as file content and never raises: it is unclassified with the
-    reason `not a regular file` (REVIEW_REQUIRED side-change-unclassified)."""
+    # classify_side with a third value, `named`: true when a class pin names the path or the path is a class record
+    # the configuration pins, whether or not it matches (amendment r4, A.6 rows 1 and 2); false otherwise (row 3).
+    #
+    # R6.PUR.12, R6.RDIR.7, R6.TREE.8: the entry's mode is read before any byte, inside the record directory or outside
+    # it; a symbolic link or submodule is never read as file content and never raises: it is unclassified with the
+    # reason `not a regular file` (REVIEW_REQUIRED side-change-unclassified).
     e = repo.entries(M).get(path)
     if e is not None and e[0] not in regular_modes:
         return None, 'not a regular file', False

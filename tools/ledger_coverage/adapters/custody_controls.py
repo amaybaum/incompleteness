@@ -1546,7 +1546,7 @@ def replay_controls(r, freeze_world, result):
                                          ctx_reassessment=a_rev, pre=rev1, results=[res_bad])[0].run())
     case('CU-N17-REV-NOT-ADMITTED', 'the same run whose landed roles.X differs from the X REV1\'s record binds: REV1 '
                                     'does not replay under R6.RECON.2 (a), custody-replay', o,
-         failed_with(o, 'custody-replay') and any('R6.RECON.2' in w_ for w_ in o['full_whys']))
+         failed_with(o, 'custody-replay') and any('the post-freeze route' in w_ for w_ in o['full_whys']))
     # CU-N16-ROUTE: as CU-N16, with the run's m a foxtrot commit whose first-parent chain lacks the repair commit
     # (main2, with S, is its second parent): the original positive route was not operative at m, so S forms no
     # lineage witness

@@ -1,19 +1,18 @@
-"""The one-time transition to independently reviewed record roots (A1 staging amendment r2, sec. 2 and 3).
-
-The roles, their namespaces, root paths and record ids, and the names of the frozen control metadata are the tool's
-authority (`record_authority.transition_roles` and its neighbours), passed in by the caller: this module names no
-retirement. Everything is read from verified Git objects through the reader; an object the walk needs and cannot
-read is the reader's Unresolvable, which the caller turns into ERROR.
-
-- The activation descriptor and the prior-freeze declaration are read from the plan's Record pins table at F.
-- R6.REC.7 / R6.EVID.8 for the designated roles: the active tip of each role is determined by walking only the role's
-  namespace over the verified first-parent path from B to F (or to a control snapshot S), endpoints included. B holds
-  exactly the root and no other member; every later member is appended without edit at its own path, extends the
-  single current tip by exact path and blob, and keeps kind and record id. A gap, rewrite, deletion, rename, mode
-  change, fork, second root, foreign or malformed member blocks admission.
-- Prior-freeze continuity: a declared F_prev is a strict ancestor of F on that first-parent path, its pin table binds
-  the same descriptor bytes, and a changed configuration supersedes the exact configuration F_prev's pin table binds.
-"""
+# The one-time transition to independently reviewed record roots (A1 staging amendment r2, sec. 2 and 3).
+#
+# The roles, their namespaces, root paths and record ids, and the names of the frozen control metadata are the tool's
+# authority (`record_authority.transition_roles` and its neighbours), passed in by the caller: this module names no
+# retirement. Everything is read from verified Git objects through the reader; an object the walk needs and cannot
+# read is the reader's Unresolvable, which the caller turns into ERROR.
+#
+# - The activation descriptor and the prior-freeze declaration are read from the plan's Record pins table at F.
+# - R6.REC.7 / R6.EVID.8 for the designated roles: the active tip of each role is determined by walking only the role's
+# namespace over the verified first-parent path from B to F (or to a control snapshot S), endpoints included. B holds
+# exactly the root and no other member; every later member is appended without edit at its own path, extends the
+# single current tip by exact path and blob, and keeps kind and record id. A gap, rewrite, deletion, rename, mode
+# change, fork, second root, foreign or malformed member blocks admission.
+# - Prior-freeze continuity: a declared F_prev is a strict ancestor of F on that first-parent path, its pin table binds
+# the same descriptor bytes, and a changed configuration supersedes the exact configuration F_prev's pin table binds.
 import json
 import re
 
@@ -39,7 +38,7 @@ def _json(data, what):
     try:
         return json.loads(data.decode('utf-8'))
     except (ValueError, UnicodeDecodeError):
-        raise Refused('%s is not JSON' % what)
+        raise Refused('%s is not json' % what)
 
 
 def parse_descriptor(data, schema):
@@ -125,13 +124,13 @@ def lineage(repo, path, role, root_pin):
         raise Refused('%s root: supersedes is not null' % role['role'])
     chain = [ref]
     for c in path[1:]:
-        now = members(repo, c, role)
+        current = members(repo, c, role)
         for p, e in known.items():
-            if now.get(p) != e:
+            if current.get(p) != e:
                 raise Refused('%s: %s is deleted, renamed, rewritten or changed in mode at %s'
                               % (role['role'], p, c[:12]))
-        new = {p: e for p, e in now.items() if p not in known}
-        known_or_new = dict(now)
+        new = {p: e for p, e in current.items() if p not in known}
+        known_or_new = dict(current)
         pending = {}
         for p in sorted(new):
             r, d = record(c, p)
@@ -148,7 +147,7 @@ def lineage(repo, path, role, root_pin):
                 raise Refused('%s: %s added at %s does not extend the current tip %s by its exact path and blob'
                               % (role['role'], sorted(pending)[0], c[:12], tip['path']))
             chain.append(pending.pop(nxt[0])[0])
-        known = now
+        known = current
     return chain
 
 
@@ -160,9 +159,9 @@ def walk(repo, B, S, roles, descriptor):
 
 
 def prior_continuity(path, F, prior, read_table, descriptor_name, descriptor_sha, cfg_schema):
-    """Prior-freeze continuity. `read_table(commit)` returns {name: sha256} of the plan's Record pins table at the
-    commit (raising Refused if it has none) and {name: bytes} of the members it admits there. Returns the prior
-    freeze and the configuration its pin table binds, which the caller compares under R6.CFG.3."""
+    # Prior-freeze continuity. `read_table(commit)` returns {name: sha256} of the plan's Record pins table at the
+    # commit (raising Refused if it has none) and {name: bytes} of the members it admits there. Returns the prior
+    # freeze and the configuration its pin table binds, which the caller compares under R6.CFG.3.
     fp = prior['freeze']
     if fp is None:
         return {'freeze': None}
@@ -186,12 +185,12 @@ def prior_continuity(path, F, prior, read_table, descriptor_name, descriptor_sha
 
 
 def representative_binding(repo, B, S, M, roles, descriptor):
-    """Staging r2 sec. 2, R6.EVID.8 for A1 representative controls that select the designated roles: the reviewed
-    control inputs supply a verified record snapshot S with the same descriptor and B and a complete first-parent
-    path B..S; the bounded namespace and records checks apply to that path, and the class reference resolved at S
-    equals, by path and digest, the landed class tip in the run's M tree (the head of the same lineage over the
-    first-parent path B..M). Returns {tips at S, class tip at M}; Refused when the snapshot or the role binding
-    cannot be verified (the affected controls then stay open)."""
+    # Staging r2 sec. 2, R6.EVID.8 for A1 representative controls that select the designated roles: the reviewed
+    # control inputs supply a verified record snapshot S with the same descriptor and B and a complete first-parent
+    # path B..S; the bounded namespace and records checks apply to that path, and the class reference resolved at S
+    # equals, by path and digest, the landed class tip in the run's M tree (the head of the same lineage over the
+    # first-parent path B..M). Returns {tips at S, class tip at M}; Refused when the snapshot or the role binding
+    # cannot be verified (the affected controls then stay open).
     _path_s, chains_s = walk(repo, B, S, roles, descriptor)
     _path_m, chains_m = walk(repo, B, M, roles, descriptor)
     tip_s, tip_m = chains_s['class'][-1], chains_m['class'][-1]

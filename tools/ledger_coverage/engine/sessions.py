@@ -1,14 +1,13 @@
-"""Staging r2 supplement S-1 (recorded session identities, adopted at its reviewed head with the five OQ defaults):
-the session registry (schema oi-a1-staging-sessions/1; its file name, repository and admitted threads are passed by
-the caller from record_authority.py), its admission from F's pin table,
-the party relation, the registry's review, append-only continuity across freezes, scope, independence, what a review
-binds, and the outcomes of S1.8 (record lint) and S1.9 (detection), as mechanical predicates over explicit records.
-
-The tool reads `oi-designate` and `oi-withdraw` form comments only as recorded inputs: an entry's `designation`, and a
-withdrawal's, is checked as a comment URL in this repository in an admitted thread; the comment's content and its
-author are not read (S1.2: whether a comment is in the owner's form is procedural, R6.REC.3). The tool never writes
-`oi-` text.
-"""
+# Staging r2 supplement S-1 (recorded session identities, adopted at its reviewed head with the five OQ defaults):
+# the session registry (schema oi-a1-staging-sessions/1; its file name, repository and admitted threads are passed by
+# the caller from record_authority.py), its admission from F's pin table,
+# the party relation, the registry's review, append-only continuity across freezes, scope, independence, what a review
+# binds, and the outcomes of S1.8 (record lint) and S1.9 (detection), as mechanical predicates over explicit records.
+#
+# The tool reads `oi-designate` and `oi-withdraw` form comments only as recorded inputs: an entry's `designation`, and a
+# withdrawal's, is checked as a comment URL in this repository in an admitted thread; the comment's content and its
+# author are not read (S1.2: whether a comment is in the owner's form is procedural, R6.REC.3). The tool never writes
+# `oi-` text.
 import posixpath
 import re
 
@@ -17,16 +16,16 @@ from . import gitobj
 from . import util
 
 schema = 'oi-a1-staging-sessions/1'
-ENTRY_KEYS = {'id', 'kind', 'platform_ref', 'spawned_by', 'same_party', 'scope', 'designation'}
-TOP_KEYS = {'schema', 'author', 'parties', 'withdrawn'}
+entry_keys_keys = {'id', 'kind', 'platform_ref', 'spawned_by', 'same_party', 'scope', 'designation'}
+top_keys_keys = {'schema', 'author', 'parties', 'withdrawn'}
 _id = re.compile(r'^(session|person)\.[a-z0-9][a-z0-9-]{1,62}$')
 _hex40 = re.compile(r'^[0-9a-f]{40}$')
 
 
 def comment_url_ok(url, repository, threads):
-    """A comment URL in this repository, in an admitted thread, posted after that thread's admission (S1.2):
-    https://github.com/<repository>/(issues|pull)/<n>#issuecomment-<id>, with n a key of `threads` and id greater than
-    threads[n], the comment id of the record that admitted the thread (comment ids increase with posting time)."""
+    # A comment URL in this repository, in an admitted thread, posted after that thread's admission (S1.2):
+    # https://github.com/<repository>/(issues|pull)/<n>#issuecomment-<id>, with n a key of `threads` and id greater than
+    # threads[n], the comment id of the record that admitted the thread (comment ids increase with posting time).
     if not isinstance(url, str):
         return False
     m = re.match(r'^https://github\.com/([^/]+/[^/]+)/(issues|pull)/(\d+)#issuecomment-(\d+)$', url)
@@ -41,11 +40,11 @@ def registry_problems(data, doc, repository, threads):
     reasons it fails (the whole registry fails)."""
     out = []
     if not isinstance(doc, dict):
-        return ['the registry is not a strict-parsed JSON object']
+        return ['the registry is not a strict-parsed json object']
     if data != util.canonical(doc):
-        out.append('the registry is not canonical JSON (R6.RECON.29)')
-    if set(doc) != TOP_KEYS:
-        out.append('the registry\'s keys are not exactly %s' % sorted(TOP_KEYS))
+        out.append('the registry is not canonical json')
+    if set(doc) != top_keys_keys:
+        out.append('the registry\'s keys are not exactly %s' % sorted(top_keys_keys))
     if doc.get('schema') != schema:
         out.append('the registry\'s schema is not %s' % schema)
     parties = doc.get('parties')
@@ -53,12 +52,12 @@ def registry_problems(data, doc, repository, threads):
     if not isinstance(parties, list) or not parties:
         return out + ['parties is not a non-empty array']
     if not isinstance(withdrawn, list):
-        return out + ['withdrawn is not an array']
+        return out + ['%s is not an array' % 'withdrawn']
     ids = []
     refs = []
     for i, e in enumerate(parties):
-        if not isinstance(e, dict) or set(e) != ENTRY_KEYS:
-            out.append('parties[%d]: the keys are not exactly %s' % (i, sorted(ENTRY_KEYS)))
+        if not isinstance(e, dict) or set(e) != entry_keys_keys:
+            out.append('parties[%d]: the keys are not exactly %s' % (i, sorted(entry_keys_keys)))
             continue
         pid = e.get('id')
         if not isinstance(pid, str) or not _id.match(pid) or pid.split('.', 1)[0] != e.get('kind'):
@@ -75,7 +74,7 @@ def registry_problems(data, doc, repository, threads):
         if not (isinstance(sc, list) and sc and all(_scope_ok(x) for x in sc)):
             out.append('parties[%d]: scope is not a non-empty array of paths (the root is not a scope)' % i)
         if not comment_url_ok(e.get('designation'), repository, threads):
-            out.append('parties[%d]: designation is not an owner form comment URL in an admitted thread' % i)
+            out.append('parties[%d]: designation is not an owner form comment link in an admitted thread' % i)
         ids.append(pid)
         refs.append(e.get('platform_ref'))
     if len(ids) != len(set(map(str, ids))):
@@ -93,12 +92,12 @@ def registry_problems(data, doc, repository, threads):
                 out.append('entry %s links %s, which names no entry' % (e.get('id'), x))
     for i, w in enumerate(withdrawn):
         if not isinstance(w, dict) or set(w) != {'id', 'designation'}:
-            out.append('withdrawn[%d]: the keys are not exactly [designation, id]' % i)
+            out.append('%s[%d]: the keys are not exactly [designation, id]' % ('withdrawn', i))
             continue
         if w.get('id') not in known:
-            out.append('withdrawn[%d]: id %r names no entry' % (i, w.get('id')))
+            out.append('%s[%d]: id %r names no entry' % ('withdrawn', i, w.get('id')))
         if not comment_url_ok(w.get('designation'), repository, threads):
-            out.append('withdrawn[%d]: designation is not an owner form comment URL in an admitted thread' % i)
+            out.append('%s[%d]: designation is not an owner form comment link in an admitted thread' % ('withdrawn', i))
     if doc.get('author') not in known:
         out.append('the registry\'s author is not an entry')
     return out
@@ -117,8 +116,8 @@ def withdrawn_ids(doc):
 
 
 def party(doc, x):
-    """S1.3: the closure of {x} under same_party and spawned_by, each read in both directions. Withdrawn entries keep
-    their links."""
+    # S1.3: the closure of {x} under same_party and spawned_by, each read in both directions. Withdrawn entries keep
+    # their links.
     es = entries(doc)
     adj = {}
     for pid, e in es.items():
@@ -142,7 +141,7 @@ def same_party(doc, a, b):
 
 
 def is_identity(doc, x):
-    """R6.RECON.29 as amended: the id of exactly one entry of the admitted registry, not withdrawn."""
+    # R6.RECON.29 as amended: the id of exactly one entry of the admitted registry, not withdrawn.
     return isinstance(x, str) and x in entries(doc) and x not in withdrawn_ids(doc)
 
 
@@ -159,7 +158,7 @@ def under_scope(scope, path):
 
 
 def item_ids(doc):
-    """R6.RECON.31 row for oi-a1-staging-sessions/1 (records.item_ids carries the same row)."""
+    # R6.RECON.31 row for oi-a1-staging-sessions/1 (records.item_ids carries the same row).
     from . import records
     return records.item_ids(doc)
 
@@ -184,7 +183,7 @@ def review_binding_problems(repo, review, review_path, doc, root):
         return ['not a review']
     who = review.get('reviewer')
     if not is_identity(doc, who):
-        return ['the reviewer is not an identity string (unregistered, withdrawn or malformed)']
+        return ['the reviewer is not an identity string (unregistered, in %s, or malformed)' % 'withdrawn']
     e = entries(doc)[who]
     rv = review.get('reviewed') if isinstance(review.get('reviewed'), dict) else {}
     rev = review.get('revision')
@@ -263,9 +262,9 @@ def detection_outcome(repo, review, review_path, reviewed_doc, in_rstar, doc, ro
 
 
 def registry_review_problems(repo, review, review_path, reg_ref, doc, root, d_rec):
-    """S1.2: the registry's review binds its exact path and blob, meets sec. 3 with root F and scope over D_rec, has
-    a reviewer outside the writer's party, and accepts every item (party:<id>, withdrawn:<id>) exactly once; any
-    rejected or omitted item fails the registry."""
+    # S1.2: the registry's review binds its exact path and blob, meets sec. 3 with root F and scope over D_rec, has
+    # a reviewer outside the writer's party, and accepts every item (party:<id>, withdrawn:<id>) exactly once; any
+    # rejected or omitted item fails the registry.
     if not isinstance(review, dict) or review.get('reviewed') != reg_ref:
         return ['the registry has no review of its exact path and blob']
     out = review_binding_problems(repo, review, review_path, doc, root)
@@ -288,8 +287,8 @@ def registry_review_problems(repo, review, review_path, reg_ref, doc, root, d_re
 
 
 def append_only_problems(prev, cur):
-    """S1.5: every prior entry and withdrawal appears byte-identical (canonical JSON element) at F, and the party
-    relation restricted to ids registered at F_prev is unchanged."""
+    # S1.5: every prior entry and withdrawal appears byte-identical (canonical JSON element) at F, and the party
+    # relation restricted to ids registered at F_prev is unchanged.
     out = []
     cur_elems = {util.canonical(e) for e in cur.get('parties') or []}
     cur_w = {util.canonical(w) for w in cur.get('withdrawn') or []}
@@ -308,15 +307,15 @@ def append_only_problems(prev, cur):
 
 
 def admit(repo, F, d_rec, read_pin_table, cfg_records, file_name, repository, threads):
-    """S1.1, S1.2, S1.4 and the R6.RECON.33 row: the registry admitted from F's pin table (the PREREG.md of D_rec at
-    F) at D_rec/file_name with the pinned SHA-256, and its review: the one pinned file of D_rec that is an
-    oi-review-record/1 of the registry's exact path and blob. Returns (doc, problems); the registry fails exactly when
-    problems is non-empty, and no registry is taken from anywhere else (an argument, a commit author, a host record).
-    Where the configuration's records list a record of kind `sessions`, its reference must equal the pinned path and
-    blob: otherwise ValueError('CONFIG_INVALID: ...')."""
+    # S1.1, S1.2, S1.4 and the R6.RECON.33 row: the registry admitted from F's pin table (the PREREG.md of D_rec at
+    # F) at D_rec/file_name with the pinned SHA-256, and its review: the one pinned file of D_rec that is an
+    # oi-review-record/1 of the registry's exact path and blob. Returns (doc, problems); the registry fails exactly when
+    # problems is non-empty, and no registry is taken from anywhere else (an argument, a commit author, a host record).
+    # Where the configuration's records list a record of kind `sessions`, its reference must equal the pinned path and
+    # blob: otherwise ValueError('CONFIG_INVALID: ...').
     d = d_rec.rstrip('/')
     path = d + '/' + file_name
-    pp = d + '/PREREG.md'
+    pp = posixpath.join(d, 'PREREG.md')
 
     def regular(p):
         e = repo.entries(F).get(p)
@@ -333,8 +332,8 @@ def admit(repo, F, d_rec, read_pin_table, cfg_records, file_name, repository, th
     for r in cfg_records or []:
         if isinstance(r, dict) and r.get('kind') == 'sessions' and \
                 (sha is None or (r.get('path'), r.get('blob_sha256')) != (path, sha)):
-            raise ValueError('CONFIG_INVALID: the configuration lists a sessions record other than the one F\'s '
-                             'pin table pins')
+            raise ValueError('%s: the configuration lists a sessions record other than the one F\'s pin table pins'
+                             % 'CONFIG_INVALID')
     if table is None:
         return None, ['F has no readable pin table beside D_rec']
     if not sha:
@@ -343,7 +342,7 @@ def admit(repo, F, d_rec, read_pin_table, cfg_records, file_name, repository, th
         return None, ['the registry is absent at F or not a regular file']
     data = repo.read(F, path)
     if util.sha256(data) != sha:
-        return None, ['the registry differs from its pinned SHA-256']
+        return None, ['the registry differs from its pinned sha256']
     doc = fd.strict_parse(data)
     probs = registry_problems(data, doc, repository, threads)
     if probs:

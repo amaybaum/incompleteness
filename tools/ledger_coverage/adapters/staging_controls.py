@@ -740,7 +740,7 @@ def role_chain(root):
     why = {'3': 'not the current class tip', '4': 'not the current class tip', '5': 'not exactly the root',
            '6': 'second root', '7': 'does not extend the current tip', '8': 'does not extend the current tip',
            '9': 'is deleted, renamed, rewritten', '10': 'is deleted, renamed, rewritten',
-           '11': 'is deleted, renamed, rewritten', '12': 'is not a regular file', '13': 'is not JSON',
+           '11': 'is deleted, renamed, rewritten', '12': 'is not a regular file', '13': 'is not json',
            '14': 'with record_id', '15': 'does not hash to the descriptor', '16': 'not on the first-parent chain',
            '17': 'custody archive', '18': 'exactly the keys'}
 

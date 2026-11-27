@@ -1,12 +1,11 @@
-"""OBL-29 custody (design c7, adopted with D-1 option (ii), OQ-17, OQ-19 with roles.M as a named field, R6.CUST.8,
-R6.CUST.10, OQ-12; OQ-20 declined): the record `oi-obl29-custody/1`, its versions over reachable history, the
-completeness of discharge-bearing contexts, and the gate on discharge (R6.CUST.1-10).
-
-The custody path and the bootstrap blob id are the tool's constants (record_authority); the engine names no
-retirement. Every object is read through the verified reader; a missing or corrupt object is the reader's
-Unresolvable (ERROR). Custody only ever adds conditions: until it is established at effective M no cited discharge
-applies (R6.CUST.7, R6.CUST.9).
-"""
+# OBL-29 custody (design c7, adopted with D-1 option (ii), OQ-17, OQ-19 with roles.M as a named field, R6.CUST.8,
+# R6.CUST.10, OQ-12; OQ-20 declined): the record `oi-obl29-custody/1`, its versions over reachable history, the
+# completeness of discharge-bearing contexts, and the gate on discharge (R6.CUST.1-10).
+#
+# The custody path and the bootstrap blob id are the tool's constants (record_authority); the engine names no
+# retirement. Every object is read through the verified reader; a missing or corrupt object is the reader's
+# Unresolvable (ERROR). Custody only ever adds conditions: until it is established at effective M no cited discharge
+# applies (R6.CUST.7, R6.CUST.9).
 import json
 import posixpath
 import re
@@ -24,7 +23,8 @@ non_evaluating = ('USAGE', 'ERROR', 'VOID', 'INTERNAL')
 
 
 class Unimplemented(Exception):
-    """A part of the adopted design this tool revision does not implement: the run stops with ERROR (fail closed)."""
+    # A part of the adopted design this tool revision does not implement: the run stops with ERROR (fail closed).
+    pass
 
 
 def _commit(v):
@@ -38,14 +38,14 @@ def _keep_all(_oid):
 # ---- R6.CUST.2 schema -----------------------------------------------------------------------------------------
 
 def parse(data):
-    """(doc, problems) of one custody version: canonical JSON of one object, strict parse, exact keys and entries."""
+    # (doc, problems) of one custody version: canonical JSON of one object, strict parse, exact keys and entries.
     doc = fd.strict_parse(data)
     if doc is None:
-        return None, ['not a strict-parsed JSON object']
+        return None, ['not a strict-parsed json object']
     canon = json.dumps(doc, sort_keys=True, separators=(',', ':'), ensure_ascii=False).encode('utf-8')
     out = []
     if canon != data:
-        out.append('the bytes are not the canonical JSON of the object (no trailing newline)')
+        out.append('the bytes are not the canonical json of the object (no trailing newline)')
     if set(doc) != {'schema', 'predecessor', 'author', 'entries'}:
         out.append('keys are not exactly schema, predecessor, author, entries')
     if doc.get('schema') != schema:
@@ -70,7 +70,7 @@ def parse(data):
 
 def _ref_ok(v):
     tmp = []
-    fd.validate(fd.REF, v, 'ref', tmp)
+    fd.validate(fd.ref_keys, v, 'ref', tmp)
     return not tmp
 
 
@@ -103,7 +103,7 @@ def entry_problems(e):
 
 
 def item_ids(version, predecessor):
-    """R6.CUST.8 review-lint item ids: `entry:<i>` for each index the version adds to its predecessor."""
+    # R6.CUST.8 review-lint item ids: `entry:<i>` for each index the version adds to its predecessor.
     n = len((predecessor or {}).get('entries') or []) if predecessor is not None else 1
     return ['entry:%d' % i for i in range(n, len(version.get('entries') or []))]
 
@@ -111,8 +111,8 @@ def item_ids(version, predecessor):
 # ---- the walk over M's history -----------------------------------------------------------------------------------
 
 class History:
-    """Every commit reachable from M through any parent, with the custody version at each (R6.CUST.4 Vers(M)), and
-    the discharge-bearing configurations in R*(M) (R6.CUST.5 (c4))."""
+    # Every commit reachable from M through any parent, with the custody version at each (R6.CUST.4 Vers(M)), and
+    # the discharge-bearing configurations in R*(M) (R6.CUST.5 (c4)).
 
     def __init__(self, repo, M, path, audits_prefix):
         self.repo, self.M, self.path = repo, M, path
@@ -158,10 +158,10 @@ class History:
 
 
 def discharge_bearing(doc):
-    """Sec. 1 as the owner decided it (decision 2 of 2026-11-27): a regular file of schema
-    oi-retirement-config/1 whose records cite at least one reassessment; no `admission.mode` condition (R6.CFG.4
-    has no admission key, and any such key is ignored). The regular-file condition is met by the callers, which read
-    only regular entries."""
+    # Sec. 1 as the owner decided it (decision 2 of 2026-11-27): a regular file of schema
+    # oi-retirement-config/1 whose records cite at least one reassessment; no `admission.mode` condition (R6.CFG.4
+    # has no admission key, and any such key is ignored). The regular-file condition is met by the callers, which read
+    # only regular entries.
     return isinstance(doc, dict) and doc.get('schema') == config_schema and any(
         isinstance(r, dict) and r.get('kind') == 'reassessment' for r in doc.get('records') or [])
 
@@ -189,7 +189,7 @@ class Check:
         self.problems.append((item, msg))
 
     def run(self, gate=False):
-        """The checks of R6.CUST.2-.8 at M (with gate=True, only those R6.CUST.10 names). Returns the report."""
+        # The checks of R6.CUST.2-.8 at M (with gate=True, only those R6.CUST.10 names). Returns the report.
         repo, M = self.repo, self.M
         self.gate = gate
         h = self.h = History(repo, M, self.path, self.audits_prefix)
@@ -207,7 +207,7 @@ class Check:
             else:
                 docs[oid] = d
         if vm in bad:
-            self.fail('custody-schema', 'V_M fails R6.CUST.2: %s' % parse(h.vers[vm])[1][0])
+            self.fail('custody-schema', 'V_M fails the custody schema: %s' % parse(h.vers[vm])[1][0])
             return self.report(report)
         V = docs[vm]
         # (s1) chain
@@ -286,7 +286,7 @@ class Check:
                       % (oid, items))
 
     def lists_pin(self, c, cref):
-        """A tree lists the pin of a configuration (R6.CUST.5 (c4) pin rule)."""
+        # A tree lists the pin of a configuration (R6.CUST.5 (c4) pin rule).
         repo = self.repo
         d = posixpath.dirname(cref['path']) + '/'
         _k, ents = repo.prefix_entries(c, d, _keep_all)
@@ -331,11 +331,11 @@ class Check:
             data = repo.read(f, cref['path']) if repo.mode(f, cref['path']) in regular else None
             doc = fd.strict_parse(data) if data is not None else None
             if data is None or util.sha256(data) != cref['blob_sha256']:
-                why = 'f\'s tree does not hold the configuration at its path with its SHA-256'
+                why = 'f\'s tree does not hold the configuration at its path with its sha256'
             elif not discharge_bearing(doc):
                 why = 'the configuration is not discharge-bearing'
             elif not self.lists_pin(f, cref):
-                why = 'the PREREG.md beside the configuration does not list its SHA-256 at f'
+                why = 'the file of record pins beside the configuration does not list its sha256 at f'
             else:
                 ps = repo.parents(landing) if h.reachable(landing) else []
                 if landing == f or landing not in fp_chain or len(ps) < 2 or repo.is_ancestor(f, ps[0]) or \
@@ -400,7 +400,7 @@ class Check:
         # does not replay is a custody failure (custody-replay); its witnesses join the current run's (R6.CUST.7)
         if not self.gate and not self.problems and any(self.runs.get(c_['f']) for c_ in self.contexts):
             if self.replayer is None:
-                raise Unimplemented('R6.CUST.6 replay: no replayer is configured for this check')
+                raise Unimplemented('replay: no replayer is configured for this check')
             for c_ in self.contexts:
                 for m, rev in self.runs.get(c_['f']) or []:
                     try:
@@ -423,9 +423,9 @@ class Check:
         return all(repo.is_ancestor(p, c) for c in holders for p in pinning)
 
     def recon_dir_problem(self, path, c_):
-        """R6.RECON.1: a reconciliation directory lies under verification/audits/, outside every prefix of the
-        context configuration's tool-landing class, outside its plan record directory, and holds no ledgered or
-        corpus path of that configuration. Returns why `path` is not in one, or None."""
+        # R6.RECON.1: a reconciliation directory lies under verification/audits/, outside every prefix of the
+        # context configuration's tool-landing class, outside its plan record directory, and holds no ledgered or
+        # corpus path of that configuration. Returns why `path` is not in one, or None.
         if not path.startswith(self.recon_root):
             return 'not under %s' % self.recon_root
         cref, f = c_['config'], c_['f']

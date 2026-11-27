@@ -496,10 +496,10 @@ def _review_of(b, path, sha, kind):
 
 
 def own_review_problems(path, sha, cfg, table, store=None):
-    """A1 staging amendment r2, sec. 3 (R6.RECON.31, R6.REC.3-.5, R6.REC.16 as amended): the configuration's own
-    ordinary review is a member of F's pin table naming its exact path and digest, and the only one of its kind there;
-    the configuration's `records` hold no reference to a review of the configuration itself (its own reviews are
-    bound by the external pin table, which keeps the binding acyclic)."""
+    # A1 staging amendment r2, sec. 3 (R6.RECON.31, R6.REC.3-.5, R6.REC.16 as amended): the configuration's own
+    # ordinary review is a member of F's pin table naming its exact path and digest, and the only one of its kind there;
+    # the configuration's `records` hold no reference to a review of the configuration itself (its own reviews are
+    # bound by the external pin table, which keeps the binding acyclic).
     ordinary = [p for p, b in sorted(table.items()) if _review_of(b, path, sha, 'review')]
     if len(ordinary) != 1:
         raise stop('CONFIG_UNREVIEWED', '%d ordinary reviews of the configuration in the pin table, not one'
@@ -533,10 +533,10 @@ def _defines_class(b, cid):
 
 
 def transition_admission(repo, F, rec_dir, cpath, csha, cfg, table):
-    """The transition to independently reviewed roots (A1 staging amendment r2, sec. 2), in a chain-admitted run.
-    It is in play when the pin table binds the activation descriptor or the configuration references a member of a
-    role namespace. Returns None when it is not in play, else {descriptor, base, tips, roots, prior}; any failed
-    condition refuses admission (ERROR CONFIG_UNREVIEWED); an unreadable object is ERROR UNRESOLVABLE."""
+    # The transition to independently reviewed roots (A1 staging amendment r2, sec. 2), in a chain-admitted run.
+    # It is in play when the pin table binds the activation descriptor or the configuration references a member of a
+    # role namespace. Returns None when it is not in play, else {descriptor, base, tips, roots, prior}; any failed
+    # condition refuses admission (ERROR CONFIG_UNREVIEWED); an unreadable object is ERROR UNRESOLVABLE.
     from .. import record_authority as ra
     from . import transition as tr
     roles = ra.transition_roles

@@ -19,8 +19,8 @@ regular_modes = ('100644', '100755')
 
 
 def tree_entry(repo, cid, path):
-    """(mode, object id) of the path's entry in the commit's tree, or None: a commit changes a path when this
-    differs from its parent's, so a mode-only change is a change (R6.RECON.2 (b), RC1)."""
+    # (mode, object id) of the path's entry in the commit's tree, or None: a commit changes a path when this
+    # differs from its parent's, so a mode-only change is a change (R6.RECON.2 (b), RC1).
     return repo.entries(cid).get(path)
 
 
@@ -124,8 +124,8 @@ class GitRepo:
         return self._commits[cid]
 
     def committer_time(self, cid):
-        """The committer time of a commit, seconds since the epoch, or None (self-declared; R6.ADJ.3 reads it as a form
-        check of chronology only)."""
+        # The committer time of a commit, seconds since the epoch, or None (self-declared; R6.ADJ.3 reads it as a form
+        # check of chronology only).
         return self._commit(cid).get('time')
 
     def _tree(self, tid):

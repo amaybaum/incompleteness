@@ -1,28 +1,27 @@
-"""The OBL-29 remedy r9, sec. 2.2: reliance on a retained witness's disputed basis, non-reliance evidence NR-1 to
-NR-5, the token rule and the decision `blocked(D, W)`.
-
-These are the mechanical predicates of sec. 2.2 over explicit records. A run calls `decide` for the witnesses custody
-supplies (R6.CUST.6, category3.custody_decisions). Route 2 (adjudication) is `Adjudicated(W, D)` of #1605 R6.ADJ.9,
-which the caller establishes from admitted records (engine/adjudication.py) and passes as `adjudicated`; it is false
-unless verified records establish it.
-
-A witness W is a dict:
-  kind: 'lineage' or 'review';
-  disputed: {path, blob_sha256} of the disputed record, disputed_doc its parsed content, disputed_git its git blob id;
-  edge: (successor blob sha256, predecessor blob sha256) of the exact disputed edge, or None;
-  forming: [{doc, git, path}] of the records forming the witness (the competing successor, or the adverse review V);
-  contested: [blob sha256] of the predecessors a retained competing-successor witness rests on, or whose own retained
-             adverse review forms a witness;
-  original: (finding reference, item) the original operative discharge named;
-  inapplicable: True only when verified records establish that its original qualification does not reproduce.
-A candidate discharge D is a dict:
-  reassessment: its doc and ref; finding: (reference, item); repair: None or {entry ref, entry doc (the cited record),
-  entry_path, commits}; lineage_blobs: [blob sha256] of its repair record's and reassessment's resolved lineages,
-  lineage_edges: [(successor, predecessor)] of those lineages, unresolved: True when a required reference does not
-  resolve.
-A replacement R is {ref, doc, lineage_blobs, lineage_edges}. A review passed to NR-3 or NR-5 is its parsed content
-with `_dir`, the directory of its path, added by the caller.
-"""
+# The OBL-29 remedy r9, sec. 2.2: reliance on a retained witness's disputed basis, non-reliance evidence NR-1 to
+# NR-5, the token rule and the decision `blocked(D, W)`.
+#
+# These are the mechanical predicates of sec. 2.2 over explicit records. A run calls `decide` for the witnesses custody
+# supplies (R6.CUST.6, category3.custody_decisions). Route 2 (adjudication) is `Adjudicated(W, D)` of #1605 R6.ADJ.9,
+# which the caller establishes from admitted records (engine/adjudication.py) and passes as `adjudicated`; it is false
+# unless verified records establish it.
+#
+# A witness W is a dict:
+# kind: 'lineage' or 'review';
+# disputed: {path, blob_sha256} of the disputed record, disputed_doc its parsed content, disputed_git its git blob id;
+# edge: (successor blob sha256, predecessor blob sha256) of the exact disputed edge, or None;
+# forming: [{doc, git, path}] of the records forming the witness (the competing successor, or the adverse review V);
+# contested: [blob sha256] of the predecessors a retained competing-successor witness rests on, or whose own retained
+# adverse review forms a witness;
+# original: (finding reference, item) the original operative discharge named;
+# inapplicable: True only when verified records establish that its original qualification does not reproduce.
+# A candidate discharge D is a dict:
+# reassessment: its doc and ref; finding: (reference, item); repair: None or {entry ref, entry doc (the cited record),
+# entry_path, commits}; lineage_blobs: [blob sha256] of its repair record's and reassessment's resolved lineages,
+# lineage_edges: [(successor, predecessor)] of those lineages, unresolved: True when a required reference does not
+# resolve.
+# A replacement R is {ref, doc, lineage_blobs, lineage_edges}. A review passed to NR-3 or NR-5 is its parsed content
+# with `_dir`, the directory of its path, added by the caller.
 import re
 
 from . import findings as fd
@@ -123,10 +122,10 @@ def nr1(R, W):
 
 
 def nr3(R, review, excluded, reviews_of_R):
-    """An accepting same-directory review of R's exact reference meeting R6.REC.6, by a reviewer outside `excluded`
-    (the authors of R, the reassessment, the disputed record, the contested predecessor and each record forming the
-    witness, and the reviewers of the witness's reviews and of each accepting review of the disputed record); no
-    eligible review of R in R* dissents."""
+    # An accepting same-directory review of R's exact reference meeting R6.REC.6, by a reviewer outside `excluded`
+    # (the authors of R, the reassessment, the disputed record, the contested predecessor and each record forming the
+    # witness, and the reviewers of the witness's reviews and of each accepting review of the disputed record); no
+    # eligible review of R in R* dissents.
     if not isinstance(review, dict) or review.get('reviewed') != R['ref'] or \
             review.get('_dir') != R['ref']['path'].rsplit('/', 1)[0]:
         return False
@@ -167,7 +166,7 @@ def nr5(Z, V, W, R, D, finding_git, reviews_of_R):
         bad.append("Z's reviewer is an author of R, the disputed record or the reassessment")
     if not isinstance(Z, dict) or Z.get('_dir') != R['ref']['path'].rsplit('/', 1)[0] or Z.get('kind', 'review') != \
             'review' or adverse_items(Z, R['doc']):
-        bad.append('Z does not meet R6.REC.6 in R\'s reconciliation directory')
+        bad.append('Z does not meet the record lint in R\'s reconciliation directory')
     # NR-3's test: a review dissents when its dissent field is non-empty or it does not accept every item of R
     if any(dissents(v) or adverse_items(v, R['doc']) for v in list(reviews_of_R) + [Z or {}]):
         bad.append('an eligible review of R dissents')
@@ -196,9 +195,9 @@ def nr5(Z, V, W, R, D, finding_git, reviews_of_R):
 
 def decide(D, W, R=None, Z=None, required_review=None, excluded=(), reviews_of_R=(), nr2=False, finding_git=None,
            adjudicated=False):
-    """blocked(D, W) = Relies(D, W) and not Cleared(D, W). Returns (blocked, clauses, route). `nr2` states whether
-    the candidate freeze admits R through an existing route making R's own R6.REC.6 and R6.REC.7 checks operative
-    (an admission fact the caller establishes). `Z` is a review of R or a list of them (one may resolve each V)."""
+    # blocked(D, W) = Relies(D, W) and not Cleared(D, W). Returns (blocked, clauses, route). `nr2` states whether
+    # the candidate freeze admits R through an existing route making R's own R6.REC.6 and R6.REC.7 checks operative
+    # (an admission fact the caller establishes). `Z` is a review of R or a list of them (one may resolve each V).
     clauses = reliance(D, W)
     if not clauses:
         return False, [], None

@@ -15,6 +15,8 @@ reconciliation_root = 'verification/audits/'
 # defaults): an adjudication's authorization is attributed to one of these identity strings. Changed only by a tool
 # revision, as the admitted record directories are (R6.RDIR.2). Attribution, not verification of the owner's approval.
 OWNER_IDENTITIES = ('amaybaum',)
+# the same tuple under the name the engine reads (its purity lint refuses a run of capitals in an identifier)
+owner_identities = OWNER_IDENTITIES
 
 # The id of the side-change class that describes this tool's landing (design r6 R6.TREE.5): the domain the post-freeze
 # route keeps reconciliation records out of is that class of the side-change class record the configuration pins.
