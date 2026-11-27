@@ -582,7 +582,7 @@ def n_controls(a):
           repo.blob_id(L11, path) == '86d79863821f3f8cdad86771008b2df89fd1961a' and not cl11)
     # the configuration route (owner: the record is frozen with the plan and referenced by the configuration)
     cfg = json.loads(repo.read(a.crev, a.cpath))
-    classes_doc = {'schema': 'oi-side-change-classes/1', 'record_id': 'n3-classes', 'author': 'control-writer',
+    classes_doc = {'schema': 'oi-side-change-classes/1', 'record_id': 'n3-classes', 'author': 'session.fixture-control-writer',
                    'supersedes': None, 'classes': rcn.classes}
     rp, cp = a.ad + 'records/n3-reconciliation.json', a.ad + 'records/n3-classes.json'
     rb, cb = (json.dumps(rec, indent=1) + '\n').encode(), (json.dumps(classes_doc, indent=1) + '\n').encode()

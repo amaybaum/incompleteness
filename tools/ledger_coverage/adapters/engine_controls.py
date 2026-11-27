@@ -75,7 +75,7 @@ def extra_controls(cap):
         sid = '%s:%d@%s' % (ce.doc_path, 5, w.pin[:8])
         steps = ce.walk_steps(w, h, sg, 5)
         good = {'site_id': sid, 'steps': steps, 'carried': {'row': 'row-x', 'code': 'code-x', 'owner': 'owner-x'},
-                'semantic_classification': 'stated', 'author': 'eng-writer'}
+                'semantic_classification': 'stated', 'author': 'session.fixture-eng-writer'}
         orphan_id = '%s:%d@%s' % (ce.doc_path, 99, w.pin[:8])
         orphan = dict(good, site_id=orphan_id)
         cv, it = w.coverage(h, [sg], adj={'hp': [good, orphan]}, hits=False)

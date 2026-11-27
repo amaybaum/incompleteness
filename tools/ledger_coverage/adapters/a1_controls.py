@@ -843,7 +843,7 @@ def drift_classes(a):
         b = a.repo.read(a.main, path)
         classes.append({'id': cid, 'pins': [{'path': path, 'git_blob': a.repo.blob_id(a.main, path),
                                              'blob_sha256': sha(b)}]})
-    doc = {'schema': 'oi-side-change-classes/1', 'record_id': 'control-drift-classes', 'author': 'control-writer',
+    doc = {'schema': 'oi-side-change-classes/1', 'record_id': 'control-drift-classes', 'author': 'session.fixture-control-writer',
            'supersedes': None, 'classes': classes}
     c = a.repo.derive(a.crev, {a.ad + 'records/control-drift-classes.json': (json.dumps(doc) + '\n').encode()},
                       parents=a.repo.parents(a.crev), subject='control class records')
@@ -1259,7 +1259,7 @@ def k1_graph(a, tool_files):
         nodes = dict(landed)
         cls_b = nodes[cls_path]
         rk_p = cls_review_dir + 'reviews/class-record.review.json'
-        rk = review(cls_path, cls_b, 'reviewer-fixture')
+        rk = review(cls_path, cls_b, 'session.fixture-reviewer-fixture')
         nodes[rk_p] = rk
         c2 = dict(cfg, records=list(cfg['records']) + [{'kind': 'review', 'path': rk_p, 'blob_sha256': sha(rk)}])
         c2b = jb(c2)
@@ -1268,10 +1268,10 @@ def k1_graph(a, tool_files):
             c2b = landed[a.cpath]
         nodes[a.cpath] = c2b
         rc_p = rec_dir + 'reviews/config.review.json'
-        rc = review(a.cpath, c2b, 'reviewer-fixture')
+        rc = review(a.cpath, c2b, 'session.fixture-reviewer-fixture')
         nodes[rc_p] = rc
         rw_p = rec_dir + 'reviews/config.widening.json'
-        nodes[rw_p] = review(a.cpath, c2b, 'widener-fixture')
+        nodes[rw_p] = review(a.cpath, c2b, 'session.fixture-widener-fixture')
         d_p = rec_dir + 'a1-staging-transition.json'
         if d_p not in nodes:
             nodes[d_p] = jb({'class_root': {'path': cls_path, 'blob_sha256': sha(cls_b)}})

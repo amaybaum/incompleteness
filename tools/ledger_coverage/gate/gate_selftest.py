@@ -292,11 +292,11 @@ def case_11(fx):
     fx.record('RT-L2', 'NOT RUN', None)
     # the release fact and the objects it names, in the tree of the commit under check (a fixture repository)
     agents = b'reconciled text\n'
-    rec = {'schema': 'oi-reconciliation/1', 'record_id': 'r', 'author': 'writer-x', 'ledger_binding': {},
+    rec = {'schema': 'oi-reconciliation/1', 'record_id': 'r', 'author': 'session.fixture-writer-x', 'ledger_binding': {},
            'paths': [{'path': 'AGENTS.md', 'm': blob_id(agents), 'x': blob_id(agents)}],
            'changes_decisions_on_X': []}
     rb = (json.dumps(rec, indent=1) + '\n').encode()
-    rev = {'schema': 'oi-review-record/1', 'reviewer': 'reviewer-y', 'method': 'read',
+    rev = {'schema': 'oi-review-record/1', 'reviewer': 'session.fixture-reviewer-y', 'method': 'read',
            'reviewed': {'path': 'plan/rec.json', 'blob_sha256': hashlib.sha256(rb).hexdigest()},
            'verdicts': [{'item': 'AGENTS.md', 'verdict': 'accept'}]}
     fx.release = {'AGENTS.md': agents, 'plan/rec.json': rb,

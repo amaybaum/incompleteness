@@ -473,7 +473,7 @@ def release_gate_controls(root):
 
     def rtt_files(kind=kind, listed_sha=None, review=None, list_review=True, schema='oi-review-record/1'):
         rv = review if review is not None else {
-            'schema': schema, 'reviewer': 'reviewer-y', 'reviewed': {'path': d + '/rec.json', 'blob_sha256': rsha},
+            'schema': schema, 'reviewer': 'session.fixture-reviewer-y', 'reviewed': {'path': d + '/rec.json', 'blob_sha256': rsha},
             'verdicts': [{'item': 'i', 'verdict': 'accept'}]}
         refs = [{'kind': kind, 'path': d + '/rec.json', 'blob_sha256': listed_sha or rsha}]
         if list_review:
@@ -495,7 +495,7 @@ def release_gate_controls(root):
     x = r('evidence-missing', rtt_files(), mode='missing')
     case('RT-T-REL-EVIDENCE-MISSING', 'the same with RT-T recorded PASS and its evidence absent: the gate fails '
                                       '(raw-evidence-missing)', x, demanded(x, 'raw-evidence-missing'))
-    base_rv = {'schema': 'oi-review-record/1', 'reviewer': 'reviewer-y',
+    base_rv = {'schema': 'oi-review-record/1', 'reviewer': 'session.fixture-reviewer-y',
                'reviewed': {'path': d + '/rec.json', 'blob_sha256': rsha}}
     out = {
         'no-config-argument': r('no-config', rtt_files(), lambda repo, F: G.Ctx(repo, F, F, None)),
@@ -969,7 +969,7 @@ def config_reviews(root):
     case('STAGING-CONFIG-REVIEWS/1', 'the pin table binds the configuration, its one ordinary review and the '
                                      'transition metadata: admitted', got[:3], got[1] is None)
     cfg_b = allf[p]
-    dup = sf.jb(review_doc(p, cfg_b, reviewer='reviewer-c', items=['synthetic-retirement-config']))
+    dup = sf.jb(review_doc(p, cfg_b, reviewer='session.fixture-reviewer-c', items=['synthetic-retirement-config']))
     c2, p2, s2, _ = W.config(tip, None, B, extra_files={'syn/cfg/review-2.json': dup})
     got = W.run(c2, p2)
     case('STAGING-CONFIG-REVIEWS/2', 'a duplicate ordinary review of the configuration in the pin table: refused',
@@ -981,7 +981,7 @@ def config_reviews(root):
                                      'refused (no file is discovered outside the table)', got[:3],
          got[:2] == (65, 'CONFIG_UNREVIEWED'))
     rv_ref = {'kind': 'review', 'path': 'syn/cfg/self.review.json', 'blob_sha256': '0' * 64}
-    selfrev = sf.jb({'schema': 'oi-review-record/1', 'reviewer': 'reviewer-c', 'kind': 'widening',
+    selfrev = sf.jb({'schema': 'oi-review-record/1', 'reviewer': 'session.fixture-reviewer-c', 'kind': 'widening',
                      'reviewed': {'path': 'syn/cfg/config.json', 'blob_sha256': '0' * 64}, 'replaces': None,
                      'method': 'read', 'verdicts': []})
     rv_ref['blob_sha256'] = sf.sha(selfrev)
@@ -990,7 +990,7 @@ def config_reviews(root):
     got = W.run(c3, p3)
     case('STAGING-CONFIG-REVIEWS/4', 'the configuration\'s records reference a widening review of the configuration '
                                      'itself: ERROR CONFIG_INVALID', got[:3], got[:2] == (65, 'CONFIG_INVALID'))
-    outside = sf.jb({'schema': 'oi-review-record/1', 'reviewer': 'reviewer-c',
+    outside = sf.jb({'schema': 'oi-review-record/1', 'reviewer': 'session.fixture-reviewer-c',
                      'reviewed': {'path': 'syn/cfg/config.json', 'blob_sha256': '0' * 64}, 'method': 'read',
                      'verdicts': []})
     out_ref = {'kind': 'review', 'path': 'syn/elsewhere/self.review.json', 'blob_sha256': sf.sha(outside)}
@@ -1028,7 +1028,7 @@ def config_widening(root):
             out = {}
             for k in range(n):
                 wr = {'schema': 'oi-review-record/1', 'kind': 'widening', 'reviewer': reviewer if k == 0 else
-                      'widener-e', 'reviewed': {'path': path, 'blob_sha256': cfg_sha},
+                      'session.fixture-widener-e', 'reviewed': {'path': path, 'blob_sha256': cfg_sha},
                       'replaces': replaces if replaces is not None else sup, 'method': 'read the widened corpus',
                       'verdicts': [{'item': 'synthetic-retirement-config:changed corpus', 'verdict': 'accept'}]}
                 out[path.rsplit('/', 1)[0] + '/widening-%d.json' % k] = sf.jb(wr)

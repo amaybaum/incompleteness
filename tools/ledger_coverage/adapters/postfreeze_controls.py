@@ -286,7 +286,7 @@ def postf_controls(r, check):
         data = jb(w_.record())
         pth = RD + 'rec.json'
         rv = w_.rev({pth: data, RD + 'rec.review.json': w_.review(pth, data),
-                     RD + 'rec.review2.json': w_.review(pth, data, reviewer='reviewer-c')})
+                     RD + 'rec.review2.json': w_.review(pth, data, reviewer='session.fixture-reviewer-c')})
         return w_.run(['%s:%s' % (rv, pth)]) + (pth,)
 
     def self_review():
@@ -976,7 +976,7 @@ RF = ["a reassessment with no non-author review, or whose reviewer equals its au
       "a reassessment whose repair entry is absent from M, or has no accepting non-author review",
       "a reassessment whose reviewer is the author of the repair's reconciliation record entry"]
 RA_PATH = 'syn/cfg/reassessment.json'
-REPAIR_AUTHOR = 'writer-r'
+REPAIR_AUTHOR = 'session.fixture-writer-r'
 
 
 def finding_world(r, variant=None, edits=None, two=False, first_id=1, extra_elems=None):
