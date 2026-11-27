@@ -2,12 +2,12 @@
 
 ## 0. Status, authority and goal link
 
-**Status.** Draft a4. a2 answered the independent review of a1 at
-`23454e92fa254c9b80a21b65424edd02e670b505`, a3 the re-review of a2 at
-`8567b84147891e49b49d3e8beb8e0f97132ea291`, and a4 the nits of the confirmation of a3 at
-`b7c36eb9923a19eb674a51d4f80d95ba48852788` (all posted on PR #1601). Clarifying amendment to the adopted OBL-29 remedy r9 (`DESIGN.md` in this directory at
-`77a73c022091f598cf807fcf89d66c3cf43208de`, adopted at #1601 comment 7197486426). Paper draft,
-pending independent review and the owner's adoption. It changes no predicate of r9 that decides a
+**Status.** Adopted amendment, at `e79e7ca90f863115bc75b7ae5195dbba016125da`, by owner decision
+(amaybaum, 2026-11-27T03:17:51Z, #1169 comment 7208869709), and landed on `main` by #1601 (merge
+13c05b4f). It amends the adopted OBL-29 remedy r9 (`DESIGN.md` in this directory at
+`77a73c022091f598cf807fcf89d66c3cf43208de`, adopted by owner decision, amaybaum, 2026-11-26T16:19:17Z,
+#1601 comment 7197486426). Its drafts a1 to a3 (`23454e92`, `8567b841`, `b7c36eb9`) and their
+reviews are on PR #1601. It changes no predicate of r9 that decides a
 genuine finding; it states how r9 and the r13 Form (i) clause treat a second-kind review whose
 reviewer's independence cannot yet be established.
 
@@ -147,6 +147,6 @@ implementation.
 | Reference | Used for | Classification |
 |---|---|---|
 | #1169 comment 7207734407, items 4 and 5 | authority and outcome rule, quoted in §0 | provenance |
-| r9 `DESIGN.md` at `77a73c022091f598cf807fcf89d66c3cf43208de` | the text amended | support off `main` until #1601 lands |
+| r9 `DESIGN.md` at `77a73c022091f598cf807fcf89d66c3cf43208de` | the text amended | support on `main` (landed by #1601, merge 13c05b4f) |
 | Amendment 6 r13 at `5ad8837521de0a26734266a64f91548fd3dcff1e`, R6.RECON.26 Form (i) | the clause clarified | support on `main` (landed by #1604) |
 | PR #1577 at `7db52f380f1e51d4af52b84f0a7e728827ac5a60` | the existing control | provenance |

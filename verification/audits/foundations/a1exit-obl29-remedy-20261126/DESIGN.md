@@ -2,9 +2,11 @@
 
 ## 0. Status, authority, scope and goal link
 
-**Status.** Paper design r9, pending independent review of this revision and an owner decision.
-The proposed requirements (ids `R6.OBL29.n`) have no force until adoption. OBL-29 remains an explicit
-A1 retirement blocker until a remedy is implemented and independently verified. The interim
+**Status.** Adopted design r9, at `77a73c022091f598cf807fcf89d66c3cf43208de`, by owner decision
+(amaybaum, 2026-11-26T16:19:17Z, #1601 comment 7197486426), and landed on `main` by #1601 (merge
+13c05b4f). `AMENDMENT-1.md` in this directory amends it, adopted by owner decision (amaybaum,
+2026-11-27T03:17:51Z, #1169 comment 7208869709). OBL-29 remains an explicit A1 retirement blocker
+until the remedy is implemented and independently verified. The interim
 procedural guards (AGENTS.md §A.50 item 3 and §A.46 item 6) and adoption alone do not discharge it.
 
 **Authority.** Owner decision (amaybaum, received 2026-11-26T11:44Z, coordinating session; recorded
@@ -88,8 +90,7 @@ and records the absence of a route 2 admission as an owner decision in §5.6.
 **Base text.** Amendment 6 r5 at `1f5764572a98b7ae2f306e121e2e410f79c29daf`
 establishes the original defect analysis. The operative comparison is Amendment 6
 r13 at `5ad8837521de0a26734266a64f91548fd3dcff1e`, adopted by the owner as the tool
-contract (#1593 comment 7193277489). Its PR remains open and unmerged into verified
-`main` at `942bd5ea1fd09f4223012b0755bce2d6da07c44a`. See
+contract (#1593 comment 7193277489), and landed on `main` by #1604 (merge a8d4ab96). See
 `verification/audits/foundations/a1exit-design-r6-20261125/`. Amendment 6 addresses
 whether a resolution still applies. OBL-29 addresses whether evidence can disappear
 while the obligation it established still applies.
@@ -939,8 +940,8 @@ remain open.
 
 | Reference | Use | Classification |
 |---|---|---|
-| commit `1f5764572a98b7ae2f306e121e2e410f79c29daf` (branch `design/a1-r6-amendment-6`): DESIGN-r6.md, EXPECTATIONS.json, REQUIREMENTS.json, AMENDMENT-6.md | the requirement texts this design amends and cites | support off `main`: the base text is not on `main`; this design lands nothing and is valid only relative to that text |
-| Amendment 6 r13 at `5ad8837521de0a26734266a64f91548fd3dcff1e` and #1593 comment 7193277489 | adopted tool contract and OBL-29 blocker | source off `main`, design adoption recorded, integration pending |
+| commit `1f5764572a98b7ae2f306e121e2e410f79c29daf` (branch `design/a1-r6-amendment-6`): DESIGN-r6.md, EXPECTATIONS.json, REQUIREMENTS.json, AMENDMENT-6.md | the requirement texts this design amends and cites | support on `main` (landed by #1604, merge a8d4ab96); this design is itself landed on `main` by #1601 (merge 13c05b4f) |
+| Amendment 6 r13 at `5ad8837521de0a26734266a64f91548fd3dcff1e` and #1593 comment 7193277489 | adopted tool contract and OBL-29 blocker | support on `main` (landed by #1604, merge a8d4ab96) |
 | #1169 comment 7191104852 | the authority, quoted in §0 | provenance, quoted with author and time |
 | #1169 comment 7191665350 | bounded r2 direction and open owner decisions | provenance, owner and time in §0 |
 | #1601 comment 7191637164 and r1 at `0b06363c8dbb3d2c7e95a6ca7ab22cdc8cc7d234` | independent REVISE, reviewed scope and earlier scan | provenance for the reported observations and review |
@@ -953,6 +954,6 @@ remain open.
 | #1169 comment 7196789498 | r7 authority, item 1 | provenance, author and time quoted in §0 |
 | #1601 comment 7197055212 and r7 at `66916ba1cdf050273eac276b00233e46441ee888` | independent REVISE addressed by r8 | provenance for the correction scope |
 | repository ruleset 21725642 (guardrail) | host permits merge, squash and rebase, and requires PRs and rejects non-fast-forward updates on the covered default branch | host configuration at the time of the comparison |
-| #1169 comments 7185092393 and 7185562871 | the lifecycle tables behind requirement (I) | support off `main`; quoted in r5 sec. 0.4 and 0.5 on the amendment branches |
+| #1169 comments 7185092393 and 7185562871 | the lifecycle tables behind requirement (I) | support on `main`: quoted in `DESIGN-r6.md` sec. 0.4 and 0.5, landed by #1604 |
 | Issue #1598 and comment 7191083365; PR #1593 comments 7189446310, 7190255132, 7190966287 | the defect statement and its wider scope | provenance |
 | `main` at `942bd5ea1fd09f4223012b0755bce2d6da07c44a` | current governance snapshot, including AGENTS.md §A.52 items 5 and 6 | support on `main` |
