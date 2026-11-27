@@ -63,8 +63,13 @@ P_PATH = 'verification/audits/syn-repair/p.json'
 S_PATH = 'verification/audits/syn-sib/s.json'
 
 
-def lineage_finding_world(r, variant=None, edits=None):
-    """pfc.finding_world with the repair record Q superseding a reviewed record P of the same lineage."""
+P2_PATH = 'verification/audits/syn-repair/p2.json'
+S2_PATH = 'verification/audits/syn-sib/s2.json'
+
+
+def lineage_finding_world(r, variant=None, edits=None, two_hop=False):
+    """pfc.finding_world with the repair record Q superseding a reviewed record P of the same lineage; with two_hop,
+    P itself supersedes a reviewed record P2 of that lineage (Q -> P -> P2)."""
     w = pfc.World(r, variant=variant, edits=edits)
     orig = pfc.rcmod.edit_key(pfc.World(r).led, 'E1')
     f = pfc.invalidating(w, sf.DOC, edit='E1')
@@ -79,7 +84,13 @@ def lineage_finding_world(r, variant=None, edits=None):
     w.M = w.repo.derive(w.M, {sf.DOC: w.repo.read(w.M, sf.DOC).replace(b'changed on main', b'repaired on main')},
                         parents=[w.M], subject='repair')
     w.repair_commit = w.M
-    P = w.record(record_id='syn-repair', author=pfc.REPAIR_AUTHOR)
+    if two_hop:
+        P2 = w.record(record_id='syn-repair', author=pfc.REPAIR_AUTHOR)
+        pfc.land(w, [(P2_PATH, P2)], 'the earliest record P2 of the repair lineage')
+        w.p2_ref = {'path': P2_PATH, 'blob_sha256': sf.sha(pfc.jb(P2))}
+        P = w.record(record_id='syn-repair', author=pfc.REPAIR_AUTHOR, supersedes=dict(w.p2_ref))
+    else:
+        P = w.record(record_id='syn-repair', author=pfc.REPAIR_AUTHOR)
     pfc.land(w, [(P_PATH, P)], 'the earlier record P of the repair lineage')
     w.p_ref = {'path': P_PATH, 'blob_sha256': sf.sha(pfc.jb(P))}
     rep = w.record(record_id='syn-repair', author=pfc.REPAIR_AUTHOR, supersedes=dict(w.p_ref))
@@ -108,6 +119,13 @@ def replacement(w, reviewer='reviewer-z', tokens=True):
     return R_PATH, rb, R_PATH[:-5] + '.review.json', zb
 
 
+def sibling2(w, author='writer-s2'):
+    """S2: a record of the lineage naming P2 in supersedes, a sibling of P (the second edge P -> P2)."""
+    S = w.record(record_id='syn-repair', author=author, supersedes=dict(w.p2_ref))
+    data = pfc.jb(S)
+    return {S2_PATH: data, S2_PATH[:-5] + '.review.json': w.review(S2_PATH, data)}
+
+
 def sibling(w, author='writer-s'):
     """S: another record of Q's lineage and schema naming the same exact P in supersedes, with its review."""
     S = w.record(record_id='syn-repair', author=author, supersedes=dict(w.p_ref))
@@ -127,7 +145,7 @@ class CW:
         self.n = 0
 
     @classmethod
-    def lineage(cls, r, repl=False, cite_repl=False, cite_q=False):
+    def lineage(cls, r, repl=False, cite_repl=False, cite_q=False, two_hop=False, tl_prefix=None):
         """A CW world whose repair record Q supersedes an earlier record P of its lineage (both reviewed on main), so
         that a configuration pinning Q makes Q's R6.REC.7 check, and its edge Q -> P, operative.
 
@@ -137,7 +155,7 @@ class CW:
         cite_q: the current configuration cites Q and its review (with P and P's review at F), making Q's lineage
         check operative in the current run (the live rule of R6.OBL29.3)."""
         self = cls.__new__(cls)
-        w1 = lineage_finding_world(r, edits=pfc.EDITS_REWORDED)
+        w1 = lineage_finding_world(r, edits=pfc.EDITS_REWORDED, two_hop=two_hop)
         if repl:
             rp_, rb, zp, zb = replacement(w1)
             cur = pfc.reassessment(w1, repair={'commits': [w1.repair_commit],
@@ -154,7 +172,10 @@ class CW:
         if cite_q:
             q, qp = w1.repair_entry, w1.repair_entry['path']
             # cite_q == 'without-p': P and its review are left out of F, so Q's edge does not resolve there
-            with_p = (P_PATH, P_PATH[:-5] + '.review.json') if cite_q != 'without-p' else ()
+            # 'without-p-review': P is at F without its review, so the predecessor lint of Q's lineage check fails
+            with_p = {'without-p': (), 'without-p-review': (P_PATH,)}.get(cite_q, (P_PATH, P_PATH[:-5] + '.review.json'))
+            if two_hop:
+                with_p += (P2_PATH, P2_PATH[:-5] + '.review.json')
             for pth in (qp, qp[:-5] + '.review.json') + with_p:
                 extra_files[pth] = w1.repo.read(w1.M, pth)
             extra_recs += [dict(q, kind='reconciliation'),
@@ -163,8 +184,16 @@ class CW:
 
         def variant(w_):
             v = base(w_)
-            return {'files': dict(v['files'], **extra_files), 'add_records': list(v['add_records']) + extra_recs}
-        self.w = lineage_finding_world(r, variant=variant, edits=pfc.EDITS_REWORDED)
+            out = {'files': dict(v['files'], **extra_files), 'add_records': list(v['add_records']) + extra_recs}
+            if tl_prefix:
+                # a tool-landing class whose prefix is tl_prefix (the class record of obl29_controls.tl_variant)
+                from ledger_coverage.adapters.obl29_controls import tl_variant
+                t = tl_variant(tl_prefix)(w_)
+                out['files'].update(t['files'])
+                out['add_records'] += t['add_records']
+                out['extra'] = t['extra']
+            return out
+        self.w = lineage_finding_world(r, variant=variant, edits=pfc.EDITS_REWORDED, two_hop=two_hop)
         self.boot = None
         self.n = 0
         self.ctx_a = pfc.reassessment(w1)
@@ -808,6 +837,30 @@ def replay_controls(r, freeze_world, result):
          'record-invalid' in o['classes'] and 'retirement-blocked' in o['classes'] and not o['reassessments'] and
          len(o['reassess_why']) == 1 and 'blocked by the lineage witness' in o['reassess_why'][0] and
          'r1' in o['reassess_why'][0])
+    # CU-N16-TWO-HOP: F1 pins Q (Q -> P -> P2 resolved from f) and S2, a sibling of P under P2, is in R*(M1): the
+    # replay checks every edge of Q's lineage, so a lineage witness on the edge P -> P2 blocks
+    wb2 = lineage_finding_world(r, edits=pfc.EDITS_REWORDED, two_hop=True)
+    s2 = sibling2(wb2)
+
+    def drop_s2(cc, mb):
+        cc.step({x: None for x in s2}, 'S2 removed from main')
+    c, m = two_pass(world=lambda r_: CW.lineage(r_, two_hop=True), cfg_records=[dict(wb2.repair_entry,
+                                                                                      kind='reconciliation')],
+                    main_files=s2, pre=drop_s2)
+    o = c.run()
+    lw = [x for x in o['witnesses'] if x['kind'] == 'lineage']
+    case('CU-N16-TWO-HOP', 'context F1 pins Q (Q -> P -> P2) and S2, a sibling of P under P2, is in R*(M1): a lineage '
+                           'witness on the edge P -> P2 blocks', {'o': o, 'lineage': lw},
+         o['status'] == 'established' and len(lw) == 1 and lw[0]['forming'][0]['path'] == S2_PATH and
+         lw[0]['edge'] == [wb2.p_ref['blob_sha256'], wb2.p2_ref['blob_sha256']] and not o['reassessments'] and
+         'retirement-blocked' in o['classes'])
+    # CU-N16-SELECTOR: as CU-N16 with S's path under a prefix of F1's tool-landing class: not selected, no witness
+    tl_sib = pfc.jb({'classes': [{'id': 'tool-landing', 'prefixes': ['verification/audits/syn-sib/']}]})
+    c, m = two_pass(world=CW.lineage, cfg_records=pin_q, main_files=sib, pre=drop_sib, classes=(tl_sib, None))
+    o = c.run()
+    case('CU-N16-SELECTOR', 'as CU-N16 with S under a prefix of F1\'s tool-landing class: F1\'s selector excludes S, no '
+                            'lineage witness', o,
+         o['status'] == 'established' and not [x for x in o['witnesses'] if x['kind'] == 'lineage'])
     # CU-N16-ROUTE: as CU-N16, with the run's m a foxtrot commit whose first-parent chain lacks the repair commit
     # (main2, with S, is its second parent): the original positive route was not operative at m, so S forms no
     # lineage witness
@@ -1032,9 +1085,44 @@ def live_lineage_controls(r):
                                'successor under R6.REC.7, the discharge applies', o,
          not live(o) and bool(o['reassessments']))
     o = world(cite_q='without-p', s_files=sib)
-    case('LIVE-EDGE-UNRESOLVED', 'the current freeze cites Q but P is not at F, so Q -> P does not resolve under its '
-                                 'anchor: the edge is not operative and S adds nothing (Q\'s own lint fails it)', o,
-         not live(o) and any(i_ == 'verification/audits/syn-repair/repair.json' for i_ in o['invalid_subjects']))
+    case('LIVE-EDGE-UNRESOLVED', 'the current freeze cites Q but P is not at F, so Q\'s required lineage does not '
+                                 'resolve under its anchor: the discharge is inapplicable (FAIL record-invalid) and '
+                                 'the finding stays retirement-blocked', o,
+         any('required lineage of the cited repair record' in x and 'does not resolve' in x
+             for x in o['reassess_why']) and not o['reassessments'] and 'retirement-blocked' in o['classes'])
+    o = world(cite_q='without-p-review')
+    case('LIVE-EDGE-LINT', 'the current freeze cites Q and P resolves at F without its review: Q\'s required lineage '
+                           'check fails, so the discharge is inapplicable (FAIL record-invalid, retirement-blocked)', o,
+         any('required lineage check of the cited repair record' in x for x in o['reassess_why']) and
+         not o['reassessments'] and 'retirement-blocked' in o['classes'])
+    # two hops: Q -> P -> P2 cited and resolved from F; S2, a sibling of P under P2, is in M's ancestry
+    wb2 = lineage_finding_world(r, edits=pfc.EDITS_REWORDED, two_hop=True)
+    s2 = sibling2(wb2)
+
+    def world2(s_files, **kw):
+        c = CW.lineage(r, cite_q=True, two_hop=True, **kw)
+        c.bootstrap()
+        if s_files:
+            c.step(s_files, 'S2 lands')
+            c.step({x: None for x in s_files}, 'S2 removed')
+        return c.run()
+    o = world2(s2)
+    case('LIVE-TWO-HOP', 'the current freeze cites Q (Q -> P -> P2 resolved from F) and S2, a sibling of P under P2, '
+                         'is in M\'s ancestry: the second edge is checked, FAIL record-invalid naming S2', o,
+         any(('competing successor %s' % S2_PATH) in x for x in o['reassess_why']) and not o['reassessments'] and
+         'retirement-blocked' in o['classes'])
+    o = world2(None)
+    case('LIVE-TWO-HOP-P', 'the same two-hop lineage with no competing successor: the discharge applies', o,
+         not o['reassess_why'] and bool(o['reassessments']))
+    # the current configuration's selector: S under a prefix of its tool-landing class is not selected
+    c = CW.lineage(r, cite_q=True, tl_prefix='verification/audits/syn-sib/')
+    c.bootstrap()
+    c.step(sib, 'S lands')
+    c.step({x: None for x in sib}, 'S removed')
+    o = c.run()
+    case('LIVE-SELECTOR', 'S lies under a prefix of the current configuration\'s tool-landing class: the R6.RECON.2 '
+                          '(d) selector excludes it, no live lineage failure', o,
+         not live(o) and not any('required lineage' in x for x in o['reassess_why']))
     o = world(cite_q=False, s_files=sib)
     case('LIVE-UNCITED', 'S in M\'s ancestry but the current freeze does not cite Q (Q found only by the entry lookup at '
                          'M): no lineage check is operative, the discharge applies', o,

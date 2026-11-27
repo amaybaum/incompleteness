@@ -895,12 +895,37 @@ def competing_successors(repo, cum_m, scope, uref, U):
     return out
 
 
+def lineage_edges(store, ref, doc):
+    """The edges of a record's lineage resolved from the anchor `store` (U1 -> P1, P1 -> P2, ...): ([(successor
+    reference, successor doc, predecessor reference)], unresolved), unresolved True when a `supersedes` reference does
+    not resolve there (the walk stops at it) or the chain loops."""
+    out, seen, cur, cref = [], {ref.get('blob_sha256')}, doc, ref
+    while isinstance(cur, dict) and isinstance(cur.get('supersedes'), dict):
+        pref = _ref(cur['supersedes'])
+        if pref['blob_sha256'] in seen:
+            return out, True
+        out.append((cref, cur, pref))
+        prev = store.resolve(pref)
+        if not isinstance(prev, dict):
+            return out, True
+        seen.add(pref['blob_sha256'])
+        cur, cref = prev, pref
+    return out, False
+
+
 def live_lineage_problems(repo, M, doc, cfg, store, scope, m_scan, cum_m, schemas):
-    """r9 R6.OBL29.3 on the current run's own lineage checks: where the configuration cites the repair record of a
+    """r9 R6.OBL29.3 on the current run's own lineage checks: where the configuration cites the repair record U of a
     cited reassessment (an existing route making its R6.REC.7 check operative for the discharge, in every admission
-    mode in which the R6.RECON.2 (d) scan can run) and that record's edge U -> P resolves under the prescribed anchor
-    F, each qualifying competing successor S in M's ancestry fails the discharge (FAIL record-invalid), with or
-    without custody. `cum_m` is a callable returning the walk from M alone (built only when needed)."""
+    mode in which the R6.RECON.2 (d) scan can run), every edge of U's lineage resolved under the prescribed anchor F
+    (U -> P1, P1 -> P2, ...) is checked, and each qualifying competing successor S in M's ancestry fails the discharge
+    (FAIL record-invalid), with or without custody. A lineage that does not resolve under F, or whose required check
+    fails, fails the discharge as well. `cum_m` is a callable returning the walk from M alone (built only when needed).
+
+    Citation is the only route that makes a repair record's lineage check operative for a discharge in this tool
+    revision: the discharge reads its repair entry only from M's scanned set (R6.OBL29.4), and a record admitted
+    through the post-freeze route (R6.RECON.2, REV) serves the reconciliation of drifted paths, not a discharge's
+    repair (its record lies in REV's tree, not M's, so an entry naming it is not present at M). A REV-admitted record
+    therefore needs no separate trigger here."""
     if not isinstance(doc, dict) or doc.get('repair') is None:
         return []
     eref = _ref(_part(doc, 'repair_entry'))
@@ -911,11 +936,20 @@ def live_lineage_problems(repo, M, doc, cfg, store, scope, m_scan, cum_m, schema
     U = store.get(eref)
     if not isinstance(U, dict) or U.get('schema') not in schemas or not isinstance(U.get('supersedes'), dict):
         return []
-    if rec.supersedes_problems(eref, U, store):
-        return []  # the edge is not operative; the record's own lint already fails it
-    return ['the competing successor %s in M\'s ancestry supersedes %s, which the cited repair record %s supersedes '
-            '(R6.OBL29.3, R6.REC.7)' % (sref['path'], U['supersedes'].get('path'), eref['path'])
-            for _S, sref, _g in competing_successors(repo, cum_m(), scope, eref, U)]
+    edges, unresolved = lineage_edges(store, eref, U)
+    if unresolved:
+        return ['the required lineage of the cited repair record %s does not resolve under F (R6.REC.7, R6.OBL29.3)'
+                % eref['path']]
+    lint = rec.supersedes_problems(eref, U, store)
+    if lint:
+        return ['the required lineage check of the cited repair record %s fails: %s' % (eref['path'], lint[0])]
+    out = []
+    for xref, X, pref in edges:
+        out += ['the competing successor %s in M\'s ancestry supersedes %s, which %s in the lineage of the cited '
+                'repair record %s supersedes (R6.OBL29.3, R6.REC.7)' % (sref['path'], pref['path'], xref['path'],
+                                                                        eref['path'])
+                for _S, sref, _g in competing_successors(repo, cum_m(), scope, xref, X)]
+    return out
 
 
 def replay_run(repo, c_, m, rev, load_config, schemas, prefix):
@@ -1009,14 +1043,17 @@ def replay_run(repo, c_, m, rev, load_config, schemas, prefix):
         commits = _part(A, 'repair_commits')
         applies = any(in_m(repo, m, (x.get('entry') or {}).get('side_change_commits') or []) for x in named
                       if isinstance(x.get('entry'), dict))
+        edges, unresolved = lineage_edges(loaded.store, eref, Q)
         if not (isinstance(commits, list) and commits and all(c in chain for c in commits)) or not applies or \
-                rec.supersedes_problems(eref, Q, loaded.store):
+                unresolved or rec.supersedes_problems(eref, Q, loaded.store):
             continue
-        for S, sref, sgit in competing_successors(repo, cum_m, scope, eref, Q):
-            out.append(dict(base, kind='lineage', disputed=dict(eref), disputed_doc=Q, disputed_git=qgit,
-                            edge=(eref['blob_sha256'], sup['blob_sha256']),
-                            forming=[{'doc': S, 'git': sgit, 'path': sref['path'], 'ref': sref}],
-                            contested=[sup['blob_sha256']]))
+        # every edge of Q's lineage resolved from f; the witness stands against Q, whose required check covers them
+        for xref, X, pref in edges:
+            for S, sref, sgit in competing_successors(repo, cum_m, scope, xref, X):
+                out.append(dict(base, kind='lineage', disputed=dict(eref), disputed_doc=Q, disputed_git=qgit,
+                                edge=(xref['blob_sha256'], pref['blob_sha256']),
+                                forming=[{'doc': S, 'git': sgit, 'path': sref['path'], 'ref': sref}],
+                                contested=[pref['blob_sha256']]))
     return out
 
 
