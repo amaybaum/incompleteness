@@ -294,11 +294,8 @@ def lint_chain(ref, store, admitted_shas, predecessor=False):
         out.append('record %s: no item ids can be identified' % ref['path'])
         return out
     for sha, path, rv in exact:
-        bad = []
-        if not _person(rv.get('reviewer')):
-            bad.append('reviewer is not a person')
-        if fd.same_identity(rv.get('reviewer'), author):
-            bad.append('reviewer equals author')
+        # R6.REC.6 as staging S-2 S2.5 restates it: a review not independent (S2.4) of the record's author is no review
+        bad = fd.independence_problems(rv, [author])
         verdicts = {v.get('item'): v.get('verdict') for v in rv.get('verdicts', []) if isinstance(v, dict)}
         named = [v.get('item') for v in rv.get('verdicts', []) if isinstance(v, dict)]
         if len(named) != len(set(named)):
@@ -420,14 +417,25 @@ def widening_review_problems(ref, store, admitted_shas, regular_reviewers, autho
                                       d['replaces'].get('blob_sha256') != old_ref.get('blob_sha256') or
                                       d['replaces'].get('path') != old_ref.get('path')):
             bad.append('does not name the record it replaces by path and blob')
+        # R6.REC.13 as staging S-2 S2.5 restates it: independent (S2.4) of the author and of every ordinary reviewer
         who = d.get('reviewer')
-        if not _person(who) or who == author or who in regular_reviewers:
-            bad.append('reviewer is the author, a regular reviewer, or not a person')
+        bad += fd.independence_problems(d, [author] + sorted(x for x in regular_reviewers if isinstance(x, str)))
+        if designated and any(fd.declared_dependency(o, [who]) for o in ordinary_reviews(ref, pool, usable)):
+            # S-2 sec. 3, allow root: the ordinary reviewer is independent of the widening reviewer as well
+            bad.append('an ordinary reviewer declares a dependency on the widening reviewer')
         bad += widening_verdict_problems(d, changed)
         if not bad:
             return []
         why.append('widening review %s: %s' % (path, '; '.join(bad)))
     return why or ['no widening review names the superseding blob']
+
+
+def ordinary_reviews(ref, pool, usable):
+    """The ordinary reviews among `pool` naming the exact reference `ref` whose blob `usable` admits."""
+    return [d for sha, (p, d) in sorted(pool.items()) if usable(sha) and isinstance(d, dict) and
+            d.get('schema') == review_schema and d.get('kind', 'review') == 'review' and
+            isinstance(d.get('reviewed'), dict) and d['reviewed'].get('path') == ref.get('path') and
+            d['reviewed'].get('blob_sha256') == ref.get('blob_sha256')]
 
 
 def widening_verdict_problems(review, changed):

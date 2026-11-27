@@ -382,6 +382,12 @@ def review_problems(review, J, jref, j_git, source_gits, party_set, owner_identi
     # the reviewer's own independence conditions (the adjudicator's are checked by independence_problems on J)
     out += [p for p in independence_problems(J, review.get('reviewer'), party_set, owner_identities)
             if 'technical reviewer' in p[1]]
+    # staging S-2 sec. 3: the technical review is independent (S2.4) of Parties, the adjudicator and OWNER_IDENTITIES
+    X = sorted(x for x in party_set if isinstance(x, str)) + [J.get('author') if isinstance(J, dict) else None] + \
+        list(owner_identities)
+    if fd.declared_dependency(review, X) or not fd.declaration_ok(review.get('independence')):
+        out.append(('ADJ-INDEP', 'the technical reviewer\'s independence declaration is missing or malformed, or names '
+                                 'a party, the adjudicator or an owner identity'))
     if not j_git or not all(source_gits) or not obl29.holds(review.get('method'), j_git) or \
             not all(obl29.holds(review.get('method'), x) for x in source_gits):
         out.append(('ADJ-REVIEW', 'its method lacks the git blob id of J or of a source'))

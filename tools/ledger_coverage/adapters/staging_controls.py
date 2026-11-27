@@ -1072,8 +1072,8 @@ def first_allow(root):
     changed = rulemod.file_widening(None, doc)
     ordinary = review_doc(ALLOW_ROOT, b)
 
-    def problems(wide, designated=True, old_ref=None, path=ALLOW_ROOT, data=b):
-        entries = [(path, data), ('syn/cfg/r.json', sf.jb(ordinary))]
+    def problems(wide, designated=True, old_ref=None, path=ALLOW_ROOT, data=b, ord_doc=None):
+        entries = [(path, data), ('syn/cfg/r.json', sf.jb(ord_doc or ordinary))]
         if wide is not None:
             entries.append(('syn/cfg/w.json', sf.jb(wide)))
         st = rec.Store(entries)
@@ -1117,6 +1117,25 @@ def first_allow(root):
     ]
     for n, what, got in negs:
         case('STAGING-FIRST-ALLOW/' + n, what + ': refused', got, bool(got))
+    # staging S-2 sec. 7 S2-ROOT-ROLES: writer, ordinary and widening reviewer pairwise not the same identity (S2.2),
+    # each reviewer declaring no dependency on another of the three (S2.4)
+    respelled = sf.WRITER.upper().replace('.', '_')
+    roles = [
+        ('widening-respells-writer', 'the widening reviewer is the writer respelled',
+         problems(wide(reviewer=respelled))),
+        ('widening-respells-ordinary', 'the widening reviewer is the ordinary reviewer respelled',
+         problems(wide(reviewer=sf.REVIEWER.upper()))),
+        ('ordinary-on-widening', 'the ordinary reviewer declares a dependency on the widening reviewer',
+         problems(wide(), ord_doc=dict(ordinary, independence={'not_author': True, 'depends_on': [sf.WIDENER]}))),
+        ('widening-on-writer', 'the widening reviewer declares a dependency on the writer',
+         problems(wide(independence={'not_author': True, 'depends_on': [sf.WRITER]}))),
+        ('widening-on-ordinary', 'the widening reviewer declares a dependency on the ordinary reviewer',
+         problems(wide(independence={'not_author': True, 'depends_on': [sf.REVIEWER]}))),
+        ('widening-undeclared', 'the widening review carries no independence declaration',
+         problems(wide(independence='__drop__'))),
+    ]
+    for n, what, got in roles:
+        case('S2-ROOT-ROLES/' + n, what + ': refused', got, bool(got))
     got = problems(wide(replaces='__drop__'), designated=False)
     case('STAGING-FIRST-ALLOW/15', 'a root that is not the designated root, its widening review omitting replaces: '
                                    'refused (R6.RECON.31; no predecessor can be named)', got,

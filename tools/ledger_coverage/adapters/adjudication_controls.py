@@ -211,6 +211,17 @@ def independence():
     got = conds(adj.authorization_problems(J, fx.landing_time, OWNERS))
     case('PRED:ADJ-AUTH-CASE', 'the owner check and the adjudicator equality compare under R6.RECON.29: a case variant '
                                'of the owner\'s login, and J for j, pass', got, got == [])
+    def undeclared(fx, J):
+        T = fx.T()
+        T.pop('independence')
+        return {'T': T}
+
+    def declares(who):
+        return lambda fx, J: {'T': fx.T(independence={'not_author': True, 'depends_on': [who]})}
+    variants('PRED:S2-ADJ-TECH-DECLARATION', 'the technical review carries no independence declaration, or declares a '
+                                             'dependency on the adjudicator, on v or on the owner respelled (staging '
+                                             'S-2 S2.4): ADJ-INDEP',
+             {'a': undeclared, 'b': declares('j'), 'c': declares('v'), 'd': declares(OWNERS[0].upper())}, 'ADJ-INDEP')
     variants('PRED:ADJ-N-OWNER-TECH-REVIEWER', 'the owner as technical reviewer (OD-4): ADJ-INDEP',
              {'a': lambda fx, J: {'T': fx.T(OWNERS[0])}}, 'ADJ-INDEP')
 

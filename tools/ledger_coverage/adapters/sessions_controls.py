@@ -451,9 +451,57 @@ def suite_detection_identity():
          out['registry failed'][0] == 'genuine' and out['registry failed'][1] != [])
 
 
+def suite_s2_lint():
+    """Staging S-2 S2.4/S2.5 in record lint (R6.REC.6), through the run's lint (records.lint_chain): a review counts
+    only when it is independent of the record's author, compared by key (S2.2), with its declaration (S2.3)."""
+    author = 'session.fixture-writer'
+
+    def lint(review=None, rec_author=author, **kw):
+        doc = {'schema': 'oi-term-rules/2', 'record_id': 'r1', 'author': rec_author, 'supersedes': None,
+               'rules': [{'id': 'q1'}]}
+        rb = util.canonical(doc)
+        ref = {'path': D + '/r.json', 'blob_sha256': util.sha256(rb)}
+        rv = review_record({'schema': records.review_schema, 'reviewer': 'session.fixture-reviewer', 'reviewed': ref,
+                            'method': 'read', 'verdicts': [{'item': 'q1', 'verdict': 'accept'}]})
+        rv.update(kw)
+        if review is not None:
+            review(rv)
+        entries = [(ref['path'], rb), (D + '/r.review.json', util.canonical(rv))]
+        return records.lint_chain(ref, records.Store(entries), {util.sha256(b) for _, b in entries})
+    got = lint()
+    case('PRED:S2-POS', 'a review by another identity carrying a well-formed declaration: the record passes lint',
+         got, got == [])
+    decl = {'absent': lint(review=lambda r: r.pop('independence')),
+            'not_author false': lint(independence={'not_author': False, 'depends_on': []}),
+            'not_author "true"': lint(independence={'not_author': 'true', 'depends_on': []}),
+            'an extra key': lint(independence={'not_author': True, 'depends_on': [], 'scope': 'x'}),
+            'depends_on not an array': lint(independence={'not_author': True, 'depends_on': 'session.x'}),
+            'depends_on holding a malformed string': lint(independence={'not_author': True, 'depends_on': ['a b']}),
+            'two same-identity elements': lint(independence={'not_author': True,
+                                                             'depends_on': ['session.x', 'Session_X']})}
+    case('PRED:S2-DECL-MISSING', 'the declaration absent or malformed: the review counts as no review', decl,
+         all(decl.values()))
+    dep = {'names the author': lint(independence={'not_author': True, 'depends_on': [author]}),
+           'names it respelled': lint(independence={'not_author': True, 'depends_on': ['SESSION_FIXTURE_WRITER']})}
+    case('PRED:S2-DECL-AUTHOR', 'depends_on names the author, plainly or respelled: the review counts as no review',
+         dep, all(dep.values()))
+    same = {'Session_Fixture-Writer': lint(reviewer='Session_Fixture-Writer', rec_author='session.fixture-writer'),
+            'SESSIONFIXTUREWRITER': lint(reviewer='SESSIONFIXTUREWRITER', rec_author='session.fixture-writer'),
+            'shared login': lint(reviewer='amaybaum', rec_author='amaybaum')}
+    case('PRED:S2-RESPELL', 'the writer reviewing its own record under a respelling, or author and reviewer one shared '
+                            'login: the same identity by key, so the review counts as no review', same,
+         all(same.values()))
+    bad = [' session.r', 'session r', 'session.\u0433', '1234', '', 'a' * 129, 'https://example.invalid/runs/1']
+    mal = {repr(v): lint(reviewer=v) for v in bad}
+    mal.update({'author ' + repr(v): lint(rec_author=v) for v in bad})
+    case('PRED:S2-MALFORMED', 'a reviewer or author that is not an identity string: the record fails lint', mal,
+         all(mal.values()))
+
+
 SUITES = [('admission', suite_admission), ('wellformed', suite_wellformed), ('party', suite_party),
           ('withdrawal', suite_withdrawal), ('continuity', suite_continuity), ('binding', suite_binding),
-          ('detection', suite_detection), ('detection-identity', suite_detection_identity)]
+          ('detection', suite_detection), ('detection-identity', suite_detection_identity),
+          ('s2-lint', suite_s2_lint)]
 
 
 def main(out):

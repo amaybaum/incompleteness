@@ -579,6 +579,8 @@ def clearance_predicates(r):
              'verdicts': [{'item': i, 'verdict': 'accept', 'reason': reason} for i in rec.item_ids(Rd)],
              '_dir': 'verification/audits/r'})
         z.update(kw)
+        if z.get('independence') == '__drop__':
+            z.pop('independence')
         return z
     d_other_entry = D(qref, Q, entry_path=p2)
     got = o.reliance(d_other_entry, W)
@@ -630,6 +632,10 @@ def clearance_predicates(r):
          dict(Z=Z(method='read', verdicts=[{'item': i, 'verdict': 'accept', 'reason': 'ok'}
                                            for i in rec.item_ids(Rd)]))),
         ('NR5-DISSENT-pred', 'Z carries a dissent', dict(Z=Z(dissent='still disputed'))),
+        ('S2-NR5-UNDECLARED-pred', 'Z carries no independence declaration (staging S-2 S2.4)',
+         dict(Z=Z(independence='__drop__'))),
+        ('S2-NR5-DECLARED-AUTHOR-pred', 'Z declares a dependency on the author of R (staging S-2 S2.4)',
+         dict(Z=Z(independence={'not_author': True, 'depends_on': ['session.fixture-writer-r']}))),
         ('NR5-WRONG-DIRECTORY-pred', 'Z outside R\'s directory', dict(Z=Z(_dir='verification/audits/other'))),
         ('NR5-NO-NR2-pred', 'R not admitted through an operative route (NR-2 false)', dict(Z=Z(), nr2=False)),
         ('NR5-SHA256-SPELLING-pred', 'the SHA-256 of V in place of its git blob id in the <b>#<item> token',
@@ -682,6 +688,15 @@ def clearance_predicates(r):
     case('P-REFREEZE-INDEPENDENT-REPLACEMENT-pred', 'a lineage witness, reliance through (r3) only, an independent '
                                                     'replacement meeting NR-1 to NR-4: cleared', b1,
          b1[0] is False and b1[2] and 'NR-1' in b1[2])
+    ex = ['session.fixture-writer-r', 'session.fixture-writer-q', 'session.fixture-reviewer-v']
+    b4 = o.decide(dR, Wl, R=R, required_review={k: v for k, v in rv.items() if k != 'independence'}, excluded=ex,
+                  nr2=True)
+    b5 = o.decide(dR, Wl, R=R, required_review=dict(rv, independence={'not_author': True,
+                                                                      'depends_on': ['session.fixture-writer-q']}),
+                  excluded=ex, nr2=True)
+    case('S2-NR3-DECLARATION-pred', 'the NR-3 reviewer carries no independence declaration, or declares a dependency '
+                                    'on an excluded author (staging S-2 S2.4): the witness stands', [b4, b5],
+         b4[0] and b5[0])
     case('N-REFREEZE-NONRELIANCE-UNSUPPORTED-pred', 'the NR-3 reviewer is an excluded author, or NR-4\'s tokens are '
                                                     'absent: the witness stands', [b2, b3], b2[0] and b3[0])
     got = o.decide(dR, Wl, R=R, required_review=dict(rv, reviewer='Session_Fixture-Writer-Q'),
@@ -910,7 +925,8 @@ def r13_form_controls(r):
     case('SCAN-CLASSES', 'R6.RECON.35 selection and classes (a), (b), (c) and the invalidation signal on fixed bytes',
          {k: list(v) if v else v for k, v in cls.items()}, cls == want)
 
-    def second_kind_world(reviewer='session.fixture-reviewer-x', withdraw=False, reviewed_missing=False):
+    def second_kind_world(reviewer='session.fixture-reviewer-x', withdraw=False, reviewed_missing=False,
+                          independence=None):
         w = pfc.World(r)
         q = w.record(record_id='syn-recon-q')
         qb = pfc.jb(q)
@@ -923,8 +939,13 @@ def r13_form_controls(r):
             if v['item'] == sf.DOC + ':scientific_effect':
                 v.update(verdict='invalidates', reason='the change invalidates the planned edit',
                          invalidated=inv['invalidated'], configuration=inv['configuration'])
-        z = pfc.jb(review_record({'schema': rec.review_schema, 'reviewer': reviewer, 'reviewed': ref,
-                    'method': 'read ' + 'a' * 40, 'verdicts': verdicts}))
+        zd = review_record({'schema': rec.review_schema, 'reviewer': reviewer, 'reviewed': ref,
+                    'method': 'read ' + 'a' * 40, 'verdicts': verdicts})
+        if independence == 'absent':
+            zd.pop('independence')
+        elif independence is not None:
+            zd['independence'] = independence
+        z = pfc.jb(zd)
         ZP = pfc.RD + 'q.second.review.json'
         c1 = step(w, {ZP: z}, 'an independent review finds invalidation')
         if withdraw:
@@ -955,6 +976,16 @@ def r13_form_controls(r):
     case('S2-INVALIDATING-RESPELL', 'the same verdict by %s, the author respelled: not disqualified, a genuine finding '
          'with a form failure' % respelled, o,
          bool(sk) and 'record-invalid' in o['classes'] and 'retirement-blocked' in o['classes'])
+    # staging S-2 sec. 7 S2-INVALIDATING-DECLARED and the S2-INVALIDATING-MALFORMED variant: a declaration naming the
+    # author, or none at all, by a reviewer of another identity: a genuine finding with a form failure that blocks
+    for cid, ind, what in (('S2-INVALIDATING-DECLARED', {'not_author': True, 'depends_on': [sf.WRITER]},
+                            'depends_on naming the author'),
+                           ('S2-INVALIDATING-MALFORMED/independence-missing', 'absent', 'no independence declaration')):
+        w, c1, ZP = second_kind_world(independence=ind, withdraw=True)
+        o = outcome(w)
+        sk = [f for f in o['all'] if f.get('kind') == 2]
+        case(cid, 'the same verdict by another identity with %s: a genuine finding with a form failure' % what, o,
+             bool(sk) and 'record-invalid' in o['classes'] and 'retirement-blocked' in o['classes'])
     w, c1, ZP = second_kind_world(reviewer='https://example.invalid/runs/1')
     o = outcome(w)
     sk = [f for f in o['all'] if f.get('kind') == 2]

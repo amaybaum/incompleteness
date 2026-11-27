@@ -57,11 +57,13 @@ def blob(b):
     return gitobj.blob_id_of(b)
 
 
-def review(vbytes, items, reviewer=REVIEWER_C, dissent=None, path=None):
+def review(vbytes, items, reviewer=REVIEWER_C, dissent=None, path=None, independence=None):
     d = review_record({'schema': rec.review_schema, 'reviewer': reviewer, 'reviewed': {'path': PATH, 'blob_sha256': sf.sha(vbytes)},
          'method': 'read ' + blob(vbytes), 'verdicts': [{'item': i, 'verdict': 'accept', 'reason': ''} for i in items]})
     if dissent:
         d['dissent'] = dissent
+    if independence is not None:
+        d['independence'] = independence
     return pfc.jb(d)
 
 
@@ -401,6 +403,8 @@ def schema_chain_controls(r):
     # R6.CUST.8
     revs = {}
     for name, kw in (('no review', None), ('author review', {'reviewer': WRITER_C}),
+                     ('review declaring a dependency on the author',
+                      {'independence': {'not_author': True, 'depends_on': [WRITER_C]}}),
                      ('second review dissents', 'dissent'), ('omits an item', 'omit')):
         c = CW(r)
         v0 = c.bootstrap()

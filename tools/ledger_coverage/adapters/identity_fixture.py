@@ -25,8 +25,11 @@ REVIEW_SCHEMA = 'oi-review-record/1'
 
 
 def review_record(fields):
-    """Every review record the fixtures and controls construct is built here, from its fields."""
-    return dict(fields)
+    """Every review record the fixtures and controls construct is built here, from its fields. It carries staging S-2
+    S2.3's independence declaration, {not_author: true, depends_on: []}, unless the fields give one."""
+    out = dict(fields)
+    out.setdefault('independence', {'not_author': True, 'depends_on': []})
+    return out
 
 
 def session_id(name):

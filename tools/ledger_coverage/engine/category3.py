@@ -78,6 +78,10 @@ def second_kind_findings(doc, ref, record_at):
             form.append('the reviewer is not an identity string')
         elif isinstance(reviewed, dict) and fd.same_identity(who, reviewed.get('author')):
             form.append('the reviewer is the same identity as the author without being byte-equal')
+        # a missing or malformed declaration fails the review.record row (second_kind_form_problems); one naming the
+        # author is a form failure that still blocks
+        if isinstance(reviewed, dict) and fd.declared_dependency(doc, [reviewed.get('author')]):
+            form.append('the independence declaration names the author')
         if reviewed is None:
             form.append('its reviewed names no record the scan finds')
         entry = fd.entry_of_item(reviewed, v.get('item')) if isinstance(reviewed, dict) else None
