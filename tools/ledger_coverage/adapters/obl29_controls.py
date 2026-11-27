@@ -1866,10 +1866,82 @@ def amendment_7_reassess_controls(r):
          'retirement-blocked' not in o['classes'] and edits_of(o) == [] and o['reassessments'] == 2)
 
 
+def amendment_7_scope_controls(r):
+    """Exercise FINDING-FORM 8b, C1 and C3 through execution with the synthetic host and the normal record route."""
+    def run(w, record, witness, present_at_m, classify=()):
+        code, out = w.run(classify)
+        out = out or {}
+        category3 = out.get('category3') or {}
+        findings = category3.get('findings', [])
+        detected = any(f['record'] == record and f['kind'] == 1 and f['path'] == sf.DOC
+                       and f['witness'] == witness and f['present_at_M'] is present_at_m for f in findings)
+        actual = {'exit': code, 'stop': out.get('stop'), 'classes': pfc.classes(out), 'findings': findings,
+                  'blocked': category3.get('blocked'), 'M': w.M, 'F': (out.get('config') or {}).get('commit'),
+                  'roots': (out.get('category3_read_domain') or {}).get('roots')}
+        return out, actual, detected
+
+    # The two histories land the same finding bytes. Only F descends from the listed change.
+    w = pfc.World(r)
+    repo = w.repo
+    change = {sf.DOC: repo.read(w.M, sf.DOC)}
+    listed = repo.derive(w.c, change, parents=[w.c], subject='the change on the abandoned branch')
+    doc = pfc.invalidating(w, sf.DOC, M=listed)
+    doc['paths'][0]['side_change_commits'] = [listed]
+    data = pfc.jb(doc)
+    w.c = repo.derive(listed, {FP: data}, parents=[listed], subject='land the finding on the abandoned branch')
+    w.M = repo.derive(w.syn.H, dict(change, **{FP: data}), parents=[w.syn.H], subject='squash the finding onto M')
+    record = {'path': FP, 'blob_sha256': sf.sha(data)}
+    out, actual, detected = run(w, record, w.M, True)
+    F = actual['F']
+    form_items = [i for i in out.get('items', []) if i['class'] == 'record-invalid'
+                  and (i.get('evidence') or {}).get('finding') == record]
+    actual.update(listed=listed, form_items=form_items)
+    case('A7-ROW-FORM-8B', 'the squash-landed finding blocks and reports the ancestry failure even though F holds '
+                           'the same finding and descends from the listed change', actual,
+         actual['exit'] == 20 and actual['stop'] is None and detected
+         and actual['roots'] == [w.M, F] and repo.read(F, FP) == data
+         and repo.is_ancestor(listed, F) and not repo.is_ancestor(listed, w.M)
+         and 'retirement-blocked' in actual['classes']
+         and {'record': record, 'item': sf.DOC, 'path': sf.DOC, 'edit': 'E1'} in actual['blocked']
+         and any(i['evidence']['source'] == w.M
+                 and any('side_change_commits does not scope the finding' in d and "in M's ancestry" in d
+                         for d in i['detail']) for i in form_items))
+
+    for cid in ('C1', 'C3'):
+        w = pfc.World(r)
+        repo = w.repo
+        change = {sf.DOC: repo.read(w.M, sf.DOC)}
+        w.M = w.syn.H
+        listed = repo.derive(w.M, change, parents=[w.M], subject='the change after M')
+        if cid == 'C3':
+            first = repo.derive(w.M, {'notes/first-parent.txt': b'first parent\n'}, parents=[w.M],
+                                subject='a parallel first-parent commit')
+            listed = repo.derive(first, change, parents=[first, listed], subject='merge bringing the change in')
+        doc = pfc.invalidating(w, sf.DOC, M=listed)
+        doc['paths'][0]['side_change_commits'] = [listed]
+        rev, path, data = w.standard(doc, path=FP, parent=listed)
+        record = {'path': path, 'blob_sha256': sf.sha(data)}
+        out, actual, detected = run(w, record, rev, False, ['%s:%s' % (rev, path)])
+        # R6.RECON.2(c) refuses this use of the record for reconciliation. R* still scans the named REV.
+        refusals = [i for i in out.get('items', []) if i['class'] == 'record-invalid' and i['subject'] == path]
+        parents = repo.parents(listed)
+        blob = repo.blob_id(listed, sf.DOC)
+        parent_blobs = [repo.blob_id(p, sf.DOC) for p in parents]
+        actual.update(REV=rev, listed=listed, listed_parents=parents, listed_blob=blob, parent_blobs=parent_blobs,
+                      record_invalid=refusals, admitted=(out.get('inputs') or {}).get('classify_records'))
+        case('A7-ROW-FORM-' + cid, 'the finding is detected through REV with a valid scope outside M, even though '
+                                   'the post-freeze route refuses its record', actual,
+             actual['exit'] == 20 and actual['stop'] is None and detected
+             and actual['roots'] == [w.M, actual['F'], rev] and actual['admitted'] == []
+             and repo.parents(rev) == [listed] and not repo.is_ancestor(listed, w.M)
+             and blob != parent_blobs[0] and (cid == 'C1' or parent_blobs[1:] == [blob])
+             and len(refusals) == 1
+             and refusals[0].get('detail') == ["the record commit's parent is not the run's record base"]
+             and actual['blocked'] == [] and 'retirement-blocked' not in actual['classes'])
+
+
 # The expectation cases of r6 amendment 7 (EXPECTATIONS.json, generator-amendment7) and the local case whose
 # engine run is their evidence: (row, case name, local case id, index of the run among the case's captured runs).
-# Cases with no end-to-end run here (FINDING-FORM 8b, C1 and C3, checked at the level of category3.scope_problems by
-# A7-I-8B, A7-I-C1 and A7-I-C3) are not listed, and the gate finds no evidence for them.
 A7 = 'amendment 7, sec. %s, case %s: '
 A7_ROW_CASES = [
     ('FINDING-FORM', A7 % (2, 1) + "a first-kind finding with a well-formed invalidated element and a resolvable "
@@ -1923,6 +1995,16 @@ A7_ROW_CASES = [
      'A7-ROW-REASSESS-C3', 0),
     ('REASSESS-KEYS', A7 % (3, 'C4') + "countercase: case 8's freeze also citing an applying reassessment naming the "
      "finding and E1 as now worded (positive)", 'A7-ROW-REASSESS-C4', 0),
+    ('FINDING-FORM', A7 % (2, '8b') + "case 8's list, the record squash-landed on M (its witness in M's ancestry "
+     "does not descend from the listed commit), and F on the abandoned branch, so that a witness reached through F "
+     "descends from the listed commit", 'A7-ROW-FORM-8B', 0),
+    ('FINDING-FORM', A7 % (2, 'C1') + "countercase: a well-formed finding whose record has no witness in the run's M "
+     "ancestry and is found through REV, whose side_change_commits lists only commits that change the path, are "
+     "ancestors of that witness, and are not contained in the run's M (the run's M predates the change) (positive)",
+     'A7-ROW-FORM-C1', 0),
+    ('FINDING-FORM', A7 % (2, 'C3') + "countercase: C1 (the record found through REV only) with its only element a "
+     "merge commit that brings the change in (its tree entry for the path differs from its first parent's), an "
+     "ancestor of the witness, not in the run's M (positive)", 'A7-ROW-FORM-C3', 0),
 ]
 # the second variant of FINDING-KEYS case 5 (the numeric id), kept beside the case under a name of its own
 A7_ROW_EXTRA = [('FINDING-KEYS', A7_ROW_CASES[16][1] + ' [the variant whose id is a number]', 'A7-II-5', 1)]
@@ -1932,9 +2014,8 @@ A7_RUNS = {'A7-II-5': 2}
 
 def amendment_7_rows(repo_root=None):
     """Records the rows FINDING-FORM, FINDING-KEYS, FINDING-LINEAGE and REASSESS-KEYS with the engine runs of the local
-    cases above as their amendment-7 cases. The rows also hold cases with no runner here (the amendment-6 cases, and
-    FINDING-FORM 8b, C1 and C3), so each row's runner status is FAIL; the gate evaluates every case it has evidence
-    for and reports the others missing."""
+    cases above as their amendment-7 cases. Each row's runner status is FAIL because the amendment-6 cases have no
+    runner here. The gate evaluates the retained cases and reports the others missing."""
     rows = control_records.expectation_ids(repo_root)
     by = {c['id']: c for c in RESULTS}
     per_row = {}
@@ -1968,7 +2049,8 @@ SUITES = [('removal', removal_controls), ('topology', topology_controls), ('unre
           ('amendment-7-unit', amendment_7_unit_controls),
           ('amendment-7-reassess', amendment_7_reassess_controls),
           ('read-domain', read_domain_controls), ('milestone', milestone_controls),
-          ('explicit-review', explicit_review_controls), ('nits-0cafbdc0', nits_0cafbdc0_controls)]
+          ('explicit-review', explicit_review_controls), ('nits-0cafbdc0', nits_0cafbdc0_controls),
+          ('amendment-7-scope', amendment_7_scope_controls)]
 
 
 def main(out):
