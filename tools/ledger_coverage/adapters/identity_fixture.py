@@ -24,6 +24,11 @@ REGISTRY_FILE = ra.session_registry
 REVIEW_SCHEMA = 'oi-review-record/1'
 
 
+def review_record(fields):
+    """Every review record the fixtures and controls construct is built here, from its fields."""
+    return dict(fields)
+
+
 def session_id(name):
     """The registered id of a further fixture party named `name` (for example a second writer)."""
     s = re.sub('[^a-z0-9-]+', '-', name.lower()).strip('-') or 'party'
@@ -70,10 +75,10 @@ def bind(review, revision):
 
 def registry_review(path, data, revision, reviewer=REGISTRY_REVIEWER):
     doc = json.loads(data.decode('utf-8'))
-    return bind({'schema': REVIEW_SCHEMA, 'reviewer': reviewer,
+    return bind(review_record({'schema': REVIEW_SCHEMA, 'reviewer': reviewer,
                  'reviewed': {'path': path, 'blob_sha256': util.sha256(data)},
                  'method': 'checked each entry and withdrawal against its form comment',
-                 'verdicts': [{'item': i, 'verdict': 'accept'} for i in item_ids(doc)]}, revision)
+                 'verdicts': [{'item': i, 'verdict': 'accept'} for i in item_ids(doc)]}), revision)
 
 
 def is_review(data):

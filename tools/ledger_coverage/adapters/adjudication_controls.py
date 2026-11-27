@@ -25,6 +25,7 @@ if 'ledger_coverage' not in sys.modules:
     _spec.loader.exec_module(sys.modules['ledger_coverage'])
 
 from ledger_coverage.adapters import control_records  # noqa: E402
+from ledger_coverage.adapters.identity_fixture import review_record  # noqa: E402
 from ledger_coverage import record_authority as ra  # noqa: E402
 from ledger_coverage.engine import adjudication as adj  # noqa: E402
 from ledger_coverage.engine import findings as fd  # noqa: E402
@@ -101,9 +102,9 @@ class Fx:
         self.landing_time = datetime(2026, 11, 27, 12, 0, tzinfo=timezone.utc)
 
     def T(self, reviewer='t', **upd):
-        rv = {'schema': fd.review_schema, 'reviewer': reviewer, 'reviewed': dict(self.jref),
+        rv = review_record({'schema': fd.review_schema, 'reviewer': reviewer, 'reviewed': dict(self.jref),
               'method': 'read %s %s' % (h40('f'), h40('c')),
-              'verdicts': [{'item': i, 'verdict': 'accept', 'reason': 'checked'} for i in adj.item_ids(self.J)]}
+              'verdicts': [{'item': i, 'verdict': 'accept', 'reason': 'checked'} for i in adj.item_ids(self.J)]})
         rv.update(upd)
         return rv
 
@@ -346,9 +347,9 @@ def dissents():
                                          'addressed: not exempt, it blocks', o,
          o['admitted'] and o['blocking'] == [early])
     R = {'schema': 'oi-reconciliation/2', 'author': 'ra', 'paths': [{'path': P}]}
-    dvdoc = {'schema': 'oi-review-record/1', 'reviewer': 'v', 'reviewed': fx.rref, 'method': 'read ' + h40('d'),
+    dvdoc = review_record({'schema': 'oi-review-record/1', 'reviewer': 'v', 'reviewed': fx.rref, 'method': 'read ' + h40('d'),
              'verdicts': [{'item': P, 'verdict': 'accept', 'reason': 'checked'},
-                          {'item': P + ':scientific_effect', 'verdict': 'dissent', 'reason': 'repair disputed'}]}
+                          {'item': P + ':scientific_effect', 'verdict': 'dissent', 'reason': 'repair disputed'}]})
     ok = adj.dissents_addressed_problems(J, [(dv, dvdoc)], R)
     J_bad = copy.deepcopy(J)
     J_bad['dissents_addressed'] = [{'ref': dict(dv), 'item': P}, {'ref': {'path': 'x/none.json',

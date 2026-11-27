@@ -34,6 +34,7 @@ from ledger_coverage.engine import checker, cli, gitobj, outcome as oc, pipeline
 from ledger_coverage.adapters import host_fixture as hf  # noqa: E402
 from ledger_coverage.adapters import control_records  # noqa: E402
 from ledger_coverage.adapters import identity_fixture as idf  # noqa: E402
+from ledger_coverage.adapters.identity_fixture import review_record  # noqa: E402
 
 # set by the script entry: the recorder and the runs captured per control id
 REC = None
@@ -188,10 +189,10 @@ class Syn:
         recs += list(v.get('add_records', []))
         for p in ('syn/rules-pat.json', 'syn/rules-allow.json'):
             recs += self.chain(files, p, v.get('reviewer', REVIEWER) if p.endswith('allow.json') else REVIEWER)
-        wr0 = {'schema': 'oi-review-record/1', 'kind': 'widening', 'reviewer': WIDENER,
+        wr0 = review_record({'schema': 'oi-review-record/1', 'kind': 'widening', 'reviewer': WIDENER,
                'reviewed': {'path': 'syn/rules-allow.json', 'blob_sha256': sha(files['syn/rules-allow.json'])},
                'replaces': v0_ref, 'method': 'read the new allow rule',
-               'verdicts': [{'item': 'syn-allow-1:new allow rule without supersedes', 'verdict': 'accept'}]}
+               'verdicts': [{'item': 'syn-allow-1:new allow rule without supersedes', 'verdict': 'accept'}]})
         files['syn/rules-allow.widen.json'] = jb(wr0)
         recs.append({'kind': 'review', 'path': 'syn/rules-allow.widen.json',
                      'blob_sha256': sha(files['syn/rules-allow.widen.json'])})
@@ -205,11 +206,11 @@ class Syn:
             files['syn/rules-allow-v2.json'] = jb(wide)
             recs += self.chain(files, 'syn/rules-allow-v2.json', REVIEWER)
             if v.get('widening_review'):
-                wr = {'schema': 'oi-review-record/1', 'kind': 'widening', 'reviewer': v.get('widener', WIDENER),
+                wr = review_record({'schema': 'oi-review-record/1', 'kind': 'widening', 'reviewer': v.get('widener', WIDENER),
                       'reviewed': {'path': 'syn/rules-allow-v2.json', 'blob_sha256': sha(files['syn/rules-allow-v2.json'])},
                       'replaces': v.get('widening_replaces', old_ref), 'method': 'read',
                       'verdicts': [{'item': i, 'verdict': 'accept'} for i in v.get('widening_items',
-                                                                                   ['syn-allow-1:added files'])]}
+                                                                                   ['syn-allow-1:added files'])]})
                 files['syn/rules-allow-v2.widen.json'] = jb(wr)
                 recs.append({'kind': 'review', 'path': 'syn/rules-allow-v2.widen.json',
                              'blob_sha256': sha(files['syn/rules-allow-v2.widen.json'])})
@@ -332,9 +333,9 @@ class Syn:
         # C2 holds the configuration; its review names C2 as its revision, and the built commit adds that review and
         # the variant's own files (each layer a single-parent child of the one before)
         c2 = self.repo.derive(c1, dict(files), parents=[c1], subject=subject)
-        rv = {'schema': 'oi-review-record/1', 'reviewer': v.get('cfg_reviewer', REVIEWER), 'reviewed': cref,
+        rv = review_record({'schema': 'oi-review-record/1', 'reviewer': v.get('cfg_reviewer', REVIEWER), 'reviewed': cref,
               'method': 'read every referenced object', 'verdicts': [{'item': 'synthetic-retirement-config',
-                                                                     'verdict': 'accept'}]}
+                                                                     'verdict': 'accept'}]})
         r2 = r2 or c2
         self.last_revisions = (r1, r2)
         files[path.rsplit('/', 1)[0] + '/review.json'] = jb(idf.bind(rv, r2))
@@ -348,8 +349,8 @@ class Syn:
         ref = {'path': path, 'blob_sha256': sha(files[path])}
         from ledger_coverage.engine import records as rec
         ids = rec.item_ids(json.loads(files[path]))
-        rv = {'schema': 'oi-review-record/1', 'reviewer': reviewer, 'reviewed': ref, 'method': 'read',
-              'verdicts': [{'item': i, 'verdict': 'accept'} for i in ids]}
+        rv = review_record({'schema': 'oi-review-record/1', 'reviewer': reviewer, 'reviewed': ref, 'method': 'read',
+              'verdicts': [{'item': i, 'verdict': 'accept'} for i in ids]})
         rp = path[:-5] + '.review.json'
         files[rp] = jb(rv)
         return [{'kind': 'review', 'path': rp, 'blob_sha256': sha(files[rp])}]
@@ -553,10 +554,10 @@ def z_controls(r):
                       'author': WRITER}]}
 
     def widening(path, cfg_sha):
-        wr = {'schema': 'oi-review-record/1', 'kind': 'widening', 'reviewer': WIDENER,
+        wr = review_record({'schema': 'oi-review-record/1', 'kind': 'widening', 'reviewer': WIDENER,
               'reviewed': {'path': path, 'blob_sha256': cfg_sha}, 'replaces': sup,
               'method': 'read the added merge and its chain',
-              'verdicts': [{'item': 'synthetic-retirement-config:changed hp_obligations', 'verdict': 'accept'}]}
+              'verdicts': [{'item': 'synthetic-retirement-config:changed hp_obligations', 'verdict': 'accept'}]})
         wp = path.rsplit('/', 1)[0] + '/widening.json'
         return {wp: jb(wr)}
     v3 = dict(v2, post=widening, records_extra={'syn/hp.json': adj})

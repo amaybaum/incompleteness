@@ -24,6 +24,7 @@ if 'ledger_coverage' not in sys.modules:
     _spec.loader.exec_module(sys.modules['ledger_coverage'])
 
 from ledger_coverage.adapters import control_records  # noqa: E402
+from ledger_coverage.adapters.identity_fixture import review_record  # noqa: E402
 from ledger_coverage import record_authority as ra  # noqa: E402
 from ledger_coverage.engine import config  # noqa: E402
 from ledger_coverage.engine import gitobj  # noqa: E402
@@ -89,11 +90,11 @@ class World(object):
         self.sha = util.sha256(self.data)
         self.R0 = self.ov.add_commit({REG: self.data}, [], 'R0')
         es = S.entries(self.reg)
-        rv = review if review is not None else {
+        rv = review if review is not None else review_record({
             'schema': records.review_schema, 'reviewer': reviewer, 'method': 'read',
             'reviewed': {'path': REG, 'blob_sha256': self.sha}, 'revision': self.R0,
             'platform_ref': (es.get(reviewer) or {}).get('platform_ref', 'p-none'),
-            'verdicts': [{'item': i, 'verdict': 'accept'} for i in records.item_ids(self.reg)], 'dissent': ''}
+            'verdicts': [{'item': i, 'verdict': 'accept'} for i in records.item_ids(self.reg)], 'dissent': ''})
         if mutate_review:
             mutate_review(rv)
         self.review = rv
@@ -119,10 +120,10 @@ def review_of(w, reviewer, path, data, revision=None, platform_ref=None, rid='r'
     """A review by `reviewer` of `path` (bytes `data`) whose revision is a commit holding it, child of F."""
     rev = revision or w.ov.add_commit({path: data}, [w.F], 'rev-' + rid)
     es = S.entries(w.reg)
-    rv = {'schema': records.review_schema, 'reviewer': reviewer, 'method': 'read',
+    rv = review_record({'schema': records.review_schema, 'reviewer': reviewer, 'method': 'read',
           'reviewed': {'path': path, 'blob_sha256': util.sha256(data)}, 'revision': rev,
           'platform_ref': platform_ref if platform_ref is not None else (es.get(reviewer) or {}).get('platform_ref'),
-          'verdicts': [{'item': 'i', 'verdict': 'accept'}], 'dissent': ''}
+          'verdicts': [{'item': 'i', 'verdict': 'accept'}], 'dissent': ''})
     rv.update(kw)
     return rv, rev
 

@@ -15,6 +15,7 @@ from . import rules as rulemod
 from . import reconcile as rcmod
 from . import util
 from .gitobj import Overlay
+from ..adapters.identity_fixture import review_record
 
 # A control runner may set capture_hook to an object with `result_map()` (a dict that binds each control id to the stage
 # results captured before its assignment) and `stage(label, items, **facts)`. Unset (the self-test and the
@@ -650,8 +651,8 @@ def chain_world():
             'rules': [{'id': 'q1'}]}
     rb = util.canonical(rule)
     ref = {'path': 'rec/r.json', 'blob_sha256': util.sha256(rb)}
-    review = {'schema': rec.review_schema, 'reviewer': 'eng-reviewer', 'reviewed': ref, 'method': 'read the objects',
-              'verdicts': [{'item': 'q1', 'verdict': 'accept'}]}
+    review = review_record({'schema': rec.review_schema, 'reviewer': 'eng-reviewer', 'reviewed': ref, 'method': 'read the objects',
+              'verdicts': [{'item': 'q1', 'verdict': 'accept'}]})
     vb = util.canonical(review)
     vref = {'path': 'rec/r.review.json', 'blob_sha256': util.sha256(vb)}
     return rule, review, ref, vref

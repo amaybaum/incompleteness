@@ -13,6 +13,7 @@ import json
 
 from ledger_coverage.engine import cli, config as cfgmod, pipeline as pl, reconcile as rcmod, records as rec, util
 from ledger_coverage.adapters import host_fixture as hf, synthetic_fixture as sf
+from ledger_coverage.adapters.identity_fixture import review_record
 from ledger_coverage import record_authority as ra
 from ledger_coverage.engine import gitobj
 
@@ -80,10 +81,10 @@ class World:
 
     def review(self, path, data, reviewer=sf.REVIEWER):
         doc = json.loads(data)
-        return jb({'schema': rec.review_schema, 'reviewer': reviewer, 'reviewed': {'path': path,
+        return jb(review_record({'schema': rec.review_schema, 'reviewer': reviewer, 'reviewed': {'path': path,
                                                                                    'blob_sha256': sha(data)},
                    'method': 'read every object the record names',
-                   'verdicts': [{'item': i, 'verdict': 'accept', 'reason': ''} for i in rec.item_ids(doc)]})
+                   'verdicts': [{'item': i, 'verdict': 'accept', 'reason': ''} for i in rec.item_ids(doc)]}))
 
     def rev(self, files, parent=None, parents=None):
         parent = parent or self.M
@@ -1038,9 +1039,9 @@ def cite(doc, reviewer=sf.REVIEWER, review=True):
         files = {RA_PATH: b}
         recs = [{'kind': 'reassessment', 'path': RA_PATH, 'blob_sha256': sha(b)}]
         if review:
-            rv = jb({'schema': rec.review_schema, 'reviewer': reviewer,
+            rv = jb(review_record({'schema': rec.review_schema, 'reviewer': reviewer,
                      'reviewed': {'path': RA_PATH, 'blob_sha256': sha(b)}, 'method': 'read',
-                     'verdicts': [{'item': i, 'verdict': 'accept'} for i in rec.item_ids(doc)]})
+                     'verdicts': [{'item': i, 'verdict': 'accept'} for i in rec.item_ids(doc)]}))
             files[RA_PATH[:-5] + '.review.json'] = rv
             recs.append({'kind': 'review', 'path': RA_PATH[:-5] + '.review.json', 'blob_sha256': sha(rv)})
         return {'files': files, 'add_records': recs}
@@ -1192,11 +1193,11 @@ def sci_controls(r, check):
 
     def rejecting(path, data, reviewer=sf.REVIEWER):
         doc = json.loads(data)
-        return jb({'schema': rec.review_schema, 'reviewer': reviewer, 'reviewed': {'path': path,
+        return jb(review_record({'schema': rec.review_schema, 'reviewer': reviewer, 'reviewed': {'path': path,
                                                                                    'blob_sha256': sha(data)},
                    'method': 'read every object the record names',
                    'verdicts': [{'item': i, 'verdict': 'reject' if i.endswith(':scientific_effect') else 'accept'}
-                                for i in rec.item_ids(doc)]})
+                                for i in rec.item_ids(doc)]}))
     run(SCI[3], w, both(w), review=rejecting)
     w = sci_world(r)
     run(SCI[4], w, both(w), review=lambda p, d: w.review(p, d, reviewer=sf.WRITER))

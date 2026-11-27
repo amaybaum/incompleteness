@@ -29,6 +29,7 @@ if 'ledger_coverage' not in sys.modules:
     _spec.loader.exec_module(sys.modules['ledger_coverage'])
 
 from ledger_coverage.adapters import control_records  # noqa: E402
+from ledger_coverage.adapters.identity_fixture import review_record  # noqa: E402
 from ledger_coverage.adapters import synthetic_fixture as sf  # noqa: E402
 from ledger_coverage.adapters import record_directory_controls as rdc  # noqa: E402
 
@@ -477,9 +478,9 @@ def release_gate_controls(root):
     rsha = hashlib.sha256(rec).hexdigest()
 
     def rtt_files(kind=kind, listed_sha=None, review=None, list_review=True, schema='oi-review-record/1'):
-        rv = review if review is not None else {
+        rv = review if review is not None else review_record({
             'schema': schema, 'reviewer': 'session.fixture-reviewer-y', 'reviewed': {'path': d + '/rec.json', 'blob_sha256': rsha},
-            'verdicts': [{'item': 'i', 'verdict': 'accept'}]}
+            'verdicts': [{'item': 'i', 'verdict': 'accept'}]})
         refs = [{'kind': kind, 'path': d + '/rec.json', 'blob_sha256': listed_sha or rsha}]
         if list_review:
             refs.append({'kind': 'review', 'path': d + '/rec.review.json'})
@@ -500,8 +501,8 @@ def release_gate_controls(root):
     x = r('evidence-missing', rtt_files(), mode='missing')
     case('RT-T-REL-EVIDENCE-MISSING', 'the same with RT-T recorded PASS and its evidence absent: the gate fails '
                                       '(raw-evidence-missing)', x, demanded(x, 'raw-evidence-missing'))
-    base_rv = {'schema': 'oi-review-record/1', 'reviewer': 'session.fixture-reviewer-y',
-               'reviewed': {'path': d + '/rec.json', 'blob_sha256': rsha}}
+    base_rv = review_record({'schema': 'oi-review-record/1', 'reviewer': 'session.fixture-reviewer-y',
+               'reviewed': {'path': d + '/rec.json', 'blob_sha256': rsha}})
     out = {
         'no-config-argument': r('no-config', rtt_files(), lambda repo, F: G.Ctx(repo, F, F, None)),
         'wrong-config-path': r('wrong-path', rtt_files(), lambda repo, F: G.Ctx(repo, F, F, d + '/other.json')),
@@ -639,9 +640,9 @@ def allow_doc():
 
 def review_doc(path, b, reviewer=sf.REVIEWER, kind=None, replaces=None, items=None, **extra):
     from ledger_coverage.engine import records as rec
-    d = {'schema': 'oi-review-record/1', 'reviewer': reviewer, 'reviewed': {'path': path, 'blob_sha256': sf.sha(b)},
+    d = review_record({'schema': 'oi-review-record/1', 'reviewer': reviewer, 'reviewed': {'path': path, 'blob_sha256': sf.sha(b)},
          'method': 'read', 'verdicts': [{'item': i, 'verdict': 'accept'} for i in
-                                        (items if items is not None else rec.item_ids(json.loads(b)))]}
+                                        (items if items is not None else rec.item_ids(json.loads(b)))]})
     if kind:
         d['kind'] = kind
         d['replaces'] = replaces
@@ -986,18 +987,18 @@ def config_reviews(root):
                                      'refused (no file is discovered outside the table)', got[:3],
          got[:2] == (65, 'CONFIG_UNREVIEWED'))
     rv_ref = {'kind': 'review', 'path': 'syn/cfg/self.review.json', 'blob_sha256': '0' * 64}
-    selfrev = sf.jb({'schema': 'oi-review-record/1', 'reviewer': 'session.fixture-reviewer-c', 'kind': 'widening',
+    selfrev = sf.jb(review_record({'schema': 'oi-review-record/1', 'reviewer': 'session.fixture-reviewer-c', 'kind': 'widening',
                      'reviewed': {'path': 'syn/cfg/config.json', 'blob_sha256': '0' * 64}, 'replaces': None,
-                     'method': 'read', 'verdicts': []})
+                     'method': 'read', 'verdicts': []}))
     rv_ref['blob_sha256'] = sf.sha(selfrev)
     c3, p3, s3, _ = W.config(tip, None, B, extra_files={'syn/cfg/self.review.json': selfrev},
                              records_extra=[rv_ref])
     got = W.run(c3, p3)
     case('STAGING-CONFIG-REVIEWS/4', 'the configuration\'s records reference a widening review of the configuration '
                                      'itself: ERROR CONFIG_INVALID', got[:3], got[:2] == (65, 'CONFIG_INVALID'))
-    outside = sf.jb({'schema': 'oi-review-record/1', 'reviewer': 'session.fixture-reviewer-c',
+    outside = sf.jb(review_record({'schema': 'oi-review-record/1', 'reviewer': 'session.fixture-reviewer-c',
                      'reviewed': {'path': 'syn/cfg/config.json', 'blob_sha256': '0' * 64}, 'method': 'read',
-                     'verdicts': []})
+                     'verdicts': []}))
     out_ref = {'kind': 'review', 'path': 'syn/elsewhere/self.review.json', 'blob_sha256': sf.sha(outside)}
     c5, p5, s5, _ = W.config(tip, None, B, extra_files={'syn/elsewhere/self.review.json': outside},
                              records_extra=[out_ref])
@@ -1032,10 +1033,10 @@ def config_widening(root):
         def post(path, cfg_sha):
             out = {}
             for k in range(n):
-                wr = {'schema': 'oi-review-record/1', 'kind': 'widening', 'reviewer': reviewer if k == 0 else
+                wr = review_record({'schema': 'oi-review-record/1', 'kind': 'widening', 'reviewer': reviewer if k == 0 else
                       'session.fixture-widener-e', 'reviewed': {'path': path, 'blob_sha256': cfg_sha},
                       'replaces': replaces if replaces is not None else sup, 'method': 'read the widened corpus',
-                      'verdicts': [{'item': 'synthetic-retirement-config:changed corpus', 'verdict': 'accept'}]}
+                      'verdicts': [{'item': 'synthetic-retirement-config:changed corpus', 'verdict': 'accept'}]})
                 out[path.rsplit('/', 1)[0] + '/widening-%d.json' % k] = sf.jb(wr)
             return out
         return post
@@ -1082,9 +1083,9 @@ def first_allow(root):
         return rec.widening_review_problems(r, st, adm, rec.reviewers_of(r, st), sf.WRITER, old_ref, changed)
 
     def wide(**kw):
-        d = {'schema': 'oi-review-record/1', 'kind': 'widening', 'reviewer': sf.WIDENER,
+        d = review_record({'schema': 'oi-review-record/1', 'kind': 'widening', 'reviewer': sf.WIDENER,
              'reviewed': dict(ref), 'replaces': None, 'method': 'read',
-             'verdicts': [{'item': i, 'verdict': 'accept'} for i in changed]}
+             'verdicts': [{'item': i, 'verdict': 'accept'} for i in changed]})
         d.update(kw)
         for k in [k for k, v in kw.items() if v == '__drop__']:
             d.pop(k)
@@ -1142,9 +1143,9 @@ def first_allow_admission(root):
 
     def run(dup):
         verdicts = [{'item': i, 'verdict': 'accept'} for i in changed]
-        wide = sf.jb({'schema': 'oi-review-record/1', 'kind': 'widening', 'reviewer': sf.WIDENER,
+        wide = sf.jb(review_record({'schema': 'oi-review-record/1', 'kind': 'widening', 'reviewer': sf.WIDENER,
                       'reviewed': {'path': ALLOW_ROOT, 'blob_sha256': sf.sha(ab)}, 'replaces': None,
-                      'method': 'read the initial allow rules', 'verdicts': verdicts + (verdicts[:1] if dup else [])})
+                      'method': 'read the initial allow rules', 'verdicts': verdicts + (verdicts[:1] if dup else [])}))
         files = {'syn/cfg/allow-root.review.json': ordinary, 'syn/cfg/allow-root.widening.json': wide}
         recs = [{'kind': 'review', 'path': q, 'blob_sha256': sf.sha(b)} for q, b in sorted(files.items())]
         c, p, s_, _ = W.config(tip, None, B, extra_files=files, records_extra=recs,

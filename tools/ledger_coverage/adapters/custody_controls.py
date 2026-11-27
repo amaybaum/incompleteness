@@ -23,6 +23,7 @@ if 'ledger_coverage' not in sys.modules:
     _spec.loader.exec_module(sys.modules['ledger_coverage'])
 
 from ledger_coverage.adapters import control_records  # noqa: E402
+from ledger_coverage.adapters.identity_fixture import review_record  # noqa: E402
 from ledger_coverage import record_authority as ra  # noqa: E402
 from ledger_coverage.adapters import synthetic_fixture as sf  # noqa: E402
 from ledger_coverage.adapters import postfreeze_controls as pfc  # noqa: E402
@@ -57,8 +58,8 @@ def blob(b):
 
 
 def review(vbytes, items, reviewer=REVIEWER_C, dissent=None, path=None):
-    d = {'schema': rec.review_schema, 'reviewer': reviewer, 'reviewed': {'path': PATH, 'blob_sha256': sf.sha(vbytes)},
-         'method': 'read ' + blob(vbytes), 'verdicts': [{'item': i, 'verdict': 'accept', 'reason': ''} for i in items]}
+    d = review_record({'schema': rec.review_schema, 'reviewer': reviewer, 'reviewed': {'path': PATH, 'blob_sha256': sf.sha(vbytes)},
+         'method': 'read ' + blob(vbytes), 'verdicts': [{'item': i, 'verdict': 'accept', 'reason': ''} for i in items]})
     if dissent:
         d['dissent'] = dissent
     return pfc.jb(d)
@@ -120,10 +121,10 @@ def replacement(w, reviewer='session.fixture-reviewer-z', tokens=True):
     sb = sibling(w)[S_PATH]
     qb = w.repo.read(w.M, w.repair_entry['path'])
     method = 'read ' + (' '.join([gitobj.blob_id_of(qb), gitobj.blob_id_of(sb)]) if tokens else 'every object')
-    zb = pfc.jb({'schema': rec.review_schema, 'reviewer': reviewer, 'reviewed': {'path': R_PATH,
+    zb = pfc.jb(review_record({'schema': rec.review_schema, 'reviewer': reviewer, 'reviewed': {'path': R_PATH,
                                                                                  'blob_sha256': sf.sha(rb)},
                  'method': method, 'verdicts': [{'item': i, 'verdict': 'accept', 'reason': ''}
-                                                for i in rec.item_ids(json.loads(rb))]})
+                                                for i in rec.item_ids(json.loads(rb))]}))
     return R_PATH, rb, R_PATH[:-5] + '.review.json', zb
 
 
@@ -850,10 +851,10 @@ def adjudication_run_controls(r, two_pass, pin_q, sib, drop_sib):
         item = sf.DOC + ':scientific_effect'
         reviewer = 'session.fixture-reviewer-adverse'
         vp = qref['path'][:-5] + '.adverse.review.json'
-        vb = pfc.jb({'schema': rec.review_schema, 'reviewer': reviewer, 'reviewed': qref,
+        vb = pfc.jb(review_record({'schema': rec.review_schema, 'reviewer': reviewer, 'reviewed': qref,
                      'method': 'read ' + gitobj.blob_id_of(qb),
                      'verdicts': [{'item': i, 'verdict': 'reject' if i == item else 'accept', 'reason': 'checked'}
-                                  for i in rec.item_ids(json.loads(qb))]})
+                                  for i in rec.item_ids(json.loads(qb))]}))
         vref = {'path': vp, 'blob_sha256': sf.sha(vb)}
         vg = gitobj.blob_id_of(vb)
         token = obl29.item_token(vg, item)
@@ -934,10 +935,10 @@ def adjudication_run_controls(r, two_pass, pin_q, sib, drop_sib):
         if before_landing:
             before_landing(c, J, jdir)
         jb = pfc.jb(J)
-        T = {'schema': rec.review_schema, 'reviewer': 't', 'reviewed': {'path': jp, 'blob_sha256': sf.sha(jb)},
+        T = review_record({'schema': rec.review_schema, 'reviewer': 't', 'reviewed': {'path': jp, 'blob_sha256': sf.sha(jb)},
              'method': 'read %s %s' % (gitobj.blob_id_of(jb), g_source),
              'verdicts': [{'item': i, 'verdict': 'accept', 'reason': 'checked against the git objects'}
-                          for i in adjm.item_ids(J)]}
+                          for i in adjm.item_ids(J)]})
         tb = pfc.jb(T)
         if land:
             lc = c.step({jp: jb, tp: tb}, 'the adjudication lands (dedicated)')
@@ -1006,9 +1007,9 @@ def adjudication_run_controls(r, two_pass, pin_q, sib, drop_sib):
             change(J2)
         j2b = pfc.jb(J2)
         j2p = jdir + 'adj2.json'
-        T2 = {'schema': rec.review_schema, 'reviewer': 't2', 'reviewed': {'path': j2p, 'blob_sha256': sf.sha(j2b)},
+        T2 = review_record({'schema': rec.review_schema, 'reviewer': 't2', 'reviewed': {'path': j2p, 'blob_sha256': sf.sha(j2b)},
               'method': 'read %s %s' % (gitobj.blob_id_of(j2b), J2['grounds'][0]['evidence'][0]),
-              'verdicts': [{'item': i, 'verdict': review_verdict, 'reason': 'checked'} for i in adjm.item_ids(J2)]}
+              'verdicts': [{'item': i, 'verdict': review_verdict, 'reason': 'checked'} for i in adjm.item_ids(J2)]})
         lc = c.step({j2p: j2b, j2p[:-5] + '.review.json': pfc.jb(T2)}, 'an upheld adjudication lands, cited by none')
         c.w.repo.mem[lc]['time'] = int(_dt(2026, 11, 27, 13, 0, tzinfo=_tz.utc).timestamp())
 
@@ -1078,10 +1079,10 @@ def adjudication_run_controls(r, two_pass, pin_q, sib, drop_sib):
     def party_review(c, J):
         qref = J['witness']['disputed']
         q_bytes = c.w.repo.read(c.w.M, qref['path'])
-        review = {'schema': rec.review_schema, 'reviewer': 'adj-k', 'reviewed': qref,
+        review = review_record({'schema': rec.review_schema, 'reviewer': 'adj-k', 'reviewed': qref,
                   'method': 'read ' + gitobj.blob_id_of(q_bytes),
                   'verdicts': [{'item': i, 'verdict': 'accept', 'reason': 'checked against Q'}
-                               for i in rec.item_ids(json.loads(q_bytes))]}
+                               for i in rec.item_ids(json.loads(q_bytes))]})
         return {'verification/audits/adj-party/q.review.json': pfc.jb(review)}
 
     def upheld_then_review(c, J, jdir):
@@ -1138,11 +1139,11 @@ def adjudication_run_controls(r, two_pass, pin_q, sib, drop_sib):
                       reason='repair disputed', text_dissent=None):
         data = c.w.repo.read(c.w.M, entry['path'])
         reviewed = {'path': entry['path'], 'blob_sha256': entry['blob_sha256']}
-        review = {'schema': rec.review_schema, 'reviewer': reviewer, 'reviewed': reviewed,
+        review = review_record({'schema': rec.review_schema, 'reviewer': reviewer, 'reviewed': reviewed,
                   'method': 'read ' + gitobj.blob_id_of(data),
                   'verdicts': [{'item': i, 'verdict': 'dissent' if i in items else 'accept',
                                 'reason': reason if i in items else 'checked'}
-                               for i in rec.item_ids(json.loads(data)) if i != omit]}
+                               for i in rec.item_ids(json.loads(data)) if i != omit]})
         if text_dissent is not None:
             review['dissent'] = text_dissent
         encoded = pfc.jb(review)
@@ -1633,9 +1634,9 @@ def replay_controls(r, freeze_world, result):
     # the replay qualifies it over R*(M1) and reports it
     qd = w0.w.repair_entry['path'].rsplit('/', 1)[0] + '/'
     qdoc = json.loads(w0.w.repo.read(w0.w.M, w0.w.repair_entry['path']))
-    adverse = pfc.jb({'schema': rec.review_schema, 'reviewer': 'session.fixture-reviewer-adverse', 'reviewed': dict(w0.w.repair_entry),
+    adverse = pfc.jb(review_record({'schema': rec.review_schema, 'reviewer': 'session.fixture-reviewer-adverse', 'reviewed': dict(w0.w.repair_entry),
                       'method': 'read', 'verdicts': [{'item': i, 'verdict': 'reject', 'reason': 'x'}
-                                                     for i in rec.item_ids(qdoc)]})
+                                                     for i in rec.item_ids(qdoc)]}))
     adv = {qd + 'q.adverse.review.json': adverse}
 
     def drop_adv(cc, mb):
@@ -1833,9 +1834,9 @@ def amendment_1_controls(r):
             if v['item'] == item:
                 v.update(verdict='invalidates', reason='the change invalidates the planned edit',
                          invalidated=inv['invalidated'], configuration=inv['configuration'])
-        zb = pfc.jb({'schema': rec.review_schema, 'reviewer': reviewer, 'reviewed': {'path': QP,
+        zb = pfc.jb(review_record({'schema': rec.review_schema, 'reviewer': reviewer, 'reviewed': {'path': QP,
                                                                                      'blob_sha256': sf.sha(qb)},
-                     'method': 'read ' + 'a' * 40, 'verdicts': verdicts})
+                     'method': 'read ' + 'a' * 40, 'verdicts': verdicts}))
         return qb, zb, zp
 
     def a_null(zp, zb):
