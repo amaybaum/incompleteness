@@ -868,6 +868,33 @@ def _review_witnesses(cum, ref, doc, git, base, directory=None, contested=()):
     return out
 
 
+def competing_successors(repo, cum_m, scope, uref, U):
+    """r9 R6.OBL29.3, qualifying competing successors from the mutable scan, for the operative edge U -> P (P the
+    exact reference U names in `supersedes`): each durable record S in the M-derived portion of R* (`cum_m`, the walk
+    from M alone) whose regular entry the R6.RECON.2 (d) scan would select under `scope` (a json file under the
+    reconciliation root, outside the tool-landing prefixes and the plan's record directory, of schema
+    oi-reconciliation/2), whose exact reference differs from U's, and which names the same exact P in `supersedes`
+    with U's schema and lineage (R6.REC.7). Each exact reference is counted once. Returns [(S, ref, git blob id)]."""
+    from . import recon_route
+    pref, lid = _ref(U.get('supersedes')), rec.lineage_id(U)
+    out, counted = [], set()
+    for p, o in cum_m.entries():
+        inf = cum_m.info[o]
+        if inf[0] != 'a' or inf[1] != replay_selector_schema or not p.endswith('.json') or \
+                not p.startswith(recon_route.audits_root) or any(p.startswith(x) for x in scope.prefixes) or \
+                (scope.plan_dir and p.startswith(scope.plan_dir)):
+            continue
+        if (p, inf[2]) == (uref['path'], uref['blob_sha256']) or (p, inf[2]) in counted:
+            continue
+        S = fd.strict_parse(repo.read_blob_uncached(o))
+        if not isinstance(S, dict) or S.get('schema') != U.get('schema') or rec.lineage_id(S) != lid or \
+                _ref(S.get('supersedes')) != pref:
+            continue
+        counted.add((p, inf[2]))
+        out.append((S, {'path': p, 'blob_sha256': inf[2]}, o))
+    return out
+
+
 def replay_run(repo, c_, m, rev, load_config, schemas, prefix):
     """R6.CUST.6 for one run (m, rev) of the context c_ = {f, config}: the run's operative discharge checks
     re-established and their witnesses qualified under R6.OBL29.3 as a run with roots m, f and rev would have, from the
@@ -921,7 +948,11 @@ def replay_run(repo, c_, m, rev, load_config, schemas, prefix):
                                 % (aref['path'], m))
         base = {'context': f, 'run': m, 'rev': rev, 'original': (_ref(fref), fref.get('item'))}
         out += _review_witnesses(cum_m, aref, A, _git_at(repo, f, aref), base)
-        # the predecessors of the reassessment's existing lineage check, resolved from the context's anchor f
+        # the predecessors of the reassessment's existing lineage check, resolved from the context's anchor f. Their
+        # ordinary reviews form review witnesses; widening reviews do not, since a widening review applies to rule
+        # files and configurations (records.widening_review_problems), and the predecessors here are of the
+        # reassessment kind, as the repair record's are of the reconciliation kind: for these two kinds no widening
+        # review is required, so none can fail
         cur, seen = A, {aref['blob_sha256']}
         while isinstance(cur, dict) and isinstance(cur.get('supersedes'), dict):
             pref = _ref(cur['supersedes'])
@@ -958,25 +989,11 @@ def replay_run(repo, c_, m, rev, load_config, schemas, prefix):
         if not (isinstance(commits, list) and commits and all(c in chain for c in commits)) or not applies or \
                 rec.supersedes_problems(eref, Q, loaded.store):
             continue
-        pref, lid = _ref(sup), rec.lineage_id(Q)
-        counted = set()
-        for p, o in cum_m.entries():
-            inf = cum_m.info[o]
-            if inf[0] != 'a' or inf[1] != replay_selector_schema or not p.endswith('.json') or \
-                    not p.startswith(recon_route.audits_root) or any(p.startswith(x) for x in scope.prefixes) or \
-                    (scope.plan_dir and p.startswith(scope.plan_dir)):
-                continue
-            if (p, inf[2]) == (eref['path'], eref['blob_sha256']) or (p, inf[2]) in counted:
-                continue
-            S = fd.strict_parse(repo.read_blob_uncached(o))
-            if not isinstance(S, dict) or S.get('schema') != Q.get('schema') or rec.lineage_id(S) != lid or \
-                    _ref(S.get('supersedes')) != pref:
-                continue
-            counted.add((p, inf[2]))
+        for S, sref, sgit in competing_successors(repo, cum_m, scope, eref, Q):
             out.append(dict(base, kind='lineage', disputed=dict(eref), disputed_doc=Q, disputed_git=qgit,
-                            edge=(eref['blob_sha256'], pref['blob_sha256']),
-                            forming=[{'doc': S, 'git': o, 'path': p, 'ref': {'path': p, 'blob_sha256': inf[2]}}],
-                            contested=[pref['blob_sha256']]))
+                            edge=(eref['blob_sha256'], sup['blob_sha256']),
+                            forming=[{'doc': S, 'git': sgit, 'path': sref['path'], 'ref': sref}],
+                            contested=[sup['blob_sha256']]))
     return out
 
 

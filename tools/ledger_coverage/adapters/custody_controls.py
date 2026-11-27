@@ -89,6 +89,25 @@ def lineage_finding_world(r, variant=None, edits=None):
     return w
 
 
+R_PATH = 'verification/audits/syn-repl/r.json'
+
+
+def replacement(w, reviewer='reviewer-z', tokens=True):
+    """R': a reconciliation record of another lineage (syn-repl) for the same path, and Z, its only review in its
+    directory: an accepting review by a reviewer outside NR-3's exclusions whose method holds, when `tokens`, the git
+    blob ids of Q (the disputed record of the lineage witness) and of S (the record forming it) (NR-4). Both land on
+    main in main2. Returns (R' path, R' bytes, Z path, Z bytes)."""
+    rb = pfc.jb(w.record(record_id='syn-repl', author='writer-r2'))
+    sb = sibling(w)[S_PATH]
+    qb = w.repo.read(w.M, w.repair_entry['path'])
+    method = 'read ' + (' '.join([gitobj.blob_id_of(qb), gitobj.blob_id_of(sb)]) if tokens else 'every object')
+    zb = pfc.jb({'schema': rec.review_schema, 'reviewer': reviewer, 'reviewed': {'path': R_PATH,
+                                                                                 'blob_sha256': sf.sha(rb)},
+                 'method': method, 'verdicts': [{'item': i, 'verdict': 'accept'}
+                                                for i in rec.item_ids(json.loads(rb))]})
+    return R_PATH, rb, R_PATH[:-5] + '.review.json', zb
+
+
 def sibling(w, author='writer-s'):
     """S: another record of Q's lineage and schema naming the same exact P in supersedes, with its review."""
     S = w.record(record_id='syn-repair', author=author, supersedes=dict(w.p_ref))
@@ -108,14 +127,45 @@ class CW:
         self.n = 0
 
     @classmethod
-    def lineage(cls, r):
+    def lineage(cls, r, repl=False, cite_repl=False, cite_q=False):
         """A CW world whose repair record Q supersedes an earlier record P of its lineage (both reviewed on main), so
-        that a configuration pinning Q makes Q's R6.REC.7 check, and its edge Q -> P, operative."""
+        that a configuration pinning Q makes Q's R6.REC.7 check, and its edge Q -> P, operative.
+
+        repl: the current configuration cites A2, a reassessment of the same finding whose repair entry is the
+        replacement R' (lineage syn-repl; it lands with its review Z in main2, see replacement()), so that it relies
+        on a witness against Q only through (r3). cite_repl: the current configuration also cites R' and Z (NR-2).
+        cite_q: the current configuration cites Q and its review (with P and P's review at F), making Q's lineage
+        check operative in the current run (the live rule of R6.OBL29.3)."""
         self = cls.__new__(cls)
         w1 = lineage_finding_world(r, edits=pfc.EDITS_REWORDED)
-        self.w = lineage_finding_world(r, variant=pfc.cite(pfc.reassessment(w1)), edits=pfc.EDITS_REWORDED)
+        if repl:
+            rp_, rb, zp, zb = replacement(w1)
+            cur = pfc.reassessment(w1, repair={'commits': [w1.repair_commit],
+                                                'entry': {'path': rp_, 'blob_sha256': sf.sha(rb),
+                                                          'entry_path': sf.DOC}})
+        else:
+            cur = pfc.reassessment(w1)
+        base = pfc.cite(cur)
+        extra_files, extra_recs = {}, []
+        if repl and cite_repl:
+            extra_files.update({rp_: rb, zp: zb})
+            extra_recs += [{'kind': 'reconciliation', 'path': rp_, 'blob_sha256': sf.sha(rb)},
+                           {'kind': 'review', 'path': zp, 'blob_sha256': sf.sha(zb)}]
+        if cite_q:
+            q, qp = w1.repair_entry, w1.repair_entry['path']
+            for pth in (qp, qp[:-5] + '.review.json', P_PATH, P_PATH[:-5] + '.review.json'):
+                extra_files[pth] = w1.repo.read(w1.M, pth)
+            extra_recs += [dict(q, kind='reconciliation'),
+                           {'kind': 'review', 'path': qp[:-5] + '.review.json',
+                            'blob_sha256': sf.sha(extra_files[qp[:-5] + '.review.json'])}]
+
+        def variant(w_):
+            v = base(w_)
+            return {'files': dict(v['files'], **extra_files), 'add_records': list(v['add_records']) + extra_recs}
+        self.w = lineage_finding_world(r, variant=variant, edits=pfc.EDITS_REWORDED)
         self.boot = None
         self.n = 0
+        self.ctx_a = pfc.reassessment(w1)
         return self
 
     def step(self, files, subject='custody step', parents=None):
@@ -159,6 +209,8 @@ class CW:
                 'shape_whys': [p['why'] for p in cu.get('problems') or [] if p['item'] == 'custody-run-shape'],
                 'witnesses': cu.get('witnesses') or [],
                 'full_whys': [p['why'] for p in cu.get('problems') or []],
+                'contexts': len(cu.get('contexts') or []),
+                'decisions': [(d['blocked'], d['route'], d['clauses']) for d in cu.get('decisions') or []],
                 'reassess_why': [d for i in out.get('items', []) if i['class'] == 'record-invalid' and
                                  i.get('subject') == pfc.RA_PATH for d in (i.get('detail') or [])],
                 'reassessments': c3.get('reassessments'), 'blocked': [b['record']['path'] for b in c3.get('blocked')
@@ -423,12 +475,23 @@ def freeze_controls(r):
 
     def freeze_world(close=True, landing_kind='merge', runs=(), results=(), early_close=False, prereg_lists=True,
                      config_at_f=True, pre=None, classes=None, corpus_path=None, admission=None, world=None,
-                     main_files=None, cfg_records=()):
+                     main_files=None, cfg_records=(), ctx_reassessment=None, extra_ctx=None, f_files=None):
         c = world(r) if world is not None else CW(r)
         v0 = c.bootstrap()
         main_before = c.w.M
         # the world's configuration already cites its reassessment (with the record at f), so no further reference
         kb = config_doc(c.w, corpus_path=corpus_path, admission=admission, reassessment=False)
+        ctx_files = {}
+        if ctx_reassessment is not None:
+            # the context's configuration cites another reassessment (bytes) in place of the current one
+            ab = pfc.jb(ctx_reassessment)
+            ap = KD + 'reassessment.json'
+            ctx_files[ap] = ab
+            d_ = json.loads(kb)
+            d_['records'] = [x for x in d_['records'] if x.get('path') not in (pfc.RA_PATH, pfc.RA_PATH[:-5] +
+                                                                              '.review.json')] + \
+                [{'kind': 'reassessment', 'path': ap, 'blob_sha256': sf.sha(ab)}]
+            kb = pfc.jb(d_)
         if cfg_records:
             d_ = json.loads(kb)
             d_['records'] = list(d_['records']) + [dict(x) for x in cfg_records]
@@ -452,6 +515,8 @@ def freeze_controls(r):
             # through its own adapter (R6.RECON.1)
             files.update({q: b for q, b in c.w.files.items() if isinstance(b, bytes) and q != c.w.p})
         files.update(cls_files)
+        files.update(ctx_files)
+        files.update(f_files or {})
         if corpus_path is not None:
             files[corpus_path] = b'# a corpus path of the context\n'
         F1 = c.w.repo.derive(main_before, files, parents=[main_before], subject='freeze F1')
@@ -475,6 +540,7 @@ def freeze_controls(r):
             other = c.w.repo.derive(c.w.syn.H, {'notes/other.txt': b'o\n'}, parents=[c.w.syn.H], subject='line')
             tree = {p_: c.w.repo.read(main2, p_) for p_ in c.w.repo.entries(main2)}
             c.step(tree, 'foxtrot', parents=[other, main2])
+            c.fox = c.w.M
             L = c.step(branch, 'land F1', parents=[c.w.M, tip])
         elif landing_kind == 'foxtrot':
             # the landing merge, then a foxtrot fast-forward: main's next commit has another line as first parent and
@@ -493,6 +559,21 @@ def freeze_controls(r):
         ents = [fe]
         if close:
             ents.append({'f': F1, 'runs': [{'m': m, 'rev': rv} for m, rv in runs], 'type': 'close'})
+        if extra_ctx is not None:
+            # a later context F3: configuration kb3 (records: extra_ctx['records'], files at F3: extra_ctx['files'])
+            # in its own plan directory, landed by a merge, with a reviewed freeze entry and a close of no runs
+            KD3 = 'verification/audits/syn-plan3/'
+            d3 = json.loads(config_doc(c.w, reassessment=False))
+            d3['records'] = list(d3['records']) + [dict(x) for x in extra_ctx.get('records', ())]
+            kb3 = pfc.jb(d3)
+            f3 = dict(extra_ctx.get('files', {}), **{KD3 + 'config.json': kb3, KD3 + 'PREREG.md': (
+                '### 1.1 Record pins\n\n| file | sha256 |\n|---|---|\n| `config.json` | `%s` |\n' % sf.sha(kb3)).encode()})
+            F3 = c.w.repo.derive(c.w.M, f3, parents=[c.w.M], subject='freeze F3')
+            m3 = c.step({'notes/m3.txt': b'm3\n'}, 'main moves again')
+            L3 = c.step(f3, 'land F3', parents=[m3, F3])
+            kref3 = {'path': KD3 + 'config.json', 'blob_sha256': sf.sha(kb3)}
+            ents += [{'config': kref3, 'f': F3, 'landing': L3, 'type': 'freeze'}, {'f': F3, 'runs': [], 'type': 'close'}]
+            c.F3 = F3
         if early_close:
             # the custody version holding the close is committed on a branch forked before the landing, then merged
             v1 = version(json.loads(v0)['entries'] + ents, pred=blob(v0))
@@ -698,7 +779,12 @@ def replay_controls(r, freeze_world, result):
     w0 = CW.lineage(r)
     pin_q = [{'kind': 'reconciliation', 'path': w0.w.repair_entry['path'],
               'blob_sha256': w0.w.repair_entry['blob_sha256']}]
-    sib = sibling(w0.w)
+    # the records that land in main2 are drafted from the world without a configuration variant (the same
+    # construction CW.lineage uses for the current configuration's references)
+    wb = lineage_finding_world(r, edits=pfc.EDITS_REWORDED)
+    sib = sibling(wb)
+    rp_, rb, zp, zb = replacement(wb)
+    repl_files = {rp_: rb, zp: zb}
 
     def drop_sib(cc, mb):
         # S leaves main after M1 (removal is never a discharge): it stays in R*(M1), and the current scan no longer
@@ -718,6 +804,60 @@ def replay_controls(r, freeze_world, result):
          'record-invalid' in o['classes'] and 'retirement-blocked' in o['classes'] and not o['reassessments'] and
          len(o['reassess_why']) == 1 and 'blocked by the lineage witness' in o['reassess_why'][0] and
          'r1' in o['reassess_why'][0])
+    # CU-N16-ROUTE: as CU-N16, with the run's m a foxtrot commit whose first-parent chain lacks the repair commit
+    # (main2, with S, is its second parent): the original positive route was not operative at m, so S forms no
+    # lineage witness
+    c, m = two_pass(world=CW.lineage, cfg_records=pin_q, main_files=sib, pre=drop_sib, landing_kind='foxtrot-m',
+                    m_of=lambda c_: c_.fox)
+    o = c.run()
+    case('CU-N16-ROUTE', 'as CU-N16 with the run\'s m a commit whose first-parent chain lacks the repair commit: the '
+                         'positive route was not operative at m, so no lineage witness', o,
+         o['status'] == 'established' and not [x for x in o['witnesses'] if x['kind'] == 'lineage'])
+    # CU-X4: the current freeze cites A2, whose repair is the replacement R' (reliance only through r3), and does
+    # not admit R'. Context F1 cites A (repair Q), pins Q and pins R' with its accepting review Z: a replayed
+    # context supplies no NR-2 admission, so the lineage witness blocks
+    pin_r = [{'kind': 'reconciliation', 'path': rp_, 'blob_sha256': sf.sha(rb)},
+             {'kind': 'review', 'path': zp, 'blob_sha256': sf.sha(zb)}]
+
+    def repl_world(cite_repl):
+        return lambda r_: CW.lineage(r_, repl=True, cite_repl=cite_repl)
+    c, m = two_pass(world=repl_world(False), cfg_records=pin_q + pin_r, main_files=dict(sib, **repl_files),
+                    pre=drop_sib, ctx_reassessment=pfc.reassessment(wb), f_files=repl_files)
+    o = c.run()
+    lw = [x for x in o['witnesses'] if x['kind'] == 'lineage']
+    case('CU-X4', 'context F1 pins Q and admits R\' with an accepting review; the current freeze cites A2 (repair R\', '
+                  'reliance only r3) without admitting R\': NR-2 is not met, the lineage witness blocks', {'o': o},
+         o['status'] == 'established' and len(lw) == 1 and not o['reassessments'] and
+         len(o['reassess_why']) == 1 and 'blocked by the lineage witness' in o['reassess_why'][0] and
+         o['reassess_why'][0].endswith('clauses r3'))
+    # countercontrol: the same world with the current freeze admitting R' and Z (NR-1 to NR-4 hold): the witness is
+    # cleared and the discharge applies
+    c, m = two_pass(world=repl_world(True), cfg_records=pin_q + pin_r, main_files=dict(sib, **repl_files),
+                    pre=drop_sib, ctx_reassessment=pfc.reassessment(wb), f_files=repl_files)
+    o = c.run()
+    case('CU-X4-COUNTER', 'the CU-X4 world with the current freeze admitting R\' and its review Z, whose method holds '
+                          'the git blob ids of Q and S: NR-1 to NR-4 hold, the witness is cleared and the discharge '
+                          'applies', o,
+         o['status'] == 'established' and bool(o['reassessments']) and len(o['witnesses']) >= 1 and
+         'retirement-blocked' not in o['classes'] and
+         ('non-reliance (NR-1 to NR-4)' in [x[1] for x in o['decisions'] if not x[0]]))
+    # CU-X1: the CU-X4 world, plus a later context F3 citing A2 that admits R' with a review Z' by another reviewer
+    # lacking NR-4's tokens, with its own close: a later context is not a clearance; F1's witness still blocks
+    zb3 = json.loads(zb)
+    zb3.update(reviewer='reviewer-other', method='read every object')
+    zb3 = pfc.jb(zb3)
+    z3p = 'verification/audits/syn-plan3/z.review.json'
+    c, m = two_pass(world=repl_world(False), cfg_records=pin_q + pin_r, main_files=dict(sib, **repl_files),
+                    pre=drop_sib, ctx_reassessment=pfc.reassessment(wb), f_files=repl_files,
+                    extra_ctx={'records': [pin_r[0], {'kind': 'review', 'path': z3p, 'blob_sha256': sf.sha(zb3)}],
+                               'files': {z3p: zb3}})
+    o = c.run()
+    lw = [x for x in o['witnesses'] if x['kind'] == 'lineage']
+    case('CU-X1', 'the CU-X4 world with a later closed context F3 admitting R\' under a review lacking NR-4\'s tokens: '
+                  'F1\'s lineage witness still blocks (no clearance route)', {'o': o},
+         o['status'] == 'established' and o['contexts'] == 2 and len(lw) == 1 and
+         lw[0]['context'] != getattr(c, 'F3', None) and
+         not o['reassessments'] and any('blocked by the lineage witness' in x for x in o['reassess_why']))
     # CU-P9: S lands on main only after M1, so S is not in R*(M1): no witness from custody, the discharge applies
     def after(cc, mb):
         cc.step(sib, 'S lands after M1')
@@ -727,8 +867,12 @@ def replay_controls(r, freeze_world, result):
     case('CU-P9', 'F1\'s only run is (M1, null) and sibling S lands after M1: S is not in R*(M1), no witness, PASS', o,
          o['status'] == 'established' and not o['witnesses'] and bool(o['reassessments']))
     # the same world with F1 not pinning Q: Q found only by the entry lookup at M1 has no lineage check, so S is no
-    # witness
-    c, m = two_pass(world=CW.lineage, main_files=sib, pre=drop_sib)
+    # witness. F1 pins P instead (with its review), so that Q's directory is read at f and Q's edge resolves there
+    # without failure: the only condition that fails is that F1 does not cite Q
+    pp = P_PATH[:-5] + '.review.json'
+    pin_p = [dict(wb.p_ref, kind='reconciliation'),
+             {'kind': 'review', 'path': pp, 'blob_sha256': sf.sha(wb.repo.read(wb.M, pp))}]
+    c, m = two_pass(world=CW.lineage, main_files=sib, pre=drop_sib, cfg_records=pin_p)
     o = c.run()
     case('CU-P9-UNPINNED', 'the CU-N16 world with F1 not pinning Q: a repair found solely by the entry lookup at m has '
                            'no lineage check, so S forms no witness and the discharge applies', o,
