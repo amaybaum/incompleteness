@@ -462,13 +462,18 @@ def k_controls():
     out['K3'] = [i['class'] for i in it if i['subject'] == sd] == ['context-meaning-unverified'] and \
         not [i for i in it if i['subject'] == sr] and not it3 and cv3.site_out[sr3]['context_changed'] is True and \
         cv3.site_out[sd3]['context_changed'] is False
+    # K4: the required site moves to a distant section (its K1 half) and the non-required site whose neighbour
+    # it was keeps its line with a changed context (its K2 half: no item, context_changed true; R6.CTRL.18)
+    w4 = World(sites=[(3, 'sd'), (5, 'sr')])
+    sd4, sr4 = '%s:3@%s' % (doc_path, w4.pin[:8]), '%s:5@%s' % (doc_path, w4.pin[:8])
     mv = base_text.replace('alpha line one stands here.\n\n', '') + '\nfar away.\n\nalpha line one stands here.\n'
-    x = w.child(w.pin, mv)
-    cv, it = w.coverage(x, [seg(w.pin, x)], hits=False)
-    _capture_site_case('required site', cv, it, sd, subject_required=sd)
-    _capture_site_case('non-required site', cv, it, sr, subject_nonrequired=sr)
-    _restore(w, hits=False)
-    out['K4'] = [i['class'] for i in it if i['subject'] == sd] == ['context-meaning-unverified']
+    x = w4.child(w4.pin, mv)
+    cv, it = w4.coverage(x, [seg(w4.pin, x)], hits=False)
+    _capture_site_case('required site', cv, it, sd4, subject_required=sd4)
+    _capture_site_case('non-required site', cv, it, sr4, subject_nonrequired=sr4)
+    _restore(w4, hits=False)
+    out['K4'] = [i['class'] for i in it if i['subject'] == sd4] == ['context-meaning-unverified'] and \
+        not [i for i in it if i['subject'] == sr4] and cv.site_out[sr4]['context_changed'] is True
     at = '# h\n\nlead sentence here.\nThis bound holds below.\n\nother text.\n'
     w5 = World(at, sites=[(4, 'sr')])
     x = w5.child(w5.pin, at.replace('lead sentence here.', 'lead sentence changed.'))
