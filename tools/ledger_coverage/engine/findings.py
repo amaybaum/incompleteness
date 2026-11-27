@@ -22,6 +22,8 @@ recon_schemas = ('oi-reconciliation/1', 'oi-reconciliation/2')
 # the mechanical floor of the executed-path rule (R6.RECON.30, R6.CFG.4 executed_suffixes)
 executed_floor = ('.py', '.lean', '.yml', '.yaml', '.sh')
 review_schema = 'oi-review-record/1'
+# the engine's internal tags of the R6.RECON.35 classes (a), (b) and (c)
+tag_strict, tag_lenient, tag_textual = 'strict', 'lenient', 'textual'
 _esc = re.compile(r'\\u([0-9a-fA-F]{4})')
 _hex40 = re.compile(r'[0-9a-f]{40}\Z')
 _hex64 = re.compile(r'[0-9a-f]{64}\Z')
@@ -115,24 +117,25 @@ def _schema_like(o):
 
 
 def classify(data):
-    """(class, detail) of one blob: ('a', schema), ('b', signal), ('c', signal) or None (not selected or no class)."""
+    """(class, detail) of one blob: (tag_strict, schema), (tag_lenient, signal) or (tag_textual, signal), the scan's
+    classes (a), (b) and (c), or None (not selected or no class)."""
     dec = _decode(data)
     if dec is None:
         return None
     text, _ = dec
     doc = strict_parse(data)
     if isinstance(doc, dict) and doc.get('schema') in recon_schemas + (review_schema,):
-        return ('a', doc['schema'])
+        return (tag_strict, doc['schema'])
     resolved = _resolve_escapes(text)
     signal = 'invalidates' in resolved or 'invalidated' in resolved
     loose = _lenient(text.lstrip('﻿'))
     if loose is not None:
         if any(_schema_like(o) for o in _objects(loose)):
-            return ('b', signal)
+            return (tag_lenient, signal)
         return None
     folded = resolved.casefold()
     if 'oi-review-record/' in folded or 'oi-reconciliation/' in folded:
-        return ('c', signal)
+        return (tag_textual, signal)
     return None
 
 

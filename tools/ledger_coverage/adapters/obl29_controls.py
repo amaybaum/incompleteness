@@ -903,9 +903,10 @@ def r13_form_controls(r):
         'prose': fdm.classify(b'# oi-reconciliation/2 quoted in prose'),
         'other json': fdm.classify(b'{"schema": "oi-term-rules/2"}'),
     }
-    want = {'strict recon': ('a', 'oi-reconciliation/2'), 'duplicate key': ('b', False), 'NaN': ('b', False),
-            'utf-16 BOM': ('b', False), 'nested schema': ('b', False), 'review shape': ('b', True),
-            'unparseable': ('c', True), 'escaped': ('c', False), 'prose': None, 'other json': None}
+    a_, b_, c_ = fdm.tag_strict, fdm.tag_lenient, fdm.tag_textual  # the engine's tags of classes (a), (b), (c)
+    want = {'strict recon': (a_, 'oi-reconciliation/2'), 'duplicate key': (b_, False), 'NaN': (b_, False),
+            'utf-16 BOM': (b_, False), 'nested schema': (b_, False), 'review shape': (b_, True),
+            'unparseable': (c_, True), 'escaped': (c_, False), 'prose': None, 'other json': None}
     case('SCAN-CLASSES', 'R6.RECON.35 selection and classes (a), (b), (c) and the invalidation signal on fixed bytes',
          {k: list(v) if v else v for k, v in cls.items()}, cls == want)
 

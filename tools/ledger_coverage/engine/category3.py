@@ -448,7 +448,7 @@ class Cumulative:
                 self.subtrees[key] = ents
             for p, _m, o in ents:
                 self.first_seen.setdefault((p, o), c)
-                if self.info[o][3] or self.info[o][0] == 'a':
+                if self.info[o][3] or self.info[o][0] == fd.tag_strict:
                     # the commits holding each class (a) record: the witnesses of a finding's record and of the record
                     # carrying its entry (r13 Amendment 7)
                     self.holders.setdefault((p, o), set()).add(c)
@@ -465,13 +465,13 @@ class Cumulative:
                 return ('adj', doc['schema'], util.sha256(data), False, None, None)
             return None
         sha = util.sha256(data)
-        if got[0] in ('b', 'c'):
+        if got[0] in (fd.tag_lenient, fd.tag_textual):
             return (got[0], got[1], sha, bool(got[1]), None, None)
         doc = fd.strict_parse(data)
         if got[1] == fd.review_schema:
             rv = doc.get('reviewed') if isinstance(doc.get('reviewed'), dict) else {}
-            return ('a', got[1], sha, bool(fd.second_kind_verdicts(doc)), rv.get('path'), rv.get('blob_sha256'))
-        return ('a', got[1], sha, bool(fd.first_kind_entries(doc)), None, None)
+            return (fd.tag_strict, got[1], sha, bool(fd.second_kind_verdicts(doc)), rv.get('path'), rv.get('blob_sha256'))
+        return (fd.tag_strict, got[1], sha, bool(fd.first_kind_entries(doc)), None, None)
 
     def entries(self):
         """The distinct (path, blob id) entries of R*."""
@@ -512,7 +512,7 @@ class Cumulative:
             self._recon_index = {}
             for p, o in self.entries():
                 inf = self.info[o]
-                if inf[0] == 'a' and inf[1] in fd.recon_schemas:
+                if inf[0] == fd.tag_strict and inf[1] in fd.recon_schemas:
                     self._recon_index.setdefault((p, inf[2]), o)
         o = self._recon_index.get((ref.get('path'), ref.get('blob_sha256'))) if isinstance(ref, dict) else None
         return fd.strict_parse(self.repo.read_blob_uncached(o)) if o is not None else None
@@ -528,10 +528,12 @@ class Cumulative:
                 continue
             ref = {'path': p, 'blob_sha256': inf[2]}
             data = self.repo.read_blob_uncached(o)
-            if inf[0] in ('b', 'c'):
-                out.append({'kind': 'malformed', 'class': inf[0], 'record': ref, 'item': None, 'entry': None, 'path': p,
+            if inf[0] in (fd.tag_lenient, fd.tag_textual):
+                # the emitted class keeps the design's letter (R6.RECON.35), as the result has always carried it
+                letter = {fd.tag_lenient: 'b', fd.tag_textual: 'c'}[inf[0]]
+                out.append({'kind': 'malformed', 'class': letter, 'record': ref, 'item': None, 'entry': None, 'path': p,
                             'configuration': None, 'invalidated': None, 'verdict_item': None,
-                            'form': ['a malformed record of class (%s)' % inf[0]]})
+                            'form': ['a malformed record of class (%s)' % letter]})
                 continue
             doc = fd.strict_parse(data)
             if inf[1] in fd.recon_schemas:
@@ -558,7 +560,7 @@ class Cumulative:
         out = []
         for p, o in self.entries():
             inf = self.info[o]
-            if inf[0] != 'a' or inf[1] != fd.review_schema or inf[4] != ref.get('path') or \
+            if inf[0] != fd.tag_strict or inf[1] != fd.review_schema or inf[4] != ref.get('path') or \
                     inf[5] != ref.get('blob_sha256'):
                 continue
             if directory is not None and posixpath.dirname(p) != directory:
@@ -574,7 +576,7 @@ class Cumulative:
         out = []
         for p, o in self.entries():
             inf = self.info[o]
-            if inf[0] != 'a' or inf[1] != fd.review_schema or inf[4] != ref.get('path') or \
+            if inf[0] != fd.tag_strict or inf[1] != fd.review_schema or inf[4] != ref.get('path') or \
                     inf[5] != ref.get('blob_sha256'):
                 continue
             if directory is not None and posixpath.dirname(p) != directory:
@@ -588,7 +590,7 @@ class Cumulative:
         # The class (b) and (c) files without an invalidation signal in one tree, outside `excluded(path)`: the
         # ordinary malformed-nonfinding lint of the current snapshot (R6.OBL29.2, R6.RECON.35).
         key, ents = self.repo.prefix_entries(commit, self.prefix, self.keep)
-        return sorted(p for p, _m, o in ents if self.info[o][0] in ('b', 'c') and not self.info[o][3]
+        return sorted(p for p, _m, o in ents if self.info[o][0] in (fd.tag_lenient, fd.tag_textual) and not self.info[o][3]
                       and not excluded(p))
 
     def read_domain(self, explicit=()):
@@ -1031,7 +1033,7 @@ def competing_successors(repo, cum_m, scope, uref, U):
     out, counted = [], set()
     for p, o in cum_m.entries():
         inf = cum_m.info[o]
-        if inf[0] != 'a' or inf[1] != replay_selector_schema or not p.endswith('.json') or \
+        if inf[0] != fd.tag_strict or inf[1] != replay_selector_schema or not p.endswith('.json') or \
                 not p.startswith(recon_route.audits_root) or any(p.startswith(x) for x in scope.prefixes) or \
                 (scope.plan_dir and p.startswith(scope.plan_dir)):
             continue
