@@ -303,7 +303,7 @@ def o9_controls(r, check, recorder):
     repo, H, F, M = world({dele: None})
     res = main_role(repo, H, F, M)
     scan_lists = bool(side_of(res, dele))
-    recorder.name_last('', bindings={'deleted': dele}, attested={'not_in_H_to_M_scan': None if scan_lists else dele})
+    recorder.name_last('', bindings={'deleted': dele})
     check('RDIR-4', 'a file of F in D deleted on M (absent at H and M): side-change-unclassified (absent at M), reported '
           'by A.5 although the H-to-M scan does not list it', 'an unclassified item "absent at M" for the deleted path, '
           'and no side-change entry for it from the scan', res,
@@ -453,7 +453,7 @@ def o9_controls(r, check, recorder):
     repo, H, F, M = world()
     cls = [{'id': 'pinned', 'pins': [{'path': p13, 'git_blob': None, 'blob_sha256': '0' * 64}]}]
     res = main_role(repo, H, F, M, classes=cls)
-    recorder.name_last('', bindings={'p': p13})
+    recorder.name_last('', bindings={'p': p13, 'class_id': cls[0]['id']})
     check('RDIR-13', 'a path in D, equal at F and M, that a class names with a pin differing from M: '
           'side-change-unclassified naming the class; not record-directory',
           'unclassified with the class-pin reason naming class pinned', res,
@@ -583,7 +583,7 @@ def o9_controls(r, check, recorder):
     cls = [{'id': 'matching', 'pins': [{'path': p21, 'git_blob': repo.blob_id(M, p21), 'blob_sha256': sha(new)}]}]
     res = main_role(repo, H, F, M, classes=cls)
     class_route_stands = side_of(res, p21) == [(p21, 'matching', None)]
-    recorder.name_last('', attested={'class_route_entry_stands': class_route_stands})
+    recorder.name_last('', bindings={'path': p21, 'class_id': cls[0]['id']})
     check('RDIR-21', 'a file in D that differs between F and M, and a class pin naming it that matches M: the class '
           'route\'s entry stands and A.5 issues side-change-unclassified (differs from F); not accepting',
           'side-change entry class matching; an unclassified item "differs from F"', res,
@@ -894,16 +894,18 @@ def i2_controls(r, check, workflow_path, recorder):
     syn, sw, F, p, d, names = i2_world(ctx_doc_of([]), hit_doc_of([hit]))
     code, res, got = coverage_via_arm(r, syn, sw, F, p, d, arm)
     routed = [h for h in got.get('hits', []) if h.get('id') == 'h1']
-    rec_ = [dict({k: v for k, v in h.items() if k != '_ref'}) for h in routed]
-    tm1 = pl.Terms(ctx, wz.pin, [ctx.profiles['np-review']], [], hit_records=rec_)
+    ref = {'path': names['hits'], 'blob_sha256': sha(syn.repo.read(F, names['hits']))}
+    tm1 = pl.Terms(ctx, wz.pin, [ctx.profiles['np-review']], [], hit_records=routed)
     tm1.review(held={})
     s0 = [h['state'] for h in tm0.hits if h['line_sha256'] == hit['line_sha256']]
-    s1 = [h['state'] for h in tm1.hits if h['line_sha256'] == hit['line_sha256']]
+    s1 = [h['state'] for h in tm1.hits
+          if h['line_sha256'] == hit['line_sha256'] and h.get('classified_by') == ref]
     # the two terms reviews as retained runs, the hit bound by its file and line in the reviewed tree
     hit_line = [h['line'] for h in tm0.hits if h['line_sha256'] == hit['line_sha256']]
     hit_subject = '%s:%d' % (ce.doc_path, hit_line[0]) if len(hit_line) == 1 else None
     recorder.capture_doc('pipeline.Terms.review with the routed hit classification', control_records.stage_doc(
-        tm1.items, operation='terms', hits=tm1.hits), case='with record', bindings={'hit': hit_subject})
+        tm1.items, operation='terms', hits=tm1.hits), case='with record',
+        bindings={'hit': hit_subject, 'record': ref})
     recorder.capture_doc('pipeline.Terms.review without the record', control_records.stage_doc(
         tm0.items, operation='terms', hits=tm0.hits), case='without', bindings={'hit': hit_subject})
     check('I2-7', 'a hit classification supplied through hit-classifications.json, matching a hit outside any HP region '

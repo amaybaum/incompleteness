@@ -74,6 +74,7 @@ class Delegation:
                     except Exception as exc:  # a class adapter fault is a defect of the evidence
                         got = [('fail', 'class adapter raised %s: %s' % (type(exc).__name__, exc))]
                     results.append((name, got))
+            supplied_paths = {}
             for name, n in sorted((supplied or {}).items()):
                 if name in c.get('evidence', []):
                     # a supplied file is never evidence; it is inspected only to reject a defective one (G8)
@@ -82,15 +83,18 @@ class Delegation:
                     except (ValueError, UnicodeDecodeError, AttributeError):
                         doc = None
                     if isinstance(doc, dict) and ('plan' not in doc or doc.get('plan') is None):
-                        results.append(('supplied', [('fail', '%s: plan field null or absent' % name)]))
+                        why = '%s: plan field null or absent' % name
+                        supplied_paths[why] = name
+                        results.append(('supplied', [('fail', why)]))
             for name, got in results:
                 for st, why in got:
                     if st == 'fail':
                         state = 'fail'
+                        path = {'file': supplied_paths[why]} if name == 'supplied' and why in supplied_paths else {}
                         items.append(oc.make_item('DELEGATED', 'delegated-evidence-invalid',
                                                   '%s: %s' % (c['id'], why), None,
                                                   {'class': c['id'], 'tree': name, 'why': why},
-                                                  delegated_class=c['id'], tree=name))
+                                                  delegated_class=c['id'], tree=name, **path))
                     elif st == 'missing':
                         state = 'missing' if state == 'pass' else state
                         items.append(oc.make_item('DELEGATED', 'delegated-evidence-missing',
