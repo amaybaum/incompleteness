@@ -4,7 +4,7 @@
  "status": "WIP / UNVERIFIED staging draft, not frozen, not reviewed, not adopted (checklist #1169 comment 7207860923). No review record, owner adoption or freeze exists for it, and the tool admits no record without them. Designated first record of the allow lineage (A1 staging amendment r2, sec. 2): W1-b, W1-c, W1-d, W2-a and W2-b only. W1-a is excluded and is never admitted under any id; its sentence (papers/SM.md at H) is a negative example of every rule here.",
  "supersedes": null,
  "recorded_at": "53c6601a10419b6b333cc992474272501ab542af",
- "author": "a1-staging-writer-20261127",
+ "author": "PENDING-S1-REGISTRY-ID-OF-DESIGNATED-WRITER",
  "rules": [
   {
    "id": "W1-b",
@@ -56,7 +56,7 @@
     "**Structural predictions** are properties of the equivalence class [(S, φ)]/$\\mathcal{G}_{\\text{sub}}$ — they hold for every bijection satisfying the six structural properties."
    ],
    "reason": "Counts the bijection's six properties, enumerated in the sentence; not the retired posit count.",
-   "author": "a1-staging-writer-20261127"
+   "author": "PENDING-S1-REGISTRY-ID-OF-DESIGNATED-WRITER"
   },
   {
    "id": "W1-c",
@@ -114,7 +114,7 @@
     "**Structural predictions** are properties of the equivalence class [(S, φ)]/$\\mathcal{G}_{\\text{sub}}$ — they hold for every bijection satisfying the six structural properties."
    ],
    "reason": "Names isotropy as one of the bijection's six properties; not the retired posit count.",
-   "author": "a1-staging-writer-20261127"
+   "author": "PENDING-S1-REGISTRY-ID-OF-DESIGNATED-WRITER"
   },
   {
    "id": "W1-d",
@@ -165,7 +165,7 @@
     "**Structural predictions** are properties of the equivalence class [(S, φ)]/$\\mathcal{G}_{\\text{sub}}$ — they hold for every bijection satisfying the six structural properties."
    ],
    "reason": "Counts the bijection's six properties; not the retired posit count.",
-   "author": "a1-staging-writer-20261127"
+   "author": "PENDING-S1-REGISTRY-ID-OF-DESIGNATED-WRITER"
   },
   {
    "id": "W2-a",
@@ -217,7 +217,7 @@
     "**Structural predictions** are properties of the equivalence class [(S, φ)]/$\\mathcal{G}_{\\text{sub}}$ — they hold for every bijection satisfying the six structural properties."
    ],
    "reason": "The anomaly condition labelled (A1) in the anomaly-cancellation list; an unrelated label, not the retired posit.",
-   "author": "a1-staging-writer-20261127"
+   "author": "PENDING-S1-REGISTRY-ID-OF-DESIGNATED-WRITER"
   },
   {
    "id": "W2-b",
@@ -269,7 +269,7 @@
     "**Structural predictions** are properties of the equivalence class [(S, φ)]/$\\mathcal{G}_{\\text{sub}}$ — they hold for every bijection satisfying the six structural properties."
    ],
    "reason": "The anomaly condition (A1) of the same list; an unrelated label, not the retired posit.",
-   "author": "a1-staging-writer-20261127"
+   "author": "PENDING-S1-REGISTRY-ID-OF-DESIGNATED-WRITER"
   }
  ]
 }
