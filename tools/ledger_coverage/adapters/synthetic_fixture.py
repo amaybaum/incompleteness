@@ -254,12 +254,9 @@ class Syn:
             profiles.append(dict(profiles[0]))
         if v.get('bad_pattern_hash'):
             profiles[0] = dict(profiles[0], pattern_sha256='0' * 64)
-        # S-1: the fixture's own session registry beside the configuration, and the sec. 3 binding of every review
-        # the records lint reads: C1 holds the records and the registry; their reviews name C1 as their revision
+        # S-1 sec. 3 (kept by staging S-2 S2.3), the binding of every review the records lint reads: C1 holds the
+        # records; their reviews name C1 as their revision
         path = v.get('config_path', 'syn/cfg/config.json')
-        cdir = path.rsplit('/', 1)[0]
-        reg_path = cdir + '/' + idf.REGISTRY_FILE
-        files[reg_path] = idf.registry_bytes(idf.registry())
         subject = self.repo.subject(at)
         c1 = self.repo.derive(at, {p_: b_ for p_, b_ in files.items() if not idf.is_review(b_)},
                               parents=self.repo.parents(at), subject=subject)
@@ -278,7 +275,6 @@ class Syn:
             if r_.get('kind') == 'review' and r_.get('path') in rebound and \
                     r_.get('blob_sha256') == rebound[r_['path']][0]:
                 r_['blob_sha256'] = rebound[r_['path']][1]
-        files[reg_path[:-5] + '.review.json'] = jb(idf.registry_review(reg_path, files[reg_path], r1))
         lp = AD + 'line_patch.py'
         cfg = {'schema': 'oi-retirement-config/1', 'config_id': 'synthetic-retirement-config',
                'version': v.get('version', 1), 'supersedes': v.get('supersedes'),
@@ -356,8 +352,8 @@ class Syn:
         return [{'kind': 'review', 'path': rp, 'blob_sha256': sha(files[rp])}]
 
 
-# reviews of these record kinds are read by key-table checks that list no `revision` or `platform_ref` until the
-# review.record rows of S-1 sec. 5 land with the registry wiring; they stay unbound until then
+# reviews of these record kinds are read by key-table checks that list no `revision` until the review.record row
+# `revision` (S-1 sec. 3, kept by staging S-2 S2.3) lands; they stay unbound until then
 _DEFERRED = ('oi-reconciliation/1', 'oi-reconciliation/2', 'oi-reassessment/1', 'oi-adjudication/1',
              'oi-obl29-custody/1')
 
