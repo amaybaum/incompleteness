@@ -1,7 +1,7 @@
 # SMD-CL-1: sourcing the clustering of Theorem P; K1 and K0 (#1049, #1217). Report
 
 **Revision r2.** Applies findings F1–F11 of the independent review of r1 at `22347bb9` (#1623
-comment 7209241804). No mathematical result changes; r1 is the earlier state of this file in the
+comment 7209241804). No r1 result changes; one derivation added (S-2′, for F4); r1 is the earlier state of this file in the
 branch history.
 
 **WIP / UNVERIFIED. Model-written research record, paper-only. Nothing here is adopted, proposed
@@ -25,7 +25,7 @@ for the manuscripts or authorized beyond the unit's scope. Pending independent n
 | Question | Assignment (PLAN.md §2) |
 | --- | --- |
 | Q1, selected counting measure (Main Lemma 3, posit (iv)) | NOT SOURCED (obstruction), conditional on the bridge reading (B) and Proposition 4b's hypotheses (H): the missing property is distinct block values, not clustering (§1.2) |
-| Q1, uniform invariant ensemble on an energy shell (SM:292, SM:1225) | NOT SOURCED under (B) and (H), for the same missing property (§1.2) |
+| Q1, uniform invariant ensemble on an energy shell (SM:292, SM:1225) | NOT SOURCED under (H′), Proposition 4b's hypotheses with the shell law in place of the counting measure, for the same missing property (§1.2) |
 | Q1, record-selected orbit measure or prepared hidden prior μ_H (Main:58, Main:60) | REDUCED: Main and SM supply no derivation of its stationary law or clustering (SM:290, SM:298, SM:1225) |
 | Q2, K1 on 0 < abs(μ) < 1 | OPEN, with a sharpened gap (§3) |
 | Q3, K0 on 0 < abs(μ) < 1 | OBSTRUCTION: witness ρ_Q, every d ≥ 1, every 0 < abs(μ) < 1 (§2) |
@@ -37,7 +37,7 @@ for the manuscripts or authorized beyond the unit's scope. Pending independent n
   observer image is a single mixing phase (and K3 when the observer map Π has finite range), with
   scalar Σ (unit A's Proposition C), so the condensate is neither that image nor a
   translation-ergodic component of it. What is missing is distinct block values, not clustering.
-  The energy-shell ensemble is excluded under (B) and (H) for the same reason. For a prepared prior
+  The energy-shell ensemble is excluded under (H′) for the same reason. For a prepared prior
   or a record-selected orbit, Main and SM supply no derivation of a stationary, clustering observer
   law (SM:290, SM:298, SM:1225). Clustering of the condensate state therefore remains a condition on
   the state; it is not adopted.
@@ -112,13 +112,15 @@ observer image: that image is already a single mixing phase, and it is symmetric
 The new content of S-2 beyond unit A's Proposition C (scalar Σ, row H5) is the extremality step:
 the condensate is not an ergodic component of the selected image.
 
-**S-2′ (the energy-shell ensemble) [A], conditional on (B) and (H).** SM:292 and SM:1225 name a
+**S-2′ (the energy-shell ensemble) [A], conditional on (H′).** (H′) is Proposition 4b's
+hypotheses with the shell law in place of the counting measure. (B) is not used: the shell is a
+finite object, and S-2′ concerns its observer image on the finite representative. SM:292 and SM:1225 name a
 further candidate invariant law: the uniform ensemble on an invariant finite energy shell. At
 M = μI the conserved E of SM:296 is a sum over the six decoupled components and is invariant under
 their signed permutations B_6, so the shell and its uniform law are B_6-invariant; under (H) the
 argument of unit A's Proposition C gives scalar Σ for its observer image, and distinct block values
 fail. Its extremality is a separate question (the shell law is not a product measure) and is not
-needed for the assignment: NOT SOURCED under (B) and (H).
+needed for the assignment: NOT SOURCED under (H′).
 
 **S-3 (no Gaussianization at the substratum level) [A].** On every finite representative the exact
 rule has finite order L. For any finitely supported linear functional f of the Z/q-valued
@@ -159,7 +161,7 @@ evolved state is inherited from its preparation; limits t → ∞ are not covere
 - Selected counting measure: NOT SOURCED, by S-2, conditional on (B) and (H); the missing property
   is distinct block values. CC-S: S-1 states what it does supply (K3 at the substratum level; mixing,
   and K3 for finite-range Π, at the observer level).
-- Energy-shell ensemble: NOT SOURCED under (B) and (H), by S-2′.
+- Energy-shell ensemble: NOT SOURCED under (H′), by S-2′.
 - Record-selected orbit measure, or a prepared μ_H: REDUCED. The basis is that Main and SM supply
   no derivation of its stationary law or clustering: the stationary law of the realized dynamics is
   recorded as open (SM:290, SM:298, SM:1225). S-3 and Lemma N (finite t) are consistent with this
@@ -357,8 +359,8 @@ hypothesis with the distance-indexed α ([S] §3); Corollary Pα stays condition
 - **For #1217.** SMD-SRC-1 replaced SMD (on Z, 0 < abs(μ) < 1) by L-SDS with K2. This unit finds
   that the specified substratum supplies no state meeting the fixed set: under (B) and (H) the
   selected measure's observer image is a single mixing phase with scalar Σ, so the condensate is
-  neither that image nor an ergodic component of it (S-2), and likewise for the energy-shell
-  ensemble (S-2′); the missing property is distinct block values. For prepared priors and
+  neither that image nor an ergodic component of it (S-2), and, under (H′), the energy-shell
+  ensemble has scalar Σ (S-2′); the missing property is distinct block values. For prepared priors and
   record-selected orbits, Main and SM supply no derivation (SM:290, SM:298, SM:1225). The clustering
   condition of the condensate state is therefore a condition on the state, like SMD; it is not adopted, and whether to state it is the owner's
   decision (§A.29, §A.50 item 6). Clustering cannot be weakened to ergodicity: K0 does not suffice
@@ -438,7 +440,8 @@ Support off `main`: none.
 | Claim | Status | Missing | Issue | What would resolve it |
 | --- | --- | --- | --- | --- |
 | S-1, S-3 | model-reviewed (r1 review) | independent non-model review | #1217 | a recorded review |
-| S-2, S-2′ | model-reviewed (r1 review); conditional on (B) and (H) | independent non-model review | #1217 | a recorded review |
+| S-2 | model-reviewed (r1 review); conditional on (B) and (H) | independent non-model review | #1217 | a recorded review |
+| S-2′ | model-reviewed (r2 delta review on #1623); conditional on (H′), Proposition 4b's hypotheses with the shell law in place of the counting measure | independent non-model review; (H′) not established here | #1217 | a recorded review; a check of Proposition 4b's hypotheses for the shell law |
 | Conditional input (B) | a reading of the coarse-graining bridge, which is unproved (SM:232); not adopted | a proof of the bridge in the form (B), or a bridge of another form | #1217 | a proof, or an owner decision on the reading |
 | Conditional input (H) | Proposition 4b's hypotheses (SM:334–336, as unit A carries them); not established here | as recorded in unit A | #1217 | as recorded in unit A |
 | Q1 REDUCED assignment | rests on the absence of a derivation in Main and SM (SM:290, SM:298, SM:1225) | a derivation or refutation of a stationary clustering observer law with distinct values from a prepared prior or record-selected orbit | #1217 | either |
@@ -461,7 +464,7 @@ Support off `main`: none.
   "iff 4γ ∈ 2πZ", both directions); claim/evidence check of §0 and §6. No NEW finding.
 - **r2.** Review findings F1–F11 applied: Q1 verdict reworded (the missing property is distinct
   block values); S-2′ added; Lemma N scoped to finite t and reclassified; routing and tracing lines
-  added. No mathematical result changed.
+  added. No r1 result changes; one derivation added (S-2′, for F4).
 
 The first stopping condition holds: every question is assigned and the controls have run. Passes
 4–6 are three consecutive passes with no NEW finding. No result needed a premise outside the fixed
