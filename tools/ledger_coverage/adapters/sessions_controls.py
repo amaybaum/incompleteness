@@ -24,6 +24,7 @@ if 'ledger_coverage' not in sys.modules:
 
 from ledger_coverage.adapters import control_records  # noqa: E402
 from ledger_coverage.adapters.identity_fixture import review_record  # noqa: E402
+from ledger_coverage.engine import cli  # noqa: E402
 from ledger_coverage.engine import gitobj  # noqa: E402
 from ledger_coverage.engine import records  # noqa: E402
 from ledger_coverage.engine import sessions as S  # noqa: E402
@@ -162,7 +163,45 @@ def suite_s2_lint():
          all(mal.values()))
 
 
-SUITES = [('retained', suite_retained), ('s2-lint', suite_s2_lint)]
+def suite_field_only():
+    """Staging S-2 sec. 7 S2-FIELD-ONLY (P8, with S1-REGISTRY-BY-ARGUMENT's property): identities are read only from
+    record fields (S2.6). No option of the tool's command line takes an identity, and one offered there is refused as
+    a usage error; an S-1 registry beside the record naming author and reviewer as different parties is not read, so
+    the lint of a review by the author respelled still fails."""
+    import argparse
+    p = cli.build_parser()
+    opts = []
+    for act in p._actions:
+        if isinstance(act, argparse._SubParsersAction):
+            for sp in act.choices.values():
+                opts += [o for a in sp._actions for o in a.option_strings]
+    words = ('author', 'reviewer', 'identity', 'session', 'registry', 'owner', 'login', 'party')
+    offered = sorted({o for o in opts if any(x in o for x in words)})
+    try:
+        p.parse_args(['coverage', '--config', 'F:p', '--out', 'o', '--commit', 'c', '--reviewer', 'session.r1'])
+        refused = False
+    except cli.UsageError:
+        refused = True
+    doc = {'schema': 'oi-term-rules/2', 'record_id': 'r1', 'author': 'session.fixture-writer', 'supersedes': None,
+           'rules': [{'id': 'q1'}]}
+    rb = util.canonical(doc)
+    ref = {'path': D + '/r.json', 'blob_sha256': util.sha256(rb)}
+    rv = review_record({'schema': records.review_schema, 'reviewer': 'Session_Fixture-Writer', 'reviewed': ref,
+                        'method': 'read', 'verdicts': [{'item': 'q1', 'verdict': 'accept'}]})
+    reg = {'schema': 'oi-a1-staging-sessions/1', 'author': 'session.fixture-writer', 'withdrawn': [],
+           'parties': [{'id': x, 'kind': 'session', 'same_party': [], 'spawned_by': None, 'scope': [D]}
+                       for x in ('session.fixture-writer', 'Session_Fixture-Writer')]}
+    entries = [(ref['path'], rb), (D + '/r.review.json', util.canonical(rv)),
+               (D + '/a1-staging-sessions.json', util.canonical(reg))]
+    got = records.lint_chain(ref, records.Store(entries), {util.sha256(b) for _, b in entries})
+    case('PRED:S2-FIELD-ONLY', 'no command-line option takes an identity and one offered is refused; a registry beside '
+                               'the record naming the author and the respelled reviewer as different parties is '
+                               'ignored: the record-field outcome (the same identity, no review) stands',
+         {'identity options': offered, 'offered by argument refused': refused, 'lint': got},
+         offered == [] and refused and any('same identity' in x for x in got))
+
+
+SUITES = [('retained', suite_retained), ('s2-lint', suite_s2_lint), ('s2-field-only', suite_field_only)]
 
 
 def main(out):

@@ -957,6 +957,26 @@ def r13_form_controls(r):
     case('SECOND-KIND', 'an independent reviewer\'s invalidates verdict on <path>:scientific_effect of a no-effect '
                         'record: a second-kind finding that blocks', o,
          'retirement-blocked' in o['classes'] and sk and sk[0]['record']['path'] == ZP)
+    # staging S-2 sec. 7 S2-NO-RETRO-LAPSE (P3): later records cannot lapse a genuine finding
+    later = {}
+    for name in ('a later review declaring a dependency on the author', 'a later record naming the reviewer as author'):
+        w, c1, ZP = second_kind_world()
+        q = w.record(record_id='syn-recon-q')
+        qref = {'path': pfc.RD + 'q.json', 'blob_sha256': sf.sha(pfc.jb(q))}
+        if name.startswith('a later review'):
+            step(w, {pfc.RD + 'q.later.review.json': pfc.jb(review_record(
+                {'schema': rec.review_schema, 'reviewer': 'session.fixture-reviewer-x', 'reviewed': qref,
+                 'method': 'read', 'verdicts': [{'item': i, 'verdict': 'accept', 'reason': ''} for i in rec.item_ids(q)],
+                 'independence': {'not_author': True, 'depends_on': [sf.WRITER]}}))}, name)
+        else:
+            step(w, {pfc.RD + 'other.json': pfc.jb(w.record(record_id='syn-recon-other',
+                                                            author='session.fixture-reviewer-x'))}, name)
+        o = outcome(w)
+        sk = [f for f in o['all'] if f.get('kind') == 2]
+        later[name] = bool(sk) and sk[0]['record']['path'] == ZP and 'retirement-blocked' in o['classes']
+    case('S2-NO-RETRO-LAPSE', 'a genuine second-kind finding; later a review by its reviewer declaring a dependency on '
+                              'the author, or a record at another path naming the reviewer as author: the finding '
+                              'keeps binding', later, all(later.values()))
     w, c1, ZP = second_kind_world(withdraw=True)
     o = outcome(w)
     sk = [f for f in o['all'] if f.get('kind') == 2]

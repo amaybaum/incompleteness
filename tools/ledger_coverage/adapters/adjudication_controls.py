@@ -226,6 +226,16 @@ def independence():
     case('PRED:S2-ADJ-TECH-UNDECLARED', 'the technical review carries no independence declaration: it fails the '
                                         'review.record row once (ADJ-REVIEW), with no second report', got,
          conds(got) == ['ADJ-REVIEW'] and sum('independence' in m for _c, m in got) == 1)
+    # staging S-2 sec. 7 S2-OWNER-ROLES: an owner identity respelled (S2.2) in either judging role (OD-4)
+    variants('PRED:S2-OWNER-ROLES', 'the adjudicator, or the technical reviewer, AMaybaum: ADJ-INDEP',
+             {'adjudicator': author('AMaybaum'), 'technical reviewer': lambda fx, J: {'T': fx.T('AMaybaum')}},
+             'ADJ-INDEP')
+    RESULTS.append({'id': 'PRED:S2-OWNER-ROLES/migration', 'expected': 'a migration approval.author that is not an '
+                    'owner identity: FAIL record-invalid', 'actual': None, 'status': 'NOT RUN', 'attested': None,
+                    'reason': 'not runnable: the tool refuses a configuration referencing an edit-id-migration record '
+                              'fail-closed (R6.RECON.28 is not read; category3 raises Unsettled), so no '
+                              'migration.approval is ever evaluated'})
+    LOCAL.case('PRED:S2-OWNER-ROLES/migration')
     variants('PRED:ADJ-N-OWNER-TECH-REVIEWER', 'the owner as technical reviewer (OD-4): ADJ-INDEP',
              {'a': lambda fx, J: {'T': fx.T(OWNERS[0])}}, 'ADJ-INDEP')
 
@@ -440,7 +450,7 @@ def main(out):
                   sort_keys=True, default=str)
         f.write('\n')
     LOCAL.write(out, RESULTS)
-    bad = [c['id'] for c in RESULTS if c['status'] != 'PASS']
+    bad = [c['id'] for c in RESULTS if c['status'] not in ('PASS', 'NOT RUN')]
     print(json.dumps({'cases': len(RESULTS), 'failed': bad}))
     return 0 if not bad else 1
 
