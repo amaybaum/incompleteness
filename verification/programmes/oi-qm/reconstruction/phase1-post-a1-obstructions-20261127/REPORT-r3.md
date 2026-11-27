@@ -38,14 +38,17 @@ on `main` (with its PR).
 
 1. **Coherent control, representational scope.** These results concern the Born form on the
    configuration basis (KIN) with native readouts in the configuration algebra (R-READ, an assumed
-   reading of READ, #1501). Their kernel forms are **A1-scoped**: `obsTheory 𝒮 = permTheory 𝒮.Conf`
-   with `A1 := Finite 𝒮.Conf` (`SubstratumInterfaceAudit`, `obs_a1`). In this report they survive
+   reading of READ, #1501). Their kernel forms are **A1-scoped**, because the kernel applies
+   `permTheory` globally, to the whole configuration space: `obsTheory 𝒮 = permTheory 𝒮.Conf`, and
+   `A1 := Finite 𝒮.Conf` follows from the same finiteness instances (`SubstratumInterfaceAudit`,
+   `obs_a1`). In this report they survive
    A1 retirement only within the proposed transfer's stated scope. The countable extension
    requires a diagonal hidden state and the discrete append construction. On a measurable carrier,
    a nonsingular Koopman unitary normalizes the configuration algebra. This supports the scoped
-   detection result under OPRES's state and append conditions. The stronger entrywise and
+   detection result under OPRES's state and append conditions, conditional on OPRES (`24702c1d`, #1511), a record not on `main`. The stronger entrywise and
    diagonal-preservation transfers require their own justification (P1-07). OPRES's D-W sketch
-   separately concerns observable record laws.
+   separately concerns observable record laws. The premise names KIN and R-READ are taken from
+   OPRES and enter here as named hypotheses only.
 2. **Setting selection, non-Clifford operations and universality depend on A5, not A1** (MECH-1
    Lemma A, Theorem T, Propositions AS and C; UNIV-1 Theorem L). Their finite-carrier proofs are
    windowed, and the transfer to ℤ^d is P-here.
@@ -65,7 +68,7 @@ on `main` (with its PR).
      P-indivisibility at any horizon for prime q, α ≠ 0, a lattice-convex window W, two-slice
      readout and Haar law on ℤ^d (A1-FCLASS row 13).
    - No state, normal or not, is invariant under every permutation of an infinite hidden set
-     (BIDUAL-DIO PERM, R-off #1509). PERM says nothing about translation- or rule-invariant laws.
+     (BIDUAL-DIO PERM; conditional on BIDUAL-DIO (`e8976f11`, #1509), a record not on `main`, and not established here). PERM says nothing about translation- or rule-invariant laws.
 6. **The three new records (§2.6).**
    - **SMD-CL-1:** the Q1 obstruction does not rest on the finite counting measure. It is proved
      for the infinite-volume product Haar law, the natural A1-free maximal-entropy law. It
@@ -108,6 +111,14 @@ As in r1 §1, plus the three new records, read read-only at their pinned heads:
 - FSLICE-PS-1 `REPORT-r2.md` at `2706ae17`, PR #1624 (r3 correction, including the scope table);
 - UN-1 `REPORT-r2.md` at `4e84b2f2`, PR #1622.
 
+All three records have since landed on `main` by merge commits, and each cited commit is an ancestor
+of `main`:
+- #1622 as `9c59074d` (head `d1e999e1`);
+- #1623 as `210294b2` (head `a63aaa84`);
+- #1624 as `69786da2` (head `bbfcff33`).
+
+§6 states the differences between the cited and the landed texts.
+
 For UN-1 I read §0–§2 only.
 
 Bounded out: Proposition U (#1504), BQ1 (#1498), GATE-A (#1503), the #866 screens' internals and
@@ -127,13 +138,13 @@ records, C coherent control.
 | ID | Result (source) | Scope | Load-bearing step and hypotheses | A1 use | Class |
 |---|---|---|---|---|---|
 | P1-01 | Phase ceiling `permTheory_phase_ceiling`, `nonnegBounded_not_phasesAvailable` (FrozenSourcing, K) | C | bijection-level branches preserve nonnegative entries (`preservesNonneg_of_realized`); the prior is diagonal in the finite kernel | kernel form A1-scoped: `obsTheory 𝒮 = permTheory 𝒮.Conf`, `A1 := Finite 𝒮.Conf`; docstring "at every substratum satisfying the finiteness A1 supplies" | **S conditional on the P-here transfer (unreviewed)**, for a countable carrier with a diagonal hidden state and the discrete append construction. **U** for a general measurable transfer of entrywise nonnegativity. It needs a defined diagonal state and justified append construction (P1-07). FV does not rescue this row: the quarter-phase gate is DIO |
-| P1-02 | Dense-control ceiling `permTheory_dense_ceiling` (K) | C | nonnegativity passes to norm limits (`preservesNonneg_of_approx`) | as P1-01 | as P1-01. Alternative support: FV plausibly covers it (DIO is closed and excludes non-DIO targets), but only through BIDUAL-DIO (R-off #1509) |
+| P1-02 | Dense-control ceiling `permTheory_dense_ceiling` (K) | C | nonnegativity passes to norm limits (`preservesNonneg_of_approx`) | as P1-01 | as P1-01. Alternative support: FV plausibly covers it (DIO is closed and excludes non-DIO targets). That support is conditional on BIDUAL-DIO (`e8976f11`, #1509), a record not on `main` |
 | P1-03 | Rule independence `obsTheory_rule_independent` (K) | C | `obsTheory 𝒮 = permTheory 𝒮.Conf` by definition | kernel form A1-scoped | **S conditional on the P-here transfer** (it is definitional for any carrier on which `permTheory` is defined) |
-| P1-04 | `substratumTheory_not_layerFlowExecutable` (LiftAudit Q2, K); `not_layerFlowExecutable_of_preservesDiag` (LiftSource T1, K) | C | monomial Kraus operators preserve diagonal states | kernel result on finite region carriers | **S** within the finite-region scope. **U** for the general measurable diagonal-preservation transfer. Nonsingular Koopman normalization supports the scoped detection result. A visible-channel extension needs its own state and append construction and a proof of diagonal preservation |
-| P1-05 | OPRES Lemma C and Theorem C: a non-monomial unitary needs a non-MIO creator and a non-DIO detector (X; R-off #1511/#1509, `24702c1d`) | C | KIN; R-READ; for Theorems B and C, imported fixed coherent resource states | Theorem C on **countable** carriers of any size; on measurable carriers only the **detection half**, under Proposition D (nonsingular bijection, C_V finite, normal ω) or Remark D′ (one possibly non-normal ω, appended with no diffuse hidden factor present, later appends normal) | **S** (countable). Detection half **S** under D/D′'s premises. Otherwise **U** |
-| P1-06 | BIDUAL-DIO Proposition FV: C_V finite ⇒ every PROD assignment is DIO-type for every hidden state ω (X; R-off #1509, `e8976f11`, delta review CONFIRMED) | C | C_V finite ⇒ every state of B(H_V) normal | Lemma 1, not A1 | **S** for DIO-type configuration-readout statistics. It does not concern realizing Ad_W |
-| P1-07 | OPRES Conjecture D″: the detection half for a singular bijection, and the non-diagonal hidden states of P1-01, P1-02 and P1-04 | C | not proved | uncountable carriers become natural without A1 | **U**. Detection for singular maps and the general entrywise and diagonal channel extensions are distinct obligations. A Haar-preserving linear rule is nonsingular |
-| P1-08 | I3-SOURCE Lemma S1, Proposition S2 (X; R-off #1508, `df520f3b`) | C | assumptions (a)–(e); (e) is a countable hidden carrier | countable, not finite | **S** for countable carriers. With (e) dropped (an uncountable carrier with a non-classical hidden state) the source leaves the case "not treated": **U** |
+| P1-04 | `substratumTheory_not_layerFlowExecutable` (LiftAudit Q2, K); `not_layerFlowExecutable_of_preservesDiag` (LiftSource T1, K) | C | monomial Kraus operators preserve diagonal states | kernel result on finite region carriers | **S** within the finite-region scope. **U** for the general measurable diagonal-preservation transfer. Nonsingular Koopman normalization supports the scoped detection result (conditional on OPRES (`24702c1d`, #1511), a record not on `main`). A visible-channel extension needs its own state and append construction and a proof of diagonal preservation |
+| P1-05 | OPRES Lemma C and Theorem C: a non-monomial unitary needs a non-MIO creator and a non-DIO detector (X; R-off #1511/#1509, `24702c1d`) | C | KIN; R-READ; for Theorems B and C, imported fixed coherent resource states | Theorem C on **countable** carriers of any size; on measurable carriers only the **detection half**, under Proposition D (nonsingular bijection, C_V finite, normal ω) or Remark D′ (one possibly non-normal ω, appended with no diffuse hidden factor present, later appends normal) | **S, conditional on OPRES (`24702c1d`, #1511), a record not on `main`** (countable). Detection half **S** under D/D′'s premises, with the same condition. Otherwise **U**. Not established here |
+| P1-06 | BIDUAL-DIO Proposition FV: C_V finite ⇒ every PROD assignment is DIO-type for every hidden state ω (X; R-off #1509, `e8976f11`, delta review CONFIRMED) | C | C_V finite ⇒ every state of B(H_V) normal | Lemma 1, not A1 | **S, conditional on BIDUAL-DIO (`e8976f11`, #1509), a record not on `main`**, for DIO-type configuration-readout statistics. Not established here. It does not concern realizing Ad_W |
+| P1-07 | OPRES Conjecture D″: the detection half for a singular bijection, and the non-diagonal hidden states of P1-01, P1-02 and P1-04 | C | not proved | uncountable carriers become natural without A1 | **U**. Detection for singular maps and the general entrywise and diagonal channel extensions are distinct obligations. A Haar-preserving linear rule is nonsingular. The statement of Conjecture D″ and the D/D′ scope it refers to are conditional on OPRES (`24702c1d`, #1511), a record not on `main` |
+| P1-08 | I3-SOURCE Lemma S1, Proposition S2 (X; R-off #1508, `df520f3b`) | C | assumptions (a)–(e); (e) is a countable hidden carrier | countable, not finite | **S, conditional on I3-SOURCE (`df520f3b`, #1508), a record not on `main`**, for countable carriers. Not established here. With (e) dropped (an uncountable carrier with a non-classical hidden state) the source leaves the case "not treated": **U** |
 | P1-09 | Separations: `flow_endpoint_refuted`, `routeB_target`, `not_boundaryTransitive_flow` (K) | C | explicit countertheories | none | **S** |
 | P1-10 | F2-1 control C6: Koopman phases representation-only | C | configuration readouts | none | **S** |
 
@@ -155,7 +166,7 @@ records, C coherent control.
 | P1-17 | Finite-reservoir preparation bound (#885 "supplied, not derived"; the NATIVE-PREP-SRC-1 and NATIVE-INT-SRC-2 stops) | proof not located | **U** (PLAN step 5). The screens remain valid for their ring and are not impossibility theorems |
 | P1-18 | All-time finite realizability ⇔ `PPer` (K; A1-FCLASS row 03) | one fixed finite carrier for all t | **R, escaped**: infinite-XOR (Γ_0 = I, Γ_t = J_2 for t ≥ 1) |
 | P1-19 | Fixed-finite-carrier obstruction at all precisions (Main:784; E-AR) | one fixed finite carrier at all precisions | **R, unproved**; the windowed form survives (AW-P1-1) |
-| P1-20 | Counting-measure selection (item iv); eventual-image injectivity (item iii) | uniform law and eventual image on a finite representative | **R, unproved**. PERM (R-off #1509): no state is invariant under every permutation of an infinite set; it is silent on translation- or rule-invariant laws |
+| P1-20 | Counting-measure selection (item iv); eventual-image injectivity (item iii) | uniform law and eventual image on a finite representative | **R, unproved**. The reopening rests on the finite-representative step alone. The added remark is conditional on BIDUAL-DIO (`e8976f11`, #1509), a record not on `main`: PERM says no state is invariant under every permutation of an infinite set, and it is silent on translation- or rule-invariant laws |
 | P1-21 | `ensemble_underdetermined` (K) | — | **S** (strengthened) |
 | P1-22 | OBS-EMERGE G4 and partition non-selection | — | **S** |
 | P1-23 | MQ1–MQ3 | — | **S** |
@@ -182,25 +193,28 @@ records, C coherent control.
 - 5 **R**: two escaped (P1-15, P1-18) and three unproved (P1-16, P1-19, P1-20).
 - 2 **U**: P1-07 and P1-17. P1-08's dropped-(e) case is a U residual inside an S row.
 
-### 2.6 New rows: SMD-CL-1, FSLICE-PS-1, UN-1 (R-off; their limitations quoted exactly)
+### 2.6 New rows: SMD-CL-1, FSLICE-PS-1, UN-1 (on `main`; their limitations quoted exactly)
 
 The **criterion** is the plan's rule. A row survives if no step of its proof needs a finite total
 configuration space or a finite torus that the A1-free setting removes. It is reopened if such a
 step is named. It is unclear if the transfer needs a construction not given.
 
-**SMD-CL-1** (#1623, `b7e29ea7`; source status: "WIP / UNVERIFIED … Pending independent non-author
-review").
+**SMD-CL-1** (#1623, `b7e29ea7`, on `main` via `210294b2`; header status: "WIP / UNVERIFIED …
+Pending independent non-author review"; its PRESERVATION.md on `main` records the results as
+partially verified, model-reviewed).
 
 | ID | Result as stated | Step and A1 use | Class | Constrains candidates? |
 |---|---|---|---|---|
 | P1-31 | Q1, S-1 and S-2: "under (B) and (H), the selected measure supplies no state that meets the fixed set. Its observer image is a single mixing phase … with scalar Σ … What is missing is distinct block values, not clustering." | S-2 is proved for "the product Haar probability on ((Z/q)²)^{Z^d}", Bernoulli hence mixing. The finite counting measure is not used. Conditional on (B), a reading of the unproved bridge (SM:232), and on (H) | **S** (conditional on (B) and (H)). It does **not** rely on the counting-measure selection that A1 retirement reopens: it holds for that selection's A1-free replacement | **Yes**: it eliminates C-SEL's Haar form as a generator of the condensate (§3.5) |
 | P1-32 | S-2′: the energy-shell ensemble is "NOT SOURCED under (H′)"; "its extremality is a separate question … and is not needed" | "the shell is a finite object, and S-2′ concerns its observer image on the finite representative" | **R, unproved**. Without A1 the shell law has no finite form. An infinite-volume B6-symmetric law with conserved densities (Lemma N) need not be extremal, and its ergodic components may carry unequal component energies. P-here: nothing selects the T_1/E/A_1 block pattern among such components, and choosing it would be target-motivated (CC-RECON) | Only negatively: A1 retirement opens a decomposition, not a selection |
-| P1-33 | S-3: "On every finite representative the exact rule has finite order L … so the spreading step of Theorem P … has no substratum counterpart" | finite order L on a finite representative | **R, unproved**. On ℤ^d the rule has no finite order. Pivato–Yassawi give Haar convergence in density for a diffusive rule and harmonically mixing input. These hypotheses and the transfer to the stated rule and preparation remain unestablished | Conditional only: the Haar end law has P1-31's negative under (B) and (H) |
+| P1-33 | S-3: "On every finite representative the exact rule has finite order L … so the spreading step of Theorem P … has no substratum counterpart" | finite order L on a finite representative | **R, unproved**. On ℤ^d the rule has no finite order when the coefficient α is nonnilpotent in
+ℤ_q (NR-1 row 12: no exact return under Haar). NR-1 Proposition 5.1 is the exception: for
+nonzero nilpotent α (q not squarefree), F^N = id on all of (ℤ_q²)^{ℤ^d}. Pivato–Yassawi give Haar convergence in density for a diffusive rule and harmonically mixing input. These hypotheses and the transfer to the stated rule and preparation remain unestablished | Conditional only: the Haar end law has P1-31's negative under (B) and (H) |
 | P1-34 | Lemma N: a conserved Ē; "no F^t_*ρ_0 (t finite) is translation-ergodic" if Ē is non-degenerate; "whether … survives t → ∞ limits … is not shown" | stated on ℤ^d | **S** at finite t; t → ∞ open (an open question that exists only without A1) | Yes: at finite t linear evolution only transports the preparation's ergodic and clustering properties |
 | P1-35 | K0 witness ρ_Q: translation-ergodic, F-stationary, every premise of the fixed set, Stab(ρ_Q) = U(3)×U(2)×Z_4 ⊊ Stab(C), "every d ≥ 1, every 0 < abs(μ) < 1"; "not O-invariant as a law" | constructed on ℤ^d with wave vectors rationally independent of π, which do not exist on a finite torus | **S** (A1-free; the construction needs an infinite lattice) | Yes, on the stated infinite-lattice K0 class: stationarity and clustering do not force SMD there |
 | P1-36 | K1: "OPEN, with a sharpened gap" (Lemmas A and R) | stated on ℤ^d | **S** (open stays open) | No candidate addresses it |
 
-**FSLICE-PS-1** (#1624, `2706ae17`, off-main paper record). The finite-carrier table is stated
+**FSLICE-PS-1** (#1624, `2706ae17`, on `main` via `69786da2`; a paper record). The finite-carrier table is stated
 on T = (ℤ/L)^d with d = 3. V_π is present for even L.
 
 | ID | Result as stated | Step and A1 use | Class | Constrains candidates? |
@@ -210,7 +224,7 @@ on T = (ℤ/L)^d with d = 3. V_π is present for even L.
 | P1-39 | NAT-C: LI follows from naturality under the whole linear commutant of F, via R_π = 1 − 2P_π (not adopted) | R_π needs V_π ≠ 0, a subspace of the even-L torus. P-here: on ℓ²(ℤ^d) the projection onto one momentum is 0, so R_π = id there | **R, unproved**: the route has no ℓ²(ℤ^d) counterpart. A state-level formulation with spectral atoms at π is not constructed | No |
 | P1-40 | "No N_k is class D" | follows from P1-37 to P1-39 | **S** | No |
 
-**UN-1** (#1622, `4e84b2f2`; source status: "reviewed paper derivations, not independently verified"
+**UN-1** (#1622, `4e84b2f2`, on `main` via `9c59074d`; source status: "reviewed paper derivations, not independently verified"
 for its inputs; its own results are "[A]: this unit's paper argument, unreviewed").
 
 | ID | Result as stated | Step and A1 use | Class | Constrains candidates? |
@@ -329,7 +343,8 @@ The required items are:
   - CS: none.
   - READY: (iii) globally. Local re-arm would be generated, but only given an assumed low-entropy
     far field (E2), a past-hypothesis-type premise.
-  - NC: (iv), P1-12 (Proposition C, odd q) and P1-01 to P1-05.
+  - NC: (iv), P1-12 (Proposition C, odd q) and P1-01 to P1-04, within their stated scopes. The
+    P1-05 part is conditional on OPRES (`24702c1d`, #1511), a record not on `main`.
   - OBS: none directly. Approximate closure with leakage is a possible contribution if a persistent
     localized structure exists, which no linear record shows (OBS-EMERGE Q2).
   - **No item reaches (i) or (ii).**
@@ -402,8 +417,8 @@ The required items are:
 | ID | Route | Criterion | Reason |
 |---|---|---|---|
 | J-1 | Koopman / character-basis phases | imported quantum structure | representation-only (P1-10) |
-| J-2 | Hidden states whose off-diagonal values are posited | imported quantum structure | a posited coherent hidden state is quantum structure in the substratum. The residual is a non-atomic carrier with states neither posited coherent nor diagonal. That residual is **open** (P1-07, P1-08), not covered by FV, whose target (DIO-type readout statistics) differs from realizing Ad_W |
-| J-3 | Response tables, D-W, Kochen–Specker-type simulators | encoded outcomes or simulation | countercontrols (F2-1 C10; I3-SOURCE Lemma O) |
+| J-2 | Hidden states whose off-diagonal values are posited | imported quantum structure | a posited coherent hidden state is quantum structure in the substratum. The residual is a non-atomic carrier with states neither posited coherent nor diagonal. That residual is **open** (P1-07, P1-08). It is not covered by FV, whose target (DIO-type readout statistics) differs from realizing Ad_W. The P1-08 and FV references are conditional on I3-SOURCE and BIDUAL-DIO, records not on `main` |
+| J-3 | Response tables, D-W, Kochen–Specker-type simulators | encoded outcomes or simulation | countercontrols: F2-1 C10 (on `main`); I3-SOURCE Lemma O, conditional on I3-SOURCE (`df520f3b`, #1508), a record not on `main` |
 | J-4 | A future or global boundary condition for Bell measurement dependence | encoded outcomes; no eliminating test | adjustable to any statistics |
 | J-5 | Bare infinite cardinality | no mechanism | SUBSTATE-1 identity countercontrol |
 | J-6 | p-adic digit stacks under the unchanged rule | eliminated | NATIVE-PADIC-1 |
@@ -444,12 +459,12 @@ below. Their hypotheses vary by target.
   first is a parameter choice and must not fit any outcome. The second is the "record-selected
   orbit measure" row that SMD-CL-1 records as REDUCED and open.
 - **NC and coherent detection.** Needed: an operation whose Heisenberg dual takes a configuration
-  effect outside the configuration algebra, together with a coherence source (OPRES "Missing").
+  effect outside the configuration algebra, together with a coherence source (OPRES "Missing"; conditional on OPRES (`24702c1d`, #1511), a record not on `main`).
   Excluded so far:
    - the finite and conditional countable configuration-basis ceilings in P1-01 to P1-05 with
      their state and interface hypotheses. For measurable carriers the cited detection result uses
      a nonsingular bijection, finite visible resolution and the state and append conditions in
-     P1-05. The stronger channel extensions remain open;
+     P1-05, and is conditional on OPRES (`24702c1d`, #1511), a record not on `main`. The stronger channel extensions remain open;
    - the non-affine ontic bijections covered by Proposition AS in the odd-prime Gross frame,
      whose encoded actions are not CP (P1-12).
 
@@ -528,11 +543,13 @@ measurement independence or locality.
 |---|---|---|---|---|
 | §2 classification (42 rows) | author reading; P-here transfers | delta review | #1169, #914, #1217 | review |
 | P1-01 to P1-04 transfer | Identified hypotheses and paper obligations | countable diagonal append transfer for P1-01/P1-02 and the separate general measurable extension. P1-03 is definitional where the representation is given, and P1-04's finite-region kernel result retains its scope | #914 | establish the proposed transfer within its stated regime |
-| P1-05, P1-07, P1-08; R-READ, KIN | X in records not on `main`; R-READ an assumed reading of #1501 | landing; QOPS status | #1509, #1507, #1501 | land records or narrow rows |
-| P1-06 FV; P1-20 PERM | X, review CONFIRMED, not on `main` | landing | #1509 | land BIDUAL-DIO |
-| P1-31 to P1-36 | X/A in SMD-CL-1, pending review there | that review; landing | #1217, #1623 | review and preservation decision |
-| P1-37 to P1-40 | paper in the pinned off-main FSLICE-PS-1 record | preservation and review of any proposed infinite-lattice transfer | #1217, #1624 | retain the source scope table and review the transfer separately |
-| P1-41, P1-42 | A in UN-1, inputs model-reviewed | review; landing | #1622 | same |
+| Rows conditional on OPRES (P1-05, P1-07's statement, the P1-05 part of §3.1 NC, §4's "Missing" citation) | X in OPRES, not on `main`; narrowed here to conditional | landing OPRES under its own preservation decision, or independent re-derivation | #1509 | either; until then the rows stay conditional |
+| Rows conditional on BIDUAL-DIO (P1-06, P1-02's alternative support, P1-20's PERM remark, §0 item 5's PERM bullet, J-2's FV reference, AW-P1-4) | X, delta review CONFIRMED, not on `main`; narrowed here to conditional | as above | #1509 | as above |
+| Rows conditional on I3-SOURCE (P1-08, J-2's P1-08 reference, J-3's Lemma O) | X, not on `main`; narrowed here to conditional | as above | #1507 | as above |
+| R-READ, KIN | named hypotheses (R-READ an assumed reading of READ, #1501) | QOPS status | #1501 | a sourced statement of READ |
+| P1-31 to P1-36 | X/A in SMD-CL-1, on `main`; partially verified, model-reviewed (its PRESERVATION.md) | independent non-model review | #1217 | as recorded in SMD-CL-1's PRESERVATION.md |
+| P1-37 to P1-40 | paper in FSLICE-PS-1, on `main` | independent review of any proposed infinite-lattice transfer | #1217 | retain the source scope table and review the transfer separately |
+| P1-41, P1-42 | A in UN-1, on `main`; inputs model-reviewed | independent review | #1216, #1622 | as recorded in UN-1's PRESERVATION.md |
 | §3.1 vacuum-revival argument | P-here (Dickson and Frobenius identities), checked on paper in #1625 comment 7210001008 | retain the exact review and the proof bytes | #1169 | focused check that this revision preserves the argument |
 | §3.3 equivariance remark | P-here, elementary | check | #1169 | reviewer check |
 | §4 class 𝒞 statement | P-here synthesis of cited results | review; P2-MIN | #1169, #914 | Phase 2 |
@@ -544,21 +561,23 @@ measurement independence or locality.
 |---|---|---|
 | #1169 c.7209026471, c.7209325168, c.7209354605 | authorization, source routing, four-class test and contribution matrix | provenance |
 | Issue bodies #914, #866, #1461, #1062, #1210, #1507, #1509 | scope | provenance |
-| BIDUAL-DIO, `research/bidual-dio-20261122` `e8976f11` (#1509) | P1-06; P1-20 (PERM); §0 item 5; C-SEL motivation; P1-02's alternative support; J-2 | **support off `main`: gap** |
-| OPRES, `research/opres-20261121` `24702c1d` (#1511, Issue #1509) | P1-05, P1-07; KIN and R-READ used in §0 item 1, §2.1, §4 | **support off `main`: gap** |
-| QOPS (#1501) | R-READ's status | **support off `main`: gap** (assumed premise, untraced) |
-| I3-SOURCE, `research/i3-source-20261121` `df520f3b` (#1508, Issue #1507) | P1-08, J-2, J-3 | **support off `main`: gap** |
-| SMD-CL-1, `research/smd-clustering-20261127` `b7e29ea7` (#1623) | P1-31 to P1-36; §3.1 to §3.5 D-BV/SMD classes; §4 | **support off `main`: gap** |
-| FSLICE-PS-1, `research/fslice-premise-sourcing-20261127` `2706ae17` (#1624) | P1-37 to P1-40 | **support off `main`: gap** |
-| UN-1, `research/un1-identity-partner-20261127` `4e84b2f2` (#1622) | P1-41, P1-42 | **support off `main`: gap** |
-| Kernel modules, Main, A1-FCLASS, SUBSTATE-1/2, F2-1, MECH-1, MR-1, MEAS-Q, UNIV-1, OBS-EMERGE | rows citing them | support on `main` at `13c05b4fe` |
+| BIDUAL-DIO, `research/bidual-dio-20261122` `e8976f11` (#1509) | P1-06 (FV); P1-02 (alternative support); P1-20 (PERM remark); §0 item 5 (PERM bullet); J-2 (FV reference); AW-P1-4 (PERM) | **support off `main`: gap**, closed by **narrowing**: each listed claim is stated as conditional on this unlanded record, not as established. No claim's class rests on it alone: P1-20's R class rests on the finite-representative step, and P1-02's class rests on its own transfer |
+| OPRES, `research/opres-20261121` `24702c1d` (#1511, Issue #1509) | P1-05 (Theorem C; D/D′ detection half); P1-07 (statement of Conjecture D″ and the D/D′ scope); §0 item 1 (the detection result under OPRES's conditions); P1-04 (the "scoped detection result" it refers to); §3.1 NC (the P1-05 part); §4 NC (the "Missing" citation and the measurable detection result) | **support off `main`: gap**, closed by **narrowing**: each listed claim is stated as conditional on this unlanded record. The names KIN and R-READ are taken from OPRES as names of hypotheses; no OPRES result is used through them |
+| QOPS (#1501) | R-READ's status | **provenance**: the report conditions every §2.1 row on R-READ as a named, assumed hypothesis and uses no QOPS result. Its status is QOPS's, and the conclusions carry it as a condition |
+| I3-SOURCE, `research/i3-source-20261121` `df520f3b` (#1508, Issue #1507) | P1-08 (Lemma S1, Proposition S2); J-2 (P1-08 reference); J-3 (Lemma O) | **support off `main`: gap**, closed by **narrowing**: each listed claim is stated as conditional on this unlanded record. J-3's rejection stands on F2-1 C10 (on `main`) without it |
+| SMD-CL-1, `b7e29ea7` (#1623) | P1-31 to P1-36; §3.1 to §3.5 D-BV/SMD classes; §4 | **support on `main`**: landed by merge `210294b2` (head `a63aaa84`). `b7e29ea7` is an ancestor of `main`. The landed head adds only `PRESERVATION.md`; `REPORT.md` is byte-identical to the cited version |
+| FSLICE-PS-1, `2706ae17` (#1624) | P1-37 to P1-40 | **support on `main`**: landed by merge `69786da2` (head `bbfcff33`). `2706ae17` is an ancestor of `main`. The landed head adds only `PRESERVATION.md`; the cited `REPORT-r2.md` is unchanged |
+| UN-1, `4e84b2f2` (#1622) | P1-41, P1-42 | **support on `main`**: landed by merge `9c59074d` (head `d1e999e1`). `4e84b2f2` is an ancestor of `main`. The landed head adds `PRESERVATION.md` and changes one row of `REPORT-r2.md`'s verification table: Prop I (iii) now lists its inherited inputs ([U2] Proposition 9, [U3] Corollary 7c and [UNC] Theorem U (U-b)). No result statement changes, and P1-41 and P1-42 do not use Prop I (iii) |
+| Kernel modules, Main, A1-FCLASS, NR-1, SUBSTATE-1/2, F2-1, MECH-1, MR-1, MEAS-Q, UNIV-1, OBS-EMERGE | rows citing them | support on `main`: cited at `13c05b4fe`, an ancestor of `main` at `69786da2`; the cited Main, kernel, A1-FCLASS, NR-1 and MECH-1 files are unchanged between them |
 | #1169 c.7079945577 | C-NL hold | provenance |
 
-Before any landing the gaps close in one of two ways. Either the records land: #1622, #1623 and #1624
-are prepared for one preservation decision (#1169 c.7209325168), and #1508, #1511 and BIDUAL-DIO
-remain off `main`. Or these rows and claims are narrowed to "reported in records not on `main`":
-P1-02 (alternative support), P1-05 to P1-08, P1-20, P1-31 to P1-42, §0 items 1, 5, 6 and 7, AW-P1-2,
-§3.0 to §3.7, §4, J-2 and J-3.
+**Status of the gaps.**
+- #1622, #1623 and #1624 have landed, so their references are support on `main`.
+- BIDUAL-DIO, OPRES and I3-SOURCE remain off `main`, and landing them would need their own
+  preservation decisions. The claims that depend on them are therefore narrowed in place: each is
+  stated as conditional on the cited unlanded record, as listed above, and none is presented as
+  established.
+- No remaining reference supports an unconditional claim from off `main`.
 
 ## 7. Assumption-watch markers
 
@@ -567,7 +586,7 @@ P1-02 (alternative support), P1-05 to P1-08, P1-20, P1-31 to P1-42, §0 items 1,
   §2.1: the representational coherent-control bottleneck is set by R-READ, KIN and Lemma 1, not by
   A1.
 - **AW-P1-3 (A5, not A1).** As in r1.
-- **AW-P1-4 (retirement removes resources).** As in r1, with PERM restated.
+- **AW-P1-4 (retirement removes resources).** As in r1. The PERM restatement is conditional on BIDUAL-DIO (`e8976f11`, #1509), a record not on `main`.
 - **AW-P1-5 (vacuum revival).** Linear F_p rules revive a single excitation over the vacuum at
   t = p^k (§3.1, P-here). A low-entropy vacuum and a linear rule do not jointly give an all-time
   sink in the stated cases.

@@ -13,3 +13,19 @@ r2 review returned REVISE. Codex prepared these corrections against the review p
 
 Focused review should check these dispositions on a pinned revision. The plan, prior reports,
 42-row inventory count, recurrence accounting and off-main support obligations are retained.
+
+## Landing corrections (after the r3 ACCEPT)
+
+The writer is the Claude coordinating session, which took over under §A.52 (#1169 comment
+7212372089). The corrections are made in place on `REPORT-r3.md`, as the r3 review (#1625
+comment 7210078621) and the owner decision (#1169 comment 7212372089, item 4) require. No result
+or class changes.
+
+| Item | Change |
+| --- | --- |
+| Nit 1 (§0, A1 scope) | §0 item 1 names the global application: the kernel applies `permTheory` to the whole configuration space (`obsTheory 𝒮 = permTheory 𝒮.Conf`), and `A1 := Finite 𝒮.Conf` follows from the same instances |
+| Nit 2 (P1-33) | The infinite-lattice no-period statement is restricted to nonnilpotent α (NR-1 row 12). NR-1 Proposition 5.1's finite-period exception for nonzero nilpotent α is stated |
+| Off-main support (§A.42 item 8) | Each claim resting on BIDUAL-DIO (`e8976f11`), OPRES (`24702c1d`) or I3-SOURCE (`df520f3b`) is listed in §6 and stated in place as conditional on that unlanded record (§0 items 1 and 5; P1-02, P1-04 to P1-08, P1-20; §3.1 NC; §4 NC; J-2; J-3; AW-P1-4; §5) |
+| QOPS (#1501) | Reclassified as provenance: R-READ enters as a named assumed hypothesis, and no QOPS result is used |
+| Landed records | #1622, #1623 and #1624 are reclassified as support on `main` (merges `9c59074d`, `210294b2`, `69786da2`). The only difference from the cited texts is one verification-table row in UN-1's `REPORT-r2.md`, which no row here uses |
+| Preservation | `PRESERVATION.md` drafted, decision pending |
