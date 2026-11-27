@@ -1,8 +1,9 @@
-# A1 staging amendment r2, supplement S-1: recorded session identities (paper draft r2)
+# A1 staging amendment r2, supplement S-1: recorded session identities (paper draft r3)
 
-**Status.** Draft r2, for independent review and the owner's adoption of the exact reviewed text. r1
-at `dae2468ee4ceb7c46df97dba529cc584e620f91a` received REVISE (PR #1620 comment 7208980804); §9 maps
-its findings to changes. It amends staging amendment r2 (`AMENDMENT.md` in this directory), the
+**Status.** Draft r3, for independent review and the owner's adoption of the exact reviewed text. r1
+at `dae2468ee4ceb7c46df97dba529cc584e620f91a` received REVISE (PR #1620 comment 7208980804), and r2 at
+`bfac322211b3e00303154e6cd96247ac1e48e9be` a narrow REVISE (PR #1620 comment 7209044224); §9 maps both
+reviews' findings to changes. It amends staging amendment r2 (`AMENDMENT.md` in this directory), the
 Amendment 6 r13 identity rules, the identity comparisons of r9 and its Amendment 1, and the custody
 design's R6.CUST.8, replacing GitHub-identity requirements with explicitly recorded session
 identities. Adoption, implementation, staging, freeze and execution keep their separate gates.
@@ -32,8 +33,9 @@ admits nothing or treats self-declared strings as verified.
 admitted A1 plan record directory `D_rec`, pinned by the R6.REC.16 `PREREG.md` Record pins table of the
 admitted `F`, beside the transition descriptor of staging r2 §2. Its bytes are canonical JSON
 (R6.RECON.29). Closed keys, all required: `schema` (`"oi-a1-staging-sessions/1"`), `author` (the
-writer's `id`, which must itself be an entry), and `parties`, an array of entries. Each entry has
-these closed keys, all required:
+writer's `id`, which must itself be an entry), `parties`, an array of entries, and `withdrawn`, an
+array, possibly empty, of withdrawals `{id, designation}`. Each entry has these closed keys, all
+required:
 
 | Key | Type | Meaning |
 |---|---|---|
@@ -43,18 +45,35 @@ these closed keys, all required:
 | `spawned_by` | an `id` or null | the session that started this one, if any |
 | `same_party` | array of `id`, possibly empty | further parties that count as the same party |
 | `scope` | non-empty array of paths | directories in which the party may author or review |
-| `designation` | non-empty string | the URL of the owner record that designates this entry |
+| `designation` | non-empty string | the URL of the owner's `oi-designate` form comment that designates this entry (S1.2) |
 
-**S1.2 Root of trust: the owner's designation.** The owner is the root of trust. Each entry's
-`designation` names an owner record (AGENTS.md §A.42 item 7) that states the entry's `id`, `kind`,
-`platform_ref`, `spawned_by`, `same_party` and `scope` verbatim. Before `F` is approved, a reviewer
-outside the party of the registry's `author` checks every entry against its designation and records
-the result in an `oi-review-record/1` of the registry, with items `party:<id>` for every entry. The
-owner's approval of `F` quotes the registry's SHA-256. The tool checks mechanically that every
-`designation` is a URL of a comment in this repository, and that the registry's review exists, accepts
-every item, binds the registry's exact path and blob, and has a reviewer outside the writer's party;
-whether each entry matches its owner record is that review's finding, which the tool does not repeat.
-A missing designation, or one the review finds missing or mismatched, makes the entry unusable.
+**S1.2 Root of trust: the owner's own acts.** The root of trust is the owner's own acts, not any
+record a session can write. Every session writes to GitHub through the owner's account, so only a
+form that an automated writer may not produce is attributable to the owner:
+- **Designation.** Each entry's `designation` is the URL of an owner form comment, posted by hand, in
+  #1169 or the guiding pull request, whose first line is exactly `oi-designate` and whose second line
+  is the entry's canonical JSON, byte for byte. AGENTS.md §A.49 rule 4 bars any automated text whose
+  first line begins with `oi-` in a governed thread, so such a comment is the owner's by rule.
+- **Withdrawal.** A wrong entry is never edited (S1.5). The owner retires it with a form comment whose
+  first line is exactly `oi-withdraw` and whose second line is the entry's `id`; the registry records
+  `{id, designation}` in `withdrawn`, with `designation` that comment's URL. A withdrawn `id` is not an
+  identity string for any review or record at a freeze whose registry lists the withdrawal. Its links
+  stay in the party relation, so withdrawal never makes two parties independent.
+- **Freeze approval.** The owner's approval of `F` quotes the registry's SHA-256 and states that the
+  owner checked each entry's `id`, `platform_ref`, `spawned_by` and `same_party` against the
+  platform's session list, and each designation and withdrawal against its form comment.
+
+The registry also has an `oi-review-record/1` (S1.1), by a reviewer outside the party of the
+registry's `author`, with items `party:<id>` for every entry and `withdrawn:<id>` for every withdrawal,
+which checks each against its form comment before the owner's approval. That review is evidence of
+review, not the root of trust: its reviewer and the writer are identified through the registry under
+review. The tool checks mechanically that every `designation` is a comment URL in this repository and
+that the registry's review exists, binds the registry's exact path and blob, meets §3 with root `F`
+and scope over `D_rec`, has a reviewer outside the writer's party, and accepts every item. **One rule
+applies:** a missing designation, a review that rejects or omits any item, or any other failure of
+this paragraph fails the registry (S1.4); there is no partially usable registry. Whether a comment is
+in the owner's form, and whether the owner's approval states the checks above, are procedural
+(R6.REC.3) and are recorded in the record that relies on the approval (AGENTS.md §A.42 item 7).
 
 **S1.3 Party.** The party of `x` is the closure of `{x}` under `same_party` and `spawned_by`, each read
 in both directions. A spawning lineage is therefore one party unless an owner record designates the
@@ -69,7 +88,8 @@ lowercase ASCII, so case folding cannot make two distinct ids equal; no control 
 
 **S1.5 Append-only across freezes.** Where staging r2's `a1-staging-prior.json` names a non-null
 `F_prev`, the registry admitted at `F_prev`, read from `F_prev`'s pin table, is the prior registry.
-Every prior entry appears in the registry at `F` byte-identical as a canonical JSON element; and the
+Every prior entry and withdrawal appears in the registry at `F` byte-identical as a canonical JSON
+element; and the
 party relation restricted to ids registered at `F_prev` is the same at `F`, so a new entry may join one
 existing party but may not link two existing parties, and no existing entry gains a link. A failure
 fails the registry (S1.4).
@@ -98,16 +118,19 @@ A review binds:
   review read from `Vers(M)` (R6.CUST.8). A review written after `F` is therefore bound to a commit it
   can name, and custody versions added after `F` stay reviewable;
 - its reviewer: `reviewer`, an identity string (R6.RECON.29 as amended);
-- its platform evidence: a required key `platform_ref`, equal to the reviewer's registry entry's
+- a consistency check: a required key `platform_ref`, equal to the reviewer's registry entry's
   `platform_ref`;
 - its authorized scope (S1.6).
 
-The reviewing session also posts the review file's blob SHA-256 on the guiding pull request, from its
-own session, as identity evidence for review; the tool does not read it. **Residual limit**, in
+The reviewing session also posts the review file's blob SHA-256 on the guiding pull request; the tool
+does not read it. The review-level `platform_ref` and the posted digest are consistency checks, not
+identity evidence: any session can copy a registered `platform_ref`, and the post is written through
+the shared account. Identity evidence is the entry-level `platform_ref` as checked by the owner against
+the session list (S1.2). **Residual limit**, in
 R6.REC.12's words: "The tool can check that the role fields differ, not who actually wrote the
-records; identity rests on the writer's and the reviewer's own recorded statements." The registry, its
-owner designations, `platform_ref` and the posted digest narrow that limit; they do not authenticate a
-session (OQ-S1-4).
+records; identity rests on the writer's and the reviewer's own recorded statements." The owner's
+designations and freeze approval fix which sessions exist and how they relate; they do not show which
+session wrote a given review, and this supplement does not narrow that limit (OQ-S1-4).
 
 ## 4. Missing or ambiguous evidence
 
@@ -128,6 +151,11 @@ record whose `author` is not an identity string fails record lint.
   witness in `M`'s ancestry, and needs a repair to be discharged (Keys (b) does not apply, since the
   record is present).
 
+**For the owner.** An invalidating review whose `reviewer` is not an identity string (unregistered,
+withdrawn, or malformed) is a permanent block: no `Z` can meet r9 NR-5's resolver for it, route 2 does
+not exist, and a repair-bearing reassessment still faces the review witness. Only dropping the bound
+edit from the plan (R6.RECON.26) lifts it. This fails closed by design.
+
 An unreadable required object stays ERROR (R6.REC.17, R6.OBL29.7).
 
 ## 5. Clauses that change
@@ -144,6 +172,8 @@ An unreadable required object stays ERROR (R6.REC.17, R6.OBL29.7).
 | r13 R6.REC.13 | "by a non-author reviewer other than the record's own reviewer" reads "by a reviewer in neither the party of the record's author nor the party of any ordinary reviewer of the record (S-1 S1.7)". |
 | r13 R6.RECON.26 Form (i) | "unless its independence fails: its `reviewer` equals the `author` of the record its `reviewed` names (R6.RECON.29), or is a run, check or Issue (R6.REC.6). Only such an independence failure disqualifies it" reads "unless its `reviewer` is the same id as the `author` of the record its `reviewed` names (S-1 S1.3). Only that disqualifies it. A reviewer in that author's party but not the same id, a reviewer that is not an identity string, or a failed registry, `revision` or `platform_ref`, is a form failure that still blocks (S-1 S1.9)." The provisional-block clause of r9 A1.5 follows. |
 | r13 table `review.record` | add rows `revision` (commit id, required, the commit the reviewer read; acceptance as S-1 §3) and `platform_ref` (non-empty string, required; equals the reviewer's registry entry). The `reviewer` acceptance reads "not in the party of the reviewed record's `author`; for a widening review, also not in the party of any ordinary reviewer of the superseding record". |
+| r13 R6.RECON.33, kind table | add the row `sessions` — `oi-a1-staging-sessions/1`. The registry is admitted from `F`'s pin table (S-1 S1.1); where the configuration's `records` also lists it, the reference must equal the pinned path and blob, as for `roles.side_change_classes`; otherwise ERROR `CONFIG_INVALID`. |
+| r13 R6.RECON.31, item-id table | add the row for `oi-a1-staging-sessions/1`: item ids `party:<id>` for each entry of `parties` and `withdrawn:<id>` for each withdrawal. Its review meets S-1 §3 with root `F` and scope over `D_rec`. |
 | r13 table `migration.approval`, `author` | acceptance: "the `id` of a registry entry of kind `"person"` designated as the owner" (a registry id in place of a login). |
 | r9 Amendment 1, genuine finding (§1) and A1.1 | "whose `reviewer` differs, as an identity string (R6.RECON.29), from that record's `author` and is not a run, check or Issue" reads "whose `reviewer` is not the same id as that record's `author` (S-1 S1.3); a reviewer in the author's party, or one that is not an identity string, makes it a genuine finding with a form failure (S-1 S1.9)". |
 | r9 Amendment 1, A1.2 | "shows `author` equal to `reviewer`" reads "shows `author` the same id as `reviewer`". |
@@ -202,14 +232,18 @@ Each is a specification until implemented.
 | S1-SAME-PARTY-REVERSED | `w1` lists `r1` (the link only in the other direction) | review disqualified |
 | S1-SAME-PARTY-CHAIN | `r1 → s → w1` through `same_party` | review disqualified |
 | S1-SPAWNED | `r1.spawned_by` is `w1` | review disqualified |
-| S1-MISSING-LINK | `r1` was spawned by `w1` but its entry has `spawned_by: null`; the registry review finds the mismatch against the owner record | registry review rejects; registry fails; every dependent review disqualified |
+| S1-MISSING-LINK | `r1` was spawned by `w1` but its entry has `spawned_by: null`; the registry review finds the mismatch against the owner's form comment | registry review rejects the item; registry fails; every dependent review disqualified |
 | S1-WIDENING-SAME-PARTY | The widening reviewer is in an ordinary reviewer's party | widening review disqualified; FAIL `record-invalid` |
 | S1-WIDENING-AUTHOR-PARTY | The widening reviewer is in the author's party | widening review disqualified; FAIL `record-invalid` |
 | S1-DANGLING-LINK | A `same_party` or `spawned_by` member names no entry | registry fails |
 | S1-DUP-ID | Two entries with equal `id`; variant: an `id` whose prefix differs from its `kind`; variant: two entries share `platform_ref` | registry fails; FAIL `record-invalid` for every record needing an identity |
 | S1-NO-REGISTRY | The registry is absent from `F`'s pin table, differs from the pinned SHA-256, or lacks its accepting review | registry fails |
 | S1-REGISTRY-BY-ARGUMENT | A registry is supplied by argument, or identities are derived from commit authors, with none pinned at `F` | ignored; registry fails |
-| S1-DESIGNATION | An entry's `designation` is empty or not a comment URL in this repository; variant: the registry review records a mismatch with the owner record | entry unusable; reviews relying on it disqualified |
+| S1-DESIGNATION | An entry's `designation` is empty or not a comment URL in this repository; variant: the registry review rejects the item for a mismatch with the form comment | registry fails; every review and record needing an identity disqualified |
+| S1-WITHDRAWN | The registry at `F` lists a withdrawal of `r2`; a review by `r2` | review disqualified; an invalidating review by `r2` blocks permanently (S1.9) |
+| S1-WITHDRAWAL-KEEPS-LINKS | `r2` was in `w1`'s party and is withdrawn; a review by `r3`, linked to `w1` only through `r2` | still in `w1`'s party; review disqualified |
+| S1-WITHDRAWAL-REMOVED | A withdrawal listed at `F_prev` is absent at `F` | registry fails (S1.5) |
+| S1-REGISTRY-REVIEW-PARTIAL | The registry review accepts every `party:` item but omits a `withdrawn:` item | registry fails |
 | S1-PLATFORM-REF | A review's `platform_ref` differs from its reviewer's entry, or is missing | review disqualified |
 | S1-REGISTRY-CHANGED | Between `F_prev` and `F`: an entry removed, an entry edited, or a new entry linking two existing parties | registry fails (S1.5) |
 | S1-REVISION-MISMATCH | `revision` holds `reviewed.path` with other bytes, is unreachable from the review's root, or is missing | review disqualified |
@@ -236,6 +270,16 @@ Each is a specification until implemented.
 | 9. Minor | case-folding claim withdrawn from controls (S1.4); near-miss mutants (§5); "any ordinary reviewer" (S1.7, §5); `migration.approval` acceptance as kind person (§5); registry source for snapshots and harness controls (§5) |
 | 10. Controls | S1-REPLACEMENT-WRITER replaced by S1-SPAWNED and S1-MISSING-LINK; "provisional block" corrected (S1-INVALIDATING-*); the listed missing controls added |
 
+**Re-review of r2 (PR #1620 comment 7209044224):**
+
+| Finding | Change in r3 |
+|---|---|
+| N1. Designations not attributable | S1.2: designations and withdrawals are owner form comments posted by hand (`oi-designate`, `oi-withdraw`), attributable by AGENTS.md §A.49 rule 4; the `F` approval quotes the SHA-256 and states the owner's check of each entry against the platform's session list; the registry review is evidence of review, not the root of trust; OQ-S1-5 default changed |
+| N2. `platform_ref` overstated | §3: the review-level `platform_ref` and the posted digest are consistency checks; the residual limit is not narrowed |
+| N3. Entry unusable or registry fails | one rule: any rejected or omitted item fails the registry (S1.2, S1-DESIGNATION); a narrow append-only withdrawal (S1.2, S1.5); S1-WITHDRAWN, S1-WITHDRAWAL-KEEPS-LINKS, S1-WITHDRAWAL-REMOVED, S1-REGISTRY-REVIEW-PARTIAL |
+| N4. Schema plumbing | §5 adds the R6.RECON.33 kind row and the R6.RECON.31 item-id row; the registry review meets §3 |
+| N5. Permanent self-inflicted block | S1.9 states it for the owner |
+
 ## 10. Open questions for the owner
 
 | Id | Question | Recommended default | Alternative |
@@ -244,14 +288,15 @@ Each is a specification until implemented.
 | OQ-S1-2 | Can a party registered after `F` review a post-freeze reconciliation record? | no: the registry is read from `F` only | admit a registry pinned at `REV`, which would let a post-freeze commit add identities |
 | OQ-S1-3 | Which sessions count as one party? | a spawning lineage (`spawned_by`) and the owner's `same_party` links, unless an owner record designates the sessions as independent | `same_party` only, leaving undeclared spawning links undetected |
 | OQ-S1-4 | Are identity strings authenticated? | no; the residual limit of R6.REC.12 stands, narrowed by the owner's designations, `platform_ref` and the posted digest | a signed attestation per session, a new mechanism needing its own design |
-| OQ-S1-5 | Which owner record forms count as designations? | a comment on #1169 or on the guiding pull request, by the owner, stating the entry verbatim | any owner record linked from the guiding pull request |
+| OQ-S1-5 | Which owner records count as designations and withdrawals? | owner form comments posted by hand, first line `oi-designate` (then the entry's canonical JSON) or `oi-withdraw` (then the `id`), in #1169 or the guiding pull request; attributable to the owner by AGENTS.md §A.49 rule 4 | any owner record linked from the guiding pull request, which a session could also write through the shared account |
 
 ## 11. References (AGENTS.md §A.42 item 8)
 
 | Reference | Used for | Classification |
 |---|---|---|
 | #1169 comment 7208869709, item S-1 | authority, quoted above | provenance |
-| PR #1620 comment 7208980804 | the review answered in §9 | provenance |
+| PR #1620 comments 7208980804 and 7209044224 | the reviews answered in §9 | provenance |
+| AGENTS.md §A.49 rule 4 on `main` | attribution of owner form comments | support on `main` |
 | `AMENDMENT.md` (staging r2) at `e3fb631ec9c29535f73ee6c180169d794846df67` | the clauses amended | support off `main`; it lands with #1577 |
 | r13 R6.RECON.26, R6.RECON.29, R6.REC.2, R6.REC.3, R6.REC.6, R6.REC.12, R6.REC.13, R6.REC.16, tables `review.record` and `migration.approval`, at `5ad8837521de0a26734266a64f91548fd3dcff1e` | the clauses amended | support on `main` (landed by #1604) |
 | r9 `DESIGN.md` (NR-3, NR-5) and `AMENDMENT-1.md` at `e79e7ca90f863115bc75b7ae5195dbba016125da` | the clauses amended | support on `main` (landed by #1601, merge 13c05b4f) |
