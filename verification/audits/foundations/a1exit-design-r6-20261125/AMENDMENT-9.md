@@ -59,6 +59,12 @@ gains the 75 rows. The entry is:
 
 Under R6.GATE.15, NOT RUN is admitted only while the release check is false.
 
+The release check means: every rule record referenced by the configuration at the commit under check matches its pin and has an accepting review listed in the configuration's records that names exactly that blob. The gate's key for it carries this amendment's text verbatim.
+
+R6.GATE.15's sentence "RT-O9 is gated: its own record-directory checks run" and R6.CTRL.17's "run and are gated whenever RT-O9 runs" apply once this release check is true, that is, at the candidate F. Before then RT-O9 may be NOT RUN like the other 74 rows.
+
+A row in this list can still fail at F for a reason other than OBL-3. A2r (RE-20(b), tracked as OBL-21) and A11r (VD-7) carry such independent defects, which this amendment neither cures nor waives. The lint controls A4r, A7r, A9r and A11r are likewise enforced only at F, so a lint defect would first surface there.
+
 Nothing else changes:
 - every other expectation of these rows stays as it is, including both directions where a row has them;
 - R6.GATE.9's composite rule (Q14) applies;
