@@ -97,6 +97,12 @@ def record_of(entry):
     return {'file': ref['path'], 'record': ref} if isinstance(ref, dict) and ref.get('path') else {}
 
 
+def out_of_scope_entry(kind, e):
+    """An entry reported as out-of-scope (R6.REC.10, sec. 7): its kind, record, digest, segment and tree."""
+    return {'kind': kind, 'record': (e.get('_ref') or {}).get('path'), 'entry': entry_sha(e),
+            'id': e.get('id'), 'segment': e.get('segment'), 'tree': e.get('tree')}
+
+
 def entry_sha(e):
     """The sha256 of a record entry as written (the fields the record states, not the tool's own `_` fields)."""
     return util.sha256(util.canonical({k: v for k, v in e.items() if not k.startswith('_')}))
@@ -111,6 +117,9 @@ class Coverage:
         self.segments = segments
         self.check = check
         self.items = []
+        # R6.REC.10, sec. 7: entries naming a segment outside the chain or another tree, reported as out-of-scope
+        # (not items)
+        self.out_of_scope = []
         # R6.REC.10: two entries naming the same subject, in one record or in two records of the same kind, are
         # duplicates: FAIL record-invalid naming both, and neither entry is applied
         self.hp_records = self._unique('hp', adjudications.get('hp', []), lambda a: a.get('site_id'))
@@ -190,7 +199,10 @@ class Coverage:
         # resolves nothing and is FAIL record-invalid; an entry naming a segment outside the chain is out of scope
         chain = {sg_['name'] for sg_ in self.segments}
         for e in self.context_adj:
-            if e.get('segment') in chain and e.get('site_id') not in tracked:
+            if e.get('segment') not in chain:
+                self.out_of_scope.append(out_of_scope_entry('context-adjudication', e))
+                continue
+            if e.get('site_id') not in tracked:
                 subj = e.get('id') or e.get('site_id')
                 self.item('RECORD', 'record-invalid', subj, e.get('segment'), {'entry': entry_sha(e)},
                           why='context adjudication entry matches no subject', record=e.get('_ref'))
@@ -583,6 +595,7 @@ class Terms:
         self.added = added or {}
         self.check = check
         self.items = []
+        self.out_of_scope = []
         self.hit_records = self._hit_scope(list(hit_records), chain_segments)
         self.scope_paths = scope_paths
         self.splice_texts = splice_texts
@@ -632,8 +645,10 @@ class Terms:
             kept.append(r)
         if chain_segments is None:
             return kept
-        # out-of-scope entries are kept as given (they resolve nothing here and are not findings)
-        return kept + [r for r in recs if r not in scoped]
+        # out-of-scope entries are reported as out-of-scope (sec. 7; not items) and kept as given
+        outside = [r for r in recs if r not in scoped]
+        self.out_of_scope += [out_of_scope_entry('hit-classification', r) for r in outside]
+        return kept + outside
 
     def paths_for(self, profile):
         if profile.spec.get('scope') == 'repo' and self.scope_paths is not None:

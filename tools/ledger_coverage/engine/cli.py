@@ -1283,6 +1283,10 @@ def op_coverage(a, repo, ctx, loaded, records, result):
     result['profiles_evaluated'] = {commit: sorted({p.name for p in tm.review_profiles} |
                                                    {p.name for p in deny})}
     result['covered_paths'] = ctx.corpus(commit)
+    oos = cv.out_of_scope + tm.out_of_scope
+    if oos:
+        # R6.REC.10, sec. 7: record entries outside the chain or for another tree, reported and not findings
+        result['out_of_scope'] = sorted(oos, key=lambda x: json.dumps(x, sort_keys=True))
     return items
 
 
@@ -1440,6 +1444,9 @@ def op_terms(a, repo, ctx, loaded, records, result):
     result['profiles_evaluated'] = {commit: sorted(names)}
     result['covered_paths'] = sorted(set(ctx.corpus(commit)) | set(scope_paths or []))
     result['added_text_lines'] = sum(len(v) for v in added.values())
+    if tm.out_of_scope:
+        # R6.REC.10, sec. 7: record entries outside the chain or for another tree, reported and not findings
+        result['out_of_scope'] = sorted(tm.out_of_scope, key=lambda x: json.dumps(x, sort_keys=True))
     return items
 
 

@@ -111,7 +111,8 @@ def extra_controls(cap):
         cv, it_o = w.coverage(h, [sg], adj={'hp': [good], 'context': [dict(ctx_orphan, segment=far)]}, hits=True,
                               hit_records=[dict(hit_orphan, segment=None, tree='2' * 40)])
         ce._case('the orphan entry naming a segment outside the chain, or a tree the record does not apply to')
-        c4 = not [i for i in it_o if i['class'] in ('stale-adjudication', 'record-invalid')]
+        c4 = not [i for i in it_o if i['class'] in ('stale-adjudication', 'record-invalid')] and \
+            sorted(x['kind'] for x in w.last_out_of_scope) == ['context-adjudication', 'hit-classification']
         # operation D (terms, no chain; cli op_terms passes an empty chain): an entry naming no tree and no segment
         # applies to the terms tree, and one matching no line is FAIL record-invalid; an entry naming a segment is
         # out of scope there (no finding)
@@ -122,11 +123,12 @@ def extra_controls(cap):
                                    dict(hit_orphan, id='hit-segment-d')], chain_segments=[])
         tm.deny()
         tm.review()
-        ce._stage('terms', tm.items)
+        ce._stage('terms', tm.items, out_of_scope=tm.out_of_scope)
         ce._case('operation D: a hit classification entry naming no tree and no segment, matching no line of the '
                  'terms tree (orphan)', entry='hit-orphan-d')
         c6 = any(i['class'] == 'record-invalid' and i['subject'] == 'hit-orphan-d' for i in tm.items) and \
-            not [i for i in tm.items if i['subject'] == 'hit-segment-d']
+            not [i for i in tm.items if i['subject'] == 'hit-segment-d'] and \
+            [x['id'] for x in tm.out_of_scope] == ['hit-segment-d']
         cv, it2 = w.coverage(h, [sg], adj={'hp': [good]}, hits=False)
         ce._case('the record without the orphan and duplicate entries (positive)')
         c5 = not [i for i in it2 if i['class'] in ('stale-adjudication', 'record-invalid')]

@@ -141,6 +141,7 @@ class World:
         ctx = self.ctx(allow)
         cv = pl.Coverage(ctx, commit, segs, ctx.cfg if False else None, adj or {}, []).run()
         items = list(cv.items)
+        oos = list(cv.out_of_scope)
         if hits:
             # hit classification entries, when given, are scoped to this tree and the run's chain (R6.REC.10)
             tm = pl.Terms(ctx, commit, [ctx.profiles['np-review']], [ctx.profiles['np-deny']],
@@ -149,7 +150,11 @@ class World:
             tm.deny()
             tm.review(held=pl.held_lines(cv.states))
             items += tm.items
+            oos += tm.out_of_scope
+        self.last_out_of_scope = oos
         if capture_hook is not None:
+            if oos:
+                facts = dict(facts or {}, out_of_scope=oos)
             from .cli import site_state
             sites = [dict(v, state=site_state(v)) for k, v in sorted(cv.site_out.items())]
             counts = {}
