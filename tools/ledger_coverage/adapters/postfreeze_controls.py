@@ -13,6 +13,8 @@ import json
 
 from ledger_coverage.engine import cli, config as cfgmod, pipeline as pl, reconcile as rcmod, records as rec, util
 from ledger_coverage.adapters import host_fixture as hf, synthetic_fixture as sf
+from ledger_coverage import record_authority as ra
+from ledger_coverage.engine import gitobj
 
 RD = 'verification/audits/syn-recon/'
 CONTROL_EFFECT = {'conclusions': 'none', 'assessment': 'control fixture: the change on main touches no planned edit',
@@ -1045,11 +1047,29 @@ def cite(doc, reviewer=sf.REVIEWER, review=True):
     return variant
 
 
+def with_custody(w):
+    """A cited discharge needs the custody record of R6.OBL29 on main (sec. 32, OBL-29): M gains its bootstrap
+    version V0, whose blob the run takes as the custody bootstrap (as the custody controls' CW.bootstrap does)."""
+    from ledger_coverage.engine import custody as cust
+    v0 = json.dumps({'schema': cust.schema, 'predecessor': None, 'author': 'session.fixture-writer-c',
+                     'entries': [{'base': w.M, 'type': 'bootstrap'}]}, sort_keys=True, separators=(',', ':'),
+                    ensure_ascii=False).encode('utf-8')
+    w.M = w.repo.derive(w.M, {ra.custody_path: v0}, parents=[w.M], subject='custody bootstrap')
+    w.custody_boot = gitobj.blob_id_of(v0)
+    return w
+
+
 def bk_controls(r, check):
     res, names, rf, rnames = {}, [], {}, []
 
     def run(store, nm, name, w):
-        code, out = w.run([], harness=True)
+        saved = ra.custody_bootstrap_blob
+        if getattr(w, 'custody_boot', None):
+            ra.custody_bootstrap_blob = w.custody_boot
+        try:
+            code, out = w.run([], harness=True)
+        finally:
+            ra.custody_bootstrap_blob = saved
         inv = [i for i in (out or {}).get('items', []) if i['class'] == 'record-invalid' and i.get('subject') == RA_PATH]
         store[name] = {'exit': code, 'classes': classes(out),
                        'blocked': [i.get('subject') for i in (out or {}).get('items', [])
@@ -1062,7 +1082,7 @@ def bk_controls(r, check):
         # two passes: the first World gives the finding, the repair commit and entry the reassessment names (the
         # main commits and records do not depend on the configuration); the second cites it
         w1 = finding_world(r, edits=edits, two=two)
-        return finding_world(r, variant=cite(mk(w1), reviewer, review), edits=edits, two=two)
+        return with_custody(finding_world(r, variant=cite(mk(w1), reviewer, review), edits=edits, two=two))
 
     run(res, names, BK[0], finding_world(r, edits=EDITS_REWORDED))
     run(res, names, BK[3], finding_world(r))
