@@ -6,12 +6,10 @@ staging amendment r2, sec. 2 ("R6.REC.7 and R6.EVID.8 for the designated roles")
   that heads its lineage in the tree of the run's `M` (R6.EVID.8). The staged allow input may come from S (staging r2
   sec. 2): a rule reference may be the hole `{"fill": "allow-tip-at-S"}`, filled from the allow tip resolved at S.
   Filling replaces the `fill` key by `path` and `blob_sha256` and keeps every other key of the entry. The template
-  names no record of the class lineage outside the hole (a role pin other than the resolved tip). K1-GRAPH's
-  acyclicity is kept as the owner's clarification of R6.EVID.8 reads it (#1577 comment 7221309504, amaybaum,
-  2026-11-27): "names no blob that the class record pins" forbids a cycle through the class record, not every shared
-  blob. The instance names the class tip; `fill` refuses the instance when the class tip reaches the template or the
-  instance again, directly (a pin of it) or transitively (through the references of the blobs it pins, read at M),
-  and allows a tool pin fixed independently of the class record that both the class record and the template name.
+  names no record of the class lineage outside the hole (a role pin other than the resolved tip). The unfilled
+  template and the filled instance are separate nodes (R6.EVID.8 clarification, #1577 comment 7224628778). The
+  class record pins the unfilled template as a tool-landing path. The instance depends on the template and the
+  resolved roles. The template's holes add no edges from the unfilled bytes. K1-GRAPH still rejects actual cycles.
 - The role binding: the reviewed control inputs supply S and the sha256 of the transition descriptor S carries. The
   descriptor's base `B`, its custody archive at `B`, and the bounded namespace and records checks over the verified
   first-parent paths `B..S` and `B..M` are those of chain admission (engine `transition.representative_binding`); the
@@ -129,25 +127,26 @@ def ref_graph(repo, M, roots):
     return graph
 
 
-def cycle_check(binding, role, named=()):
-    """K1-GRAPH through the class record (R6.EVID.8 as clarified, #1577 comment 7221309504): the filled instance names
-    the class tip, so a path from the class tip back to the instance's role (`role`: the template's and the
-    instance's sha256) is a cycle. Returns the path found, or None. `named` (the blobs the template names) is not
-    read: sharing a blob with the class record is not a cycle."""
-    graph = binding.get('graph')
-    if not isinstance(graph, dict):
-        raise Refused('the binding carries no reference graph of the class record (K1-GRAPH cannot be checked)')
-    start = binding[CLASS_FILL]['blob_sha256']
-    stack, seen = [(start, [start])], set()
-    while stack:
-        node, path = stack.pop()
-        if node in role:
-            return path
-        if node in seen:
+def reference_cycle(graph, roots):
+    """Return a cycle reachable from the given roots, with its start repeated at the end, or None."""
+    visited = set()
+    for root in roots:
+        if root in visited:
             continue
-        seen.add(node)
-        for k in graph.get(node) or []:
-            stack.append((k, path + [k]))
+        stack = [(root, iter(sorted(graph.get(root, ()))))]
+        active = {root: 0}
+        while stack:
+            node, edges = stack[-1]
+            child = next(edges, None)
+            if child is None:
+                stack.pop()
+                del active[node]
+                visited.add(node)
+            elif child in active:
+                return [n for n, _ in stack[active[child]:]] + [child]
+            elif child not in visited:
+                active[child] = len(stack)
+                stack.append((child, iter(sorted(graph.get(child, ())))))
     return None
 
 
@@ -197,16 +196,26 @@ def fill(template_bytes, binding):
         if isinstance(v, list):
             return [walk(x) for x in v]
         return v
-    inst = _dump(walk(t))
-    cyc = cycle_check(binding, {_sha(template_bytes), _sha(inst)}, _blobs(t))
+    filled = walk(t)
+    inst = _dump(filled)
+    graph = binding.get('graph')
+    if not isinstance(graph, dict):
+        raise Refused('the binding carries no reference graph of the roles (K1-GRAPH cannot be checked)')
+    graph = dict(graph)
+    template_digest, instance_digest = _sha(template_bytes), _sha(inst)
+    graph[template_digest] = _blobs(t)
+    graph[instance_digest] = _blobs(filled) | {template_digest}
+    cyc = reference_cycle(graph, [instance_digest])
     if cyc:
-        raise Refused('a cycle through the class record (K1-GRAPH): %s' % ' -> '.join(x[:12] for x in cyc))
+        raise Refused('a cycle in the control-instance dependencies (K1-GRAPH): %s' %
+                      ' -> '.join(x[:12] for x in cyc))
     return inst
 
 
-def bind(repo, S, M, descriptor_sha256, roles=None, rec_dir=None):
+def bind(repo, S, M, descriptor_sha256, roles=None, rec_dir=None, *, template=None):
     """The role binding at the snapshot S for the run's M (staging r2 sec. 2). Returns {fill kind: reference, B,
-    descriptor, class_chain, pins_checked}; Refused when the snapshot or the role binding cannot be verified."""
+    descriptor, class_chain, pins_checked}; Refused when the snapshot or the role binding cannot be verified.
+    When a template reference is supplied, its exact path and digest must be among the verified landing pins."""
     roles = roles or ra.transition_roles
     rec_dir = rec_dir or ra.authorized_record_directories[0] + '/'
     dpath = rec_dir + ra.transition_descriptor
@@ -224,8 +233,9 @@ def bind(repo, S, M, descriptor_sha256, roles=None, rec_dir=None):
         got = tr.representative_binding(repo, B, S, M, roles, desc)
         _path, chains_m = tr.walk(repo, B, M, roles, desc)
         tip = got['class_tip_at_M']
+        allow = got['tips_at_S']['allow']
         doc = json.loads(repo.read(M, tip['path']).decode('utf-8'))
-        pins, stale = 0, []
+        pins, stale, template_pinned = 0, [], False
         for c in doc.get('classes') or []:
             if not isinstance(c, dict) or c.get('id') != ra.tool_landing_class_id:
                 continue
@@ -235,14 +245,21 @@ def bind(repo, S, M, descriptor_sha256, roles=None, rec_dir=None):
                 if b is None or _sha(b) != p.get('blob_sha256') or \
                         ('git_blob' in p and gitobj.blob_id_of(b) != p['git_blob']):
                     stale.append(p.get('path') if isinstance(p, dict) else p)
+                elif template is not None and all(p.get(k) == v for k, v in template.items()):
+                    template_pinned = True
         if stale:
             raise Refused('tool-landing pins of the class tip differ from M\'s blobs: %s' % sorted(map(str, stale))[:5])
+        if template is not None and not template_pinned:
+            raise Refused('the control-instance template has no exact tool-landing pin at M: %s' % template['path'])
         graph = ref_graph(repo, M, [tip])
+        for digest, edges in ref_graph(repo, S, [allow]).items():
+            if edges or digest not in graph:
+                graph[digest] = edges
     except tr.Refused as exc:
         raise Refused(str(exc))
     except gitobj.Unresolvable as exc:
         raise Refused('an object the binding reads cannot be read: %s' % exc)
-    return {CLASS_FILL: tip, ALLOW_FILL: got['tips_at_S']['allow'], 'S': S, 'M': M, 'B': B,
+    return {CLASS_FILL: tip, ALLOW_FILL: allow, 'S': S, 'M': M, 'B': B,
             'descriptor': {'path': dpath, 'blob_sha256': descriptor_sha256}, 'class_chain': chains_m['class'],
             'pins_checked': pins, 'graph': graph}
 
@@ -260,19 +277,22 @@ def _full(repo_path, rev):
 def run(args):
     repo = gitobj.GitRepo(args.repo)
     trev, tpath = args.template.split(':', 1)
-    template = repo.read(_full(args.repo, trev), tpath)
     os.makedirs(args.out, exist_ok=True)
-    rec = {'template': {'path': tpath, 'blob_sha256': _sha(template) if template is not None else None}}
+    rec = {'template': {'path': tpath, 'blob_sha256': None}}
     try:
+        template_commit = _full(args.repo, trev)
+        template = repo.read(template_commit, tpath)
         if template is None:
             raise Refused('no template at %s' % args.template)
-        b = bind(repo, _full(args.repo, args.snapshot), _full(args.repo, args.main), args.descriptor_sha256)
+        rec['template']['blob_sha256'] = _sha(template)
+        b = bind(repo, _full(args.repo, args.snapshot), _full(args.repo, args.main), args.descriptor_sha256,
+                 template=rec['template'])
         inst = fill(template, b)
         with open(os.path.join(args.out, 'control-instance.json'), 'wb') as f:
             f.write(inst)
-        rec.update(binding=b, instance={'blob_sha256': _sha(inst)})
+        rec.update(template_commit=template_commit, binding=b, instance={'blob_sha256': _sha(inst)})
         code = 0
-    except Refused as exc:
+    except (Refused, gitobj.Unresolvable) as exc:
         rec['refused'] = str(exc)
         code = 3
     with open(os.path.join(args.out, 'binding.json'), 'w') as f:
@@ -284,7 +304,7 @@ def run(args):
 
 # ---- self-test: synthetic B..S..M in memory at the designated namespaces ---------------------------------------
 
-def self_test(out=None):
+def control_cases():
     cls_role, allow_role = ra.transition_roles
     rec_dir = ra.authorized_record_directories[0] + '/'
     croot, aroot = cls_role['directory'] + cls_role['root'], allow_role['directory'] + allow_role['root']
@@ -375,15 +395,14 @@ def self_test(out=None):
     case('REP-INSTANCE/10', 'a binding without the allow reference: refused',
          lambda: fill(tmpl, {CLASS_FILL: b[CLASS_FILL], 'class_chain': b['class_chain']}),
          lambda g: g[0] == 'refused' and 'no reference for the hole allow-tip-at-S' in g[1])
-    # R6.EVID.8 acyclicity as clarified by the owner (#1577 comment 7221309504): three controls, each run under the
-    # rule (cycle_check) and under two mutants of it
+    # R6.EVID.8 acyclicity, with the unfilled bytes pinned separately from the generated instance.
     tpl_path = 'tools/ledger_coverage/rep/control-instance.json'
     man_path = 'tools/ledger_coverage/rep/manifest.json'
     cfg_tool = copy.deepcopy(cfg)
     cfg_tool['records'].append({'kind': 'tool-pin', 'path': tool, 'blob_sha256': _sha(tool_b)})
     t_tool = _dump(make_template(cfg_tool, allow_paths=('syn/allow-old.json',)))
 
-    def world(landed, more):
+    def world(landed, more, template=None):
         # B..S..M as above, the class tip at S pinning the tool and `more`, M carrying `landed`
         rp = gitobj.Overlay(None)
         rt = rp.add_commit({'README.md': b'synthetic\n', tool: tool_b}, [], subject='root')
@@ -395,61 +414,104 @@ def self_test(out=None):
         s_ = rp.derive(b_, dict(landed, **{p1: tip, rec_dir + ra.transition_descriptor: d_}), parents=[b_],
                        subject='S')
         m_ = rp.derive(s_, {'notes/landing.txt': b'm\n'}, parents=[s_], subject='M')
-        return bind(rp, s_, m_, _sha(d_))
+        return bind(rp, s_, m_, _sha(d_), template=template)
+
+    tp = ref(tpl_path, t_tool)
     manifest = _dump({'files': [ref(tpl_path, t_tool)]})
     alias_path = 'tools/ledger_coverage/rep/alias.json'
     alias = _dump({'files': [ref('old/manifest.json', manifest)]})
-    ctl = [('REP-ACYCLIC/positive', 'a template sharing the independently fixed tool pin with the class record: '
-                                    'the instance is filled', lambda: fill(t_tool, world({}, ()))),
-           ('REP-ACYCLIC/direct', 'the class record pins the template itself: refused for the cycle',
-            lambda: fill(t_tool, world({tpl_path: t_tool}, [(tpl_path, t_tool)]))),
-           ('REP-ACYCLIC/transitive', 'the class record pins a manifest that names the template: refused for the '
-                                      'cycle', lambda: fill(t_tool, world({tpl_path: t_tool, man_path: manifest},
-                                                                          [(man_path, manifest)]))),
-           ('REP-ACYCLIC/transitive-alias', 'the class record pins the manifest and a document naming the same '
-                                            'digest at an absent path: the verified path still closes the cycle',
-            lambda: fill(t_tool, world({tpl_path: t_tool, man_path: manifest, alias_path: alias},
-                                       [(man_path, manifest), (alias_path, alias)])))]
-    real = globals()['cycle_check']
+    isolated = world({}, ())
+    pinned = world({tpl_path: t_tool}, [(tpl_path, t_tool)], tp)
+    indirect = world({tpl_path: t_tool, man_path: manifest, alias_path: alias},
+                     [(tpl_path, t_tool), (man_path, manifest), (alias_path, alias)], tp)
+    case('REP-INSTANCE/11', 'the template exists at M but has no class pin: refused',
+         lambda: world({tpl_path: t_tool}, [], tp),
+         lambda g: g[0] == 'refused' and 'no exact tool-landing pin at M' in g[1])
+    case('REP-INSTANCE/12', 'the declared template path is pinned to different bytes: refused',
+         lambda: world({tpl_path: t_tool}, [(tpl_path, t_tool)], ref(tpl_path, b'alt')),
+         lambda g: g[0] == 'refused' and 'no exact tool-landing pin at M' in g[1])
+    case('REP-INSTANCE/13', 'a template with matching bytes at a different path is not the pinned template',
+         lambda: world({tpl_path: t_tool, tpl_path + '.other': t_tool}, [(tpl_path, t_tool)],
+                       ref(tpl_path + '.other', t_tool)),
+         lambda g: g[0] == 'refused' and 'no exact tool-landing pin at M' in g[1])
+    def expected_instance_digest(binding):
+        instance = copy.deepcopy(cfg_tool)
+        instance['roles']['side_change_classes'] = binding[CLASS_FILL]
+        instance['records'][1] = {'kind': 'side-change-classes', **binding[CLASS_FILL]}
+        instance['rules'][1] = binding[ALLOW_FILL]
+        return _sha(_dump(instance))
 
-    def no_shared(binding, role, named=()):
-        # the pre-clarification reading: the template names no blob that the class record pins or references
-        shared = set(named) & set((binding.get('graph') or {}).get(binding[CLASS_FILL]['blob_sha256']) or [])
-        if shared:
-            raise Refused('the template names a blob that the class record pins: %s' % sorted(shared))
-        return None
-    rules = {'rule': real, 'mutant: any shared blob accepted, no cycle check': lambda binding, role, named=(): None,
-             'mutant: the pre-clarification rule (no shared blob)': no_shared}
+    ic = expected_instance_digest(pinned)
+    iic = expected_instance_digest(indirect)
+    cp = pinned[CLASS_FILL]['blob_sha256']
+    icp = indirect[CLASS_FILL]['blob_sha256']
+    ma = _sha(manifest)
+
+    def with_edge(binding, source, target):
+        # Rule edges are synthetic. Content-addressed blobs cannot be made to reference their own future hash
+        # by writing an ordinary JSON fixture. The role- and alias-resolution edges are still read from Git objects.
+        graph = binding['graph']
+        return dict(binding, graph={**graph, source: list(graph.get(source, [])) + [target]})
+
+    ctl = [
+        ('REP-ACYCLIC/shared-tool', 'the class and template independently pin the same tool blob',
+         isolated, True),
+        ('REP-ACYCLIC/pinned-template', 'the class pins the unfilled template at M and the instance fills at S',
+         pinned, True),
+        ('REP-ACYCLIC/transitive-template', 'the class and a manifest pin the unfilled template at M',
+         indirect, True),
+        ('REP-ACYCLIC/instance-direct', 'a required class edge to the filled instance closes a cycle',
+         with_edge(pinned, cp, ic), False),
+        ('REP-ACYCLIC/instance-transitive', 'the manifest remains visible through the verified path despite an '
+                                          'absent alias, so its required edge to the filled instance closes a cycle',
+         with_edge(indirect, ma, iic), False),
+        ('REP-ACYCLIC/class-cycle', 'a required manifest edge to the class closes a cycle within the inputs',
+         with_edge(indirect, ma, icp), False),
+        ('REP-ACYCLIC/allow-cycle', 'a required staged allow edge to the filled instance closes a cycle',
+         with_edge(pinned, pinned[ALLOW_FILL]['blob_sha256'], ic), False),
+    ]
+    real = globals()['reference_cycle']
+
+    def collapsed(graph, roots):
+        # The old interpretation forbade a path from the class to the template. Model it by routing a reference
+        # to the raw template back to the filled instance, excluding the instance's own provenance edge.
+        start = roots[0]
+        return real({**graph, start: graph[start] - {_sha(t_tool)}, _sha(t_tool): [start]}, roots)
+
+    rules = {'rule': real, 'mutant: no cycle check': lambda graph, roots: None,
+             'mutant: template and instance treated as one role': collapsed}
     verdicts = {}
     for rname, fn in rules.items():
-        globals()['cycle_check'] = fn
+        globals()['reference_cycle'] = fn
         try:
-            for cid, _txt, f_ in ctl:
+            for cid, _txt, binding, _want_ok in ctl:
                 try:
-                    f_()
+                    fill(t_tool, binding)
                     verdicts[(rname, cid)] = ('ok', None)
                 except Refused as exc:
                     verdicts[(rname, cid)] = ('refused', str(exc))
         finally:
-            globals()['cycle_check'] = real
-    cyc = 'a cycle through the class record (K1-GRAPH)'
-    for cid, txt, _f in ctl:
+            globals()['reference_cycle'] = real
+    cyc = 'a cycle in the control-instance dependencies (K1-GRAPH)'
+    for cid, txt, _binding, want_ok in ctl:
         got = verdicts[('rule', cid)]
-        want_ok = cid.endswith('positive')
         holds = got[0] == 'ok' if want_ok else (got[0] == 'refused' and got[1].startswith(cyc))
         cases.append({'id': cid, 'expected': txt, 'actual': got if got[0] == 'refused' else 'ok',
                       'status': 'PASS' if holds else 'FAIL',
                       'mutants': {r: verdicts[(r, cid)] for r in rules if r != 'rule'}})
-    m_any = 'mutant: any shared blob accepted, no cycle check'
-    m_pre = 'mutant: the pre-clarification rule (no shared blob)'
-    cases.append({'id': 'REP-ACYCLIC/mutants', 'expected': 'the accept-any-shared mutant passes the positive and '
-                  'refuses no cycle; the pre-clarification mutant refuses the positive',
+    m_any = 'mutant: no cycle check'
+    m_pre = 'mutant: template and instance treated as one role'
+    cases.append({'id': 'REP-ACYCLIC/mutants', 'expected': 'the no-cycle-check mutant misses every real cycle; the '
+                  'collapsed-role mutant wrongly refuses a valid landing pin',
                   'actual': {'%s | %s' % k: v for k, v in verdicts.items() if k[0] != 'rule'},
-                  'status': 'PASS' if (verdicts[(m_any, 'REP-ACYCLIC/positive')][0] == 'ok' and
-                                       verdicts[(m_any, 'REP-ACYCLIC/direct')][0] == 'ok' and
-                                       verdicts[(m_any, 'REP-ACYCLIC/transitive')][0] == 'ok' and
-                                       verdicts[(m_any, 'REP-ACYCLIC/transitive-alias')][0] == 'ok' and
-                                       verdicts[(m_pre, 'REP-ACYCLIC/positive')][0] == 'refused') else 'FAIL'})
+                  'status': 'PASS' if (all(verdicts[(m_any, cid)][0] == 'ok' for cid, *_ in ctl) and
+                                       verdicts[(m_pre, 'REP-ACYCLIC/pinned-template')][0] == 'refused')
+                  else 'FAIL'})
+    return cases
+
+
+def self_test(out=None):
+    cases = control_cases()
     bad = [c['id'] for c in cases if c['status'] != 'PASS']
     if out:
         os.makedirs(out, exist_ok=True)

@@ -28,6 +28,7 @@ import os
 import sys
 import tempfile
 import time
+from functools import cached_property
 
 here = os.path.dirname(os.path.abspath(__file__))
 tools = os.path.dirname(os.path.dirname(here))
@@ -130,13 +131,17 @@ class A1:
         self.ad = (cfg.get('controls') or {}).get('path', self.cpath).rsplit('/', 1)[0] + '/'
         self.out_root = out_root
         self.n = 0
-        from ledger_coverage.adapters import a1exit_exact_edit as le
-        self.led = le.load(self.base.read(P, PL + 'ledger.json'), {'edits': self.base.read(P, PL + 'edits.json')})
         self.results = {}
         self.rec = control_records.Recorder('a1-controls', out_root)
         self.runs_of = {}
         self.files_of = {}  # retained evidence files of a control, beside its runs
         self.procedures = {}  # the procedure inputs naming them (R6.GATE.8)
+
+    @cached_property
+    def led(self):
+        """Historical ledger for the controls that still need it. Representative builds use their landed copies."""
+        from ledger_coverage.adapters import a1exit_exact_edit as le
+        return le.load(self.base.read(P, PL + 'ledger.json'), {'edits': self.base.read(P, PL + 'edits.json')})
 
     def out(self):
         self.n += 1
@@ -1368,6 +1373,8 @@ def git_blob(b):
 def reference_graph(nodes, required):
     """Edges path -> path: A's bytes name B's current blob (its sha256 or git blob id), plus the edges a rule
     requires (`required`: {path: [paths]}), which must hold whatever the bytes are. Returns (edges, cycle)."""
+    from ledger_coverage.adapters.rep_instance import reference_cycle
+
     ids = {}
     for q, b in nodes.items():
         ids[q] = (sha(b), git_blob(b))
@@ -1379,27 +1386,7 @@ def reference_graph(nodes, required):
                 edges[q].add(r)
     for q, rs in required.items():
         edges.setdefault(q, set()).update(r for r in rs if r != q)
-    state, stack = {}, []
-
-    def visit(q):
-        state[q] = 1
-        stack.append(q)
-        for r in sorted(edges.get(q, ())):
-            if state.get(r) == 1:
-                return stack[stack.index(r):] + [r]
-            if r not in state:
-                got = visit(r)
-                if got:
-                    return got
-        stack.pop()
-        state[q] = 2
-        return None
-    for q in sorted(edges):
-        if q not in state:
-            got = visit(q)
-            if got:
-                return edges, got
-    return edges, None
+    return edges, reference_cycle(edges, sorted(edges))
 
 
 def tree_listing(a, spec, rec_dir):
@@ -1449,6 +1436,8 @@ def k1_graph(a, tool_files):
     design puts records frozen with the plan (sec. 6.3, 16.2), as in-memory fixtures only. The actual layout must be
     acyclic; two countercontrols place a record in the landing that names a blob the class record must pin, and must
     give a cycle."""
+    from ledger_coverage.adapters.rep_instance import control_cases
+
     cfg_b = a.repo.read(a.crev, a.cpath)
     cfg = json.loads(cfg_b)
     rec_dir = a.cpath.rsplit('/', 1)[0] + '/'
@@ -1539,32 +1528,38 @@ def k1_graph(a, tool_files):
     out['listing'] = {'landing_entries': len(land_blobs), 'freeze_entries': len(freeze_blobs),
                       'landed_set_equals_listing': listing == sorted(tool_files), 'landed_blob_mismatch': blob_mismatch,
                       'config_read_equals_freeze_listing': config_read_listed}
+    # The role-binding fixture exercises the same cycle detector with both control-instance nodes.
+    # Its B, S and M are synthetic and supply no live representative-control evidence.
+    role_cases = control_cases()
+    role_failures = [c['id'] for c in role_cases if c['status'] != 'PASS']
+    countercontrols = ('config_landed', 'class_review_landed', 'config_names_own_widening_review', 'descriptor_landed')
+    holds = cyc is None and not out['actual']['config_in_landing'] and out['listing']['landed_set_equals_listing'] and \
+        not blob_mismatch and config_read_listed and all(out[k]['cycle'] for k in countercontrols) and not role_failures
+    out['synthetic_role_cases'] = {'count': len(role_cases), 'failed': role_failures}
     a.rec.capture_doc('reference graph of the tool landing and the freeze (a1_controls.py k1_graph)',
                       {'nodes': node_doc,
                        'edges': {q: sorted(v) for q, v in sorted(edges.items())}, 'cycle': cyc,
-                       'countercontrol_cycles': {k: v['cycle'] for k, v in out.items() if k not in ('actual', 'listing')},
+                       'countercontrol_cycles': {k: out[k]['cycle'] for k in countercontrols},
+                       'synthetic_role_cases': out['synthetic_role_cases'],
                        'exit_status': None},
-                      attested={'outcome': 'PREDICATE', 'reference_graph_cycle': cyc,
+                      attested={'outcome': 'PREDICATE' if holds else 'PREDICATE_FAILED', 'reference_graph_cycle': cyc,
                                 'config_in_landing': out['actual']['config_in_landing'],
                                 'countercontrol_config_landed_cycle': bool(out['config_landed']['cycle']),
                                 'countercontrol_class_review_landed_cycle': bool(out['class_review_landed']['cycle'])})
     a.files_of['K1-GRAPH'] = {'graph-tree-listing.json': listing_doc, 'graph-listing.json': listing,
                               'graph-listing-blobs.json': land_blobs, 'graph-landed-set.json': sorted(tool_files),
-                              'graph-nodes.json': node_doc}
+                              'graph-nodes.json': node_doc, 'graph-synthetic-role-cases.json': role_cases}
     a.procedures['K1-GRAPH'] = {'name': 'reference-graph', 'lib': 'set', 'listing': 'graph-listing.json',
                                 'actual_set': 'graph-landed-set.json', 'rule': {'prefixes': landing_paths},
                                 'nodes': 'graph-nodes.json', 'blobs': 'graph-listing-blobs.json',
                                 'tree_listing': 'graph-tree-listing.json'}
-    a.record('K1-GRAPH', cyc is None and out['actual']['config_in_landing'] is False and
-             out['listing']['landed_set_equals_listing'] and not blob_mismatch and config_read_listed and
-             bool(out['config_landed']['cycle']) and bool(out['class_review_landed']['cycle']) and
-             bool(out['config_names_own_widening_review']['cycle']) and bool(out['descriptor_landed']['cycle']),
+    a.record('K1-GRAPH', holds,
              'the reference graph of the tool landing and the freeze has no cycle, including through review records; '
              'placing the configuration, or the class record\'s review, in the landing gives a cycle', out,
              predicate='the landed paths the graph uses equal git\'s tree listing of the landing under the tool-landing '
                        'paths, with equal blob ids, and the configuration it reads has the freeze listing\'s blob; no cycle in the actual layout (configuration not landed; reviews and the transition '
                        'descriptor in the plan record directory, bound by the pin table); a cycle in each of the four '
-                       'countercontrol layouts')
+                       'countercontrol layouts, and the synthetic control-instance binding and cycle cases hold')
 
 
 def chain_refusal(a):
@@ -1832,11 +1827,12 @@ def bind_control_instance(a, template, snapshot, descriptor_sha256):
         tb = a.base.read(template_commit, tpath)
         if tb is None:
             raise ri.Refused('no control-instance template at %s' % template)
-        b = ri.bind(a.base, a.base.resolve(snapshot), a.main, descriptor_sha256)
+        template_ref = {'path': tpath, 'blob_sha256': sha(tb)}
+        b = ri.bind(a.base, a.base.resolve(snapshot), a.main, descriptor_sha256, template=template_ref)
         inst = ri.fill(tb, b)
         a.rep_instance_doc = json.loads(inst)
-        a.rep_binding = {'template': {'commit': template_commit, 'path': tpath, 'blob_sha256': sha(tb)},
-                         'S': b['S'], 'M': b['M'],
+        a.rep_binding = {'template': {'commit': template_commit, **template_ref},
+                         'S': b['S'], 'M': b['M'], 'B': b['B'], 'descriptor': b['descriptor'],
                          'class_tip': b[ri.CLASS_FILL], 'allow_tip': b[ri.ALLOW_FILL],
                          'pins_checked': b['pins_checked'], 'instance_sha256': sha(inst)}
     except (ri.Refused, gitobj.Unresolvable) as exc:
