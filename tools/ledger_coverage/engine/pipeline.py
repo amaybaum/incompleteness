@@ -121,6 +121,8 @@ class Coverage:
                 'site_id': s['site_id'], 'file': s['file'], 'pin_count': s['pin_count'], 'ordinal': s['ordinal'],
                 'pin_context_sha256': s['pin_context_sha256'], 'meaning_context': s['meaning_context'],
                 'context_required': s['pin_count'] > 1, 'indicators': s['indicators'],
+                # R6.CTX.10: a PARTIAL site (a quote indicator holds) carries partial_quote: true, informational only
+                'partial_quote': any(s['indicators'].get(d['name']) for d in ctx.indicators.defs if d['on'] == 'quote'),
                 'structure_context_sha256': s['pin_structure_sha256'], 'provenance': None,
                 'region_shared_with': None, 'hp_overlap': False, 'region_splices': [], 'line_splices': [],
                 'carried': s['carried'], 'statuses': [], 'context_changed': False}

@@ -167,6 +167,11 @@ class Recorder(object):
                 entry['attested'] = put(tag + '.attested.json',
                                         (json.dumps(att, sort_keys=True, default=str) + '\n').encode())
             man['cases'].append(entry)
+        if isinstance(procedure, dict) and 'run_cases' in procedure:
+            # a procedure that names its runs by case: each case's retained result file
+            by_case = {e['case']: e.get('result_file') for e in man['cases']}
+            procedure = dict(procedure)
+            procedure['runs'] = [by_case.get(c) for c in procedure.pop('run_cases')]
         for name, data in sorted((files or {}).items()):
             put(name, data if isinstance(data, bytes) else
                 (json.dumps(data, indent=1, sort_keys=True, default=str) + '\n').encode())

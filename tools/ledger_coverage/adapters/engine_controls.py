@@ -33,6 +33,7 @@ class Capture(object):
     def __init__(self, rec):
         self.rec = rec
         self.runs_of = {}
+        self.procedures = {}
 
     def result_map(self):
         return control_records.RunMap(self.rec, self.runs_of)
@@ -148,7 +149,8 @@ def main(out_dir):
         cid = r['id'] if 'error' not in r else '%s-group-error' % r['id']
         rec.pending = cap.runs_of.get(r['id'], []) if 'error' not in r else []
         rec.record(cid, 'PASS' if r['passed'] else 'FAIL', r.get('error', r['passed']),
-                   'the boolean computed for this id in engine/controls_engine.py')
+                   'the boolean computed for this id in engine/controls_engine.py',
+                   procedure=cap.procedures.get(r['id']))
     rec.write()
     n = sum(1 for r in results if r['passed'])
     print(json.dumps({'controls': len(results), 'passed': n}))
