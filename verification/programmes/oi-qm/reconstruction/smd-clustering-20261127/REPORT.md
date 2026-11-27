@@ -117,7 +117,7 @@ hypotheses with the shell law in place of the counting measure. (B) is not used:
 finite object, and S-2′ concerns its observer image on the finite representative. SM:292 and SM:1225 name a
 further candidate invariant law: the uniform ensemble on an invariant finite energy shell. At
 M = μI the conserved E of SM:296 is a sum over the six decoupled components and is invariant under
-their signed permutations B_6, so the shell and its uniform law are B_6-invariant; under (H) the
+their signed permutations B_6, so the shell and its uniform law are B_6-invariant; under (H′) the
 argument of unit A's Proposition C gives scalar Σ for its observer image, and distinct block values
 fail. Its extremality is a separate question (the shell law is not a product measure) and is not
 needed for the assignment: NOT SOURCED under (H′).
