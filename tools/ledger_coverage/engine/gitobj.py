@@ -247,7 +247,8 @@ class GitRepo:
 
 class Overlay:
     """In-memory commits on top of a base reader; nothing reaches the repository. A file value is the bytes of a
-    regular file, or a tuple ('symlink', target) or ('submodule', commit id) for a non-regular entry."""
+    regular file, ('exec', bytes) for an executable regular file (mode 100755), or a tuple ('symlink', target) or
+    ('submodule', commit id) for a non-regular entry."""
 
     def __init__(self, base=None):
         self.base = base
@@ -363,6 +364,8 @@ class Overlay:
         if cid in self.mem:
             f = self.mem[cid]['files']
             v = f.get(path)
+            if isinstance(v, tuple) and v[0] == 'exec':
+                return v[1]
             if isinstance(v, tuple):
                 raise Unresolvable('%s is not a regular file at %s' % (path, cid[:12]))
             return v
@@ -377,6 +380,7 @@ class Overlay:
                     return d
                 continue
             for d in f.values():
+                d = d[1] if isinstance(d, tuple) and d[0] == 'exec' else d
                 if isinstance(d, bytes) and blob_id_of(d) == bid:
                     return d
         if self.base is None:
@@ -417,6 +421,8 @@ def _entry_of(v):
     if isinstance(v, tuple):
         if v[0] == 'submodule':
             return '160000', v[1]
+        if v[0] == 'exec':
+            return '100755', blob_id_of(v[1])
         return '120000', blob_id_of(v[1].encode() if isinstance(v[1], str) else v[1])
     return '100644', blob_id_of(v)
 
@@ -460,6 +466,7 @@ class _LazyTree:
 
     def find_blob(self, bid):
         for v in self.changes.values():
+            v = v[1] if isinstance(v, tuple) and v[0] == 'exec' else v
             if isinstance(v, bytes) and blob_id_of(v) == bid:
                 return v
         return None

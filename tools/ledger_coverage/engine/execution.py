@@ -310,6 +310,10 @@ class Execution:
         if record_tree is not None and self.repo.tree_id(M, record_path) != record_tree:
             raise oc.Stop(oc.error, 'RECORD_TREE_MISMATCH', 'the frozen record tree differs at M')
         hp, mp = self.repo.paths(self.H), self.repo.paths(M)
+        # side-change entries compare by (mode, blob id): a change of mode alone with the same blob is a side change
+        # (R6.PUR.12; a symbolic link at M is `not a regular file`, a regular-to-regular flip is classified as usual)
+        he = {p_: e_ for p_, e_ in self.repo.entries(self.H).items() if e_[0] != '160000'}
+        me = {p_: e_ for p_, e_ in self.repo.entries(M).items() if e_[0] != '160000'}
         chain = []
         c = M
         while c != self.H:
@@ -325,18 +329,18 @@ class Execution:
                           rule='record-directory completeness')
         # amendment 3: one run-level assessment of every entry for the drifted ledgered or corpus paths (RC10 and
         # RC11 read over the locally valid entries), and one disposition per such path (R6.RECON.22)
-        drifted = {p for p in set(hp) | set(mp) if hp.get(p) != mp.get(p) and p in ledgered_or_corpus}
+        drifted = {p for p in set(hp) | set(mp) if he.get(p) != me.get(p) and p in ledgered_or_corpus}
         self.assessment = rc.assess(self.repo, self.ctx, self.H, M, self.X, self.ledger, self.reconciliations,
                                     self.side_classes, getattr(self, 'record_refs', {}), rd, drifted)
         self.dispositions = []
         invalid_forms = set()
         for path in sorted(set(hp) | set(mp)):
-            if hp.get(path) == mp.get(path):
+            if he.get(path) == me.get(path):
                 continue
             made = None
             prev = self.H
             for c in chain:
-                if self.repo.blob_id(c, path) != self.repo.blob_id(prev, path):
+                if self.repo.entries(c).get(path) != self.repo.entries(prev).get(path):
                     made = c
                 prev = c
             entry = {'path': path, 'h': hp.get(path), 'm': mp.get(path), 'commit': made}

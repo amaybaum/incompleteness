@@ -138,6 +138,24 @@ def removal_controls(r):
     out = out or {}
     nonreg = sorted(i.get('subject') for i in out.get('items', []) if i['class'] == 'side-change-unclassified'
                     and i.get('why') == 'not a regular file')
+    # same-blob mode changes: syn/note.txt (a regular file at H) becomes a symbolic link with the same blob id, and
+    # syn/witness.md flips from 100644 to 100755 with the same bytes
+    note = w.repo.read(w.syn.H, 'syn/note.txt')
+    wit = w.repo.read(w.syn.H, 'syn/witness.md')
+    w2 = pfc.World(r)
+    step(w2, {'syn/note.txt': ('symlink', note), 'syn/witness.md': ('exec', wit)}, 'mode-only changes')
+    code2, out2 = w2.run([], harness=True)
+    out2 = out2 or {}
+    items2 = {i.get('subject'): i for i in out2.get('items', []) if i['class'] == 'side-change-unclassified'}
+    same_blob = w2.repo.entries(w2.M).get('syn/note.txt', (None, None))[1] == \
+        w2.repo.entries(w2.syn.H).get('syn/note.txt', (None, None))[1]
+    case('SIDE-NONREG-MODE-ONLY', 'a same-blob change from a regular file to a symbolic link is a side change reported '
+                                  '"not a regular file"; a same-blob 100644 to 100755 flip is a side change that goes '
+                                  'to the classifier (unclassified: no class lists the path)',
+         {'exit': code2, 'stop': out2.get('stop'), 'same_blob': same_blob,
+          'note': (items2.get('syn/note.txt') or {}).get('why'), 'witness': (items2.get('syn/witness.md') or {}).get('why')},
+         code2 != 65 and same_blob and (items2.get('syn/note.txt') or {}).get('why') == 'not a regular file' and
+         (items2.get('syn/witness.md') or {}).get('why') == 'no class lists the path')
     case('SIDE-NONREG', 'a symbolic-link and a submodule side change outside the plan record directory: each '
                         'REVIEW_REQUIRED side-change-unclassified with the reason "not a regular file", no ERROR',
          {'exit': code, 'stop': out.get('stop'), 'nonreg': nonreg},
