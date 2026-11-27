@@ -1586,14 +1586,14 @@ class ReadLog:
     scope guard): reads by path, and reads by blob id of a blob that commit carries and H's tree does not."""
 
     def __init__(self, repo, commit):
-        self._r, self.commit, self.paths, self.blobs = repo, commit, set(), set()
+        self._r, self.commit, self.seen, self.blobs = repo, commit, set(), set()
 
     def __getattr__(self, k):
         return getattr(self._r, k)
 
     def read(self, cid, path):
         if cid == self.commit:
-            self.paths.add(path)
+            self.seen.add(path)
         return self._r.read(cid, path)
 
     def read_blob(self, bid):
@@ -1606,7 +1606,7 @@ class ReadLog:
 
     def read_at(self, a):
         hb = set(a.base.paths(H).values())
-        return sorted(self.paths | {p for p, b in a.repo.paths(self.commit).items() if b in self.blobs and b not in hb})
+        return sorted(self.seen | {p for p, b in a.repo.paths(self.commit).items() if b in self.blobs and b not in hb})
 
 
 def rep_scope(a, x, read, extra=()):

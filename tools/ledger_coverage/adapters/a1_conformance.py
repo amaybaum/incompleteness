@@ -52,12 +52,13 @@ def check(cid, expected, predicate, actual, holds):
         RUNS.setdefault(cid, []).extend(REC.take())
 
 
-def exec_doc(e, label):
+def exec_doc(e, label, attested=None):
     """Captures an in-process Execution's items, side changes and compositions as a stage result."""
     if REC is not None:
         e.captured = REC.capture_doc(label, control_records.stage_doc(
             e.items, operation='execution', side_changes=getattr(e, 'side_changes', None),
-            landing_compositions=getattr(e, 'compositions', None)))
+            landing_compositions=getattr(e, 'compositions', None)), attested=attested(e) if callable(attested)
+            else attested)
     return e
 
 
@@ -458,14 +459,39 @@ class Recon:
         return {'id': cid, 'pins': [{'path': path, 'git_blob': self.repo.blob_id(commit, path),
                                      'blob_sha256': sha(self.repo.read(commit, path))}]}
 
-    def run(self, rec=None, m=M, L=None, h=H, classes=None, cand=False):
-        e = exmod.Execution(self.ctx, h, T, self.led, None, m, L, T, classes if classes is not None else self.classes,
+    def run(self, rec=None, m=M, L=None, h=H, classes=None, cand=False, x=T, reader=None, attested=None):
+        ctx = self.ctx
+        if reader is not None:
+            ctx = copy.copy(self.ctx)
+            ctx.repo = reader
+        e = exmod.Execution(ctx, h, x, self.led, None, m, L, x, classes if classes is not None else self.classes,
                             [rec] if rec else [])
-        corp = set(self.ctx.corpus(H)) | set(self.ctx.corpus(m))
+        corp = set(ctx.corpus(H)) | set(ctx.corpus(m))
         e.main_role(set(self.led['files']) | corp)
         if L:
             e.landing()
-        return exec_doc(e, 'execution main role%s (a1_conformance.Recon.run)' % (' and landing' if L else ''))
+        return exec_doc(e, 'execution main role%s (a1_conformance.Recon.run)' % (' and landing' if L else ''),
+                        attested=attested)
+
+    def rep_run(self, rec, L, scope_text):
+        """Recon.run at X_rep (R6.EVID.8) with its read log: the attested representative_candidate and
+        scanned_paths_within, each when it holds (the extra paths: the side changes H..M)."""
+        a, x = self.a, a1c.x_rep(self.a)
+        log = a1c.ReadLog(self.repo, x)
+        hp, mp = self.repo.paths(H), self.repo.paths(M)
+        side = {q for q in set(hp) | set(mp) if hp.get(q) != mp.get(q)}
+        holder = {}
+
+        def att(_e):
+            holder['outside'] = out = a1c.rep_scope(a, x, log.read_at(a), side)
+            d = {}
+            if not getattr(a, '_x_rep_why', ['unchecked']):
+                d['representative_candidate'] = a1c.REP_CANDIDATE
+            if not out:
+                d['scanned_paths_within'] = scope_text
+            return d
+        e = self.run(rec, L=L, x=x, reader=log, attested=att)
+        return e, {'read_at_X_rep': len(log.read_at(a)), 'outside_scope': holder.get('outside')}
 
     def failed(self, e):
         return [x for s_ in e.side_changes for ev in (s_.get('record_conditions') or []) for x in ev['failed']]
@@ -558,27 +584,33 @@ def n_controls(a):
     check('N18-record', 'the record is record-invalid', "a record-invalid item", [i['class'] for i in e18.items],
           'record-invalid' in [i['class'] for i in e18.items])
     # N10 and N11: the S6 probe, pinned
-    x_blob = repo.blob_id(T, path)
-    L10 = repo.derive(M, {path: repo.read(T, path)}, parents=[M, T], subject='landing keeping X\'s AGENTS.md')
-    rec10 = entry(copy.deepcopy(rec), l=x_blob)
-    e10 = rcn.run(rec10, L=L10)
+    # N10 and N11 run at X_rep (R6.EVID.8), with a record drafted at X_rep
+    XR = a1c.x_rep(a)
+    SCOPE = 'side changes H..M, the ledgered and corpus path sets, and the candidate blobs on drifted paths'
+    rec_x = rc.draft(repo, rcn.ctx, H, M, XR, rcn.led, path, rcn.protected, rcn.classes, {},
+                     scientific_effect=CONTROL_EFFECT)
+    x_blob = repo.blob_id(XR, path)
+    L10 = repo.derive(M, {path: repo.read(XR, path)}, parents=[M, XR], subject='landing keeping X\'s AGENTS.md')
+    rec10 = entry(copy.deepcopy(rec_x), l=x_blob)
+    e10, scan10 = rcn.rep_run(rec10, L10, SCOPE)
     comp_blob = rc.blob_id_of(rc.compose(repo, H, M, path, [s for s in rcn.led['splices'] if s['file'] == path])[0])
     cl10 = sorted({i['class'] for i in e10.items if path in (i.get('file') or '') or path in str(i.get('subject'))})
-    check('N10', 'M = 8e9b8334, X = T1\', L\'s AGENTS.md = X\'s blob 9f4fc3e8 (drops M\'s inserted section), a record '
+    check('N10', 'M = 8e9b8334, X = X_rep, L\'s AGENTS.md = X\'s blob 9f4fc3e8 (drops M\'s inserted section), a record '
           'whose l names that blob; reference composition 86d79863: FAIL landing-conflict-unresolved for AGENTS.md '
           'and record-invalid for the record; the composition is evaluated regardless of the record',
           "x blob 9f4fc3e8..., composed blob 86d79863..., and both classes for AGENTS.md",
-          {'x_blob': x_blob, 'composed': comp_blob, 'classes': cl10, 'm_blob': repo.blob_id(M, path)},
+          {'x_blob': x_blob, 'composed': comp_blob, 'classes': cl10, 'm_blob': repo.blob_id(M, path), 'X_rep': XR,
+           'scope': scan10},
           x_blob == '9f4fc3e830707c90ffc105842d26d5b51f01760b' and
           comp_blob == '86d79863821f3f8cdad86771008b2df89fd1961a' and
           repo.blob_id(M, path).startswith('6b1280fa') and
           'landing-conflict-unresolved' in cl10 and 'record-invalid' in cl10)
-    L11 = exmod.compose_landing(repo, H, M, T, rcn.led, repo)
-    e11 = rcn.run(rec, L=L11)
+    L11 = exmod.compose_landing(repo, H, M, XR, rcn.led, repo)
+    e11, scan11 = rcn.rep_run(rec_x, L11, SCOPE)
     cl11 = [i['class'] for i in e11.items if path in (i.get('file') or '') or path in str(i.get('subject'))]
     check('N11', 'the same M, X and reference, L\'s AGENTS.md equal to 86d79863 and the record\'s l equal to it: PASS '
           'for the path', "L's blob is 86d79863... and no item names AGENTS.md",
-          {'l_blob': repo.blob_id(L11, path), 'items': cl11},
+          {'l_blob': repo.blob_id(L11, path), 'items': cl11, 'X_rep': XR, 'scope': scan11},
           repo.blob_id(L11, path) == '86d79863821f3f8cdad86771008b2df89fd1961a' and not cl11)
     # the configuration route (owner: the record is frozen with the plan and referenced by the configuration)
     cfg = json.loads(repo.read(a.crev, a.cpath))
