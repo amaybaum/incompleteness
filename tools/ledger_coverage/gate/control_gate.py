@@ -786,13 +786,18 @@ def _field(obj, k):
 
 def _has(obj, k, v):
     """One field condition of an item pattern: `<field>_include` tests membership in the item's list field (for
-    example `alternatives_include`), `profile` also matches a member of the item's `profiles`, any other key tests
-    equality of the field."""
+    example `alternatives_include`), `profile` also matches a member of the item's `profiles`. A delegated finding
+    can name its class or the supplied file, and an item's explanation can be carried in `why`."""
     if k.endswith('_include') and k[:-len('_include')] in obj:
         got = obj.get(k[:-len('_include')])
         return v in got if isinstance(got, list) else got == v
     if k == 'profile' and 'profile' not in obj and isinstance(obj.get('profiles'), list):
         return v in obj['profiles']
+    if k == 'reason':
+        return obj.get('reason', obj.get('why')) == v
+    if k == 'subject' and isinstance(v, str) and obj.get('obligation') == 'DELEGATED':
+        return obj.get('subject') == v or obj.get('delegated_class') == v or (
+            obj.get('tree') == 'supplied' and obj.get('file') == v)
     return _field(obj, k) == v
 
 
@@ -807,6 +812,62 @@ def _names(obj, subj):
         return True
     m = re.fullmatch(r'(.+):([0-9]+)', subj)
     return bool(m and obj.get('file') == m.group(1) and str(obj.get('line')) == m.group(2))
+
+
+def _site_lines(site):
+    current = site.get('current')
+    lines = current.get('lines') if isinstance(current, dict) else None
+    if isinstance(lines, list) and len(lines) == 2 and all(type(n) is int for n in lines) and 0 < lines[0] <= lines[1]:
+        return lines
+    return None
+
+
+def _site_at_eof(site, splice):
+    """Check the retained no-LF fixture bytes and the reported replacement of its final line."""
+    lines = _site_lines(site)
+    if not (lines and isinstance(splice, dict) and splice.get('path') == site['current'].get('file') and
+            all(isinstance(splice.get(k), str) for k in ('before', 'after', 'new'))):
+        return False
+    before, after, new = (splice[k].encode('utf-8') for k in ('before', 'after', 'new'))
+    start, end = splice.get('start'), splice.get('end')
+    if not (before and after and not before.endswith(b'\n') and not after.endswith(b'\n') and
+            type(start) is int and type(end) is int and before.rfind(b'\n') < start < end == len(before) and
+            b'\n' not in new and before[:start] + new == after and before != after):
+        return False
+    last = after.count(b'\n') + 1
+    digest = hashlib.sha256(after.rsplit(b'\n', 1)[-1]).hexdigest()
+    return (lines == [last, last] and site.get('state') == 'authorized-replacement' and
+            site['current'].get('sha256') == site.get('new_region_sha256') == digest)
+
+
+def _site_matches(obj, k, v, result, bindings):
+    """Read the declared observations from the result's site, item or hit fields."""
+    if k in ('located', 'line_range') and type(v) is bool:
+        return bool(_site_lines(obj)) == v
+    if k == 'span_end' and v == 'EOF':
+        return _site_at_eof(obj, result.get('eof_splice'))
+    if k in ('via', 'search_agrees'):
+        trace = obj.get('translation_check')
+        if not isinstance(trace, dict):
+            return False
+        if k == 'via':
+            return v == 'translation'
+        line = trace.get('translated_line')
+        return v is True and type(line) is int and type(trace.get('searched_line')) is int and (
+            line == trace['searched_line'] and _site_lines(obj) == [line, line])
+    if k == 'region_shared_with' and isinstance(v, list):
+        group = obj.get(k)
+        return isinstance(group, dict) and group.get('with') == v
+    if k == 'state' and v == 'as classified':
+        ref = _bind('$record', bindings)
+        return (isinstance(ref, dict) and set(ref) == {'path', 'blob_sha256'} and
+                isinstance(ref['path'], str) and bool(ref['path']) and
+                isinstance(ref['blob_sha256'], str) and re.fullmatch(r'[0-9a-f]{64}', ref['blob_sha256']) and
+                obj.get('state') == 'PASS' and obj.get('classified_by') == ref)
+    if k == 'names_class' and v is True:
+        cls = _bind('$class_id', bindings)
+        return isinstance(cls, str) and bool(cls) and obj.get('why') == 'the blob at M differs from the pin of class ' + cls
+    return _has(obj, k, v) if k == 'reason' else obj.get(k) == v
 
 
 def parse_filter(spec, bindings):
@@ -939,7 +1000,14 @@ def _computed_invariant(k, v, result, bindings):
     return None
 
 
-def eval_invariant(k, v, result, case, attested, bindings):
+def _side_changes(result):
+    scan = (result or {}).get('side_changes')
+    if isinstance(scan, list) and all(isinstance(s, dict) and isinstance(s.get('path'), str) for s in scan):
+        return scan
+    return None
+
+
+def eval_invariant(k, v, result, case, attested, bindings, declared_sites=()):
     """Returns (holds, actual, source). Keys the gate can compute from the retained result are computed; any
     other key must be attested in the case's sha256-checked attested file, equal to the expectation."""
     if isinstance(result, dict) and result.get('schema') == SCHEMA_GATE:
@@ -951,6 +1019,22 @@ def eval_invariant(k, v, result, case, attested, bindings):
             a = bool(comps) and all(all({'id', 'status', 'findings'} <= set(c) for c in r['components'])
                                     for r in comps)
             return a == v, a, 'gate result'
+    if k in ('not_in_H_to_M_scan', 'class_route_entry_stands'):
+        scan = _side_changes(result)
+        if scan is None:
+            return False, None, 'unattested'
+        if k == 'not_in_H_to_M_scan':
+            path = _bind(v, bindings)
+            absent = not any(s['path'] == path for s in scan)
+            return isinstance(path, str) and bool(path) and absent, path if absent else None, 'result'
+        path, cls = _bind('$path', bindings), _bind('$class_id', bindings)
+        entries = [s for s in scan if s['path'] == path]
+        findings = [i for i in result.get('items') or [] if _names(i, path)]
+        actual = (isinstance(cls, str) and bool(cls) and len(entries) == 1 and entries[0].get('class') == cls
+                  and entries[0].get('why') is None and
+                  any(i.get('class') == 'side-change-unclassified' and _has(i, 'reason', 'differs from F')
+                      for i in findings))
+        return actual == v, actual, 'result'
     if result is not None:
         if k == 'no_stop':
             a = not result.get('stop')
@@ -962,9 +1046,18 @@ def eval_invariant(k, v, result, case, attested, bindings):
             a = ((result.get('config') or {}).get('admission') or {}).get('mode')
             return (a == v) if k == 'admission_mode' else (a != v), a, 'result'
         if k == 'not_class':
-            a = sorted({i.get('class') for i in result.get('items') or []})
+            classes = {i.get('class') for i in result.get('items') or []}
             vals = v if isinstance(v, list) else [v]
-            return not (set(vals) & set(a)), a, 'result'
+            if 'record-directory' in vals:
+                scan = _side_changes(result)
+                paths = [_bind(site['subject'], bindings) for site in declared_sites if 'subject' in site]
+                if scan is None or not paths or any(not isinstance(p, str) or not p for p in paths):
+                    return False, None, 'unattested'
+                # R6.RDIR.1 and R6.RDIR.10: the reserved class must be absent for the named
+                # path. Other paths in the same record directory may legitimately have it.
+                if any(entry['path'] in paths and entry.get('class') == 'record-directory' for entry in scan):
+                    classes.add('record-directory')
+            return not (set(vals) & classes), sorted(classes), 'result'
         if k == 'items_include':
             items = result.get('items') or []
             miss = [w for w in v if not any(all(_has(i, kk, _bind(vv, bindings)) for kk, vv in w.items())
@@ -1477,7 +1570,8 @@ def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None):
                     findings_out.append(('raw-evidence-missing' if got is None else 'declarative-mismatch',
                                          'case %r: site condition %s not attested' % (case_name, s)))
                 continue
-            sites = [x for x in ((result or {}).get('sites') or []) if _names(x, subj)]
+            subjects = ((result or {}).get('sites') or []) + ((result or {}).get('hits') or [])
+            sites = [x for x in subjects if _names(x, subj)]
             sitems = [i for i in items if _names(i, subj)]
             ok = bool(sites or sitems)
             for k, v in fields.items():
@@ -1504,12 +1598,8 @@ def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None):
                         additions[query] = after - before
                     actual.setdefault(k, {})[subj] = additions
                     ok = ok and additions == v
-                elif k == 'reason':
-                    # the reason a site or side change carries its class (sec. 13: "reason `not a regular file`"),
-                    # which the result states in its `why` field
-                    ok = ok and any(x.get('reason', x.get('why')) == v for x in sites + sitems)
                 else:
-                    ok = ok and any(x.get(k) == v for x in sites + sitems)
+                    ok = ok and any(_site_matches(x, k, v, result or {}, bindings) for x in sites + sitems)
             if not ok:
                 findings_out.append(('declarative-mismatch', 'case %r: site %s does not meet %s' % (case_name, subj,
                                                                                                     fields)))
@@ -1520,7 +1610,7 @@ def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None):
                 k, v = next(iter(inv.items()))
             if k == 'baseline':
                 continue
-            holds, got, src = eval_invariant(k, v, result, c, attested, bindings)
+            holds, got, src = eval_invariant(k, v, result, c, attested, bindings, exp.get('sites') or ())
             actual.setdefault('invariants', {})[k] = {'value': got, 'source': src}
             if not holds:
                 findings_out.append(('raw-evidence-missing' if src == 'unattested' else 'declarative-mismatch',

@@ -99,6 +99,7 @@ class SiteState:
         self.resolved = True
         self.status = 'unchanged'
         self.segment_status = {}
+        self.translation_check = None
         self.splice_ids = []
         self.image_lines = None     # [first, last] 1-based in the current tree after a replacement
         self.hp = False
@@ -154,6 +155,7 @@ def ledgered_file(states, ft_from, ft_to, splices, path):
             if ok_bytes and len(occ) == st.count == 1 and occ[0] == tl:
                 old = st.start
                 st.start = tl
+                st.translation_check = {'translated_line': tl + 1, 'searched_line': occ[0] + 1}
                 out.append((st, 'moved' if tl != old else 'unchanged', None, {'line_delta': tl - old}))
             elif ok_bytes and st.count > 1 and tl in occ:
                 old = st.start

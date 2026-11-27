@@ -157,6 +157,11 @@ class World:
                 facts = dict(facts or {}, out_of_scope=oos)
             from .cli import site_state
             sites = [dict(v, state=site_state(v)) for k, v in sorted(cv.site_out.items())]
+            if len(segs) == 1 and segs[0]['kind'] == 'ledgered':
+                translations = {s.site['site_id']: s.translation_check for s in cv.states if s.translation_check}
+                for site in sites:
+                    if site['site_id'] in translations:
+                        site['translation_check'] = translations[site['site_id']]
             counts = {}
             for x in sites:
                 counts[x['state']] = counts.get(x['state'], 0) + 1
@@ -242,7 +247,9 @@ def u_controls():
     cv, it = w.coverage(x, [seg(w.pin, x, 'ledgered', ledger=led)])
     _bind_first(subject='%s:3@%s' % (doc_path, w.pin[:8]))
     _restore(w)
-    out['U3'] = decision(it) == oc.pass_ and all(s['statuses'][-1]['status'] == 'moved' for s in cv.site_out.values())
+    out['U3'] = decision(it) == oc.pass_ and all(
+        s['statuses'][-1]['status'] == 'moved' for s in cv.site_out.values()) and all(
+        s.translation_check == {'translated_line': s.start + 1, 'searched_line': s.start + 1} for s in cv.states)
     x = w.child(w.pin, base_text.replace('beta line two', 'beta line deux'))
     cv, it = w.coverage(x, [seg(w.pin, x)])
     _restore(w)
@@ -563,12 +570,25 @@ def b_controls():
     _restore(w)
     g2 = cv2.site_out['%s:7@%s' % (doc_path, w.pin[:8])]['statuses'][-1]['status']
     out['B3'] = g == 'moved' and g2 == 'authorized-replacement'
-    wl = World(base_text.rstrip('\n'))
-    last = len(util.lines_of(base_text.rstrip('\n')))
-    cv, it = wl.coverage(wl.pin, [])
-    _bind_first(subject='%s:%d@%s' % (doc_path, last, wl.pin[:8]))
+    no_lf = base_text.rstrip('\n')
+    wl = World(no_lf)
+    last = len(util.lines_of(no_lf))
+    sid = '%s:%d@%s' % (doc_path, last, wl.pin[:8])
+    replacement = 'revised line.'
+    data = no_lf.encode()
+    suffix = 'closing line.'
+    start, end = len(data) - len(suffix.encode()), len(data)
+    led4 = ledger(wl.pin, [(doc_path, start, end, replacement)], wl.repo)
+    changed = data[:start].decode() + replacement
+    x4 = wl.child(wl.pin, changed)
+    cv, it = wl.coverage(x4, [seg(wl.pin, x4, 'ledgered', ledger=led4)], facts={
+        'eof_splice': {'path': doc_path, 'before': no_lf, 'after': changed, 'start': start, 'end': end,
+                       'new': replacement}})
+    _bind_first(subject=sid)
     _restore(wl)
-    out['B4'] = '%s:%d@%s' % (doc_path, last, wl.pin[:8]) in cv.site_out and decision(it) == oc.pass_
+    final = cv.site_out.get(sid, {})
+    out['B4'] = decision(it) == oc.pass_ and (final.get('current') or {}).get('lines') == [last, last] and \
+        final.get('new_region_sha256') == util.sha256(util.lines_of(changed)[-1])
     led = ledger(w.pin, [(doc_path, a2, a2 + len('beta line two'), 'gamma line three')], w.repo)
     x = w.child(w.pin, base_text.replace('beta line two', 'gamma line three', 1))
     cv, it = w.coverage(x, [seg(w.pin, x, 'ledgered', ledger=led)])
