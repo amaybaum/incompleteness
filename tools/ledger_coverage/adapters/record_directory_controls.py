@@ -881,6 +881,13 @@ def i2_controls(r, check, workflow_path, recorder):
     tm1.review(held={})
     s0 = [h['state'] for h in tm0.hits if h['line_sha256'] == hit['line_sha256']]
     s1 = [h['state'] for h in tm1.hits if h['line_sha256'] == hit['line_sha256']]
+    # the two terms reviews as retained runs, the hit bound by its file and line in the reviewed tree
+    hit_line = [h['line'] for h in tm0.hits if h['line_sha256'] == hit['line_sha256']]
+    hit_subject = '%s:%d' % (ce.doc_path, hit_line[0]) if len(hit_line) == 1 else None
+    recorder.capture_doc('pipeline.Terms.review with the routed hit classification', control_records.stage_doc(
+        tm1.items, operation='terms', hits=tm1.hits), case='with record', bindings={'hit': hit_subject})
+    recorder.capture_doc('pipeline.Terms.review without the record', control_records.stage_doc(
+        tm0.items, operation='terms', hits=tm0.hits), case='without', bindings={'hit': hit_subject})
     check('I2-7', 'a hit classification supplied through hit-classifications.json, matching a hit outside any HP region '
           'by its line sha256: that hit resolved as the classification states; without the record, REVIEW_REQUIRED',
           'the record reaches the hit collection through the arm\'s --classify; the hit is not PASS without it and '
