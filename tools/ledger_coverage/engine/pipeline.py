@@ -313,6 +313,7 @@ class Coverage:
         status, cls, det = sg.search_relocate(st, ff, ft, cf[0])
         so = self.site_out[st.site['site_id']]
         so['statuses'].append({'segment': name, 'status': status if status != 'unresolved' else cls})
+        site_fields(so, status, det)
         if status == 'unresolved':
             st.resolved = False
             self.item(seg.get('obligation', 'RET'), cls, st.site['site_id'], name,
@@ -360,6 +361,7 @@ class Coverage:
                     so = self.site_out[st.site['site_id']]
                     so['statuses'].append({'segment': name, 'status': status if status != 'unresolved' else cls,
                                            'splice_ids': det.get('splice_ids', [])})
+                    site_fields(so, status, det, by_file.get(path, []))
                     if status == 'unresolved':
                         st.resolved = False
                         self.item('RET', cls, st.site['site_id'], name, {'file': path}, file=path,
@@ -419,6 +421,25 @@ class Coverage:
                         self.item('HP', 'record-invalid', st.site['site_id'], seg['name'],
                                   {'why': 'unattributed splice', 'splices': sorted(set(hit) - attributed)},
                                   detail='a splice overlapping the shared region is attributed to no site')
+
+
+# design r6 R6.OUT.18 site fields from the segment rule that set the site's status: `line_delta` of a moved site
+# (R6.ANCH.11); `splice_ids`, each splice's old_sha256 and new_sha256 (`per_splice_hashes`) and `new_region_sha256`
+# of an authorized replacement (R6.ANCH.13); `whitespace_only` of a site the unledgered search leaves unresolved
+# (R6.ANCH.6). A field a later segment's rule does not set is dropped, so each describes the site's last status.
+def site_fields(so, status, det, splices=()):
+    for k in ('line_delta', 'splice_ids', 'per_splice_hashes', 'new_region_sha256', 'whitespace_only'):
+        so.pop(k, None)
+    if status == 'moved':
+        so['line_delta'] = det['line_delta']
+    elif status == 'authorized-replacement':
+        by_id = {sp['id']: sp for sp in splices}
+        so['splice_ids'] = list(det['splice_ids'])
+        so['per_splice_hashes'] = {i: {'old_sha256': by_id[i]['old_sha256'], 'new_sha256': by_id[i]['new_sha256']}
+                                   for i in det['splice_ids']}
+        so['new_region_sha256'] = det['new_region_sha256']
+    elif status == 'unresolved' and 'whitespace_only' in det:
+        so['whitespace_only'] = det['whitespace_only']
 
 
 def check_hp_record(rec, site, steps):
