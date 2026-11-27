@@ -117,7 +117,30 @@ E = 'e837e3dbaa605efc867a213f3345cee14c36d8f5'
 X = '1' * 40
 PLANTED = 'book/ch18-beyond.md'
 LINE = 41
-CFG = {'config_id': 'a1', 'version': 1, 'path': 'p/c.json', 'commit': 'f' * 40, 'blob_sha256': 'c' * 64}
+A1P = G.S11_A1_DIRECTORY + '/retirement-config.json'
+CFG_BYTES = b'{"config_id": "a1", "version": 1}\n'
+CFG = {'config_id': 'a1', 'version': 1, 'path': A1P, 'commit': 'f' * 40,
+       'blob_sha256': __import__('hashlib').sha256(CFG_BYTES).hexdigest()}
+
+
+def pin_table(rows, earlier=None):
+    out = '# PREREG\n\n'
+    if earlier is not None:
+        out += '### 1.1 Record pins\n\n| file | sha256 |\n|---|---|\n' + ''.join(
+            '| `%s` | `%s` |\n' % r for r in earlier) + '\n'
+    out += '### 2.1 Record pins\n\n| file | sha256 |\n|---|---|\n' + ''.join('| `%s` | `%s` |\n' % r for r in rows)
+    return out.encode()
+
+
+def s11_repo(fx, files=None):
+    """A fixture repository holding F: the configuration at A1P and the PREREG.md beside it listing it (S11-2a
+    supplement). Returns (repo, F)."""
+    d = G.S11_A1_DIRECTORY
+    base = {A1P: CFG_BYTES, d + '/PREREG.md': pin_table([('retirement-config.json', CFG['blob_sha256'])])}
+    base.update(files or {})
+    base = {k: v for k, v in base.items() if v is not None}
+    repo = os.path.join(fx.root, 'repo')
+    return repo, GST.git_commit(repo, base)
 
 
 def _profiles():
@@ -136,20 +159,25 @@ def _result(commit, items, deny):
                            profiles_evaluated={commit: sorted(rv + (['ptr'] if deny else []))})
 
 
-def s11_fixture(fx, mutate=None):
-    """S11-2a: the named unmutated run at E and the run at its planted child, as the recorder retains them."""
+def s11_fixture(fx, mutate=None, repo_files=None):
+    """S11-2a: the named unmutated run at E and the run at its planted child, as the recorder retains them, both on the
+    real runner's argv shape: --config <standin(F, P, b)>:P, results naming P and S; the gate run with --freeze F,
+    --config P and the commit under check F (S11-2a supplement)."""
+    repo, F = s11_repo(fx, repo_files)
+    standin = G.s11_standin(F, A1P, GST.blob_id(CFG_BYTES))
+    fx.ctx = G.Ctx(repo, F, F, A1P)
     subj = '%s:%d' % (PLANTED, LINE)
     before = _result(E, [], False)
     after = _result(X, [GST.item('deny-match', 'FAIL', subject=subj, obligation='TERMS'),
                         GST.item('unclassified', 'REVIEW_REQUIRED', subject=subj, obligation='TERMS')], True)
-    argv0 = ['coverage', '--config', 'f' * 40 + ':p/c.json', '--out', '/o/1', '--repo', '.', '--commit', E,
+    argv0 = ['coverage', '--config', standin + ':' + A1P, '--out', '/o/1', '--repo', '.', '--commit', E,
              '--check', 'item2']
-    argv1 = ['coverage', '--config', 'f' * 40 + ':p/c.json', '--out', '/o/2', '--repo', '.', '--commit', X,
+    argv1 = ['coverage', '--config', standin + ':' + A1P, '--out', '/o/2', '--repo', '.', '--commit', X,
              '--check', 'item2']
     mutation = [{'path': PLANTED, 'before': 'a' * 40, 'after': 'b' * 40}]
     bindings = {'new_line': subj}
     st = {'before': before, 'after': after, 'argv0': argv0, 'argv1': argv1, 'mutation': mutation,
-          'bindings': bindings}
+          'bindings': bindings, 'repo': repo, 'F': F, 'standin': standin, 'fx': fx}
     if mutate:
         mutate(st)
     fx.row('S11-2a', {'outcome': 'FAIL', 'classes_include': ['unclassified', 'deny-match'],
@@ -197,6 +225,101 @@ def gate_rows(root, name, build):
     code, res = fx.run()
     rows = {r['id']: sorted(set(r.get('findings', []))) for r in res.get('rows', [])}
     return res.get('verdict'), rows
+
+
+def s11_binding_controls(root):
+    """The S11-2a supplement (adopted at 6de7efa4): both runs bound to the configuration (F, P, S) admitted at F."""
+    d = G.S11_A1_DIRECTORY
+
+    def refused(v, rows):
+        return v == 'GATE_FAIL' and 'raw-evidence-missing' in rows.get('S11-2a', [])
+
+    def both(st, path=None, sha=None):
+        for k in ('before', 'after'):
+            st[k]['config'] = dict(st[k]['config'], **({'path': path} if path else {}),
+                                   **({'blob_sha256': sha} if sha else {}))
+        if path:
+            for k in ('argv0', 'argv1'):
+                i = st[k].index('--config') + 1
+                st[k][i] = st[k][i].split(':', 1)[0] + ':' + path
+    v, rows = gate_rows(root, 'bind-pos', lambda fx: s11_fixture(fx))
+    case('S11-2a-BIND-POS', 'both runs name --config <stand-in>:P and carry P and S; F is --freeze and the commit '
+                            'under check; F\'s pin table lists P with S: GATE_HOLDS', (v, rows),
+         v == 'GATE_HOLDS' and rows.get('S11-2a') == [])
+    out = {}
+    for name, mut in (('other path', lambda st: both(st, path=d + '/other-config.json')),
+                      ('other digest', lambda st: both(st, sha='9' * 64))):
+        out[name] = gate_rows(root, 'bind-both-' + name.replace(' ', '-'), lambda fx, m=mut: s11_fixture(fx, m))
+    case('S11-2a-BOTH-ARMS-SUBST', 'both runs, argv and results alike, name another configuration (another path, or '
+                                   'the same path with another digest): refused, raw-evidence-missing', out,
+         all(refused(*x) for x in out.values()))
+    decoy = 'verification/audits/other-plan/retirement-config.json'
+
+    def use_decoy(st):
+        st['fx'].ctx = G.Ctx(st['repo'], st['F'], st['F'], decoy)
+        both(st, path=decoy)
+    v, rows = gate_rows(root, 'bind-decoy', lambda fx: s11_fixture(fx, use_decoy, repo_files={
+        decoy: CFG_BYTES, 'verification/audits/other-plan/PREREG.md': pin_table([('retirement-config.json',
+                                                                                 CFG['blob_sha256'])])}))
+    case('S11-2a-DECOY-CONFIG', 'a second configuration in another directory, listed beside it, used by the gate\'s '
+                                '--config and both runs: refused (outside the admitted record directory)', (v, rows),
+         refused(v, rows))
+
+    v, rows = gate_rows(root, 'bind-one-arm', lambda fx: s11_fixture(fx, lambda st: (
+        st['argv1'].__setitem__(st['argv1'].index('--config') + 1, st['standin'] + ':' + d + '/x.json'))))
+    case('S11-2a-ONE-ARM-SUBST', 'only the mutated run names another configuration: refused', (v, rows),
+         refused(v, rows))
+    v, rows = gate_rows(root, 'bind-pin-mismatch', lambda fx: s11_fixture(fx, repo_files={
+        d + '/PREREG.md': pin_table([('retirement-config.json', '7' * 64)])}))
+    case('S11-2a-PIN-MISMATCH', 'the pin table lists P with another SHA-256: refused', (v, rows), refused(v, rows))
+    v, rows = gate_rows(root, 'bind-pin-earlier', lambda fx: s11_fixture(fx, repo_files={
+        d + '/PREREG.md': pin_table([('other.json', '7' * 64)],
+                                    earlier=[('retirement-config.json', CFG['blob_sha256'])])}))
+    case('S11-2a-PIN-EARLIER-SUBSECTION', 'P listed only in an earlier Record pins subsection: refused', (v, rows),
+         refused(v, rows))
+    out = {}
+    for name, ctxf in (('no freeze', lambda st: G.Ctx(st['repo'], st['F'], None, A1P)),
+                       ('no config', lambda st: G.Ctx(st['repo'], st['F'], st['F'], None))):
+        out[name] = gate_rows(root, 'bind-' + name.replace(' ', '-'),
+                              lambda fx, f_=ctxf: s11_fixture(fx, lambda st: setattr(st['fx'], 'ctx', f_(st))))
+    case('S11-2a-NO-FREEZE', 'the gate run without --freeze, or without --config: refused', out,
+         all(refused(*x) for x in out.values()))
+
+    def wrong_freeze(st):
+        f2 = GST.git_commit(st['repo'], {'notes.txt': b'later\n'})
+        st['fx'].ctx = G.Ctx(st['repo'], st['F'], f2, A1P)
+    v, rows = gate_rows(root, 'bind-wrong-freeze', lambda fx: s11_fixture(fx, wrong_freeze))
+    case('S11-2a-WRONG-FREEZE', '--freeze names a commit other than the commit under check whose pin table lists the '
+                                'configuration: refused', (v, rows), refused(v, rows))
+
+    def other_parent(st):
+        bad = G.s11_standin('3' * 40, A1P, GST.blob_id(CFG_BYTES))
+        for k in ('argv0', 'argv1'):
+            st[k][st[k].index('--config') + 1] = bad + ':' + A1P
+    v, rows = gate_rows(root, 'bind-standin-parent', lambda fx: s11_fixture(fx, other_parent))
+    case('S11-2a-STAND-IN-PARENT', 'both runs name a stand-in whose parent is not the commit under check: refused',
+         (v, rows), refused(v, rows))
+
+    def forged(st):
+        bad = G.s11_standin(st['F'], A1P, GST.blob_id(b'{"other": 1}\n'))
+        for k in ('argv0', 'argv1'):
+            st[k][st[k].index('--config') + 1] = bad + ':' + A1P
+    v, rows = gate_rows(root, 'bind-forged', lambda fx: s11_fixture(fx, forged))
+    case('S11-2a-FORGED-STAND-IN', 'both runs name a stand-in id derived from another blob: refused', (v, rows),
+         refused(v, rows))
+    v, rows = gate_rows(root, 'bind-p-absent', lambda fx: s11_fixture(fx, repo_files={A1P: None}))
+    case('S11-2a-P-ABSENT-AT-F', 'the pin table lists P with S but F\'s tree does not hold P: refused', (v, rows),
+         refused(v, rows))
+    # the gate's restated stand-in id equals the runner's (a1_controls.simulated_freeze over gitobj.Overlay.derive)
+    from ledger_coverage.adapters import a1_controls as a1c
+    from ledger_coverage.engine import gitobj
+    ov = gitobj.Overlay()
+    F0 = ov.add_commit({'x': b'x\n'}, [], 'F')
+    tool = a1c.simulated_freeze(ov, F0, A1P, CFG_BYTES)
+    gate = G.s11_standin(F0, A1P, GST.blob_id(CFG_BYTES))
+    case('S11-2a-STANDIN-MATCHES-TOOL', 'the gate\'s standin(F, P, b) equals the id of the runner\'s in-memory '
+                                        'stand-in for the same F, P and bytes', {'tool': tool, 'gate': gate},
+         tool == gate)
 
 
 def item2_gate(root):
@@ -261,6 +384,7 @@ def item2_gate(root):
     case('ITEM2-CHECK/24', 'no deny profile reported in either result, the child evaluated with the review set alone: '
                            'refused (a missing deny scan is not a clean one)', (v, rows),
          v == 'GATE_FAIL' and 'raw-evidence-missing' in rows.get('S11-2a', []))
+    s11_binding_controls(root)
     v, rows = gate_rows(root, 's11b-positive', lambda fx: s11b_fixture(fx))
     case('ITEM2-CHECK/22', 'S11-2b run under --check item2: the gate holds', (v, rows),
          v == 'GATE_HOLDS' and rows.get('S11-2b') == [])

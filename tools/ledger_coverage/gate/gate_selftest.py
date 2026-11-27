@@ -163,7 +163,7 @@ class Fixture(object):
             dump(mp, {'schema': G.SCHEMA_MUT, 'records': self.muts})
         exp = self.raw_exp if self.raw_exp is not None else {'schema': G.SCHEMA_EXP, 'record_id': 'self-test',
                                                              'rows': self.rows, 'retired': []}
-        ctx = G.Ctx()
+        ctx = getattr(self, 'ctx', None) or G.Ctx()
         if self.release:
             # a fixture repository: one commit holding the files, then the commit under check adding the release
             # fact that names that commit's objects

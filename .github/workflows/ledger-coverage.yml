@@ -191,13 +191,16 @@ jobs:
           echo "$?" > "$O/a1-controls.exit"
       - name: control gate
         id: gate
+        env:
+          F: ${{ inputs.freeze }}
+          CFG: ${{ inputs.config }}
         run: |
           O="$RUNNER_TEMP/suite"
           set --
           for r in engine purity synthetic conformance a1-conformance a1-controls; do
             if [ -f "$O/$r/control-records.json" ]; then set -- "$@" --records "$O/$r/control-records.json"; fi
           done
-          python3 -I -S -B tools/ledger_coverage/gate/control_gate.py --expectations "$EXP" --requirements "$REQ" "$@" --repo . --out "$O/gate"
+          python3 -I -S -B tools/ledger_coverage/gate/control_gate.py --expectations "$EXP" --requirements "$REQ" "$@" --repo . --freeze "$F" --config "$CFG" --out "$O/gate"
       - name: control expectations hold
         if: steps.gate.outcome == 'success'
         run: "true"

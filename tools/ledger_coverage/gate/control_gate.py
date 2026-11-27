@@ -960,8 +960,99 @@ def item2_profile_problems(result, commit, deny_exempt):
     return probs
 
 
-def _s11_unmutated_result(ev, case, result):
-    """Bind S11-2a's subtraction to the retained R6.PLAN.4 coverage run on E."""
+# S11-2a supplement (A1 staging amendment r2, adopted at 6de7efa4): the admitted A1 record directory of R6.A1CFG.1,
+# held as a constant of the gate (it imports nothing from the tool; a change to R6.A1CFG.1's tuple needs the same change
+# here), and the stand-in subject of a1_controls.simulated_freeze restated (a tool revision of simulated_freeze or
+# Overlay.derive must change this restatement with it)
+S11_A1_DIRECTORY = 'verification/audits/foundations/a1exit-deletion-20261121'
+S11_STANDIN_SUBJECT = 'stand-in for F: the staged configuration in the plan record directory'
+_RECORD_PINS = re.compile(r'^### \d+\.\d+ Record pins\b')
+_PIN_ROW = re.compile(r'^\|\s*`([^`]+)`\s*\|\s*`([^`]*)`\s*\|\s*$')
+
+
+def git_entry(repo, commit, path):
+    """(mode, object id) of the tree entry at `path` in `commit`, or None; read from git objects."""
+    r = subprocess.run(['git', '--no-replace-objects', '-C', repo, 'ls-tree', '-z', commit, '--', path],
+                       stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    if r.returncode != 0:
+        raise FileInvalid('the tree of %s cannot be read' % commit)
+    for ent in r.stdout.split(b'\0'):
+        if not ent:
+            continue
+        meta, _, name = ent.partition(b'\t')
+        parts = meta.split()
+        if name.decode('utf-8', 'replace') == path and len(parts) == 3:
+            return parts[0].decode(), parts[2].decode()
+    return None
+
+
+def s11_standin(F, P, b):
+    """standin(F, P, b): the id the runner's in-memory stand-in for F carries (sec. 2 of the supplement)."""
+    h = hashlib.sha1()
+    h.update(S11_STANDIN_SUBJECT.encode('utf-8'))
+    h.update(F.encode('ascii'))
+    h.update(P.encode('utf-8') + b'\x00' + ('100644:' + b).encode('ascii'))
+    h.update(F.encode('ascii'))
+    return h.hexdigest()
+
+
+def s11_binding(ctx):
+    """(F, P, S, b) of the configuration admitted at F, derived without reading either run's result or argv: F the
+    gate's --freeze, equal to the commit under check; P the gate's --config, in the admitted A1 record directory; S the
+    SHA-256 F's pin table (the last Record pins subsection of the PREREG.md beside P, R6.REC.16) lists for P's file,
+    in exactly one row; b the git blob id of the regular entry F:P, whose bytes hash to S. None on any failure."""
+    if ctx is None or not (ctx.repo and ctx.freeze and ctx.config_path and ctx.commit):
+        return None
+    F, P = ctx.freeze, ctx.config_path
+    if not HEX40.match(F) or F != ctx.commit or '/' not in P or P.rsplit('/', 1)[0] != S11_A1_DIRECTORY:
+        return None
+    d, name = P.rsplit('/', 1)
+    pe = git_entry(ctx.repo, F, d + '/PREREG.md')
+    if pe is None or pe[0] not in ('100644', '100755'):
+        return None
+    prereg = git_show(ctx.repo, pe[1])
+    if prereg is None:
+        return None
+    lines = prereg.decode('utf-8', 'replace').splitlines()
+    starts = [i for i, ln in enumerate(lines) if _RECORD_PINS.match(ln)]
+    if not starts:
+        return None
+    rows = []
+    for ln in lines[starts[-1] + 1:]:
+        if ln.startswith('#'):
+            break
+        m = _PIN_ROW.match(ln.strip())
+        if m and m.group(1) == name:
+            rows.append(m.group(2))
+    if len(rows) != 1 or not re.fullmatch('[0-9a-f]{64}', rows[0]):
+        return None
+    S = rows[0]
+    ce = git_entry(ctx.repo, F, P)
+    if ce is None or ce[0] not in ('100644', '100755'):
+        return None
+    data = git_show(ctx.repo, ce[1])
+    if data is None or hashlib.sha256(data).hexdigest() != S:
+        return None
+    return F, P, S, ce[1]
+
+
+def s11_run_bound(argv, result, binding):
+    """One S11-2a run bound to (F, P, S): its result's config names P and S, and its argv carries exactly one
+    --config whose path is P and whose commit is F or standin(F, P, b)."""
+    F, P, S, b = binding
+    cfg = (result or {}).get('config') if isinstance(result, dict) else None
+    if not (isinstance(cfg, dict) and cfg.get('path') == P and cfg.get('blob_sha256') == S):
+        return False
+    vals = [argv[i + 1] for i, a in enumerate(argv or []) if a == '--config' and i + 1 < len(argv)]
+    if len(vals) != 1 or not isinstance(vals[0], str) or ':' not in vals[0]:
+        return False
+    commit, path = vals[0].split(':', 1)
+    return path == P and commit in (F, s11_standin(F, P, b))
+
+
+def _s11_unmutated_result(ev, case, result, ctx=None):
+    """Bind S11-2a's subtraction to the retained R6.PLAN.4 coverage run on E, both runs bound to the configuration
+    admitted at F (S11-2a supplement)."""
     named = ev.case('unmutated')
     if not named or case.get('baseline_argv') != named.get('argv'):
         return None
@@ -981,10 +1072,12 @@ def _s11_unmutated_result(ev, case, result):
             and before.get('config') and before.get('config') == result.get('config')
             and isinstance(before.get('items'), list)):
         return None
-    # Open: the reviewed configuration's path and digest are not bound here. Staging r2 requires both runs to use
-    # "the same reviewed config pin" but names no source from which the gate could read the expected path and digest
-    # (no staged configuration or admission record exists yet); a configuration substituted in both runs alike
-    # passes this check, and the deny set is read from the results' own profile records.
+    # the S11-2a supplement: both runs bound, each independently, to (F, P, S) read from the gate's --freeze and
+    # --config and F's pin table, never from either run (a configuration substituted in both runs alike is refused)
+    binding = s11_binding(ctx)
+    if binding is None or not s11_run_bound(named.get('argv'), before, binding) or \
+            not s11_run_bound(case.get('argv'), result, binding):
+        return None
     # A1 staging amendment r2: both invocations name the authoritative check (a same wrong check in both is refused),
     # and both results evaluate the approved profiles: the review set alone at exact E, the review set and the
     # configured deny profiles at the planted child.
@@ -1109,7 +1202,7 @@ def eval_line_patch_case(exp, name, ev, findings):
     return actual
 
 
-def eval_case(exp, case_name, ev, row, record, findings_out):
+def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None):
     """Evaluates one expectation (the row's, one of its cases, or its restored case) against the retained
     evidence of the case. Appends findings; returns the extracted actual."""
     if is_line_patch_rc8(row):
@@ -1268,7 +1361,7 @@ def eval_case(exp, case_name, ev, row, record, findings_out):
                     got = sorted({i.get('class') for i in sitems})
                     ok = ok and (set(v) == set(got) if k == 'classes_exact' else set(v) <= set(got))
                 elif k == 'added_relative_to_unmutated':
-                    baseline = (_s11_unmutated_result(ev, c, result) if rid == 'S11-2a'
+                    baseline = (_s11_unmutated_result(ev, c, result, ctx) if rid == 'S11-2a'
                                 else ev.json(c.get('baseline_file')))
                     if not (isinstance(baseline, dict) and isinstance(baseline.get('items'), list)
                             and isinstance(v, dict) and v):
@@ -1684,11 +1777,11 @@ def evaluate(exp_doc, rows, retired, reqs, records, mutations, ctx):
                             for c in ex['cases']:
                                 names = c['case'] if isinstance(c['case'], list) else [c['case']]
                                 for n in names:
-                                    acts.append(eval_case(c, n, ev, row, rec, fl))
+                                    acts.append(eval_case(c, n, ev, row, rec, fl, ctx))
                         elif ex.get('outcome') != 'COMPOSITE':
-                            acts.append(eval_case(ex, '', ev, row, rec, fl))
+                            acts.append(eval_case(ex, '', ev, row, rec, fl, ctx))
                         if row.get('restored') is not None and row['restored'].get('outcome') != 'COMPOSITE':
-                            acts.append(eval_case(row['restored'], 'restored', ev, row, rec, fl))
+                            acts.append(eval_case(row['restored'], 'restored', ev, row, rec, fl, ctx))
                         if row.get('procedure'):
                             acts.append(eval_procedure(row, ev, fl, ctx.repo))
                         if ev.problems:
