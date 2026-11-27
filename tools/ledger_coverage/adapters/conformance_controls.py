@@ -2939,28 +2939,37 @@ print(json.dumps({"entries": [{"id": "S:1", "fingerprint": "%s"}]}))
     git(d6, 'init', '-q')
     md = b'# doc\n'
     H6 = commit_files(d6, {'p/A.md': md, 'p/A.tex': b'tex\n% source-sha256: 0\n'}, 'H')
-    X6 = commit_files(d6, {'p/A.tex': b'tex\n% source-sha256: ' + sha(md).encode() + b'\n'}, 'X')
+    # a checker that runs in the disposable clone and reports pass for the tree it is given, so that the right
+    # stamp is decided by the stamps alone (the tool re-derives them and validates the result's binding)
+    chk6 = ('import hashlib, json, sys\n'
+            'a = dict(zip(sys.argv[1::2], sys.argv[2::2]))\n'
+            'me = hashlib.sha256(open(__file__, "rb").read()).hexdigest()\n'
+            'json.dump({"schema": "a1exit-checker-result-v1", "checker": "preserve_check.py", "plan": a["--plan"], '
+            '"base": "%s", "ledger_sha256": "%s", "candidate": a["--commit"], "exit": 0, "verdict": "pass", '
+            '"checks": [], "checker_blob_sha256": me}, open(a["--result-json"], "w"))\n'
+            % (H6, roles['ledger_sha256'])).encode()
+    X6 = commit_files(d6, {'p/A.tex': b'tex\n% source-sha256: ' + sha(md).encode() + b'\n', 'p/check.py': chk6}, 'X')
     X6b = commit_files(d6, {'p/A.tex': b'tex\n% source-sha256: ' + b'1' * 64 + b'\n'}, 'X wrong stamp')
     repo6 = gitobj.GitRepo(d6)
     cls6 = {'id': 'tex', 'adapter': 'preserve-check-v1', 'paths': ['p/A.tex'],
-            'params': {'sources': {'p/A.tex': 'p/A.md'}, 'checker_path': 'p/none.py', 'checker_sha256': '0' * 64,
+            'params': {'sources': {'p/A.tex': 'p/A.md'}, 'checker_path': 'p/check.py', 'checker_sha256': sha(chk6),
                        'required_checks': []}}
     dl6 = delmod.Delegation({'schema': 'oi-delegation/1', 'classes': [cls6]}, {'preserve-check-v1': pc})
     good_res = b'{"schema": "a1exit-checker-result-v1", "verdict": "pass", "plan": "%s"}' % X6b.encode()
-    def stamp_case(case, tree, supplied=None):
+    def stamp_case(case, tree, supplied=None, native=False):
         run_roles = dict(roles, scientific_base=H6, candidate=tree, freeze=tree, certified=tree)
-        return evaluate(case, dl6, repo6, run_roles, None, supplied)
+        return evaluate(case, dl6, repo6, run_roles, delmod.Native(repo6, d6, r.out(), tree, True) if native else None,
+                        supplied)
 
     bad6, _ = stamp_case('wrong stamp', X6b, {'tex-preserve-check.json': good_res})
-    ok6, _ = stamp_case('right stamp', X6)
+    ok6, _ = stamp_case('right stamp', X6, native=True)
     baseline = REC.pending[-1]
-    retain_restored(lambda: stamp_case('restored', X6), baseline)
+    retain_restored(lambda: stamp_case('restored', X6, native=True), baseline)
     check('G6', 'tex with a supplied preserve_check result reporting pass, while a TeX stamp at X is wrong: FAIL '
           'delegated-evidence-invalid', "the wrong stamp gives delegated-evidence-invalid; the right stamp gives no "
-          "invalid item (the checker run itself is missing locally)",
+          "item (the checker runs in the clone and passes)",
           {'wrong': sorted({i['class'] for i in bad6}), 'right': sorted({i['class'] for i in ok6})},
-          'delegated-evidence-invalid' in {i['class'] for i in bad6} and
-          'delegated-evidence-invalid' not in {i['class'] for i in ok6})
+          'delegated-evidence-invalid' in {i['class'] for i in bad6} and not ok6)
     # G7: pdf evidence whose candidate_tree differs from X's, or whose artifact hash differs
     cls7 = {'id': 'pdf', 'adapter': 'preserve-check-v1', 'paths': ['p/A.tex'],
             'params': {'workflow_path': 'wf.yml', 'job': 'pdf-compare', 'checker_sha256': 'c' * 64}}
