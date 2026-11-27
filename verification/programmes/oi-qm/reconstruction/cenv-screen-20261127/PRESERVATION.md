@@ -1,6 +1,6 @@
 # C-ENV screen: preservation record
 
-Mutable record under §A.46 items 4 and 8. It cites the plan and the report and does not change them. It is a draft prepared for the owner's preservation decision, and it records no decision.
+Mutable record under §A.46 items 4 and 8. It cites the plan and the report and does not change them. It documents the owner's conditional approval of preservation (#1169 comment 7213109404, as corrected by comment 7213183135) and the conditions that approval sets.
 
 - **Evidence layers.**
   - The report is a mathematical derivation on paper with source reading. Every argument in it is labelled P-here: Theorem 1, Corollary 1.2, Lemmas 3.1–3.3 and 8.1, Nodes 2, 9 and 10, controls K1–K7, and D1.
@@ -39,10 +39,10 @@ Its §10 said "No push and no GitHub write is made by this unit". The branch was
 **Accountable Issues:** #1169, with #914. Guiding pull request: #1627.
 
 **Owner decisions.** Each is a #1169 comment posted from the account `amaybaum` by the coordinating session, quoting the owner (amaybaum):
-- **Comment 7212372089** (created 2026-11-27T07:20:10Z), from the approved list: "Authorize the bounded paper-only C-ENV screen as the first Phase 2 investigation. Determine whether the proposed invariant background is independently physically justified and whether it permits an initially readable encoding at one registered parameter tuple." "Stop the C-ENV investigation if either requirement fails. Do not initiate T-ENV computation without further authorization." "SMD and C-NL remain suspended under their existing holds."
+- **Comment 7212372089** (created 2026-11-27T07:20:10Z), from the approved list: "Authorize the bounded paper-only C-ENV screen as the first Phase 2 investigation. Determine whether the proposed invariant background is independently physically justified and whether it permits an initially readable encoding at one registered parameter tuple." "Stop the C-ENV investigation if either requirement fails. Do not initiate T-ENV computation without further authorization." "… SMD and C-NL remain suspended under their existing holds."
 - **Comment 7213109404** (created 2026-11-27T08:04:27Z). The owner replied "Approved" to a text that includes: "Preserve the C-ENV screen after independent review of its preservation record." "Include non-stationary backgrounds as a P2-MIN candidate requiring independent physical justification." "Proceed with bounded paper-only P2-MIN, excluding SMD and C-NL." Its recorded scope line understated that text; the correction at #1169 comment 7213183135 states that the C-ENV merge is authorized, conditional on the independent review of this record and the final landing checks.
-- **Preservation decision: pending.**
-  - Comment 7213109404, as corrected by comment 7213183135, approves preservation conditional on an independent review of this preservation record, which has not yet been recorded.
+- **Preservation decision: approved, conditional on the independent review of this record and the final landing checks.**
+  - Comment 7213109404, as corrected by comment 7213183135, approves preservation conditional on an independent review of this preservation record. That review is #1627 comment 7213223364 (ACCEPT WITH NITS on fc55e93f), whose findings are applied in the commit that follows it.
   - This file does not itself authorize a merge (§A.50 item 1).
 
 **Independent non-author reviews.** These are model reviews by reviewer agents started with fresh contexts, recorded on PR #1627 as verbatim reviewer text. They are evidence of review, not independent mathematical verification.
@@ -54,7 +54,7 @@ Its §10 said "No push and no GitHub write is made by this unit". The branch was
   - It gave two non-blocking notes, not applied in the report:
     - (i) Node 4's sublattice bullet lost its explanatory sentence ("They would change the ring to a sublattice group ring with a larger free module").
     - (ii) "Maximal isotropic" in Node 2 means maximal among isotropic submodules. In that sense it is equivalent to M = M^{⊥λ}. This record adopts that reading.
-- **Not yet recorded:** the independent review of this preservation record that comment 7213109404 requires.
+- **Comment 7213223364, review of this preservation record at `fc55e93f`: ACCEPT WITH NITS.** This is the review comment 7213109404 requires. Findings 1–5 are wording fixes, applied in the commit that follows it.
 
 ## 2. Substantive result and its precise scope
 
@@ -85,7 +85,7 @@ Its §10 said "No push and no GitHub write is made by this unit". The branch was
 - NR-1 treats the selected rule under the maximal-entropy Haar prior only.
 - Phase 1 r3 proposed (E2L) and settled only the vacuum variant.
 - No record on `main` decides whether a stationary Lagrangian or intermediate-entropy algebraic background exists for the native rule.
-- Theorem 1 and Corollary 1.2 decide it negatively, in the stated scope. D1 records the consequence for the minimal missing principle: any invariant low-entropy background is a posit.
+- Theorem 1 and Corollary 1.2 decide it negatively, in the stated scope. D1 records the consequence for the minimal missing principle: within the corpus at D, a stationary low-entropy background is neither generated by the native dynamics nor selected by the ledger's measure principle, and so would have to be posited.
 
 **What the record does not show.**
 - That every C-ENV variant fails: the non-stationary class is untested.
@@ -114,14 +114,14 @@ The remediation plans authorize no work (§A.45 rule 3). "Model-reviewed" means 
 | D1 item 3 (root requirement; resemblance to positive frequency) | report §4, AW-CENV-1 | root requirement: inherits Proposition 4.1. Resemblance: open, no formal map | a formal map or a refutation | #914 | P2-MIN or complex-structure work |
 | D1 item 4 (options (a)–(d)) | report §4 | premise choices, untested. Option (d) is the owner's P2-MIN candidate | each needs its own §A.29 assessment | #914, #1169 | P2-MIN and owner decisions |
 | Preregistration order | `PLAN.md` | commit order: `50f51227` at 07:30:23Z precedes `02726c54` at 07:36:18Z (2026-11-27) | none available from commit order alone | #1169 | none; the limitation stands |
-| This file | here | unreviewed | the independent review that 7213109404 requires | #1169 | a recorded review |
+| This file | here | model-reviewed (#1627 comment 7213223364, ACCEPT WITH NITS; findings applied) | confirmation that the findings are applied | #1169 | a recorded confirmation |
 
 ## 4. Off-`main` references (§A.42 item 8)
 
 | Reference | Where | Classification |
 |---|---|---|
-| #1169 comments 7212372089, 7213109404 | plan and report headers; §1 here | provenance: authority records quoted with author and time |
-| PR #1627 comments 7212726809, 7212792912 | report status line; §1 and §3 here | provenance: evidence of review |
+| #1169 comments 7212372089, 7213109404, 7213183135 | plan and report headers; §1 here | provenance: authority records quoted with author and time |
+| PR #1627 comments 7212726809, 7212792912, 7213223364 | report status line; §1 and §3 here | provenance: evidence of review |
 | Phase 1 r3 `REPORT-r3.md` at `95d7c225` (§3.0 CS labels, §3.1 (E2L) wording and T-ENV nomination, P1-33) | PLAN §2; report §0, §4 and §6 | reclassified from provenance off `main` to **provenance whose content is on `main`**. `95d7c225` is reachable from `main` through the merge `4e2f034a` (#1625). The C-ENV claims use only the restated definition and the quoted sentences. **Differences in the landed `REPORT-r3.md`**, from in-place corrections at `e56149db`, `6877032e` and `3e5f8ac0): the quoted passages are unchanged. These are the (E2L) wording, the T-ENV nomination ("closed, translation-invariant and rule-invariant Lagrangian subgroup"), the CS labels and P1-33's Pivato–Yassawi sentence. P1-33 now adds NR-1 Proposition 5.1's exception for nonzero nilpotent α, which does not arise at prime q with α ≠ 0. The sentence after (E2L) now cites `composition-access-20261024/REPORT.md` for the conditional-freshness requirement, in place of #885. The C-ENV records do not quote that sentence |
 | Phase 1 r1 `REPORT.md` at `95d7c225` (§3.1) | report K1a; §0 "initial-condition posit of past-hypothesis type" | reclassified as for r3. The file is byte-identical on `main` |
 | #1625 comment 7210194622 | PLAN header | provenance |
@@ -140,7 +140,7 @@ The record is preserved only through a **merge commit, not a squash**. The merge
 - the commits adding and completing this file, through the landing head.
 
 The merge needs:
-- the independent review of this record that #1169 comment 7213109404 requires;
+- the independent review of this record that #1169 comment 7213109404 requires (#1627 comment 7213223364), with its findings applied and confirmed;
 - the final landing checks. The owner's approval is comment 7213109404, as corrected by comment 7213183135, conditional on that review.
 
 This file gives neither.
@@ -150,7 +150,7 @@ This file gives neither.
 The record answers the owner-authorized first Phase 2 question. It has a plan committed before derivation, an outcome-neutral decision rule, controls able to fail, and two review rounds ending in ACCEPT. Its result is substantive and nonredundant (§2):
 - It closes C-ENV's stationary Lagrangian route for the native rule, in the stated scope.
 - It shows that stationary algebraic backgrounds at d ≥ 2 have either maximal or zero entropy density.
-- It establishes that any invariant low-entropy background must be posited rather than generated.
+- It records, within the corpus at D, that a stationary low-entropy background is neither generated by the native dynamics nor selected by the ledger's measure principle, and so would have to be posited.
 
 These findings narrow the search for a physical mechanism, the owner's highest scientific priority, and identify the non-stationary class that the owner has routed to P2-MIN as a candidate requiring independent physical justification (#1169 comment 7213109404; Goal link #914).
 
@@ -170,4 +170,4 @@ The reviews are recorded in §1, the §A.42 item 8 tracing is complete subject t
 
 ## 8. Owner question recorded in the report
 
-The report put to the owner whether the non-stationary translation-invariant Lagrangian class falls under the stop instruction. #1169 comment 7213109404 answers it for planning: non-stationary backgrounds are included as a P2-MIN candidate requiring independent physical justification. This record does not reopen C-ENV and does not test that class.
+The report put to the owner whether the non-stationary translation-invariant Lagrangian class falls under the stop instruction. #1169 comment 7213109404 addresses it for planning by routing the class to P2-MIN: non-stationary backgrounds are included as a P2-MIN candidate requiring independent physical justification. This record does not reopen C-ENV and does not test that class.
