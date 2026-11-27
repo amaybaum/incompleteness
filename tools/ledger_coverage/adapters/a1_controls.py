@@ -109,16 +109,18 @@ class A1:
         self.n += 1
         return os.path.join(self.out_root, 'run%03d' % self.n)
 
-    def run(self, args, harness=True, control=None, case=None, mutation=None, bindings=None, baseline=None):
+    def run(self, args, harness=True, control=None, case=None, mutation=None, bindings=None, baseline=None,
+            reader=None, attested=None):
         out = self.out()
         argv = args[:1] + ['--config', '%s:%s' % (self.crev, self.cpath), '--out', out,
                            '--repo', self.repo_path] + args[1:]
         t = time.time()
         err = io.StringIO()
-        code, res = cli.run(argv, repo=self.repo, harness=harness, stderr=err, control=control)
+        code, res = cli.run(argv, repo=reader or self.repo, harness=harness, stderr=err, control=control)
         # R6.GATE.7: every tool run is retained as evidence of the control recorded next
         self.rec.capture(argv, code, out, case=case, mutation=mutation, bindings=bindings,
-                         stderr=err.getvalue() if code == 64 else None, baseline=baseline)
+                         stderr=err.getvalue() if code == 64 else None, baseline=baseline,
+                         attested=attested(res) if callable(attested) else attested)
         return code, res or {}, round(time.time() - t, 1)
 
     def record(self, cid, passed, expected, actual, **extra):
@@ -252,8 +254,10 @@ def rt_coverage(a):
              reference_difference='7 HP context-structure-changed, not 3: the 4 further sites (FULL:706, ch02:76, '
                                   'Substratum.md:94, :253) are unique at E and H and rewritten in H..T1\'; the '
                                   'reference population required uniqueness at T1\' as well (sec. 14).')
-    seg = ['--segment', '%s..%s' % (E, H), '--segment', '%s..%s=%s' % (H, T, LEDGER)]
-    code, res, t = a.run(['coverage', '--commit', T, '--check', 'item2'] + seg)
+    x = x_rep(a)
+    seg = ['--segment', '%s..%s' % (E, H), '--segment', '%s..%s=%s' % (H, x, LEDGER)]
+    code, res, t, scan = rep_run(a, ['coverage', '--commit', x, '--check', 'item2'] + seg,
+                                 'ledgered and corpus paths of X_rep, and the segments E..H and H..X')
     fc = res.get('finding_counts', {})
     sites = res.get('sites', [])
     moved = sum(1 for s in sites for x in s['statuses'] if x['segment'].startswith(H[:8]) and x['status'] == 'moved')
@@ -274,7 +278,8 @@ def rt_coverage(a):
              {'exit': code, 'finding_counts': fc, 'site_counts': res.get('site_counts'), 'moved_H_T': moved,
               'merger_groups': len(res.get('merger_groups', [])), 'shared_sites': shared,
               'region_splices_distinct': len(splices), 'line_attributed_sites': len(line_sites),
-              'hit_counts': res.get('hit_counts'), 'region_lines': res.get('region_lines')},
+              'hit_counts': res.get('hit_counts'), 'region_lines': res.get('region_lines'), 'X_rep': x,
+              'scope': scan},
              predicate='exit 20; HP 113/7 and 7 HP structure REVIEWs; RET 19/5/3; no deny; 197 replaced, 4 removed; '
                        '168 moved; 22 shared sites in 9 groups; 31 region splices; region_lines.count == 215 (the '
                        'LF-inclusive site span, sec. 5)')
@@ -333,29 +338,39 @@ def rt_terms(a):
     dr3 = [p for p in cfg['profiles'] if p['name'] == 'DR-3'][0]
     prof, _ = prf.load_profile(dr3, lambda s: a.repo.read(s.get('commit') or a.crev, s['path']))
     got = {}
-    for key in ('agents-md-at-H', 'agents-md-at-T1p'):
+    for key in ('agents-md-at-H', 'agents-md-at-Xrep'):
         spec = inputs[key]
-        data = a.repo.read(spec['commit'], spec['path'])
+        # the countercontrol input is AGENTS.md in X_rep (R6.EVID.8), never T1''s copy
+        data = a.repo.read(x_rep(a) if spec.get('candidate') else spec['commit'], spec['path'])
         assert sha(data) == spec['sha256']
         ss = util.sentences_of(util.lines_of(data.decode()), cfg['sentence']['abbreviations'], 2)
         got[key] = [(s1, s2) for s, s1, s2 in ss if prof.matches(s)]
     hgot = got['agents-md-at-H']
-    a.record('RT-DR3W', len(hgot) == 1 and hgot[0][0] == 37 and hgot[0][1] >= 38 and not got['agents-md-at-T1p'],
-             'exactly one DR-3 sentence at H starting on line 37 and including lines 37-38; 0 at T1\'', got)
-    for c, name, want in ((T, 'T1p', (7, 4)), (H, 'H', (14, 179))):
-        code, res, t = a.run(['terms', '--commit', c, '--profile', 'item7-literal'])
+    a.record('RT-DR3W', len(hgot) == 1 and hgot[0][0] == 37 and hgot[0][1] >= 38 and not got['agents-md-at-Xrep'],
+             'exactly one DR-3 sentence at H starting on line 37 and including lines 37-38; 0 in X_rep', got)
+    for c, name, want in (('X_rep', 'X_rep', (7, 4)), (H, 'H', (14, 179))):
+        if c == 'X_rep':
+            code, res, t, scan = rep_run(a, ['terms', '--commit', x_rep(a), '--profile', 'item7-literal'],
+                                         'ledgered and corpus paths of X_rep', case='at X_rep (R6.EVID.8)')
+        else:
+            code, res, t = a.run(['terms', '--commit', c, '--profile', 'item7-literal'], case='at H')
         lit = collections.Counter(x for i in res.get('items', []) for x in i.get('literals', []))
         rep = res.get('reports', {}).get('item7-literal', {}).get('report_regex_lines')
         n = len(res.get('items', []))
-        a.results.setdefault('RT-I7', {'passed': True, 'expected': 'FAIL at both; T1\': 7 / 0 / 0, A1 4; H: 11 / 1 / 2, '
+        a.results.setdefault('RT-I7', {'passed': True, 'expected': 'FAIL at both; X_rep: 7 / 0 / 0, A1 4; H: 11 / 1 / 2, '
                                                                    'A1 179', 'actual': {}})
         a.results['RT-I7']['actual'][name] = {'exit': code, 'lines': n, 'literals': dict(lit), 'A1_lines': rep}
         a.results['RT-I7']['passed'] &= code == 20 and (n, rep) == want
     # RT-I7A and V3
     retired = retired_lines(a)
-    for c, name in ((H, 'H'), (T, 'T1p')):
-        code, res, t = a.run(['terms', '--commit', c, '--base', H, '--ledger', LEDGER, '--check', 'item7', '--final'],
-                             control={'without_allow_rules': True})
+    for c, name in ((H, 'H'), ('X_rep', 'X_rep')):
+        args = ['terms', '--commit', x_rep(a) if c == 'X_rep' else c, '--base', H, '--ledger', LEDGER, '--check',
+                'item7', '--final']
+        if c == 'X_rep':
+            code, res, t, scan = rep_run(a, args, 'ledgered and corpus paths of X_rep', case='at X_rep (R6.EVID.8)',
+                                         control={'without_allow_rules': True})
+        else:
+            code, res, t = a.run(args, case='at H', control={'without_allow_rules': True})
         ln, sl, per, alt = dl(res)
         fu = {(i['file'], i['line']) for i in res.get('items', []) if i['class'] == 'final-unclassified'}
         act = {'exit': code, 'deny_lines': len(ln), 'deny_lines_with_sentences': len(ln | sl),
@@ -373,13 +388,14 @@ def rt_terms(a):
             ok = code == 20 and act['deny_lines'] == 0 and act['final_unclassified'] == 12
         a.results.setdefault('RT-I7A', {'passed': True, 'expected': 'H: 86 deny + 123 final-unclassified = 209 (93 / '
                                                                     '216 with sentences); all 95 retired lines FAIL. '
-                                                                    'T1\': 0 deny; 12 final-unclassified',
+                                                                    'X_rep: 0 deny; 12 final-unclassified',
                                         'actual': {}})
         a.results['RT-I7A']['actual'][name] = act
         a.results['RT-I7A']['passed'] &= ok
     # V3 countercontrol: one retired line restored to REVIEW would be visible
     a.results['V3-countercontrol'] = v3_countercontrol(a, retired)
-    code, res, t = a.run(['terms', '--commit', T, '--base', H, '--ledger', LEDGER, '--check', 'item7'])
+    code, res, t, scan_d = rep_run(a, ['terms', '--commit', x_rep(a), '--base', H, '--ledger', LEDGER, '--check',
+                                       'item7'], 'ledgered and corpus paths of X_rep')
     hits = res.get('hits', [])
     w_pass = sorted('%s:%d' % (h['file'], h['line']) for h in hits if h['state'] == 'PASS')
     resid = [h for h in hits if 'resid' in h['profiles'] and h['state'] != 'PASS']
@@ -393,7 +409,7 @@ def rt_terms(a):
     gr58 = st_of.get(('papers/GR.md', 58))
     others = {'p0-core', 'p0-para', 'ledger-ext', 'ptr', 'repo', 'count-grep'}
     # "hit by no other review profile": every review profile evaluated on the same tree (repo with its scope)
-    c_all, r_all, _ = a.run(['terms', '--commit', T, '--base', H, '--ledger', LEDGER, '--profile',
+    c_all, r_all, _ = a.run(['terms', '--commit', x_rep(a), '--base', H, '--ledger', LEDGER, '--profile',
                              ','.join(sorted(others | {'resid'})), '--scope',
                              '%s:%srecords/repo-scope-v1.json' % (a.crev, a.ad)])
     prof_at = {(h['file'], h['line']): set(h['profiles']) for h in r_all.get('hits', [])}
@@ -409,11 +425,12 @@ def rt_terms(a):
               'resid_review_lines': len(resid), 'resid_only_lines': len(resid_only), 'gr58': gr58,
               'w1_w2_states': {'%s:%d' % k: st_of.get(k) for k in w1_lines + w2_lines},
               'sm1394': st_of.get(('papers/SM.md', 1394)),
-              'rule_negative': sorted(i['subject'] for i in res.get('items', []) if i['class'] == 'rule-negative-match')},
+              'rule_negative': sorted(i['subject'] for i in res.get('items', []) if i['class'] == 'rule-negative-match'),
+              'X_rep': x_rep(a), 'scope': scan_d},
              reference_difference=None,
              predicate='no deny-match; the 10 W1/W2 hit states are PASS; SM:1394 and GR.md:58 REVIEW_REQUIRED; 45 resid '
                        'REVIEW lines of which 17 carry no other review profile')
-    code, res, t = a.run(['terms', '--commit', T, '--base', H, '--ledger', LEDGER, '--check', 'item7',
+    code, res, t = a.run(['terms', '--commit', x_rep(a), '--base', H, '--ledger', LEDGER, '--check', 'item7',
                           '--classify', '%s:%s' % (a.crev, hit_record_path(a))])
     gr = [h for h in res.get('hits', []) if h['file'] == 'papers/GR.md' and h['line'] == 58]
     a.record('RT-D-gr58', gr and gr[0]['state'] == 'PASS', 'GR.md:58 PASS with its record',
@@ -437,7 +454,9 @@ def retired_lines(a):
     for f in sorted(p for p in a.base.paths(H) if p.endswith('.md') and p.count('/') == 1 and
                     p.split('/')[0] in ('papers', 'book')):
         hl = a.lines(H, f)
-        tl = set(a.lines(T, f)) if a.base.blob_id(T, f) else set()
+        # the retired lines are H's lines absent from X_rep (R6.EVID.8: no input is T1')
+        x = x_rep(a)
+        tl = set(a.lines(x, f)) if a.repo.blob_id(x, f) else set()
         for i, l in enumerate(hl, 1):
             if (re.search(r'\bA1\b', l) or any(x in l for x in lit)) and l not in tl:
                 out.append((f, i))
@@ -1530,7 +1549,8 @@ def build_x_rep(a, repo=None, ledger=None, source=None):
 
 def x_rep(a):
     if getattr(a, '_x_rep', None) is None:
-        a._x_rep = build_x_rep(a)[0]
+        a._x_rep, ch = build_x_rep(a)
+        a._x_rep_why = rep_conforms(a, a._x_rep, ch)
     return a._x_rep
 
 
@@ -1559,6 +1579,63 @@ def rep_conforms(a, x, ch):
     if changed - set(ch):
         out.append('paths outside the change set differ from H: %s' % sorted(changed - set(ch))[:5])
     return out
+
+
+class ReadLog:
+    """The runner's reader for one run, logging the paths whose content the run reads at one commit (the R6.EVID.8
+    scope guard): reads by path, and reads by blob id of a blob that commit carries and H's tree does not."""
+
+    def __init__(self, repo, commit):
+        self._r, self.commit, self.paths, self.blobs = repo, commit, set(), set()
+
+    def __getattr__(self, k):
+        return getattr(self._r, k)
+
+    def read(self, cid, path):
+        if cid == self.commit:
+            self.paths.add(path)
+        return self._r.read(cid, path)
+
+    def read_blob(self, bid):
+        self.blobs.add(bid)
+        return self._r.read_blob(bid)
+
+    def read_blob_uncached(self, bid):
+        self.blobs.add(bid)
+        return self._r.read_blob_uncached(bid)
+
+    def read_at(self, a):
+        hb = set(a.base.paths(H).values())
+        return sorted(self.paths | {p for p, b in a.repo.paths(self.commit).items() if b in self.blobs and b not in hb})
+
+
+def rep_scope(a, x, read, extra=()):
+    """The paths of `read` outside the ledgered and corpus path sets of X_rep and `extra` (R6.EVID.8)."""
+    import re as _re
+    cfg = json.loads(a.repo.read(a.crev, a.cpath))
+    pats = [_re.compile(q) for q in (cfg.get('corpus') or {}).get('patterns') or []]
+    led = set(json.loads(rep_inputs(a)[0])['files'])
+    return sorted(p for p in read if p not in led and p not in extra and not any(q.search(p) for q in pats))
+
+
+def rep_run(a, args, scope_text, case=None, extra=(), **kw):
+    """A tool run at X_rep with its read log; the attested invariants are those of R6.EVID.8 when they hold:
+    representative_candidate (the build conforms) and scanned_paths_within (every path read at X_rep lies in the
+    ledgered and corpus path sets, or `extra`)."""
+    x = x_rep(a)
+    log = ReadLog(a.repo, x)
+    holder = {}
+
+    def att(_res):
+        holder['outside'] = out = rep_scope(a, x, log.read_at(a), extra)
+        d = {}
+        if not getattr(a, '_x_rep_why', ['unchecked']):
+            d['representative_candidate'] = REP_CANDIDATE
+        if not out:
+            d['scanned_paths_within'] = scope_text
+        return d
+    code, res, t = a.run(args, case=case, reader=log, attested=att, **kw)
+    return code, res, t, {'read_at_X_rep': len(log.read_at(a)), 'outside_scope': holder.get('outside')}
 
 
 def rep_build_control(a):
