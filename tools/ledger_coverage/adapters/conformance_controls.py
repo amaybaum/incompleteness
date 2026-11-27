@@ -1943,6 +1943,14 @@ def ei_controls(r):
         f.write(MARKER)
     code_no_i, res_no_i, err_no_i = e.entry(d6b, flags=('-B',))
     marks_no_i = e.markers(d6b)
+    # the same refusal traced with -v (a separate run): which modules the interpreter imported. The refusal is before
+    # any import of a module not loaded at start when neither json (the first module imported after the check, here
+    # shadowed by tools/json.py) nor any ledger_coverage module is imported
+    code_no_i_v, _, err_no_i_v = e.entry(d6b, flags=('-B', '-v'), out_name='out-v')
+    trace_no_i = sorted(set(re.findall(r"^import '([^']+)'", err_no_i_v, re.M)))
+    after_check = [m for m in trace_no_i if m == 'json' or m.startswith('json.') or 'ledger_coverage' in m]
+    before_unloaded = code_no_i == 65 and code_no_i_v == 65 and not marks_no_i and not e.markers(d6b) and \
+        bool(trace_no_i) and not after_check
     code_no_i2 = e.entry(d6b, flags=('-B', '-E', '-s', '-P'))[0]  # not isolated, no checkout directory on sys.path
     d6c = e.fresh('EI6 checkout on sys.path')
     with open(os.path.join(d6c, 'tools', 'json.py'), 'wb') as f:
@@ -1960,8 +1968,7 @@ def ei_controls(r):
             'checkout directory on sys.path': {'exit': p6c.returncode, 'markers': e.markers(d6c)},
             'installed packages': neg6}
     # the retained cases: the shadow run and the clean reference run as its restored case, and the installed-package
-    # predicate cases. The run without -I is not a case: the entry point refuses before any import and writes no
-    # result document, so only its exit status, stderr and markers are retained (in the procedure files)
+    # predicate cases; the run without -I is retained as its case below (no result.json: R6.OUT.4)
     shadow = 'unpinned shadow modules (tools/hashlib.py, re.py, subprocess.py, json.py, importlib.py) under -I -S -B'
     within = 'tool.files or stdlib (-I -S path less purelib, platlib, site-packages, dist-packages, by real path)'
     run6 = REC.capture_doc('entry point purity-lint, -I -S -B, shadow modules present',
@@ -1969,6 +1976,18 @@ def ei_controls(r):
                            attested={'marker_written': bool(e.markers(d6)),
                                      'imported_files_within': within if loaded and not stray else None,
                                      'items_equal_run_without_file': same6})
+    # R6.OUT.4 / R6.OUT.6: the run without -I writes no result.json; its retained output is its exit status, its
+    # --out listing and its one stderr line, which is the case's result document only when it is one JSON object
+    # (the documented form: ERROR with the stop class NOT_ISOLATED)
+    try:
+        err_doc = json.loads(err_no_i)
+    except ValueError:
+        err_doc = None
+    REC.capture(['python3', '-B', 'tools/ledger_coverage.py', 'purity-lint', '--out',
+                 os.path.join(r.out_root, os.path.basename(d6b) + '-out')], code_no_i,
+                os.path.join(r.out_root, os.path.basename(d6b) + '-out'), case='without -I, or checkout dir on sys.path',
+                stderr=err_no_i if isinstance(err_doc, dict) else None,
+                attested={'before_unloaded_import': before_unloaded})
     fx6, cert6 = neg6['fixture package'], neg6['installed package certifi']
     refused6 = fx6['exit'] == 0 and fx6['traced'] > 0 and not fx6['admitted'] and \
         (not cert6['present'] or (cert6['traced'] > 0 and not cert6['admitted']))
@@ -1986,7 +2005,9 @@ def ei_controls(r):
                                e.markers(d6c)},
               'entry-invocations.json': {shadow: {'ran': True, 'exit': code6},
                                          'without -I': {'ran': True, 'exit': code_no_i}},
-              'import-trace.json': {'loaded': loaded, 'stray': stray},
+              'import-trace.json': {'loaded': loaded, 'stray': stray,
+                                    'without -I (-v)': {'exit': code_no_i_v, 'imported': trace_no_i,
+                                                        'imported_after_the_check': after_check}},
               'refusal-stderr.json': {'without -I': err_no_i, 'without -I result written': res_no_i is not None}}
     check('EI6', 'the checkout of a T holding, besides the pinned files, unpinned tools/hashlib.py (re.py, '
           'subprocess.py, json.py, importlib.py) whose bodies write a marker: the marker is never written, every '
@@ -2005,7 +2026,8 @@ def ei_controls(r):
           "directory, every traced file of the fixture package's import (and of the installed package's, where "
           "present) is refused, and every out-of-tree import of the self-test run is accepted", out6,
           code6 == 0 and not out6['shadow run']['markers'] and not stray and loaded and same6 and
-          code_no_i == 65 and not marks_no_i and code_no_i2 == 65 and not e.markers(d6b) and p6c.returncode == 65 and not out6['checkout directory on sys.path'][
+          code_no_i == 65 and not marks_no_i and before_unloaded and isinstance(err_doc, dict) and
+          (err_doc.get('stop') or {}).get('class') == 'NOT_ISOLATED' and code_no_i2 == 65 and not e.markers(d6b) and p6c.returncode == 65 and not out6['checkout directory on sys.path'][
               'markers'] and neg6['holds'],
           files=files6, procedure={'lib': 'prerun', 'step_exit': 'entry-exits.json', 'marker_listing': 'markers.json',
                                    'sentinel': 'entry-invocations.json', 'import_trace': 'import-trace.json'})

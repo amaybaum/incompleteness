@@ -27,8 +27,11 @@ def _inside(p):
 
 
 if not sys.flags.isolated or any(_inside(p) for p in sys.path):
-    sys.stderr.write('refused, exit 65: the entry point runs only as python3 -I, with no sys.path entry inside the '
-                     'checkout\n')
+    # R6.OUT.4, R6.REC.20: ERROR, exit 65, no result.json; one line to stderr, one JSON object with the stop class
+    # NOT_ISOLATED and the reason (written as a literal: no module may be imported before this check)
+    sys.stderr.write('{"schema": "oi-ledger-coverage/5", "outcome": "ERROR", "exit_status": 65, "stop": {"class": '
+                     '"NOT_ISOLATED", "message": "the entry point runs only as python3 -I, with no sys.path entry '
+                     'inside the checkout"}}\n')
     sys.exit(65)
 
 import json  # noqa: E402  (after the isolation check)
