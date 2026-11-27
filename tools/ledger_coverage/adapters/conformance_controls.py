@@ -1024,6 +1024,8 @@ def o3_controls(r):
     # is not presented as one. The oracle input is therefore left absent and the row fails on it; the point is for
     # the owner. The native and countercontrol marker measurements above are retained as measured.
     o3_files = {'tool-marker-listing.json': {scope: o['native_markers'] for scope, o in out.items()}}
+    # the runner does not record PASS while the input its expectation's library needs is absent
+    oracle_output = None
     check('O3-FILTER', 'review impl-v6.0e D-11 (O-3): a git configuration defining a required smudge filter and a '
           'commit whose .gitattributes names it, each case separately: the filter in a global configuration file, '
           'in a system configuration file, injected through the caller\'s environment, and in a template directory\'s '
@@ -1031,12 +1033,13 @@ def o3_controls(r):
           'without running the filter (implementation control)',
           "in each case Native.clone checks the commit out and the filter's marker is not written; a plain clone and "
           "checkout of the same commit with that configuration in force writes it (the countercontrol); with the "
-          "environment and template cases, Native.clone with its stripping disabled writes it too",
+          "environment and template cases, Native.clone with its stripping disabled writes it too; the oracle "
+          "output the expectation's library names exists (it does not: no output of P for a smudge filter)",
           out,
           all(o['native']['clone'] and o['native']['file_checked_out'] and not o['native']['marker'] and
               o['countercontrol']['checkout_exit'] == 0 and o['countercontrol']['marker'] and
               o['native_markers'] == []
-              for o in out.values()) and unstripped_all,
+              for o in out.values()) and unstripped_all and oracle_output is not None,
           files=o3_files, procedure={'name': 'smudge-filter', 'lib': 'oracle',
                                      'tool_output': 'tool-marker-listing.json'})
 
