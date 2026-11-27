@@ -132,6 +132,7 @@ class A1:
         self.results = {}
         self.rec = control_records.Recorder('a1-controls', out_root)
         self.runs_of = {}
+        self.files_of = {}  # retained evidence files of a control, beside its runs
 
     def out(self):
         self.n += 1
@@ -250,13 +251,108 @@ def rt_record(a):
              {'cli': (code8, res8.get('stop', {}).get('class')), 'replay_equalities': eq8})
     a.record('M9', code7 == 65 and res7.get('stop', {}).get('class') == 'RECORD_TREE_MISMATCH', 'ERROR record tree',
              {'cli': (code7, res7.get('stop', {}).get('class'))})
-    rows = json.loads(a.base.read(H, R + 'rows.json'))
-    j = next(r for r in rows['rows'] if r['disposition'] == 'J')
-    j['s1'] = 'Yes'
-    rj = a.repo.derive(H, {R + 'rows.json': (json.dumps(rows, indent=1, ensure_ascii=False) + '\n').encode()})
-    rrj = rp.replay(Rd(rj), E, rj, R + 'ledger_check.py', corpus, tempfile.mkdtemp(dir=a.out_root))
-    a.record('S11-2c', rrj['ck_errors'] and any(e.startswith('CK5') for e in rrj['ck_errors']),
-             'J row with S1 Yes gives FAIL (op A record_checks)', {'ck_errors': (rrj['ck_errors'] or [])[:3]})
+    s11_2c(a)
+
+
+def s11_2c(a):
+    """S11-2c under the minimum contract of r6 amendment 9 sec. 2: an op-A `record` run under normal admission (the
+    whole of sec. 6.3 on the in-memory host: freeze, pin table, review chain, execution identity) on a synthetic
+    configuration that pins the mutant record (its sitemap companion rows and its replay record tree), the mutant
+    being the record at H with the sole J/S1 change, as the retained byte diff shows; CK5 is read from the retained
+    raw result's record_checks; the same run on a configuration pinning the unmutated record at H, retained as the
+    case's baseline, shows no CK5 failure. A record-tree integrity stop is not evidence (no admitted run, no replay)."""
+    import difflib
+    from ledger_coverage.adapters import synthetic_fixture as sf, host_fixture as hf
+    R = 'verification/audits/foundations/a1exit-ledger-20261120/'
+    base_rows = a.base.read(H, R + 'rows.json')
+    doc = json.loads(base_rows)
+    j = next(r for r in doc['rows'] if r['disposition'] == 'J')
+    # the mutation at byte level: the J row's s1 value only, the rest of the file byte-identical
+    at = base_rows.index(('"id": "%s"' % j['id']).encode())
+    old = ('"s1": %s,' % json.dumps(j['s1'], ensure_ascii=False)).encode()
+    pos = base_rows.index(old, at)
+    mut_rows = base_rows[:pos] + b'"s1": "Yes",' + base_rows[pos + len(old):]
+    want = json.loads(base_rows)
+    next(r for r in want['rows'] if r['id'] == j['id'])['s1'] = 'Yes'
+    diff = ''.join(difflib.unified_diff(base_rows.decode('utf-8').splitlines(True),
+                                        mut_rows.decode('utf-8').splitlines(True),
+                                        R + 'rows.json@H', R + 'rows.json@mutant'))
+    changed = [ln for ln in diff.splitlines()[2:] if ln[:1] in '+-']
+
+    def line_of(b):
+        # the whole line holding the s1 value, in the base or the mutant
+        return b[b.rindex(b'\n', 0, pos) + 1:b.index(b'\n', pos)].decode('utf-8')
+    rj = a.repo.derive(H, {R + 'rows.json': mut_rows}, parents=[H], subject='S11-2c mutant: J row S1 Yes')
+    tree_diff = sorted(p for p in set(a.repo.paths(H)) | set(a.repo.paths(rj))
+                       if a.repo.paths(H).get(p) != a.repo.paths(rj).get(p))
+
+    class SynA(sf.Syn):
+        """The synthetic world over the real objects: its pin derives from E, adding the fixture's document, witness
+        and the adapter modules the configuration pins."""
+        def __init__(self):
+            self.repo = a.repo
+            files = {sf.DOC: sf.TEXT.encode(), sf.WITNESS: b'Axiom Z holds in the witness text.\n'}
+            for m in ('line_patch.py', 'artifact_hash.py', 'a1exit_sitemap.py', 'python_frozen_replay.py'):
+                files[sf.AD + m] = sf.module_bytes(m)
+            self.pin = self.repo.derive(E, files, parents=[E], subject='S11-2c synthetic pin over E')
+            self.m1 = self.repo.derive(self.pin, {'syn/note.txt': b'merge one\n'}, parents=[self.pin],
+                                       subject='Merge #7: synthetic merge')
+            self.H = self.m1
+    syn = SynA()
+    staged = json.loads(a.repo.read(a.crev, a.cpath))
+
+    def ref(m):
+        return {'path': sf.AD + m, 'blob_sha256': sha(sf.module_bytes(m))}
+
+    def run(rc, case, baseline=None):
+        c0, p0, _, _ = syn.build({'operations': ['record'], 'control_ops': ('record',)})
+        ads = json.loads(syn.repo.read(c0, p0))['adapters']
+        ads['sitemap'] = {'adapter': 'a1exit-sitemap', 'adapter_version': 2, 'module': ref('a1exit_sitemap.py'),
+                          'commit': rc, 'path': R + 'sitemap.json', 'blob_sha256': sha(a.repo.read(rc, R + 'sitemap.json')),
+                          'companion': [{'role': 'rows', 'commit': rc, 'path': R + 'rows.json',
+                                         'blob_sha256': sha(a.repo.read(rc, R + 'rows.json'))}]}
+        ads['replay'] = {'adapter': 'python-frozen-replay', 'adapter_version': 1,
+                         'module': ref('python_frozen_replay.py'), 'module_path': R + 'ledger_check.py',
+                         'record_tree': a.repo.tree_id(rc, R[:-1]),
+                         'functions': ['manuscript_digest', 'build', 'render', 'splice_block', 'check',
+                                       'extended_unmapped', 'self_test']}
+        v = {'operations': ['record'], 'control_ops': ('record',), 'drop': ['sites'],
+             'extra': {'adapters': ads, 'roles': {'scientific_base': syn.H, 'pin': E, 'record_commit': rc,
+                                                  'side_change_classes': None},
+                       'corpus': staged['corpus'], 'context_mapping': staged['context_mapping']}}
+        c, p, _, _ = syn.build(v)
+        w = hf.World(syn.repo, c)
+        F = hf.freeze(syn.repo, c, p)
+        out = a.out()
+        argv = ['record', '--config', '%s:%s' % (F, p), '--out', out] + w.args(F) + ['--pin', E, '--record', rc]
+        code, res = cli.run(argv, repo=syn.repo, harness=False, stderr=io.StringIO(), control=w.control(w.checkout()))
+        mutation = [{'path': R + 'rows.json', 'row': j['id'], 'field': 's1', 'from': j['s1'], 'to': 'Yes'}] \
+            if rc == rj else []
+        return a.rec.capture(argv, code, out, case=case, mutation=mutation, baseline=baseline), code, res or {}
+
+    def ck5(res):
+        return [e for e in ((res.get('record_checks') or {}).get('ck_errors') or []) if str(e).startswith('CK5')]
+
+    def adm(res):
+        return ((res.get('config') or {}).get('admission') or {})
+    b_run, b_code, b_res = run(H, 'unmutated')
+    a.rec.take()  # the unmutated run is retained as the baseline of the mutant case, not as a case of its own
+    _, m_code, m_res = run(rj, None, baseline=b_run)
+    normal = all(adm(x).get('simulated_chain') and not x.get('stop') for x in (b_res, m_res))
+    ok = (normal and m_code == 20 and m_res.get('outcome') == 'FAIL' and bool(ck5(m_res)) and b_code == 0 and
+          b_res.get('outcome') == 'PASS' and not ck5(b_res) and json.loads(mut_rows) == want and
+          changed == ['-' + line_of(base_rows), '+' + line_of(mut_rows)] and
+          tree_diff == [R + 'rows.json'])
+    a.record('S11-2c', ok, 'J row with S1 Yes gives FAIL with CK5 in op A record_checks, under normal admission on a '
+             'synthetic configuration pinning the mutant; the unmutated record gives no CK5 (r6 amendment 9 sec. 2)',
+             {'mutant': {'exit': m_code, 'outcome': m_res.get('outcome'), 'ck5': ck5(m_res)[:3],
+                         'admission': {k: v for k, v in adm(m_res).items() if k != 'simulated_chain'},
+                         'simulated_chain': bool(adm(m_res).get('simulated_chain')), 'stop': m_res.get('stop')},
+              'unmutated': {'exit': b_code, 'outcome': b_res.get('outcome'), 'ck5': ck5(b_res),
+                            'simulated_chain': bool(adm(b_res).get('simulated_chain')), 'stop': b_res.get('stop')},
+              'diff_lines': changed, 'tree_diff': tree_diff})
+    a.files_of['S11-2c'] = {'mutant.diff': diff.encode('utf-8'), 'rows.base.json': base_rows,
+                            'rows.mutant.json': mut_rows}
 
 
 def rt_coverage(a):
@@ -1827,7 +1923,7 @@ def main():
         st = v['status'] if v['status'] in ('PASS', 'FAIL', 'NOT RUN') else 'FAIL'
         if cid in not_due:
             st = 'NOT RUN'
-        files = proc = None
+        files, proc = a.files_of.get(cid), None
         if cid == 'RT-L2' and isinstance(v.get('actual'), dict) and v['actual'].get('rtl2_inputs'):
             ri = v['actual']['rtl2_inputs']
             files = {'rtl2-drift.json': ri['drift'], 'rtl2-records.json': ri['records'], 'rtl2-roles.json': ri['roles']}

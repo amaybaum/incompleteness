@@ -177,7 +177,8 @@ class Syn:
         controls = {'control_inputs': [{'id': 'witness', 'commit': self.pin, 'path': WITNESS,
                                         'sha256': sha(self.repo.read(self.pin, WITNESS))}],
                     'controls': [{'id': 'Y-%s-%s' % (op, d), 'operations': [op], 'direction': d}
-                                 for op in ('coverage', 'execution', 'terms') for d in ('positive', 'adversarial')]}
+                                 for op in v.get('control_ops', ('coverage', 'execution', 'terms'))
+                                 for d in ('positive', 'adversarial')]}
         if v.get('no_controls'):
             controls['controls'] = [c for c in controls['controls'] if c['direction'] == 'positive']
         files['syn/controls.json'] = jb(controls)
