@@ -1,6 +1,6 @@
-# A1 staging amendment r2, supplement S-1: recorded session identities (paper draft r4)
+# A1 staging amendment r2, supplement S-1: recorded session identities (paper draft r5)
 
-**Status.** Draft r4, for independent review and the owner's adoption of the exact reviewed text. r1
+**Status.** Draft r5, for independent review and the owner's adoption of the exact reviewed text. r1
 at `dae2468ee4ceb7c46df97dba529cc584e620f91a` received REVISE (PR #1620 comment 7208980804), and r2 at
 `bfac322211b3e00303154e6cd96247ac1e48e9be` a narrow REVISE (PR #1620 comment 7209044224), and r3 at
 `075d68515f5280bde3cc3bec58ce5bff71595278` a further REVISE (PR #1620 comment 7209091683); §9 maps the
@@ -63,7 +63,7 @@ form that an automated writer may not produce is attributable to the owner:
   identity string for any review or record at a freeze whose registry lists the withdrawal. Its links
   stay in the party relation, so withdrawal never makes two parties independent.
 - **Admitted threads.** The owner's adoption of this supplement admits `oi-designate` and `oi-withdraw`
-  form comments in #1169 and in the guiding pull request it names, so both are governed threads for
+  form comments in #1169 and in the guiding pull request named in the owner's adoption record of this supplement, so both are governed threads for
   AGENTS.md §A.49 rule 4. A designation or withdrawal is accepted only from a thread that was admitted
   when the comment was posted.
 - **Freeze approval.** The owner's approval of `F` quotes the registry's SHA-256 and states that the
@@ -131,7 +131,7 @@ A review binds:
   `platform_ref`;
 - its authorized scope (S1.6).
 
-The reviewing session also posts the review file's blob SHA-256 on the guiding pull request; the tool
+The reviewing session also posts the review file's blob SHA-256 on the guiding pull request named in the owner's adoption record of this supplement; the tool
 does not read it. The review-level `platform_ref` and the posted digest are consistency checks, not
 identity evidence: any session can copy a registered `platform_ref`, and the post is written through
 the shared account. Identity evidence is the entry-level `platform_ref` as checked by the owner against
@@ -299,6 +299,8 @@ Each is a specification until implemented.
 | R3-4. Independence from a spawning session | S1.3 and OQ-S1-3: shown only by the owner's `oi-designate` comment for that entry |
 | R3-5. Dangling withdrawal | S1.4 and S1-DANGLING-LINK |
 
+**The r4 delta re-review on #1620 (accepted with nits):** r5 names the guiding pull request as the one named in the owner's adoption record of this supplement (S1.2, §3, OQ-S1-5) and adds the r3 and r4 reviews to §11.
+
 ## 10. Open questions for the owner
 
 | Id | Question | Recommended default | Alternative |
@@ -307,14 +309,14 @@ Each is a specification until implemented.
 | OQ-S1-2 | Can a party registered after `F` review a post-freeze reconciliation record? | no: the registry is read from `F` only | admit a registry pinned at `REV`, which would let a post-freeze commit add identities |
 | OQ-S1-3 | Which sessions count as one party? | a spawning lineage (`spawned_by`) and the owner's `same_party` links, unless the owner's `oi-designate` comment for the spawned entry shows it as independent (`spawned_by: null` or the link omitted) | `same_party` only, leaving undeclared spawning links undetected |
 | OQ-S1-4 | Are identity strings authenticated? | no; S-1 does not narrow the residual limit of R6.REC.12 (§3) | a signed attestation per session, a new mechanism needing its own design |
-| OQ-S1-5 | Which owner records count as designations and withdrawals? | owner form comments posted by hand, first line `oi-designate` (then the entry's canonical JSON without its `designation` key) or `oi-withdraw` (then the `id`), in #1169 or the guiding pull request; attributable to the owner by AGENTS.md §A.49 rule 4 | any owner record linked from the guiding pull request, which a session could also write through the shared account |
+| OQ-S1-5 | Which owner records count as designations and withdrawals? | owner form comments posted by hand, first line `oi-designate` (then the entry's canonical JSON without its `designation` key) or `oi-withdraw` (then the `id`), in #1169 or the guiding pull request named in the owner's adoption record of this supplement; attributable to the owner by AGENTS.md §A.49 rule 4 | any owner record linked from the guiding pull request, which a session could also write through the shared account |
 
 ## 11. References (AGENTS.md §A.42 item 8)
 
 | Reference | Used for | Classification |
 |---|---|---|
 | #1169 comment 7208869709, item S-1 | authority, quoted above | provenance |
-| PR #1620 comments 7208980804 and 7209044224 | the reviews answered in §9 | provenance |
+| PR #1620 comments 7208980804, 7209044224 and 7209091683, and the r4 delta re-review on #1620 | the reviews answered in §9 | provenance |
 | AGENTS.md §A.49 rule 4 on `main` | attribution of owner form comments | support on `main` |
 | `AMENDMENT.md` (staging r2) at `e3fb631ec9c29535f73ee6c180169d794846df67` | the clauses amended | support off `main`; it lands with #1577 |
 | r13 R6.RECON.26, R6.RECON.29, R6.REC.2, R6.REC.3, R6.REC.6, R6.REC.12, R6.REC.13, R6.REC.16, tables `review.record` and `migration.approval`, at `5ad8837521de0a26734266a64f91548fd3dcff1e` | the clauses amended | support on `main` (landed by #1604) |
