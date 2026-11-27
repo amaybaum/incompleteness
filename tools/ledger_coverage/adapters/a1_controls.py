@@ -117,6 +117,8 @@ class A1:
         rev, self.cpath = config_ref.split(':', 1)
         self.crev = rev if rev in self.repo.mem else self.base.resolve(rev_parse(repo_path, rev))
         self.tool_rev = self.crev
+        self.staged = staged
+        self.overlay = False
         if staged is not None:
             with open(staged, 'rb') as f:
                 self.crev = simulated_freeze(self.repo, self.crev, self.cpath, f.read())
@@ -1397,6 +1399,47 @@ def reference_graph(nodes, required):
     return edges, None
 
 
+def tree_listing(a, spec, rec_dir):
+    """git's own listing, with blob ids, of the tool landing under `spec` and of the plan record directory of the
+    freeze. Testing the working files (--overlay-from-disk), the landing is the checkout's files, listed by
+    `git ls-files` and hashed by `git hash-object`; otherwise it is `git ls-tree -r` of the landing commit. The freeze
+    is the stand-in for F: the landing commit's record directory with the staged configuration, whose blob is
+    `git hash-object` of the staged file."""
+    import subprocess
+
+    def git(argv, inp=None):
+        r = subprocess.run(['git', '-C', a.repo_path] + argv, capture_output=True, text=True, input=inp)
+        if r.returncode:
+            raise RuntimeError('git %s exit %d: %s' % (' '.join(argv), r.returncode, r.stderr[-500:]))
+        return r.stdout
+
+    def ls_tree(rev, paths):
+        argv = ['ls-tree', '-r', '--full-tree', rev, '--'] + paths
+        ents = []
+        for line in git(argv).splitlines():
+            meta, path = line.split('\t', 1)
+            mode, typ, blob = meta.split()
+            ents.append({'mode': mode, 'type': typ, 'blob': blob, 'path': path})
+        return {'argv': ['git'] + argv, 'entries': ents}
+    if getattr(a, 'overlay', False):
+        argv = ['ls-files', '-co', '--exclude-standard', '--'] + spec
+        paths = [p for p in git(argv).splitlines() if '/__pycache__/' not in p]
+        blobs = git(['hash-object', '--stdin-paths'], '\n'.join(paths) + '\n').split() if paths else []
+        landing = {'argv': ['git'] + argv + ['|', 'git', 'hash-object', '--stdin-paths'],
+                   'entries': [{'blob': b, 'path': p} for p, b in zip(paths, blobs)]}
+    else:
+        landing = ls_tree(a.tool_rev, spec)
+    landing['commit'] = a.tool_rev
+    freeze = ls_tree(a.tool_rev, [rec_dir])
+    freeze['base_commit'] = a.tool_rev
+    if a.staged:
+        blob = git(['hash-object', '--', os.path.abspath(a.staged)]).strip()
+        freeze['entries'] = [e for e in freeze['entries'] if e['path'] != a.cpath] + \
+            [{'blob': blob, 'path': a.cpath, 'source': 'git hash-object of the staged configuration'}]
+        freeze['staged'] = {'path': a.cpath, 'blob': blob}
+    return {'landing': landing, 'freeze': freeze}
+
+
 def k1_graph(a, tool_files):
     """The full reference graph: configuration -> records, rules and reviews; F's pin table -> configuration and its
     review; class record -> every other landed path. The reviews do not exist yet; the graph places them where the
@@ -1473,32 +1516,53 @@ def k1_graph(a, tool_files):
     landed4[d_p] = n4[d_p]
     n4, r4 = layout(landed4, rec_dir)
     out['descriptor_landed'] = {'cycle': reference_graph(n4, r4)[1]}
-    # the retained evidence: the actual layout's node listing with blob ids and its edges; the procedure checks that
-    # the landed paths the graph uses are exactly the listed paths under the tool-landing paths
+    # the retained evidence (DESIGN-r6 sec. 16.4, lib `set`: an expected set computed from a retained tree listing;
+    # row evidence: the landing and freeze file listing with blob ids). The listing is produced by git itself, not
+    # from the bytes the graph was built from: `git ls-tree -r` of the landing commit under the tool-landing paths
+    # (or, testing the working files, `git ls-files` and `git hash-object` of the checkout), and of the plan record
+    # directory at the commit the stand-in for F is built on, with the staged configuration's blob from
+    # `git hash-object`. The gate compares the listed landing paths with the landed paths the graph used, and the
+    # graph's landed nodes' blob ids with the listed ones.
     ad = a.ad.rstrip('/')
     landing_paths = ['tools/ledger_coverage/', 'tools/ledger_coverage.py', ad + '/', WORKFLOW_PATH]
-    listing = sorted(nodes)
+    spec = ['tools/ledger_coverage', 'tools/ledger_coverage.py', ad, WORKFLOW_PATH]
+    listing_doc = tree_listing(a, spec, rec_dir)
+    land_blobs = {e['path']: e['blob'] for e in listing_doc['landing']['entries']}
+    freeze_blobs = {e['path']: e['blob'] for e in listing_doc['freeze']['entries']}
+    listing = sorted(land_blobs)
+    origin = {}
+    for q in nodes:
+        origin[q] = 'landed' if q in tool_files else 'fixture'
+    node_doc = {q: {'sha256': sha(b), 'git_blob': git_blob(b), 'origin': origin[q]} for q, b in sorted(nodes.items())}
+    blob_mismatch = sorted(q for q, d in node_doc.items() if d['origin'] == 'landed' and land_blobs.get(q) != d['git_blob'])
+    config_read_listed = freeze_blobs.get(a.cpath) == git_blob(cfg_b)
+    out['listing'] = {'landing_entries': len(land_blobs), 'freeze_entries': len(freeze_blobs),
+                      'landed_set_equals_listing': listing == sorted(tool_files), 'landed_blob_mismatch': blob_mismatch,
+                      'config_read_equals_freeze_listing': config_read_listed}
     a.rec.capture_doc('reference graph of the tool landing and the freeze (a1_controls.py k1_graph)',
-                      {'nodes': {q: {'sha256': sha(b), 'git_blob': git_blob(b)} for q, b in sorted(nodes.items())},
+                      {'nodes': node_doc,
                        'edges': {q: sorted(v) for q, v in sorted(edges.items())}, 'cycle': cyc,
-                       'countercontrol_cycles': {k: v['cycle'] for k, v in out.items() if k != 'actual'},
+                       'countercontrol_cycles': {k: v['cycle'] for k, v in out.items() if k not in ('actual', 'listing')},
                        'exit_status': None},
                       attested={'outcome': 'PREDICATE', 'reference_graph_cycle': cyc,
                                 'config_in_landing': out['actual']['config_in_landing'],
                                 'countercontrol_config_landed_cycle': bool(out['config_landed']['cycle']),
                                 'countercontrol_class_review_landed_cycle': bool(out['class_review_landed']['cycle'])})
-    a.files_of['K1-GRAPH'] = {'graph-listing.json': listing, 'graph-landed-set.json': sorted(tool_files),
-                              'graph-nodes.json': {q: {'sha256': sha(b), 'git_blob': git_blob(b)}
-                                                   for q, b in sorted(nodes.items())}}
+    a.files_of['K1-GRAPH'] = {'graph-tree-listing.json': listing_doc, 'graph-listing.json': listing,
+                              'graph-listing-blobs.json': land_blobs, 'graph-landed-set.json': sorted(tool_files),
+                              'graph-nodes.json': node_doc}
     a.procedures['K1-GRAPH'] = {'name': 'reference-graph', 'lib': 'set', 'listing': 'graph-listing.json',
                                 'actual_set': 'graph-landed-set.json', 'rule': {'prefixes': landing_paths},
-                                'nodes': 'graph-nodes.json'}
+                                'nodes': 'graph-nodes.json', 'blobs': 'graph-listing-blobs.json',
+                                'tree_listing': 'graph-tree-listing.json'}
     a.record('K1-GRAPH', cyc is None and out['actual']['config_in_landing'] is False and
+             out['listing']['landed_set_equals_listing'] and not blob_mismatch and config_read_listed and
              bool(out['config_landed']['cycle']) and bool(out['class_review_landed']['cycle']) and
              bool(out['config_names_own_widening_review']['cycle']) and bool(out['descriptor_landed']['cycle']),
              'the reference graph of the tool landing and the freeze has no cycle, including through review records; '
              'placing the configuration, or the class record\'s review, in the landing gives a cycle', out,
-             predicate='no cycle in the actual layout (configuration not landed; reviews and the transition '
+             predicate='the landed paths the graph uses equal git\'s tree listing of the landing under the tool-landing '
+                       'paths, with equal blob ids, and the configuration it reads has the freeze listing\'s blob; no cycle in the actual layout (configuration not landed; reviews and the transition '
                        'descriptor in the plan record directory, bound by the pin table); a cycle in each of the four '
                        'countercontrol layouts')
 
@@ -1966,6 +2030,7 @@ def main():
         tool_files['tools/ledger_coverage.py'] = open(os.path.join(args.repo, 'tools/ledger_coverage.py'), 'rb').read()
         tool_files[WORKFLOW_PATH] = open(os.path.join(args.repo, WORKFLOW_PATH), 'rb').read()
         a = A1(args.repo, '%s:%s' % (rev_parse(args.repo, rev), cpath), out_root, args.staged_config, main_c)
+        a.overlay = True
         wt = a.repo.derive(a.crev, tool_files, subject='working files')
         a.crev = wt
         a.csha = sha(a.repo.read(wt, cpath))
