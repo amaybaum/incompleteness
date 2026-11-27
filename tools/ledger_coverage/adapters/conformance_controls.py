@@ -86,6 +86,14 @@ def not_run(cid, expected, why):
     record(cid, expected, None, why, 'NOT RUN')
 
 
+def retain_restored(run, baseline):
+    """Retain a fresh execution on the clean fixture alongside its earlier result."""
+    before = len(REC.pending)
+    run()
+    if len(REC.pending) != before + 1:
+        raise ValueError('a restoration must capture one new execution')
+    REC.name_last('restored', baseline=baseline)
+
 
 
 def sha(b):
@@ -164,6 +172,9 @@ def tr_controls(r):
                   'head_sha']
     pos = dict(show(code, res), missing=[f for f in fields if f not in snap],
                missing_run=[f for f in run_fields if f not in snap.get('run', {})])
+    clean = REC.name_last(None, attested={'snapshot_fields_all_present': not pos['missing']
+                                         and not pos['missing_run']})
+    retain_restored(lambda: t.run(w, F), clean)
     check('TR5-sim', 'the whole of sec. 6.3 holds on the in-memory host (--freeze F, --config F:path, the PREREG.md '
           'beside the configuration listing it and its review, a workflow_dispatch run in the configuration\'s '
           'repository, T\'s tool files and workflow equal to the pins and to the checkout): every snapshot field '
@@ -178,7 +189,9 @@ def tr_controls(r):
             'host API; CI plan in the report')
     # TR1: no --freeze, with and without the in-memory host
     a1 = show(*t.run(w, F, args=[], control={}))
+    REC.name_last(None, attested={'message_names': '--freeze' if '--freeze' in a1['message'] else None})
     a2 = show(*t.run(w, F, args=[]))
+    retain_restored(lambda: t.run(w, F), clean)
     check('TR1', 'a run without --freeze: ' + UNREV, "both runs (no host; the in-memory host) exit 65 with stop "
           "'CONFIG_UNREVIEWED' naming --freeze", [a1, a2],
           all(o['exit'] == 65 and o['stop'] == 'CONFIG_UNREVIEWED' and '--freeze' in o['message'] for o in (a1, a2)))
@@ -186,12 +199,14 @@ def tr_controls(r):
     rv = t.p.rsplit('/', 1)[0] + '/review.json'
     F2 = t.freeze(listed={rv: t.repo.read(t.c, rv)})
     o2 = show(*t.run(w, F2))
+    retain_restored(lambda: t.run(w, F), clean)
     check('TR2', 'a configuration whose sha256 is not in the pin table of the PREREG.md beside it: ' + UNREV,
           "exit == 65 and stop == 'CONFIG_UNREVIEWED', refused by the pin table's rows", o2,
           o2['exit'] == 65 and o2['stop'] == 'CONFIG_UNREVIEWED' and o2['message'].startswith('the last Record pins'))
     # TR3: the review beside the configuration, naming its blob, not in the pin table
     F3 = t.freeze(listed={t.p: t.repo.read(t.c, t.p)})
     o3 = show(*t.run(w, F3))
+    retain_restored(lambda: t.run(w, F), clean)
     check('TR3', 'a review record placed beside the configuration, naming its blob, but not in F\'s pin table: '
           + UNREV, "exit == 65 and stop == 'CONFIG_UNREVIEWED', refused because no review is listed", o3,
           o3['exit'] == 65 and o3['stop'] == 'CONFIG_UNREVIEWED' and o3['message'].startswith('no review record of the'))
@@ -199,6 +214,7 @@ def tr_controls(r):
     other_c = t.repo.derive(F, {}, parents=[F], subject='another commit')
     of = show(*cli.run(['terms', '--config', '%s:%s' % (other_c, t.p), '--out', r.out(), '--freeze', F, '--commit',
                         t.syn.H], repo=t.repo, stderr=io.StringIO(), control=w.control(w.checkout()), environ={}))
+    REC.name_last(None, attested={'message_names': 'F' if 'from F only' in of['message'] else None})
     check('ADM-CONFIG-AT-F', 'configuration admission point 1: the configuration is read only from F\'s tree, never '
           'from another commit (implementation control)', "--config naming a commit other than --freeze exits 65 "
           "CONFIG_UNREVIEWED, naming F", of, of['exit'] == 65 and of['stop'] == 'CONFIG_UNREVIEWED' and
@@ -225,14 +241,20 @@ def tr_controls(r):
           all(o['exit'] == 65 and o['stop'] == 'CONFIG_UNREVIEWED' for o in out14.values()))
     # TR15 at the tool
     t15, w15, F15 = with_tool(r)
+    t15.run(w15, F15)
+    clean15 = REC.name_last('clean workflow pin')
     w15.h.runs[w15.run_id]['head_sha'] = t15.world(wf=hf.WF + b'# a changed step\n').T
     a15 = show(*t15.run(w15, F15))
+    REC.name_last('workflow blob differs at T')
     t15b, w15b, F15b = with_tool(r, wf_path='.github/workflows/other/lc.yml')
     w15b.h.runs[w15b.run_id]['workflow_path'] = hf.WF_PATH
     b15 = show(*t15b.run(w15b, F15b))
     other = hf.World(t.repo, t.syn.H, wf_path='.github/workflows/other/lc.yml',
                      run={'workflow_path': '.github/workflows/other/lc.yml'})
     c15 = show(*t.run(other, F))
+    REC.name_last('same-named workflow at another path')
+    w15.h.runs[w15.run_id]['head_sha'] = w15.T
+    retain_restored(lambda: t15.run(w15, F15), clean15)
     check('TR15', 'a run of a workflow whose blob at T differs from tool.workflow.blob_sha256 (CX-2); separately a '
           'same-named workflow at a path other than tool.workflow.path: ERROR at the tool',
           "all three cases (a changed workflow at T; the run's workflow path differing from the pin; a same-named "
@@ -240,12 +262,16 @@ def tr_controls(r):
           all(o['exit'] == 65 and o['stop'] == 'CONFIG_UNREVIEWED' for o in (a15, b15, c15)))
     # TR28 / TR52: a tool blob differing from its pin; an extra file under the package directory
     blob = show(*t.run(t.world(tool_files=dict(hf.TOOL_FILES, **{hf.PKG + 'engine/x.py': b'x = 2\n'})), F))
+    REC.name_last('tool blob differs')
     extra = show(*t.run(t.world(extra={hf.PKG + 'engine/y.py': b'y = 1\n'}), F))
+    REC.name_last('extra file under tools/ledger_coverage/')
+    retain_restored(lambda: t.run(w, F), clean)
     check('TR28-tool', 'a T whose tool blobs differ from the configuration\'s tool.files pins (CX-1), or that carries '
           'an extra file under the package directory: ERROR at the tool; the consumer half is TR28-consumer',
           "both exit 65 with stop 'CONFIG_UNREVIEWED'", {'blob': blob, 'extra': extra},
           all(o['exit'] == 65 and o['stop'] == 'CONFIG_UNREVIEWED' for o in (blob, extra)))
     extra2 = show(*t.run(t.world(extra={hf.PKG + 'notes.txt': b'a file the pins do not name\n'}), F))
+    retain_restored(lambda: t.run(w, F), clean)
     check('TR52', 'an additional file under the package directory at T that tool.files does not name: ERROR',
           "exit 65 with stop 'CONFIG_UNREVIEWED'", extra2, extra2['exit'] == 65 and
           extra2['stop'] == 'CONFIG_UNREVIEWED')
@@ -261,21 +287,28 @@ def tr_controls(r):
           snap.get('workflow') == hf.tool_pins()['workflow'])
     # TR50: the workflow at T one byte different
     o50 = show(*t.run(t.world(wf=hf.WF + b'#'), F))
+    retain_restored(lambda: t.run(w, F), clean)
     check('TR50', 'the workflow at tool.workflow.path at T modified by one byte: ERROR', "exit 65 with stop "
           "'CONFIG_UNREVIEWED'", o50, o50['exit'] == 65 and o50['stop'] == 'CONFIG_UNREVIEWED')
     # TR51: a symlink, separately a submodule entry, under the package directory
     o51 = {}
     for name, val in (('symlink', ('symlink', 'elsewhere.py')), ('submodule', ('submodule', 'ab' * 20))):
         o51[name] = show(*t.run(t.world(tool_files=dict(hf.TOOL_FILES, **{hf.PKG + 'engine/x.py': val})), F))
+        REC.name_last('symlink under tools/ledger_coverage/' if name == 'symlink' else 'submodule entry')
         o51[name + ' (an added entry)'] = show(*t.run(t.world(extra={hf.PKG + 'engine/z': val}), F))
+    retain_restored(lambda: t.run(w, F), clean)
     check('TR51', 'a symlink, separately a submodule entry, under the package directory in T\'s tree: ERROR in each '
           'case', "every case exits 65 with stop 'CONFIG_UNREVIEWED'", o51,
           all(o['exit'] == 65 and o['stop'] == 'CONFIG_UNREVIEWED' for o in o51.values()))
     # TR29 at the tool: head branch not main; head_sha the evaluated commit
     a29 = show(*t.run(t.world(run={'head_branch': 'feature'}), F))
+    REC.name_last('head_sha on a branch',
+                  attested={'message_names': 'head_branch' if 'head branch' in a29['message'] else None})
     wx = t.world()
     wx.h.runs[wx.run_id]['head_sha'] = t.syn.H
     b29 = show(*t.run(wx, F))
+    REC.name_last('head_sha is X')
+    retain_restored(lambda: t.run(w, F), clean)
     check('TR29-tool', 'a run whose head_sha is not on main (its head branch is not main): ERROR at the tool before any '
           'evaluation; separately a run whose head_sha is the evaluated commit X (no tool there): ERROR',
           "both exit 65 with stop 'CONFIG_UNREVIEWED'; the first names the head branch", [a29, b29],
@@ -287,15 +320,26 @@ def tr_controls(r):
     pyc = dict(ck, **{hf.PKG + 'engine/__pycache__/x.cpython-313.pyc': b'\x00compiled'})
     e1 = {'patched module': show(*t.run(w, F, checkout=patched)), 'bytecode file': show(*t.run(w, F, checkout=pyc)),
           '(countercontrol) the checkout equal to T': show(*t.run(w, F, checkout=ck))}
+    equal_checkout = REC.name_last('equal checkout (positive)')
+    retain_restored(lambda: t.run(w, F, checkout=ck), equal_checkout)
     check('EI1', 'the tool run directly, without the pre-run check, on a checkout of T in which one tool file differs '
           'from T\'s blob, or that holds a file T does not (a compiled-bytecode file): ERROR at the tool',
           "both mutants exit 65 with stop 'CONFIG_UNREVIEWED' naming the checkout; the equal checkout exits 0", e1,
           all(e1[k]['exit'] == 65 and e1[k]['stop'] == 'CONFIG_UNREVIEWED' and 'checkout' in e1[k]['message']
               for k in ('patched module', 'bytecode file')) and
-          e1['(countercontrol) the checkout equal to T']['exit'] == 0)
+          e1['(countercontrol) the checkout equal to T']['exit'] == 0,
+          cases=[('tool file differs from T, run directly', {}), ('extra bytecode file, run directly', {})])
     # EI2 at the tool
-    e2 = {ev: show(*t.run(t.world(run={'event': ev}), F)) for ev in ('pull_request', 'schedule', 'workflow_run')}
-    e2['(countercontrol) push'] = show(*t.run(t.world(run={'event': 'push'}), F))
+    e2 = {}
+    for event in ('pull_request', 'schedule', 'workflow_run'):
+        e2[event] = show(*t.run(t.world(run={'event': event}), F))
+        REC.name_last(event)
+    push_world = t.world(run={'event': 'push'})
+    push_code, push_result = t.run(push_world, F)
+    e2['(countercontrol) push'] = show(push_code, push_result)
+    push_baseline = REC.name_last('push (tool half, positive)',
+                                  attested={'outcome': 'NOT_REFUSED' if push_code == 0 else 'REFUSED'})
+    retain_restored(lambda: t.run(push_world, F), push_baseline)
     check('EI2', 'a run whose event is pull_request (head in the canonical repository); separately schedule; '
           'separately workflow_run: ERROR at the tool; the consumer half is reported with the acceptance controls',
           "the three events exit 65 with stop 'CONFIG_UNREVIEWED'; a push run exits 0", e2,
@@ -359,17 +403,22 @@ def gv6_controls(t, w):
     path in F, at the pin table's path, at a record's path."""
     d = t.p.rsplit('/', 1)[0] + '/'
     F = t.freeze()
+    t.run(w, F)
+    clean = REC.name_last('clean regular entries')
     out = {'configuration': show(*t.run(w, t.repo.derive(F, {t.p: ('symlink', 'review.json')}, parents=[t.c]))),
            'pin table': show(*t.run(w, t.repo.derive(F, {d + 'PREREG.md': ('symlink', '../PREREG.md')},
                                                      parents=[t.c])))}
     code, res = t.run(w, t.repo.derive(F, {'syn/rules-allow.json': ('symlink', 'rules-pat.json')}, parents=[t.c]))
     out['record'] = dict(show(code, res), record_invalid=sorted({i['subject'] for i in (res or {}).get('items', [])
                                                                  if i['class'] == 'record-invalid'}))
+    retain_restored(lambda: t.run(w, F), clean)
     check('GV6', 'a symlink entry at the configuration\'s path in F; separately at the pin table\'s path; separately '
           'at a record\'s path: refused in each case', "the first two exit 65 with stop 'CONFIG_UNREVIEWED'; the "
           "record is record-invalid (exit 20)", out,
           all(out[k]['exit'] == 65 and out[k]['stop'] == 'CONFIG_UNREVIEWED' for k in ('configuration', 'pin table'))
-          and out['record']['exit'] == 20 and 'syn/rules-allow.json' in out['record']['record_invalid'])
+          and out['record']['exit'] == 20 and 'syn/rules-allow.json' in out['record']['record_invalid'],
+          cases=[None, ('symlink at configuration path', {}), ('symlink at pin table path', {}),
+                 ('symlink at a record path', {'record': 'syn/rules-allow.json'})])
 
 
 def gv7_tool_controls(t, w, F):
@@ -1723,9 +1772,11 @@ def config_lint_controls(r):
     for name, v in variants.items():
         c, p, s_, _ = syn.build(dict(base, **v))
         out[name] = show(*r.cli(syn.repo, ['terms', '--commit', syn.H], c, p, s_, harness=True))
+        REC.name_last(name)
     c, p, s_, _ = syn.build(base)
     out['(countercontrol) the valid configuration'] = show(*r.cli(syn.repo, ['terms', '--commit', syn.H], c, p, s_,
                                                                   harness=True))
+    REC.name_last('the valid configuration (countercontrol)')
     check('CONFIG-LINT', 'sec. 16.2 lint and sec. 16.6: tool.files naming a path outside the entry point and the package, '
           'omitting the entry point or naming a path twice; a workflow pin without its sha256; repository_id not a '
           'positive integer; tool missing; a retirement field other than name and issue; a record of a kind the design '
@@ -2513,19 +2564,27 @@ def a12r(r):
     pd = sf.patch_doc(syn.H, [])
     base = {'patch_sha': sha(pd), 'files': {'syn/patch.json': pd}, 'allow_widened': True, 'widening_review': True}
     out = {}
-    for name, extra in (('complete', {}), ('omits-item', {'widening_items': []}),
-                        ('names-another-superseded-blob', {'widening_replaces': {'path': 'syn/rules-allow.json',
-                                                                                  'blob_sha256': '1' * 64}})):
-        v = dict(base, **extra)
-        if name == 'omits-item':
-            v['widening_items'] = ['syn-allow-1:other']
-        c, p, s, _ = syn.build(v)
-        code, res = r.cli(syn.repo, ['terms', '--commit', syn.H], c, p, s)
+    clean_commit, clean_path, clean_sha, _ = syn.build(base)
+    argv = ['terms', '--commit', syn.H]
+    code, res = r.cli(syn.repo, argv, clean_commit, clean_path, clean_sha)
+    out['complete'] = (code, classes(res))
+    clean = REC.name_last('complete review (positive)')
+    rule_path = 'syn/rules-allow.json'
+    for name, extra in (
+            ('verdicts omit one changed item', {'widening_items': ['syn-allow-1:other']}),
+            ('names another superseded blob',
+             {'widening_replaces': {'path': rule_path, 'blob_sha256': '1' * 64}})):
+        c, p, s, _ = syn.build(dict(base, **extra))
+        code, res = r.cli(syn.repo, argv, c, p, s)
         out[name] = (code, classes(res))
+        widened_ref = next(ref for ref in json.loads(syn.repo.read(c, p))['rules']
+                           if ref['path'].startswith('syn/rules-allow'))
+        REC.name_last(name, bindings={'rule_file': widened_ref['path']})
+    retain_restored(lambda: r.cli(syn.repo, argv, clean_commit, clean_path, clean_sha), clean)
     check('A12r', 'a widening review whose verdicts omit one changed item; separately one naming another superseded '
           'blob: FAIL record-invalid each', "complete: exit 0; both mutants: exit 20 with record-invalid",
-          out, out['complete'][0] == 0 and all(out[k][0] == 20 and 'record-invalid' in out[k][1]
-                                               for k in ('omits-item', 'names-another-superseded-blob')))
+          out, out['complete'][0] == 0 and all(code == 20 and 'record-invalid' in result_classes
+                                               for name, (code, result_classes) in out.items() if name != 'complete'))
 
 
 def z11_s4a(r):
