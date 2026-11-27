@@ -90,6 +90,13 @@ def held_lines(states):
     return out
 
 
+def record_of(entry):
+    """R6.HP.6 / R6.REC.10: a record-invalid item of an HP adjudication names its record: `file` the record's path
+    and `record` its reference, when the entry came from an admitted record (`_ref`)."""
+    ref = (entry or {}).get('_ref')
+    return {'file': ref['path'], 'record': ref} if isinstance(ref, dict) and ref.get('path') else {}
+
+
 def entry_sha(e):
     """The sha256 of a record entry as written (the fields the record states, not the tool's own `_` fields)."""
     return util.sha256(util.canonical({k: v for k, v in e.items() if not k.startswith('_')}))
@@ -305,7 +312,8 @@ class Coverage:
                 cls = check_hp_shared(rec, self.site_out[st.site['site_id']], st, ctx.ft(seg['to'], st.file))
                 if cls:
                     st.adjudicated = False
-                    self.item('HP', 'record-invalid', st.site['site_id'], name, {'why': cls}, detail=cls)
+                    self.item('HP', 'record-invalid', st.site['site_id'], name, {'why': cls}, detail=cls,
+                              **record_of(rec))
                 elif self.site_out[st.site['site_id']]['region_shared_with']:
                     by_region.setdefault((st.file, sg.block_sha(st.block)), []).append(st)
         for key, sts in by_region.items():
@@ -317,7 +325,8 @@ class Coverage:
                     'shared region: own_lines leave a non-blank line unassigned'
                 for s_ in sts:
                     s_.adjudicated = False
-                    self.item('HP', 'record-invalid', s_.site['site_id'], name, {'why': why}, detail=why)
+                    self.item('HP', 'record-invalid', s_.site['site_id'], name, {'why': why}, detail=why,
+                              **record_of(self.hp_records.get(s_.site['site_id'])))
         self.merger_groups = sorted({(k[0], k[1], k[2]) for k, m in groups.items() if len({x[0] for x in m}) > 1})
 
     def unledgered_segment(self, seg):
@@ -455,7 +464,8 @@ class Coverage:
                         st.adjudicated = False
                         self.item('HP', 'record-invalid', st.site['site_id'], seg['name'],
                                   {'why': 'unattributed splice', 'splices': sorted(set(hit) - attributed)},
-                                  detail='a splice overlapping the shared region is attributed to no site')
+                                  detail='a splice overlapping the shared region is attributed to no site',
+                                  **record_of(self.hp_records.get(st.site['site_id'])))
 
 
 # design r6 R6.OUT.18 site fields from the segment rule that set the site's status: `line_delta` of a moved site

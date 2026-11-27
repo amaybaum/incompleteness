@@ -3,6 +3,7 @@
 Each control runs in both directions where the design asks for it: the mutant gives the stated outcome and the
 restored tree gives the control outcome. The texts are neutral; no retirement constant appears here (Z9).
 """
+import json
 import traceback
 
 from . import context as ctxmod
@@ -136,7 +137,7 @@ class World:
             ch[doc_path] = text.encode()
         return self.repo.derive(parent, ch, parents=[parent], subject=subject)
 
-    def coverage(self, commit, segs, adj=None, hits=True, allow=(), hit_records=None):
+    def coverage(self, commit, segs, adj=None, hits=True, allow=(), hit_records=None, facts=None):
         ctx = self.ctx(allow)
         cv = pl.Coverage(ctx, commit, segs, ctx.cfg if False else None, adj or {}, []).run()
         items = list(cv.items)
@@ -154,7 +155,7 @@ class World:
             counts = {}
             for x in sites:
                 counts[x['state']] = counts.get(x['state'], 0) + 1
-            _stage('coverage', items, sites=sites, site_counts=counts)
+            _stage('coverage', items, sites=sites, site_counts=counts, **(facts or {}))
         return cv, items
 
 
@@ -649,16 +650,30 @@ def h_controls():
     good = [adj(s1, st5, [util.sha256(reg[0])], {'S1': [s2]}), adj(s2, st7, [util.sha256(reg[2])], {'S1': [s2]})]
     cv3, it3 = wm.coverage(x, [sm, seg(hm, x, 'ledgered', ledger=led)], adj={'hp': good}, hits=False)
     hp_ok = not [i for i in it3 if i['class'] == 'record-invalid']
+    def as_record(path, sites):
+        # the adjudications written as an HP adjudication record file; the run reads its entries from the file's
+        # bytes with the reference the entry point gives an admitted record's entries, and the bytes are retained in
+        # the run's result document (record_blobs)
+        data = util.canonical({'schema': 'oi-hp-adjudication/1', 'record_id': path.rsplit('/', 1)[-1],
+                               'author': 'eng-writer', 'supersedes': None, 'sites': sites})
+        ref = {'path': path, 'blob_sha256': util.sha256(data)}
+        doc = json.loads(data)
+        return [dict(e, _ref=ref) for e in doc['sites']], {'record_blobs': {path: data.decode('utf-8')}}
     unassigned = [adj(s1, st5, [util.sha256(reg[0])], {'S1': [s2]}), adj(s2, st7, [], {'S1': [s2]})]
-    cv4, it4 = wm.coverage(x, [sm, seg(hm, x, 'ledgered', ledger=led)], adj={'hp': unassigned}, hits=False)
-    # the in-memory adjudications have no record file, so $record is left unbound
-    _case('own_lines leaves a line unassigned')
+    r4 = 'verification/fixture/h7-own-lines.hp-adjudication.json'
+    e4, f4 = as_record(r4, unassigned)
+    cv4, it4 = wm.coverage(x, [sm, seg(hm, x, 'ledgered', ledger=led)], adj={'hp': e4}, hits=False, facts=f4)
+    _case('own_lines leaves a line unassigned', record=r4)
     unattr = [adj(s1, st5, [util.sha256(reg[0])], {}), adj(s2, st7, [util.sha256(reg[2])], {})]
-    cv5, it5 = wm.coverage(x, [sm, seg(hm, x, 'ledgered', ledger=led)], adj={'hp': unattr}, hits=False)
-    _case('splice attributed to no site')
+    r5 = 'verification/fixture/h7-splice.hp-adjudication.json'
+    e5, f5 = as_record(r5, unattr)
+    cv5, it5 = wm.coverage(x, [sm, seg(hm, x, 'ledgered', ledger=led)], adj={'hp': e5}, hits=False, facts=f5)
+    _case('splice attributed to no site', record=r5)
     _restore_with(lambda: wm.coverage(x, [sm, seg(hm, x, 'ledgered', ledger=led)], adj={'hp': good}, hits=False)[1],
                   'coverage')
-    out['H7'] = basic and hp_ok and 'record-invalid' in classes(it4) and 'record-invalid' in classes(it5)
+    out['H7'] = basic and hp_ok and \
+        sorted({i['class'] for i in it4 if i.get('file') == r4}) == ['record-invalid'] and \
+        sorted({i['class'] for i in it5 if i.get('file') == r5}) == ['record-invalid']
     return out
 
 
