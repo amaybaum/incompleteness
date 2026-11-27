@@ -61,6 +61,7 @@ enumerations = frozenset([
     'context-structure-changed', 'delegated-evidence-missing', 'side-change-unclassified',
     'retirement-blocked', 'RC14', 'reconciled-state', 'reconciled', 'reconciled-resolved', 'no-effect', 'invalidates',
     'PIN_MISMATCH', 'RECORD_TREE_MISMATCH', 'SCIENTIFIC_BASE_MISMATCH', 'MAIN_NOT_DESCENDANT', 'SOURCE_CHANGED',
+    'NOT_ISOLATED',
     'LEDGER_INTEGRITY', 'EDITS_HASH_MISMATCH', 'ENCODING', 'UNRESOLVABLE', 'CONFIG_INVALID', 'CONFIG_UNSUPPORTED',
     'CONFIG_UNREVIEWED', 'CONFIG_INCONSISTENT', 'CONFIG_NO_CONTROLS', 'PREFLIGHT_FAILED',
     'json-pointer', 'python-ast-assign', 'literal-list', 'review', 'deny', 'tree', 'added-text', 'accept', 'reject',
