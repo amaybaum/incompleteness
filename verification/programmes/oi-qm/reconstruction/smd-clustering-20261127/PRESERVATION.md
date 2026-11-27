@@ -67,8 +67,8 @@ verification.
 - **Comment 7209292122, delta review of r2 at `74610711`: ACCEPT WITH NITS,** D1–D3. It found
   F1–F11 fixed and S-2′'s mathematics correct, with S-2′ calling on (H) where (H′) applies (D1).
 - **Comment 7209304818, confirmation of r3 at `aa723017`: ACCEPT, with one optional nit** (E1).
-- **Confirmation of `b7e29ea7` (E1 applied):** to be recorded on #1623; not available when this
-  file was written.
+- **Comment 7209334760, confirmation of `b7e29ea7`: ACCEPT.** E1 fixed; checked by diff against
+  `aa723017`, the only change being "(H)" to "(H′)" in the body of S-2′.
 - The review texts do not state whether one reviewer agent wrote more than one of them; each was
   started with a fresh context.
 
@@ -156,12 +156,12 @@ Each reference is classified by reading the claim it is attached to.
 | Reference | Where | Classification |
 |---|---|---|
 | #1169 comments 7199704501, 7208939261, 7209325168 (owner decisions) | `PLAN.md`, report header; §1 here | provenance: authority records quoted with author and time; no result uses them |
-| PR #1623 comments 7209241804, 7209292122, 7209304818 (reviews); the confirmation of `b7e29ea7` | report r2 header and §10; §1 here | provenance: evidence of review; no result uses them |
+| PR #1623 comments 7209241804, 7209292122, 7209304818, 7209334760 (reviews) | report r2 header and §10; §1 here | provenance: evidence of review; no result uses them |
 | PR #1612 ("landed via #1612") | `PLAN.md` | provenance: how SMD-SRC-1 reached `main`; the content used is on `main` |
 | #1622, #1624, #1625 | §1, §3 here | provenance: the consolidated decision and the Phase 1 reassessment |
 | commit `98172765` (`PLAN.md`) | report header; §1, §3 here | support off `main` (gap), closed by the landing condition of §5: the plan and the evidence of its order |
 | commit `22347bb9` (r1) | §1, §3 here | support off `main` (gap), closed by §5: the preregistration-order row uses its commit time. For identifying the r1 text it is provenance |
-| commits `74610711`, `aa723017` | §1 here | provenance: they identify the texts the delta and confirmation reviews read |
+| commits `74610711`, `aa723017` | §1 here | provenance: they identify the texts the delta and confirmation reviews (7209292122, 7209304818, 7209334760) read |
 | commit `b7e29ea7` (`REPORT.md`) | §1 here | support off `main` (gap), closed by §5: the authoritative report |
 | the commit adding this file | — | support off `main` (gap), closed by §5: this record's own content |
 | pin `13c05b4f`, Main and SM line citations | report header, throughout | support on `main`: `13c05b4f` is an ancestor of `main` at `650c8053`, and `papers/Main.md` and `papers/SM.md` are unchanged between them |
