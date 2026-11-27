@@ -5,7 +5,9 @@ the direct review checks over R*, the result fields and an unreadable history.
 The tool detects findings of the first kind only (a reviewed `invalidates` entry of a reconciliation record), so each
 control of CONTROLS.json is run here where it is mechanical for that kind; `f` is such a finding landed on main, in
 the post-freeze synthetic world of postfreeze_controls.py. The control ids are those of CONTROLS.json; the expectation
-rows are not registered by this suite (registration is an adoption act), so its records are local evidence only.
+rows are not registered by this suite (registration is an adoption act), so its records are local evidence only,
+except the amendment-7 cases that generator-amendment7 registered in FINDING-FORM, FINDING-KEYS, FINDING-LINEAGE and
+REASSESS-KEYS, which `amendment_7_rows` records from the engine runs of the local cases that implement them.
 
 Usage: python3 -I -B tools/ledger_coverage/adapters/obl29_controls.py OUT
 Writes OUT/obl29-controls.json and exits 0 when every control holds, 1 otherwise.
@@ -1732,6 +1734,172 @@ def run_level_ledger_controls(r):
          any('binds at run level' in x for x in bound[2]))
 
 
+
+def amendment_7_reassess_controls(r):
+    """r13 Amendment 7 sec. 3, the cases whose run cites a reassessment (FINDING-KEYS C2, REASSESS-KEYS 8, C3 and C4):
+    the finding world of postfreeze_controls.finding_world, its configuration frozen anew citing reviewed
+    reassessments, with the custody record on main that a cited discharge needs (postfreeze_controls.with_custody).
+    Case 1's finding carries one element whose id no ledger holds (conclusions none); case 4's finding carries E1 and
+    that element, under a freeze that rewords E1 (as custody_controls.amendment_7_keys_controls builds it)."""
+    unknown = {'id': 'NO-SUCH-EDIT', 'sha256': '0' * 64,
+               'target': {'path': 'nowhere.md', 'start_H': 0, 'old_sha256': '0' * 64}}
+
+    def cite_all(docs):
+        def variant(w_):
+            files, recs = {}, []
+            for i, d in enumerate(docs):
+                p_ = pfc.RA_PATH if i == 0 else 'syn/cfg/reassessment-%d.json' % i
+                b = pfc.jb(d)
+                files[p_] = b
+                recs.append({'kind': 'reassessment', 'path': p_, 'blob_sha256': sf.sha(b)})
+                recs += sf.Syn.chain(None, files, p_, sf.REVIEWER)
+            return {'files': files, 'add_records': recs}
+        return variant
+
+    def run(w):
+        saved = pfc.ra.custody_bootstrap_blob
+        if getattr(w, 'custody_boot', None):
+            pfc.ra.custody_bootstrap_blob = w.custody_boot
+        try:
+            code, out = w.run([], harness=True)
+        finally:
+            pfc.ra.custody_bootstrap_blob = saved
+        out = out or {}
+        cat = out.get('category3') or {}
+        return {'exit': code, 'stop': (out.get('stop') or {}).get('class'),
+                'classes': sorted({i['class'] for i in out.get('items', [])}),
+                'blocked': [(b['record']['path'], b.get('edit')) for b in cat.get('blocked') or []],
+                'reassessments': len(cat.get('reassessments') or []),
+                'reassess_why': [d for i in out.get('items', []) if i['class'] == 'record-invalid' and
+                                 i.get('subject') == pfc.RA_PATH for d in (i.get('detail') or [])][:3]}
+
+    def edits_of(o):
+        return sorted(str(e) for p_, e in o['blocked'] if p_ == FP)
+
+    case1 = dict(invalidated=[unknown], conclusions='none')
+    w1 = pfc.finding_world(r, **case1)
+    a_null1 = pfc.reassessment(w1, edit=None, record_id='syn-reassessment-null')
+    a_edit1 = pfc.reassessment(w1)
+    # the uncited run of case 1's finding: the countercontrol that makes C2 and C3 non-vacuous
+    bare = run(pfc.with_custody(pfc.finding_world(r, **case1)))
+    case('A7-ROW-CASE1-UNCITED', 'case 1\'s finding with no reassessment cited: run-level retirement-blocked (the '
+                                 'binding C2 lifts and C3 does not)', bare,
+         'retirement-blocked' in bare['classes'] and edits_of(bare) == ['None'])
+    o = run(pfc.with_custody(pfc.finding_world(r, variant=pfc.cite(a_null1), **case1)))
+    case('A7-ROW-KEYS-C2', 'case 1\'s finding, the configuration frozen anew citing an applying reassessment naming '
+                           'the finding with edit null: not retirement-blocked, the reassessment applies', o,
+         'retirement-blocked' not in o['classes'] and o['reassessments'] == 1 and edits_of(o) == [])
+    o = run(pfc.with_custody(pfc.finding_world(r, variant=pfc.cite(a_edit1), **case1)))
+    case('A7-ROW-REASSESS-C3', 'case 1\'s finding and an applying reassessment naming it with a non-null edit (E1): '
+                               'run-level retirement-blocked; the reassessment is well formed and applies, lifting '
+                               'nothing', o,
+         'retirement-blocked' in o['classes'] and edits_of(o) == ['None'] and o['reassessments'] == 1 and
+         not o['reassess_why'])
+    case4 = dict(edits=pfc.EDITS_REWORDED, extra_elems=[unknown])
+    w4 = pfc.finding_world(r, **case4)
+    a_null4 = pfc.reassessment(w4, edit=None, record_id='syn-reassessment-null')
+    a_edit4 = pfc.reassessment(w4)
+    o = run(pfc.with_custody(pfc.finding_world(r, variant=cite_all([a_null4]), **case4)))
+    case('A7-ROW-REASSESS-8', 'case 4, then a new freeze that rewords E1 and cites an applying reassessment naming the '
+                              'finding with edit null: retirement-blocked on E1 only', o,
+         'retirement-blocked' in o['classes'] and edits_of(o) == ['E1'] and o['reassessments'] == 1)
+    o = run(pfc.with_custody(pfc.finding_world(r, variant=cite_all([a_edit4, a_null4]), **case4)))
+    case('A7-ROW-REASSESS-C4', 'case 8\'s freeze also citing an applying reassessment naming the finding and E1 as '
+                               'now worded: not retirement-blocked', o,
+         'retirement-blocked' not in o['classes'] and edits_of(o) == [] and o['reassessments'] == 2)
+
+
+# The expectation cases of r6 amendment 7 (EXPECTATIONS.json, generator-amendment7) and the local case whose
+# engine run is their evidence: (row, case name, local case id, index of the run among the case's captured runs).
+# Cases with no end-to-end run here (FINDING-FORM 8b, C1 and C3, checked at the level of category3.scope_problems by
+# A7-I-8B, A7-I-C1 and A7-I-C3) are not listed, and the gate finds no evidence for them.
+A7 = 'amendment 7, sec. %s, case %s: '
+A7_ROW_CASES = [
+    ('FINDING-FORM', A7 % (2, 1) + "a first-kind finding with a well-formed invalidated element and a resolvable "
+     "configuration of the run's lineage, whose entry has side_change_commits: []", 'A7-I-1', 0),
+    ('FINDING-FORM', A7 % (2, 2) + 'the same, the record deleted by a later commit on M (historical only)', 'A7-I-2', 0),
+    ('FINDING-FORM', A7 % (2, 3) + 'the same, the list holding one well-formed commit id that the object store does '
+     'not hold', 'A7-I-3', 0),
+    ('FINDING-FORM', A7 % (2, 4) + "the same, the list holding one commit the store holds that does not change the "
+     "entry's path", 'A7-I-4', 0),
+    ('FINDING-FORM', A7 % (2, 5) + "the same, the list holding one commit that changes the path but is not in the "
+     "run's M, plus one element \"junk\"", 'A7-I-5', 0),
+    ('FINDING-FORM', A7 % (2, 6) + 'a second-kind finding (independent reviewer, invalidates on '
+     '<path>:scientific_effect) on an entry whose side_change_commits is []', 'A7-I-6', 0),
+    ('FINDING-FORM', A7 % (2, 7) + 'a class (b) malformed file with an invalidation signal (for example the '
+     'BOM-prefixed copy of a finding) (run-level retirement-blocked; no ERROR)', 'N-PREPEND', 0),
+    ('FINDING-FORM', A7 % (2, 8) + "the list holding, as its only element, a held commit on an unmerged branch that "
+     "changes the entry's path, not an ancestor of any witness of the record (an abandoned branch)", 'A7-I-8', 0),
+    ('FINDING-FORM', A7 % (2, 9) + "the list holding, as its only element, a merge commit whose tree entry for the "
+     "path equals its first parent's (the path differs only from the second parent)", 'A7-I-9', 0),
+    ('FINDING-FORM', A7 % (2, 10) + 'provisional, with r9 Amendment 1: a second-kind finding by a reviewer distinct '
+     'from every author in R*, whose reviewed names no record in R* (run-level retirement-blocked; no ERROR)',
+     'SECOND-KIND-REVIEWED-MISSING', 0),
+    ('FINDING-FORM', A7 % (2, 'C2') + 'countercase: a no-effect entry, not a finding, with side_change_commits: [] on '
+     'a mode-only change (RECON-FIELDS countercase 2, unchanged)', 'A7-I-C2', 0),
+    ('FINDING-LINEAGE', A7 % (3, 7) + 'an unknown-id element under a configuration that cannot be resolved, the run '
+     'under a configuration of another retirement that carries neither the id nor the target (run-level '
+     'retirement-blocked)', 'A7-II-7', 0),
+    ('FINDING-KEYS', A7 % (3, 1) + 'an element {id: "NO-SUCH-EDIT", sha256, target}, its target\'s path and '
+     'old_sha256 held by no ledger, under a configuration that resolves to the run\'s configuration (run-level '
+     'retirement-blocked naming the finding)', 'A7-II-1', 0),
+    ('FINDING-KEYS', A7 % (3, 2) + 'the same, the record deleted by a later commit on M (run-level retirement-blocked)',
+     'A7-II-2', 0),
+    ('FINDING-KEYS', A7 % (3, 3) + "the same, the run under a later version, on the named configuration's supersedes "
+     "chain, that carries no edit of that id (run-level retirement-blocked)", 'A7-II-3', 0),
+    ('FINDING-KEYS', A7 % (3, 4) + 'a valid element naming edit E1 and a second element with an unknown id '
+     '(category3.blocked holds an entry for E1 and a run-level entry with edit null for the finding)', 'A7-II-4', 0),
+    ('FINDING-KEYS', A7 % (3, 5) + 'a valid element and a second element that is an object without id, or whose id '
+     'is a number (run-level retirement-blocked)', 'A7-II-5', 0),
+    ('FINDING-KEYS', A7 % (3, 6) + "an element with an unknown id whose target matches an edit of the run's ledger by "
+     "path and old_sha256 (run-level retirement-blocked; the target match does not keep it below run level)",
+     'A7-II-6', 0),
+    ('FINDING-KEYS', A7 % (3, 'C1') + "countercase: case 1's finding, the run under a configuration of another "
+     "retirement outside the named configuration's lineage that carries neither the id nor the target (positive)",
+     'A7-II-C1', 0),
+    ('FINDING-KEYS', A7 % (3, 'C2') + "countercase: case 1's finding, the configuration frozen anew citing an applying "
+     "reassessment that names the finding with edit null (positive)", 'A7-ROW-KEYS-C2', 0),
+    ('REASSESS-KEYS', A7 % (3, 8) + 'case 4, then a new freeze that rewords E1 (the same id and target) and cites an '
+     'applying reassessment naming the finding with edit null (retirement-blocked on E1)', 'A7-ROW-REASSESS-8', 0),
+    ('REASSESS-KEYS', A7 % (3, 'C3') + "countercase: case 1's finding and an applying reassessment naming it with a "
+     "non-null edit (run-level retirement-blocked; an edit reassessment does not lift the run-level binding)",
+     'A7-ROW-REASSESS-C3', 0),
+    ('REASSESS-KEYS', A7 % (3, 'C4') + "countercase: case 8's freeze also citing an applying reassessment naming the "
+     "finding and E1 as now worded (positive)", 'A7-ROW-REASSESS-C4', 0),
+]
+# the second variant of FINDING-KEYS case 5 (the numeric id), kept beside the case under a name of its own
+A7_ROW_EXTRA = [('FINDING-KEYS', A7_ROW_CASES[16][1] + ' [the variant whose id is a number]', 'A7-II-5', 1)]
+# the number of engine runs each mapped local case captures; another count means the mapping no longer holds
+A7_RUNS = {'A7-II-5': 2}
+
+
+def amendment_7_rows(repo_root=None):
+    """Records the rows FINDING-FORM, FINDING-KEYS, FINDING-LINEAGE and REASSESS-KEYS with the engine runs of the local
+    cases above as their amendment-7 cases. The rows also hold cases with no runner here (the amendment-6 cases, and
+    FINDING-FORM 8b, C1 and C3), so each row's runner status is FAIL; the gate evaluates every case it has evidence
+    for and reports the others missing."""
+    rows = control_records.expectation_ids(repo_root)
+    by = {c['id']: c for c in RESULTS}
+    per_row = {}
+    for row, name, cid, idx in A7_ROW_CASES + A7_ROW_EXTRA:
+        runs = LOCAL.runs.get(cid) or []
+        ent = per_row.setdefault(row, {'runs': [], 'cases': [], 'problems': []})
+        if len(runs) != A7_RUNS.get(cid, 1) or cid not in by:
+            ent['problems'].append('%s: %d runs captured, %d expected' % (cid, len(runs), A7_RUNS.get(cid, 1)))
+            continue
+        run = dict(runs[idx], case=name)
+        ent['runs'].append(run)
+        ent['cases'].append({'case': name, 'local': cid, 'local_status': by[cid]['status']})
+    for row, ent in sorted(per_row.items()):
+        if row not in rows:
+            continue
+        LOCAL.runs[row] = ent['runs']
+        RESULTS.append({'id': row, 'status': 'FAIL', 'attested': None,
+                        'expected': 'the amendment-7 cases of %s, each from the engine run of its local case; the '
+                                    'row\'s other cases have no runner in this suite' % row,
+                        'actual': {'cases': ent['cases'], 'problems': ent['problems']}})
+
+
 SUITES = [('removal', removal_controls), ('topology', topology_controls), ('unreadable', unreadable_controls),
           ('positive', positive_controls), ('reassessment', reassessment_controls),
           ('clearance-predicates', clearance_predicates), ('identity-and-set', identity_and_set_controls),
@@ -1741,6 +1909,7 @@ SUITES = [('removal', removal_controls), ('topology', topology_controls), ('unre
           ('pairing-review-order', pairing_review_order_control), ('r13-form', r13_form_controls),
           ('run-level-ledger', run_level_ledger_controls), ('amendment-7', amendment_7_controls),
           ('amendment-7-unit', amendment_7_unit_controls),
+          ('amendment-7-reassess', amendment_7_reassess_controls),
           ('read-domain', read_domain_controls), ('milestone', milestone_controls),
           ('explicit-review', explicit_review_controls), ('nits-0cafbdc0', nits_0cafbdc0_controls)]
 
@@ -1759,13 +1928,22 @@ def main(out):
             import traceback
             case(name + '/group-error', 'the suite runs', '%s: %s %s' % (type(exc).__name__, exc,
                                                                           traceback.format_exc()[-1500:]), False)
+    try:
+        amendment_7_rows()
+    except Exception as exc:
+        case('amendment-7-rows/group-error', 'the amendment-7 rows are recorded', '%s: %s' % (type(exc).__name__, exc),
+             False)
     with open(os.path.join(out, 'obl29-controls.json'), 'w') as f:
         json.dump({'schema': 'oi-local-controls/1', 'suite': 'obl29', 'cases': RESULTS}, f, indent=1,
                   sort_keys=True, default=str)
         f.write('\n')
     LOCAL.write(out, RESULTS)
-    bad = [c['id'] for c in RESULTS if c['status'] != 'PASS']
-    print(json.dumps({'cases': len(RESULTS), 'failed': bad}))
+    # the amendment-7 row records are FAIL while their rows hold cases with no runner here; the gate evaluates them,
+    # and the suite's own exit status stays that of its local controls
+    rows = {row for row, _n, _c, _i in A7_ROW_CASES}
+    bad = [c['id'] for c in RESULTS if c['status'] != 'PASS' and c['id'] not in rows]
+    print(json.dumps({'cases': len(RESULTS), 'failed': bad,
+                      'rows_recorded': sorted(c['id'] for c in RESULTS if c['id'] in rows)}))
     return 0 if not bad else 1
 
 

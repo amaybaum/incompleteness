@@ -1002,10 +1002,13 @@ RA_PATH = 'syn/cfg/reassessment.json'
 REPAIR_AUTHOR = 'session.fixture-writer-r'
 
 
-def finding_world(r, variant=None, edits=None, two=False, first_id=1, extra_elems=None):
+def finding_world(r, variant=None, edits=None, two=False, first_id=1, extra_elems=None, invalidated=None,
+                  conclusions=None):
     """A World whose main carries the change, a landed finding on it (and with two=True a second one, in another
     reconciliation directory), then a repair of the change recorded by its own reviewed no-effect entry. Commit ids
-    are content hashes, so the same construction in another World yields the same main commits."""
+    are content hashes, so the same construction in another World yields the same main commits. `invalidated`, when
+    given, replaces the finding's elements (an element naming no edit, for example); `conclusions` replaces its
+    conclusions."""
     w = World(r, variant=variant, edits=edits, first_id=first_id)
     orig = rcmod.edit_key(World(r).led, 'E1')
     f = invalidating(w, sf.DOC, edit='E1') if first_id == 1 else invalidating(World(r), sf.DOC)
@@ -1025,6 +1028,10 @@ def finding_world(r, variant=None, edits=None, two=False, first_id=1, extra_elem
                         subject='the base configuration lands')
     if extra_elems:
         f['paths'][0]['scientific_effect']['invalidated'] += [dict(x) for x in extra_elems]
+    if invalidated is not None:
+        f['paths'][0]['scientific_effect']['invalidated'] = [dict(x) for x in invalidated]
+    if conclusions is not None:
+        f['paths'][0]['scientific_effect']['conclusions'] = conclusions
     docs = [(RD + 'finding.json', f)]
     if two:
         f2 = dict(f, record_id='syn-finding-two')
