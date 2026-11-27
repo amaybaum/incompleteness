@@ -1,4 +1,4 @@
-# r6 amendment 7: change record (proposal)
+# r6 amendment 7: change record (adopted)
 
 Owner directions: amaybaum, 2026-11-27T01:59:03Z (#1169 comment 7207734407), the closing paragraph: "Preserve all outstanding obligations identified in the preceding review, including the symlink failures, representative-snapshot runner and r13 binding gaps", and item 5: "Malformed findings shall produce run-level `FAIL retirement-blocked`, preserving evidence and provenance. Reserve `ERROR` for cases where reliable evaluation is impossible."; amaybaum, 2026-11-27T02:01:22Z (#1169 comment 7207765697): "A1 retirement remains the highest current operational priority", with item 4: "Do not expand the verification infrastructure beyond the adopted requirements unless a concrete retirement-blocking defect is demonstrated."
 
@@ -7,9 +7,9 @@ Source of the gaps: the independent review of the r13 detection, form and bindin
 > An entry with `side_change_commits: []` never binds; r13's R6.RECON.30 table admits an empty array.
 > An element that is readable but names an edit id absent from every ledger binds nothing.
 
-Status: a proposal for owner disposition, r3. r2 answers the independent review of r1 (`f5d85874`) on PR #1618, findings 3, 4, 5, 7, 8 and 9. r3 answers the re-review of r2 on PR #1618: the witness used by the ancestry test of gap (i), and a nit in REASSESS-KEYS C3. r4 applies the two nits of the r3 confirmation on PR #1618: the qualifying witness in sec. 2, and a witness on a predicted `M`'s in-memory chain. It needs independent review and the owner's decision. This file is the only file it changes. DESIGN-r6.md, EXPECTATIONS.json, REQUIREMENTS.json and CONFORMANCE-MUTANTS.json are unchanged. On adoption, a generator-amendment7 applies the adopted wording and cases, as generator-amendment1 to generator-amendment6 did. It authorizes no merge, dispatch, freeze or trial, and it reopens nothing else of amendments 1 to 6.
+Status: adopted at r4 (`fbfeac8ae3a7914255e07d9a0351eff4bd1d1474`), with every-configuration binding for an unresolvable configuration, by owner decision recorded at #1169 comment 7208869709; landed by PR #1618, whose only change after adoption disambiguates six section headings and records this status. r2 answers the independent review of r1 (`f5d85874`) on PR #1618, findings 3, 4, 5, 7, 8 and 9. r3 answers the re-review of r2 on PR #1618: the witness used by the ancestry test of gap (i), and a nit in REASSESS-KEYS C3. r4 applies the two nits of the r3 confirmation on PR #1618: the qualifying witness in sec. 2, and a witness on a predicted `M`'s in-memory chain. This file is the only file it changes. DESIGN-r6.md, EXPECTATIONS.json, REQUIREMENTS.json and CONFORMANCE-MUTANTS.json are unchanged. On adoption, a generator-amendment7 applies the adopted wording and cases, as generator-amendment1 to generator-amendment6 did. It authorizes no merge, dispatch, freeze or trial, and it reopens nothing else of amendments 1 to 6.
 
-Order of adoption: the wording uses three terms of the OBL-29 r9 design and its Amendment 1 (#1601 at `e79e7ca90f863115bc75b7ae5195dbba016125da`, `verification/audits/foundations/a1exit-obl29-remedy-20261126/`): `R*` (R6.OBL29.3), residual R-1 and residual R-8. That design is not yet on `main`. This amendment is therefore adopted with or after r9 Amendment 1, and its wording is aligned with A1.5. If it were adopted first, `R*` would read as r13's "the scan", and the R-1 sentence would be dropped.
+Order of adoption: the wording uses three terms of the OBL-29 r9 design and its Amendment 1 (#1601 at `e79e7ca90f863115bc75b7ae5195dbba016125da`, `verification/audits/foundations/a1exit-obl29-remedy-20261126/`): `R*` (R6.OBL29.3), residual R-1 and residual R-8. That design landed on `main` by PR #1601. This amendment is adopted with or after r9 Amendment 1, and its wording is aligned with A1.5. If it were adopted first, `R*` would read as r13's "the scan", and the R-1 sentence would be dropped.
 
 Goal link: the A1 retirement verification route (#1169, owner priority of comment 7207765697). This proposal decides whether a recorded category-3 finding blocks fail-closed in two cases where r13 lets it bind nothing. Item 4's bar is met: sec. 1 shows from r13's own text on `main` that both cases fail open. A finding that binds nothing lets a frozen plan proceed over an invalidation that an independent reviewer recorded.
 
@@ -40,14 +40,14 @@ The tool at `7db52f38` follows this text faithfully. Its behaviour, quoted from 
 
 ## 2. Gap (i): an empty or untrustworthy `side_change_commits`
 
-### Options
+### Options, gap (i)
 
 - (a) A form failure: make `side_change_commits` a non-empty array in the R6.RECON.30 key table.
   - This alone closes nothing. A form failure "still blocks" (Form (i)), but only through the same gate, which an empty list never meets.
   - It also changes RECON-FIELDS countercase 2 (`base-drift` with RC1 would become `record-invalid` before any condition) and the mutant list, whose sha256 is cited in RECON-SCHEMA.
 - (b) Binding at run scope: where the list cannot limit the finding's runs, the finding blocks every run in which it is found. This is fail-closed whatever the list holds, and it leaves the key table, RC1 and the mutant list unchanged.
 
-### Proposal
+### Proposal, gap (i)
 
 (b). The list limits the runs only when each element passes three tests:
 - it is a commit id naming a commit the object store holds;
@@ -101,7 +101,7 @@ How the cases tell the readings apart:
 - Case 8 separates the ancestry test from a path-change test alone. Case 8b shows that a witness through `F` cannot stand in for the record's witness in `M`'s ancestry.
 - Cases 9 and C3 pin the first-parent definition for a merge.
 
-### Effect on existing controls
+### Effect on existing controls, gap (i)
 
 - Design controls: none changes its expectation.
   - RECON-FIELDS countercase 2 is unchanged, because the key table is unchanged and the entry is not a finding.
@@ -112,14 +112,14 @@ How the cases tell the readings apart:
 
 ## 3. Gap (ii): an element naming an edit the named configuration does not have
 
-### Options
+### Options, gap (ii)
 
 - (a) The Form (iv) fallback: treat such an element as unreadable, so that it binds the edits the entry's `conclusions` name, or every edit of the entry's path.
   - Not proposed. `conclusions` is the writer's list, and a second-kind finding is the case where the reviewer disagrees with the writer.
   - A revised plan could proceed by removing the named edits while still carrying the one the reviewer meant.
 - (b) Run-level binding of the lineage. It is lifted only by a new freeze that cites an applying, reviewed reassessment naming the finding with `edit` null (R6.RECON.27), the remedy Form (iv) already gives an empty fallback set.
 
-### Proposal
+### Proposal, gap (ii)
 
 (b), keyed on the element's `id` alone. The element binds the lineage at run level when its `id` is missing, is not a string, or is not an edit id of the named configuration's edit list (a retained edit included). This holds whether or not its `target` matches, so a fabricated `target` cannot keep the finding below run level.
 
@@ -187,7 +187,7 @@ How the cases tell the readings apart:
 - C2 and C4 show the remedies work. C3 shows that the run-level binding needs the null reassessment.
 - Case 8 shows that the null reassessment does not lift an anchored edit's binding, and so separates option (A) from r1's replacement reading.
 
-### Effect on existing controls
+### Effect on existing controls, gap (ii)
 
 | Row, case | Effect |
 |---|---|
