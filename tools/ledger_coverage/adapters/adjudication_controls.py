@@ -193,6 +193,18 @@ def independence():
              {'a': lambda fx, J: {'T': fx.T('ra')}, 'b': lambda fx, J: {'T': fx.T('j')},
               'c': lambda fx, J: {'T': fx.T('v')},
               'd': lambda fx, J: {'T': fx.T('https://github.com/o/r/actions/runs/1')}}, 'ADJ-INDEP')
+    variants('PRED:ADJ-N-CONFLICTED-CASE', 'identity strings compare under R6.RECON.29 (case and surrounding space '
+                                           'ignored): the adjudicator RA (R\'s author ra), the adjudicator AMAYBAUM '
+                                           '(the owner), the technical reviewer \' V\' (v): ADJ-INDEP',
+             {'a': author('RA'), 'b': author(OWNERS[0].upper()), 'c': lambda fx, J: {'T': fx.T(' V')}},
+             'ADJ-INDEP')
+    fx = Fx()
+    J = copy.deepcopy(fx.J)
+    J['authorization']['author'] = OWNERS[0].capitalize()
+    J['authorization']['adjudicator'] = 'J'
+    got = conds(adj.authorization_problems(J, fx.landing_time, OWNERS))
+    case('PRED:ADJ-AUTH-CASE', 'the owner check and the adjudicator equality compare under R6.RECON.29: a case variant '
+                               'of the owner\'s login, and J for j, pass', got, got == [])
     variants('PRED:ADJ-N-OWNER-TECH-REVIEWER', 'the owner as technical reviewer (OD-4): ADJ-INDEP',
              {'a': lambda fx, J: {'T': fx.T(OWNERS[0])}}, 'ADJ-INDEP')
 
@@ -269,6 +281,18 @@ def decision():
     J4['replacement'] = dict(J4['replacement'], blob_sha256=h64('d'))
     case('PRED:ADJ-P-REVERSAL-NEW-REPLACEMENT', 'a replacement with another blob does not match the upheld '
                                                 'adjudication', adj.matches(J4, J2), not adj.matches(J4, J2))
+    J5 = copy.deepcopy(J2)
+    J5['witness']['sources'] = [{'path': fx.vref['path'], 'blob_sha256': h64('0')}]
+    case('PRED:ADJ-N-MATCH-DISJOINT-SOURCES', 'the same finding, replacement and disputed record with witness sources '
+                                              'sharing no blob: no match, so no contradiction',
+         {'match': adj.matches(J1, J5), 'contra': conds(adj.contradiction_problems(J1, [(J5, 'valid')]))},
+         not adj.matches(J1, J5) and not adj.contradiction_problems(J1, [(J5, 'valid')]))
+    rid = adj.record_id_problems(J1, fx.jref, [(fx.jref, J1), ({'path': 'x/j2.json', 'blob_sha256': h64('9')}, J2)])
+    J2b = dict(J2, record_id='j1')
+    dup = adj.record_id_problems(J1, fx.jref, [(fx.jref, J1), ({'path': 'x/j2.json', 'blob_sha256': h64('9')}, J2b)])
+    case('PRED:ADJ-N-RECORD-ID', 'record_id unique among the adjudications in R*: another adjudication with the same '
+                                 'record_id fails (ADJ-FORM)', {'unique': rid, 'duplicate': conds(dup)},
+         rid == [] and conds(dup) == ['ADJ-FORM'])
     blocks = adj.upheld_blocks_nr5(dict(fx.entry), J1['witness'], dict(fx.finding), [J2])
     case('PRED:ADJ-N-UPHELD-THEN-NR5', 'a valid upheld adjudication makes NR-5 false for the replacement and witness it '
                                        'matches (OD-6)', blocks, blocks is True)
@@ -304,9 +328,29 @@ def dissents():
     o = run([rv('x', 'ground:g1', 8)], [first])
     case('PRED:ADJ-N-DISSENT-ON-J', 'x (not answered) rejects ground:g1 of J after L(J): J is not admitted', o,
          not o['admitted'])
-    o = run([rv('v', 'authorization', 8)], [first])
-    case('PRED:ADJ-N-ANSWERED-AUTH-VETO', 'v (answered) rejects the item authorization: never exempt, J not admitted',
-         o, not o['admitted'])
+    vetoes = {i: run([rv('v', i, 8)], [first]) for i in ('authorization', 'binding', 'conflicts')}
+    case('PRED:ADJ-N-ANSWERED-AUTH-VETO', 'v (answered, later than L(J)) rejects the item authorization, binding or '
+                                          'conflicts: never exempt, J not admitted', vetoes,
+         all(not o['admitted'] for o in vetoes.values()))
+    o = run([rv('v', 'ground:g1', 5)], [first])
+    case('PRED:ADJ-N-EXEMPT-NOT-LATER', 'v (answered) rejects ground:g1 in a review that is not later than L(J): not '
+                                        'exempt, J not admitted', o, not o['admitted'])
+    early = {'reviewer': 'v', 'item': P, 'first_index': 4, 'review': {'path': 'x/dv0.json', 'blob_sha256': h64('d')}}
+    o = run([], [first, early])
+    case('PRED:ADJ-N-DISSENT-NOT-LATER', 'a dissent item on R by v (answered) that is not later than L(J) and not '
+                                         'addressed: not exempt, it blocks', o,
+         o['admitted'] and o['blocking'] == [early])
+    R = {'schema': 'oi-reconciliation/2', 'paths': [{'path': P}]}
+    dvdoc = {'reviewer': 'v', 'reviewed': {}, 'verdicts': [{'item': P, 'verdict': 'accept'},
+                                                           {'item': P + ':scientific_effect', 'verdict': 'dissent'}]}
+    ok = adj.dissents_addressed_problems(J, [(dv, dvdoc)], R)
+    J_bad = copy.deepcopy(J)
+    J_bad['dissents_addressed'] = [{'ref': dict(dv), 'item': P}, {'ref': {'path': 'x/none.json',
+                                                                         'blob_sha256': h64('e')}, 'item': P}]
+    bad = adj.dissents_addressed_problems(J_bad, [(dv, dvdoc)], R)
+    case('PRED:ADJ-N-DISSENTS-ADDRESSED', 'dissents_addressed names a review of R in R*(L(J)) and an item adverse in '
+                                          'it; an accepted item, or a review not of R in R*(L(J)), fails (ADJ-FORM)',
+         {'ok': ok, 'bad': bad}, ok == [] and len(bad) == 2 and conds(bad) == ['ADJ-FORM'])
 
 
 def admission():

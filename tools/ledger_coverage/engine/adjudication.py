@@ -13,7 +13,12 @@ adoption did not make ("Not authorized by this adoption: the schema and admissio
 - r13 R6.REC.6 and r9 NR-3 and NR-5: R6.ADJ.12's disregard of addressed and exempt dissent items;
 - r9 sec. 2.2 decision and route 2: `Adjudicated(W)` read as `Adjudicated(W, D)`; r9 R6.OBL29.8 and the result schema:
   the `adjudications` field (R6.ADJ.13);
-- r13 R6.REC.1 and R6.RECON.1: the reconciliation directory also holding adjudications and their reviews.
+- r13 R6.REC.1 and R6.RECON.1: the reconciliation directory also holding adjudications and their reviews;
+- r13 R6.RECON.29: the new tables entering the single-definition rule, with their conformance mutants;
+- the r13 generators: REQUIREMENTS, EXPECTATIONS (runner null) and CONFORMANCE-MUTANTS gaining the new requirements,
+  expectation rows and mutants;
+- the r13 tool constant OWNER_IDENTITIES beside the admitted record directories (R6.RDIR.2): the constant is defined in
+  record_authority.py for these predicates, and no run reads it.
 Until those amendments are adopted, r9's `Adjudicated(W)` stays false in every run (engine/obl29.py `decide`), and
 these predicates serve only the local controls.
 
@@ -135,6 +140,32 @@ def detection_shape_problems(J):
     return out
 
 
+def record_id_problems(J, jref, adjudications):
+    """R6.ADJ.2 acceptance of `record_id`: unique among the adjudication records in R* (`adjudications`, [(reference,
+    doc)] of every oi-adjudication/1 record in R*, until the R* wiring exists). Reported as ADJ-FORM."""
+    rid = J.get('record_id') if isinstance(J, dict) else None
+    others = [r for r, d in adjudications if r != jref and isinstance(d, dict) and d.get('record_id') == rid]
+    return [('ADJ-FORM', 'record_id %r is also the record_id of %s' % (rid, others[0].get('path')))] if others else []
+
+
+def dissents_addressed_problems(J, reviews_of_R, R):
+    """R6.ADJ.2 acceptance of `dissents_addressed`: each element names a review of R in R*(L(J)) (`reviews_of_R`,
+    [(reference, doc)] of the reviews in R*(L(J)) naming R's exact reference, until the R* wiring exists) and an item
+    adverse in it (a verdict other than accept, an omitted or duplicated item id, or `dissent` for a non-empty dissent
+    field). Reported as ADJ-FORM."""
+    out = []
+    by_ref = {_key(r): d for r, d in reviews_of_R}
+    for x in J.get('dissents_addressed') or [] if isinstance(J, dict) else []:
+        rv = by_ref.get(_key((x or {}).get('ref')))
+        if not isinstance(rv, dict):
+            out.append(('ADJ-FORM', 'dissents_addressed names %r, which is not a review of R in R*(L(J))'
+                        % ((x or {}).get('ref'),)))
+        elif (x or {}).get('item') not in obl29.adverse_items(rv, R):
+            out.append(('ADJ-FORM', 'dissents_addressed names item %r, which is not adverse in that review'
+                        % (x or {}).get('item')))
+    return out
+
+
 # ---- R6.ADJ.3: authorization -----------------------------------------------------------------------------------
 
 def authorization_problems(J, landing_time, owner_identities):
@@ -146,9 +177,9 @@ def authorization_problems(J, landing_time, owner_identities):
     if not isinstance(a, dict):
         return [('ADJ-AUTH-FORM', 'no authorization object')]
     out = []
-    if a.get('author') not in owner_identities:
+    if not member(a.get('author'), owner_identities):
         out.append(('ADJ-AUTH-OWNER', 'the authorization\'s author is not a member of OWNER_IDENTITIES'))
-    if a.get('adjudicator') != J.get('author'):
+    if not same(a.get('adjudicator'), J.get('author')):
         out.append(('ADJ-AUTH-SCOPE', 'the authorized adjudicator is not the record\'s author'))
     if a.get('finding') != J.get('finding'):
         out.append(('ADJ-AUTH-SCOPE', 'the authorized finding is not the record\'s finding'))
@@ -168,6 +199,15 @@ def authorization_problems(J, landing_time, owner_identities):
 
 def usable(v):
     return fd._enc('identity', v)
+
+
+def same(a, b):
+    """Identity strings compare under R6.RECON.29 (findings.same_identity)."""
+    return fd.same_identity(a, b)
+
+
+def member(v, identities):
+    return any(same(v, x) for x in identities)
 
 
 def parties(finding_record=None, finding_review=None, Q=None, R=None, A=None, config=None, sources=(),
@@ -197,18 +237,18 @@ def independence_problems(J, tech_reviewer, party_set, owner_identities):
     j = J.get('author') if isinstance(J, dict) else None
     if not usable(j):
         out.append(('ADJ-INDEP', 'the adjudicator is not a usable identity'))
-    elif j in party_set:
+    elif member(j, party_set):
         out.append(('ADJ-INDEP', 'the adjudicator is a party'))
-    if j in owner_identities:
+    if member(j, owner_identities):
         out.append(('ADJ-INDEP', 'the adjudicator is a member of OWNER_IDENTITIES'))
     if tech_reviewer is not None:
         if not usable(tech_reviewer):
             out.append(('ADJ-INDEP', 'the technical reviewer is not a usable identity'))
-        elif tech_reviewer in party_set:
+        elif member(tech_reviewer, party_set):
             out.append(('ADJ-INDEP', 'the technical reviewer is a party'))
-        if tech_reviewer == j:
+        if same(tech_reviewer, j):
             out.append(('ADJ-INDEP', 'the technical reviewer is the adjudicator'))
-        if tech_reviewer in owner_identities:
+        if member(tech_reviewer, owner_identities):
             out.append(('ADJ-INDEP', 'the technical reviewer is a member of OWNER_IDENTITIES'))
     return out
 
@@ -485,8 +525,9 @@ def strata(pre_admitted, reviews_of, dissents_on_R):
             if not bad:
                 continue
             later = rv['first_index'] > p['landing_index']
-            items_ok = all(i.startswith('ground:') or i in ('disposition', 'dissents') or i == 'dissent' for i in bad)
-            if p['binds'] and later and rv.get('reviewer') in p['answered'] and items_ok and \
+            # the non-accept items lie on ground:<id>, disposition or dissents (or the dissent field): an item of J is
+            # one of those or of never_exempt (authorization, binding, conflicts), which keeps its veto
+            if p['binds'] and later and member(rv.get('reviewer'), p['answered']) and \
                     not any(i in never_exempt for i in bad):
                 ex.append(rv['ref'])
             else:
@@ -498,7 +539,7 @@ def strata(pre_admitted, reviews_of, dissents_on_R):
     for d in dissents_on_R:
         addressed = any(p['binds'] and {'ref': d['review'], 'item': d['item']} in
                         (p['J'].get('dissents_addressed') or []) for p in admitted)
-        ex = any(p['binds'] and d['first_index'] > p['landing_index'] and d['reviewer'] in p['answered']
+        ex = any(p['binds'] and d['first_index'] > p['landing_index'] and member(d['reviewer'], p['answered'])
                  for p in admitted)
         (disregarded if addressed or ex else blocking).append(d)
     return {'admitted': [p['ref'] for p in admitted], 'exempt_reviews': exempt, 'disregarded': disregarded,
