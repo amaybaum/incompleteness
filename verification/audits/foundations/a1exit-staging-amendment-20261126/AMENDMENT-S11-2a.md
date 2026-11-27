@@ -41,13 +41,15 @@ coverage run at exact `E` and the coverage run at its planted child, are bound t
 2. **`P`** is the gate's `--config` argument, from the dispatch input `config`. Its directory must be
    the admitted A1 record directory of R6.A1CFG.1, `verification/audits/foundations/a1exit-deletion-20261121`,
    held as a constant of the gate. The gate imports nothing from the tool to obtain it, as with
-   `ITEM2_PROFILES`; a change to R6.A1CFG.1's tuple needs the same change to the gate constant.
+   `ITEM2_PROFILES`; a change to R6.A1CFG.1's tuple needs the same change to the gate constant. The
+   stand-in derivation restated in the gate (below) is a second coupling of the same kind: any tool
+   revision of `simulated_freeze` or `derive` must change the gate's restatement with it.
 3. **`S`** is the SHA-256 that `F`'s pin table lists for `P`. The pin table is the one R6.REC.16 step 2
    derives: in the regular file `PREREG.md` in `P`'s directory of `F`'s tree, the last subsection whose
    heading matches `^### \d+\.\d+ Record pins\b`, whose rows are `` | `<file>` | `<sha256>` | ``. The
    row naming `P`'s file name must be the only such row, and its SHA-256 a 64-hexadecimal string.
-   Where `F`'s tree holds `P`, its entry must be a regular file (mode `100644` or `100755`) whose bytes
-   hash to `S`.
+   `F`'s tree must hold `P` as a regular file (mode `100644` or `100755`) whose bytes hash to `S`. Write
+   `b` for that entry's git blob id.
 
 Then each of the two runs must satisfy, independently of the other, conditions that the real runner
 meets. `tools/ledger_coverage/adapters/a1_controls.py` with `--staged-config` runs on an in-memory
@@ -55,12 +57,21 @@ stand-in for `F`: a commit derived from the commit under check, whose single par
 and whose tree is its tree with the staged configuration at `P`. So:
 - its result's `config.path` equals `P` and `config.blob_sha256` equals `S`;
 - its argv carries exactly one `--config`, whose path component equals `P` and whose commit component
-  equals `F` or names the stand-in, a commit whose single parent is the commit under check.
+  equals `F` or equals `standin(F, P, b)`.
 
-`F` is still bound: it is the commit whose pin table yields `S`, the commit under check, and the
-stand-in's parent, and the configuration's bytes are bound to `S` through `config.blob_sha256`. The
-runner is not amended. How the gate establishes that a named commit is the stand-in is open question
-OQ-S2.
+**The stand-in id.** The gate recomputes the stand-in from `(F, P, b)` itself, restating the tool at
+`7db52f380f1e51d4af52b84f0a7e728827ac5a60` (`simulated_freeze` in
+`tools/ledger_coverage/adapters/a1_controls.py` and `Overlay.derive` with `_value_id` in
+`tools/ledger_coverage/engine/gitobj.py`) and importing nothing from it: `standin(F, P, b)` is the
+lowercase hexadecimal SHA-1 of the concatenation of
+1. the subject `stand-in for F: the staged configuration in the plan record directory`, UTF-8;
+2. `F`, as its 40 ASCII hexadecimal characters (the base commit);
+3. `P` in UTF-8, the byte `0x00`, and the ASCII string `100644:` followed by `b` (the one changed path);
+4. `F` again (the single parent).
+
+`F` is bound three ways: it is the commit whose pin table yields `S`, the commit under check, and the
+input from which the stand-in id is recomputed; the configuration's bytes are bound to `S` through
+`config.blob_sha256` and to `b` through `F`'s tree. The runner is not amended.
 
 The existing conditions (both argv name `--check item2`, equal argv apart from `--commit`, equal
 `config` and `profiles`, the approved profile pins, the exact mutation, E pinned by R6.NOTE.1, the
@@ -68,7 +79,7 @@ recomputed outcome and exit file) remain.
 
 **Fail closed.** A missing or malformed `--freeze` or `--config`, a `--freeze` other than the commit
 under check, a `P` outside the admitted record directory, a missing `PREREG.md`, no `Record pins`
-subsection, no row or more than one row for `P`, a malformed row, a blob at `F:P` that is not regular
+subsection, no row or more than one row for `P`, a malformed row, an entry at `F:P` that is absent, not regular
 or does not hash to `S`, or either run failing either condition leaves S11-2a with no countable
 baseline: the gate refuses it with `raw-evidence-missing`, as for the existing ITEM2-CHECK refusals.
 An unreadable git object is a gate failure, never a pass.
@@ -95,20 +106,20 @@ specification until implemented.
 | S11-2a-NO-FREEZE | The gate runs without `--freeze`, or without `--config` | GATE_FAIL with `raw-evidence-missing` |
 | S11-2a-WRONG-FREEZE | `--freeze` names a commit other than the commit under check, whose pin table lists the configuration both runs use | GATE_FAIL with `raw-evidence-missing` |
 | S11-2a-STAND-IN-PARENT | Both runs name a stand-in whose parent is not the commit under check | GATE_FAIL with `raw-evidence-missing` |
+| S11-2a-FORGED-STAND-IN | Both runs name a commit id presented as a stand-in whose parent is the commit under check, but which differs from `standin(F, P, b)` (for example, derived with another subject or another blob) | GATE_FAIL with `raw-evidence-missing` |
+| S11-2a-P-ABSENT-AT-F | `F`'s pin table lists `P` with `S`, but `F`'s tree does not hold `P` | GATE_FAIL with `raw-evidence-missing` |
 
 The both-arms and decoy controls are the ones the existing equality cannot detect; the others
 confirm that each element of `(F, P, S)` is read from its stated source.
 
 ## 4. Open questions for the owner
 
-**OQ-S2.** How the gate establishes that an argv's commit component names the stand-in whose single
-parent is the commit under check. The stand-in exists only in the runner's memory. Recommended
-default: the S11-2a evidence retains, beside each case, the staged configuration's git blob id, and
-the gate recomputes the stand-in's id by the derivation rule restated in the gate (as `ITEM2_PROFILES`
-restates pins), from the commit under check, `P` and that blob id, whose bytes hash to `S`; this is an
-evidence-retention change, not a runner change. Alternative: require literally `config.commit == F`
-in both results, which needs a tool change so that a staged run records `F` rather than the
-stand-in.
+**OQ-S2.** How the gate establishes that an argv's commit component names the stand-in. Recommended,
+and stated in §2: the gate reads the blob at `F:P` itself, checks it hashes to `S`, takes its git blob
+id `b`, and recomputes `standin(F, P, b)`. Recorded alternatives: the S11-2a evidence retains the
+staged configuration's git blob id and the gate recomputes from it (an evidence-retention change); or
+both results must carry literally `config.commit == F`, which needs a tool change so that a staged run
+records `F` rather than the stand-in.
 
 ## 5. References (AGENTS.md §A.42 item 8)
 
@@ -117,5 +128,5 @@ stand-in.
 | #1169 comment 7207734407, item 7 | authority, quoted above | provenance |
 | `AMENDMENT.md` at `a251b1b39846e75c73b08fdc06fd6ff1ff8dd1f6` | the paragraph amended | support off `main`; it lands with #1577 |
 | r13 R6.REC.16 at `5ad8837521de0a26734266a64f91548fd3dcff1e` | pin-table derivation | support on `main` (landed by #1604) |
-| `control_gate.py`, `staging_controls.py`, `a1_controls.py`, `record_authority.py`, `ledger-coverage.yml` at `7db52f380f1e51d4af52b84f0a7e728827ac5a60` | current behaviour, the stand-in, the admitted record directory and gate inputs | provenance (PR #1577) |
+| `control_gate.py`, `staging_controls.py`, `a1_controls.py` (`simulated_freeze`), `gitobj.py` (`derive`, `_value_id`), `record_authority.py`, `ledger-coverage.yml` at `7db52f380f1e51d4af52b84f0a7e728827ac5a60` | current behaviour, the stand-in, the admitted record directory and gate inputs | provenance (PR #1577) |
 | r13 R6.A1CFG.1 at `5ad8837521de0a26734266a64f91548fd3dcff1e` | the admitted record directory | support on `main` (landed by #1604) |
