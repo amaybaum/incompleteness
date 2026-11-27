@@ -241,10 +241,10 @@ class Check:
                     break
         # (s4) malformed versions and voids
         voids = {e['blob'] for e in V['entries'] if e['type'] == 'void'}
-        for oid in bad:
+        for oid in sorted(bad):
             if oid not in voids:
                 self.fail('custody-stray', 'a malformed version %s in Vers(M) is not named by a void entry' % oid)
-        for b_ in voids:
+        for b_ in sorted(voids):
             if b_ not in bad:
                 self.fail('custody-stray', 'a void entry names %s, which is not a malformed version in Vers(M)' % b_)
         # (s5) duplicates
@@ -371,7 +371,7 @@ class Check:
                 if e['f'] == c_['f']:
                     runs |= {(r['m'], r['rev']) for r in e['runs']}
             self.runs[c_['f']] = sorted([list(r) for r in runs], key=str)
-            for m, rev in runs:
+            for m, rev in sorted(runs, key=str):
                 if rev is not None:
                     self.rev_shape(m, rev, c_)
             self.results_check(c_, runs)
@@ -382,7 +382,7 @@ class Check:
         frozen = {(c_['config']['path'], c_['config']['blob_sha256']) for c_ in self.contexts}
         unfrozen = [e for e in ents if e['type'] == 'unfrozen']
         bearing = {k for k, d in h.configs.items() if discharge_bearing(d)}
-        for k in bearing:
+        for k in sorted(bearing):
             if k in frozen:
                 continue
             cover = [e for e in unfrozen if (e['config']['path'], e['config']['blob_sha256']) == k]
@@ -465,7 +465,7 @@ class Check:
             self.fail('custody-run-shape', 'REV %s does not have exactly the one parent %s' % (rev, m))
             return
         a, b = repo.entries(m), repo.entries(rev)
-        changed = [p for p in set(a) | set(b) if a.get(p) != b.get(p)]
+        changed = sorted(p for p in set(a) | set(b) if a.get(p) != b.get(p))
         if any(p in a or b[p][0] not in regular for p in changed):
             self.fail('custody-run-shape', 'REV %s changes more than adding regular files' % rev)
             return

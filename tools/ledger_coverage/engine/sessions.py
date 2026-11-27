@@ -300,7 +300,7 @@ def append_only_problems(prev, cur):
         if util.canonical(w) not in cur_w:
             out.append('the prior withdrawal of %s is absent at F' % (w or {}).get('id'))
     old = set(entries(prev))
-    for a in old:
+    for a in sorted(old):
         if party(prev, a) & old != party(cur, a) & old:
             out.append('the party of %s among the prior ids changes at F' % a)
             break
