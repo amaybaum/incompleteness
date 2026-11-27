@@ -143,19 +143,42 @@ def removal_controls(r):
     note = w.repo.read(w.syn.H, 'syn/note.txt')
     wit = w.repo.read(w.syn.H, 'syn/witness.md')
     w2 = pfc.World(r)
-    step(w2, {'syn/note.txt': ('symlink', note), 'syn/witness.md': ('exec', wit)}, 'mode-only changes')
+    mode_commit = step(w2, {'syn/note.txt': ('symlink', note), 'syn/witness.md': ('exec', wit)}, 'mode-only changes')
+    step(w2, {'notes/after.txt': b'a later commit\n'}, 'a later commit')
     code2, out2 = w2.run([], harness=True)
     out2 = out2 or {}
     items2 = {i.get('subject'): i for i in out2.get('items', []) if i['class'] == 'side-change-unclassified'}
+    sides2 = {x.get('path'): x for x in out2.get('side_changes') or []}
     same_blob = w2.repo.entries(w2.M).get('syn/note.txt', (None, None))[1] == \
         w2.repo.entries(w2.syn.H).get('syn/note.txt', (None, None))[1]
     case('SIDE-NONREG-MODE-ONLY', 'a same-blob change from a regular file to a symbolic link is a side change reported '
                                   '"not a regular file"; a same-blob 100644 to 100755 flip is a side change that goes '
                                   'to the classifier (unclassified: no class lists the path)',
          {'exit': code2, 'stop': out2.get('stop'), 'same_blob': same_blob,
-          'note': (items2.get('syn/note.txt') or {}).get('why'), 'witness': (items2.get('syn/witness.md') or {}).get('why')},
+          'note': (items2.get('syn/note.txt') or {}).get('why'), 'witness': (items2.get('syn/witness.md') or {}).get('why'),
+          'commits': [(sides2.get(q) or {}).get('commit') for q in ('syn/note.txt', 'syn/witness.md')],
+          'modes': [((sides2.get(q) or {}).get('h_mode'), (sides2.get(q) or {}).get('m_mode'))
+                    for q in ('syn/note.txt', 'syn/witness.md')]},
          code2 != 65 and same_blob and (items2.get('syn/note.txt') or {}).get('why') == 'not a regular file' and
-         (items2.get('syn/witness.md') or {}).get('why') == 'no class lists the path')
+         (items2.get('syn/witness.md') or {}).get('why') == 'no class lists the path' and
+         all((sides2.get(q) or {}).get('commit') == mode_commit for q in ('syn/note.txt', 'syn/witness.md')) and
+         (sides2.get('syn/note.txt') or {}).get('h_mode') == '100644' and
+         (sides2.get('syn/note.txt') or {}).get('m_mode') == '120000' and
+         (sides2.get('syn/witness.md') or {}).get('m_mode') == '100755' and
+         (items2.get('syn/note.txt') or {}).get('m_mode') == '120000')
+    # a mode-only change on a ledgered path: doc/s.md flips 100644 -> 100755 with the same bytes; it is drift
+    w3 = pfc.World(r)
+    doc_h = w3.repo.read(w3.syn.H, sf.DOC)
+    w3.M = w3.repo.derive(w3.syn.H, {sf.DOC: ('exec', doc_h)}, parents=[w3.syn.H], subject='ledgered mode flip')
+    code3, out3 = w3.run([], harness=True)
+    out3 = out3 or {}
+    d3 = [x for x in out3.get('side_changes') or [] if x.get('path') == sf.DOC]
+    case('SIDE-NONREG-MODE-LEDGERED', 'a mode-only change (100644 to 100755, same bytes) on a ledgered path is drift: '
+                                      'base-drift, with the modes in its evidence',
+         {'exit': code3, 'stop': out3.get('stop'), 'entry': d3,
+          'classes': sorted({i['class'] for i in out3.get('items', [])})},
+         code3 != 65 and len(d3) == 1 and d3[0].get('class') == 'base-drift' and d3[0].get('h_mode') == '100644' and
+         d3[0].get('m_mode') == '100755' and 'base-drift' in {i['class'] for i in out3.get('items', [])})
     case('SIDE-NONREG', 'a symbolic-link and a submodule side change outside the plan record directory: each '
                         'REVIEW_REQUIRED side-change-unclassified with the reason "not a regular file", no ERROR',
          {'exit': code, 'stop': out.get('stop'), 'nonreg': nonreg},

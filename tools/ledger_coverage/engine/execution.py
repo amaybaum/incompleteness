@@ -343,7 +343,9 @@ class Execution:
                 if self.repo.entries(c).get(path) != self.repo.entries(prev).get(path):
                     made = c
                 prev = c
-            entry = {'path': path, 'h': hp.get(path), 'm': mp.get(path), 'commit': made}
+            # the modes at H and M: the evidence of why a mode-only change counts as a change
+            entry = {'path': path, 'h': hp.get(path), 'm': mp.get(path), 'commit': made,
+                     'h_mode': (he.get(path) or (None,))[0], 'm_mode': (me.get(path) or (None,))[0]}
             if path in ledgered_or_corpus:
                 a = self.assessment.get(path) or {'evaluations': [], 'applies': None, 'form': []}
                 rec, ev = a['applies'], a['evaluations']
@@ -383,7 +385,7 @@ class Execution:
                     # an unequal path of the record directory already carries A.5's item
                     if not (rd is not None and rd.active and path in rd.unequal):
                         self.item('MAIN', 'side-change-unclassified', path, {'h': hp.get(path), 'm': mp.get(path)},
-                                  file=path, commit=made, why=why)
+                                  file=path, commit=made, why=why, h_mode=entry['h_mode'], m_mode=entry['m_mode'])
             self.side_changes.append(entry)
         # R6.PUR.12 (SIDE-NONREG): a submodule entry is not a blob entry, so the blob comparison above does not list
         # it; a submodule side change (added, removed or moved to another commit, at a path that is no blob entry at
