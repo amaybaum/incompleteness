@@ -1318,6 +1318,29 @@ def adjudication_run_controls(r, two_pass, pin_q, sib, drop_sib):
          {route for b, route, _ in o['decisions'] if not b} ==
          {'adjudication', 'explicit resolution (NR-1, NR-2, NR-4, NR-5)'})
 
+    def retain_self_review(c, J, jdir, malformed):
+        address_dissent(c, J, jdir)
+        entry = J['replacement']['path']
+        current = entry[:-5] + '.review.json'
+        author = json.loads(c.w.repo.read(c.w.M, entry))['author']
+        review = dict(json.loads(c.w.repo.read(c.w.M, current)), reviewer=' ' + author.upper() + ' ',
+                      dissent='the repair author claims to dissent')
+        if malformed:
+            review['verdicts'] = 7
+        path = jdir + 'withdrawn-self-review.json'
+        c.step({path: pfc.jb(review)}, 'retain an exact repair review by the repair author')
+        c.step({path: None}, 'the self-review is withdrawn from the current tree')
+
+    for cid, malformed in (('ADJ-P-MIXED-SELF-REVIEW-INELIGIBLE', False),
+                           ('ADJ-P-MIXED-MALFORMED-SELF-REVIEW-INELIGIBLE', True)):
+        o = guarded_run(lambda: world(setup=lambda: review_setup(with_lineage=True),
+                                      before_landing=lambda *a: retain_self_review(*a, malformed)))
+        case(cid, 'only eligible independent reviews can count as evidence or dissent for the mixed route',
+             o.get('error') or [o['reassess_why'], o['witnesses'], o['decisions']],
+             cleared(o) and len(o['witnesses']) == 2 and
+             {route for b, route, _ in o['decisions'] if not b} ==
+             {'adjudication', 'explicit resolution (NR-1, NR-2, NR-4, NR-5)'})
+
     o = guarded_run(lambda: world(setup=lambda: review_setup(with_lineage=True, resolve_review=False),
                                   before_landing=address_dissent))
     case('ADJ-N-OTHER-WITNESS-BLOCKS', 'the other witness fails NR-5. The adjudication is inapplicable to this '

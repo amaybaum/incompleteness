@@ -618,6 +618,14 @@ class Cumulative:
         return present, (min(holders) if holders else None)
 
 
+def ordinary_review_by_non_author(review, record):
+    if not isinstance(review, dict) or review.get('kind', 'review') != 'review':
+        return False
+    author = record.get('author') if isinstance(record, dict) else None
+    reviewer = review.get('reviewer')
+    return rec._person(reviewer) and not fd.same_identity(reviewer, author)
+
+
 def eligible_review_problems(reviews, doc):
     """R6.OBL29.3 direct review checks over R*: every eligible ordinary review of the record's exact reference (kind
     review; reviewer a person other than the record's author) accepts every item id of the record exactly once and
@@ -625,13 +633,9 @@ def eligible_review_problems(reviews, doc):
     the discharge even if it has left the current tree."""
     out = []
     ids = rec.item_ids(doc) if isinstance(doc, dict) else []
-    author = doc.get('author') if isinstance(doc, dict) else None
     reconciliation = isinstance(doc, dict) and doc.get('schema') in fd.recon_schemas
     for path, rv in reviews:
-        if not isinstance(rv, dict) or rv.get('kind', 'review') != 'review':
-            continue
-        who = rv.get('reviewer')
-        if not rec._person(who) or fd.same_identity(who, author):
+        if not ordinary_review_by_non_author(rv, doc):
             continue
         if reconciliation:
             problems = fd.review_schema_problems(rv)
@@ -662,8 +666,7 @@ def repair_dissent_items(review, repair):
     A schema failure, omitted item or duplicate is not a dissent that can be disregarded.
     The caller matches the exact repair reference and reconciliation directory.
     """
-    if review.get('kind', 'review') != 'review' or fd.same_identity(review.get('reviewer'), repair.get('author')) or \
-            fd.review_schema_problems(review):
+    if not ordinary_review_by_non_author(review, repair) or fd.review_schema_problems(review):
         return []
     verdicts = review['verdicts']
     ids = rec.item_ids(repair)
@@ -679,6 +682,8 @@ def repair_review_problems(store, ref, repair, retained, disregarded):
     """R6.REC.6 on the exact R for one discharge, with a separate current acceptance under R6.OBL29.4."""
     remaining, dismissed = [], set()
     for path, digest, review in retained:
+        if not ordinary_review_by_non_author(review, repair):
+            continue
         dissent = repair_dissent_items(review, repair)
         if dissent and all((path, digest, item) in disregarded for item in dissent):
             dismissed.add((path, digest))
@@ -999,12 +1004,8 @@ def _review_witnesses(cum, ref, doc, git, base, directory=None, contested=()):
     adverse or defective (R6.OBL29.3, the checks of eligible_review_problems) stands against that record."""
     from . import obl29
     out = []
-    author = doc.get('author') if isinstance(doc, dict) else None
     for path, oid, rv in cum.reviews_naming_ids(ref, directory):
-        if not isinstance(rv, dict) or rv.get('kind', 'review') != 'review':
-            continue
-        who = rv.get('reviewer')
-        if not rec._person(who) or fd.same_identity(who, author):
+        if not ordinary_review_by_non_author(rv, doc):
             continue
         if obl29.adverse_items(rv, doc):
             out.append(dict(base, kind='review', disputed=dict(ref), disputed_doc=doc, disputed_git=git, edge=None,
