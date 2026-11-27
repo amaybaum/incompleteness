@@ -366,7 +366,7 @@ class Syn:
                 vfiles[p_] = jb(idf.bind(json.loads(b_), r2))
         files.update(vfiles)
         if v.get('post'):
-            files.update(v['post'](path, sha(cb)))
+            files.update(idf.bind_files(v['post'](path, sha(cb)), r2))
         commit = self.repo.derive(c2, dict(files), parents=[c2], subject=subject)
         return commit, path, sha(cb), files
 
@@ -545,7 +545,7 @@ def z_controls(r):
     pd1 = p1.rsplit('/', 1)[0] + '/'
     v2 = dict(b2, second_merge=True, version=2, supersedes=sup, config_path='syn/cfg2/config.json',
               files=dict(b2['files'], **{p1: f1[p1], pd1 + 'review.json': f1[pd1 + 'review.json']}))
-    c2, p2, h2, f2 = s2.build(v2)
+    c2, p2, h2, f2 = s2.build(v2, at=c1)
     code_u, res_u = r.cli(s2.repo, ['coverage', '--commit', s2.H, '--check', 'zc'], c2, p2, h2)
     unrev = (code_u, (res_u or {}).get('stop', {}).get('class')) == (65, 'CONFIG_UNREVIEWED')
     # with a widening review by a third person and a matching HP adjudication
@@ -572,13 +572,13 @@ def z_controls(r):
         wp = path.rsplit('/', 1)[0] + '/widening.json'
         return {wp: jb(wr)}
     v3 = dict(v2, post=widening, records_extra={'syn/hp.json': adj})
-    c3, p3, h3, f3 = s2.build(v3)
+    c3, p3, h3, f3 = s2.build(v3, at=c1)
     code_a, res_a = r.cli(s2.repo, ['coverage', '--commit', s2.H, '--check', 'zc', '--hp', '%s:syn/hp.json' % c3], c3, p3, h3)
     site = [x for x in (res_a or {}).get('sites', []) if x['site_id'].endswith(':7@%s' % s2.pin[:8])]
     adjudicated = bool(site) and site[0]['provenance'] is not None and \
         not [i for i in res_a['items'] if i['subject'] == site[0]['site_id']]
     v2b = dict(v2, records_extra={'syn/hp.json': adj})
-    c4, p4, h4, f4 = s2.build(v2b)
+    c4, p4, h4, f4 = s2.build(v2b, at=c1)
     code_b, res_b = r.cli(s2.repo, ['coverage', '--commit', s2.H, '--check', 'zc', '--hp', '%s:syn/hp.json' % c4], c4, p4, h4)
     out['_Z10_detail'] = {'v1': classes(res), 'v2_no_widening_review': (code_u, (res_u or {}).get('stop', {}).get('class')),
                           'v2_with_widening_review': (code_a, classes(res_a)), 'v2_hp_only': (code_b, (res_b or {}).get('stop', {}).get('class'))}

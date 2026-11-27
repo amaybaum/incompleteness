@@ -30,6 +30,7 @@ from ledger_coverage import record_authority as ra  # noqa: E402
 from ledger_coverage.engine import adjudication as adj  # noqa: E402
 from ledger_coverage.engine import findings as fd  # noqa: E402
 from ledger_coverage.engine import gitobj  # noqa: E402
+from ledger_coverage.engine import util  # noqa: E402
 
 RESULTS = []
 # R6.GATE.5 and R6.GATE.7: the runs captured since the previous case are its evidence
@@ -129,8 +130,8 @@ class Fx:
         out += adj.self_consistency(J, W, resolves)
         out += adj.binds(J, self.aref, self.A, W)
         out += adj.substance_problems(J, self.git_of)
-        out += adj.review_problems(T, J, self.jref, self.git_of(self.jref),
-                                   [self.git_of(s) for s in J['witness']['sources']], ps, OWNERS)
+        out += adj.review_form_problems(T, J, self.jref, self.git_of(self.jref),
+                                        [self.git_of(s) for s in J['witness']['sources']], ps, OWNERS)
         return out
 
 
@@ -422,7 +423,6 @@ def admission():
     # the dedicated landing (M5', OD-3) over an in-memory history
     repo = gitobj.Overlay()
     jb, tb = b'{"j": 1}\n', b'{"t": 1}\n'
-    from ledger_coverage.engine import util
     jref = {'path': 'verification/audits/rr/j.json', 'blob_sha256': util.sha256(jb)}
     tref = {'path': 'verification/audits/rr/j.review.json', 'blob_sha256': util.sha256(tb)}
     c0 = repo.add_commit({'a.txt': b'a\n'}, [])
@@ -444,9 +444,35 @@ def admission():
     del T
 
 
+def review_revision():
+    fx = Fx()
+    repo = gitobj.Overlay()
+    root = repo.add_commit({'README.md': b'base\n'}, [])
+    payload = util.canonical(fx.J)
+    jref = dict(fx.jref, blob_sha256=util.sha256(payload))
+    joid = gitobj.blob_id_of(payload)
+    sources = [fx.git_of(s) for s in fx.J['witness']['sources']]
+    subject = repo.derive(root, {jref['path']: payload}, parents=[root], subject='reviewed J on side branch')
+    review = fx.T(revision=subject, reviewed=jref, method='read ' + ' '.join([joid] + sources))
+    review_bytes = util.canonical(review)
+    tref = dict(fx.tref, blob_sha256=util.sha256(review_bytes))
+    additions = {jref['path']: payload, tref['path']: review_bytes}
+    dedicated = repo.derive(root, additions, parents=[root, subject], subject='dedicated landing')
+    unbound = repo.derive(root, additions, parents=[root], subject='same files, subject unreachable')
+    run = adj.Run(repo, dedicated, dedicated, [], None, None, None, None, OWNERS)
+    args = (review, fx.J, jref, joid, sources, fx.parties())
+    good = run.review_problems(*args, at=dedicated)
+    bad = run.review_problems(*args, at=unbound)
+    layout = adj.dedicated_landing_problems(repo, dedicated, jref, tref)
+    case('S2-ADJ-REVISION', 'a dedicated merge adds only J and its review to the first parent and reaches the '
+                            'reviewed J through the second parent; an unreachable revision fails ADJ-REVIEW',
+         {'dedicated': good, 'layout': layout, 'unreachable': bad},
+         not good and not layout and conds(bad) == ['ADJ-REVIEW'])
+
+
 SUITES = [('form-authorization', form_and_authorization), ('independence', independence),
           ('substance-binding', substance_and_binding), ('decision', decision), ('dissents', dissents),
-          ('admission', admission)]
+          ('admission', admission), ('review-revision', review_revision)]
 
 
 def main(out):

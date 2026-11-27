@@ -21,6 +21,7 @@ from datetime import datetime, timezone
 from . import findings as fd
 from . import obl29
 from . import category3 as c3
+from . import records as rec
 from . import util
 
 schema = 'oi-adjudication/1'
@@ -369,7 +370,7 @@ def _adverse_items(review, J):
     return out
 
 
-def review_problems(review, J, jref, j_git, source_gits, party_set, owner_identities):
+def review_form_problems(review, J, jref, j_git, source_gits, party_set, owner_identities):
     """ADJ-REVIEW / ADJ-INDEP: [] when the review qualifies (R6.REC.6 and R6.RECON.31 form, kind review, reviewed J's
     exact reference, every item accepted once, empty or absent dissent, reviewer allowed by R6.ADJ.4, and a method
     holding the git blob ids of J and of each source)."""
@@ -610,6 +611,13 @@ class Run:
             self._landing_evidence = LandingEvidence(self.repo, commit)
         return self._landing_evidence
 
+    def review_problems(self, review, J, jref, joid, sources, parties, *, at):
+        """Qualifying technical review with S-2's ordinary exact-revision binding at F' or L(J)."""
+        out = review_form_problems(review, J, jref, joid, sources, parties, self.owners)
+        if not out:
+            out.extend(('ADJ-REVIEW', problem) for problem in rec.revision_problems(self.repo, [at], review))
+        return out
+
     def first_index(self, ref):
         """The index on M's first-parent chain of the first commit holding ref's blob at its path, or -1."""
         key = (ref.get('path'), ref.get('blob_sha256'))
@@ -722,7 +730,7 @@ def qualifying_landing(run, jref, J, joid, reviews):
             return False
         srcs = [run.evidence_at(commit).git_of(s) for s in sources]
         pj = parties_j(run, J, commit)
-        return any(not review_problems(d, J, jref, joid, srcs, pj, run.owners) for d in present)
+        return any(not run.review_problems(d, J, jref, joid, srcs, pj, at=commit) for d in present)
 
     return landing(run.repo, run.M, jref, qualifying_review_at)
 
@@ -748,7 +756,8 @@ def validity(run, jref, J, joid):
     if L is None:
         # Without L(J), only defects independent of the unresolved party snapshot can disqualify the review.
         srcs = [run.evidence_at(run.M).git_of(s) for s in J['witness']['sources']]
-        if all(srcs) and all(review_problems(d, J, jref, joid, srcs, set(), run.owners) for _p, _o, d in reviews):
+        if all(srcs) and all(review_form_problems(d, J, jref, joid, srcs, set(), run.owners)
+                             for _p, _o, d in reviews):
             return 'invalid', None
         return 'unknown', None
     evidence = run.evidence_at(L)
@@ -813,7 +822,9 @@ def evaluate(run, D, W, dissents_on_R):
                    if isinstance(x, dict) and x.get('kind') == 'review' and
                    isinstance(run.store.get(x), dict) and run.store.get(x).get('reviewed') == jref]
         srcs = [run.git_of(s_) for s_ in ((J.get('witness') or {}).get('sources') or [])]
-        qual = [x for x in rv_refs if not review_problems(run.store.get(x), J, jref, joid, srcs, pd, run.owners)]
+        review_checks = [(ref, run.review_problems(run.store.get(ref), J, jref, joid, srcs, pd, at=run.Fprime))
+                         for ref in rv_refs]
+        qual = [ref for ref, problems in review_checks if not problems]
         failures += [c for c, _m in citation_problems(run.cfg_records, jref, qual)]
         failures += [c for c, _m in location_problems(jref, rv_refs, J)]
         form = form_problems(J)
@@ -833,8 +844,8 @@ def evaluate(run, D, W, dissents_on_R):
             failures += [c for c, _m in binds(J, D['aref'], D.get('A'), Wd)]
             failures += [c for c, _m in substance_problems(J, run.git_of)]
             failures += [c for c, _m in addressed_problems_at(run, J, L)]
-            for x in rv_refs:
-                failures += [c for c, _m in review_problems(run.store.get(x), J, jref, joid, srcs, pd, run.owners)]
+            for _, problems in review_checks:
+                failures += [c for c, _m in problems]
         # ADJ-LANDED: J and its review on M's first-parent chain, at a commit that is an ancestor of F'
         for x in [jref] + qual:
             i = run.first_index(x)

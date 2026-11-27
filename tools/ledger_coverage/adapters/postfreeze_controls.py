@@ -684,6 +684,60 @@ def res_base(res):
     return ((res or {}).get('inputs') or {}).get('record_base')
 
 
+def record_revision_controls(r, case):
+    """Amendment 10 controls through R6.RECON.2(d)'s actual record admission."""
+    from unittest.mock import patch
+
+    def run(w, revision, digest=None, predicted=False):
+        base = w.M0 if predicted else w.M
+        path = RD + 'revision.json'
+        data = jb(w.record())
+        review = json.loads(w.review(path, data))
+        review['revision'] = revision
+        if digest is not None:
+            review['reviewed']['blob_sha256'] = digest
+        rev = w.rev({path: data, RD + 'revision.review.json': jb(review)}, parent=base)
+        code, result = w.run(['%s:%s' % (rev, path)], harness=predicted,
+                             extra=['--record-base', base] if predicted else ())
+        return {'exit': code, 'admitted': admitted(result, path), 'record_invalid': invalid(result, path)}
+
+    def accepted(result):
+        return result['admitted'] and not result['record_invalid']
+
+    def refused(result):
+        return result['exit'] == 20 and result['record_invalid'] and not result['admitted']
+
+    w = World(r)
+    base = run(w, w.M)
+    case('A10-REV-BASE', "revision is REV's base M, which admits the reviewed bytes in REV", base, accepted(base))
+    ancestor = run(w, w.syn.H)
+    case('A10-REV-ANCESTOR', 'an earlier ancestor of M does not qualify', ancestor, refused(ancestor))
+    sibling = w.repo.derive(w.M, {RD + 'revision.json': jb(w.record())}, parents=[w.M], subject='sibling of REV')
+    other = {'sibling with reviewed bytes': run(w, sibling), 'no revision': run(w, idf.UNBOUND),
+             'abbreviated base': run(w, w.M[:8])}
+    case('A10-REV-OTHER', 'a sibling, missing revision and abbreviated base do not qualify',
+         other, all(refused(result) for result in other.values()))
+    predicted = rb_world(r)
+    m0 = run(predicted, predicted.M0, predicted=True)
+    m = run(predicted, predicted.M, predicted=True)
+    case('A10-REV-PREDICTED', 'M0 qualifies and predicted M does not', {'M0': m0, 'predicted M': m},
+         accepted(m0) and refused(m))
+    wrong_bytes = run(w, w.M, '0' * 64)
+    case('A10-REV-BYTES', 'the record at REV must match the reviewed digest', wrong_bytes, refused(wrong_bytes))
+
+    original = rec.revision_problems
+
+    def permits_ancestor(repo, roots, review, record_commit=None):
+        if record_commit is not None and repo.is_ancestor(review.get('revision'), record_commit):
+            review = dict(review, revision=repo.parents(record_commit)[0])
+        return original(repo, roots, review, record_commit)
+
+    with patch.object(rec, 'revision_problems', permits_ancestor):
+        loosened = run(w, w.syn.H)
+    case('A10-REV-MUTANT', 'accepting any reachable revision makes the ancestor control fail',
+         {'rule': ancestor, 'mutant': loosened}, refused(ancestor) and accepted(loosened))
+
+
 def rb_gate_case(res, roles_m0):
     """The gate's rtl2 procedure (R6.GATE.16) over one retained result and the runner's pinned main: the rt_l2 value."""
     import os

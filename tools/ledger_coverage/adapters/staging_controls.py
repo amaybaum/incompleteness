@@ -1248,9 +1248,15 @@ def k1_layout(root):
          got[0] is None and all(bool(x) for x in got[1:]))
 
 
+def record_revisions(root):
+    from ledger_coverage.adapters import postfreeze_controls as pfc
+    pfc.record_revision_controls(sf.Runner(root), case)
+
+
 SUITES = [('representative-snapshot', representative_snapshot), ('item2-engine', item2_engine), ('item2-gate', item2_gate), ('role-chain', role_chain),
           ('config-reviews', config_reviews), ('config-widening', config_widening), ('first-allow', first_allow),
-          ('first-allow-admission', first_allow_admission), ('k1-layout', k1_layout)]
+          ('first-allow-admission', first_allow_admission), ('k1-layout', k1_layout),
+          ('record-revisions', record_revisions)]
 
 
 def main(out):
