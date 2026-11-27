@@ -873,6 +873,7 @@ def adjudication_run_controls(r, two_pass, pin_q, sib, drop_sib):
         a_bytes = w.files[pfc.RA_PATH]
         A = json.loads(a_bytes)
         aref = {'path': pfc.RA_PATH, 'blob_sha256': sf.sha(a_bytes)}
+        c.step({pfc.RA_PATH: a_bytes}, 'the exact reassessment is present before the adjudication')
 
         def git_at_m(path):
             return w.repo.entries(w.M)[path][1]
@@ -957,21 +958,74 @@ def adjudication_run_controls(r, two_pass, pin_q, sib, drop_sib):
     case('ADJ-N-NOT-LANDED-RUN', 'the adjudication cited but never on M\'s first-parent chain: ADJ-LANDED, the witness '
                                  'stands', o.get('error') or o['reassess_why'], still_blocked(o, 'ADJ-LANDED'))
 
-    def upheld(c, J, jdir):
+    def upheld(c, J, jdir, change=None, review_verdict='accept'):
         J2 = json.loads(pfc.jb(J))
         J2.update(record_id='adj-2', author='adj-k', disposition='upheld')
         J2['authorization'].update(adjudicator='adj-k')
+        if change is not None:
+            change(J2)
         j2b = pfc.jb(J2)
         j2p = jdir + 'adj2.json'
         T2 = {'schema': rec.review_schema, 'reviewer': 't2', 'reviewed': {'path': j2p, 'blob_sha256': sf.sha(j2b)},
               'method': 'read %s %s' % (gitobj.blob_id_of(j2b), J2['grounds'][0]['evidence'][0]),
-              'verdicts': [{'item': i, 'verdict': 'accept', 'reason': 'checked'} for i in adjm.item_ids(J2)]}
+              'verdicts': [{'item': i, 'verdict': review_verdict, 'reason': 'checked'} for i in adjm.item_ids(J2)]}
         lc = c.step({j2p: j2b, j2p[:-5] + '.review.json': pfc.jb(T2)}, 'an upheld adjudication lands, cited by none')
         c.w.repo.mem[lc]['time'] = int(_dt(2026, 11, 27, 13, 0, tzinfo=_tz.utc).timestamp())
+
+    def reported_upholds(o):
+        return [e for f in o['findings'] for e in f.get('adjudications') or [] if e['disposition'] == 'upheld']
+
     o = guarded_run(lambda: world(extra_upheld=upheld))
     case('ADJ-N-UPHELD-UNCITED-RUN', 'a matching upheld adjudication by another adjudicator, valid for adverse use and '
                                      'cited by none: it contradicts J (ADJ-CONTRA), the witness stands',
          o.get('error') or o['reassess_why'], still_blocked(o, 'ADJ-CONTRA'))
+
+    def unavailable_replacement(J):
+        J['replacement']['path'] += '.unavailable'
+        J['authorization']['replacement'] = dict(J['replacement'])
+
+    o = guarded_run(lambda: world(extra_upheld=lambda c, J, jdir: upheld(c, J, jdir, unavailable_replacement)))
+    case('ADJ-N-UNRESOLVED-REPLACEMENT', 'the matching upheld record has an unresolved exact replacement '
+                                        'reference. Its adverse validity is unknown and ADJ-CONTRA holds',
+         o.get('error') or [o['reassess_why'], reported_upholds(o)],
+         still_blocked(o, 'ADJ-CONTRA') and
+         any(not e['valid_adverse'] and e['landing'] for e in reported_upholds(o)))
+
+    def upheld_then_reassessment(c, J, jdir):
+        original = J['reassessment']['path']
+        late = original + '.late.json'
+        data = c.w.repo.read(c.w.M, original)
+        upheld(c, J, jdir, change=lambda record: record['reassessment'].update(path=late))
+        c.step({late: data}, 'the named reassessment path first exists after the upheld adjudication')
+
+    o = guarded_run(lambda: world(extra_upheld=upheld_then_reassessment))
+    case('ADJ-N-REASSESSMENT-AFTER-LANDING', 'a bound reassessment added after the upheld ruling lands leaves '
+                                           'the ruling unknown for adverse use and preserves ADJ-CONTRA',
+         o.get('error') or [o['reassess_why'], reported_upholds(o)],
+         still_blocked(o, 'ADJ-CONTRA') and
+         any(not e['valid_adverse'] and e['landing'] for e in reported_upholds(o)))
+
+    def upheld_with_nonadverse_item(c, J, jdir):
+        path = J['replacement']['path'][:-5] + '.review.json'
+        data = c.w.repo.read(c.w.M, path)
+        target = {'ref': {'path': path, 'blob_sha256': sf.sha(data)}, 'item': sf.DOC}
+
+        def change(record):
+            record['dissents_addressed'] = [target]
+            record['grounds'].append({'id': 'g2', 'target': target, 'reasoning': 'the item is an acceptance',
+                                      'evidence': [gitobj.blob_id_of(data), *record['grounds'][0]['evidence'][1:]]})
+
+        upheld(c, J, jdir, change=change)
+
+    o = guarded_run(lambda: world(extra_upheld=upheld_with_nonadverse_item))
+    case('ADJ-P-NONADVERSE-ITEM-INVALID', 'the claimed addressed dissent names an accepting item at landing. '
+                                         'The upheld record is invalid and the cleared ruling applies',
+         o.get('error') or [o['decisions'], reported_upholds(o)], cleared(o))
+
+    o = guarded_run(lambda: world(extra_upheld=lambda c, J, jdir: upheld(c, J, jdir, review_verdict='reject')))
+    case('ADJ-P-DEFINITIVELY-NONQUALIFYING-REVIEW', 'the upheld record has a single technically rejecting '
+                                                'review. Its known failure leaves the cleared adjudication applicable',
+         o.get('error') or [o['decisions'], reported_upholds(o)], cleared(o))
 
     def party_review(c, J):
         qref = J['witness']['disputed']
@@ -999,7 +1053,8 @@ def adjudication_run_controls(r, two_pass, pin_q, sib, drop_sib):
     o = guarded_run(lambda: world(extra_upheld=upheld_then_review))
     case('ADJ-N-LATE-PARTY-REVIEW', 'a review of Q after the upheld adjudication lands does not enter Parties_J at '
                                      'its landing: ADJ-CONTRA and retirement-blocked remain',
-         o.get('error') or o['reassess_why'], still_blocked(o, 'ADJ-CONTRA'))
+         o.get('error') or [o['reassess_why'], reported_upholds(o)],
+         still_blocked(o, 'ADJ-CONTRA') and any(e['valid_adverse'] and e['landing'] for e in reported_upholds(o)))
 
     o = guarded_run(lambda: world(extra_upheld=review_then_upheld))
     case('ADJ-P-EARLY-PARTY-REVIEW', 'the same review before landing makes the upheld adjudicator a party: the '
@@ -1026,8 +1081,7 @@ def adjudication_run_controls(r, two_pass, pin_q, sib, drop_sib):
                                        'adjudication: NR-5 is false and the finding remains retirement-blocked',
          o.get('error') or [o['decisions'], o['reassess_why'], o['findings']],
          still_blocked(o) and o['decisions'] == [(True, None, ['r3'])] and
-         any(e['valid_adverse'] and e['disposition'] == 'upheld'
-             for f in o['findings'] for e in f.get('adjudications') or []))
+         any(e['valid_adverse'] and e['landing'] for e in reported_upholds(o)))
 
 
 def replay_controls(r, freeze_world, result):

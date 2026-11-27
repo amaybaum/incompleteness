@@ -259,18 +259,22 @@ def review_witness_adverse(sources):
     return out
 
 
+def unresolved_references(J, resolves):
+    """References required by binding and substance whose exact path and digest cannot be resolved."""
+    w = J.get('witness') or {}
+    refs = [J.get('finding'), J.get('reassessment'), J.get('replacement'), w.get('disputed'),
+            w.get('original_configuration'), *w.get('sources', ())]
+    if isinstance(w.get('edge'), dict):
+        refs.extend(w['edge'].values())
+    targets = [*w.get('adverse', ()), *J.get('dissents_addressed', ())]
+    targets.extend(g.get('target') for g in J.get('grounds') or [] if isinstance(g, dict))
+    refs.extend(x.get('ref') for x in targets if isinstance(x, dict))
+    return [r for r in refs if not isinstance(r, dict) or not resolves(_ref(r))]
+
+
 def self_consistency(J, reproduced, resolves):
-    """ADJ-BIND, self-consistency: every reference of J resolves (`resolves(ref)`), and `witness` reproduces as the
-    retained witness `reproduced` (witness_description, or None when it cannot be reproduced from custody)."""
-    out = []
-    refs = [J.get('reassessment'), J.get('replacement'), (J.get('witness') or {}).get('disputed'),
-            (J.get('witness') or {}).get('original_configuration')] + list((J.get('witness') or {}).get('sources') or [])
-    f = J.get('finding')
-    if isinstance(f, dict):
-        refs.append({'path': f.get('path'), 'blob_sha256': f.get('blob_sha256')})
-    for r in refs:
-        if not isinstance(r, dict) or not resolves({'path': r.get('path'), 'blob_sha256': r.get('blob_sha256')}):
-            out.append(('ADJ-BIND', 'a reference does not resolve: %r' % (r,)))
+    """ADJ-BIND, self-consistency: every reference of J resolves and witness reproduces from custody."""
+    out = [('ADJ-BIND', 'a reference does not resolve: %r' % (r,)) for r in unresolved_references(J, resolves)]
     w = J.get('witness') if isinstance(J.get('witness'), dict) else {}
     if reproduced is None:
         return out + [('ADJ-BIND', 'the retained witness cannot be reproduced from custody (R6.OBL29.3)')]
@@ -589,6 +593,12 @@ class Run:
         self.chain = fp_chain(repo, M)
         self.index = {c: i for i, c in enumerate(self.chain)}
         self._first = {}
+        self._landing_evidence = None
+
+    def evidence_at(self, commit):
+        if self._landing_evidence is None or self._landing_evidence.commit != commit:
+            self._landing_evidence = LandingEvidence(self.repo, commit)
+        return self._landing_evidence
 
     def first_index(self, ref):
         """The index on M's first-parent chain of the first commit holding ref's blob at its path, or -1."""
@@ -621,12 +631,52 @@ class Run:
         rows = self.cum.reviews_naming_ids(ref, directory)
         if at is None:
             return rows
+        ancestors = self.evidence_at(at).ancestors
         return [(p, o, d) for p, o, d in rows
-                if any(self.repo.is_ancestor(holder, at) for holder in self.cum.holders.get((p, o), ()))]
+                if not ancestors.isdisjoint(self.cum.holders.get((p, o), ()))]
+
+
+class LandingEvidence:
+    """Resolve an exact reference using regular files in the verified ancestry of one commit."""
+
+    def __init__(self, repo, commit):
+        self.repo, self.commit = repo, commit
+        self.ancestors = set()
+        self._history = []
+        todo = [commit]
+        while todo:
+            cid = todo.pop()
+            if cid in self.ancestors:
+                continue
+            self.ancestors.add(cid)
+            self._history.append(cid)
+            todo.extend(reversed(repo.parents(cid)))
+        self._refs = {}
+        self._digests = {}
+
+    def git_of(self, ref):
+        path, digest = ref['path'], ref['blob_sha256']
+        key = (path, digest)
+        if key not in self._refs:
+            self._refs[key] = None
+            for commit in self._history:
+                oid = self.repo.regular_blob_at(commit, path)
+                if oid is None:
+                    continue
+                if oid not in self._digests:
+                    self._digests[oid] = util.sha256(self.repo.read_blob(oid))
+                if self._digests[oid] == digest:
+                    self._refs[key] = oid
+                    break
+        return self._refs[key]
+
+    def doc_of(self, ref):
+        oid = self.git_of(ref)
+        return fd.strict_parse(self.repo.read_blob(oid)) if oid else None
 
 
 def _parties_for(run, finding_ref, Q, R, A, config, sources, predecessor, refs_reviewed, *, at=None):
-    frec = run.doc_of(finding_ref)
+    frec = run.doc_of(finding_ref) if at is None else run.evidence_at(at).doc_of(finding_ref)
     reviews = []
     for r_ in refs_reviewed:
         if isinstance(r_, dict):
@@ -642,53 +692,69 @@ def parties_j(run, J, at):
     f = J.get('finding') if isinstance(J.get('finding'), dict) else {}
     fref = {'path': f.get('path'), 'blob_sha256': f.get('blob_sha256')}
     pred = ((w.get('edge') or {}).get('predecessor')) if isinstance(w.get('edge'), dict) else None
-    srcs = [run.doc_of(s_) for s_ in w.get('sources') or []]
-    return _parties_for(run, fref, run.doc_of(w.get('disputed')), run.doc_of(_ref(J.get('replacement'))),
-                        run.doc_of(J.get('reassessment')), None, [x for x in srcs if isinstance(x, dict)],
-                        run.doc_of(pred) if pred else None,
+    lookup = run.evidence_at(at).doc_of
+    srcs = [lookup(s_) for s_ in w.get('sources') or []]
+    return _parties_for(run, fref, lookup(w['disputed']), lookup(_ref(J['replacement'])),
+                        lookup(J['reassessment']), None, [x for x in srcs if isinstance(x, dict)],
+                        lookup(pred) if pred else None,
                         [w.get('disputed'), _ref(J.get('replacement')), J.get('reassessment')] + ([pred] if pred else []),
                         at=at)
 
 
 def validity(run, jref, J, joid):
-    """'valid', 'invalid' (a definite failure) or 'unknown' for adverse use (R6.ADJ.8, R6.ADJ.9 (4))."""
+    """Return the adverse verdict and L(J). Unresolved evidence stays unknown under R6.ADJ.9 (4)."""
     if form_problems(J):
-        return 'invalid'
+        return 'invalid', None
     reviews = run.reviews_of(jref)
     if not reviews:
-        return 'invalid'
-    srcs = [run.git_of(s_) for s_ in (J['witness'].get('sources') or [])]
+        return 'invalid', None
+    sources = J['witness']['sources']
 
     def qualifying_review_at(commit):
         entries = run.repo.entries(commit)
         present = [d for p, o, d in reviews if entries.get(p) in (('100644', o), ('100755', o))]
         if not present:
             return False
+        srcs = [run.evidence_at(commit).git_of(s) for s in sources]
         pj = parties_j(run, J, commit)
         return any(not review_problems(d, J, jref, joid, srcs, pj, run.owners) for d in present)
 
     L = landing(run.repo, run.M, jref, qualifying_review_at)
     if L is None:
-        return 'unknown'
+        # Without L(J), only defects independent of the unresolved party snapshot can disqualify the review.
+        srcs = [run.evidence_at(run.M).git_of(s) for s in sources]
+        if all(srcs) and all(review_problems(d, J, jref, joid, srcs, set(), run.owners) for _p, _o, d in reviews):
+            return 'invalid', None
+        return 'unknown', None
+    evidence = run.evidence_at(L)
     pj = parties_j(run, J, L)
     t = run.repo.committer_time(L)
     lt = datetime.fromtimestamp(t, timezone.utc) if t is not None else None
-    if authorization_problems(J, lt, run.owners) or independence_problems(J, None, pj, run.owners) or \
-            substance_problems(J, run.git_of):
-        return 'invalid'
+    if authorization_problems(J, lt, run.owners) or independence_problems(J, None, pj, run.owners):
+        return 'invalid', L
+    if unresolved_references(J, evidence.git_of):
+        return 'unknown', L
+    if substance_problems(J, evidence.git_of):
+        return 'invalid', L
+    rref = _ref(J['replacement'])
+    reviews_of_R = [({'path': p, 'blob_sha256': run.cum.info[o][2]}, d) for p, o, d in run.reviews_of(rref, at=L)]
+    if dissents_addressed_problems(J, reviews_of_R, evidence.doc_of(rref)):
+        return 'invalid', L
     reproduced = None
     for W in run.witnesses:
+        if any(W.get(key) and W[key] not in evidence.ancestors for key in ('context', 'run', 'rev')):
+            continue
         d_ = describe(W)
         if d_['class'] == J['witness'].get('class') and d_['disputed'] == J['witness'].get('disputed') and \
                 {_key(x) for x in d_['sources']} == {_key(x) for x in J['witness'].get('sources') or []}:
             reproduced = d_
     if reproduced is None:
-        return 'unknown'
+        return 'unknown', L
     try:
-        bad = self_consistency(J, reproduced, lambda r_: run.git_of(r_) is not None)
+        bad = self_consistency(J, reproduced, evidence.git_of)
     except fd.Unsettled:
-        return 'unknown'
-    return 'invalid' if bad else 'valid'
+        return 'unknown', L
+    return ('invalid' if bad else 'valid'), L
 
 
 def evaluate(run, D, W):
@@ -700,7 +766,7 @@ def evaluate(run, D, W):
     rows, ok_any = [], False
     upheld_valid = []
     for jr, jo, J2 in all_adj:
-        if isinstance(J2, dict) and J2.get('disposition') == 'upheld' and validity(run, jr, J2, jo) == 'valid':
+        if isinstance(J2, dict) and J2.get('disposition') == 'upheld' and validity(run, jr, J2, jo)[0] == 'valid':
             upheld_valid.append(J2)
     pd = _parties_for(run, D['finding_ref'], W.get('disputed_doc'), D.get('R'), D.get('A'), D.get('config'),
                       [x['doc'] for x in W.get('forming') or [] if isinstance(x.get('doc'), dict)],
@@ -774,7 +840,7 @@ def evaluate(run, D, W):
                 failures.append('ADJ-REVIEW')
             elif st['blocking']:
                 failures.append('ADJ-DISSENT')
-            contra = contradiction_problems(J, [(J2, validity(run, jr, J2, jo)) for jr, jo, J2 in all_adj
+            contra = contradiction_problems(J, [(J2, validity(run, jr, J2, jo)[0]) for jr, jo, J2 in all_adj
                                                 if jr != jref])
             failures += [c for c, _m in contra]
             applies = admitted and not st['blocking'] and not contra

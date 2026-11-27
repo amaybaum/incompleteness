@@ -1313,7 +1313,10 @@ def adjudication_entries(run, f, evaluated):
             continue
         e = dict(evaluated.get((jr['path'], jr['blob_sha256'])) or
                  adjm.result_entry(jr, J, None, False, False, False, False, [], []))
-        e['valid_adverse'] = adjm.validity(run, jr, J, jo) == 'valid'
+        verdict, landing = adjm.validity(run, jr, J, jo)
+        e['valid_adverse'] = verdict == 'valid'
+        if landing is not None:
+            e['landing'] = landing
         out.append(e)
     return out
 

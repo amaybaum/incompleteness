@@ -183,6 +183,15 @@ class GitRepo:
         e = self.entries(cid).get(path)
         return None if e is None else e[0]
 
+    def regular_blob_at(self, cid, path):
+        """The blob ID at one exact regular-file path in the verified tree."""
+        directory, _, basename = path.rpartition('/')
+        tree = self.tree_id(cid, directory)
+        if tree is None:
+            return None
+        return next((oid for mode, name, oid in self._tree(tree)
+                     if mode in regular_modes and name == basename), None)
+
     def blob_id(self, cid, path):
         return self.paths(cid).get(path)
 
@@ -363,6 +372,10 @@ class Overlay:
     def mode(self, cid, path):
         e = self.entries(cid).get(path)
         return None if e is None else e[0]
+
+    def regular_blob_at(self, cid, path):
+        entry = self.entries(cid).get(path)
+        return entry[1] if entry is not None and entry[0] in regular_modes else None
 
     def blob_id(self, cid, path):
         return self.paths(cid).get(path)
