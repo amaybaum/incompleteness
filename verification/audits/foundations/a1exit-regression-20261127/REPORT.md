@@ -57,6 +57,7 @@ The compare reports are working files and are not committed (as `../a1exit-regre
 | Str:1224, OI row of Structure §14.10 | S | adds "on a finite representative" | changed, justified | S2-C (#1474), ledger X-46 finite scope |
 | Str:320, Structure §6.7 tally | R | "A1 (finiteness)" → "Finiteness" | changed, justified | D068, ledger X-46 |
 | Prose comparison lines (C-PROSE, 1674 entries) | S, R | label changes only (scope words); no number, unit or uncertainty changes except the lattice notation above | changed, justified | each edit's `row`/`reason` (Layer R); the S2 PR's ledger row (Layer S) |
+| Theorem conditions in "value changed" entries: SM:543 (Theorem 13 gains a hypothesis: nonzero diagonal entries for a site-diagonal hidden block, or bounded invertibility of the hidden block on $\ell^2$) and Sub:266 (the proof of Theorem 24(iii) extended to classical factors) | S | a theorem's condition or proof | changed, justified | S2-A amendment 4 (SM:543); S2-B / R6 (Sub:266). Not predictions; every SM §7.6 row is unchanged. The other "value changed" entries are the lattice notation (ℤ³, $2\mathbb Z^3$, $\mathbb Z^3/P$) |
 | E3 bound $e^{A/4}$ (Sub:92, deleted with the (A1) entry) | R | removed there | changed, justified | D232 (X-02); the bound survives at Sub:268 (i), "$\le e^{S_\partial}$, with $S_\partial=A/4$" |
 | $S_{\rm dS}\sim10^{122}$ (gloss:11, FULL:6502) | R | removed with the A1 glossary entry | changed, justified | D235/D236 (X-01). A motivation of A1, not a prediction; $N_H\sim10^{122}$ survives at ch07 C3 and FULL:1895, the discrepancy at FULL:314, :2058 |
 | Theorem 23 hypotheses (D022, D120, D121; Sub:216 bullet D026) | R | "A1–A6" → finite substratum with A4's finite periodic case under Stage 2's wrapping conditions, A2–A6 | changed, justified | X-45, X-42; plan §31 (#1477 c.7074137435; owner #1169 c.7074687817). A theorem's scope, not a prediction |
@@ -89,7 +90,7 @@ At the pin, A1 was already "an open hypothesis, not adopted, and one sufficient 
   - Sub:533 and ch04:146: "at any fixed finite carrier";
   - M:784: "A single fixed finite carrier".
 - Intro:135–137 is conditional on "A fixed finite world" and states that the broader construction is left open.
-- The ledger's X-48 correction ("state 'for a fixed finite carrier' … do not convert the obstruction into a claim about an unspecified-size substratum") is therefore met by the existing text, and the audit requires no edit.
+- The ledger's X-48 correction ("state 'for a fixed finite carrier' … do not convert the obstruction into a claim about an unspecified-size substratum") is therefore met by the existing text, and the audit requires no edit. For the two ledger-named sites: M:362 (M:358 at the pin) scopes the obstruction to "beyond one fixed finite carrier", which is what the theorem establishes; its "closure/limit" wording is accurate only if a realization on an infinite carrier counts as the closure of its finite regions (see the observation below). M:784 (M:780 at the pin) describes the finite-resolution description, and its "does not require an ontically infinite carrier" is cardinality-neutral.
 
 **Observation (not a finding).** Two unchanged clauses read most naturally with finite stages in view:
 - M:362, "into a compatible closure/limit". On an infinite carrier an exact endpoint need not be a limit.
@@ -133,13 +134,14 @@ Selection over laws on a carrier of unspecified cardinality has no stated form (
 ## 7. Recorded for the owner
 
 - **No material correctness defect** in the sense of #1169 comment 7214186738 was found.
+- **Two clauses whose reading shifts once A1 is gone** (§4, observation, not a finding): M:362 "into a compatible closure/limit" and M:784 "the continuum is the mathematical idealization of its finite-resolution physical description". Neither is a prediction or comparison, and neither layer introduced them; they are listed here so the owner sees them before the A1 posit is deleted.
 - **The 10 edits that do not apply at `main`** are D184/D185 (ch19:212 and mirror), D255/D256 (ch09:104 and mirror), D366 (Sub:201), D369 (Str:154), D375/D376 (ch02:134 and mirror) and D385/D386 (ch04:172 and mirror). #1588 and #979 rewrote these sentences after H. At H each one changes no number. Each lies outside every prediction and status table, and carries the justification its `reason` records. Their re-cut forms are the plan's reconciliation (#1477 PREREG §9). At current `main` the #979 changes already drop "finite" at the four X-53 sites, and #1588 already replaces "six structural properties" at ch09:104.
 
 ## 8. Re-check at the final H (a delta, not a redo)
 
 The H-drift mitigation (owner, #1169 c.7214186738) suspends merges to `papers/`, `book/` and ledgered paths until retirement lands. At the final H:
 1. `git diff --stat d7794dc9e43a0c66328747354787a707ed2dae88 <H> -- 'papers/*.md' 'book/*.md'`. If it is empty, this report's `main` results are the final-H results for every unchanged edit. Otherwise, read the number tokens of the changed lines (`delta.py` reports them per file only for edited files; a changed file with no edit is read directly).
-2. `delta.py --rev <H> --plan-dir <plan dir at the final plan head> --prev-edits <edits.json at 4c79be64>`.
+2. `delta.py --rev <H> --plan-dir <plan dir at the final plan head> --prev-edits <edits.json at 4c79be64>`. Its change key is `(file, old, new, old_step2, new_step2)`, the fields `edits_check.variant` reads at `4c79be64`; if the final plan's `variant` reads any further field (for example, a re-cut field for the ten edits), the key must be extended to cover it before this step is relied on.
    - **Edit list.** Only the edits it lists as added or changed are read, together with the not-applicable list, which must be empty at the final H.
    - **Tokens.** The token loss must still be exactly the three tokens of §2, unless an added or changed edit explains a difference.
    - **Tables.** "edits touching a prediction or status table row" must be 0, or each listed row is classified by §3's rule.
