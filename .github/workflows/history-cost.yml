@@ -1,0 +1,30 @@
+name: history cost (one-time measurement, not merged)
+on:
+  push:
+    branches: ['measure/history-cost-1577']
+permissions:
+  contents: read
+concurrency:
+  group: history-cost
+  cancel-in-progress: false
+jobs:
+  measure:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      M: 7fe011f5af64023331f235691b5549528348f539
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: measure the category-3 and custody history walks at M
+        run: |
+          mkdir -p out
+          python3 -I -S -B tools/ledger_coverage/adapters/history_cost.py --repo . --m "$M" --out out/history-cost.json --max-seconds 600
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02  # v4.6.2
+        if: always()
+        with:
+          name: history-cost
+          path: out/history-cost.json
+          if-no-files-found: error
