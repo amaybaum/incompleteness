@@ -1870,22 +1870,78 @@ def ei_controls(r):
         for m in ('hashlib', 're', 'subprocess', 'json'):
             with open(os.path.join(d, 'tools', m + '.py'), 'wb') as f:
                 f.write(MARKER)
+    # 'reaching the tool' and 'consumer' on the in-memory host over the CX-3 tree (as TR29-tool and TR29 do on the
+    # fixture tree): R6.REC.18 point 6. The tool, given a run record whose head_branch is not main, refuses
+    # (ERROR CONFIG_UNREVIEWED) before any evaluation; the shadow files are watched through a marker directory. The
+    # consumer is given a result produced from the same T' and a main whose first-parent chain does not hold T';
+    # its countercontrol is the same result with a main that holds T'.
+    cx3_files = {'tools/%s.py' % m: MARKER for m in ('hashlib', 're', 'subprocess', 'json')}
+    mdir14 = tempfile.mkdtemp(prefix='ei14-markers-', dir=r.out_root)
+    saved14 = os.environ.get('PROBE_MARKER_DIR')
+    os.environ['PROBE_MARKER_DIR'] = mdir14
+    try:
+        t14, w14, F14 = with_tool(r, extra=cx3_files, run={'head_branch': 'feature'})
+        a14 = show(*t14.run(w14, F14))
+        markers14 = sorted(os.listdir(mdir14))
+        REC.name_last('reaching the tool',
+                      attested={'message_names': 'head_branch' if 'head branch' in (a14.get('message') or '') else None,
+                                'file_executed': bool(markers14)})
+        w14.h.runs[w14.run_id]['head_branch'] = 'main'
+        code14c, res14c = t14.run(w14, F14)
+        REC.name_last("consumer input: the tool run on T' with a head_branch main run record")
+        markers14 = sorted(os.listdir(mdir14))
+    finally:
+        if saved14 is None:
+            os.environ.pop('PROBE_MARKER_DIR', None)
+        else:
+            os.environ['PROBE_MARKER_DIR'] = saved14
+    consumer14 = {'input_exit': code14c}
+    try:
+        snap14 = snapshot_of(res14c)
+        cfg14 = json.loads(t14.repo.read(F14, t14.p))
+        pins14 = {'config': {'path': t14.p, 'blob_sha256': t14.s}, 'freeze': F14, 'pin_table': snap14['pin_table'],
+                  'adapters': {a_['name']: a_['module_sha256'] for a_ in res14c.get('adapters', [])},
+                  'tool': cfg14['tool'], 'repository_id': cfg14['repository_id']}
+        chain14 = copy.deepcopy(res14c)
+        chain14.pop('harness', None)
+        chain14['config']['admission'] = {'mode': 'chain', 'snapshot': snap14,
+                                          'snapshot_sha256': res14c['config']['admission']['snapshot_sha256']}
+        raw14 = util.dump_result(chain14).encode('utf-8')
+        w14.h.artifacts[(w14.run_id, 'ledger-coverage-result')] = sha(raw14)
+        main_off = t14.repo.derive(t14.syn.H, {'notes/later.txt': b'a later commit on main\n'}, parents=[t14.syn.H],
+                                   subject="main without T'")
+        main_on = t14.repo.derive(w14.T, {'notes/later.txt': b'a later commit on main\n'}, parents=[w14.T],
+                                  subject="main holding T'")
+        landing14 = {'evaluated': snap14.get('evaluated'), 'artifact_name': 'ledger-coverage-result',
+                     'result_sha256': sha(raw14), 'main': main_off}
+        consumer14['accepted_branch'] = checker.accept_with_host(raw14, 0, pins14, w14.h, landing14, t14.repo)
+        consumer14['accepted_on_main'] = checker.accept_with_host(raw14, 0, pins14, w14.h,
+                                                                  dict(landing14, main=main_on), t14.repo)
+        REC.capture_doc('checker.accept_with_host', chain14, case='consumer', raw=raw14,
+                        attested={'outcome': 'ACCEPTED' if consumer14['accepted_branch'] else 'NON_ACCEPTANCE'})
+    except Exception as exc:
+        consumer14['error'] = '%s: %s' % (type(exc).__name__, exc)
+    tool14 = {'run': a14, 'markers': markers14}
     o14a = e.case('EI14 branch', cx3, ref='refs/heads/feature')
     o14b = e.case('EI14 on main', cx3)
     clean_res = e.entry(e.fresh('EI14 clean reference'))[1]
     d14 = o14b['dir']
     same14 = e.entry(d14, out_name='again')[1] == clean_res
-    # the retained cases are the two pre-run halves this runner executes; 'reaching the tool' and 'consumer' are
-    # TR29's runs on the in-memory host and are not retained here
+    # the retained cases: the two pre-run halves, and (above) 'reaching the tool' and 'consumer' on the in-memory host
     branch14, main14 = 'pre-run check given GITHUB_REF of a branch (simulated)', 'same file at an on-main T'
     check_prerun('EI14', 'the CX-3 tree, a branch T\' holding the pinned files and unpinned tools/hashlib.py (re.py, '
           'subprocess.py, json.py): dispatched on the branch the pre-run check fails (GITHUB_REF), so nothing runs; '
           'the same files at an on-main T: the pre-run check passes, the files never execute, the run is unaffected '
-          '(the tool\'s head_branch refusal and the consumer\'s first-parent walk are TR29)',
+          '(the tool\'s head_branch refusal and the consumer\'s first-parent walk, on the in-memory host)',
           "branch: pre-run exit nonzero naming GITHUB_REF, no marker; main: pre-run exit 0, entry exit 0, no marker, "
-          "and the result equals that of the clean tree", {'branch': o14a, 'main': o14b, 'result_equal': same14},
+          "and the result equals that of the clean tree; the tool on the in-memory host given head_branch feature: "
+          "exit 65 CONFIG_UNREVIEWED naming the head branch, no marker; the consumer refuses the result with a main "
+          "not holding T' and accepts it with a main holding T' (countercontrol)",
+          {'branch': o14a, 'main': o14b, 'result_equal': same14, 'tool': tool14, 'consumer': consumer14},
           failed(o14a) and 'GITHUB_REF' in o14a['prerun'] and o14b['prerun_exit'] == 0 and
-          o14b.get('entry_exit') == 0 and not o14b['markers'] and same14,
+          o14b.get('entry_exit') == 0 and not o14b['markers'] and same14 and
+          a14['exit'] == 65 and a14['stop'] == 'CONFIG_UNREVIEWED' and 'head branch' in (a14.get('message') or '') and
+          not markers14 and consumer14.get('accepted_branch') is False and consumer14.get('accepted_on_main') is True,
           {branch14: o14a, main14: o14b}, clean_name=main14,
           attest={branch14: {'message_names': 'GITHUB_REF' if 'GITHUB_REF' in o14a['prerun'] else None},
                   main14: {'file_executed': bool(o14b['markers']), 'result_equal_without_file': same14}})
