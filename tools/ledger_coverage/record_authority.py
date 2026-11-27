@@ -11,6 +11,11 @@ authorized_record_directories = ('verification/audits/foundations/a1exit-deletio
 # R6.RECON.2): a repository placement fact (AGENTS.md sec. A.36), kept outside the engine for the same reason.
 reconciliation_root = 'verification/audits/'
 
+# The owner identities of formal adjudication (design r4 of PR #1605, R6.ADJ.3; adopted with OD-1 to OD-7 at their
+# defaults): an adjudication's authorization is attributed to one of these identity strings. Changed only by a tool
+# revision, as the admitted record directories are (R6.RDIR.2). Attribution, not verification of the owner's approval.
+OWNER_IDENTITIES = ('amaybaum',)
+
 # The id of the side-change class that describes this tool's landing (design r6 R6.TREE.5): the domain the post-freeze
 # route keeps reconciliation records out of is that class of the side-change class record the configuration pins.
 tool_landing_class_id = 'tool-landing'
