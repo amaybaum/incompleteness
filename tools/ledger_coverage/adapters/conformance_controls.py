@@ -574,6 +574,19 @@ def acceptance_controls(r, t):
     del unmarked['harness']
     relabelled = copy.deepcopy(unmarked)
     relabelled['config']['admission'] = {'mode': 'control-harness', 'snapshot': snapshot_of(res)}
+    x11_accept = {'harness result': checker.accept(res_h, code_h, pins), 'simulated-chain result':
+                  checker.accept(res, code, pins), 'marker removed': checker.accept(unmarked, code, pins),
+                  'relabelled control-harness': checker.accept(relabelled, code, pins)}
+    # the restored case: the same harness run again, against the first
+    o2 = r.out()
+    cli.run(['terms', '--config', '%s:%s' % (t.c, t.p), '--out', o2, '--commit', t.syn.H],
+            repo=t.repo, harness=True, stderr=io.StringIO())
+    x11_files = {'results.json': {'harness result': {'raw': res_h, 'exit': code_h, 'out_listing': files_h},
+                                  'simulated-chain result': {'raw': res, 'exit': code},
+                                  'marker removed': {'raw': unmarked, 'exit': code},
+                                  'relabelled control-harness': {'raw': relabelled, 'exit': code}},
+                 'landing.json': {'used_by_accept': False}, 'snapshot.json': {'snapshot': snap, 'pins': pins},
+                 'acceptance.json': x11_accept}
     check('X11', 'a control-harness PASS result presented with the pinned tool and configuration hashes: '
           'non-acceptance; the harness never writes result.json',
           "accept() is false for the harness result, for the simulated-chain result, and for that result with its "
@@ -581,7 +594,13 @@ def acceptance_controls(r, t):
           {'harness_exit': code_h, 'files': files_h}, code_h == 0 and not checker.accept(res_h, code_h, pins) and
           not checker.accept(res, code, pins) and not checker.accept(unmarked, code, pins) and
           not checker.accept(relabelled, code, pins)
-          and files_h == ['control-result.json'])
+          and files_h == ['control-result.json'],
+          cases=[('simulated-chain run', None), ('', None), ('restored', None)],
+          attested={'': {'outcome': 'ACCEPTED' if any(x11_accept.values()) else 'NON_ACCEPTANCE',
+                         'harness_dir_files': files_h}},
+          baseline_of={'restored': ''}, files=x11_files,
+          procedure={'name': 'acceptance', 'lib': 'consumer', 'results': 'results.json',
+                     'landing_record': 'landing.json', 'snapshot': 'snapshot.json', 'attested': 'acceptance.json'})
     # a chain-labelled copy, the landing record, and the consumer's host checks
     chain = copy.deepcopy(res)
     del chain['harness']
