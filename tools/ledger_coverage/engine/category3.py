@@ -620,6 +620,9 @@ class Binding:
         try:
             doc = json.loads(data.decode('utf-8'))
         except (AttributeError, ValueError, UnicodeDecodeError):
+            # an in-scope reading of the owner's decision of 2026-11-27 (ledger-unreadable and ledger-target stops
+            # bind at run level): the contract's object reads (an unreadable object stays ERROR), only its content
+            # is unusable, so the named configuration's binding inputs cannot be read
             raise fd.RunLevelBlock('R6.RECON.30 executed paths: the delegation contract of the named configuration '
                                    'cannot be read')
         return {q for c in doc.get('classes') or [] if isinstance(c, dict) for q in c.get('paths') or []
@@ -963,13 +966,13 @@ def live_lineage_problems(repo, M, doc, cfg, store, scope, m_scan, cum_m, schema
 
 
 def run_roles_x(repo, c_, m, rev):
-    """roles.X of the run (m, rev) of a context, from its landed result (owner decision of 2026-11-27: roles.X is a
-    named, verdict-readable field): the evaluating results under the configuration's op-c-runs/ in the landing tree
-    whose roles.M is m and whose classify_records name rev. Exactly one X, a full commit id, is required (ReplayFailure
-    otherwise)."""
+    """(roles.X, admitted classify records) of the run (m, rev) of a context, from its landed result (owner decision
+    of 2026-11-27: roles.X is a named, verdict-readable field): the evaluating results under the configuration's
+    op-c-runs/ in the landing tree whose roles.M is m and whose classify_records name rev. Exactly one X, a full commit
+    id, is required, and one set of {(path, sha256)} of the records the run admitted (ReplayFailure otherwise)."""
     import json as _json
     d = posixpath.dirname(c_['config']['path']) + '/op-c-runs/'
-    xs = set()
+    xs, listings = set(), set()
     for p_, (mode, _o) in sorted(repo.entries(c_['landing']).items()):
         if not p_.startswith(d) or posixpath.basename(p_) != 'result.json' or mode not in ('100644', '100755'):
             continue
@@ -980,18 +983,23 @@ def run_roles_x(repo, c_, m, rev):
         revs = {x.get('rev') for x in (res.get('inputs') or {}).get('classify_records') or [] if isinstance(x, dict)}
         if roles.get('M') == m and revs == {rev}:
             xs.add(roles.get('X'))
+            listings.add(frozenset((x.get('path'), x.get('sha256')) for x in
+                                   (res.get('inputs') or {}).get('classify_records') or [] if isinstance(x, dict)))
     del _json
     if len(xs) != 1 or not isinstance(next(iter(xs)), str) or not re.match(r'^[0-9a-f]{40}$', next(iter(xs))):
         raise ReplayFailure('the landed result of run (%s, %s) records no single roles.X (%d values)'
                             % (m, rev, len(xs)))
-    return next(iter(xs))
+    if len(listings) != 1:
+        raise ReplayFailure('the landed results of run (%s, %s) disagree on the records the run admitted' % (m, rev))
+    return next(iter(xs)), next(iter(listings))
 
 
-def replay_rev_admission(repo, f, m, rev, X, cfg, loaded, cref, pinned_doc, ledgered):
+def replay_rev_admission(repo, f, m, rev, X, cfg, loaded, cref, pinned_doc, ledgered, landed_admitted):
     """R6.RECON.2 (a)-(g) replayed with that REV, m, the run's X and the context's configuration: the reconciliation
-    records REV adds, admitted under the context's scope as the run's route admitted them. Returns ({(path, sha256):
-    record}, store of REV's scanned set (the lineage anchor of a REV-admitted record)); a record that does not admit is
-    a custody failure (ReplayFailure)."""
+    records REV adds, admitted under the context's scope as the run's route admitted them. The replayed admitted set
+    {(path, sha256)} must equal the set the landed result records in inputs.classify_records (`landed_admitted`) and
+    be non-empty; a record the route refuses is not by itself a failure. Returns the admitted records {(path, sha256):
+    record}; a difference or an empty set is a custody failure (ReplayFailure)."""
     from . import recon_route
     corpus = cfg.get('corpus') or {}
     rx = [re.compile(x) for x in corpus.get('patterns') or [] if isinstance(x, str)]
@@ -1018,11 +1026,14 @@ def replay_rev_admission(repo, f, m, rev, X, cfg, loaded, cref, pinned_doc, ledg
             cands.append((rev, rev, p_, data, doc))
     items = []
     admitted, _listing, _clash = recon_route.admit(repo, cands, rscope, items)
-    if items or not admitted:
-        why = [d for i in items for d in (i.get('detail') or [i.get('why')]) if d] or ['REV adds no admitted record']
-        raise ReplayFailure('the run\'s REV %s does not replay under R6.RECON.2: %s' % (rev, why[0]))
-    return ({(r['_ref']['path'], r['_ref']['blob_sha256']): {k: v for k, v in r.items() if k not in ('_ref', '_source')}
-             for r in admitted}, rec.Store(recon_route.scanned(repo, rev, rscope)))
+    got = {(r['_ref']['path'], r['_ref']['blob_sha256']) for r in admitted}
+    if not got or got != set(landed_admitted):
+        why = [d for i in items for d in (i.get('detail') or [i.get('why')]) if d]
+        raise ReplayFailure('the run\'s REV %s does not replay under R6.RECON.2: the replayed admitted records %s '
+                            'differ from those its landed result records %s%s'
+                            % (rev, sorted(got), sorted(landed_admitted), ('; ' + why[0]) if why else ''))
+    return {(r['_ref']['path'], r['_ref']['blob_sha256']): {k: v for k, v in r.items() if k not in ('_ref', '_source')}
+            for r in admitted}
 
 
 def replay_run(repo, c_, m, rev, load_config, schemas, prefix, context_ledger=None):
@@ -1056,11 +1067,13 @@ def replay_run(repo, c_, m, rev, load_config, schemas, prefix, context_ledger=No
     cum_m = Cumulative(repo, [m], schemas, prefix)
     found = cum_m.findings()
     # a run naming REV: R6.RECON.2 (a)-(g) replayed with that REV, m, the run's X (roles.X of its landed result,
-    # roles.M = m) and the context's configuration; a record REV admitted has REV as its lineage anchor, and the
-    # competing successors are read over R*(m) and REV's tree
-    rev_admitted, rev_store, cum_s = {}, None, cum_m
+    # roles.M = m) and the context's configuration, the admitted set equal to the landed result's; the competing
+    # successors are read over R*(m) and REV's tree. The repair entry is still read in the scanned set of m only
+    # (mapping table; R6.CUST.9; r9 sec. 2.2: no witness for a frozen discharge that never made the lineage check
+    # operative), so a repair record that only REV holds is custody-replay
+    cum_s = cum_m
     if rev is not None:
-        X = run_roles_x(repo, c_, m, rev)
+        X, landed_admitted = run_roles_x(repo, c_, m, rev)
         try:
             ledgered = set(context_ledger(loaded)) if context_ledger else None
         except Exception as exc:  # the context's ledger cannot be read: the scope is undecided
@@ -1069,7 +1082,7 @@ def replay_run(repo, c_, m, rev, load_config, schemas, prefix, context_ledger=No
             ledgered = None
         if ledgered is None:
             raise ReplayFailure('the ledgered paths of the configuration %s cannot be read at %s' % (cref['path'], f))
-        rev_admitted, rev_store = replay_rev_admission(repo, f, m, rev, X, cfg, loaded, cref, pinned_doc, ledgered)
+        replay_rev_admission(repo, f, m, rev, X, cfg, loaded, cref, pinned_doc, ledgered, landed_admitted)
         cum_s = Cumulative(repo, [m, rev], schemas, prefix)
     chain = _first_parent_chain(repo, m)
     m_store = rec.Store(recon_route.scanned(repo, m, scope))
@@ -1112,24 +1125,19 @@ def replay_run(repo, c_, m, rev, load_config, schemas, prefix, context_ledger=No
         entry = _part(A, 'repair_entry')
         eref = _ref(entry)
         Q = m_store.get(eref) if eref else None
-        # a repair record REV admitted (R6.RECON.2) is read from REV's admitted records, with REV as its anchor (the
-        # broader lookup only adds witnesses; a discharge's own repair is still read at M, R6.OBL29.4)
-        via_rev = Q is None and eref is not None and (eref['path'], eref['blob_sha256']) in rev_admitted
-        if via_rev:
-            Q = rev_admitted[(eref['path'], eref['blob_sha256'])]
         if not isinstance(Q, dict) or Q.get('schema') not in schemas:
             raise ReplayFailure('the repair entry the reassessment %s names does not resolve in the scanned set of %s'
                                 % (aref['path'], m))
-        qgit = cum_m.git_id(eref) or _git_at(repo, m, eref) or (_git_at(repo, rev, eref) if rev else None)
+        qgit = cum_m.git_id(eref) or _git_at(repo, m, eref)
         out += _review_witnesses(cum_m, eref, Q, qgit, base, directory=posixpath.dirname(eref['path']))
         # lineage witnesses: the repair record's existing R6.REC.7 check is operative only where the context's
         # configuration admits it (a repair found solely by the entry lookup at m has no lineage check), and only
         # where the original positive route made its edge operative at m: the repair commits on m's first-parent
         # chain, the finding applicable at m (R6.RECON.26) and the edge resolved from f without failure
         sup = Q.get('supersedes')
-        if not ((eref['path'], eref['blob_sha256']) in cited or via_rev) or not isinstance(sup, dict):
+        if (eref['path'], eref['blob_sha256']) not in cited or not isinstance(sup, dict):
             continue
-        anchor = rev_store if via_rev else loaded.store
+        anchor = loaded.store
         commits = _part(A, 'repair_commits')
         applies = any(in_m(repo, m, (x.get('entry') or {}).get('side_change_commits') or []) for x in named
                       if isinstance(x.get('entry'), dict))

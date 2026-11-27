@@ -867,8 +867,9 @@ def replay_controls(r, freeze_world, result):
     # CU-N17: as CU-N16, but F1's repair Q_rev is admitted through REV1 in run (M1, REV1): Q_rev supersedes Q (the
     # head of the lineage on main) and lies only in REV1 (child of M1); a sibling S of Q_rev (naming Q) is in M1's
     # history, landed and removed before M1, so REV1's scan does not hold it and REV1 admits Q_rev. X is roles.X of the
-    # run's landed result (owner decision of 2026-11-27). The replay admits Q_rev through REV1 with REV1 as its anchor,
-    # and S competes with the edge Q_rev -> Q resolved at REV1
+    # run's landed result (owner decision of 2026-11-27). The REV admission replays, but the repair entry is read in
+    # the scanned set of M1 only (mapping table; R6.CUST.9; r9 sec. 2.2: no witness for a frozen discharge that never
+    # made the lineage check operative), and Q_rev is not there: custody-replay
     sq = wb.record(record_id='syn-repair', author='writer-s', supersedes=dict(wb.repair_entry))
     sqb = pfc.jb(sq)
     sib_q = {S_PATH: sqb, S_PATH[:-5] + '.review.json': wb.review(S_PATH, sqb)}
@@ -900,17 +901,60 @@ def replay_controls(r, freeze_world, result):
         return [(m1, r1)]
     c1, F1, L1, kref1 = freeze_world(world=CW.lineage, main_steps=[s_add], main_files=s_del, ctx_reassessment=a_rev,
                                      pre=rev1)
-    res = result(F1, kref1, m1, inputs={'classify_records': [{'rev': c1.rev1}]}, roles={'M': m1, 'X': c1.w.X})
+    res = result(F1, kref1, m1, inputs={'classify_records': [{'rev': c1.rev1, 'path': QREV, 'sha256': sf.sha(qb_)}]},
+                 roles={'M': m1, 'X': c1.w.X})
     c2, F2, L2, kref2 = freeze_world(world=CW.lineage, main_steps=[s_add], main_files=s_del, ctx_reassessment=a_rev,
                                      pre=rev1, results=[res])
     o = c2.run()
-    lw = [x for x in o['witnesses'] if x['kind'] == 'lineage']
-    case('CU-N17', 'F1\'s repair Q_rev was admitted through REV1 in run (M1, REV1): the replay admits it through REV1 '
-                   'with X from the landed result and REV1 as anchor; S competes with Q_rev -> P: a lineage witness '
-                   '(context F1, run M1 via REV1)', {'o': o, 'lineage': lw},
-         o['status'] == 'established' and len(lw) == 1 and lw[0]['rev'] == c2.rev1 and lw[0]['run'] == m1 and
-         lw[0]['disputed']['path'] == QREV and lw[0]['forming'][0]['path'] == S_PATH and
-         'retirement-blocked' in o['classes'])
+    case('CU-N17', 'F1\'s repair Q_rev was admitted through REV1 in run (M1, REV1): REV1\'s admission replays with X '
+                   'from the landed result, but Q_rev is not in the scanned set of M1, so the run does not replay '
+                   '(custody-replay)', o['full_whys'],
+         failed_with(o, 'custody-replay') and any('does not resolve in the scanned set' in w_ for w_ in o['full_whys']))
+    # a REV adding one record the route admits (Q_rev) and one it refuses (another M), the landed result recording
+    # Q_rev only; the context's repair is Q on main: the REV replays (a refused record is no failure), custody is
+    # established; with the landed result recording both records, the admitted sets differ: custody-replay
+    QBAD = 'verification/audits/syn-rev2/bad.json'
+    bad = json.loads(qb_)
+    bad.update(record_id='syn-rev-bad', M='0' * 40, supersedes=None)
+    badb = pfc.jb(bad)
+
+    def rev2(cc, mb):
+        files = {QREV: qb_, QREV[:-5] + '.review.json': qrv, QBAD: badb,
+                 QBAD[:-5] + '.review.json': cc.w.review(QBAD, badb)}
+        r2 = cc.w.repo.derive(m1, files, parents=[m1], subject='REV2')
+        cc.step(files, 'merge REV2', parents=[cc.w.M, r2])
+        cc.rev2 = r2
+        return [(m1, r2)]
+    c1, F1, L1, kref1 = freeze_world(world=CW.lineage, main_steps=[s_add], main_files=s_del, pre=rev2)
+    lst = [{'rev': c1.rev2, 'path': QREV, 'sha256': sf.sha(qb_)}]
+    outs = {}
+    for name, listing in (('recorded-admitted', lst),
+                          ('recorded-both', lst + [{'rev': c1.rev2, 'path': QBAD, 'sha256': sf.sha(badb)}])):
+        res2 = result(F1, kref1, m1, inputs={'classify_records': listing}, roles={'M': m1, 'X': c1.w.X})
+        cx, _a, _b, _c = freeze_world(world=CW.lineage, main_steps=[s_add], main_files=s_del, pre=rev2, results=[res2])
+        outs[name] = cx.run()
+    case('CU-N17-REFUSED-RECORD', 'a REV with one refused record whose landed result records the admitted one: it '
+                                  'replays (custody established); a landed result recording both differs from the '
+                                  'replayed admitted set: custody-replay',
+         {k: [v['status'], v['full_whys'][:1]] for k, v in outs.items()},
+         outs['recorded-admitted']['status'] == 'established' and
+         failed_with(outs['recorded-both'], 'custody-replay') and
+         any('differ from those its landed result records' in w_ for w_ in outs['recorded-both']['full_whys']))
+    # the roles.M filter: two landed results naming the same REV, for M1 and for another M with another X
+    from ledger_coverage.engine import category3 as c3m
+    repo = gitobj.Overlay()
+    rx = {'path': 'verification/audits/syn-plan/config.json', 'blob_sha256': '0' * 64}
+    d_ = 'verification/audits/syn-plan/op-c-runs/'
+    lst_ = [{'rev': 'e' * 40, 'path': QREV, 'sha256': '1' * 64}]
+    files = {d_ + 'a/result.json': pfc.jb({'outcome': 'FAIL', 'roles': {'M': 'a' * 40, 'X': 'b' * 40},
+                                           'inputs': {'classify_records': lst_}}),
+             d_ + 'b/result.json': pfc.jb({'outcome': 'FAIL', 'roles': {'M': 'c' * 40, 'X': 'd' * 40},
+                                           'inputs': {'classify_records': lst_}})}
+    land_ = repo.add_commit(files, [])
+    got = c3m.run_roles_x(repo, {'config': rx, 'landing': land_}, 'a' * 40, 'e' * 40)
+    case('CU-N17-ROLES-M-FILTER', 'two landed results naming the same REV, for M1 and for another M with another X: '
+                                  'the replay reads the X of the result whose roles.M is M1', got[0],
+         got[0] == 'b' * 40)
     # the same run with REV1's record failing R6.RECON.2 in the replay (the result names another X): custody-replay
     res_bad = dict(res, roles={'M': m1, 'X': '7' * 40})
     c3_, F3, L3, kref3 = freeze_world(world=CW.lineage, main_steps=[s_add], main_files=s_del, ctx_reassessment=a_rev,
