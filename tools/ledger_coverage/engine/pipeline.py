@@ -97,9 +97,9 @@ def record_of(entry):
     return {'file': ref['path'], 'record': ref} if isinstance(ref, dict) and ref.get('path') else {}
 
 
-def out_of_scope_entry(kind, e):
-    """An entry reported as out-of-scope (R6.REC.10, sec. 7): its kind, record, digest, segment and tree."""
-    return {'kind': kind, 'record': (e.get('_ref') or {}).get('path'), 'entry': entry_sha(e),
+def out_of_scope_entry(schema, e):
+    """An entry reported as out-of-scope (sec. 7): its record schema, record, digest, id, segment and tree."""
+    return {'schema': schema, 'record': (e.get('_ref') or {}).get('path'), 'entry': entry_sha(e),
             'id': e.get('id'), 'segment': e.get('segment'), 'tree': e.get('tree')}
 
 
@@ -200,7 +200,7 @@ class Coverage:
         chain = {sg_['name'] for sg_ in self.segments}
         for e in self.context_adj:
             if e.get('segment') not in chain:
-                self.out_of_scope.append(out_of_scope_entry('context-adjudication', e))
+                self.out_of_scope.append(out_of_scope_entry('oi-context-adjudication/1', e))
                 continue
             if e.get('site_id') not in tracked:
                 subj = e.get('id') or e.get('site_id')
@@ -647,7 +647,7 @@ class Terms:
             return kept
         # out-of-scope entries are reported as out-of-scope (sec. 7; not items) and kept as given
         outside = [r for r in recs if r not in scoped]
-        self.out_of_scope += [out_of_scope_entry('hit-classification', r) for r in outside]
+        self.out_of_scope += [out_of_scope_entry('oi-hit-classification/1', r) for r in outside]
         return kept + outside
 
     def paths_for(self, profile):

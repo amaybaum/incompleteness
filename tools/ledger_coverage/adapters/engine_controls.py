@@ -112,7 +112,7 @@ def extra_controls(cap):
                               hit_records=[dict(hit_orphan, segment=None, tree='2' * 40)])
         ce._case('the orphan entry naming a segment outside the chain, or a tree the record does not apply to')
         c4 = not [i for i in it_o if i['class'] in ('stale-adjudication', 'record-invalid')] and \
-            sorted(x['kind'] for x in w.last_out_of_scope) == ['context-adjudication', 'hit-classification']
+            sorted(x['schema'] for x in w.last_out_of_scope) == ['oi-context-adjudication/1', 'oi-hit-classification/1']
         # operation D (terms, no chain; cli op_terms passes an empty chain): an entry naming no tree and no segment
         # applies to the terms tree, and one matching no line is FAIL record-invalid; an entry naming a segment is
         # out of scope there (no finding)
