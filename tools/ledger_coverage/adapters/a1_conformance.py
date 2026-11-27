@@ -45,6 +45,10 @@ REC = None
 RUNS = {}
 
 
+# per control id: the procedure of its manifest (R6.GATE.8)
+PROCS = {}
+
+
 def check(cid, expected, predicate, actual, holds):
     RESULTS.append({'id': cid, 'expected': expected, 'predicate': predicate, 'actual': actual,
                     'status': 'PASS' if holds else 'FAIL'})
@@ -514,6 +518,14 @@ def n_controls(a):
     # N3 with the full candidate comparison
     ex = cli.candidate_with_and_without(rcn.ctx, H, T, rcn.led, None, M, None, T, rcn.classes, [rec])
     exec_doc(ex, 'op C candidate comparison with and without the record (cli.candidate_with_and_without)')
+    bare = exmod.Execution(rcn.ctx, H, T, rcn.led, None, M, None, T, rcn.classes, ())
+    bare.integrity()
+    bare.candidate()
+    exec_doc(bare, 'op C candidate checks on X without the record')
+    if REC is not None:
+        REC.pending[-2]['case'], REC.pending[-1]['case'] = 'with the record', 'without the record'
+    PROCS['N3'] = {'name': 'with-without-record', 'lib': 'rel-equal',
+                   'run_cases': ['with the record', 'without the record']}
     check('N3', 'a valid reconciliation record naming a ledgered path that X changes (AGENTS.md: D296 at X, a later '
           'section added on M): the record applies; no record-invalid; op C\'s items on X identical with and '
           'without it', "no item for AGENTS.md at M (RC1-RC13 hold), no record-invalid, and the with/without items on X "
@@ -572,6 +584,8 @@ def n_controls(a):
     e16 = named('N16', 'another ledgered file changed on M: does not apply, naming RC10; that file is base-drift',
                 'RC10', m=M16)
     exec_doc(e16, 'execution main role, N16 (the other ledgered file)')
+    if REC is not None:
+        REC.name_last('', bindings={'other_ledgered_file': other})
     restored()
     check('N16-file', 'the other ledgered file is base-drift', "base-drift for that file",
           other, any(i['class'] == 'base-drift' and i.get('file') == other for i in e16.items))
@@ -595,6 +609,9 @@ def n_controls(a):
     e10, scan10 = rcn.rep_run(rec10, L10, SCOPE)
     comp_blob = rc.blob_id_of(rc.compose(repo, H, M, path, [s for s in rcn.led['splices'] if s['file'] == path])[0])
     cl10 = sorted({i['class'] for i in e10.items if path in (i.get('file') or '') or path in str(i.get('subject'))})
+    if REC is not None and getattr(e10, 'captured', None) is not None:
+        e10.captured['attested'] = dict(e10.captured.get('attested') or {}, L_blob=repo.blob_id(L10, path),
+                                        composed_blob=comp_blob, composition_evaluated=comp_blob is not None)
     check('N10', 'M = 8e9b8334, X = X_rep, L\'s AGENTS.md = X\'s blob 9f4fc3e8 (drops M\'s inserted section), a record '
           'whose l names that blob; reference composition 86d79863: FAIL landing-conflict-unresolved for AGENTS.md '
           'and record-invalid for the record; the composition is evaluated regardless of the record',
@@ -608,6 +625,8 @@ def n_controls(a):
     L11 = exmod.compose_landing(repo, H, M, XR, rcn.led, repo)
     e11, scan11 = rcn.rep_run(rec_x, L11, SCOPE)
     cl11 = [i['class'] for i in e11.items if path in (i.get('file') or '') or path in str(i.get('subject'))]
+    if REC is not None and getattr(e11, 'captured', None) is not None:
+        e11.captured['attested'] = dict(e11.captured.get('attested') or {}, L_blob=repo.blob_id(L11, path))
     check('N11', 'the same M, X and reference, L\'s AGENTS.md equal to 86d79863 and the record\'s l equal to it: PASS '
           'for the path', "L's blob is 86d79863... and no item names AGENTS.md",
           {'l_blob': repo.blob_id(L11, path), 'items': cl11, 'X_rep': XR, 'scope': scan11},
@@ -707,7 +726,7 @@ def main():
         done.add(r['id'])
         REC.pending = RUNS.get(r['id'], [])
         REC.record(r['id'], 'NOT RUN' if r['id'] in not_due else r['status'], r['actual'],
-                   r['predicate'] or r['expected'])
+                   r['predicate'] or r['expected'], procedure=PROCS.get(r['id']))
     REC.write()
     print(json.dumps(summary, sort_keys=True))
     for r in doc['controls']:
