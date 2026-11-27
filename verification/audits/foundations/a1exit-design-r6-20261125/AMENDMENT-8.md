@@ -1,10 +1,12 @@
-# r6 amendment 8: minimum-sufficient path to A1 retirement (paper draft r2)
+# r6 amendment 8: minimum-sufficient path to A1 retirement (adopted)
 
-**Status.** Paper draft r2. It answers the focused review of r1 on #1630, which accepted every item except M8-3 (REVISE).
-r2 replaces M8-3's rule with the reviewer's rule, adds the generated row list (appendix A), aligns C-5 in M8-5 and applies
-the two nits. It goes to the owner for adoption at DP-1 (sec. 5).
-Until then it changes nothing. Adoption, implementation, staging, freeze, trials, execution and merges keep their
-separate gates. On adoption, a generator-amendment8 applies the adopted wording to DESIGN-r6.md, EXPECTATIONS.json and
+**Status.** Adopted at r2 (`f10195d45b443fed1c8bcb8d5a5a2d9cb44ef14a`) by owner decision DP-1 (amaybaum,
+2026-11-27T09:01:16Z, recorded at #1169 comment 7214186738), quoted: "Adopt Amendment 8 at
+f10195d45b443fed1c8bcb8d5a5a2d9cb44ef14a." r2 answers the focused review of r1 on #1630, which accepted every item
+except M8-3 (REVISE): it replaces M8-3's rule with the reviewer's rule, adds the generated row list (appendix A),
+aligns C-5 in M8-5 and applies the two nits. This status paragraph is the only change after adoption.
+Implementation, staging, freeze, trials, execution and merges keep their
+separate gates. generator-amendment8 applies the adopted wording to DESIGN-r6.md, EXPECTATIONS.json and
 REQUIREMENTS.json, as generator-amendment1 to generator-amendment6 did. The changes to the plan (#1477) and to staging
 r2 are made by the plan amendment (checklist row 4.1) and by the tool revision. This amendment only fixes their content.
 

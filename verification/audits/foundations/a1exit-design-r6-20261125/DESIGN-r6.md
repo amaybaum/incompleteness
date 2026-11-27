@@ -1,4 +1,4 @@
-# Ledger coverage tool: design r6 (consolidated, self-contained; final draft for owner adoption, not adopted)
+# Ledger coverage tool: design r6 (consolidated, self-contained; adopted)
 
 ## 0. Status, authority, scope and goal link
 
@@ -10,12 +10,10 @@ sec. 16 requires the row to name the requirement before r6 is final. Labels in p
 (R1), (O2), (B-4), (D2) or (V5-D1) name the review finding or decision that introduced a rule; they are
 not identifiers and name no control (R6.NOTE.13).
 
-**R6.STAT.1** Status: draft, not adopted. r6 is the consolidated design of the ledger coverage tool
-(`tools/ledger_coverage.py` and the package `tools/ledger_coverage/`). On its adoption by a recorded
-owner decision it supersedes design v6.0e and the amendments r4 and r5, which then become historical
+**R6.STAT.1** Status: adopted, with amendments 1 to 8 (owner decision DP-1 of 2026-11-27, #1169 comment 7214186738, sec. 0.8). r6 is the consolidated design of the ledger coverage tool
+(`tools/ledger_coverage.py` and the package `tools/ledger_coverage/`). It supersedes design v6.0e and the amendments r4 and r5, which are historical
 sources; their text, blobs and the commit at which v6.0e was implemented are kept as provenance in the
-historical appendix. r6 adopts nothing before that decision, and changes no design, implementation,
-control expectation or exception in force.
+historical appendix.
 Sources: E-001, A-001, A-136, A-144, A-146, V1-002. Controls: none (status statement).
 
 **R6.STAT.2** Self-containment. r6 is complete in itself. It incorporates no other document by
@@ -129,6 +127,7 @@ an implementation are separate steps.
   landing approves no merge: the landing pull request's merge needs its own owner approval (AGENTS.md
   sec. A.50 item 1), separate from adoption.
 OPEN: off-main support of adoption.
+Amendment 8 (sec. 0.8), M8-8: the implementation certification of OBL-26 is not a precondition of the tool's use in the A1 retirement and gates none of it.
 Sources: OC-2. Controls: none (governance; verified by review and by the adoption trace of sec. 32).
 
 ### 0.1 Owner decisions of 2026-11-25 on the decision package
@@ -764,6 +763,28 @@ Owner direction at #1169 comment 7191506837 (amaybaum, 2026-11-26T12:03Z (as rec
 > [...]
 
 Amendment 6 resolves the schema ambiguities of category 3 that the tool writer raised while implementing amendment 4 and one expectation conflict; answers the independent review of its first draft (PR #1593 comment 7189446310); resolves two further ambiguities, the retained-site line of RC14 (b) and the resolution schema of R6.RECON.24; and states the schema contract of the reconciliation record kinds that the owner's completeness audit (PR #1593 comment 7189621405) found stated by meaning only (sec. 23.1, R6.RECON.29 to R6.RECON.36, one key table per kind); it then answers the reviews of its second draft (PR #1593 comments 7190255132 and 7190234470), states each definition once, and removes cases and text that both reviewers found to add no protection; and it makes the corrections of the two final checks (PR #1593 comments 7190624085 and 7190609504), states the matching key of R6.RECON.23 and the count grammar of R6.GATE.3, and adds R6.GATE.17, under which a failing row may stay unresolved; and it separates the identity of a finding from the validity of its resolution (R6.RECON.23) and states the removal of a landed finding record as the open defect OBL-29. Each resolution is a proposal for the owner's decision at adoption (AMENDMENT-6.md gives the options and lists the owner choices). None lets a finding be lost or lifted by rewording: a finding is detected before lint, every form failure blocks rather than lapses, the path-and-old-bytes match binds every configuration, and a migration only adds edits. Where the tool accepts input the design refuses (a missing `changes_decisions_on_X`, non-integer offsets, a suffix filter on the scanned set, skipped parse failures, ignored record kinds), the design rule is stated and a countercontrol row is added; no requirement is weakened to match the tool.
+
+### 0.8 Amendment 8 of 2026-11-27
+
+Owner decision DP-1 at #1169 comment 7214186738 (amaybaum, 2026-11-27T09:01:16Z, recorded by the coordinating
+session); excerpt (each line prefixed by "> "; "[...]" marks text left out):
+
+> Approved: DP-1 items 1–5.
+>
+> - Adopt Amendment 8 at f10195d45b443fed1c8bcb8d5a5a2d9cb44ef14a.
+> - Confirm r6 with Amendments 1–7 as adopted and correct the stale status text.
+>
+> [...]
+
+Amendment 8 (AMENDMENT-8.md of this directory) removes the obligations that do not gate A1 retirement, under the
+owner's minimum-sufficient verification direction (#1169 comment 7213780573). Its items M8-1 to M8-15 are applied at
+the clauses they name, each marked "Amendment 8 (sec. 0.8)". The landing gate covers the A1 path: of the 619 rows of
+the expectation file it keeps 484, and the 135 rows of its appendix A (107 `MUT:` rows, 24 gate self-test rows, 3
+R6.SYN rows and Z9e) admit NOT RUN with the reason "outside the A1 path (amendment 8)" under R6.GATE.15. No row is removed, no
+expected value changes, and no requirement gains or loses a control. M8-1 (operational custody required only before
+the first freeze of a discharge-bearing configuration) and M8-10 (the staging activation carried by the transition
+descriptor that F's Record pins table pins) change the custody design and staging r2 as AMENDMENT-8.md states; the
+tool's checks are unchanged by them. Retained rows fail closed as before.
 
 ***
 
@@ -3362,6 +3383,7 @@ then rest on the landed harness, not on CI provenance (RE-9 (a); RD-1). The surv
 are limitations and also verification defects, each with a distinguishing control: TR52-consumer
 for C08, and one control each, added in the tool revision, for K08 (submodules in the path map), I06
 (TR51's regular-files check) and P01 (the purity allowlist) (RE-10 (b); OBL-24).
+Amendment 8 (sec. 0.8), M8-4: no mutation re-establishment gates the tool's landing; the `MUT:` rows admit NOT RUN with the reason "outside the A1 path (amendment 8)" (R6.GATE.15). The seven known survivors stay recorded as limitations.
 Sources: RD-1, RD-5, Q8. Controls: GATE-21, GATE-22, GATE-23, GATE-24, MUT:c1:C01, MUT:c1:C02, MUT:c1:C03, MUT:c1:C04, MUT:c1:C05, MUT:c1:C06, MUT:c1:C07, MUT:c1:C08, MUT:c1:C09, MUT:c1:C10, MUT:c1:C11, MUT:c1:C12, MUT:c2:D01, MUT:c2:D02, MUT:c2:D03, MUT:cache:K01, MUT:cache:K02, MUT:cache:K03, MUT:cache:K04, MUT:cache:K05, MUT:cache:K06, MUT:cache:K07, MUT:cache:K08, MUT:o9:RDIR-m1, MUT:o9:RDIR-m10, MUT:o9:RDIR-m11, MUT:o9:RDIR-m12, MUT:o9:RDIR-m13, MUT:o9:RDIR-m14, MUT:o9:RDIR-m15, MUT:o9:RDIR-m16, MUT:o9:RDIR-m17, MUT:o9:RDIR-m2, MUT:o9:RDIR-m3, MUT:o9:RDIR-m4, MUT:o9:RDIR-m5, MUT:o9:RDIR-m6, MUT:o9:RDIR-m7, MUT:o9:RDIR-m8, MUT:o9:RDIR-m9, MUT:v60e:A01, MUT:v60e:A02, MUT:v60e:A03, MUT:v60e:A04, MUT:v60e:A05, MUT:v60e:A06, MUT:v60e:A07, MUT:v60e:A08, MUT:v60e:A09, MUT:v60e:A10, MUT:v60e:A11, MUT:v60e:A12, MUT:v60e:A13, MUT:v60e:A14, MUT:v60e:C01, MUT:v60e:C02, MUT:v60e:C03, MUT:v60e:C04, MUT:v60e:C05, MUT:v60e:C06, MUT:v60e:C07, MUT:v60e:C08, MUT:v60e:C09, MUT:v60e:C10, MUT:v60e:C11, MUT:v60e:C12, MUT:v60e:C13, MUT:v60e:C14, MUT:v60e:C15, MUT:v60e:C16, MUT:v60e:E01, MUT:v60e:E02, MUT:v60e:H01, MUT:v60e:H02, MUT:v60e:H03, MUT:v60e:I01, MUT:v60e:I02, MUT:v60e:I03, MUT:v60e:I04, MUT:v60e:I05, MUT:v60e:I06, MUT:v60e:I07, MUT:v60e:I08, MUT:v60e:I09, MUT:v60e:I10, MUT:v60e:I11, MUT:v60e:I12, MUT:v60e:I13, MUT:v60e:I14, MUT:v60e:O01, MUT:v60e:O02, MUT:v60e:P01, MUT:v60e:R01, MUT:v60e:R02, MUT:v60e:R03, MUT:v60e:U01, MUT:v60e:U02, MUT:v60e:U03, MUT:v60e:U04, MUT:v60e:U05, MUT:v60e:V01, MUT:v60e:V02, MUT:v60e:V03, MUT:v60e:V04, MUT:v60e:V05, MUT:v60e:V06, MUT:v60e:V07.
 
 **R6.GATE.11** The acceptance list of the implementation step is the expectation file: every row is
@@ -3387,6 +3409,7 @@ list and are exempt from naming a control, provided each names its verification:
 OBL ids that carry it, in the requirement list's field `verification`. A requirement of such a kind
 that names no verification, and a testable requirement that names no control, fail the check
 (RE-11 (a); GATE-8, GATE-30).
+Amendment 8 (sec. 0.8), M8-3: the landing gate covers the A1 path: the rows of appendix A of AMENDMENT-8.md that it drops admit NOT RUN with the reason "outside the A1 path (amendment 8)", and stay rows, so the correspondence in both directions is unchanged. A testable requirement without a control outside the kept rows is verified by review.
 Sources: OD-2, Q1. Controls: GATE-7, GATE-8, GATE-30.
 
 ### 16.7 The gate's own controls
@@ -3461,6 +3484,7 @@ EI14-dispatch's release condition is a dispatch of the pinned workflow on a bran
 after the tool lands, under a launch the owner approves (AGENTS.md sec. A.50, sec. A.51 item 4); it
 gates acceptance of a chain-admitted result in the A1 retirement execution (RE-21; OBL-18).
 Confirmed by owner decision A4 of 2026-11-25 (sec. 0.1), within the reviewed r6 scope and subject to previously approved deferrals.
+Amendment 8 (sec. 0.8), M8-3: the 135 rows of appendix A of AMENDMENT-8.md also admit NOT RUN, with the reason "outside the A1 path (amendment 8)" and the constant-false release check; where no runner records such a row, the gate records it NOT RUN with that reason. A record a runner makes for it is evaluated as for any row.
 Sources: V1-121, E-1190, Q6, RD-6, RD-7, RD-25, RD-26. Controls: GATE-5, GATE-11, RT-T, TR5, G-A1,
 RT-L2, RT-O9, RT-O9-L2, TR45-opC, EI14-dispatch, TR45, EI14.
 
@@ -3592,6 +3616,7 @@ adds 9 rows (sec. 0.4), amendment 4 adds 3 rows (sec. 0.5), amendment 5 adds 14 
 amendment 6 adds 15 rows (sec. 0.7), each with one. Counted
 mechanically over the amended file's rows outside the MUT and GATE namespaces (482 rows, 137 of them recording `scope: "outside"`; 285 carry a `restored` expectation, 82 declare direction `both`, 10 name `paired_with`, 3 are exempt as observations): no row in scope
 records no second direction.
+Amendment 8 (sec. 0.8), M8-3: the both-directions scope is the kept rows of appendix A of AMENDMENT-8.md; each kept row keeps both its directions, the pair RT-T / RT-T0 included.
 Sources: V1-101, V2-073, V1-138, Q7, RE-2, RE-3, RE-4, Q11. Controls: A11r, M1, N1, GATE-27.
 
 **R6.CTRL.4** Each expected FAIL names the class of sec. 15 that produces it; a FAIL expectation
@@ -4651,6 +4676,7 @@ under those paths, none is a path the ledger based at `H` touches, and a landing
 FAIL `base-drift`.
 Corpus paths that the ledger does not touch are not excluded by this check; it covers the ledgered
 paths, as stated (RE-34 (a)).
+Amendment 8 (sec. 0.8), M8-11: the landing paths also cover `verification/audits/foundations/a1exit-staging-amendment-20261126/` and `verification/audits/foundations/a1exit-adjudication-design-20261126/`.
 Sources: V2-118, E-1298, A-129. Controls: TT14, TT13, R19.
 
 **R6.PLACE.9** Records strengthen no claim.
@@ -4670,6 +4696,7 @@ steps: implementation, then independent implementation review against r6; the to
 evidence re-established for the changed code; then one disposable CI validation run of the exact
 implementation commit, which is a launch and needs the owner's approval; merge to `main` by separate
 owner approval; then the post-merge verify run.
+Amendment 8 (sec. 0.8), M8-4, M8-12: the local suite includes no mutation run and no mutation evidence is re-established; the implementation review is a focused delta review of what changed since the last accepted head.
 Sources: A-133, A-134, A-135. Controls: none (governance; the suite is the catalogue of sec. 17).
 
 **R6.PLACE.12** Wiring the tool into the release gate is a separate change with its own review.
@@ -6806,8 +6833,8 @@ resolved by an exception:
 | OBL-10 | plan freeze `F` | 4 | no cycle |
 | OBL-11 | plan freeze `F` | 4 | no cycle |
 | OBL-12 | the A1 retirement execution | 4 | no cycle |
-| OBL-13 | the tool's landing | landing decision: 1 (RT-L2 on the exact candidate commit of the tool's pull request, at `X` = `C` = `X_rep`, the predicted `M` = a pinned `main` commit `M0` plus the candidate's landing paths, the reviewed record named from outside those paths); enduring claim: 2 once the landing merge and the reviewed record (in a later commit) are on `main`, and 3 re-run against `main` | no cycle; no input is `T1'`, `P` or the tool commit a3799244 (R6.EVID.8) |
-| OBL-14 | the tool's landing | as OBL-13, on the predicted `M` plus the record directory of a representative stand-in `F` (R6.EVID.8) | as OBL-13 |
+| OBL-13 | the A1 retirement landing (amendment 8, M8-2) | landing decision: 1 (RT-L2 on the exact candidate commit of the tool's pull request, at `X` = `C` = `X_rep`, the predicted `M` = a pinned `main` commit `M0` plus the candidate's landing paths, the reviewed record named from outside those paths); enduring claim: 2 once the landing merge and the reviewed record (in a later commit) are on `main`, and 3 re-run against `main` | no cycle; no input is `T1'`, `P` or the tool commit a3799244 (R6.EVID.8) |
+| OBL-14 | the A1 retirement landing (amendment 8, M8-2) | as OBL-13, on the predicted `M` plus the record directory of a representative stand-in `F` (R6.EVID.8) | as OBL-13 |
 | OBL-15 | plan freeze `F`; the A1 retirement execution | records at `F` (4); RT-T: 1 on the candidate `F` before its designation, at `X_rep` built from `F`'s ledger, within the exact-candidate validation (OBL-16 (a)); 4 at the executed candidate; 2 once the round's landing is on `main` | no cycle |
 | OBL-16 | plan freeze `F` (TR5 (a), (b)); the round's landing (TR5 (c)); the A1 retirement execution (G-A1) | TR5 (a): 1, the exact-candidate validation of the candidate `F` before its designation; (b): the recorded designation compared with the candidate's full id (governance, by the record's reviewer); (c): 2 once the round's landing is on `main`; G-A1: 4 | no cycle: no evidence needs `F` on `main` before its designation (AGENTS.md sec. A.39) |
 | OBL-17 | none while deferred (owner decision A1 of 2026-11-25) | 4 | no cycle |
@@ -6815,11 +6842,11 @@ resolved by an exception:
 | OBL-19 | the tool's landing | 1 for the landing decision; 2 once the landing merge is on `main`; 3 to confirm | no cycle |
 | OBL-20 | the tool's landing | 1 for the landing decision; 2 once the landing merge is on `main`; 3 to confirm | no cycle |
 | OBL-21 | the tool's landing | 1 for the landing decision; 2 once the landing merge is on `main`; 3 to confirm | no cycle |
-| OBL-22 | the tool's landing | the owner's advance approval and an independent review (governance), with 1 for the landing decision; 2 once the landing merge is on `main`; 3 to confirm | no cycle |
+| OBL-22 | none (amendment 8, M8-7) | the owner's advance approval and an independent review (governance), with 1 for the landing decision; 2 once the landing merge is on `main`; 3 to confirm | no cycle |
 | OBL-23 | the use of the R6.EVID.4 figures as acceptance references for the tool's landing | N10, N11, RT-D, RT-I7, RT-I7A, RT-DR3W, RT-T0: 1 at `X_rep` on the exact tool candidate for the landing decision; 2 and 3 for the enduring claim (R6.EVID.8); item11-T1p: none; its earlier figure is candidate evidence only, not acceptance support (owner decision 4 of 2026-11-25) | no cycle; item11-T1p supports no acceptance and no enduring claim |
-| OBL-24 | the tool's landing | 1 for the landing decision; 2 once the landing merge is on `main`; 3 to confirm; the harness lands with the tool revision (RE-9 (a)) | no cycle |
+| OBL-24 | none (amendment 8, M8-4) | 1 for the landing decision; 2 once the landing merge is on `main`; 3 to confirm; the harness lands with the tool revision (RE-9 (a)) | no cycle |
 | OBL-25 | the tool's landing | 1 for the landing decision; 2 once the landing merge is on `main`; 3 to confirm | no cycle |
-| OBL-26 | the implementation certification of the landed tool revision | 2 and 3 (the checks recorded against the tool revision on `main`); the conformance assessment of a37992449b452021001277c06c524a30c92dfb87 is provenance for the requirements (AGENTS.md sec. A.42 item 8) | no cycle: r6's adoption does not rest on it (R6.STAT.10); the statements that describe the tool commit are in the adoption trace |
+| OBL-26 | none for the A1 retirement (amendment 8, M8-8) | 2 and 3 (the checks recorded against the tool revision on `main`); the conformance assessment of a37992449b452021001277c06c524a30c92dfb87 is provenance for the requirements (AGENTS.md sec. A.42 item 8) | no cycle: r6's adoption does not rest on it (R6.STAT.10); the statements that describe the tool commit are in the adoption trace |
 | OBL-27 | plan freeze `F` | 4 | no cycle |
 | OBL-28 | the tool's landing | 1 for the landing decision; 2 once the landing merge is on `main`; 3 to confirm | no cycle |
 | OBL-29 | the A1 retirement execution | its remedy, implemented and independently verified (Issue #1598); the interim procedural guards do not discharge it | no cycle |
@@ -6914,6 +6941,7 @@ refusals, 4000 regression cases, and 401 edits binding 399 splices are recompute
 script on `main`, or are stated only as "measured during design, not retained". Gates: plan freeze `F`
 (as evidence for OBL-1). Discharged by: the retained recomputation, or the narrowing. Sources: E-122,
 E-124, E-1357, E-1358, E-1359, ME-2.
+Amendment 8 (sec. 0.8), M8-9: narrowed to "measured during design, not retained"; OBL-1's retained script and its seeded counts are the evidence.
 
 **OBL-3** Rule records adopted at `F`. The deny rules DR-1 (alternatives a, b, c), DR-3, DR-4 and
 DR-5; the review profile `resid` (resid-a, resid-b, resid-c); the W1 allow rules with W1-c's
@@ -6953,12 +6981,14 @@ records at `F`; r6 expects the outcomes of resolution (a), and no rule of the DR
 required (rule content is plan content, R6.DENY.1; N5).
 The decision covers V4, V27, V27-glossary and V15 together (RE-1).
 Confirmed by owner decision 1 of 2026-11-25 (#1169 comment 7166844576; sec. 0.1) as necessary for scientifically valid retirement.
+Amendment 8 (sec. 0.8), M8-9: discharged by OBL-3.
 Sources: E-1365, E-1366, RD-14, Q10.
 
 **OBL-7** The fifth `ptr` hit. `papers/GR.md:58` ("For a finite total system, ...") matches `ptr` at
 `T1'` and is resolved only by its reviewed hit classification record (sec. 22), which names the `ptr`
 hit. Gates: plan freeze `F` (the record frozen) and RT-T's release. Discharged by: the reviewed record
 at `F` verifying under the tool. Sources: E-1023.
+Amendment 8 (sec. 0.8), M8-9: discharged by OBL-15.
 
 **OBL-8** `preserve_check.py` gaps. The amended plan closes:
 - gap 1: the candidate is not a resolved commit (a ref name or abbreviation in `--commit` mode; a
@@ -6990,6 +7020,7 @@ form or automated authorization check. Its frozen configuration carries the `too
 `repository_id`, and lies beside the `PREREG.md` whose last `Record pins` subsection lists it. Its
 pinned workflow meets execution-identity point 5 of sec. 11, including the pre-run pin check. Gates:
 plan freeze `F`. Discharged by: the frozen amendment and configuration. Sources: E-1372.
+Amendment 8 (sec. 0.8), M8-14: the sentence "The amendment refers to no authority record, freeze ledger, comment form or automated authorization check." is removed; the pins and execution-identity sentences stay.
 
 **OBL-11** Staged A1 configuration. The A1 configuration staged for `F` pins `tool.files` (including
 `record_authority.py`), `tool.workflow`, the tool-landing class record, and the `records` entries
@@ -7001,6 +7032,7 @@ administrative; ESC-6 (the correction of the S1 classifications and the landing 
 until its separately reviewed change. None of them blocks the tool's landing, and r6 resolves none.
 Gates: the A1 retirement execution. Discharged by: the evidence or reviewed change each names. Sources:
 E-017, E-1371, ME-8.
+Amendment 8 (sec. 0.8), M8-9: ESC-1 to ESC-4 are discharged by records re-derived on `main` at the final `H`: the allow root (ESC-1), the OBL-1 script (ESC-2), the configuration's scope record (ESC-3) and the hit classifications of OBL-15 (ESC-4); ESC-6 goes with the tool revision's README.
 
 **OBL-13** RT-L2 release. At `main`, `AGENTS.md` is `base-drift` and `.claude/settings.json` is an
 unclassified side change. RT-L2 is NOT RUN until a reviewed reconciliation record for `AGENTS.md`,
@@ -7017,6 +7049,7 @@ request); for the enduring claim, kind 2 once the landing merge and the reviewed
 `main`, and kind 3 re-run against `main`, every input reachable from `main` (sec. 32 trace; RE-37
 confirms the gate). The RT-L2 PASS of CI run 45569710442 (tool commit
 a37992449b452021001277c06c524a30c92dfb87, `X` = `T1'`, drafted record) stays provenance (R6.EVID.6).
+Amendment 8 (sec. 0.8), M8-2: RT-L2 is recorded NOT RUN at the tool's landing and does not gate it. The drift check runs once, at the A1 retirement landing, on the real `M`, with the reconciliation records at `M` and RT-L. Gates: the A1 retirement landing.
 Sources: E-1363, OD-18, Q2, MC-4, OC-3.
 
 **OBL-14** RT-O9's dependent clause. RT-O9's own record-directory checks run and are gated. Only its
@@ -7028,6 +7061,7 @@ change touches a ledgered or corpus path (R6.TREE.7), and a record directory hol
 clause does not depend on the content of `P`'s record directory.
 Gates: the tool's landing. Discharged by: RT-L2's release and PASS (OBL-13).
 Evidence: as OBL-13 (RE-37 confirms the gate).
+Amendment 8 (sec. 0.8), M8-2: RT-O9-L2 is recorded NOT RUN at the tool's landing and does not gate it; it is decided with RT-L2 at the A1 retirement landing. Gates: the A1 retirement landing.
 Sources: RD-6, Q6, MC-4, OC-3.
 
 **OBL-15** Reviewed records for RT-T. RT-T is NOT RUN until every reviewed record of sec. 14's review
@@ -7100,6 +7134,7 @@ mechanically from the per-row decisions of R6.CTRL.3 (42 of them recorded no sec
 reported as `direction-missing`; amendment 1 records one on each, so their remaining defect is the
 execution of the recorded case). Gates: the tool's landing. Discharged by: a recorded and executed
 second direction on every such row, holding under the gate.
+Amendment 8 (sec. 0.8), M8-3: the scope is the kept rows of appendix A of AMENDMENT-8.md.
 Sources: Q7, RD-8, RE-2, RE-3, Q11.
 
 **OBL-21** Implementation corrections. The tool revision makes these corrections, each with a
@@ -7135,6 +7170,7 @@ gate: recorded control ids, runner record ids, expectation-file ids and reason s
 identifiers. It needs the owner's approval in advance and an independent non-author review (sec. A.48
 item 3). Gates: the tool's landing. Discharged by: the approved and reviewed migration, verified by the
 build, the gate and the correspondence check. Sources: OD-31, RD-5, RD-4, E-015.
+Amendment 8 (sec. 0.8), M8-7: the migration is not applied; identifiers stay as implemented, and MIGRATION.json stays as the index. Gates: none.
 
 **OBL-23** `T1'`-input evidence. The figures of R6.EVID.4 whose controls ran on `T1'` (N10, N11, RT-D,
 RT-I7 at `T1'`, RT-I7A at `T1'`, RT-DR3W at `T1'`, RT-T0, item11-T1p) were measured with the tool commit
@@ -7153,6 +7189,7 @@ reference (owner decision 4).
 The list is confirmed with RT-D and the `T1'` cases of RT-I7A and RT-DR3W (RE-36 (a)); no figure is an
 acceptance reference reproduced on `main` until the tool revision lands and the run is repeated
 there (R6.EVID.7).
+Amendment 8 (sec. 0.8), M8-9: discharged by the representative-snapshot runs.
 Sources: RD-23, ME-3, Q10, OC-3.
 
 **OBL-24** Mutation evidence. Mutation evidence is re-established for the changed code. Each mutant has
@@ -7163,6 +7200,7 @@ the tool's landing. Discharged by: the gate holding on every mutant row.
 The harness and the mutant names land, pinned, with the tool revision (RE-9 (a)). The survivors
 `MUT:cache:K08`, `MUT:v60e:C08`, `MUT:v60e:I06` and `MUT:v60e:P01` are also verification defects,
 each discharged by its distinguishing control (RE-10 (b)).
+Amendment 8 (sec. 0.8), M8-4: no mutation re-establishment gates the landing; the `MUT:` rows admit NOT RUN (R6.GATE.15) and the seven known survivors stay recorded as limitations. Gates: none.
 Sources: RD-1, Q8, OD-1.
 
 **OBL-25** Runner-only predicates. Each of the 32 runner-only predicates that RD-24 enumerates is checked against
@@ -7170,6 +7208,7 @@ the requirement it claims to test before it becomes an expectation; a weak or mi
 verification defect. The null-expectation rows are reconciled mechanically with the enumerated lists.
 Gates: the tool's landing. Discharged by: every row with a settled, verified expectation. Sources:
 RD-24, RD-25, Q9.
+Amendment 8 (sec. 0.8), M8-3: the rows in scope are the kept rows of appendix A of AMENDMENT-8.md.
 
 **OBL-26** Conformance certification of the tool revision. The read-only conformance checks of OD-4, OD-9,
 OD-23, OD-25, OD-27, RD-10, RD-18, RD-20, RD-27 and RD-33 are completed against the tool revision that
@@ -7182,6 +7221,7 @@ tool commit use it; they are unsupported on `main` and are named in the historic
 implementation certification of the landed tool revision (OC-2 replaces the adoption gate that RE-37
 confirmed). Discharged by: the recorded checks and their dispositions against the tool revision on
 `main` (evidence kinds 2 and 3). Evidence: see the sec. 32 trace.
+Amendment 8 (sec. 0.8), M8-8: gates no part of the A1 retirement. Gates: none.
 Sources: OD-4, OD-27, RD-18, RD-20, OC-2.
 
 **OBL-27** Plan-side countercontrols. The plan's own check fails on each countercontrol mutant where
@@ -7234,6 +7274,7 @@ change until its distinguishing control holds under the gate, or the check it na
 | RE-27 | R6.OUT.24, R6.CLASS.7 | a purpose trace of the six obligation definitions; the pin classes defined independently | review |
 | RE-29 | R6.RECON.14 | a purpose check that the stricter RC9 rejects no valid record | review; N6 |
 | OC-3 | R6.EVID.8 | the representative candidate builder, the pinned ledger and edit list and the configuration's control instance land with the tool revision; the rows of R6.EVID.8 run on `X_rep` and record the paths their verdict read | REP-BUILD; `scanned_paths_within` on each row |
+Amendment 8 (sec. 0.8), M8-3, M8-4, M8-5, M8-6: C-1, C-3 and C-26 cover the kept rows of appendix A of AMENDMENT-8.md; C-28 is removed; C-7, C-11, C-12, C-14, C-15, C-22, C-23, C-24, RE-13, RE-18, RE-27 and RE-29 do not gate the landing; C-5 stays for every kept row; C-29 does not gate the landing (M8-2).
 
 Gates: the tool's landing. Discharged by: each row's control holding under the gate, or its check
 recorded. Sources: C-1 to C-28, Q12, RE-6, RE-13, RE-16, RE-18, RE-19, RE-23, RE-24, RE-27, RE-29,

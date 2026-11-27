@@ -18,7 +18,16 @@
   ],
   "open": [],
   "pending_owner_confirmation": [],
-  "owner_decision": []
+  "owner_decision": [
+   {
+    "record": "owner decision DP-1 of 2026-11-27 (amaybaum, coordinating session; #1169 comment 7214186738): amendment 8 adopted at f10195d45b443fed1c8bcb8d5a5a2d9cb44ef14a",
+    "decision": "M8-15",
+    "effect": "r6 with amendments 1 to 7 confirmed as adopted; the status text corrected in place",
+    "decision_basis": [
+     "AMENDMENT-8.md, M8-15"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.STAT.2",
@@ -197,7 +206,16 @@
    "off-main support of adoption"
   ],
   "pending_owner_confirmation": [],
-  "owner_decision": []
+  "owner_decision": [
+   {
+    "record": "owner decision DP-1 of 2026-11-27 (amaybaum, coordinating session; #1169 comment 7214186738): amendment 8 adopted at f10195d45b443fed1c8bcb8d5a5a2d9cb44ef14a",
+    "decision": "M8-8",
+    "effect": "the implementation certification (OBL-26) gates no part of the A1 retirement",
+    "decision_basis": [
+     "AMENDMENT-8.md, M8-8"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.NOTE.1",
@@ -5482,7 +5500,16 @@
   ],
   "open": [],
   "pending_owner_confirmation": [],
-  "owner_decision": []
+  "owner_decision": [
+   {
+    "record": "owner decision DP-1 of 2026-11-27 (amaybaum, coordinating session; #1169 comment 7214186738): amendment 8 adopted at f10195d45b443fed1c8bcb8d5a5a2d9cb44ef14a",
+    "decision": "M8-4",
+    "effect": "no mutation re-establishment gates the landing; the MUT: rows admit NOT RUN",
+    "decision_basis": [
+     "AMENDMENT-8.md, M8-4"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.GATE.11",
@@ -5523,7 +5550,16 @@
   ],
   "open": [],
   "pending_owner_confirmation": [],
-  "owner_decision": []
+  "owner_decision": [
+   {
+    "record": "owner decision DP-1 of 2026-11-27 (amaybaum, coordinating session; #1169 comment 7214186738): amendment 8 adopted at f10195d45b443fed1c8bcb8d5a5a2d9cb44ef14a",
+    "decision": "M8-3",
+    "effect": "the landing gate covers the A1 path; dropped rows admit NOT RUN and stay rows",
+    "decision_basis": [
+     "AMENDMENT-8.md, M8-3"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.GATE.13",
@@ -5633,6 +5669,14 @@
     "effect": "confirmed within the reviewed r6 scope and subject to previously approved deferrals",
     "decision_basis": [
      "S1-D3 identification, rules A to C (FRESH-AUTHORIZATION.md, sec. 3)"
+    ]
+   },
+   {
+    "record": "owner decision DP-1 of 2026-11-27 (amaybaum, coordinating session; #1169 comment 7214186738): amendment 8 adopted at f10195d45b443fed1c8bcb8d5a5a2d9cb44ef14a",
+    "decision": "M8-3",
+    "effect": "the 135 rows of appendix A admit NOT RUN with the reason \"outside the A1 path (amendment 8)\"",
+    "decision_basis": [
+     "AMENDMENT-8.md, M8-3"
     ]
    }
   ]
@@ -5764,7 +5808,16 @@
   ],
   "open": [],
   "pending_owner_confirmation": [],
-  "owner_decision": []
+  "owner_decision": [
+   {
+    "record": "owner decision DP-1 of 2026-11-27 (amaybaum, coordinating session; #1169 comment 7214186738): amendment 8 adopted at f10195d45b443fed1c8bcb8d5a5a2d9cb44ef14a",
+    "decision": "M8-3",
+    "effect": "the both-directions scope is the kept rows",
+    "decision_basis": [
+     "AMENDMENT-8.md, M8-3"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.CTRL.4",
@@ -7885,7 +7938,16 @@
   ],
   "open": [],
   "pending_owner_confirmation": [],
-  "owner_decision": []
+  "owner_decision": [
+   {
+    "record": "owner decision DP-1 of 2026-11-27 (amaybaum, coordinating session; #1169 comment 7214186738): amendment 8 adopted at f10195d45b443fed1c8bcb8d5a5a2d9cb44ef14a",
+    "decision": "M8-11",
+    "effect": "the landing paths also cover the staging amendment and adjudication design directories",
+    "decision_basis": [
+     "AMENDMENT-8.md, M8-11"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.PLACE.9",
@@ -7936,7 +7998,16 @@
   ],
   "open": [],
   "pending_owner_confirmation": [],
-  "owner_decision": []
+  "owner_decision": [
+   {
+    "record": "owner decision DP-1 of 2026-11-27 (amaybaum, coordinating session; #1169 comment 7214186738): amendment 8 adopted at f10195d45b443fed1c8bcb8d5a5a2d9cb44ef14a",
+    "decision": "M8-4, M8-12",
+    "effect": "no mutation run in the local suite; delta reviews replace full reviews",
+    "decision_basis": [
+     "AMENDMENT-8.md, M8-4, M8-12"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.PLACE.12",

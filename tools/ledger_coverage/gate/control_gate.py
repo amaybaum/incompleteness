@@ -152,6 +152,9 @@ RC_RTT = 'a reviewed record of a sec. 8.2 kind referenced by the configuration a
 RC_TR5 = ('the configuration path at the candidate F named by --freeze is listed in the last Record pins subsection of '
           'the PREREG.md beside it')
 RELEASE_CHECKS = frozenset([RC_FALSE, RC_TR5_PASS, RC_EI14, RC_RTL2, RC_RTT, RC_TR5])
+# amendment 8, M8-3 and M8-4 (R6.GATE.15): a row outside the A1 path admits NOT RUN with this reason and RC_FALSE;
+# where no runner records it, the gate records it NOT RUN
+A8_REASON = 'outside the A1 path (amendment 8)'
 
 
 # Release facts are read from git objects at the commit under check (--commit), never from a local directory: the
@@ -160,6 +163,9 @@ RELEASE_CHECKS = frozenset([RC_FALSE, RC_TR5_PASS, RC_EI14, RC_RTL2, RC_RTT, RC_
 FACTS_DIR = 'verification/audits/foundations/ledger-coverage-tool-20261123/release'
 AUDIT_DIR = 'verification/audits/foundations/ledger-coverage-tool-20261123/'
 WORKFLOW_PATH = '.github/workflows/ledger-coverage.yml'
+# R6.PLACE.8 with amendment 8, M8-11: the tool's landing paths
+LANDING_PREFIXES = ('tools/', AUDIT_DIR, 'verification/audits/foundations/a1exit-staging-amendment-20261126/',
+                    'verification/audits/foundations/a1exit-adjudication-design-20261126/')
 T_PRIME = '14ac71b4b0a0c0aa2d7068d6799a73f474097060'
 HEX40 = re.compile('[0-9a-f]{40}\\Z')
 # the record kinds of the reviewed records RT-T needs (the source design's sec. 8.2)
@@ -231,7 +237,7 @@ def rtl2_release(ctx, name='RT-L2'):
         return False
     ref = f.get('record') or {}
     path = ref.get('path') if isinstance(ref, dict) else None
-    if not isinstance(path, str) or path.startswith(('tools/', AUDIT_DIR)) or path == WORKFLOW_PATH:
+    if not isinstance(path, str) or path.startswith(LANDING_PREFIXES) or path == WORKFLOW_PATH:
         return False
     rb, rec = _json_blob(ctx.repo, ref)
     _, rev = _json_blob(ctx.repo, f.get('review'))
@@ -1715,6 +1721,13 @@ def evaluate(exp_doc, rows, retired, reqs, records, mutations, ctx):
         e = entry(rid)
         allowed = row.get('status_allowed', ['PASS'])
         own = []
+        nr = row.get('not_run') or {}
+        if (nr.get('reason') == A8_REASON and nr.get('release_check') == RC_FALSE and 'NOT RUN' in allowed
+                and rid not in recs and rid not in muts and not row.get('composed_of')):
+            e['details'].append('not-run: %s; no runner records it' % A8_REASON)
+            status[rid] = 'FAIL' if set(e['findings']) & FINDING_FAIL else 'NOT RUN'
+            e['status'] = status[rid]
+            continue
         if row['expect'] is None:
             add(rid, 'expect-null', 'expect is null')
         elif row['expect'].get('outcome') == 'DEFERRED':
