@@ -278,15 +278,21 @@ def tr_controls(r):
           "exit 65 with stop 'CONFIG_UNREVIEWED'", extra2, extra2['exit'] == 65 and
           extra2['stop'] == 'CONFIG_UNREVIEWED')
     # TR48: the positive K7 control
+    code48, res48 = t.run(w, F)
+    snap48 = snapshot_of(res48)
+    exact_tool_blobs = snap48.get('tool_blobs') == {f['path']: f['blob_sha256'] for f in hf.tool_pins()['files']}
+    exact_workflow = snap48.get('workflow') == hf.tool_pins()['workflow']
+    recorded_tool = snap48.get('tool_commit') == w.T
+    clean48 = REC.name_last('', attested={'snapshot_T_recorded': recorded_tool,
+                                          'tool_and_workflow_blobs_equal_pins': exact_tool_blobs and exact_workflow})
+    retain_restored(lambda: t.run(w, F), clean48)
     check('TR48', 'a valid T whose package directory and entry point hold exactly tool.files, each regular with its '
           'pinned blob, the workflow equal to its pin, the checkout equal to T: execution identity holds; T and every '
           'tool and workflow blob recorded',
           "exit 0; the snapshot's tool_commit is T, tool_blobs equal the pins and workflow equals the pin",
-          {'exit': code, 'tool_commit': snap.get('tool_commit') == w.T, 'tool_blobs': snap.get('tool_blobs'),
-           'workflow': snap.get('workflow')},
-          code == 0 and snap.get('tool_commit') == w.T and
-          snap.get('tool_blobs') == {f['path']: f['blob_sha256'] for f in hf.tool_pins()['files']} and
-          snap.get('workflow') == hf.tool_pins()['workflow'])
+          {'exit': code48, 'tool_commit': recorded_tool, 'tool_blobs': snap48.get('tool_blobs'),
+           'workflow': snap48.get('workflow')},
+          code48 == 0 and recorded_tool and exact_tool_blobs and exact_workflow)
     # TR50: the workflow at T one byte different
     o50 = show(*t.run(t.world(wf=hf.WF + b'#'), F))
     retain_restored(lambda: t.run(w, F), clean)
@@ -655,13 +661,32 @@ def acceptance_controls(r, t):
     no_adm = copy.deepcopy(chain)
     del no_adm['config']['admission']
     schema_errs = {'chain': schemamod.validate(chain), 'without config.admission': schemamod.validate(no_adm)}
+    schema_cases = {'oi-ledger-coverage/5 chain result': chain, 'the same result labelled oi-ledger-coverage/4': old_schema}
+    accepted_schemas = {}
+    for name, doc in schema_cases.items():
+        accepted = checker.accept(doc, 0, pins)
+        accepted_schemas[name] = accepted
+        REC.capture_doc('checker.accept', doc, case=name,
+                        attested={'outcome': 'ACCEPTED' if accepted else 'NON_ACCEPTANCE'})
+    for name, short, doc in (('schema validation of the chain result', 'chain', chain),
+                             ('schema validation without config.admission', 'without config.admission', no_adm)):
+        REC.capture_doc('result schema validation', doc, case=name,
+                        attested={'outcome': 'PREDICATE', 'schema_errors': schema_errs[short]})
+    v5 = accepted_schemas['oi-ledger-coverage/5 chain result']
+    v4 = accepted_schemas['the same result labelled oi-ledger-coverage/4']
     check('ACCEPT-SCHEMA', 'sec. 5: a result of another schema id than oi-ledger-coverage/5 is never acceptable; the '
           '/5 schema requires config.admission in a result that carries config (implementation control)',
           "accept() true for the /5 chain result and false for the same as /4; the schema passes the chain result "
           "and refuses it without config.admission",
-          {'v5': checker.accept(chain, 0, pins), 'v4': checker.accept(old_schema, 0, pins), 'schema': schema_errs},
-          checker.accept(chain, 0, pins) and not checker.accept(old_schema, 0, pins) and not schema_errs['chain']
-          and schema_errs['without config.admission'] == ['$.config: missing admission'])
+          {'v5': v5, 'v4': v4, 'schema': schema_errs},
+          v5 and not v4 and not schema_errs['chain'] and
+          schema_errs['without config.admission'] == ['$.config: missing admission'],
+          files={'inputs.json': {**schema_cases, 'without config.admission': no_adm},
+                 'landing.json': {'fixture': landing, 'used_by_accept': False},
+                 'snapshot.json': {'snapshot': snap, 'pins': pins},
+                 'decisions.json': {'acceptance': accepted_schemas, 'schema_errors': schema_errs}},
+          procedure={'name': 'acceptance', 'lib': 'consumer', 'results': 'inputs.json',
+                     'landing_record': 'landing.json', 'snapshot': 'snapshot.json', 'attested': 'decisions.json'})
     consumer_cases('TR30', 'the consumer checks the evaluated commits against the landing record', [
         ('evaluated commits differ', {'landing_': dict(landing, evaluated={'commit': '0' * 40})})],
         'matching (positive)')
@@ -1933,6 +1958,7 @@ def meaning_controls(r):
                          parents=[syn.H])
     seg = ['--segment', '%s..%s' % (syn.pin, syn.H), '--segment', '%s..%s=%s:syn/patch.json' % (syn.H, Xb, c)]
     code, res = r.cli(syn.repo, ['coverage', '--commit', Xb, '--check', 'zc'] + seg, c, p, s_)
+    REC.name_last('coverage result')
     found, missing = [], []
 
     def walk(x):
@@ -1948,15 +1974,26 @@ def meaning_controls(r):
                 walk(v)
     walk(res or {})
     code2, res2 = r.cli(syn.repo, ['record', '--pin', syn.pin, '--record', syn.H], c, p, s_)
+    REC.name_last('error result')
+    table_equal = (res or {}).get('class_meaning') == (res2 or {}).get('class_meaning') == oc.class_meaning
+    error_with_table = code2 == 65 and (res2 or {}).get('class_meaning') == oc.class_meaning
+    meanings = {'class_meaning_table_equal_in_every_result': table_equal,
+                'classed_items_quoting_meaning_min': min(1, len(found)),
+                'classed_items_missing_meaning': len(missing),
+                'error_result_carries_table': error_with_table}
+    REC.capture_doc('result class-meaning audit', {'quoted_classes': found, 'missing_classes': missing},
+                    case='', attested={'outcome': 'PREDICATE', **meanings})
     check('B4-MEANING', 'sec. 5 (B-4): every result carries class_meaning, identical in each; every item and state '
           'of the classes authorized-replacement, authorized-removal, unauthorized-edit or unauthorized-change quotes '
           'its meaning from the table (implementation control)',
           "a coverage run with an unauthorized-edit item and an ERROR result both carry the table equal to "
           "outcome.class_meaning; at least one classed item or state, and every one quotes its meaning",
-          {'exit': code, 'quoted': sorted(set(found)), 'missing': missing[:5], 'error_result_table':
+          {'coverage_exit': code, 'quoted': sorted(set(found)), 'missing': missing[:5], 'error_result_table':
            (res2 or {}).get('class_meaning') == oc.class_meaning},
-          (res or {}).get('class_meaning') == oc.class_meaning and (res2 or {}).get('class_meaning') ==
-          oc.class_meaning and 'unauthorized-edit' in found and not missing)
+          table_equal and error_with_table and 'unauthorized-edit' in found and not missing,
+          files={'coverage.json': res, 'error.json': res2, 'meanings.json': meanings},
+          procedure={'name': 'class-meaning', 'lib': 'ast', 'inputs': ['coverage.json', 'error.json'],
+                     'attested': 'meanings.json'})
 
 
 def simrun(r, syn, c, p, argv_tail, op):
@@ -1970,7 +2007,7 @@ def simrun(r, syn, c, p, argv_tail, op):
 def f2_controls(r):
     """F2: a side-change class record referenced by the configuration is chain-linted in op C (sec. 6.3): one
     without a review record gives FAIL record-invalid and classifies nothing."""
-    def scenario(with_class, reviewed):
+    def scenario(case, with_class, reviewed):
         syn = sf.Syn()
         edits = [('# synthetic', ['# synthetic', '', 'Preface line one.'])]
         pd = sf.patch_doc(syn.H, edits)
@@ -1998,10 +2035,13 @@ def f2_controls(r):
                             parents=[syn.H], subject='X')
         code, res = simrun(r, syn, c, p, lambda F: ['--scientific-base', syn.H, '--candidate', X, '--ledger',
                                                     '%s:syn/patch.json' % F, '--main', M], 'execution')
+        REC.name_last(case, bindings={'class_record': 'syn/classes.json', 'side_path': 'notes/side.txt'})
         items = sorted({(i['class'], str(i.get('subject'))) for i in (res or {}).get('items', [])
                         if i['class'] in ('record-invalid', 'side-change-unclassified', 'base-drift')})
         return {'exit': code, 'outcome': (res or {}).get('outcome'), 'stop': stop(res), 'items': items}
-    out = {'none': scenario(False, False), 'reviewed': scenario(True, True), 'unreviewed': scenario(True, False)}
+    out = {'none': scenario('no class record', False, False),
+           'reviewed': scenario('reviewed class record (positive)', True, True),
+           'unreviewed': scenario('class record without a review record', True, False)}
     un = out['unreviewed']
     check('R3-F2', 'op C: a side-change class record referenced by the configuration with no review record: FAIL '
           'record-invalid, and the side change stays unclassified; the reviewed record classifies it; with no class '
@@ -2014,7 +2054,7 @@ def f2_controls(r):
           ('side-change-unclassified', 'notes/side.txt') in out['none']['items'])
 
 
-def _r4_class_scenario(r, cls_mut=None, verdicts=None):
+def _r4_class_scenario(r, case, cls_mut=None, verdicts=None):
     """Op C over a synthetic side change on main and a configuration-referenced side-change class record with its
     review (the given verdicts; one accept for class `notes` by default)."""
     syn = sf.Syn()
@@ -2051,6 +2091,8 @@ def _r4_class_scenario(r, cls_mut=None, verdicts=None):
                                                     '%s:syn/patch.json' % F, '--main', M], 'execution')
     except Exception as exc:
         return {'exit': 'EXCEPTION', 'exception': '%s: %s' % (type(exc).__name__, exc)}
+    REC.name_last(case, bindings={'class_record': 'syn/classes.json', 'side_path': 'notes/side.txt'},
+                  attested={'no_exception': code != 71, 'exit_not_in': [] if code == 71 else [71]})
     its = (res or {}).get('items', [])
     return {'exit': code, 'stop': stop(res),
             'record_invalid': sorted(str(i.get('subject')) for i in its if i['class'] == 'record-invalid'),
@@ -2060,9 +2102,6 @@ def _r4_class_scenario(r, cls_mut=None, verdicts=None):
 def r4_b3_controls(r):
     """B3: every list entry of a reviewed record carries its id field; a record where one does not is record-invalid
     and its verdicts cannot fall back to the record id."""
-    def scenario(cls_mut=None, verdicts=None):
-        return _r4_class_scenario(r, cls_mut, verdicts)
-
     def second_without_id(c):
         c['classes'].append({'prefixes': ['other/'], 'reason': 'x', 'pins': []})
 
@@ -2070,14 +2109,15 @@ def r4_b3_controls(r):
         for k in c['classes']:
             k.pop('id')
     acc = lambda *ids: [{'item': i, 'verdict': 'accept'} for i in ids]  # noqa: E731
-    out = {'C0 reviewed, one verdict per class': scenario(),
-           'C9 a second class without id; one verdict, on the record id': scenario(second_without_id,
-                                                                                    acc('syn-classes')),
-           'C9b a second class without id; verdicts on notes and on the record id': scenario(
-               second_without_id, acc('notes', 'syn-classes')),
-           'C8 no class has an id; one verdict, on the record id': scenario(none_with_id, acc('syn-classes'))}
-    bad = [v for k, v in out.items() if not k.startswith('C0')]
-    pos = out['C0 reviewed, one verdict per class']
+    positive = 'C0 ids and one verdict per class (positive)'
+    out = {positive: _r4_class_scenario(r, positive)}
+    for case, mutant, verdicts in (
+            ('C9 a second class without id', second_without_id, acc('syn-classes')),
+            ('C9b with a verdict for the class that has one', second_without_id, acc('notes', 'syn-classes')),
+            ('C8 no class has an id', none_with_id, acc('syn-classes'))):
+        out[case] = _r4_class_scenario(r, case, mutant, verdicts)
+    bad = [v for k, v in out.items() if k != positive]
+    pos = out[positive]
     check('R4-B3', 'a side-change class record one of whose classes lacks its id field (C9, and C9b with a verdict '
           'for the class that has one), or all of whose classes lack it (C8), is record-invalid (sec. 6.3: one '
           'verdict per item id; a missing field is record-invalid); no verdict on the record id stands in for the '
@@ -2095,7 +2135,7 @@ def r4_b3_duplicate_controls(r):
     two classes of a class record sharing an id are ERROR CONFIG_INCONSISTENT (S7, Z11), also in chain mode."""
     from ledger_coverage.engine import records as rec
 
-    def lint(ids, verdicts):
+    def lint(case, ids, verdicts):
         d = {'schema': 'oi-hit-classification/1', 'record_id': 'h', 'author': 'session.fixture-writer-a', 'supersedes': None,
              'classifications': [{'id': i} for i in ids]}
         db = util.canonical(d)
@@ -2103,30 +2143,35 @@ def r4_b3_duplicate_controls(r):
         rb = util.canonical({'schema': 'oi-review-record/1', 'reviewer': 'session.fixture-reviewer-b', 'reviewed': ref,
                              'method': 'read', 'verdicts': [{'item': i, 'verdict': v} for i, v in verdicts]})
         st = rec.Store([('r/h.json', db), ('r/h.review.json', rb)])
-        return rec.lint_chain(ref, st, {sha(x) for x in (db, rb)})
+        observed = rec.lint_chain(ref, st, {sha(x) for x in (db, rb)})
+        REC.capture_doc('records.lint_chain', {'problems': observed, 'record': db.decode('utf-8'),
+                                             'review': rb.decode('utf-8')}, case=case,
+                        attested={'outcome': 'LINT_FAIL' if observed else 'LINT_PASS'})
+        return observed
 
     def dup_class(c):
         c['classes'].append(dict(c['classes'][0], prefixes=['other/']))
     acc = [{'item': 'notes', 'verdict': 'accept'}]
-    out = {'lint: distinct ids, one verdict each (positive)': lint(['a', 'b'], [('a', 'accept'), ('b', 'accept')]),
-           'lint: id a given to two items': lint(['a', 'a'], [('a', 'accept')]),
-           'lint: two verdicts for item b (reject, then accept)': lint(['a', 'b'], [('a', 'accept'), ('b', 'reject'),
-                                                                                     ('b', 'accept')]),
-           'op C: two classes with id notes, reviewed': _r4_class_scenario(r, dup_class, acc + acc),
-           'op C: one class, two verdicts for notes (reject, then accept)': _r4_class_scenario(
-               r, None, [{'item': 'notes', 'verdict': 'reject'}] + acc)}
-    pos = out['lint: distinct ids, one verdict each (positive)']
-    two = out['op C: one class, two verdicts for notes (reject, then accept)']
+    positive = 'lint: distinct ids, one verdict each (positive)'
+    out = {case: lint(case, ids, verdicts) for case, ids, verdicts in (
+        (positive, ['a', 'b'], [('a', 'accept'), ('b', 'accept')]),
+        ('lint: id given to two items', ['a', 'a'], [('a', 'accept')]),
+        ('lint: two verdicts for one item', ['a', 'b'], [('a', 'accept'), ('b', 'reject'), ('b', 'accept')]))}
+    out['op C: two classes with one id'] = _r4_class_scenario(r, 'op C: two classes with one id', dup_class, acc + acc)
+    out['op C: two verdicts for one class'] = _r4_class_scenario(
+        r, 'op C: two verdicts for one class', None, [{'item': 'notes', 'verdict': 'reject'}] + acc)
+    pos = out[positive]
+    two = out['op C: two verdicts for one class']
     check('R4-B3-DUP', 'an item id given to more than one item of a record, or an item given more than one verdict, '
           'makes the record record-invalid; a class record defining one class id twice is ERROR CONFIG_INCONSISTENT '
           '(S7, Z11) in chain mode; distinct ids with one verdict each lint clean',
           "the positive lint is empty; the duplicate-id lint names the id; the duplicate-verdict lint reports it; "
           "op C with the duplicate class id stops 65 CONFIG_INCONSISTENT; op C with two verdicts for notes is exit "
           "20 with record-invalid on syn/classes.json and notes/side.txt unclassified", out,
-          pos == [] and any('more than one item' in x for x in out['lint: id a given to two items']) and
-          any('more than one verdict' in x for x in out['lint: two verdicts for item b (reject, then accept)']) and
-          out['op C: two classes with id notes, reviewed'].get('exit') == 65 and
-          out['op C: two classes with id notes, reviewed'].get('stop') == 'CONFIG_INCONSISTENT' and
+          pos == [] and any('more than one item' in x for x in out['lint: id given to two items']) and
+          any('more than one verdict' in x for x in out['lint: two verdicts for one item']) and
+          out['op C: two classes with one id'].get('exit') == 65 and
+          out['op C: two classes with one id'].get('stop') == 'CONFIG_INCONSISTENT' and
           two.get('exit') == 20 and 'syn/classes.json' in two.get('record_invalid', []) and
           'notes/side.txt' in two.get('unclassified', []))
 
@@ -2136,8 +2181,8 @@ def r5_n6_controls(r):
     error), never an internal error."""
     def as_object(c):
         c['classes'] = {'notes': c['classes'][0]}
-    got = _r4_class_scenario(r, as_object)
-    pos = _r4_class_scenario(r)
+    got = _r4_class_scenario(r, 'classes is an object', as_object)
+    pos = _r4_class_scenario(r, 'classes is a list (positive)')
     check('R5-N6', 'a side-change class record referenced by the configuration whose classes field is an object: '
           'FAIL record-invalid, the side change unclassified, no exception and no INTERNAL exit; the record with a '
           'class list classifies it',
@@ -2154,6 +2199,28 @@ def _show(code, res):
                                       if i['class'] == 'record-invalid'})}
 
 PAT = 'syn/rules-pat.json'
+LINEAGE_KINDS = {
+    'oi-hp-adjudication/1': 'HP',
+    'oi-context-adjudication/1': 'context',
+    'oi-hit-classification/1': 'hit classification',
+    'oi-term-rules/2': 'rule',
+    'oi-scope/1': 'scope',
+    'oi-side-change-classes/1': 'side-change class',
+    'oi-reconciliation/1': 'reconciliation',
+    'oi-retirement-config/1': 'configuration',
+}
+
+
+def retain_lineage_lint(case, ref, problems, **facts):
+    """Retain the in-process lint diagnostics with the record item's normal tool classification."""
+    from ledger_coverage.engine import outcome as oc
+    items = []
+    if problems:
+        items.append(oc.make_item('RECORD', 'record-invalid', ref['path'], None,
+                                  {'sha': ref['blob_sha256'], 'why': problems[0]}, detail=problems))
+    REC.capture_doc('record lineage lint', control_records.stage_doc(items, operation='record-lint', **facts),
+                    case=case, bindings={'record': ref['path']},
+                    attested={'walk_terminates': True})
 
 
 def _chain(files, path, verdict='accept', review=True):
@@ -2252,7 +2319,7 @@ def _clean(o, path):
     return o['exit'] == 0 and path in o['rule_files'] and not o['record_invalid']
 
 
-def _ln_pat_v2(r, sup=PAT, dst='syn/rules-pat-v2.json', chain_kw=None, setup=None, **fields):
+def _ln_pat_v2(r, sup=PAT, dst='syn/rules-pat-v2.json', chain_kw=None, setup=None, case=None, **fields):
     """R2 at `dst`, superseding `sup`, used by the configuration in place of the pattern rule file."""
     x = LN(r)
     if setup is not None:
@@ -2260,16 +2327,16 @@ def _ln_pat_v2(r, sup=PAT, dst='syn/rules-pat-v2.json', chain_kw=None, setup=Non
     _variant_doc(x.files, PAT, dst, sup=sup, **fields)
     refs = _chain(x.files, dst, **(chain_kw or {}))
     x.use_rules({PAT: dst}, refs)
-    return x.run()
+    observed = x.run()
+    REC.name_last(case, bindings={'record': dst})
+    return observed
 
 
 def ln1_ln8(r):
     from ledger_coverage.engine import records as rec
     # LN1: in memory, for each kind of S4a; and in a run, for a rule file
-    kinds = ['oi-hp-adjudication/1', 'oi-context-adjudication/1', 'oi-hit-classification/1', 'oi-term-rules/2',
-             'oi-scope/1', 'oi-side-change-classes/1', 'oi-reconciliation/1', 'oi-retirement-config/1']
     out = {}
-    for k in kinds:
+    for k, case in LINEAGE_KINDS.items():
         idf = 'config_id' if k == 'oi-retirement-config/1' else 'record_id'
         entries = []
 
@@ -2285,6 +2352,7 @@ def ln1_ln8(r):
         st = rec.Store(entries)
         probs = rec.lint_chain(sref, st, {sha(b) for _, b in entries})
         out[k] = probs[:1]
+        retain_lineage_lint(case, sref, probs, inputs={path: data.decode('utf-8') for path, data in entries})
     run = _ln_pat_v2(r, record_id='another-lineage')
     check('LN1', '(review probe E6) a record superseding a record of the same kind and schema, present at F, with '
           'another record_id; for each kind of S4a (config_id for the configuration): FAIL record-invalid for each kind',
@@ -2293,18 +2361,20 @@ def ln1_ln8(r):
           {'lint': out, 'run': run}, all(out.values()) and _invalid(run, 'syn/rules-pat-v2.json'))
     # LN2 (positive)
     o = _ln_pat_v2(r)
+    REC.name_last('', attested={'superseding_record_used': 'syn/rules-pat-v2.json' in o['rule_files']})
     check('LN2', '(positive) a record superseding a record of the same kind, schema and record_id that itself passes '
           'the lint: no record-invalid; the run uses the superseding record',
           "exit 0, no record-invalid, and the run's rule files include the superseding record", o,
           _clean(o, 'syn/rules-pat-v2.json'))
     # LN3
-    res = {'record_id missing': _ln_pat_v2(r, record_id=None), 'record_id empty': _ln_pat_v2(r, record_id=''),
-           'record_id not a string': _ln_pat_v2(r, record_id=7)}
+    res = {case: _ln_pat_v2(r, case=case, record_id=value) for case, value in (
+        ('record_id missing', None), ('record_id empty', ''), ('record_id not a string', 7))}
 
     def no_id_predecessor(x):
         _variant_doc(x.files, PAT, 'syn/rules-pat-r1.json', record_id=None, author='session.fixture-writer-c')
         _chain(x.files, 'syn/rules-pat-r1.json')
-    res['predecessor without record_id'] = _ln_pat_v2(r, sup='syn/rules-pat-r1.json', setup=no_id_predecessor)
+    case = 'predecessor lacks record_id'
+    res[case] = _ln_pat_v2(r, sup='syn/rules-pat-r1.json', setup=no_id_predecessor, case=case)
     check('LN3', 'a superseding record whose record_id is missing, empty or not a string; separately, a valid '
           'superseding record whose predecessor lacks a valid record_id: FAIL record-invalid in each case',
           "each run exits 20 with record-invalid on the superseding record, naming the lineage id", res,
@@ -2314,7 +2384,7 @@ def ln1_ln8(r):
     narrowed = [dict(rr, patterns={'a': r'\bAxiom Z\b[^.]{0,30}\b(holds|assumed)\b'}) if rr['id'] == 'syn-deny'
                 else rr for rr in json.loads(LN(r).files[PAT])['rules']]
 
-    def predecessor(widened=False, widening_review=None, **kw):
+    def predecessor(case, widened=False, widening_review=None, **kw):
         def setup(x):
             if widened:
                 # the predecessor changes a deny rule's pattern against its own predecessor (PAT), which is widening
@@ -2326,8 +2396,8 @@ def ln1_ln8(r):
             if widening_review is not None:
                 x.files['syn/rules-pat-r1.widen.json'] = sf.jb(widening_review(x.files))
         if widened:
-            return _ln_pat_v2(r, sup='syn/rules-pat-r1.json', setup=setup, rules=narrowed)
-        return _ln_pat_v2(r, sup='syn/rules-pat-r1.json', setup=setup)
+            return _ln_pat_v2(r, sup='syn/rules-pat-r1.json', setup=setup, rules=narrowed, case=case)
+        return _ln_pat_v2(r, sup='syn/rules-pat-r1.json', setup=setup, case=case)
 
     def wr(items):
         def make(files):
@@ -2336,11 +2406,12 @@ def ln1_ln8(r):
                     'replaces': {'path': PAT, 'blob_sha256': sha(files[PAT])},
                     'verdicts': [{'item': i, 'verdict': 'accept'} for i in items]}
         return make
-    res = {'no review record': predecessor(review=False), 'a verdict not accept': predecessor(verdict='reject'),
-           'a predecessor widening its own predecessor without a widening review': predecessor(widened=True),
-           'the same with a widening review omitting the changed item': predecessor(widened=True,
-                                                                                   widening_review=wr(['other']))}
-    pos = predecessor(widened=True, widening_review=wr(['changed pattern']))
+    res = {case: predecessor(case, **options) for case, options in (
+        ('predecessor without review', {'review': False}),
+        ('predecessor verdict not accept', {'verdict': 'reject'}),
+        ('predecessor widens without review', {'widened': True}),
+        ('widening review omits the changed item', {'widened': True, 'widening_review': wr(['other'])}))}
+    pos = predecessor('valid widening review (positive)', widened=True, widening_review=wr(['changed pattern']))
     check('LN4', 'a predecessor of the same lineage that fails the lint itself (no review record; separately, a verdict '
           'not accept; separately, a predecessor that widens its own predecessor without a valid widening review): '
           'FAIL record-invalid for the superseding record in each case',
@@ -2378,6 +2449,9 @@ def ln1_ln8(r):
         st.resolver = lambda ref, docs=docs: docs.get((ref.get('path'), ref.get('blob_sha256')))
         probs = rec.lint_chain(tref, st, {sha(b) for _, b in entries})
         res[case] = probs[:2]
+        retain_lineage_lint(case, tref, probs, inputs=[[path, data.decode('utf-8')] for path, data in entries],
+                            resolution=[{'path': path, 'sha256': digest, 'record': value}
+                                        for (path, digest), value in docs.items()])
     check('LN5', 'a supersedes cycle of two records, and a self-supersession, in a synthetic in-memory store that '
           'resolves each named {path, blob_sha256} to the given record without rehashing: FAIL record-invalid in both; '
           'the chain walk terminates',
@@ -2400,6 +2474,7 @@ def ln1_ln8(r):
     _variant_doc(x.files, PAT, 'syn/rules-pat-b.json', rules=beta, author='session.fixture-writer-c')
     x.add_rules('syn/rules-pat-b.json', _chain(x.files, 'syn/rules-pat-b.json'))
     res['two first records'] = x.run()
+    REC.name_last('two heads, supersedes null')
     x = LN(r)
     _variant_doc(x.files, PAT, 'syn/rules-pat-v2.json', sup=PAT)
     _variant_doc(x.files, PAT, 'syn/rules-pat-v2b.json', sup=PAT, author='session.fixture-writer-c')
@@ -2407,6 +2482,7 @@ def ln1_ln8(r):
     x.use_rules({PAT: 'syn/rules-pat-v2.json'}, refs)
     x.add_rules('syn/rules-pat-v2b.json', [])
     res['two diverging chains'] = x.run()
+    REC.name_last('two diverging chains')
     check('LN7', 'two records with one record_id and kind, each with supersedes: null (separately, two chains from one '
           'first record that diverge), both read in one run: FAIL record-invalid (two heads)',
           "each run exits 20 with record-invalid on both records, naming two heads", res,
@@ -2420,15 +2496,14 @@ def ln1_ln8(r):
         def setup(x):
             _variant_doc(x.files, PAT, 'syn/rules-pat-m.json', sup=PAT, author='session.fixture-writer-c', **fields)
         return setup
-    res = {'middle record with another record_id': _ln_pat_v2(r, sup='syn/rules-pat-m.json',
-                                                              setup=middle(record_id='other')),
-           'middle record with another schema': _ln_pat_v2(r, sup='syn/rules-pat-m.json',
-                                                           setup=middle(schema='oi-term-rules/3'))}
+    res = {case: _ln_pat_v2(r, sup='syn/rules-pat-m.json', setup=middle(**fields), case=case)
+           for case, fields in (('middle record other record_id', {'record_id': 'other'}),
+                                ('middle record other schema', {'schema': 'oi-term-rules/3'}))}
     check('LN8', 'a three-record chain whose middle record has another record_id (separately, another schema of the '
           'same kind): FAIL record-invalid (unrelated chain)',
           "each run exits 20 with record-invalid on the head, naming another lineage or another kind, schema", res,
-          _invalid(res['middle record with another record_id'], 'syn/rules-pat-v2.json', 'another lineage') and
-          _invalid(res['middle record with another schema'], 'syn/rules-pat-v2.json', 'another kind'))
+          _invalid(res['middle record other record_id'], 'syn/rules-pat-v2.json', 'another lineage') and
+          _invalid(res['middle record other schema'], 'syn/rules-pat-v2.json', 'another kind'))
 
 
     # LN10 (positive)
@@ -2447,7 +2522,11 @@ def r6_g6(r):
     x = LN(r)
     _variant_doc(x.files, PAT, 'syn/rules-pat-dup.json', author='session.fixture-writer-c')
     reused = x.run()
+    REC.name_last('a second record with the rule file record_id off its chain',
+                  bindings={'rule_file': PAT},
+                  attested={'message_names': 'reused' if 'reused' in reused['why'].get(PAT, '') else None})
     clean = LN(r).run()
+    REC.name_last('no such record (positive)')
     out = {'a second record with the rule file\'s record_id, off its chain': reused, '(positive) no such record': clean}
     check('R6-G6', 'a record in the audit directory at F carrying the record_id, kind and schema of a rule file the '
           'configuration references, with supersedes null (not on that file\'s supersedes chain) (sec. 6.3, DI-2: '
@@ -2737,6 +2816,7 @@ def z11_s4a(r):
             rr['kind'] = 'side-change-classes'
     c2 = syn.repo.derive(c, {p: sf.jb(cfg)}, parents=syn.repo.parents(c))
     code, res = r.cli(syn.repo, ['terms', '--commit', syn.H], c2, p, sha(sf.jb(cfg)), harness=True)
+    REC.name_last('two records, one class id')
     one = dict(cls, classes=[{'id': 'a', 'pins': []}, {'id': 'a', 'pins': []}])
     c3, p3, s3, _ = syn.build({'patch_sha': sha(pd), 'files': {'syn/patch.json': pd},
                                'records_extra': {'syn/k1.json': one}})
@@ -2746,15 +2826,14 @@ def z11_s4a(r):
             rr['kind'] = 'side-change-classes'
     c4 = syn.repo.derive(c3, {p3: sf.jb(cfg3)}, parents=syn.repo.parents(c3))
     code2, res2 = r.cli(syn.repo, ['terms', '--commit', syn.H], c4, p3, sha(sf.jb(cfg3)), harness=True)
+    REC.name_last('one record, duplicate class id')
     check('Z11', 'two class records, or one record, defining the same class id: ERROR CONFIG_INCONSISTENT',
           "both exit 65 with stop CONFIG_INCONSISTENT", [(code, stop(res)), (code2, stop(res2))],
           (code, stop(res)) == (65, 'CONFIG_INCONSISTENT') and (code2, stop(res2)) == (65, 'CONFIG_INCONSISTENT'))
     # S4a: a record of each kind whose supersedes names a blob absent from the object store, or another kind
     from ledger_coverage.engine import records as rec
-    kinds = ['oi-hp-adjudication/1', 'oi-context-adjudication/1', 'oi-hit-classification/1', 'oi-term-rules/2',
-             'oi-scope/1', 'oi-side-change-classes/1', 'oi-reconciliation/1', 'oi-retirement-config/1']
     out = {}
-    for k in kinds:
+    for k, kind in LINEAGE_KINDS.items():
         other = {'schema': 'oi-scope/1' if k != 'oi-scope/1' else 'oi-term-rules/2', 'record_id': 'o',
                  'supersedes': None, 'author': 'session.fixture-w'}
         ob = util.canonical(other)
@@ -2763,8 +2842,12 @@ def z11_s4a(r):
             doc = {'schema': k, 'record_id': 'r', 'config_id': 'r', 'author': 'session.fixture-w', 'supersedes': sup}
             db = util.canonical(doc)
             st = rec.Store([('r/r.json', db), ('r/o.json', ob)])
-            probs = rec.supersedes_problems({'path': 'r/r.json', 'blob_sha256': sha(db)}, doc, st)
+            ref = {'path': 'r/r.json', 'blob_sha256': sha(db)}
+            probs = rec.supersedes_problems(ref, doc, st)
             out['%s/%s' % (k, case)] = bool(probs)
+            name = kind if case == 'other-kind' else kind + ' (absent predecessor)'
+            retain_lineage_lint(name, ref, probs, inputs={'record': db.decode('utf-8'),
+                                                         'other_record': ob.decode('utf-8')})
     check('S4a', 'a record of each kind whose supersedes names a blob that does not exist, or a record of another '
           'kind: FAIL record-invalid for each kind', "every kind and case gives a supersedes problem (which "
           "lint_chain reports as record-invalid)", out, all(out.values()))
