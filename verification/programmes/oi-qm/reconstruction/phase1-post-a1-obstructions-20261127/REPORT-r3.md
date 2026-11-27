@@ -274,8 +274,9 @@ The required items are:
     independent randomness;
   - (E2L) a random translation-invariant law, uniform on a Lagrangian subgroup of the two-slice
     phase space. Only this variant can meet the conditional-freshness requirement stated on `main` in
-    `composition-access-20261024/REPORT.md` ("Fair after heralding is weaker than conditionally
-    fresh"), which #885 first framed.
+    `composition-access-20261024/REPORT.md`: its definition in the section "Fresh resources: a
+    sufficient route to the contract", and its counterexample "Fair after heralding is weaker than
+    conditionally fresh" (#885, provenance).
 
   (E3) dispersal. "Decidable" is dropped. Christol's theorem (automatic sequences for linear rules
   over F_p) is a plausible source, not checked.

@@ -57,13 +57,13 @@ owner:
 - **Comment 7209325168** (created 2026-11-27T03:51:22Z) routes the SMD findings: "feed these
   findings into the authorized post-A1 obstruction reassessment, specifically examining whether the
   obstruction survives A1 retirement." The UN-1 and F-slice rows were added within the writer's
-  scope, under the same comment's instruction to prepare #1623 "together with UN-1 and F-slice",
-  and under comment 7209354605's "continue the work as outlined under the existing authorizations".
+  scope and under comment 7209354605's "continue the work as outlined under the existing
+  authorizations".
 - **Comment 7209354605** (created 2026-11-27T03:53:38Z), quoted in part: "For C-ENV and C-SEL,
   distinguish four possibilities"; "Only the first two should advance as physical sourcing
   candidates, provided their underlying principles are independently justified."; "For each
   surviving candidate, identify its potential contribution to SMD, complex structure, native
-  quantum operations, observer emergence and gravitational coupling." 
+  quantum operations, observer emergence and gravitational coupling."
 - **Comment 7212372089** (created 2026-11-27T07:20:10Z), item 4, quoted from the approved list:
   "Accept the Phase 1 scientific assessment at r3. Correct the two nonblocking wording nits and
   resolve its outstanding preservation and source-tracing requirements before landing."
