@@ -1,0 +1,41 @@
+{
+ "schema": "oi-term-rules/2",
+ "record_id": "a1-plan-resid",
+ "status": "WIP / UNVERIFIED staging draft, not frozen, not reviewed, not adopted (checklist #1169 comment 7207860923). No review record, owner adoption or freeze exists for it, and the tool admits no record without them.",
+ "supersedes": null,
+ "recorded_at": "53c6601a10419b6b333cc992474272501ab542af",
+ "author": "a1-staging-writer-20261127",
+ "rules": [
+  {
+   "id": "resid",
+   "kind": "review-pattern",
+   "patterns": {
+    "a": "(?i)\\b(?:configuration|state|phase)\\s+spaces?\\b[^.;]{0,40}\\b(?:is|be|being|are|remains?)\\s+(?:\\w+\\s+)?finite\\b|\\b(?:posits?|premises?|axioms?|assumptions?|hypothes[ie]s)\\b[^.;]{0,60}\\bfinit\\w*|\\bfinit\\w*[^.;]{0,60}\\b(?:posits?|premises?|axioms?|assumptions?|hypothes[ie]s)\\b",
+    "b": "(?i)\\bfinite\\s+(?:\\w+\\s+)?set\\b|\\b(?:substratum|universe|world)\\b[^.;]{0,40}\\b(?:is|be|being|are)\\s+(?:a\\s+)?(?:\\w+\\s+)?finite\\b",
+    "c": "(?i)\\bfinite\\s+(?:number|count)\\s+of\\s+(?:\\w+\\s+)?(?:states|configurations|elements|points|sites)\\b"
+   },
+   "combine": "any",
+   "levels": [
+    "line"
+   ],
+   "scope": "all-corpus",
+   "positive_examples": [
+    "one of the posits is that the configuration space is finite",
+    "a finite set with a deterministic bijection on it",
+    "uses a finite set with a deterministic bijection",
+    "the substratum is a finite set with a bijection on it",
+    "We take the substratum to be finite.",
+    "the universe is assumed finite",
+    "The substratum is assumed to have a finite number of states.",
+    "the substratum's sixth axiom, finiteness"
+   ],
+   "negative_examples": [
+    "the framework's sixth structural property, finiteness of the bijection",
+    "The framework's sixth structural property is finiteness of the substratum",
+    "the six posits of the substratum"
+   ],
+   "reason": "Residual review profile on added text (R6.DENY.4, R6.DENY.5, OBL-3): REVIEW_REQUIRED for lexically unanchored paraphrases of the retired posit, never a PASS. Its negative examples are the accepted residuals V4 and V27 and the six-posit form (R6.DENY.6, owner decision 3 of 2026-11-25), which it does not catch.",
+   "author": "a1-staging-writer-20261127"
+  }
+ ]
+}

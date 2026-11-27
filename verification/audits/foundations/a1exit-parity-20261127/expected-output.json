@@ -1,0 +1,312 @@
+{
+ "OBL-1": {
+  "1a": {
+   "checker_regex_equals_params_splitter": true,
+   "identical_splits": true,
+   "texts_split": 802
+  },
+  "1b": {
+   "P_counts": {
+    "infinity": 0,
+    "register": 0,
+    "register-caps": 0
+   },
+   "edits": 401,
+   "engine_counts": {
+    "infinity": 0,
+    "register": 0,
+    "register-caps": 0
+   },
+   "equal": true
+  },
+  "1c": {
+   "cases": 24,
+   "differences": 0,
+   "rows": [
+    {
+     "P_counts": {
+      "infinity": 0,
+      "register": 1,
+      "register-caps": 0
+     },
+     "case": "register added",
+     "equal": true
+    },
+    {
+     "P_counts": {
+      "infinity": 0,
+      "register": 0,
+      "register-caps": 0
+     },
+     "case": "register kept",
+     "equal": true
+    },
+    {
+     "P_counts": {
+      "infinity": 0,
+      "register": 1,
+      "register-caps": 0
+     },
+     "case": "register case-insensitive",
+     "equal": true
+    },
+    {
+     "P_counts": {
+      "infinity": 0,
+      "register": 0,
+      "register-caps": 1
+     },
+     "case": "caps added on a ptr edit",
+     "equal": true
+    },
+    {
+     "P_counts": {
+      "infinity": 0,
+      "register": 0,
+      "register-caps": 0
+     },
+     "case": "caps added on a manuscript edit (not scanned)",
+     "equal": true
+    },
+    {
+     "P_counts": {
+      "infinity": 0,
+      "register": 0,
+      "register-caps": 0
+     },
+     "case": "caps whitelisted",
+     "equal": true
+    },
+    {
+     "P_counts": {
+      "infinity": 0,
+      "register": 0,
+      "register-caps": 0
+     },
+     "case": "caps in a LaTeX command",
+     "equal": true
+    },
+    {
+     "P_counts": {
+      "infinity": 1,
+      "register": 0,
+      "register-caps": 0
+     },
+     "case": "infinity added",
+     "equal": true
+    },
+    {
+     "P_counts": {
+      "infinity": 0,
+      "register": 0,
+      "register-caps": 0
+     },
+     "case": "infinity carried over",
+     "equal": true
+    },
+    {
+     "P_counts": {
+      "infinity": 0,
+      "register": 0,
+      "register-caps": 0
+     },
+     "case": "infinity via the A1 rewrite",
+     "equal": true
+    },
+    {
+     "P_counts": {
+      "infinity": 0,
+      "register": 0,
+      "register-caps": 0
+     },
+     "case": "infinity via the A1 (finiteness) rewrite",
+     "equal": true
+    },
+    {
+     "P_counts": {
+      "infinity": 0,
+      "register": 0,
+      "register-caps": 0
+     },
+     "case": "neutral disclaimer",
+     "equal": true
+    },
+    {
+     "P_counts": {
+      "infinity": 2,
+      "register": 0,
+      "register-caps": 0
+     },
+     "case": "infinity outside the neutral span",
+     "equal": true
+    },
+    {
+     "P_counts": {
+      "infinity": 1,
+      "register": 0,
+      "register-caps": 0
+     },
+     "case": "two equal assertions, one old",
+     "equal": true
+    },
+    {
+     "P_counts": {
+      "infinity": 1,
+      "register": 0,
+      "register-caps": 0
+     },
+     "case": "sentence split at a semicolon",
+     "equal": true
+    },
+    {
+     "P_counts": {
+      "infinity": 1,
+      "register": 1,
+      "register-caps": 0
+     },
+     "case": "second pair with new_step2",
+     "equal": true
+    },
+    {
+     "P_counts": {
+      "infinity": 0,
+      "register": 0,
+      "register-caps": 0
+     },
+     "case": "second pair whose new_step2 equals its old_step2",
+     "equal": true
+    },
+    {
+     "P_counts": {
+      "infinity": 1,
+      "register": 0,
+      "register-caps": 0
+     },
+     "case": "key normalization (whitespace, emphasis)",
+     "equal": true
+    },
+    {
+     "P_counts": {
+      "infinity": 1,
+      "register": 1,
+      "register-caps": 0
+     },
+     "case": "lean-docstring kind",
+     "equal": true
+    },
+    {
+     "P_counts": {
+      "infinity": 0,
+      "register": 1,
+      "register-caps": 1
+     },
+     "case": "consistency kind caps",
+     "equal": true
+    },
+    {
+     "P_counts": {
+      "infinity": 0,
+      "register": 0,
+      "register-caps": 1
+     },
+     "case": "handoff kind caps",
+     "equal": true
+    },
+    {
+     "P_counts": {
+      "infinity": 1,
+      "register": 1,
+      "register-caps": 1
+     },
+     "case": "several edits, one list",
+     "equal": true
+    },
+    {
+     "P_counts": {
+      "infinity": 0,
+      "register": 0,
+      "register-caps": 0
+     },
+     "case": "empty replacement",
+     "equal": true
+    },
+    {
+     "P_counts": {
+      "infinity": 0,
+      "register": 0,
+      "register-caps": 0
+     },
+     "case": "key rule: two wordings of finiteness failing",
+     "equal": true
+    }
+   ]
+  },
+  "1d": {
+   "cases": 4000,
+   "cases_with_findings": 3722,
+   "differences": 0,
+   "first_differences": []
+  },
+  "profile_pins_hold": {
+   "infinity": true,
+   "register": true,
+   "register-caps": true
+  }
+ },
+ "OBL-2": {
+  "2a": {
+   "P_lost_edits": [],
+   "edited_files": 44,
+   "edits": 401,
+   "edits_with_old_step2": 0,
+   "engine_errors": [],
+   "files_reproducing_expected_sha256": 44,
+   "files_with_expected_sha256": 44,
+   "retained_edits": [
+    "D032",
+    "D039"
+   ],
+   "splices": 399,
+   "splices_bound_to_an_edit": 399
+  },
+  "2b": {
+   "cases": 20000,
+   "first_differences": [],
+   "tally": {
+    "P applies, an edit chained (no representable splice), engine refuses": 325,
+    "P applies, splices representable, engine accepts": 2518,
+    "P refuses, engine refuses": 17157,
+    "difference": 0
+   }
+  }
+ },
+ "countercontrols": {
+  "caps_kinds without ptr": 2,
+  "key rule removed": 1,
+  "old_rewrite replacement changed": 2,
+  "second-pair key changed": 1,
+  "shifted splice refused (of 200 accepted cases)": 200,
+  "splitter without the semicolon": 2
+ },
+ "countercontrols_detected": true,
+ "holds": true,
+ "inputs": {
+  "H": "53c6601a10419b6b333cc992474272501ab542af",
+  "checker": {
+   "ref": "3e73633308bdef99f65f6117733aaf86097c7b22:verification/audits/foundations/a1exit-design-r6-20261125/inputs/edits_check.py",
+   "sha256": "2856e58c65817865a57fc34851ab3319d1cdda86f72f76a77fc6c063b2f1d98c"
+  },
+  "edits_sha256": "528f146d03b29cbc3d7dc29948e3dd1d4cd26f4d36e6e009f032e24f9462dec1",
+  "engine_files_sha256": {
+   "tools/ledger_coverage/adapters/a1exit_exact_edit.py": "efdc8bf861d8e057f2f50612ef8dea0415705a0815f6bac6e3984fd6a03bf21d",
+   "tools/ledger_coverage/engine/peredit.py": "ec8eb2bc59200e621c6f53952e1dda631a09affbb226cee04af281d151b3a38a",
+   "tools/ledger_coverage/engine/profiles.py": "9fd62cfb11c5b4799694286012567625edc9c4753ebb9a9c484ffca94a013b0d",
+   "tools/ledger_coverage/engine/util.py": "7cb6eeccb332189cca5c8073dac69530660e381345662cf545a7f116612d7a6f"
+  },
+  "ledger_sha256": "2055e68f2343d00cec93bc35ecbccae21d46d1da154ee1a842663f1e4fec32b5",
+  "params_sha256": "05149ba694dd4017ad27dd60c02810403ec7351036776bea212768ba9ebc509f",
+  "random_1d": 4000,
+  "random_2b": 20000,
+  "seed": 20261127
+ }
+}
