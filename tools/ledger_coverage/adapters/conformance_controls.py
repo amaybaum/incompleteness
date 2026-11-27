@@ -939,15 +939,6 @@ def o3_controls(r):
             native = {'clone': bool(cl), 'file_checked_out': bool(cl) and os.path.exists(os.path.join(cl, 'a.txt')),
                       'marker': os.path.exists(marker)}
             native_markers = take_marker()
-            # the oracle: a plain clone and checkout with the system and global configuration disabled
-            oc_ = os.path.join(d, 'oracle')
-            env_o = dict(os.environ, GIT_CONFIG_NOSYSTEM='1', GIT_CONFIG_GLOBAL=os.devnull)
-            env_o.pop('GIT_CONFIG_SYSTEM', None)
-            subprocess.run(['git', 'clone', '-q', '--no-local', '--no-checkout', src, oc_], capture_output=True,
-                           env=env_o)
-            oracle_exit = subprocess.run(['git', '-C', oc_, 'checkout', '-q', '--detach', c], capture_output=True,
-                                         env=env_o).returncode
-            oracle_markers = take_marker()
             cc = os.path.join(d, 'counter')
             subprocess.run(['git', 'clone', '-q', '--no-local', '--no-checkout', src, cc], capture_output=True)
             rc = subprocess.run(['git', '-C', cc, 'checkout', '-q', '--detach', c], capture_output=True).returncode
@@ -958,8 +949,7 @@ def o3_controls(r):
                     os.environ.pop(k, None)
                 else:
                     os.environ[k] = v
-        return {'native': native, 'countercontrol': counter, 'native_markers': native_markers,
-                'oracle': {'checkout_exit': oracle_exit, 'markers': oracle_markers}}
+        return {'native': native, 'countercontrol': counter, 'native_markers': native_markers}
     out = {scope: case(scope) for scope in ('global', 'system')}
     names = {'global': 'filter in a global configuration file', 'system': 'filter in a system configuration file'}
     counter_case = 'plain clone and checkout with that configuration (countercontrol)'
@@ -975,9 +965,12 @@ def o3_controls(r):
                         case=counter_case if scope == 'global' else counter_case + ', ' + scope,
                         attested={'outcome': 'COUNTERCONTROL' if cc_ok else None,
                                   'marker_written': o['countercontrol']['marker']})
-    o3_files = {'tool-marker-listing.json': {scope: o['native_markers'] for scope, o in out.items()},
-                'oracle-marker-listing.json': {scope: o['oracle']['markers'] for scope, o in out.items()},
-                'oracle-checkout-exits.json': {scope: o['oracle']['checkout_exit'] for scope, o in out.items()}}
+    # The expectation names lib `oracle`, which DESIGN-r6 sec. 16.4 defines as the tool result against P's retained
+    # output; the frozen plan P has no output for a smudge filter, so no oracle output exists. A plain clone run with
+    # the clone recipe Native.clone itself uses (delegation.py) would not be independent of the thing under test and
+    # is not presented as one. The oracle input is therefore left absent and the row fails on it; the point is for
+    # the owner. The native and countercontrol marker measurements above are retained as measured.
+    o3_files = {'tool-marker-listing.json': {scope: o['native_markers'] for scope, o in out.items()}}
     check('O3-FILTER', 'review impl-v6.0e D-11 (O-3): a git configuration defining a required smudge filter and a '
           'commit whose .gitattributes names it, each case separately: the filter in a global configuration file and '
           'in a system configuration file; the delegated runs\' disposable clone (Native.clone) checks the commit out '
@@ -987,11 +980,10 @@ def o3_controls(r):
           out,
           all(o['native']['clone'] and o['native']['file_checked_out'] and not o['native']['marker'] and
               o['countercontrol']['checkout_exit'] == 0 and o['countercontrol']['marker'] and
-              o['oracle']['checkout_exit'] == 0 and o['native_markers'] == o['oracle']['markers']
+              o['native_markers'] == []
               for o in out.values()),
           files=o3_files, procedure={'name': 'smudge-filter', 'lib': 'oracle',
-                                     'tool_output': 'tool-marker-listing.json',
-                                     'oracle_output': 'oracle-marker-listing.json'})
+                                     'tool_output': 'tool-marker-listing.json'})
 
 
 # ---- the verified reader on small on-disk repositories (GV1-GV6) -------------------------------------------------
