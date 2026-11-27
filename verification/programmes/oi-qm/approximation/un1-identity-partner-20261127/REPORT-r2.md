@@ -210,7 +210,7 @@ No result here is independently verified. The plans below authorize no work (§A
 | --- | --- | --- | --- | --- | --- |
 | Theorem D, Corollary D1 | §1 | paper derivation [A], conditional on [U3] Lemma 7η and [UNC] G1, both reviewed but not independently verified | independent review of this report; independent verification of Lemma 7η and G1 | #1216 | a recorded independent review; a verification of the inherited steps |
 | Prop I (i), (ii) | §2 | paper derivation [A] | independent review | #1216 | a recorded independent review |
-| Prop I (iii) | §2 | paper derivation [A] relative to [U2] Proposition 9 | independent review | #1216 | a recorded independent review |
+| Prop I (iii) | §2 | paper derivation [A] relative to [U2] Proposition 9, and, for the bound M_C(T^{(L)}, Q) ≥ 1/184, to [U3] Corollary 7c and [UNC] Theorem U (U-b); all three are reviewed but not independently verified | independent review; independent verification of [U2] Proposition 9, [U3] Corollary 7c and [UNC] (U-b) | #1216 | a recorded independent review; a verification of the inherited steps |
 | Exclusions of §3 | §3 | applications of [UNC] Prop X1, CC-s and CC-p, and of scope | as for those results | #1216 | as recorded in the predecessor's preservation record |
 | K = 2 tail-effect route | §3 | sketch, not claimed | a written derivation | #1216 | UN1-d |
 | The large branch (UN1-a) | §3, §6 | open | a proof or a counterexample | #1216 | a written derivation or construction |
