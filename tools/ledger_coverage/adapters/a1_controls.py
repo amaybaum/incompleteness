@@ -1605,7 +1605,10 @@ class ReadLog:
         return self._r.read_blob_uncached(bid)
 
     def read_at(self, a):
-        hb = set(a.base.paths(H).values())
+        # a blob read by id is attributed to the commit's paths only when H's tree lacks it and it is not the pinned
+        # ledger or edit list, which a run reads by blob as its --ledger input at P (the same bytes); X_rep's own
+        # copies of them are still logged when read by path
+        hb = set(a.base.paths(H).values()) | {REP_LEDGER_GIT, REP_EDITS_GIT}
         return sorted(self.seen | {p for p, b in a.repo.paths(self.commit).items() if b in self.blobs and b not in hb})
 
 
