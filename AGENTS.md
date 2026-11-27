@@ -1648,8 +1648,8 @@ end the sequence on every mismatch and to stop every automated text write unless
 confine the mismatch to the failed operation; rule 2 amended 2026-11-25 by owner decision
 (`amaybaum`, #1169 comment 7171625550; drafted under #1548 comment 7166079053), to accept a
 difference from the expected text only when it is a transformation listed in the allowlist the
-rule states, with a record of it; rule 3 amended YYYY-MM-DD by owner decision (`amaybaum`,
-<adoption record>), drafted under #1577 comment 7220195853, item 2, to retry once a write
+rule states, with a record of it; rule 3 amended 2026-11-27 by owner decision (`amaybaum`,
+#1633 comment 7220499370), drafted under #1577 comment 7220195853, item 2, to retry once a write
 confirmed not stored and to stop only on the other unresolved outcomes.
 
 ***
@@ -1770,7 +1770,7 @@ amended 2026-11-25 by owner decision (`amaybaum`, #1169 comment 7171625550), to 
 difference that §A.49 rule 2's allowlist permits pass a validation write, and to confine a §A.49
 mismatch to the failed operation where §A.49 rule 3 does; item 3 amended 2026-11-26 by owner
 decision (`amaybaum`, #1169 comment 7202467295), to admit a leased deletion of a branch reference
-under §A.50 item 3's exception; item 5 amended YYYY-MM-DD with §A.49 rule 3, to match it.
+under §A.50 item 3's exception; item 5 amended 2026-11-27 with §A.49 rule 3, to match it.
 
 ***
 
