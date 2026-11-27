@@ -1275,6 +1275,27 @@ def cache_controls(r):
     leaves nothing cached, and no caller can change a cached mapping."""
     dk, ids, p, run = disk_world(r, 'cache-store')
     X = ids['X']
+
+    def ls_tree(store, c):
+        out = subprocess.run(['git', '--no-replace-objects', '-C', store, 'ls-tree', '-r', '-z', '--full-tree', c],
+                             capture_output=True).stdout.split(b'\x00')
+        got = {}
+        for rec_ in out:
+            if rec_:
+                meta, _, path = rec_.partition(b'\t')
+                parts = meta.split()
+                if parts[1] == b'blob':
+                    got[path.decode()] = parts[2].decode()
+        return got
+
+    def predicate(cid, cases, attested, tool_output, oracle_output, exit_status=None):
+        # the reader cases as retained evidence: the per-case outcomes (case ''), the values stated for them, and
+        # the reader's path map beside git ls-tree's (the oracle library compares the two)
+        REC.capture_doc('verified reader cases (conformance_controls.py)', {'cases': cases, 'exit_status': exit_status},
+                        case='', attested=dict(attested, outcome='PREDICATE'))
+        return {'files': {'tool-output.json': tool_output, 'oracle-output.json': oracle_output},
+                'procedure': {'name': 'object-reader', 'lib': 'oracle', 'tool_output': 'tool-output.json',
+                              'oracle_output': 'oracle-output.json'}}
     blob = gitb(dk.d, 'rev-parse', '%s:%s' % (X, sf.DOC))
     tree = gitb(dk.d, 'rev-parse', X + ':doc')
     d1 = os.path.join(r.out_root, 'cache-blob')
@@ -1311,14 +1332,23 @@ def cache_controls(r):
     out['tree, second paths call (nothing cached by the refusal)'] = refused(lambda: rt.paths(X))
     out['tree, entries call'] = refused(lambda: rt.entries(X))
     out['tool run on the corrupted blob'] = show(*run(store=d1))
+    REC.name_last('tool run on the corrupted blob')
     ok = all(str(v).startswith('refused') and 'does not hash' in str(v) for k, v in out.items()
              if k.startswith(('blob,', 'tree,'))) and out['the cached paths name the blob'] and \
         out['tool run on the corrupted blob']['exit'] == 65
+    reader = {k: v for k, v in out.items() if k.startswith(('blob,', 'tree,'))}
+    ev_cache = predicate('GV-CACHE', out, {
+        'reader_cases_refused_with': 'does not hash to its id' if all(
+            str(v).startswith('refused') and 'does not hash to its id' in str(v) for v in reader.values()) else None,
+        'cached_paths_name_the_blob': out['the cached paths name the blob'],
+        'nothing_cached_by_a_refusal':
+            str(out['tree, second paths call (nothing cached by the refusal)']).startswith('refused')},
+        warm_paths, ls_tree(dk.d, X), exit_status=out['tool run on the corrupted blob']['exit'])
     check('GV-CACHE', 'a corrupted object is refused exactly as before the per-commit caches: a corrupted blob whose '
           'commit\'s paths are already cached, and one whose are not; a corrupted tree on every call, nothing cached '
           'by the refusal; a tool run reading the corrupted blob is ERROR (implementation control)',
           "every reader case refuses with 'does not hash to its id'; the cached paths still name the blob; the tool "
-          "run exits 65", out, ok)
+          "run exits 65", out, ok, **ev_cache)
     # callers cannot change a cached mapping
     g = gitobj.GitRepo(dk.d)
     ov = gitobj.Overlay(g)
@@ -1347,17 +1377,6 @@ def cache_controls(r):
         attempts[name] = {'attempts': tried, 'unchanged after the attempts and a mutated copy': dict(again) == before,
                           'same view returned': again is view}
     # the cache is keyed by the exact commit id: a different commit never receives another commit's mapping
-    def ls_tree(store, c):
-        out = subprocess.run(['git', '--no-replace-objects', '-C', store, 'ls-tree', '-r', '-z', '--full-tree', c],
-                             capture_output=True).stdout.split(b'\x00')
-        got = {}
-        for rec_ in out:
-            if rec_:
-                meta, _, path = rec_.partition(b'\t')
-                parts = meta.split()
-                if parts[1] == b'blob':
-                    got[path.decode()] = parts[2].decode()
-        return got
     commits = [ids[k] for k in ('pin', 'H', 'c', 'F', 'T', 'X', 'M')]
     keyed = {}
     for order in (commits, list(reversed(commits))):
@@ -1378,13 +1397,19 @@ def cache_controls(r):
               'X and M (M changes one path) give different views': first is not second and
               'notes/m.txt' in second and 'notes/m.txt' not in first,
               'in-memory commits each get their own map': ov_ok}
+    ev_key = predicate('GV-CACHE-KEY', keyout, {
+        'cached_map_equals_ls_tree_in_both_orders': all(all(v) for v in keyed.values()),
+        'distinct_maps_for_distinct_trees': distinct,
+        'X_and_M_views_differ': keyout['X and M (M changes one path) give different views'],
+        'in_memory_commits_own_map': ov_ok},
+        {c: dict(gitobj.GitRepo(dk.d).paths(c)) for c in commits}, {c: ls_tree(dk.d, c) for c in commits})
     check('GV-CACHE-KEY', 'the path cache is keyed by the exact verified commit id: each commit\'s cached map equals '
           'that commit\'s tree (git ls-tree, replacement disabled), whatever the order in which commits are read; a '
           'different commit never receives another commit\'s map; likewise for in-memory commits (implementation '
           'control)', "every comparison true in both orders; seven commits with different trees give seven distinct "
           "maps; X's and M's views differ in notes/m.txt; the two in-memory commits each see only their own file",
           keyout, all(all(v) for v in keyed.values()) and distinct == 7 and
-          keyout['X and M (M changes one path) give different views'] and ov_ok)
+          keyout['X and M (M changes one path) give different views'] and ov_ok, **ev_key)
     # corruption of the store after a successful read (stated, not claimed as detected): the reader caches every
     # verified object for its lifetime, so the same reader serves the bytes it verified and does not re-read the
     # store; a new reader verifies again and refuses
@@ -1401,6 +1426,14 @@ def cache_controls(r):
                   if same.read(ids['X'], sf.DOC) == before_bytes else 'other bytes',
                   'same reader, paths after the corruption equal': dict(same.paths(ids['X'])) == paths_before,
                   'a new reader': refused(lambda: gitobj.GitRepo(d3).read(ids['X'], sf.DOC))}
+    nr = str(after_read['a new reader'])
+    ev_after = predicate('GV-CACHE-AFTER-READ', after_read, {
+        'same_reader_serves_verified_bytes': after_read['same reader, read after the corruption'] ==
+        'served the verified bytes',
+        'same_reader_path_map_unchanged': after_read['same reader, paths after the corruption equal'],
+        'new_reader_refused_with': 'does not hash to its id' if nr.startswith('refused') and
+        'does not hash to its id' in nr else nr},
+        paths_before, ls_tree(dk.d, ids['X']))
     check('GV-CACHE-AFTER-READ', 'corruption of the object store after a successful read: within one reader\'s '
           'lifetime it is not re-detected (the reader serves the bytes it verified, from its object cache, which the '
           'reader held before this correction too); a new reader verifies the object again and refuses it '
@@ -1409,13 +1442,21 @@ def cache_controls(r):
           "hash to its id'", after_read,
           after_read['same reader, read after the corruption'] == 'served the verified bytes' and
           after_read['same reader, paths after the corruption equal'] and
-          str(after_read['a new reader']).startswith('refused') and 'does not hash' in after_read['a new reader'])
+          str(after_read['a new reader']).startswith('refused') and 'does not hash' in after_read['a new reader'],
+          **ev_after)
+    hows = ['item assignment', 'item deletion', 'pop', 'update', 'clear']
+    ev_imm = predicate('GV-CACHE-IMMUTABLE', attempts, {
+        'mutation_attempts_refused': [h for h in hows if all('%s: refused' % h in v['attempts']
+                                                               for v in attempts.values())],
+        'mappings_unchanged': all(v['unchanged after the attempts and a mutated copy'] for v in attempts.values()),
+        'same_view_returned': all(v['same view returned'] for v in attempts.values())},
+        dict(g.paths(X)), ls_tree(dk.d, X))
     check('GV-CACHE-IMMUTABLE', 'no caller can change a cached path or entry mapping: each is a read-only view '
           '(assignment, deletion, pop, update and clear refused); a mutated copy leaves the cache unchanged; later '
           'calls return the same view (implementation control)',
           "every mutation attempt refused, every mapping unchanged, the same view object returned", attempts,
           all(all(t.endswith('refused') for t in v['attempts']) and v['unchanged after the attempts and a mutated copy']
-              and v['same view returned'] for v in attempts.values()))
+              and v['same view returned'] for v in attempts.values()), **ev_imm)
 
 
 def patch_commit_graph(d, commit, new_parent):
