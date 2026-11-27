@@ -584,12 +584,12 @@ def fp_chain(repo, M):
 class Run:
     """What `evaluate` reads: the reader, M, the candidate freeze F' (the run's F, or the configuration's commit in a
     control-harness run), the configuration's records and store, R* (cum), a document lookup doc_of(ref), the custody
-    witnesses and OWNER_IDENTITIES."""
+    historical witness replay and OWNER_IDENTITIES."""
 
-    def __init__(self, repo, M, Fprime, cfg_records, store, cum, doc_of, witnesses, owners):
+    def __init__(self, repo, M, Fprime, cfg_records, store, cum, doc_of, witnesses_at, owners):
         self.repo, self.M, self.Fprime = repo, M, Fprime
         self.cfg_records, self.store, self.cum, self.doc_of = cfg_records, store, cum, doc_of
-        self.witnesses, self.owners = witnesses, owners
+        self.witnesses_at, self.owners = witnesses_at, owners
         self.chain = fp_chain(repo, M)
         self.index = {c: i for i, c in enumerate(self.chain)}
         self._first = {}
@@ -701,13 +701,8 @@ def parties_j(run, J, at):
                         at=at)
 
 
-def validity(run, jref, J, joid):
-    """Return the adverse verdict and L(J). Unresolved evidence stays unknown under R6.ADJ.9 (4)."""
-    if form_problems(J):
-        return 'invalid', None
-    reviews = run.reviews_of(jref)
-    if not reviews:
-        return 'invalid', None
+def qualifying_landing(run, jref, J, joid, reviews):
+    """Find L(J) using the qualifying technical reviews held in each candidate first-parent tree."""
     sources = J['witness']['sources']
 
     def qualifying_review_at(commit):
@@ -719,10 +714,30 @@ def validity(run, jref, J, joid):
         pj = parties_j(run, J, commit)
         return any(not review_problems(d, J, jref, joid, srcs, pj, run.owners) for d in present)
 
-    L = landing(run.repo, run.M, jref, qualifying_review_at)
+    return landing(run.repo, run.M, jref, qualifying_review_at)
+
+
+def addressed_problems_at(run, J, L):
+    if not J['dissents_addressed']:
+        return []
+    if L is None:
+        return [('ADJ-FORM', 'the addressed dissents cannot be verified without L(J)')]
+    rref = _ref(J['replacement'])
+    reviews = [({'path': p, 'blob_sha256': run.cum.info[o][2]}, d) for p, o, d in run.reviews_of(rref, at=L)]
+    return dissents_addressed_problems(J, reviews, run.evidence_at(L).doc_of(rref))
+
+
+def validity(run, jref, J, joid):
+    """Return the adverse verdict and L(J). Unresolved evidence stays unknown under R6.ADJ.9 (4)."""
+    if form_problems(J):
+        return 'invalid', None
+    reviews = run.reviews_of(jref)
+    if not reviews:
+        return 'invalid', None
+    L = qualifying_landing(run, jref, J, joid, reviews)
     if L is None:
         # Without L(J), only defects independent of the unresolved party snapshot can disqualify the review.
-        srcs = [run.evidence_at(run.M).git_of(s) for s in sources]
+        srcs = [run.evidence_at(run.M).git_of(s) for s in J['witness']['sources']]
         if all(srcs) and all(review_problems(d, J, jref, joid, srcs, set(), run.owners) for _p, _o, d in reviews):
             return 'invalid', None
         return 'unknown', None
@@ -736,25 +751,21 @@ def validity(run, jref, J, joid):
         return 'unknown', L
     if substance_problems(J, evidence.git_of):
         return 'invalid', L
-    rref = _ref(J['replacement'])
-    reviews_of_R = [({'path': p, 'blob_sha256': run.cum.info[o][2]}, d) for p, o, d in run.reviews_of(rref, at=L)]
-    if dissents_addressed_problems(J, reviews_of_R, evidence.doc_of(rref)):
+    if addressed_problems_at(run, J, L):
         return 'invalid', L
-    reproduced = None
-    for W in run.witnesses:
-        if any(W.get(key) and W[key] not in evidence.ancestors for key in ('context', 'run', 'rev')):
+    verdict = 'unknown'
+    for W in run.witnesses_at(L):
+        reproduced = describe(W)
+        if reproduced['class'] != J['witness']['class'] or reproduced['disputed'] != J['witness']['disputed'] or \
+                {_key(x) for x in reproduced['sources']} != {_key(x) for x in J['witness']['sources']}:
             continue
-        d_ = describe(W)
-        if d_['class'] == J['witness'].get('class') and d_['disputed'] == J['witness'].get('disputed') and \
-                {_key(x) for x in d_['sources']} == {_key(x) for x in J['witness'].get('sources') or []}:
-            reproduced = d_
-    if reproduced is None:
-        return 'unknown', L
-    try:
-        bad = self_consistency(J, reproduced, evidence.git_of)
-    except fd.Unsettled:
-        return 'unknown', L
-    return ('invalid' if bad else 'valid'), L
+        try:
+            if not self_consistency(J, reproduced, evidence.git_of):
+                return 'valid', L
+        except fd.Unsettled:
+            return 'unknown', L
+        verdict = 'invalid'
+    return verdict, L
 
 
 def evaluate(run, D, W):
@@ -790,8 +801,7 @@ def evaluate(run, D, W):
         failures += [c for c, _m in location_problems(jref, rv_refs, J)]
         form = form_problems(J)
         failures += [c for c, _m in form]
-        L = landing(run.repo, run.M, jref, lambda c: any(
-            (run.repo.entries(c).get(x['path']) or (None, None))[1] == run.git_of(x) for x in qual)) if qual else None
+        L = qualifying_landing(run, jref, J, joid, run.reviews_of(jref)) if not form else None
         t = run.repo.committer_time(L) if L else None
         lt = datetime.fromtimestamp(t, timezone.utc) if t is not None else None
         if not form:
@@ -804,6 +814,7 @@ def evaluate(run, D, W):
                 failures.append('ADJ-BIND')
             failures += [c for c, _m in binds(J, D['aref'], D.get('A'), Wd)]
             failures += [c for c, _m in substance_problems(J, run.git_of)]
+            failures += [c for c, _m in addressed_problems_at(run, J, L)]
             for x in rv_refs:
                 failures += [c for c, _m in review_problems(run.store.get(x), J, jref, joid, srcs, pd, run.owners)]
         # ADJ-LANDED: J and its review on M's first-parent chain, at a commit that is an ancestor of F'

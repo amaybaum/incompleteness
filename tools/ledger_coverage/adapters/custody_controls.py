@@ -866,9 +866,19 @@ def adjudication_run_controls(r, two_pass, pin_q, sib, drop_sib):
                    'original_configuration': c.kref}
         return c, witness, vg, records
 
-    def world(mut=None, cite=True, land=True, extra_upheld=None, setup=lineage_setup):
+    def world(mut=None, cite=True, land=True, extra_upheld=None, setup=lineage_setup, late_close=False):
         c, witness, g_source, replacement_records = setup()
         w = c.w
+        late_files = {}
+        if late_close:
+            # Move the synthetic close and its review after the ruling. The frozen context and result
+            # retain their original commits, so ancestry of those anchors alone cannot detect the gap.
+            parent = w.repo.parents(w.M)[0]
+            old_entries, close_entries = w.repo.entries(parent), w.repo.entries(w.M)
+            for path in set(old_entries) | set(close_entries):
+                if old_entries.get(path) != close_entries.get(path):
+                    late_files[path] = w.repo.read(w.M, path)
+            w.M = parent
         q = witness['disputed']
         a_bytes = w.files[pfc.RA_PATH]
         A = json.loads(a_bytes)
@@ -908,6 +918,8 @@ def adjudication_run_controls(r, two_pass, pin_q, sib, drop_sib):
             w.repo.mem[lc]['time'] = int(_dt(2026, 11, 27, 12, 0, tzinfo=_tz.utc).timestamp())
         if extra_upheld is not None:
             extra_upheld(c, J, jdir)
+        if late_files:
+            c.step(late_files, 'the reviewed custody close first lands after the rulings')
         # the configuration commit is built in place of main's tip (sf.Syn.build derives it with the tip's parents), so
         # one more main commit makes the landing an ancestor of it
         c.step({'notes/after-adjudication.txt': b'later\n'}, 'a later main commit')
@@ -1005,22 +1017,30 @@ def adjudication_run_controls(r, two_pass, pin_q, sib, drop_sib):
          still_blocked(o, 'ADJ-CONTRA') and
          any(not e['valid_adverse'] and e['landing'] for e in reported_upholds(o)))
 
-    def upheld_with_nonadverse_item(c, J, jdir):
+    o = guarded_run(lambda: world(extra_upheld=upheld, late_close=True))
+    case('ADJ-N-CUSTODY-CLOSE-AFTER-LANDING', 'the context and result existed at L(J), but the reviewed close '
+                                           'did not. The upheld ruling remains unknown and ADJ-CONTRA holds',
+         o.get('error') or [o['reassess_why'], reported_upholds(o)],
+         still_blocked(o, 'ADJ-CONTRA') and
+         any(not e['valid_adverse'] and e['landing'] for e in reported_upholds(o)))
+
+    def addressed_acceptance(J):
+        base = lineage_finding_world(r, edits=pfc.EDITS_REWORDED)
         path = J['replacement']['path'][:-5] + '.review.json'
-        data = c.w.repo.read(c.w.M, path)
+        data = base.repo.read(base.M, path)
         target = {'ref': {'path': path, 'blob_sha256': sf.sha(data)}, 'item': sf.DOC}
+        J['dissents_addressed'] = [target]
+        J['grounds'].append({'id': 'g2', 'target': target, 'reasoning': 'the item is an acceptance',
+                             'evidence': [gitobj.blob_id_of(data), *J['grounds'][0]['evidence'][1:]]})
 
-        def change(record):
-            record['dissents_addressed'] = [target]
-            record['grounds'].append({'id': 'g2', 'target': target, 'reasoning': 'the item is an acceptance',
-                                      'evidence': [gitobj.blob_id_of(data), *record['grounds'][0]['evidence'][1:]]})
-
-        upheld(c, J, jdir, change=change)
-
-    o = guarded_run(lambda: world(extra_upheld=upheld_with_nonadverse_item))
+    o = guarded_run(lambda: world(extra_upheld=lambda c, J, jdir: upheld(c, J, jdir, change=addressed_acceptance)))
     case('ADJ-P-NONADVERSE-ITEM-INVALID', 'the claimed addressed dissent names an accepting item at landing. '
                                          'The upheld record is invalid and the cleared ruling applies',
          o.get('error') or [o['decisions'], reported_upholds(o)], cleared(o))
+    o = guarded_run(lambda: world(mut=addressed_acceptance))
+    case('ADJ-N-INVALID-ADDRESSED-ITEM-CLEARING', 'the cited cleared record claims an accepting item is '
+                                               'adverse, so R6.ADJ.2 rejects it and the witness remains',
+         o.get('error') or [o['adjudications'], o['reassess_why']], still_blocked(o, 'ADJ-FORM'))
 
     o = guarded_run(lambda: world(extra_upheld=lambda c, J, jdir: upheld(c, J, jdir, review_verdict='reject')))
     case('ADJ-P-DEFINITIVELY-NONQUALIFYING-REVIEW', 'the upheld record has a single technically rejecting '

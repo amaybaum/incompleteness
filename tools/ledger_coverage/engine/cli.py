@@ -399,22 +399,40 @@ def category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, r
     except Unresolvable as exc:
         raise oc.Stop(oc.error, 'UNRESOLVABLE', 'a category-3 input cannot be read: %s' % exc)
     # OBL-29 custody (R6.CUST.1-.9): checked at effective M whenever the configuration cites a reassessment
+    from .. import record_authority as ra_
+    from . import custody as cust
+
+    def build_custody(at, own_freeze, records):
+        check = cust.Check(repo, at, own_freeze, ra_.custody_path, ra_.custody_bootstrap_blob, records,
+                           recon_route.audits_root, cfgmod.read_pin_table, recon_route.audits_root)
+        check.tool_landing_id = ra_.tool_landing_class_id
+        check.ledger_files = context_ledger_files(repo)
+
+        def load_context_config(f_, cref_):
+            return cfgmod.load(repo, f_, cref_['path'], cref_['blob_sha256'], None, 'harness')
+
+        def context_ledger(loaded_):
+            return set((load_adapter_input(repo, loaded_, 'ledger').get('files') or {}).keys())
+
+        check.replayer = lambda c_, m_, rev_: c3.replay_run(repo, c_, m_, rev_, load_context_config, schemas,
+                                                           recon_route.audits_root, context_ledger)
+        return check
+
+    historical_witnesses = {}
+
+    def witnesses_at(at):
+        """Use custody as of L(J), including its own reviewed close and exact replay."""
+        if at not in historical_witnesses:
+            records = c3.Cumulative(repo, [at], schemas, recon_route.audits_root)
+            check = build_custody(at, None, records)
+            report = check.run()
+            historical_witnesses[at] = check.witnesses if report.get('status') == 'established' else ()
+        return historical_witnesses[at]
+
     custody = None
     if any(isinstance(r, dict) and r.get('kind') == 'reassessment' for r in cfg['records']):
-        from .. import record_authority as ra_
-        from . import custody as cust
         try:
-            chk = cust.Check(repo, M, F, ra_.custody_path, ra_.custody_bootstrap_blob, cum, recon_route.audits_root,
-                             cfgmod.read_pin_table, recon_route.audits_root)
-            chk.tool_landing_id = ra_.tool_landing_class_id
-            chk.ledger_files = context_ledger_files(repo)
-
-            def load_context_config(f_, cref_):
-                return cfgmod.load(repo, f_, cref_['path'], cref_['blob_sha256'], None, 'harness')
-            def context_ledger(loaded_):
-                return set((load_adapter_input(repo, loaded_, 'ledger').get('files') or {}).keys())
-            chk.replayer = lambda c_, m_, rev_: c3.replay_run(repo, c_, m_, rev_, load_context_config, schemas,
-                                                              recon_route.audits_root, context_ledger)
+            chk = build_custody(M, F, cum)
             custody = chk.run()
         except fd.Unsettled as exc:
             raise oc.Stop(oc.error, 'DESIGN_UNSETTLED', str(exc))
@@ -449,7 +467,8 @@ def category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, r
             from .. import record_authority as ra2
             wblocked, rows, adj_rows = c3.custody_decisions(
                 repo, chk.witnesses, applying, loaded, m_scan, cum, schemas, M=M,
-                Fprime=F or loaded.ref['commit'], explicit_at=explicit_at, owners=ra2.OWNER_IDENTITIES)
+                Fprime=F or loaded.ref['commit'], explicit_at=explicit_at, owners=ra2.OWNER_IDENTITIES,
+                witnesses_at=witnesses_at)
             custody['adjudications'] = adj_rows
         except Unresolvable as exc:
             raise oc.Stop(oc.error, 'UNRESOLVABLE', 'a custody witness input cannot be read: %s' % exc)
@@ -495,7 +514,7 @@ def category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, r
     if cum.adjudications():
         from .. import record_authority as ra3
         arun = c3.adjudication_run(repo, M, F or loaded.ref['commit'], loaded, m_scan, cum, explicit_at,
-                                   chk.witnesses if custody is not None else [], ra3.OWNER_IDENTITIES)
+                                   witnesses_at, ra3.OWNER_IDENTITIES)
         evaluated = {(x['path'], x['blob_sha256']): x for x in (custody or {}).get('adjudications') or []}
         for f, x in zip(found, findings):
             x['adjudications'] = c3.adjudication_entries(arun, f, evaluated)

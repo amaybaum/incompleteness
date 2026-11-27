@@ -1281,7 +1281,7 @@ class _Either:
         return None
 
 
-def adjudication_run(repo, M, Fprime, loaded, m_scan, cum, explicit_at, witnesses, owners):
+def adjudication_run(repo, M, Fprime, loaded, m_scan, cum, explicit_at, witnesses_at, owners):
     """The inputs of #1605's evaluation for this run (adjudication.Run)."""
     from . import adjudication as adjm
     m_store = rec.Store(m_scan)
@@ -1297,7 +1297,7 @@ def adjudication_run(repo, M, Fprime, loaded, m_scan, cum, explicit_at, witnesse
             if g:
                 got = fd.strict_parse(repo.read_blob_uncached(g))
         return got if isinstance(got, dict) else None
-    return adjm.Run(repo, M, Fprime, loaded.config.get('records') or [], loaded.store, cum, doc_of, witnesses, owners)
+    return adjm.Run(repo, M, Fprime, loaded.config.get('records') or [], loaded.store, cum, doc_of, witnesses_at, owners)
 
 
 def adjudication_entries(run, f, evaluated):
@@ -1315,14 +1315,13 @@ def adjudication_entries(run, f, evaluated):
                  adjm.result_entry(jr, J, None, False, False, False, False, [], []))
         verdict, landing = adjm.validity(run, jr, J, jo)
         e['valid_adverse'] = verdict == 'valid'
-        if landing is not None:
-            e['landing'] = landing
+        e['landing'] = landing
         out.append(e)
     return out
 
 
 def custody_decisions(repo, witnesses, applying, loaded, m_scan, cum, schemas, M=None, Fprime=None, explicit_at=None,
-                      owners=()):
+                      owners=(), witnesses_at=None):
     """r9 sec. 2.2 `blocked(D, W)` for each applying discharge D of the current run and each witness W from custody
     (R6.CUST.6). Custody only adds witnesses: clearance reads only the current freeze's own admitted records. Returns
     (blocked [(D's (doc, ref), W, clauses)], report rows)."""
@@ -1332,7 +1331,7 @@ def custody_decisions(repo, witnesses, applying, loaded, m_scan, cum, schemas, M
     cited = {(r.get('path'), r.get('blob_sha256')) for r in loaded.config.get('records') or [] if isinstance(r, dict)}
     blocked, rows = [], []
 
-    adj_run = adjudication_run(repo, M, Fprime, loaded, m_scan, cum, explicit_at, witnesses, owners) if M else None
+    adj_run = adjudication_run(repo, M, Fprime, loaded, m_scan, cum, explicit_at, witnesses_at, owners) if M else None
     adj_rows = {}
     for d, r in applying:
         aref = _ref(r)
