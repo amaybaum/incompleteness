@@ -384,6 +384,8 @@ def ei4_controls(t, w):
                                                                             % sha(b'other')).encode()
     out['(d3) a file listed twice in the last Record pins subsection'] = show(*t.run(w, t.freeze(prereg=dup)))
     out['(countercontrol) the plan\'s own configuration'] = show(*t.run(w, Fa))
+    clean = REC.name_last('plan configuration (positive)')
+    retain_restored(lambda: t.run(w, Fa), clean)
     ok = all(v['exit'] == 65 and v['stop'] == 'CONFIG_UNREVIEWED' for k, v in out.items() if k[:3] in ('(a)', '(c)',
                                                                                                       '(d)', '(d2',
                                                                                                       '(d3'))
@@ -397,7 +399,8 @@ def ei4_controls(t, w):
           "(a), (c), (d) and the malformed row exit 65 with stop 'CONFIG_UNREVIEWED'; (b) exits 64 with no result; "
           "the plan's own configuration at the same F exits 0", out,
           ok and out['(b) a caller argument naming the second PREREG.md'] == {'exit': 64, 'result': None} and
-          out['(countercontrol) the plan\'s own configuration']['exit'] == 0)
+          out['(countercontrol) the plan\'s own configuration']['exit'] == 0,
+          cases=[(name, {}) for name in ('(a)', '(b)', '(c)', '(d)', 'malformed Record pins row')])
 
 
 def gv6_controls(t, w):
@@ -425,10 +428,13 @@ def gv6_controls(t, w):
 
 def gv7_tool_controls(t, w, F):
     out = {}
+    t.run(w, F)
+    clean = REC.name_last('complete run record')
     for name, how in (('run record read fails', ('fail', 'run')), ('run record incomplete', ('incomplete', 'run'))):
         w2 = t.world()
         getattr(w2.h, how[0]).add(how[1])
         out[name] = show(*t.run(w2, F))
+        REC.name_last(name)
     # a host-run class whose run and job records cannot be read, are incomplete, or come from another event
     from ledger_coverage.adapters import deleg_host_run as hr
     cls = {'id': 'ci', 'adapter': 'host-run', 'paths': [], 'params': {'workflow_path': 'wf.yml', 'jobs': ['build']}}
@@ -442,14 +448,25 @@ def gv7_tool_controls(t, w, F):
              'run from a pull_request event': (set(), set(), [dict(good[0], event='pull_request')]),
              'run in a fork': (set(), set(), [dict(good[0], head_repository_id=78)])}
     deleg = {}
+    failing_items = []
+    observed_hosts = {}
     for name, (fail, inc, runs) in cases.items():
         h = hostmod.MemoryHost()
         h.fail, h.incomplete = set(fail), set(inc)
         h.host_runs = {X: runs}
         env = delmod.Native(t.repo, None, '/nonexistent', X, True, host=h, repo_id=hf.REPO_ID)
-        items, rep = dl.verify(t.repo, {'scientific_base': X, 'candidate': X, 'freeze': X, 'certified': X,
-                                        'ledger_sha256': '0' * 64}, env, {'splices': []})
+        items, report = dl.verify(t.repo, {'scientific_base': X, 'candidate': X, 'freeze': X, 'certified': X,
+                                            'ledger_sha256': '0' * 64}, env, {'splices': []})
         deleg[name] = sorted({(i['class'], i['decision']) for i in items})
+        observed_hosts[name] = {'runs': runs, 'fail': sorted(fail), 'incomplete': sorted(inc)}
+        REC.capture_doc('host-run delegation', control_records.stage_doc(items, operation='delegation',
+                                                                        delegated=report), case=name)
+        if name != 'good':
+            failing_items.extend(items)
+    REC.capture_doc('host-run delegation (combined returned items)',
+                    control_records.stage_doc(failing_items, operation='delegation'),
+                    case='host-run class records incomplete (4 cases)')
+    retain_restored(lambda: t.run(w, F), clean)
     out['host-run class'] = deleg
     missing = [('delegated-evidence-missing', 'REVIEW_REQUIRED')]
     check('GV7-tool', 'the host\'s REST API failing or incomplete: the run record (no "chain", ERROR '
@@ -461,7 +478,7 @@ def gv7_tool_controls(t, w, F):
           all(out[k]['exit'] == 65 and out[k]['stop'] == 'CONFIG_UNREVIEWED'
               for k in ('run record read fails', 'run record incomplete')) and
           'host call failed' in out['run record read fails']['message'] and deleg['good'] == [] and
-          all(deleg[k] == missing for k in deleg if k != 'good'))
+          all(deleg[k] == missing for k in deleg if k != 'good'), files={'host-runs.json': observed_hosts})
 
 
 # The workflow forms the `uses:` line rule refuses (sec. 6.3 point 5; control EI7), each a complete workflow blob.
@@ -747,41 +764,53 @@ def ei5_controls(r):
     t = TR(r)
     w = t.world()
     L1 = t.syn.H
-    cases = {
-        'ls-remote fails': lambda: (128, ''),
-        'ls-remote raises': lambda: (_ for _ in ()).throw(OSError('no network')),
-        'no refs/heads/main line': lambda: (0, '%s\trefs/heads/other\n' % L1),
-        'two refs/heads/main lines': lambda: (0, '%s\trefs/heads/main\n%s\trefs/heads/main\n' % (L1, w.T)),
-        'an abbreviated id': lambda: (0, '%s\trefs/heads/main\n' % L1[:12]),
-        'an id the verified reader cannot read': lambda: (0, '%s\trefs/heads/main\n' % ('1' * 40)),
-        'an id other than L\'s first parent': lambda: (0, '%s\trefs/heads/main\n' % w.T),
-    }
-    out = {}
-    for name, fn in cases.items():
-        try:
-            checker.resolve_main(fn, t.repo, L1)
-            out[name] = 'accepted'
-        except ValueError as exc:
-            out[name] = 'refused: %s' % exc
-    # review impl-v6.0e N-1: the id equals the given first parent, so only the readability clause can refuse it
     absent = '1' * 40
-    try:
-        checker.resolve_main(lambda: (0, '%s\trefs/heads/main\n' % absent), t.repo, absent)
-        out['an id equal to L\'s given first parent that the verified reader cannot read'] = 'accepted'
-    except ValueError as exc:
-        out['an id equal to L\'s given first parent that the verified reader cannot read'] = 'refused: %s' % exc
-    try:
-        got = checker.resolve_main(lambda: (0, '%s\tHEAD\n%s\trefs/heads/main\n' % (w.T, L1)), t.repo, L1)
-        out['(countercontrol) one main line equal to L\'s first parent'] = got == L1
-    except ValueError as exc:
-        out['(countercontrol) one main line equal to L\'s first parent'] = 'refused: %s' % exc
+    cases = {
+        'ls-remote fails': (128, '', L1),
+        'ls-remote raises': (None, '', L1),
+        'no refs/heads/main line': (0, '%s\trefs/heads/other\n' % L1, L1),
+        'more than one line': (0, '%s\trefs/heads/main\n%s\trefs/heads/main\n' % (L1, w.T), L1),
+        'not full 40-hex': (0, '%s\trefs/heads/main\n' % L1[:12], L1),
+        'unreadable id': (0, '%s\trefs/heads/main\n' % absent, L1),
+        "id other than L's first parent": (0, '%s\trefs/heads/main\n' % w.T, L1),
+        "unreadable id equal to L's first parent": (0, '%s\trefs/heads/main\n' % absent, absent),
+    }
+    positive = "one main line equal to L's first parent (countercontrol)"
+    clean_input = (0, '%s\tHEAD\n%s\trefs/heads/main\n' % (w.T, L1), L1)
+
+    def evaluate(name, remote_exit, stdout, first_parent):
+        def ls_remote():
+            if remote_exit is None:
+                raise OSError('no network')
+            return remote_exit, stdout
+
+        try:
+            resolved = checker.resolve_main(ls_remote, t.repo, first_parent)
+            observed = {'resolved': resolved, 'exit_status': 0}
+            outcome = 'RESOLVED'
+        except ValueError as exc:
+            observed = {'error': str(exc), 'exit_status': 1}
+            outcome = 'LANDING_REFUSED'
+        run = REC.capture_doc('checker.resolve_main', observed, case=name, attested={'outcome': outcome})
+        return observed, run
+
+    out = {name: evaluate(name, *args)[0] for name, args in cases.items()}
+    out[positive], clean = evaluate(positive, *clean_input)
+    out['restored'], restoration = evaluate('restored', *clean_input)
+    restoration['baseline'] = clean
+    fixtures = {**cases, positive: clean_input, 'restored': clean_input}
     check('EI5', 'before landing, git ls-remote failing; separately returning no refs/heads/main line or more than '
           'one; separately an id that is not a full 40-hex id, or that the verified reader cannot read (including one '
           'equal to L\'s given first parent); separately an id other than L\'s first parent: the landing is refused in '
           'each case',
           "every case is refused; one main line equal to L's first parent resolves to it", out,
-          all(str(v).startswith('refused') for k, v in out.items() if not k.startswith('(countercontrol)')) and
-          out['(countercontrol) one main line equal to L\'s first parent'] is True)
+          all(out[name]['exit_status'] == 1 for name in cases) and out[positive].get('resolved') == L1 and
+          out['restored'] == out[positive],
+          files={'ls-remote-fixtures.json': {name: {'exit': code, 'stdout': stdout, 'first_parent': first_parent}
+                                            for name, (code, stdout, first_parent) in fixtures.items()},
+                 'landing-check-exits.json': {name: v['exit_status'] for name, v in out.items()}},
+          procedure={'name': 'landing-resolve', 'lib': 'fixture', 'ls_remote_fixture': 'ls-remote-fixtures.json',
+                     'landing_check_exit': 'landing-check-exits.json'})
 
 
 def o3_controls(r):
@@ -1117,13 +1146,25 @@ def gv_disk_controls(r):
     t6 = dk6.tree(entries)
     F6 = gitb(d6, 'commit-tree', t6, '-p', ids['c'], data=b'freeze\n')
     repo6 = gitobj.GitRepo(d6)
+    run()
+    clean = REC.name_last('regular configuration entry')
     o = r.out()
+    host_reads = []
+
+    class RecordingHost(hostmod.MemoryHost):
+        def _need(self, what):
+            host_reads.append(what)
+            return super()._need(what)
+
     code6, res6 = cli.run(['terms', '--config', '%s:%s' % (F6, p), '--out', o, '--freeze', F6, '--commit', ids['X']],
                           repo=repo6, stderr=io.StringIO(),
-                          control={'host': hostmod.MemoryHost(), 'run_id': 1, 'repo_id': hf.REPO_ID}, environ={})
+                          control={'host': RecordingHost(), 'run_id': 1, 'repo_id': hf.REPO_ID}, environ={})
+    REC.name_last('', attested={'before_host_read': not host_reads})
+    retain_restored(run, clean)
     check('GV6-disk', 'a symlink entry (mode 120000) at the configuration\'s path in an on-disk F: refused before '
-          'any host read', "exit 65 with stop 'CONFIG_UNREVIEWED'", show(code6, res6),
-          code6 == 65 and stop(res6) == 'CONFIG_UNREVIEWED' and 'not a regular file' in show(code6, res6)['message'])
+          'any host read', "exit 65 with stop 'CONFIG_UNREVIEWED'", dict(show(code6, res6), host_reads=host_reads),
+          code6 == 65 and stop(res6) == 'CONFIG_UNREVIEWED' and 'not a regular file' in show(code6, res6)['message']
+          and not host_reads, files={'host-reads.json': host_reads})
 
 
 def cache_controls(r):
@@ -1378,6 +1419,7 @@ class EI:
         gitb(self.base, 'commit', '-q', '-m', 'T')
         self.F = self.freeze(self.files)
         self.n = 0
+        self.observations = {}
 
     def freeze(self, files, cfg=None, where=None):
         doc = cfg if cfg is not None else {'tool': {'files': [{'path': q, 'blob_sha256': sha(b)}
@@ -1402,7 +1444,7 @@ class EI:
         if ref is not None:
             env['GITHUB_REF'] = ref
         p = subprocess.run([sys.executable, '-I', '-S', '-B', '-c', self.prog], cwd=d, env=env, capture_output=True)
-        return p.returncode, (p.stdout + p.stderr).decode('utf-8', 'replace').strip().split('\n')[-1][:160]
+        return p.returncode, p.stdout.decode('utf-8', 'replace'), p.stderr.decode('utf-8', 'replace')
 
     def entry(self, d, extra=(), flags=('-I', '-S', '-B'), out_name='out'):
         env = {'PATH': os.environ.get('PATH', '/usr/bin:/bin'), 'HOME': d, 'PROBE_MARKER_DIR': os.path.join(d, 'm')}
@@ -1423,12 +1465,17 @@ class EI:
             got = mutate(d)
             if got is not None and F is None and got.get('F'):
                 F = got['F']
-        code, line = self.prerun(d, ref, F, cfg)
+        code, stdout, stderr = self.prerun(d, ref, F, cfg)
+        line = (stdout + stderr).strip().split('\n')[-1][:160]
         o = {'prerun_exit': code, 'prerun': line}
+        raw_result, entry_stderr = None, None
         if code == 0:
-            o['entry_exit'] = self.entry(d)[0]
+            o['entry_exit'], raw_result, entry_stderr = self.entry(d)
         o['markers'] = self.markers(d)
         o['dir'] = d
+        self.observations[d] = {'step_stdout': stdout, 'step_stderr': stderr, 'entry_result': raw_result,
+                                'entry_stderr': entry_stderr, 'ref': ref, 'freeze': self.F if F is None else F,
+                                'config_path': cfg}
         return o
 
 
@@ -1450,12 +1497,52 @@ def ei_controls(r):
 
     def failed(o):
         return o['prerun_exit'] != 0 and 'entry_exit' not in o and not o['markers']
+
+    def check_prerun(cid, expected, predicate, actual, holds, cases, clean_name=None, attest=None):
+        """Attach the observed subprocess outputs and a separate rerun of the clean checkout."""
+        checked = dict(cases)
+        if clean_name is None:
+            clean_name = 'clean checkout'
+            checked[clean_name] = o8
+        clean = checked[clean_name]
+        restored = e.case(cid + ' restored')
+        checked['restored'] = restored
+        runs, evidence = {}, {}
+        for name, case in checked.items():
+            observed = e.observations[case['dir']]
+            raw_result = observed['entry_result']
+            outcome = 'PRE_RUN_PASSED' if case['prerun_exit'] == 0 else 'PRE_RUN_FAILED'
+            reported = {'outcome': outcome, 'entry_point_ran': 'entry_exit' in case,
+                        'marker_written': bool(case['markers'])}
+            if 'entry_exit' in case:
+                reported['entry_exit'] = case['entry_exit']
+            reported.update((attest or {}).get(name, {}))
+            result = json.loads(raw_result) if raw_result is not None else {'exit_status': case['prerun_exit']}
+            runs[name] = REC.capture_doc('workflow pre-run check', result, case=name, raw=raw_result,
+                                         attested=reported)
+            evidence[name] = {key: value for key, value in observed.items() if key != 'entry_result'}
+        runs['restored']['baseline'] = runs[clean_name]
+        same_clean = (e.observations[restored['dir']]['entry_result'] ==
+                      e.observations[clean['dir']]['entry_result'] and
+                      restored.get('entry_exit') == clean.get('entry_exit') and
+                      restored['prerun_exit'] == clean['prerun_exit'] and restored['markers'] == clean['markers'])
+        files = {
+            'step-exits.json': {name: case['prerun_exit'] for name, case in checked.items()},
+            'markers.json': {name: case['markers'] for name, case in checked.items()},
+            'entry-invocations.json': {name: {'ran': 'entry_exit' in case, 'exit': case.get('entry_exit')}
+                                       for name, case in checked.items()},
+            'outputs.json': evidence,
+        }
+        check(cid, expected, predicate, actual, holds and same_clean, files=files,
+              procedure={'lib': 'prerun', 'step_exit': 'step-exits.json', 'marker_listing': 'markers.json',
+                         'sentinel': 'entry-invocations.json', 'import_trace': 'outputs.json'})
+
     # EI8
     o8 = e.case('EI8 clean')
-    check('EI8', 'the pre-run check on a clean checkout of a T equal to the configuration\'s tool.files: the step '
+    check_prerun('EI8', 'the pre-run check on a clean checkout of a T equal to the configuration\'s tool.files: the step '
           'passes and the entry point runs (positive control)', "pre-run exit 0 naming every file, entry exit 0, no "
           "marker", o8, o8['prerun_exit'] == 0 and o8['prerun'].startswith('PRE-RUN OK %d ' % len(e.files)) and
-          o8.get('entry_exit') == 0 and not o8['markers'])
+          o8.get('entry_exit') == 0 and not o8['markers'], {'': o8}, clean_name='')
 
     # EI9: an unchecked-hash bytecode file
     def pyc(d):
@@ -1473,11 +1560,11 @@ def ei_controls(r):
     pyc(d9)
     e.entry(d9)
     o9['countercontrol: the entry point run directly writes the marker'] = e.markers(d9)
-    check('EI9', 'the pre-run check on a checkout holding an unchecked-hash bytecode file for engine/util.py (built '
+    check_prerun('EI9', 'the pre-run check on a checkout holding an unchecked-hash bytecode file for engine/util.py (built '
           'for the running interpreter\'s cache tag) whose code writes a marker: the step fails; the job ends before '
           'the entry point runs; the marker is never written', "pre-run exit nonzero, the entry point not run, no "
           "marker; run without the pre-run step the same tree writes the marker (the probe is live)", o9,
-          failed(o9) and bool(o9['countercontrol: the entry point run directly writes the marker']))
+          failed(o9) and bool(o9['countercontrol: the entry point run directly writes the marker']), {'': o9})
 
     # EI10: an extension module beside the pinned util.py
     cc = shutil.which('cc') or shutil.which('gcc')
@@ -1502,11 +1589,12 @@ def ei_controls(r):
         so_file(d10)
         e.entry(d10)
         o10['countercontrol: the entry point run directly runs the init'] = e.markers(d10)
-        check('EI10', 'the pre-run check on a checkout holding an extension module beside the pinned engine/util.py: '
+        check_prerun('EI10', 'the pre-run check on a checkout holding an extension module beside the pinned engine/util.py: '
               'the step fails before the entry point runs; the module\'s init never runs', "pre-run exit nonzero, "
               "the entry point not run, no marker; without the pre-run step the init runs (the probe is live)",
               dict(o10, built=built), built and failed(o10) and
-              bool(o10['countercontrol: the entry point run directly runs the init']))
+              bool(o10['countercontrol: the entry point run directly runs the init']), {'': o10},
+              attest={'': {'module_init_ran': bool(o10['markers'])}})
 
     # EI11: the pinned util.py a symlink to a payload outside the package
     def link_util(d):
@@ -1519,10 +1607,12 @@ def ei_controls(r):
     link_util(d11)
     e.entry(d11)
     o11['countercontrol'] = e.markers(d11)
-    check('EI11', 'the pre-run check on a checkout in which the pinned path engine/util.py is a symlink to a payload '
+    check_prerun('EI11', 'the pre-run check on a checkout in which the pinned path engine/util.py is a symlink to a payload '
           'outside the package: the step fails before the entry point runs; the payload never runs',
           "pre-run exit nonzero naming a non-regular entry, no marker; without the pre-run step the payload runs",
-          o11, failed(o11) and 'non-regular' in o11['prerun'] and bool(o11['countercontrol']))
+          o11, failed(o11) and 'non-regular' in o11['prerun'] and bool(o11['countercontrol']), {'': o11},
+          attest={'': {'payload_ran': bool(o11['markers']),
+                       'message_names': 'non-regular entry' if 'non-regular entry' in o11['prerun'] else None}})
 
     # EI12: the entry point a symlink to tools/evil.py
     def link_entry(d):
@@ -1535,9 +1625,10 @@ def ei_controls(r):
     link_entry(d12)
     e.entry(d12)
     o12['countercontrol'] = e.markers(d12)
-    check('EI12', 'the pre-run check on a checkout in which the entry point is a symlink to tools/evil.py: the step '
+    check_prerun('EI12', 'the pre-run check on a checkout in which the entry point is a symlink to tools/evil.py: the step '
           'fails before the entry point runs; evil.py never runs', "pre-run exit nonzero, no marker; without the "
-          "pre-run step evil.py runs", o12, failed(o12) and bool(o12['countercontrol']))
+          "pre-run step evil.py runs", o12, failed(o12) and bool(o12['countercontrol']), {'': o12},
+          attest={'': {'evil_ran': bool(o12['markers'])}})
 
     # EI13
     def one_byte(d):
@@ -1562,22 +1653,22 @@ def ei_controls(r):
         outside = os.path.join(r.out_root, 'ei-outside-' + os.path.basename(d))
         os.rename(os.path.join(d, 'tools'), outside)
         os.symlink(outside, os.path.join(d, 'tools'))
-    o13 = {'a pinned file changed by one byte': e.case('EI13 one byte', one_byte),
-           'a pinned file missing': e.case('EI13 missing', missing),
-           'an extra .py file': e.case('EI13 extra', extra_py),
-           'a FIFO': e.case('EI13 fifo', fifo),
-           'tools a symlink inside the checkout': e.case('EI13 tools link inside', tools_link_inside),
-           'tools a symlink to an absolute outside path': e.case('EI13 tools link outside', tools_link_outside),
+    o13 = {'pinned file changed': e.case('EI13 one byte', one_byte),
+           'pinned file missing': e.case('EI13 missing', missing),
+           'extra .py file': e.case('EI13 extra', extra_py),
+           'non-regular non-directory entry': e.case('EI13 fifo', fifo),
+           'tools symlink inside checkout': e.case('EI13 tools link inside', tools_link_inside),
+           'tools symlink outside checkout': e.case('EI13 tools link outside', tools_link_outside),
            'F not fetched': e.case('EI13 F absent', F='1' * 40),
-           'the configuration path absent at F': e.case('EI13 config absent', cfg='plan/none.json'),
-           'a configuration without tool.files': e.case(
+           'configuration absent at F': e.case('EI13 config absent', cfg='plan/none.json'),
+           'configuration without tool.files': e.case(
                'EI13 no tool files', F=e.freeze({}, cfg={'tool': {}}))}
-    check('EI13', 'the pre-run check, each case separately: a pinned file changed by one byte; a pinned file missing; '
+    check_prerun('EI13', 'the pre-run check, each case separately: a pinned file changed by one byte; a pinned file missing; '
           'an extra .py file; a directory entry that is neither a regular file nor a directory; tools a symlink to a '
           'real directory inside the checkout, and separately to an absolute path outside it; F not fetched; the '
           'configuration path absent at F; a configuration without tool.files: the step fails in each case before '
           'the entry point runs', "every case: pre-run exit nonzero, the entry point not run, no marker", o13,
-          all(failed(o) for o in o13.values()))
+          all(failed(o) for o in o13.values()), o13)
 
     # EI14: the CX-3 tree
     def cx3(d):
@@ -1611,21 +1702,23 @@ def ei_controls(r):
         with open(os.path.join(d, engine_util), 'rb') as f:
             files[engine_util] = f.read()
         return {'F': e.freeze(files, where=d)}
-    o15 = {'a branch dispatch with F\' pinning the branch\'s changed code': e.case('EI15 branch F prime', changed_code,
+    o15 = {'workflow_dispatch on a branch with F prime': e.case('EI15 branch F prime', changed_code,
                                                                                   ref='refs/heads/feature'),
            'GITHUB_REF refs/tags/main': e.case('EI15 tag', ref='refs/tags/main'),
            'GITHUB_REF unset': e.case('EI15 unset', ref=None),
-           'F given as HEAD': e.case('EI15 HEAD', F='HEAD'),
+           'F as HEAD': e.case('EI15 HEAD', F='HEAD'),
            'F abbreviated': e.case('EI15 abbreviated', F=e.F[:12]),
-           'F in upper case': e.case('EI15 upper', F=e.F.upper())}
+           'F upper case': e.case('EI15 upper', F=e.F.upper())}
     counter = e.case('EI15 countercontrol main F prime', changed_code)
-    check('EI15', 'the pre-run check, each case separately: a workflow_dispatch run on a branch with F\' a commit '
+    positive = 'plan F on refs/heads/main (countercontrol)'
+    check_prerun('EI15', 'the pre-run check, each case separately: a workflow_dispatch run on a branch with F\' a commit '
           'whose configuration pins the branch\'s changed tool code; GITHUB_REF refs/tags/main; F given as HEAD, as '
           'an abbreviated id, or in upper case: the step fails in each case before the entry point runs; with the '
           'plan\'s F on main the step passes (countercontrol EI8)',
           "every case fails with no marker; the same changed tree and F' with GITHUB_REF refs/heads/main passes "
           "the step (the ref test is what refuses), and EI8 passes", dict(o15, countercontrol=counter),
-          all(failed(o) for o in o15.values()) and counter['prerun_exit'] == 0 and o8['prerun_exit'] == 0)
+          all(failed(o) for o in o15.values()) and counter['prerun_exit'] == 0 and o8['prerun_exit'] == 0,
+          {**o15, 'changed code on main': counter, positive: o8}, clean_name=positive)
 
     # EI6: unpinned files beside the package never execute; isolation is required before any import
     d6 = e.fresh('EI6 shadow')
