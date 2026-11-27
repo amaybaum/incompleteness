@@ -84,13 +84,40 @@ def extra_controls(cap):
                  'matches no subject (orphan)', entry=orphan_id)
         c1 = any(i['class'] == 'stale-adjudication' and i['obligation'] == 'HP' and i['subject'] == orphan_id
                  for i in it)
+        # a context adjudication entry and a hit classification entry, each for a segment of the chain, whose
+        # subject is no tracked site / no line of the tree: FAIL record-invalid for each (one run)
+        sname = '%s..%s' % (sg['from'][:8], sg['to'][:8])
+        ctx_orphan = {'site_id': orphan_id, 'segment': sname, 'from_context_sha256': 'f' * 64,
+                      'to_context_sha256': 'e' * 64}
+        hit_orphan = {'id': 'hit-orphan', 'file': ce.doc_path, 'line_sha256': 'a' * 64, 'segment': sname,
+                      'profiles': ['np-review']}
+        cv, it_c = w.coverage(h, [sg], adj={'hp': [good], 'context': [ctx_orphan]}, hits=True,
+                              hit_records=[hit_orphan])
+        ce._case('a context adjudication or hit classification entry matching no subject on a tree and segment its '
+                 'record applies to (orphan)', entry=orphan_id)
+        c2 = any(i['class'] == 'record-invalid' and i['subject'] == orphan_id for i in it_c) and \
+            any(i['class'] == 'record-invalid' and i['subject'] == 'hit-orphan' for i in it_c)
+        # two HP entries naming the same site (duplicate): FAIL record-invalid naming the record, neither applied.
+        # The entries carry the in-memory reference the entry point gives an admitted record's entries (`_ref`).
+        rec_path = 'verification/fixture/hp-adjudication.json'
+        d1 = dict(good, _ref={'path': rec_path})
+        d2 = dict(good, semantic_classification='stated twice', _ref={'path': rec_path})
+        cv_d, it_d = w.coverage(h, [sg], adj={'hp': [d1, d2]}, hits=False)
+        ce._case('two entries naming the same subject (duplicate)', record=rec_path)
+        c3 = any(i['class'] == 'record-invalid' and i['subject'] == rec_path for i in it_d) and \
+            not cv_d.site_out[sid].get('provenance_adjudicated')
+        # the same orphans naming a segment outside the chain and another tree: out of scope, no finding
+        far = '0' * 8 + '..' + '1' * 8
+        cv, it_o = w.coverage(h, [sg], adj={'hp': [good], 'context': [dict(ctx_orphan, segment=far)]}, hits=True,
+                              hit_records=[dict(hit_orphan, segment=None, tree='2' * 40)])
+        ce._case('the orphan entry naming a segment outside the chain, or a tree the record does not apply to')
+        c4 = not [i for i in it_o if i['class'] in ('stale-adjudication', 'record-invalid')]
         cv, it2 = w.coverage(h, [sg], adj={'hp': [good]}, hits=False)
         ce._case('the record without the orphan and duplicate entries (positive)')
         c5 = not [i for i in it2 if i['class'] in ('stale-adjudication', 'record-invalid')]
-        # the context and hit classification orphans, the duplicate and the out-of-scope cases are not run here
-        out['RECLINT-ORPHAN'] = False
-        out['_RECLINT-ORPHAN'] = {'hp_orphan': c1, 'positive': c5,
-                                  'not_run': ['context or hit classification orphan', 'duplicate', 'out of scope']}
+        out['RECLINT-ORPHAN'] = c1 and c2 and c3 and c4 and c5
+        out['_RECLINT-ORPHAN'] = {'hp_orphan': c1, 'context_and_hit_orphan': c2, 'duplicate': c3,
+                                  'out_of_scope': c4, 'positive': c5}
 
         # PIPE-UNRESOLVED: a site lost in the first of two segments is reported there only, its state unresolved
         w = ce.World()

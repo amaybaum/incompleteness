@@ -136,12 +136,15 @@ class World:
             ch[doc_path] = text.encode()
         return self.repo.derive(parent, ch, parents=[parent], subject=subject)
 
-    def coverage(self, commit, segs, adj=None, hits=True, allow=()):
+    def coverage(self, commit, segs, adj=None, hits=True, allow=(), hit_records=None):
         ctx = self.ctx(allow)
         cv = pl.Coverage(ctx, commit, segs, ctx.cfg if False else None, adj or {}, []).run()
         items = list(cv.items)
         if hits:
-            tm = pl.Terms(ctx, commit, [ctx.profiles['np-review']], [ctx.profiles['np-deny']])
+            # hit classification entries, when given, are scoped to this tree and the run's chain (R6.REC.10)
+            tm = pl.Terms(ctx, commit, [ctx.profiles['np-review']], [ctx.profiles['np-deny']],
+                          hit_records=hit_records or (),
+                          chain_segments=None if hit_records is None else [s_['name'] for s_ in segs])
             tm.deny()
             tm.review(held=pl.held_lines(cv.states))
             items += tm.items

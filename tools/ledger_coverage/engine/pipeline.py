@@ -90,6 +90,11 @@ def held_lines(states):
     return out
 
 
+def entry_sha(e):
+    """The sha256 of a record entry as written (the fields the record states, not the tool's own `_` fields)."""
+    return util.sha256(util.canonical({k: v for k, v in e.items() if not k.startswith('_')}))
+
+
 # ---- coverage (op B) -------------------------------------------------------------------------------------
 
 class Coverage:
@@ -98,10 +103,13 @@ class Coverage:
         self.commit = commit
         self.segments = segments
         self.check = check
-        self.hp_records = {a['site_id']: a for a in adjudications.get('hp', [])}
-        self.context_adj = adjudications.get('context', [])
-        self.hit_records = hit_records
         self.items = []
+        # R6.REC.10: two entries naming the same subject, in one record or in two records of the same kind, are
+        # duplicates: FAIL record-invalid naming both, and neither entry is applied
+        self.hp_records = self._unique('hp', adjudications.get('hp', []), lambda a: a.get('site_id'))
+        self.context_adj = list(self._unique('context', adjudications.get('context', []),
+                                             lambda a: (a.get('site_id'), a.get('segment'))).values())
+        self.hit_records = hit_records
         self.site_out = {}
         self.states = []
         self.snapshots = []
@@ -109,6 +117,25 @@ class Coverage:
 
     def item(self, obligation, cls, subject, segment, fp=None, **kw):
         self.items.append(oc.make_item(obligation, cls, subject, segment, fp, **kw))
+
+    def _unique(self, kind, entries, key):
+        """{key: entry} of the entries whose key no other entry of the same kind names; each duplicated key gives
+        one FAIL record-invalid naming the record and every entry that names it (R6.REC.10)."""
+        by = {}
+        for e in entries:
+            by.setdefault(key(e), []).append(e)
+        out = {}
+        for k, es in by.items():
+            if len(es) == 1:
+                out[k] = es[0]
+                continue
+            refs = [e.get('_ref') for e in es]
+            self.item('RECORD', 'record-invalid', (refs[0] or {}).get('path') or kind, None,
+                      {'why': 'duplicate %s entry' % kind, 'key': list(k) if isinstance(k, tuple) else k,
+                       'entries': sorted(entry_sha(e) for e in es)},
+                      why='duplicate %s adjudication entry' % kind, records=refs,
+                      entries=sorted(entry_sha(e) for e in es))
+        return out
 
     def run(self, sweep_files=None):
         ctx = self.ctx
@@ -152,6 +179,14 @@ class Coverage:
                 rec = self.hp_records[sid]
                 self.item('HP', 'stale-adjudication', sid, None, {'entry': util.sha256(util.canonical(
                     {k: v for k, v in rec.items() if not k.startswith('_')}))}, record=rec.get('_ref'))
+        # R6.REC.10: a context adjudication entry for a segment of the chain whose site_id no tracked site carries
+        # resolves nothing and is FAIL record-invalid; an entry naming a segment outside the chain is out of scope
+        chain = {sg_['name'] for sg_ in self.segments}
+        for e in self.context_adj:
+            if e.get('segment') in chain and e.get('site_id') not in tracked:
+                subj = e.get('id') or e.get('site_id')
+                self.item('RECORD', 'record-invalid', subj, e.get('segment'), {'entry': entry_sha(e)},
+                          why='context adjudication entry matches no subject', record=e.get('_ref'))
         for sid in resolved:
             self.site_out[sid]['provenance_adjudicated'] = True
         for st in self.states:
@@ -530,21 +565,65 @@ class Terms:
     """Hits of review profiles, deny matches, rule and record application on one tree."""
 
     def __init__(self, ctx, commit, review_profiles, deny_profiles, added=None, hit_records=(), check=None,
-                 scope_paths=None, splice_texts=None):
+                 scope_paths=None, splice_texts=None, chain_segments=None):
         self.ctx = ctx
         self.commit = commit
         self.review_profiles = review_profiles
         self.deny_profiles = deny_profiles
         self.added = added or {}
-        self.hit_records = list(hit_records)
         self.check = check
+        self.items = []
+        self.hit_records = self._hit_scope(list(hit_records), chain_segments)
         self.scope_paths = scope_paths
         self.splice_texts = splice_texts
         self.deny_line_set = {}
-        self.items = []
         self.hits = []
         self.rule_counts = {}
         self.evaluated = []
+
+    def _hit_scope(self, recs, chain_segments):
+        """R6.REC.10 for hit classification records. Two in-scope entries naming the same `{file, line_sha256}`
+        are duplicates: FAIL record-invalid naming both, and neither is applied. With the run's chain given (op B), an
+        entry applies to this tree when it names no tree or this tree, and no segment or a segment of the chain; such
+        an entry whose line matches no line of its file on this tree resolves nothing and is FAIL record-invalid. An
+        entry naming another tree or a segment outside the chain is out of scope (no finding). Without a chain the
+        entries are applied as given and no orphan is checked."""
+        if chain_segments is None:
+            scoped = recs
+        else:
+            chain = set(chain_segments)
+            scoped = [r for r in recs if r.get('tree') in (None, self.commit) and r.get('segment') in (None,) + tuple(chain)]
+        by = {}
+        for r in scoped:
+            by.setdefault((r.get('file'), r.get('line_sha256')), []).append(r)
+        kept = []
+        for k, rs in by.items():
+            if len(rs) > 1:
+                refs = [r.get('_ref') for r in rs]
+                self.items.append(oc.make_item('RECORD', 'record-invalid', (refs[0] or {}).get('path') or 'hit',
+                                               None, {'why': 'duplicate hit classification entry', 'key': list(k),
+                                                      'entries': sorted(entry_sha(r) for r in rs)},
+                                               why='duplicate hit classification entry', records=refs,
+                                               entries=sorted(entry_sha(r) for r in rs)))
+                continue
+            r = rs[0]
+            if chain_segments is not None:
+                try:
+                    lines = self.ctx.ft(self.commit, r.get('file')).lines if r.get('file') else []
+                except Exception:
+                    lines = []
+                if not any(util.sha256(x) == r.get('line_sha256') for x in lines):
+                    subj = r.get('id') or '%s:%s' % (r.get('file'), r.get('line_sha256'))
+                    self.items.append(oc.make_item('RECORD', 'record-invalid', subj, r.get('segment'),
+                                                   {'entry': entry_sha(r)},
+                                                   why='hit classification entry matches no line of the tree',
+                                                   record=r.get('_ref')))
+                    continue
+            kept.append(r)
+        if chain_segments is None:
+            return kept
+        # out-of-scope entries are kept as given (they resolve nothing here and are not findings)
+        return kept + [r for r in recs if r not in scoped]
 
     def paths_for(self, profile):
         if profile.spec.get('scope') == 'repo' and self.scope_paths is not None:

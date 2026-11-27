@@ -1203,7 +1203,7 @@ def op_coverage(a, repo, ctx, loaded, records, result):
         if d is None:
             continue
         if d.get('schema') == 'oi-context-adjudication/1':
-            ctx_recs += d.get('entries', [d])
+            ctx_recs += [dict(x, _ref=d['_ref']) for x in d.get('entries', [d])]
         else:
             hit_recs += [dict(x, _ref=d['_ref']) for x in d.get('classifications', [d])]
     # R6.RECON.33 for coverage (A1 staging amendment r2, sec. 1): exactly one explicit --check naming a check of the
@@ -1245,7 +1245,8 @@ def op_coverage(a, repo, ctx, loaded, records, result):
     stexts = pl.splice_texts(ctx, led_segs[-1]['from'], commit, led_segs[-1]['ledger']) if led_segs else None
     tm = pl.Terms(ctx, commit, review + [p for p in ctx.profiles.values() if p.kind == 'review'
                                          and p.applies_to == 'added-text' and p.name in chk['profiles']],
-                  deny, added=added, hit_records=hit_recs, check=chk, splice_texts=stexts)
+                  deny, added=added, hit_records=hit_recs, check=chk, splice_texts=stexts,
+                  chain_segments=[s_['name'] for s_ in segs])
     tm.deny()
     if led_segs and any(p.applies_to == 'added-text' for p in deny):
         items += per_edit(ctx, led_segs[-1]['ledger'], result)
