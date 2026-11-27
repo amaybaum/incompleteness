@@ -692,7 +692,7 @@ def rb_gate_case(res, roles_m0):
     with open(os.path.join(d, 'manifest.json'), 'wb') as f:
         f.write(jb(man))
     found = []
-    actual = cg.eval_procedure({'procedure': {'lib': 'rtl2'}}, cg.Evidence(d, '.', 'RECORD-BASE'), found)
+    actual = cg.eval_procedure({'id': 'RECORD-BASE', 'procedure': {'lib': 'rtl2'}}, cg.Evidence(d, '.', 'RECORD-BASE'), found)
     return actual.get('rt_l2'), found
 
 
