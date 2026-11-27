@@ -1454,11 +1454,97 @@ def eval_line_patch_case(exp, name, ev, findings):
     return actual
 
 
+def eval_z9f_case(exp, case_name, ev, findings_out, ctx):
+    """Check the retained selector and lint inputs, with the real adapter pinned to the checked tree."""
+    actual = {'case': case_name}
+    adapter = 'tools/ledger_coverage/adapters/a1exit_exact_edit.py'
+    entry = 'tools/ledger_coverage.py'
+    package = 'tools/ledger_coverage/'
+    engine = package + 'engine/scope_probe.py'
+    literal = 'a1exit deletion exact-edit ledger v2'
+    cases = {'adapter module containing the string': 'engine-clean.py', 'the string in the engine': 'engine-literal.py'}
+    try:
+        manifest = ev.man or {}
+        proc = manifest.get('procedure')
+        members = manifest.get('cases') or []
+        if (not isinstance(proc, dict) or proc.get('name') != 'purity-lint' or proc.get('lib') != 'lint' or
+                not all(isinstance(c, dict) for c in members) or
+                [c.get('case') for c in members] != list(cases) or
+                not all(isinstance(proc.get(k), str) for k in ('findings', 'source_map', 'value_set', 'production_paths'))):
+            raise ValueError('the two named cases and their lint procedure are required')
+        case = ev.case(case_name)
+        result = ev.json(case.get('result_file'))
+        inputs = {adapter: 'adapter.py', entry: 'entry.py', engine: cases[case_name]}
+        if not isinstance(result, dict) or result.get('operation') != 'purity-lint' or result.get('input_files') != inputs:
+            raise ValueError('the retained input paths do not give the required source layout')
+        blobs = {path: ev.text(member) for path, member in inputs.items()}
+        if any(b is None for b in blobs.values()):
+            raise ValueError('bytes of a named source are absent')
+        if not (ctx and ctx.repo and isinstance(ctx.commit, str) and re.fullmatch(r'[0-9a-f]{40}', ctx.commit)):
+            raise ValueError('the checked Git tree is needed to verify the real adapter')
+        git_adapter = git_entry(ctx.repo, ctx.commit, adapter)
+        if (not git_adapter or git_adapter[0] not in ('100644', '100755') or
+                git_show(ctx.repo, ctx.commit + ':' + adapter) != blobs[adapter]):
+            raise ValueError('the real adapter bytes differ from the blob at the checked commit')
+        tree = subprocess.run(['git', '--no-replace-objects', '-C', ctx.repo, 'ls-tree', '-r', '--name-only', '-z',
+                               ctx.commit, '--', package + 'engine', entry], capture_output=True)
+        if tree.returncode:
+            raise ValueError('the checked engine source listing cannot be read')
+        tree_paths = tree.stdout.decode().split('\0')
+        expected_paths = sorted(p[len(package):] for p in tree_paths if p.startswith(package + 'engine/') and
+                                p.endswith('.py') and '__pycache__' not in p.split('/'))
+        production_paths = ev.json(proc['production_paths'])
+        if not expected_paths or entry not in tree_paths or production_paths != sorted(expected_paths + ['ledger_coverage.py']):
+            raise ValueError('the default production selection differs from the exact committed engine scope')
+        assignment = [node.value for node in ast.parse(blobs[adapter]).body if isinstance(node, ast.Assign) and
+                      any(isinstance(t, ast.Name) and t.id == 'LEDGER_SCHEMA' for t in node.targets)]
+        if (len(assignment) != 1 or not isinstance(assignment[0], ast.Constant) or assignment[0].value != literal):
+            raise ValueError('the real adapter does not declare the required ledger literal')
+        maps = ev.json(proc['source_map'])
+        selected = {'ledger_coverage.py': blobs[entry].decode(), engine[len(package):]: blobs[engine].decode()}
+        if (not isinstance(maps, dict) or set(maps) != set(cases) or maps[case_name] != selected or
+                result.get('selected_paths') != sorted(selected)):
+            raise ValueError('the production selector must include both engine sources and exclude the adapter')
+        values = ev.json(proc['value_set'])
+        if not isinstance(values, list) or not all(isinstance(v, str) for v in values) or literal not in values:
+            raise ValueError('the exact adapter literal is absent from the retained lint value set')
+        planted = case_name == 'the string in the engine'
+        expected_code = ('value = %r\n' % literal).encode() if planted else b'value = None\n'
+        if blobs[engine] != expected_code or blobs[entry] != b'value = None\n':
+            raise ValueError('the engine witness and neutral entry point do not form the required pair')
+        expected_findings = (["engine/scope_probe.py:1: string literal %r occurs in a configuration or record" % literal]
+                             if planted else [])
+        reports = ev.json(proc['findings'])
+        exit_code = 20 if planted else 0
+        if (not isinstance(reports, dict) or set(reports) != set(cases) or reports[case_name] != expected_findings or
+                result.get('findings') != expected_findings or result.get('exit_status') != exit_code or
+                ev.text(case.get('exit_file')) != ('%d\n' % exit_code).encode()):
+            raise ValueError('the retained lint findings and status do not match the exact literal control')
+        actual.update(outcome='LINT_FAIL' if planted else 'LINT_PASS', exit=exit_code,
+                      adapter_path=adapter, adapter_sha256=hashlib.sha256(blobs[adapter]).hexdigest(),
+                      fixture_selected_paths=sorted(selected), production_selected_count=len(production_paths),
+                      production_excludes_adapter=True)
+        # The owner-approved reading of the legacy linted_paths_include key checks the inputs to
+        # the selector. In production only the two selected engine paths above reach the lint.
+        observations = {'source_map_nonempty': (bool(selected), 'production-selected source map'),
+                        'linted_paths_include': ('adapters/', 'selector inputs')}
+        actual['invariants'] = {k: {'value': observations[k][0], 'source': observations[k][1]}
+                                for inv in exp.get('invariants') or [] for k in inv}
+        if (actual['outcome'] != exp.get('outcome') or
+                any(observations[k][0] != v for inv in exp.get('invariants') or [] for k, v in inv.items())):
+            raise ValueError('the measured scope and outcome do not meet the declared case')
+    except (KeyError, ValueError, SyntaxError, FileInvalid) as exc:
+        findings_out.append(('procedural-failed', 'Z9f case %r: %s' % (case_name, exc)))
+    return actual
+
+
 def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None):
     """Evaluates one expectation (the row's, one of its cases, or its restored case) against the retained
     evidence of the case. Appends findings; returns the extracted actual."""
     if is_line_patch_rc8(row):
         return eval_line_patch_case(exp, case_name, ev, findings_out)
+    if row['id'] == 'Z9f':
+        return eval_z9f_case(exp, case_name, ev, findings_out, ctx)
     rid = row['id']
     c = ev.case(case_name)
     actual = {'case': case_name}
