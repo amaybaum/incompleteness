@@ -1376,6 +1376,59 @@ def more_negative_controls(r):
          bool(fs) and all(f['witness'] == F and f['present_at_M'] is False for f in fs))
 
 
+def run_level_ledger_controls(r):
+    """Owner decision of 2026-11-27: a resolvable configuration whose ledger cannot be read, several splices for one
+    edit, retained text not unique at H, an edit with neither splice nor retained text, and an unreadable delegation
+    contract of a named configuration bind the finding at run level (FAIL retirement-blocked with FAIL record-invalid,
+    evidence and provenance kept), not ERROR."""
+    from ledger_coverage.engine import category3 as c3m, findings as fd
+    # end to end: the finding names another retirement's configuration, resolvable on main, whose ledger input does
+    # not match its pin, so the ledger cannot be read through it
+    w = pfc.World(r)
+    pd = w.files['syn/patch.json']
+    oc_, op_, os_, ofiles = w.syn.build({'patch_sha': '0' * 64, 'files': {'syn/patch.json': pd},
+                                         'config_path': 'syn/other/config.json',
+                                         'extra': {'retirement': {'name': 'other', 'issue': 'other'},
+                                                   'config_id': 'other-retirement-config'}})
+    step(w, {q: b for q, b in ofiles.items() if isinstance(b, bytes)}, 'another retirement\'s configuration on main')
+    doc = pfc.invalidating(w, sf.DOC)
+    doc['paths'][0]['scientific_effect']['configuration'] = {'path': op_, 'blob_sha256': os_}
+    pfc.land(w, [(FP, doc)])
+    o = outcome(w)
+    case('RUNLEVEL-LEDGER-UNREADABLE', 'the finding names a resolvable configuration whose ledger cannot be read: '
+                                       'run-level FAIL retirement-blocked and FAIL record-invalid with evidence and '
+                                       'provenance, the reason stated, no ERROR', o,
+         runlevel_fail(o, FP) and any('ledger of the named configuration' in d for d in o['invalid']))
+
+    # the ledger targets, at the level of the predicate and of the binding
+    class H_repo:
+        def read(self, c, p):
+            return b'same\nsame\n'
+    led_multi = {'splices': [{'id': 'E1', 'file': 'a'}, {'id': 'E1', 'file': 'b'}], 'retained': [], 'raw': {}}
+    led_ret = {'splices': [], 'retained': [{'id': 'E1', 'file': 'a', 'text': 'same\n'}], 'raw': {}}
+    led_none = {'splices': [], 'retained': [], 'raw': {'edits': [{'id': 'E1'}]}}
+    got = {}
+    for name, led in (('multi', led_multi), ('retained', led_ret), ('none', led_none)):
+        try:
+            c3m.expected_target(H_repo(), led, 'H', 'E1')
+            got[name] = 'no block'
+        except fd.RunLevelBlock as exc:
+            got[name] = 'block: ' + str(exc)[:80]
+        except fd.Unsettled as exc:
+            got[name] = 'unsettled: ' + str(exc)[:80]
+
+    class B:
+        def finding_config(self, cref):
+            raise fd.RunLevelBlock('Form (ii): the ledger of the named configuration x cannot be read (y)')
+    bound = c3m.bind({'form': [], 'configuration': {'path': 'x', 'blob_sha256': '0' * 64}, 'kind': 1}, B())
+    case('RUNLEVEL-LEDGER-TARGETS', 'several splices for one edit, retained text twice at H, an edit with neither '
+                                    'splice nor retained text: each a run-level block (not ERROR); a block raised '
+                                    'while binding gives (no edits, run level, the reason as a form failure)',
+         {'targets': got, 'bind': bound},
+         all(v.startswith('block') for v in got.values()) and bound[0] == [] and bound[1] is True and
+         any('binds at run level' in x for x in bound[2]))
+
+
 SUITES = [('removal', removal_controls), ('topology', topology_controls), ('unreadable', unreadable_controls),
           ('positive', positive_controls), ('reassessment', reassessment_controls),
           ('clearance-predicates', clearance_predicates), ('identity-and-set', identity_and_set_controls),
@@ -1383,6 +1436,7 @@ SUITES = [('removal', removal_controls), ('topology', topology_controls), ('unre
           ('predecessor-widening', predecessor_widening_unit),
           ('pairing-predecessor', pairing_predecessor_controls),
           ('pairing-review-order', pairing_review_order_control), ('r13-form', r13_form_controls),
+          ('run-level-ledger', run_level_ledger_controls),
           ('read-domain', read_domain_controls), ('milestone', milestone_controls),
           ('explicit-review', explicit_review_controls), ('nits-0cafbdc0', nits_0cafbdc0_controls)]
 

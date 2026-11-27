@@ -620,8 +620,8 @@ class Binding:
         try:
             doc = json.loads(data.decode('utf-8'))
         except (AttributeError, ValueError, UnicodeDecodeError):
-            raise fd.Unsettled('R6.RECON.30 executed paths: the delegation contract of a named configuration cannot '
-                               'be read')
+            raise fd.RunLevelBlock('R6.RECON.30 executed paths: the delegation contract of the named configuration '
+                                   'cannot be read')
         return {q for c in doc.get('classes') or [] if isinstance(c, dict) for q in c.get('paths') or []
                 if isinstance(q, str)}
 
@@ -656,18 +656,19 @@ def expected_target(repo, led, H, eid):
     if len(sps) == 1:
         return {'path': sps[0].get('file'), 'start_H': sps[0].get('start'), 'old_sha256': sps[0].get('old_sha256')}
     if len(sps) > 1:
-        raise fd.Unsettled('Form (ii): edit %s has %d splices; the design names one target per edit' % (eid, len(sps)))
+        raise fd.RunLevelBlock('Form (ii): edit %s has %d splices in the named configuration\'s ledger; one target per '
+                               'edit is required' % (eid, len(sps)))
     ret = [r for r in (led or {}).get('retained') or [] if isinstance(r, dict) and r.get('id') == eid]
     if len(ret) == 1 and isinstance(ret[0].get('text'), str) and isinstance(ret[0].get('file'), str):
         text = ret[0]['text'].encode('utf-8')
         data = repo.read(H, ret[0]['file']) if H else None
         hits = [] if data is None else [m.start() for m in re.finditer(re.escape(text), data)]
         if len(hits) != 1:
-            raise fd.Unsettled('Form (ii): the text of retained edit %s occurs %d times at H; "the start of its text at '
-                               'H" names one start' % (eid, len(hits)))
+            raise fd.RunLevelBlock('Form (ii): the text of retained edit %s occurs %d times at H; "the start of its '
+                                   'text at H" names one start' % (eid, len(hits)))
         return {'path': ret[0]['file'], 'start_H': hits[0], 'old_sha256': util.sha256(text)}
     if eid in _edits(led):
-        raise fd.Unsettled('Form (ii): edit %s has neither a splice of its id nor a retained entry' % eid)
+        raise fd.RunLevelBlock('Form (ii): edit %s has neither a splice of its id nor a retained entry' % eid)
     return None
 
 
@@ -725,7 +726,16 @@ def beside_table_problems(b, f, fled, fH, fdoc):
 
 
 def bind(f, b):
-    """(bound edit ids, run_level, form problems) of one finding for the run's configuration (Form (ii)-(v))."""
+    """(bound edit ids, run_level, form problems) of one finding for the run's configuration (Form (ii)-(v)). A finding
+    whose binding cannot be decided from readable inputs (findings.RunLevelBlock) binds at run level, with the reason
+    as a form failure (FAIL record-invalid)."""
+    try:
+        return _bind(f, b)
+    except fd.RunLevelBlock as exc:
+        return [], True, list(f.get('form') or []) + ['%s; the finding binds at run level' % exc]
+
+
+def _bind(f, b):
     form = list(f.get('form') or [])
     entry = f.get('entry')
     got = b.finding_config(f.get('configuration'))

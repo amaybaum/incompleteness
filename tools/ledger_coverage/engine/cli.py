@@ -338,9 +338,11 @@ def category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, r
         try:
             other = cfgmod.load(repo, commit, ref['path'], ref['blob_sha256'], None, 'harness')
             return load_adapter_input(repo, other, 'ledger')
-        except Exception as exc:  # any failure to read the named configuration's ledger
-            raise fd.Unsettled('Form (ii): the ledger of a named configuration other than the run\'s cannot be read '
-                               '(%s); the design does not say what follows' % exc)
+        except Unresolvable:
+            raise  # an unreadable object: ERROR
+        except Exception as exc:  # the named configuration resolves but its ledger cannot be read
+            raise fd.RunLevelBlock('Form (ii): the ledger of the named configuration %s cannot be read (%s)'
+                                   % (ref.get('path'), exc))
     findings = []
     blocked = []
     bound = {}
