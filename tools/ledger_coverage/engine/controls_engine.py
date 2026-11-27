@@ -840,17 +840,17 @@ def r_controls():
         wfc['pins'][0], blob_sha256='0' * 64)])]).items)
     def old_comparison(m):
         """Compare X directly with M and report unledgered differences, as in the v2 countercontrol."""
-        mp, xp = w.repo.paths(m), w.repo.paths(X)
+        mp = dict(w.repo.paths(m))
+        xp = dict(w.repo.paths(X))
         changed = [{'path': p, 'm': mp.get(p), 'x': xp.get(p)}
                    for p in sorted((mp.keys() | xp.keys()) - led['files'].keys())
                    if mp.get(p) != xp.get(p)]
-        _stage('direct tree comparison', [], main=m, candidate=X, unledgered_changes=changed)
+        _stage('direct tree comparison', [], scientific_base=H, main=m, candidate=X,
+               tree_entries={'m': mp, 'x': xp}, ledgered_paths=sorted(led['files']), unledgered_changes=changed)
         return [entry['path'] for entry in changed]
 
     tt2 = old_comparison(M)
     _case('', workflow=wf)
-    _attest('', {'workflow': wf}, outcome='COUNTERCONTROL',
-            old_style_X_vs_M_comparison_reports=tt2[0] if len(tt2) == 1 else tt2)
     restored_tt2 = old_comparison(H)
     if capture_hook is not None:
         _case('baseline')

@@ -939,9 +939,39 @@ def _computed_invariant(k, v, result, bindings):
     return None
 
 
+def _tt2_comparison_paths(result):
+    """Derive the reported paths from the two retained TT2 tree maps and check the observed diff."""
+    if not isinstance(result, dict) or result.get('operation') != 'direct tree comparison':
+        return None
+    roles = [result.get(k) for k in ('scientific_base', 'main', 'candidate')]
+    if not all(isinstance(rev, str) and HEX40.fullmatch(rev) for rev in roles):
+        return None
+    trees = result.get('tree_entries')
+    if not isinstance(trees, dict) or set(trees) != {'m', 'x'}:
+        return None
+    mp, xp = trees['m'], trees['x']
+    for tree in (mp, xp):
+        if not isinstance(tree, dict) or not all(isinstance(path, str) and path and isinstance(blob, str)
+                                                and HEX40.fullmatch(blob) for path, blob in tree.items()):
+            return None
+    ledgered = result.get('ledgered_paths')
+    if not isinstance(ledgered, list) or not all(isinstance(p, str) and p and p in xp for p in ledgered) or \
+            len(ledgered) != len(set(ledgered)):
+        return None
+    changed = [{'path': p, 'm': mp.get(p), 'x': xp.get(p)}
+               for p in sorted((mp.keys() | xp.keys()) - set(ledgered)) if mp.get(p) != xp.get(p)]
+    return [entry['path'] for entry in changed] if result.get('unledgered_changes') == changed else None
+
+
 def eval_invariant(k, v, result, case, attested, bindings):
     """Returns (holds, actual, source). Keys the gate can compute from the retained result are computed; any
     other key must be attested in the case's sha256-checked attested file, equal to the expectation."""
+    if k == 'old_style_X_vs_M_comparison_reports':
+        got = _tt2_comparison_paths(result)
+        if got is None:
+            return False, None, 'unattested'
+        path = _bind(v, bindings)
+        return got == [path] and (k not in attested or attested[k] == v), got, 'result'
     if isinstance(result, dict) and result.get('schema') == SCHEMA_GATE:
         comps = [r for r in result.get('rows', []) if 'components' in r]
         if k == 'composite_status':
@@ -1412,6 +1442,20 @@ def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None):
             if actual['outcome'] != o:
                 findings_out.append(('declarative-mismatch', 'case %r: %s, expected %s' % (case_name,
                                                                                          actual['outcome'], o)))
+        elif rid == 'TT2' and o == 'RESULT_EQUAL_CLEAN':
+            baseline = ev.json(c['baseline_file']) if c.get('baseline_file') else None
+            countercase = ev.case('') or {}
+            adverse = ev.json(countercase['result_file']) if countercase.get('result_file') else None
+            same = (_tt2_comparison_paths(result) == [] and result == baseline and
+                    bool(_tt2_comparison_paths(adverse)) and result['main'] == result['scientific_base'] ==
+                    adverse['scientific_base'] and adverse['main'] != result['main'] and
+                    result['candidate'] == adverse['candidate'] and
+                    result['ledgered_paths'] == adverse['ledgered_paths'] and
+                    result['tree_entries']['x'] == adverse['tree_entries']['x'])
+            actual['outcome'] = o if same else 'RESULT_DIFFERS'
+            if not same:
+                findings_out.append(('declarative-mismatch', 'case %r: no clean restored TT2 comparison of X and H'
+                                     % case_name))
         elif o in ('RESULT_EQUAL_CLEAN', 'RESULT_EQUAL_FULL_STORE', 'RESULT_EQUAL_WITHOUT_AMENDMENT',
                    'REPLAY_EQUAL') and c.get('baseline_file'):
             # gate-computed: the case's item tuples and outcome equal those of the retained baseline run
@@ -1421,6 +1465,12 @@ def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None):
             actual['outcome'] = o if same else 'RESULT_DIFFERS'
             if not same:
                 findings_out.append(('declarative-mismatch', 'case %r: result differs from its baseline' % case_name))
+        elif rid == 'TT2' and o == 'COUNTERCONTROL':
+            reported = _tt2_comparison_paths(result)
+            actual['outcome'] = o if reported else None
+            if not reported or ('outcome' in attested and attested['outcome'] != o):
+                findings_out.append(('raw-evidence-missing' if reported is None else 'declarative-mismatch',
+                                     'case %r: no consistent direct tree comparison for TT2' % case_name))
         elif o in SUBJECT_OUTCOMES | MUT_OUTCOMES:
             got = attested.get('outcome')
             actual['outcome'] = got
