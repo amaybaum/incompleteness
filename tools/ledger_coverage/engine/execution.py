@@ -330,8 +330,9 @@ class Execution:
         # amendment 3: one run-level assessment of every entry for the drifted ledgered or corpus paths (RC10 and
         # RC11 read over the locally valid entries), and one disposition per such path (R6.RECON.22)
         drifted = {p for p in set(hp) | set(mp) if he.get(p) != me.get(p) and p in ledgered_or_corpus}
+        retained = rc.retained_windows(self.repo, self.H, self.ledger, drifted)
         self.assessment = rc.assess(self.repo, self.ctx, self.H, M, self.X, self.ledger, self.reconciliations,
-                                    self.side_classes, getattr(self, 'record_refs', {}), rd, drifted)
+                                    self.side_classes, getattr(self, 'record_refs', {}), rd, drifted, retained)
         self.dispositions = []
         invalid_forms = set()
         for path in sorted(set(hp) | set(mp)):
@@ -358,8 +359,8 @@ class Execution:
                         invalid_forms.add(key)
                         self.item('RECORD', 'record-invalid', '%s:%s' % key, {'why': form[0]},
                                   detail='scientific_effect: %s' % '; '.join(form))
-                conflict = rc.path_conflicts(self.repo, self.ctx, self.H, M, path, self.ledger) \
-                    if path in (self.ledger.get('files') or {}) else []
+                conflict = rc.path_conflicts(self.repo, self.ctx, self.H, M, path, self.ledger, retained.get(path, ())) \
+                    if path in (self.ledger.get('files') or {}) or path in retained else []
                 disp = {'path': path, 'disposition': 'reconciled' if rec else 'base-drift',
                         'category': 2 if conflict else 1,
                         'record': (rec or {}).get('_ref'), 'failed': [e['failed'] for e in ev],

@@ -1,6 +1,6 @@
 """Controls of design r6 amendment 3 (general multi-path reconciliation) on the engine's neutral in-memory trees:
 RECON-MULTI, RECON-ENUM, RECON-CORPUS, RECON-CONFLICT, RECON-CATEGORY, RECON-SCI, RECON-BLOCK, RECON-TRIAL and
-RECON-OVERLAP.
+RECON-OVERLAP and RECON-RETAINED.
 
 Each case is one in-process op C main-role stage (engine/execution.py) over commits built in memory: the pin H, a
 candidate X carrying the ledger's splices, a main commit M, and reconciliation records drafted by the engine from those
@@ -23,9 +23,11 @@ C_TEXT = '# heading three\n\nplain corpus text.\n'
 
 
 class World:
-    def __init__(self, a_text=ce.base_text, b_text=B_TEXT, two=True, three=False):
-        self.w = ce.World(a_text, extra={B: b_text.encode(), C_PATH: C_TEXT.encode()})
-        self.repo, self.H = self.w.repo, self.w.pin
+    def __init__(self, a_text=ce.base_text, b_text=B_TEXT, two=True, three=False, earlier=None):
+        self.w = ce.World(earlier if earlier is not None else a_text,
+                          extra={B: b_text.encode(), C_PATH: C_TEXT.encode()})
+        self.repo = self.w.repo
+        self.H = self.w.pin if earlier is None else self.w.child(self.w.pin, a_text, subject='scientific base')
         self.a_text, self.b_text = a_text, b_text
         sa = a_text.index('beta line two')
         sps = [(A, sa, sa + len('beta line two'), 'beta line second')]
@@ -56,6 +58,11 @@ class World:
     def record(self, M, path, effect=None):
         return rcmod.draft(self.repo, self.ctx, self.H, M, self.X, self.led, path,
                            scientific_effect=copy.deepcopy(effect or EFFECT))
+
+    def retain(self, text, line):
+        site = '%s:%d@%s' % (A, line, self.w.pin[:8])
+        self.ctx.sitemap['sites'].append({'site_id': site, 'file': A, 'pin_line': line})
+        self.led['retained'] = [{'id': 'retained-fixture', 'site_ref': site, 'file': A, 'text': text, 'identity': True}]
 
     def stage(self, M, records, cap, label):
         refs = []
@@ -159,8 +166,9 @@ def recon_controls(cap):
     out['RECON-CORPUS'] = ok
     out['_RECON-CORPUS'] = [failed(d, C_PATH) for d in res]
 
-    # RECON-CONFLICT (the retained-site case is not built: RC14 (b) is not wired to the site map)
+    # RECON-CONFLICT
     w5 = World(two=False)
+    w5.retain('alpha line one', 3)
     restored_M = w5.main({A: ('epsilon closing line.', 'epsilon closing line, edited on main.')})
     base_rec = w5.record(restored_M, A)
     cases = []
@@ -176,15 +184,38 @@ def recon_controls(cap):
     d_s = ws.stage(Ms, [ws.record(Ms, A) or ws.record(ws.main({}), A)], cap, CONFLICT[1])
     name_last(cap, CONFLICT[1])
     cases.append((CONFLICT[1], d_s))
+    conflict(CONFLICT[2], w5.main({A: ('alpha line one stands here.', 'alpha line one stands there.')}))
     conflict(CONFLICT[3], w5.main({A: ('epsilon closing line.', 'epsilon closing line.\n\nbeta line two stands here.')}))
     conflict(CONFLICT[4], w5.main({A: ('beta line two stands here.',
                                        'beta LINE 2 stands here.\n\nbeta line two elsewhere.')}))
     w5.stage(restored_M, [base_rec], cap, 'restored')
     name_last(cap, 'restored')
-    built_ok = all('RC14' in failed(d_, A) and 'base-drift' in classes(d_) for _c, d_ in cases)
-    out['RECON-CONFLICT'] = False  # the retained-site case is not built
-    out['_RECON-CONFLICT'] = {'built_cases_hold': built_ok, 'not_built': [CONFLICT[2]],
-                              'failed': {c: failed(d_, A) for c, d_ in cases}}
+    out['RECON-CONFLICT'] = all('RC14' in failed(d_, A) and 'base-drift' in classes(d_) for _c, d_ in cases)
+    out['_RECON-CONFLICT'] = {'failed': {c: failed(d_, A) for c, d_ in cases}}
+
+    # RECON-RETAINED: a whole line at H, a multiline window, and a site whose earlier pin_line moved.
+    second_line = World(two=False)
+    second_line.retain('gamma line three stands here.\n\ndelta line four', 7)
+    moved = World(a_text='Moved preface.\n\n' + ce.base_text, two=False, earlier=ce.base_text)
+    moved.retain('alpha line one', 3)
+    retained_cases = [
+        (w5, w5.main({A: ('alpha line one stands here.', 'alpha line one stands there.')})),
+        (w5, w5.main({A: ('epsilon closing line.', 'epsilon closing line.\n\nalpha line one stands here.')})),
+        (second_line, second_line.main({A: ('delta line four stands here.', 'delta line four stands there.')})),
+        (moved, moved.main({A: ('epsilon closing line.', 'epsilon edited.')})),
+        (w5, restored_M),
+    ]
+    retained_results = []
+    for caption, (world, main) in zip(RETAINED, retained_cases):
+        rec = world.record(main, A)
+        retained_results.append(world.stage(main, [rec], cap, caption))
+        name_last(cap, caption)
+    adverse = retained_results[:3]
+    clean = retained_results[3:]
+    out['RECON-RETAINED'] = all('RC14' in failed(doc, A) and 'base-drift' in classes(doc) and
+                                (disp(doc, A) or {}).get('category') == 2 for doc in adverse) and \
+        all(not {'base-drift', 'record-invalid'} & set(classes(doc)) for doc in clean)
+    out['_RECON-RETAINED'] = [failed(doc, A) for doc in retained_results]
 
     # RECON-CATEGORY (both directions)
     k1 = w5.stage(restored_M, [base_rec], cap, 'category 1')
@@ -233,6 +264,12 @@ CORPUS = ["a corpus path the ledger does not list, changed on M, covered by a re
           "countercase: the same entry with x differing from the path's blob at H",
           'countercase: the same entry with a non-null ledger_binding value',
           'countercase: the same path with no record']
+RETAINED = ["M changes a byte of the line holding a retained edit's text at H",
+            "M adds a second copy of a retained site's line elsewhere in the file",
+            "a retained edit whose text spans two lines; M changes a byte of the second line",
+            "a retained site that moved between E and H (its site-map pin_line differs from its line at H), M not "
+            "touching its line: the line at H is found from the retained text, with no E..H walk (positive)",
+            "countercase: M changes bytes outside every context window and every retained site's line (positive)"]
 CONFLICT = ["M changes a byte of the line holding a splice, outside the splice's span",
             "M changes a byte of a sentence (splitter version 2) that overlaps a splice's span, on another line",
             'M changes the line of a retained site of the path',

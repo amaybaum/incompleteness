@@ -205,8 +205,13 @@ def load(main, companions, read=None):
     byid = {e['id']: e for e in elist}
     for rid in led.get('retained_unchanged', []):
         e = byid.get(rid)
+        pair = (e['old'], e['new']) if e else None
+        if e is not None and read is not None:
+            data = read(led['base'], e['file'])
+            pair = select(e, data.decode('utf-8')) if data is not None else None
+        identity = pair is not None and pair[0] == pair[1]
         retained.append({'id': rid, 'site_ref': e['site'] if e else None, 'file': e['file'] if e else None,
-                         'text': e['old'] if e else None, 'identity': bool(e) and e['old'] == e['new']})
+                         'text': pair[0] if identity else None, 'identity': identity})
     units = [{'id': e['id'], 'file': e['file'], 'kind': e.get('kind'), 'pairs': [list(p) for p in pairs_of(e)],
               'raw_keys': sorted(e)} for e in elist]
     pin_rules = _pin_rules(companions['checker']) if companions.get('checker') is not None else None
