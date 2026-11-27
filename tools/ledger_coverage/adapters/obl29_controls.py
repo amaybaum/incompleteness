@@ -50,7 +50,23 @@ def outcome(w, classify=(), **kw):
             'invalid': [d for i in out.get('items', []) if i['class'] == 'record-invalid'
                         for d in (i.get('detail') or [])][:3],
             'reassess_why': [d for i in out.get('items', []) if i['class'] == 'record-invalid' and
-                             i.get('subject') == pfc.RA_PATH for d in (i.get('detail') or [])]}
+                             i.get('subject') == pfc.RA_PATH for d in (i.get('detail') or [])],
+            'runlevel': [b['record']['path'] for b in c3.get('blocked') or [] if b.get('edit') is None],
+            'form_items': [i.get('evidence') or {} for i in out.get('items', []) if i['class'] == 'record-invalid' and
+                           any('form failure of a category-3' in d for d in (i.get('detail') or []))]}
+
+
+def runlevel_fail(o, path, cls=None):
+    """Owner decision 5 (#1169 comment 7207734407): a malformed finding, or one with no readable entry, blocks at run
+    level (FAIL retirement-blocked) with FAIL record-invalid, its evidence and provenance kept in the result: the
+    finding's path and blob, its witness (source commit) and its detection class."""
+    fs = [f for f in o['all'] if (f.get('record') or {}).get('path') == path]
+    its = [i for i in o['form_items'] if (i.get('finding') or {}).get('path') == path]
+    return o['exit'] == 20 and o['stop'] is None and 'retirement-blocked' in o['classes'] and \
+        'record-invalid' in o['classes'] and path in o['runlevel'] and bool(fs) and bool(its) and \
+        all(isinstance(f.get('witness'), str) and (f.get('record') or {}).get('blob_sha256') for f in fs) and \
+        all(any(f.get('record') == i.get('finding') and f.get('witness') == i.get('source') for f in fs) and
+            (cls is None or i.get('class') == cls) for i in its)
 
 
 def custody_only(o):
@@ -123,11 +139,10 @@ def removal_controls(r):
     step(w, {FP: b'\xef\xbb\xbf' + fb}, 'prepend bytes')
     o = outcome(w)
     # the BOM-prefixed file fails the strict parse (R6.RECON.29) and is a class (b) malformed finding with an
-    # invalidation signal; a malformed finding has no entry, and whether R6.RECON.26's side_change_commits gate admits
-    # it is not settled: the run stops with ERROR DESIGN_UNSETTLED (fail closed, no verdict)
-    case('N-PREPEND', 'bytes prepended to f: the prefixed copy is a malformed finding whose applicability the design '
-                      'does not settle, so the run stops with ERROR DESIGN_UNSETTLED', o,
-         o['exit'] == 65 and o['stop'] == 'DESIGN_UNSETTLED')
+    # invalidation signal; a malformed finding blocks at run level (owner decision 5)
+    case('N-PREPEND', 'bytes prepended to f: the prefixed copy is a class (b) malformed finding: run-level FAIL '
+                      'retirement-blocked and FAIL record-invalid, with its path, blob, witness and class in the '
+                      'result', o, runlevel_fail(o, FP, 'b'))
     w, c1, fb = landed(r)
     step(w, {FP: fb[:len(fb) // 2]}, 'truncate')
     o = outcome(w)
@@ -829,8 +844,9 @@ def r13_form_controls(r):
     w, c1, ZP = second_kind_world(reviewed_missing=True)
     o = outcome(w)
     case('SECOND-KIND-REVIEWED-MISSING', 'an invalidates verdict whose reviewed names no record the scan finds: it '
-                                         'counts (form failure) but has no entry; its applicability is not settled: '
-                                         'ERROR DESIGN_UNSETTLED', o, o['exit'] == 65 and o['stop'] == 'DESIGN_UNSETTLED')
+                                         'counts (form failure) and has no readable entry: run-level FAIL '
+                                         'retirement-blocked and FAIL record-invalid, with its provenance', o,
+         runlevel_fail(o, ZP))
     # first kind with no review at all
     w = pfc.World(r)
     doc = pfc.invalidating(w, sf.DOC)
@@ -855,9 +871,9 @@ def r13_form_controls(r):
     step(w, {MP: b'{"schema": "oi-reconciliation/2", "x": "invalidates"'}, 'an unparseable malformed finding')
     step(w, {MP: None}, 'deleted')
     o = outcome(w)
-    case('N-MALFORMED-DELETED', 'a class (c) malformed finding landed and deleted: still in R*; a malformed finding has '
-                                'no entry, so its applicability is not settled: ERROR DESIGN_UNSETTLED', o,
-         o['exit'] == 65 and o['stop'] == 'DESIGN_UNSETTLED')
+    case('N-MALFORMED-DELETED', 'a class (c) malformed finding landed and deleted: still in R*; run-level FAIL '
+                                'retirement-blocked and FAIL record-invalid (it binds), with its path, blob, witness '
+                                'and class in the result', o, runlevel_fail(o, MP, 'c'))
     TLP = 'verification/audits/syn-tl/'
     w = pfc.World(r, variant=tl_variant(TLP))
     step(w, {TLP + 'broken.json': b'{"schema": "oi-review-record/1", "a": 1, "a": 2}'}, 'malformed under a TL prefix')
@@ -994,9 +1010,9 @@ def milestone_controls(r):
     pfc.land(w, [(FP, doc)])
     o = outcome(w)
     case('BESIDE-TABLES-STOP', 'a finding record whose splice end_M is not start_M + end_H - start_H (an R6.RECON.30 '
-                               'check beside the tables): whether that is a form failure is not settled, so the run '
-                               'stops with ERROR DESIGN_UNSETTLED', {'o': o, 'had_splice': bool(sp)},
-         bool(sp) and o['exit'] == 65 and o['stop'] == 'DESIGN_UNSETTLED')
+                               'check beside the tables): a malformed finding, run-level FAIL retirement-blocked and '
+                               'FAIL record-invalid naming the beside-table failure', {'o': o, 'had_splice': bool(sp)},
+         bool(sp) and runlevel_fail(o, FP) and any('beside its tables' in d for d in o['invalid']))
     # global id scope: an unresolved configuration binds a same-id edit on another path, outside the lineage
     w = pfc.World(r)
     doc = pfc.invalidating(w, sf.DOC)
@@ -1031,8 +1047,8 @@ def milestone_controls(r):
                                           'FAIL record-invalid for its form and retirement-blocked (R6.OBL29.2)', o,
          blocked(o, False, c1) and any('form failure of a category-3' in d for d in o['invalid']))
     # the self-review boundary: the invalidating review lands first with its record absent, then the record lands and
-    # shows reviewer = author. Pinned to the current reading (the finding is disqualified once the record is found);
-    # flip this control if the owner rules otherwise.
+    # shows reviewer = author. Owner-confirmed reading (#1169 comment 7207734407, decision 4): the finding is
+    # disqualified once the record is found.
     w = pfc.World(r)
     q = w.record(record_id='syn-recon-q')
     qb = pfc.jb(q)
@@ -1049,11 +1065,13 @@ def milestone_controls(r):
     o1 = outcome(w)
     step(w, {QP: qb}, 'the reviewed record lands, its author the reviewer')
     o2 = outcome(w)
-    case('SELF-REVIEW-RECORD-LANDS-LATER', 'pinned reading: before the record lands the review names no record the scan '
-                                           'finds (stop 1, ERROR DESIGN_UNSETTLED); once it lands, reviewer = author '
-                                           'disqualifies the review and no second-kind finding remains',
-         {'before': [o1['exit'], o1['stop']], 'after_kind2': [f for f in o2['all'] if f.get('kind') == 2]},
-         o1['stop'] == 'DESIGN_UNSETTLED' and not [f for f in o2['all'] if f.get('kind') == 2])
+    case('SELF-REVIEW-RECORD-LANDS-LATER', 'owner-confirmed reading: before the record lands the review names no '
+                                           'record the scan finds (no readable entry: run-level FAIL '
+                                           'retirement-blocked); once it lands, reviewer = author disqualifies the '
+                                           'review and no second-kind finding remains',
+         {'before': [o1['exit'], o1['stop'], o1['runlevel']],
+          'after_kind2': [f for f in o2['all'] if f.get('kind') == 2]},
+         runlevel_fail(o1, pfc.RD + 'q.second.review.json') and not [f for f in o2['all'] if f.get('kind') == 2])
 
 
 def nits_0cafbdc0_controls(r):
@@ -1153,9 +1171,9 @@ def nits_0cafbdc0_controls(r):
     pfc.land(w, [(FP, doc)])
     o = outcome(w)
     case('BESIDE-TABLES-IDENTITY-PREFIX', 'a finding record whose identity translation has H and M bytes that disagree '
-                                          'before the splice end: an R6.RECON.30 beside-table failure, so the run stops '
-                                          'with ERROR DESIGN_UNSETTLED', o,
-         o['exit'] == 65 and o['stop'] == 'DESIGN_UNSETTLED')
+                                          'before the splice end: an R6.RECON.30 beside-table failure, a malformed '
+                                          'finding: run-level FAIL retirement-blocked and FAIL record-invalid', o,
+         runlevel_fail(o, FP) and any('identity without prefix agreement' in d for d in o['invalid']))
     # an explicit record present at a source the caller did not supply
     w, c1, fb = landed(r)
     code, out = w.run([], harness=True)

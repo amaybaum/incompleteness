@@ -356,14 +356,17 @@ def category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, r
             present, wit = cum.witness(f['record'] or {}, M, revs, F)
             entry = f.get('entry')
             if not isinstance(entry, dict) or not isinstance(entry.get('side_change_commits'), list):
-                raise fd.Unsettled('R6.RECON.26: "A finding found there blocks every run whose M contains one of the '
-                                   'entry\'s side_change_commits" does not say whether a finding with no readable entry '
-                                   '(%s, item %r) applies' % ((f['record'] or {}).get('path'), f.get('item')))
-            applies = c3.in_m(repo, M, entry['side_change_commits'])
-            edits, run_level, form = c3.bind(f, bview) if applies else ([], False, list(f.get('form') or []))
-            bound[fkey(f)] = (edits, run_level, form, present)
+                # a malformed finding, or one with no readable entry: a run-level block (owner decision 5 of
+                # 2026-11-27), with FAIL record-invalid; its evidence and provenance stay in the result
+                form = list(f.get('form') or []) + ['the finding has no readable entry with side_change_commits; it '
+                                                    'blocks at run level']
+                bound[fkey(f)] = ([], True, form, present)
+            else:
+                applies = c3.in_m(repo, M, entry['side_change_commits'])
+                edits, run_level, form = c3.bind(f, bview) if applies else ([], False, list(f.get('form') or []))
+                bound[fkey(f)] = (edits, run_level, form, present)
             findings.append({'record': f['record'], 'item': f.get('item'), 'kind': f['kind'], 'path': f['path'],
-                             'present_at_M': present, 'witness': wit})
+                             'class': f.get('class'), 'present_at_M': present, 'witness': wit})
     except fd.Unsettled as exc:
         raise oc.Stop(oc.error, 'DESIGN_UNSETTLED', str(exc))
     except Unresolvable as exc:
@@ -403,6 +406,7 @@ def category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, r
         else:
             applying.append((d, r))
     lifted = c3.lifting(applying)
+    wit_of = {fkey(f): x['witness'] for f, x in zip(found, findings)}
     for f in found:
         edits, run_level, form, present = bound[fkey(f)]
         hits = [e for e in edits if not lifted(f, e)]
@@ -415,7 +419,11 @@ def category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, r
         if form and (present or hits):
             out.append(oc.make_item('RECORD', 'record-invalid', (f['record'] or {}).get('path'), None,
                                     {'finding': f['record'], 'item': f.get('item'), 'why': form[0]},
-                                    detail=['a form failure of a category-3 finding: %s' % x for x in form]))
+                                    detail=['a form failure of a category-3 finding: %s' % x for x in form],
+                                    # its evidence and provenance (owner decision 5): the record's path and blob, its
+                                    # kind and detection class, and the witness commit that supplies it
+                                    evidence={'finding': f['record'], 'item': f.get('item'), 'kind': f['kind'],
+                                              'class': f.get('class'), 'source': wit_of.get(fkey(f))}))
     out += c3.blocked_items(repo, H, M, blocked, getattr(ex, 'dispositions', []))
     explicit = [{'path': (r.get('_ref') or {}).get('path'), 'blob_sha256': (r.get('_ref') or {}).get('blob_sha256'),
                  'source': r.get('_source')} for r in recon + explicit_reviews]

@@ -275,8 +275,12 @@ def schema_chain_controls(r):
          failed_with(o, 'custody-missing'))
 
 
-def config_doc(w, admission='chain', reassessment=True):
+def config_doc(w, admission=None, reassessment=True, corpus_path=None):
+    """The fixture's configuration citing a reassessment (R6.CFG.4: no admission key). `admission` adds a key the
+    schema does not have (a configuration the loader refuses); `corpus_path` adds an exact corpus path."""
     d = json.loads(w.files[w.p])
+    if corpus_path is not None:
+        d['corpus'] = dict(d['corpus'], paths=[corpus_path])
     if reassessment:
         d['records'] = list(d['records']) + [{'kind': 'reassessment', 'path': 'syn/cfg/ra.json',
                                               'blob_sha256': '5' * 64}]
@@ -317,17 +321,19 @@ def configuration_controls(r):
                                'custody-unsupported', o, failed_with(o, 'custody-unsupported'))
     c = CW(r)
     c.bootstrap()
-    c.step({KP: config_doc(c.w, admission=None)})
+    c.step({KP: config_doc(c.w)})
     o = c.run()
-    case('CU-STOP-ADMISSION', 'a configuration citing a reassessment without an admission key (R6.CFG.4 has none): '
-                              'whether it is discharge-bearing is not settled, so the run stops with ERROR '
-                              'DESIGN_UNSETTLED', o, o['exit'] == 65 and o['stop'] == 'DESIGN_UNSETTLED')
+    case('CU-N11-NO-ADMISSION', 'a configuration citing a reassessment, with no admission key (R6.CFG.4 has none), '
+                                'that no context admits and no unfrozen entry names: discharge-bearing (owner decision '
+                                '2, no admission.mode condition), custody-incomplete', o,
+         failed_with(o, 'custody-incomplete'))
     c = CW(r)
     c.bootstrap()
     c.step({KP: config_doc(c.w, admission='harness')})
     o = c.run()
-    case('CU-N23-HARNESS', 'a configuration citing a reassessment with admission.mode harness is not discharge-bearing '
-                           '(no unfrozen entry needed): established', o, o['status'] == 'established')
+    case('CU-N23-HARNESS', 'a configuration citing a reassessment that carries an admission.mode harness key: '
+                           'discharge-bearing all the same (owner decision 2: no admission.mode condition), so with no '
+                           'unfrozen entry custody-incomplete', o, failed_with(o, 'custody-incomplete'))
     # the pin rule (c4)
     def pin_world(unfrozen_before_pin, merge_old_branch=False):
         c = CW(r)
@@ -364,11 +370,12 @@ def freeze_controls(r):
     KP = KD + 'config.json'
 
     def freeze_world(close=True, landing_kind='merge', runs=(), results=(), early_close=False, prereg_lists=True,
-                     config_at_f=True, pre=None, classes=None):
+                     config_at_f=True, pre=None, classes=None, corpus_path=None, admission=None):
         c = CW(r)
         v0 = c.bootstrap()
         main_before = c.w.M
-        kb = config_doc(c.w)
+        # the world's configuration already cites its reassessment (with the record at f), so no further reference
+        kb = config_doc(c.w, corpus_path=corpus_path, admission=admission, reassessment=False)
         cls_files = {}
         if classes is not None:
             # roles.side_change_classes names a class record at f; classes = (record bytes, pinned blob_sha256 or
@@ -384,7 +391,12 @@ def freeze_controls(r):
                                     % (sf.sha(kb) if prereg_lists else '0' * 64)).encode()}
         if config_at_f:
             files[KP] = kb
+            # the records and adapter inputs the configuration names, at f beside it, so that its ledger is read at f
+            # through its own adapter (R6.RECON.1)
+            files.update({q: b for q, b in c.w.files.items() if isinstance(b, bytes) and q != c.w.p})
         files.update(cls_files)
+        if corpus_path is not None:
+            files[corpus_path] = b'# a corpus path of the context\n'
         F1 = c.w.repo.derive(main_before, files, parents=[main_before], subject='freeze F1')
         tip = F1
         branch = dict(files)
@@ -478,15 +490,8 @@ def freeze_controls(r):
         return pre
     from ledger_coverage.engine import cli as cli_mod
 
-    def with_ledger(cw, extra=()):
-        # the ledgered paths supplied from the fixture's own ledger (see CU-REV-SHAPE-OK), so that each case fails for
-        # its own reason, not for an unreadable ledger; `extra` adds ledgered paths to that set
-        real = cli_mod.context_ledger_files
-        cli_mod.context_ledger_files = lambda repo: (lambda c_: set((cw.w.led.get('files') or {}).keys()) | set(extra))
-        try:
-            return cw.run()
-        finally:
-            cli_mod.context_ledger_files = real
+    def ran(cw):
+        return cw.run()
     want = {'plan-dir': 'inside the plan record directory', 'modifies': 'changes more than adding',
             'no-record': 'adds no oi-reconciliation/2 record', 'two-parents': 'exactly the one parent',
             'other-parent': 'exactly the one parent'}
@@ -505,16 +510,16 @@ def freeze_controls(r):
         except Exception as e:  # noqa: BLE001 - a crash is the variant's failure, reported in the case
             return {'error': '%s: %s' % (type(e).__name__, str(e)[:160]), 'shape_whys': [], 'items': [],
                     'whys': [], 'status': None, 'classes': [], 'reassessments': None}
-    shapes = {k: guarded(lambda k=k: with_ledger(freeze_world(pre=rev_pre(k))[0]))
+    shapes = {k: guarded(lambda k=k: ran(freeze_world(pre=rev_pre(k))[0]))
               for k in ('plan-dir', 'modifies', 'no-record', 'two-parents', 'other-parent')}
-    shapes['tool-landing'] = guarded(lambda: with_ledger(freeze_world(pre=rev_pre('tool-landing'),
+    shapes['tool-landing'] = guarded(lambda: ran(freeze_world(pre=rev_pre('tool-landing'),
                                                                       classes=(tl_classes, None))[0]))
-    # a ledgered path of the context in the REV file's directory (added to the substituted ledger set)
-    shapes['ledgered-dir'] = guarded(lambda: with_ledger(freeze_world(pre=rev_pre('ok'))[0],
-                                                         extra=['verification/audits/syn-recon-r/ledgered.md']))
-    shapes['outside-audits'] = guarded(lambda: with_ledger(freeze_world(pre=rev_pre('outside-audits'))[0]))
+    # a corpus path of the context's configuration in the REV file's directory, read at f by the real reader
+    shapes['ledgered-dir'] = guarded(lambda: ran(freeze_world(
+        pre=rev_pre('ok'), corpus_path='verification/audits/syn-recon-r/corpus.md')[0]))
+    shapes['outside-audits'] = guarded(lambda: ran(freeze_world(pre=rev_pre('outside-audits'))[0]))
     # roles.side_change_classes names a path with no record at f (its pin is the record's hash, the path is absent)
-    shapes['class-unverified'] = guarded(lambda: with_ledger(freeze_world(pre=rev_pre('ok'),
+    shapes['class-unverified'] = guarded(lambda: ran(freeze_world(pre=rev_pre('ok'),
                                                                           classes=(tl_classes, None, False))[0]))
     case('CU-N14', 'a close run\'s REV with two parents, a parent other than its m, a changed existing path, a file added '
                    'in the plan record directory (elsewhere under verification/audits/ than a reconciliation '
@@ -525,19 +530,19 @@ def freeze_controls(r):
          all(failed_with(o, 'custody-run-shape') and any(want[k] in w_ for w_ in o['shape_whys'])
              for k, o in shapes.items()))
     # a REV whose directory is a prefix of a class other than the tool-landing class: a reconciliation directory
-    o = guarded(lambda: with_ledger(freeze_world(pre=rev_pre('ok'), classes=(tl_classes, None))[0]))
+    o = guarded(lambda: ran(freeze_world(pre=rev_pre('ok'), classes=(tl_classes, None))[0]))
     case('CU-N14-OTHER-CLASS', 'the REV\'s directory is a prefix of a class other than the context\'s tool-landing '
                                'class: no custody-run-shape (only the tool-landing class\'s prefixes are excluded)',
          o, 'error' not in o and o['status'] is not None and 'custody-run-shape' not in o['items'])
-    # the context's configuration carries the synthetic `admission` key that stop 1 requires, which the configuration
-    # loader refuses as an unknown key, so its ledgered paths cannot be read through it: an unreadable ledger leaves
-    # the directory undecided (custody-run-shape, fail closed); for these cases the ledgered paths are supplied from
-    # the fixture's own ledger (an in-process substitution, documented here)
-    ok = with_ledger(freeze_world(pre=rev_pre('ok'))[0])
-    undecided = freeze_world(pre=rev_pre('ok'))[0].run()
-    case('CU-REV-LEDGER-UNREADABLE', 'the same REV when the context\'s ledgered paths cannot be read: the directory is '
-                                     'undecided, custody-run-shape (fail closed)', undecided,
-         failed_with(undecided, 'custody-run-shape') and any('ledgered paths cannot be read' in w_ for w_ in undecided['shape_whys']))
+    # the context's ledgered paths are read at f through its configuration's own ledger adapter (no substitution);
+    # a configuration the loader refuses (here: an admission key, which R6.CFG.4 does not have) leaves them unread
+    ok = ran(freeze_world(pre=rev_pre('ok'))[0])
+    undecided = freeze_world(pre=rev_pre('ok'), admission='chain')[0].run()
+    case('CU-REV-LEDGER-UNREADABLE', 'the same REV when the context\'s ledgered paths cannot be read (a configuration '
+                                     'the loader refuses): the directory is undecided, custody-run-shape (fail '
+                                     'closed)', undecided,
+         failed_with(undecided, 'custody-run-shape') and
+         any('ledgered paths cannot be read' in w_ for w_ in undecided['shape_whys']))
     case('CU-REV-SHAPE-OK', 'a REV adding one oi-reconciliation/2 record naming m in a reconciliation directory: no '
                             'custody-run-shape (the run results still decide the rest)', ok,
          'custody-run-shape' not in ok['items'])

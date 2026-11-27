@@ -158,14 +158,12 @@ class History:
 
 
 def discharge_bearing(doc):
-    """Sec. 1: a configuration citing a reassessment whose admission.mode is chain. The configuration schema
-    (R6.CFG.4) has no `admission` key; where it is absent the clause cannot be evaluated."""
-    adm = doc.get('admission') if isinstance(doc, dict) else None
-    if adm is None:
-        raise fd.Unsettled('custody sec. 1: "a configuration is discharge-bearing when ... its admission.mode is '
-                           '\'chain\'": oi-retirement-config/1 (R6.CFG.4) has no admission key, so a configuration '
-                           'citing a reassessment cannot be classed')
-    return isinstance(adm, dict) and adm.get('mode') == 'chain'
+    """Sec. 1 as the owner decided it (decision 2 of 2026-11-27): a regular file of schema
+    oi-retirement-config/1 whose records cite at least one reassessment; no `admission.mode` condition (R6.CFG.4
+    has no admission key, and any such key is ignored). The regular-file condition is met by the callers, which read
+    only regular entries."""
+    return isinstance(doc, dict) and doc.get('schema') == config_schema and any(
+        isinstance(r, dict) and r.get('kind') == 'reassessment' for r in doc.get('records') or [])
 
 
 # ---- the check ---------------------------------------------------------------------------------------------------
@@ -330,9 +328,7 @@ class Check:
             doc = fd.strict_parse(data) if data is not None else None
             if data is None or util.sha256(data) != cref['blob_sha256']:
                 why = 'f\'s tree does not hold the configuration at its path with its SHA-256'
-            elif not (isinstance(doc, dict) and doc.get('schema') == config_schema and
-                      any(isinstance(r, dict) and r.get('kind') == 'reassessment' for r in doc.get('records') or [])
-                      and discharge_bearing(doc)):
+            elif not discharge_bearing(doc):
                 why = 'the configuration is not discharge-bearing'
             elif not self.lists_pin(f, cref):
                 why = 'the PREREG.md beside the configuration does not list its SHA-256 at f'

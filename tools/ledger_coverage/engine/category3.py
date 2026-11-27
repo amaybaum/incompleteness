@@ -450,7 +450,7 @@ class Cumulative:
             ref = {'path': p, 'blob_sha256': inf[2]}
             data = self.repo.read_blob_uncached(o)
             if inf[0] in ('b', 'c'):
-                out.append({'kind': 'malformed', 'record': ref, 'item': None, 'entry': None, 'path': p,
+                out.append({'kind': 'malformed', 'class': inf[0], 'record': ref, 'item': None, 'entry': None, 'path': p,
                             'configuration': None, 'invalidated': None, 'verdict_item': None,
                             'form': ['a malformed record of R6.RECON.35 class (%s)' % inf[0]]})
                 continue
@@ -720,9 +720,9 @@ def bind(f, b):
     if f['kind'] == 1:
         beside = beside_table_problems(b, f, fled, fH, fdoc)
         if beside:
-            raise fd.Unsettled('Form (i): whether "a failure of the record\'s form" covers the checks R6.RECON.30 makes '
-                               'beside its tables is not settled; %s fails: %s' % ((f['record'] or {}).get('path'),
-                                                                                 beside[0]))
+            # a failure of the record's form beside its tables (R6.RECON.30): a malformed finding, which blocks at run
+            # level with FAIL record-invalid (owner decision 5 of 2026-11-27)
+            return [], True, form + ['beside its tables (R6.RECON.30): %s' % x for x in beside]
     elems = []
     inv = f.get('invalidated')
     # Form (iv): `invalidated` absent, empty or unreadable (no element is a readable {id, sha256, target}), or the
