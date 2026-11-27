@@ -2855,16 +2855,34 @@ def r_controls(r):
 
         def owns_ledgered(self, p):
             return False
+    def after(commits, case, **bindings):
+        # the execution's commits-after check as a retained stage result, named as the expectation case
+        ex = exmod.Execution(ctx, H, X, led, D())
+        ex.commits_after(commits)
+        REC.capture_doc('Execution.commits_after (conformance_controls.py)',
+                        control_records.stage_doc(ex.items, operation='execution', checks=ex.checks),
+                        case=case, bindings=bindings)
+        return ex
+
+    def restored_pair():
+        clean = after([], 'baseline')
+        after([], 'restored')
+        REC.pending[-1]['baseline'] = REC.pending[-2]
+        return clean
     C16 = w.repo.derive(X, {'notes/unrelated.txt': b'x\n'}, parents=[X], subject='C16')
-    e = exmod.Execution(ctx, H, X, led, D())
-    e.commits_after([C16])
-    C17 = w.repo.derive(X, {'plan/execution/result.json': b'{}\n'}, parents=[X], subject='C17')
-    e17 = exmod.Execution(ctx, H, X, led, D())
-    e17.commits_after([C17])
+    e = after([C16], '', commit=C16)
     c16 = [(i['class'], i.get('commit')) for i in e.items]
+    REC.pending[-1]['attested'] = {'names_commit': '$commit' if c16 == [('unauthorized-change', C16)] else None}
+    restored_pair()
     check('R16', 'C = X plus one commit that changes an unledgered, undeclared path: FAIL unauthorized-change naming '
           'that commit', "one unauthorized-change item whose commit is that commit", c16,
           c16 == [('unauthorized-change', C16)])
+    C17 = w.repo.derive(X, {'plan/execution/result.json': b'{}\n'}, parents=[X], subject='C17')
+    e17 = after([C17], '')
+    paths17 = e17.checks[-1]['commits'][0]['paths']
+    REC.pending[-1]['attested'] = {'commit_paths_classified': 'record' if paths17 and
+                                   all(x['class'] == 'record' for x in paths17) else None}
+    restored_pair()
     check('R17', 'C = X plus one commit that changes only a record path the plan admits after F: PASS for that '
           'commit', "no item; the path is classified record", {'items': e17.items,
                                                                    'paths': e17.checks[-1]['commits'][0]['paths']},
