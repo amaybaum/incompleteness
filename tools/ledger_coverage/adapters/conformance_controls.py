@@ -691,13 +691,31 @@ def acceptance_controls(r, t):
         ('evaluated commits differ', {'landing_': dict(landing, evaluated={'commit': '0' * 40})})],
         'matching (positive)')
     gz_bad = checker.deterministic_gzip(raw + b' ')
+    expected_digest = landing['result_sha256']
+
+    def compressed_case(name, compressed):
+        verified = checker.verify_compressed(compressed, expected_digest)
+        contents = gzip.decompress(compressed)
+        run = REC.capture_doc('checker.verify_compressed', json.loads(contents), case=name, raw=contents,
+                              attested={'outcome': 'LANDING_VERIFIED' if verified else 'LANDING_REFUSED'})
+        return verified, run
+
+    exact, exact_run = compressed_case('exact', gz)
+    altered, _ = compressed_case('uncompressed sha256 differs', gz_bad)
+    restored_gzip = checker.deterministic_gzip(raw)
+    restored, restore_run = compressed_case('restored', restored_gzip)
+    restore_run['baseline'] = exact_run
     check('TR46', 'a committed compressed result whose uncompressed sha256 differs from the recorded one: refused '
           'at landing', "verify_compressed is true for the exact bytes and false for the altered ones, and the gzip "
           "header carries mtime 0 and operating-system byte 255",
-          {'exact': checker.verify_compressed(gz, sha(raw)), 'altered': checker.verify_compressed(gz_bad, sha(raw)),
+          {'exact': exact, 'altered': altered, 'restored': restored,
            'mtime_zero': gz[4:8] == b'\x00\x00\x00\x00', 'os_byte': gz[9]},
-          checker.verify_compressed(gz, sha(raw)) and not checker.verify_compressed(gz_bad, sha(raw))
-          and gz[4:8] == b'\x00\x00\x00\x00' and gz[9] == 255)
+          exact and not altered and restored and restored_gzip == gz and
+          gz[4:8] == b'\x00\x00\x00\x00' and gz[9] == 255,
+          files={'exact.json.gz': gz, 'altered.json.gz': gz_bad, 'restored.json.gz': restored_gzip,
+                 'exact.json': exact_run['result'][1], 'restored.json': restore_run['result'][1],
+                 'landing.json': landing, 'snapshot.json': snap},
+          procedure={'name': 'landing-verify', 'lib': 'replay', 'runs': ['exact.json', 'restored.json']})
     # consumer halves
     fork_host = copy.deepcopy(w.h)
     fork_host.runs[w.run_id].update(repository_id=78, head_repository_id=78)
@@ -1010,9 +1028,18 @@ def same(a, b):
 def gv_disk_controls(r):
     dk, ids, p, run = disk_world(r, 'gv-store')
     clean = run()
-    clean_exec = run('execution', extra=['--scientific-base', ids['H'], '--candidate', ids['X'],
-                                         '--ledger', '%s:syn/patch.json' % ids['c'], '--main', ids['M']])
+    baseline = REC.name_last('clean store')
+    execution_args = ['--scientific-base', ids['H'], '--candidate', ids['X'],
+                      '--ledger', '%s:syn/patch.json' % ids['c'], '--main', ids['M']]
+    clean_exec = run('execution', extra=execution_args)
+    execution_baseline = REC.name_last('clean execution')
     base_ok = clean[0] in (0, 10, 20) and not stop(clean[1])
+
+    def relational_evidence(variant, observations, **extra):
+        return {'files': {'clean.json': baseline['result'][1], 'observed.json': variant['result'][1],
+                          'observations.json': observations, **extra},
+                'procedure': {'name': 'relational', 'lib': 'rel-equal', 'runs': ['clean.json', 'observed.json']}}
+
     # GV1: replace refs; a ref name
     def copy_store(name):
         d = os.path.join(r.out_root, name)
@@ -1024,34 +1051,43 @@ def gv_disk_controls(r):
     gitb(d1, 'replace', ids['m1'], fake)
     live1 = gitb(d1, 'rev-list', '--count', ids['H'])
     g1['commit of the chain replaced: equal'] = same(run(store=d1), clean)
+    changed_commit = REC.name_last('replace ref for an E..H commit', baseline=baseline)
     d1b = copy_store('gv1-blob')
     cfg_blob = gitb(d1b, 'rev-parse', '%s:%s' % (ids['F'], p))
     other_blob = gitb(d1b, 'hash-object', '-w', '--stdin', data=b'{"schema": "substituted"}\n')
     gitb(d1b, 'replace', '-f', cfg_blob, other_blob)
     live1b = gitb(d1b, 'cat-file', '-p', '%s:%s' % (ids['F'], p))
     g1['configuration blob replaced: equal'] = same(run(store=d1b), clean)
+    changed_config = REC.name_last('replace ref for the configuration blob', baseline=baseline)
     gitb(dk.d, 'branch', '-f', 'main', ids['X'])
     gitb(dk.d, 'tag', '-f', 'v1', ids['X'])
-    by_ref = {n: show(*run(commit=n)) for n in ('main', 'v1', 'HEAD', ids['X'][:12], ids['X'].upper())}
+    by_ref = {}
+    for name in ('main', 'v1', 'HEAD', ids['X'][:12], ids['X'].upper()):
+        by_ref[name] = show(*run(commit=name))
+        REC.name_last('role commit as a ref name' if name == 'main' else 'role supplied as ' + name)
     g1['ref names unresolvable'] = all(v['exit'] == 65 and v['stop'] == 'UNRESOLVABLE' and
                                        'refs are not consulted' in v['message'] for v in by_ref.values())
     g1['(countercontrol) the replace refs are live'] = live1 == '1' and '"substituted"' in (live1b or '')
+    retain_restored(run, baseline)
     check('GV1', 'a replace ref that substitutes a commit of the E..H chain, and separately one that substitutes the '
           'configuration\'s blob at F; separately a role commit given as a ref name (main, a tag): the replace refs '
           'are ignored (the result equals that of the same store without them); the ref name is an unresolvable '
           'object (ERROR), refs not being consulted',
           "both replaced stores give results equal to the clean store's; main, a tag, HEAD, an abbreviated and an "
           "upper-case id each exit 65 UNRESOLVABLE; git itself sees both replacements (the controls are live)",
-          dict(g1, by_ref=by_ref, clean=show(*clean)), base_ok and all(g1.values()))
+          dict(g1, by_ref=by_ref, clean=show(*clean)), base_ok and all(g1.values()),
+          **relational_evidence(changed_commit, g1, **{'configuration-result.json': changed_config['result'][1]}))
     # GV2: a graft file
     d2 = copy_store('gv2')
     with open(os.path.join(d2, '.git', 'info', 'grafts'), 'w') as f:
         f.write(ids['m1'] + '\n')
     live2 = gitb(d2, 'rev-list', '--count', ids['H'])
     g2 = {'equal': same(run(store=d2), clean), 'live': live2 == '1'}
+    graft_result = REC.name_last('', baseline=baseline, attested={'git_honours_graft': g2['live']})
+    retain_restored(run, baseline)
     check('GV2', 'a graft file that makes a commit of the E..H chain parentless: ignored, the result equals that '
           'without the graft file', "the result equals the clean store's; git itself honours the graft (the "
-          "control is live)", g2, base_ok and all(g2.values()))
+          "control is live)", g2, base_ok and all(g2.values()), **relational_evidence(graft_result, g2))
     # GV3: a commit-graph recording false parents
     d3 = copy_store('gv3')
     gitb(d3, 'branch', '-f', 'all-m', ids['M'])
@@ -1065,27 +1101,38 @@ def gv_disk_controls(r):
     merge = gitb(d3, 'commit-tree', gitb(d3, 'rev-parse', ids['X'] + '^{tree}'), '-p', ids['X'], '-p', ids['T'],
                  data=b'a two-parent commit\n')
     g3_parents = gitobj.GitRepo(d3).parents(merge) == [ids['X'], ids['T']]
-    g3 = {'parsed parents of a two-parent commit': g3_parents, 'patched': patched, 'live': bool(live3) and ids['pin'] not in live3.split() and unrelated in live3.split(),
-          'terms equal (rule-stale scoping, hp chain)': same(run(store=d3), clean),
-          'execution equal (H on M\'s first-parent chain)': same(run('execution', store=d3, extra=[
-              '--scientific-base', ids['H'], '--candidate', ids['X'], '--ledger', '%s:syn/patch.json' % ids['c'],
-              '--main', ids['M']]), clean_exec)}
+    terms_equal = same(run(store=d3), clean)
+    graph_terms = REC.name_last('', baseline=baseline)
+    execution_equal = same(run('execution', store=d3, extra=execution_args), clean_exec)
+    graph_execution = REC.name_last('execution with the graph')
+    restored_execution_equal = same(run('execution', extra=execution_args), clean_exec)
+    restored_execution = REC.name_last('restored execution')
+    graph_terms['attested'] = {'terms_and_execution_equal_clean': terms_equal and execution_equal}
+    retain_restored(run, baseline)
+    g3 = {'parsed parents of a two-parent commit': g3_parents, 'patched': patched,
+          'live': bool(live3) and ids['pin'] not in live3.split() and unrelated in live3.split(),
+          'terms equal (rule-stale scoping, hp chain)': terms_equal,
+          'execution equal (H on M\'s first-parent chain)': execution_equal,
+          'restored execution equal': restored_execution_equal}
     check('GV3', 'a commit-graph file recording false parents for a commit between H and M and for the rules\' '
           'recorded_at scoping: ignored; H on M\'s first-parent chain and the rule-stale scoping equal those of the '
           'clean store', "terms and execution results equal the clean store's; git itself follows the false "
-          "parent (the control is live)", g3, base_ok and all(g3.values()))
+          "parent (the control is live)", g3, base_ok and all(g3.values()),
+          **relational_evidence(graph_terms, g3, **{'graph-execution.json': graph_execution['result'][1],
+                                                  'restored-execution.json': restored_execution['result'][1],
+                                                  'clean-execution.json': execution_baseline['result'][1]}))
     # GV4: loose objects that do not hash to their ids
     g4 = {}
-    targets = {'the configuration\'s blob at F': (gitb(dk.d, 'rev-parse', '%s:%s' % (ids['F'], p)), 'CONFIG_UNREVIEWED'),
-               'the pin table\'s blob': (gitb(dk.d, 'rev-parse', '%s:%s' % (ids['F'], p.rsplit('/', 1)[0] +
+    targets = {'configuration blob at F': (gitb(dk.d, 'rev-parse', '%s:%s' % (ids['F'], p)), 'CONFIG_UNREVIEWED'),
+               'pin table blob': (gitb(dk.d, 'rev-parse', '%s:%s' % (ids['F'], p.rsplit('/', 1)[0] +
                                                                           '/PREREG.md')), 'CONFIG_UNREVIEWED'),
-               'a tree of X': (gitb(dk.d, 'rev-parse', ids['X'] + ':doc'), 'UNRESOLVABLE'),
-               'a commit of the E..H chain': (ids['pin'], 'UNRESOLVABLE'),
-               'a tool blob at T': (gitb(dk.d, 'rev-parse', '%s:%s' % (ids['T'], hf.PKG + 'engine/x.py')),
+               'tree of X': (gitb(dk.d, 'rev-parse', ids['X'] + ':doc'), 'UNRESOLVABLE'),
+               'commit of E..H': (ids['pin'], 'UNRESOLVABLE'),
+               'tool blob at T': (gitb(dk.d, 'rev-parse', '%s:%s' % (ids['T'], hf.PKG + 'engine/x.py')),
                                     'CONFIG_UNREVIEWED'),
                # review impl-v6.0e D-6: the HP chain check reads the HP merge first; ERROR 65 and no PASS, its class
                # either the inconsistent-configuration or the unresolvable-object error
-               'the HP merge m1': (ids['m1'], ('CONFIG_INCONSISTENT', 'UNRESOLVABLE'))}
+               'HP merge': (ids['m1'], ('CONFIG_INCONSISTENT', 'UNRESOLVABLE'))}
     for name, (oid, want) in targets.items():
         d4 = copy_store('gv4-%d' % len(g4))
         kind = gitb(d4, 'cat-file', '-t', oid)
@@ -1103,6 +1150,7 @@ def gv_disk_controls(r):
         served = subprocess.run(['git', '-C', d4, 'cat-file', kind, oid], capture_output=True)
         pretty = subprocess.run(['git', '-C', d4, 'cat-file', '-p', oid], capture_output=True).returncode == 0
         code4, res4 = run(store=d4)
+        REC.name_last(name)
         o = show(code4, res4)
         wants = want if isinstance(want, tuple) else (want,)
         g4[name] = dict(o, want=want, outcome=(res4 or {}).get('outcome'),
@@ -1110,6 +1158,7 @@ def gv_disk_controls(r):
                         git_cat_file_p_prints_it=pretty,
                         holds=code4 == 65 and o['stop'] in wants and (res4 or {}).get('outcome') != 'PASS' and
                         served.stdout == other)
+    retain_restored(run, baseline)
     check('GV4', 'a loose object whose stored content does not hash to its id, each case separately: the '
           'configuration\'s blob at F, the pin table\'s blob, a tree of X, a commit of E..H, a tool blob at T, the HP '
           'merge: ERROR in each case (CONFIG_UNREVIEWED for an admission or identity read, the unresolvable-object '
@@ -1125,7 +1174,13 @@ def gv_disk_controls(r):
     os.remove(dk.loose(ids['m1']).replace(dk.d, d5))
     with open(os.path.join(d5, '.git', 'shallow'), 'w') as f:
         f.write(ids['H'] + '\n')
+    def object_count(store):
+        return len(gitb(store, 'cat-file', '--batch-all-objects', '--batch-check').splitlines())
+
+    shallow_before = object_count(d5)
     a5 = show(*run(store=d5))
+    shallow_after = object_count(d5)
+    REC.name_last('shallow boundary inside E..H', attested={'objects_fetched': shallow_after - shallow_before})
     src = copy_store('gv5-source')
     for k in ('c', 'F', 'T', 'X', 'M'):
         gitb(src, 'branch', '-f', 'r-' + k, ids[k])
@@ -1134,17 +1189,19 @@ def gv_disk_controls(r):
     d5b = os.path.join(r.out_root, 'gv5-partial')
     subprocess.run(['git', 'clone', '-q', '--no-checkout', '--filter=blob:none', '--mirror', 'file://' + src, d5b],
                    capture_output=True, env=dict(os.environ, **GIT_ENV), check=True)
-    before = len(subprocess.run(['git', '-C', d5b, 'cat-file', '--batch-all-objects', '--batch-check'],
-                                capture_output=True, text=True).stdout.splitlines())
+    before = object_count(d5b)
     b5 = show(*run(store=d5b))
-    after = len(subprocess.run(['git', '-C', d5b, 'cat-file', '--batch-all-objects', '--batch-check'],
-                               capture_output=True, text=True).stdout.splitlines())
+    after = object_count(d5b)
+    REC.name_last('partial store lacking a blob', attested={'objects_fetched': after - before})
     d5c = copy_store('gv5-shallow-ok')
     with open(os.path.join(d5c, '.git', 'shallow'), 'w') as f:
         f.write(ids['pin'] + '\n')
     shallow_flag = gitb(d5c, 'rev-parse', '--is-shallow-repository')
     c5 = run(store=d5c)
-    g5 = {'shallow boundary inside E..H': a5, 'partial store lacking blobs': dict(b5, objects_before=before,
+    minimal = REC.name_last('shallow store holding every needed object', baseline=baseline)
+    retain_restored(run, minimal)
+    g5 = {'shallow boundary inside E..H': dict(a5, objects_before=shallow_before, objects_after=shallow_after),
+          'partial store lacking blobs': dict(b5, objects_before=before,
                                                                                  objects_after=after),
           'shallow store holding every needed object': dict(show(*c5), is_shallow=shallow_flag,
                                                             equal=same(c5, clean))}
@@ -1153,7 +1210,8 @@ def gv_disk_controls(r):
           'holds every object the run needs proceeds as in a full store',
           "the first two exit 65 (UNRESOLVABLE or CONFIG_UNREVIEWED) and the partial store's object count is "
           "unchanged; the third is a shallow repository whose result equals the full store's", g5,
-          a5['exit'] == 65 and b5['exit'] == 65 and before == after and shallow_flag == 'true' and same(c5, clean))
+          a5['exit'] == 65 and b5['exit'] == 65 and before == after and shallow_before == shallow_after and
+          shallow_flag == 'true' and same(c5, clean), **relational_evidence(minimal, g5))
     # GV6 on disk: a symlink entry at the configuration's path in F
     d6 = copy_store('gv6')
     tree = gitb(d6, 'rev-parse', ids['F'] + '^{tree}')
@@ -2618,13 +2676,30 @@ def g_controls(r):
 
     def env(out):
         return delmod.Native(repo, d, out, F, True)
-    items, rep = dele.verify(repo, roles, env(r.out()), {'splices': []})
+
+    def evaluate(case, delegation, repository, run_roles, native_env, supplied=None):
+        items, report = delegation.verify(repository, run_roles, native_env, {'splices': []}, supplied)
+        checked_classes = [{'subject': item['class'], 'state': item['state']} for item in report['classes']]
+        doc = control_records.stage_doc(items, operation='delegation', roles=run_roles, delegated=report,
+                                        sites=checked_classes)
+        REC.capture_doc('delegation.verify', doc, case=case)
+        return items, report
+
+    def clean_sc42(case):
+        return evaluate(case, dele, repo, roles, env(r.out()))
+
+    items, _ = clean_sc42('positive')
+    baseline = REC.pending[-1]
     pos = [i['class'] for i in items]
     # G4: a supplied result file claiming verbose_equal true, while the clone's re-execution differs
     Xb = commit_files(d, {SC42: b'{"base": "basecommit", "sites": 4}\n'}, 'X with a hand-edited result')
     supplied = {'sc42-rerun.json': b'{"candidate": "%s", "verbose_exit": 0, "verbose_equal": true, '
                                   b'"self_test_equal": true, "plan": "%s"}' % (Xb.encode(), F.encode())}
-    items4, rep4 = dele.verify(repo, dict(roles, candidate=Xb, certified=Xb), env(r.out()), {'splices': []}, supplied)
+    items4, rep4 = evaluate('re-execution differs', dele, repo, dict(roles, candidate=Xb, certified=Xb),
+                            env(r.out()), supplied)
+    REC.name_last('re-execution differs', attested={
+        'supplied_file_read_as_evidence': 'sc42-rerun.json' not in rep4['supplied_evidence_ignored']})
+    retain_restored(lambda: clean_sc42('restored'), baseline)
     check('G4', 'sc42 with a supplied result claiming verbose_equal true while the clone\'s re-execution differs: FAIL '
           'delegated-evidence-invalid; the supplied file is not read as evidence',
           "the positive case has no item; the mutant gives delegated-evidence-invalid; the report lists the supplied "
@@ -2634,19 +2709,29 @@ def g_controls(r):
           rep4['supplied_evidence_ignored'] == ['sc42-rerun.json'])
     # G9: C = X plus one commit changing the SC-42 result file; X alone passes
     C = Xb
-    items9, rep9 = dele.verify(repo, dict(roles, candidate=X, certified=C), env(r.out()), {'splices': []})
+    clean9, _ = clean_sc42('class run at X')
+    baseline = REC.pending[-1]
+    items9, _ = evaluate('class run from the clone at C', dele, repo, dict(roles, certified=C), env(r.out()))
+    retain_restored(lambda: clean_sc42('restored'), baseline)
     trees = {(i['tree'], i['class']) for i in items9}
     check('G9', 'C = X plus one commit that changes the SC-42 result file, the class at X alone passing: FAIL for '
           'sc42 from the clone at C', "no item at X; delegated-evidence-invalid at C",
-          sorted(trees), ('C', 'delegated-evidence-invalid') in trees and not any(t_ == 'X' for t_, _ in trees))
+          sorted(trees), not clean9 and ('C', 'delegated-evidence-invalid') in trees and
+          not any(t_ == 'X' for t_, _ in trees))
     # G8: no F; a supplied result with plan null
-    items8, rep8 = dele.verify(repo, dict(roles, freeze=None), env(r.out()), {'splices': []},
-                               {'sc42-rerun.json': b'{"plan": null}'})
+    clean_sc42('valid freeze and evidence')
+    baseline = REC.pending[-1]
+    null_plan = {'sc42-rerun.json': b'{"plan": null}'}
+    items8, _ = evaluate('null plan without named evidence', dele, repo, dict(roles, freeze=None),
+                         env(r.out()), null_plan)
     cls_of = {(i['class'], i.get('tree')) for i in items8}
     dele_ev = delmod.Delegation({'schema': 'oi-delegation/1', 'classes': [dict(cls, evidence=['sc42-rerun.json'])]},
                                 {'rerun-equal': rerun})
-    items8b, _ = dele_ev.verify(repo, dict(roles, freeze=None), env(r.out()), {'splices': []},
-                                {'sc42-rerun.json': b'{"plan": null}'})
+    items8b, _ = evaluate('', dele_ev, repo, dict(roles, freeze=None), env(r.out()), null_plan)
+    subjects = {item['class']: item['subject'] for item in items8b}
+    REC.name_last('', bindings={'class': subjects.get('delegated-evidence-missing'),
+                               'field': subjects.get('delegated-evidence-invalid')})
+    retain_restored(lambda: clean_sc42('restored'), baseline)
     c8 = sorted({i['class'] for i in items8b})
     check('G8', 'delegated evidence with plan null and no F: never PASS: REVIEW_REQUIRED delegated-evidence-missing '
           'for the class, and the field FAIL delegated-evidence-invalid',
@@ -2668,11 +2753,15 @@ print(json.dumps({"entries": [{"id": "S:1", "fingerprint": "%s"}]}))
     cls5 = {'id': 'coverage-ledger', 'adapter': 'fingerprint-regen', 'paths': [led_path], 'ledgered_paths': [led_path],
             'params': {'stale_ids': ['S:1'], 'census_path': 'tools/proof_census.py'}}
     dl5 = delmod.Delegation({'schema': 'oi-delegation/1', 'classes': [cls5]}, {'fingerprint-regen': fr})
-    ok5, _ = dl5.verify(repo5, dict(roles, scientific_base=H5, candidate=X5, freeze=X5, certified=X5),
-                        delmod.Native(repo5, d5, r.out(), X5, True), {'splices': []})
-    bad5, _ = dl5.verify(repo5, dict(roles, scientific_base=H5, candidate=X5b, freeze=X5b, certified=X5b),
-                         delmod.Native(repo5, d5, r.out(), X5b, True), {'splices': []},
-                         {'proof-census.json': b'{"entries": [{"id": "S:1", "fingerprint": "cccc"}]}'})
+    def census_case(case, tree, supplied=None):
+        run_roles = dict(roles, scientific_base=H5, candidate=tree, freeze=tree, certified=tree)
+        return evaluate(case, dl5, repo5, run_roles, delmod.Native(repo5, d5, r.out(), tree, True), supplied)
+
+    ok5, _ = census_case('census equal', X5)
+    baseline = REC.pending[-1]
+    bad5, _ = census_case('census differs', X5b,
+                          {'proof-census.json': b'{"entries": [{"id": "S:1", "fingerprint": "cccc"}]}'})
+    retain_restored(lambda: census_case('restored', X5), baseline)
     check('G5', 'coverage-ledger with a supplied census JSON; one STALE value at X differing from the census the '
           'tool runs: FAIL', "no item when the value equals the tool's census; delegated-evidence-invalid when it "
           "differs, whatever the supplied file says",
@@ -2691,10 +2780,14 @@ print(json.dumps({"entries": [{"id": "S:1", "fingerprint": "%s"}]}))
                        'required_checks': []}}
     dl6 = delmod.Delegation({'schema': 'oi-delegation/1', 'classes': [cls6]}, {'preserve-check-v1': pc})
     good_res = b'{"schema": "a1exit-checker-result-v1", "verdict": "pass", "plan": "%s"}' % X6b.encode()
-    bad6, _ = dl6.verify(repo6, dict(roles, scientific_base=H6, candidate=X6b, freeze=X6b, certified=X6b), None,
-                         {'splices': []}, {'tex-preserve-check.json': good_res})
-    ok6, _ = dl6.verify(repo6, dict(roles, scientific_base=H6, candidate=X6, freeze=X6, certified=X6), None,
-                        {'splices': []})
+    def stamp_case(case, tree, supplied=None):
+        run_roles = dict(roles, scientific_base=H6, candidate=tree, freeze=tree, certified=tree)
+        return evaluate(case, dl6, repo6, run_roles, None, supplied)
+
+    bad6, _ = stamp_case('wrong stamp', X6b, {'tex-preserve-check.json': good_res})
+    ok6, _ = stamp_case('right stamp', X6)
+    baseline = REC.pending[-1]
+    retain_restored(lambda: stamp_case('restored', X6), baseline)
     check('G6', 'tex with a supplied preserve_check result reporting pass, while a TeX stamp at X is wrong: FAIL '
           'delegated-evidence-invalid', "the wrong stamp gives delegated-evidence-invalid; the right stamp gives no "
           "invalid item (the checker run itself is missing locally)",
@@ -2716,17 +2809,24 @@ print(json.dumps({"entries": [{"id": "S:1", "fingerprint": "%s"}]}))
                      'result': self.res, 'artifact_sha256': self.art}]
     tree = repo6.tree_id(X6)
     good7 = {'candidate_commit': X6, 'candidate_tree': tree, 'sha256': 'd' * 64, 'checker_blob_sha256': 'c' * 64}
+    pdf_roles = dict(roles, scientific_base=H6, candidate=X6, freeze=X6, certified=X6)
+
+    def pdf_case(name, res_, art):
+        native = delmod.Native(repo6, d6, r.out(), X6, True, host=H7(res_, art), repo_id=1)
+        return evaluate(name, dl7, repo6, pdf_roles, native)
+
     out7 = {}
-    for name, res_, art in (('good', good7, 'd' * 64), ('tree', dict(good7, candidate_tree='0' * 40), 'd' * 64),
-                            ('artifact', good7, 'e' * 64)):
-        it, _ = dl7.verify(repo6, dict(roles, scientific_base=H6, candidate=X6, freeze=X6, certified=X6),
-                           delmod.Native(repo6, d6, r.out(), X6, True, host=H7(res_, art), repo_id=1),
-                           {'splices': []})
+    for name, res_, art in (('good evidence', good7, 'd' * 64),
+                            ('candidate_tree differs', dict(good7, candidate_tree='0' * 40), 'd' * 64),
+                            ('artifact hash differs', good7, 'e' * 64)):
+        it, _ = pdf_case(name, res_, art)
         out7[name] = sorted({i['class'] for i in it})
+    baseline = next(run for run in REC.pending if run['case'] == 'good evidence')
+    retain_restored(lambda: pdf_case('restored', good7, 'd' * 64), baseline)
     check('G7', 'pdf evidence whose candidate_tree differs from X\'s, or whose artifact hash differs: FAIL '
           'delegated-evidence-invalid', "good: no item; tree and artifact mutants: delegated-evidence-invalid",
-          out7, out7['good'] == [] and out7['tree'] == ['delegated-evidence-invalid'] and
-          out7['artifact'] == ['delegated-evidence-invalid'])
+          out7, out7['good evidence'] == [] and out7['candidate_tree differs'] == ['delegated-evidence-invalid'] and
+          out7['artifact hash differs'] == ['delegated-evidence-invalid'])
     not_run('G-A1', 'the A1 classes executed natively in disposable clones at X and C (tex, sc42, coverage-ledger) '
             'and the host-run classes (pdf, ci) read from the host API', 'needs F and a CI job (sec. A.40: a full '
             'clone of the repository per tree); CI plan in the report')
