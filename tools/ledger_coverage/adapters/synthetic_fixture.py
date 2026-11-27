@@ -60,6 +60,42 @@ def name_runs(*names):
 
 
 DOC = 'doc/s.md'
+
+
+def retain_process(cid, case, argv, proc, out_dir=None, attested=None, baseline=None):
+    """A subprocess run of a consumer control (X7, X8): its argv, exit status, --out listing and result if any,
+    with the stated values; the consumer procedure's files accumulate per control id."""
+    if REC is None:
+        return None
+    run = REC.capture(argv, proc.returncode, out_dir, case=case, baseline=baseline, attested=attested)
+    doc = None
+    if run.get('result'):
+        doc = json.loads(run['result'][1])
+    f = FILES.setdefault(cid, {'results.json': {}, 'landing.json': {'used_by_accept': False},
+                               'snapshot.json': {'pins': {}}, 'acceptance.json': {}})
+    f['results.json'][case] = {'exit': proc.returncode, 'listing': run['listing'], 'result': doc}
+    f['acceptance.json'][case] = (attested or {}).get('outcome')
+    PROCS[cid] = {'name': 'acceptance', 'lib': 'consumer', 'results': 'results.json', 'landing_record': 'landing.json',
+                  'snapshot': 'snapshot.json', 'attested': 'acceptance.json'}
+    return run
+
+
+def retain_restored_pair(cid, argv):
+    """The restored case of a consumer control: the same command on the unmutated tree, twice; equal when the exit
+    status and the result (if any) agree."""
+    runs = []
+    for case in ('baseline', 'restored'):
+        o = tempfile.mkdtemp(prefix='restored-')
+        os.rmdir(o)
+        pr = subprocess.run([a if a != '{out}' else o for a in argv], capture_output=True)
+        res = open(os.path.join(o, 'result.json'), 'rb').read() if os.path.exists(os.path.join(o, 'result.json')) \
+            else None
+        runs.append((pr, o, res))
+    equal = runs[0][0].returncode == runs[1][0].returncode and runs[0][2] == runs[1][2]
+    b = retain_process(cid, 'baseline', argv, runs[0][0], runs[0][1])
+    retain_process(cid, 'restored', argv, runs[1][0], runs[1][1], baseline=b,
+                   attested={'outcome': 'RESULT_EQUAL_CLEAN' if equal else 'RESULT_DIFFERS'})
+    return equal
 TEXT = ('# synthetic\n\nAxiom Z is the named premise of the synthetic world.\n\nDefinition one states the base object.\n\n'
         'Remark two notes a side fact.\n\nIntro to the list:\n\n- item first here\n- item second here\n\n'
         'Closing words of the file.\n')
@@ -610,13 +646,23 @@ def x_controls(r, repo_path):
                              '--config', 'x:y', '--out', o, '--commit', 'x'], capture_output=True)
         doc = json.load(open(os.path.join(o, 'result.json'))) if os.path.exists(os.path.join(o, 'result.json')) \
             else None
+        x7_accepted = checker.accept(doc or {}, pr.returncode, {})
+        retain_process('X7', '', pr.args, pr, o, attested={
+            'outcome': 'ACCEPTED' if x7_accepted else 'NON_ACCEPTANCE',
+            'exit_not_in': [0, 20] if pr.returncode not in (0, 20) else pr.returncode,
+            'no_result_with_outcome': 'PASS' if (doc is None or doc['outcome'] != 'PASS') else None})
+        x7_restored = retain_restored_pair('X7', [sys.executable, '-I', '-B', entry, 'terms', '--config', 'x:y',
+                                                  '--out', '{out}', '--commit', 'x'])
         out['X7'] = pr.returncode not in (0, 20) and (doc is None or doc['outcome'] != 'PASS') and \
-            not checker.accept(doc or {}, pr.returncode, {})
+            not x7_accepted and x7_restored
         out['_X7_exit'] = pr.returncode
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
     pr = subprocess.run([sys.executable, '-I', '-B', os.path.join(tools, 'no_such_script.py')], capture_output=True)
-    out['X8'] = pr.returncode == 2 and not checker.accept({}, pr.returncode, {})
+    x8_accepted = checker.accept({}, pr.returncode, {})
+    retain_process('X8', '', pr.args, pr, attested={'outcome': 'ACCEPTED' if x8_accepted else 'NON_ACCEPTANCE'})
+    x8_restored = retain_restored_pair('X8', [sys.executable, '-I', '-B', entry])
+    out['X8'] = pr.returncode == 2 and not x8_accepted and x8_restored
     # X9: --final converts only the selected check's final profiles
     X9 = syn.repo.derive(syn.H, {DOC: (TEXT + '\nAxiom Z appears again.\n').encode()}, parents=[syn.H])
     a, ra = r.cli(syn.repo, ['terms', '--commit', X9, '--check', 'zc'], c, p, s)
@@ -652,6 +698,26 @@ def x_controls(r, repo_path):
     other['config']['admission']['snapshot']['tool_blobs'][first] = 'f' * 64
     other_f = copy.deepcopy(as_chain)
     other_f['config']['admission']['snapshot']['freeze'] = '0' * 40
+    if REC is not None:
+        # the acceptance predicate's retained inputs: each result given to checker.accept, its exit, the pins
+        accepted10 = {}
+        for name10, doc10, exit10 in (('outcome edited to FAIL, exit 0', edited, 0),
+                                      ('engine blob differs from tool pin', other, 0),
+                                      ('chain copy (positive)', as_chain, good), ('restored', as_chain, good)):
+            accepted10[name10] = checker.accept(doc10, exit10, pins)
+            REC.capture_doc('checker.accept', doc10, case=name10,
+                            baseline=next((x for x in REC.pending if x['case'] == 'chain copy (positive)'), None)
+                            if name10 == 'restored' else None,
+                            attested={'outcome': 'ACCEPTED' if accepted10[name10] else 'NON_ACCEPTANCE'})
+        FILES['X10'] = {
+            'results.json': {n: {'raw': d, 'exit': e} for n, d, e in (
+                ('outcome edited to FAIL, exit 0', edited, 0), ('engine blob differs from tool pin', other, 0),
+                ('chain copy (positive)', as_chain, good))},
+            'landing.json': {'used_by_accept': False},
+            'snapshot.json': {'snapshot': snap, 'pins': pins},
+            'acceptance.json': accepted10}
+        PROCS['X10'] = {'name': 'acceptance', 'lib': 'consumer', 'results': 'results.json',
+                        'landing_record': 'landing.json', 'snapshot': 'snapshot.json', 'attested': 'acceptance.json'}
     out['X10'] = good == 0 and checker.accept(as_chain, good, pins) and not checker.accept(rg, good, pins) and \
         not checker.accept(edited, 0, pins) and not checker.accept(other, 0, pins) and \
         not checker.accept(other_f, 0, pins) and checker.recompute(rg) == 'PASS'
