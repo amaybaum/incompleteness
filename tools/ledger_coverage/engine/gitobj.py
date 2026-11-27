@@ -105,9 +105,22 @@ class GitRepo:
                 if not line.startswith(b'parent '):
                     break
                 parents.append(full_id(line[7:].decode('ascii', 'replace')))
-            self._commits[cid] = {'tree': tree, 'parents': parents,
+            when = None
+            for line in lines:
+                if line.startswith(b'committer '):
+                    parts = line.rsplit(b' ', 2)
+                    try:
+                        when = int(parts[-2])
+                    except (ValueError, IndexError):
+                        when = None
+            self._commits[cid] = {'tree': tree, 'parents': parents, 'time': when,
                                   'subject': msg.decode('utf-8', 'replace').split('\n', 1)[0]}
         return self._commits[cid]
+
+    def committer_time(self, cid):
+        """The committer time of a commit, seconds since the epoch, or None (self-declared; R6.ADJ.3 reads it as a form
+        check of chronology only)."""
+        return self._commit(cid).get('time')
 
     def _tree(self, tid):
         """[(mode, name, id)] of a verified tree object."""
@@ -267,6 +280,13 @@ class Overlay:
         cid = h.hexdigest()
         self.mem[cid] = {'files': dict(files), 'parents': list(parents), 'subject': subject}
         return cid
+
+    def committer_time(self, cid):
+        """An in-memory commit's committer time (seconds since the epoch) when a control set one in its record, else
+        None; a base commit's from the base reader."""
+        if cid in self.mem:
+            return self.mem[cid].get('time')
+        return self.base.committer_time(cid) if self.base is not None else None
 
     def derive(self, base_commit, changes, parents=None, subject='in-memory'):
         """A commit equal to base_commit's tree with changes {path: bytes or None}."""

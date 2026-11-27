@@ -9,7 +9,7 @@ from . import util
 review_schema = 'oi-review-record/1'
 record_schemas = ('oi-term-rules/2', 'oi-hp-adjudication/1', 'oi-context-adjudication/1', 'oi-hit-classification/1',
                   'oi-scope/1', 'oi-side-change-classes/1', 'oi-reconciliation/1', 'oi-reconciliation/2', 'oi-retirement-config/1',
-                  'oi-delegation/1', 'oi-reassessment/1')
+                  'oi-delegation/1', 'oi-reassessment/1', 'oi-adjudication/1')
 
 _url = re.compile(r'://|/runs/|/actions|check[-_ ]run|/issues/\d+$|^#\d+$|/pull/\d+$')
 
@@ -45,6 +45,11 @@ def item_ids(doc):
     and is record-invalid: the record id never stands in for an entry's id."""
     if doc.get('schema') == 'oi-retirement-config/1':
         return [doc.get('config_id')]
+    if doc.get('schema') == 'oi-adjudication/1':
+        # #1605 sec. 6 (R6.RECON.31 row, R6.ADJ.2): authorization, binding, dissents, disposition, conflicts and
+        # ground:<id> for each ground
+        return ['authorization', 'binding', 'dissents', 'disposition', 'conflicts'] + \
+            ['ground:%s' % g.get('id') for g in doc.get('grounds') or [] if isinstance(g, dict)]
     if doc.get('schema') == 'oi-obl29-custody/1':
         # R6.CUST.8: a custody version's review covers `entry:<i>` for each index it adds; without its predecessor
         # every index is listed (custody.item_ids computes the added indices)

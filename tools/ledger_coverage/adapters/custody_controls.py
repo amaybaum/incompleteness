@@ -249,6 +249,7 @@ class CW:
                 'invalid_subjects': sorted({i.get('subject') for i in out.get('items', [])
                                             if i['class'] == 'record-invalid'}),
                 'decisions': [(d['blocked'], d['route'], d['clauses']) for d in cu.get('decisions') or []],
+                'adjudications': cu.get('adjudications') or [],
                 'reassess_why': [d for i in out.get('items', []) if i['class'] == 'record-invalid' and
                                  i.get('subject') == pfc.RA_PATH for d in (i.get('detail') or [])],
                 'findings': c3.get('findings') or [],
@@ -812,6 +813,122 @@ def freeze_controls(r):
     replay_controls(r, freeze_world, result)
 
 
+def adjudication_run_controls(r, two_pass, pin_q, sib, drop_sib):
+    """#1605 sec. 6 rows wired into runs (route 2 as Adjudicated(W, D), the lineage edge U -> P). In the CU-N16 world a
+    lineage witness (context F1, run M1, S against Q's edge Q -> P) blocks the current discharge through (r1), which
+    only Inapplicable or an adjudication clears. An adjudication J by adj-j, authorized by the owner, reviewed by t,
+    lands in a dedicated commit on main; the current configuration, rebuilt at main's tip (in a control-harness run the
+    configuration's commit is F'), cites J and its review."""
+    from ledger_coverage.engine import adjudication as adjm
+    from datetime import datetime as _dt, timezone as _tz
+
+    def world(mut=None, cite=True, land=True, extra_upheld=None):
+        c, m = two_pass(world=CW.lineage, cfg_records=pin_q, main_files=sib, pre=drop_sib)
+        w = c.w
+        q, p_ref = dict(w.repair_entry), dict(w.p_ref)
+        sref = {'path': S_PATH, 'blob_sha256': sf.sha(sib[S_PATH])}
+        a_bytes = w.files[pfc.RA_PATH]
+        A = json.loads(a_bytes)
+        aref = {'path': pfc.RA_PATH, 'blob_sha256': sf.sha(a_bytes)}
+
+        def git_at_m(path):
+            return w.repo.entries(w.M)[path][1]
+        g_s, g_q, g_f, g_a = gitobj.blob_id_of(sib[S_PATH]), git_at_m(q['path']), \
+            git_at_m(pfc.RD + 'finding.json'), gitobj.blob_id_of(a_bytes)
+        entry = dict(A['repair']['entry'])
+        J = {'schema': adjm.schema, 'record_id': 'adj-1', 'supersedes': None, 'author': 'adj-j',
+             'authorization': {'quote': 'I authorize adj-j to adjudicate this witness for this replacement.',
+                               'author': ra.OWNER_IDENTITIES[0], 'time': '2026-11-27T10:00Z',
+                               'source': '#1169 (owner record)', 'adjudicator': 'adj-j',
+                               'finding': dict(A['finding']), 'witness_sources': [dict(sref)],
+                               'replacement': dict(entry)},
+             'finding': dict(A['finding']),
+             'witness': {'class': 'lineage', 'disputed': dict(q), 'edge': {'successor': dict(q), 'predecessor': p_ref},
+                         'sources': [dict(sref)], 'adverse': [{'ref': dict(sref), 'item': 'edge'}],
+                         'original_configuration': dict(c.kref)},
+             'replacement': dict(entry), 'reassessment': aref, 'dissents_addressed': [], 'disposition': 'cleared',
+             'grounds': [{'id': 'g1', 'target': {'ref': dict(sref), 'item': 'edge'},
+                          'reasoning': 'S was withdrawn before any run relied on it; Q -> P stands',
+                          'evidence': [g_s, g_q, g_q]}],
+             'method': 'read %s %s %s %s' % (g_f, g_s, g_q, g_a), 'conflicts': 'none'}
+        if mut:
+            mut(J)
+        jdir = q['path'].rsplit('/', 1)[0] + '/'
+        jp, tp = jdir + 'adj.json', jdir + 'adj.review.json'
+        jb = pfc.jb(J)
+        T = {'schema': rec.review_schema, 'reviewer': 't', 'reviewed': {'path': jp, 'blob_sha256': sf.sha(jb)},
+             'method': 'read %s %s' % (gitobj.blob_id_of(jb), g_s),
+             'verdicts': [{'item': i, 'verdict': 'accept', 'reason': 'checked against the git objects'}
+                          for i in adjm.item_ids(J)]}
+        tb = pfc.jb(T)
+        if land:
+            lc = c.step({jp: jb, tp: tb}, 'the adjudication lands (dedicated)')
+            w.repo.mem[lc]['time'] = int(_dt(2026, 11, 27, 12, 0, tzinfo=_tz.utc).timestamp())
+        if extra_upheld is not None:
+            extra_upheld(c, J, jdir)
+        # the configuration commit is built in place of main's tip (sf.Syn.build derives it with the tip's parents), so
+        # one more main commit makes the landing an ancestor of it
+        c.step({'notes/after-adjudication.txt': b'later\n'}, 'a later main commit')
+        spec = dict(w.build_spec)
+        if cite:
+            spec['files'] = dict(spec['files'], **{jp: jb, tp: tb})
+            spec['add_records'] = list(spec.get('add_records') or []) + [
+                {'kind': 'adjudication', 'path': jp, 'blob_sha256': sf.sha(jb)},
+                {'kind': 'review', 'path': tp, 'blob_sha256': sf.sha(tb)}]
+        w.c, w.p, _s, w.files = w.syn.build(spec, at=w.M)
+        o = c.run()
+        return o
+
+    def cleared(o):
+        return o['status'] == 'established' and bool(o['reassessments']) and \
+            'adjudication' in [x[1] for x in o['decisions'] if not x[0]] and 'retirement-blocked' not in o['classes']
+
+    def still_blocked(o, code=None):
+        return not o.get('error') and not o['reassessments'] and 'retirement-blocked' in o['classes'] and \
+            (code is None or any(code in x['failures'] for x in o['adjudications']))
+    o = guarded_run(lambda: world())
+    case('ADJ-P-LINEAGE', 'a lineage witness relying through (r1) (S against the operative edge Q -> P); an '
+                          'adjudication, edge {Q, P}, sources [S], adverse [{S, edge}], authorized, independent, '
+                          'reviewed, landed in a dedicated commit and cited: Adjudicated(W, D), the witness is cleared '
+                          'by route adjudication and the discharge applies',
+         o.get('error') or [o['decisions'], o['adjudications']],
+         cleared(o) and any(e.get('path', '').endswith('/adj.json') and e.get('applies')
+                            for f in o['findings'] for e in f.get('adjudications') or []))
+    o = guarded_run(lambda: world(mut=lambda J: J['witness'].update(edge={'successor': J['witness']['sources'][0],
+                                                                        'predecessor': J['witness']['edge']
+                                                                        ['predecessor']})))
+    case('ADJ-N-LINEAGE-EDGE-S-P', 'the same adjudication naming the edge {S, P}: the witness does not reproduce (the '
+                                   'edge is U -> P), ADJ-BIND, the witness stands', o.get('error') or o['reassess_why'],
+         still_blocked(o, 'ADJ-BIND'))
+    o = guarded_run(lambda: world(cite=False))
+    case('ADJ-N-NOT-CITED-RUN', 'the adjudication landed but not cited by the current configuration: not admitted, the '
+                                'witness stands', o.get('error') or o['reassess_why'],
+         still_blocked(o) and not o['adjudications'])
+    o = guarded_run(lambda: world(mut=lambda J: J['authorization'].update(author='lead')))
+    case('ADJ-N-AUTH-NOT-OWNER-RUN', 'the authorization attributed to someone outside OWNER_IDENTITIES: ADJ-AUTH-OWNER, '
+                                     'the witness stands', o.get('error') or o['reassess_why'],
+         still_blocked(o, 'ADJ-AUTH-OWNER'))
+    o = guarded_run(lambda: world(land=False))
+    case('ADJ-N-NOT-LANDED-RUN', 'the adjudication cited but never on M\'s first-parent chain: ADJ-LANDED, the witness '
+                                 'stands', o.get('error') or o['reassess_why'], still_blocked(o, 'ADJ-LANDED'))
+
+    def upheld(c, J, jdir):
+        J2 = json.loads(pfc.jb(J))
+        J2.update(record_id='adj-2', author='adj-k', disposition='upheld')
+        J2['authorization'].update(adjudicator='adj-k')
+        j2b = pfc.jb(J2)
+        j2p = jdir + 'adj2.json'
+        T2 = {'schema': rec.review_schema, 'reviewer': 't2', 'reviewed': {'path': j2p, 'blob_sha256': sf.sha(j2b)},
+              'method': 'read %s %s' % (gitobj.blob_id_of(j2b), J2['grounds'][0]['evidence'][0]),
+              'verdicts': [{'item': i, 'verdict': 'accept', 'reason': 'checked'} for i in adjm.item_ids(J2)]}
+        lc = c.step({j2p: j2b, j2p[:-5] + '.review.json': pfc.jb(T2)}, 'an upheld adjudication lands, cited by none')
+        c.w.repo.mem[lc]['time'] = int(_dt(2026, 11, 27, 13, 0, tzinfo=_tz.utc).timestamp())
+    o = guarded_run(lambda: world(extra_upheld=upheld))
+    case('ADJ-N-UPHELD-UNCITED-RUN', 'a matching upheld adjudication by another adjudicator, valid for adverse use and '
+                                     'cited by none: it contradicts J (ADJ-CONTRA), the witness stands',
+         o.get('error') or o['reassess_why'], still_blocked(o, 'ADJ-CONTRA'))
+
+
 def replay_controls(r, freeze_world, result):
     """R6.CUST.6: each run of each context replayed at its exact m with the context's configuration and selector; its
     witnesses decide the current run's discharges under r9 sec. 2.2 (CU-N16, CU-P9, CU-N18, CU-N20)."""
@@ -829,6 +946,7 @@ def replay_controls(r, freeze_world, result):
         m = m_of(c)
         c2, F2, L2, kref2 = freeze_world(runs=[(m, None)], results=[result(F1, kref, m)], pre=wrap([(m, None)]),
                                          **kw)
+        c2.kref = kref2
         return c2, m
     Q_REF = lambda c_: c_.w.repair_entry  # noqa: E731
     w0 = CW.lineage(r)
@@ -883,6 +1001,7 @@ def replay_controls(r, freeze_world, result):
     case('CU-N16-SELECTOR', 'as CU-N16 with S under a prefix of F1\'s tool-landing class: F1\'s selector excludes S, no '
                             'lineage witness', o,
          o['status'] == 'established' and not [x for x in o['witnesses'] if x['kind'] == 'lineage'])
+    adjudication_run_controls(r, two_pass, pin_q, sib, drop_sib)
     # CU-N17: as CU-N16, but F1's repair Q_rev is admitted through REV1 in run (M1, REV1): Q_rev supersedes Q (the
     # head of the lineage on main) and lies only in REV1 (child of M1); a sibling S of Q_rev (naming Q) is in M1's
     # history, landed and removed before M1, so REV1's scan does not hold it and REV1 admits Q_rev. X is roles.X of the

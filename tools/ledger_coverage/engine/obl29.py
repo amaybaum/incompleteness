@@ -1,11 +1,10 @@
 """The OBL-29 remedy r9, sec. 2.2: reliance on a retained witness's disputed basis, non-reliance evidence NR-1 to
 NR-5, the token rule and the decision `blocked(D, W)`.
 
-These are the mechanical predicates of sec. 2.2 over explicit records. They are not yet called by a run: a retained
-witness is discovered from verified custody whose format, bootstrap record and mapping to admitted inputs the design
-requires to be fixed and independently verified before implementation relies on them (sec. 2.2, "Custody and
-lookup"). Until a run can establish that inventory, no discharge is decided here. Route 2 (adjudication) has no
-admission route (sec. 5.6) and is not implemented: `Adjudicated(W)` is always false.
+These are the mechanical predicates of sec. 2.2 over explicit records. A run calls `decide` for the witnesses custody
+supplies (R6.CUST.6, category3.custody_decisions). Route 2 (adjudication) is `Adjudicated(W, D)` of #1605 R6.ADJ.9,
+which the caller establishes from admitted records (engine/adjudication.py) and passes as `adjudicated`; it is false
+unless verified records establish it.
 
 A witness W is a dict:
   kind: 'lineage' or 'review';
@@ -193,7 +192,8 @@ def nr5(Z, V, W, R, D, finding_git, reviews_of_R):
     return bad
 
 
-def decide(D, W, R=None, Z=None, required_review=None, excluded=(), reviews_of_R=(), nr2=False, finding_git=None):
+def decide(D, W, R=None, Z=None, required_review=None, excluded=(), reviews_of_R=(), nr2=False, finding_git=None,
+           adjudicated=False):
     """blocked(D, W) = Relies(D, W) and not Cleared(D, W). Returns (blocked, clauses, route). `nr2` states whether
     the candidate freeze admits R through an existing route making R's own R6.REC.6 and R6.REC.7 checks operative
     (an admission fact the caller establishes). `Z` is a review of R or a list of them (one may resolve each V)."""
@@ -202,6 +202,9 @@ def decide(D, W, R=None, Z=None, required_review=None, excluded=(), reviews_of_R
         return False, [], None
     if W.get('inapplicable') is True:
         return False, clauses, 'inapplicable'
+    if adjudicated:
+        # route 2 (#1605 R6.ADJ.9): Adjudicated(W, D), established by the caller from admitted records
+        return False, clauses, 'adjudication'
     only_r3 = clauses == ['r3']
     if only_r3 and R is not None and nr1(R, W) and nr2:
         if W['kind'] == 'lineage':

@@ -450,6 +450,11 @@ class Cumulative:
         """(class, schema or signal, sha256, carries a finding, reviewed path, reviewed sha256), or None."""
         got = fd.classify(data)
         if got is None:
+            # an adjudication record (#1605 R6.ADJ.1): kept in R* for R6.ADJ.9's contradiction and upheld rules (R6.REC.4
+            # and R6.REC.5 as amended); never a finding
+            doc = fd.strict_parse(data)
+            if isinstance(doc, dict) and doc.get('schema') == 'oi-adjudication/1':
+                return ('adj', doc['schema'], util.sha256(data), False, None, None)
             return None
         sha = util.sha256(data)
         if got[0] in ('b', 'c'):
@@ -469,6 +474,20 @@ class Cumulative:
         return sorted(out)
 
     explicit_record_at = None
+
+    def adjudications(self):
+        """[(reference, git blob id, doc)] of every oi-adjudication/1 record in R* (#1605 R6.ADJ.10: a removed
+        adjudication is evaluated as one that is present)."""
+        out, seen = [], set()
+        for p, o in self.entries():
+            inf = self.info[o]
+            if inf[0] != 'adj' or (p, inf[2]) in seen:
+                continue
+            seen.add((p, inf[2]))
+            doc = fd.strict_parse(self.repo.read_blob_uncached(o))
+            if isinstance(doc, dict):
+                out.append(({'path': p, 'blob_sha256': inf[2]}, o, doc))
+        return out
 
     def resolve_reviewed(self, ref):
         """The record a second-kind review names, by exact reference, in the run's whole R*: the walk's record set, or a
@@ -1166,7 +1185,7 @@ def replay_run(repo, c_, m, rev, load_config, schemas, prefix, context_ledger=No
         if not named:
             raise ReplayFailure('the finding the reassessment %s names does not resolve in R*(m) at %s'
                                 % (aref['path'], m))
-        base = {'context': f, 'run': m, 'rev': rev, 'original': (_ref(fref), fref.get('item'))}
+        base = {'context': f, 'run': m, 'rev': rev, 'original': (_ref(fref), fref.get('item')), 'config': dict(cref)}
         out += _review_witnesses(cum_m, aref, A, _git_at(repo, f, aref), base)
         # the predecessors of the reassessment's existing lineage check, resolved from the context's anchor f. Their
         # ordinary reviews form review witnesses; widening reviews do not, since a widening review applies to rule
@@ -1215,7 +1234,7 @@ def replay_run(repo, c_, m, rev, load_config, schemas, prefix, context_ledger=No
         for xref, X, pref in edges:
             for S, sref, sgit in competing_successors(repo, cum_s, scope, xref, X):
                 out.append(dict(base, kind='lineage', disputed=dict(eref), disputed_doc=Q, disputed_git=qgit,
-                                edge=(xref['blob_sha256'], pref['blob_sha256']),
+                                edge=(xref['blob_sha256'], pref['blob_sha256']), edge_refs=(dict(xref), dict(pref)),
                                 forming=[{'doc': S, 'git': sgit, 'path': sref['path'], 'ref': sref}],
                                 contested=[pref['blob_sha256']]))
     return out
@@ -1260,14 +1279,56 @@ class _Either:
         return None
 
 
-def custody_decisions(repo, witnesses, applying, loaded, m_scan, cum, schemas):
+def adjudication_run(repo, M, Fprime, loaded, m_scan, cum, explicit_at, witnesses, owners):
+    """The inputs of #1605's evaluation for this run (adjudication.Run)."""
+    from . import adjudication as adjm
+    m_store = rec.Store(m_scan)
+
+    def doc_of(ref):
+        if not isinstance(ref, dict):
+            return None
+        ref = _ref(ref)
+        got = cum.record_at(ref) or (explicit_at(ref) if explicit_at else None) or loaded.store.get(ref) or \
+            m_store.get(ref)
+        if got is None:
+            g = cum.git_id(ref)
+            if g:
+                got = fd.strict_parse(repo.read_blob_uncached(g))
+        return got if isinstance(got, dict) else None
+    return adjm.Run(repo, M, Fprime, loaded.config.get('records') or [], loaded.store, cum, doc_of, witnesses, owners)
+
+
+def adjudication_entries(run, f, evaluated):
+    """R6.ADJ.13: an entry for every oi-adjudication/1 record in R* that names the finding f (its reference and
+    item); an adjudication evaluated for a discharge carries its evaluation, any other its validity for adverse use."""
+    from . import adjudication as adjm
+    out = []
+    fr = f.get('record') or {}
+    for jr, jo, J in run.cum.adjudications():
+        jf = J.get('finding') if isinstance(J.get('finding'), dict) else {}
+        if (jf.get('path'), jf.get('blob_sha256'), jf.get('item')) != (fr.get('path'), fr.get('blob_sha256'),
+                                                                       f.get('item')):
+            continue
+        e = dict(evaluated.get((jr['path'], jr['blob_sha256'])) or
+                 adjm.result_entry(jr, J, None, False, False, False, False, [], []))
+        e['valid_adverse'] = adjm.validity(run, jr, J, jo) == 'valid'
+        out.append(e)
+    return out
+
+
+def custody_decisions(repo, witnesses, applying, loaded, m_scan, cum, schemas, M=None, Fprime=None, explicit_at=None,
+                      owners=()):
     """r9 sec. 2.2 `blocked(D, W)` for each applying discharge D of the current run and each witness W from custody
     (R6.CUST.6). Custody only adds witnesses: clearance reads only the current freeze's own admitted records. Returns
     (blocked [(D's (doc, ref), W, clauses)], report rows)."""
     from . import obl29
+    from . import adjudication as adjm
     m_store = rec.Store(m_scan)
     cited = {(r.get('path'), r.get('blob_sha256')) for r in loaded.config.get('records') or [] if isinstance(r, dict)}
     blocked, rows = [], []
+
+    adj_run = adjudication_run(repo, M, Fprime, loaded, m_scan, cum, explicit_at, witnesses, owners) if M else None
+    adj_rows = {}
     for d, r in applying:
         aref = _ref(r)
         ab, ae, au = _lineage(loaded.store, aref, d)
@@ -1314,11 +1375,26 @@ def custody_decisions(repo, witnesses, applying, loaded, m_scan, cum, schemas):
             for sha in W.get('contested') or []:
                 prev = [x for _s, (_p, x) in loaded.store.scanned().items() if _s == sha]
                 excluded |= {(x or {}).get('author') for x in prev}
+            # route 2: Adjudicated(W, D) (#1605 R6.ADJ.9), and OD-6: an upheld adjudication valid for adverse use
+            # that matches makes NR-5 false
+            adjudicated, zs = False, candidates
+            if adj_run is not None:
+                info = {'aref': aref, 'A': d, 'rref': (D['repair'] or {}).get('entry'),
+                        'R': (D['repair'] or {}).get('entry_doc'), 'finding_ref': _ref(fref),
+                        'config': loaded.config}
+                adjudicated, arows, upheld = adjm.evaluate(adj_run, info, W)
+                for x in arows:
+                    adj_rows[(x['path'], x['blob_sha256'])] = x
+                if W.get('kind') == 'review' and D['repair'] and \
+                        adjm.upheld_blocks_nr5(D['repair']['entry'] and dict(D['repair']['entry'],
+                                                                              entry_path=D['repair']['entry_path']),
+                                               adjm.describe(W), dict(fref), upheld):
+                    zs = [None]
             got = None
-            for z in candidates:
+            for z in zs:
                 b, clauses, route = obl29.decide(D, W, R=R, Z=[z] if z else None, required_review=z,
                                                  excluded=excluded, reviews_of_R=reviews_of_R, nr2=nr2,
-                                                 finding_git=fgit)
+                                                 finding_git=fgit, adjudicated=adjudicated)
                 got = (b, clauses, route)
                 if not b:
                     break
@@ -1328,4 +1404,4 @@ def custody_decisions(repo, witnesses, applying, loaded, m_scan, cum, schemas):
             rows.append(row)
             if b:
                 blocked.append(((d, r), W, clauses))
-    return blocked, rows
+    return blocked, rows, list(adj_rows.values())

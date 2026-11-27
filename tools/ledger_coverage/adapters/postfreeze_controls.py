@@ -56,6 +56,7 @@ class World:
             base = dict(base, extra=dict(base.get('extra') or {}, **v.get('extra', {})),
                         files=dict(base['files'], **v.get('files', {})), add_records=v.get('add_records', []))
         c, p, s, files = syn.build(base)
+        self.build_spec = base
         self.p = p
         if pre_change:
             self.M = repo.derive(syn.H, changed, parents=[syn.H], subject='main change before F')

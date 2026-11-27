@@ -248,16 +248,16 @@ def substance_and_binding():
               'h': lambda fx, J: {'resolves': lambda r: r.get('blob_sha256') != h64('4')}}, 'ADJ-BIND')
     fx = Fx()
     J = copy.deepcopy(fx.J)
-    J['witness'].update({'class': 'lineage', 'edge': {'successor': dict(fx.qref), 'predecessor': {'path': 'x/p.json',
-                                                                                                  'blob_sha256': h64('0')}}})
-    try:
-        adj.self_consistency(J, dict(fx.W, **{'class': 'lineage'}), lambda r: True)
-        got = 'no stop'
-    except fd.Unsettled as exc:
-        got = 'Unsettled: ' + str(exc)[:120]
-    case('PRED:ADJ-P-LINEAGE-STOP', 'a lineage witness: which edge reproduces is not settled by the design (table: the '
-                                    'disputed edge U -> P; ADJ-P-LINEAGE: {S, P}), so self-consistency stops '
-                                    '(Adjudicated stays false)', got, got.startswith('Unsettled'))
+    p_ref = {'path': 'x/p.json', 'blob_sha256': h64('0')}
+    J['witness'].update({'class': 'lineage', 'edge': {'successor': dict(fx.qref), 'predecessor': dict(p_ref)}})
+    W = dict(fx.W, **{'class': 'lineage', 'edge': {'successor': dict(fx.qref), 'predecessor': dict(p_ref)}})
+    ok = conds(adj.self_consistency(J, W, lambda r: True))
+    J2 = copy.deepcopy(J)
+    J2['witness']['edge'] = {'successor': dict(fx.vref), 'predecessor': dict(p_ref)}
+    bad = conds(adj.self_consistency(J2, W, lambda r: True))
+    case('PRED:ADJ-P-LINEAGE', 'a lineage witness reproduces with the operative edge U -> P (#1605 sec. 6 rows adopted '
+                               'with the U -> P edge); the edge {S, P} does not (ADJ-BIND)', {'U-P': ok, 'S-P': bad},
+         ok == [] and bad == ['ADJ-BIND'])
 
 
 def decision():

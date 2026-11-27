@@ -2,29 +2,17 @@
 their defaults): the mechanical predicates of R6.ADJ.1 to R6.ADJ.14 over explicit
 records.
 
-These predicates are not called by a run. Applying them needs the amendments the design's sec. 6 lists, which its
-adoption did not make ("Not authorized by this adoption: the schema and admission-rule changes the design lists"):
-- r13 R6.CFG.4 and R6.RECON.33: the kind row `adjudication` -> `oi-adjudication/1`, without which no configuration can
-  cite an adjudication (ADJ-ADMIT);
-- r13 R6.RECON.31: the item-id row of `oi-adjudication/1`, without which its review has no item ids to lint;
-- r13 R6.REC.3: the deliberate change that checks the authorization's author against OWNER_IDENTITIES;
-- r13 R6.REC.4 and R6.REC.5: reading adjudications in R* that no configuration references (R6.ADJ.9's contradiction
-  and upheld rules);
-- r13 R6.REC.6 and r9 NR-3 and NR-5: R6.ADJ.12's disregard of addressed and exempt dissent items;
-- r9 sec. 2.2 decision and route 2: `Adjudicated(W)` read as `Adjudicated(W, D)`; r9 R6.OBL29.8 and the result schema:
-  the `adjudications` field (R6.ADJ.13);
-- r13 R6.REC.1 and R6.RECON.1: the reconciliation directory also holding adjudications and their reviews;
-- r13 R6.RECON.29: the new tables entering the single-definition rule, with their conformance mutants;
-- the r13 generators: REQUIREMENTS, EXPECTATIONS (runner null) and CONFORMANCE-MUTANTS gaining the new requirements,
-  expectation rows and mutants;
-- the r13 tool constant OWNER_IDENTITIES beside the admitted record directories (R6.RDIR.2): the constant is defined in
-  record_authority.py for these predicates, and no run reads it.
-Until those amendments are adopted, r9's `Adjudicated(W)` stays false in every run (engine/obl29.py `decide`), and
-these predicates serve only the local controls.
+The #1605 sec. 6 amendment rows are adopted with the lineage witness edge read as U -> P (owner decision of
+2026-11-27). A run calls `evaluate` for each discharge D and custody witness W
+(category3.custody_decisions): the configuration kind row `adjudication` (config.py), the review item ids
+(records.item_ids), the R6.REC.3 owner check (authorization_problems), R6.REC.4/.5 reading of unreferenced
+adjudications in R* (Cumulative.adjudications, for R6.ADJ.9's contradiction and upheld rules), route 2 in the decision
+(obl29.decide `adjudicated`) and the result field `adjudications` (R6.ADJ.13).
 
-Unsettled in the adopted text (each keeps `Adjudicated` false): the lineage witness's `edge`. The `adj.witness` table
-calls it "the exact disputed edge" (r9 sec. 2.2: U -> P, the operative edge), while CONTROLS.json ADJ-P-LINEAGE writes
-`edge {S, P}` (the competing successor's edge). self_consistency raises findings.Unsettled for a lineage witness.
+Readings stated: in a control-harness run, which has no freeze, the candidate freeze F' of ADJ-LANDED is the
+configuration's commit; Parties are computed over the run's whole R* (a superset of R*(C), stricter). R6.ADJ.12's
+disregard reaches NR-3 and NR-5 here; R6.REC.6 on R in reassessment_problems keeps every dissent (stricter: a
+disregarded item still fails the discharge there), recorded as a remaining gap.
 """
 import posixpath
 import re
@@ -286,11 +274,8 @@ def self_consistency(J, reproduced, resolves):
     w = J.get('witness') if isinstance(J.get('witness'), dict) else {}
     if reproduced is None:
         return out + [('ADJ-BIND', 'the retained witness cannot be reproduced from custody (R6.OBL29.3)')]
-    if w.get('class') == 'lineage' or reproduced.get('class') == 'lineage':
-        raise fd.Unsettled('R6.ADJ.5 for a lineage witness: adj.witness `edge` is "the exact disputed edge" (r9 '
-                           'sec. 2.2: the operative edge U -> P) while CONTROLS.json ADJ-P-LINEAGE writes edge {S, P}; '
-                           'the design does not settle which edge reproduces (recommended default: the operative '
-                           'edge U -> P, as r9 retains it)')
+    # a lineage witness's edge is the operative edge U -> P {successor, predecessor} as r9 retains it (#1605 sec. 6
+    # rows adopted with the U -> P edge)
     for k in ('class', 'disputed', 'edge', 'original_configuration'):
         if w.get(k) != reproduced.get(k):
             out.append(('ADJ-BIND', 'witness.%s does not reproduce' % k))
@@ -567,3 +552,221 @@ def result_entry(jref, J, landing, valid_adverse, pre_admitted, admitted, applie
             'disposition': (J or {}).get('disposition'), 'landing': landing, 'valid_adverse': bool(valid_adverse),
             'pre_admitted': bool(pre_admitted), 'admitted': bool(admitted), 'applies': bool(applies),
             'failures': sorted(set(failures)), 'exempt_reviews': list(exempt_reviews)}
+
+
+# ---- the run: Adjudicated(W, D) from admitted records -------------------------------------------------------------
+
+def describe(W):
+    """The retained witness W of custody (category3.replay_run) as R6.ADJ.5 compares it."""
+    sources = [x['ref'] for x in W.get('forming') or []]
+    if W.get('kind') == 'lineage':
+        er = W.get('edge_refs') or (None, None)
+        return witness_description('lineage', W['disputed'], sources, [{'ref': s_, 'item': 'edge'} for s_ in sources],
+                                   W.get('config'), edge={'successor': er[0], 'predecessor': er[1]})
+    adverse = review_witness_adverse([(x['ref'], x['doc'], W.get('disputed_doc')) for x in W.get('forming') or []])
+    return witness_description('review', W['disputed'], sources, adverse, W.get('config'))
+
+
+def fp_chain(repo, M):
+    out, c = [], M
+    while c:
+        out.append(c)
+        ps = repo.parents(c)
+        c = ps[0] if ps else None
+    out.reverse()
+    return out
+
+
+class Run:
+    """What `evaluate` reads: the reader, M, the candidate freeze F' (the run's F, or the configuration's commit in a
+    control-harness run), the configuration's records and store, R* (cum), a document lookup doc_of(ref), the custody
+    witnesses and OWNER_IDENTITIES."""
+
+    def __init__(self, repo, M, Fprime, cfg_records, store, cum, doc_of, witnesses, owners):
+        self.repo, self.M, self.Fprime = repo, M, Fprime
+        self.cfg_records, self.store, self.cum, self.doc_of = cfg_records, store, cum, doc_of
+        self.witnesses, self.owners = witnesses, owners
+        self.chain = fp_chain(repo, M)
+        self.index = {c: i for i, c in enumerate(self.chain)}
+        self._first = {}
+
+    def first_index(self, ref):
+        """The index on M's first-parent chain of the first commit holding ref's blob at its path, or -1."""
+        key = (ref.get('path'), ref.get('blob_sha256'))
+        if key not in self._first:
+            self._first[key] = -1
+            for i, c in enumerate(self.chain):
+                e = self.repo.entries(c).get(ref.get('path'))
+                if e is not None and e[0] in ('100644', '100755') and \
+                        util.sha256(self.repo.read(c, ref['path'])) == ref.get('blob_sha256'):
+                    self._first[key] = i
+                    break
+        return self._first[key]
+
+    def git_of(self, ref):
+        if not isinstance(ref, dict):
+            return None
+        g = self.cum.git_id({'path': ref.get('path'), 'blob_sha256': ref.get('blob_sha256')})
+        if g:
+            return g
+        for c in (self.M, self.Fprime):
+            e = self.repo.entries(c).get(ref.get('path')) if c else None
+            if e is not None and e[0] in ('100644', '100755') and \
+                    util.sha256(self.repo.read(c, ref['path'])) == ref.get('blob_sha256'):
+                return e[1]
+        return None
+
+    def reviews_of(self, ref, directory=None):
+        return [(p, o, d) for p, o, d in self.cum.reviews_naming_ids(ref, directory)]
+
+
+def _parties_for(run, finding_ref, Q, R, A, config, sources, predecessor, refs_reviewed):
+    frec = run.doc_of(finding_ref)
+    reviews = []
+    for r_ in refs_reviewed:
+        if isinstance(r_, dict):
+            reviews += [d for _p, _o, d in run.reviews_of(r_)]
+    return parties(finding_record=frec if isinstance(frec, dict) and 'author' in frec else None,
+                   finding_review=frec if isinstance(frec, dict) and 'reviewer' in frec else None,
+                   Q=Q, R=R, A=A, config=config, sources=sources, predecessor=predecessor, reviews=reviews)
+
+
+def parties_j(run, J):
+    """Parties_J: from J's own bindings (R6.ADJ.4)."""
+    w = J.get('witness') if isinstance(J.get('witness'), dict) else {}
+    f = J.get('finding') if isinstance(J.get('finding'), dict) else {}
+    fref = {'path': f.get('path'), 'blob_sha256': f.get('blob_sha256')}
+    pred = ((w.get('edge') or {}).get('predecessor')) if isinstance(w.get('edge'), dict) else None
+    srcs = [run.doc_of(s_) for s_ in w.get('sources') or []]
+    return _parties_for(run, fref, run.doc_of(w.get('disputed')), run.doc_of(_ref(J.get('replacement'))),
+                        run.doc_of(J.get('reassessment')), None, [x for x in srcs if isinstance(x, dict)],
+                        run.doc_of(pred) if pred else None,
+                        [w.get('disputed'), _ref(J.get('replacement')), J.get('reassessment')] + ([pred] if pred else []))
+
+
+def validity(run, jref, J, joid):
+    """'valid', 'invalid' (a definite failure) or 'unknown' for adverse use (R6.ADJ.8, R6.ADJ.9 (4))."""
+    if form_problems(J):
+        return 'invalid'
+    pj = parties_j(run, J)
+    reviews = [(p, o, d) for p, o, d in run.reviews_of(jref)]
+    srcs = [run.git_of(s_) for s_ in (J['witness'].get('sources') or [])]
+    qual = [(p, o, d) for p, o, d in reviews if not review_problems(d, J, jref, joid, srcs, pj, run.owners)]
+    if not reviews:
+        return 'invalid'
+    L = landing(run.repo, run.M, jref, lambda c: any(
+        (run.repo.entries(c).get(p) or (None, None))[1] == o for p, o, _d in qual))
+    if L is None:
+        return 'unknown'
+    t = run.repo.committer_time(L)
+    lt = datetime.fromtimestamp(t, timezone.utc) if t is not None else None
+    if authorization_problems(J, lt, run.owners) or independence_problems(J, None, pj, run.owners) or \
+            substance_problems(J, run.git_of):
+        return 'invalid'
+    reproduced = None
+    for W in run.witnesses:
+        d_ = describe(W)
+        if d_['class'] == J['witness'].get('class') and d_['disputed'] == J['witness'].get('disputed') and \
+                {_key(x) for x in d_['sources']} == {_key(x) for x in J['witness'].get('sources') or []}:
+            reproduced = d_
+    if reproduced is None:
+        return 'unknown'
+    try:
+        bad = self_consistency(J, reproduced, lambda r_: run.git_of(r_) is not None)
+    except fd.Unsettled:
+        return 'unknown'
+    return 'invalid' if bad else 'valid'
+
+
+def evaluate(run, D, W):
+    """(Adjudicated(W, D), the report rows of the cited adjudications, the matching upheld adjudications valid for
+    adverse use). D = {aref, A, rref, R, finding_ref, config, config_ref}."""
+    Wd = describe(W)
+    cited = [r for r in run.cfg_records if isinstance(r, dict) and r.get('kind') == 'adjudication']
+    all_adj = run.cum.adjudications()
+    rows, ok_any = [], False
+    upheld_valid = []
+    for jr, jo, J2 in all_adj:
+        if isinstance(J2, dict) and J2.get('disposition') == 'upheld' and validity(run, jr, J2, jo) == 'valid':
+            upheld_valid.append(J2)
+    pd = _parties_for(run, D['finding_ref'], W.get('disputed_doc'), D.get('R'), D.get('A'), D.get('config'),
+                      [x['doc'] for x in W.get('forming') or [] if isinstance(x.get('doc'), dict)],
+                      run.doc_of((W.get('edge_refs') or (None, None))[1]) if W.get('edge_refs') else None,
+                      [W['disputed'], D.get('rref'), D['aref']] +
+                      ([W['edge_refs'][1]] if W.get('edge_refs') else []))
+    for r in cited:
+        jref = {'path': r.get('path'), 'blob_sha256': r.get('blob_sha256')}
+        J = run.store.get(jref)
+        failures = []
+        if not isinstance(J, dict):
+            rows.append(result_entry(jref, None, None, False, False, False, False, ['ADJ-ADMIT'], []))
+            continue
+        joid = run.git_of(jref)
+        rv_refs = [{'path': x.get('path'), 'blob_sha256': x.get('blob_sha256')} for x in run.cfg_records
+                   if isinstance(x, dict) and x.get('kind') == 'review' and
+                   isinstance(run.store.get(x), dict) and run.store.get(x).get('reviewed') == jref]
+        srcs = [run.git_of(s_) for s_ in ((J.get('witness') or {}).get('sources') or [])]
+        qual = [x for x in rv_refs if not review_problems(run.store.get(x), J, jref, joid, srcs, pd, run.owners)]
+        failures += [c for c, _m in citation_problems(run.cfg_records, jref, qual)]
+        failures += [c for c, _m in location_problems(jref, rv_refs, J)]
+        form = form_problems(J)
+        failures += [c for c, _m in form]
+        L = landing(run.repo, run.M, jref, lambda c: any(
+            (run.repo.entries(c).get(x['path']) or (None, None))[1] == run.git_of(x) for x in qual)) if qual else None
+        t = run.repo.committer_time(L) if L else None
+        lt = datetime.fromtimestamp(t, timezone.utc) if t is not None else None
+        if not form:
+            failures += [c for c, _m in authorization_problems(J, lt, run.owners)]
+            failures += [c for c, _m in independence_problems(J, (run.store.get(qual[0]) or {}).get('reviewer')
+                                                               if qual else None, pd, run.owners)]
+            try:
+                failures += [c for c, _m in self_consistency(J, Wd, lambda r_: run.git_of(r_) is not None)]
+            except fd.Unsettled:
+                failures.append('ADJ-BIND')
+            failures += [c for c, _m in binds(J, D['aref'], D.get('A'), Wd)]
+            failures += [c for c, _m in substance_problems(J, run.git_of)]
+            for x in rv_refs:
+                failures += [c for c, _m in review_problems(run.store.get(x), J, jref, joid, srcs, pd, run.owners)]
+        # ADJ-LANDED: J and its review on M's first-parent chain, at a commit that is an ancestor of F'
+        for x in [jref] + qual:
+            i = run.first_index(x)
+            if i < 0 or not run.Fprime or not (run.chain[i] == run.Fprime or
+                                               run.repo.is_ancestor(run.chain[i], run.Fprime)):
+                failures.append('ADJ-LANDED')
+        if qual:
+            failures += [c for c, _m in dedicated_landing_problems(run.repo, run.M, jref, qual[0])]
+        else:
+            failures.append('ADJ-REVIEW')
+        pre = not failures
+        admitted = applies = False
+        exempt = []
+        if pre and J.get('disposition') == 'cleared':
+            ans = answered(J, lambda r_: run.doc_of(r_))
+            li = run.index.get(L, -1)
+            rj = [{'reviewer': d.get('reviewer'), 'verdicts': d.get('verdicts'), 'dissent': d.get('dissent'),
+                   'first_index': run.first_index({'path': p, 'blob_sha256': run.cum.info[o][2]}),
+                   'ref': {'path': p, 'blob_sha256': run.cum.info[o][2]}} for p, o, d in run.reviews_of(jref)]
+            dis = []
+            rref = D.get('rref')
+            for p, o, d in (run.reviews_of(rref, posixpath.dirname(rref['path'])) if rref else []):
+                for item in obl29.adverse_items(d, D.get('R')):
+                    dis.append({'reviewer': d.get('reviewer'), 'item': item,
+                                'first_index': run.first_index({'path': p, 'blob_sha256': run.cum.info[o][2]}),
+                                'review': {'path': p, 'blob_sha256': run.cum.info[o][2]}})
+            st = strata([{'J': J, 'ref': jref, 'binds': True, 'landing_index': li, 'answered': ans}],
+                        lambda ref_: rj, dis)
+            exempt = st['exempt_reviews'].get(_key(jref), [])
+            admitted = bool(st['admitted'])
+            if not admitted:
+                failures.append('ADJ-REVIEW')
+            elif st['blocking']:
+                failures.append('ADJ-DISSENT')
+            contra = contradiction_problems(J, [(J2, validity(run, jr, J2, jo)) for jr, jo, J2 in all_adj
+                                                if jr != jref])
+            failures += [c for c, _m in contra]
+            applies = admitted and not st['blocking'] and not contra
+            ok_any = ok_any or applies
+        elif pre:
+            failures.append('ADJ-UPHELD' if J.get('disposition') == 'upheld' else 'ADJ-FORM')
+        rows.append(result_entry(jref, J, L, False, pre, admitted, applies, failures, exempt))
+    return ok_any, rows, upheld_valid

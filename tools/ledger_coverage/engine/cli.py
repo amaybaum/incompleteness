@@ -444,7 +444,11 @@ def category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, r
     # r9 sec. 2.2 over the witnesses custody supplies (R6.CUST.6): a discharge blocked by one is inapplicable
     if custody is not None and custody.get('status') == 'established' and chk.witnesses and applying:
         try:
-            wblocked, rows = c3.custody_decisions(repo, chk.witnesses, applying, loaded, m_scan, cum, schemas)
+            from .. import record_authority as ra2
+            wblocked, rows, adj_rows = c3.custody_decisions(
+                repo, chk.witnesses, applying, loaded, m_scan, cum, schemas, M=M,
+                Fprime=F or loaded.ref['commit'], explicit_at=explicit_at, owners=ra2.OWNER_IDENTITIES)
+            custody['adjudications'] = adj_rows
         except Unresolvable as exc:
             raise oc.Stop(oc.error, 'UNRESOLVABLE', 'a custody witness input cannot be read: %s' % exc)
         custody['decisions'] = rows
@@ -485,6 +489,17 @@ def category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, r
     explicit = [{'path': (r.get('_ref') or {}).get('path'), 'blob_sha256': (r.get('_ref') or {}).get('blob_sha256'),
                  'source': r.get('_source')} for r in recon + explicit_reviews]
     result['category3_read_domain'] = cum.read_domain(explicit)
+    # R6.ADJ.13: the adjudications in R* naming each finding
+    if cum.adjudications():
+        from .. import record_authority as ra3
+        arun = c3.adjudication_run(repo, M, F or loaded.ref['commit'], loaded, m_scan, cum, explicit_at,
+                                   chk.witnesses if custody is not None else [], ra3.OWNER_IDENTITIES)
+        evaluated = {(x['path'], x['blob_sha256']): x for x in (custody or {}).get('adjudications') or []}
+        for f, x in zip(found, findings):
+            x['adjudications'] = c3.adjudication_entries(arun, f, evaluated)
+    else:
+        for x in findings:
+            x['adjudications'] = []
     result['category3'] = {'custody': custody if custody is not None else {'status': 'not-required'},
                            'findings': findings,
                            'blocked': [{'record': f['record'], 'item': f.get('item'), 'path': f['path'], 'edit': e}
