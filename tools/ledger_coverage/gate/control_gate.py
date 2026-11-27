@@ -152,7 +152,7 @@ RC_RTT = 'a reviewed record of a sec. 8.2 kind referenced by the configuration a
 RC_TR5 = ('the configuration path at the candidate F named by --freeze is listed in the last Record pins subsection of '
           'the PREREG.md beside it')
 # r6 amendment 9 (owner-approved; rows that read the configuration's rule records gate plan freeze F, OBL-3)
-RC_RULES = 'every rule record referenced by the configuration at the commit under check is reviewed (OBL-3)'
+RC_RULES = 'the configuration at the commit under check references reviewed rule records (OBL-3)'
 RELEASE_CHECKS = frozenset([RC_FALSE, RC_TR5_PASS, RC_EI14, RC_RTL2, RC_RTT, RC_TR5, RC_RULES])
 # amendment 8, M8-3 and M8-4 (R6.GATE.15): a row outside the A1 path admits NOT RUN with this reason and RC_FALSE;
 # where no runner records it, the gate records it NOT RUN
