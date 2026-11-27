@@ -1580,7 +1580,17 @@ settings:
    line, and one sent with two blank lines before the footer was stored with one. These are
    observations, not rules of the tooling. No normalization or fuzzy comparison is allowed. Any
    other difference, or a read-back that fails or cannot be completed, is a mismatch.
-3. **Stop on a mismatch.** A mismatch ends the sequence in which it occurs: no further GitHub write
+3. **Resolve each write by its read-back.** Whatever the request returned, rule 2's read-back,
+   made in full, decides:
+   - *stored exactly as intended* (accepted under rule 2, in one object, with no field the write did
+     not send, no label and no state changed): the sequence continues, with no owner decision;
+   - *confirmed not stored* (a complete read-back shows the write created and changed nothing): the
+     write is retried once through the same operation and resolved in the same way, and any outcome
+     of the retry but the first is a stop;
+   - *stored with unintended modifications, duplicate or conflicting records,* or *uncertain*, a
+     read-back that fails, is partial or cannot be completed included: a stop, never a retry.
+
+   A stop ends the sequence in which it occurs: no further GitHub write
    or push is made in that sequence, whatever the writer does on the failure; catching or ignoring
    the error does not continue it. A sequence is the writes made by one run of a plan (every
    automated writer runs one), in one writer process unless the plan's record names several, and
@@ -1592,10 +1602,8 @@ settings:
    before the write request, restarting a process does not continue the sequence, and only a
    recorded owner decision clears the record. Every automated GitHub text write, for every agent and
    session, then stops as well, unless every one of the following conditions holds, each decided
-   mechanically from the write, its read-back and the local halt record; a mismatch the writer
+   mechanically from the write, its read-back and the local halt record; a stop the writer
    cannot see there does not count:
-   - the outcome of the write is known: the request completed with an expected status and, for a
-     created object, the response names its id;
    - the read-back succeeded, and no field the write did not send, no label and no state differs
      from what the write should leave, judged against the read made before the write or, for a
      created object, the values a new object has;
@@ -1605,8 +1613,8 @@ settings:
      follows it there consists only of newlines and at most one exact copy of the attribution
      footer. Any other appended text stops every automated text write. This shape decides only how
      far the stop extends; a difference is accepted only as rule 2 provides;
-   - no other operation has a mismatch outstanding, that is, one that no recorded owner decision
-     has yet resolved.
+   - no other operation has a stop outstanding, that is, one that no recorded owner decision has
+     yet resolved.
 
    When all of them hold, only the failed operation is suspended, for every agent and session: its
    tool (the client, such as `gh api`), its path (the API endpoint, such as
@@ -1634,7 +1642,9 @@ end the sequence on every mismatch and to stop every automated text write unless
 confine the mismatch to the failed operation; rule 2 amended 2026-11-25 by owner decision
 (`amaybaum`, #1169 comment 7171625550; drafted under #1548 comment 7166079053), to accept a
 difference from the expected text only when it is a transformation listed in the allowlist the
-rule states, with a record of it.
+rule states, with a record of it; rule 3 amended YYYY-MM-DD by owner decision (`amaybaum`,
+<adoption record>; drafted under #1577 comment 7220195853, item 2), to retry once a write
+confirmed not stored and to stop only on the other unresolved outcomes.
 
 ***
 
@@ -1734,15 +1744,15 @@ permission broader than the instruction grants.
    dispatch or launch, each with its branch, its inputs or the rule that fixes them, and its limit;
    a launch condition that the workflow itself states stands. It does not cover the exact-head
    `check-run` dispatches at a candidate `F` or `E` (§A.39) or any run §A.50 reserves.
-5. **Stop.** An unknown outcome of a write, push or launch, a step outside the package's scope, a
-   failed preflight or push read-back (item 3), a §A.49 rule 1 refusal, a failed check the package
-   names as a stop, or evidence that conflicts with the package's records stops the package's
-   automated operations at once. A §A.49 mismatch, a failed text read-back included, stops them in
-   the same way, and every automated text write as §A.49 rule 3 provides, unless that rule confines
-   it to the failed operation; then the sequence in which it occurred still ends at once and the
-   failed operation is suspended, and the package's other operations may continue in a later
-   sequence through validated mechanisms. The evidence is kept under §A.26 and the owner is told.
-   Only a recorded owner decision resumes a stopped package or a suspended operation.
+5. **Stop.** An unknown outcome of a push or launch, a step outside the package's scope, a failed
+   preflight or push read-back (item 3), a §A.49 rule 1 refusal, a failed check the package names as
+   a stop, or evidence that conflicts with the package's records stops the package's automated
+   operations at once. A write that §A.49 rule 3 resolves as a stop stops them in the same way, and
+   every automated text write as that rule provides, unless it confines the stop to the failed
+   operation; then the sequence in which it occurred still ends at once and the failed operation is
+   suspended, and the package's other operations may continue in a later sequence through validated
+   mechanisms. The evidence is kept under §A.26 and the owner is told. Only a recorded owner
+   decision resumes a stopped package or a suspended operation.
 6. **What it does not do.** A package grants none of the actions of §A.50, waives no review, check
    or gate that this file, a frozen plan or a round requires, confers no scientific status (§A.45
    rule 1), changes no frozen record or its protocol (§A.39, §A.42 item 6) and authorizes no
@@ -1754,7 +1764,7 @@ amended 2026-11-25 by owner decision (`amaybaum`, #1169 comment 7171625550), to 
 difference that §A.49 rule 2's allowlist permits pass a validation write, and to confine a §A.49
 mismatch to the failed operation where §A.49 rule 3 does; item 3 amended 2026-11-26 by owner
 decision (`amaybaum`, #1169 comment 7202467295), to admit a leased deletion of a branch reference
-under §A.50 item 3's exception.
+under §A.50 item 3's exception; item 5 amended YYYY-MM-DD with §A.49 rule 3, to match it.
 
 ***
 
