@@ -787,7 +787,7 @@ def rb_controls(r, check):
           cases=names, attested=att)
 
 
-# RECON-BLOCK (design r6 as amended by amendments 3 and 4: R6.RECON.25, R6.RECON.26; first kind of finding only)
+# RECON-BLOCK (design r6 as amended by amendments 3, 4 and 6: R6.RECON.25, R6.RECON.26, R6.RECON.27)
 BLOCK = ["a reviewed entry whose scientific_effect verdict is invalidates, naming an edit id of the path",
          "a reviewed entry of an unledgered corpus path whose verdict invalidates an edit of a ledgered path",
          "the same, with a later record superseding it whose verdict is no-effect",
@@ -806,7 +806,7 @@ BLOCK = ["a reviewed entry whose scientific_effect verdict is invalidates, namin
          "unchanged",
          "countercase: the same entry with verdict no-effect (positive)",
          "countercase: the run under a revised plan, a new configuration whose ledger changes the invalidated edit's "
-         "edit-list entry (positive)",
+         "edit-list entry and whose freeze cites an applying reassessment naming the finding (R6.RECON.27) (positive)",
          "countercase: the run under a revised plan whose ledger no longer carries the invalidated edit, the finding "
          "and the repair still on M (positive)"]
 OTHER = 'doc/other.md'
@@ -844,11 +844,40 @@ def land(w, docs, subject='land records on main'):
     return w.M
 
 
+def second_kind(w, path=None):
+    """A finding of the second kind: the writer's reviewed no-effect record of `path` landed on main, then a
+    non-author review of it whose verdict on `<path>:scientific_effect` is invalidates, naming the edit id and its
+    sha256 (with the target and configuration of R6.RECON.26 Form (ii), (iii))."""
+    path = path or sf.DOC
+    q = w.record(record_id='syn-recon-q')
+    qb = jb(q)
+    qp = RD + 'q.json'
+    land(w, [(qp, q)], 'a reviewed no-effect record')
+    inv = invalidating(w, path)['paths'][0]['scientific_effect']
+    verdicts = [{'item': i, 'verdict': 'accept', 'reason': ''} for i in rec.item_ids(q)]
+    for v in verdicts:
+        if v['item'] == path + ':scientific_effect':
+            v.update(verdict='invalidates', reason='the change invalidates the planned edit',
+                     invalidated=inv['invalidated'], configuration=inv['configuration'])
+    z = jb({'schema': rec.review_schema, 'reviewer': 'session.fixture-reviewer-x',
+            'reviewed': {'path': qp, 'blob_sha256': sha(qb)}, 'method': 'read ' + 'a' * 40, 'verdicts': verdicts})
+    w.M = w.repo.derive(w.M, {RD + 'q.second.review.json': z}, parents=[w.M],
+                        subject='an independent review finds invalidation')
+    return w
+
+
 def block_controls(r, check):
     res, names = {}, []
 
     def run(name, w, classify=(), harness=True, binding=None):
-        code, out = w.run(list(classify), harness=harness)
+        # a cited reassessment is a discharge, which needs the custody record on main (as bk_controls runs it)
+        saved = ra.custody_bootstrap_blob
+        if getattr(w, 'custody_boot', None):
+            ra.custody_bootstrap_blob = w.custody_boot
+        try:
+            code, out = w.run(list(classify), harness=harness)
+        finally:
+            ra.custody_bootstrap_blob = saved
         d = next((x for x in (out or {}).get('dispositions') or [] if x.get('path') == sf.DOC), None)
         blocked = [i for i in (out or {}).get('items', []) if i['class'] == 'retirement-blocked']
         res[name] = {'exit': code, 'classes': classes(out), 'doc_disposition': (d or {}).get('disposition'),
@@ -891,6 +920,12 @@ def block_controls(r, check):
     w = World(r)
     land(w, [(RD + 'finding.json', invalidating(w, sf.DOC))])
     run(BLOCK[4], w, harness=False)
+    # 6: a writer's no-effect verdict with a non-author review finding invalidation (the second kind)
+    w = second_kind(World(r))
+    run(BLOCK[5], w)
+    # 7: the same review finding, then a new record of the same path, no-effect, with an accepting review
+    land(w, [(RD2 + 'later.json', w.record(record_id='syn-later'))], 'a later no-effect record')
+    run(BLOCK[6], w)
     # 8: a later commit reverting the change, another path still drifted
     w = World(r)
     land(w, [(RD + 'finding.json', invalidating(w, sf.DOC))])
@@ -918,37 +953,23 @@ def block_controls(r, check):
     w = World(r)
     land(w, [(RD + 'finding.json', w.record(record_id='syn-no-effect'))])
     run(BLOCK[11], w)
-    # 13: a revised plan whose ledger rewords the edit (same id, same old line); the finding names the edit as the
-    # original plan worded it. Amendment 4 keys the block by the edit id, so the block stays (the row's expectation
-    # predates amendment 4)
-    orig = rcmod.edit_key(World(r).led, 'E1')
-    w = World(r, edits=EDITS_REWORDED)
-    f13 = invalidating(w, sf.DOC)
-    f13['paths'][0]['scientific_effect']['invalidated'][0]['sha256'] = orig
-    land(w, [(RD + 'finding.json', f13)])
-    run(BLOCK[12], w)
-    # 14: a revised plan whose ledger no longer carries the edit (another edit, another id), finding and repair on M
-    w = World(r, edits=EDITS_OTHER, first_id=2)
-    eff = dict(CONTROL_EFFECT, conclusions='none', verdict='invalidates',
-               invalidated=[{'id': 'E1', 'sha256': rcmod.edit_key(World(r).led, 'E1')}])
-    f14 = rcmod.draft(w.repo, w.ctx, w.syn.H, w.M, w.X, w.led, sf.DOC, scientific_effect=eff)
-    f14.update(record_id='syn-finding-old-plan', author=sf.WRITER, supersedes=None, M=w.M, X=w.X)
-    land(w, [(RD + 'finding.json', f14)])
-    run(BLOCK[13], w)
-    not_built = [BLOCK[5], BLOCK[6]]
-    blocked_cases = [BLOCK[k] for k in (0, 1, 2, 3, 4, 7, 8, 9, 10)]
+    # 13: a revised plan whose ledger rewords the edit (same id, same target), its freeze citing an applying
+    # reassessment of the edit as now worded that names the finding (R6.RECON.27); the finding and the repair on M
+    w1 = finding_world(r, edits=EDITS_REWORDED)
+    run(BLOCK[12], with_custody(finding_world(r, variant=cite(reassessment(w1)), edits=EDITS_REWORDED)))
+    # 14: a revised plan whose ledger no longer carries the edit (another edit, another id); the finding, which names
+    # the original plan and its target (Form (ii), (iii)), and the repair still on M
+    run(BLOCK[13], finding_world(r, edits=EDITS_OTHER, first_id=2))
+    blocked_cases = [BLOCK[k] for k in (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)]
     ok = all(res[k]['exit'] == 20 and 'retirement-blocked' in res[k]['classes'] for k in blocked_cases) and \
         res[BLOCK[8]]['run_level'] == [sf.DOC] and res[BLOCK[0]]['doc_disposition'] == 'retirement-blocked' and \
         res[BLOCK[3]]['doc_reconciled'] and \
         'retirement-blocked' not in res[BLOCK[11]]['classes'] and \
+        'retirement-blocked' not in res[BLOCK[12]]['classes'] and \
         'retirement-blocked' not in res[BLOCK[13]]['classes']
-    res['built_cases_hold'] = ok
-    res['case_13_blocked'] = 'retirement-blocked' in res[BLOCK[12]]['classes']
-    res['not_built'] = not_built
-    ok = ok and not not_built and not res['case_13_blocked']
     check('RECON-BLOCK', 'a reviewed finding that a change invalidates a planned edit blocks the retirement (first '
-          'kind of finding; amendment 4 keying by edit id)', 'each blocking case FAIL retirement-blocked; the '
-          'countercases not blocked; the review-finding cases not built (a design decision is pending)', res, ok,
+          'and second kinds of finding; amendment 4 keying by edit id)', 'each blocking case FAIL retirement-blocked; '
+          'the countercases not blocked', res, ok,
           cases=names)
 
 
