@@ -381,6 +381,27 @@ class Execution:
                         self.item('MAIN', 'side-change-unclassified', path, {'h': hp.get(path), 'm': mp.get(path)},
                                   file=path, commit=made, why=why)
             self.side_changes.append(entry)
+        # R6.PUR.12 (SIDE-NONREG): a submodule entry is not a blob entry, so the blob comparison above does not list
+        # it; a submodule side change (added, removed or moved to another commit, at a path that is no blob entry at
+        # either end) is never read as file content and is REVIEW_REQUIRED side-change-unclassified, `not a regular
+        # file`, inside or outside the plan's record directory
+        def gitlinks(c_):
+            return {p_: e_[1] for p_, e_ in self.repo.entries(c_).items() if e_[0] == '160000'}
+        gh, gm = gitlinks(self.H), gitlinks(M)
+        for path in sorted(set(gh) | set(gm)):
+            if gh.get(path) == gm.get(path) or path in hp or path in mp:
+                continue
+            made = None
+            prev = self.H
+            for c in chain:
+                if gitlinks(c).get(path) != gitlinks(prev).get(path):
+                    made = c
+                prev = c
+            self.side_changes.append({'path': path, 'h': gh.get(path), 'm': gm.get(path), 'commit': made,
+                                      'class': None, 'why': 'not a regular file'})
+            if not (rd is not None and rd.active and path in rd.unequal):
+                self.item('MAIN', 'side-change-unclassified', path, {'h': gh.get(path), 'm': gm.get(path)},
+                          file=path, commit=made, why='not a regular file')
 
     def _record_directory(self, ledgered_or_corpus):
         """Amendment r4, A.4 and A.7: the record-directory context, built once per M role when the operation

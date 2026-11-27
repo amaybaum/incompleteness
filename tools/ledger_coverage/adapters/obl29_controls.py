@@ -128,9 +128,22 @@ def removal_controls(r):
     w, c1, fb = landed(r)
     step(w, {FP: ('symlink', 'elsewhere.json')}, 'replace by a symbolic link')
     o = outcome(w)
-    # depends on R6.PUR.12 (SIDE-NONREG): the side-change classifier at this tool revision reads the symbolic link's
-    # bytes and refuses (ERROR UNRESOLVABLE) before category 3 is evaluated; that correction is outside OBL-29
+    # R6.PUR.12 (SIDE-NONREG): the symbolic link is a side change whose mode is read before any byte; it is
+    # side-change-unclassified (not a regular file), never a byte read, and category 3 is evaluated
     case('N-SYMLINK', 'f replaced by a symbolic link: still blocked, present_at_M false', o, blocked(o, False, c1))
+    # SIDE-NONREG: a symbolic-link and a submodule side change outside the plan record directory
+    w = pfc.World(r)
+    step(w, {'notes/link': ('symlink', b'target'), 'notes/sub': ('submodule', '9' * 40)}, 'non-regular side changes')
+    code, out = w.run([], harness=True)
+    out = out or {}
+    nonreg = sorted(i.get('subject') for i in out.get('items', []) if i['class'] == 'side-change-unclassified'
+                    and i.get('why') == 'not a regular file')
+    case('SIDE-NONREG', 'a symbolic-link and a submodule side change outside the plan record directory: each '
+                        'REVIEW_REQUIRED side-change-unclassified with the reason "not a regular file", no ERROR',
+         {'exit': code, 'stop': out.get('stop'), 'nonreg': nonreg},
+         code != 65 and nonreg == ['notes/link', 'notes/sub'] and
+         all(i['decision'] == 'REVIEW_REQUIRED' for i in out.get('items', []) if i['class'] == 'side-change-unclassified'
+             and i.get('subject') in nonreg))
     w, c1, fb = landed(r)
     step(w, {FP: ('submodule', '9' * 40)}, 'replace by a gitlink')
     o = outcome(w)
@@ -1257,7 +1270,7 @@ def more_negative_controls(r):
     w, c1, fb = landed(r)
     step(w, {FP: ('symlink', fb)}, 'mode 120000 with the same object id')
     o = outcome(w)
-    # depends on R6.PUR.12 (SIDE-NONREG), as N-SYMLINK
+    # R6.PUR.12 (SIDE-NONREG), as N-SYMLINK
     case('N-SYMLINK-SAME-BLOB', 'f\'s entry turned into a symbolic link with the same object id: still blocked, '
                                 'present_at_M false, witness c1', o, blocked(o, False, c1))
     w, c1, fb = landed(r)
