@@ -1530,11 +1530,8 @@ def k1_graph(a, tool_files):
     land_blobs = {e['path']: e['blob'] for e in listing_doc['landing']['entries']}
     freeze_blobs = {e['path']: e['blob'] for e in listing_doc['freeze']['entries']}
     listing = sorted(land_blobs)
-    origin = {}
-    for q in nodes:
-        origin[q] = 'landed' if q in tool_files else 'fixture'
-    node_doc = {q: {'sha256': sha(b), 'git_blob': git_blob(b), 'origin': origin[q]} for q, b in sorted(nodes.items())}
-    blob_mismatch = sorted(q for q, d in node_doc.items() if d['origin'] == 'landed' and land_blobs.get(q) != d['git_blob'])
+    node_doc = {q: {'sha256': sha(b), 'git_blob': git_blob(b)} for q, b in sorted(nodes.items())}
+    blob_mismatch = sorted(q for q, b in land_blobs.items() if (node_doc.get(q) or {}).get('git_blob') != b)
     config_read_listed = freeze_blobs.get(a.cpath) == git_blob(cfg_b)
     out['listing'] = {'landing_entries': len(land_blobs), 'freeze_entries': len(freeze_blobs),
                       'landed_set_equals_listing': listing == sorted(tool_files), 'landed_blob_mismatch': blob_mismatch,

@@ -1620,16 +1620,14 @@ def eval_procedure(row, ev, findings_out, repo=None):
         if exp != got:
             fail('expected set differs from the actual set')
         if proc.get('blobs') and proc.get('nodes'):
-            # the listing's blob ids against the nodes the procedure's graph used: a node taken from the listed tree
-            # carries the listed blob
+            # the listing's blob ids against the nodes the procedure's graph used: every listed path is a node of the
+            # graph carrying the listed blob
             blobs = ev.json(proc['blobs']) or {}
             nodes = ev.json(proc['nodes']) or {}
-            bad = sorted(q for q, d in nodes.items() if isinstance(d, dict) and d.get('origin') == 'landed'
-                         and blobs.get(q) != d.get('git_blob'))
-            missing = sorted(q for q in got if (nodes.get(q) or {}).get('origin') != 'landed')
+            bad = sorted(q for q, b in blobs.items() if (nodes.get(q) or {}).get('git_blob') != b)
             actual['blob_mismatch'] = bad[:20]
-            if bad or missing or not blobs:
-                fail('listed blob ids differ from the graph nodes: %s %s' % (bad[:5], missing[:5]))
+            if bad or not blobs:
+                fail('listed blob ids differ from the graph nodes: %s' % bad[:5])
     elif lib == 'rtl2':
         drift = ev.json(proc['drift']) or []
         recs = ev.json(proc['records']) or []
