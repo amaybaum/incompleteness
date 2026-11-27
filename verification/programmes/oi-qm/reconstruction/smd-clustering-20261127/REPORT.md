@@ -1,5 +1,9 @@
 # SMD-CL-1: sourcing the clustering of Theorem P; K1 and K0 (#1049, #1217). Report
 
+**Revision r2.** Applies findings F1–F11 of the independent review of r1 at `22347bb9` (#1623
+comment 7209241804). No mathematical result changes; r1 is the earlier state of this file in the
+branch history.
+
 **WIP / UNVERIFIED. Model-written research record, paper-only. Nothing here is adopted, proposed
 for the manuscripts or authorized beyond the unit's scope. Pending independent non-author review
 (PLAN.md §6).**
@@ -20,21 +24,23 @@ for the manuscripts or authorized beyond the unit's scope. Pending independent n
 
 | Question | Assignment (PLAN.md §2) |
 | --- | --- |
-| Q1, selected counting measure (Main Lemma 3, posit (iv)) | NOT SOURCED (obstruction), conditional on the bridge reading (B) and Proposition 4b's hypotheses (H) (§1.2) |
-| Q1, record-selected orbit measure or prepared hidden prior μ_H (Main:58) | REDUCED: clustering is a property of that datum, which the linear dynamics does not create (Lemma N); its derivation is SM's open stationary-law obligation |
+| Q1, selected counting measure (Main Lemma 3, posit (iv)) | NOT SOURCED (obstruction), conditional on the bridge reading (B) and Proposition 4b's hypotheses (H): the missing property is distinct block values, not clustering (§1.2) |
+| Q1, uniform invariant ensemble on an energy shell (SM:292, SM:1225) | NOT SOURCED under (B) and (H), for the same missing property (§1.2) |
+| Q1, record-selected orbit measure or prepared hidden prior μ_H (Main:58, Main:60) | REDUCED: Main and SM supply no derivation of its stationary law or clustering (SM:290, SM:298, SM:1225) |
 | Q2, K1 on 0 < abs(μ) < 1 | OPEN, with a sharpened gap (§3) |
 | Q3, K0 on 0 < abs(μ) < 1 | OBSTRUCTION: witness ρ_Q, every d ≥ 1, every 0 < abs(μ) < 1 (§2) |
 | Q4, [I-Stein] | re-derived (§4); Corollary P3′ of SMD-SRC-1 then rests only on textbook Stein-equation bounds |
 | Q4, H-αCLT | unchanged: no source read (no external access); stays a stated hypothesis |
 
-**Generated verdict (all controls green, §7):**
-- *Q1:* the clustering Theorem P needs is not supplied by the substratum as Main and SM specify it.
-  The selected counting measure gives a product (K3, range 0) law at the substratum level, but,
-  under (B) and (H), its observer image is translation-mixing and signed-permutation symmetric, so
-  it has scalar Σ and no broken ergodic components: it cannot be Theorem 5's condensate state,
-  directly or as a component. Any other source is a preparation or record datum (μ_H, a selected
-  orbit), whose clustering the linear dynamics neither creates (Lemma N) nor, as specified, derives.
-  K2 for the condensate state therefore remains a condition on the state; it is not adopted.
+**Generated verdict (controls green; CC-E vacuous: no computation; §7):**
+- *Q1:* under (B) and (H), the selected measure supplies no state that meets the fixed set. Its
+  observer image is a single mixing phase (and K3 when the observer map Π has finite range), with
+  scalar Σ (unit A's Proposition C), so the condensate is neither that image nor a
+  translation-ergodic component of it. What is missing is distinct block values, not clustering.
+  The energy-shell ensemble is excluded under (B) and (H) for the same reason. For a prepared prior
+  or a record-selected orbit, Main and SM supply no derivation of a stationary, clustering observer
+  law (SM:290, SM:298, SM:1225). Clustering of the condensate state therefore remains a condition on
+  the state; it is not adopted.
 - *Q3:* "Stationarity and clustering do not force SMD" holds with K0 on 0 < abs(μ) < 1: a
   translation-ergodic, F-stationary state meeting every premise of the fixed set has stabilizer
   U(3)×U(2)×Z_4 ⊊ U(3)×U(2)×U(1) = Stab(C).
@@ -42,8 +48,9 @@ for the manuscripts or authorized beyond the unit's scope. Pending independent n
   a non-summable joint cumulant of order ≥ 3 supported on a resonance set of the dispersion (§3).
 
 **What this does not show.** Q1's obstruction is conditional on (B), a reading of the unproved
-coarse-graining bridge (SM:232), and on (H); it says nothing about states prepared outside the
-selected measure. Q3's witness is not O-invariant as a law (the fixed set does not require it);
+coarse-graining bridge (SM:232), and on (H), which is load-bearing for it (§7); it says nothing
+about states prepared outside the selected measure. Lemma N is a finite-time statement; whether
+the conserved averages or the clustering properties survive t → ∞ limits is not shown. Q3's witness is not O-invariant as a law (the fixed set does not require it);
 an O-invariant K0 witness is not constructed (N3). No manuscript or premise status changes.
 
 ## 1. Q1: sourcing the clustering
@@ -75,7 +82,10 @@ independent, i.e. K3 with R = 0 and all moments bounded, at the substratum level
 torus. It is invariant under every bijection of the carrier, hence under the exact rule. The
 infinite-volume version, the product Haar probability on ((Z/q)²)^{Z^d}, is invariant under the
 infinite-volume second-order rule, a continuous group automorphism with inverse
-(u′, v′) ↦ (Au′ − v′, u′). This is CC-S's required statement of what is supplied.
+(u′, v′) ↦ (Au′ − v′, u′). At the observer level, under (B), its image is translation-mixing for
+any Π (S-2), and K3 when Π has finite range (a finite-range factor of an independent field is
+finite-range dependent). This is CC-S's required statement of what is supplied: clustering is
+available; distinct block values are not (S-2).
 
 **S-2 (the selected measure cannot be the condensate state, nor a component of it) [A],
 conditional on:**
@@ -99,6 +109,17 @@ So the spontaneous-breaking reading of the condensate (SM:136: "spontaneous brea
 dynamical symmetry by that condensate") cannot be realized by decomposing the selected measure's
 observer image: that image is already a single mixing phase, and it is symmetric.
 
+The new content of S-2 beyond unit A's Proposition C (scalar Σ, row H5) is the extremality step:
+the condensate is not an ergodic component of the selected image.
+
+**S-2′ (the energy-shell ensemble) [A], conditional on (B) and (H).** SM:292 and SM:1225 name a
+further candidate invariant law: the uniform ensemble on an invariant finite energy shell. At
+M = μI the conserved E of SM:296 is a sum over the six decoupled components and is invariant under
+their signed permutations B_6, so the shell and its uniform law are B_6-invariant; under (H) the
+argument of unit A's Proposition C gives scalar Σ for its observer image, and distinct block values
+fail. Its extremality is a separate question (the shell law is not a product measure) and is not
+needed for the assignment: NOT SOURCED under (B) and (H).
+
 **S-3 (no Gaussianization at the substratum level) [A].** On every finite representative the exact
 rule has finite order L. For any finitely supported linear functional f of the Z/q-valued
 configuration, f∘F^t is L-periodic in t, so the spreading step of Theorem P (Lemma S [S]) has no
@@ -111,8 +132,15 @@ requires the bridge.
 translation-invariant law on X = ((R^6)²)^{Z^d} with sup_n E abs(x_n)² < ∞. Let
 e_n(x) = abs(u_n)² + abs(v_n)² − u_n·(Av)_n, the density of the conserved form of F (SM:296), and
 Ē(x) = lim_N abs(Λ_N)⁻¹ Σ_{n∈Λ_N} e_n(x) over cubes Λ_N, which exists ρ_0-a.s. and in L¹ (ergodic
-theorem for Z^d actions). Then Ē∘F = Ē ρ_0-a.s.; so the law of Ē is the same under every
-F^t_*ρ_0, and if Ē is non-degenerate under ρ_0, no F^t_*ρ_0 is translation-ergodic.
+theorem for Z^d actions). Then Ē∘F = Ē ρ_0-a.s.; so the law of Ē is the same under F^t_*ρ_0 for every finite t, and if
+Ē is non-degenerate under ρ_0, no F^t_*ρ_0 (t finite) is translation-ergodic.
+
+*Scope.* The ergodicity statement at finite t also follows directly from F being a
+translation-equivariant measurable bijection of X (inverse as in S-1): F^t_*ρ_0 is
+translation-ergodic iff ρ_0 is. Lemma N adds an explicit conserved invariant Ē. Ē is not weakly
+continuous, and whether Ē, or any clustering property, survives t → ∞ limits (where
+Gaussianization or mixing could arise) is not shown. For an F-stationary state, Q1's object,
+nothing evolves, and Lemma N says nothing about how such a state is selected.
 
 *Proof.* q_Λ(x) := Σ_{n∈Λ} (e_n(Fx) − e_n(x)) is a quadratic form in x of finite range. For x
 supported at distance > 3 from Λ^c, Fx is supported in Λ and q_Λ(x) = Q(Fx) − Q(x) = 0 by
@@ -123,16 +151,19 @@ E abs(q_Λ) ≤ C abs(∂Λ) sup_n E abs(x_n)², and q_{Λ_N}/abs(Λ_N) → 0 in
 
 The same holds for each of the infinitely many local conserved densities of the linear rule
 (Q_B, P_C of SM:296). Positive direction, for contrast: finite-range dependence with range R is
-carried by F^t to range R + 2t (finite propagation), so K3 at a fixed time is inherited from the
-preparation, with a range that grows. In both directions the clustering of a state of the linear
-dynamics is a property of its preparation, not something the dynamics produces.
+carried by F^t to range R + 2t (finite propagation), so at each finite time K3 is inherited from
+the preparation, with a range that grows. At finite times, in both directions, the clustering of an
+evolved state is inherited from its preparation; limits t → ∞ are not covered.
 
 **Q1 assignment.**
-- Selected counting measure: NOT SOURCED, by S-2, conditional on (B) and (H). CC-S: S-1 states what
-  it does supply (K3 at the substratum level).
-- Record-selected orbit measure, or a prepared μ_H: REDUCED. Its clustering is a property of that
-  datum (Lemma N, S-3). Main and SM supply no derivation of it; the stationary law of the realized
-  dynamics is recorded as open (SM:290, SM:298, SM:1225). Whether an orbit or prior compatible with
+- Selected counting measure: NOT SOURCED, by S-2, conditional on (B) and (H); the missing property
+  is distinct block values. CC-S: S-1 states what it does supply (K3 at the substratum level; mixing,
+  and K3 for finite-range Π, at the observer level).
+- Energy-shell ensemble: NOT SOURCED under (B) and (H), by S-2′.
+- Record-selected orbit measure, or a prepared μ_H: REDUCED. The basis is that Main and SM supply
+  no derivation of its stationary law or clustering: the stationary law of the realized dynamics is
+  recorded as open (SM:290, SM:298, SM:1225). S-3 and Lemma N (finite t) are consistent with this
+  and do not by themselves establish it. Whether an orbit or prior compatible with
   records yields an F-stationary, K2-clustering observer law with distinct block values is that
   open question.
 
@@ -192,7 +223,8 @@ below are distinct.
    phase rotation that J generates).
 6. *Fixed set.* C = κ_T c ⊗ P_T1 + κ_E c ⊗ P_E + (κ_A c + C_y^{sp}) ⊗ P_A1 has the TPC form (r2)
    with pairwise distinct block operators; Σ_n is block-scalar with values 2κ_T, 2κ_E and
-   2κ_A + Σ_j β_j²·(on-site weight), distinct by choice; H-PF by construction; F = F_s ⊗ I_6 gives
+   2κ_A + Σ_j β_j² (Σ_n = 2ℓ_n C ℓ_nᵀ with the u-component; the u-entry of E_{k_j} has modulus 1),
+   distinct by choice; H-PF by construction; F = F_s ⊗ I_6 gives
    the kinetic clause; linear offset-free branch, mean 0.
 7. *Stab(C) = U(3)×U(2)×U(1).* "⊆" is [L2] §4.2's scope argument for the TPC form with distinct
    block operators. "⊇": a block-diagonal w acts on the T_1 and E blocks by (★) [S] §4.1, and on the
@@ -224,7 +256,8 @@ translation-mixing, M has no atoms.
 *Proof.* The atom is the Gram matrix of the projections of the x_{0,α} onto the eigenspace of the
 translation action on L²(ρ) with character k. For an ergodic action that eigenspace has dimension
 ≤ 1 (for eigenfunctions f, g with the same character, f/g, defined where g ≠ 0 and |g| constant,
-is invariant), so all projections are multiples of one vector. Mixing gives C(n) → 0, and by
+is invariant), so all projections are multiples of one vector. For a centred law (the fixed set
+supplies mean 0), mixing gives C(n) → 0, and by
 Wiener's lemma (Cesàro mean of abs(C(n))² equals the sum of squared atom masses) there are no
 atoms. ∎
 
@@ -252,7 +285,8 @@ identically, ∇θ would be constant, since k_3 varies the other argument indepe
 so each level set Θ_ε = 2πℓ is null; a continuous function vanishing almost everywhere vanishes.
 So all cumulants of order ≥ 3 vanish, and ρ is Gaussian, as Theorem P [S] states. CC-T green.
 
-**What K1 leaves.** A K1 witness, if one exists, must:
+**What K1 leaves.** A K1 witness, if one exists, with uniformly bounded moments of all orders
+(needed for the cumulant statements below), must:
 - have no covariance atoms (Lemma A), so the phase-locking mechanism of §2 is unavailable;
 - violate K2 (Theorem P [S]);
 - carry a nonzero joint cumulant of order ≥ 3 whose Fourier transform is a singular distribution
@@ -275,7 +309,8 @@ SMD.
 
 **[I-Stein] re-derived [A], modulo the textbook Stein-equation bounds.** Let X_1, …, X_N be centred
 with finite fourth moments, σ² = Var Σ X_i > 0, W = Σ X_i/σ, and dependency neighbourhoods
-N_i ∋ i of size ≤ D such that, for index sets I, I′ with I′ disjoint from ∪_{i∈I} N_i, the families
+N_i ∋ i of size ≤ D, symmetric (j ∈ N_i ⇔ i ∈ N_j, so that each index lies in at most D
+neighbourhoods), such that, for index sets I, I′ with I′ disjoint from ∪_{i∈I} N_i, the families
 (X_i)_{i∈I} and (X_j)_{j∈I′} are independent (finite-range dependence with balls of radius R gives
 this, D = (2R+1)^d). Then
 d_W(W, Z) ≤ (D²/σ³) Σ_i E abs(X_i)³ + (4/√π)(D^{3/2}/σ²) (Σ_i E X_i⁴)^{1/2}.
@@ -320,13 +355,19 @@ hypothesis with the distance-indexed α ([S] §3); Corollary Pα stays condition
 ## 6. Consequences, stated with conditions
 
 - **For #1217.** SMD-SRC-1 replaced SMD (on Z, 0 < abs(μ) < 1) by L-SDS with K2. This unit finds
-  that K2 for Theorem 5's condensate state is not supplied by the specified substratum: the selected
-  measure is excluded under (B) and (H) (S-2), and every remaining source is a preparation datum
-  whose clustering the dynamics does not create (Lemma N). The clustering condition is therefore a
-  condition on the state, like SMD; it is not adopted, and whether to state it is the owner's
+  that the specified substratum supplies no state meeting the fixed set: under (B) and (H) the
+  selected measure's observer image is a single mixing phase with scalar Σ, so the condensate is
+  neither that image nor an ergodic component of it (S-2), and likewise for the energy-shell
+  ensemble (S-2′); the missing property is distinct block values. For prepared priors and
+  record-selected orbits, Main and SM supply no derivation (SM:290, SM:298, SM:1225). The clustering
+  condition of the condensate state is therefore a condition on the state, like SMD; it is not adopted, and whether to state it is the owner's
   decision (§A.29, §A.50 item 6). Clustering cannot be weakened to ergodicity: K0 does not suffice
   (ρ_Q).
 - **For #1049.** No bearing beyond SMD-SRC-1's.
+- **Finding for routing (#1217).** SMD-SRC-1's mutable status records (REPORT.md §14 and
+  PRESERVATION.md) list Corollary P3′ as conditional on the recalled [I-Stein]. After review of §4
+  here, they could record P3′ as resting on this re-derivation and the textbook Stein-equation
+  bounds. Listed, not edited.
 - **For the SSB reading (SM:136).** Under (B) and (H) the condensate is not an ergodic component of
   the selected measure's observer image (S-2). A spontaneously broken condensate, if realized,
   must come from a non-selected preparation or record-selected orbit.
@@ -339,25 +380,28 @@ hypothesis with the distance-indexed α ([S] §3); Corollary Pα stays condition
 | CC-R | §2.4: breaking the resonance breaks L-SDS; removing the locking restores SMD | green |
 | CC-M | ρ_Q violates K2 and K1; Lemma A and Lemma R do not apply positively to ρ_K (non-ergodic) or ρ_D (μ = 0) of [S] | green |
 | CC-T | Corollary T reproduces Theorem P for translation-invariant states | green |
-| CC-S | S-1 states what the selected measure supplies; S-2 names its conditional inputs (B), (H) | green |
+| CC-S | S-1 states what the selected measure supplies: K3 at the substratum level; under (B), mixing at the observer level, and K3 for finite-range Π. The missing property is distinct block values (S-2), so "not sourced" is not a relabelling of absent clustering. S-2 names its conditional inputs (B) and (H) | green |
 | CC-E | no identity in this report required computation; every identity is exact algebra (§2.2) | vacuous, recorded |
 | CC-P | quoted lines re-read at [P] | green |
 
 **Pressure test (§A.31).** No result here favours the framework: Q1 is an obstruction or a
 reduction, Q3 an obstruction. The obstruction S-2 was tested against its inputs: without (B) the
-observer law is not defined from the substratum at all; without (H), Σ need not be scalar, but the
-mixing and extremality part still excludes decomposing the selected image into broken components.
+observer law is not defined from the substratum at all. (H) is load-bearing for the NOT SOURCED
+assignment: without it the selected image may itself have distinct block values, and the
+assignment fails. Mixing and extremality would still exclude a decomposition of the image into
+broken components, but that alone leaves the image itself as a candidate.
 
 ## 8. Productivity (PLAN.md §4)
 
-Met through G1 (Q1 assigned NOT SOURCED and REDUCED, with conditional inputs named), G2
+Met through G1 (Q1 assigned NOT SOURCED and REDUCED, with conditional inputs and bases named), G2
 (OBSTRUCTION for K0) and G3 ([I-Stein] re-derived).
 
 | Class | Findings |
 | --- | --- |
-| NEW | ρ_Q (K0 does not force SMD); S-2 (the selected measure's observer image is a single mixing symmetric phase under (B), (H)); Lemma N |
+| NEW | ρ_Q (K0 does not force SMD); the extremality step of S-2 (under (B), the selected measure's observer image is a single mixing phase, so the condensate is not an ergodic component of it) |
 | POSITIVE | Corollary T (independent proof of Theorem P for translation-invariant states); the re-derivation of [I-Stein] |
-| ELABORATING | Lemma A and its corollary; Lemma R; S-1; S-3; the K1 gap |
+| ELABORATING | Lemma A and its corollary; Lemma R; S-1; S-2′; S-3; Lemma N (finite t); the K1 gap |
+| CONFIRMING | S-2's scalar-Σ part (unit A's Proposition C) |
 
 ## 9. Open nodes
 
@@ -381,6 +425,9 @@ Met through G1 (Q1 assigned NOT SOURCED and REDUCED, with conditional inputs nam
 | Main and SM line citations | support on `main` at [P] |
 | textbook facts (Kronecker; Wiener's lemma; ergodic theorem; Cramér's decomposition theorem; Bernoulli actions are mixing and factors inherit mixing; Stein-equation bounds) | standard results, cited by name |
 | #1049, #1217 | provenance: accountability |
+| Ross's Theorem 3.5 "as recalled in [S]" (§4) | provenance: named only for comparison of constants; no result uses it |
+| PR #1612 ("landed via #1612", PLAN.md chronology disclosure) | provenance: names how SMD-SRC-1 reached `main`; the content used is SMD-SRC-1 on `main` |
+| #1623 comment 7209241804 (review of r1) | provenance: evidence of review; no result uses it |
 
 Support off `main`: none.
 
@@ -390,13 +437,17 @@ Support off `main`: none.
 
 | Claim | Status | Missing | Issue | What would resolve it |
 | --- | --- | --- | --- | --- |
-| S-1, S-3 | unreviewed paper derivation | independent review | #1217 | a recorded review |
-| S-2 | unreviewed; conditional on (B) and (H) | review; the bridge itself | #1217 | a recorded review; a proof of the bridge in the form (B), or a different bridge form |
-| Lemma N | unreviewed | review | #1217 | a recorded review |
-| ρ_Q (K0 obstruction) | unreviewed paper derivation | independent review; optionally a non-model check of the relation-lattice computation | #1217 | a recorded review |
-| Lemmas A, R; Corollary T | unreviewed | review | #1217 | a recorded review |
-| [I-Stein] re-derivation | unreviewed; uses textbook Stein-equation bounds | review | #1217 | a recorded review |
+| S-1, S-3 | model-reviewed (r1 review) | independent non-model review | #1217 | a recorded review |
+| S-2, S-2′ | model-reviewed (r1 review); conditional on (B) and (H) | independent non-model review | #1217 | a recorded review |
+| Conditional input (B) | a reading of the coarse-graining bridge, which is unproved (SM:232); not adopted | a proof of the bridge in the form (B), or a bridge of another form | #1217 | a proof, or an owner decision on the reading |
+| Conditional input (H) | Proposition 4b's hypotheses (SM:334–336, as unit A carries them); not established here | as recorded in unit A | #1217 | as recorded in unit A |
+| Q1 REDUCED assignment | rests on the absence of a derivation in Main and SM (SM:290, SM:298, SM:1225) | a derivation or refutation of a stationary clustering observer law with distinct values from a prepared prior or record-selected orbit | #1217 | either |
+| Lemma N (finite t) | model-reviewed (r1 review) | review; the t → ∞ question is not addressed | #1217 | a recorded review; a separate result for limits |
+| ρ_Q (K0 obstruction) | model-reviewed (r1 review) | independent non-model review; optionally a non-model check of the relation-lattice computation | #1217 | a recorded review |
+| Lemmas A, R; Corollary T | model-reviewed (r1 review) | independent non-model review | #1217 | a recorded review |
+| [I-Stein] re-derivation | model-reviewed (r1 review); uses textbook Stein-equation bounds | independent non-model review | #1217 | a recorded review |
 | K1 (§3) | open | a proof or a witness | #1217 | either |
+| N3, an O-invariant K0 witness | open; ρ_Q is not O-invariant as a law (not required by the fixed set) | a construction with the cubic orbit's relation lattice, or a proof that none exists | #1217 | either |
 | H-αCLT | stated hypothesis, no source | a source check or a proof | #1217 | a pinned theorem or a proof |
 
 ## 12. Node log and stopping
@@ -408,6 +459,9 @@ Support off `main`: none.
 - **Pass 5.** [I-Stein] re-derivation. No NEW finding.
 - **Pass 6.** §A.34 check (Lemma A one direction; S-2's "not a component" from extremality; ρ_Q's
   "iff 4γ ∈ 2πZ", both directions); claim/evidence check of §0 and §6. No NEW finding.
+- **r2.** Review findings F1–F11 applied: Q1 verdict reworded (the missing property is distinct
+  block values); S-2′ added; Lemma N scoped to finite t and reclassified; routing and tracing lines
+  added. No mathematical result changed.
 
 The first stopping condition holds: every question is assigned and the controls have run. Passes
 4–6 are three consecutive passes with no NEW finding. No result needed a premise outside the fixed
