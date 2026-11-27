@@ -1789,13 +1789,18 @@ def rep_builder(source):
     return mod, sorted(mods)
 
 
-def rep_inputs(a):
-    """The pinned ledger and edit list of the tool revision (R6.EVID.8), verified by git blob id, and the delegation
-    contract of the configuration's control instance."""
+def rep_ledger_inputs(a):
+    """Read the exact ledger and edit list pinned with the tool revision."""
     led = a.repo.read(a.tool_rev, a.ad + 'rep/ledger.json')
     eds = a.repo.read(a.tool_rev, a.ad + 'rep/edits.json')
     if led is None or eds is None or gitobj.blob_id_of(led) != REP_LEDGER_GIT or gitobj.blob_id_of(eds) != REP_EDITS_GIT:
         raise RepRefused('the pinned ledger or edit list of the tool revision is not the retirement ledger\'s blob')
+    return led, eds
+
+
+def rep_inputs(a):
+    """The pinned ledger, edit list and delegation inputs for the representative build."""
+    led, eds = rep_ledger_inputs(a)
     # the configuration's control instance when the runner bound one (rep_instance, R6.EVID.8; staging r2 sec. 2),
     # else the configuration
     inst = getattr(a, 'rep_instance_doc', None)
@@ -1807,7 +1812,12 @@ def rep_inputs(a):
         encoded = a.repo.read(revision, dref['path'])
         if encoded is None or sha(encoded) != dref.get('blob_sha256'):
             raise RepRefused('the delegation contract differs from its configuration pin')
-        deleg = json.loads(encoded)
+        try:
+            deleg = json.loads(encoded)
+        except ValueError as exc:
+            raise RepRefused('the pinned delegation contract is not valid JSON') from exc
+        if not isinstance(deleg, dict):
+            raise RepRefused('the pinned delegation contract is not an object')
     return led, eds, deleg
 
 
@@ -1989,12 +1999,16 @@ def rep_build_control(a):
                       case=REP_CASES[0], attested=att)
     # the pinned ledger with the first splice's new bytes changed by one byte (its new_sha256 kept consistent, so
     # that only the ledgered path's expected_sha256 can refuse it)
-    led = json.loads(rep_inputs(a)[0])
-    s0 = led['splices'][0]
-    s0['new'] = s0['new'][:-1] + ('x' if s0['new'][-1:] != 'x' else 'y')
-    s0['new_sha256'] = sha(s0['new'].encode('utf-8'))
-    bad_ledger = json.dumps(led).encode('utf-8')
+    mutated = {}
+    mutation = []
     try:
+        led = json.loads(rep_ledger_inputs(a)[0])
+        s0 = led['splices'][0]
+        s0['new'] = s0['new'][:-1] + ('x' if s0['new'][-1:] != 'x' else 'y')
+        s0['new_sha256'] = sha(s0['new'].encode('utf-8'))
+        bad_ledger = json.dumps(led).encode('utf-8')
+        mutated.update(splice=s0['id'], file=s0['file'])
+        mutation = [{'path': a.ad + 'rep/ledger.json', 'splice': s0['id'], 'change': 'one byte of new'}]
         build_x_rep(a, repo=gitobj.Overlay(a.base), ledger=bad_ledger)
         att2, ok2 = {'outcome': 'NOT_REFUSED'}, False
     except RepRefused as exc:
@@ -2002,11 +2016,10 @@ def rep_build_control(a):
         ok2 = reason.startswith("a ledgered path's sha256 differs from the ledger's expected_sha256")
         att2 = {'outcome': 'REFUSED',
                 'reason': "a ledgered path's sha256 differs from the ledger's expected_sha256" if ok2 else reason}
-    acts['mutated_ledger'] = {'splice': s0['id'], 'file': s0['file'], 'attested': att2}
+    acts['mutated_ledger'] = dict(mutated, attested=att2)
     a.rec.capture_doc('X_rep build with a mutated ledger (a1_controls.py rep_build_control)',
                       dict(acts['mutated_ledger'], exit_status=None), case=REP_CASES[1],
-                      mutation=[{'path': a.ad + 'rep/ledger.json', 'splice': s0['id'], 'change': 'one byte of new'}],
-                      attested=att2)
+                      mutation=mutation, attested=att2)
     # a builder whose source also imports a module of the engine
     with open(os.path.join(here, 'rep_build.py'), 'rb') as f:
         src = f.read()
