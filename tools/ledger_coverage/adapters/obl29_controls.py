@@ -575,16 +575,21 @@ def clearance_predicates(r):
     case('P-REFREEZE-REVIEW-WITNESS-RESOLVED-pred', 'reliance through (r3) only; Z by V\'s reviewer carries every '
                                                     'token and reason: cleared under NR-1, NR-2, NR-4 and NR-5',
          [blocked, clauses, route], not blocked and clauses == ['r3'] and route and 'NR-5' in route)
-    got = o.decide(dR, W, R=R, Z=Z(reviewer=' SESSION.FIXTURE-REVIEWER-V '), nr2=True, finding_git=fgit)
+    # staging S-2 sec. 7: a respelling by case and separator is the same identity (S2.2); a padded string is not an
+    # identity string (S2.1), so with it the witness stands
+    got = o.decide(dR, W, R=R, Z=Z(reviewer='Session_Fixture-Reviewer-V'), nr2=True, finding_git=fgit)
     case('NR5-SAME-NORMALIZED-REVIEWER-pred', 'Z is by the same reviewer as V under the adopted identity comparison',
          got, not got[0] and got[2] and 'NR-5' in got[2])
+    got = o.decide(dR, W, R=R, Z=Z(reviewer=' SESSION.FIXTURE-REVIEWER-V '), nr2=True, finding_git=fgit)
+    case('NR5-SAME-NORMALIZED-REVIEWER-pred/padded', 'Z\'s reviewer padded with spaces is not an identity string: '
+         'the witness stands', got, got[0])
     negs = [
         ('N-REFREEZE-REVIEW-WITNESS-OTHER-REVIEWER-pred', 'Z by an independent reviewer other than V\'s',
          dict(Z=Z(reviewer='session.fixture-reviewer-x'))),
         ('N-REFREEZE-REVIEW-WITNESS-SELF-pred', 'Z by V\'s reviewer who is also the reassessment\'s author',
          dict(Z=Z(), A_author='session.fixture-reviewer-v')),
         ('NR5-REVIEWER-AUTHOR-ALIAS-pred', 'the reassessment author names the same identity as V and Z',
-         dict(Z=Z(), A_author=' SESSION.FIXTURE-REVIEWER-V ')),
+         dict(Z=Z(), A_author='Session_Fixture-Reviewer-V')),
         ('N-REFREEZE-REVIEW-WITNESS-NO-IDENTITY-pred', 'V\'s reviewer is not an identity string (a URL)',
          dict(Z=Z(reviewer='https://example.invalid/run/1'), V_reviewer='https://example.invalid/run/1')),
         ('NR5-MISSING-ITEM-TOKEN-pred', 'Z\'s method lacks the <b>#<item> token',
@@ -651,7 +656,7 @@ def clearance_predicates(r):
          b1[0] is False and b1[2] and 'NR-1' in b1[2])
     case('N-REFREEZE-NONRELIANCE-UNSUPPORTED-pred', 'the NR-3 reviewer is an excluded author, or NR-4\'s tokens are '
                                                     'absent: the witness stands', [b2, b3], b2[0] and b3[0])
-    got = o.decide(dR, Wl, R=R, required_review=dict(rv, reviewer=' SESSION.FIXTURE-WRITER-Q '),
+    got = o.decide(dR, Wl, R=R, required_review=dict(rv, reviewer='Session_Fixture-Writer-Q'),
                    excluded=['session.fixture-writer-r', 'session.fixture-writer-q', 'session.fixture-reviewer-v'], nr2=True)
     case('NR3-EXCLUDED-AUTHOR-ALIAS-pred', 'the required reviewer matches an excluded author after normalization',
          got, got[0])
@@ -913,10 +918,21 @@ def r13_form_controls(r):
     case('SECOND-KIND-SELF-REVIEW', 'the same verdict by the reviewed record\'s own author (independence fails): no '
                                     'finding', o, not [f for f in o['all'] if f.get('kind') == 2]
          and 'retirement-blocked' not in o['classes'])
+    # staging S-2 sec. 7 S2-INVALIDATING-RESPELL: the same identity as the author (S2.2) without byte equality does not
+    # lapse the review (S2.5): a genuine finding with a form failure
+    respelled = sf.WRITER.upper().replace('.', '_')
+    w, c1, ZP = second_kind_world(reviewer=respelled, withdraw=True)
+    o = outcome(w)
+    sk = [f for f in o['all'] if f.get('kind') == 2]
+    case('S2-INVALIDATING-RESPELL', 'the same verdict by %s, the author respelled: not disqualified, a genuine finding '
+         'with a form failure' % respelled, o,
+         bool(sk) and 'record-invalid' in o['classes'] and 'retirement-blocked' in o['classes'])
     w, c1, ZP = second_kind_world(reviewer='https://example.invalid/runs/1')
     o = outcome(w)
-    case('SECOND-KIND-RUN-REVIEWER', 'the same verdict by a run (a URL in reviewer): disqualified, no finding', o,
-         not [f for f in o['all'] if f.get('kind') == 2])
+    sk = [f for f in o['all'] if f.get('kind') == 2]
+    case('SECOND-KIND-RUN-REVIEWER', 'the same verdict by a run (a URL in reviewer): not an identity string, so a '
+         'genuine finding with a form failure that still blocks (staging S-2 S2.5)', o,
+         bool(sk) and 'record-invalid' in o['classes'] and 'retirement-blocked' in o['classes'])
     w, c1, ZP = second_kind_world(reviewed_missing=True)
     o = outcome(w)
     case('SECOND-KIND-REVIEWED-MISSING', 'an invalidates verdict whose reviewed names no record the scan finds: it '

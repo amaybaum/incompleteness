@@ -1247,16 +1247,25 @@ def adjudication_run_controls(r, two_pass, pin_q, sib, drop_sib):
         entry = J['replacement']['path']
         path = entry[:-5] + '.review.json'
         author = json.loads(c.w.repo.read(c.w.M, entry))['author']
-        review = dict(json.loads(c.w.repo.read(c.w.M, path)), reviewer=' ' + author.upper() + ' ')
+        # staging S-2 sec. 7: the author upper-cased with its separators changed, the same identity (S2.2)
+        review = dict(json.loads(c.w.repo.read(c.w.M, path)), reviewer=author.upper().replace('.', '_'))
         c.step({path: pfc.jb(review)}, 'the sole current accepting review uses a spelling of the repair author')
 
-    o = guarded_run(lambda: world(setup=review_setup, before_landing=address_dissent,
-                                  after_landing=acceptance_by_repair_author))
-    case('ADJ-N-CURRENT-ACCEPTANCE-AUTHOR-ALIAS', 'current acceptance by the repair author is ineligible after '
-                                                'identity normalization, even when other dissent is addressed',
-         o.get('error') or [o['reassess_why'], o['review_disregards']],
-         still_blocked(o) and not o['review_disregards'] and
-         any('no accepting non-author review' in why for why in o['reassess_why']))
+    def acceptance_by_padded_author(c, J, T, jp, jb, jdir):
+        entry = J['replacement']['path']
+        path = entry[:-5] + '.review.json'
+        author = json.loads(c.w.repo.read(c.w.M, entry))['author']
+        review = dict(json.loads(c.w.repo.read(c.w.M, path)), reviewer=' ' + author.upper() + ' ')
+        c.step({path: pfc.jb(review)}, 'the sole current accepting review uses the padded repair author')
+
+    for cid, fn in (('ADJ-N-CURRENT-ACCEPTANCE-AUTHOR-ALIAS', acceptance_by_repair_author),
+                    ('ADJ-N-CURRENT-ACCEPTANCE-AUTHOR-ALIAS/padded', acceptance_by_padded_author)):
+        o = guarded_run(lambda: world(setup=review_setup, before_landing=address_dissent, after_landing=fn))
+        case(cid, 'current acceptance by the repair author is ineligible after identity normalization, even when '
+                  'other dissent is addressed%s' % (' (padded: not an identity string)' if 'padded' in cid else ''),
+             o.get('error') or [o['reassess_why'], o['review_disregards']],
+             still_blocked(o) and not o['review_disregards'] and
+             any('no accepting non-author review' in why for why in o['reassess_why']))
 
     def review_extra_item(c, J, T, jp, jb, jdir):
         path = J['replacement']['path'][:-5] + '.review.json'
