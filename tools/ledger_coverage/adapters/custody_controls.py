@@ -249,6 +249,8 @@ class CW:
                 'invalid_subjects': sorted({i.get('subject') for i in out.get('items', [])
                                             if i['class'] == 'record-invalid'}),
                 'decisions': [(d['blocked'], d['route'], d['clauses']) for d in cu.get('decisions') or []],
+                'review_disregards': [p for d in cu.get('decisions') or []
+                                      for p in d.get('disregarded_review_items') or []],
                 'adjudications': cu.get('adjudications') or [],
                 'reassess_why': [d for i in out.get('items', []) if i['class'] == 'record-invalid' and
                                  i.get('subject') == pfc.RA_PATH for d in (i.get('detail') or [])],
@@ -832,7 +834,7 @@ def adjudication_run_controls(r, two_pass, pin_q, sib, drop_sib):
                    'original_configuration': c.kref}
         return c, witness, gitobj.blob_id_of(sib[S_PATH]), {}
 
-    def review_setup():
+    def review_setup(with_lineage=False, resolve_review=True):
         # The closed context used Q. The current reassessment instead names a distinct replacement R, and cites
         # an accepting same-reviewer resolution Z that meets NR-5 on its own.
         base = lineage_finding_world(r, edits=pfc.EDITS_REWORDED)
@@ -852,21 +854,36 @@ def adjudication_run_controls(r, two_pass, pin_q, sib, drop_sib):
         z = json.loads(zb)
         fg = gitobj.blob_id_of(base.repo.read(base.M, pfc.RD + 'finding.json'))
         z['method'] = 'read ' + ' '.join([gitobj.blob_id_of(qb), vg, token, obl29.item_token(fg, sf.DOC)])
+        if not resolve_review:
+            z['method'] = 'read ' + gitobj.blob_id_of(qb)
         for verdict in z['verdicts']:
             verdict['reason'] = 'resolves ' + token
         records = {rp: rb, zp: pfc.jb(z)}
 
+        retained = {vp: vb}
+        if with_lineage:
+            retained.update(sib)
+
         def drop_review(c, main_before):
-            c.step({vp: None}, 'the adverse review leaves the current tree')
+            c.step({p: None for p in retained}, 'the adverse evidence leaves the current tree')
 
         c, _m = two_pass(world=lambda fixture: CW.lineage(fixture, repl=True),
-                         main_files={**records, vp: vb}, pre=drop_review, ctx_reassessment=pfc.reassessment(base))
+                         cfg_records=pin_q if with_lineage else None,
+                         main_files={**records, **retained}, pre=drop_review, ctx_reassessment=pfc.reassessment(base))
+        if with_lineage:
+            sref = {'path': S_PATH, 'blob_sha256': sf.sha(sib[S_PATH])}
+            witness = {'class': 'lineage', 'disputed': qref,
+                       'edge': {'successor': qref, 'predecessor': dict(c.w.p_ref)},
+                       'sources': [sref], 'adverse': [{'ref': sref, 'item': 'edge'}],
+                       'original_configuration': c.kref}
+            return c, witness, gitobj.blob_id_of(sib[S_PATH]), records
         witness = {'class': 'review', 'disputed': qref, 'edge': None,
                    'sources': [vref], 'adverse': [{'ref': vref, 'item': item}],
                    'original_configuration': c.kref}
         return c, witness, vg, records
 
-    def world(mut=None, cite=True, land=True, extra_upheld=None, setup=lineage_setup, late_close=False):
+    def world(mut=None, cite=True, land=True, extra_upheld=None, setup=lineage_setup, late_close=False,
+              before_landing=None, after_landing=None):
         c, witness, g_source, replacement_records = setup()
         w = c.w
         late_files = {}
@@ -907,6 +924,8 @@ def adjudication_run_controls(r, two_pass, pin_q, sib, drop_sib):
             mut(J)
         jdir = entry['path'].rsplit('/', 1)[0] + '/'
         jp, tp = jdir + 'adj.json', jdir + 'adj.review.json'
+        if before_landing:
+            before_landing(c, J, jdir)
         jb = pfc.jb(J)
         T = {'schema': rec.review_schema, 'reviewer': 't', 'reviewed': {'path': jp, 'blob_sha256': sf.sha(jb)},
              'method': 'read %s %s' % (gitobj.blob_id_of(jb), g_source),
@@ -918,6 +937,8 @@ def adjudication_run_controls(r, two_pass, pin_q, sib, drop_sib):
             w.repo.mem[lc]['time'] = int(_dt(2026, 11, 27, 12, 0, tzinfo=_tz.utc).timestamp())
         if extra_upheld is not None:
             extra_upheld(c, J, jdir)
+        if after_landing:
+            after_landing(c, J, T, jp, jb, jdir)
         if late_files:
             c.step(late_files, 'the reviewed custody close first lands after the rulings')
         # the configuration commit is built in place of main's tip (sf.Syn.build derives it with the tip's parents), so
@@ -1102,6 +1123,104 @@ def adjudication_run_controls(r, two_pass, pin_q, sib, drop_sib):
          o.get('error') or [o['decisions'], o['reassess_why'], o['findings']],
          still_blocked(o) and o['decisions'] == [(True, None, ['r3'])] and
          any(e['valid_adverse'] and e['landing'] for e in reported_upholds(o)))
+
+    scientific_effect = sf.DOC + ':scientific_effect'
+    dissenter = 'reviewer-adverse'
+
+    def write_dissent(c, entry, path, reviewer=dissenter, items=(scientific_effect,), omit=None,
+                      reason='repair disputed'):
+        data = c.w.repo.read(c.w.M, entry['path'])
+        reviewed = {'path': entry['path'], 'blob_sha256': entry['blob_sha256']}
+        review = {'schema': rec.review_schema, 'reviewer': reviewer, 'reviewed': reviewed,
+                  'method': 'read ' + gitobj.blob_id_of(data),
+                  'verdicts': [{'item': i, 'verdict': 'dissent' if i in items else 'accept',
+                                'reason': reason if i in items else 'checked'}
+                               for i in rec.item_ids(json.loads(data)) if i != omit]}
+        encoded = pfc.jb(review)
+        c.step({path: encoded}, 'retain an exact dissenting review of the repair')
+        return {'path': path, 'blob_sha256': sf.sha(encoded)}, gitobj.blob_id_of(encoded)
+
+    def address_dissent(c, J, jdir, items=(scientific_effect,)):
+        ref, oid = write_dissent(c, J['replacement'], jdir + 'dissent.review.json', items=items)
+        target = {'ref': ref, 'item': scientific_effect}
+        J['dissents_addressed'] = [target]
+        J['grounds'].append({'id': 'g2', 'target': target, 'reasoning': 'addresses the exact disputed item',
+                             'evidence': [oid, *J['grounds'][0]['evidence'][1:]]})
+
+    def added_dissent(c, J, T, jp, jb, jdir, reviewer=dissenter, omit=None):
+        write_dissent(c, J['replacement'], jdir + 'later-dissent.review.json', reviewer=reviewer, omit=omit,
+                      reason='the stated objection still applies')
+
+    def redissent(c, J, T, jp, jb, jdir):
+        added_dissent(c, J, T, jp, jb, jdir)
+        j_review = dict(T, reviewer=dissenter,
+                        verdicts=[dict(v, verdict='reject' if v['item'] == 'ground:g1' else 'accept')
+                                  for v in T['verdicts']])
+        c.step({jdir + 'later-adjudication.review.json': pfc.jb(j_review)}, 'an answered reviewer disputes ground:g1')
+
+    o = guarded_run(lambda: world(setup=review_setup, before_landing=address_dissent))
+    case('ADJ-P-DISPUTED', 'an admitted adjudication addresses the exact dissent on R. The ordinary accepting '
+                           'review remains and the discharge applies',
+         o.get('error') or [o['reassess_why'], o['decisions'], o['adjudications'], o['review_disregards']],
+         cleared(o) and any(p['basis'] == 'addressed' and p['item'] == scientific_effect and
+                            p['review']['path'].endswith('/dissent.review.json') and
+                            p['adjudication']['path'].endswith('/adj.json') for p in o['review_disregards']))
+
+    o = guarded_run(lambda: world(setup=review_setup, before_landing=address_dissent, after_landing=redissent))
+    case('ADJ-P-ADDRESSED-REDISSENT', 'the answered reviewer repeats the dissent on R and rejects ground:g1 later. '
+                                     'Both later reviews are reported as exempt, and the discharge applies',
+         o.get('error') or [o['reassess_why'], o['adjudications']],
+         cleared(o) and any(p['basis'] == 'exempt' and p['review']['path'].endswith('/later-dissent.review.json')
+                            for p in o['review_disregards']) and
+         any({'later-dissent.review.json', 'later-adjudication.review.json'} <=
+                            {e['path'].rsplit('/', 1)[-1] for e in a['exempt_reviews']}
+                            for a in o['adjudications'] if a['applies']))
+
+    o = guarded_run(lambda: world(setup=review_setup, before_landing=address_dissent,
+                                  after_landing=lambda *args: added_dissent(*args, reviewer='unanswered')))
+    case('ADJ-N-NEW-DISSENTER', 'an unanswered reviewer dissents after landing. The scoped disregard cannot remove '
+                                'the new dissent, so the discharge stays blocked',
+         o.get('error') or [o['reassess_why'], o['adjudications']], still_blocked(o, 'ADJ-DISSENT'))
+
+    o = guarded_run(lambda: world(setup=review_setup,
+                                  before_landing=lambda *args: address_dissent(*args, items=(sf.DOC,
+                                                                                            scientific_effect))))
+    case('ADJ-N-DISSENT-IN-SAME-REVIEW', 'only one of two items in the review is addressed. Its other dissent blocks',
+         o.get('error') or [o['reassess_why'], o['adjudications']], still_blocked(o, 'ADJ-DISSENT'))
+
+    o = guarded_run(lambda: world(setup=review_setup, before_landing=address_dissent,
+                                  after_landing=lambda *args: added_dissent(*args, omit=sf.DOC)))
+    case('ADJ-N-MISSING-REVIEW-ITEM', 'a later review of R by the answered reviewer omits a required item. '
+                                    'The review defect still blocks',
+         o.get('error') or o['reassess_why'],
+         still_blocked(o) and any('an item is omitted' in why for why in o['reassess_why']))
+
+    def remove_acceptance(c, J, T, jp, jb, jdir):
+        path = J['replacement']['path'][:-5] + '.review.json'
+        c.step({path: None}, 'the current positive repair review leaves M')
+
+    o = guarded_run(lambda: world(setup=review_setup, before_landing=address_dissent,
+                                  after_landing=remove_acceptance))
+    case('ADJ-N-NO-CURRENT-ACCEPTANCE', 'even a qualifying adjudication cannot supply the accepting review missing '
+                                        'from the current repair record at M',
+         o.get('error') or o['reassess_why'],
+         still_blocked(o) and any('no accepting non-author review' in why for why in o['reassess_why']))
+
+    o = guarded_run(lambda: world(setup=lambda: review_setup(with_lineage=True), before_landing=address_dissent))
+    case('ADJ-P-MIXED-RETAINED-WITNESSES', 'two witnesses rely on R, one cleared through adjudication and the other '
+                                         'through NR-5. The addressed item is scoped to this discharge',
+         o.get('error') or [o['reassess_why'], o['witnesses'], o['decisions']],
+         cleared(o) and len(o['witnesses']) == 2 and
+         {route for b, route, _ in o['decisions'] if not b} ==
+         {'adjudication', 'explicit resolution (NR-1, NR-2, NR-4, NR-5)'})
+
+    o = guarded_run(lambda: world(setup=lambda: review_setup(with_lineage=True, resolve_review=False),
+                                  before_landing=address_dissent))
+    case('ADJ-N-OTHER-WITNESS-BLOCKS', 'the other witness fails NR-5. The adjudication is inapplicable to this '
+                                      'discharge and its provisional disregard has no effect',
+         o.get('error') or [o['reassess_why'], o['witnesses'], o['decisions'], o['adjudications']],
+         still_blocked(o) and len(o['witnesses']) == 2 and any(b for b, _r, _c in o['decisions']) and
+         not o['review_disregards'] and not any(row['applies'] for row in o['adjudications']))
 
 
 def replay_controls(r, freeze_world, result):

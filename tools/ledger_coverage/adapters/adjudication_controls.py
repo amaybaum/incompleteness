@@ -340,9 +340,10 @@ def dissents():
     case('PRED:ADJ-N-DISSENT-NOT-LATER', 'a dissent item on R by v (answered) that is not later than L(J) and not '
                                          'addressed: not exempt, it blocks', o,
          o['admitted'] and o['blocking'] == [early])
-    R = {'schema': 'oi-reconciliation/2', 'paths': [{'path': P}]}
-    dvdoc = {'reviewer': 'v', 'reviewed': {}, 'verdicts': [{'item': P, 'verdict': 'accept'},
-                                                           {'item': P + ':scientific_effect', 'verdict': 'dissent'}]}
+    R = {'schema': 'oi-reconciliation/2', 'author': 'ra', 'paths': [{'path': P}]}
+    dvdoc = {'schema': 'oi-review-record/1', 'reviewer': 'v', 'reviewed': fx.rref, 'method': 'read ' + h40('d'),
+             'verdicts': [{'item': P, 'verdict': 'accept', 'reason': 'checked'},
+                          {'item': P + ':scientific_effect', 'verdict': 'dissent', 'reason': 'repair disputed'}]}
     ok = adj.dissents_addressed_problems(J, [(dv, dvdoc)], R)
     J_bad = copy.deepcopy(J)
     J_bad['dissents_addressed'] = [{'ref': dict(dv), 'item': P}, {'ref': {'path': 'x/none.json',

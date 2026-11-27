@@ -41,7 +41,7 @@ def read_invalidated(x):
     return x.get(k['id']), x.get(k['sha256']), target
 
 
-def _reviewed(store, ref, sha):
+def _reviewed(store, ref, sha, disregarded=()):
     """Problems of the record's review: exactly one review record in its directory naming its exact reference (path
     and blob; a review naming the same bytes at another path is not its review, which narrows the current-review
     check of R6.OBL29.4 in the fail-closed direction), and the chain lint with that review admitted."""
@@ -49,7 +49,7 @@ def _reviewed(store, ref, sha):
     reviews = [s for s, (p, rv) in store.by_sha.items()
                if isinstance(rv, dict) and rv.get('schema') == rec.review_schema and posixpath.dirname(p) == d
                and isinstance(rv.get('reviewed'), dict) and rv['reviewed'].get('blob_sha256') == sha
-               and rv['reviewed'].get('path') == ref['path']]
+               and rv['reviewed'].get('path') == ref['path'] and (p, s) not in disregarded]
     if len(reviews) != 1:
         return ['%d review records in the record directory name its blob, not one' % len(reviews)]
     return rec.lint_chain(ref, store, {sha, reviews[0]})
@@ -305,11 +305,11 @@ def repair_null_admitted(f, cum):
 
 
 def reassessment_problems(repo, M, led, doc, ref, store, admitted, found, m_scan, schemas, cum=None,
-                          run_level=lambda f: False, custody=None):
+                          run_level=lambda f: False, custody=None, defer_repair_review=False):
     """Why a cited reassessment does not apply (empty if it applies). m_scan: [(path, bytes)], the scanned set of M's
     tree; `found`: the findings of the cumulative record set; `cum`: that set, whose eligible reviews of the
-    reassessment and of its repair record must all accept (R6.OBL29.3); run_level(finding): whether it binds the
-    citing configuration at run level (Form (iv); `edit` is null exactly then)."""
+    reassessment must all accept (R6.OBL29.3). When an adjudication could supply a disregard for the exact repair,
+    custody_decisions completes its review checks. run_level(finding) checks Form (iv)."""
     out = []
     if not isinstance(doc, dict) or doc.get('schema') != reassessment_schema:
         return ['not a reassessment record']
@@ -323,10 +323,10 @@ def reassessment_problems(repo, M, led, doc, ref, store, admitted, found, m_scan
     named = finding_of(found, doc.get('finding'))
     if not named:
         out.append('the named finding is not a finding in the cumulative record set')
+    eref = edoc = None
     if doc.get('repair') is None:
         if not named or not all(repair_null_admitted(f, cum) for f in named):
             out.append('repair is null where an independent reviewer asserts the invalidation (Keys)')
-        entry = edoc = None
     else:
         commits = _part(doc, 'repair_commits')
         chain = _first_parent_chain(repo, M)
@@ -334,18 +334,17 @@ def reassessment_problems(repo, M, led, doc, ref, store, admitted, found, m_scan
             out.append("the repair's commits do not lie on M's first-parent chain")
         entry = _part(doc, 'repair_entry')
         m_store = rec.Store(m_scan)
-        eref = {'path': entry.get('path'), 'blob_sha256': entry.get('blob_sha256')} if isinstance(entry, dict) else None
+        eref = _ref(entry)
         edoc = m_store.get(eref) if eref else None
         if not isinstance(edoc, dict) or edoc.get('schema') not in schemas:
             out.append("the repair's reconciliation record entry is not present at M")
         else:
             if not any(isinstance(e, dict) and e.get('path') == entry.get('entry_path') for e in edoc.get('paths') or []):
                 out.append("the repair's reconciliation record has no entry for entry_path")
-            if _reviewed(m_store, eref, eref['blob_sha256']):
+            if not defer_repair_review and _reviewed(m_store, eref, eref['blob_sha256']):
                 out.append("the repair's reconciliation record entry has no accepting non-author review")
             if edoc.get('author') in reviewers:
                 out.append("the reviewer is the author of the repair's reconciliation record entry")
-        entry = eref
     # Keys as r13 Amendment 7 amends them: edit is null only when the finding binds the citing configuration at run
     # level; a null-edit reassessment lifts that run-level binding only, and each edit the finding also binds is lifted
     # only by a reassessment naming that edit (lifting(), per finding and edit)
@@ -353,14 +352,11 @@ def reassessment_problems(repo, M, led, doc, ref, store, admitted, found, m_scan
     if not rl and doc.get('edit') is None:
         out.append('edit is null for a finding not bound at run level (Keys)')
     if cum is not None:
-        # R6.OBL29.3: every eligible ordinary review in R* of the reassessment's exact reference, and of the repair
-        # record's exact reference within its own directory, accepts every item; historical review evidence never
-        # supplies the current accepting review (R6.OBL29.4, above)
+        # Reassessment and predecessor reviews remain operative regardless of any adjudication about the repair.
         out += eligible_review_problems(cum.reviews_naming(ref), doc)
         out += predecessor_review_problems(doc, ref, store, cum)
-        if isinstance(entry, dict) and isinstance(edoc, dict):
-            out += eligible_review_problems(cum.reviews_naming(entry, posixpath.dirname(entry.get('path') or '')),
-                                            edoc)
+        if not defer_repair_review and eref is not None and isinstance(edoc, dict):
+            out += eligible_review_problems(cum.reviews_naming(eref, posixpath.dirname(eref['path'])), edoc)
     if not (isinstance(doc.get('rederivation'), str) and doc['rederivation'].strip()):
         out.append('the rederivation is empty')
     if doc.get('verdict') != 'no-effect':
@@ -643,6 +639,43 @@ def eligible_review_problems(reviews, doc):
         if bad:
             out.append('the review %s in the cumulative record set: %s' % (path, '; '.join(bad)))
     return out
+
+
+def repair_dissent_items(review, repair):
+    """Actual dissent items of a well-formed, independent ordinary review of a repair.
+
+    A schema failure, omitted item or duplicate is not a dissent that can be disregarded.
+    The caller matches the exact repair reference and reconciliation directory.
+    """
+    if review.get('kind', 'review') != 'review' or fd.same_identity(review.get('reviewer'), repair.get('author')) or \
+            fd.review_schema_problems(review):
+        return []
+    verdicts = review['verdicts']
+    ids = rec.item_ids(repair)
+    if sorted(v['item'] for v in verdicts) != sorted(ids) or len(set(ids)) != len(ids):
+        return []
+    items = [v['item'] for v in verdicts if v['verdict'] != 'accept']
+    if (review.get('dissent') or '').strip():
+        items.append('dissent')
+    return items
+
+
+def repair_review_problems(store, ref, repair, retained, disregarded):
+    """R6.REC.6 on the exact R for one discharge, with a separate current acceptance under R6.OBL29.4."""
+    remaining, dismissed = [], set()
+    for path, digest, review in retained:
+        dissent = repair_dissent_items(review, repair)
+        if dissent and all((path, digest, item) in disregarded for item in dissent):
+            dismissed.add((path, digest))
+        else:
+            remaining.append((path, review))
+    historical = eligible_review_problems(remaining, repair)
+    # A disregarded dissent is never positive review evidence. Keep the existing current-review lint and admit
+    # extra review records only when their dissent is fully accounted for by the same discharge.
+    current = []
+    if _reviewed(store, ref, ref['blob_sha256']) and _reviewed(store, ref, ref['blob_sha256'], dismissed):
+        current.append("the repair's reconciliation record entry has no accepting non-author review")
+    return current, historical, remaining
 
 
 # ---- the binding of a finding (R6.RECON.26, Form of a finding (ii)-(v)) -------------------------------------------
@@ -1324,22 +1357,22 @@ def custody_decisions(repo, witnesses, applying, loaded, m_scan, cum, schemas, M
                       owners=(), witnesses_at=None):
     """r9 sec. 2.2 `blocked(D, W)` for each applying discharge D of the current run and each witness W from custody
     (R6.CUST.6). Custody only adds witnesses: clearance reads only the current freeze's own admitted records. Returns
-    (blocked [(D's (doc, ref), W, clauses)], report rows)."""
+    (blocked witnesses, blocked repair reviews, witness reports, adjudication reports)."""
     from . import obl29
     from . import adjudication as adjm
     m_store = rec.Store(m_scan)
     cited = {(r.get('path'), r.get('blob_sha256')) for r in loaded.config.get('records') or [] if isinstance(r, dict)}
-    blocked, rows = [], []
+    blocked, blocked_reviews, rows, adjudication_rows = [], [], [], []
 
     adj_run = adjudication_run(repo, M, Fprime, loaded, m_scan, cum, explicit_at, witnesses_at, owners) if M else None
-    adj_rows = {}
     for d, r in applying:
         aref = _ref(r)
         ab, ae, au = _lineage(loaded.store, aref, d)
         fref = d.get('finding') if isinstance(d.get('finding'), dict) else {}
         D = {'reassessment': {'doc': d, 'ref': aref}, 'finding': (_ref(fref), fref.get('item')), 'repair': None,
              'lineage_blobs': list(ab), 'lineage_edges': list(ae), 'unresolved': au}
-        R, nr2, reviews_of_R, candidates = None, False, [], [None]
+        R, Q, eref, nr2, candidates = None, None, None, False, [None]
+        retained, dissents = [], []
         if d.get('repair') is not None:
             entry = _part(d, 'repair_entry')
             eref = _ref(entry)
@@ -1354,20 +1387,48 @@ def custody_decisions(repo, witnesses, applying, loaded, m_scan, cum, schemas, M
                 D['lineage_edges'] += qe
                 D['unresolved'] = D['unresolved'] or qu
                 # NR-2: the current freeze admits R through an existing route making its R6.REC.6 and R6.REC.7 checks
-                # operative (the configuration cites it), and they pass on their prescribed inputs and on R*
+                # operative. Its historical review check is shared with the discharge below.
                 qdir = posixpath.dirname(eref['path'])
-                reviews_of_R = [dict(x, _dir=qdir) for _p, x in cum.reviews_naming(eref, qdir)]
+                for p, oid, review in cum.reviews_naming_ids(eref, qdir):
+                    digest = cum.info[oid][2]
+                    retained.append((p, digest, review))
+                    for item in repair_dissent_items(review, Q):
+                        ref = {'path': p, 'blob_sha256': digest}
+                        dissents.append({'reviewer': review['reviewer'], 'item': item, 'review': ref,
+                                         'first_index': adj_run.first_index(ref) if adj_run else -1})
                 if (eref['path'], eref['blob_sha256']) in cited:
                     R = {'ref': eref, 'doc': Q, 'lineage_blobs': qb, 'lineage_edges': qe}
-                    nr2 = not rec.lint_chain(eref, loaded.store, loaded.admitted) and \
-                        not eligible_review_problems(cum.reviews_naming(eref, qdir), Q)
+                    nr2 = not rec.lint_chain(eref, loaded.store, loaded.admitted)
                     candidates = [dict(x, _dir=posixpath.dirname(p)) for p, x in m_store.by_sha.values()
                                   if isinstance(x, dict) and x.get('schema') == rec.review_schema and
                                   x.get('reviewed') == eref] or [None]
             else:
                 D['unresolved'] = True
-        fgit = cum.git_id(_ref(fref))
+        # R6.ADJ.12 strata 1–3 are independent of the dissent and clearance outcomes at stratum 4.
+        # Collect only qualifying adjudications of relying witnesses. Apply no review exception yet.
+        adjudication = {'aref': aref, 'A': d, 'rref': eref, 'R': Q, 'finding_ref': _ref(fref),
+                        'config': loaded.config}
+        disregarded, current_adj, witness_inputs = set(), [], []
         for W in witnesses:
+            adjudicated, upheld, covered = False, [], []
+            if adj_run is not None and obl29.reliance(D, W):
+                adjudicated, reports, upheld, covered = adjm.evaluate(adj_run, adjudication, W, dissents)
+                current_adj.extend(reports)
+                disregarded.update((c['review']['path'], c['review']['blob_sha256'], c['item']) for c in covered)
+            witness_inputs.append((W, adjudicated, upheld, covered))
+
+        current, historical, remaining = [], [], []
+        if D['repair'] is not None:
+            if isinstance(Q, dict):
+                current, historical, remaining = repair_review_problems(m_store, eref, Q, retained, disregarded)
+            else:
+                current = ["the repair's reconciliation record entry is not present at M"]
+        reviews_of_R = [dict(review, _dir=posixpath.dirname(p)) for p, review in remaining]
+        fgit = cum.git_id(_ref(fref))
+        witness_rows, witness_blocks = [], []
+        if current or historical:
+            witness_inputs = []
+        for W, adjudicated, upheld, covered in witness_inputs:
             disputed_reviewers = [x.get('reviewer') for _p, x in cum.reviews_naming(W['disputed'])
                                   if isinstance(x, dict) and not obl29.adverse_items(x, W.get('disputed_doc'))]
             excluded = {d.get('author'), (W.get('disputed_doc') or {}).get('author')}
@@ -1381,19 +1442,11 @@ def custody_decisions(repo, witnesses, applying, loaded, m_scan, cum, schemas, M
                 excluded |= {(x or {}).get('author') for x in prev}
             # route 2: Adjudicated(W, D) (#1605 R6.ADJ.9), and OD-6: an upheld adjudication valid for adverse use
             # that matches makes NR-5 false
-            adjudicated, zs = False, candidates
-            if adj_run is not None:
-                info = {'aref': aref, 'A': d, 'rref': (D['repair'] or {}).get('entry'),
-                        'R': (D['repair'] or {}).get('entry_doc'), 'finding_ref': _ref(fref),
-                        'config': loaded.config}
-                adjudicated, arows, upheld = adjm.evaluate(adj_run, info, W)
-                for x in arows:
-                    adj_rows[(x['path'], x['blob_sha256'])] = x
-                if W.get('kind') == 'review' and D['repair'] and \
-                        adjm.upheld_blocks_nr5(D['repair']['entry'] and dict(D['repair']['entry'],
-                                                                              entry_path=D['repair']['entry_path']),
-                                               adjm.describe(W), dict(fref), upheld):
-                    zs = [None]
+            zs = candidates
+            if upheld and W.get('kind') == 'review' and eref is not None and \
+                    adjm.upheld_blocks_nr5(dict(eref, entry_path=D['repair']['entry_path']),
+                                           adjm.describe(W), dict(fref), upheld):
+                zs = [None]
             got = None
             for z in zs:
                 b, clauses, route = obl29.decide(D, W, R=R, Z=[z] if z else None, required_review=z,
@@ -1405,7 +1458,28 @@ def custody_decisions(repo, witnesses, applying, loaded, m_scan, cum, schemas, M
             b, clauses, route = got
             row = {'reassessment': aref, 'witness': witness_report(W), 'clauses': clauses,
                    'blocked': b, 'route': route}
-            rows.append(row)
+            if covered:
+                row['disregarded_review_items'] = covered
+            witness_rows.append(row)
             if b:
-                blocked.append(((d, r), W, clauses))
-    return blocked, rows, list(adj_rows.values())
+                witness_blocks.append(((d, r), W, clauses))
+        # The provisional disregard is usable only when all relying witnesses clear and the repair review check passes.
+        if disregarded and (current or historical or witness_blocks):
+            current, historical, _ = repair_review_problems(m_store, eref, Q, retained, ())
+        if current or historical:
+            blocked_reviews.append(((d, r), current + historical))
+        if current or historical or witness_blocks:
+            for row in witness_rows:
+                row.pop('disregarded_review_items', None)
+            for report in current_adj:
+                if report['applies']:
+                    report['applies'] = False
+                    if historical:
+                        report['failures'] = sorted(set(report['failures']) | {'ADJ-DISSENT'})
+        rows.extend(row for row in witness_rows if row['blocked'] or not (current or historical))
+        blocked.extend(witness_blocks)
+        adjudication_rows.extend(current_adj)
+    # A row for the adjudication's own witness and discharge takes precedence over its binding failures elsewhere.
+    adj_rows = {(x['path'], x['blob_sha256']): x for x in
+                sorted(adjudication_rows, key=lambda x: (x['applies'], x['admitted'], x['pre_admitted']))}
+    return blocked, blocked_reviews, rows, list(adj_rows.values())

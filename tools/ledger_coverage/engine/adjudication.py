@@ -11,8 +11,8 @@ adjudications in R* (Cumulative.adjudications, for R6.ADJ.9's contradiction and 
 
 In a control-harness run, which has no freeze, the candidate freeze F' of ADJ-LANDED is the configuration's commit.
 Clearing uses the run's whole R*. Adverse use evaluates qualifying reviews and parties at the adjudication's landing.
-R6.ADJ.12's disregard reaches NR-3 and NR-5 here. R6.REC.6 on R in reassessment_problems still keeps every dissent,
-which can block discharge on an otherwise disregarded item.
+R6.ADJ.12's eligible dissent items are collected per witness here. Category 3 combines them per discharge
+and verifies R6.REC.6 and all relying witnesses before the disregard can affect the result.
 """
 import posixpath
 import re
@@ -148,7 +148,7 @@ def dissents_addressed_problems(J, reviews_of_R, R):
         if not isinstance(rv, dict):
             out.append(('ADJ-FORM', 'dissents_addressed names %r, which is not a review of R in R*(L(J))'
                         % ((x or {}).get('ref'),)))
-        elif (x or {}).get('item') not in obl29.adverse_items(rv, R):
+        elif not isinstance(R, dict) or (x or {}).get('item') not in c3.repair_dissent_items(rv, R):
             out.append(('ADJ-FORM', 'dissents_addressed names item %r, which is not adverse in that review'
                         % (x or {}).get('item')))
     return out
@@ -528,9 +528,13 @@ def strata(pre_admitted, reviews_of, dissents_on_R):
     for d in dissents_on_R:
         addressed = any(p['binds'] and {'ref': d['review'], 'item': d['item']} in
                         (p['J'].get('dissents_addressed') or []) for p in admitted)
-        ex = any(p['binds'] and d['first_index'] > p['landing_index'] and member(d['reviewer'], p['answered'])
-                 for p in admitted)
-        (disregarded if addressed or ex else blocking).append(d)
+        late = [p for p in admitted if p['binds'] and d['first_index'] > p['landing_index']
+                and member(d['reviewer'], p['answered'])]
+        for p in late:
+            refs = exempt[_key(p['ref'])]
+            if d['review'] not in refs:
+                refs.append(d['review'])
+        (disregarded if addressed or late else blocking).append(d)
     return {'admitted': [p['ref'] for p in admitted], 'exempt_reviews': exempt, 'disregarded': disregarded,
             'blocking': blocking}
 
@@ -768,13 +772,16 @@ def validity(run, jref, J, joid):
     return verdict, L
 
 
-def evaluate(run, D, W):
-    """(Adjudicated(W, D), the report rows of the cited adjudications, the matching upheld adjudications valid for
-    adverse use). D = {aref, A, rref, R, finding_ref, config, config_ref}."""
+def evaluate(run, D, W, dissents_on_R):
+    """Return qualified route-2 candidates, their reports, upheld records and exact covered dissent items.
+
+    The caller checks stratum 4 across all relying witnesses of D before applying any clearance.
+    """
     Wd = describe(W)
     cited = [r for r in run.cfg_records if isinstance(r, dict) and r.get('kind') == 'adjudication']
     all_adj = run.cum.adjudications()
     rows, ok_any = [], False
+    disregarded = []
     upheld_valid = []
     for jr, jo, J2 in all_adj:
         if isinstance(J2, dict) and J2.get('disposition') == 'upheld' and validity(run, jr, J2, jo)[0] == 'valid':
@@ -836,27 +843,24 @@ def evaluate(run, D, W):
             rj = [{'reviewer': d.get('reviewer'), 'verdicts': d.get('verdicts'), 'dissent': d.get('dissent'),
                    'first_index': run.first_index({'path': p, 'blob_sha256': run.cum.info[o][2]}),
                    'ref': {'path': p, 'blob_sha256': run.cum.info[o][2]}} for p, o, d in run.reviews_of(jref)]
-            dis = []
-            rref = D.get('rref')
-            for p, o, d in (run.reviews_of(rref, posixpath.dirname(rref['path'])) if rref else []):
-                for item in obl29.adverse_items(d, D.get('R')):
-                    dis.append({'reviewer': d.get('reviewer'), 'item': item,
-                                'first_index': run.first_index({'path': p, 'blob_sha256': run.cum.info[o][2]}),
-                                'review': {'path': p, 'blob_sha256': run.cum.info[o][2]}})
             st = strata([{'J': J, 'ref': jref, 'binds': True, 'landing_index': li, 'answered': ans}],
-                        lambda ref_: rj, dis)
+                        lambda ref_: rj, dissents_on_R)
             exempt = st['exempt_reviews'].get(_key(jref), [])
             admitted = bool(st['admitted'])
             if not admitted:
                 failures.append('ADJ-REVIEW')
-            elif st['blocking']:
-                failures.append('ADJ-DISSENT')
             contra = contradiction_problems(J, [(J2, validity(run, jr, J2, jo)[0]) for jr, jo, J2 in all_adj
                                                 if jr != jref])
             failures += [c for c, _m in contra]
-            applies = admitted and not st['blocking'] and not contra
+            applies = admitted and not contra
+            if applies:
+                for item in st['disregarded']:
+                    target = {'ref': item['review'], 'item': item['item']}
+                    basis = 'addressed' if target in J['dissents_addressed'] else 'exempt'
+                    disregarded.append({'review': item['review'], 'item': item['item'], 'basis': basis,
+                                        'adjudication': jref})
             ok_any = ok_any or applies
         elif pre:
             failures.append('ADJ-UPHELD' if J.get('disposition') == 'upheld' else 'ADJ-FORM')
         rows.append(result_entry(jref, J, L, False, pre, admitted, applies, failures, exempt))
-    return ok_any, rows, upheld_valid
+    return ok_any, rows, upheld_valid, disregarded

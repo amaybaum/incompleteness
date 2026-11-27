@@ -444,6 +444,10 @@ def category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, r
             out.append(oc.make_item('RECORD', 'record-invalid', ra_.custody_path, None,
                                     {'custody': p_['item'], 'why': p_['why']},
                                     detail=['%s: %s' % (p_['item'], p_['why'])]))
+    # If there is no adjudication to evaluate, retain the ordinary repair-review diagnostics, including on a run
+    # with incomplete custody. Defer only on the path that will check R6.ADJ.12.
+    defer_repair_review = custody is not None and custody.get('status') == 'established' and bool(chk.witnesses) and \
+        any(r.get('kind') == 'adjudication' for r in cfg['records'])
     applying = []
     for r in cfg['records']:
         if r.get('kind') != 'reassessment':
@@ -451,7 +455,7 @@ def category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, r
         d = loaded.store.get(r)
         probs = c3.reassessment_problems(repo, M, led, d, r, loaded.store, loaded.admitted, found, m_scan, schemas,
                                          cum, run_level=lambda f: bound.get(fkey(f), ([], False))[1],
-                                         custody=custody)
+                                         custody=custody, defer_repair_review=defer_repair_review)
         try:
             probs = c3.live_lineage_problems(repo, M, d, cfg, loaded.store, scope, m_scan, cum_m, schemas) + probs
         except Unresolvable as exc:
@@ -465,15 +469,20 @@ def category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, r
     if custody is not None and custody.get('status') == 'established' and chk.witnesses and applying:
         try:
             from .. import record_authority as ra2
-            wblocked, rows, adj_rows = c3.custody_decisions(
+            wblocked, review_blocked, rows, adj_rows = c3.custody_decisions(
                 repo, chk.witnesses, applying, loaded, m_scan, cum, schemas, M=M,
                 Fprime=F or loaded.ref['commit'], explicit_at=explicit_at, owners=ra2.OWNER_IDENTITIES,
                 witnesses_at=witnesses_at)
             custody['adjudications'] = adj_rows
         except Unresolvable as exc:
             raise oc.Stop(oc.error, 'UNRESOLVABLE', 'a custody witness input cannot be read: %s' % exc)
-        custody['decisions'] = rows
+        if rows:
+            custody['decisions'] = rows
         gone = set()
+        for (_d, r_), problems in review_blocked:
+            gone.add(id(r_))
+            out.append(oc.make_item('RECORD', 'record-invalid', r_['path'], None,
+                                    {'sha': r_.get('blob_sha256'), 'why': problems[0]}, detail=problems))
         for (d_, r_), W, clauses in wblocked:
             gone.add(id(r_))
             wr = c3.witness_report(W)
