@@ -1,4 +1,4 @@
-# r6 amendment 10: the `revision` of a review read by the post-freeze route (draft r1)
+# r6 amendment 10: the `revision` of a review read by the post-freeze route (draft r2)
 
 **Owner decision.** amaybaum, in the coordinating session, 2026-11-27, recorded at #1577 comment 7222646181.
 The owner's instruction, verbatim: "Approved". It approves the proposal put to the owner in the same session,
@@ -9,7 +9,7 @@ quoted:
 Option A, as proposed: "Post-freeze route only: `revision` must equal REV's single parent (the record base M, or
 M0 on a predicted M). The reviewed bytes are checked in REV's tree."
 
-**Status.** Draft r1, recording the approved option. It changes nothing else in r6, its amendments 1 to 9, or
+**Status.** Draft r2 (the focused review's findings applied), recording the approved option. It changes nothing else in r6, its amendments 1 to 9, or
 the staging supplements S-1 and S-2. Adoption authorizes no merge, dispatch, freeze or trial.
 
 **Goal link (AGENTS.md sec. A.47).** A1 retirement (#1477). It decides which commit a review read by the
@@ -40,13 +40,23 @@ S-2 S2.3, `revision` item: the post-freeze root is replaced. The item reads:
 
 > - `revision`: the commit the reviewer read, with S-1 §3's acceptance and roots unchanged (`F` in chain
 >   record lint; effective `M`, or `F` and `REV` where the walk reaches them, for detection and finding lookups;
->   effective `M` for a custody review), except on the post-freeze route (R6.RECON.2, R6.RECON.21): there
+>   effective `M` for a custody review), except for the one review record that R6.RECON.2 (d) admits with
+>   a record read by the post-freeze route (R6.RECON.2, R6.RECON.21; this includes RT-L2): for that review
 >   `revision` must equal the record base, the single parent of `REV` (the run's `M`, or `M0` named by
 >   `--record-base` on a predicted `M`), and `reviewed.path` must be read from `REV`'s tree at a regular mode
 >   with bytes hashing to `reviewed.blob_sha256`.
 
-The same replacement applies to S-1 sec. 3's list of roots, and the r13 table row `review.record` `revision`
-(S-2 sec. 5, "Row `revision` kept (S-1 §3)") carries this acceptance for the post-freeze route.
+The same replacement applies to S-1 sec. 3's roots and acceptance, and the r13 table row `review.record`
+`revision` (S-2 sec. 5, "Row `revision` kept (S-1 §3)") carries this acceptance for that review.
+
+Two further rows of S-2 are restated with it:
+
+- S-2 sec. 1, row P2, reads: "Exact evidence binding: `reviewed` names the exact `{path, blob_sha256}`;
+  `revision` names a commit reachable from the review's root that holds those bytes, or, for the review
+  R6.RECON.2 (d) admits, equals `REV`'s single parent with those bytes in `REV`'s tree (r6 Amendment 10)"; its
+  controls add A10-REV-BASE, A10-REV-ANCESTOR, A10-REV-BYTES and A10-REV-PREDICTED.
+- S-2 sec. 5, row "§3 what a review binds", reads: "`reviewed` kept as written; `revision` as written except as
+  r6 Amendment 10 provides; `platform_ref` and the posted digest withdrawn; `independence` added (S2.3)".
 
 What it keeps and tightens:
 
@@ -56,8 +66,8 @@ What it keeps and tightens:
 - The exact bytes stay bound: `reviewed.blob_sha256` must match the bytes in `REV`'s tree, and R6.RECON.2 (c)
   limits `REV` to the record base plus files added inside reconciliation directories.
 - The roots and acceptance for chain record lint (`F`), detection and finding lookups, and custody reviews are
-  unchanged. A detection review found in `REV` that reviews a record first added in `REV` is not on the
-  post-freeze route; it still fails `revision` and is a form failure that still blocks (S-2 S2.5), as now.
+  unchanged. A detection review found in `REV` that reviews a record first added in `REV` is not the review
+  R6.RECON.2 (d) admits; it still fails `revision` and is a form failure that still blocks (S-2 S2.5), as now.
 
 ## 3. Controls
 
@@ -67,13 +77,13 @@ Added to S-2 sec. 7. Each runs through the real record lint on the post-freeze r
 |---|---|---|
 | A10-REV-BASE | `revision` equals the record base `M`; the reviewed bytes are in `REV`'s tree | the record is admitted |
 | A10-REV-ANCESTOR | `revision` is `F`, or another ancestor of the record base | counts as no review; the record is FAIL `record-invalid` |
-| A10-REV-SELF | `revision` names a commit other than the record base that holds the reviewed bytes (for example a sibling of `REV` with the same tree) | counts as no review |
+| A10-REV-OTHER | `revision` names a commit other than the record base that holds the reviewed bytes (for example a sibling of `REV` with the same tree); or `revision` missing, or an abbreviated id of the record base | counts as no review |
 | A10-REV-PREDICTED | predicted `M` with `--record-base M0`: `revision` is `M0`; then the predicted `M`'s id | `M0` is admitted; the predicted `M`'s id counts as no review |
 | A10-REV-BYTES | `revision` equals the record base, but the bytes at `reviewed.path` in `REV`'s tree do not hash to `reviewed.blob_sha256` | counts as no review |
-| A10-REV-MUTANT | a mutant that replaces equality with reachability from `REV` | A10-REV-ANCESTOR fails under the mutant |
+| A10-REV-MUTANT | a mutant that replaces equality with reachability from `REV`, the bytes still read from `REV`'s tree | A10-REV-ANCESTOR fails under the mutant |
 
-S1-POS and S1-REVISION-MISMATCH (chain record lint at `F`) and S1-REVISION-POST-F (custody and finding reviews
-from effective `M`) keep their cases and outcomes. The RT-L2 release check's `revision` check (S-2 S2.5 lint,
+S1-POS, S1-REVISION-MISMATCH and S1-REVISION-POST-F keep their cases and outcomes; for the review R6.RECON.2 (d)
+admits, the A10 controls replace S1-REVISION-MISMATCH's reachability case. The RT-L2 release check's `revision` check (S-2 S2.5 lint,
 inlined in the gate) applies this acceptance to the review it reads.
 
 ## 4. Generator
