@@ -7,7 +7,7 @@ Source of the gaps: the independent review of the r13 detection, form and bindin
 > An entry with `side_change_commits: []` never binds; r13's R6.RECON.30 table admits an empty array.
 > An element that is readable but names an edit id absent from every ledger binds nothing.
 
-Status: a proposal for owner disposition, r2. r2 answers the independent review of r1 (`f5d85874`) on PR #1618, findings 3, 4, 5, 7, 8 and 9. It needs independent review and the owner's decision. This file is the only file it changes. DESIGN-r6.md, EXPECTATIONS.json, REQUIREMENTS.json and CONFORMANCE-MUTANTS.json are unchanged. On adoption, a generator-amendment7 applies the adopted wording and cases, as generator-amendment1 to generator-amendment6 did. It authorizes no merge, dispatch, freeze or trial, and it reopens nothing else of amendments 1 to 6.
+Status: a proposal for owner disposition, r3. r2 answers the independent review of r1 (`f5d85874`) on PR #1618, findings 3, 4, 5, 7, 8 and 9. r3 answers the re-review of r2 on PR #1618: the witness used by the ancestry test of gap (i), and a nit in REASSESS-KEYS C3. It needs independent review and the owner's decision. This file is the only file it changes. DESIGN-r6.md, EXPECTATIONS.json, REQUIREMENTS.json and CONFORMANCE-MUTANTS.json are unchanged. On adoption, a generator-amendment7 applies the adopted wording and cases, as generator-amendment1 to generator-amendment6 did. It authorizes no merge, dispatch, freeze or trial, and it reopens nothing else of amendments 1 to 6.
 
 Order of adoption: the wording uses three terms of the OBL-29 r9 design and its Amendment 1 (#1601 at `e79e7ca90f863115bc75b7ae5195dbba016125da`, `verification/audits/foundations/a1exit-obl29-remedy-20261126/`): `R*` (R6.OBL29.3), residual R-1 and residual R-8. That design is not yet on `main`. This amendment is therefore adopted with or after r9 Amendment 1, and its wording is aligned with A1.5. If it were adopted first, `R*` would read as r13's "the scan", and the R-1 sentence would be dropped.
 
@@ -52,7 +52,9 @@ The tool at `7db52f38` follows this text faithfully. Its behaviour, quoted from 
 (b). The list limits the runs only when each element passes three tests:
 - it is a commit id naming a commit the object store holds;
 - that commit changes the entry's path against its first parent, as RC1 and drift define it (R6.RECON.30), merges included;
-- that commit is an ancestor of, or equal to, a commit whose tree holds the record carrying the entry at its path with its blob (a witness of that record in the run's `R*`).
+- that commit is an ancestor of, or equal to, a witness of the record carrying the entry (a commit whose tree holds that record at its path with its blob). Where the record has a witness in `M`'s ancestry, the witness must be one of those. Only a record with no witness in `M`'s ancestry may use a witness reached through `F`, `REV` or an explicit input, with the narrower guarantee of r9 R-1.
+
+Consequence: a finding whose record is in `M`'s history always blocks the run. Each element that passes is an ancestor of a witness in `M`'s ancestry, so `M` contains it. Any other list blocks at run scope. A witness on another branch, such as an `F` cut from an abandoned branch, cannot unblock a record that `M` carries.
 
 The third test closes the residual in review finding 3: an abandoned-branch commit, or a commit made after the record, is not an ancestor of any witness. A legitimate entry passes all three tests. RC1 makes the list exactly the commits on `M`'s first-parent chain after `H` that change the path, and a record lands after those commits, so each is an ancestor of the commit that lands it.
 
@@ -68,7 +70,7 @@ Current:
 
 Replacement:
 
-> A finding found there blocks every run whose `M` contains one of the entry's `side_change_commits`, with an item FAIL `retirement-blocked` (obligation `RET`): the entry's path takes the disposition `retirement-blocked` when it differs between `H` and `M`; when it does not (for example after a revert to `H`'s bytes), the item is a run-level item naming the path. The entry's `side_change_commits` limit the runs a finding blocks only when they are a non-empty array each of whose elements is a commit id (R6.RECON.29) naming a commit the object store holds, that changes the entry's path against its first parent as R6.RECON.30 defines it (a merge commit included), and that is an ancestor of, or equal to, a commit whose tree holds the record carrying the entry at its path with its blob (a witness of that record in `R*`, R6.OBL29.3). Where the list is absent, is not an array, is empty or holds any other element, the finding blocks every run in which it is found, as if that run's `M` contained one of the listed commits, and the list is a form failure of the finding, FAIL `record-invalid` (Form (i)). A finding that names no entry (a malformed finding of R6.RECON.35, or a review whose `reviewed` names no record in `R*`, R6.OBL29.3) likewise blocks every run in which it is found, with the run-level item of Form (iv). A finding found only through `REV`, `F` or an explicit input blocks with the narrower guarantee of r9 R-1.
+> A finding found there blocks every run whose `M` contains one of the entry's `side_change_commits`, with an item FAIL `retirement-blocked` (obligation `RET`): the entry's path takes the disposition `retirement-blocked` when it differs between `H` and `M`; when it does not (for example after a revert to `H`'s bytes), the item is a run-level item naming the path. The entry's `side_change_commits` limit the runs a finding blocks only when they are a non-empty array each of whose elements is a commit id (R6.RECON.29) naming a commit the object store holds, that changes the entry's path against its first parent as R6.RECON.30 defines it (a merge commit included), and that is an ancestor of, or equal to, a witness of the record carrying the entry (a commit whose tree holds that record at its path with its blob): a witness in `M`'s ancestry where the record has one, and otherwise a witness in `R*` (R6.OBL29.3) reached through `F`, `REV` or an explicit input, with the narrower guarantee of r9 R-1; a finding whose record is in `M`'s history therefore blocks every run whose `M` holds it. Where the list is absent, is not an array, is empty or holds any other element, the finding blocks every run in which it is found, as if that run's `M` contained one of the listed commits, and the list is a form failure of the finding, FAIL `record-invalid` (Form (i)). A finding that names no entry (a malformed finding of R6.RECON.35, or a review whose `reviewed` names no record in `R*`, R6.OBL29.3) likewise blocks every run in which it is found, with the run-level item of Form (iv). A finding found only through `REV`, `F` or an explicit input blocks with the narrower guarantee of r9 R-1.
 
 The configurations the finding binds are unchanged: Form (ii) to (v) decide them, as before. Only the set of runs changes.
 
@@ -87,15 +89,16 @@ Each FAIL case below has no `retirement-blocked` item under r13's text.
 | 7 | a class (b) malformed file with an invalidation signal (for example the BOM-prefixed copy of a finding) | FAIL, run-level `retirement-blocked`; no ERROR |
 | 8 | the list holding, as its only element, a held commit on an unmerged branch that changes the entry's path, not an ancestor of any witness of the record (an abandoned branch) | FAIL, `retirement-blocked` and `record-invalid` |
 | 9 | the list holding, as its only element, a merge commit whose tree entry for the path equals its first parent's (the path differs only from the second parent) | FAIL, `retirement-blocked` and `record-invalid` |
+| 8b | case 8's list, the record squash-landed on `M` (its witness in `M`'s ancestry does not descend from the listed commit), and `F` on the abandoned branch, so that a witness reached through `F` descends from the listed commit | FAIL, `retirement-blocked` and `record-invalid` |
 | 10 | provisional, with r9 Amendment 1: a second-kind finding by a reviewer distinct from every author in `R*`, whose `reviewed` names no record in `R*` | FAIL, run-level `retirement-blocked` and `record-invalid`; no ERROR |
-| C1 | countercase: a well-formed finding whose `side_change_commits` lists only commits that change the path, are ancestors of the record's witness, and are not contained in the run's `M` (the run's `M` predates the change) (positive) | ANY, not `retirement-blocked` |
+| C1 | countercase: a well-formed finding whose record has no witness in the run's `M` ancestry and is found through `REV`, whose `side_change_commits` lists only commits that change the path, are ancestors of that witness, and are not contained in the run's `M` (the run's `M` predates the change) (positive) | ANY, not `retirement-blocked` |
 | C2 | countercase: a `no-effect` entry, not a finding, with `side_change_commits: []` on a mode-only change | FAIL, `base-drift`, RC1 failing; not `retirement-blocked`, not `record-invalid` (RECON-FIELDS countercase 2, unchanged) |
-| C3 | countercase: C1 with its only element a merge commit that brings the change in (its tree entry for the path differs from its first parent's), an ancestor of the witness, not in the run's `M` (positive) | ANY, not `retirement-blocked` |
+| C3 | countercase: C1 (the record found through `REV` only) with its only element a merge commit that brings the change in (its tree entry for the path differs from its first parent's), an ancestor of the witness, not in the run's `M` (positive) | ANY, not `retirement-blocked` |
 
 How the cases tell the readings apart:
 - C1 rules out a fix that drops the `M` scope altogether. C2 shows that the key table and RC1 are unchanged.
 - Case 5 separates the proposal from r13, where the one valid commit not in `M` leaves the finding unbound.
-- Case 8 separates the ancestry test from a path-change test alone.
+- Case 8 separates the ancestry test from a path-change test alone. Case 8b shows that a witness through `F` cannot stand in for the record's witness in `M`'s ancestry.
 - Cases 9 and C3 pin the first-parent definition for a merge.
 
 ### Effect on existing controls
@@ -176,7 +179,7 @@ Each FAIL case among 1 to 7 has no `retirement-blocked` item under r13's text.
 | 8 | REASSESS-KEYS | case 4, then a new freeze that rewords `E1` (the same id and target) and cites an applying reassessment naming the finding with `edit` null | FAIL, `retirement-blocked` on `E1` |
 | C1 | FINDING-KEYS | countercase: case 1's finding, the run under a configuration of another retirement outside the named configuration's lineage that carries neither the id nor the target (positive) | ANY, not `retirement-blocked` |
 | C2 | FINDING-KEYS | countercase: case 1's finding, the configuration frozen anew citing an applying reassessment that names the finding with `edit` null (positive) | ANY, not `retirement-blocked` |
-| C3 | REASSESS-KEYS | countercase: case 1's finding and an applying reassessment naming it with a non-null `edit` | FAIL, run-level `retirement-blocked` (an edit reassessment does not lift the run-level binding) |
+| C3 | REASSESS-KEYS | countercase: case 1's finding and an applying reassessment naming it with a non-null `edit` | FAIL, run-level `retirement-blocked` (an edit reassessment does not lift the run-level binding); the expected classes omit `record-invalid` by design, since under the amended Keys a non-null `edit` for an edit of the citing configuration is well formed and the reassessment applies, lifting nothing |
 | C4 | REASSESS-KEYS | countercase: case 8's freeze also citing an applying reassessment naming the finding and `E1` as now worded (positive) | ANY, not `retirement-blocked` |
 
 How the cases tell the readings apart:
@@ -212,7 +215,7 @@ A narrower anchor was considered and is not proposed: fall back to the reviewed 
 - R6.RECON.27: one Keys sentence (sec. 3).
 - No other requirement changes. R6.RECON.30 and the key tables of sec. 23.1 are unchanged.
 - EXPECTATIONS.json:
-  - FINDING-FORM: cases 1 to 10 and C1 to C3 of sec. 2;
+  - FINDING-FORM: cases 1 to 10, 8b and C1 to C3 of sec. 2;
   - FINDING-KEYS: cases 1 to 6, C1 and C2 of sec. 3, and the case 3 text;
   - FINDING-LINEAGE: case 7 of sec. 3, and the case 5 and countercase 8 text;
   - REASSESS-KEYS: case 8, C3 and C4 of sec. 3.
@@ -223,7 +226,7 @@ A narrower anchor was considered and is not proposed: fall back to the reviewed 
 ## 5. Tool changes implied (not made here)
 
 - `engine/cli.py:356-363`:
-  - replace the ERROR stop and the `in_m` gate by the scope test of sec. 2: held commits, each changing the path against its first parent, each an ancestor of a witness of the record;
+  - replace the ERROR stop and the `in_m` gate by the scope test of sec. 2: held commits, each changing the path against its first parent, each an ancestor of a witness of the record in `M`'s ancestry where one exists, and otherwise of a witness in `R*`;
   - when every element passes, `applies = in_m(...)`;
   - otherwise `applies = True`, with the form problem "side_change_commits does not scope the finding (R6.RECON.26)";
   - a finding with no readable entry binds at run level (owner item 5).
