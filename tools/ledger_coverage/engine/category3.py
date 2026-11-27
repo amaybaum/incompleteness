@@ -139,8 +139,10 @@ def scope_problems(repo, scc, path, entry_record, cum, cum_m, explicit_source=No
                 raise
             out.append('%s is not a commit the object store holds' % e)
             continue
-        before = repo.entries(ps[0]).get(path) if ps else None
-        if repo.entries(e).get(path) == before:
+        # a change is a different blob, as R6.RECON.30's drift compares blobs; a mode-only change does not count here
+        # (stricter: fewer elements scope the finding), with the mode gap recorded for a later r13 amendment
+        before = (repo.entries(ps[0]).get(path) or (None, None))[1] if ps else None
+        if (repo.entries(e).get(path) or (None, None))[1] == before:
             out.append('%s does not change %s against its first parent' % (e, path))
             continue
         if not any(e == x or repo.is_ancestor(e, x) for x in w):

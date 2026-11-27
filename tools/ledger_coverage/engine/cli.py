@@ -295,7 +295,9 @@ def category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, r
                 if r_.get('_ref') == {'path': (ref or {}).get('path'), 'blob_sha256': (ref or {}).get('blob_sha256')}:
                     return {k: v for k, v in r_.items() if k not in ('_ref', '_source')}
             return None
-        # a record the run reads explicitly resolves a review naming it (r9 Amendment 1 A1.4, A1.5)
+        # a record the run reads explicitly resolves a review naming it (r9 Amendment 1 A1.4, A1.5). Needed, not
+        # defensive: in a control-harness run there is no F root, so a record the configuration cites is outside R*
+        # (control A1-INDEPENDENT-RECORD-VIA-EXPLICIT-ONLY fails without it)
         cum.explicit_record_at = explicit_at
         found = c3.unique(cum.findings() + c3.findings_of_records(
             recon + explicit_reviews, schemas, lambda ref: cum.record_at(ref) or explicit_at(ref)))

@@ -1263,7 +1263,7 @@ def nits_0cafbdc0_controls(r):
 
 def explicit_review_controls(r):
     """findings_of_records also extracts second-kind findings from review records the run reads explicitly."""
-    from ledger_coverage.engine import category3 as c3m
+    from ledger_coverage.engine import category3 as c3m, gitobj
     w = pfc.World(r)
     q = w.record(record_id='syn-recon-q')
     qb = pfc.jb(q)
@@ -1528,6 +1528,102 @@ def amendment_7_controls(r):
     del w_
 
 
+def amendment_7_unit_controls(r):
+    """r13 Amendment 7 at the level of c3.scope_problems on an in-memory history (gap (i) 8b, C1, C3) and of the binding
+    with a retained edit id (gap (ii)); gap (ii) case 3 at run level."""
+    from ledger_coverage.engine import category3 as c3m, gitobj
+    schemas = ('oi-reconciliation/1', 'oi-reconciliation/2')
+    prefix = 'verification/audits/'
+    repo = gitobj.Overlay()
+    rp = 'verification/audits/u/rec.json'
+    rb = pfc.jb({'schema': 'oi-reconciliation/2', 'record_id': 'u-rec', 'paths': []})
+    rref = {'path': rp, 'blob_sha256': sf.sha(rb)}
+    m0 = repo.add_commit({'doc.md': b'a\n'}, [], 'root')
+    b1 = repo.derive(m0, {'doc.md': b'b\n'}, parents=[m0], subject='the change, on a branch')
+    b2 = repo.derive(b1, {rp: rb}, parents=[b1], subject='the record lands on the branch')
+    ms = repo.derive(m0, {'doc.md': b'b\n', rp: rb}, parents=[m0], subject='the record squash-landed on M')
+    cum = c3m.Cumulative(repo, [ms, b2], schemas, prefix)
+    cum_m = c3m.Cumulative(repo, [ms], schemas, prefix)
+    got8b = c3m.scope_problems(repo, [b1], 'doc.md', rref, cum, cum_m)
+    case('A7-I-8B', 'the list\'s only element is a branch commit that changes the path and is an ancestor of a witness '
+                    'reached through F, while the record\'s witness in M\'s ancestry (a squash landing) does not descend '
+                    'from it: the list does not scope the finding', got8b, bool(got8b))
+    # C1: the record has no witness in M's ancestry and is found through REV; the list's commits change the path, are
+    # ancestors of that witness, and are not in M
+    rev = repo.derive(b1, {rp: rb}, parents=[b1], subject='REV holding the record')
+    cum_r = c3m.Cumulative(repo, [m0, rev], schemas, prefix)
+    cum_r_m = c3m.Cumulative(repo, [m0], schemas, prefix)
+    c1 = c3m.scope_problems(repo, [b1], 'doc.md', rref, cum_r, cum_r_m)
+    case('A7-I-C1', 'a record with no witness in M\'s ancestry, found through REV, whose list names a commit changing '
+                    'the path, an ancestor of that witness and not in M: the list scopes the finding (and M does not '
+                    'contain it, so the run is not blocked)', {'problems': c1, 'in_m': c3m.in_m(repo, m0, [b1])},
+         c1 == [] and not c3m.in_m(repo, m0, [b1]))
+    side = repo.derive(m0, {'other.md': b'o\n'}, parents=[m0], subject='another line')
+    mg = repo.derive(side, {'doc.md': b'b\n'}, parents=[side, b1], subject='a merge bringing the change in')
+    rev3 = repo.derive(mg, {rp: rb}, parents=[mg], subject='REV after the merge')
+    c3 = c3m.scope_problems(repo, [mg], 'doc.md', rref, c3m.Cumulative(repo, [m0, rev3], schemas, prefix), cum_r_m)
+    case('A7-I-C3', 'C1 with the only element a merge commit whose tree entry for the path differs from its first '
+                    'parent\'s, an ancestor of the witness: the list scopes the finding', c3, c3 == [])
+
+    # C2: a no-effect entry, not a finding, with side_change_commits [] on a mode-only change of the ledgered path
+    w = pfc.World(r)
+    w.M = w.repo.derive(w.syn.H, {sf.DOC: ('exec', w.repo.read(w.syn.H, sf.DOC))}, parents=[w.syn.H],
+                        subject='a mode-only change')
+    q = w.record(record_id='syn-recon-c2')
+    q['paths'][0]['side_change_commits'] = []
+    rv_, pth, _ = w.standard(q)
+    code, out = w.run(['%s:%s' % (rv_, pth)], harness=True)
+    out = out or {}
+    cls = sorted({i['class'] for i in out.get('items', [])})
+    inv = [i.get('subject') for i in out.get('items', []) if i['class'] == 'record-invalid']
+    case('A7-I-C2', 'a no-effect entry (not a finding) with side_change_commits [] on a mode-only change: FAIL '
+                    'base-drift, not retirement-blocked; the record is not record-invalid unless the post-freeze '
+                    'route refuses it, which it does here: R6.RECON.2 (b) compares blobs, so a mode-only path is no '
+                    'drifted path (the recorded mode gap)',
+         {'classes': cls, 'invalid': inv},
+         'base-drift' in cls and 'retirement-blocked' not in cls)
+    # gap (ii): an element naming a retained edit of the named configuration is a known id (no run-level binding)
+    class B:
+        repo = None
+        led = {'raw': {'edits': []}, 'splices': [], 'retained': []}
+
+        def finding_config(self, cref):
+            return ({}, {'raw': {'edits': []}, 'splices': [],
+                         'retained': [{'id': 'R1', 'file': 'doc.md', 'text': 'kept\n'}]}, 'H')
+
+        def in_lineage(self, fdoc, fref):
+            return True
+    elem = {'id': 'R1', 'sha256': '0' * 64, 'target': {'path': 'doc.md', 'start_H': 0, 'old_sha256': '0' * 64}}
+    f = {'kind': 2, 'form': [], 'configuration': {'path': 'x', 'blob_sha256': '0' * 64}, 'invalidated': [elem],
+         'verdict_item': 'doc.md:scientific_effect', 'entry': {'path': 'doc.md'}}
+
+    class Repo:
+        def read(self, c, p):
+            return b'kept\nother\n'
+    B.repo = Repo()
+    bound = c3m.bind(f, B())
+    unknown = c3m.bind(dict(f, invalidated=[dict(elem, id='NO-SUCH')]), B())
+    case('A7-II-RETAINED', 'an element naming a retained edit of the named configuration is an edit id of its edit '
+                           'list (retained edits included): no run-level binding; an unknown id binds at run level',
+         {'retained': bound[1], 'unknown': unknown[1]}, bound[1] is False and unknown[1] is True)
+    # gap (ii) case 3: the run under a later version of the same retirement that carries no edit of that id
+    unknown_el = {'id': 'NO-SUCH-EDIT', 'sha256': '0' * 64,
+                  'target': {'path': 'nowhere.md', 'start_H': 0, 'old_sha256': '0' * 64}}
+    w = pfc.World(r, edits=pfc.EDITS_OTHER, first_id=2, variant=lambda w_: {'extra': {'version': 2}})
+    land_original_plan(w, r)
+    doc = pfc.invalidating(pfc.World(r), sf.DOC)
+    doc = pfc.rcmod.draft(w.repo, w.ctx, w.syn.H, w.M, w.X, pfc.World(r).led, sf.DOC,
+                          scientific_effect=dict(doc['paths'][0]['scientific_effect'], invalidated=[unknown_el],
+                                                 conclusions='none'))
+    doc.update(record_id='syn-finding-v1', author=sf.WRITER, supersedes=None, M=w.M, X=w.X)
+    pfc.land(w, [(FP, doc)])
+    o = outcome(w)
+    case('A7-II-3', 'the finding names the original plan (resolvable); the run under a later version of the same '
+                    'retirement (in its lineage) that carries no edit of that id: FAIL run-level retirement-blocked',
+         {'classes': o['classes'], 'runlevel': o['runlevel']},
+         'retirement-blocked' in o['classes'] and FP in o['runlevel'])
+
+
 def run_level_ledger_controls(r):
     """Owner decision of 2026-11-27: a resolvable configuration whose ledger cannot be read, several splices for one
     edit, retained text not unique at H, an edit with neither splice nor retained text, and an unreadable delegation
@@ -1589,6 +1685,7 @@ SUITES = [('removal', removal_controls), ('topology', topology_controls), ('unre
           ('pairing-predecessor', pairing_predecessor_controls),
           ('pairing-review-order', pairing_review_order_control), ('r13-form', r13_form_controls),
           ('run-level-ledger', run_level_ledger_controls), ('amendment-7', amendment_7_controls),
+          ('amendment-7-unit', amendment_7_unit_controls),
           ('read-domain', read_domain_controls), ('milestone', milestone_controls),
           ('explicit-review', explicit_review_controls), ('nits-0cafbdc0', nits_0cafbdc0_controls)]
 
