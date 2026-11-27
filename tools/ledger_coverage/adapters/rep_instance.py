@@ -107,20 +107,24 @@ def _refs(doc):
 def ref_graph(repo, M, roots):
     """The reference graph at M from `roots` ([{path, blob_sha256}]): {blob sha256: [referenced blob sha256]}. A
     referenced blob is followed when M's tree holds its path with those bytes and the bytes are a JSON document; any
-    other blob is a leaf."""
-    graph, todo = {}, list(roots)
+    unresolved reference is a leaf unless another path resolves to the same bytes."""
+    graph, seen, todo = {}, set(), list(roots)
     while todo:
         r = todo.pop()
-        if r['blob_sha256'] in graph:
+        path, digest = r['path'], r['blob_sha256']
+        pin = (path, digest)
+        if pin in seen:
             continue
-        b = repo.read(M, r['path'])
-        kids = []
-        if b is not None and _sha(b) == r['blob_sha256']:
-            try:
-                kids = _refs(json.loads(b.decode('utf-8')))
-            except (ValueError, UnicodeDecodeError):
-                kids = []
-        graph[r['blob_sha256']] = sorted({k['blob_sha256'] for k in kids})
+        seen.add(pin)
+        graph.setdefault(digest, [])
+        b = repo.read(M, path)
+        if b is None or _sha(b) != digest:
+            continue
+        try:
+            kids = _refs(json.loads(b.decode('utf-8')))
+        except ValueError:
+            continue
+        graph[digest] = sorted({k['blob_sha256'] for k in kids})
         todo += kids
     return graph
 
@@ -233,13 +237,14 @@ def bind(repo, S, M, descriptor_sha256, roles=None, rec_dir=None):
                     stale.append(p.get('path') if isinstance(p, dict) else p)
         if stale:
             raise Refused('tool-landing pins of the class tip differ from M\'s blobs: %s' % sorted(map(str, stale))[:5])
+        graph = ref_graph(repo, M, [tip])
     except tr.Refused as exc:
         raise Refused(str(exc))
     except gitobj.Unresolvable as exc:
         raise Refused('an object the binding reads cannot be read: %s' % exc)
     return {CLASS_FILL: tip, ALLOW_FILL: got['tips_at_S']['allow'], 'S': S, 'M': M, 'B': B,
             'descriptor': {'path': dpath, 'blob_sha256': descriptor_sha256}, 'class_chain': chains_m['class'],
-            'pins_checked': pins, 'graph': ref_graph(repo, M, [tip])}
+            'pins_checked': pins, 'graph': graph}
 
 
 # ---- command line --------------------------------------------------------------------------------------------
@@ -392,13 +397,19 @@ def self_test(out=None):
         m_ = rp.derive(s_, {'notes/landing.txt': b'm\n'}, parents=[s_], subject='M')
         return bind(rp, s_, m_, _sha(d_))
     manifest = _dump({'files': [ref(tpl_path, t_tool)]})
+    alias_path = 'tools/ledger_coverage/rep/alias.json'
+    alias = _dump({'files': [ref('old/manifest.json', manifest)]})
     ctl = [('REP-ACYCLIC/positive', 'a template sharing the independently fixed tool pin with the class record: '
                                     'the instance is filled', lambda: fill(t_tool, world({}, ()))),
            ('REP-ACYCLIC/direct', 'the class record pins the template itself: refused for the cycle',
             lambda: fill(t_tool, world({tpl_path: t_tool}, [(tpl_path, t_tool)]))),
            ('REP-ACYCLIC/transitive', 'the class record pins a manifest that names the template: refused for the '
                                       'cycle', lambda: fill(t_tool, world({tpl_path: t_tool, man_path: manifest},
-                                                                          [(man_path, manifest)])))]
+                                                                          [(man_path, manifest)]))),
+           ('REP-ACYCLIC/transitive-alias', 'the class record pins the manifest and a document naming the same '
+                                            'digest at an absent path: the verified path still closes the cycle',
+            lambda: fill(t_tool, world({tpl_path: t_tool, man_path: manifest, alias_path: alias},
+                                       [(man_path, manifest), (alias_path, alias)])))]
     real = globals()['cycle_check']
 
     def no_shared(binding, role, named=()):
@@ -432,11 +443,12 @@ def self_test(out=None):
     m_any = 'mutant: any shared blob accepted, no cycle check'
     m_pre = 'mutant: the pre-clarification rule (no shared blob)'
     cases.append({'id': 'REP-ACYCLIC/mutants', 'expected': 'the accept-any-shared mutant passes the positive and '
-                  'refuses neither cycle; the pre-clarification mutant refuses the positive',
+                  'refuses no cycle; the pre-clarification mutant refuses the positive',
                   'actual': {'%s | %s' % k: v for k, v in verdicts.items() if k[0] != 'rule'},
                   'status': 'PASS' if (verdicts[(m_any, 'REP-ACYCLIC/positive')][0] == 'ok' and
                                        verdicts[(m_any, 'REP-ACYCLIC/direct')][0] == 'ok' and
                                        verdicts[(m_any, 'REP-ACYCLIC/transitive')][0] == 'ok' and
+                                       verdicts[(m_any, 'REP-ACYCLIC/transitive-alias')][0] == 'ok' and
                                        verdicts[(m_pre, 'REP-ACYCLIC/positive')][0] == 'refused') else 'FAIL'})
     bad = [c['id'] for c in cases if c['status'] != 'PASS']
     if out:
