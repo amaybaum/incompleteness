@@ -44,6 +44,9 @@ branch was published by the coordinating session under the owner's publication r
 - Landing corrections and this file: the Claude coordinating session, after its takeover under
   §A.52 (#1169 comment 7212372089).
 
+**Status in the header.** `REPORT-r3.md`'s header records the r3 acceptance and the in-place
+landing corrections. The review status of those corrections is recorded below.
+
 **Accountable Issues:** #1169, with #914; #1217 for the SMD rows. Guiding pull request: #1625.
 
 **Owner decisions.** Each is a #1169 comment posted from the account `amaybaum`, quoting the
@@ -51,9 +54,16 @@ owner:
 - **Comment 7209026471** (created 2026-11-27T03:29:13Z): "Approved: Phase 1 post-A1 obstruction
   reassessment as scoped above, paper-only under WP-2, accountable to #1169 with #914." "No premise
   adoption, scientific computation or Phase 2–4 execution is authorized by this decision."
-- **Comment 7209325168** (created 2026-11-27T03:51:22Z): the SMD-CL-1, UN-1 and F-slice findings
-  are routed to Phase 1, "specifically examining whether the obstruction survives A1 retirement".
-- **Comment 7209354605:** the four-class test and contribution matrix, as cited in the report.
+- **Comment 7209325168** (created 2026-11-27T03:51:22Z) routes the SMD findings: "feed these
+  findings into the authorized post-A1 obstruction reassessment, specifically examining whether the
+  obstruction survives A1 retirement." The UN-1 and F-slice rows were added within the writer's
+  scope, under the same comment's instruction to prepare #1623 "together with UN-1 and F-slice",
+  and under comment 7209354605's "continue the work as outlined under the existing authorizations".
+- **Comment 7209354605** (created 2026-11-27T03:53:38Z), quoted in part: "For C-ENV and C-SEL,
+  distinguish four possibilities"; "Only the first two should advance as physical sourcing
+  candidates, provided their underlying principles are independently justified."; "For each
+  surviving candidate, identify its potential contribution to SMD, complex structure, native
+  quantum operations, observer emergence and gravitational coupling." 
 - **Comment 7212372089** (created 2026-11-27T07:20:10Z), item 4, quoted from the approved list:
   "Accept the Phase 1 scientific assessment at r3. Correct the two nonblocking wording nits and
   resolve its outstanding preservation and source-tracing requirements before landing."
@@ -62,14 +72,16 @@ owner:
 
 **Independent non-author reviews.** These are model reviews by reviewer agents, recorded on PR #1625
 as reviewer text: evidence of review, not independent mathematical verification.
-- **Comment 7209339803, review of r1 at `ccafee2a`: REVISE.** Four major, four medium and six minor
-  findings. It checked the rule-90 arithmetic exactly over t ≤ 600 and the plan timing.
+- **Comment 7209339803, review of r1 at `ccafee2a`: REVISE.** Four major, four medium and three minor
+  findings, and three nits. It checked the rule-90 arithmetic exactly over t ≤ 600 and the plan timing.
 - **Comment 7210001008, review of r2 at `aa7e8ce3`: REVISE.** Four corrections. It checked the
   vacuum Dickson/Frobenius argument on paper in its stated cases.
 - **Comment 7210078621, review of r3 at `95d7c225`: ACCEPT,** with two nonblocking wording nits.
   These are fixed at `e56149db`.
-- **Not yet reviewed:** the landing corrections at `e56149db` and this file. A focused exact-head
-  check of both is required before landing.
+- **Comment 7212555489, focused review of the landing corrections and this file at `9a258779`:
+  REVISE,** with four required text corrections and seven nits. These are applied in the following
+  commit.
+- **Not yet confirmed:** that commit. A focused confirmation is required before landing.
 
 ## 2. Substantive result and its precise scope
 
@@ -82,7 +94,8 @@ finite reading sets, Lemma 1, finite horizons), A5 and the second-order form.
 **Results, with their exact limitations.**
 - **Inventory.** There are 42 rows. Of the original 30: 23 survive within their stated scopes, five
   are reopened (two escaped by cited counterexamples: P1-15 by NR-1 row 12, P1-18 by infinite-XOR;
-  three unproved) and two are unclear (P1-07, P1-17).
+  three unproved) and two are unclear (P1-07, P1-17). P1-05, P1-06 and P1-08 are S conditional on
+  OPRES, BIDUAL-DIO and I3-SOURCE respectively, records not on `main`.
 - **Coherent control.** The kernel forms of the representational ceilings are A1-scoped, because
   the kernel applies `permTheory` globally to `𝒮.Conf`. They survive only within the proposed
   P-here transfer's scope: a countable carrier with a diagonal hidden state and discrete append, or,
@@ -101,7 +114,7 @@ finite reading sets, Lemma 1, finite horizons), A5 and the second-order form.
 - **Vacuum revival (P-here; checked on paper by the r2 review).** For the native linear rule over
   F_p on ℤ^d from a single current-slice excitation, the origin's value at t = p^k is a·c^k (odd p),
   and site e_1 recovers a at every t = 2^k (q = 2). The vacuum variant of C-ENV fails all-time
-  terminality in those cases.
+  terminality for q = 2 (every α ≠ 0 and d), and for odd p wherever c ≠ 0.
 - **Candidates.** None of C-ENV, C-ENV×MON, C-NL, C-ONT or C-SEL generates or selects, from
   independently justified principles, any of: the condensate state with distinct block values,
   SMD, a native complex structure, or native non-Clifford operations. The inventory establishes no
@@ -143,15 +156,19 @@ The remediation plans authorize no work (§A.45 rule 3).
 | QOPS (#1501) | R-READ | provenance: R-READ is a named hypothesis; no QOPS result is used |
 | SMD-CL-1 `b7e29ea7`; FSLICE-PS-1 `2706ae17`; UN-1 `4e84b2f2` | report §2.6 | support on `main`: merges `210294b2`, `69786da2`, `9c59074d`. Report texts identical, except one UN-1 verification-table row (Prop I (iii)) that no Phase 1 row uses |
 | Pin `13c05b4fe` and the records cited there | throughout | support on `main`: an ancestor of `main`, the cited files unchanged |
-| Branch commits `569940b5`, `79e1b3d2`, `c6c9d02b`, `ccafee2a`, `aa7e8ce3`, `95d7c225`, `e56149db`, and the commit adding this file | §1, §3 here | support off `main` (gap), closed by the merge commit of §5. `569940b5` and `79e1b3d2` carry the preregistration order. The others carry the reports and change records |
+| Branch commits `569940b5`, `79e1b3d2`, `c6c9d02b`, `ccafee2a`, `aa7e8ce3`, `95d7c225`, `e56149db`, and the commits adding and completing this file (through the landing head) | §1, §3 here | support off `main` (gap), closed by the merge commit of §5. `569940b5` and `79e1b3d2` carry the preregistration order. The others carry the reports and change records |
 | Pivato–Yassawi; Christol; Lucas's theorem; Dickson-polynomial identities | report §2.6, §3.1 | external literature or textbook results, cited by name; Pivato–Yassawi's applicability is stated as unestablished |
 
-Once §5's merge lands, every reference is classified and no gap remains.
+**Scope of the tracing.** The tracing is report §6 together with this section. Report §6 classifies
+the remaining references: the Issue bodies of #914, #866, #1461, #1062, #1210, #1507 and #1509,
+#1169 comment 7079945577, #885 at each use, and #1498, #1503, #1504 and #1216. Once §5's merge
+lands, every reference is classified and no gap remains.
 
 ## 5. Landing condition
 
 The record is preserved only through a **merge commit, not a squash**. The merge keeps reachable
-from `main` every branch commit of §4, so that `PLAN.md`'s commit precedes every report commit. The
+from `main` every branch commit of §4, including the commits adding and completing this file
+(through the landing head), so that `PLAN.md`'s commit precedes every report commit. The
 merge needs the owner's separate approval (§A.50 item 1), which this file does not give.
 
 ## 6. Preservation rationale

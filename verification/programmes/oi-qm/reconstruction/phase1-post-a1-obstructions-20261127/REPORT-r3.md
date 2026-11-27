@@ -5,7 +5,10 @@
 comment 7210001008. The r1 and r2
 reports and their change records are retained. Plan: `PLAN.md` (`569940b5`, committed before r1).
 The investigation's drafting snapshot is `main` at `13c05b4fe`. See `CHANGES-r3.md` for the review
-dispositions. A focused non-author review of this revision is pending.
+dispositions. Header status: r3 was accepted with two nonblocking nits (#1625 comment
+7210078621). The landing corrections in `CHANGES-r3.md` (writer: the Claude coordinating session,
+§A.52) were made in place after that acceptance, and their review status is recorded in
+`PRESERVATION.md`.
 
 **Authorization.** Owner decision quoted at #1169 comment 7209026471 (amaybaum, received
 2026-11-27, coordinating session): "Approved: Phase 1 post-A1 obstruction reassessment as scoped
@@ -137,7 +140,7 @@ records, C coherent control.
 
 | ID | Result (source) | Scope | Load-bearing step and hypotheses | A1 use | Class |
 |---|---|---|---|---|---|
-| P1-01 | Phase ceiling `permTheory_phase_ceiling`, `nonnegBounded_not_phasesAvailable` (FrozenSourcing, K) | C | bijection-level branches preserve nonnegative entries (`preservesNonneg_of_realized`); the prior is diagonal in the finite kernel | kernel form A1-scoped: `obsTheory 𝒮 = permTheory 𝒮.Conf`, `A1 := Finite 𝒮.Conf`; docstring "at every substratum satisfying the finiteness A1 supplies" | **S conditional on the P-here transfer (unreviewed)**, for a countable carrier with a diagonal hidden state and the discrete append construction. **U** for a general measurable transfer of entrywise nonnegativity. It needs a defined diagonal state and justified append construction (P1-07). FV does not rescue this row: the quarter-phase gate is DIO |
+| P1-01 | Phase ceiling `permTheory_phase_ceiling`, `nonnegBounded_not_phasesAvailable` (FrozenSourcing, K) | C | bijection-level branches preserve nonnegative entries (`preservesNonneg_of_realized`); the prior is diagonal in the finite kernel | kernel form A1-scoped: `obsTheory 𝒮 = permTheory 𝒮.Conf`, `A1 := Finite 𝒮.Conf`; docstring "at every substratum satisfying the finiteness A1 supplies" | **S conditional on the P-here transfer (unreviewed)**, for a countable carrier with a diagonal hidden state and the discrete append construction. **U** for a general measurable transfer of entrywise nonnegativity. It needs a defined diagonal state and justified append construction (P1-07). FV (BIDUAL-DIO, not on `main`; a scope remark that does not rely on FV holding) does not rescue this row: the quarter-phase gate is DIO |
 | P1-02 | Dense-control ceiling `permTheory_dense_ceiling` (K) | C | nonnegativity passes to norm limits (`preservesNonneg_of_approx`) | as P1-01 | as P1-01. Alternative support: FV plausibly covers it (DIO is closed and excludes non-DIO targets). That support is conditional on BIDUAL-DIO (`e8976f11`, #1509), a record not on `main` |
 | P1-03 | Rule independence `obsTheory_rule_independent` (K) | C | `obsTheory 𝒮 = permTheory 𝒮.Conf` by definition | kernel form A1-scoped | **S conditional on the P-here transfer** (it is definitional for any carrier on which `permTheory` is defined) |
 | P1-04 | `substratumTheory_not_layerFlowExecutable` (LiftAudit Q2, K); `not_layerFlowExecutable_of_preservesDiag` (LiftSource T1, K) | C | monomial Kraus operators preserve diagonal states | kernel result on finite region carriers | **S** within the finite-region scope. **U** for the general measurable diagonal-preservation transfer. Nonsingular Koopman normalization supports the scoped detection result (conditional on OPRES (`24702c1d`, #1511), a record not on `main`). A visible-channel extension needs its own state and append construction and a proof of diagonal preservation |
@@ -189,7 +192,8 @@ records, C coherent control.
 - 23 **S** within their stated surviving scopes. P1-01 and P1-02 use the conditional countable
   transfer with a diagonal append state. P1-03 is conditional on the definition transferring.
   P1-04 retains the finite-region result. P1-01, P1-02, P1-04 and P1-05 carry the measurable
-  residuals shown in their rows.
+  residuals shown in their rows. P1-05, P1-06 and P1-08 are S conditional on OPRES, BIDUAL-DIO
+  and I3-SOURCE respectively, records not on `main`.
 - 5 **R**: two escaped (P1-15, P1-18) and three unproved (P1-16, P1-19, P1-20).
 - 2 **U**: P1-07 and P1-17. P1-08's dropped-(e) case is a U residual inside an S row.
 
@@ -225,7 +229,8 @@ on T = (ℤ/L)^d with d = 3. V_π is present for even L.
 | P1-40 | "No N_k is class D" | follows from P1-37 to P1-39 | **S** | No |
 
 **UN-1** (#1622, `4e84b2f2`, on `main` via `9c59074d`; source status: "reviewed paper derivations, not independently verified"
-for its inputs; its own results are "[A]: this unit's paper argument, unreviewed").
+for its inputs; its own results are labelled "[A]: this unit's paper argument, unreviewed" in the
+report, and recorded in its PRESERVATION.md on `main` as partially verified, model-reviewed).
 
 | ID | Result as stated | Step and A1 use | Class | Constrains candidates? |
 |---|---|---|---|---|
@@ -268,7 +273,9 @@ The required items are:
   - (E2v) the zero vacuum with finitely many excitations. It supplies known ready states, and no
     independent randomness;
   - (E2L) a random translation-invariant law, uniform on a Lagrangian subgroup of the two-slice
-    phase space. Only this variant can meet #885's independence requirement.
+    phase space. Only this variant can meet the conditional-freshness requirement stated on `main` in
+    `composition-access-20261024/REPORT.md` ("Fair after heralding is weaker than conditionally
+    fresh"), which #885 first framed.
 
   (E3) dispersal. "Decidable" is dropped. Christol's theorem (automatic sequences for linear rules
   over F_p) is a plausible source, not checked.
@@ -461,8 +468,9 @@ below. Their hypotheses vary by target.
 - **NC and coherent detection.** Needed: an operation whose Heisenberg dual takes a configuration
   effect outside the configuration algebra, together with a coherence source (OPRES "Missing"; conditional on OPRES (`24702c1d`, #1511), a record not on `main`).
   Excluded so far:
-   - the finite and conditional countable configuration-basis ceilings in P1-01 to P1-05 with
-     their state and interface hypotheses. For measurable carriers the cited detection result uses
+   - the finite and conditional countable configuration-basis ceilings in P1-01 to P1-04 with
+     their state and interface hypotheses, and P1-05's countable Theorem C, which is conditional on
+     OPRES (`24702c1d`, #1511), a record not on `main`. For measurable carriers the cited detection result uses
      a nonsingular bijection, finite visible resolution and the state and append conditions in
      P1-05, and is conditional on OPRES (`24702c1d`, #1511), a record not on `main`. The stronger channel extensions remain open;
    - the non-affine ontic bijections covered by Proposition AS in the odd-prime Gross frame,
@@ -561,13 +569,17 @@ measurement independence or locality.
 |---|---|---|
 | #1169 c.7209026471, c.7209325168, c.7209354605 | authorization, source routing, four-class test and contribution matrix | provenance |
 | Issue bodies #914, #866, #1461, #1062, #1210, #1507, #1509 | scope | provenance |
-| BIDUAL-DIO, `research/bidual-dio-20261122` `e8976f11` (#1509) | P1-06 (FV); P1-02 (alternative support); P1-20 (PERM remark); §0 item 5 (PERM bullet); J-2 (FV reference); AW-P1-4 (PERM) | **support off `main`: gap**, closed by **narrowing**: each listed claim is stated as conditional on this unlanded record, not as established. No claim's class rests on it alone: P1-20's R class rests on the finite-representative step, and P1-02's class rests on its own transfer |
-| OPRES, `research/opres-20261121` `24702c1d` (#1511, Issue #1509) | P1-05 (Theorem C; D/D′ detection half); P1-07 (statement of Conjecture D″ and the D/D′ scope); §0 item 1 (the detection result under OPRES's conditions); P1-04 (the "scoped detection result" it refers to); §3.1 NC (the P1-05 part); §4 NC (the "Missing" citation and the measurable detection result) | **support off `main`: gap**, closed by **narrowing**: each listed claim is stated as conditional on this unlanded record. The names KIN and R-READ are taken from OPRES as names of hypotheses; no OPRES result is used through them |
+| BIDUAL-DIO, `research/bidual-dio-20261122` `e8976f11` (#1509) | P1-06 (FV); P1-01 (scope remark: "FV does not rescue this row", which does not rely on FV holding); P1-02 (alternative support); P1-20 (PERM remark); §0 item 5 (PERM bullet); J-2 (FV reference); AW-P1-4 (PERM) | **support off `main`: gap**, closed by **narrowing**: each listed claim is stated as conditional on this unlanded record, not as established. P1-06's class rests on this record alone and is stated as conditional on it. P1-20's R class rests on the finite-representative step, and P1-02's class rests on its own transfer |
+| OPRES, `research/opres-20261121` `24702c1d` (#1511, Issue #1509) | P1-05 (Theorem C; D/D′ detection half); P1-07 (statement of Conjecture D″ and the D/D′ scope); §0 item 1 (the detection result under OPRES's conditions); P1-04 (the "scoped detection result" it refers to); §3.1 NC (the P1-05 part); §4 NC (the "Missing" citation and the measurable detection result) | **support off `main`: gap**, closed by **narrowing**: each listed claim is stated as conditional on this unlanded record. P1-05's classes (countable Theorem C and the D/D′ detection half) rest on this record alone and are stated as conditional on it. The names KIN and R-READ are taken from OPRES as names of hypotheses; no OPRES result is used through them |
 | QOPS (#1501) | R-READ's status | **provenance**: the report conditions every §2.1 row on R-READ as a named, assumed hypothesis and uses no QOPS result. Its status is QOPS's, and the conclusions carry it as a condition |
-| I3-SOURCE, `research/i3-source-20261121` `df520f3b` (#1508, Issue #1507) | P1-08 (Lemma S1, Proposition S2); J-2 (P1-08 reference); J-3 (Lemma O) | **support off `main`: gap**, closed by **narrowing**: each listed claim is stated as conditional on this unlanded record. J-3's rejection stands on F2-1 C10 (on `main`) without it |
+| I3-SOURCE, `research/i3-source-20261121` `df520f3b` (#1508, Issue #1507) | P1-08 (Lemma S1, Proposition S2); J-2 (P1-08 reference); J-3 (Lemma O) | **support off `main`: gap**, closed by **narrowing**: each listed claim is stated as conditional on this unlanded record. P1-08's class rests on this record alone and is stated as conditional on it. J-3's rejection stands on F2-1 C10 (on `main`) without it |
 | SMD-CL-1, `b7e29ea7` (#1623) | P1-31 to P1-36; §3.1 to §3.5 D-BV/SMD classes; §4 | **support on `main`**: landed by merge `210294b2` (head `a63aaa84`). `b7e29ea7` is an ancestor of `main`. The landed head adds only `PRESERVATION.md`; `REPORT.md` is byte-identical to the cited version |
 | FSLICE-PS-1, `2706ae17` (#1624) | P1-37 to P1-40 | **support on `main`**: landed by merge `69786da2` (head `bbfcff33`). `2706ae17` is an ancestor of `main`. The landed head adds only `PRESERVATION.md`; the cited `REPORT-r2.md` is unchanged |
 | UN-1, `4e84b2f2` (#1622) | P1-41, P1-42 | **support on `main`**: landed by merge `9c59074d` (head `d1e999e1`). `4e84b2f2` is an ancestor of `main`. The landed head adds `PRESERVATION.md` and changes one row of `REPORT-r2.md`'s verification table: Prop I (iii) now lists its inherited inputs ([U2] Proposition 9, [U3] Corollary 7c and [UNC] Theorem U (U-b)). No result statement changes, and P1-41 and P1-42 do not use Prop I (iii) |
+| #885 (closed PR), at P1-17 | the quotation "supplied, not derived" | **support on `main`**: `verification/ROADMAP.md`:1151 ("In the present constructions the calibration, readiness, clock, settings and access are supplied, not derived") |
+| #885, at §3.1 | the conditional-freshness requirement | **provenance**; the requirement used is stated on `main` in `composition-access-20261024/REPORT.md` ("Fair after heralding is weaker than conditionally fresh") |
+| #1498, #1503, #1504 | bounded out (§1) | provenance: not used |
+| #1216 | §5 accountable Issue | provenance |
 | Kernel modules, Main, A1-FCLASS, NR-1, SUBSTATE-1/2, F2-1, MECH-1, MR-1, MEAS-Q, UNIV-1, OBS-EMERGE | rows citing them | support on `main`: cited at `13c05b4fe`, an ancestor of `main` at `69786da2`; the cited Main, kernel, A1-FCLASS, NR-1 and MECH-1 files are unchanged between them |
 | #1169 c.7079945577 | C-NL hold | provenance |
 

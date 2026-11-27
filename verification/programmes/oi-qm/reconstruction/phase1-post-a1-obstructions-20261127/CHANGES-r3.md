@@ -18,8 +18,8 @@ Focused review should check these dispositions on a pinned revision. The plan, p
 
 The writer is the Claude coordinating session, which took over under §A.52 (#1169 comment
 7212372089). The corrections are made in place on `REPORT-r3.md`, as the r3 review (#1625
-comment 7210078621) and the owner decision (#1169 comment 7212372089, item 4) require. No result
-or class changes.
+comment 7210078621) and the owner decision (#1169 comment 7212372089, item 4) require. No class
+changes; statements narrowed as listed.
 
 | Item | Change |
 | --- | --- |
@@ -29,3 +29,4 @@ or class changes.
 | QOPS (#1501) | Reclassified as provenance: R-READ enters as a named assumed hypothesis, and no QOPS result is used |
 | Landed records | #1622, #1623 and #1624 are reclassified as support on `main` (merges `9c59074d`, `210294b2`, `69786da2`). The only difference from the cited texts is one verification-table row in UN-1's `REPORT-r2.md`, which no row here uses |
 | Preservation | `PRESERVATION.md` drafted, decision pending |
+| Focused review of `9a258779` (#1625 comment 7212555489, REVISE) | Findings 1–11 applied in one commit: §6 states that P1-05, P1-06 and P1-08 rest on their unlanded records alone and are stated as conditional; §2.5 and `PRESERVATION.md` carry the conditional S rows; #885, #1498, #1503, #1504 and #1216 classified; the §3.1 freshness requirement anchored on `main`; the P1-01 FV remark and §4's countable Theorem C marked; header status and UN-1 status aligned; `PRESERVATION.md` corrections (vacuum scope, r1 count, 7209354605 quotation, routing basis, tracing scope, commit wording) |
