@@ -44,6 +44,10 @@ D_REC = 'verification/audits/foundations/a1exit-deletion-20261121/'
 # The writer identity is an open point (README, stop S-1): staging r2 sec. 2 requires the independently verified
 # GitHub identity of the actual author; this placeholder is not one.
 AUTHOR = 'a1-staging-writer-20261127'
+# The allow root's author is the registered identity of its writer (staging S-1 sec. 2, adopted): the `id` of the
+# designated writer's entry in `a1-staging-sessions.json`. No designation exists yet, so the field carries this
+# pending marker, which matches no identity-string grammar and fails record lint until it is replaced.
+ALLOW_AUTHOR = 'PENDING-S1-REGISTRY-ID-OF-DESIGNATED-WRITER'
 STATUS = ('WIP / UNVERIFIED staging draft, not frozen, not reviewed, not adopted (checklist #1169 comment '
           '7207860923). No review record, owner adoption or freeze exists for it, and the tool admits no record '
           'without them.')
@@ -297,12 +301,12 @@ def main():
                           'matcher': r['matcher'], 'context_required': r['context_required'],
                           'max_instances': len(fps), 'fingerprints': fps, 'recorded_at': full_h,
                           'positive_examples': r['positive_examples'], 'negative_examples': negex,
-                          'reason': r['reason'], 'author': AUTHOR})
+                          'reason': r['reason'], 'author': ALLOW_AUTHOR})
     root = {'schema': 'oi-term-rules/2', 'record_id': 'a1-staging-w1-w2',
             'status': STATUS + ' Designated first record of the allow lineage (A1 staging amendment r2, sec. 2): '
                       'W1-b, W1-c, W1-d, W2-a and W2-b only. W1-a is excluded and is never admitted under any id; '
                       'its sentence (papers/SM.md at H) is a negative example of every rule here.',
-            'supersedes': None, 'recorded_at': full_h, 'author': AUTHOR, 'rules': rules_out}
+            'supersedes': None, 'recorded_at': full_h, 'author': ALLOW_AUTHOR, 'rules': rules_out}
     root_bytes = dumps(root)
     report['fingerprints'] = fp_report
     for r in rules_out:

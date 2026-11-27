@@ -60,7 +60,7 @@ match every `expected_sha256`.
 **Allow root.** Each of W1-b, W1-c, W1-d, W2-a and W2-b keeps the superseded draft's profiles, scope, matcher,
 `context_required`, fingerprinted sentences, `negative_allowance` (W1-c `finit: 1`, recomputed), positive examples
 and reason. What changes: `recorded_at` is H (stop S-2), each `context_sha256` is recomputed at H, `author` is the
-placeholder of stop S-1, and the W1-a sentence (papers/SM.md at H, "…satisfying the six structural properties.
+pending marker `PENDING-S1-REGISTRY-ID-OF-DESIGNATED-WRITER` (stop S-1), and the W1-a sentence (papers/SM.md at H, "…satisfying the six structural properties.
 …") is appended to every rule's negative examples so that the lint itself exercises the adverse case. Results at H
 (`derive-report.json`): every rule passes the tool's own `rules.lint_rule` with `recorded_at` H; all ten
 fingerprinted sentences are unique at H and at `X_rep`; contexts are equal at H and `X_rep` except W1-d's two
@@ -151,10 +151,11 @@ script itself is on `main` before `F` (OBL-1, OBL-2 evidence kinds); decide stop
 - **S-1, writer and reviewer identity.** Staging r2 sec. 2: each root carries "the independently verified GitHub
   identity of its actual author", and "the writer, ordinary reviewer and widening reviewer are distinct eligible
   identities". Agent sessions commit as one generic identity and write to GitHub through the owner's account, so no
-  GitHub identity distinguishes them. The drafts carry the placeholder `a1-staging-writer-20261127`. Recommended
-  default: the owner fixes the identity convention before review (distinct GitHub accounts, or session designations
-  recorded in the owner's activation record and used verbatim as `author` and `reviewer`), and the candidate is re-cut
-  with the designated writer's identity.
+  GitHub identity distinguishes them. Disposed by supplement S-1 (`AMENDMENT-S-1.md` at `3bc3693c`, adopted): `author`
+  and `reviewer` are ids of the session registry `a1-staging-sessions.json` in `D_rec`, each entry designated by an
+  owner form comment. The allow root carries the pending marker `PENDING-S1-REGISTRY-ID-OF-DESIGNATED-WRITER` until
+  the writer is designated, and is then re-cut; `dr-deny.json` and `resid.json` still carry the earlier placeholder
+  `a1-staging-writer-20261127` and need the same re-cut. See `allow-root/README.md`.
 - **S-2, which commit is "eligible" for `recorded_at`.** Staging r2 sec. 2 and R6.REC.14 ask for re-derivation
   "from eligible pinned bytes" without naming the commit; R6.EVID.8 excludes `T1'`, and `X_rep` is not a commit in the
   repository. Recommended default: `recorded_at` = H with contexts taken at H, as drafted; the alternative is the
