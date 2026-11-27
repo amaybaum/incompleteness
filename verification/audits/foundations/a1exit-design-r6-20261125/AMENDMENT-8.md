@@ -88,7 +88,7 @@ Each entry gives: the clause, the change, the reason, what is lost, and why corr
 
   Only the following rows are dropped:
   - the `MUT:` rows (M8-4), which are dropped even where (k3) would keep them;
-  - the gate self-test rows that (k1) to (k3) do not keep. The gate's own self-test still runs, as R6.GATE requires;
+  - the gate self-test rows that (k1) to (k3) do not keep. The gate's own self-test still runs in full (GATE-1 to GATE-30) before any real record is evaluated, and a failed self-test returns VOID with no verdict (R6.CTRL.30); so these checks stay enforced, and their NOT RUN record removes only their expectation registration;
   - rows whose only purpose is generality: their only requirements beyond R6.CTRL and R6.GATE are R6.SYN or R6.CORE,
     or they are Z9-style purity rows outside (k1) to (k3).
 
@@ -269,7 +269,7 @@ DP-3 and DP-4 may be given as one conditional approval if the owner chooses.
 | staging r2 `AMENDMENT.md` sec. 2 on the tool branch | the clause M8-10 changes | provenance here; it lands with the tool (M8-11) |
 | PREREG.md on PR #1477 at `4c79be642` (secs. 25.7, 31.12.18) | the plan clauses of M8-12 and M8-13 | provenance here; those changes are made by the plan amendment |
 | #1577 reviews r1–r29 and comment 7211786545; checklist v2 (#1169 comment 7209180142) and v3 (#1577 comment 7210380649) | the preserved verification and the statuses | provenance |
-| tool branch `tools/a1-ledger-coverage-r6` at `0e201f2d9`: `tools/ledger_coverage/adapters/a1_controls.py` (blob `03aabb3a53faa47dd7dba178a3c1df86741e621e`) and `a1_conformance.py` (blob `335960831ebb0b57ce749ac1de53245e5d8eafc5`) | rule (k1) of M8-3; it only adds rows, and five rows (M7, M8, V3-countercontrol, Y8, Z9h) are kept by (k1) alone | support off `main` until the tool lands; both files land with it (DP-2, M8-11) before any gate run, which closes the gap |
+| tool branch `tools/a1-ledger-coverage-r6` at `0e201f2d9`: `tools/ledger_coverage/adapters/a1_controls.py` (blob `335960831ebb0b57ce749ac1de53245e5d8eafc5`) and `a1_conformance.py` (blob `03aabb3a53faa47dd7dba178a3c1df86741e621e`) | rule (k1) of M8-3; it only adds rows, and five rows (M7, M8, V3-countercontrol, Y8, Z9h) are kept by (k1) alone | support off `main` until the tool lands; both files land with it (DP-2, M8-11) before any gate run, which closes the gap |
 | #1630, the focused review of r1 | the M8-3 revision and the nits r2 answers; the counts at `0e201f2d9` | provenance |
 | commit counts against `53c6601a` (`git rev-list --count 53c6601a..origin/main` at `69d4d1c2`) | sec. 4 | support on `main` (recomputable) |
 
