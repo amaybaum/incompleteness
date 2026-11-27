@@ -1,0 +1,275 @@
+{
+ "schema": "oi-term-rules/2",
+ "record_id": "a1-staging-w1-w2",
+ "status": "WIP / UNVERIFIED staging draft, not frozen, not reviewed, not adopted (checklist #1169 comment 7207860923). No review record, owner adoption or freeze exists for it, and the tool admits no record without them. Designated first record of the allow lineage (A1 staging amendment r2, sec. 2): W1-b, W1-c, W1-d, W2-a and W2-b only. W1-a is excluded and is never admitted under any id; its sentence (papers/SM.md at H) is a negative example of every rule here.",
+ "supersedes": null,
+ "recorded_at": "53c6601a10419b6b333cc992474272501ab542af",
+ "author": "a1-staging-writer-20261127",
+ "rules": [
+  {
+   "id": "W1-b",
+   "kind": "allow",
+   "profiles": [
+    "count-grep"
+   ],
+   "scope": {
+    "files": [
+     "book/ch09-universality.md",
+     "book/The-Incompleteness-of-Observation-FULL.md"
+    ]
+   },
+   "matcher": {
+    "literal": "the six structural properties developed in Chapter 5",
+    "context": [
+     "isotropy, sublattice structure, link content"
+    ],
+    "negative": [
+     "A1",
+     "A1-A6",
+     "finit",
+     "assumption",
+     "axiom",
+     "of the substratum"
+    ]
+   },
+   "context_required": false,
+   "max_instances": 2,
+   "fingerprints": [
+    {
+     "file": "book/ch09-universality.md",
+     "sentence_sha256": "91cc0436fa8070b64a751e24226712247d674c7b37849c7662dd9087434752ac",
+     "context_sha256": "d03916e7d2af45af1dac795c18e4353f4a4c81383f92eaf8670b4626d793f0fd"
+    },
+    {
+     "file": "book/The-Incompleteness-of-Observation-FULL.md",
+     "sentence_sha256": "91cc0436fa8070b64a751e24226712247d674c7b37849c7662dd9087434752ac",
+     "context_sha256": "d03916e7d2af45af1dac795c18e4353f4a4c81383f92eaf8670b4626d793f0fd"
+    }
+   ],
+   "recorded_at": "53c6601a10419b6b333cc992474272501ab542af",
+   "positive_examples": [
+    "Tier 2 results follow from the framework's structural commitments to the substratum's properties — the six structural properties developed in Chapter 5 (isotropy, sublattice structure, link content, anomaly cancellation, taste content, generation count) — combined with the universality-class conditions C1–C4.",
+    "the six structural properties developed in Chapter 5 (isotropy, sublattice structure, link content, anomaly cancellation, taste content, generation count)"
+   ],
+   "negative_examples": [
+    "the six structural properties developed in Chapter 5 (isotropy, sublattice structure, link content, anomaly cancellation, taste content, generation count), and finiteness",
+    "**Structural predictions** are properties of the equivalence class [(S, φ)]/$\\mathcal{G}_{\\text{sub}}$ — they hold for every bijection satisfying the six structural properties."
+   ],
+   "reason": "Counts the bijection's six properties, enumerated in the sentence; not the retired posit count.",
+   "author": "a1-staging-writer-20261127"
+  },
+  {
+   "id": "W1-c",
+   "kind": "allow",
+   "profiles": [
+    "count-grep"
+   ],
+   "scope": {
+    "files": [
+     "book/ch19-open-problems.md",
+     "book/The-Incompleteness-of-Observation-FULL.md"
+    ]
+   },
+   "matcher": {
+    "literal": "one of the framework's six structural properties of the bijection",
+    "context": [
+     "of the bijection"
+    ],
+    "negative": [
+     "A1",
+     "A1-A6",
+     "finit",
+     "assumption",
+     "axiom",
+     "of the substratum"
+    ]
+   },
+   "context_required": false,
+   "max_instances": 2,
+   "fingerprints": [
+    {
+     "file": "book/ch19-open-problems.md",
+     "sentence_sha256": "d4a11b15d8ca936fcf87247d3669a45abbc86ed153ba85e04499e5b927b23721",
+     "context_sha256": "6c16e6e13e2e9f19820d37a939528e8fe01e749f1ab24f767f6972ca3647d0dd",
+     "negative_allowance": {
+      "finit": 1
+     }
+    },
+    {
+     "file": "book/The-Incompleteness-of-Observation-FULL.md",
+     "sentence_sha256": "d4a11b15d8ca936fcf87247d3669a45abbc86ed153ba85e04499e5b927b23721",
+     "context_sha256": "6c16e6e13e2e9f19820d37a939528e8fe01e749f1ab24f767f6972ca3647d0dd",
+     "negative_allowance": {
+      "finit": 1
+     }
+    }
+   ],
+   "recorded_at": "53c6601a10419b6b333cc992474272501ab542af",
+   "positive_examples": [
+    "On a finite periodic quotient of $\\mathbb{Z}^3$, a qualified case of A4 (Chapter 2), the notion of \"causally disconnected regions\" is modified — the lattice's coupling graph determines causal structure, and if the initial state of $\\varphi$ is statistically isotropic (one of the framework's six structural properties of the bijection), isotropy is built in rather than requiring inflation to produce it.",
+    "statistically isotropic (one of the framework's six structural properties of the bijection)"
+   ],
+   "negative_examples": [
+    "one of the framework's six structural properties of the bijection, namely total finiteness",
+    "**Structural predictions** are properties of the equivalence class [(S, φ)]/$\\mathcal{G}_{\\text{sub}}$ — they hold for every bijection satisfying the six structural properties."
+   ],
+   "reason": "Names isotropy as one of the bijection's six properties; not the retired posit count.",
+   "author": "a1-staging-writer-20261127"
+  },
+  {
+   "id": "W1-d",
+   "kind": "allow",
+   "profiles": [
+    "count-grep"
+   ],
+   "scope": {
+    "files": [
+     "book/ch19-open-problems.md",
+     "book/The-Incompleteness-of-Observation-FULL.md"
+    ]
+   },
+   "matcher": {
+    "literal": "The framework's six structural properties of the bijection",
+    "context": [
+     "of the bijection"
+    ],
+    "negative": [
+     "A1",
+     "A1-A6",
+     "finit",
+     "assumption",
+     "axiom",
+     "of the substratum"
+    ]
+   },
+   "context_required": false,
+   "max_instances": 2,
+   "fingerprints": [
+    {
+     "file": "book/ch19-open-problems.md",
+     "sentence_sha256": "085a5e05d6e02f7ce357fd0bef703c27fab50937c99b261c7c6269f8066a8c6d",
+     "context_sha256": "d781e6cab0adf939d1099016dd901b39d2328a0e5279f18e0e283c2def9416a6"
+    },
+    {
+     "file": "book/The-Incompleteness-of-Observation-FULL.md",
+     "sentence_sha256": "085a5e05d6e02f7ce357fd0bef703c27fab50937c99b261c7c6269f8066a8c6d",
+     "context_sha256": "d781e6cab0adf939d1099016dd901b39d2328a0e5279f18e0e283c2def9416a6"
+    }
+   ],
+   "recorded_at": "53c6601a10419b6b333cc992474272501ab542af",
+   "positive_examples": [
+    "The framework's six structural properties of the bijection (developed across Chapters 5-7) further narrow it."
+   ],
+   "negative_examples": [
+    "The framework's six structural properties of the bijection, one of which is total finiteness, further narrow it.",
+    "**Structural predictions** are properties of the equivalence class [(S, φ)]/$\\mathcal{G}_{\\text{sub}}$ — they hold for every bijection satisfying the six structural properties."
+   ],
+   "reason": "Counts the bijection's six properties; not the retired posit count.",
+   "author": "a1-staging-writer-20261127"
+  },
+  {
+   "id": "W2-a",
+   "kind": "allow",
+   "profiles": [
+    "ptr",
+    "repo"
+   ],
+   "scope": {
+    "files": [
+     "book/appendix-b-derivations.md",
+     "book/The-Incompleteness-of-Observation-FULL.md"
+    ]
+   },
+   "matcher": {
+    "literal": "(A1) $\\mathrm{SU}(3)^3$ anomaly",
+    "context": [
+     "anomaly"
+    ],
+    "negative": [
+     "Finiteness",
+     "finit",
+     "posit",
+     "substratum",
+     "configuration space"
+    ]
+   },
+   "context_required": false,
+   "max_instances": 2,
+   "fingerprints": [
+    {
+     "file": "book/appendix-b-derivations.md",
+     "sentence_sha256": "0b0e05e696577c8c383a95d2e4e09569029e281ec7999ebc6b5e46226bd37976",
+     "context_sha256": "bba1a3b016445e863f07d86bb7371cda38b23aeeae6722fea27933c11832f04d"
+    },
+    {
+     "file": "book/The-Incompleteness-of-Observation-FULL.md",
+     "sentence_sha256": "0b0e05e696577c8c383a95d2e4e09569029e281ec7999ebc6b5e46226bd37976",
+     "context_sha256": "bba1a3b016445e863f07d86bb7371cda38b23aeeae6722fea27933c11832f04d"
+    }
+   ],
+   "recorded_at": "53c6601a10419b6b333cc992474272501ab542af",
+   "positive_examples": [
+    "(A1) $\\mathrm{SU}(3)^3$ anomaly: $\\sum_{\\text{triplets}} 1 - \\sum_{\\text{anti-triplets}} 1 = 0$ (A2) $\\mathrm{SU}(2)^3$ anomaly: automatically zero (SU(2) is anomaly-free) (A3) $\\mathrm{SU}(3)^2 \\mathrm{U}(1)$ anomaly: $\\sum_{\\text{triplets}} Y - \\sum_{\\text{anti-triplets}} Y = 0$ (A4) $\\mathrm{SU}(2)^2 \\mathrm{U}(1)$ anomaly: $\\sum_{\\text{doublets}} Y = 0$ (A5) $\\mathrm{U}(1)^3$ anomaly: $\\sum Y^3 = 0$ (A6) Gravitational-$\\mathrm{U}(1)$ anomaly: $\\sum Y = 0$",
+    "(A1) $\\mathrm{SU}(3)^3$ anomaly: $\\sum_{\\text{triplets}} 1 - \\sum_{\\text{anti-triplets}} 1 = 0$"
+   ],
+   "negative_examples": [
+    "(A1) $\\mathrm{SU}(3)^3$ anomaly of the finite substratum",
+    "**Structural predictions** are properties of the equivalence class [(S, φ)]/$\\mathcal{G}_{\\text{sub}}$ — they hold for every bijection satisfying the six structural properties."
+   ],
+   "reason": "The anomaly condition labelled (A1) in the anomaly-cancellation list; an unrelated label, not the retired posit.",
+   "author": "a1-staging-writer-20261127"
+  },
+  {
+   "id": "W2-b",
+   "kind": "allow",
+   "profiles": [
+    "ptr",
+    "repo"
+   ],
+   "scope": {
+    "files": [
+     "book/appendix-b-derivations.md",
+     "book/The-Incompleteness-of-Observation-FULL.md"
+    ]
+   },
+   "matcher": {
+    "literal": "(A1) is automatically satisfied",
+    "context": [
+     "\\mathrm{SU}(3)"
+    ],
+    "negative": [
+     "Finiteness",
+     "finit",
+     "posit",
+     "substratum",
+     "configuration space"
+    ]
+   },
+   "context_required": false,
+   "max_instances": 2,
+   "fingerprints": [
+    {
+     "file": "book/appendix-b-derivations.md",
+     "sentence_sha256": "32ebfb906b7213f85fb4407f71977e8b2bcace175ae0fb926726cf42096f024a",
+     "context_sha256": "7ee521657fdd230c8443be7bef909ecb23d3610746c067ef9cec7b03601878f1"
+    },
+    {
+     "file": "book/The-Incompleteness-of-Observation-FULL.md",
+     "sentence_sha256": "32ebfb906b7213f85fb4407f71977e8b2bcace175ae0fb926726cf42096f024a",
+     "context_sha256": "7ee521657fdd230c8443be7bef909ecb23d3610746c067ef9cec7b03601878f1"
+    }
+   ],
+   "recorded_at": "53c6601a10419b6b333cc992474272501ab542af",
+   "positive_examples": [
+    "(A1) is automatically satisfied: $\\mathrm{SU}(3)$ is vector-like with $Q$ (triplet) balanced by $u_R^c$ and $d_R^c$ (anti-triplets, with the same count).",
+    "(A1) is automatically satisfied: $\\mathrm{SU}(3)$ is vector-like"
+   ],
+   "negative_examples": [
+    "(A1) is automatically satisfied: $\\mathrm{SU}(3)$ on a finite configuration space",
+    "**Structural predictions** are properties of the equivalence class [(S, φ)]/$\\mathcal{G}_{\\text{sub}}$ — they hold for every bijection satisfying the six structural properties."
+   ],
+   "reason": "The anomaly condition (A1) of the same list; an unrelated label, not the retired posit.",
+   "author": "a1-staging-writer-20261127"
+  }
+ ]
+}

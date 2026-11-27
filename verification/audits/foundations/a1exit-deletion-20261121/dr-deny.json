@@ -1,0 +1,182 @@
+{
+ "schema": "oi-term-rules/2",
+ "record_id": "a1-plan-deny-dr",
+ "status": "WIP / UNVERIFIED staging draft, not frozen, not reviewed, not adopted (checklist #1169 comment 7207860923). No review record, owner adoption or freeze exists for it, and the tool admits no record without them.",
+ "supersedes": null,
+ "recorded_at": "53c6601a10419b6b333cc992474272501ab542af",
+ "author": "a1-staging-writer-20261127",
+ "rules": [
+  {
+   "id": "DR-1",
+   "kind": "deny",
+   "patterns": {
+    "a": "(?i)\\b(?:six|seven|sixth|seventh)\\b[^.;]{0,40}\\b(?:structural|substratum(?:'s|’s)?)\\s+(?:assumptions?|axioms?|posits?|premises?|conditions?)",
+    "b": "(?i)\\b(?:six|seven|sixth|seventh)\\b[^.;]{0,40}\\bstructural\\s+propert(?:y|ies)\\s+of\\s+the\\s+substratum\\b",
+    "c": "(?i)(?:\\(\\s*A1\\s*\\)|\\bA1\\b)(?:\\s*(?:-{1,3}|–|—|\\bthrough\\b|\\bto\\b|\\$?\\\\(?:text)?(?:endash|emdash)\\$?)\\s*|\\s*,\\s*(?:\\.{3}|…|\\$?\\\\l?dots\\$?|\\$?\\\\cdots\\$?)\\s*,?\\s*)(?:\\(\\s*A6\\s*\\)|\\bA6\\b)"
+   },
+   "combine": "any",
+   "levels": [
+    "line",
+    "sentence"
+   ],
+   "scope": "all-corpus",
+   "positive_examples": [
+    "The six structural properties of the substratum are listed in Chapter 2.",
+    "Six structural assumptions define the substratum.",
+    "the six structural conditions on the substratum",
+    "six structural premises of the framework",
+    "the six substratum posits",
+    "the structural assumptions A1 through A6",
+    "A1--A6",
+    "A1—A6",
+    "(A1)–(A6)",
+    "A1, ..., A6"
+   ],
+   "negative_examples": [
+    "**Structural predictions** are properties of the equivalence class [(S, φ)]/$\\mathcal{G}_{\\text{sub}}$ — they hold for every bijection satisfying the six structural properties.",
+    "Tier 2 results follow from the framework's structural commitments to the substratum's properties — the six structural properties developed in Chapter 5 (isotropy, sublattice structure, link content, anomaly cancellation, taste content, generation count) — combined with the universality-class conditions C1–C4.",
+    "On a finite periodic quotient of $\\mathbb{Z}^3$, a qualified case of A4 (Chapter 2), the notion of \"causally disconnected regions\" is modified — the lattice's coupling graph determines causal structure, and if the initial state of $\\varphi$ is statistically isotropic (one of the framework's six structural properties of the bijection), isotropy is built in rather than requiring inflation to produce it.",
+    "The framework's six structural properties of the bijection (developed across Chapters 5-7) further narrow it.",
+    "(A1) $\\mathrm{SU}(3)^3$ anomaly: $\\sum_{\\text{triplets}} 1 - \\sum_{\\text{anti-triplets}} 1 = 0$ (A2) $\\mathrm{SU}(2)^3$ anomaly: automatically zero (SU(2) is anomaly-free) (A3) $\\mathrm{SU}(3)^2 \\mathrm{U}(1)$ anomaly: $\\sum_{\\text{triplets}} Y - \\sum_{\\text{anti-triplets}} Y = 0$ (A4) $\\mathrm{SU}(2)^2 \\mathrm{U}(1)$ anomaly: $\\sum_{\\text{doublets}} Y = 0$ (A5) $\\mathrm{U}(1)^3$ anomaly: $\\sum Y^3 = 0$ (A6) Gravitational-$\\mathrm{U}(1)$ anomaly: $\\sum Y = 0$",
+    "(A1) is automatically satisfied: $\\mathrm{SU}(3)$ is vector-like with $Q$ (triplet) balanced by $u_R^c$ and $d_R^c$ (anti-triplets, with the same count).",
+    "Thirteen items, of unequal weight, and not thirteen independent physical assumptions: (viii) is foundational and (ix)–(xi) and (xiii) are stated relative to it; (x) implies the bound of (ix) for $G_\\varphi^{\\rm ref}$, and with (vii) for $G_\\varphi$; the second clause of (xi) depends on the identification of (viii) as well as on the rule; (xii) restricts no rule; and (xiv) enters only the Bell analysis of §3.3."
+   ],
+   "countercontrol": [
+    {
+     "commit": "53c6601a10419b6b333cc992474272501ab542af",
+     "path": "book/The-Incompleteness-of-Observation-FULL.md",
+     "line": 6504,
+     "alternative": "a"
+    },
+    {
+     "commit": "53c6601a10419b6b333cc992474272501ab542af",
+     "path": "book/glossary.md",
+     "line": 13,
+     "alternative": "a"
+    },
+    {
+     "commit": "53c6601a10419b6b333cc992474272501ab542af",
+     "path": "book/ch09-universality.md",
+     "line": 104,
+     "alternative": "b"
+    },
+    {
+     "commit": "53c6601a10419b6b333cc992474272501ab542af",
+     "path": "book/The-Incompleteness-of-Observation-FULL.md",
+     "line": 718,
+     "alternative": "c"
+    }
+   ],
+   "reason": "A count or ordinal of the structural posits, or the A1-A6 label range (R6.DENY.5, OBL-3). The ordinal alternatives a and b encode the corpus terminology decision the plan amendment states (OBL-4); alternative c is the label range.",
+   "author": "a1-staging-writer-20261127"
+  },
+  {
+   "id": "DR-3",
+   "kind": "deny",
+   "patterns": {
+    "count": "(?i)structural\\s+propert|structural\\s+assumption|structural\\s+axiom|structural\\s+posit|\\bposits?\\b|\\bpremises?\\b|\\baxioms?\\b",
+    "tail": "(?i)(?:one of which|one of its|one of the|among|includ\\w*|the first being|first of which|namely)[^.;]{0,60}?(?:total[- ]finiteness|finite in total|totally finite|finiteness of (?:\\$?\\\\?(?:mathcal\\{)?S\\}?\\$?|the (?:configuration|state) space)|finiteness\\b)"
+   },
+   "combine": "all",
+   "levels": [
+    "sentence"
+   ],
+   "scope": "all-corpus",
+   "positive_examples": [
+    "the six structural properties of the substratum, including finiteness",
+    "the six structural properties of the bijection, the first being finiteness of S"
+   ],
+   "negative_examples": [
+    "**Structural predictions** are properties of the equivalence class [(S, φ)]/$\\mathcal{G}_{\\text{sub}}$ — they hold for every bijection satisfying the six structural properties.",
+    "Tier 2 results follow from the framework's structural commitments to the substratum's properties — the six structural properties developed in Chapter 5 (isotropy, sublattice structure, link content, anomaly cancellation, taste content, generation count) — combined with the universality-class conditions C1–C4.",
+    "On a finite periodic quotient of $\\mathbb{Z}^3$, a qualified case of A4 (Chapter 2), the notion of \"causally disconnected regions\" is modified — the lattice's coupling graph determines causal structure, and if the initial state of $\\varphi$ is statistically isotropic (one of the framework's six structural properties of the bijection), isotropy is built in rather than requiring inflation to produce it.",
+    "The framework's six structural properties of the bijection (developed across Chapters 5-7) further narrow it.",
+    "(A1) $\\mathrm{SU}(3)^3$ anomaly: $\\sum_{\\text{triplets}} 1 - \\sum_{\\text{anti-triplets}} 1 = 0$ (A2) $\\mathrm{SU}(2)^3$ anomaly: automatically zero (SU(2) is anomaly-free) (A3) $\\mathrm{SU}(3)^2 \\mathrm{U}(1)$ anomaly: $\\sum_{\\text{triplets}} Y - \\sum_{\\text{anti-triplets}} Y = 0$ (A4) $\\mathrm{SU}(2)^2 \\mathrm{U}(1)$ anomaly: $\\sum_{\\text{doublets}} Y = 0$ (A5) $\\mathrm{U}(1)^3$ anomaly: $\\sum Y^3 = 0$ (A6) Gravitational-$\\mathrm{U}(1)$ anomaly: $\\sum Y = 0$",
+    "(A1) is automatically satisfied: $\\mathrm{SU}(3)$ is vector-like with $Q$ (triplet) balanced by $u_R^c$ and $d_R^c$ (anti-triplets, with the same count).",
+    "Thirteen items, of unequal weight, and not thirteen independent physical assumptions: (viii) is foundational and (ix)–(xi) and (xiii) are stated relative to it; (x) implies the bound of (ix) for $G_\\varphi^{\\rm ref}$, and with (vii) for $G_\\varphi$; the second clause of (xi) depends on the identification of (viii) as well as on the rule; (xii) restricts no rule; and (xiv) enters only the Bell analysis of §3.3."
+   ],
+   "countercontrol": [
+    {
+     "control_input": "agents-md-at-H",
+     "sentence_line": 37
+    }
+   ],
+   "reason": "A sentence with a posit noun and a tail naming finiteness among them (R6.DENY.5, OBL-3). Its real witness lies outside the corpus and is read by a control-only scan (R6.A1CFG.2, controls).",
+   "author": "a1-staging-writer-20261127"
+  },
+  {
+   "id": "DR-4",
+   "kind": "deny",
+   "patterns": {
+    "a": "(?i)(?:\\(\\s*A1\\s*\\)|\\bposit\\s+A1\\b|\\bA1\\b\\s*(?:\\(|:))[^.;]{0,60}(?:\\.[^.;]{0,80})?\\b(?:finit\\w*|configuration\\s+space|substratum)"
+   },
+   "combine": "any",
+   "levels": [
+    "line",
+    "sentence"
+   ],
+   "scope": "all-corpus",
+   "positive_examples": [
+    "(A1) the substratum is finite in total",
+    "**(A1) Finiteness.** The configuration space is finite.",
+    "posit A1 (finiteness) holds",
+    "A1 (Finiteness): the configuration space is finite",
+    "(A1) Finiteness. The configuration space S is finite."
+   ],
+   "negative_examples": [
+    "**Structural predictions** are properties of the equivalence class [(S, φ)]/$\\mathcal{G}_{\\text{sub}}$ — they hold for every bijection satisfying the six structural properties.",
+    "Tier 2 results follow from the framework's structural commitments to the substratum's properties — the six structural properties developed in Chapter 5 (isotropy, sublattice structure, link content, anomaly cancellation, taste content, generation count) — combined with the universality-class conditions C1–C4.",
+    "On a finite periodic quotient of $\\mathbb{Z}^3$, a qualified case of A4 (Chapter 2), the notion of \"causally disconnected regions\" is modified — the lattice's coupling graph determines causal structure, and if the initial state of $\\varphi$ is statistically isotropic (one of the framework's six structural properties of the bijection), isotropy is built in rather than requiring inflation to produce it.",
+    "The framework's six structural properties of the bijection (developed across Chapters 5-7) further narrow it.",
+    "(A1) $\\mathrm{SU}(3)^3$ anomaly: $\\sum_{\\text{triplets}} 1 - \\sum_{\\text{anti-triplets}} 1 = 0$ (A2) $\\mathrm{SU}(2)^3$ anomaly: automatically zero (SU(2) is anomaly-free) (A3) $\\mathrm{SU}(3)^2 \\mathrm{U}(1)$ anomaly: $\\sum_{\\text{triplets}} Y - \\sum_{\\text{anti-triplets}} Y = 0$ (A4) $\\mathrm{SU}(2)^2 \\mathrm{U}(1)$ anomaly: $\\sum_{\\text{doublets}} Y = 0$ (A5) $\\mathrm{U}(1)^3$ anomaly: $\\sum Y^3 = 0$ (A6) Gravitational-$\\mathrm{U}(1)$ anomaly: $\\sum Y = 0$",
+    "(A1) is automatically satisfied: $\\mathrm{SU}(3)$ is vector-like with $Q$ (triplet) balanced by $u_R^c$ and $d_R^c$ (anti-triplets, with the same count).",
+    "Thirteen items, of unequal weight, and not thirteen independent physical assumptions: (viii) is foundational and (ix)–(xi) and (xiii) are stated relative to it; (x) implies the bound of (ix) for $G_\\varphi^{\\rm ref}$, and with (vii) for $G_\\varphi$; the second clause of (xi) depends on the identification of (viii) as well as on the rule; (xii) restricts no rule; and (xiv) enters only the Bell analysis of §3.3."
+   ],
+   "countercontrol": [
+    {
+     "commit": "53c6601a10419b6b333cc992474272501ab542af",
+     "path": "papers/Substratum.md",
+     "line": 92,
+     "alternative": "a"
+    }
+   ],
+   "reason": "The retired posit entry, a label A1 followed within the sentence or the next by finiteness, the configuration space or the substratum (R6.DENY.5, OBL-3).",
+   "author": "a1-staging-writer-20261127"
+  },
+  {
+   "id": "DR-5",
+   "kind": "deny",
+   "patterns": {
+    "a": "(?i)\\b(?:fourteen|14)\\b[^.;]{0,40}\\b(?:items|posits|entries|premises|assumptions)\\b"
+   },
+   "combine": "any",
+   "levels": [
+    "line",
+    "sentence"
+   ],
+   "scope": "all-corpus",
+   "positive_examples": [
+    "The posit ledger has 14 items."
+   ],
+   "negative_examples": [
+    "**Structural predictions** are properties of the equivalence class [(S, φ)]/$\\mathcal{G}_{\\text{sub}}$ — they hold for every bijection satisfying the six structural properties.",
+    "Tier 2 results follow from the framework's structural commitments to the substratum's properties — the six structural properties developed in Chapter 5 (isotropy, sublattice structure, link content, anomaly cancellation, taste content, generation count) — combined with the universality-class conditions C1–C4.",
+    "On a finite periodic quotient of $\\mathbb{Z}^3$, a qualified case of A4 (Chapter 2), the notion of \"causally disconnected regions\" is modified — the lattice's coupling graph determines causal structure, and if the initial state of $\\varphi$ is statistically isotropic (one of the framework's six structural properties of the bijection), isotropy is built in rather than requiring inflation to produce it.",
+    "The framework's six structural properties of the bijection (developed across Chapters 5-7) further narrow it.",
+    "(A1) $\\mathrm{SU}(3)^3$ anomaly: $\\sum_{\\text{triplets}} 1 - \\sum_{\\text{anti-triplets}} 1 = 0$ (A2) $\\mathrm{SU}(2)^3$ anomaly: automatically zero (SU(2) is anomaly-free) (A3) $\\mathrm{SU}(3)^2 \\mathrm{U}(1)$ anomaly: $\\sum_{\\text{triplets}} Y - \\sum_{\\text{anti-triplets}} Y = 0$ (A4) $\\mathrm{SU}(2)^2 \\mathrm{U}(1)$ anomaly: $\\sum_{\\text{doublets}} Y = 0$ (A5) $\\mathrm{U}(1)^3$ anomaly: $\\sum Y^3 = 0$ (A6) Gravitational-$\\mathrm{U}(1)$ anomaly: $\\sum Y = 0$",
+    "(A1) is automatically satisfied: $\\mathrm{SU}(3)$ is vector-like with $Q$ (triplet) balanced by $u_R^c$ and $d_R^c$ (anti-triplets, with the same count).",
+    "Thirteen items, of unequal weight, and not thirteen independent physical assumptions: (viii) is foundational and (ix)–(xi) and (xiii) are stated relative to it; (x) implies the bound of (ix) for $G_\\varphi^{\\rm ref}$, and with (vii) for $G_\\varphi$; the second clause of (xi) depends on the identification of (viii) as well as on the rule; (xii) restricts no rule; and (xiv) enters only the Bell analysis of §3.3."
+   ],
+   "countercontrol": [
+    {
+     "commit": "53c6601a10419b6b333cc992474272501ab542af",
+     "path": "papers/Main.md",
+     "line": 736,
+     "alternative": "a"
+    }
+   ],
+   "reason": "The posit-ledger count fourteen (R6.DENY.5, OBL-3).",
+   "author": "a1-staging-writer-20261127"
+  }
+ ]
+}

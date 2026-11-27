@@ -1,0 +1,483 @@
+{
+ "H": "53c6601a10419b6b333cc992474272501ab542af",
+ "checks": {
+  "agents_md_at_H_pin": true,
+  "custody_v3_ids": [
+   "W1-b",
+   "W1-c",
+   "W1-d",
+   "W2-a",
+   "W2-b"
+  ],
+  "deny_pattern_pin:DR-1": true,
+  "deny_pattern_pin:DR-3": true,
+  "deny_pattern_pin:DR-4": true,
+  "deny_pattern_pin:DR-5": true,
+  "deny_patterns_equal_v1": true,
+  "ledger_base_is_H": true,
+  "lint:DR-1": [],
+  "lint:DR-3": [],
+  "lint:DR-4": [],
+  "lint:DR-5": [],
+  "lint:W1-b": [],
+  "lint:W1-c": [],
+  "lint:W1-d": [],
+  "lint:W2-a": [],
+  "lint:W2-b": [],
+  "lint:resid": [],
+  "meaning_equal_to_superseded_draft": {
+   "W1-b": true,
+   "W1-c": true,
+   "W1-d": true,
+   "W2-a": true,
+   "W2-b": true
+  },
+  "profile_pin:count-grep": true,
+  "profile_pin:ledger-ext": true,
+  "profile_pin:p0-core": true,
+  "profile_pin:p0-para": true,
+  "profile_pin:ptr": true,
+  "profile_pin:repo": true,
+  "resid_pattern_pin": true,
+  "resid_patterns_equal_v1": true,
+  "w1a_at_H_stays_unclassified": true,
+  "w1a_hits_at_H": [
+   "count-grep"
+  ],
+  "w1a_no_matcher_holds_out_of_scope": true,
+  "w1a_sentence_unique_at_H": true
+ },
+ "fingerprints": {
+  "W1-b book/The-Incompleteness-of-Observation-FULL.md": {
+   "context_at_H_equals_X_rep": true,
+   "context_equals_superseded_draft": true,
+   "line_at_H": 2552,
+   "line_at_X_rep": 2554
+  },
+  "W1-b book/ch09-universality.md": {
+   "context_at_H_equals_X_rep": true,
+   "context_equals_superseded_draft": true,
+   "line_at_H": 137,
+   "line_at_X_rep": 137
+  },
+  "W1-c book/The-Incompleteness-of-Observation-FULL.md": {
+   "context_at_H_equals_X_rep": true,
+   "context_equals_superseded_draft": true,
+   "line_at_H": 5268,
+   "line_at_X_rep": 5270
+  },
+  "W1-c book/ch19-open-problems.md": {
+   "context_at_H_equals_X_rep": true,
+   "context_equals_superseded_draft": true,
+   "line_at_H": 198,
+   "line_at_X_rep": 198
+  },
+  "W1-d book/The-Incompleteness-of-Observation-FULL.md": {
+   "context_at_H_equals_X_rep": false,
+   "context_equals_superseded_draft": false,
+   "line_at_H": 5282,
+   "line_at_X_rep": 5284
+  },
+  "W1-d book/ch19-open-problems.md": {
+   "context_at_H_equals_X_rep": false,
+   "context_equals_superseded_draft": false,
+   "line_at_H": 212,
+   "line_at_X_rep": 212
+  },
+  "W2-a book/The-Incompleteness-of-Observation-FULL.md": {
+   "context_at_H_equals_X_rep": true,
+   "context_equals_superseded_draft": true,
+   "line_at_H": 5912,
+   "line_at_X_rep": 5914
+  },
+  "W2-a book/appendix-b-derivations.md": {
+   "context_at_H_equals_X_rep": true,
+   "context_equals_superseded_draft": true,
+   "line_at_H": 235,
+   "line_at_X_rep": 235
+  },
+  "W2-b book/The-Incompleteness-of-Observation-FULL.md": {
+   "context_at_H_equals_X_rep": true,
+   "context_equals_superseded_draft": true,
+   "line_at_H": 5923,
+   "line_at_X_rep": 5925
+  },
+  "W2-b book/appendix-b-derivations.md": {
+   "context_at_H_equals_X_rep": true,
+   "context_equals_superseded_draft": true,
+   "line_at_H": 246,
+   "line_at_X_rep": 246
+  }
+ },
+ "outputs": {
+  "a1-staging-allow-root.json": "2122b111c3f20b60387bb67307cf08ba957516159e7d8b075b94f7a859ae06e4",
+  "dr-deny.json": "d8d98ba05c2d29109216c4069c0e5440d435b68454dd0ba7cbbece7aa643cb60",
+  "resid.json": "257f6fb2cc2dacca35e2e8344e0e676597cae83dc59ae6b170bc463a1dea4338"
+ },
+ "sweep": {
+  "H": [
+   [
+    "W1-b",
+    "book/The-Incompleteness-of-Observation-FULL.md",
+    2552,
+    "count-grep",
+    "six structural",
+    "pass",
+    null
+   ],
+   [
+    "W1-c",
+    "book/The-Incompleteness-of-Observation-FULL.md",
+    5268,
+    "count-grep",
+    "six structural",
+    "pass",
+    null
+   ],
+   [
+    null,
+    "book/The-Incompleteness-of-Observation-FULL.md",
+    5268,
+    "ledger-ext",
+    "periodic quotient",
+    "review",
+    "unclassified"
+   ],
+   [
+    "W1-d",
+    "book/The-Incompleteness-of-Observation-FULL.md",
+    5282,
+    "count-grep",
+    "six structural",
+    "pass",
+    null
+   ],
+   [
+    "W2-a",
+    "book/The-Incompleteness-of-Observation-FULL.md",
+    5912,
+    "p0-core",
+    "A1",
+    "pass",
+    null
+   ],
+   [
+    "W2-a",
+    "book/The-Incompleteness-of-Observation-FULL.md",
+    5912,
+    "ptr",
+    "A1",
+    "pass",
+    null
+   ],
+   [
+    "W2-a",
+    "book/The-Incompleteness-of-Observation-FULL.md",
+    5912,
+    "repo",
+    "A1",
+    "pass",
+    null
+   ],
+   [
+    "W2-b",
+    "book/The-Incompleteness-of-Observation-FULL.md",
+    5923,
+    "p0-core",
+    "A1",
+    "pass",
+    null
+   ],
+   [
+    "W2-b",
+    "book/The-Incompleteness-of-Observation-FULL.md",
+    5923,
+    "ptr",
+    "A1",
+    "pass",
+    null
+   ],
+   [
+    "W2-b",
+    "book/The-Incompleteness-of-Observation-FULL.md",
+    5923,
+    "repo",
+    "A1",
+    "pass",
+    null
+   ],
+   [
+    "W2-a",
+    "book/appendix-b-derivations.md",
+    235,
+    "p0-core",
+    "A1",
+    "pass",
+    null
+   ],
+   [
+    "W2-a",
+    "book/appendix-b-derivations.md",
+    235,
+    "ptr",
+    "A1",
+    "pass",
+    null
+   ],
+   [
+    "W2-a",
+    "book/appendix-b-derivations.md",
+    235,
+    "repo",
+    "A1",
+    "pass",
+    null
+   ],
+   [
+    "W2-b",
+    "book/appendix-b-derivations.md",
+    246,
+    "p0-core",
+    "A1",
+    "pass",
+    null
+   ],
+   [
+    "W2-b",
+    "book/appendix-b-derivations.md",
+    246,
+    "ptr",
+    "A1",
+    "pass",
+    null
+   ],
+   [
+    "W2-b",
+    "book/appendix-b-derivations.md",
+    246,
+    "repo",
+    "A1",
+    "pass",
+    null
+   ],
+   [
+    "W1-b",
+    "book/ch09-universality.md",
+    137,
+    "count-grep",
+    "six structural",
+    "pass",
+    null
+   ],
+   [
+    "W1-c",
+    "book/ch19-open-problems.md",
+    198,
+    "count-grep",
+    "six structural",
+    "pass",
+    null
+   ],
+   [
+    null,
+    "book/ch19-open-problems.md",
+    198,
+    "ledger-ext",
+    "periodic quotient",
+    "review",
+    "unclassified"
+   ],
+   [
+    "W1-d",
+    "book/ch19-open-problems.md",
+    212,
+    "count-grep",
+    "six structural",
+    "pass",
+    null
+   ]
+  ],
+  "X_rep": [
+   [
+    "W1-b",
+    "book/The-Incompleteness-of-Observation-FULL.md",
+    2554,
+    "count-grep",
+    "six structural",
+    "pass",
+    null
+   ],
+   [
+    "W1-c",
+    "book/The-Incompleteness-of-Observation-FULL.md",
+    5270,
+    "count-grep",
+    "six structural",
+    "pass",
+    null
+   ],
+   [
+    null,
+    "book/The-Incompleteness-of-Observation-FULL.md",
+    5270,
+    "ledger-ext",
+    "periodic quotient",
+    "review",
+    "unclassified"
+   ],
+   [
+    "W1-d",
+    "book/The-Incompleteness-of-Observation-FULL.md",
+    5284,
+    "count-grep",
+    "six structural",
+    "pass",
+    null
+   ],
+   [
+    "W2-a",
+    "book/The-Incompleteness-of-Observation-FULL.md",
+    5914,
+    "p0-core",
+    "A1",
+    "pass",
+    null
+   ],
+   [
+    "W2-a",
+    "book/The-Incompleteness-of-Observation-FULL.md",
+    5914,
+    "ptr",
+    "A1",
+    "pass",
+    null
+   ],
+   [
+    "W2-a",
+    "book/The-Incompleteness-of-Observation-FULL.md",
+    5914,
+    "repo",
+    "A1",
+    "pass",
+    null
+   ],
+   [
+    "W2-b",
+    "book/The-Incompleteness-of-Observation-FULL.md",
+    5925,
+    "p0-core",
+    "A1",
+    "pass",
+    null
+   ],
+   [
+    "W2-b",
+    "book/The-Incompleteness-of-Observation-FULL.md",
+    5925,
+    "ptr",
+    "A1",
+    "pass",
+    null
+   ],
+   [
+    "W2-b",
+    "book/The-Incompleteness-of-Observation-FULL.md",
+    5925,
+    "repo",
+    "A1",
+    "pass",
+    null
+   ],
+   [
+    "W2-a",
+    "book/appendix-b-derivations.md",
+    235,
+    "p0-core",
+    "A1",
+    "pass",
+    null
+   ],
+   [
+    "W2-a",
+    "book/appendix-b-derivations.md",
+    235,
+    "ptr",
+    "A1",
+    "pass",
+    null
+   ],
+   [
+    "W2-a",
+    "book/appendix-b-derivations.md",
+    235,
+    "repo",
+    "A1",
+    "pass",
+    null
+   ],
+   [
+    "W2-b",
+    "book/appendix-b-derivations.md",
+    246,
+    "p0-core",
+    "A1",
+    "pass",
+    null
+   ],
+   [
+    "W2-b",
+    "book/appendix-b-derivations.md",
+    246,
+    "ptr",
+    "A1",
+    "pass",
+    null
+   ],
+   [
+    "W2-b",
+    "book/appendix-b-derivations.md",
+    246,
+    "repo",
+    "A1",
+    "pass",
+    null
+   ],
+   [
+    "W1-b",
+    "book/ch09-universality.md",
+    137,
+    "count-grep",
+    "six structural",
+    "pass",
+    null
+   ],
+   [
+    "W1-c",
+    "book/ch19-open-problems.md",
+    198,
+    "count-grep",
+    "six structural",
+    "pass",
+    null
+   ],
+   [
+    null,
+    "book/ch19-open-problems.md",
+    198,
+    "ledger-ext",
+    "periodic quotient",
+    "review",
+    "unclassified"
+   ],
+   [
+    "W1-d",
+    "book/ch19-open-problems.md",
+    212,
+    "count-grep",
+    "six structural",
+    "pass",
+    null
+   ]
+  ]
+ }
+}
