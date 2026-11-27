@@ -9550,7 +9550,17 @@
    "amendment 4 (category-3 keying and the predicted-M record base): drafted under the owner's direction of 2026-11-26T07:31:59Z (#1169 comment 7185562871); needs independent review and the owner's acceptance before any tool revision implements it",
    "amendment 6 (category-3 schema resolutions and the reconciliation schema contract): a proposal under the owner's directions of 2026-11-26 (#1169 comments 7187418279, item 4; 7188752730, item 2; 7189470338, items 1, 3 and 4); needs independent review and the owner's decision at adoption"
   ],
-  "owner_decision": []
+  "owner_decision": [
+   {
+    "record": "owner decision of 2026-11-27 (amaybaum, coordinating session; #1169 comment 7208869709): amendment 7 adopted at fbfeac8ae3a7914255e07d9a0351eff4bd1d1474, with every-configuration binding",
+    "decision": "amendment 7, gaps (i) and (ii)",
+    "effect": "side_change_commits limit the runs a finding blocks only when every element passes the scope test, otherwise the finding blocks every run in which it is found; an element whose id is no edit of the named configuration, or an unresolvable configuration, also binds at run level",
+    "decision_basis": [
+     "AMENDMENT-7.md, sec. 2",
+     "AMENDMENT-7.md, sec. 3"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.RECON.27",
@@ -9574,7 +9584,16 @@
    "amendment 4 (category-3 keying and the predicted-M record base): drafted under the owner's direction of 2026-11-26T07:31:59Z (#1169 comment 7185562871); needs independent review and the owner's acceptance before any tool revision implements it",
    "amendment 6 (category-3 schema resolutions and the reconciliation schema contract): a proposal under the owner's directions of 2026-11-26 (#1169 comments 7187418279, item 4; 7188752730, item 2; 7189470338, items 1, 3 and 4); needs independent review and the owner's decision at adoption"
   ],
-  "owner_decision": []
+  "owner_decision": [
+   {
+    "record": "owner decision of 2026-11-27 (amaybaum, coordinating session; #1169 comment 7208869709): amendment 7 adopted at fbfeac8ae3a7914255e07d9a0351eff4bd1d1474, with every-configuration binding",
+    "decision": "amendment 7, gap (ii)",
+    "effect": "edit is null only when the finding binds the citing configuration at run level; a null-edit reassessment lifts that binding only",
+    "decision_basis": [
+     "AMENDMENT-7.md, sec. 3"
+    ]
+   }
+  ]
  },
  {
   "id": "R6.RECON.28",

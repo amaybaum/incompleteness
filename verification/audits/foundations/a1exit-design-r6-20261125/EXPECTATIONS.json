@@ -26218,6 +26218,132 @@
         ]
        }
       ]
+     },
+     {
+      "case": "amendment 7, sec. 2, case 1: a first-kind finding with a well-formed invalidated element and a resolvable configuration of the run's lineage, whose entry has side_change_commits: []",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "amendment 7, sec. 2, case 2: the same, the record deleted by a later commit on M (historical only)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked"
+      ]
+     },
+     {
+      "case": "amendment 7, sec. 2, case 3: the same, the list holding one well-formed commit id that the object store does not hold",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "amendment 7, sec. 2, case 4: the same, the list holding one commit the store holds that does not change the entry's path",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "amendment 7, sec. 2, case 5: the same, the list holding one commit that changes the path but is not in the run's M, plus one element \"junk\"",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "amendment 7, sec. 2, case 6: a second-kind finding (independent reviewer, invalidates on <path>:scientific_effect) on an entry whose side_change_commits is []",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "amendment 7, sec. 2, case 7: a class (b) malformed file with an invalidation signal (for example the BOM-prefixed copy of a finding) (run-level retirement-blocked; no ERROR)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked"
+      ]
+     },
+     {
+      "case": "amendment 7, sec. 2, case 8: the list holding, as its only element, a held commit on an unmerged branch that changes the entry's path, not an ancestor of any witness of the record (an abandoned branch)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "amendment 7, sec. 2, case 9: the list holding, as its only element, a merge commit whose tree entry for the path equals its first parent's (the path differs only from the second parent)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "amendment 7, sec. 2, case 8b: case 8's list, the record squash-landed on M (its witness in M's ancestry does not descend from the listed commit), and F on the abandoned branch, so that a witness reached through F descends from the listed commit",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "amendment 7, sec. 2, case 10: provisional, with r9 Amendment 1: a second-kind finding by a reviewer distinct from every author in R*, whose reviewed names no record in R* (run-level retirement-blocked; no ERROR)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "amendment 7, sec. 2, case C1: countercase: a well-formed finding whose record has no witness in the run's M ancestry and is found through REV, whose side_change_commits lists only commits that change the path, are ancestors of that witness, and are not contained in the run's M (the run's M predates the change) (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "not_class": [
+         "retirement-blocked"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "amendment 7, sec. 2, case C2: countercase: a no-effect entry, not a finding, with side_change_commits: [] on a mode-only change (RECON-FIELDS countercase 2, unchanged)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "base-drift"
+      ],
+      "invariants": [
+       {
+        "failed_conditions_include": "RC1"
+       },
+       {
+        "not_class": [
+         "retirement-blocked",
+         "record-invalid"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "amendment 7, sec. 2, case C3: countercase: C1 (the record found through REV only) with its only element a merge commit that brings the change in (its tree entry for the path differs from its first parent's), an ancestor of the witness, not in the run's M (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "not_class": [
+         "retirement-blocked"
+        ]
+       }
+      ]
      }
     ]
    },
@@ -26272,7 +26398,7 @@
       ]
      },
      {
-      "case": "a finding naming no configuration, or one that cannot be read: it binds every configuration whose ledger carries the edit by id, a migrated id or the target, the other retirement's id collision included",
+      "case": "a finding naming no configuration, or one that cannot be read: it binds every configuration whose ledger carries the edit by id, a migrated id or the target, the other retirement's id collision included, and every configuration at run level",
       "outcome": "FAIL",
       "classes_include": [
        "retirement-blocked",
@@ -26295,7 +26421,7 @@
       ]
      },
      {
-      "case": "countercase: the other retirement bound only by the fallback's id collision, frozen anew with the colliding id renamed under a recorded migration, its target different (positive)",
+      "case": "countercase: the other retirement bound only by the fallback's id collision, the finding naming a readable configuration with which an element differs, frozen anew with the colliding id renamed under a recorded migration, its target different (positive)",
       "outcome": "ANY",
       "invariants": [
        {
@@ -26303,6 +26429,14 @@
          "retirement-blocked"
         ]
        }
+      ]
+     },
+     {
+      "case": "amendment 7, sec. 3, case 7: an unknown-id element under a configuration that cannot be resolved, the run under a configuration of another retirement that carries neither the id nor the target (run-level retirement-blocked)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
       ]
      }
     ]
@@ -26341,7 +26475,7 @@
       ]
      },
      {
-      "case": "an element whose id is absent from the named configuration's ledger: the fallback binds every configuration carrying the id, a migrated id or the target",
+      "case": "an element whose id is absent from the named configuration's ledger: the fallback binds every configuration carrying the id, a migrated id or the target, and binds the lineage at run level",
       "outcome": "FAIL",
       "classes_include": [
        "retirement-blocked",
@@ -26373,6 +26507,69 @@
      },
      {
       "case": "countercase: a revised configuration keeping only an edit of the same path that no finding names, under another id, whose old bytes' sha256 differs from every recorded old_sha256, without a reassessment (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "not_class": [
+         "retirement-blocked"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "amendment 7, sec. 3, case 1: an element {id: \"NO-SUCH-EDIT\", sha256, target}, its target's path and old_sha256 held by no ledger, under a configuration that resolves to the run's configuration (run-level retirement-blocked naming the finding)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "amendment 7, sec. 3, case 2: the same, the record deleted by a later commit on M (run-level retirement-blocked)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked"
+      ]
+     },
+     {
+      "case": "amendment 7, sec. 3, case 3: the same, the run under a later version, on the named configuration's supersedes chain, that carries no edit of that id (run-level retirement-blocked)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked"
+      ]
+     },
+     {
+      "case": "amendment 7, sec. 3, case 4: a valid element naming edit E1 and a second element with an unknown id (category3.blocked holds an entry for E1 and a run-level entry with edit null for the finding)",
+      "outcome": "FAIL"
+     },
+     {
+      "case": "amendment 7, sec. 3, case 5: a valid element and a second element that is an object without id, or whose id is a number (run-level retirement-blocked)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "amendment 7, sec. 3, case 6: an element with an unknown id whose target matches an edit of the run's ledger by path and old_sha256 (run-level retirement-blocked; the target match does not keep it below run level)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked"
+      ]
+     },
+     {
+      "case": "amendment 7, sec. 3, case C1: countercase: case 1's finding, the run under a configuration of another retirement outside the named configuration's lineage that carries neither the id nor the target (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "not_class": [
+         "retirement-blocked"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "amendment 7, sec. 3, case C2: countercase: case 1's finding, the configuration frozen anew citing an applying reassessment that names the finding with edit null (positive)",
       "outcome": "ANY",
       "invariants": [
        {
@@ -26593,6 +26790,31 @@
      },
      {
       "case": "countercase: two reassessments, one for each finding, each naming its record and item, with repair and edit as defined (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "not_class": [
+         "retirement-blocked"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "amendment 7, sec. 3, case 8: case 4, then a new freeze that rewords E1 (the same id and target) and cites an applying reassessment naming the finding with edit null (retirement-blocked on E1)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked"
+      ]
+     },
+     {
+      "case": "amendment 7, sec. 3, case C3: countercase: case 1's finding and an applying reassessment naming it with a non-null edit (run-level retirement-blocked; an edit reassessment does not lift the run-level binding)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked"
+      ]
+     },
+     {
+      "case": "amendment 7, sec. 3, case C4: countercase: case 8's freeze also citing an applying reassessment naming the finding and E1 as now worded (positive)",
       "outcome": "ANY",
       "invariants": [
        {

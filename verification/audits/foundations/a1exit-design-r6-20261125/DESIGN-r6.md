@@ -786,6 +786,25 @@ the first freeze of a discharge-bearing configuration) and M8-10 (the staging ac
 descriptor that F's Record pins table pins) change the custody design and staging r2 as AMENDMENT-8.md states; the
 tool's checks are unchanged by them. Retained rows fail closed as before.
 
+### 0.9 Amendment 7 of 2026-11-27
+
+Owner decision at #1169 comment 7208869709 (amaybaum, 2026-11-27T03:17:51Z, recorded by the coordinating session);
+excerpt of its first item (each line prefixed by "> "; "[...]" marks text left out):
+
+> Approved:
+>
+> * Adopt r9 Amendment 1 at `e79e7ca9`, the S11-2a supplement at `6de7efa4`, and r13 Amendment 7 at `fbfeac8a`, with every-configuration binding.
+>
+> [...]
+
+Amendment 7 (AMENDMENT-7.md of this directory, adopted at fbfeac8ae3a7914255e07d9a0351eff4bd1d1474) closes two
+cases in which a recorded category-3 finding bound nothing: an entry whose `side_change_commits` cannot limit the
+runs the finding blocks (R6.RECON.26, body), and an `invalidated` element whose `id` is no edit of the named
+configuration, or a `configuration` that cannot be resolved (R6.RECON.26, Form of a finding (iv) and (v); R6.RECON.27,
+Keys). Its wording uses `R*` (R6.OBL29.3) and residual R-1 of the OBL-29 remedy r9 and its Amendment 1, adopted by
+the same decision. Its cases are added to FINDING-FORM, FINDING-KEYS, FINDING-LINEAGE and REASSESS-KEYS. No outcome
+of an existing case changes, no row is added or removed, and no requirement gains or loses a control.
+
 ***
 
 ## 1. Notation and symbols
@@ -5537,7 +5556,7 @@ sets of `F`'s tree and, for a post-freeze run, of `REV`'s tree, for findings, by
 not any path differs between `H` and `M`, chain runs without `--classify` included. A finding found there blocks every
 run whose `M` contains one of the entry's `side_change_commits`, with an item FAIL `retirement-blocked` (obligation
 `RET`): the entry's path takes the disposition `retirement-blocked` when it differs between `H` and `M`; when it does not
-(for example after a revert to `H`'s bytes), the item is a run-level item naming the path. The block holds for every configuration that carries an invalidated edit (amendment 4, sec. 0.5: pending independent review and the owner's acceptance): one in the plan lineage of
+(for example after a revert to `H`'s bytes), the item is a run-level item naming the path. The entry's `side_change_commits` limit the runs a finding blocks only when they are a non-empty array each of whose elements is a commit id (R6.RECON.29) naming a commit the object store holds, that changes the entry's path against its first parent as R6.RECON.30 defines it (a merge commit included), and that is an ancestor of, or equal to, a witness of the record carrying the entry (a commit whose tree holds that record at its path with its blob): a witness in `M`'s ancestry where the record has one, and otherwise a witness in `R*` (R6.OBL29.3) reached through `F`, `REV` or an explicit input, with the narrower guarantee of r9 R-1; for a predicted `M` (R6.TREE.15, R6.RECON.21), a witness found only on the in-memory chain from `M0` counts as in `M`'s ancestry for this test but is not durable (r9 Amendment 1, `R*_M`); a finding whose record is in `M`'s history therefore blocks every run whose `M` holds it. Where the list is absent, is not an array, is empty or holds any other element, the finding blocks every run in which it is found, as if that run's `M` contained one of the listed commits, and the list is a form failure of the finding, FAIL `record-invalid` (Form (i)). A finding that names no entry (a malformed finding of R6.RECON.35, or a review whose `reviewed` names no record in `R*`, R6.OBL29.3) likewise blocks every run in which it is found, with the run-level item of Form (iv). A finding found only through `REV`, `F` or an explicit input blocks with the narrower guarantee of r9 R-1. The block holds for every configuration that carries an invalidated edit (amendment 4, sec. 0.5: pending independent review and the owner's acceptance): one in the plan lineage of
 the finding (R6.RECON.33), whose ledger holds the edit's id or an id the edit was renamed to under a migration recorded under AGENTS.md
 sec. A.48 item 3; and any configuration, whatever its lineage or retirement (Form of a finding (v) below), whose ledger holds an edit of the same path whose old bytes hash to the recorded `old_sha256`, whatever its
 offset (so a renumbering on a new `H` is still matched), or an edit with the same id on the same path, whatever its old bytes. The sha256 of the edit-list entry and `start_H` are
@@ -5592,7 +5611,7 @@ binds, besides the lineage where one is readable, every configuration whose ledg
 its lineage or retirement; here a ledger carries an edit when it holds the edit's id, an id the edit was renamed to
 under R6.RECON.28, or an edit of the target's path whose old bytes hash to the target's `old_sha256`. (iv) *The edits a
 finding binds.* A finding binds the edits its `invalidated` elements name, by id and, where an element carries one, by
-target. Where `invalidated` is absent, empty or unreadable, or the verdict lies on an item other than
+target. A finding whose `configuration` is absent or cannot be resolved, or one of whose `invalidated` elements has an `id` that is missing, is not a string, or is not an edit id of the named configuration's edit list (R6.ADAPT.2 `edits`, a retained edit included), whatever its `target`, also binds at run level every configuration of its lineage, and every configuration when its `configuration` cannot be resolved, as an empty set does below; this binding is in addition to the edits its other elements name and to the matches of (iii) and (v). Where `invalidated` is absent, empty or unreadable, or the verdict lies on an item other than
 `<path>:scientific_effect`, it binds every edit the entry's `conclusions` name, or, if they name none, every edit of
 the entry's path. Where that set is empty (for example `conclusions: "none"` on a corpus path the ledger does not
 list), or the finding names no entry the scan finds, it binds at run level every configuration of its lineage, and
@@ -5605,12 +5624,12 @@ every configuration, whatever its lineage: an edit of the target's path whose ol
 old bytes. A fork (a configuration with `supersedes: null`, a new `config_id` and a new retirement name and Issue) that
 carries the invalidated edit's target, or its id on the same file after a repair changed the old bytes on a new `H`,
 is therefore blocked. A configuration bound only by an id collision (through the fallback of (iii), its edit of that
-id lying on another path) proceeds by a new freeze that renames the colliding id, through an AGENTS.md sec. A.48 item
+id lying on another path, and not bound at run level under (iv)) proceeds by a new freeze that renames the colliding id, through an AGENTS.md sec. A.48 item
 3 migration where records cite it; a configuration bound by a global match proceeds, as any blocked plan does, by
 removing the edit or by an applying reassessment. No later record narrows a finding's binding. The one residual is a
 rename that also rewrites the old bytes and records no migration (R6.RECON.28). (vi) The migrations the edit-id match
 follows are those of R6.RECON.28.
-Sources: amendment 3 (#1169 comments 7184569981, 7184626125, 7184808247 and 7185092393); amendment 4 (#1169 comment 7185562871); amendment 6 (#1169 comment 7187418279; PR #1593 comment 7189446310). Controls: RECON-BLOCK, BLOCK-KEY, FINDING-FORM, FINDING-LINEAGE, FINDING-KEYS.
+Sources: amendment 3 (#1169 comments 7184569981, 7184626125, 7184808247 and 7185092393); amendment 4 (#1169 comment 7185562871); amendment 6 (#1169 comment 7187418279; PR #1593 comment 7189446310); amendment 7 (#1169 comment 7208869709). Controls: RECON-BLOCK, BLOCK-KEY, FINDING-FORM, FINDING-LINEAGE, FINDING-KEYS.
 
 **R6.RECON.27** **Reassessment of an invalidated edit** (amendment 4, sec. 0.5: pending independent review and the owner's acceptance). A reassessment record (schema
 `oi-reassessment/1`) is reviewed and immutable, under the ownership chain of sec. 11, and names, each as Keys below defines: `finding`, the
@@ -5645,11 +5664,10 @@ malformed. Where `repair` is null, every other condition of this requirement sti
 re-derivation at `M`, the verdict, and a new freeze that cites the reassessment), and only the conditions on the
 repair's commits and entry are not evaluated. `edit` is `{id, sha256}`: `id`, an edit id of the citing configuration's
 edit list; `sha256`, the canonical sha256 (R6.RECON.29) of that id's edit-list entry in the citing configuration, so
-that a later rewording of the edit needs a new reassessment. `edit` is null exactly when the named finding is bound at
-run level (R6.RECON.26, Form of a finding (iv)). The finding and the repair's entry are resolved from the scans of
+that a later rewording of the edit needs a new reassessment. `edit` is null only when the named finding binds the citing configuration at run level (R6.RECON.26, Form of a finding (iv)); a reassessment with `edit` null lifts that run-level binding only, and each edit the finding also binds in that configuration is lifted only by a reassessment that names the finding and that edit. The finding and the repair's entry are resolved from the scans of
 R6.RECON.35 at the run's `M`, not by the search of R6.RECON.33. A key that is missing, of another type, or outside the
 table of R6.RECON.32 is a form failure: the reassessment does not apply, FAIL `record-invalid`, and the block stands.
-Sources: amendment 4 (#1169 comment 7185562871). Controls: BLOCK-KEY, REASSESS-FORM, REASSESS-KEYS.
+Sources: amendment 4 (#1169 comment 7185562871); amendment 7 (#1169 comment 7208869709). Controls: BLOCK-KEY, REASSESS-FORM, REASSESS-KEYS.
 
 **R6.RECON.28** **Edit-id migration record** (amendment 6, sec. 0.7: proposal, pending independent review and the owner's decision). A rename of a ledger edit id under AGENTS.md
 sec. A.48 item 3 is recorded for the tool in a reviewed, immutable record of schema `oi-edit-id-migration/1`, under the
