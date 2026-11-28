@@ -15,7 +15,7 @@ import sys
 
 
 def _posix_path(path, cwd, filesystem=None):
-    """Resolve a startup path with the already loaded POSIX primitives."""
+    """Resolve a startup path using the loaded filesystem primitives."""
     if not path.startswith('/'):
         path = cwd + '/' + path
     pending = path.split('/')[::-1]

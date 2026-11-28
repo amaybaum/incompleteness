@@ -973,8 +973,10 @@ def r_controls():
     L12 = w.repo.derive(L, {doc_path: w.repo.read(H, doc_path)}, parents=[M, X])
     _restore_with(clean_l, 'execution')
     out['TT12'] = bool(classes(run(M, L12, side=[wfc]).items))
-    M13 = w.child(H, files={'tools/t.py': b'x = 1\n'}, subject='tool landing')
-    tool = dict(pin('tool', M13, 'tools/t.py'), prefixes=['tools/'])
+    tool_path = 'tools/t.py'
+    M13 = w.child(H, files={tool_path: b'x = 1\n'}, subject='tool landing')
+    tool_prefix = tool_path.rsplit('/', 1)[0] + '/'
+    tool = dict(pin('tool', M13, tool_path), prefixes=[tool_prefix])
     L13 = exmod.compose_landing(w.repo, H, M13, X, led, w.repo)
     e13 = run(M13, L13, side=[tool])
     positive13 = 'the control input (positive)'
@@ -983,7 +985,7 @@ def r_controls():
     if capture_hook is not None:
         capture_hook.attest(positive13, {'side_changes_classified_by': 'tool-landing class pin' if classified else None,
                                          'candidate_and_landing_pass': not e13.items})
-    changed13 = w.child(H, files={'tools/t.py': b'x = 2\n'}, subject='changed tool blob')
+    changed13 = w.child(H, files={tool_path: b'x = 2\n'}, subject='changed tool blob')
     invalid13 = run(changed13, side=[tool])
     _case('countercase: a tool-landing path whose blob differs from its class pin')
     out['TT13'] = not e13.items and classified and 'side-change-unclassified' in classes(invalid13.items)
