@@ -16,6 +16,7 @@ beside the summary, for the gate (design r6 sec. 16).
 
 Usage: python3 -I -B tools/ledger_coverage/adapters/conformance_controls.py OUT_DIR
 """
+import ast
 import copy
 import gzip
 import hashlib
@@ -1736,6 +1737,42 @@ class EI:
         return o
 
 
+def entry_refusal(d, out, flags, injected=None):
+    """Observe imports from interpreter startup through the entry's refusal."""
+    probe = '''
+import sys
+entry, out, injected = sys.argv[1:]
+startup = sorted(sys.modules)
+requested = []
+original = __builtins__.__import__
+
+def observe(name, *args, **kwargs):
+    requested.append(name)
+    return original(name, *args, **kwargs)
+
+if injected:
+    sys.path.insert(0, injected)
+sys.argv = [entry, 'purity-lint', '--out', out]
+source = compile(open(entry, 'rb').read(), entry, 'exec')
+__builtins__.__import__ = observe
+try:
+    exec(source, {'__name__': '__main__', '__file__': entry})
+finally:
+    __builtins__.__import__ = original
+    print(repr({'startup': startup, 'requested': requested, 'added': sorted(set(sys.modules) - set(startup))}))
+'''
+    cmd = [sys.executable, *flags, '-c', probe, 'tools/ledger_coverage.py', out, injected or '']
+    p = subprocess.run(cmd, cwd=d, capture_output=True, text=True,
+                       env={'PATH': os.environ.get('PATH', ''), 'PROBE_MARKER_DIR': os.path.join(d, 'm')})
+    try:
+        imports = ast.literal_eval(p.stdout.strip())
+        error = json.loads(p.stderr)
+    except (SyntaxError, ValueError):
+        imports, error = None, {}
+    return {'flags': list(flags), 'injected': injected, 'exit': p.returncode, 'imports': imports,
+            'stderr': p.stderr, 'result_written': os.path.exists(out)}, error
+
+
 def ei_controls(r):
     try:
         with open(WORKFLOW, 'rb') as f:
@@ -2093,17 +2130,37 @@ def ei_controls(r):
     d6c = e.fresh('EI6 checkout on sys.path')
     with open(os.path.join(d6c, 'tools', 'json.py'), 'wb') as f:
         f.write(MARKER)
-    prog = ('import sys, runpy; sys.path.insert(0, %r); sys.argv = ["tools/ledger_coverage.py", "purity-lint", '
-            '"--out", %r]; runpy.run_path("tools/ledger_coverage.py", run_name="__main__")'
-            % (os.path.join(d6c, 'tools'), os.path.join(r.out_root, 'ei6c-out')))
-    p6c = subprocess.run([sys.executable, '-I', '-S', '-B', '-c', prog], cwd=d6c, capture_output=True,
-                         env={'PATH': os.environ.get('PATH', ''), 'PROBE_MARKER_DIR': os.path.join(d6c, 'm')})
+    external = os.path.join(r.out_root, 'ei6-external')
+    os.makedirs(external)
+    alias_in = os.path.join(external, 'checkout')
+    alias_out = os.path.join(d6c, 'tools', 'external')
+    os.symlink(os.path.join(d6c, 'tools'), alias_in)
+    os.symlink(external, alias_out)
+    isolated = ('-I', '-S', '-B')
+    probes = [
+        ('ordinary bootstrap', d6b, ('-S', '-B'), os.path.join(d6b, 'tools')),
+        ('safe-path bootstrap', d6b, ('-S', '-B', '-E', '-s', '-P'), None),
+        ('checkout entry', d6c, isolated, os.path.join(d6c, 'tools')),
+        ('link into checkout', d6c, isolated, alias_in),
+        ('link out of checkout', d6c, isolated, alias_out),
+    ]
+    refusals = {}
+    for i, (subject, checkout, flags, injected) in enumerate(probes):
+        result, error = entry_refusal(checkout, os.path.join(r.out_root, 'ei6-bootstrap-%d' % i), flags, injected)
+        refusals[subject] = result
+        imports = result['imports']
+        before_unloaded = (before_unloaded and result['exit'] == 65 and not result['result_written'] and
+                           error.get('exit_status') == 65 and error.get('outcome') == 'ERROR' and
+                           (error.get('stop') or {}).get('class') == 'NOT_ISOLATED' and
+                           isinstance(imports, dict) and bool(imports['startup']) and not imports['added'] and
+                           set(imports['requested']) <= set(imports['startup']))
+    checkout_exit = refusals['checkout entry']['exit']
     out6 = {'shadow run': {'exit': code6, 'markers': e.markers(d6), 'stray_imports': stray[:10],
                            'imports_seen': len(loaded), 'result_equal_to_clean': same6},
             'without -I': {'exit': code_no_i, 'markers': marks_no_i},
             'without -I, with -E -s -P (no checkout directory on sys.path)': {'exit': code_no_i2,
                                                                              'markers': e.markers(d6b)},
-            'checkout directory on sys.path': {'exit': p6c.returncode, 'markers': e.markers(d6c)},
+            'checkout directory on sys.path': {'exit': checkout_exit, 'markers': e.markers(d6c)},
             'installed packages': neg6}
     # the retained cases: the shadow run and the clean reference run as its restored case, and the installed-package
     # predicate cases; the run without -I is retained as its case below (no result.json: R6.OUT.4)
@@ -2138,12 +2195,13 @@ def ei_controls(r):
                     {'exit_status': code6c}, case='restored', raw=res6c, baseline=run6)
     files6 = {'entry-exits.json': {shadow: code6, 'without -I': code_no_i,
                                    'without -I, with -E -s -P': code_no_i2, 'checkout directory on sys.path':
-                                   p6c.returncode, 'restored': code6c},
+                                   checkout_exit, 'restored': code6c},
               'markers.json': {shadow: e.markers(d6), 'without -I': marks_no_i, 'checkout directory on sys.path':
                                e.markers(d6c)},
               'entry-invocations.json': {shadow: {'ran': True, 'exit': code6},
                                          'without -I': {'ran': True, 'exit': code_no_i}},
               'import-trace.json': {'loaded': loaded, 'stray': stray,
+                                    'bootstrap_refusals': refusals,
                                     'without -I (-v)': {'exit': code_no_i_v, 'imported': trace_no_i,
                                                         'imported_after_the_check': after_check}},
               'refusal-stderr.json': {'without -I': err_no_i, 'without -I result written': res_no_i is not None}}
@@ -2165,7 +2223,7 @@ def ei_controls(r):
           "present) is refused, and every out-of-tree import of the self-test run is accepted", out6,
           code6 == 0 and not out6['shadow run']['markers'] and not stray and loaded and same6 and
           code_no_i == 65 and not marks_no_i and before_unloaded and isinstance(err_doc, dict) and
-          (err_doc.get('stop') or {}).get('class') == 'NOT_ISOLATED' and code_no_i2 == 65 and not e.markers(d6b) and p6c.returncode == 65 and not out6['checkout directory on sys.path'][
+          (err_doc.get('stop') or {}).get('class') == 'NOT_ISOLATED' and code_no_i2 == 65 and not e.markers(d6b) and checkout_exit == 65 and not out6['checkout directory on sys.path'][
               'markers'] and neg6['holds'],
           files=files6, procedure={'lib': 'prerun', 'step_exit': 'entry-exits.json', 'marker_listing': 'markers.json',
                                    'sentinel': 'entry-invocations.json', 'import_trace': 'import-trace.json'})

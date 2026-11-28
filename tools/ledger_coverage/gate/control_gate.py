@@ -1064,6 +1064,37 @@ def _tt7_landing_blobs(result, roles, bindings):
     return {'composed_blob': computed, 'L_blob': landed}
 
 
+def _bootstrap_refusals_hold(trace):
+    try:
+        probes = trace['bootstrap_refusals']
+        ordinary = ['-S', '-B']
+        isolated = ['-I', '-S', '-B']
+        cases = {
+            'ordinary bootstrap': (ordinary, True),
+            'safe-path bootstrap': (ordinary + ['-E', '-s', '-P'], False),
+            'checkout entry': (isolated, True),
+            'link into checkout': (isolated, True),
+            'link out of checkout': (isolated, True),
+        }
+        if set(probes) != cases.keys():
+            return False
+        for subject, (flags, injected) in cases.items():
+            p = probes[subject]
+            imports = p['imports']
+            stderr = p['stderr']
+            result = json.loads(stderr)
+            if (p['flags'] != flags or bool(p['injected']) != injected or p['exit'] != 65 or
+                    p['result_written'] is not False or len(stderr.splitlines()) != 1 or
+                    result['schema'] != 'oi-ledger-coverage/5' or result['outcome'] != 'ERROR' or
+                    result['exit_status'] != 65 or result['stop']['class'] != 'NOT_ISOLATED' or
+                    'sys' not in imports['startup'] or imports['added'] != [] or
+                    not set(imports['requested']) <= set(imports['startup'])):
+                return False
+        return True
+    except (AttributeError, TypeError, KeyError, ValueError):
+        return False
+
+
 def eval_invariant(k, v, result, case, attested, bindings, declared_sites=()):
     """Returns (holds, actual, source). Keys the gate can compute from the retained result are computed; any
     other key must be attested in the case's sha256-checked attested file, equal to the expectation."""
@@ -3024,7 +3055,10 @@ def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None, phase=Non
                 k, v = next(iter(inv.items()))
             if k == 'baseline':
                 continue
-            if rid == 'RT-I7A' and phase in ('tool-acceptance', 'candidate-F') and 'each_listed_line' in inv:
+            if rid == 'EI6' and phase in ('tool-acceptance', 'candidate-F') and k == 'before_unloaded_import':
+                got, src = _bootstrap_refusals_hold(ev.json('import-trace.json')), 'result'
+                holds = got == v
+            elif rid == 'RT-I7A' and phase in ('tool-acceptance', 'candidate-F') and 'each_listed_line' in inv:
                 holds, got, src = retired_hold, retired_hold, 'result'
             elif rid == 'TT7' and k in ('L_blob', 'composed_blob'):
                 roles = _tt7_landing_roles(result)
