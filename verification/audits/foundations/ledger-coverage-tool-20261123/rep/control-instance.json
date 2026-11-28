@@ -648,7 +648,7 @@
    },
    {
     "path": "tools/ledger_coverage/adapters/a1_controls.py",
-    "blob_sha256": "d647bce6701353d6d55f42515c639171ed1f0c4fce93a8292f497e6ae36e9ca2"
+    "blob_sha256": "901fe5998590be49bd47693fb910af1dd66eaf165b007f700a6a9bbf57beb7e6"
    },
    {
     "path": "tools/ledger_coverage/adapters/a1exit_exact_edit.py",
@@ -808,7 +808,7 @@
    },
    {
     "path": "tools/ledger_coverage/engine/execution.py",
-    "blob_sha256": "914145ff7b46be910a2ff0466f289539800b574598a55b0fca358732ccc1d0bc"
+    "blob_sha256": "09cdd55df36e0b3e1515ceb5058d0f2e617fcc50f528486101bf78389b4f57ea"
    },
    {
     "path": "tools/ledger_coverage/engine/findings.py",
