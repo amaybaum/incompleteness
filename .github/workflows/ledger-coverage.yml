@@ -3,11 +3,11 @@ on:
   workflow_dispatch:
     inputs:
       freeze:
-        description: the plan commit F, a full 40-hex id
+        description: exact candidate F for control-suite or plan-check, or the exact reviewed fixture snapshot for tool-acceptance
         required: true
         type: string
       config:
-        description: the configuration path in F
+        description: the configuration path in the named commit
         required: true
         type: string
       check:
@@ -50,11 +50,40 @@ on:
         required: false
         type: string
       m:
-        description: main M re-resolved before landing, a full 40-hex id
+        description: the re-resolved landing main for plan-check or the exact representative anchor for a suite
         required: false
         type: string
       l:
         description: the landing merge L, a full 40-hex id
+        required: false
+        type: string
+      job:
+        description: plan-check runs the selected plan check; tool-acceptance and control-suite assess the tool checkout and candidate F respectively
+        required: false
+        default: plan-check
+        type: choice
+        options:
+          - plan-check
+          - tool-acceptance
+          - control-suite
+      rep_snapshot:
+        description: exact reviewed representative snapshot S for candidate F
+        required: false
+        type: string
+      tool_landing:
+        description: exact accepted tool landing on main for candidate F
+        required: false
+        type: string
+      accepted_tool:
+        description: exact reviewed tool candidate in the landing record
+        required: false
+        type: string
+      tool_base:
+        description: exact reviewed first parent in the tool landing record
+        required: false
+        type: string
+      fixed_config:
+        description: the exact Git-backed configuration ref for the tool's retained fixed cases at candidate F
         required: false
         type: string
 permissions:
@@ -62,6 +91,7 @@ permissions:
   contents: read
 jobs:
   run:
+    if: inputs.job == 'plan-check' || inputs.job == ''
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
@@ -95,12 +125,12 @@ jobs:
           set -- --freeze "$F" --config "$F:$CFG" --out "$RUNNER_TEMP/out"
           case "$CHECK" in
             item1-execution) exec python3 -I -S -B tools/ledger_coverage.py execution "$@" --scientific-base "$H" --candidate "$X" --ledger "$F:$D/ledger.json" --edits "$F:$D/edits.json" ;;
-            item1-terms) exec python3 -I -S -B tools/ledger_coverage.py terms "$@" --commit "$X" --profile ptr --classify "$F:$A/records/gr58-hit-classification-v1.json" ;;
+            item1-terms) exec python3 -I -S -B tools/ledger_coverage.py terms "$@" --commit "$X" --profile ptr --classify "$F:$A/records/gr58-hit-classification-v3.json" ;;
             item2-record) exec python3 -I -S -B tools/ledger_coverage.py record "$@" --pin "$E" --record "$F" ;;
-            item2-coverage) exec python3 -I -S -B tools/ledger_coverage.py coverage "$@" --commit "$X" --segment "$E..$H" --segment "$H..$X=$F:$D/ledger.json" --hp "$F:$D/hp.json" --classify "$F:$A/records/gr58-hit-classification-v1.json" ;;
+            item2-coverage) exec python3 -I -S -B tools/ledger_coverage.py coverage "$@" --commit "$X" --check item2 --segment "$E..$H" --segment "$H..$X=$F:$D/ledger.json" --hp "$F:$D/hp.json" --classify "$F:$A/records/gr58-hit-classification-v3.json" --classify "$F:$D/context-adjudications.json" --classify "$F:$D/hit-classifications.json" ;;
             item3|item4|item5|item6|item8|item9|item10|item12|item13) exec python3 -I -S -B tools/ledger_coverage.py execution "$@" --scientific-base "$H" --candidate "$X" --ledger "$F:$D/ledger.json" --edits "$F:$D/edits.json" --delegation "$F:$A/delegation-draft.json" ;;
             item7) exec python3 -I -S -B tools/ledger_coverage.py terms "$@" --commit "$X" --profile item7-literal ;;
-            item7-amended) exec python3 -I -S -B tools/ledger_coverage.py terms "$@" --commit "$X" --base "$H" --ledger "$F:$D/ledger.json" --check item7 --final --classify "$F:$A/records/gr58-hit-classification-v1.json" ;;
+            item7-amended) exec python3 -I -S -B tools/ledger_coverage.py terms "$@" --commit "$X" --base "$H" --ledger "$F:$D/ledger.json" --check item7 --final --classify "$F:$A/records/gr58-hit-classification-v3.json" ;;
             item11) exec python3 -I -S -B tools/ledger_coverage.py terms "$@" --commit "$X" --check item11 --scope "$F:$A/records/repo-scope-v1.json" --final ;;
             item14) exec python3 -I -S -B tools/ledger_coverage.py execution "$@" --scientific-base "$H" --main "$M" --candidate "$X" --ledger "$F:$D/ledger.json" --edits "$F:$D/edits.json" --delegation "$F:$A/delegation-draft.json" ;;
             item14-landing) exec python3 -I -S -B tools/ledger_coverage.py execution "$@" --scientific-base "$H" --main "$M" --certified "$C" --landing "$L" --candidate "$X" --ledger "$F:$D/ledger.json" --edits "$F:$D/edits.json" --delegation "$F:$A/delegation-draft.json" ;;
@@ -110,3 +140,174 @@ jobs:
         with:
           name: ledger-coverage-result
           path: ${{ runner.temp }}/out/result.json
+  suite:
+    if: inputs.job == 'tool-acceptance' || inputs.job == 'control-suite'
+    runs-on: ubuntu-24.04
+    env:
+      EXP: verification/audits/foundations/a1exit-design-r6-20261125/EXPECTATIONS.json
+      REQ: verification/audits/foundations/a1exit-design-r6-20261125/REQUIREMENTS.json
+      PHASE: ${{ inputs.job }}
+      F: ${{ inputs.freeze }}
+      CFG: ${{ inputs.config }}
+      M: ${{ inputs.m }}
+      S: ${{ inputs.rep_snapshot }}
+      T_LAND: ${{ inputs.tool_landing }}
+      ACCEPTED: ${{ inputs.accepted_tool }}
+      TOOL_BASE: ${{ inputs.tool_base }}
+      FIXED: ${{ inputs.fixed_config }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Fetch exact assessment inputs
+        run: |
+          if [[ "$PHASE" == control-suite ]]; then
+            [[ "$GITHUB_REF" == refs/heads/main && -n "$S" && -n "$T_LAND" && "$FIXED" == *:* ]]
+            ids=("$F" "$M" "$S" "$T_LAND" "$ACCEPTED" "$TOOL_BASE" "${FIXED%%:*}")
+          else
+            [[ "$PHASE" == tool-acceptance && -z "$S$T_LAND$ACCEPTED$TOOL_BASE$FIXED" ]]
+            ids=("$F" "$M")
+          fi
+          for id in "${ids[@]}"; do
+            [[ "$id" =~ ^[0-9a-f]{40}$ ]]
+            if ! git cat-file -e "$id^{commit}"; then git fetch --no-tags -- origin "$id"; fi
+          done
+      - name: suite guard
+        env:
+          F: ${{ inputs.freeze }}
+          CFG: ${{ inputs.config }}
+        run: python3 -I -S -B -c 'exec("import sys, os, re, stat, json, hashlib, subprocess\ndef fail(m):\n    sys.stderr.write(\"SUITE GUARD FAIL \" + m + \"\\n\")\n    sys.exit(1)\nF = os.environ.get(\"F\", \"\")\nC = os.environ.get(\"CFG\", \"\")\nif not re.fullmatch(\"[0-9a-f]{40}\", F) or not C:\n    fail(\"F is not a full lowercase id or no configuration path\")\nh = subprocess.run([\"git\", \"rev-parse\", \"HEAD\"], capture_output=True, text=True).stdout.strip()\nif h != os.environ.get(\"GITHUB_SHA\"):\n    fail(\"the checkout is not the dispatched commit\")\nr = subprocess.run([\"git\", \"--no-replace-objects\", \"cat-file\", \"blob\", F + \":\" + C], capture_output=True)\nif r.returncode:\n    fail(\"the configuration is not readable at F\")\ntry:\n    pins = dict((e[\"path\"], e[\"blob_sha256\"]) for e in json.loads(r.stdout)[\"tool\"][\"files\"])\nexcept Exception as e:\n    fail(\"tool.files unreadable \" + repr(e))\nseen = {}\ndef walk(p):\n    st = os.lstat(p)\n    if stat.S_ISDIR(st.st_mode):\n        for n in sorted(os.listdir(p)):\n            walk(p + \"/\" + n)\n    elif stat.S_ISREG(st.st_mode):\n        with open(p, \"rb\") as f:\n            seen[p] = hashlib.sha256(f.read()).hexdigest()\n    else:\n        fail(\"non-regular entry \" + p)\ntry:\n    if not stat.S_ISDIR(os.lstat(\"tools\").st_mode):\n        fail(\"tools is not a real directory\")\n    walk(\"tools/ledger_coverage.py\")\n    walk(\"tools/ledger_coverage\")\nexcept OSError as e:\n    fail(\"missing \" + repr(e))\nif not pins or set(seen) != set(pins):\n    fail(\"path set differs \" + repr(sorted(set(seen) ^ set(pins))))\nfor p in pins:\n    if seen[p] != pins[p]:\n        fail(\"sha256 differs \" + p)\nwith open(os.environ[\"RUNNER_TEMP\"] + \"/staged-config.json\", \"wb\") as f:\n    f.write(r.stdout)\nprint(\"SUITE GUARD OK \" + str(len(seen)) + \" files\")\n")'
+      - name: tool self-test
+        run: |
+          O="$RUNNER_TEMP/suite"
+          mkdir -p "$O"
+          set +e
+          python3 -I -S -B tools/ledger_coverage.py self-test --out "$O/self-test"
+          echo "$?" > "$O/self-test.exit"
+      - name: engine controls
+        run: |
+          O="$RUNNER_TEMP/suite"
+          set +e
+          python3 -I -S -B tools/ledger_coverage/adapters/engine_controls.py "$O/engine"
+          echo "$?" > "$O/engine.exit"
+      - name: staged purity lint
+        env:
+          CFG: ${{ inputs.config }}
+        run: |
+          O="$RUNNER_TEMP/suite"
+          set +e
+          python3 -I -B tools/ledger_coverage/adapters/staged_purity_lint.py --repo . --config "$F:$CFG" --staged-config "$RUNNER_TEMP/staged-config.json" --out "$O/purity"
+          echo "$?" > "$O/purity.exit"
+      - name: synthetic fixture
+        run: |
+          O="$RUNNER_TEMP/suite"
+          set +e
+          python3 -I -B tools/ledger_coverage/adapters/synthetic_fixture.py "$O/synthetic" .
+          echo "$?" > "$O/synthetic.exit"
+      - name: conformance controls
+        run: |
+          O="$RUNNER_TEMP/suite"
+          set +e
+          set --
+          if [[ "$PHASE" == control-suite ]]; then set -- --native-tr5; fi
+          python3 -I -B tools/ledger_coverage/adapters/conformance_controls.py "$O/conformance" "$@"
+          echo "$?" > "$O/conformance.exit"
+      - name: obl29 controls
+        run: |
+          O="$RUNNER_TEMP/suite"
+          set +e
+          python3 -I -B tools/ledger_coverage/adapters/obl29_controls.py "$O/obl29"
+          echo "$?" > "$O/obl29.exit"
+      - name: custody controls
+        run: |
+          O="$RUNNER_TEMP/suite"
+          set +e
+          python3 -I -B tools/ledger_coverage/adapters/custody_controls.py "$O/custody"
+          echo "$?" > "$O/custody.exit"
+      - name: adjudication controls
+        run: |
+          O="$RUNNER_TEMP/suite"
+          set +e
+          python3 -I -B tools/ledger_coverage/adapters/adjudication_controls.py "$O/adjudication"
+          echo "$?" > "$O/adjudication.exit"
+      - name: staging controls
+        run: |
+          O="$RUNNER_TEMP/suite"
+          set +e
+          python3 -I -B tools/ledger_coverage/adapters/staging_controls.py "$O/staging"
+          echo "$?" > "$O/staging.exit"
+      - name: sessions controls
+        run: |
+          O="$RUNNER_TEMP/suite"
+          set +e
+          python3 -I -B tools/ledger_coverage/adapters/sessions_controls.py "$O/sessions"
+          echo "$?" > "$O/sessions.exit"
+      - name: A1 conformance
+        run: |
+          O="$RUNNER_TEMP/suite"
+          set +e
+          if [[ "$PHASE" == control-suite ]]; then
+            set -- --fixed-config "$FIXED"
+          else
+            set -- --tool-acceptance
+          fi
+          python3 -I -B tools/ledger_coverage/adapters/a1_conformance.py --repo . --config "$F:$CFG" \
+            --tool-revision "$GITHUB_SHA" "$@" --out "$O/a1-conformance"
+          echo "$?" > "$O/a1-conformance.exit"
+      - name: A1 controls
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          O="$RUNNER_TEMP/suite"
+          A=verification/audits/foundations/ledger-coverage-tool-20261123
+          if [[ "$PHASE" == control-suite ]]; then
+            set -- --freeze "$F" --tool-landing "$T_LAND" --main-tip "$GITHUB_SHA" --fixed-config "$FIXED"
+            T="$T_LAND"
+          else
+            set -- --tool-candidate "$GITHUB_SHA"
+            T="$GITHUB_SHA"
+            S="$F"
+          fi
+          D="${CFG%/*}/a1-staging-transition.json"
+          digest=$(git --no-replace-objects cat-file blob "$S:$D" | sha256sum)
+          set +e
+          python3 -I -B tools/ledger_coverage/adapters/a1_controls.py --repo . --config "$F:$CFG" --main "$M" \
+            --rep-template "$T:$A/rep/control-instance.json" --rep-snapshot "$S" --rep-descriptor-sha256 "${digest%% *}" \
+            "$@" --out "$O/a1-controls"
+          echo "$?" > "$O/a1-controls.exit"
+      - name: control gate
+        id: gate
+        run: |
+          O="$RUNNER_TEMP/suite"
+          set --
+          for r in engine purity synthetic conformance obl29 custody adjudication staging sessions a1-conformance a1-controls; do
+            if [ -f "$O/$r/control-records.json" ]; then set -- "$@" --records "$O/$r/control-records.json"; fi
+          done
+          if [[ "$PHASE" == control-suite ]]; then
+            set -- "$@" --commit "$F" --freeze "$F" --config "$CFG" --rep-main "$M" --rep-snapshot "$S" \
+              --tool-landing "$T_LAND" --main-tip "$GITHUB_SHA" --fixed-config "$FIXED"
+          else
+            TOOL_BASE=$(git --no-replace-objects rev-parse --verify 'refs/remotes/origin/main^{commit}')
+            ACCEPTED="$GITHUB_SHA"
+            set -- "$@" --tool-candidate "$ACCEPTED" --fixed-config "$F:$CFG"
+          fi
+          TREE=$(git --no-replace-objects merge-tree --write-tree "$TOOL_BASE" "$ACCEPTED")
+          PREVIEW=$(GIT_AUTHOR_DATE='1700000000 +0000' GIT_COMMITTER_DATE='1700000000 +0000' git --no-replace-objects \
+            -c user.name='A1 tool preview' -c user.email=preview@invalid.invalid \
+            commit-tree "$TREE" -p "$TOOL_BASE" -p "$ACCEPTED" -m 'A1 tool preview')
+          python3 -I -S -B tools/ledger_coverage/gate/control_gate.py --expectations "$EXP" --requirements "$REQ" "$@" \
+            --repo . --tool-base "$TOOL_BASE" --tool-preview "$PREVIEW" --out "$O/gate"
+      - name: control expectations hold
+        if: steps.gate.outcome == 'success'
+        run: "true"
+      - name: evidence digest
+        if: always()
+        run: |
+          cd "$RUNNER_TEMP/suite" && find . -type f ! -name evidence-digest.txt -print0 | sort -z | xargs -0 sha256sum > evidence-digest.txt
+          sha256sum evidence-digest.txt
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: ledger-coverage-suite
+          path: ${{ runner.temp }}/suite

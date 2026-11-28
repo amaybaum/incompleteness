@@ -1,7 +1,9 @@
 # Ledger and terminology verification tool: records (unreviewed drafts)
 
 Status: implementation of design v6.0e (sha256
-4024a31cd2cde06763cb529eafeb023078c52dfa7a5d5fb377995373ab205131), adopted by the owner on 2026-11-24. **Every record
+4024a31cd2cde06763cb529eafeb023078c52dfa7a5d5fb377995373ab205131), adopted by the owner on 2026-11-24, as amended by
+the bounded design amendment r4 for O-9 and the item-2 records (sha256
+a63a4b0d0137a869bfb7fe624ff20af2b77a72ae3c179f2f75b34788800fdab1), adopted by the owner on 2026-11-25. **Every record
 in this directory is an unreviewed draft.** None has an independent review record, and no plan commit `F` exists.
 
 The tool verifies which exact plan was executed and what actually ran: the plan commit `F`, the pin table and the
@@ -28,15 +30,39 @@ scientific question and no row disposition.
 
 | Path | Kind | What it holds |
 |---|---|---|
-| `controls.json` | A1 control set | the preregistered A1 controls with the design's expected outcomes, the tool-level controls GV1-GV7 and EI1-EI15, and the control-only inputs (DR-3's witness `AGENTS.md` at `H`) |
+| `controls.json` | A1 control set | each control's operations and direction as the engine reads them (design r6, R6.GATE.1: every expected result is stated in the expectation file), for the preregistered A1 controls, the tool-level controls GV1-GV7 and EI1-EI15, the controls of amendment r4 (RDIR-1 to RDIR-25 and RDIR-12b, RT-O9, I2-1 to I2-8), and the control-only inputs (DR-3's witness `AGENTS.md` at `H`) |
 | `delegation-draft.json` | `oi-delegation/1` | a draft of the delegation contract; the contract itself belongs in the amended plan's record directory at `F` |
 | `rules/dr-deny-v1.json` | `oi-term-rules/2` | deny rules DR-1 (a, b, c), DR-3, DR-4, DR-5 with examples and real-tree countercontrols |
 | `rules/resid-v1.json` | `oi-term-rules/2` | the review pattern `resid` (resid-a, resid-b, resid-c) |
 | `rules/w1-w2-allow-v1.json` | `oi-term-rules/2` | the seed allow rules W1 (four sentences) and W2 (two sentences), each fingerprinted at the commit its `recorded_at` names |
+| `rules/w1-w2-allow-v2.json` | `oi-term-rules/2` | supersedes `rules/w1-w2-allow-v1.json` (same `record_id`; the earlier file stays unchanged): the same rules, with W1-a's reason citing the book's Level G2 definition of the six structural properties (`book/ch09-universality.md`) and stating that SM does not define the term |
+| `rules/w1-w2-allow-v3.json` | `oi-term-rules/2` | supersedes `rules/w1-w2-allow-v2.json` (same `record_id`; the earlier files stay unchanged): the same rules without W1-a, for which no valid justification exists; SM:1394 at `T1'` stays REVIEW_REQUIRED |
 | `records/gr58-hit-classification-v1.json` | `oi-hit-classification/1` | the classification of the line papers/GR.md:58 of the retirement candidate |
+| `records/gr58-hit-classification-v2.json` | `oi-hit-classification/1` | supersedes `records/gr58-hit-classification-v1.json` (same `record_id`; the earlier record stays unchanged): the same line, with every profile hit on it named and given a reason (p0-core and ptr on "finite total system", p0-para twice on "uniform counting") |
+| `records/gr58-hit-classification-v3.json` | `oi-hit-classification/1` | supersedes `records/gr58-hit-classification-v2.json` (same `record_id`; the earlier records stay unchanged): the ptr hit's reason says what ptr detects |
 | `records/repo-scope-v1.json` | `oi-scope/1` | the scope of the `repo` profile (item 11) |
 | `rules/register-infinity-params-v1.json` | `oi-term-rules/2` | the per-edit parameters of items 5 and 6 that are not extractable assignments of the plan's checker (kind `params`), linted against the checker the configuration pins |
 | `records/side-change-classes-v1.json` | `oi-side-change-classes/1` | the class `tool-landing` only: every path this tool's landing adds, each with its exact blob |
+| `records/side-change-classes-v2.json` | `oi-side-change-classes/1` | supersedes `records/side-change-classes-v1.json` (same lineage, `record_id` side-change-classes-v1; the earlier record stays unchanged): the class `tool-landing`, its pins refreshed to the tool revision of design r6 |
+| `records/side-change-classes-v3.json` | `oi-side-change-classes/1` | supersedes `records/side-change-classes-v2.json` (same lineage; the earlier records stay unchanged): the class `tool-landing`, its pins refreshed to the tool revision of design r6 at the evidence-contract stage |
+| `records/side-change-classes-v4.json` | `oi-side-change-classes/1` | supersedes `records/side-change-classes-v3.json` (same lineage; the earlier records stay unchanged): the class `tool-landing`, its pins refreshed to the tool revision of design r6 at the second stage |
+| `records/side-change-classes-v5.json` | `oi-side-change-classes/1` | supersedes `records/side-change-classes-v4.json` (same lineage; the earlier records stay unchanged): the class `tool-landing`, its pins refreshed to the tool revision of design r6 after amendment 2 |
+| `records/side-change-classes-v6.json` | `oi-side-change-classes/1` | supersedes `records/side-change-classes-v5.json` (same lineage; the earlier records stay unchanged): the class `tool-landing`, which also pins each earlier class record of this lineage (v1 to v5) by path and blob, as paths the landing adds under its prefix (design r6, R6.TREE.5; R6.EVID.8: a superseding class record pins the records it supersedes by blob) |
+| `records/side-change-classes-v7.json` | `oi-side-change-classes/1` | supersedes `records/side-change-classes-v6.json` (same lineage; the earlier records stay unchanged): the class `tool-landing`, pinning the earlier class records v1 to v6 by path and blob as v6 does, its pins refreshed after the runner change that follows v6 |
+| `records/side-change-classes-v8.json` | `oi-side-change-classes/1` | supersedes `records/side-change-classes-v7.json` (same lineage; the earlier records stay unchanged): the class `tool-landing`, pinning the earlier class records v1 to v7 by path and blob, its pins refreshed after the runner reads the class record path from the configuration |
+| `records/side-change-classes-v9.json` | `oi-side-change-classes/1` | supersedes `records/side-change-classes-v8.json` (same lineage; the earlier records stay unchanged): the class `tool-landing`, pinning the earlier class records v1 to v8 by path and blob, its pins refreshed after the post-freeze route and the C-29 lint |
+| `records/side-change-classes-v10.json` | `oi-side-change-classes/1` | supersedes `records/side-change-classes-v9.json` (same lineage; the earlier records stay unchanged): the class `tool-landing`, pinning the earlier class records v1 to v9 by path and blob, its pins refreshed at the third stage |
+| `records/side-change-classes-v11.json` | `oi-side-change-classes/1` | supersedes `records/side-change-classes-v10.json` (same lineage; the earlier records stay unchanged): the class `tool-landing`, pinning the earlier class records v1 to v10 by path and blob, its pins refreshed after the strict record base and the route controls |
+| `records/side-change-classes-v12.json` | `oi-side-change-classes/1` | supersedes `records/side-change-classes-v11.json` (same lineage; the earlier records stay unchanged): the class `tool-landing`, pinning the earlier class records v1 to v11 by path and blob, its pins refreshed after control LINE-PATCH-RC8 |
+| `records/side-change-classes-v13.json` | `oi-side-change-classes/1` | supersedes `records/side-change-classes-v12.json` (same lineage; the earlier records stay unchanged): the class `tool-landing`, pinning the earlier class records v1 to v12 by path and blob, its pins refreshed after the amendment-3 core and runners |
+| `records/side-change-classes-v14.json` | `oi-side-change-classes/1` | supersedes `records/side-change-classes-v13.json` (same lineage; the earlier records stay unchanged): the class `tool-landing`, pinning the earlier class records v1 to v13 by path and blob, its pins refreshed after the superseding rule file `rules/w1-w2-allow-v2.json`, the superseding hit classification `records/gr58-hit-classification-v2.json` and the reduced `controls.json` |
+| `records/side-change-classes-v15.json` | `oi-side-change-classes/1` | supersedes `records/side-change-classes-v14.json` (same lineage; the earlier records stay unchanged): the class `tool-landing`, pinning the earlier class records v1 to v14 by path and blob, its pins refreshed after amendment 4's record base, the category-3 block scan, the review corrections (W1-W2 v3, GR.md:58 v3, controls.json without `targets`) and the inventory |
+| `records/side-change-classes-v16.json` | `oi-side-change-classes/1` | supersedes `records/side-change-classes-v15.json` (same lineage; the earlier records stay unchanged): the class `tool-landing`, pinning the earlier class records v1 to v15 by path and blob, its pins refreshed after the BLOCK-KEY and REASSESS-FORM runners |
+| `records/side-change-classes-v17.json` | `oi-side-change-classes/1` | supersedes `records/side-change-classes-v16.json` (same lineage; the earlier records stay unchanged): the class `tool-landing`, pinning the earlier class records v1 to v16 by path and blob, its pins refreshed after the RECON-SCI and POSTF-4 runners and the main role's record items |
+| `records/side-change-classes-v18.json` | `oi-side-change-classes/1` | supersedes `records/side-change-classes-v17.json` (same lineage; the earlier records stay unchanged): the class `tool-landing`, pinning the earlier class records v1 to v17 by path and blob, its pins refreshed after the amendment-5 runner updates and the gate's rtl2 rule |
+| `records/side-change-classes-v19.json` | `oi-side-change-classes/1` | supersedes `records/side-change-classes-v18.json` in the `side-change-classes-v1` lineage. The draft pins v1 through v18 and the WB2 runner edit. |
+| `records/side-change-classes-v20.json` | `oi-side-change-classes/1` | supersedes `records/side-change-classes-v19.json` in the `side-change-classes-v1` lineage. The draft pins v1 through v19 and the two RB-P1 evidence adapter edits. |
+| `records/side-change-classes-v21.json` | `oi-side-change-classes/1` | supersedes `records/side-change-classes-v20.json` in the `side-change-classes-v1` lineage. The draft pins v1 through v20 and the WB and V scoped-evidence adapter edits. |
 
 The A1 configuration `retirement-config.json` (`oi-retirement-config/1`) is not part of this landing. It belongs in
 the retirement plan's record directory, `verification/audits/foundations/a1exit-deletion-20261121/`, frozen with the
@@ -56,9 +82,9 @@ The workflow is the text of design sec. 6.3 point 5. It is dispatched with `F`, 
 check and the role commits that check needs, as inputs that reach the shell only through `env:`. The check is a
 choice among fixed values, and each value selects one fixed command in a `case` block, with every expansion quoted;
 a value with no arm exits 64. The arms are the commands of design sec. 11 as the amended plan's sec. 32.4 states
-them, one per plan check, each record read at `F` from the path the configuration names (the ledger, the edit list
-and the HP record in the configuration's directory; the delegation contract, the scope record and the hit
-classification record in this directory); the amended plan states the commands of record, and a changed arm is a new
+them, one per plan check, each record read at `F` from the path the configuration names (the ledger, the edit list,
+the HP record, and for item 2 the context adjudications and the further hit classifications, in the configuration's
+directory; the delegation contract, the scope record and the hit classification record in this directory); the amended plan states the commands of record, and a changed arm is a new
 workflow blob, pinned again by the configuration frozen at `F`. The workflow fetches `F` with
 `git fetch --no-tags -- origin "$F"`. Its step `pre-run pin check` runs one inline program with
 `python3 -I -S -B -c`, which refuses unless `GITHUB_REF` is `refs/heads/main` and `F` a full lowercase 40-hex id, and
@@ -67,6 +93,17 @@ before any file of the checkout runs; the tool then runs with `python3 -I -S -B`
 image's installed packages load (the tool uses the standard library only). Every `uses:` line names an action of a
 GitHub account, `<owner>/<repo>[/<path>]`, by a full commit id; a local or parent path (`./`, `../`) is refused even
 with a 40-hex suffix.
+
+## The plan's record directory on `M` (amendment r4)
+
+When an `execution` run evaluates `M` with `F`, a side change inside the configuration's directory that no class pin
+names is classified `record-directory` exactly when it is a regular file at both `F` and `M` with the same mode, blob
+and bytes. The directory must equal a member of `authorized_record_directories` in
+`tools/ledger_coverage/record_authority.py` (outside the engine, which carries no retirement constant), must hold no
+entry at `H`, and must hold no ledgered, corpus, class-prefix or `.github/` path; every entry inside it is compared
+between `F` and `M`, so a file added, modified or deleted after `F` is `side-change-unclassified`, whatever any other
+route decides. A configuration directory that is not authorized never benefits from the rule: it is refused with ERROR
+`CONFIG_INCONSISTENT` when it is absent at `H` and present on `M`, and otherwise leaves the run unchanged.
 
 ## Host reads
 
@@ -141,15 +178,14 @@ scope record's agreement with `P`'s classification (ESC-3) and the classified li
 
 | Reference | Where | What reads it | Classification |
 |---|---|---|---|
-| `T1'` in each allow rule's `recorded_at` | `rules/w1-w2-allow-v1.json` | the rule-file lint reproduces every fingerprint (sentence and context) at that commit, and the `rule-stale` scoping decides ancestry against it | gap: admitting the rule file needs `T1'`'s objects (ESC-1) |
-| `T1'` in the file's top-level `recorded_at` | `rules/w1-w2-allow-v1.json` | nothing | provenance |
+| `T1'` in each allow rule's `recorded_at` | `rules/w1-w2-allow-v1.json` to `rules/w1-w2-allow-v3.json` | the rule-file lint reproduces every fingerprint (sentence and context) at that commit, and the `rule-stale` scoping decides ancestry against it | gap: admitting the rule file needs `T1'`'s objects (ESC-1) |
+| `T1'` in the file's top-level `recorded_at` | `rules/w1-w2-allow-v1.json` to `rules/w1-w2-allow-v3.json` | nothing | provenance |
 | `T1'` in the file's top-level `recorded_at` | `rules/dr-deny-v1.json` | nothing; the deny rules' countercontrols read `H` and the control input at `H`, both on `main` | provenance (ESC-5, administrative) |
 | `T1'` in the file's top-level `recorded_at` | `rules/resid-v1.json` | nothing; a review pattern is linted on its patterns and examples only | provenance (ESC-5, administrative) |
 | `P` in `recorded_at` and in `lint.checker.commit` | `rules/register-infinity-params-v1.json` | neither field is read; the lint compares the parameters with the checker that the configuration pins as its ledger adapter's `checker` companion, which the staged configuration pins to `P`'s `edits_check.py` | provenance for the two fields; gap for the parameters' stated equality to `P`'s checker, which needs `P`'s `edits_check.py` (ESC-2) |
 | `P` in `source.commit` | `records/repo-scope-v1.json` | not read: the run applies only the record's lists | gap: the record's statement that its lists are the plan checker's classification can be verified only against `P`'s `edits_check.py` (ESC-3) |
-| `T1'` in `classifications[0].tree` | `records/gr58-hit-classification-v1.json` | not read: the run matches the classified line by file and line hash | gap: the classified line occurs only in `T1'`'s `papers/GR.md`, which the record's review must read (ESC-4) |
+| `T1'` in `classifications[0].tree` | `records/gr58-hit-classification-v1.json` to `records/gr58-hit-classification-v3.json` | not read: the run matches the classified line by file and line hash | gap: the classified line occurs only in `T1'`'s `papers/GR.md`, which the record's review must read (ESC-4) |
 | control input `agents-md-at-T1p` (commit `T1'`) | `controls.json` | the control RT-DR3W of the A1 control runner only; no deny rule's countercontrol names it | provenance (a control-harness input; harness results are never acceptable) |
-| "at `T1'`" in case texts and expected figures | `controls.json` | the A1 control runner's comparisons | provenance (preregistered control descriptions) |
 | the constants `T` (`T1'`) and `P` | `tools/ledger_coverage/adapters/a1_controls.py` | the real-tree controls' candidate and the ledger, edit list and checker the A1 controls read | provenance (control-harness results) |
 | `T1'` and `P` through `a1_controls`; the blob id 9f4fc3e830707c90ffc105842d26d5b51f01760b (`T1'`'s `AGENTS.md`) | `tools/ledger_coverage/adapters/a1_conformance.py` | the control expectations of WB1-WB15, S11-56 to S11-58 and N3-N18 | provenance (control-harness results) |
 | the id 86d79863821f3f8cdad86771008b2df89fd1961a | `tools/ledger_coverage/adapters/a1_conformance.py` | the expected blob id of the composed `AGENTS.md` (`main` 8e9b8334 with splice D296 of `P`'s ledger) that N10, N11 and the configuration-route control compute in memory | provenance; a computed identifier, not an object in any repository |

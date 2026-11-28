@@ -6,6 +6,7 @@ import re
 import types
 
 from . import outcome as oc
+from . import findings as fd
 from . import profiles as pr
 from . import records as rec
 from . import rules as rulemod
@@ -281,22 +282,37 @@ def load(repo, rev, path, expected_sha, operation, mode, extra_records=(), admis
     entries = []
     L.nonregular = set()
     for r in list(cfg['rules']) + list(cfg['records']):
-        if repo.mode(commit, r['path']) not in (None, '100644', '100755'):
-            L.nonregular.add(r['path'])
-            continue
-        entries.append((r['path'], read_ref(repo, commit, r, 'record %s' % r['path'])))
-    # a record kind this design does not define (for example a retired schema) is a configuration error (sec. 16.2)
-    for r, (_, b) in zip([r for r in list(cfg['rules']) + list(cfg['records']) if r['path'] not in L.nonregular],
-                         entries):
+        if r.get('kind') == rec.migration_kind:
+            problems = []
+            fd.validate(dict(fd.ref_keys, kind=(('lit', (rec.migration_kind,)), True)), r, '$.records', problems)
+            if problems:
+                raise stop('CONFIG_INVALID', '; '.join(problems))
+            _, b = rec.first_parent_record(repo, commit, r)
+            if b is None:
+                continue  # R6.RECON.33: the migration evaluator reports a missing exact reference as record-invalid.
+        else:
+            if repo.mode(commit, r['path']) not in (None, '100644', '100755'):
+                L.nonregular.add(r['path'])
+                continue
+            b = read_ref(repo, commit, r, 'record %s' % r['path'])
+        entries.append((r['path'], b))
         if r not in cfg['records']:
             continue
         try:
             doc = json.loads(b.decode('utf-8'))
         except (ValueError, UnicodeDecodeError):
             continue
-        if isinstance(doc, dict) and 'schema' in doc and doc['schema'] not in rec.record_schemas + (rec.review_schema,):
+        if isinstance(doc, dict) and 'schema' in doc and \
+                doc['schema'] not in rec.record_schemas + (rec.review_schema,):
             raise stop('CONFIG_INVALID', 'record %s has a kind this design does not define: %r'
                        % (r['path'], doc['schema']))
+        # #1605 sec. 6, R6.RECON.33 and R6.CFG.4 kind row: kind adjudication -> oi-adjudication/1, both ways
+        if isinstance(doc, dict) and ((r.get('kind') == 'adjudication') != (doc.get('schema') == 'oi-adjudication/1')):
+            raise stop('CONFIG_INVALID', 'record %s: the kind adjudication and the schema oi-adjudication/1 go '
+                       'together' % r['path'])
+        if isinstance(doc, dict) and 'schema' in doc and (
+                (r.get('kind') == rec.migration_kind) != (doc['schema'] == rec.migration_schema)):
+            raise stop('CONFIG_INVALID', 'record %s: the migration kind and schema must agree' % r['path'])
     controls_b = read_ref(repo, commit, cfg['controls'], 'controls file')
     for r in extra_records:
         entries.append((r['path'], r['data']))
@@ -313,7 +329,7 @@ def load(repo, rev, path, expected_sha, operation, mode, extra_records=(), admis
                     mode in ('100644', '100755'):
                 entries.append((p, repo.read_blob(bid)))
     entries.append((path, data))
-    L.store = rec.Store(entries)
+    L.store = rec.Store(entries, repo, [commit])
 
     def resolver(ref, _c=commit):
         try:
@@ -321,11 +337,17 @@ def load(repo, rev, path, expected_sha, operation, mode, extra_records=(), admis
         except Unresolvable:
             return None
         if b is None or util.sha256(b) != ref['blob_sha256']:
-            return None
+            # Migration predecessors have the first-parent reference rule of R6.RECON.33.
+            _, raw = rec.first_parent_record(repo, _c, ref)
+            older = fd.strict_parse(raw) if raw is not None else None
+            return older if isinstance(older, dict) and older.get('schema') == rec.migration_schema else None
         try:
-            return json.loads(b.decode('utf-8'))
+            doc = json.loads(b.decode('utf-8'))
         except (ValueError, UnicodeDecodeError):
             return None
+        if isinstance(doc, dict) and doc.get('schema') == rec.migration_schema:
+            return fd.strict_parse(b)
+        return doc
     L.store.resolver = resolver
 
     def scan(_c=commit):
@@ -376,8 +398,14 @@ def load(repo, rev, path, expected_sha, operation, mode, extra_records=(), admis
     if len(seen_ids) != len(set(seen_ids)):
         raise stop('CONFIG_INCONSISTENT', 'a side-change class id is defined more than once: %s'
                    % sorted({i for i in seen_ids if seen_ids.count(i) > 1}))
+    L.transition = None
+    if mode == 'chain':
+        L.transition = transition_admission(repo, commit, cfg_dir, path, sha, cfg, table)
+        L.store.designated_roots = {(r['path'], r['blob_sha256'])
+                                    for r in (L.transition or {}).get('roots', [])}
     # review chain of the configuration itself
     if mode == 'chain':
+        own_review_problems(path, sha, cfg, table, L.store)
         probs = rec.lint_chain({'path': path, 'blob_sha256': sha}, L.store, L.admitted)
         if probs:
             raise stop('CONFIG_UNREVIEWED', 'configuration review chain: %s' % '; '.join(probs[:4]))
@@ -385,10 +413,19 @@ def load(repo, rev, path, expected_sha, operation, mode, extra_records=(), admis
             old_b = read_ref(repo, commit, cfg['supersedes'], 'the configuration it supersedes')
             why = non_widening(json.loads(old_b.decode('utf-8')), cfg)
             if why:
+                # A1 staging amendment r2, sec. 3: the configuration's own widening review is selected from the
+                # members of F's pin table only, names the exact new configuration in `reviewed` and the exact old
+                # one in `replaces`, and is the only one of its kind there
+                wides = [b for p_, b in sorted(table.items()) if _review_of(b, path, sha, 'widening')]
+                if len(wides) > 1:
+                    raise stop('CONFIG_UNREVIEWED', 'more than one widening review of the configuration in the pin '
+                               'table')
                 reviewers = rec.reviewers_of({'blob_sha256': sha}, L.store)
-                if not rec.widening_review_ok({'path': path, 'blob_sha256': sha}, L.store, L.admitted,
-                                              reviewers, cfg.get('author'), cfg['supersedes'],
-                                              ['%s:%s' % (cfg['config_id'], w) for w in why]):
+                pinned = {util.sha256(b) for b in table.values()}
+                if not wides or not rec.widening_review_ok({'path': path, 'blob_sha256': sha}, L.store,
+                                                           L.admitted & pinned, reviewers, cfg.get('author'),
+                                                           cfg['supersedes'],
+                                                           ['%s:%s' % (cfg['config_id'], w) for w in why]):
                     raise stop('CONFIG_UNREVIEWED', 'widening without a widening review: %s' % '; '.join(why[:4]))
         L.admission = dict(admission)
     else:
@@ -399,6 +436,21 @@ def load(repo, rev, path, expected_sha, operation, mode, extra_records=(), admis
     if len(names) != len(set(names)):
         raise stop('CONFIG_INCONSISTENT', 'duplicate profile name')
     kinds = {p['name']: p['kind'] for p in cfg['profiles']}
+    # R6.CFG.4 and R6.RECON.33 as amended by the A1 staging amendment r2 (sec. 1): every check, of op `coverage` or
+    # op `terms`, keeps exactly {id, profiles, final_profiles}; any other key, such as `default_for`, is an unknown
+    # field (R6.VALID.2), so no default check is defined. An id names one check (as a profile name names one profile,
+    # R6.VALID.4).
+    if not isinstance(cfg['checks'], list):
+        raise stop('CONFIG_INVALID', 'checks is not a list')
+    for c in cfg['checks']:
+        if not isinstance(c, dict) or set(c) != {'id', 'profiles', 'final_profiles'} or \
+                not isinstance(c.get('id'), str) or not c['id'] or not isinstance(c.get('profiles'), list) or \
+                not isinstance(c.get('final_profiles'), list):
+            raise stop('CONFIG_INVALID', 'a check is not exactly {id, profiles, final_profiles}: %s'
+                       % (sorted(c) if isinstance(c, dict) else type(c).__name__))
+    cids = [c['id'] for c in cfg['checks']]
+    if len(cids) != len(set(cids)):
+        raise stop('CONFIG_INCONSISTENT', 'duplicate check id')
     for c in cfg['checks']:
         for n in c.get('profiles', []):
             if n not in kinds:
@@ -442,6 +494,130 @@ def load(repo, rev, path, expected_sha, operation, mode, extra_records=(), admis
     return L
 
 
+def _review_of(b, path, sha, kind):
+    try:
+        d = json.loads(b.decode('utf-8'))
+    except (ValueError, UnicodeDecodeError):
+        return False
+    return isinstance(d, dict) and d.get('schema') == rec.review_schema and d.get('kind', 'review') == kind and \
+        d.get('reviewed') == {'path': path, 'blob_sha256': sha}
+
+
+def own_review_problems(path, sha, cfg, table, store=None):
+    # A1 staging amendment r2, sec. 3 (R6.RECON.31, R6.REC.3-.5, R6.REC.16 as amended): the configuration's own
+    # ordinary review is a member of F's pin table naming its exact path and digest, and the only one of its kind there;
+    # the configuration's `records` hold no reference to a review of the configuration itself (its own reviews are
+    # bound by the external pin table, which keeps the binding acyclic).
+    ordinary = [p for p, b in sorted(table.items()) if _review_of(b, path, sha, 'review')]
+    if len(ordinary) != 1:
+        raise stop('CONFIG_UNREVIEWED', '%d ordinary reviews of the configuration in the pin table, not one'
+                   % len(ordinary))
+    own = []
+    for r in cfg['records']:
+        if not isinstance(r, dict):
+            continue
+        # every referenced record, inside the pin table or not, read by its exact reference
+        d = store.get(r) if store is not None else None
+        if d is None and r.get('path') in table:
+            try:
+                d = json.loads(table[r['path']].decode('utf-8'))
+            except (ValueError, UnicodeDecodeError):
+                d = None
+        if isinstance(d, dict) and d.get('schema') == rec.review_schema and \
+                (d.get('reviewed') or {}).get('path') == path:
+            own.append(r['path'])
+    if own:
+        raise stop('CONFIG_INVALID', 'the configuration\'s records reference a review of the configuration itself: %s'
+                   % sorted(set(own))[0])
+
+
+def _defines_class(b, cid):
+    try:
+        d = json.loads(b.decode('utf-8'))
+    except (ValueError, UnicodeDecodeError):
+        return False
+    return isinstance(d, dict) and d.get('schema') == 'oi-side-change-classes/1' and isinstance(d.get('classes'), list) \
+        and any(isinstance(c, dict) and c.get('id') == cid for c in d['classes'])
+
+
+def transition_admission(repo, F, rec_dir, cpath, csha, cfg, table):
+    # The transition to independently reviewed roots (A1 staging amendment r2, sec. 2), in a chain-admitted run.
+    # It is in play when the pin table binds the activation descriptor or the configuration references a member of a
+    # role namespace. Returns None when it is not in play, else {descriptor, base, tips, roots, prior}; any failed
+    # condition refuses admission (ERROR CONFIG_UNREVIEWED); an unreadable object is ERROR UNRESOLVABLE.
+    from .. import record_authority as ra
+    from . import transition as tr
+    roles = ra.transition_roles
+    refs = [r for r in list(cfg['rules']) + list(cfg['records']) if isinstance(r, dict)]
+    in_ns = [r for r in refs if isinstance(r.get('path'), str) and any(tr.in_namespace(r['path'], x) for x in roles)]
+    dpath, ppath = rec_dir + ra.transition_descriptor, rec_dir + ra.transition_prior
+    if dpath not in table and not in_ns:
+        return None
+    authorized = rec_dir.rstrip('/') in ra.authorized_record_directories
+    try:
+        if not authorized:
+            raise tr.Refused('the transition is used from a record directory the tool does not admit')
+        if dpath not in table or ppath not in table:
+            raise tr.Refused('the pin table does not bind both %s and %s' % (ra.transition_descriptor,
+                                                                          ra.transition_prior))
+        desc = tr.parse_descriptor(table[dpath], ra.transition_descriptor_schema)
+        prior = tr.parse_prior(table[ppath], ra.transition_prior_schema)
+        try:
+            B = repo.resolve(desc['base'])
+        except Unresolvable as exc:
+            raise stop('UNRESOLVABLE', 'the transition base B cannot be read: %s' % exc)
+        # the descriptor binds the custody archive by path and digest; the build order of staging r2 sec. 3 puts the
+        # custody bytes before the roots, so the tool requires them in B's tree (a reading of that order, stated here)
+        cust = repo.read(B, desc['custody']['path'])
+        if cust is None or util.sha256(cust) != desc['custody']['blob_sha256']:
+            raise tr.Refused('the custody archive is not at B with its pinned digest')
+        path, chains = tr.walk(repo, B, F, roles, desc)
+        tips = {k: v[-1] for k, v in chains.items()}
+        # the tool-landing role pin is the class tip while the transition is in play: roles.side_change_classes and
+        # every referenced class record defining the tool-landing class (staging r2 sec. 2, role pin = tip)
+        tl = []
+        for r in cfg['records']:
+            if isinstance(r, dict) and isinstance(r.get('path'), str) and \
+                    repo.mode(F, r['path']) in tr.regular_modes and \
+                    _defines_class(repo.read(F, r['path']) or b'', ra.tool_landing_class_id):
+                tl.append(r)
+        role_pin = (cfg.get('roles') or {}).get('side_change_classes')
+        for r in tl + ([role_pin] if isinstance(role_pin, dict) else []):
+            if {'path': r.get('path'), 'blob_sha256': r.get('blob_sha256')} != tips['class']:
+                raise tr.Refused('the tool-landing class pin %s is not the current class tip %s'
+                                 % (r.get('path'), tips['class']['path']))
+        for r in in_ns:
+            role = [x['role'] for x in roles if tr.in_namespace(r['path'], x)][0]
+            if {'path': r['path'], 'blob_sha256': r.get('blob_sha256')} != tips[role]:
+                raise tr.Refused('the configuration pins %s, not the current %s tip %s'
+                                 % (r['path'], role, tips[role]['path']))
+
+        def read_table(c):
+            pt = repo.read(c, rec_dir + 'PREREG.md')
+            if pt is None:
+                raise tr.Refused('the prior freeze has no file of record pins')
+            try:
+                names = read_pin_table(pt)
+            except PinTableError as exc:
+                raise tr.Refused('the prior freeze\'s pin table cannot be read: %s' % exc)
+            got = admitted_by_table(repo, c, rec_dir, names)
+            return names, {p[len(rec_dir):]: b for p, b in got.items()}
+        pc = tr.prior_continuity(path, F, prior, read_table, ra.transition_descriptor, util.sha256(table[dpath]),
+                                 config_schema)
+        if pc['freeze'] is not None and pc['configuration_sha256'] != csha:
+            want = {'path': rec_dir + pc['configuration_name'], 'blob_sha256': pc['configuration_sha256']}
+            if cfg.get('supersedes') != want:
+                raise tr.Refused('the configuration changed since the prior freeze but does not supersede the exact '
+                                 'configuration it binds')
+    except tr.Refused as exc:
+        raise stop('CONFIG_UNREVIEWED', 'transition: %s' % exc)
+    except Unresolvable as exc:
+        raise stop('UNRESOLVABLE', 'transition: %s' % exc)
+    return {'descriptor': {'path': dpath, 'blob_sha256': util.sha256(table[dpath])}, 'base': B,
+            'tips': tips, 'chains': chains, 'roots': [chains[x['role']][0] for x in roles if x['role'] == 'allow'],
+            'prior': pc}
+
+
 def hp_chain_check(repo, cfg):
     """Every HP obligation ends at the scientific base and every merge is on its first-parent chain."""
     base = cfg['roles']['scientific_base']
@@ -458,5 +634,9 @@ def hp_chain_check(repo, cfg):
                     not on_first_parent_chain(repo, frm, m['commit']):
                 raise stop('CONFIG_INCONSISTENT', 'merge %s is off the chain or has another first parent'
                            % m['commit'][:12])
-            if ('#%s' % str(m['pr']).lstrip('#')) not in repo.subject(m['commit']):
-                raise stop('CONFIG_INCONSISTENT', 'merge %s subject does not name its PR' % m['commit'][:12])
+            # R6.HP.1: the subject's pull-request numbers are exactly the pinned one; a subject that names another
+            # number (or none) is CONFIG_INVALID. Whole numbers only: #70 does not name #7.
+            named = set(re.findall(r'#(\d+)(?!\d)', repo.subject(m['commit'])))
+            if named != {str(m['pr']).lstrip('#')}:
+                raise stop('CONFIG_INVALID', 'merge %s subject names pull request %s, not its pinned %s'
+                           % (m['commit'][:12], sorted(named) or 'none', m['pr']))

@@ -2,10 +2,10 @@
 countercontrols, the four-tree controls on real objects (sec. 13) and Z9g, compared with the preregistered
 expectations of the A1 controls file.
 
-The A1 configuration and its records are unreviewed drafts, so every run here uses the control harness: the
-configuration is admitted without its review chain and each result says so. Under the review chain the same
-configuration is refused (ERROR CONFIG_UNREVIEWED); control CHAIN-REFUSAL shows it. Mutant trees, ledgers and
-evidence exist only in memory or under the output directory.
+Fixed cases use the control harness with their exact case configuration. Amendment 11's live cases require
+the exact candidate F and verified representative binding. Their evidence stays separate from implementation
+fixtures and governed execution. Mutant trees, ledgers and evidence exist only in memory or under the output
+directory.
 
 The configuration does not land with the tool (design sec. 16.2): it belongs in the retirement plan's record
 directory, frozen with the plan at F. A staged draft is given with --staged-config FILE and --config REV:PATH,
@@ -21,13 +21,17 @@ Usage: python3 -I -B tools/ledger_coverage/adapters/a1_controls.py --repo DIR --
 """
 import argparse
 import collections
+import copy
 import hashlib
 import io
 import json
 import os
+import re
+import subprocess
 import sys
 import tempfile
 import time
+from functools import cached_property
 
 here = os.path.dirname(os.path.abspath(__file__))
 tools = os.path.dirname(os.path.dirname(here))
@@ -40,8 +44,13 @@ if 'ledger_coverage' not in sys.modules:
     sys.modules['ledger_coverage'] = importlib.util.module_from_spec(_spec)
     _spec.loader.exec_module(sys.modules['ledger_coverage'])
 
-from ledger_coverage.engine import cli, gitobj, execution as exmod, pipeline as pl, purity, util  # noqa: E402
+from ledger_coverage.engine import cli, config as cfgmod, gitobj, outcome as oc  # noqa: E402
+from ledger_coverage.engine import execution as exmod, pipeline as pl, purity, util  # noqa: E402
 from ledger_coverage.engine import profiles as prf, rules as rulemod, records as rec  # noqa: E402
+from ledger_coverage.engine import findings as fd  # noqa: E402
+from ledger_coverage.adapters import control_records  # noqa: E402
+from ledger_coverage.adapters.identity_fixture import review_record  # noqa: E402
+from ledger_coverage import record_authority as ra  # noqa: E402
 
 E = 'e837e3dbaa605efc867a213f3345cee14c36d8f5'
 H = '53c6601a10419b6b333cc992474272501ab542af'
@@ -78,38 +87,92 @@ def simulated_freeze(repo, rev, path, staged_bytes):
                        subject='stand-in for F: the staged configuration in the plan record directory')
 
 
+def rules_not_due(a, repo_root):
+    """r6 amendment 9: the ids of the expectation rows released by RC_RULES when the configuration under test does not
+    yet reference reviewed rule records (OBL-3). Such a row is recorded NOT RUN; its evidence is kept as its actual.
+    The configuration and its records are read from the tree the run reads (the staged draft over the commit)."""
+    if a.freeze is not None:
+        return set()
+    import importlib.util as _ilu
+    gp = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'gate', 'control_gate.py')
+    spec = _ilu.spec_from_file_location('control_gate_a9', gp)
+    cg = _ilu.module_from_spec(spec)
+    spec.loader.exec_module(cg)
+    try:
+        cfg = json.loads(a.repo.read(a.crev, a.cpath).decode('utf-8'))
+    except Exception:
+        cfg = None
+
+    def read(path):
+        try:
+            return a.repo.read(a.crev, path) if isinstance(path, str) else None
+        except Exception:
+            return None
+    if not a.tool_acceptance and cg.rule_records_reviewed(cfg, read):
+        return set()
+    ep = os.path.join(repo_root, 'verification', 'audits', 'foundations', 'a1exit-design-r6-20261125',
+                      'EXPECTATIONS.json')
+    with open(ep, encoding='utf-8') as f:
+        rows = json.load(f)['rows']
+    return {r['id'] for r in rows if (r.get('not_run') or {}).get('release_check') == cg.RC_RULES}
+
+
 class A1:
     def __init__(self, repo_path, config_ref, out_root, staged=None, main=None):
         self.base = gitobj.GitRepo(repo_path)
         self.main = main  # the main commit the safeguard is measured against (--main)
+        self.classify = []  # REV:PATH records for the RT-L2 and RT-O9 runs (--classify), REV a full id
         self.repo = gitobj.Overlay(self.base)
         self.repo_path = repo_path
         rev, self.cpath = config_ref.split(':', 1)
         self.crev = rev if rev in self.repo.mem else self.base.resolve(rev_parse(repo_path, rev))
         self.tool_rev = self.crev
+        self.staged = staged
+        self.overlay = False
         if staged is not None:
             with open(staged, 'rb') as f:
                 self.crev = simulated_freeze(self.repo, self.crev, self.cpath, f.read())
         data = self.repo.read(self.crev, self.cpath)
         self.csha = sha(data) if data is not None else None
+        self.freeze = None
+        self.tool_acceptance = False
+        self.rep_binding = None
+        self.rep_instance_doc = None
+        self.rep_instance_bytes = None
+        self.fixed = None
         # the tool's record directory: where the configuration's controls file lies
         cfg = json.loads(data) if data is not None else {}
         self.ad = (cfg.get('controls') or {}).get('path', self.cpath).rsplit('/', 1)[0] + '/'
         self.out_root = out_root
         self.n = 0
-        from ledger_coverage.adapters import a1exit_exact_edit as le
-        self.led = le.load(self.base.read(P, PL + 'ledger.json'), {'edits': self.base.read(P, PL + 'edits.json')})
         self.results = {}
+        self.rec = control_records.Recorder('a1-controls', out_root)
+        self.runs_of = {}
+        self.files_of = {}  # retained evidence files of a control, beside its runs
+        self.procedures = {}  # the procedure inputs naming them (R6.GATE.8)
+
+    @cached_property
+    def led(self):
+        """Historical ledger for the controls that still need it. Representative builds use their landed copies."""
+        from ledger_coverage.adapters import a1exit_exact_edit as le
+        return le.load(self.base.read(P, PL + 'ledger.json'), {'edits': self.base.read(P, PL + 'edits.json')})
 
     def out(self):
         self.n += 1
         return os.path.join(self.out_root, 'run%03d' % self.n)
 
-    def run(self, args, harness=True, control=None):
-        argv = args[:1] + ['--config', '%s:%s' % (self.crev, self.cpath), '--out', self.out(),
+    def run(self, args, harness=True, control=None, case=None, mutation=None, bindings=None, baseline=None,
+            reader=None, attested=None, config_revision=None, config_path=None):
+        out = self.out()
+        argv = args[:1] + ['--config', '%s:%s' % (config_revision or self.crev, config_path or self.cpath), '--out', out,
                            '--repo', self.repo_path] + args[1:]
         t = time.time()
-        code, res = cli.run(argv, repo=self.repo, harness=harness, stderr=io.StringIO(), control=control)
+        err = io.StringIO()
+        code, res = cli.run(argv, repo=reader or self.repo, harness=harness, stderr=err, control=control)
+        # R6.GATE.7: every tool run is retained as evidence of the control recorded next
+        self.rec.capture(argv, code, out, case=case, mutation=mutation, bindings=bindings,
+                         stderr=err.getvalue() if code == 64 else None, baseline=baseline,
+                         attested=attested(res) if callable(attested) else attested)
         return code, res or {}, round(time.time() - t, 1)
 
     def record(self, cid, passed, expected, actual, **extra):
@@ -120,6 +183,7 @@ class A1:
              'predicate': extra.pop('predicate', 'the boolean computed for this id in a1_controls.py')}
         d.update(extra)
         self.results[cid] = d
+        self.runs_of[cid] = self.rec.take()
 
     # helpers
     def lines(self, c, f):
@@ -173,6 +237,17 @@ def rt_record(a):
               'ck_errors': rc.get('ck_errors'), 'extended_unmapped': rc.get('extended_unmapped'),
               'frozen_self_test': rc.get('frozen_self_test'), 'anchors': rc.get('anchors'), 'seconds': t})
     code, res, t = a.run(['record', '--pin', H, '--record', H])
+    x1_run = a.rec.pending[-1]
+    # the restored pair shared by X1 and M7 to M9: the unmutated record run twice (baseline, restored)
+    a.run(['record', '--pin', E, '--record', H], case='baseline')
+    clean_pair = a.rec.pending[-1:]
+    a.run(['record', '--pin', E, '--record', H], case='restored', baseline=clean_pair[0])
+    clean_pair = a.rec.pending[-2:]
+    a.rec.pending = [x1_run]
+
+    def with_pair(runs):
+        return list(runs) + [dict(r_) for r_ in clean_pair]
+    a.rec.pending = with_pair(a.rec.pending)
     a.record('X1', code == 65 and res.get('stop', {}).get('class') == 'PIN_MISMATCH', 'ERROR PIN_MISMATCH, exit 65',
              {'exit': code, 'stop': res.get('stop', {}).get('class')})
     # M7-M9: altered frozen record files are refused at integrity (the record tree is pinned)
@@ -181,9 +256,12 @@ def rt_record(a):
     sm['sites'][0]['row'] = 'X-99'
     r7 = a.repo.derive(H, {R + 'sitemap.json': (json.dumps(sm, indent=1, ensure_ascii=False) + '\n').encode()})
     code7, res7, _ = a.run(['record', '--pin', E, '--record', r7])
+    run7 = a.rec.pending[-1]
     led_md = a.base.read(H, R + 'LEDGER.md').replace(b'| X-00 |', b'| X-0O |', 1)
     r8 = a.repo.derive(H, {R + 'LEDGER.md': led_md})
     code8, res8, _ = a.run(['record', '--pin', E, '--record', r8])
+    run8 = a.rec.pending[-1]
+    a.rec.take()
     # the replay itself, on the altered materializations, reports the equalities false
     from ledger_coverage.adapters import python_frozen_replay as rp
 
@@ -203,27 +281,128 @@ def rt_record(a):
     rr8 = rp.replay(Rd(r8), E, r8, R + 'ledger_check.py', corpus, tempfile.mkdtemp(dir=a.out_root))
     eq7 = {e['name']: e['equal'] for e in rr7['equalities']}
     eq8 = {e['name']: e['equal'] for e in rr8['equalities']}
+    # each of M7 to M9 retains its own refused run as case '' (M9 reads M7's run) with the shared restored pair
+    a.rec.pending = with_pair([dict(run7, case='', attested={
+        json.dumps({'replay_equality': 'build', 'value': False}, sort_keys=True): eq7.get('rebuild_equal') is False})])
     a.record('M7', code7 == 65 and eq7.get('rebuild_equal') is False,
              'FAILS rebuild_equal false (v1); under v5.1 the pinned record tree refuses the altered record first',
              {'cli': (code7, res7.get('stop', {}).get('class')), 'replay_equalities': eq7})
+    a.rec.pending = with_pair([dict(run8, case='', attested={
+        json.dumps({'replay_equality': 'render', 'value': False}, sort_keys=True): eq8.get('render_equal') is False})])
     a.record('M8', code8 == 65 and eq8.get('render_equal') is False, 'FAILS render_equal false (v1); refused at integrity',
              {'cli': (code8, res8.get('stop', {}).get('class')), 'replay_equalities': eq8})
+    a.rec.pending = with_pair([dict(run7, case='', attested=None)])
     a.record('M9', code7 == 65 and res7.get('stop', {}).get('class') == 'RECORD_TREE_MISMATCH', 'ERROR record tree',
              {'cli': (code7, res7.get('stop', {}).get('class'))})
-    rows = json.loads(a.base.read(H, R + 'rows.json'))
-    j = next(r for r in rows['rows'] if r['disposition'] == 'J')
-    j['s1'] = 'Yes'
-    rj = a.repo.derive(H, {R + 'rows.json': (json.dumps(rows, indent=1, ensure_ascii=False) + '\n').encode()})
-    rrj = rp.replay(Rd(rj), E, rj, R + 'ledger_check.py', corpus, tempfile.mkdtemp(dir=a.out_root))
-    a.record('S11-2c', rrj['ck_errors'] and any(e.startswith('CK5') for e in rrj['ck_errors']),
-             'J row with S1 Yes gives FAIL (op A record_checks)', {'ck_errors': (rrj['ck_errors'] or [])[:3]})
+    s11_2c(a)
+
+
+def s11_2c(a):
+    """S11-2c under the minimum contract of r6 amendment 9 sec. 2: an op-A `record` run under normal admission (the
+    whole of sec. 6.3 on the in-memory host: freeze, pin table, review chain, execution identity) on a synthetic
+    configuration that pins the mutant record (its sitemap companion rows and its replay record tree), the mutant
+    being the record at H with the sole J/S1 change, as the retained byte diff shows; CK5 is read from the retained
+    raw result's record_checks; the same run on a configuration pinning the unmutated record at H, retained as the
+    case's baseline, shows no CK5 failure. A record-tree integrity stop is not evidence (no admitted run, no replay)."""
+    import difflib
+    from ledger_coverage.adapters import synthetic_fixture as sf, host_fixture as hf
+    R = 'verification/audits/foundations/a1exit-ledger-20261120/'
+    base_rows = a.base.read(H, R + 'rows.json')
+    doc = json.loads(base_rows)
+    j = next(r for r in doc['rows'] if r['disposition'] == 'J')
+    # the mutation at byte level: the J row's s1 value only, the rest of the file byte-identical
+    at = base_rows.index(('"id": "%s"' % j['id']).encode())
+    old = ('"s1": %s,' % json.dumps(j['s1'], ensure_ascii=False)).encode()
+    pos = base_rows.index(old, at)
+    mut_rows = base_rows[:pos] + b'"s1": "Yes",' + base_rows[pos + len(old):]
+    want = json.loads(base_rows)
+    next(r for r in want['rows'] if r['id'] == j['id'])['s1'] = 'Yes'
+    diff = ''.join(difflib.unified_diff(base_rows.decode('utf-8').splitlines(True),
+                                        mut_rows.decode('utf-8').splitlines(True),
+                                        R + 'rows.json@H', R + 'rows.json@mutant'))
+    changed = [ln for ln in diff.splitlines()[2:] if ln[:1] in '+-']
+
+    def line_of(b):
+        # the whole line holding the s1 value, in the base or the mutant
+        return b[b.rindex(b'\n', 0, pos) + 1:b.index(b'\n', pos)].decode('utf-8')
+    rj = a.repo.derive(H, {R + 'rows.json': mut_rows}, parents=[H], subject='S11-2c mutant: J row S1 Yes')
+    tree_diff = sorted(p for p in set(a.repo.paths(H)) | set(a.repo.paths(rj))
+                       if a.repo.paths(H).get(p) != a.repo.paths(rj).get(p))
+
+    class SynA(sf.Syn):
+        """The synthetic world over the real objects: its pin derives from E, adding the fixture's document, witness
+        and the adapter modules the configuration pins."""
+        def __init__(self):
+            self.repo = a.repo
+            files = {sf.DOC: sf.TEXT.encode(), sf.WITNESS: b'Axiom Z holds in the witness text.\n'}
+            for m in ('line_patch.py', 'artifact_hash.py', 'a1exit_sitemap.py', 'python_frozen_replay.py'):
+                files[sf.AD + m] = sf.module_bytes(m)
+            self.pin = self.repo.derive(E, files, parents=[E], subject='S11-2c synthetic pin over E')
+            self.m1 = self.repo.derive(self.pin, {'syn/note.txt': b'merge one\n'}, parents=[self.pin],
+                                       subject='Merge #7: synthetic merge')
+            self.H = self.m1
+    syn = SynA()
+    staged = json.loads(a.repo.read(a.crev, a.cpath))
+
+    def ref(m):
+        return {'path': sf.AD + m, 'blob_sha256': sha(sf.module_bytes(m))}
+
+    def run(rc, case, baseline=None):
+        c0, p0, _, _ = syn.build({'operations': ['record'], 'control_ops': ('record',)})
+        ads = json.loads(syn.repo.read(c0, p0))['adapters']
+        ads['sitemap'] = {'adapter': 'a1exit-sitemap', 'adapter_version': 2, 'module': ref('a1exit_sitemap.py'),
+                          'commit': rc, 'path': R + 'sitemap.json', 'blob_sha256': sha(a.repo.read(rc, R + 'sitemap.json')),
+                          'companion': [{'role': 'rows', 'commit': rc, 'path': R + 'rows.json',
+                                         'blob_sha256': sha(a.repo.read(rc, R + 'rows.json'))}]}
+        ads['replay'] = {'adapter': 'python-frozen-replay', 'adapter_version': 1,
+                         'module': ref('python_frozen_replay.py'), 'module_path': R + 'ledger_check.py',
+                         'record_tree': a.repo.tree_id(rc, R[:-1]),
+                         'functions': ['manuscript_digest', 'build', 'render', 'splice_block', 'check',
+                                       'extended_unmapped', 'self_test']}
+        v = {'operations': ['record'], 'control_ops': ('record',), 'drop': ['sites'],
+             'extra': {'adapters': ads, 'roles': {'scientific_base': syn.H, 'pin': E, 'record_commit': rc,
+                                                  'side_change_classes': None},
+                       'corpus': staged['corpus'], 'context_mapping': staged['context_mapping']}}
+        c, p, _, _ = syn.build(v)
+        w = hf.World(syn.repo, c)
+        F = hf.freeze(syn.repo, c, p)
+        out = a.out()
+        argv = ['record', '--config', '%s:%s' % (F, p), '--out', out] + w.args(F) + ['--pin', E, '--record', rc]
+        code, res = cli.run(argv, repo=syn.repo, harness=False, stderr=io.StringIO(), control=w.control(w.checkout()))
+        mutation = [{'path': R + 'rows.json', 'row': j['id'], 'field': 's1', 'from': j['s1'], 'to': 'Yes'}] \
+            if rc == rj else []
+        return a.rec.capture(argv, code, out, case=case, mutation=mutation, baseline=baseline), code, res or {}
+
+    def ck5(res):
+        return [e for e in ((res.get('record_checks') or {}).get('ck_errors') or []) if str(e).startswith('CK5')]
+
+    def adm(res):
+        return ((res.get('config') or {}).get('admission') or {})
+    b_run, b_code, b_res = run(H, 'unmutated')
+    a.rec.take()  # the unmutated run is retained as the baseline of the mutant case, not as a case of its own
+    _, m_code, m_res = run(rj, None, baseline=b_run)
+    normal = all(adm(x).get('simulated_chain') and not x.get('stop') for x in (b_res, m_res))
+    ok = (normal and m_code == 20 and m_res.get('outcome') == 'FAIL' and bool(ck5(m_res)) and b_code == 0 and
+          b_res.get('outcome') == 'PASS' and not ck5(b_res) and json.loads(mut_rows) == want and
+          changed == ['-' + line_of(base_rows), '+' + line_of(mut_rows)] and
+          tree_diff == [R + 'rows.json'])
+    a.record('S11-2c', ok, 'J row with S1 Yes gives FAIL with CK5 in op A record_checks, under normal admission on a '
+             'synthetic configuration pinning the mutant; the unmutated record gives no CK5 (r6 amendment 9 sec. 2)',
+             {'mutant': {'exit': m_code, 'outcome': m_res.get('outcome'), 'ck5': ck5(m_res)[:3],
+                         'admission': {k: v for k, v in adm(m_res).items() if k != 'simulated_chain'},
+                         'simulated_chain': bool(adm(m_res).get('simulated_chain')), 'stop': m_res.get('stop')},
+              'unmutated': {'exit': b_code, 'outcome': b_res.get('outcome'), 'ck5': ck5(b_res),
+                            'simulated_chain': bool(adm(b_res).get('simulated_chain')), 'stop': b_res.get('stop')},
+              'diff_lines': changed, 'tree_diff': tree_diff})
+    a.files_of['S11-2c'] = {'mutant.diff': diff.encode('utf-8'), 'rows.base.json': base_rows,
+                            'rows.mutant.json': mut_rows}
 
 
 def rt_coverage(a):
-    code, res, t = a.run(['coverage', '--commit', E])
+    code, res, t = a.run(['coverage', '--commit', E, '--check', 'item2'])
     a.record('RT-E', code == 0 and res.get('site_counts') == {'unchanged': 697}, 'PASS; 697 unchanged',
              {'exit': code, 'site_counts': res.get('site_counts'), 'hit_counts': res.get('hit_counts'), 'seconds': t})
-    code, res, t = a.run(['coverage', '--commit', H])
+    code, res, t = a.run(['coverage', '--commit', H, '--check', 'item2'])
     fc = res.get('finding_counts', {})
     nonhp = [i for i in res.get('items', []) if i['decision'] == 'FAIL' and i['obligation'] != 'HP']
     ind = [i for i in res.get('items', []) if i['class'] == 'context-structure-changed' and i['obligation'] != 'HP']
@@ -242,14 +421,28 @@ def rt_coverage(a):
              reference_difference='7 HP context-structure-changed, not 3: the 4 further sites (FULL:706, ch02:76, '
                                   'Substratum.md:94, :253) are unique at E and H and rewritten in H..T1\'; the '
                                   'reference population required uniqueness at T1\' as well (sec. 14).')
-    seg = ['--segment', '%s..%s' % (E, H), '--segment', '%s..%s=%s' % (H, T, LEDGER)]
-    code, res, t = a.run(['coverage', '--commit', T] + seg)
+    phase = a
+    a = a.fixed or a
+    x = x_rep(a)
+    ledger = '%s:%srep/ledger.json' % (a.tool_rev, a.ad)
+    seg = ['--segment', '%s..%s' % (E, H), '--segment', '%s..%s=%s' % (H, x, ledger)]
+    argv = ['coverage', '--commit', x, '--check', 'item2'] + seg
+    scope = 'ledgered and corpus paths of X_rep, and the segments E..H and H..X'
+    code, res, t, scan = rep_run(a, argv, scope, retain_reads=True)
+    restored_code, restored, _, restored_scan = rep_run(a, argv, scope, case='restored',
+                                                        baseline=a.rec.pending[-1], retain_reads=True)
     fc = res.get('finding_counts', {})
     sites = res.get('sites', [])
-    moved = sum(1 for s in sites for x in s['statuses'] if x['segment'].startswith(H[:8]) and x['status'] == 'moved')
+    segment = '%s..%s' % (H[:8], x[:8])
+    moved = sum(any(o['segment'] == segment and o['status'] == 'moved' for o in s['statuses']) for s in sites)
     shared = sum(1 for s in sites if s['region_shared_with'])
     splices = sorted({x for s in sites for x in s['region_splices']})
-    line_sites = [s for s in sites if s['line_splices']]
+    overlap = {i['subject'] for i in res.get('items', []) if
+               (i['obligation'], i['class'], i['decision'], i['segment']) ==
+               ('RET', 'untracked-hp-overlap', 'FAIL', segment)}
+    line_sites = [s for s in sites if s['site_id'] in overlap and s['line_splices']]
+    merged_overlaps = {s['site_id'].rsplit('@', 1)[0]: s['region_splices'] for s in sites
+                       if s['region_shared_with'] and s['region_splices']}
     hp_struct = sum(1 for i in res.get('items', []) if i['class'] == 'context-structure-changed' and
                     i['obligation'] == 'HP')
     ok = (code == 20 and fc.get('HP/FAIL/hp-unadjudicated') == 113 and fc.get('HP/FAIL/context-meaning-unverified') == 7
@@ -257,28 +450,208 @@ def rt_coverage(a):
           and fc.get('RET/FAIL/untracked-hp-overlap') == 19 and fc.get('RET/FAIL/context-meaning-unverified') == 5
           and fc.get('RET/REVIEW_REQUIRED/context-structure-changed') == 3 and not any('deny' in k for k in fc)
           and res['site_counts'].get('authorized-replacement') == 197 and res['site_counts'].get('authorized-removal') == 4
+          and res['site_counts'].get('unchanged', 0) + moved == 383
           and moved == 168 and shared == 22 and len(res.get('merger_groups', [])) == 9 and len(splices) == 31
-          and (res.get('region_lines') or {}).get('count') == 215)
-    a.record('RT-T0', ok, 'FAIL; HP 113/7/3; RET 19/5/3; deny 0; 383 unchanged (168 moved), 197 replaced, 4 removed; '
-                          '215 region lines; 9 merger groups, 22 sites',
+          and len(line_sites) == 18 and merged_overlaps == {'papers/Substratum.md:266': ['D029'],
+                                                           'papers/Substratum.md:268': ['D029']}
+          and (res.get('region_lines') or {}).get('count') == 215
+          and scan['outside_scope'] == [] and restored_code == code and restored_scan == scan
+          and all(restored.get(k) == res.get(k) for k in
+                  ('items', 'sites', 'segments', 'site_counts', 'merger_groups', 'region_lines')))
+    a.record('RT-T0', ok, 'FAIL with HP 113/7/7, RET 19/5/3 and no denies. '
+                          '383 unchanged (168 moved), 197 replaced, 4 removed, 215 region lines. '
+                          'Nine merger groups, 22 shared sites, 31 region splices and 18 line-attributed overlaps. '
+                          'D029 overlaps only Substratum.md:266 and :268 among merger-group sites.',
              {'exit': code, 'finding_counts': fc, 'site_counts': res.get('site_counts'), 'moved_H_T': moved,
               'merger_groups': len(res.get('merger_groups', [])), 'shared_sites': shared,
               'region_splices_distinct': len(splices), 'line_attributed_sites': len(line_sites),
-              'hit_counts': res.get('hit_counts'), 'region_lines': res.get('region_lines')},
+              'merger_group_overlaps': merged_overlaps,
+              'hit_counts': res.get('hit_counts'), 'region_lines': res.get('region_lines'), 'X_rep': x,
+              'scope': scan},
              predicate='exit 20; HP 113/7 and 7 HP structure REVIEWs; RET 19/5/3; no deny; 197 replaced, 4 removed; '
-                       '168 moved; 22 shared sites in 9 groups; 31 region splices; region_lines.count == 215 (the '
-                       'LF-inclusive site span, sec. 5)')
-    a.results['RT-T'] = {'id': 'RT-T', 'passed': False, 'status': 'NOT RUN', 'predicate': None,
-                         'expected': 'PASS only when every record verifies; any missing '
-                                     'record leaves REVIEW_REQUIRED or FAIL. Reported NOT RUN while no reviewed record '
-                                     'exists (sec. 10.4)',
-                         'actual': {'note': 'no reviewed record exists; RT-T0 shows the result without them',
-                                    'exit': code}}
+                       '383 unchanged including 168 moved; 22 shared sites in 9 groups; 31 region splices; '
+                       '18 line-attributed overlaps; D029 at Substratum.md:266 and :268 alone among merged sites; '
+                       '215 region lines; confined run and restored result')
+    a = phase
+    if a.freeze is None:
+        a.results['RT-T'] = {'id': 'RT-T', 'passed': False, 'status': 'NOT RUN', 'predicate': None,
+                             'expected': 'PASS only when every record verifies at candidate F',
+                             'actual': {'note': 'candidate-F evidence is not part of this fixed control', 'exit': code}}
+
+
+def rt_t(a):
+    """Candidate-F RT-T reads its ledger, configuration and reviews at that exact freeze candidate."""
+    if a.rep_instance_doc is None:
+        a.record('RT-T', False, 'PASS on the exact candidate F', {'refused': 'no verified live binding'})
+        return
+    F = a.freeze
+    directory = a.cpath.rsplit('/', 1)[0] + '/'
+    _, _, admitted, _, cfg = cli.freeze_admission(a.base, F, F, a.cpath, refuse_rep)
+    ledger_path, edits_path = (directory + name for name in ('ledger.json', 'edits.json'))
+    hp, context, hit = (directory + name for name in
+                        ('hp.json', 'context-adjudications.json', 'hit-classifications.json'))
+    gr = a.ad + 'records/gr58-hit-classification-v3.json'
+    records = {r['path']: r for r in cfg['records'] if r.get('commit', F) == F}
+    if any(p not in admitted or p not in records or sha(admitted[p]) != records[p]['blob_sha256']
+           for p in (hp, context, hit)) or gr not in records:
+        a.record('RT-T', False, 'PASS on the exact candidate F', {'refused': 'required reviewed input absent'})
+        return
+    cfgmod.read_ref(a.base, F, records[gr], 'the GR:58 hit record')
+    h, e = cfg['roles']['scientific_base'], cfg['roles']['pin']
+    x, changes = build_x_rep(a, frozen=True)
+    conforming = not rep_conforms(a, x, changes, frozen=True)
+    args = ['coverage', '--freeze', F, '--commit', x, '--check', 'item2',
+            '--segment', '%s..%s' % (e, h), '--segment', '%s..%s=%s:%s' % (h, x, F, ledger_path),
+            '--hp', '%s:%s' % (F, hp)]
+    for path in (gr, context, hit):
+        args += ['--classify', '%s:%s' % (F, path)]
+    scope = 'ledgered and corpus paths of X_rep, and the segments E..H and H..X'
+    inputs = {'H': h, 'E': e, 'config': raw_ref(a.base, F, a.cpath),
+              'ledger': raw_ref(a.base, F, ledger_path), 'edits': raw_ref(a.base, F, edits_path),
+              'records': [raw_ref(a.base, F, p) for p in (hp, gr, context, hit)]}
+
+    def observed(result, logged):
+        paths = logged.read_at(a, h=h, pins=tuple(inputs[k]['git_blob'] for k in ('ledger', 'edits')))
+        result = result or {}
+        admission = (result.get('config') or {}).get('admission') or {}
+        attested = {'representative_inputs': inputs, 'read_paths': paths, 'read_trace': logged.trace(),
+                    'every_record_verifies': result.get('outcome') == 'PASS' and admission.get('mode') == 'chain'}
+        if conforming:
+            attested['representative_candidate'] = REP_CANDIDATE.replace(
+                "the ledger's splices,", "the splices of the ledger frozen at F,", 1)
+        if not rep_scope(a, x, paths, frozen=True):
+            attested['scanned_paths_within'] = scope
+        return attested
+
+    logged = ReadLog(a.repo, x)
+    code, result, _ = a.run(args, harness=False, reader=logged, attested=lambda r: observed(r, logged))
+    baseline = a.rec.pending[-1]
+    restored = ReadLog(a.repo, x)
+    clean_code, clean_result, _ = a.run(args, harness=False, reader=restored, case='restored',
+                                       baseline=baseline, attested=lambda r: observed(r, restored))
+    facts = observed(result, logged)
+    a.record('RT-T', code == clean_code == 0 and result == clean_result and
+             facts == observed(clean_result, restored) and facts.get('every_record_verifies') and conforming and
+             facts.get('scanned_paths_within') == scope,
+             'PASS on the exact candidate F with reviewed records and the restored case',
+             {'exit': code, 'restored_exit': clean_code, 'X_rep': x, **facts})
+
+    tr5(a, x, gr)
+
+
+def tr5(a, x, gr):
+    """Native TR5 terms run. The separate candidate check and designation comparison stay in OBL-16."""
+    F = a.freeze
+    fields = ['freeze', 'pin_table', 'configuration', 'run', 'tool_commit', 'tool_blobs', 'workflow', 'evaluated']
+    run_fields = ['run_id', 'repository_id', 'head_repository_id', 'event', 'head_branch', 'workflow_path', 'head_sha']
+    names = ['F', 'pin_table', 'configuration', 'run', 'repository_id', 'head_repository_id', 'event', 'T',
+             'tool_blobs', 'workflow_blob', 'evaluated_commits']
+
+    def observed(result):
+        snapshot = (((result or {}).get('config') or {}).get('admission') or {}).get('snapshot') or {}
+        host = snapshot.get('run') or {}
+        complete = all(k in snapshot for k in fields) and all(k in host for k in run_fields)
+        return {'snapshot_fields_all_present': names if complete else []}
+
+    args = ['terms', '--freeze', F, '--commit', x, '--profile', 'ptr', '--classify', '%s:%s' % (F, gr)]
+    code, result, _ = a.run(args, harness=False, attested=observed)
+    clean_code, clean_result, _ = a.run(args, harness=False, case='restored', baseline=a.rec.pending[-1],
+                                       attested=observed)
+    admission = (result.get('config') or {}).get('admission') or {}
+    host = (admission.get('snapshot') or {}).get('run') or {}
+    complete = observed(result)['snapshot_fields_all_present'] == names
+    a.record('TR5', code == clean_code == 0 and result == clean_result and complete and
+             admission.get('mode') == 'chain', 'chain admission at the exact F on main with a complete snapshot',
+             {'exit': code, 'restored_exit': clean_code, 'freeze': F, 'head_sha': host.get('head_sha'),
+              'run_id': host.get('run_id'), 'complete': complete})
+
+
+RTDR_MISSING = ('countercase: at H with the DR-1 alternative-a match at book/The-Incompleteness-of-Observation-FULL.md:6504 '
+                'removed (one target missing): the target item is absent')
+
+
+def fixed_terms_fixture(phase):
+    """Build the terms-only X_rep from the selected fixture configuration and fixed historical inputs."""
+    a = copy.copy(phase.fixed or phase)
+    a.out_root = tempfile.mkdtemp(prefix='fixed-terms-', dir=a.out_root)
+    a.n = 0
+    a.rep_binding = a.rep_instance_doc = None
+    # These scans have no live main operand. Their marker comparison uses the fixed fixture tree.
+    if not a.staged and not a.overlay:
+        a.main = a.base.resolve(a.crev)
+    cfg = json.loads(a.repo.read(a.crev, a.cpath))
+    build_reads = {'H': set(), 'M': set()}
+    x, changes = build_x_rep(a, reads=build_reads)
+    a._x_rep, a._x_rep_why = x, rep_conforms(a, x, changes)
+    if a._x_rep_why:
+        raise RepRefused('fixed terms candidate: %s' % '; '.join(a._x_rep_why))
+    refs = {'configuration': raw_ref(a.repo, a.crev, a.cpath)}
+    for name in ('controls', 'delegation'):
+        spec = cfg[name]
+        ref = raw_ref(a.repo, spec.get('commit') or a.crev, spec['path'])
+        if ref['blob_sha256'] != spec['blob_sha256']:
+            raise RepRefused('fixed terms %s differs from its configuration pin' % name)
+        refs[name] = ref
+    runner = 'tools/ledger_coverage/adapters/a1_controls.py'
+    with open(__file__, 'rb') as stream:
+        if not a.overlay and sha(stream.read()) != raw_ref(a.base, a.tool_rev, runner)['blob_sha256']:
+            raise RepRefused('fixed terms runner differs from the exact tool revision')
+    for name, path in (('ledger', a.ad + 'rep/ledger.json'), ('edits', a.ad + 'rep/edits.json'),
+                       ('builder', REP_BUILDER), ('runner', runner)):
+        refs[name] = raw_ref(a.base, a.tool_rev, path)
+    scope = {'scope': 'fixed representative terminology control', 'tool': a.tool_rev, 'E': E, 'H_rep': H,
+             'M': a.main, 'X_rep': x, 'X_rep_tree': a.repo.tree_id(x), 'X_rep_parents': a.repo.parents(x),
+             'build_reads': {k: sorted(paths) for k, paths in build_reads.items()}, **refs}
+    for rid in ('RT-DR3W', 'RT-I7', 'RT-I7A'):
+        phase.files_of[rid] = {'fixed-inputs.json': scope}
+    return a, cfg
+
+
+def fixed_terms_reads(repo, subject):
+    """Retain exact paths for each read commit as well as the existing representative path trace."""
+    class Reads(ReadLog):
+        def __init__(self):
+            super().__init__(repo, subject)
+            self.by_commit = collections.defaultdict(set)
+
+        def read(self, commit, path):
+            self.by_commit[commit].add(path)
+            return super().read(commit, path)
+
+        def evidence(self):
+            return {'read_trace': self.trace(),
+                    'paths_by_commit': {c: sorted(ps) for c, ps in self.by_commit.items()}}
+
+    return Reads()
+
+
+def fixed_terms_run(a, args, case, baseline=None):
+    """Run the fixed profile or no-record check with its actual read and rule-selection evidence."""
+    subject = args[args.index('--commit') + 1]
+    log = fixed_terms_reads(a.repo, subject)
+    before = []
+
+    def select_no_records(rule_files):
+        before.append([{'path': r['path'], 'blob_sha256': r['blob_sha256']} for r, _ in rule_files])
+        return []
+
+    def observed(_result):
+        # A profile-only or no-record invocation does not apply the fixture's rule records.
+        facts = {**log.evidence(), 'read_paths': log.read_at(a), 'rule_selection_inputs': before}
+        if subject == x_rep(a):
+            facts['representative_candidate'] = REP_CANDIDATE
+            if not rep_scope(a, subject, facts['read_paths']):
+                facts['scanned_paths_within'] = 'ledgered and corpus paths of X_rep'
+        return facts
+
+    return a.run(args, case=case, baseline=baseline, reader=log, attested=observed,
+                 control={'replace_rule_files': select_no_records})
 
 
 def rt_terms(a):
+    case_of = {'H': 'at H', 'E': 'at E', 'T1p': "at T1'"}
     for c, name in ((H, 'H'), (E, 'E'), (T, 'T1p')):
-        code, res, t = a.run(['terms', '--commit', c, '--profile', 'DR-1,DR-3,DR-4,DR-5'])
+        code, res, t = a.run(['terms', '--commit', c, '--profile', 'DR-1,DR-3,DR-4,DR-5'], case=case_of[name])
         ln, sl, per, alt = dl(res)
         a.results.setdefault('RT-DR', {'passed': True, 'expected': 'H: DR-1 61 (a 6, b 2, c 55), DR-3 0, DR-4 28, '
                                                                    'DR-5 1, 86 lines; E: 95; T1\': 0 / 0', 'actual': {}})
@@ -300,36 +673,85 @@ def rt_terms(a):
         else:
             ok = code == 0 and not ln and not sl
         a.results['RT-DR']['passed'] &= ok
-    # RT-DR3W: control-only scan of AGENTS.md with DR-3 alone
-    cfg = json.loads(a.repo.read(a.crev, a.cpath))
-    controls = json.loads(a.repo.read(a.crev, cfg['controls']['path']))
+    # amendment 5: the countercase with one target missing; H with FULL:6504 replaced by a line no deny rule matches
+    parts = a.repo.read(H, FULL).split(b'\n')
+    parts[6503] = b'A neutral line written by the control.'
+    hc = a.repo.derive(H, {FULL: b'\n'.join(parts)}, parents=a.repo.parents(H),
+                       subject='H with one RT-DR target removed')
+    code, res, t = a.run(['terms', '--commit', hc, '--profile', 'DR-1,DR-3,DR-4,DR-5'], case=RTDR_MISSING,
+                         mutation=[{'path': FULL, 'before': sha(a.repo.read(H, FULL)), 'after': sha(a.repo.read(hc, FULL))}])
+    gone = not [i for i in items_on(res, FULL, 6504) if i['class'] == 'deny-match']
+    a.results['RT-DR']['actual']['target_missing'] = {'exit': code, 'item_at_6504': not gone}
+    a.results['RT-DR']['passed'] &= code == 20 and gone
+    a.runs_of['RT-DR'] = a.rec.take()
+    # RT-DR3W, RT-I7 and RT-I7A retain their fixed control configuration at either phase.
+    phase = a
+    a, cfg = fixed_terms_fixture(phase)
+    control_ref = cfg['controls']
+    controls = json.loads(a.repo.read(control_ref.get('commit') or a.crev, control_ref['path']))
     inputs = {i['id']: i for i in controls['control_inputs']}
     dr3 = [p for p in cfg['profiles'] if p['name'] == 'DR-3'][0]
-    prof, _ = prf.load_profile(dr3, lambda s: a.repo.read(s.get('commit') or a.crev, s['path']))
     got = {}
-    for key in ('agents-md-at-H', 'agents-md-at-T1p'):
+    dr3_cases = (
+        ('agents-md-at-H', 'AGENTS.md at H (control input agents-md-at-H)'),
+        ('agents-md-at-Xrep', "AGENTS.md in X_rep (control input agents-md-at-Xrep: H's AGENTS.md with the ledger's "
+         "splices, sha256 59b68984e659ef808819e02d4653d80388f8bd2f4c009796b162fc2453882ce2, "
+         "the bytes of T1''s copy)"),
+        ('agents-md-at-H', 'restored'),
+    )
+    clean = None
+    for key, case in dr3_cases:
         spec = inputs[key]
-        data = a.repo.read(spec['commit'], spec['path'])
-        assert sha(data) == spec['sha256']
-        ss = util.sentences_of(util.lines_of(data.decode()), cfg['sentence']['abbreviations'], 2)
-        got[key] = [(s1, s2) for s, s1, s2 in ss if prof.matches(s)]
+        # the countercontrol input is AGENTS.md in X_rep (R6.EVID.8), never T1''s copy
+        revision = x_rep(a) if spec.get('candidate') else spec['commit']
+        log = fixed_terms_reads(a.repo, revision)
+        prof, pattern = prf.load_profile(dr3, lambda s: log.read(s.get('commit') or a.crev, s['path']))
+        data = log.read(revision, spec['path'])
+        if sha(data) != spec['sha256'] or pattern != dr3['pattern_sha256']:
+            raise RepRefused('fixed DR-3 witness or profile differs from its pin')
+        ss = util.sentences_of(util.lines_of(data.decode()), cfg['sentence']['abbreviations'],
+                                cfg['sentence']['splitter_version'])
+        matches = [(s1, s2) for s, s1, s2 in ss if prof.matches(s)]
+        items = [{'file': spec['path'], 'line': s1, 'sentence': '%d:%d' % (s1, s2),
+                  'sentence_start_line': s1, 'sentence_end_line': s2, 'rule_id': 'DR-3'}
+                 for s1, s2 in matches]
+        facts = {}
+        if key == 'agents-md-at-Xrep' and not a._x_rep_why and spec['path'] == 'AGENTS.md':
+            facts = {'representative_candidate': REP_CANDIDATE,
+                     'scanned_paths_within': 'AGENTS.md (a ledgered path) of X_rep'}
+        run = a.rec.capture_doc('DR-3 fixed sentence scan',
+                                {'input': raw_ref(a.repo, revision, spec['path']), 'items': items,
+                                 'profile': {'spec': dr3, 'pattern_sha256': pattern}, **log.evidence()},
+                                case=case, baseline=clean if case == 'restored' else None, attested=facts)
+        if case == 'restored':
+            assert matches == got[key]
+        else:
+            got[key] = matches
+            if clean is None:
+                clean = run
     hgot = got['agents-md-at-H']
-    a.record('RT-DR3W', len(hgot) == 1 and hgot[0][0] == 37 and hgot[0][1] >= 38 and not got['agents-md-at-T1p'],
-             'exactly one DR-3 sentence at H starting on line 37 and including lines 37-38; 0 at T1\'', got)
-    for c, name, want in ((T, 'T1p', (7, 4)), (H, 'H', (14, 179))):
-        code, res, t = a.run(['terms', '--commit', c, '--profile', 'item7-literal'])
+    a.record('RT-DR3W', len(hgot) == 1 and hgot[0][0] == 37 and hgot[0][1] >= 38 and not got['agents-md-at-Xrep'],
+             'exactly one DR-3 sentence at H starting on line 37 and including lines 37-38; 0 in X_rep', got)
+    for c, name, want in (('X_rep', 'X_rep', (7, 4)), (H, 'H', (14, 179))):
+        args = ['terms', '--commit', x_rep(a) if c == 'X_rep' else c, '--profile', 'item7-literal']
+        code, res, t = fixed_terms_run(a, args, 'at X_rep (R6.EVID.8)' if c == 'X_rep' else 'at H')
         lit = collections.Counter(x for i in res.get('items', []) for x in i.get('literals', []))
         rep = res.get('reports', {}).get('item7-literal', {}).get('report_regex_lines')
         n = len(res.get('items', []))
-        a.results.setdefault('RT-I7', {'passed': True, 'expected': 'FAIL at both; T1\': 7 / 0 / 0, A1 4; H: 11 / 1 / 2, '
+        a.results.setdefault('RT-I7', {'passed': True, 'expected': 'FAIL at both; X_rep: 7 / 0 / 0, A1 4; H: 11 / 1 / 2, '
                                                                    'A1 179', 'actual': {}})
         a.results['RT-I7']['actual'][name] = {'exit': code, 'lines': n, 'literals': dict(lit), 'A1_lines': rep}
         a.results['RT-I7']['passed'] &= code == 20 and (n, rep) == want
+    redo, reread, _ = fixed_terms_run(a, args, 'restored', baseline=a.rec.pending[-1])
+    a.results['RT-I7']['passed'] &= redo == code and reread == res
+    a.runs_of['RT-I7'] = a.rec.take()
     # RT-I7A and V3
-    retired = retired_lines(a)
-    for c, name in ((H, 'H'), (T, 'T1p')):
-        code, res, t = a.run(['terms', '--commit', c, '--base', H, '--ledger', LEDGER, '--check', 'item7', '--final'],
-                             control={'without_allow_rules': True})
+    retired = retired_lines(a, fixed=True)
+    ledger_spec = cfg['adapters']['ledger']
+    for c, name in ((H, 'H'), ('X_rep', 'X_rep')):
+        args = ['terms', '--commit', x_rep(a) if c == 'X_rep' else c, '--base', H, '--ledger',
+                '%s:%s' % (ledger_spec.get('commit') or a.crev, ledger_spec['path']), '--check', 'item7', '--final']
+        code, res, t = fixed_terms_run(a, args, 'at X_rep (R6.EVID.8)' if c == 'X_rep' else 'at H')
         ln, sl, per, alt = dl(res)
         fu = {(i['file'], i['line']) for i in res.get('items', []) if i['class'] == 'final-unclassified'}
         act = {'exit': code, 'deny_lines': len(ln), 'deny_lines_with_sentences': len(ln | sl),
@@ -347,46 +769,79 @@ def rt_terms(a):
             ok = code == 20 and act['deny_lines'] == 0 and act['final_unclassified'] == 12
         a.results.setdefault('RT-I7A', {'passed': True, 'expected': 'H: 86 deny + 123 final-unclassified = 209 (93 / '
                                                                     '216 with sentences); all 95 retired lines FAIL. '
-                                                                    'T1\': 0 deny; 12 final-unclassified',
+                                                                    'X_rep: 0 deny; 12 final-unclassified',
                                         'actual': {}})
         a.results['RT-I7A']['actual'][name] = act
         a.results['RT-I7A']['passed'] &= ok
+    redo, reread, _ = fixed_terms_run(a, args, 'restored', baseline=a.rec.pending[-1])
+    a.results['RT-I7A']['passed'] &= redo == code and reread == res
+    a.runs_of['RT-I7A'] = a.rec.take()
     # V3 countercontrol: one retired line restored to REVIEW would be visible
+    a = phase.fixed or phase
     a.results['V3-countercontrol'] = v3_countercontrol(a, retired)
-    code, res, t = a.run(['terms', '--commit', T, '--base', H, '--ledger', LEDGER, '--check', 'item7'])
+    a.runs_of['V3-countercontrol'] = a.rec.take()
+    a = phase
+    ledger_ref = '%s:%srep/ledger.json' % (rep_ledger_revision(a), a.ad)
+    live_rev = a.freeze
+    if live_rev is not None and a.rep_instance_doc is None:
+        raise RepRefused('RT-D requires the live filled control instance at candidate F')
+    argv = ['terms', '--commit', x_rep(a), '--base', H, '--ledger', ledger_ref, '--check', 'item7']
+    scope = 'ledgered and corpus paths of X_rep'
+    code, res, t, scan_d = rep_run(a, argv, scope, config_revision=live_rev)
+    baseline = a.rec.pending[-1]
     hits = res.get('hits', [])
     w_pass = sorted('%s:%d' % (h['file'], h['line']) for h in hits if h['state'] == 'PASS')
     resid = [h for h in hits if 'resid' in h['profiles'] and h['state'] != 'PASS']
     F_ = FULL
-    w1_lines = [('papers/SM.md', 1394), ('book/ch09-universality.md', 137), ('book/ch19-open-problems.md', 198),
+    # amendment 5: W1-a is removed (rule file v3), so SM:1394 is REVIEW_REQUIRED and 10 W1/W2 lines PASS
+    w1_lines = [('book/ch09-universality.md', 137), ('book/ch19-open-problems.md', 198),
                 ('book/ch19-open-problems.md', 212), (F_, 2554), (F_, 5270), (F_, 5284)]
     w2_lines = [('book/appendix-b-derivations.md', 235), ('book/appendix-b-derivations.md', 246), (F_, 5914),
                 (F_, 5925)]
     st_of = {(h['file'], h['line']): h['state'] for h in hits}
     gr58 = st_of.get(('papers/GR.md', 58))
     others = {'p0-core', 'p0-para', 'ledger-ext', 'ptr', 'repo', 'count-grep'}
-    # "hit by no other review profile": every review profile evaluated on the same tree (repo with its scope)
-    c_all, r_all, _ = a.run(['terms', '--commit', T, '--base', H, '--ledger', LEDGER, '--profile',
-                             ','.join(sorted(others | {'resid'})), '--scope',
-                             '%s:%srecords/repo-scope-v1.json' % (a.crev, a.ad)])
+    # The live case confines the full-profile overlap to the primary residual coordinates.
+    if live_rev:
+        r_all, scan_all = rt_d_repo_overlap(a, res, resid, others)
+        c_all = r_all['exit_status']
+    else:
+        all_profiles = ['terms', '--commit', x_rep(a), '--base', H, '--ledger', ledger_ref, '--profile',
+                        ','.join(sorted(others | {'resid'})), '--scope',
+                        '%s:%srecords/repo-scope-v1.json' % (a.crev, a.ad)]
+        c_all, r_all, _ = a.run(all_profiles)
+        scan_all = None
     prof_at = {(h['file'], h['line']): set(h['profiles']) for h in r_all.get('hits', [])}
     resid_only = [h for h in resid if not prof_at.get((h['file'], h['line']), set()) & others]
+    closed_code, closed, _, closed_scan = rep_run(a, argv, scope, case='restored', baseline=baseline,
+                                                  config_revision=live_rev)
     a.record('RT-D', not any(i['class'] == 'deny-match' for i in res.get('items', [])) and
              all(st_of.get(k) == 'PASS' for k in w1_lines + w2_lines) and gr58 == 'REVIEW_REQUIRED' and
-             len(resid) == 45 and len(resid_only) == 17,
-             '0 deny; all 7 W1 lines (W1-c with its allowance) and the 4 W2 lines PASS with their rules; GR.md:58 '
-             'REVIEW without its record (PASS with it: RT-D-gr58); 45 resid lines REVIEW, 17 hit by no other profile',
+             st_of.get(('papers/SM.md', 1394)) == 'REVIEW_REQUIRED' and
+             len(resid) == 45 and len(resid_only) == 17 and
+             closed_code == code and closed_scan == scan_d and closed.get('items') == res.get('items') and
+             (live_rev is None or (scan_d['outside_scope'] == scan_all['outside_scope'] == [] and
+                                   c_all in (0, 10, 20))),
+             '0 deny; the 6 W1 lines (W1-c with its allowance) and the 4 W2 lines PASS with their rules; SM:1394 and '
+             'GR.md:58 REVIEW (GR.md:58 PASS with its record: RT-D-gr58); 45 resid lines REVIEW, 17 hit by no other '
+             'profile',
              {'exit': code, 'finding_counts': res.get('finding_counts'), 'pass_lines': w_pass,
               'resid_review_lines': len(resid), 'resid_only_lines': len(resid_only), 'gr58': gr58,
               'w1_w2_states': {'%s:%d' % k: st_of.get(k) for k in w1_lines + w2_lines},
-              'rule_negative': sorted(i['subject'] for i in res.get('items', []) if i['class'] == 'rule-negative-match')},
+              'sm1394': st_of.get(('papers/SM.md', 1394)),
+              'rule_negative': sorted(i['subject'] for i in res.get('items', []) if i['class'] == 'rule-negative-match'),
+              'X_rep': x_rep(a), 'scope': scan_d, 'all_profile_scope': scan_all},
              reference_difference=None,
-             predicate='no deny-match; the 11 W1/W2 hit states are PASS; GR.md:58 REVIEW_REQUIRED; 45 resid REVIEW lines '
-                       'of which 17 carry no other review profile')
-    code, res, t = a.run(['terms', '--commit', T, '--base', H, '--ledger', LEDGER, '--check', 'item7',
-                          '--classify', '%s:%srecords/gr58-hit-classification-v1.json' % (a.crev, a.ad)])
+             predicate='no deny-match; the 10 W1/W2 hit states are PASS; SM:1394 and GR.md:58 REVIEW_REQUIRED; 45 resid '
+                       'REVIEW lines of which 17 carry no other review profile')
+    gr58_ref = a.ad + 'records/gr58-hit-classification-v3.json' if live_rev else hit_record_path(a)
+    argv += ['--classify', '%s:%s' % (live_rev or a.crev, gr58_ref)]
+    code, res, t, scan = rep_run(a, argv, scope, config_revision=live_rev)
+    closed_code, closed, _, closed_scan = rep_run(a, argv, scope, case='restored', baseline=a.rec.pending[-1],
+                                                  config_revision=live_rev)
     gr = [h for h in res.get('hits', []) if h['file'] == 'papers/GR.md' and h['line'] == 58]
-    a.record('RT-D-gr58', gr and gr[0]['state'] == 'PASS', 'GR.md:58 PASS with its record',
+    a.record('RT-D-gr58', gr and gr[0]['state'] == 'PASS' and scan == closed_scan and
+             code == closed_code and res.get('items') == closed.get('items'), 'GR.md:58 PASS with its record',
              {'gr58': gr[0] if gr else None})
     # item 11 (repo) with the scope record
     code, res, t = a.run(['terms', '--commit', T, '--check', 'item11', '--scope',
@@ -400,19 +855,22 @@ def rt_terms(a):
                                                                          if h['state'] == 'PASS')})
 
 
-def retired_lines(a):
+def retired_lines(a, *, fixed=False):
     import re
     out = []
     lit = ('Fourteen', 'six structural', 'sixth of')
     for f in sorted(p for p in a.base.paths(H) if p.endswith('.md') and p.count('/') == 1 and
                     p.split('/')[0] in ('papers', 'book')):
         hl = a.lines(H, f)
-        tl = set(a.lines(T, f)) if a.base.blob_id(T, f) else set()
+        # the retired lines are H's lines absent from X_rep (R6.EVID.8: no input is T1')
+        x = x_rep(a)
+        tl = set(a.lines(x, f)) if a.repo.blob_id(x, f) else set()
         for i, l in enumerate(hl, 1):
             if (re.search(r'\bA1\b', l) or any(x in l for x in lit)) and l not in tl:
                 out.append((f, i))
     # less the deny lines (the design's 95 match no deny rule)
-    code, res, t = a.run(['terms', '--commit', H, '--profile', 'DR-1,DR-3,DR-4,DR-5'])
+    args = ['terms', '--commit', H, '--profile', 'DR-1,DR-3,DR-4,DR-5']
+    code, res, t = (fixed_terms_run(a, args, 'retired deny profile census') if fixed else a.run(args))
     ln, sl, per, alt = dl(res)
     return [x for x in out if x not in ln]
 
@@ -429,9 +887,26 @@ def v3_countercontrol(a, retired):
 
 # ---- adversarial controls on a T1'-style X -----------------------------------------------------------------
 
+def item7_without_dr3(a):
+    cfg = json.loads(a.repo.read(a.crev, a.cpath))
+    item7 = next(check for check in cfg['checks'] if check['id'] == 'item7')
+    return ','.join(profile for profile in item7['profiles'] if profile != 'DR-3')
+
+
 def v_controls(a):
+    def run_planted(args, path, mutant, line, control=None, restored_control=None):
+        clean_args = list(args)
+        clean_args[clean_args.index('--commit') + 1] = T
+        a.run(clean_args, control=restored_control)
+        clean = a.rec.name_last('baseline')
+        run = a.run(args, control=control, case='', bindings={'planted': '%s:%d' % (path, line)},
+                    mutation=[{'path': path, 'before': a.repo.blob_id(T, path),
+                               'after': a.repo.blob_id(mutant, path)}])
+        a.run(clean_args, control=restored_control, case='restored', baseline=clean)
+        return run
+
     def terms_added(cid, f, text, check='item7', final=False, profile=None, expect=None, line_expect=None,
-                    without_rules=False, extra=None):
+                    without_rules=False, extra=None, retain_planted=False, config_path=None):
         x, led = a.add_eof(f, text)
         args = ['terms', '--commit', x, '--base', H, '--ledger', LEDGER]
         args += ['--profile', profile] if profile else ['--check', check]
@@ -440,9 +915,13 @@ def v_controls(a):
         ctl = {'overrides': {'ledger': led}}
         if without_rules:
             ctl['without_allow_rules'] = True
-        code, res, t = a.run(args, control=ctl)
         n0 = len(a.lines(T, f)) + 1
         new = [n0 + k + 1 for k in range(text.count('\n'))]
+        if retain_planted:
+            clean_ctl = dict(ctl, overrides={'ledger': a.led})
+            code, res, t = run_planted(args, f, x, new[0], control=ctl, restored_control=clean_ctl)
+        else:
+            code, res, t = a.run(args, control=ctl, config_path=config_path)
         its = [i for i in res.get('items', []) if i.get('file') == f and i.get('line') in new]
         hits = [h for h in res.get('hits', []) if h['file'] == f and h['line'] in new]
         return code, res, its, hits
@@ -476,14 +955,24 @@ def v_controls(a):
                                        'the six structural properties of the substratum, including finiteness\n')
     rids = {i['rule_id'] for i in its if i['class'] == 'deny-match'}
     a.record('V6', code == 20 and {'DR-1', 'DR-3'} <= rids, 'FAIL deny-match DR-1b and DR-3', sorted(rids))
+    review_config = execution_control_config(a)[0] if a.tool_acceptance else None
     code, res, its, hits = terms_added('V22', 'papers/Main.md', 'Fourteen items, of unequal weight, and not fourteen '
-                                                                'independent physical assumptions.\n')
+                                                                'independent physical assumptions.\n',
+                                      config_path=review_config)
     rids = {i['rule_id'] for i in its if i['class'] == 'deny-match'}
     code_l, res_l, its_l, _ = terms_added('V22b', 'papers/Main.md', 'Fourteen items, of unequal weight, and not '
                                                                      'fourteen independent physical assumptions.\n',
-                                          profile='item7-literal')
+                                          profile='item7-literal', config_path=review_config)
     a.record('V22', 'DR-5' in rids and code_l == 20, 'FAIL deny-match DR-5; the literal item 7 fails too',
              {'rules': sorted(rids), 'literal_exit': code_l})
+    # S11-7 is the same added passage under the same two operations, with their complete run outputs.
+    deny_run, literal_run = a.runs_of['V22']
+    a.rec.pending = [dict(literal_run, case='item7-literal profile'), dict(deny_run, case='deny profiles')]
+    a.record('S11-7', code == code_l == 20 and 'DR-5' in rids and
+             set(classes(res_l)) == {'item7-literal-match'},
+             'the restored passage fails under the literal check and the deny profiles',
+             {'deny_exit': code, 'deny_rules_on_added_passage': sorted(rids),
+              'literal_exit': code_l, 'literal_classes': sorted(set(classes(res_l)))})
     # residuals and resid
     for cid, f, text, exp in [('V4', 'papers/GR.md', "the framework's sixth structural property, finiteness of the bijection\n", 'PASS'),
                               ('V27', 'papers/GR.md', "The framework's sixth structural property is finiteness of the substratum\n", 'PASS'),
@@ -518,11 +1007,12 @@ def v_controls(a):
     a.record('V26', all(x[0] for x in res26), 'REVIEW unclassified each, resid (b, b, b, b, c)', res26)
     # item 7 with --final: V23, V24, V25
     l136 = a.lines(H, 'book/ch02-substratum.md')[135] + '\n'
-    code, res, its, hits = terms_added('V23', 'book/ch02-substratum.md', l136, final=True)
+    code, res, its, hits = terms_added('V23', 'book/ch02-substratum.md', l136, final=True, retain_planted=True)
     a.record('V23', code == 20 and [i['class'] for i in its] == ['final-unclassified'] and
              not any(i['class'] == 'deny-match' for i in its), 'FAIL final-unclassified (ptr hit; no deny)',
              [(i['class'], i.get('profiles')) for i in its])
-    code, res, its, hits = terms_added('V24', 'papers/GR.md', 'six structural hypotheses\n', final=True)
+    code, res, its, hits = terms_added('V24', 'papers/GR.md', 'six structural hypotheses\n', final=True,
+                                      retain_planted=True)
     a.record('V24', code == 20 and [i['class'] for i in its] == ['final-unclassified'],
              'FAIL final-unclassified (count-grep hit; no deny)', [(i['class'], i.get('profiles')) for i in its])
     c1, r1, i1, h1 = terms_added('V25', 'book/ch02-substratum.md', l136)
@@ -544,19 +1034,19 @@ def v_controls(a):
     v2 = t19[211].replace(old, "The framework's six structural properties of the bijection, one of which is total "
                                "finiteness, further narrow it.")
 
-    def edited(f, ln, new, profile=None, check='item7'):
+    def edited(f, ln, new, profile=None, check='item7', retain_planted=False):
         lines = a.lines(T, f)
         lines[ln - 1] = new
         x = a.repo.derive(T, {f: ('\n'.join(lines) + '\n').encode()}, parents=[H])
         args = ['terms', '--commit', x] + (['--profile', profile] if profile else ['--check', check])
-        code, res, t = a.run(args)
+        code, res, t = run_planted(args, f, x, ln) if retain_planted else a.run(args)
         return code, res, items_on(res, f, ln)
     code, res, its = edited(ch, 212, v2)
     a.record('V2', code == 20 and any(i['class'] == 'deny-match' and i['rule_id'] == 'DR-3'
                                       for i in res.get('items', []) if i.get('file') == ch),
              'FAIL deny-match DR-3', sorted({(i['class'], str(i.get('rule_id'))) for i in res.get('items', [])
                                              if i.get('file') == ch}))
-    code, res, its = edited(ch, 212, v2, profile='count-grep,ptr')
+    code, res, its = edited(ch, 212, v2, profile=item7_without_dr3(a), retain_planted=True)
     a.record('V7a', [i['class'] for i in its] == ['rule-negative-match'] and its[0]['rule_id'] == 'W1-d',
              "FAIL rule-negative-match (W1's negative matcher)", [(i['class'], i.get('rule_id')) for i in its])
     code, res, its, hits = terms_added('V7b', 'papers/GR.md', "The framework's six structural properties of the "
@@ -566,11 +1056,15 @@ def v_controls(a):
              'REVIEW unclassified (p0-core and count-grep hits, no rule)', [(i['class'], i.get('profiles')) for i in its])
     ch9 = 'book/ch09-universality.md'
     v7c = a.lines(T, ch9)[136].replace('generation count', 'generation number')
-    code, res, its = edited(ch9, 137, v7c, profile='count-grep')
+    code, res, its = edited(ch9, 137, v7c, profile='count-grep', retain_planted=True)
+    same_runs = list(a.rec.pending)
     a.record('V7c', [i['class'] for i in its] == ['rule-fingerprint-mismatch'], 'REVIEW rule-fingerprint-mismatch',
              [(i['class'], i.get('rule_id')) for i in its])
-    a.record('S1r', [i['class'] for i in its] == ['rule-fingerprint-mismatch'], 'REVIEW rule-fingerprint-mismatch',
-             'as V7c')
+    a.rec.pending = same_runs
+    observed = sorted(classes(res))
+    a.record('S1r', code == 10 and observed == ['rule-fingerprint-mismatch'] and
+             same_runs[0]['result'] == same_runs[-1]['result'], 'REVIEW rule-fingerprint-mismatch',
+             {'exit': code, 'classes': observed})
     lines = a.lines(T, ch)
     del lines[211]
     x = a.repo.derive(T, {ch: ('\n'.join(lines) + '\n').encode()}, parents=[H])
@@ -644,11 +1138,19 @@ def pipeline_rule_controls(a, cfg, allow_ref, deny_ref, allow, deny, w1, rec, st
             {'commit': H, 'path': 'papers/Main.md', 'line': 1, 'alternative': 'a'}]) if r['id'] == 'DR-5' else None,
             sup=False)),
     }
+    # the clean baseline of the restored cases (OBL-20): the same run with no rule file replaced
+    a.run(['terms', '--commit', T, '--check', 'item7'], control={'force_widening': True}, case='baseline')
+    baseline = a.rec.take()[0]
     for cid, (what, (path, doc)) in sorted(muts.items()):
         def repl(files, path=path, doc=doc):
             return [(r, doc if r['path'] == path else d) for r, d in files]
         code, res, t = a.run(['terms', '--commit', T, '--check', 'item7'],
-                             control={'replace_rule_files': repl, 'force_widening': True})
+                             control={'replace_rule_files': repl, 'force_widening': True},
+                             mutation=[{'path': path, 'before': None, 'after': sha(doc) if isinstance(doc, bytes)
+                                        else None}], bindings={'rule_file': path})
+        # the restored case: the unmutated tree, the same command and flags, compared with the clean baseline
+        a.run(['terms', '--commit', T, '--check', 'item7'], control={'force_widening': True}, case='restored',
+              baseline=baseline, bindings={'rule_file': path})
         ri = sorted({i['class'] for i in res.get('items', []) if i.get('subject') == path})
         a.record(cid, code == 20 and ri == ['record-invalid'], what + ' -> FAIL record-invalid, emitted by the pipeline',
                  {'exit': code, 'classes_for_the_rule_file': ri,
@@ -700,11 +1202,13 @@ def rule_lint_controls(a):
     res['A2r'] = bool(rulemod.allow_widening(w1, dict(w1, matcher=dict(w1['matcher'], literal='six structural'))))
     fp = dict(w1['fingerprints'][0], sentence_sha256=sha(b'another sentence'))
     res['A3r'] = bool(rulemod.allow_widening(w1, dict(w1, fingerprints=[fp, w1['fingerprints'][1]])))
-    st = rec.Store([('r.json', b'{}'), ('w.json', util.canonical({'schema': rec.review_schema, 'kind': 'widening',
+    from ledger_coverage.adapters import identity_fixture as idf_
+    ov_, root_, ents_ = idf_.unit_store([('r.json', b'{}'), ('w.json', util.canonical(review_record({'schema': rec.review_schema, 'kind': 'widening',
                                                                    'reviewer': w1['author'],
                                                                    'reviewed': {'path': 'r.json',
                                                                                 'blob_sha256': sha(b'{}')},
-                                                                   'verdicts': [{'item': 'x', 'verdict': 'accept'}]}))])
+                                                                   'verdicts': [{'item': 'x', 'verdict': 'accept'}]})))])
+    st = rec.Store(ents_, ov_, [root_])
     res['A4r'] = not rec.widening_review_ok({'path': 'r.json', 'blob_sha256': sha(b'{}')}, st,
                                             set(st.by_sha), set(), w1['author'])
     res['A6r'] = bool(lint(dict(w1, matcher=dict(w1['matcher'], literal='further narrow it'))))
@@ -783,7 +1287,7 @@ def drift_classes(a):
         b = a.repo.read(a.main, path)
         classes.append({'id': cid, 'pins': [{'path': path, 'git_blob': a.repo.blob_id(a.main, path),
                                              'blob_sha256': sha(b)}]})
-    doc = {'schema': 'oi-side-change-classes/1', 'record_id': 'control-drift-classes', 'author': 'control-writer',
+    doc = {'schema': 'oi-side-change-classes/1', 'record_id': 'control-drift-classes', 'author': 'session.fixture-control-writer',
            'supersedes': None, 'classes': classes}
     c = a.repo.derive(a.crev, {a.ad + 'records/control-drift-classes.json': (json.dumps(doc) + '\n').encode()},
                       parents=a.repo.parents(a.crev), subject='control class records')
@@ -791,15 +1295,83 @@ def drift_classes(a):
     return a._drift
 
 
+def class_record_path(a):
+    """The tool's side-change class record: the one the configuration pins (roles.side_change_classes), so that the
+    runner names no record version of its own."""
+    cfg = json.loads(a.repo.read(a.crev, a.cpath))
+    return ((cfg.get('roles') or {}).get('side_change_classes') or {}).get('path') or \
+        a.ad + 'records/side-change-classes-v1.json'
+
+
+def hit_record_path(a):
+    """The hit classification record of papers/GR.md:58: the one the configuration pins (records, kind
+    hit-classification), so that the runner names no record version of its own."""
+    cfg = json.loads(a.repo.read(a.crev, a.cpath))
+    got = [r['path'] for r in cfg.get('records', []) if r.get('kind') == 'hit-classification']
+    if len(got) != 1:
+        raise RuntimeError('the configuration pins %d hit classification records, not one' % len(got))
+    return got[0]
+
+
+def allow_rule_path(a, rule_id):
+    """The pinned rule file that defines rule_id, so that the runner names no rule-file version of its own."""
+    cfg = json.loads(a.repo.read(a.crev, a.cpath))
+    got = [r['path'] for r in cfg.get('rules', [])
+           if any(x.get('id') == rule_id for x in json.loads(a.repo.read(a.crev, r['path'])).get('rules', []))]
+    if len(got) != 1:
+        raise RuntimeError('the configuration pins %d rule files defining %s, not one' % (len(got), rule_id))
+    return got[0]
+
+
 def exec_args(a, x=T, extra=()):
     return ['execution', '--scientific-base', H, '--candidate', x, '--ledger', LEDGER, '--edits', EDITS,
             '--delegation', '%s:%sdelegation-draft.json' % (a.crev, a.ad),
-            '--classify', '%s:%srecords/side-change-classes-v1.json' % (a.crev, a.ad),
+            '--classify', '%s:%s' % (a.crev, class_record_path(a)),
             '--classify', drift_classes(a)] + list(extra)
 
 
+def execution_control_config(a):
+    fixture_path = a.cpath.rsplit('/', 1)[0] + '/execution-control-config.json'
+    loaded = cfgmod.load(a.repo, a.crev, fixture_path, None, 'execution', 'harness')
+    primary = json.loads(a.repo.read(a.crev, a.cpath))
+    source = next(p['source'] for p in primary['profiles'] if p['name'] == 'repo')
+    checker = {k: source[k] for k in ('commit', 'path', 'blob_sha256')}
+    primary['adapters']['ledger']['companion'].append(dict(checker, role='checker'))
+    records = primary['records']
+    fixture_records = loaded.config['records']
+    if fixture_records[:len(records)] != records or any(r['kind'] != 'review' for r in fixture_records[len(records):]) or \
+            dict(loaded.config, records=records, config_id=primary['config_id']) != primary:
+        raise ValueError('the execution control configuration changes inputs other than the checker and reviews')
+    return fixture_path, loaded
+
+
+def execution_control_plan(a):
+    fixture_path, loaded = execution_control_config(a)
+    spec = loaded.config['adapters']['ledger']
+    edits = next(ref for ref in spec['companion'] if ref['role'] == 'edits')
+    delegation = loaded.config['delegation']
+    revision = spec.get('commit') or a.crev
+    operands = ['--ledger', revision + ':' + spec['path'],
+                '--edits', (edits.get('commit') or revision) + ':' + edits['path'],
+                '--delegation', (delegation.get('commit') or a.crev) + ':' + delegation['path']]
+    return fixture_path, loaded, operands
+
+
 def ex_controls(a):
-    code, res, t = a.run(exec_args(a))
+    fixture_path = None
+    if a.tool_acceptance:
+        fixture_path, loaded, operands = execution_control_plan(a)
+        ledger = cli.load_adapter_input(a.repo, loaded, 'ledger')
+    else:
+        ledger = a.led
+
+    def run_candidate(x=T, extra=(), **kw):
+        if fixture_path is None:
+            return a.run(exec_args(a, x, extra), **kw)
+        args = ['execution', '--scientific-base', H, '--candidate', x, *operands, *extra]
+        return a.run(args, config_path=fixture_path, **kw)
+
+    code, res, t = run_candidate()
     fc = res.get('finding_counts', {})
     non_deleg = {k: v for k, v in fc.items() if not k.startswith('DELEGATED')}
     a.record('RT-C', code == 10 and not non_deleg, 'candidate checks as sec. 11; PASS only with contract evidence; '
@@ -811,56 +1383,56 @@ def ex_controls(a):
     with open(os.path.join(ev, 'tex-preserve-check.json'), 'w') as f:
         json.dump({'schema': 'a1exit-checker-result-v1', 'checker': 'preserve_check.py', 'plan': None, 'base': H,
                    'ledger_base': H, 'candidate': T[:8], 'exit': 0, 'verdict': 'pass', 'checks': []}, f)
-    code, res, t = a.run(exec_args(a, extra=['--evidence', ev]))
+    code, res, t = run_candidate(extra=['--evidence', ev])
     a.record('G1', any(i['class'] == 'delegated-evidence-invalid' and 'tex' in i['subject'] for i in res.get('items', [])),
              'FAIL delegated-evidence-invalid', sorted(i['subject'][:80] for i in res.get('items', [])
                                                        if i['class'] == 'delegated-evidence-invalid'))
-    a.record('G2', any(i['class'] == 'delegated-evidence-missing' for i in a.run(exec_args(a))[1].get('items', [])),
+    a.record('G2', any(i['class'] == 'delegated-evidence-missing' for i in run_candidate()[1].get('items', [])),
              'REVIEW delegated-evidence-missing', 'as RT-C')
     lj = 'verification/coverage/LEDGER.json'
     x = a.repo.derive(T, {lj: a.repo.read(T, lj).replace(b'"id": "MAIN:L-3"', b'"id": "MAIN:L-3x"', 1)}, parents=[H])
-    code, res, t = a.run(exec_args(a, x))
+    code, res, t = run_candidate(x)
     a.record('G3', any(i['class'] == 'delegated-evidence-invalid' and 'coverage-ledger' in i['subject']
                        for i in res.get('items', [])), 'FAIL', sorted(i['subject'][:90] for i in res.get('items', [])
                                                                       if i['class'] == 'delegated-evidence-invalid'))
     # sec. 11 countercontrols
-    sp = [s for s in a.led['splices'] if s['file'] == 'papers/Main.md'][0]
+    sp = [s for s in ledger['splices'] if s['file'] == 'papers/Main.md'][0]
     hm, tm = a.base.read(H, 'papers/Main.md'), a.base.read(T, 'papers/Main.md')
-    reverted = exmod.sg.apply_splices(hm, [s for s in a.led['splices'] if s['file'] == 'papers/Main.md' and s is not sp])
+    reverted = exmod.sg.apply_splices(hm, [s for s in ledger['splices'] if s['file'] == 'papers/Main.md' and s is not sp])
     x = a.repo.derive(T, {'papers/Main.md': reverted}, parents=[H])
-    code, res, t = a.run(exec_args(a, x))
+    code, res, t = run_candidate(x)
     a.record('S11-1', 'unauthorized-edit' in classes(res), 'FAIL unauthorized-edit', classes(res))
     for cid, word, rule in (('S11-5', ' no longer', 'register'), ('S11-6', ' is infinite', 'infinity')):
-        s0 = [s for s in a.led['splices'] if s['file'] == 'papers/GR.md' and s['new']][0]
-        led = dict(a.led)
+        s0 = [s for s in ledger['splices'] if s['file'] == 'papers/GR.md' and s['new']][0]
+        led = dict(ledger)
         led['splices'] = [dict(s, new=s['new'] + word, new_bytes=(s['new'] + word).encode(),
-                               new_sha256=sha((s['new'] + word).encode())) if s is s0 else s for s in a.led['splices']]
+                               new_sha256=sha((s['new'] + word).encode())) if s is s0 else s for s in ledger['splices']]
         gx = exmod.sg.apply_splices(a.base.read(H, 'papers/GR.md'), [s for s in led['splices'] if s['file'] == 'papers/GR.md'])
         x = a.repo.derive(T, {'papers/GR.md': gx}, parents=[H])
-        code, res, t = a.run(exec_args(a, x), control={'overrides': {'ledger': led}})
+        code, res, t = run_candidate(x, control={'overrides': {'ledger': led}})
         a.record(cid, any(i['class'] == 'deny-match' and i.get('rule_id') == rule for i in res.get('items', [])),
                  'FAIL deny-match (%s)' % rule, sorted({(i['class'], str(i.get('rule_id'))) for i in res.get('items', [])
                                                         if not i['class'].startswith('delegated')}))
-    mirror = [m for m in a.led['mirrors'] if m['mirror_of']][0]
-    led = dict(a.led)
+    mirror = [m for m in ledger['mirrors'] if m['mirror_of']][0]
+    led = dict(ledger)
     led['splices'] = [dict(s, new=s['new'] + ' x', new_bytes=(s['new'] + ' x').encode(),
                            new_sha256=sha((s['new'] + ' x').encode())) if s['id'] == mirror['id'] else s
-                      for s in a.led['splices']]
-    code, res, t = a.run(exec_args(a), control={'overrides': {'ledger': led}})
+                      for s in ledger['splices']]
+    code, res, t = run_candidate(control={'overrides': {'ledger': led}})
     a.record('S11-8', 'mirror-mismatch' in classes(res), 'FAIL mirror-mismatch', classes(res))
     cen = 'verification/lean-manuscript-census.json'
-    css = [s for s in a.led['splices'] if s['file'] == cen]
+    css = [s for s in ledger['splices'] if s['file'] == cen]
     x = a.repo.derive(T, {cen: exmod.sg.apply_splices(a.base.read(H, cen), css[1:])}, parents=[H])
-    code, res, t = a.run(exec_args(a, x))
+    code, res, t = run_candidate(x)
     a.record('S11-9', 'unauthorized-edit' in classes(res), 'FAIL unauthorized-edit (%d census splices)' % len(css),
              classes(res))
-    lean = sorted(f for f in a.led['files'] if f.endswith('.lean'))[0]
+    lean = sorted(f for f in ledger['files'] if f.endswith('.lean'))[0]
     x = a.repo.derive(T, {lean: a.repo.read(T, lean) + b'\ndef controlDefinition : Nat := 1\n'}, parents=[H])
-    code, res, t = a.run(exec_args(a, x))
+    code, res, t = run_candidate(x)
     a.record('S11-10', 'lean-code-change' in classes(res), 'FAIL lean-code-change', classes(res))
-    gp = [e for e in a.led['raw']['edits'] if e.get('kind') == 'guard-pin' and e.get('targets')][0]
+    gp = [e for e in ledger['raw']['edits'] if e.get('kind') == 'guard-pin' and e.get('targets')][0]
     x = a.repo.derive(T, {gp['file']: a.base.read(H, gp['file'])}, parents=[H])
-    code, res, t = a.run(exec_args(a, x))
+    code, res, t = run_candidate(x)
     a.record('S11-12', 'pin-broken' in classes(res) or 'pin-target-missing' in classes(res),
              'FAIL pin-broken (a guard-pin splice dropped)', classes(res))
     x = a.repo.derive(T, {'tools/new_active_control.py': b'# the A1 premise holds here\n'}, parents=[H])
@@ -875,7 +1447,7 @@ def ex_controls(a):
     ev = tempfile.mkdtemp(dir=a.out_root)
     with open(os.path.join(ev, 'sc42-rerun.json'), 'w') as f:
         json.dump({'candidate': T, 'verbose_exit': 0, 'verbose_equal': False, 'self_test_equal': True}, f)
-    code, res, t = a.run(exec_args(a, extra=['--evidence', ev]))
+    code, res, t = run_candidate(extra=['--evidence', ev])
     a.record('S11-13', any(i['class'] == 'delegated-evidence-invalid' and i['subject'].startswith('sc42')
                            for i in res.get('items', [])),
              'FAIL (the re-execution does not reproduce the hand-edited file)',
@@ -883,32 +1455,38 @@ def ex_controls(a):
     ev = tempfile.mkdtemp(dir=a.out_root)
     with open(os.path.join(ev, 'ci-host-run.json'), 'w') as f:
         json.dump({'head_sha': H, 'jobs': []}, f)
-    code, res, t = a.run(exec_args(a, extra=['--evidence', ev]))
+    code, res, t = run_candidate(extra=['--evidence', ev])
     a.record('S11-3', any(i['class'] == 'delegated-evidence-invalid' and i['subject'].startswith('ci')
                           for i in res.get('items', [])), 'FAIL delegated-evidence-invalid (another head_sha)', '')
     ev = tempfile.mkdtemp(dir=a.out_root)
     with open(os.path.join(ev, 'proof-census.json'), 'w') as f:
         json.dump({'entries': [{'id': 'MAIN:L-3', 'fingerprint': '0000'}]}, f)
-    code, res, t = a.run(exec_args(a, extra=['--evidence', ev]))
+    code, res, t = run_candidate(extra=['--evidence', ev])
     a.record('S11-4', any(i['class'] == 'delegated-evidence-invalid' and 'coverage-ledger' in i['subject']
                           for i in res.get('items', [])), 'FAIL (one STALE value differs from the census)', '')
     # sec. 11 row 2 countercontrols at E
     f = 'book/ch18-beyond.md'
     el = a.lines(E, f)
+    _, unmutated, _ = a.run(['coverage', '--commit', E, '--check', 'item2'], case='unmutated')
+    baseline = a.rec.name_last('unmutated')
     x = a.repo.derive(E, {f: ('\n'.join(el) + '\nA new line on total finiteness.\n').encode()}, parents=[E])
-    code, res, t = a.run(['coverage', '--commit', x])
-    nl = len(a.lines(E, f)) + 1  # the appended line
+    nl = len(el) + 1
+    code, res, _ = a.run(['coverage', '--commit', x, '--check', 'item2'], case='', baseline=baseline,
+                         bindings={'new_line': '%s:%d' % (f, nl)},
+                         mutation=[{'path': f, 'before': a.repo.blob_id(E, f), 'after': a.repo.blob_id(x, f)}])
+    before = [i['class'] for i in items_on(unmutated, f, nl)]
     on = [i['class'] for i in items_on(res, f, nl)]
-    a.record('S11-2a', on == ['unclassified'], 'unclassified new site gives REVIEW_REQUIRED',
-             {'items_on_new_line': on, 'run_outcome': res.get('outcome'),
-              'note': 'the mutant of E is not E, so the deny profiles run on it (sec. 2.3) and its retired forms '
-                      'give deny-match FAILs as well'})
+    added = on.count('unclassified') - before.count('unclassified')
+    a.record('S11-2a', code == 20 and 'deny-match' in classes(res) and added == 1 and 'unclassified' in on,
+             'FAIL with deny-match and one added unclassified item at the new line',
+             {'items_on_new_line': on, 'unmutated_items_on_line': before, 'added_unclassified': added,
+              'run_outcome': res.get('outcome'), 'exit': code})
     p3 = [s for s in json.loads(a.base.read(H, 'verification/audits/foundations/a1exit-ledger-20261120/sitemap.json'))['sites']
           if s['owner'] == 'Q3 propagation'][0]
     el = a.lines(E, p3['file'])
     del el[p3['line'] - 1]
     x = a.repo.derive(E, {p3['file']: ('\n'.join(el) + '\n').encode()}, parents=[E])
-    code, res, t = a.run(['coverage', '--commit', x])
+    code, res, t = a.run(['coverage', '--commit', x, '--check', 'item2'])
     sid = '%s:%d@%s' % (p3['file'], p3['line'], E[:8])
     a.record('S11-2b', [i['class'] for i in res.get('items', []) if i['subject'] == sid] == ['missing'],
              'dropped Phase-3 site gives FAIL missing', [i['class'] for i in res.get('items', []) if i['subject'] == sid])
@@ -952,23 +1530,33 @@ def tree_controls(a, tool_files):
         rc_ = a.repo.derive(a.crev, {a.ad + 'records/control-recon.json': (json.dumps(rdoc) + '\n').encode()},
                             parents=a.repo.parents(a.crev), subject='control reconciliation record')
         recon_arg = ['--classify', '%s:%srecords/control-recon.json' % (rc_, a.ad)]
+        if a.classify:
+            # records supplied with --classify REV:PATH (for example the B4 records) replace the drafted record
+            recon_arg = [x for ref in a.classify for x in ('--classify', ref)]
         code, res, t = a.run(exec_args(a, extra=['--main', Mp]))
         out['predicted_without_reconciliation'] = {
             'exit': code, 'main_items': sorted((i['class'], i['subject']) for i in res.get('items', [])
                                                if i['obligation'] == 'MAIN')}
-        code, res, t = a.run(exec_args(a, extra=['--main', Mp] + recon_arg))
+        # amendment 4: a run on the predicted main names its record base, the pinned main (--record-base)
+        base_arg = ['--record-base', a.main]
+        code, res, t = a.run(exec_args(a, extra=['--main', Mp] + base_arg + recon_arg))
         sc = {e['path']: e for e in res.get('side_changes') or []}
         out['landed_paths'] = len(tool_files)
         out['landed_unbound'] = sorted(p for p in tool_files if (sc.get(p) or {}).get('class') in (None, 'base-drift'))
         out['landed_classes'] = dict(collections.Counter(str((sc.get(p) or {}).get('class')) for p in tool_files))
         out['agents_md'] = {k: (sc.get('AGENTS.md') or {}).get(k) for k in ('class', 'reconciled')}
+        out['rtl2_inputs'] = rtl2_inputs(a, res, recon_arg, H, Mp, X_of(a), m0=a.main)
         out['predicted'] = {'exit': code, 'side_changes': res.get('side_changes'),
                             'main_items': sorted((i['class'], i['subject']) for i in res.get('items', [])
                                                  if i['obligation'] == 'MAIN'), 'admission': res.get('config', {}).get('admission')}
-        L2 = ex.compose_landing(a.repo, H, Mp, T, a.led, a.repo)
-        code, res, t = a.run(exec_args(a, extra=['--main', Mp, '--landing', L2] + recon_arg))
-        out['predicted_with_landing'] = {'exit': code, 'main_items': sorted(
-            (i['class'], i['subject']) for i in res.get('items', []) if i['obligation'] == 'MAIN')}
+        try:
+            L2 = ex.compose_landing(a.repo, H, Mp, T, a.led, a.repo)
+        except ex.LandingCompositionError as exc:
+            out['predicted_with_landing'] = {'composition_refusal': str(exc)}
+        else:
+            code, res, t = a.run(exec_args(a, extra=['--main', Mp, '--landing', L2] + base_arg + recon_arg))
+            out['predicted_with_landing'] = {'exit': code, 'main_items': sorted(
+                (i['class'], i['subject']) for i in res.get('items', []) if i['obligation'] == 'MAIN')}
         code, res, t = a.run(exec_args(a, extra=['--main', Mp]), harness=False)
         out['predicted_chain_admission'] = {'exit': code, 'stop': res.get('stop', {}).get('class')}
     drift = out.get('predicted', {}).get('main_items', [])
@@ -986,6 +1574,108 @@ def tree_controls(a, tool_files):
              finding='Predicted main = %s (--main) plus this tool\'s landing files (the configuration not among '
                      'them, design sec. 16.2), with the drafted reconciliation record for AGENTS.md and pinned classes '
                      'for the trial workflow and .claude/settings.json.' % a.main[:8])
+    # R6.GATE.16: with no drift at the predicted main RT-L2 holds without a record; with drift it is NOT RUN until
+    # a reviewed reconciliation record exists (a run on the drafted record does not establish the safeguard). This
+    # runner has no input for a reviewed record, so a drifted RT-L2 is recorded NOT RUN, its runs on the drafted
+    # record kept as diagnostics in the evidence.
+    if any(c == 'base-drift' for c, _ in raw):
+        a.results['RT-L2'].update(passed=False, status='NOT RUN',
+                                  drafted_record_value=a.results['RT-L2']['passed'],
+                                  not_run_reason='no reviewed reconciliation record exists; the drafted AGENTS.md '
+                                                 'record is unreviewed (R6.GATE.16)')
+    if main is not None:
+        rt_o9(a, Mp, recon_arg)
+
+
+def X_of(a):
+    # the candidate of the RT-L2 runs (exec_args' default)
+    return T
+
+
+def rtl2_inputs(a, res, recon_arg, h, m, c, m0=None):
+    """The rtl2 procedure's inputs (design r6 R6.GATE.16), derived from the run's result: the drifted paths (side
+    changes of class base-drift), each reconciliation record the run was given with `reviewed` (the route listed it
+    with its review) and `review_lint_passes` (no record-invalid item names the record or its review, OBL-28 C-29) and
+    the H, M and C it names, and the run's roles."""
+    items = res.get('items') or []
+    invalid = {i.get('subject') for i in items if i.get('class') == 'record-invalid'}
+    listed = {x.get('path'): x for x in (res.get('inputs') or {}).get('classify_records') or []}
+    recs = []
+    for ref in [recon_arg[k + 1] for k in range(0, len(recon_arg), 2) if recon_arg[k] == '--classify']:
+        rev, path = ref.split(':', 1)
+        try:
+            doc = json.loads(a.repo.read(rev, path))
+        except Exception:
+            continue
+        if doc.get('schema') not in ('oi-reconciliation/1', 'oi-reconciliation/2'):
+            continue
+        review = (listed.get(path) or {}).get('review') or {}
+        for e in doc.get('paths') or []:
+            recs.append({'path': e.get('path'), 'record': path, 'reviewed': bool(review),
+                         'review_lint_passes': path not in invalid and review.get('path') not in invalid,
+                         'H': __import__('ledger_coverage.engine.reconcile', fromlist=['x']).entry_binding(
+                             doc, e).get('ledger_base'), 'M': doc.get('M'),
+                         'C': doc.get('X')})
+    drift = sorted(x.get('path') for x in res.get('side_changes') or [] if x.get('class') == 'base-drift')
+    roles = {'H': h, 'M': m, 'C': c}
+    if m0 is not None:
+        roles['M0'] = m0
+    return {'drift': drift, 'records': recs, 'roles': roles}
+
+
+def rt_o9(a, Mp, recon_arg):
+    """RT-O9 (design amendment r4, A.9): the predicted main plus the plan's record directory as it stands at a
+    stand-in F that holds that directory (P's plan files and the staged configuration). The expected set is computed
+    from the stand-in F's tree, independently of the run, and compared exactly with the run's record-directory
+    entries."""
+    from ledger_coverage import record_authority
+    from ledger_coverage.engine import reconcile as rcm
+    d = PL.rstrip('/')
+    pfiles = {p: a.base.read(P, p) for p in a.base.paths(P) if rcm.inside(d, p)}
+    pfiles[a.cpath] = a.repo.read(a.crev, a.cpath)
+    F9 = a.repo.derive(a.crev, pfiles, parents=a.repo.parents(a.crev),
+                       subject='stand-in for F holding the plan record directory')
+    expected = {p: [mode, oid, sha(a.repo.read(F9, p))] for p, (mode, oid) in a.repo.entries(F9).items()
+                if rcm.inside(d, p)}
+    M9 = a.repo.derive(Mp, {p: a.repo.read(F9, p) for p in expected}, parents=[Mp],
+                       subject='predicted main with the tool landing and the plan record directory')
+    code, res, t = a.run(exec_args(a, extra=['--main', M9, '--freeze', F9, '--record-base', a.main] + recon_arg))
+    got = {}
+    for e in res.get('side_changes') or []:
+        if e.get('class') == rcm.record_directory_class:
+            r9 = e.get('record_directory') or {}
+            got[e['path']] = [r9.get('mode'), r9.get('m'), r9.get('m_sha256')]
+    unc = sorted(i['subject'] for i in res.get('items', []) if i['class'] == 'side-change-unclassified')
+    rdsum = res.get('record_directory') or {}
+    out = {'exit': code, 'stop': res.get('stop'), 'directory': d,
+           'authorized': d in record_authority.authorized_record_directories, 'expected_paths': len(expected),
+           'record_directory': rdsum, 'missing': sorted(set(expected) - set(got)),
+           'extra': sorted(set(got) - set(expected)),
+           'differing': sorted(p for p in set(expected) & set(got) if expected[p] != got[p]),
+           'side_change_unclassified': unc,
+           'base_drift': sorted(i['subject'] for i in res.get('items', []) if i['class'] == 'base-drift'),
+           'rt_l2': (a.results.get('RT-L2') or {}).get('status')}
+    # RT-O9 runs its own record-directory checks; its dependent clause (no base-drift, RT-L2 PASS) is RT-O9-L2,
+    # NOT RUN while RT-L2 is (R6.GATE.15)
+    a.record('RT-O9', not res.get('stop') and out['authorized'] and len(expected) > 0 and got == expected and
+             rdsum.get('state') == 'active' and rdsum.get('unequal') == {} and not unc,
+             'the plan record directory at the predicted main classified record-directory exactly as the stand-in F '
+             'holds it; no side-change-unclassified; RT-L2 still PASS', out,
+             predicate='the expected set (every entry inside the directory at the stand-in F, with its mode, blob id '
+                       'and sha256, computed from that tree) equals the run\'s record-directory entries exactly (none '
+                       'missing, none extra, modes and hashes equal); A.5 finds no unequal path; no '
+                       'side-change-unclassified among the items',
+             finding='Predicted main = %s plus the tool landing plus the plan record directory of a stand-in F (P\'s '
+                     'plan files and the staged configuration), with the drafted AGENTS.md reconciliation record.'
+                     % a.main[:8])
+    dep = (a.results.get('RT-L2') or {}).get('status')
+    a.results['RT-O9-L2'] = {'id': 'RT-O9-L2', 'passed': dep == 'PASS' and not out['base_drift'],
+                             'status': 'NOT RUN' if dep == 'NOT RUN' else
+                             ('PASS' if dep == 'PASS' and not out['base_drift'] else 'FAIL'),
+                             'expected': 'no base-drift at the predicted main with the record directory, and RT-L2 PASS',
+                             'predicate': 'RT-L2 PASS and no base-drift among the items of the RT-O9 run',
+                             'actual': {'rt_l2': dep, 'base_drift': out['base_drift'],
+                                        'note': 'NOT RUN while RT-L2 is NOT RUN (R6.GATE.15)'}}
 
 
 # ---- K1: the reference graph of the landing and the freeze ---------------------------------------------------
@@ -997,6 +1687,8 @@ def git_blob(b):
 def reference_graph(nodes, required):
     """Edges path -> path: A's bytes name B's current blob (its sha256 or git blob id), plus the edges a rule
     requires (`required`: {path: [paths]}), which must hold whatever the bytes are. Returns (edges, cycle)."""
+    from ledger_coverage.adapters.rep_instance import reference_cycle
+
     ids = {}
     for q, b in nodes.items():
         ids[q] = (sha(b), git_blob(b))
@@ -1008,27 +1700,48 @@ def reference_graph(nodes, required):
                 edges[q].add(r)
     for q, rs in required.items():
         edges.setdefault(q, set()).update(r for r in rs if r != q)
-    state, stack = {}, []
+    return edges, reference_cycle(edges, sorted(edges))
 
-    def visit(q):
-        state[q] = 1
-        stack.append(q)
-        for r in sorted(edges.get(q, ())):
-            if state.get(r) == 1:
-                return stack[stack.index(r):] + [r]
-            if r not in state:
-                got = visit(r)
-                if got:
-                    return got
-        stack.pop()
-        state[q] = 2
-        return None
-    for q in sorted(edges):
-        if q not in state:
-            got = visit(q)
-            if got:
-                return edges, got
-    return edges, None
+
+def tree_listing(a, spec, rec_dir):
+    """git's own listing, with blob ids, of the tool landing under `spec` and of the plan record directory of the
+    freeze. Testing the working files (--overlay-from-disk), the landing is the checkout's files, listed by
+    `git ls-files` and hashed by `git hash-object`; otherwise it is `git ls-tree -r` of the landing commit. List the
+    record directory at the Git configuration's revision, or use the existing staged-file overlay for local runs."""
+    import subprocess
+
+    def git(argv, inp=None):
+        r = subprocess.run(['git', '-C', a.repo_path] + argv, capture_output=True, text=True, input=inp)
+        if r.returncode:
+            raise RuntimeError('git %s exit %d: %s' % (' '.join(argv), r.returncode, r.stderr[-500:]))
+        return r.stdout
+
+    def ls_tree(rev, paths):
+        argv = ['ls-tree', '-r', '--full-tree', rev, '--'] + paths
+        ents = []
+        for line in git(argv).splitlines():
+            meta, path = line.split('\t', 1)
+            mode, typ, blob = meta.split()
+            ents.append({'mode': mode, 'type': typ, 'blob': blob, 'path': path})
+        return {'argv': ['git'] + argv, 'entries': ents}
+    if getattr(a, 'overlay', False):
+        argv = ['ls-files', '-co', '--exclude-standard', '--'] + spec
+        paths = [p for p in git(argv).splitlines() if '/__pycache__/' not in p]
+        blobs = git(['hash-object', '--stdin-paths'], '\n'.join(paths) + '\n').split() if paths else []
+        landing = {'argv': ['git'] + argv + ['|', 'git', 'hash-object', '--stdin-paths'],
+                   'entries': [{'blob': b, 'path': p} for p, b in zip(paths, blobs)]}
+    else:
+        landing = ls_tree(a.tool_rev, spec)
+    landing['commit'] = a.tool_rev
+    config_tree = a.tool_rev if a.crev in a.repo.mem else a.crev
+    freeze = ls_tree(config_tree, [rec_dir])
+    freeze['base_commit'] = config_tree
+    if a.staged:
+        blob = git(['hash-object', '--', os.path.abspath(a.staged)]).strip()
+        freeze['entries'] = [e for e in freeze['entries'] if e['path'] != a.cpath] + \
+            [{'blob': blob, 'path': a.cpath, 'source': 'git hash-object of the staged configuration'}]
+        freeze['staged'] = {'path': a.cpath, 'blob': blob}
+    return {'landing': landing, 'freeze': freeze}
 
 
 def k1_graph(a, tool_files):
@@ -1037,24 +1750,42 @@ def k1_graph(a, tool_files):
     design puts records frozen with the plan (sec. 6.3, 16.2), as in-memory fixtures only. The actual layout must be
     acyclic; two countercontrols place a record in the landing that names a blob the class record must pin, and must
     give a cycle."""
+    from ledger_coverage.adapters.rep_instance import control_cases
+
     cfg_b = a.repo.read(a.crev, a.cpath)
     cfg = json.loads(cfg_b)
     rec_dir = a.cpath.rsplit('/', 1)[0] + '/'
     cls_path = cfg['roles']['side_change_classes']['path']
+    descriptor_path = rec_dir + ra.transition_descriptor
+    scoped = {}
+    for r in [cfg['roles']['side_change_classes'], *cfg['records'], *cfg['rules']]:
+        data = cfgmod.read_ref(a.repo, a.crev, r, 'K1 configuration reference')
+        if r['path'] in scoped and scoped[r['path']] != data:
+            raise ValueError('K1 selects different blobs at %s' % r['path'])
+        scoped[r['path']] = data
+    descriptor = a.repo.read(a.crev, descriptor_path)
+    if descriptor is not None:
+        scoped[descriptor_path] = descriptor
+    changed = sorted(p for p in scoped.keys() & tool_files.keys() if scoped[p] != tool_files[p])
+    if changed:
+        raise ValueError('K1 selected record bytes differ from the tool image at %s' % changed[0])
 
     def jb(o):
         return (json.dumps(o, indent=1, sort_keys=True) + '\n').encode()
 
     def review(path, b, reviewer):
-        return jb({'schema': 'oi-review-record/1', 'reviewer': reviewer, 'reviewed': {'path': path,
-                   'blob_sha256': sha(b)}, 'method': 'graph fixture', 'verdicts': [{'item': '*', 'verdict': 'accept'}]})
+        return jb(review_record({'schema': 'oi-review-record/1', 'reviewer': reviewer, 'reviewed': {'path': path,
+                   'blob_sha256': sha(b)}, 'method': 'graph fixture', 'verdicts': [{'item': '*', 'verdict': 'accept'}]}))
 
-    def layout(landed, cls_review_dir):
-        """nodes and required edges for one placement. cls_review_dir: where the class record's review lies."""
-        nodes = dict(landed)
+    def layout(landed, cls_review_dir, config_self=False):
+        """nodes and required edges for one placement. cls_review_dir: where the class record's review lies.
+        A1 staging amendment r2, sec. 3: the configuration's own ordinary and widening reviews and the transition
+        descriptor are bound by the external pin table; `config_self` places the configuration's own widening review
+        in its records instead (the direct self-cycle)."""
+        nodes = {**scoped, **landed}
         cls_b = nodes[cls_path]
         rk_p = cls_review_dir + 'reviews/class-record.review.json'
-        rk = review(cls_path, cls_b, 'reviewer-fixture')
+        rk = review(cls_path, cls_b, 'session.fixture-reviewer-fixture')
         nodes[rk_p] = rk
         c2 = dict(cfg, records=list(cfg['records']) + [{'kind': 'review', 'path': rk_p, 'blob_sha256': sha(rk)}])
         c2b = jb(c2)
@@ -1063,13 +1794,19 @@ def k1_graph(a, tool_files):
             c2b = landed[a.cpath]
         nodes[a.cpath] = c2b
         rc_p = rec_dir + 'reviews/config.review.json'
-        rc = review(a.cpath, c2b, 'reviewer-fixture')
+        rc = review(a.cpath, c2b, 'session.fixture-reviewer-fixture')
         nodes[rc_p] = rc
+        rw_p = rec_dir + 'reviews/config.widening.json'
+        nodes[rw_p] = review(a.cpath, c2b, 'session.fixture-widener-fixture')
+        d_p = descriptor_path
+        if d_p not in nodes:
+            nodes[d_p] = jb({'class_root': {'path': cls_path, 'blob_sha256': sha(cls_b)}})
         pt_p = rec_dir + 'PREREG.md'
         nodes[pt_p] = ('### 1.1 Record pins\n\n' + ''.join('| `%s` | `%s` |\n' % (q[len(rec_dir):], sha(nodes[q]))
-                                                           for q in (a.cpath, rc_p))).encode()
+                                                           for q in (a.cpath, rc_p, rw_p, d_p))).encode()
         required = {cls_path: [q for q in landed if q != cls_path] + ([rk_p] if rk_p in landed else []),
-                    pt_p: [a.cpath, rc_p], a.cpath: [cls_path, rk_p], rc_p: [a.cpath], rk_p: [cls_path]}
+                    pt_p: [a.cpath, rc_p, rw_p, d_p], a.cpath: [cls_path, rk_p] + ([rw_p] if config_self else []),
+                    rc_p: [a.cpath], rw_p: [a.cpath], rk_p: [cls_path], d_p: [cls_path]}
         return nodes, required
     out = {}
     nodes, req = layout(dict(tool_files), rec_dir)
@@ -1088,17 +1825,74 @@ def k1_graph(a, tool_files):
     landed2 = {q: n2[q] for q in list(tool_files) + [tool_ad + 'reviews/class-record.review.json']}
     n2, r2 = layout(landed2, tool_ad)
     out['class_review_landed'] = {'cycle': reference_graph(n2, r2)[1]}
-    a.record('K1-GRAPH', cyc is None and out['actual']['config_in_landing'] is False and
-             bool(out['config_landed']['cycle']) and bool(out['class_review_landed']['cycle']),
+    # countercontrol 3: the configuration's records name its own widening review (direct self-cycle)
+    n3, r3 = layout(dict(tool_files), rec_dir, config_self=True)
+    out['config_names_own_widening_review'] = {'cycle': reference_graph(n3, r3)[1]}
+    # countercontrol 4: the transition descriptor landed with the tool (an indirect cycle through a class pin)
+    n4, r4 = layout(dict(tool_files), rec_dir)
+    d_p = descriptor_path
+    landed4 = dict(tool_files)
+    landed4[d_p] = n4[d_p]
+    n4, r4 = layout(landed4, rec_dir)
+    out['descriptor_landed'] = {'cycle': reference_graph(n4, r4)[1]}
+    # the retained evidence (DESIGN-r6 sec. 16.4, lib `set`: an expected set computed from a retained tree listing;
+    # row evidence: the landing and freeze file listing with blob ids). The listing is produced by git itself, not
+    # from the bytes the graph was built from: `git ls-tree -r` of the landing commit under the tool-landing paths
+    # (or, testing the working files, `git ls-files` and `git hash-object` of the checkout), and of the plan record
+    # directory at the commit the stand-in for F is built on, with the staged configuration's blob from
+    # `git hash-object`. The gate compares the listed landing paths with the landed paths the graph used, and the
+    # graph's landed nodes' blob ids with the listed ones.
+    ad = a.ad.rstrip('/')
+    landing_paths = ['tools/ledger_coverage/', 'tools/ledger_coverage.py', ad + '/', WORKFLOW_PATH]
+    spec = ['tools/ledger_coverage', 'tools/ledger_coverage.py', ad, WORKFLOW_PATH]
+    listing_doc = tree_listing(a, spec, rec_dir)
+    land_blobs = {e['path']: e['blob'] for e in listing_doc['landing']['entries']}
+    freeze_blobs = {e['path']: e['blob'] for e in listing_doc['freeze']['entries']}
+    listing = sorted(land_blobs)
+    node_doc = {q: {'sha256': sha(b), 'git_blob': git_blob(b)} for q, b in sorted(nodes.items())}
+    blob_mismatch = sorted(q for q, b in land_blobs.items() if (node_doc.get(q) or {}).get('git_blob') != b)
+    config_read_listed = freeze_blobs.get(a.cpath) == git_blob(cfg_b)
+    out['listing'] = {'landing_entries': len(land_blobs), 'freeze_entries': len(freeze_blobs),
+                      'landed_set_equals_listing': listing == sorted(tool_files), 'landed_blob_mismatch': blob_mismatch,
+                      'config_read_equals_freeze_listing': config_read_listed}
+    # The role-binding fixture exercises the same cycle detector with both control-instance nodes.
+    # Its B, S and M are synthetic and supply no live representative-control evidence.
+    role_cases = control_cases()
+    role_failures = [c['id'] for c in role_cases if c['status'] != 'PASS']
+    countercontrols = ('config_landed', 'class_review_landed', 'config_names_own_widening_review', 'descriptor_landed')
+    holds = cyc is None and not out['actual']['config_in_landing'] and out['listing']['landed_set_equals_listing'] and \
+        not blob_mismatch and config_read_listed and all(out[k]['cycle'] for k in countercontrols) and not role_failures
+    out['synthetic_role_cases'] = {'count': len(role_cases), 'failed': role_failures}
+    a.rec.capture_doc('reference graph of the tool landing and the freeze (a1_controls.py k1_graph)',
+                      {'nodes': node_doc,
+                       'edges': {q: sorted(v) for q, v in sorted(edges.items())}, 'cycle': cyc,
+                       'countercontrol_cycles': {k: out[k]['cycle'] for k in countercontrols},
+                       'synthetic_role_cases': out['synthetic_role_cases'],
+                       'exit_status': None},
+                      attested={'outcome': 'PREDICATE' if holds else 'PREDICATE_FAILED', 'reference_graph_cycle': cyc,
+                                'config_in_landing': out['actual']['config_in_landing'],
+                                'countercontrol_config_landed_cycle': bool(out['config_landed']['cycle']),
+                                'countercontrol_class_review_landed_cycle': bool(out['class_review_landed']['cycle'])})
+    a.files_of['K1-GRAPH'] = {'graph-tree-listing.json': listing_doc, 'graph-listing.json': listing,
+                              'graph-listing-blobs.json': land_blobs, 'graph-landed-set.json': sorted(tool_files),
+                              'graph-nodes.json': node_doc, 'graph-synthetic-role-cases.json': role_cases}
+    a.procedures['K1-GRAPH'] = {'name': 'reference-graph', 'lib': 'set', 'listing': 'graph-listing.json',
+                                'actual_set': 'graph-landed-set.json', 'rule': {'prefixes': landing_paths},
+                                'nodes': 'graph-nodes.json', 'blobs': 'graph-listing-blobs.json',
+                                'tree_listing': 'graph-tree-listing.json'}
+    a.record('K1-GRAPH', holds,
              'the reference graph of the tool landing and the freeze has no cycle, including through review records; '
              'placing the configuration, or the class record\'s review, in the landing gives a cycle', out,
-             predicate='no cycle in the actual layout (configuration not landed; reviews in the plan record '
-                       'directory); a cycle in each countercontrol layout')
+             predicate='the landed paths the graph uses equal git\'s tree listing of the landing under the tool-landing '
+                       'paths, with equal blob ids, and the configuration it reads has the freeze listing\'s blob; no cycle in the actual layout (configuration not landed; reviews and the transition '
+                       'descriptor in the plan record directory, bound by the pin table); a cycle in each of the four '
+                       'countercontrol layouts, and the synthetic control-instance binding and cycle cases hold')
 
 
 def chain_refusal(a):
-    code, res, t = a.run(['coverage', '--commit', E], harness=False)
-    code2, res2, t2 = a.run(['coverage', '--commit', E, '--freeze', a.crev], harness=False)
+    code, res, t = a.run(['coverage', '--commit', E, '--check', 'item2'], harness=False, case='without --freeze')
+    code2, res2, t2 = a.run(['coverage', '--commit', E, '--check', 'item2', '--freeze', a.crev], harness=False,
+                            case='with the stand-in for F')
     a.record('CHAIN-REFUSAL', code == 65 and res.get('stop', {}).get('class') == 'CONFIG_UNREVIEWED' and
              code2 == 65 and res2.get('stop', {}).get('class') == 'CONFIG_UNREVIEWED',
              'the unreviewed draft configuration is refused under the review chain: ERROR CONFIG_UNREVIEWED, without '
@@ -1117,16 +1911,57 @@ def z9g(a):
     values |= purity.string_values(json.loads(files[p]))
     loaded = cfgmod_loaded(a)
     profs = [pp for pp in loaded.profiles.values() if pp.kind in ('review', 'deny')]
-    found = purity.lint_engine(values, profs)
+    sources = purity.engine_sources()
+    found = purity.lint_sources(sources, values, profs)
+    source_map = {path: sha(src.encode()) for path, src in sorted(sources.items())}
+    a.rec.capture_doc('purity lint of the engine tree', {'findings': found, 'source_map': source_map,
+                      'exit_status': 20 if found else 0},
+                      attested={'outcome': 'LINT_FAIL' if found else 'LINT_PASS'})
+    a.files_of['Z9g'] = {'lint-findings.json': found, 'lint-source-map.json': source_map,
+                         'lint-value-set.json': sorted(values)}
+    a.procedures['Z9g'] = {'name': 'purity-lint', 'lib': 'lint', 'findings': 'lint-findings.json',
+                           'source_map': 'lint-source-map.json', 'value_set': 'lint-value-set.json'}
     a.record('Z9g', not found, 'the real engine tree: lint PASS', found[:40])
     # Z9h: 'guard-pin' planted in an engine module, with the adapter companions in the value set
-    src = open(os.path.join(tools, 'ledger_coverage', 'engine', 'outcome.py')).read() + "\nPLANTED = 'guard-pin'\n"
+    clean_src = open(os.path.join(tools, 'ledger_coverage', 'engine', 'outcome.py')).read()
+    src = clean_src + "\nPLANTED = 'guard-pin'\n"
     planted = purity.lint_sources({'engine/outcome.py': src}, values, [])
     dotted = purity.lint_sources({'engine/outcome.py': "X = '%s.json'\n" % hashlib.sha1(b'z9').hexdigest()},
                                  set(), [])
-    a.record('Z9h', any('guard-pin' in f for f in planted) and 'guard-pin' in values and bool(dotted),
+    # the retained lint evidence: the findings, the linted source map and the value set; the adapter companions'
+    # own values and the companion files the planted literal occurs in are measured from the configuration's
+    # adapter specifications, not stated
+    companion_values, occurs_in = set(), []
+    for spec in (cfg.get('adapters') or {}).values():
+        for comp in (spec.get('companion') or []) if isinstance(spec, dict) else []:
+            data = a.repo.read(comp.get('commit') or spec.get('commit') or a.crev, comp['path'])
+            if data is None:
+                continue
+            got = purity.source_values(data, comp['path'])
+            companion_values |= got
+            if 'guard-pin' in got:
+                occurs_in.append(comp['path'].rsplit('/', 1)[-1])
+    names = [f for f in planted if 'guard-pin' in f]
+    a.rec.capture_doc('purity lint of the engine tree with a planted literal (a1_controls.py z9g)',
+                      {'findings': planted, 'source_map': ['engine/outcome.py'], 'value_set': sorted(values),
+                       'exit_status': None},
+                      attested={'outcome': 'LINT_FAIL' if planted else 'LINT_PASS',
+                                'finding_value': 'guard-pin' if names else None,
+                                'value_set_includes': 'the adapter companions'
+                                if companion_values and companion_values <= values else None,
+                                'value_occurs_in': occurs_in[0] if len(occurs_in) == 1 else (occurs_in or None)})
+    clean = purity.lint_sources({'engine/outcome.py': clean_src}, values, [])
+    a.rec.capture_doc('purity lint of the engine tree with the planted literal removed (a1_controls.py '
+                      'z9g)', {'findings': clean, 'source_map': ['engine/outcome.py'], 'exit_status': None},
+                      case='restored', attested={'outcome': 'LINT_FAIL' if clean else 'LINT_PASS'})
+    a.files_of['Z9h'] = {'lint-findings.json': planted, 'lint-source-map.json': {'engine/outcome.py': src},
+                         'lint-value-set.json': sorted(values)}
+    a.procedures['Z9h'] = {'name': 'purity-lint', 'lib': 'lint', 'findings': 'lint-findings.json',
+                           'source_map': 'lint-source-map.json', 'value_set': 'lint-value-set.json'}
+    a.record('Z9h', any('guard-pin' in f for f in planted) and 'guard-pin' in values and bool(dotted) and not clean,
              "'guard-pin' planted in an engine module, with the adapter companions in the value set: lint FAIL",
-             {'planted': planted[:3], 'in_value_set': 'guard-pin' in values, 'dotted_40_hex': dotted[:2]},
+             {'planted': planted[:3], 'in_value_set': 'guard-pin' in values, 'dotted_40_hex': dotted[:2],
+              'restored_findings': clean[:3]},
              predicate="a finding names the planted literal, which occurs in the companions' values; a planted "
                        "40-hex file name is a finding too (the allowlist exempts only its listed values)")
     return values
@@ -1209,11 +2044,60 @@ def sweeps(a):
                  'prev_t is a subset of allt; 584 sites')
 
 
-def engine_identity_y8(a, syn_engine):
-    code, res, t = a.run(['coverage', '--commit', E])
-    a.record('Y8', res.get('engine', {}).get('blob_sha256') == syn_engine,
-             'identical engine hash recorded for the A1 and the synthetic configuration',
-             {'a1': res.get('engine', {}).get('blob_sha256'), 'synthetic': syn_engine})
+def engine_identity_y8(a, syn_engine=None):
+    """Y8: the engine hash recorded by an A1 coverage run equals the one a synthetic-configuration coverage run
+    records; both runs are retained, compared by the hash procedure (engine.blob_sha256). `syn_engine`, when given,
+    is a hash measured elsewhere (--syn-engine) that must also equal it."""
+    from ledger_coverage.adapters import synthetic_fixture as sf
+    code, res, t = a.run(['coverage', '--commit', E, '--check', 'item2'])
+    syn = sf.Syn()
+    c, p, _, _ = syn.build()
+    out = a.out()
+    argv = ['coverage', '--config', '%s:%s' % (c, p), '--out', out, '--commit', syn.H, '--check', 'zc']
+    code_s, res_s = cli.run(argv, repo=syn.repo, harness=True, stderr=io.StringIO())
+    run_s = a.rec.capture(argv, code_s, out)
+    run_a = a.rec.pending[-2] if len(a.rec.pending) >= 2 else None
+    h_a = (res.get('engine') or {}).get('blob_sha256')
+    h_s = ((res_s or {}).get('engine') or {}).get('blob_sha256')
+    equal = h_a is not None and h_a == h_s and (syn_engine is None or syn_engine == h_a)
+    if run_a is not None:
+        run_a['attested'] = {'outcome': 'HASH_EQUAL' if equal else 'HASH_DIFFERS'}
+    names = ['case%02d.%s' % (n, r['result'][0]) for n, r in ((1, run_a), (2, run_s)) if r and r.get('result')]
+    a.record('Y8', equal and len(names) == 2, 'identical engine hash recorded for the A1 and the synthetic configuration',
+             {'a1': h_a, 'synthetic': h_s, 'syn_engine': syn_engine, 'exits': [code, code_s]})
+    a.procedures['Y8'] = {'name': 'engine-identity', 'lib': 'hash', 'runs': names}
+
+
+def repro_controls(a):
+    """Run every A1 operation and the second configuration twice on their fixed inputs."""
+    from ledger_coverage.adapters import synthetic_fixture as sf
+
+    cid = 'REPRO-DOUBLE'
+    files = a.files_of[cid] = {}
+    actual = {}
+    config = a.crev + ':' + a.cpath
+    for label in ('record', 'coverage', 'terms', 'execution', 'synthetic'):
+        try:
+            repo, args = a.repo_path, None
+            if label == 'record':
+                args = ['record', '--config', config, '--pin', E, '--record', H]
+            elif label == 'coverage':
+                args = ['coverage', '--config', config, '--commit', E, '--check', 'item2']
+            elif label == 'terms':
+                args = ['terms', '--config', config, '--commit', H, '--profile', 'DR-1,DR-3,DR-4,DR-5']
+            elif label == 'execution':
+                fixed = a.fixed or a
+                fixture_path, _, operands = execution_control_plan(fixed)
+                args = ['execution', '--config', fixed.crev + ':' + fixture_path, '--scientific-base', H,
+                        '--candidate', T, *operands]
+            else:
+                repo = None
+            actual[label] = sf.reproducibility_pair(a.rec, a.out_root, label, files, repo, args)
+        except (OSError, RuntimeError, ValueError, KeyError, subprocess.CalledProcessError) as exc:
+            files[label + '.error'] = ('%s: %s\n' % (type(exc).__name__, exc)).encode()
+            actual[label] = False
+    a.procedures[cid] = {'name': 'double-run', 'lib': 'double-run'}
+    a.record(cid, all(actual.values()), 'equal configured inputs and result bytes within each pair', actual)
 
 
 PREDICATES = {
@@ -1230,6 +2114,565 @@ PREDICATES = {
 }
 
 
+# ---- R6.EVID.8: the representative retirement candidate X_rep (OC-3) ---------------------------------------------
+
+REP_LEDGER_GIT = 'ba37c1cdb560cb5fceeeb2b46a3091c832b4a80e'  # the retirement ledger's git blob (R6.EVID.8)
+REP_EDITS_GIT = 'ec384fdfbc12937b860e2f226355e8c5d94820a5'  # the edit list's git blob (R6.EVID.8)
+REP_ALLOWED_IMPORTS = ('hashlib', 'json')
+REP_BUILDER = 'tools/ledger_coverage/adapters/rep_build.py'
+REP_CANDIDATE = ("X_rep (R6.EVID.8): single parent H; ledgered paths H plus the ledger's splices, sha256 equal to the "
+                 "ledger's expected_sha256; plan record-directory paths the pinned ledger and edit list; delegated paths "
+                 "a fixed marker blob; every other path H's")
+REP_CASES = ("build X_rep from H, the pinned ledger and edit list, and the configuration's control instance",
+             "the pinned ledger with one splice's new bytes changed by one byte",
+             'a builder that imports a module under tools/ledger_coverage/engine/')
+
+
+class RepRefused(Exception):
+    pass
+
+
+def rep_builder(source):
+    """The X_rep builder loaded from its source, after its import set is read from the source's own syntax tree:
+    only the standard library modules it names (R6.EVID.8), never the engine under test."""
+    import ast
+    import types
+    mods = set()
+    for n in ast.walk(ast.parse(source)):
+        if isinstance(n, ast.Import):
+            mods |= {x.name for x in n.names}
+        elif isinstance(n, ast.ImportFrom):
+            mods.add('.' * n.level + (n.module or ''))
+    bad = sorted(m for m in mods if m not in REP_ALLOWED_IMPORTS)
+    if any(m.startswith('.') or m.split('.')[0] == 'ledger_coverage' for m in bad):
+        raise RepRefused('the builder imports from the engine under test')
+    if bad:
+        raise RepRefused('the builder imports outside the standard library modules it is allowed: %s' % bad)
+    mod = types.ModuleType('rep_build')
+    exec(compile(source, 'rep_build.py', 'exec'), mod.__dict__)
+    return mod, sorted(mods)
+
+
+def rep_ledger_revision(a):
+    return (a.rep_binding or {}).get('T_land') or a.tool_rev
+
+
+def rep_ledger_inputs(a):
+    """Read the exact ledger and edit list pinned with the tool revision."""
+    rev = rep_ledger_revision(a)
+    led = a.repo.read(rev, a.ad + 'rep/ledger.json')
+    eds = a.repo.read(rev, a.ad + 'rep/edits.json')
+    if led is None or eds is None or gitobj.blob_id_of(led) != REP_LEDGER_GIT or gitobj.blob_id_of(eds) != REP_EDITS_GIT:
+        raise RepRefused('the pinned ledger or edit list of the tool revision is not the retirement ledger\'s blob')
+    return led, eds
+
+
+def raw_ref(repo, commit, path):
+    mode = repo.mode(commit, path)
+    data = repo.read(commit, path)
+    if mode not in gitobj.regular_modes or data is None:
+        raise RepRefused('expected regular pinned input at %s:%s' % (commit, path))
+    return {'commit': commit, 'path': path, 'mode': mode, 'git_blob': gitobj.blob_id_of(data),
+            'blob_sha256': sha(data)}
+
+
+def rep_inputs(a, *, frozen=False):
+    """The pinned ledger, edit list and delegation inputs for the representative build."""
+    if frozen:
+        _, _, admitted, _, cfg = cli.freeze_admission(a.base, a.freeze, a.freeze, a.cpath, refuse_rep)
+        directory = a.cpath.rsplit('/', 1)[0] + '/'
+        led, eds = (admitted.get(directory + name) for name in ('ledger.json', 'edits.json'))
+        if led is None or eds is None or json.loads(led).get('base') != cfg['roles']['scientific_base']:
+            raise RepRefused('the candidate F ledger and edits must be pinned to its scientific base')
+        return led, eds, json.loads(cfgmod.read_ref(a.base, a.freeze, cfg['delegation'], 'delegation'))
+    led, eds = rep_ledger_inputs(a)
+    # the configuration's control instance when the runner bound one (rep_instance, R6.EVID.8; staging r2 sec. 2),
+    # else the configuration
+    inst = getattr(a, 'rep_instance_doc', None)
+    cfg = inst if inst is not None else json.loads(a.repo.read(a.crev, a.cpath))
+    dref = cfg.get('delegation') or {}
+    deleg = {}
+    if dref.get('path'):
+        revision = dref.get('commit') or (a.rep_binding['template']['commit'] if inst is not None else a.crev)
+        encoded = a.repo.read(revision, dref['path'])
+        if encoded is None or sha(encoded) != dref.get('blob_sha256'):
+            raise RepRefused('the delegation contract differs from its configuration pin')
+        try:
+            deleg = json.loads(encoded)
+        except ValueError as exc:
+            raise RepRefused('the pinned delegation contract is not valid JSON') from exc
+        if not isinstance(deleg, dict):
+            raise RepRefused('the pinned delegation contract is not an object')
+    return led, eds, deleg
+
+
+def bind_control_instance(a, template, snapshot, descriptor_sha256, *, tool_landing=None, main_tip=None):
+    """R6.EVID.8: the configuration's control instance, the landed template filled from the class tip in the run's
+    M, with the role binding at the reviewed snapshot S (rep_instance.bind and fill). Sets a.rep_instance_doc and
+    a.rep_binding; a refused binding is kept as {'refused': reason} and leaves REP-BUILD open (FAIL)."""
+    from ledger_coverage.adapters import rep_instance as ri
+    trev, tpath = template.split(':', 1)
+    try:
+        template_commit = a.base.resolve(trev)
+        tb = a.base.read(template_commit, tpath)
+        if tb is None:
+            raise ri.Refused('no control-instance template at %s' % template)
+        template_ref = {'path': tpath, 'blob_sha256': sha(tb)}
+        live = {}
+        if a.freeze is not None:
+            if template_commit != tool_landing or not main_tip:
+                raise RepRefused('the live template must be read from the exact tool landing')
+            _, _, admitted, _, cfg = cli.freeze_admission(a.base, a.freeze, a.freeze, a.cpath,
+                                                          refuse_rep)
+            directory = a.cpath.rsplit('/', 1)[0] + '/'
+            dpath = directory + ra.transition_descriptor
+            ledger = admitted.get(directory + 'ledger.json')
+            if not ledger or not admitted.get(dpath) or sha(admitted[dpath]) != descriptor_sha256:
+                raise RepRefused('the candidate F does not pin the representative descriptor and final ledger')
+            trans = cfgmod.transition_admission(a.base, a.freeze, directory, a.cpath, a.csha, cfg, admitted)
+            if not trans:
+                raise RepRefused('the candidate F has no admitted transition')
+            paths = json.loads(ledger).get('files')
+            if not isinstance(paths, dict) or not paths:
+                raise RepRefused('the candidate F ledger does not give a complete path set')
+            live = {'tool_landing': tool_landing, 'main_tip': main_tip, 'ledger_paths': paths}
+        if not live and template_commit != a.tool_rev:
+            raise RepRefused('the fixture must use the exact tool candidate template')
+        b = ri.bind(a.base, a.base.resolve(snapshot), a.main, descriptor_sha256, template=template_ref,
+                    fixture=not live, **live)
+        if live and (trans['base'] != b['B'] or
+                     trans['tips'] != {'class': b[ri.CLASS_FILL], 'allow': b[ri.ALLOW_FILL]}):
+            raise RepRefused('the bound snapshot differs from the exact candidate F role tips')
+        if live and not all(gitobj.on_first_parent_chain(a.base, x, main_tip) for x in (H, E)):
+            raise RepRefused('the pinned representative H and E must be on main')
+        if live:
+            final_h = cfg['roles']['scientific_base']
+            if final_h in (tool_landing, b['B']) or not (
+                    gitobj.on_first_parent_chain(a.base, tool_landing, final_h) and
+                    gitobj.on_first_parent_chain(a.base, final_h, b['B'])):
+                raise RepRefused('the final scientific base must lie between the tool landing and preparation base')
+            allow = json.loads(cfgmod.read_ref(a.base, snapshot, b[ri.ALLOW_FILL], 'the active allow rules'))
+            if any(r.get('recorded_at') != final_h for r in allow['rules'] if r.get('kind') == 'allow'):
+                raise RepRefused('the active allowance does not state the candidate F scientific base')
+        inst = ri.fill(tb, b)
+        a.rep_instance_doc = json.loads(inst)
+        a.rep_instance_bytes = inst
+        a.rep_binding = {**b, 'template': raw_ref(a.base, template_commit, tpath),
+                         'mode': 'live' if live else 'fixture', 'freeze': a.freeze, 'tool_rev': a.tool_rev,
+                         'class_tip': b[ri.CLASS_FILL], 'allow_tip': b[ri.ALLOW_FILL], 'instance_sha256': sha(inst)}
+    except (ri.Refused, RepRefused, gitobj.Unresolvable, oc.Stop, KeyError, ValueError) as exc:
+        a.rep_instance_doc = None
+        a.rep_instance_bytes = None
+        a.rep_binding = {'template': template, 'refused': str(exc)}
+
+
+def refuse_rep(reason):
+    raise RepRefused(reason)
+
+
+def build_x_rep(a, repo=None, ledger=None, source=None, *, frozen=False, reads=None):
+    """X_rep in `repo` (default the runner's reader): (commit id, change set). Refuses (RepRefused) when the inputs
+    determine no representative candidate, or a marker blob equals the run's M blob."""
+    repo = repo or a.repo
+    src = a.base.read(a.tool_rev, REP_BUILDER) if source is None else source
+    if src is None:
+        raise RepRefused('the exact tool revision does not hold the builder')
+    rb, _mods = rep_builder(src)
+    led, eds, deleg = rep_inputs(a, frozen=frozen)
+    h = json.loads(led)['base'] if frozen else H
+    directory = (a.cpath.rsplit('/', 1)[0] + '/') if frozen else PL
+    if ledger is not None:
+        led = ledger
+
+    def read_h(p):
+        if reads is not None:
+            reads['H'].add(p)
+        return a.base.read(h, p) if a.base.blob_id(h, p) else None
+    try:
+        ch = rb.changes(h, led, eds, deleg, read_h, directory)
+    except rb.Refused as exc:
+        raise RepRefused(str(exc))
+    if a.main is not None:
+        ledger_paths = json.loads(led)['files']
+        for p in rb.delegated_paths(deleg):
+            if p not in ch or p in ledger_paths:
+                continue
+            if reads is not None:
+                reads['M'].add(p)
+            if a.base.blob_id(a.main, p) and a.base.read(a.main, p) == ch[p]:
+                raise RepRefused('the marker blob equals the run\'s M blob at %s' % p)
+    return repo.derive(h, ch, parents=[h], subject=rb.SUBJECT), ch
+
+
+def x_rep(a):
+    if getattr(a, '_x_rep', None) is None:
+        a._x_rep, ch = build_x_rep(a)
+        a._x_rep_why = rep_conforms(a, a._x_rep, ch)
+    return a._x_rep
+
+
+def rep_conforms(a, x, ch, *, frozen=False):
+    """The representative_candidate invariant checked on the built commit: [] when it holds."""
+    out = []
+    raw_ledger, edits, deleg = rep_inputs(a, frozen=frozen)
+    led = json.loads(raw_ledger)
+    h = led['base'] if frozen else H
+    directory = (a.cpath.rsplit('/', 1)[0] + '/') if frozen else PL
+    if a.repo.parents(x) != [h]:
+        out.append('the parent is not H')
+    for p, want in led['files'].items():
+        b = a.repo.read(x, p)
+        if b is None or sha(b) != want['expected_sha256']:
+            out.append('ledgered path %s does not carry its expected_sha256' % p)
+    for name, data in (('ledger.json', raw_ledger), ('edits.json', edits)):
+        p = directory + name
+        if a.repo.read(x, p) != data:
+            out.append('plan record-directory path %s does not carry the pinned input' % p)
+    for p in sorted({q for c in deleg.get('classes') or [] for q in c.get('paths') or []
+                     if not q.endswith('/') and q not in led['files']}):
+        b = a.repo.read(x, p)
+        if b is None or b == a.base.read(h, p) or (a.main is not None and a.base.blob_id(a.main, p) and
+                                                   b == a.base.read(a.main, p)):
+            out.append('delegated path %s carries no marker blob differing from H and M' % p)
+    hx, xx = a.base.entries(h), a.repo.entries(x)
+    changed = {p for p in set(hx) | set(xx) if hx.get(p) != xx.get(p)}
+    if changed - set(ch):
+        out.append('paths outside the change set differ from H: %s' % sorted(changed - set(ch))[:5])
+    return out
+
+
+class ReadLog:
+    """The runner's reader for one run, logging the paths whose content the run reads at one commit (the R6.EVID.8
+    scope guard): reads by path, and reads by blob id of a blob that commit carries and H's tree does not."""
+
+    def __init__(self, repo, commit):
+        self._r, self.commit, self.seen, self.blobs = repo, commit, set(), set()
+
+    def __getattr__(self, k):
+        return getattr(self._r, k)
+
+    def read(self, cid, path):
+        if cid == self.commit:
+            self.seen.add(path)
+        return self._r.read(cid, path)
+
+    def read_blob(self, bid):
+        self.blobs.add(bid)
+        return self._r.read_blob(bid)
+
+    def read_blob_uncached(self, bid):
+        self.blobs.add(bid)
+        return self._r.read_blob_uncached(bid)
+
+    def trace(self):
+        return {'paths': sorted(self.seen), 'blobs': sorted(self.blobs)}
+
+    def read_at(self, a, *, h=H, pins=(REP_LEDGER_GIT, REP_EDITS_GIT)):
+        # a blob read by id is attributed to the commit's paths only when H's tree lacks it and it is not the pinned
+        # ledger or edit list, which a run reads at their checked pins; X_rep's own
+        # copies of them are still logged when read by path
+        hb = set(a.base.paths(h).values()) | set(pins)
+        return sorted(self.seen | {p for p, b in a.repo.paths(self.commit).items() if b in self.blobs and b not in hb})
+
+
+def rep_scope(a, x, read, extra=(), *, config_revision=None, frozen=False):
+    """The paths of `read` outside the ledgered and corpus path sets of X_rep and `extra` (R6.EVID.8)."""
+    import re as _re
+    cfg = json.loads(a.repo.read(config_revision or a.crev, a.cpath))
+    pats = [_re.compile(q) for q in (cfg.get('corpus') or {}).get('patterns') or []]
+    led = set(json.loads(rep_inputs(a, frozen=frozen)[0])['files'])
+    return sorted(p for p in read if p not in led and p not in extra and not any(q.search(p) for q in pats))
+
+
+def rep_run(a, args, scope_text, case=None, extra=(), *, retain_reads=False, **kw):
+    """A tool run at X_rep with its read log; the attested invariants are those of R6.EVID.8 when they hold:
+    representative_candidate (the build conforms) and scanned_paths_within (every path read at X_rep lies in the
+    ledgered and corpus path sets, or `extra`)."""
+    x = x_rep(a)
+    log = ReadLog(a.repo, x)
+    holder = {}
+
+    def att(_res):
+        reads = log.read_at(a)
+        holder['outside'] = out = rep_scope(a, x, reads, extra, config_revision=kw.get('config_revision'))
+        d = {'read_paths': reads,
+             'config': raw_ref(a.repo, kw.get('config_revision') or a.crev, a.cpath)}
+        if a.freeze is not None or retain_reads:
+            d['read_trace'] = log.trace()
+        if a.freeze is not None:
+            d['representative_binding'] = {k: a.rep_binding[k] for k in
+                                           ('freeze', 'T_land', 'M_rep', 'S', 'class_tip', 'allow_tip',
+                                            'instance_sha256')}
+        if not getattr(a, '_x_rep_why', ['unchecked']):
+            d['representative_candidate'] = REP_CANDIDATE
+        if not out:
+            d['scanned_paths_within'] = scope_text
+        return d
+    code, res, t = a.run(args, case=case, reader=log, attested=att, **kw)
+    return code, res, t, {'read_at_X_rep': len(log.read_at(a)), 'outside_scope': holder.get('outside')}
+
+
+def rt_d_projection(a, result, residual, profile, scope_doc, scope_read, source_read):
+    """Project the full review census onto the primary run's residual coordinates."""
+    x = x_rep(a)
+    wanted = {h['file'] for h in residual}
+    if not wanted or rep_scope(a, x, wanted, config_revision=a.freeze):
+        raise RepRefused('RT-D residual coordinates are missing or outside the representative scope')
+
+    class ResidualReader(ReadLog):
+        def paths(self, commit):
+            return {p: oid for p, oid in self._r.paths(commit).items() if p in wanted}
+
+    log = ResidualReader(a.repo, x)
+    selected = cli.scope_from_record(log, x, scope_doc)
+    texts = {p: pl.sg.FileText(log.read(x, p), p).lines for p in wanted}
+    hits = []
+    for h in residual:
+        p, n = h['file'], h['line']
+        if not (type(n) is int and 1 <= n <= len(texts[p])) or sha(texts[p][n - 1].encode()) != h['line_sha256']:
+            raise RepRefused('RT-D residual line differs from the representative tree')
+        names = set(h['profiles'])
+        if p in selected and profile.matches(texts[p][n - 1]):
+            names.add('repo')
+        hits.append({'file': p, 'line': n, 'line_sha256': h['line_sha256'], 'profiles': sorted(names)})
+    reads = log.read_at(a)
+    outside = rep_scope(a, x, reads, config_revision=a.freeze)
+    return {
+        'exit_status': 20 if outside else 0, 'evaluated': result['evaluated'],
+        'config': raw_ref(a.base, a.freeze or a.crev, a.cpath),
+        'scope': scope_read, 'repo_profile_source': source_read, 'selected_paths': selected, 'hits': hits,
+    }, {'read_paths': reads, 'read_trace': log.trace()}, outside
+
+
+def rt_d_scope_record(repo, revision, loaded):
+    """Admit the exact reviewed repo scope and check every widening in its lineage."""
+    refs = [r for r in loaded.config['records'] if r.get('kind') == 'scope'
+            and (loaded.store.get(r) or {}).get('profile') == 'repo']
+    if len(refs) != 1:
+        raise RepRefused('RT-D needs exactly one configured repo scope')
+    ref = refs[0]
+    def resolve_predecessor(pin):
+        problems = []
+        fd.validate(fd.ref_keys, pin, 'scope predecessor', problems)
+        if problems:
+            raise RepRefused('RT-D scope has an invalid predecessor reference')
+        c = revision
+        while c:
+            if repo.mode(c, pin['path']) in ('100644', '100755'):
+                raw = repo.read(c, pin['path'])
+                if sha(raw) == pin['blob_sha256']:
+                    return json.loads(raw)
+            parents = repo.parents(c)
+            c = parents[0] if parents else None
+        return None
+
+    scope_input = loaded
+    if loaded.store.get(ref).get('supersedes') is not None:
+        scope_input = copy.copy(loaded)
+        scope_input.store = store = copy.copy(loaded.store)
+        store._pred_cache = {}
+        store.resolver = resolve_predecessor
+        store.heads_problems = rec.lineage_heads(refs, store)
+    records = cli.RecordSet(scope_input, False)
+    scope = records.admit(repo, revision + ':' + ref['path'], 'scope')
+    if scope is None or scope.get('schema') != 'oi-scope/1':
+        raise RepRefused('RT-D repo scope is not admitted by its exact review chain')
+    if scope['supersedes'] is not None:
+        rt_d_scope_reviews(scope_input, {k: ref[k] for k in ('path', 'blob_sha256')})
+    return ref, scope, records.used
+
+
+def rt_d_scope_reviews(loaded, tip):
+    """Verify the review profile's changed fields at each exact supersession edge."""
+    store = loaded.store
+    paths_by_sha = collections.defaultdict(set)
+    for p, data in store.scan():
+        paths_by_sha[sha(data)].add(p)
+    ref = tip
+    while ref is not None:
+        if paths_by_sha[ref['blob_sha256']] - {ref['path']}:
+            raise RepRefused('RT-D scope lineage has the same record at distinct paths')
+        doc = store.resolve(ref)
+        old_ref = doc['supersedes']
+        problems = []
+        if old_ref is not None:
+            fd.validate(fd.ref_keys, old_ref, 'scope predecessor', problems)
+        if problems:
+            raise RepRefused('RT-D scope has an invalid predecessor reference')
+        old = store.resolve(old_ref) if old_ref is not None else {}
+        previous = ref != tip
+        pool = store.scanned() if previous else store.by_sha
+
+        def usable(digest):
+            return previous or digest in loaded.admitted
+
+        def has_form(review, items):
+            return (not fd.review_schema_problems(review) and
+                    re.search(r'\b[0-9a-f]{40}\b', review['method']) is not None and
+                    len(review['verdicts']) == len(items) and
+                    {v['item'] for v in review['verdicts']} == set(items) and
+                    all(set(v) == {'item', 'verdict', 'reason'} and v['verdict'] == 'accept'
+                        for v in review['verdicts']))
+
+        ordinary = rec.ordinary_reviews(ref, pool, usable)
+        if not ordinary or not all(has_form(review, rec.item_ids(doc)) for review in ordinary):
+            raise RepRefused('RT-D scope lacks a complete ordinary review at %s' % ref['path'])
+        absent = object()
+        fields = (old.keys() | doc.keys()) - {'supersedes', 'version'}
+        changed = sorted('field:' + k for k in fields if old.get(k, absent) != doc.get(k, absent))
+        if old_ref is not None and changed:
+            widening = [d for digest, (_, d) in pool.items()
+                        if usable(digest) and isinstance(d, dict) and d.get('schema') == rec.review_schema and
+                        d.get('kind') == 'widening' and d.get('reviewed') == ref]
+            if (not widening or not all(has_form(review, changed) for review in widening) or
+                    rec.widening_review_problems(ref, store, loaded.admitted,
+                        {review['reviewer'] for review in ordinary}, doc['author'], old_ref, changed,
+                        predecessor=previous)):
+                raise RepRefused('RT-D scope lacks a qualifying independent widening review at %s' % ref['path'])
+        ref = old_ref
+
+
+def rt_d_repo_overlap(a, result, residual, other_profiles):
+    """Use only the candidate-F scope and its exact reviewed record chain."""
+    label = 'RT-D review membership at residual coordinates'
+    F = a.freeze
+    try:
+        _, _, table, _, _ = cli.freeze_admission(a.base, F, F, a.cpath, refuse_rep)
+        loaded = cfgmod.load(a.base, F, a.cpath, a.csha, 'terms', 'chain', table=table,
+                             admission={'mode': 'candidate-F'})
+        ref, scope, used = rt_d_scope_record(a.base, F, loaded)
+        names, = [c['profiles'] for c in loaded.config['checks'] if c['id'] == 'item7']
+        selected = {n for n in names if loaded.profiles[n].kind == 'review'}
+        profile = loaded.profiles['repo']
+        if (selected != ((other_profiles - {'repo'}) | {'resid'}) or
+                result['profiles_evaluated'] != {x_rep(a): sorted(names)} or
+                any(loaded.profiles[n].scope != 'corpus' for n in selected) or
+                loaded.profiles['resid'].applies_to != 'added-text' or
+                profile.kind != 'review' or profile.scope != 'repo' or profile.applies_to != 'tree'):
+            raise RepRefused('RT-D review profiles differ from the applicable Item 7 and repo profiles')
+        source = profile.spec['source']
+        data, observed, outside = rt_d_projection(a, result, residual, profile, scope,
+                                                 raw_ref(a.base, F, ref['path']),
+                                                 raw_ref(a.base, source.get('commit') or F, source['path']))
+        data['records_used'] = used
+    except (RepRefused, oc.Stop, gitobj.Unresolvable, util.EncodingFault, KeyError, ValueError, TypeError,
+            AttributeError, re.error) as exc:
+        data, observed, outside = {'exit_status': 20, 'reason': str(exc)}, {}, None
+    a.rec.capture_doc(label, data, case='all review profiles', attested=observed)
+    return data, {'read_at_X_rep': len(observed.get('read_paths', [])), 'outside_scope': outside}
+
+
+def rep_build_control(a):
+    """REP-BUILD (R6.EVID.8): two builds in two readers with equal commit and tree ids, conforming; a ledger with one
+    splice's new bytes changed by one byte refused for the expected_sha256; a builder importing the engine refused."""
+    acts, files = {}, {}
+    bound = getattr(a, 'rep_binding', None)
+    src = a.base.read(a.tool_rev, REP_BUILDER)
+    try:
+        if bound is None:
+            raise RepRefused('no representative template and snapshot binding supplied')
+        if bound.get('refused'):
+            raise RepRefused(bound['refused'])
+        if getattr(a, 'rep_instance_doc', None) is None:
+            raise RepRefused('the verified binding has no filled control instance')
+        config_rev = a.freeze or bound['S']
+        cfg = raw_ref(a.base, config_rev, a.cpath)
+        delegation = a.rep_instance_doc['delegation']
+        delegation = raw_ref(a.base, delegation.get('commit') or bound['template']['commit'], delegation['path'])
+        operands = {'E': E, 'H': H, 'config': cfg, 'delegation': delegation,
+                    'builder': raw_ref(a.base, a.tool_rev, REP_BUILDER)}
+        for name in ('ledger', 'edits'):
+            operands[name] = raw_ref(a.base, rep_ledger_revision(a), '%srep/%s.json' % (a.ad, name))
+        first_reads = {'H': set(), 'M': set()}
+        second_reads = {'H': set(), 'M': set()}
+        x1, ch = build_x_rep(a, reads=first_reads)
+        r2 = gitobj.Overlay(a.base)
+        x2, _ = build_x_rep(a, repo=r2, reads=second_reads)
+        ids = [(x1, a.repo.tree_id(x1)), (x2, r2.tree_id(x2))]
+        why = rep_conforms(a, x1, ch)
+        _, mods = rep_builder(src)
+        base = a.base.entries(H)
+        builds = []
+        for repo, commit, reads in ((a.repo, x1, first_reads), (r2, x2, second_reads)):
+            entries = repo.entries(commit)
+            delta = {}
+            for path in sorted(p for p in set(base) | set(entries) if base.get(p) != entries.get(p)):
+                if path not in entries:
+                    raise RepRefused('the representative build deleted %s' % path)
+                ref = raw_ref(repo, commit, path)
+                delta[path] = {k: ref[k] for k in ('mode', 'git_blob', 'blob_sha256')}
+            builds.append({'commit': commit, 'tree': repo.tree_id(commit), 'parents': repo.parents(commit),
+                           'changes': delta, 'reads': {k: sorted(v) for k, v in reads.items()}})
+        files['control-instance.json'] = a.rep_instance_bytes
+        ok1 = ids[0] == ids[1] and not why
+        att = {'outcome': 'HASH_EQUAL' if ids[0] == ids[1] else 'HASH_DIFFERS'}
+        if not why:
+            att['representative_candidate'] = REP_CANDIDATE
+        if ids[0] == ids[1]:
+            att['equal_across'] = 'two builds: commit id and tree id'
+        if all(m in REP_ALLOWED_IMPORTS for m in mods):
+            att['imported_files_within'] = 'the builder and the standard library; no module under tools/ledger_coverage/engine/'
+        acts['build'] = {'commit_ids': [ids[0][0], ids[1][0]], 'tree_ids': [ids[0][1], ids[1][1]],
+                         'changed_paths': len(ch), 'nonconforming': why, 'imports': mods,
+                         'control_instance': bound, 'operands': operands, 'builds': builds}
+    except (RepRefused, gitobj.Unresolvable, KeyError) as exc:
+        ok1, att = False, {'outcome': 'REFUSED', 'reason': str(exc)}
+        acts['build'] = {'refused': str(exc)}
+    a.rec.capture_doc('X_rep build (a1_controls.py rep_build_control)', dict(acts['build'], exit_status=None),
+                      case=REP_CASES[0], attested=att)
+    # the pinned ledger with the first splice's new bytes changed by one byte (its new_sha256 kept consistent, so
+    # that only the ledgered path's expected_sha256 can refuse it)
+    mutated = {}
+    mutation = []
+    try:
+        led = json.loads(rep_ledger_inputs(a)[0])
+        s0 = led['splices'][0]
+        if not s0['new'] or len(s0['new'][-1].encode('utf-8')) != 1:
+            raise RepRefused('the retained splice does not have a final single byte for the control')
+        s0['new'] = s0['new'][:-1] + ('x' if s0['new'][-1] != 'x' else 'y')
+        s0['new_sha256'] = sha(s0['new'].encode('utf-8'))
+        bad_ledger = json.dumps(led).encode('utf-8')
+        files['ledger.mutant.json'] = bad_ledger
+        mutated.update(splice=s0['id'], file=s0['file'])
+        mutation = [{'path': a.ad + 'rep/ledger.json', 'splice': s0['id'], 'change': 'one byte of new'}]
+        build_x_rep(a, repo=gitobj.Overlay(a.base), ledger=bad_ledger)
+        att2, ok2 = {'outcome': 'NOT_REFUSED'}, False
+    except (RepRefused, gitobj.Unresolvable) as exc:
+        reason = str(exc)
+        ok2 = reason.startswith("a ledgered path's sha256 differs from the ledger's expected_sha256")
+        att2 = {'outcome': 'REFUSED',
+                'reason': "a ledgered path's sha256 differs from the ledger's expected_sha256" if ok2 else reason}
+    acts['mutated_ledger'] = dict(mutated, attested=att2, outcome=att2['outcome'],
+                                  reason=reason if att2['outcome'] == 'REFUSED' else None)
+    a.rec.capture_doc('X_rep build with a mutated ledger (a1_controls.py rep_build_control)',
+                      dict(acts['mutated_ledger'], exit_status=None), case=REP_CASES[1],
+                      mutation=mutation, attested=att2)
+    # a builder whose source also imports a module of the engine
+    evil = (src or b'').replace(b'import hashlib\n', b'import hashlib\nfrom ledger_coverage.engine import util\n', 1)
+    try:
+        if not src or evil == src:
+            raise RepRefused('the exact builder source cannot be mutated as declared')
+        files['rep_build.mutant.py'] = evil
+        build_x_rep(a, repo=gitobj.Overlay(a.base), source=evil)
+        att3, ok3 = {'outcome': 'NOT_REFUSED'}, False
+    except RepRefused as exc:
+        ok3 = str(exc) == 'the builder imports from the engine under test'
+        att3 = {'outcome': 'REFUSED', 'reason': str(exc)}
+    acts['engine_import'] = {'source_differs': bool(src and evil != src), 'attested': att3,
+                             'outcome': att3['outcome'], 'reason': att3.get('reason')}
+    a.rec.capture_doc('X_rep builder importing the engine (a1_controls.py rep_build_control)',
+                      dict(acts['engine_import'], exit_status=None), case=REP_CASES[2],
+                      mutation=[{'path': 'tools/ledger_coverage/adapters/rep_build.py',
+                                 'change': 'adds from ledger_coverage.engine import util'}], attested=att3)
+    a.files_of['REP-BUILD'] = files
+    a.record('REP-BUILD', ok1 and ok2 and ok3 and evil != src,
+             'HASH_EQUAL over two builds, conforming, stdlib imports only; the mutated ledger REFUSED for the '
+             'expected_sha256; the engine-importing builder REFUSED', acts,
+             predicate='the bound control instance gives two builds with equal commit and tree ids and the built '
+                       'commit conforms to R6.EVID.8; the '
+                       'one-byte ledger mutant and the engine-importing builder are refused for the stated reasons')
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--repo', required=True)
@@ -1242,15 +2685,51 @@ def main():
     ap.add_argument('--syn-engine', default=None)
     ap.add_argument('--staged-config', default=None,
                     help='the staged configuration file; --config REV:PATH names its path in the plan directory')
+    ap.add_argument('--classify', action='append', default=[],
+                    help='REV:PATH of a reconciliation or side-change class record given to the RT-L2 and RT-O9 '
+                         'runs in place of the drafted reconciliation record (repeatable; REV resolved here)')
     ap.add_argument('--main', default=None,
                     help='required: the main commit the sequencing safeguard (RT-L2) and the drift classes use')
+    phase = ap.add_mutually_exclusive_group()
+    phase.add_argument('--tool-candidate', help='the full tool-acceptance checkout id')
+    phase.add_argument('--freeze', help='the exact candidate F for candidate-F validation')
+    ap.add_argument('--tool-landing', help='the exact tool landing on main for live representative binding')
+    ap.add_argument('--main-tip', help='the observed first-parent main tip for live representative binding')
+    ap.add_argument('--fixed-config', help='the reviewed Git-backed configuration of the retained fixed cases at F')
+    ap.add_argument('--rep-template', default=None,
+                    help='REV:PATH of the landed control-instance template (R6.EVID.8); with --rep-snapshot and '
+                         '--rep-descriptor-sha256 the runner binds and fills the control instance (rep_instance)')
+    ap.add_argument('--rep-snapshot', default=None, help='the reviewed record snapshot S (staging r2 sec. 2)')
+    ap.add_argument('--rep-descriptor-sha256', default=None, help='the sha256 of the transition descriptor S carries')
     args = ap.parse_args()
+    rep_opts = (args.rep_template, args.rep_snapshot, args.rep_descriptor_sha256)
+    if (any(rep_opts) and not all(rep_opts)) or (args.tool_candidate or args.freeze) and not all(rep_opts):
+        ap.error('--rep-template, --rep-snapshot and --rep-descriptor-sha256 are required together')
     if not args.main:
         ap.error('--main is required: the main commit the sequencing safeguard is measured against')
     try:
-        main_c = gitobj.GitRepo(args.repo).resolve(rev_parse(args.repo, args.main))
-    except Exception as exc:
-        ap.error('--main %s does not resolve: %s' % (args.main, exc))
+        base = gitobj.GitRepo(args.repo)
+        main_c = base.resolve(rev_parse(args.repo, args.main))
+        head = rev_parse(args.repo, 'HEAD')
+        if args.tool_candidate or args.freeze:
+            rev = args.config.split(':', 1)[0]
+            picked = args.freeze or args.rep_snapshot
+            if args.staged_config or args.overlay_from_disk or base.resolve(picked) != picked or rev != picked:
+                raise ValueError('the assessment configuration must name its exact Git snapshot without an overlay')
+            if args.tool_candidate and args.tool_candidate != head:
+                raise ValueError('the tool-acceptance subject is not the checkout')
+            if args.freeze:
+                if not args.main_tip or not args.tool_landing or base.resolve(args.tool_landing) != args.tool_landing:
+                    raise ValueError('candidate-F validation requires an exact tool landing and main tip')
+                if base.resolve(args.main_tip) != head or args.main_tip != head or main_c != args.main:
+                    raise ValueError('candidate-F validation requires the exact main checkout and representative anchor')
+                fix, path = (args.fixed_config or ':').split(':', 1)
+                if not fix or fix == args.freeze or base.resolve(fix) != fix or base.read(fix, path) is None:
+                    raise ValueError('candidate-F validation requires the exact configuration of the fixed cases')
+        if not args.freeze and (args.tool_landing or args.main_tip or args.fixed_config):
+            raise ValueError('live representative arguments require an explicit candidate F')
+    except (ValueError, gitobj.Unresolvable) as exc:
+        ap.error(str(exc))
     os.makedirs(args.out, exist_ok=True)
     out_root = tempfile.mkdtemp(prefix='a1-controls-', dir=args.out)
     cref = args.config
@@ -1268,21 +2747,36 @@ def main():
         tool_files['tools/ledger_coverage.py'] = open(os.path.join(args.repo, 'tools/ledger_coverage.py'), 'rb').read()
         tool_files[WORKFLOW_PATH] = open(os.path.join(args.repo, WORKFLOW_PATH), 'rb').read()
         a = A1(args.repo, '%s:%s' % (rev_parse(args.repo, rev), cpath), out_root, args.staged_config, main_c)
+        a.overlay = True
         wt = a.repo.derive(a.crev, tool_files, subject='working files')
         a.crev = wt
         a.csha = sha(a.repo.read(wt, cpath))
     else:
         a = probe
-        head = a.tool_rev
-        for p, b in a.base.paths(head).items():
+        if args.tool_candidate or args.freeze:
+            a.tool_rev = head
+        for p, b in a.base.paths(a.tool_rev).items():
             if p.startswith(('tools/ledger_coverage/', ad + '/')) or p in ('tools/ledger_coverage.py', WORKFLOW_PATH):
                 tool_files[p] = a.base.read_blob(b)
+    a.classify = ['%s:%s' % (rev_parse(args.repo, ref.split(':', 1)[0]), ref.split(':', 1)[1]) for ref in args.classify]
+    a.freeze = args.freeze
+    a.tool_acceptance = args.tool_candidate is not None
+    if args.freeze:
+        a.fixed = A1(args.repo, args.fixed_config, tempfile.mkdtemp(prefix='fixed-', dir=out_root), main=main_c)
+        a.fixed.tool_rev = a.tool_rev
+        a.fixed.rec, a.fixed.results, a.fixed.runs_of = a.rec, a.results, a.runs_of
+    if all(rep_opts):
+        trev, tpath = args.rep_template.split(':', 1)
+        bind_control_instance(a, '%s:%s' % (rev_parse(args.repo, trev), tpath), rev_parse(args.repo, args.rep_snapshot),
+                              args.rep_descriptor_sha256, tool_landing=args.tool_landing, main_tip=args.main_tip)
     groups = [('chain', chain_refusal), ('record', rt_record), ('coverage', rt_coverage), ('terms', rt_terms),
               ('v', v_controls), ('rules', rule_lint_controls), ('exec', ex_controls),
               ('trees', lambda x: tree_controls(x, tool_files)), ('k1', lambda x: k1_graph(x, tool_files)),
-              ('z9g', z9g)]
-    if args.syn_engine:
-        groups.append(('y8', lambda x: engine_identity_y8(x, args.syn_engine)))
+              ('z9g', z9g), ('rep', rep_build_control)]
+    if a.freeze is not None:
+        groups.append(('rt-t', rt_t))
+    groups.append(('y8', lambda x: engine_identity_y8(x, args.syn_engine)))
+    groups.append(('repro', repro_controls))
     if not args.skip_sweeps:
         groups.append(('sweeps', sweeps))
     only = set(args.only.split(',')) if args.only else None
@@ -1293,19 +2787,39 @@ def main():
         t = time.time()
         try:
             fn(a)
-        except Exception as exc:
+        except Exception:
             import traceback
-            a.results['%s-group-error' % name] = {'passed': False, 'expected': 'no exception',
-                                                  'actual': traceback.format_exc()[-3000:]}
+            a.record('%s-group-error' % name, False, 'no exception', traceback.format_exc()[-3000:])
         timing[name] = round(time.time() - t, 1)
     # sec. 10.4: every control carries a status and its predicate
     for cid, v in a.results.items():
+        if a.tool_acceptance and cid in ('RT-L2', 'RT-O9-L2'):
+            # M8-2 and Amendment 11: retain the predicted-main observations as diagnostics.
+            v.update(passed=False, status='NOT RUN',
+                     not_run_reason='real drift and reconciliation are assessed at the retirement landing')
         v.setdefault('status', 'PASS' if v.get('passed') else 'FAIL')
         if not v.get('predicate'):
             v['predicate'] = PREDICATES.get(cid, 'the boolean computed for this id in a1_controls.py')
     summary = {'controls': a.results, 'timing_seconds': timing,
                'passed': sum(1 for v in a.results.values() if v.get('passed')),
                'failed': sorted(k for k, v in a.results.items() if not v.get('passed'))}
+    # R6.GATE.5 and R6.GATE.7: one record per control with its retained evidence, read by the gate
+    a.rec.out_dir = args.out
+    not_due = rules_not_due(a, args.repo)
+    for cid in sorted(a.results):
+        v = a.results[cid]
+        a.rec.pending = a.runs_of.get(cid, [])
+        st = v['status'] if v['status'] in ('PASS', 'FAIL', 'NOT RUN') else 'FAIL'
+        if cid in not_due:
+            st = 'NOT RUN'
+        files, proc = a.files_of.get(cid), a.procedures.get(cid)
+        if cid == 'RT-L2' and isinstance(v.get('actual'), dict) and v['actual'].get('rtl2_inputs'):
+            ri = v['actual']['rtl2_inputs']
+            files = {'rtl2-drift.json': ri['drift'], 'rtl2-records.json': ri['records'], 'rtl2-roles.json': ri['roles']}
+            proc = {'name': 'rtl2', 'lib': 'rtl2', 'drift': 'rtl2-drift.json', 'records': 'rtl2-records.json',
+                    'roles': 'rtl2-roles.json'}
+        a.rec.record(cid, st, v.get('actual'), v['predicate'], files=files, procedure=proc)
+    a.rec.write()
     with open(os.path.join(args.out, 'a1-controls.json'), 'w') as f:
         json.dump(summary, f, indent=1, sort_keys=True, default=str)
     print(json.dumps({'passed': summary['passed'], 'failed': summary['failed'], 'timing': timing}, indent=1))

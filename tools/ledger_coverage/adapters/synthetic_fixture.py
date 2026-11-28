@@ -5,12 +5,18 @@ review and one deny profile, one HP obligation with one merge, one delegation cl
 field `kind`, and one indicator (LIST). It runs the Y controls, the configuration-defect controls Z1-Z8 and Z10,
 the purity controls Z9a-Z9f and the command-line controls X2-X10 and M10 through the same executable.
 The identities in its review chain (writer-a, reviewer-b, widener-d) are synthetic fixtures.
+
+Run as a script it also writes `control-records.json` (oi-control-records/1) and `evidence/synthetic/<id>/` into DIR:
+every in-process tool run is captured and retained as the evidence of the control assigned next (design r6,
+R6.GATE.5 and R6.GATE.7).
 """
 import hashlib
 import io
 import json
 import os
+import re
 import shutil
+import stat
 import subprocess
 import sys
 import tempfile
@@ -28,13 +34,76 @@ if 'ledger_coverage' not in sys.modules:
 
 from ledger_coverage.engine import checker, cli, gitobj, outcome as oc, pipeline as pl, purity, util  # noqa: E402
 from ledger_coverage.adapters import host_fixture as hf  # noqa: E402
+from ledger_coverage.adapters import control_records  # noqa: E402
+from ledger_coverage.adapters import identity_fixture as idf  # noqa: E402
+from ledger_coverage.adapters.identity_fixture import review_record  # noqa: E402
+
+# set by the script entry: the recorder and the runs captured per control id
+REC = None
+RUNS = {}
+# per control id: the procedure of its manifest and the evidence files it names (R6.GATE.7)
+PROCS = {}
+FILES = {}
+
+
+def outmap():
+    return control_records.RunMap(REC, RUNS)
+
+
+def name_runs(*names):
+    """Names the last len(names) captured runs, oldest first, as the expectation cases `names` (None leaves a run
+    unnamed). Only in the script, where a recorder is set."""
+    if REC is None or not names:
+        return
+    for run, n in zip(REC.pending[-len(names):], names):
+        if isinstance(n, tuple):
+            run['case'], run['bindings'] = n[0], dict(n[1])
+        elif n is not None:
+            run['case'] = n
+
 
 DOC = 'doc/s.md'
+
+
+def retain_process(cid, case, argv, proc, out_dir=None, attested=None, baseline=None):
+    """A subprocess run of a consumer control (X7, X8): its argv, exit status, --out listing and result if any,
+    with the stated values; the consumer procedure's files accumulate per control id."""
+    if REC is None:
+        return None
+    run = REC.capture(argv, proc.returncode, out_dir, case=case, baseline=baseline, attested=attested)
+    doc = None
+    if run.get('result'):
+        doc = json.loads(run['result'][1])
+    f = FILES.setdefault(cid, {'results.json': {}, 'landing.json': {'used_by_accept': False},
+                               'snapshot.json': {'pins': {}}, 'acceptance.json': {}})
+    f['results.json'][case] = {'exit': proc.returncode, 'listing': run['listing'], 'result': doc}
+    f['acceptance.json'][case] = (attested or {}).get('outcome')
+    PROCS[cid] = {'name': 'acceptance', 'lib': 'consumer', 'results': 'results.json', 'landing_record': 'landing.json',
+                  'snapshot': 'snapshot.json', 'attested': 'acceptance.json'}
+    return run
+
+
+def retain_restored_pair(cid, argv):
+    """The restored case of a consumer control: the same command on the unmutated tree, twice; equal when the exit
+    status and the result (if any) agree."""
+    runs = []
+    for case in ('baseline', 'restored'):
+        o = tempfile.mkdtemp(prefix='restored-')
+        os.rmdir(o)
+        pr = subprocess.run([a if a != '{out}' else o for a in argv], capture_output=True)
+        res = open(os.path.join(o, 'result.json'), 'rb').read() if os.path.exists(os.path.join(o, 'result.json')) \
+            else None
+        runs.append((pr, o, res))
+    equal = runs[0][0].returncode == runs[1][0].returncode and runs[0][2] == runs[1][2]
+    b = retain_process(cid, 'baseline', argv, runs[0][0], runs[0][1])
+    retain_process(cid, 'restored', argv, runs[1][0], runs[1][1], baseline=b,
+                   attested={'outcome': 'RESULT_EQUAL_CLEAN' if equal else 'RESULT_DIFFERS'})
+    return equal
 TEXT = ('# synthetic\n\nAxiom Z is the named premise of the synthetic world.\n\nDefinition one states the base object.\n\n'
         'Remark two notes a side fact.\n\nIntro to the list:\n\n- item first here\n- item second here\n\n'
         'Closing words of the file.\n')
 WITNESS = 'syn/witness.md'
-WRITER, REVIEWER, WIDENER = 'writer-a', 'reviewer-b', 'widener-d'
+WRITER, REVIEWER, WIDENER = idf.WRITER, idf.REVIEWER, idf.WIDENER
 AD = 'tools/ledger_coverage/adapters/'
 
 
@@ -54,8 +123,14 @@ def module_bytes(name):
 class Syn:
     """Builds the synthetic world. variant: dict of configuration changes for the Z controls."""
 
+    # a world written into an on-disk repository replaces this, so that a review names the stored id of the commit
+    # it binds (S-1 sec. 3)
+    @staticmethod
+    def materialize(cid):
+        return cid
+
     def __init__(self, two_merges=False):
-        self.repo = gitobj.Overlay(None)
+        self.repo = idf.BindingOverlay(None)
         base = {DOC: TEXT.encode(), WITNESS: b'Axiom Z holds in the witness text.\n',
                 AD + 'line_patch.py': module_bytes('line_patch.py'),
                 AD + 'artifact_hash.py': module_bytes('artifact_hash.py')}
@@ -107,16 +182,25 @@ class Syn:
         v = variant or {}
         at = at or self.H
         files = {}
-        pats, allow = self.rule_files(v.get('allow_scope'))
+        # the allow lineage starts at a reviewed rule file without the allow rule (R6.RECON.31: a widening review
+        # names the record it replaces; only the designated transition root may carry replaces: null), so that the
+        # file adding syn-allow-1 supersedes it and its widening review names it by path and blob
+        allow_v0 = {'schema': 'oi-term-rules/2', 'record_id': 'syn-allow', 'supersedes': None, 'author': WRITER,
+                    'recorded_at': self.pin, 'rules': []}
+        files['syn/rules-allow-v0.json'] = jb(allow_v0)
+        v0_ref = {'path': 'syn/rules-allow-v0.json', 'blob_sha256': sha(files['syn/rules-allow-v0.json'])}
+        self.chain(files, 'syn/rules-allow-v0.json', REVIEWER)
+        pats, allow = self.rule_files(v.get('allow_scope'), v0_ref)
         files['syn/rules-pat.json'] = jb(pats)
         files['syn/rules-allow.json'] = jb(allow)
         recs = []
+        recs += [dict(r_) for r_ in v.get('add_records', [])]  # copies: binding repins them, a rebuild reuses the spec
         for p in ('syn/rules-pat.json', 'syn/rules-allow.json'):
             recs += self.chain(files, p, v.get('reviewer', REVIEWER) if p.endswith('allow.json') else REVIEWER)
-        wr0 = {'schema': 'oi-review-record/1', 'kind': 'widening', 'reviewer': WIDENER,
+        wr0 = review_record({'schema': 'oi-review-record/1', 'kind': 'widening', 'reviewer': WIDENER,
                'reviewed': {'path': 'syn/rules-allow.json', 'blob_sha256': sha(files['syn/rules-allow.json'])},
-               'method': 'read the new allow rule',
-               'verdicts': [{'item': 'syn-allow-1:new allow rule without supersedes', 'verdict': 'accept'}]}
+               'replaces': v0_ref, 'method': 'read the new allow rule',
+               'verdicts': [{'item': 'syn-allow-1:new allow rule without supersedes', 'verdict': 'accept'}]})
         files['syn/rules-allow.widen.json'] = jb(wr0)
         recs.append({'kind': 'review', 'path': 'syn/rules-allow.widen.json',
                      'blob_sha256': sha(files['syn/rules-allow.widen.json'])})
@@ -130,18 +214,19 @@ class Syn:
             files['syn/rules-allow-v2.json'] = jb(wide)
             recs += self.chain(files, 'syn/rules-allow-v2.json', REVIEWER)
             if v.get('widening_review'):
-                wr = {'schema': 'oi-review-record/1', 'kind': 'widening', 'reviewer': v.get('widener', WIDENER),
+                wr = review_record({'schema': 'oi-review-record/1', 'kind': 'widening', 'reviewer': v.get('widener', WIDENER),
                       'reviewed': {'path': 'syn/rules-allow-v2.json', 'blob_sha256': sha(files['syn/rules-allow-v2.json'])},
                       'replaces': v.get('widening_replaces', old_ref), 'method': 'read',
                       'verdicts': [{'item': i, 'verdict': 'accept'} for i in v.get('widening_items',
-                                                                                   ['syn-allow-1:added files'])]}
+                                                                                   ['syn-allow-1:added files'])]})
                 files['syn/rules-allow-v2.widen.json'] = jb(wr)
                 recs.append({'kind': 'review', 'path': 'syn/rules-allow-v2.widen.json',
                              'blob_sha256': sha(files['syn/rules-allow-v2.widen.json'])})
         controls = {'control_inputs': [{'id': 'witness', 'commit': self.pin, 'path': WITNESS,
                                         'sha256': sha(self.repo.read(self.pin, WITNESS))}],
                     'controls': [{'id': 'Y-%s-%s' % (op, d), 'operations': [op], 'direction': d}
-                                 for op in ('coverage', 'execution', 'terms') for d in ('positive', 'adversarial')]}
+                                 for op in v.get('control_ops', ('coverage', 'execution', 'terms'))
+                                 for d in ('positive', 'adversarial')]}
         if v.get('no_controls'):
             controls['controls'] = [c for c in controls['controls'] if c['direction'] == 'positive']
         files['syn/controls.json'] = jb(controls)
@@ -177,6 +262,39 @@ class Syn:
             profiles.append(dict(profiles[0]))
         if v.get('bad_pattern_hash'):
             profiles[0] = dict(profiles[0], pattern_sha256='0' * 64)
+        # S-1 sec. 3 (kept by staging S-2 S2.3), the binding of every review the records lint reads: C1 holds the
+        # records; their reviews name C1 as their revision
+        path = v.get('config_path', 'syn/cfg/config.json')
+        subject = self.repo.subject(at)
+        c1 = self.materialize(self.repo.derive(at, {p_: b_ for p_, b_ in files.items() if not idf.is_review(b_)},
+                                               parents=self.repo.parents(at), subject=subject))
+        # `revisions` reuses the commits an earlier build bound its reviews to, so that a configuration rebuilt
+        # unchanged at a later position keeps its bytes; they must still hold the same bytes and be reachable
+        r1, r2 = v.get('revisions') or (c1, None)
+        # the variant's own reviews are bound too: to C1 when it holds what they review, to C1b (C1 with the variant's
+        # other files, a layer added only when such a review needs it) when those files hold it, and, for a review of
+        # the configuration itself, to C2 below
+        vfiles = dict(v.get('files', {}))
+        vrev = {p_: json.loads(b_) for p_, b_ in vfiles.items() if b_ is not None and idf.is_review(b_) and
+                'revision' not in json.loads(b_) and (json.loads(b_).get('reviewed') or {}).get('path') != path}
+        vplain = {p_: b_ for p_, b_ in vfiles.items() if b_ is not None and not idf.is_review(b_)}
+        c1b = None
+        if any((d_.get('reviewed') or {}).get('path') in vplain for d_ in vrev.values()):
+            c1b = self.materialize(self.repo.derive(c1, vplain, parents=[c1], subject=subject))
+        rebound = {}
+        for p_, b_ in sorted(files.items()):
+            if idf.is_review(b_):
+                d_ = json.loads(b_)
+                if 'revision' not in d_:
+                    files[p_] = jb(idf.bind(d_, r1))
+                    rebound[p_] = (sha(b_), sha(files[p_]))
+        for p_, d_ in sorted(vrev.items()):
+            vfiles[p_] = jb(idf.bind(d_, c1b if (d_.get('reviewed') or {}).get('path') in vplain else r1))
+            rebound[p_] = (sha(v['files'][p_]), sha(vfiles[p_]))
+        for r_ in recs:
+            if r_.get('kind') == 'review' and r_.get('path') in rebound and \
+                    r_.get('blob_sha256') == rebound[r_['path']][0]:
+                r_['blob_sha256'] = rebound[r_['path']][1]
         lp = AD + 'line_patch.py'
         cfg = {'schema': 'oi-retirement-config/1', 'config_id': 'synthetic-retirement-config',
                'version': v.get('version', 1), 'supersedes': v.get('supersedes'),
@@ -196,7 +314,7 @@ class Syn:
                           'carried': {'row': 'r', 'code': 'c', 'owner': 'o'}, 'kind': 'remark'}],
                'profiles': profiles,
                'checks': [{'id': 'zc', 'profiles': ['axiom-Z', 'beta-word', 'Z-premise'],
-                           'final_profiles': v.get('final', ['axiom-Z']), 'default_for': ['coverage', 'terms']}],
+                           'final_profiles': v.get('final', ['axiom-Z'])}],
                'rules': rules,
                'context_mapping': {'source_field': 'kind', 'values': {'definition': True, 'remark': False},
                                    'default': 'invalid'},
@@ -221,38 +339,53 @@ class Syn:
         for k in v.get('drop', []):
             cfg.pop(k, None)
         cfg.update(v.get('extra', {}))
+        # a variant's own record list pins the reviews as written: they follow their binding as the built list does
+        if isinstance(cfg.get('records'), list):
+            cfg['records'] = [dict(r_) if isinstance(r_, dict) else r_ for r_ in cfg['records']]
+        for r_ in cfg.get('records') or []:
+            if isinstance(r_, dict) and r_.get('kind') == 'review' and r_.get('path') in rebound and \
+                    r_.get('blob_sha256') == rebound[r_['path']][0]:
+                r_['blob_sha256'] = rebound[r_['path']][1]
         if v.get('schema'):
             cfg['schema'] = v['schema']
         if v.get('adapter_version'):
             cfg['adapters']['ledger']['adapter_version'] = v['adapter_version']
-        path = v.get('config_path', 'syn/cfg/config.json')
         cb = jb(cfg)
         files[path] = cb
         cref = {'path': path, 'blob_sha256': sha(cb)}
-        rv = {'schema': 'oi-review-record/1', 'reviewer': v.get('cfg_reviewer', REVIEWER), 'reviewed': cref,
+        # C2 holds the configuration; its review names C2 as its revision, and the built commit adds that review and
+        # the variant's own files (each layer a single-parent child of the one before)
+        c2 = self.materialize(self.repo.derive(c1b or c1, dict(files), parents=[c1b or c1], subject=subject))
+        rv = review_record({'schema': 'oi-review-record/1', 'reviewer': v.get('cfg_reviewer', REVIEWER), 'reviewed': cref,
               'method': 'read every referenced object', 'verdicts': [{'item': 'synthetic-retirement-config',
-                                                                     'verdict': 'accept'}]}
-        files[path.rsplit('/', 1)[0] + '/review.json'] = jb(rv)
-        files.update(v.get('files', {}))
+                                                                     'verdict': 'accept'}]})
+        r2 = r2 or c2
+        self.last_revisions = (r1, r2)
+        files[path.rsplit('/', 1)[0] + '/review.json'] = jb(idf.bind(rv, r2))
+        for p_, b_ in sorted(vfiles.items()):
+            # a variant's review of the configuration itself names C2, which holds it
+            if b_ is not None and idf.is_review(b_) and 'revision' not in json.loads(b_):
+                vfiles[p_] = jb(idf.bind(json.loads(b_), r2))
+        files.update(vfiles)
         if v.get('post'):
-            files.update(v['post'](path, sha(cb)))
-        commit = self.repo.derive(at, files, parents=self.repo.parents(at), subject=self.repo.subject(at))
+            files.update(idf.bind_files(v['post'](path, sha(cb)), r2))
+        commit = self.repo.derive(c2, dict(files), parents=[c2], subject=subject)
         return commit, path, sha(cb), files
 
     def chain(self, files, path, reviewer):
         ref = {'path': path, 'blob_sha256': sha(files[path])}
         from ledger_coverage.engine import records as rec
         ids = rec.item_ids(json.loads(files[path]))
-        rv = {'schema': 'oi-review-record/1', 'reviewer': reviewer, 'reviewed': ref, 'method': 'read',
-              'verdicts': [{'item': i, 'verdict': 'accept'} for i in ids]}
+        rv = review_record({'schema': 'oi-review-record/1', 'reviewer': reviewer, 'reviewed': ref, 'method': 'read',
+              'verdicts': [{'item': i, 'verdict': 'accept'} for i in ids]})
         rp = path[:-5] + '.review.json'
         files[rp] = jb(rv)
         return [{'kind': 'review', 'path': rp, 'blob_sha256': sha(files[rp])}]
 
 
-def patch_doc(base, edits):
+def patch_doc(base, edits, first_id=1):
     return jb({'schema': 'line patch v1', 'base': base, 'edits': [
-        {'id': 'E%d' % (i + 1), 'file': DOC, 'old_line_sha256': sha(old.encode()), 'new_lines': new}
+        {'id': 'E%d' % (i + first_id), 'file': DOC, 'old_line_sha256': sha(old.encode()), 'new_lines': new}
         for i, (old, new) in enumerate(edits)]})
 
 
@@ -299,29 +432,276 @@ def y_world(syn, edits, extra_files=None, edits_doc=None, x_text=None):
     return X, c, p, s
 
 
+FROZEN_CHECKER = b'''import hashlib, json, os
+HERE = os.path.dirname(__file__)
+SITEMAP = os.path.join(HERE, "sitemap.json")
+ROWS = os.path.join(HERE, "rows.json")
+def load(path):
+    with open(path, encoding="utf-8") as f:
+        return json.load(f)
+def manuscript_digest():
+    with open("doc/s.md", "rb") as f:
+        return hashlib.sha256(f.read()).hexdigest()
+def build():
+    rows = load(ROWS)
+    return dict(rows["site_map"], manuscript_digest=manuscript_digest())
+def render(sm, rows):
+    return {"body": rows["summary"]}
+def splice_block(text, name, replacement):
+    return replacement
+def check(sm, rows, quiet=True):
+    return [] if sm["pin"] == rows["site_map"]["pin"] else ["record pin differs from its source"]
+def extended_unmapped(sm):
+    return [site["file"] for site in sm["sites"] if not os.path.isfile(site["file"])]
+def self_test():
+    return manuscript_digest() == load(ROWS)["digest"]
+def main():
+    raise AssertionError("the replay called frozen main")
+'''
+
+
+def record_world(syn):
+    """Build the small record/replay fixture with real object ids when backed by a Git store."""
+    from ledger_coverage.adapters import a1exit_sitemap, python_frozen_replay
+
+    modules = {AD + p: module_bytes(p) for p in ('a1exit_sitemap.py', 'python_frozen_replay.py')}
+    base, pin = syn.H, syn.pin
+    record_dir = 'syn/frozen/'
+    site_map_path, rows_path = record_dir + 'sitemap.json', record_dir + 'rows.json'
+    digest = sha(syn.repo.read(pin, DOC))
+    site_map = {'schema': a1exit_sitemap.SITEMAP_SCHEMA, 'pin': pin,
+                'sites': [{'file': DOC, 'line': 5, 's3': 'definition'}]}
+    summary = 'Fixture record summary.\n'
+    records = {record_dir + 'ledger_check.py': FROZEN_CHECKER,
+               rows_path: jb({'site_map': site_map, 'digest': digest, 'summary': summary}),
+               site_map_path: jb(dict(site_map, manuscript_digest=digest)),
+               record_dir + 'LEDGER.md': summary.encode()}
+    record = syn.materialize(syn.repo.derive(base, {**modules, **records}, subject='record checks fixture'))
+
+    def module(name):
+        path = AD + name
+        return {'path': path, 'blob_sha256': sha(modules[path])}
+
+    adapters = {
+        'sitemap': {'adapter': a1exit_sitemap.NAME, 'adapter_version': a1exit_sitemap.VERSION,
+                    'module': module('a1exit_sitemap.py'), 'commit': record, 'path': site_map_path,
+                    'blob_sha256': sha(records[site_map_path]),
+                    'companion': [{'role': 'rows', 'path': rows_path, 'blob_sha256': sha(records[rows_path])}]},
+        'replay': {'adapter': python_frozen_replay.NAME, 'adapter_version': python_frozen_replay.VERSION,
+                   'module': module('python_frozen_replay.py'), 'module_path': record_dir + 'ledger_check.py',
+                   'record_tree': syn.repo.tree_id(record, record_dir[:-1])},
+    }
+    variant = {'operations': ['record'], 'control_ops': ['record'], 'drop': ['sites'],
+               'extra': {'adapters': adapters, 'roles': {'scientific_base': base, 'pin': pin,
+                                                        'record_commit': record, 'side_change_classes': None}}}
+    config, path, _, _ = syn.build(variant, at=record)
+    return syn.materialize(config), path, record
+
+
+_HARNESS_DRIVER = '''import importlib.util, sys
+entry = sys.argv[1]
+spec = importlib.util.spec_from_file_location('lc_entry', entry)
+module = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(module)
+module._load_package()
+from ledger_coverage.engine import cli
+sys.exit(cli.run(sys.argv[2:], harness=True)[0])
+'''
+
+
+def _fixture_env(scratch):
+    return {'PATH': os.environ.get('PATH', os.defpath), 'LC_ALL': 'C', 'TMPDIR': scratch,
+            'XDG_CACHE_HOME': scratch, 'XDG_CONFIG_HOME': scratch, 'GIT_CONFIG_NOSYSTEM': '1',
+            'GIT_CONFIG_GLOBAL': os.devnull, 'GIT_NO_LAZY_FETCH': '1', 'GIT_TERMINAL_PROMPT': '0'}
+
+
+def _harness_command(entry, repo, output, args):
+    return [sys.executable, '-I', '-S', '-B', '-c', _HARNESS_DRIVER, entry, args[0],
+            '--repo', repo, '--out', output, *args[1:]]
+
+
+def _small_git_world(root, env, record=False):
+    from ledger_coverage.adapters.conformance_controls import Disk, gitb, tool_tree
+
+    disk = Disk(os.path.join(root, 'source'))
+    syn = Syn()
+    syn.pin = disk.commit(syn.repo, syn.pin)
+    syn.H = syn.m1 = disk.commit(syn.repo, syn.H)
+    syn.repo = gitobj.Overlay(gitobj.GitRepo(disk.d))
+    syn.materialize = lambda commit: disk.commit(syn.repo, commit)
+    if record:
+        config, path, record_commit = record_world(syn)
+        args = ['record', '--pin', syn.pin, '--record', record_commit]
+        parents = [config, record_commit]
+    else:
+        _, c, path, _ = y_world(syn, [])
+        config = syn.materialize(c)
+        args = ['coverage', '--commit', syn.H, '--check', 'zc']
+        parents = [config, syn.H]
+    # Only fixture objects and the executing source go into the clone's object store.
+    tip = syn.materialize(syn.repo.derive(config, tool_tree(), parents=parents, subject='fixture tool checkout'))
+    gitb(disk.d, 'update-ref', 'refs/heads/main', tip)
+    gitb(disk.d, 'symbolic-ref', 'HEAD', 'refs/heads/main')
+    checkout = os.path.join(root, 'clone')
+    subprocess.run(['git', 'clone', '--quiet', '--no-local', disk.d, checkout], env=env, check=True, capture_output=True)
+    return checkout, [args[0], '--config', config + ':' + path, *args[1:]]
+
+
+def _git_observation(repo, env, *args):
+    proc = subprocess.run(['git', '--no-optional-locks', '--no-replace-objects', '-C', repo, *args], env=env,
+                          check=True, capture_output=True)
+    return proc.stdout
+
+
+def tree_listing(root, excluded=None):
+    """List directory entries without following links, retaining modes, write times and regular-file digests."""
+    listing = {}
+
+    def visit(path, name):
+        info = os.lstat(path)
+        entry = {'mode': info.st_mode, 'mtime_ns': info.st_mtime_ns, 'ctime_ns': info.st_ctime_ns}
+        listing[name] = entry
+        if stat.S_ISDIR(info.st_mode):
+            for child in sorted(os.listdir(path)):
+                full = os.path.join(path, child)
+                if full != excluded:
+                    visit(full, os.path.normpath(os.path.join(name, child)))
+        elif stat.S_ISREG(info.st_mode):
+            with open(path, 'rb') as f:
+                entry['sha256'] = sha(f.read())
+        elif stat.S_ISLNK(info.st_mode):
+            entry['target'] = os.readlink(path)
+
+    visit(root, '.')
+    return listing
+
+
+def confined_snapshot(root, checkout, output, env, label, files):
+    """Take byte measurements of the clone and its sibling scratch directories outside --out."""
+    for key, args in (('status', ['status', '--porcelain', '-z', '--untracked-files=all']),
+                      ('refs', ['show-ref', '--head', '--dereference']),
+                      ('worktrees', ['worktree', 'list', '--porcelain', '-z'])):
+        files[label + '.' + key] = _git_observation(checkout, env, *args)
+    with open(os.path.join(checkout, '.git', 'index'), 'rb') as f:
+        files[label + '.index'] = f.read()
+    files[label + '.input.json'] = tree_listing(root, excluded=output)
+    files[label + '.output.json'] = tree_listing(output)
+
+
+def out_confined(out_root):
+    """Run the configured record replay from a small, fresh clone and retain raw before/after observations."""
+    cid = 'OUT-CONFINED'
+    out = outmap()
+    files = FILES[cid] = {}
+    PROCS[cid] = {'name': 'out-confined', 'lib': 'set', 'scope': 'scope.json'}
+    try:
+        root = tempfile.mkdtemp(prefix='confined-', dir=os.path.realpath(out_root))
+        output, scratch = (os.path.join(root, n) for n in ('output', 'scratch'))
+        os.mkdir(output)
+        os.mkdir(scratch)
+        env = _fixture_env(scratch)
+        checkout, args = _small_git_world(root, env, record=True)
+        files['scope.json'] = {'root': root, 'cwd': checkout}
+        confined_snapshot(root, checkout, output, env, 'before', files)
+        entry = os.path.join(checkout, 'tools', 'ledger_coverage.py')
+        argv = _harness_command(entry, checkout, output, args)
+        proc = subprocess.run(argv, cwd=checkout, env=env, capture_output=True)
+        if REC is not None:
+            REC.capture(argv, proc.returncode, output, case='')
+        confined_snapshot(root, checkout, output, env, 'after', files)
+        if proc.stderr:
+            files['stderr.txt'] = proc.stderr
+        held = all(files['before.' + key] == files['after.' + key]
+                   for key in ('input.json', 'index', 'refs', 'worktrees'))
+        clean = files['before.status'] == files['after.status'] == b''
+        nonempty = 'control-result.json' in files['after.output.json'] and \
+            'replay/replay-result.json' in files['after.output.json']
+        out[cid] = proc.returncode == 0 and held and clean and set(files['before.output.json']) == {'.'} and nonempty
+    except (OSError, RuntimeError, ValueError, subprocess.CalledProcessError) as exc:
+        files['error.txt'] = ('%s: %s\n' % (type(exc).__name__, exc)).encode()
+        out[cid] = False
+    return out
+
+
+def _repro_inputs(repo, env, argv, case, output, files):
+    """Retain the configuration bytes and Git objects read before starting one subprocess."""
+    config_ref = argv[argv.index('--config') + 1]
+    config_commit, config_path = config_ref.split(':', 1)
+    config_bytes = _git_observation(repo, env, 'cat-file', 'blob', config_ref)
+    config = json.loads(config_bytes)
+    refs = [value for value in argv[9::2] if re.fullmatch('[a-f0-9]{40}(?::.*)?', value)]
+    ids = {ref.split(':', 1)[0] for ref in refs}
+    ids.update(config['roles'][k] for k in ('pin', 'record_commit', 'scientific_base') if k in config['roles'])
+    commits = {}
+    for oid in sorted(ids):
+        name = case + '.' + oid + '.commit'
+        commits[oid] = name
+        files[name] = _git_observation(repo, env, 'cat-file', 'commit', oid)
+    # Copy the successive raw trees on the configuration's path to prove blob membership without the clone.
+    trees = []
+    parts = config_path.split('/')
+    for i in range(len(parts)):
+        name = '%s.config-tree-%d' % (case, i)
+        tree_ref = config_commit + ':' + '/'.join(parts[:i]) if i else config_commit + '^{tree}'
+        files[name] = _git_observation(repo, env, 'cat-file', 'tree', tree_ref)
+        trees.append(name)
+    config_name = case + '.config.json'
+    files[config_name] = config_bytes
+    files[case + '.inputs.json'] = {'argv': argv, 'cwd': repo, 'environment': env, 'out_before': os.listdir(output),
+                                    'configuration': config_name, 'commits': commits, 'configuration_trees': trees}
+    return argv[:11] + argv[12:], env, config_bytes, {oid: files[name] for oid, name in commits.items()}
+
+
+def reproducibility_pair(rec, root, label, files, repo=None, args=None):
+    """Repeat one configured invocation from a real Git store in fresh output directories."""
+    root = os.path.realpath(root)
+    scratch = tempfile.mkdtemp(prefix=label + '-scratch-', dir=root)
+    env = _fixture_env(scratch)
+    if repo is None:
+        world = tempfile.mkdtemp(prefix='syn-repro-', dir=root)
+        repo, args = _small_git_world(world, env)
+        entry = os.path.join(repo, 'tools', 'ledger_coverage.py')
+    else:
+        repo = os.path.realpath(repo)
+        entry = os.path.join(tools, 'ledger_coverage.py')
+    measured, outcome = [], []
+    for n in (1, 2):
+        case = '%s-%d' % (label, n)
+        output = tempfile.mkdtemp(prefix=case + '-', dir=root)
+        argv = _harness_command(entry, repo, output, args)
+        measured.append(_repro_inputs(repo, env, argv, case, output, files))
+        proc = subprocess.run(argv, cwd=repo, env=env, capture_output=True)
+        if proc.stderr:
+            files[case + '.stderr'] = proc.stderr
+        run = rec.capture(argv, proc.returncode, output, case=case)
+        outcome.append((proc.returncode, run['result']))
+    return measured[0] == measured[1] and outcome[0] == outcome[1] and outcome[0][0] in (0, 10, 20) and \
+        outcome[0][1] is not None and outcome[0][1][0] == 'control-result.json'
+
+
 def classes(res):
     return sorted({i['class'] for i in (res or {}).get('items', [])})
 
 
 def y_controls(r):
-    out = {}
+    out = outmap()
     syn = Syn()
     edits = [('# synthetic', ['# synthetic', '', 'Preface line one.', '', 'Preface line two.'])]
     X, c, p, s = y_world(syn, edits)
     seg = ['--segment', '%s..%s' % (syn.pin, syn.H), '--segment', '%s..%s=%s:syn/patch.json' % (syn.H, X, c)]
-    code, res = r.cli(syn.repo, ['coverage', '--commit', X] + seg, c, p, s)
+    code, res = r.cli(syn.repo, ['coverage', '--commit', X, '--check', 'zc'] + seg, c, p, s)
     moved = all(st['statuses'][-1]['status'] == 'moved' for st in res.get('sites', [])) if res else False
     out['Y1'] = code == 0 and moved
     y1_engine = res and res['engine']['blob_sha256']
     Xb = syn.repo.derive(syn.H, {DOC: apply_text(TEXT, [('# synthetic', ['# synthetic', '', 'Preface line uno.',
                                                                           '', 'Preface line two.'])]).encode()},
                          parents=[syn.H])
-    code, res = r.cli(syn.repo, ['coverage', '--commit', Xb, '--segment', '%s..%s' % (syn.pin, syn.H),
+    code, res = r.cli(syn.repo, ['coverage', '--commit', Xb, '--check', 'zc', '--segment', '%s..%s' % (syn.pin, syn.H),
                                  '--segment', '%s..%s=%s:syn/patch.json' % (syn.H, Xb, c)], c, p, s)
     out['Y2'] = code == 20 and 'unauthorized-edit' in classes(res)
     e3 = [('Closing words of the file.', ['Closing words of the file.', '', 'Axiom Z is assumed.'])]
     X3, c3, p3, s3 = y_world(syn, e3)
-    code, res = r.cli(syn.repo, ['coverage', '--commit', X3, '--segment', '%s..%s' % (syn.pin, syn.H),
+    code, res = r.cli(syn.repo, ['coverage', '--commit', X3, '--check', 'zc', '--segment', '%s..%s' % (syn.pin, syn.H),
                                  '--segment', '%s..%s=%s:syn/patch.json' % (syn.H, X3, c3)], c3, p3, s3)
     out['Y3'] = code == 20 and 'deny-match' in classes(res)
     code4, res4 = r.cli(syn.repo, ['terms', '--commit', syn.H], c, p, s)
@@ -331,13 +711,16 @@ def y_controls(r):
     cv, pv, sv, _ = syn.build({'patch_sha': sha(pd), 'files': {'syn/patch.json': pd}, 'allow_widened': True,
                                'widening_review': True})
     codev, resv = r.cli(syn.repo, ['terms', '--commit', syn.H], cv, pv, sv)
+    name_runs('with its allow rule', 'rule widened without review', None)
     out['Y4'] = code4 == 0 and codew == 20 and 'record-invalid' in classes(resw) and codev == 0
     e5 = [('Axiom Z is the named premise of the synthetic world.',
            ['Axiom Z is the named premise of the synthetic world, restated.'])]
     X5, c5, p5, s5 = y_world(syn, e5)
-    code, res = r.cli(syn.repo, ['coverage', '--commit', X5, '--segment', '%s..%s' % (syn.pin, syn.H),
+    code, res = r.cli(syn.repo, ['coverage', '--commit', X5, '--check', 'zc', '--segment', '%s..%s' % (syn.pin, syn.H),
                                  '--segment', '%s..%s=%s:syn/patch.json' % (syn.H, X5, c5)], c5, p5, s5)
-    out['Y5'] = code == 20 and [i['class'] for i in res['items'] if i['subject'].endswith(':5@%s' % syn.pin[:8])] \
+    y5_subject = '%s:5@%s' % (DOC, syn.pin[:8])
+    name_runs(('', {'subject': y5_subject}))
+    out['Y5'] = code == 20 and [i['class'] for i in res['items'] if i['subject'] == y5_subject] \
         == ['context-meaning-unverified']
     good_digest = (hashlib.sha256(apply_text(TEXT, edits).encode()).hexdigest() + '\n').encode()
     Xg, cg, pg, sg_ = y_world(syn, edits, {'out/digest.txt': good_digest})
@@ -346,6 +729,7 @@ def y_controls(r):
     code_w, res_w = run_exec(r, syn, Xw, cw2, pw2, sw2)
     Xa, ca, pa, sa = y_world(syn, edits)
     code_a, res_a = run_exec(r, syn, Xa, ca, pa, sa)
+    name_runs(None, 'hash wrong', 'evidence absent')
     out['Y6'] = code_g == 0 and code_w == 20 and 'delegated-evidence-invalid' in classes(res_w) and code_a == 10 \
         and 'delegated-evidence-missing' in classes(res_a)
     code, res = r.cli(syn.repo, ['record', '--pin', syn.pin, '--record', syn.H], c, p, s)
@@ -353,12 +737,12 @@ def y_controls(r):
     out['_Y8_engine'] = y1_engine
     e9 = [('Intro to the list:', ['Intro to the changed list:'])]
     X9, c9, p9, s9 = y_world(syn, e9)
-    code, res = r.cli(syn.repo, ['coverage', '--commit', X9, '--segment', '%s..%s' % (syn.pin, syn.H),
+    code, res = r.cli(syn.repo, ['coverage', '--commit', X9, '--check', 'zc', '--segment', '%s..%s' % (syn.pin, syn.H),
                                  '--segment', '%s..%s=%s:syn/patch.json' % (syn.H, X9, c9)], c9, p9, s9)
     out['Y9'] = code == 10 and 'context-structure-changed' in classes(res)
     lp = AD + 'line_patch.py'
     c10 = syn.repo.derive(c, {lp: syn.repo.read(c, lp) + b' '}, parents=syn.repo.parents(c))
-    code, res = r.cli(syn.repo, ['coverage', '--commit', X] + seg, c10, p, s)
+    code, res = r.cli(syn.repo, ['coverage', '--commit', X, '--check', 'zc'] + seg, c10, p, s)
     out['Y10'] = code == 65 and res['stop']['class'] == 'SOURCE_CHANGED'
     return out
 
@@ -370,7 +754,7 @@ def run_exec(r, syn, X, c, p, s):
 
 
 def z_controls(r):
-    out = {}
+    out = outmap()
     syn = Syn()
     edits = [('# synthetic', ['# synthetic', '', 'Preface line one.'])]
     pd = patch_doc(syn.H, edits)
@@ -392,16 +776,17 @@ def z_controls(r):
     # the run takes the configuration only from F: a --config-sha256 argument no longer exists and is USAGE
     code, res = r.cli(syn.repo, ['terms', '--commit', syn.H, '--config-sha256', s], c, p, s)
     out['Z6b'] = (code, res) == (64, None)
-    out['Z7'] = stop_of({'duplicate_profile': True}) == (65, 'CONFIG_INCONSISTENT') and \
-        stop_of({'final': ['Z-premise']}) == (65, 'CONFIG_INCONSISTENT') and \
-        stop_of({'bad_pattern_hash': True}) == (65, 'CONFIG_INCONSISTENT')
+    z7 = [stop_of({'duplicate_profile': True}), stop_of({'final': ['Z-premise']}),
+          stop_of({'bad_pattern_hash': True})]
+    name_runs('defect 1', 'defect 2', 'defect 3')
+    out['Z7'] = all(x == (65, 'CONFIG_INCONSISTENT') for x in z7)
     out['Z8'] = stop_of({'no_controls': True}) == (70, 'CONFIG_NO_CONTROLS')
     # Z10: a merge added to the HP obligation is widening
     s2 = Syn(two_merges=True)
     pd2 = patch_doc(s2.H, [])
     b2 = {'patch_sha': sha(pd2), 'files': {'syn/patch.json': pd2}}
     c1, p1, h1, f1 = s2.build(b2)
-    code, res = r.cli(s2.repo, ['coverage', '--commit', s2.H], c1, p1, h1)
+    code, res = r.cli(s2.repo, ['coverage', '--commit', s2.H, '--check', 'zc'], c1, p1, h1)
     foreign = 'provenance-foreign' in classes(res)
     sup = {'path': p1, 'blob_sha256': h1}
     # the superseded configuration lies in the object store at F with its own review (DI-2: a predecessor passes the
@@ -409,8 +794,8 @@ def z_controls(r):
     pd1 = p1.rsplit('/', 1)[0] + '/'
     v2 = dict(b2, second_merge=True, version=2, supersedes=sup, config_path='syn/cfg2/config.json',
               files=dict(b2['files'], **{p1: f1[p1], pd1 + 'review.json': f1[pd1 + 'review.json']}))
-    c2, p2, h2, f2 = s2.build(v2)
-    code_u, res_u = r.cli(s2.repo, ['coverage', '--commit', s2.H], c2, p2, h2)
+    c2, p2, h2, f2 = s2.build(v2, at=c1)
+    code_u, res_u = r.cli(s2.repo, ['coverage', '--commit', s2.H, '--check', 'zc'], c2, p2, h2)
     unrev = (code_u, (res_u or {}).get('stop', {}).get('class')) == (65, 'CONFIG_UNREVIEWED')
     # with a widening review by a third person and a matching HP adjudication
     from ledger_coverage.engine import segments as sgm
@@ -429,32 +814,44 @@ def z_controls(r):
                       'author': WRITER}]}
 
     def widening(path, cfg_sha):
-        wr = {'schema': 'oi-review-record/1', 'kind': 'widening', 'reviewer': WIDENER,
+        wr = review_record({'schema': 'oi-review-record/1', 'kind': 'widening', 'reviewer': WIDENER,
               'reviewed': {'path': path, 'blob_sha256': cfg_sha}, 'replaces': sup,
               'method': 'read the added merge and its chain',
-              'verdicts': [{'item': 'synthetic-retirement-config:changed hp_obligations', 'verdict': 'accept'}]}
+              'verdicts': [{'item': 'synthetic-retirement-config:changed hp_obligations', 'verdict': 'accept'}]})
         wp = path.rsplit('/', 1)[0] + '/widening.json'
         return {wp: jb(wr)}
     v3 = dict(v2, post=widening, records_extra={'syn/hp.json': adj})
-    c3, p3, h3, f3 = s2.build(v3)
-    code_a, res_a = r.cli(s2.repo, ['coverage', '--commit', s2.H, '--hp', '%s:syn/hp.json' % c3], c3, p3, h3)
+    c3, p3, h3, f3 = s2.build(v3, at=c1)
+    code_a, res_a = r.cli(s2.repo, ['coverage', '--commit', s2.H, '--check', 'zc', '--hp', '%s:syn/hp.json' % c3], c3, p3, h3)
     site = [x for x in (res_a or {}).get('sites', []) if x['site_id'].endswith(':7@%s' % s2.pin[:8])]
     adjudicated = bool(site) and site[0]['provenance'] is not None and \
         not [i for i in res_a['items'] if i['subject'] == site[0]['site_id']]
     v2b = dict(v2, records_extra={'syn/hp.json': adj})
-    c4, p4, h4, f4 = s2.build(v2b)
-    code_b, res_b = r.cli(s2.repo, ['coverage', '--commit', s2.H, '--hp', '%s:syn/hp.json' % c4], c4, p4, h4)
+    c4, p4, h4, f4 = s2.build(v2b, at=c1)
+    code_b, res_b = r.cli(s2.repo, ['coverage', '--commit', s2.H, '--check', 'zc', '--hp', '%s:syn/hp.json' % c4], c4, p4, h4)
     out['_Z10_detail'] = {'v1': classes(res), 'v2_no_widening_review': (code_u, (res_u or {}).get('stop', {}).get('class')),
                           'v2_with_widening_review': (code_a, classes(res_a)), 'v2_hp_only': (code_b, (res_b or {}).get('stop', {}).get('class'))}
+    name_runs('step before supersession', 'superseded without widening_review',
+              ('valid widening review and matching adjudication', {'step': '%s:7@%s' % (DOC, s2.pin[:8])}), None)
     out['Z10'] = foreign and unrev and adjudicated and (code_b, (res_b or {}).get('stop', {}).get('class')) == (65, 'CONFIG_UNREVIEWED')
     return out
 
 
 def x_controls(r, repo_path):
-    out = {}
+    out = outmap()
     syn = Syn()
     edits = [('# synthetic', ['# synthetic', '', 'Preface line one.'])]
     X, c, p, s = y_world(syn, edits)
+
+    def restore_clean():
+        """The restored case: the same command made valid (no fault, no defective argument) on the unmutated
+        tree, against a clean run of it."""
+        if REC is None:
+            return
+        r.cli(syn.repo, ['terms', '--commit', syn.H], c, p, s)
+        base = REC.name_last('baseline')
+        r.cli(syn.repo, ['terms', '--commit', syn.H], c, p, s)
+        REC.name_last('restored', baseline=base)
     # X2: an exception injected in classification becomes INTERNAL through the wrapper
     import ledger_coverage as pkg  # noqa: F401
     entry = os.path.join(tools, 'ledger_coverage.py')
@@ -469,24 +866,33 @@ def x_controls(r, repo_path):
     o = r.out()
     real_run = cli.run
     cli.run = lambda argv: real_run(argv, repo=syn.repo, stderr=io.StringIO(), harness=True)
+    x2argv = ['terms', '--config', '%s:%s' % (c, p), '--out', o, '--commit', syn.H]
     try:
-        code = mod.main(['terms', '--config', '%s:%s' % (c, p), '--out', o, '--commit', syn.H])
+        code = mod.main(x2argv)
     finally:
         cli.op_terms = orig
         cli.run = real_run
+    if REC is not None:
+        # the INTERNAL result is written by the entry point's wrapper, outside cli.run
+        REC.capture(['ledger_coverage.py'] + x2argv, code, o)
     doc = json.load(open(os.path.join(o, 'result.json')))
+    restore_clean()
     out['X2'] = code == 71 and doc['outcome'] == 'INTERNAL'
     err = io.StringIO()
     o = r.out()
     code, res = cli.run(['terms', '--bogus', '--out', o], repo=syn.repo, stderr=err)
+    restore_clean()
     out['X3'] = code == 64 and res is None and not os.path.exists(o) and json.loads(err.getvalue())['outcome'] == 'USAGE'
     code, res = cli.run(['terms', '--help'], repo=syn.repo, stderr=io.StringIO())
     code2, _ = cli.run(['--help'], repo=syn.repo, stderr=io.StringIO())
+    restore_clean()
     out['X4'] = code == 64 and code2 == 64
     code, res = cli.run(['terms', '--out', r.out()], repo=syn.repo, stderr=io.StringIO())
+    restore_clean()
     out['X5'] = code == 64
     X6 = syn.repo.derive(syn.H, {DOC: (TEXT + '\nA beta word appears.\n').encode()}, parents=[syn.H])
     code, res = r.cli(syn.repo, ['terms', '--commit', X6], c, p, s)
+    restore_clean()
     out['X6'] = code == 10 and res['outcome'] == 'REVIEW_REQUIRED'
     # X7: a module of the package raises ImportError at import time
     tmp = tempfile.mkdtemp(prefix='x7-')
@@ -501,19 +907,42 @@ def x_controls(r, repo_path):
                              '--config', 'x:y', '--out', o, '--commit', 'x'], capture_output=True)
         doc = json.load(open(os.path.join(o, 'result.json'))) if os.path.exists(os.path.join(o, 'result.json')) \
             else None
+        x7_accepted = checker.accept(doc or {}, pr.returncode, {})
+        retain_process('X7', '', pr.args, pr, o, attested={
+            'outcome': 'ACCEPTED' if x7_accepted else 'NON_ACCEPTANCE',
+            'exit_not_in': [0, 20] if pr.returncode not in (0, 20) else pr.returncode,
+            'no_result_with_outcome': 'PASS' if (doc is None or doc['outcome'] != 'PASS') else None})
+        x7_restored = retain_restored_pair('X7', [sys.executable, '-I', '-B', entry, 'terms', '--config', 'x:y',
+                                                  '--out', '{out}', '--commit', 'x'])
         out['X7'] = pr.returncode not in (0, 20) and (doc is None or doc['outcome'] != 'PASS') and \
-            not checker.accept(doc or {}, pr.returncode, {})
+            not x7_accepted and x7_restored
         out['_X7_exit'] = pr.returncode
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
     pr = subprocess.run([sys.executable, '-I', '-B', os.path.join(tools, 'no_such_script.py')], capture_output=True)
-    out['X8'] = pr.returncode == 2 and not checker.accept({}, pr.returncode, {})
+    x8_accepted = checker.accept({}, pr.returncode, {})
+    retain_process('X8', '', pr.args, pr, attested={'outcome': 'ACCEPTED' if x8_accepted else 'NON_ACCEPTANCE'})
+    x8_restored = retain_restored_pair('X8', [sys.executable, '-I', '-B', entry])
+    out['X8'] = pr.returncode == 2 and not x8_accepted and x8_restored
     # X9: --final converts only the selected check's final profiles
     X9 = syn.repo.derive(syn.H, {DOC: (TEXT + '\nAxiom Z appears again.\n').encode()}, parents=[syn.H])
     a, ra = r.cli(syn.repo, ['terms', '--commit', X9, '--check', 'zc'], c, p, s)
     b, rb = r.cli(syn.repo, ['terms', '--commit', X9, '--check', 'zc', '--final'], c, p, s)
     d, rd = r.cli(syn.repo, ['terms', '--commit', X6, '--check', 'zc', '--final'], c, p, s)
     e, re_ = r.cli(syn.repo, ['terms', '--commit', X9, '--final'], c, p, s)
+    # the other-profile item is chosen by its profile: beta-word, a profile of check zc outside its final profiles
+    # (the configuration above), which X6's added line matches; its decision is what the case checks
+    def _profiles(i):
+        return set([i['profile']] if i.get('profile') else []) | set(i.get('profiles') or [])
+    other_item = next((i['subject'] for i in (rd or {}).get('items') or [] if 'beta-word' in _profiles(i)), None)
+    name_runs('without --final', 'with --final', ('other-profile REVIEW item with --final', {'other_item': other_item}),
+              '--final without --check')
+    # restored: the same check on the unmutated tree, against a clean run of it
+    r.cli(syn.repo, ['terms', '--commit', syn.H, '--check', 'zc'], c, p, s)
+    clean9 = REC.name_last('baseline') if REC is not None else None
+    r.cli(syn.repo, ['terms', '--commit', syn.H, '--check', 'zc'], c, p, s)
+    if REC is not None:
+        REC.name_last('restored', baseline=clean9)
     out['X9'] = a == 10 and b == 20 and 'final-unclassified' in classes(rb) and d == 10 and e == 64
     # X10: the acceptance predicate
     good, rg = r.cli(syn.repo, ['terms', '--commit', syn.H], c, p, s)
@@ -533,6 +962,26 @@ def x_controls(r, repo_path):
     other['config']['admission']['snapshot']['tool_blobs'][first] = 'f' * 64
     other_f = copy.deepcopy(as_chain)
     other_f['config']['admission']['snapshot']['freeze'] = '0' * 40
+    if REC is not None:
+        # the acceptance predicate's retained inputs: each result given to checker.accept, its exit, the pins
+        accepted10 = {}
+        for name10, doc10, exit10 in (('outcome edited to FAIL, exit 0', edited, 0),
+                                      ('engine blob differs from tool pin', other, 0),
+                                      ('chain copy (positive)', as_chain, good), ('restored', as_chain, good)):
+            accepted10[name10] = checker.accept(doc10, exit10, pins)
+            REC.capture_doc('checker.accept', doc10, case=name10,
+                            baseline=next((x for x in REC.pending if x['case'] == 'chain copy (positive)'), None)
+                            if name10 == 'restored' else None,
+                            attested={'outcome': 'ACCEPTED' if accepted10[name10] else 'NON_ACCEPTANCE'})
+        FILES['X10'] = {
+            'results.json': {n: {'raw': d, 'exit': e} for n, d, e in (
+                ('outcome edited to FAIL, exit 0', edited, 0), ('engine blob differs from tool pin', other, 0),
+                ('chain copy (positive)', as_chain, good))},
+            'landing.json': {'used_by_accept': False},
+            'snapshot.json': {'snapshot': snap, 'pins': pins},
+            'acceptance.json': accepted10}
+        PROCS['X10'] = {'name': 'acceptance', 'lib': 'consumer', 'results': 'results.json',
+                        'landing_record': 'landing.json', 'snapshot': 'snapshot.json', 'attested': 'acceptance.json'}
     out['X10'] = good == 0 and checker.accept(as_chain, good, pins) and not checker.accept(rg, good, pins) and \
         not checker.accept(edited, 0, pins) and not checker.accept(other, 0, pins) and \
         not checker.accept(other_f, 0, pins) and checker.recompute(rg) == 'PASS'
@@ -540,21 +989,86 @@ def x_controls(r, repo_path):
     code, res = cli.run(['terms', '--config', 'x:y', '--out',
                          os.path.join(repo_path, 'no-such-out-dir'), '--commit', 'x', '--repo', repo_path],
                         stderr=io.StringIO())
+    restore_clean()
     out['M10'] = code == 64 and not os.path.exists(os.path.join(repo_path, 'no-such-out-dir'))
     # schema: every result written above validates
     from ledger_coverage.engine import schema
     bad = []
+    validated = []
     for root, dirs, fs in os.walk(r.out_root):
         for f in fs:
             if f in ('result.json', 'control-result.json'):
                 d_ = json.load(open(os.path.join(root, f)))
+                validated.append(os.path.relpath(os.path.join(root, f), r.out_root))
                 if schema.validate(d_):
                     bad.append((root, schema.validate(d_)[:2]))
                 if d_.get('outcome') not in ('USAGE', 'INTERNAL', 'ERROR', 'VOID') and checker.recompute(d_) != d_['outcome']:
                     bad.append((root, 'checker disagrees'))
-    out['S7-schema-and-checker'] = not bad
+    if REC is not None:
+        # the predicate over every result written by this runner: each validates against the schema and its outcome
+        # equals the checker's recomputation
+        have = json.dumps({'all': 'results_written', 'have': {'schema_valid': True, 'recomputed_outcome_equal': True}},
+                          sort_keys=True)
+        REC.capture_doc('schema and checker over the results written (synthetic_fixture.py)',
+                        {'validated': sorted(validated), 'problems': [list(map(str, b)) for b in bad],
+                         'exit_status': None},
+                        attested={'outcome': 'PREDICATE' if validated and not bad else None,
+                                  have: bool(validated) and not bad,
+                                  'results_validated_min': 1 if validated else 0,
+                                  'results_validated': len(validated)})
+    out['S7-schema-and-checker'] = bool(validated) and not bad
     out['_S7_bad'] = bad[:3]
     return out
+
+
+def z9f_scope(literal, values, profiles):
+    """Exercise the production path selector with the real adapter present in both halves."""
+    adapter_name = 'a1exit_exact_edit.py'
+    adapter_path = AD + adapter_name
+    engine_path = 'tools/ledger_coverage/engine/scope_probe.py'
+    entry_path = 'tools/ledger_coverage.py'
+    files = {'adapter.py': module_bytes(adapter_name), 'entry.py': b'value = None\n',
+             'engine-clean.py': b'value = None\n', 'engine-literal.py': ('value = %r\n' % literal).encode()}
+    cases = (('adapter module containing the string', 'engine-clean.py'),
+             ('the string in the engine', 'engine-literal.py'))
+    findings, sources = {}, {}
+    production_paths = sorted(purity.engine_sources())
+    holds = (repr(literal).encode() in files['adapter.py'] and 'ledger_coverage.py' in production_paths and
+             any(p.startswith('engine/') for p in production_paths) and
+             all(p == 'ledger_coverage.py' or p.startswith('engine/') for p in production_paths))
+    with tempfile.TemporaryDirectory(prefix='purity-scope-') as tree:
+        for case, engine_file in cases:
+            inputs = {adapter_path: 'adapter.py', entry_path: 'entry.py', engine_path: engine_file}
+            for path, member in inputs.items():
+                target = os.path.join(tree, path)
+                os.makedirs(os.path.dirname(target), exist_ok=True)
+                with open(target, 'wb') as f:
+                    f.write(files[member])
+            sources[case] = purity.engine_sources(os.path.dirname(os.path.join(tree, engine_path)))
+            findings[case] = purity.lint_sources(sources[case], values, profiles)
+            wanted = (["engine/scope_probe.py:1: string literal %r occurs in a configuration or record" % literal]
+                      if engine_file == 'engine-literal.py' else [])
+            holds = holds and findings[case] == wanted and sources[case] == {
+                'ledger_coverage.py': files['entry.py'].decode(), 'engine/scope_probe.py': files[engine_file].decode()}
+            if REC is not None:
+                REC.capture_doc('purity lint with the production source selector (synthetic_fixture.py)',
+                                {'operation': 'purity-lint', 'findings': findings[case], 'input_files': inputs,
+                                 'selected_paths': sorted(sources[case]), 'exit_status': 20 if findings[case] else 0},
+                                case=case)
+    if REC is not None:
+        verifier_sources = {'tools/ledger_coverage/engine/' + name + '.py': 'verifier-' + name + '.py'
+                            for name in ('purity', 'selftest', 'cli')}
+        verifier_sources[entry_path] = 'verifier-entry.py'
+        for path, member in verifier_sources.items():
+            with open(os.path.join(os.path.dirname(tools), path), 'rb') as f:
+                files[member] = f.read()
+        FILES['Z9f'] = dict(files, **{'lint-findings.json': findings, 'lint-source-map.json': sources,
+                                    'lint-value-set.json': sorted(values),
+                                    'production-paths.json': production_paths})
+        PROCS['Z9f'] = {'name': 'purity-lint', 'lib': 'lint', 'findings': 'lint-findings.json',
+                        'source_map': 'lint-source-map.json', 'value_set': 'lint-value-set.json',
+                        'production_paths': 'production-paths.json', 'verifier_sources': verifier_sources}
+    return holds
 
 
 def z9_controls():
@@ -563,15 +1077,73 @@ def z9_controls():
     hexid = hashlib.sha1(b'planted').hexdigest()
     a1 = prf.Profile({'name': 'p', 'kind': 'review', 'applies_to': 'tree', 'source': {'extractor': {'kind': 'x'}}},
                      [r'\bA1\b'])
-    vals = {'per unit Q2', 'a1exit deletion exact-edit ledger v2', r'\bA1\b'}
+    literal = 'a1exit deletion exact-edit ledger v2'
+    vals = {'per unit Q2', literal, r'\bA1\b'}
 
-    def lint(src):
-        return purity.lint_sources({'engine/m.py': src}, vals, [a1])
-    out = {'Z9a': bool(lint('x = %r\n' % hexid)), 'Z9b': bool(lint('x = %r\n' % hexid[:7])),
-           'Z9c': bool(lint('x = %r\n' % r'\bA1\b')), 'Z9d': bool(lint("x = 'per unit Q2'\n")),
-           'Z9e': not lint("x = {'splices': []}\n")}
-    adapter_ok = not purity.lint_sources({}, vals, [a1])
-    out['Z9f'] = adapter_ok and bool(lint("x = 'a1exit deletion exact-edit ledger v2'\n"))
+    def lint(src, cid=None):
+        smap = {'engine/m.py': src}
+        found = purity.lint_sources(smap, vals, [a1])
+        if cid is not None and REC is not None:
+            # the purity lint as retained evidence: its findings and the linted source map (the lint library)
+            REC.capture_doc('purity lint of an in-memory engine tree (synthetic_fixture.py)',
+                            {'findings': found, 'source_map': sorted(smap), 'value_set': sorted(vals),
+                             'exit_status': None},
+                            attested={'outcome': 'LINT_FAIL' if found else 'LINT_PASS'})
+            FILES[cid] = {'lint-findings.json': found, 'lint-source-map.json': smap,
+                          'lint-value-set.json': sorted(vals)}
+            PROCS[cid] = {'name': 'purity-lint', 'lib': 'lint', 'findings': 'lint-findings.json',
+                          'source_map': 'lint-source-map.json'}
+        return found
+    out = outmap()
+    out['Z9a'] = bool(lint('x = %r\n' % hexid, 'Z9a'))
+    out['Z9b'] = bool(lint('x = %r\n' % hexid[:7], 'Z9b'))
+    out['Z9c'] = bool(lint('x = %r\n' % r'\bA1\b', 'Z9c'))
+    out['Z9d'] = bool(lint("x = 'per unit Q2'\n", 'Z9d'))
+    out['Z9e'] = not lint("x = {'splices': []}\n", 'Z9e')
+    out['Z9f'] = z9f_scope(literal, vals, [a1])
+    return out
+
+
+def b1_controls(r):
+    """Controls added by design r6 amendment 1 (B1) whose inputs the synthetic world supplies: HP-MERGE-PR
+    (R6.HP.1) and OUT-NOTRUNC (R6.OUT.28). Each case is one full sec. 6.3 run on the in-memory host."""
+    out = outmap()
+
+    def named(case, **kw):
+        return REC.name_last(case, **kw) if REC is not None else None
+
+    # HP-MERGE-PR: the HP obligation pins merge #7 whose commit subject names another pull request, #70
+    syn = Syn()
+    pd = patch_doc(syn.H, [])
+    base = {'patch_sha': sha(pd), 'files': {'syn/patch.json': pd}}
+    c0, p0, s0, _ = syn.build(base)
+    r.cli(syn.repo, ['coverage', '--commit', syn.H, '--check', 'zc'], c0, p0, s0)
+    clean = named('baseline')
+    bad = Syn()
+    bad.m1 = bad.repo.derive(bad.pin, {'syn/note.txt': b'merge one\n'}, parents=[bad.pin],
+                             subject='Merge #70: synthetic merge naming another pull request')
+    bad.H = bad.m1
+    pdb = patch_doc(bad.H, [])
+    cb, pb, sb, _ = bad.build({'patch_sha': sha(pdb), 'files': {'syn/patch.json': pdb}})
+    code, res = r.cli(bad.repo, ['coverage', '--commit', bad.H, '--check', 'zc'], cb, pb, sb)
+    named('')
+    r.cli(syn.repo, ['coverage', '--commit', syn.H, '--check', 'zc'], c0, p0, s0)
+    named('restored', baseline=clean)
+    out['HP-MERGE-PR'] = code == 65 and (res or {}).get('stop', {}).get('class') == 'CONFIG_INVALID' and \
+        not (res or {}).get('items')
+
+    # OUT-NOTRUNC: 5000 unexplained hit lines of the review pattern beta-word, every one reported
+    def notrunc(n):
+        text = TEXT + '\n' + ''.join('a beta word on line %d\n' % i for i in range(n))
+        x = syn.repo.derive(syn.H, {DOC: text.encode()}, parents=[syn.H], subject='many hits')
+        code_, res_ = r.cli(syn.repo, ['terms', '--commit', x], c0, p0, s0)
+        return code_, len([i for i in (res_ or {}).get('items') or [] if i.get('class') == 'unclassified'])
+    a = notrunc(5000)
+    named('a synthetic file with 5000 unexplained repo hit lines')
+    b = notrunc(4999)
+    named('the same file with one hit line removed (countercase)')
+    out['OUT-NOTRUNC'] = a == (10, 5000) and b == (10, 4999)
+    out['_OUT-NOTRUNC'] = [a, b]
     return out
 
 
@@ -579,7 +1151,7 @@ def run_all(out_root, repo_path):
     r = Runner(out_root)
     res = {}
     for name, fn in (('Y', lambda: y_controls(r)), ('Z', lambda: z_controls(r)), ('X', lambda: x_controls(r, repo_path)),
-                     ('Z9', z9_controls)):
+                     ('Z9', z9_controls), ('B1', lambda: b1_controls(r)), ('confined', lambda: out_confined(out_root))):
         try:
             res.update(fn())
         except Exception as exc:
@@ -588,9 +1160,25 @@ def run_all(out_root, repo_path):
     return res
 
 
+def write_records(out_dir, res):
+    """R6.GATE.5 and R6.GATE.7: one record per control id (keys starting with `_` are diagnostics), PASS when the
+    runner's boolean holds, FAIL otherwise (a group error is a FAIL record of its own)."""
+    REC.out_dir = out_dir
+    for cid in sorted(k for k in res if not k.startswith('_')):
+        v = res[cid]
+        REC.pending = RUNS.get(cid, [])
+        REC.record(cid, 'PASS' if v is True else 'FAIL', v, 'the boolean computed for this id in synthetic_fixture.py',
+                   files=FILES.get(cid), procedure=PROCS.get(cid))
+    return REC.write()
+
+
 if __name__ == '__main__':
     if len(sys.argv) > 1:
         os.makedirs(sys.argv[1], exist_ok=True)
     root = tempfile.mkdtemp(prefix='syn-controls-', dir=sys.argv[1] if len(sys.argv) > 1 else None)
+    REC = control_records.Recorder('synthetic', None)
+    REC.wrap_cli(cli)
     res = run_all(root, sys.argv[2] if len(sys.argv) > 2 else os.getcwd())
+    if len(sys.argv) > 1:
+        write_records(sys.argv[1], res)
     print(json.dumps(res, indent=1, sort_keys=True, default=str))

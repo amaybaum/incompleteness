@@ -12,9 +12,23 @@ def _sha(b):
     return hashlib.sha256(b).hexdigest()
 
 
+def _json_object(pairs):
+    result = dict(pairs)
+    if len(result) != len(pairs):
+        raise ValueError('duplicate JSON key')
+    return result
+
+
+def _invalid_number(_value):
+    raise ValueError('non-finite JSON number')
+
+
 def load(main, companions, read=None):
-    doc = json.loads(main.decode('utf-8'))
-    if doc.get('schema') != SCHEMA:
+    try:
+        doc = json.loads(main.decode('utf-8'), object_pairs_hook=_json_object, parse_constant=_invalid_number)
+    except ValueError as exc:
+        return {'errors': [('schema', 'invalid line-patch JSON: %s' % exc)]}
+    if not isinstance(doc, dict) or doc.get('schema') != SCHEMA:
         return {'errors': [('schema', 'unknown line-patch schema')]}
     base = doc['base']
     splices, files, errors = [], {}, []
@@ -37,5 +51,14 @@ def load(main, companions, read=None):
         splices.append({'id': e['id'], 'file': e['file'], 'start': a, 'end': b, 'old_sha256': _sha(data[a:b]),
                         'new_sha256': _sha(nb), 'new': new, 'new_bytes': nb, 'kind': None})
         files[e['file']] = {'base_sha256': _sha(data)}
+    # each patched file's expected bytes: the base bytes with that file's patches applied, last offset first; the
+    # sha256 of the patched content, never a value the patch document states
+    for f in files:
+        data = read(base, f)
+        for sp in sorted((x for x in splices if x['file'] == f), key=lambda x: -x['start']):
+            data = data[:sp['start']] + sp['new_bytes'] + data[sp['end']:]
+        files[f]['expected_sha256'] = _sha(data)
+    raw = {'files': files, 'splices': [{k: v for k, v in sp.items() if k != 'new_bytes'} for sp in splices],
+           'edits': doc['edits']}
     return {'base': base, 'splices': splices, 'files': files, 'retained': [], 'mirrors': [], 'ignored_fields': [],
-            'errors': errors, 'edits': [], 'pin_rules': {'min_len': 20, 'skip_prefixes': [], 'ok': []}}
+            'errors': errors, 'edits': [], 'pin_rules': {'min_len': 20, 'skip_prefixes': [], 'ok': []}, 'raw': raw}

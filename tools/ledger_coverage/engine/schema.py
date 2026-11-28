@@ -20,9 +20,28 @@ def _type_ok(v, t):
     return isinstance(v, _types[t])
 
 
+def disposition_problems(doc):
+    """Design r6 amendment 3, the complete ledger-path check: one disposition for each drifted ledgered or corpus
+    path (the side changes of class base-drift), none for any other path, none twice."""
+    if not isinstance(doc, dict) or 'dispositions' not in doc:
+        return []
+    drifted = [x.get('path') for x in doc.get('side_changes') or [] if isinstance(x, dict)
+               and x.get('class') == 'base-drift']
+    named = [d.get('path') for d in doc.get('dispositions') or [] if isinstance(d, dict)]
+    out = []
+    if any(p not in named for p in drifted):
+        out.append('missing disposition')
+    if any(p not in drifted for p in named):
+        out.append('disposition for an unchanged path')
+    if len(named) != len(set(named)):
+        out.append('two dispositions for one path')
+    return out
+
+
 def validate(doc, sch=None, path='$'):
+    top = sch is None
     sch = load() if sch is None else sch
-    errs = []
+    errs = disposition_problems(doc) if top else []
     if 'const' in sch and doc != sch['const']:
         errs.append('%s: not the constant' % path)
     if 'enum' in sch and doc not in sch['enum']:

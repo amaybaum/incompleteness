@@ -1,0 +1,467 @@
+{
+ "schema": "oi-side-change-classes/1",
+ "record_id": "side-change-classes-v1",
+ "status": "UNREVIEWED DRAFT. Prepared by the replacement implementation writer. This record defines the tool-landing class and pins each earlier record in the same lineage by path and blob. R6.TREE.5 assigns the pin for the lineage head to the configuration. The immediate predecessor is records/side-change-classes-v20.json.",
+ "author": "Codex (replacement implementation writer, 2026-11-26)",
+ "supersedes": {
+  "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v20.json",
+  "blob_sha256": "f7bbbd2841bf4dd8b1dccc26c5cbdf47059b14bd6069d81b163fe34b96eaca5c"
+ },
+ "classes": [
+  {
+   "id": "tool-landing",
+   "prefixes": [
+    "tools/ledger_coverage/",
+    "verification/audits/foundations/ledger-coverage-tool-20261123/"
+   ],
+   "pins": [
+    {
+     "path": ".github/workflows/ledger-coverage.yml",
+     "git_blob": "d6372a6b114aeb607a7fcdcf2fc8e91350884ca8",
+     "blob_sha256": "5e1c9c92c34f480c9102ce60183a3f7263ee56aa6ace675dfbae3b96b7e17586"
+    },
+    {
+     "path": "tools/ledger_coverage.py",
+     "git_blob": "90e96d21fed97f2af9c2c70fa831ae6e13aed390",
+     "blob_sha256": "a1644e76bfb41f45d0bb95c57770c4701d30d65ec89557cff4b4115c806571f1"
+    },
+    {
+     "path": "tools/ledger_coverage/__init__.py",
+     "git_blob": "c2cd5d6697d4a045c34b4e16ef649706e71b8fa4",
+     "blob_sha256": "b0072faa34b8db8ce3d86a70a06835f88094856f060a1540d1acd41f23e12d99"
+    },
+    {
+     "path": "tools/ledger_coverage/adapters/__init__.py",
+     "git_blob": "def4b3a3a80a6f7e376113de23388f074444db0f",
+     "blob_sha256": "d1b8b5e2f52f7f43fd794ec783c80124beae41b28804e26bac05981f1b65f34a"
+    },
+    {
+     "path": "tools/ledger_coverage/adapters/a1_conformance.py",
+     "git_blob": "2f1e97133c8ec7910f393257590cf84f53faea16",
+     "blob_sha256": "c665e95d57799ce27f8a9d7cf56332a1fae77b7cc9e044551787c7906e01e525"
+    },
+    {
+     "path": "tools/ledger_coverage/adapters/a1_controls.py",
+     "git_blob": "fedd403da25367e83756be69dd0970106f0d87fd",
+     "blob_sha256": "dc17a6eb263c9664b9927ad2e9f89588206900aef4404114df473f2a44e5b476"
+    },
+    {
+     "path": "tools/ledger_coverage/adapters/a1exit_exact_edit.py",
+     "git_blob": "56662d56a7d68d1756d76021848eebf6ed26bc9d",
+     "blob_sha256": "efdc8bf861d8e057f2f50612ef8dea0415705a0815f6bac6e3984fd6a03bf21d"
+    },
+    {
+     "path": "tools/ledger_coverage/adapters/a1exit_sitemap.py",
+     "git_blob": "53c1b93024997b1b62a178ab161a815127237f63",
+     "blob_sha256": "b01001bc64d39367f00f9e36502933519ca0b28be3bd4af817679287698dd0e5"
+    },
+    {
+     "path": "tools/ledger_coverage/adapters/artifact_hash.py",
+     "git_blob": "f8a8686f1d5f69d29a33c518fa46a31acb6df549",
+     "blob_sha256": "74f719c9119fb77896868385c1b3142f747dfde6a2c450d4fc3cea1ca0a7a7cf"
+    },
+    {
+     "path": "tools/ledger_coverage/adapters/conformance_controls.py",
+     "git_blob": "0a641609cd71026803feed8838230b6099a28871",
+     "blob_sha256": "e4a836a0e5358d74baca82f91dd37be16aefbb31a4f5b12fe7c627ffa3fbf126"
+    },
+    {
+     "path": "tools/ledger_coverage/adapters/control_records.py",
+     "git_blob": "ae14d2ba67c3ee566694f7cd1dedabd72c5c56df",
+     "blob_sha256": "71dc043176d0be8de9a85a9505c30efe9e636d80f1e739f44897c9c1d362418e"
+    },
+    {
+     "path": "tools/ledger_coverage/adapters/deleg_fingerprint_regen.py",
+     "git_blob": "8217f79839f51176c665cd63240a9ba3a2720542",
+     "blob_sha256": "3c86abe926f1f2e7c581a9e8ce88ce60d6bcba3f85e6143bcb1948b600c8f6ab"
+    },
+    {
+     "path": "tools/ledger_coverage/adapters/deleg_host_run.py",
+     "git_blob": "8669d55a2b4e442d659034e11d149e05653dbcf0",
+     "blob_sha256": "10e154ca32e5457efca8ec1a18db8bdb83203935f849eab35d5958ea22ea1376"
+    },
+    {
+     "path": "tools/ledger_coverage/adapters/deleg_preserve_check.py",
+     "git_blob": "a242992ed0132f38f0ae4926f7f732714fb921a8",
+     "blob_sha256": "e524f675215f354baf41c91b2469c9d4eacc7beb03f3dc21e4f583e177388527"
+    },
+    {
+     "path": "tools/ledger_coverage/adapters/deleg_record_dir.py",
+     "git_blob": "cb2a86b8bae06fe88e67472938bb3e2f14cbac4f",
+     "blob_sha256": "bb82c3f8f696b9c58425a4b80cb072673a7e63cc737c629307989ee8065cee54"
+    },
+    {
+     "path": "tools/ledger_coverage/adapters/deleg_rerun_equal.py",
+     "git_blob": "f159810f8063596c8bc78e3105e840e6274675f6",
+     "blob_sha256": "58debe302a8b83c67e46c56b3291a5ed6e35aa02bd2cb09e662f56f14e41c0aa"
+    },
+    {
+     "path": "tools/ledger_coverage/adapters/engine_controls.py",
+     "git_blob": "b3328a65a751f163b2e2b074c4eb480ab590f663",
+     "blob_sha256": "f9cbbeb1b3e8ce730b84abfac9f438e5643aec10bae2a28157f80c9a83b96457"
+    },
+    {
+     "path": "tools/ledger_coverage/adapters/host_fixture.py",
+     "git_blob": "1339c62b7b92b78deef9ce32777da308eb16741d",
+     "blob_sha256": "b6fe9a5f4e005c24e6f0e762c197999dd8d3f95fd74693abb1c33a4b96bc8068"
+    },
+    {
+     "path": "tools/ledger_coverage/adapters/line_patch.py",
+     "git_blob": "9edd049b443a4ce94f289be6c33a7b44ddc33662",
+     "blob_sha256": "a08f8024e349499f31be06c0ba179b610ad4209e4833e595799a3daf93a88905"
+    },
+    {
+     "path": "tools/ledger_coverage/adapters/postfreeze_controls.py",
+     "git_blob": "be19a5df46113e231083814fddbeecedca1ad1e8",
+     "blob_sha256": "681c0eb8bec6e58f384686e427e76efb26accf424ddcd430d22c08b0bd3dbd76"
+    },
+    {
+     "path": "tools/ledger_coverage/adapters/python_frozen_replay.py",
+     "git_blob": "36239479d6ea38cafe4ce0358021d23a7b91ee8e",
+     "blob_sha256": "79ad93539fb24ba9bce8ece8c140fdfbaf38dbcb9b38d60a5327bfd41b2e2b0a"
+    },
+    {
+     "path": "tools/ledger_coverage/adapters/recon_controls.py",
+     "git_blob": "cea5ace32f5176819dfa901f53102c98dce5e63e",
+     "blob_sha256": "3b8b28faa9765574173c61c07bb1ddffafa905e86c6dccc6614a5ee8b4f381d3"
+    },
+    {
+     "path": "tools/ledger_coverage/adapters/record_directory_controls.py",
+     "git_blob": "e4d69697f0c559aa0f9148d31ce59d013ba96d2d",
+     "blob_sha256": "5f8c213dc65f710041a891d7f4c26558eb15183c9a55b075ee1de0fbe6c949ed"
+    },
+    {
+     "path": "tools/ledger_coverage/adapters/staged_purity_lint.py",
+     "git_blob": "5d964d4b5b952f92b4d40ef8644a3fe9969f8291",
+     "blob_sha256": "000589d11cf9a110b6cbec0449f9d2e5ea6f11f5c8b17d04f78aeb977db0f014"
+    },
+    {
+     "path": "tools/ledger_coverage/adapters/synthetic_fixture.py",
+     "git_blob": "a653ed69ab860a029e3afad6254fac5f940edab9",
+     "blob_sha256": "f38878eb12c7b0094812edc9c5773d1bb132d7d8c42fdc55dbafce87e3778cbf"
+    },
+    {
+     "path": "tools/ledger_coverage/engine/__init__.py",
+     "git_blob": "914d9967bcd70c663cec37ee146c1072b0585f33",
+     "blob_sha256": "9a53e22ce914f807e90487dba08c25a2880006148ebfe28e9ee97b7fd185e0f9"
+    },
+    {
+     "path": "tools/ledger_coverage/engine/category3.py",
+     "git_blob": "758f45ccd1d73934a8ca19cc7611f31282d5b696",
+     "blob_sha256": "784625b81467091e6d72d03e5f3d591835f1914bec19e84da3be63da2373e719"
+    },
+    {
+     "path": "tools/ledger_coverage/engine/checker.py",
+     "git_blob": "d218ec09e6107a0c002cae3e9cd83549af2727db",
+     "blob_sha256": "91accb1e47998b297c530db3173a0a41613dbb9a00af03f75fc1caa9d91f71b6"
+    },
+    {
+     "path": "tools/ledger_coverage/engine/cli.py",
+     "git_blob": "fc625eb961f307c5d0460ebf9ac0cfe3e952eb18",
+     "blob_sha256": "5fa91f173ce2e17f3e99934e25b6dc02c99d5d1fe3e74b22401817f356a8fb9c"
+    },
+    {
+     "path": "tools/ledger_coverage/engine/config.py",
+     "git_blob": "22c7ee12c4e7a16422dceb94c7f401a59e74893b",
+     "blob_sha256": "503a29aa4462217a8c5a9e798804917199ca87899408ac0672d56a50e0d4dd65"
+    },
+    {
+     "path": "tools/ledger_coverage/engine/context.py",
+     "git_blob": "c9dceab58735a7733969e9cf899a33aeb3b8c0d5",
+     "blob_sha256": "5980ad55a134fbc15a91ad44e9ee517269599805e433d3abcd72cd001c15b686"
+    },
+    {
+     "path": "tools/ledger_coverage/engine/controls_engine.py",
+     "git_blob": "0973edbadb4203e2d808aa0201002f6214cf1ea0",
+     "blob_sha256": "0409d63ddad743f0a82a5564e0788c11156c8a4345cbed26f478582233915593"
+    },
+    {
+     "path": "tools/ledger_coverage/engine/delegation.py",
+     "git_blob": "aff988cfb8534638ec3cc09d3407fe26e7e8214d",
+     "blob_sha256": "1f1f98fbf8e0c9446d0dbea4f14b5139f00e6a80f99955f8712b25ef7edfa4cf"
+    },
+    {
+     "path": "tools/ledger_coverage/engine/execution.py",
+     "git_blob": "bd40edffdfa488535d369fe4cb130480bde96ff6",
+     "blob_sha256": "83faae6defc70fc3347eade5aefe3c62ea34e49ad52dd0d34112f8cec2929de7"
+    },
+    {
+     "path": "tools/ledger_coverage/engine/gitobj.py",
+     "git_blob": "c0847cd74fcd9a51948e4454935f205e3e90f7fc",
+     "blob_sha256": "4ff93ed799bf4e16da067cf89264c6275cb935cef5790025e9a98eb203ebaa31"
+    },
+    {
+     "path": "tools/ledger_coverage/engine/host.py",
+     "git_blob": "dc1b805958ae352e7afc196b4ed922b44a77492f",
+     "blob_sha256": "ea348227bb1353960ebf9ae840bc8ff53f908d1e1f8d6c36bb69b3927f2004e6"
+    },
+    {
+     "path": "tools/ledger_coverage/engine/outcome.py",
+     "git_blob": "b094251f3ac09bffc1806bcb2bce39b2d40dcc7a",
+     "blob_sha256": "93db53d1a054919a3ef5702f33e52ee12120395df240f8531cb1fca5af283396"
+    },
+    {
+     "path": "tools/ledger_coverage/engine/peredit.py",
+     "git_blob": "71c680cbd6cbf8f271f0b9b24c995bf355cd233f",
+     "blob_sha256": "ec8eb2bc59200e621c6f53952e1dda631a09affbb226cee04af281d151b3a38a"
+    },
+    {
+     "path": "tools/ledger_coverage/engine/pipeline.py",
+     "git_blob": "cbdc0e8719fdff0f60ee013cdebb0534e2c45019",
+     "blob_sha256": "1a854ccfcc516d518cd93392527d1d9ba6da1a1489b0704d710c69d9f67b75c8"
+    },
+    {
+     "path": "tools/ledger_coverage/engine/profiles.py",
+     "git_blob": "c8beaf1ae8b35b38e3f9efc4736008379ce46675",
+     "blob_sha256": "9fd62cfb11c5b4799694286012567625edc9c4753ebb9a9c484ffca94a013b0d"
+    },
+    {
+     "path": "tools/ledger_coverage/engine/purity.py",
+     "git_blob": "7288714e77b58d66dbc0838f3719294bd7c675c7",
+     "blob_sha256": "64fed7dadc80da235b1183f357153c7ebd428366093c24d27e9a37a42def00b7"
+    },
+    {
+     "path": "tools/ledger_coverage/engine/recon_route.py",
+     "git_blob": "f2be401f32eb2d0a5485190de5c522972002eb39",
+     "blob_sha256": "485834988b2e64ec2dc38d9e9979cff380ae40e0ee0e4c2f98805ec97cf8415f"
+    },
+    {
+     "path": "tools/ledger_coverage/engine/reconcile.py",
+     "git_blob": "4b54aa529486b6975ef42b935943c8874128c3f9",
+     "blob_sha256": "cd2f205d496eb5d18f5d3f9b479452ffa87d6d28b1c569b865dd6f817fe027c3"
+    },
+    {
+     "path": "tools/ledger_coverage/engine/records.py",
+     "git_blob": "20d4fab2347e366086bc1c7c15edb4b50b382915",
+     "blob_sha256": "f19f52550534821cd767f175d1e08a1caf340babdb02cba1befc5d41c8ea6777"
+    },
+    {
+     "path": "tools/ledger_coverage/engine/replay.py",
+     "git_blob": "b19aa2a725cc1b780e92acc8955ccbba9c5cfd9a",
+     "blob_sha256": "3d8bad7aef08474fa9d7a3186eababfc6e49809336cab2e5047348739802b396"
+    },
+    {
+     "path": "tools/ledger_coverage/engine/rules.py",
+     "git_blob": "984bd3ad5889e3548e696b309fc297407d2576f6",
+     "blob_sha256": "03d1af1466cd11d8f43e31e9f9ffdfb57d7410a316fbf8da359dac0fa8c8933c"
+    },
+    {
+     "path": "tools/ledger_coverage/engine/schema.py",
+     "git_blob": "aaf8ea4aed056894eff22525bbb67e61820c2f32",
+     "blob_sha256": "0732bc5850d4b925d16167e540bdf76fdf3cdabd955012906e13db99736ea9fd"
+    },
+    {
+     "path": "tools/ledger_coverage/engine/schemas/oi-ledger-coverage-5.schema.json",
+     "git_blob": "a8a14c824667872cf4dacba2d4404e94d143f85a",
+     "blob_sha256": "a3ee6813d04a98ee92075e19dec80f8a5cf26433b9182cf484f3654ffacf93a2"
+    },
+    {
+     "path": "tools/ledger_coverage/engine/segments.py",
+     "git_blob": "5c17c9f4222a00bc0bb8535691f331b81f2b5878",
+     "blob_sha256": "47f6c6b06fd7f2872fad2e997a29525e1b9278e45c152ca2fc354ea0f9c6d193"
+    },
+    {
+     "path": "tools/ledger_coverage/engine/selftest.py",
+     "git_blob": "d3a08545d1444b7a1af932ff1d27d10e8e682ad9",
+     "blob_sha256": "bb030e9e8ac7824fb9f0973635532d561ecb829c401a836f18c14491eaca287e"
+    },
+    {
+     "path": "tools/ledger_coverage/engine/util.py",
+     "git_blob": "2d0c14c5403e1a3285814d48588fc9959f9908da",
+     "blob_sha256": "7cb6eeccb332189cca5c8073dac69530660e381345662cf545a7f116612d7a6f"
+    },
+    {
+     "path": "tools/ledger_coverage/gate/control_gate.py",
+     "git_blob": "981132f3803a83bc224f65ce6e420474e174fcfe",
+     "blob_sha256": "1887fad93a7cb89fe0905eccbc6027fbfb183b7664d6c7d469662edca98d7fa7"
+    },
+    {
+     "path": "tools/ledger_coverage/gate/gate_selftest.py",
+     "git_blob": "fd7355a7b7be8a0acf9d37b88abfaaf5f771a5a4",
+     "blob_sha256": "711e8b99a020120cd6421aa381a6acf46e9d1fd1356ca0ede0953260427e5da6"
+    },
+    {
+     "path": "tools/ledger_coverage/record_authority.py",
+     "git_blob": "d8e1b531999251e6e2f871b80230dbdcfdabeb0a",
+     "blob_sha256": "9428ce10d1e54342ddea12fe48d98949fb031aba61ad801b5c4e0422469d5aea"
+    },
+    {
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/IMPLEMENTATION-PLAN-r6.md",
+     "git_blob": "19ee10431a578ef02b4c9bde0e41ccdc62e6fcb9",
+     "blob_sha256": "3e672b7e92cea6841711bc87cdd4afa791d5e000d662b9336f2dcc979090ac65"
+    },
+    {
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/README.md",
+     "git_blob": "058c64f59e467c3787783ee716210c41c1dfc68b",
+     "blob_sha256": "efd82d3e901a09eda94170573efa8499fa1abfc0663acda3ddbe76617d64da99"
+    },
+    {
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/REVIEW-INVENTORY-C29.md",
+     "git_blob": "e1e5e480e643cc63965de335a93051f1ee42e1ce",
+     "blob_sha256": "a09b5fa88627973038c4d4837011daf0eec6c96281188ec9b1968e66c4d73f72"
+    },
+    {
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/controls.json",
+     "git_blob": "55cd8355a573d1b606f067a59b78af2ac817c54f",
+     "blob_sha256": "fd6d16f84ad5d9ef70655461d46a62ec2af018b917841f475dea01bcc98bde72"
+    },
+    {
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/delegation-draft.json",
+     "git_blob": "fa9762fb2e8ca7b384fe6702d55ceb6359a2df32",
+     "blob_sha256": "015826146fd01b9f5ebc5ae8b1966f700e2f964b8989203d66b75e36e032f65c"
+    },
+    {
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/gr58-hit-classification-v1.json",
+     "git_blob": "f37662df6787fd1aea08769df6c44c221de07c95",
+     "blob_sha256": "8177b0923a7eddf09c473ce541e4c23de53067429a31d52260aa35f0bafa8410"
+    },
+    {
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/gr58-hit-classification-v2.json",
+     "git_blob": "e8631eb271eb4d7345ac3682960036198a09023d",
+     "blob_sha256": "28c5a5706605cabc5c7542ca3b9ad11f96151d3e8c829aa73b391420ecea54c1"
+    },
+    {
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/gr58-hit-classification-v3.json",
+     "git_blob": "d42537d23cb0c907e6386e2c9b22c8bef0adc514",
+     "blob_sha256": "0e2cd408c500313f3c214590f86d76eb33529875903682924f1f94a8340beb86"
+    },
+    {
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/repo-scope-v1.json",
+     "git_blob": "70ff5ac6f7e1b3c6e2127840081a84ac176ba7b7",
+     "blob_sha256": "32afecca8e371a1f51217a70058676144e874b24526ca0becddea04e2c12df42"
+    },
+    {
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v1.json",
+     "git_blob": "de843294dbc46769eca5553739f1b296290534b2",
+     "blob_sha256": "4b28d3d22452bca712ab7c082feee5af3cd1dc1d81260dae2d6b7808354687b8"
+    },
+    {
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v10.json",
+     "git_blob": "72ed51372c56527adce145ffaa2c01784ef9b05f",
+     "blob_sha256": "e50341ae77a46adff1b85b0231e01fd1f126f46047faea9e9a8b370e1b050013"
+    },
+    {
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v11.json",
+     "git_blob": "5e5ae396416f6e70631f2d37bbe5810dadbb9b67",
+     "blob_sha256": "943676e38a6ce97e3786175f9ea5493c821bf7ceb9057d7795de36fdae0062da"
+    },
+    {
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v12.json",
+     "git_blob": "d9f16d37c7c1400878ee48181a47f71f8cc3fb88",
+     "blob_sha256": "343ffdca8ea646dc9ec82a5c55f33d5effc26830c124cded887f02f02b7ede93"
+    },
+    {
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v13.json",
+     "git_blob": "ade59d0923469542b3661bc8fe371f24588d5b19",
+     "blob_sha256": "905f850044f89d89b9222a7546746136f91eb1145dd906ef622d8747851c77ac"
+    },
+    {
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v14.json",
+     "git_blob": "93b0c23ff9f4399fb486cc38f14aeee72ecc4d66",
+     "blob_sha256": "2eb7a19b6152a5c6dbc537f83f6378547c08f926fe8701cebc4c520b78ae3006"
+    },
+    {
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v15.json",
+     "git_blob": "2edd9ae11106021d45f82f1d3140a1d8e941581b",
+     "blob_sha256": "b20e67c382c2f3d4849dbc1755d784f1e42e457546f6ad96a361c5034ba18268"
+    },
+    {
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v16.json",
+     "git_blob": "54d069ecfcdb886075871d024e59a77a8b5442e0",
+     "blob_sha256": "934b816b82a28f4ffeb042273645d0bb478b06018b7f9575ffd0122643342749"
+    },
+    {
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v17.json",
+     "git_blob": "bb17600498cdfb997d313167380f876d8e846996",
+     "blob_sha256": "bf2dfe2a51ac2723a680cb14202541186af9c71099a79edf264f2d1f4ae47782"
+    },
+    {
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v18.json",
+     "git_blob": "bfe2beffa74dc0b91e3a915848450181ee03ff05",
+     "blob_sha256": "9903408ba0245a9c876de62737494df39022edc373b568b5dc2bb2b051fe3266"
+    },
+    {
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v19.json",
+     "git_blob": "3994c12948f810ca293754b2c1da0b4b2c5a715b",
+     "blob_sha256": "59bab0be82e6e8c538b72e03e533978fc7c01aa686e98081aceaf47b9d431ad1"
+    },
+    {
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v2.json",
+     "git_blob": "8e01d90c05f06a1f8f36a0c00a75c88e7abb4455",
+     "blob_sha256": "fc94958377da7002e32329e5f1752f7eee0c2597e5b634d807c585c4152f0637"
+    },
+    {
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v20.json",
+     "git_blob": "322a03d757e6ce4c906bced40a9048a13d7a384a",
+     "blob_sha256": "f7bbbd2841bf4dd8b1dccc26c5cbdf47059b14bd6069d81b163fe34b96eaca5c"
+    },
+    {
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v3.json",
+     "git_blob": "20e71d1357dfeaeed7d01607cc798aaee142e17f",
+     "blob_sha256": "af12bf5d572c6f8808ff4b20505c99776c60e8ec186f3ece19c057197084344e"
+    },
+    {
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v4.json",
+     "git_blob": "46ff87ef50c04425a61cc092d03accd7c5343e17",
+     "blob_sha256": "5c213137c7872a45e366621a961e6e766c37ebafcce470c4378d8091e94e9622"
+    },
+    {
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v5.json",
+     "git_blob": "55366821ef5ac9245e08d3e2f4425cb9a58aa47c",
+     "blob_sha256": "3802e623b931d1962075e906b8ba900a0fcfe4b49dce3f14af244c63086c2b44"
+    },
+    {
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v6.json",
+     "git_blob": "f544e0f9b92b5e41bc4228b9e452e7c84959c4cf",
+     "blob_sha256": "46108f4d05263d945a84db68389f7f2aeee1a149dc946c14e6ba37ec2844d9c9"
+    },
+    {
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v7.json",
+     "git_blob": "1e8a7390b0a21aec25fd9932a96fff21fdd55730",
+     "blob_sha256": "92ab8c39a98f2d07159dd767195e41da9b52389348120175a2b13fa7e97049d1"
+    },
+    {
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v8.json",
+     "git_blob": "14f38905cd31a5c955d8814a548e5f53c1a105d5",
+     "blob_sha256": "6481523218a0e9021d0688bae343a2541d5fa2c9713fe90bb17ef981c4daf3d6"
+    },
+    {
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/side-change-classes-v9.json",
+     "git_blob": "3df6538c30fbcfa902681bf9b9e34c3d8fbbeebf",
+     "blob_sha256": "c72fe313d83cd072f3014e08ae25f17c28630f56b910dac3acbff4cd86c2c52e"
+    },
+    {
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/rules/dr-deny-v1.json",
+     "git_blob": "3f06edffb2bfb21a1d1d6d13ecfc5208d0154d15",
+     "blob_sha256": "daf3a8e231ace391f0037447d1266d1255df8dc015baaaa601fcc79b63cec6ae"
+    },
+    {
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/rules/register-infinity-params-v1.json",
+     "git_blob": "229877fdf25c16e33295ba2ac2fa8614340bc993",
+     "blob_sha256": "05149ba694dd4017ad27dd60c02810403ec7351036776bea212768ba9ebc509f"
+    },
+    {
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/rules/resid-v1.json",
+     "git_blob": "ba1cc9117103f11d0cd8c39d0c33e52529fea226",
+     "blob_sha256": "7aa1412206f7bf5fec1d3573d76e1b91c0f6bc8f67704a1dcb75344d09aac221"
+    },
+    {
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/rules/w1-w2-allow-v1.json",
+     "git_blob": "bf1882fb74938164d67602f5d482f9dd2d09ff49",
+     "blob_sha256": "0cbb97c98725cba618598650b0cd9c687c97e280b3422c4ad6e62794a222b171"
+    },
+    {
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/rules/w1-w2-allow-v2.json",
+     "git_blob": "b7b475b0fe9d05b9f4c68cb30cb4a30c841f0de3",
+     "blob_sha256": "306017d93211bded9cf63f964d60f17db543f02e11183fb82b05d6a76d2bb903"
+    },
+    {
+     "path": "verification/audits/foundations/ledger-coverage-tool-20261123/rules/w1-w2-allow-v3.json",
+     "git_blob": "e0621ed068ee993a70afabfefec38d5f193984fa",
+     "blob_sha256": "5485154a9c703192d4de65619ad5948d14fec7dbbffa2440b6482019efea15db"
+    }
+   ],
+   "reason": "this tool's landing paths (design sec. 12.3), each bound to its exact blob (sec. 13.1, V3); the prefixes only say where such paths may lie; the one path outside them, the workflow that tool.workflow pins, is listed by its exact path (owner decision on sec. 12.3)"
+  }
+ ]
+}

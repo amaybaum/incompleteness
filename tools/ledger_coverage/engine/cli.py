@@ -3,6 +3,7 @@ import argparse
 import hashlib
 import json
 import os
+import posixpath
 import re
 import subprocess
 import sys
@@ -16,11 +17,15 @@ from . import peredit
 from . import profiles as prmod
 from . import pipeline as pl
 from . import reconcile as rcmod
+from . import recon_route
+from . import category3 as c3
+from . import findings as fd
 from . import records as rec
 from . import rules as rulemod
 from . import util
 from . import checker
 from . import host as hostmod
+from .. import record_authority
 from .gitobj import GitRepo, Overlay, Unresolvable, first_parent_chain, full_id, regular_modes
 
 here = os.path.dirname(os.path.abspath(__file__))
@@ -41,6 +46,12 @@ class Parser(argparse.ArgumentParser):
         raise UsageError('help requested:\n' + self.format_help())
 
 
+def segment_spec(value):
+    if '..' not in value.partition('=')[0]:
+        raise argparse.ArgumentTypeError('segment must be from..to')
+    return value
+
+
 def build_parser():
     p = Parser(prog='ledger_coverage.py', add_help=True)
     sub = p.add_subparsers(dest='op')
@@ -58,10 +69,10 @@ def build_parser():
     c = sub.add_parser('coverage')
     common(c)
     c.add_argument('--commit', required=True)
-    c.add_argument('--segment', action='append', default=[])
+    c.add_argument('--segment', action='append', type=segment_spec, default=[])
     c.add_argument('--hp', action='append', default=[])
     c.add_argument('--classify', action='append', default=[])
-    c.add_argument('--check', default=None)
+    c.add_argument('--check', action='append', default=[])
     c.add_argument('--final', action='store_true')
     e = sub.add_parser('execution')
     common(e)
@@ -69,6 +80,7 @@ def build_parser():
     e.add_argument('--candidate', required=True)
     e.add_argument('--certified', default=None)
     e.add_argument('--main', default=None)
+    e.add_argument('--record-base', default=None)
     e.add_argument('--landing', default=None)
     e.add_argument('--ledger', required=True)
     e.add_argument('--edits', default=None)
@@ -90,6 +102,10 @@ def build_parser():
     rp.add_argument('--snapshot', required=True, help='a committed landing record (oi-ledger-landing/1)')
     rp.add_argument('--out', required=True)
     rp.add_argument('--repo', default=None)
+    cu = sub.add_parser('custody', help='the gate check of the custody record of obligation 29 at a commit')
+    cu.add_argument('--commit', required=True)
+    cu.add_argument('--out', required=True)
+    cu.add_argument('--repo', default=None)
     s = sub.add_parser('self-test')
     s.add_argument('--out', required=True)
     s.add_argument('--repo', default=None)
@@ -206,7 +222,8 @@ def rule_files(loaded, harness, ctx_lookup):
         if doc is None or doc.get('schema') != rulemod.rules_schema:
             items.append(oc.make_item('RECORD', 'record-invalid', ref['path'], None, {'why': 'schema'}))
             continue
-        probs = [] if harness else rec.lint_chain(ref, loaded.store, loaded.admitted)
+        # record lint runs in every admission mode, the control harness included (design r6, OBL-28 C-29)
+        probs = rec.lint_chain(ref, loaded.store, loaded.admitted)
         sup = doc.get('supersedes')
         old_rules = {}
         od = None
@@ -252,6 +269,292 @@ def rule_files(loaded, harness, ctx_lookup):
 
 # ---- the run -------------------------------------------------------------------------------------------
 
+def category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, records):
+    # design r6 R6.RECON.26 (findings of the first kind) and R6.RECON.27
+    """Scan M's tree, the records the run reads and the scanned sets of F's tree and of each record commit the run
+    names; block the run where a finding applies and no reassessment the configuration cites lifts it."""
+    pinned = (cfg['roles'].get('side_change_classes') or {}) if isinstance(cfg.get('roles'), dict) else {}
+    pinned_doc = loaded.store.get(pinned) if pinned.get('path') in getattr(ex, 'record_refs', {}) else None
+    F = resolve(repo, a.freeze) if a.freeze else None
+    scope = recon_route.Scope(repo, H, M, None, F, records.harness, pinned_doc,
+                              posixpath.dirname(split_ref(a.config)[1]), led['files'], lambda p: False, [])
+    schemas = rcmod.reconciliation_schemas
+    # R6.OBL29.4: the presence-based discharge conditions (the repair's current entry and review) read M's scan with
+    # its existing selector
+    m_scan = recon_route.scanned(repo, M, scope)
+    # R6.OBL29.1, .2, .5, .7: detection reads the cumulative record set over every tree reachable through any parent
+    # from M, F and each named REV, with the fixed selector, plus the records the run reads
+    revs = sorted({c[1] for c in route_cands})
+    try:
+        cum = c3.Cumulative(repo, [M] + ([F] if F else []) + revs, schemas, recon_route.audits_root)
+        # the records the run reads explicitly: reconciliation records, and the review records the configuration
+        # references (R6.OBL29.1)
+        explicit_reviews = []
+        for r_ in cfg['records']:
+            d_ = loaded.store.get(r_) if isinstance(r_, dict) else None
+            if isinstance(d_, dict) and d_.get('schema') == rec.review_schema:
+                explicit_reviews.append(dict(d_, _ref={'path': r_['path'], 'blob_sha256': r_['blob_sha256']},
+                                             _source=loaded.ref['commit']))
+
+        def explicit_at(ref):
+            for r_ in recon:
+                if r_.get('_ref') == {'path': (ref or {}).get('path'), 'blob_sha256': (ref or {}).get('blob_sha256')}:
+                    return {k: v for k, v in r_.items() if k not in ('_ref', '_source')}
+            return None
+        # a record the run reads explicitly resolves a review naming it (r9 Amendment 1 A1.4, A1.5). Needed, not
+        # defensive: in a control-harness run there is no F root, so a record the configuration cites is outside R*
+        # (control A1-INDEPENDENT-RECORD-VIA-EXPLICIT-ONLY fails without it)
+        cum.explicit_record_at = explicit_at
+        # an explicitly read review's revision is checked against the roots of R* and the commit it is read from
+        found = c3.unique(cum.findings() + c3.findings_of_records(
+            recon + explicit_reviews, schemas, lambda ref: cum.record_at(ref) or explicit_at(ref),
+            lambda r_, d_: rec.revision_problems(repo, cum.roots + [r_.get('_source')], d_)))
+    except Unresolvable as exc:
+        raise oc.Stop(oc.error, 'UNRESOLVABLE', 'the cumulative record set cannot be read: %s' % exc)
+    out = []
+    # the ordinary malformed-nonfinding lint of the current snapshot at M (R6.OBL29.2, R6.RECON.35): a class (b) or
+    # (c) file without an invalidation signal, with the existing selector (tool-landing prefixes and the plan's record
+    # directory excluded unless the run reads the file)
+    read_paths = {(r.get('_ref') or {}).get('path') for r in recon}
+    for path in cum.malformed_at(M, lambda q: q not in read_paths and (
+            any(q.startswith(x) for x in scope.prefixes) or (scope.plan_dir and q.startswith(scope.plan_dir)))):
+        out.append(oc.make_item('RECORD', 'record-invalid', path, None, {'why': 'malformed record'},
+                                detail=['a malformed record of the scan, class (b) or (c), at M']))
+    anchors = [F] if F else (revs or [M])
+    rcache = {}
+
+    def resolve_cfg(ref):
+        # R6.RECON.33: a configuration reference resolves at the newest commit on the anchor's first-parent chain
+        # whose tree holds the path with a blob of that sha256.
+        key = (ref.get('path'), ref.get('blob_sha256'))
+        if key not in rcache:
+            rcache[key] = None
+            for anchor in anchors:
+                c = anchor
+                while c and rcache[key] is None:
+                    try:
+                        b = repo.read(c, ref['path'])
+                    except Unresolvable:
+                        b = None
+                    if b is not None and util.sha256(b) == ref['blob_sha256']:
+                        try:
+                            rcache[key] = (json.loads(b.decode('utf-8')), c)
+                        except (ValueError, UnicodeDecodeError):
+                            pass
+                        break
+                    ps = repo.parents(c)
+                    c = ps[0] if ps else None
+        return rcache[key]
+
+    ancestor_loads = {}
+
+    def load_ancestor(ref, commit):
+        key = (ref['path'], ref['blob_sha256'], commit)
+        if key not in ancestor_loads:
+            ancestor_loads[key] = cfgmod.load(repo, commit, ref['path'], ref['blob_sha256'], None, 'harness')
+        return ancestor_loads[key]
+
+    def ledger_of(ref, commit):
+        if commit == loaded.ref['commit'] and ref == {k: loaded.ref[k] for k in ('path', 'blob_sha256')}:
+            return led
+        try:
+            return load_adapter_input(repo, load_ancestor(ref, commit), 'ledger')
+        except Unresolvable:
+            raise  # an unreadable object: ERROR
+        except Exception as exc:  # the named configuration resolves but its ledger cannot be read
+            raise fd.RunLevelBlock('Form (ii): the ledger of the named configuration %s cannot be read (%s)'
+                                   % (ref.get('path'), exc))
+    findings = []
+    blocked = []
+    bound = {}
+
+    def fkey(f):
+        return ((f['record'] or {}).get('path'), (f['record'] or {}).get('blob_sha256'), f['kind'], f.get('item'),
+                f['path'])
+    cum_m_holder = []
+
+    def cum_m():
+        # the walk from M alone: the M-derived portion of R* (R6.OBL29.3 competing successors; the witnesses in M's
+        # ancestry of r13 Amendment 7)
+        if not cum_m_holder:
+            cum_m_holder.append(c3.Cumulative(repo, [M], schemas, recon_route.audits_root))
+        return cum_m_holder[0]
+    try:
+        migrations, migration_items, migration_refs = c3.migration_map(
+            repo, loaded, load_ancestor, ledger_of, lambda: [(M, p, b) for p, b in m_scan] + [
+                (at, p, b) for at in sorted(set(revs + ([F] if F else [])) - {M})
+                for p, b in recon_route.scanned(repo, at, scope)])
+        out.extend(migration_items)
+        records.used.extend(migration_refs)
+        bview = c3.Binding(repo, M, cfg, {'path': loaded.ref['path'], 'blob_sha256': loaded.ref['blob_sha256']}, led,
+                           resolve_cfg, ledger_of, record_at=lambda ref: cum.record_at(ref) or explicit_at(ref),
+                           cfg_commit=loaded.ref['commit'], migrations=migrations)
+        for f in found:
+            present, wit = cum.witness(f['record'] or {}, M, revs, F)
+            entry = f.get('entry')
+            if not isinstance(entry, dict):
+                # a malformed finding, or one with no readable entry: a run-level block (owner decision 5 of
+                # 2026-11-27, r13 Amendment 7: the run-level item of Form (iv)), with FAIL record-invalid; its evidence
+                # and provenance stay in the result
+                form = list(f.get('form') or []) + ['the finding has no readable entry with side_change_commits; it '
+                                                    'blocks at run level']
+                bound[fkey(f)] = ([], True, form, present)
+            else:
+                # r13 Amendment 7 gap (i): the list limits the runs only when it passes the scope test; otherwise the
+                # finding blocks every run in which it is found, and the list is a form failure
+                er = f.get('entry_record')
+                src = None
+                for r_ in recon:
+                    if isinstance(er, dict) and r_.get('_ref') == {'path': er.get('path'),
+                                                                   'blob_sha256': er.get('blob_sha256')}:
+                        src = r_.get('_source')
+                why = c3.scope_problems(repo, entry.get('side_change_commits'), entry.get('path'), er, cum, cum_m(),
+                                        src)
+                applies = c3.in_m(repo, M, entry['side_change_commits']) if not why else True
+                edits, run_level, form = c3.bind(f, bview) if applies else ([], False, list(f.get('form') or []))
+                if why:
+                    form = list(form) + ['side_change_commits does not scope the finding: %s' % why[0]]
+                bound[fkey(f)] = (edits, run_level, form, present)
+            findings.append({'record': f['record'], 'item': f.get('item'), 'kind': f['kind'], 'path': f['path'],
+                             'class': f.get('class'), 'present_at_M': present, 'witness': wit})
+    except Unresolvable as exc:
+        raise oc.Stop(oc.error, 'UNRESOLVABLE', 'a category-3 input cannot be read: %s' % exc)
+    # OBL-29 custody (R6.CUST.1-.9): checked at effective M whenever the configuration cites a reassessment
+    from .. import record_authority as ra_
+    from . import custody as cust
+
+    def build_custody(at, own_freeze, records):
+        check = cust.Check(repo, at, own_freeze, ra_.custody_path, ra_.custody_bootstrap_blob, records,
+                           recon_route.audits_root, cfgmod.read_pin_table, recon_route.audits_root)
+        check.tool_landing_id = ra_.tool_landing_class_id
+        check.ledger_files = context_ledger_files(repo)
+
+        def load_context_config(f_, cref_):
+            return cfgmod.load(repo, f_, cref_['path'], cref_['blob_sha256'], None, 'harness')
+
+        def context_ledger(loaded_):
+            return load_adapter_input(repo, loaded_, 'ledger')
+
+        check.replayer = lambda c_, m_, rev_: c3.replay_run(repo, c_, m_, rev_, load_context_config, schemas,
+                                                           recon_route.audits_root, context_ledger)
+        return check
+
+    historical_witnesses = {}
+
+    def witnesses_at(at):
+        """Use custody as of L(J), including its own reviewed close and exact replay."""
+        if at not in historical_witnesses:
+            records = c3.Cumulative(repo, [at], schemas, recon_route.audits_root)
+            check = build_custody(at, None, records)
+            report = check.run()
+            historical_witnesses[at] = check.witnesses if report.get('status') == 'established' else ()
+        return historical_witnesses[at]
+
+    custody = None
+    if any(isinstance(r, dict) and r.get('kind') == 'reassessment' for r in cfg['records']):
+        try:
+            chk = build_custody(M, F, cum)
+            custody = chk.run()
+        except Unresolvable as exc:
+            raise oc.Stop(oc.error, 'UNRESOLVABLE', 'a custody object cannot be read: %s' % exc)
+        for p_ in custody.get('problems') or []:
+            out.append(oc.make_item('RECORD', 'record-invalid', ra_.custody_path, None,
+                                    {'custody': p_['item'], 'why': p_['why']},
+                                    detail=['%s: %s' % (p_['item'], p_['why'])]))
+    # If there is no adjudication to evaluate, retain the ordinary repair-review diagnostics, including on a run
+    # with incomplete custody. Defer only on the path that will check R6.ADJ.12.
+    defer_repair_review = custody is not None and custody.get('status') == 'established' and bool(chk.witnesses) and \
+        any(r.get('kind') == 'adjudication' for r in cfg['records'])
+    applying = []
+    for r in cfg['records']:
+        if r.get('kind') != 'reassessment':
+            continue
+        d = loaded.store.get(r)
+        probs = c3.reassessment_problems(repo, M, led, d, r, loaded.store, loaded.admitted, found, m_scan, schemas,
+                                         cum, run_level=lambda f: bound.get(fkey(f), ([], False))[1],
+                                         custody=custody, defer_repair_review=defer_repair_review)
+        try:
+            probs = c3.live_lineage_problems(repo, M, d, cfg, loaded.store, scope, m_scan, cum_m, schemas) + probs
+        except Unresolvable as exc:
+            raise oc.Stop(oc.error, 'UNRESOLVABLE', 'a category-3 input cannot be read: %s' % exc)
+        if probs:
+            out.append(oc.make_item('RECORD', 'record-invalid', r['path'], None,
+                                    {'sha': r.get('blob_sha256'), 'why': probs[0]}, detail=probs))
+        else:
+            applying.append((d, r))
+    # r9 sec. 2.2 over the witnesses custody supplies (R6.CUST.6): a discharge blocked by one is inapplicable
+    if custody is not None and custody.get('status') == 'established' and chk.witnesses and applying:
+        try:
+            from .. import record_authority as ra2
+            wblocked, review_blocked, rows, adj_rows = c3.custody_decisions(
+                repo, chk.witnesses, applying, loaded, m_scan, cum, schemas, M=M,
+                Fprime=F or loaded.ref['commit'], explicit_at=explicit_at, owners=ra2.owner_identities,
+                witnesses_at=witnesses_at)
+            custody['adjudications'] = adj_rows
+        except Unresolvable as exc:
+            raise oc.Stop(oc.error, 'UNRESOLVABLE', 'a custody witness input cannot be read: %s' % exc)
+        if rows:
+            custody['decisions'] = rows
+        gone = set()
+        for (_d, r_), problems in review_blocked:
+            gone.add(id(r_))
+            out.append(oc.make_item('RECORD', 'record-invalid', r_['path'], None,
+                                    {'sha': r_.get('blob_sha256'), 'why': problems[0]}, detail=problems))
+        for (d_, r_), W, clauses in wblocked:
+            gone.add(id(r_))
+            wr = c3.witness_report(W)
+            out.append(oc.make_item('RECORD', 'record-invalid', r_['path'], None,
+                                    {'sha': r_.get('blob_sha256'), 'why': 'blocked by a custody witness',
+                                     'witness': wr},
+                                    detail=['blocked by the %s witness of context %s, run %s, against %s (%s): '
+                                            'clauses %s' % (W['kind'], W['context'], W['run'],
+                                                            W['disputed'].get('path'),
+                                                            ', '.join(x['path'] for x in wr['forming']),
+                                                            ', '.join(clauses))],
+                                    witness=wr))
+        applying = [(d_, r_) for d_, r_ in applying if id(r_) not in gone]
+    lifted = c3.lifting(applying)
+    wit_of = {fkey(f): x['witness'] for f, x in zip(found, findings)}
+    for f in found:
+        edits, run_level, form, present = bound[fkey(f)]
+        hits = [e for e in edits if not lifted(f, e)]
+        if run_level and not lifted(f, None):
+            hits.append(None)
+        for e in hits:
+            blocked.append((f, e))
+        # a form failure: FAIL record-invalid for a finding present at M, and for a historical-only finding while it
+        # binds and lacks an applying discharge (R6.OBL29.2)
+        if form and (present or hits):
+            out.append(oc.make_item('RECORD', 'record-invalid', (f['record'] or {}).get('path'), None,
+                                    {'finding': f['record'], 'item': f.get('item'), 'why': form[0]},
+                                    detail=['a form failure of a category-3 finding: %s' % x for x in form],
+                                    # its evidence and provenance (owner decision 5): the record's path and blob, its
+                                    # kind and detection class, and the witness commit that supplies it
+                                    evidence={'finding': f['record'], 'item': f.get('item'), 'kind': f['kind'],
+                                              'class': f.get('class'), 'source': wit_of.get(fkey(f))}))
+    out += c3.blocked_items(repo, H, M, blocked, getattr(ex, 'dispositions', []))
+    explicit = [{'path': (r.get('_ref') or {}).get('path'), 'blob_sha256': (r.get('_ref') or {}).get('blob_sha256'),
+                 'source': r.get('_source')} for r in recon + explicit_reviews]
+    result['category3_read_domain'] = cum.read_domain(explicit)
+    # R6.ADJ.13: the adjudications in R* naming each finding
+    if cum.adjudications():
+        from .. import record_authority as ra3
+        arun = c3.adjudication_run(repo, M, F or loaded.ref['commit'], loaded, m_scan, cum, explicit_at,
+                                   witnesses_at, ra3.owner_identities)
+        evaluated = {(x['path'], x['blob_sha256']): x for x in (custody or {}).get('adjudications') or []}
+        for f, x in zip(found, findings):
+            x['adjudications'] = c3.adjudication_entries(arun, f, evaluated)
+    else:
+        for x in findings:
+            x['adjudications'] = []
+    result['category3'] = {'custody': custody if custody is not None else {'status': 'not-required'},
+                           'findings': findings,
+                           'blocked': [{'record': f['record'], 'item': f.get('item'), 'path': f['path'], 'edit': e}
+                                       for f, e in blocked],
+                           'reassessments': [r for _d, r in applying]}
+    return out
+
+
 def run(argv, repo=None, harness=False, stderr=None, extra_records=(), preflight_fn=None, control=None,
         environ=None):
     """Returns (exit status, result dict or None). Nothing is written except under --out. A harness run (an
@@ -269,8 +572,15 @@ def run(argv, repo=None, harness=False, stderr=None, extra_records=(), preflight
         if a.op == 'replay':
             from . import replay
             return replay.cli(a, out, repo, stderr)
+        if a.op == 'custody':
+            return custody_gate(a, out, repo, repo_path, argv)
         if getattr(a, 'final', False) and not getattr(a, 'check', None):
             raise UsageError('--final requires --check')
+        if a.op == 'terms':
+            if a.profile and a.check:
+                raise UsageError('--profile and --check are exclusive')
+            if bool(a.base) != bool(a.ledger):
+                raise UsageError('--base and --ledger go together')
     except UsageError as exc:
         msg = {'schema': oc.result_schema, 'outcome': oc.usage, 'exit_status': 64, 'message': str(exc)}
         stderr.write(json.dumps(msg, sort_keys=True) + '\n')
@@ -321,6 +631,61 @@ def invocation(argv):
             continue
         out.append(x)
     return out
+
+
+def context_ledger_files(repo):
+    # files(context) -> the set of ledgered paths of a custody context's configuration, read at its freeze through
+    # the configuration's own ledger adapter (R6.RECON.1), or None when they cannot be read.
+    def files(c_):
+        try:
+            other = cfgmod.load(repo, c_['f'], c_['config']['path'], c_['config']['blob_sha256'], None, 'harness')
+            led = load_adapter_input(repo, other, 'ledger')
+            return set((led.get('files') or {}).keys())
+        except Exception:  # an unreadable ledger leaves the directory undecided (custody-run-shape)
+            return None
+    return files
+
+
+def custody_gate(a, out, repo, repo_path, argv):
+    # R6.CUST.10: at the commit under check as M, R6.CUST.2 for the version in its tree, R6.CUST.4, the mechanical
+    # parts of R6.CUST.5 (c1) for freeze entries, (c3), (c4)'s second clause and (c5), the second and third clauses of
+    # (c2), and R6.CUST.8; it does not require a close for every context and establishes nothing for a run. Exit 0 when
+    # every clause holds, 20 with record-invalid items otherwise, 65 on an unreadable object.
+    from .. import record_authority as ra_
+    from . import custody as cust
+    res = {'schema': oc.result_schema, 'operation': 'custody', 'engine': engine_identity(), 'preflight': [],
+           'record_checks': None, 'items': [], 'invocation': invocation(argv)}
+    try:
+        if repo is None:
+            repo = Overlay(GitRepo(repo_path))
+        M = resolve(repo, a.commit)
+        cum = c3.Cumulative(repo, [M], rcmod.reconciliation_schemas, recon_route.audits_root)
+        chk = cust.Check(repo, M, None, ra_.custody_path, ra_.custody_bootstrap_blob, cum, recon_route.audits_root,
+                         cfgmod.read_pin_table, recon_route.audits_root)
+        chk.tool_landing_id = ra_.tool_landing_class_id
+        chk.ledger_files = context_ledger_files(repo)
+        rep = chk.run(gate=True)
+        # the gate checks (c4)'s second clause only (an unfrozen entry names a discharge-bearing configuration): the
+        # first clause's "unaccounted for" failures are dropped. The pin-rule failure ("the only cover of a
+        # configuration pinned after it") is kept, although R6.CUST.10's text names only (c4)'s second clause: a
+        # deliberate, stricter choice (an entry the pin rule refuses can never be repaired once it lands, R-C4),
+        # put to the owner
+        rep['problems'] = [p for p in rep['problems'] if not (p['item'] == 'custody-incomplete' and
+                                                              'unaccounted for' in p['why'])]
+        rep['status'] = 'established' if not rep['problems'] else 'unestablished'
+        res['custody'] = rep
+        res['items'] = oc.sort_items([oc.make_item('RECORD', 'record-invalid', ra_.custody_path, None,
+                                                   {'custody': p['item'], 'why': p['why']},
+                                                   detail=['%s: %s' % (p['item'], p['why'])])
+                                      for p in rep['problems']])
+        outc = oc.compute(res['preflight'], None, res['items'])
+    except Unresolvable as exc:
+        res['stop'] = {'class': 'UNRESOLVABLE', 'message': str(exc)}
+        outc = oc.error
+    res['outcome'] = outc
+    res['exit_status'] = oc.exit_codes[outc]
+    write(out, res)
+    return res['exit_status'], res
 
 
 def write(out, result, harness=False):
@@ -529,16 +894,43 @@ def stages(a, repo, harness, result, extra_records, preflight_fn, control, envir
     # admission (sec. 6.3), then integrity: configuration, adapters, profiles, records
     crev, cpath = split_ref(a.config)
     adm, table = admission(a, repo, harness, control, crev, cpath, environ)
+    if getattr(a, 'record_base', None) is not None and (adm.get('mode') == 'chain' or adm.get('simulated_chain')):
+        # amendment 4: the record base of a predicted M is a control-harness input only; refused before the
+        # configuration load and the preflight, so that USAGE takes precedence (sec. 7)
+        raise oc.Stop(oc.usage, 'USAGE', '--record-base in a chain-admitted run')
     loaded = cfgmod.load(repo, crev, cpath, None, a.op, 'harness' if harness else 'chain', extra_records, adm, table)
     cfg = loaded.config
     rec_adm = dict(loaded.admission)
     result['config'] = {'config_id': cfg['config_id'], 'version': cfg['version'], 'path': cpath,
                         'commit': loaded.ref['commit'], 'blob_sha256': loaded.ref['blob_sha256'],
                         'admission': rec_adm}
+    if getattr(loaded, 'transition', None):
+        t = loaded.transition
+        result['transition'] = {'descriptor': t['descriptor'], 'base': t['base'], 'tips': t['tips'],
+                                'prior': t['prior']}
     result['adapters'] = loaded.adapter_records
     result['profiles'] = loaded.profile_records
     result['rule_files'] = [{'path': r['path'], 'blob_sha256': r['blob_sha256']} for r, _ in loaded.rule_files]
     result['hp_merges'] = cfg['hp_obligations']
+    if harness and control.get('overrides'):
+        loaded.control_overrides = control['overrides']
+    if a.op == 'coverage':
+        commit, segment_refs = coverage_chain(a, repo, cfg)
+    elif a.op == 'terms':
+        commit = resolve(repo, a.commit)
+        selection = terms_selection(a, cfg['checks'], loaded.profiles)
+        base = ledger = None
+        if a.base:
+            base = resolve(repo, a.base)
+
+            def correspondence_context():
+                return classification_context(repo, loaded, result, harness, control)[0]
+
+            ledger = load_adapter_input(repo, loaded, 'ledger', a.ledger,
+                                        correspondence_context=correspondence_context)
+            if ledger['base'] != base:
+                raise oc.Stop(oc.error, 'SCIENTIFIC_BASE_MISMATCH', 'ledger base is not --base')
+            pl.check_ledger(repo, base, ledger)
     # controls
     from . import selftest
     pf = (preflight_fn or selftest.preflight)()
@@ -546,12 +938,43 @@ def stages(a, repo, harness, result, extra_records, preflight_fn, control, envir
     if any(not p['passed'] for p in pf):
         raise oc.Stop(oc.void, 'PREFLIGHT_FAILED', 'a preflight control failed', {'failed': [p['id'] for p in pf
                                                                                               if not p['passed']]})
+    if getattr(a, 'record_base', None) is not None:
+        result.setdefault('inputs', {})['record_base'] = a.record_base
     records = RecordSet(loaded, harness)
+    ctx, rule_items = classification_context(repo, loaded, result, harness, control)
+    items = list(rule_items)
+    op = a.op
+    if op == 'record':
+        body = op_record(a, repo, ctx, loaded, result)
+    elif op == 'coverage':
+        body = op_coverage(a, repo, ctx, loaded, records, result, commit, segment_refs)
+    elif op == 'terms':
+        body = op_terms(a, repo, ctx, loaded, records, result, commit, base, ledger, selection)
+    else:
+        body = op_execution(a, repo, ctx, loaded, records, result, control)
+    items += body + records.items
+    if getattr(a, 'final', False):
+        chk = ctx.check(a.check[0] if isinstance(a.check, list) else a.check)
+        if chk is None or not chk.get('final_profiles'):
+            raise oc.Stop(oc.usage, 'USAGE', '--final with a check that has no final profiles')
+        items = oc.apply_final(items, chk['final_profiles'])
+    items = oc.sort_items(items)
+    result['records_used'] = sorted(records.used, key=lambda r: (r['path'], r['blob_sha256']))
+    result['items'] = items
+    result['finding_counts'] = counts(items)
+    outc = oc.compute(result['preflight'], result['record_checks'], items)
+    result['outcome'] = outc
+    result['exit_status'] = oc.exit_codes[outc]
+    finish_snapshot(result)
+    return result
+
+
+def classification_context(repo, loaded, result, harness, control):
+    cfg = loaded.config
     indicators = ctxmod.Indicators(cfg['indicators'])
     ctx = pl.RunContext(repo, cfg, loaded.profiles, [], {}, indicators)
     lookup = lookups(ctx, loaded)
     if harness and control.get('overrides'):
-        loaded.control_overrides = control['overrides']
         result['control'] = 'adapter output replaced in memory by the control: %s' % sorted(control['overrides'])
     if harness and control.get('without_allow_rules'):
         loaded.rule_files = [(r, d) for r, d in loaded.rule_files
@@ -566,31 +989,7 @@ def stages(a, repo, harness, result, extra_records, preflight_fn, control, envir
     bad = {i['subject'] for i in rule_items}
     ctx.edit_params = peredit.find_params([(r, d) for r, d in loaded.rule_files if r['path'] not in bad])
     loaded.ctx = ctx
-    items = list(rule_items)
-    op = a.op
-    if op == 'record':
-        body = op_record(a, repo, ctx, loaded, result)
-    elif op == 'coverage':
-        body = op_coverage(a, repo, ctx, loaded, records, result)
-    elif op == 'terms':
-        body = op_terms(a, repo, ctx, loaded, records, result)
-    else:
-        body = op_execution(a, repo, ctx, loaded, records, result, control)
-    items += body + records.items
-    if getattr(a, 'final', False):
-        chk = ctx.check(a.check)
-        if chk is None or not chk.get('final_profiles'):
-            raise oc.Stop(oc.usage, 'USAGE', '--final with a check that has no final profiles')
-        items = oc.apply_final(items, chk['final_profiles'])
-    items = oc.sort_items(items)
-    result['records_used'] = sorted(records.used, key=lambda r: (r['path'], r['blob_sha256']))
-    result['items'] = items
-    result['finding_counts'] = counts(items)
-    outc = oc.compute(result['preflight'], result['record_checks'], items)
-    result['outcome'] = outc
-    result['exit_status'] = oc.exit_codes[outc]
-    finish_snapshot(result)
-    return result
+    return ctx, rule_items
 
 
 def finish_snapshot(result):
@@ -683,7 +1082,16 @@ def declared_sites(repo, loaded):
     return {'pin': pin, 'sites': out, 'override_anchors': {}, 'read_entries': [], 'errors': []}
 
 
-def load_adapter_input(repo, loaded, iface, rev_path=None):
+def _canonical_ledger_value(value):
+    """The raw values hashed for ledger bindings contain only integer numbers."""
+    if isinstance(value, dict):
+        return all(isinstance(key, str) and _canonical_ledger_value(item) for key, item in value.items())
+    if isinstance(value, list):
+        return all(_canonical_ledger_value(item) for item in value)
+    return value is None or isinstance(value, (str, int))
+
+
+def load_adapter_input(repo, loaded, iface, rev_path=None, correspondence_context=None):
     """Reads an adapter's main input and companions by their pins; returns the adapter's output."""
     ov = getattr(loaded, 'control_overrides', {}).get(iface)
     if ov is not None:
@@ -710,14 +1118,29 @@ def load_adapter_input(repo, loaded, iface, rev_path=None):
     errs = out.get('errors', [])
     if errs:
         kind = errs[0][0]
-        cls = 'SOURCE_CHANGED' if kind in ('schema', 'correspondence') else 'EDITS_HASH_MISMATCH' \
-            if kind == 'edits_sha256' else 'LEDGER_INTEGRITY'
+        if kind == 'edits_sha256':
+            cls = 'EDITS_HASH_MISMATCH'
+        elif iface != 'ledger' and kind in ('schema', 'correspondence'):
+            cls = 'SOURCE_CHANGED'
+        else:
+            cls = 'LEDGER_INTEGRITY'
         detail = {'errors': [e[1] for e in errs[:20]]}
-        if kind == 'correspondence' and getattr(loaded, 'ctx', None) is not None:
+        if kind == 'correspondence':
             # the per-edit result of items 5 and 6 is computed and recorded even on a refusal (sec. 6.1, C4)
-            rec_, _ = peredit.evaluate(out, loaded.ctx.edit_params, loaded.ctx.profiles)
-            detail['per_edit'] = rec_
+            ctx = getattr(loaded, 'ctx', None)
+            if ctx is None and correspondence_context is not None:
+                ctx = correspondence_context()
+            if ctx is not None:
+                rec_, _ = peredit.evaluate(out, ctx.edit_params, ctx.profiles)
+                detail['per_edit'] = rec_
         raise oc.Stop(oc.error, cls, errs[0][1], detail)
+    if iface == 'ledger':
+        raw = out.get('raw')
+        if not isinstance(raw, dict) or not isinstance(raw.get('files'), dict) or \
+                not isinstance(raw.get('splices'), list) or not isinstance(raw.get('edits'), list):
+            raise oc.Stop(oc.error, 'LEDGER_INTEGRITY', 'ledger adapter did not return the raw binding entries')
+        if not all(_canonical_ledger_value(raw[key]) for key in ('files', 'splices', 'edits')):
+            raise oc.Stop(oc.error, 'LEDGER_INTEGRITY', 'ledger binding entries cannot be canonically hashed')
     return out
 
 
@@ -758,6 +1181,10 @@ def op_record(a, repo, ctx, loaded, result):
             return res
 
     rr = loaded.modules['replay'].replay(Reader(), pin, rc, rp['module_path'], ctx.corpus(pin), out_root)
+    if 'exception' in rr:
+        error = rr['exception']
+        message = '%s raised %s: %s' % (error['stage'], error['class'], error['message'])
+        raise oc.Stop(oc.internal, oc.internal, message, dict(error, calls=rr['calls']))
     sites = pl.build_sites(_with_sitemap(ctx, sm))
     pin_findings = []
     for s in sites:
@@ -769,16 +1196,24 @@ def op_record(a, repo, ctx, loaded, result):
             lines = ctx.ft(pin, f).lines
             if not (0 < int(ln) <= len(lines)) or anchor not in lines[int(ln) - 1]:
                 pin_findings.append('%s: override anchor not in its pin line' % key)
-    holds = all(e['equal'] for e in rr['equalities']) and not rr['errors'] and rr['self_test'] and \
-        not pin_findings and len(rr['equalities']) == 5
+    failed = [(e['name'], e) for e in rr['equalities'] if not e['equal']]
+    if len(rr['equalities']) != 5:
+        failed.append(('equalities', 'the replay did not report five equalities'))
+    if rr['errors']:
+        failed.append(('errors', rr['errors']))
+    if not rr['self_test']:
+        failed.append(('frozen_self_test', False))
+    if pin_findings:
+        failed.append(('pin_findings', pin_findings))
     anchors = [{'site_id': s['site_id'], 'anchor_sha256': s['anchor_sha256'], 'pin_count': s['pin_count'],
                 'ordinal': s['ordinal'], 'context_sha256': s['pin_context_sha256']} for s in sites]
-    result['record_checks'] = {'holds': holds, 'equalities': rr['equalities'], 'errors': rr['errors'],
+    result['record_checks'] = {'holds': not failed, 'equalities': rr['equalities'], 'errors': rr['errors'],
                                'frozen_self_test': rr['self_test'], 'ck_errors': rr.get('ck_errors'),
                                'extended_unmapped': rr.get('extended_unmapped'), 'pin_findings': pin_findings,
                                'anchors': len(anchors), 'anchors_sha256': util.fingerprint(anchors)}
     result['covered_paths'] = ctx.corpus(pin)
-    return []
+    return [oc.make_item('RECORD', 'record-invalid', name, None, {'detail': value}, detail=value)
+            for name, value in failed]
 
 
 def _with_sitemap(ctx, sm):
@@ -788,23 +1223,25 @@ def _with_sitemap(ctx, sm):
 
 # ---- op B ------------------------------------------------------------------------------------------------
 
-def parse_segments(a, repo, ctx, loaded, commit):
-    cfg = loaded.config
+def coverage_chain(a, repo, cfg):
+    commit = resolve(repo, a.commit)
     pin = cfg['roles']['pin']
-    specs = a.segment or (['%s..%s' % (pin, commit)] if commit != pin else [])
+    specs = a.segment or ['%s..%s' % (pin, commit)]
+    segments = []
+    for spec in specs:
+        span, _, ledger_ref = spec.partition('=')
+        start, end = span.split('..', 1)
+        segments.append({'from': resolve(repo, start), 'to': resolve(repo, end), 'ledger_ref': ledger_ref})
+    pl.check_segment_chain(pin, commit, segments)
+    return commit, segments
+
+
+def parse_segments(repo, loaded, segment_refs):
     segs = []
-    for s in specs:
-        led = None
-        if '=' in s:
-            rng, lref = s.split('=', 1)
-        else:
-            rng, lref = s, None
-        if '..' not in rng:
-            raise UsageError('segment must be from..to')
-        f, t = rng.split('..', 1)
-        f, t = resolve(repo, f), resolve(repo, t)
+    for ref in segment_refs:
+        f, t, lref = ref['from'], ref['to'], ref['ledger_ref']
         seg = {'from': f, 'to': t}
-        hp = [o for o in cfg['hp_obligations'] if o['segment'] == [f, t]]
+        hp = [o for o in loaded.config['hp_obligations'] if o['segment'] == [f, t]]
         if lref:
             led = load_adapter_input(repo, loaded, 'ledger', lref)
             pl.check_ledger(repo, f, led)
@@ -826,17 +1263,13 @@ def parse_segments(a, repo, ctx, loaded, commit):
     return segs
 
 
-def op_coverage(a, repo, ctx, loaded, records, result):
-    commit = resolve(repo, a.commit)
+def op_coverage(a, repo, ctx, loaded, records, result, commit, segment_refs):
     result['evaluated'] = {'commit': commit}
     sm = load_adapter_input(repo, loaded, 'sitemap')
     ctx.sitemap = sm
     for f in ctx.corpus(commit):
         ctx.ft(commit, f)
-    try:
-        segs = parse_segments(a, repo, ctx, loaded, commit)
-    except UsageError as exc:
-        raise oc.Stop(oc.usage, 'USAGE', str(exc))
+    segs = parse_segments(repo, loaded, segment_refs)
     hp_recs, ctx_recs, hit_recs = [], [], []
     for r in a.hp:
         d = records.admit(repo, r, 'hp')
@@ -847,12 +1280,16 @@ def op_coverage(a, repo, ctx, loaded, records, result):
         if d is None:
             continue
         if d.get('schema') == 'oi-context-adjudication/1':
-            ctx_recs += d.get('entries', [d])
+            ctx_recs += [dict(x, _ref=d['_ref']) for x in d.get('entries', [d])]
         else:
             hit_recs += [dict(x, _ref=d['_ref']) for x in d.get('classifications', [d])]
-    chk = ctx.check(a.check) if a.check else ctx.default_check('coverage')
+    # R6.RECON.33 for coverage (A1 staging amendment r2, sec. 1): exactly one explicit --check naming a check of the
+    # admitted configuration; a missing, repeated or unknown selection is USAGE. No default check exists.
+    if len(a.check) != 1:
+        raise oc.Stop(oc.usage, 'USAGE', 'coverage takes exactly one --check (%d given)' % len(a.check))
+    chk = ctx.check(a.check[0])
     if chk is None:
-        raise oc.Stop(oc.usage, 'USAGE', 'no check selected for coverage and no default in the configuration')
+        raise oc.Stop(oc.usage, 'USAGE', 'unknown check %s' % a.check[0])
     cv = pl.Coverage(ctx, commit, segs, chk, {'hp': hp_recs, 'context': ctx_recs}, hit_recs).run()
     items = list(cv.items)
     review = [ctx.profiles[n] for n in chk['profiles'] if ctx.profiles[n].kind == 'review'
@@ -885,7 +1322,8 @@ def op_coverage(a, repo, ctx, loaded, records, result):
     stexts = pl.splice_texts(ctx, led_segs[-1]['from'], commit, led_segs[-1]['ledger']) if led_segs else None
     tm = pl.Terms(ctx, commit, review + [p for p in ctx.profiles.values() if p.kind == 'review'
                                          and p.applies_to == 'added-text' and p.name in chk['profiles']],
-                  deny, added=added, hit_records=hit_recs, check=chk, splice_texts=stexts)
+                  deny, added=added, hit_records=hit_recs, check=chk, splice_texts=stexts,
+                  chain_segments=[s_['name'] for s_ in segs])
     tm.deny()
     if led_segs and any(p.applies_to == 'added-text' for p in deny):
         items += per_edit(ctx, led_segs[-1]['ledger'], result)
@@ -908,7 +1346,8 @@ def op_coverage(a, repo, ctx, loaded, records, result):
     tm.review(held=held, region_info=ri)
     tm.stale_rules() if ctx.allow_rules else None
     items += tm.items
-    result['sites'] = sorted(cv.site_out.values(), key=lambda s: s['site_id'])
+    result['sites'] = sorted((dict({k: v for k, v in so.items() if k != 'provenance_adjudicated'},
+                                   state=site_state(so)) for so in cv.site_out.values()), key=lambda s: s['site_id'])
     result['hits'] = sorted(tm.hits, key=lambda h: (h['file'], h['line']))
     result['file_conformance'] = getattr(cv, 'file_conformance', [])
     result['segments'] = [{'name': s['name'], 'from': s['from'], 'to': s['to'], 'kind': s['kind']} for s in segs]
@@ -921,6 +1360,10 @@ def op_coverage(a, repo, ctx, loaded, records, result):
     result['profiles_evaluated'] = {commit: sorted({p.name for p in tm.review_profiles} |
                                                    {p.name for p in deny})}
     result['covered_paths'] = ctx.corpus(commit)
+    oos = cv.out_of_scope + tm.out_of_scope
+    if oos:
+        # R6.REC.10, sec. 7: record entries outside the chain or for another tree, reported and not findings
+        result['out_of_scope'] = sorted(oos, key=lambda x: json.dumps(x, sort_keys=True))
     return items
 
 
@@ -956,10 +1399,24 @@ def hit_regions(ctx, cv, segs, commit):
     return info
 
 
+# design r6, R6.PIPE.7 (unresolved) and R6.HP.7 (provenance-adjudicated)
+def site_state(so):
+    """A site's state: unresolved for a site that tracking cannot locate (it stays unresolved in later segments);
+    provenance-adjudicated for a site its HP adjudication resolves (distinct from every segment status); else its
+    last segment status."""
+    last = so['statuses'][-1]['status'] if so['statuses'] else None
+    # an authorized removal and an HP site keep their own state (an HP site's region is decided by its walk)
+    if 'current' in so and so['current'] is None and last != 'authorized-removal' and not so.get('hp_steps'):
+        return 'unresolved'
+    if so.get('provenance_adjudicated'):
+        return 'provenance-adjudicated'
+    return so['statuses'][-1]['status'] if so['statuses'] else ('hp' if so.get('hp_steps') else 'unchanged')
+
+
 def site_counts(cv):
     c = {}
     for so in cv.site_out.values():
-        last = so['statuses'][-1]['status'] if so['statuses'] else ('hp' if so.get('hp_steps') else 'unchanged')
+        last = site_state(so)
         c[last] = c.get(last, 0) + 1
     return dict(sorted(c.items()))
 
@@ -974,13 +1431,9 @@ def hit_counts(hits):
 
 # ---- op D ------------------------------------------------------------------------------------------------
 
-def op_terms(a, repo, ctx, loaded, records, result):
-    commit = resolve(repo, a.commit)
-    result['evaluated'] = {'commit': commit}
-    if a.profile and a.check:
-        raise oc.Stop(oc.usage, 'USAGE', '--profile and --check are exclusive')
+def terms_selection(a, checks, profiles):
     if a.check:
-        chk = ctx.check(a.check)
+        chk = next((check for check in checks if check['id'] == a.check), None)
         if chk is None:
             raise oc.Stop(oc.usage, 'USAGE', 'unknown check %s' % a.check)
         names = chk['profiles']
@@ -988,36 +1441,34 @@ def op_terms(a, repo, ctx, loaded, records, result):
         names = [n.strip() for n in a.profile.split(',') if n.strip()]
         chk = None
     else:
-        chk = ctx.default_check('terms')
-        names = chk['profiles'] if chk else [p for p in ctx.profiles]
+        # no check is defined as a default (R6.RECON.33: `default_for` is CONFIG_INVALID); the terms syntax without
+        # --check or --profile stays as it was for a configuration without a default (staging r2 leaves it open)
+        chk = None
+        names = list(profiles)
     for n in names:
-        if n not in ctx.profiles:
+        if n not in profiles:
             raise oc.Stop(oc.usage, 'USAGE', 'unknown profile %s' % n)
+    return chk, names
+
+
+def op_terms(a, repo, ctx, loaded, records, result, commit, base, led, selection):
+    result['evaluated'] = {'commit': commit}
+    chk, names = selection
     profs = [ctx.profiles[n] for n in names]
     added = {}
     stexts = None
-    if a.base or a.ledger:
-        if not (a.base and a.ledger):
-            raise oc.Stop(oc.usage, 'USAGE', '--base and --ledger go together')
-        base = resolve(repo, a.base)
-        led = load_adapter_input(repo, loaded, 'ledger', a.ledger)
-        if led['base'] != base:
-            raise oc.Stop(oc.error, 'SCIENTIFIC_BASE_MISMATCH', 'ledger base is not --base')
-        if commit != base:
-            added = pl.added_lines(ctx, commit, led, ctx.corpus(commit))
-            stexts = pl.splice_texts(ctx, base, commit, led)
-            if any(p.applies_to == 'added-text' and p.kind == 'deny' for p in profs):
-                records.items.extend(i for i in per_edit(ctx, led, result)
-                                     if set(i.get('profiles', [])) <= set(names))
+    if led is not None and commit != base:
+        added = pl.added_lines(ctx, commit, led, ctx.corpus(commit))
+        stexts = pl.splice_texts(ctx, base, commit, led)
+        if any(p.applies_to == 'added-text' and p.kind == 'deny' for p in profs):
+            records.items.extend(i for i in per_edit(ctx, led, result) if set(i.get('profiles', [])) <= set(names))
     scope_paths = None
+    scope_record = None
     if any(p.spec.get('scope') == 'repo' for p in profs):
         if not a.scope:
             raise oc.Stop(oc.usage, 'USAGE', 'a repo-scoped profile needs --scope')
-        sd = records.admit(repo, a.scope, 'scope')
-        if sd is None:
-            scope_paths = []
-        else:
-            scope_paths = scope_from_record(repo, commit, sd)
+        scope_record = records.admit(repo, a.scope, 'scope')
+        scope_paths = scope_from_record(repo, commit, scope_record) if scope_record is not None else []
     for r in a.rules:
         rv, rp = split_ref(r)
         if not any(x['path'] == rp for x, _ in loaded.rule_files):
@@ -1031,10 +1482,18 @@ def op_terms(a, repo, ctx, loaded, records, result):
     review = [p for p in profs if p.kind == 'review']
     deny = [p for p in profs if p.kind == 'deny']
     counter = [p for p in profs if p.kind == 'countercontrol']
+    # R6.REC.10: operation D has no chain; an entry naming no tree or this tree, and no segment, applies to this tree
+    # and is checked on it (chain_segments empty)
     tm = pl.Terms(ctx, commit, review, deny, added=added, hit_records=hit_recs, check=chk, scope_paths=scope_paths,
-                  splice_texts=stexts)
+                  splice_texts=stexts, chain_segments=[])
     tm.deny()
-    tm.review()
+    prior_lines, prior_regions = None, None
+    if base is not None and review:
+        prior_scope = scope_paths
+        if scope_record is not None and any(p.spec.get('scope') == 'repo' for p in review):
+            prior_scope = scope_from_record(repo, base, scope_record)
+        prior_lines, prior_regions = terms_prior(ctx, base, commit, led, review, prior_scope)
+    tm.review(region_info=prior_regions, prior_lines=prior_lines)
     if ctx.allow_rules:
         tm.stale_rules()
     items = list(tm.items)
@@ -1060,7 +1519,34 @@ def op_terms(a, repo, ctx, loaded, records, result):
     result['profiles_evaluated'] = {commit: sorted(names)}
     result['covered_paths'] = sorted(set(ctx.corpus(commit)) | set(scope_paths or []))
     result['added_text_lines'] = sum(len(v) for v in added.values())
+    if tm.out_of_scope:
+        # R6.REC.10, sec. 7: record entries outside the chain or for another tree, reported and not findings
+        result['out_of_scope'] = sorted(tm.out_of_scope, key=lambda x: json.dumps(x, sort_keys=True))
     return items
+
+
+def terms_prior(ctx, base, commit, ledger, review, scope_paths):
+    """Scan the base tree with the same review rules and map the source spans of replacement images."""
+    source_ranges, added = {}, {}
+    scanned = set(ctx.corpus(base)) | set(scope_paths or [])
+    for splice in ledger['splices']:
+        path, start, end = splice['file'], splice['start'], splice['end']
+        if start == end or path not in scanned:
+            continue
+        data = ctx.repo.read(base, path)
+        lines = range(util.line_of_offset(data, start), util.line_of_offset(data, end - 1) + 1)
+        source_ranges[splice['id']] = path, lines
+        added.setdefault(path, set()).update(lines)
+    prior = pl.Terms(ctx, base, review, [], added=added, scope_paths=scope_paths).review_lines()
+    prior_lines = {(path, ctx.ft(base, path).lines[line - 1]) for path, line in prior}
+    prior_splices = {sid for sid, (path, lines) in source_ranges.items() if any((path, line) in prior for line in lines)}
+    if not prior_splices or commit == base:
+        return prior_lines, {}
+    paths = sorted(set(ctx.corpus(commit)) & {source_ranges[sid][0] for sid in prior_splices})
+    prior_regions = {(path, line): {'pre_existing': True}
+                     for path, images in pl.image_lines(ctx, commit, ledger, paths).items()
+                     for line, splices in images.items() if prior_splices.intersection(splices)}
+    return prior_lines, prior_regions
 
 
 def scope_from_record(repo, commit, sd):
@@ -1153,16 +1639,19 @@ def op_execution(a, repo, ctx, loaded, records, result, control=None):
     for r in cfg['records']:
         d = loaded.store.get(r)
         kind = r.get('kind')
-        if kind == 'side-change-classes' and (d is None or d.get('schema') != 'oi-side-change-classes/1'):
+        if kind == 'side-change-classes' and (not isinstance(d, dict) or d.get('schema') != 'oi-side-change-classes/1'):
+            records.items.append(oc.make_item('RECORD', 'record-invalid', r['path'], None,
+                                              {'sha': r['blob_sha256'], 'why': 'invalid side-change class record'}))
             continue
-        if kind == 'reconciliation' and (d is None or d.get('schema') != 'oi-reconciliation/1'):
+        if kind == 'reconciliation' and (d is None or d.get('schema') not in rcmod.reconciliation_schemas):
             continue
         if kind not in ('side-change-classes', 'reconciliation'):
             continue
         # side-change class records and reconciliation records referenced by the configuration (sec. 6.3, 13.1,
         # 16.2) have their chain linted like any record the run uses; a failing record is record-invalid and is
         # not used
-        probs = [] if records.harness else rec.lint_chain(r, loaded.store, loaded.admitted)
+        # in every admission mode, the control harness included (OBL-28 C-29)
+        probs = rec.lint_chain(r, loaded.store, loaded.admitted)
         # a class without its id field is a field error in every mode (sec. 6.3); it is never used
         probs = probs or ['record %s: %s' % (r['path'], m) for m in rec.item_list_problems(d)[:1]] or \
             ['record %s: %s entry %d lacks its id field' % ((r['path'],) + m) for m in rec.entries_without_id(d)[:1]]
@@ -1174,11 +1663,52 @@ def op_execution(a, repo, ctx, loaded, records, result, control=None):
             side += d.get('classes', [])
             record_refs[r['path']] = r['blob_sha256']
         else:
-            recon.append(dict(d, _ref={'path': r['path'], 'blob_sha256': r['blob_sha256']}))
+            recon.append(dict(d, _ref={'path': r['path'], 'blob_sha256': r['blob_sha256']},
+                              _source=loaded.ref['commit']))
+    # the --classify records (sec. 22): a reconciliation record reaches the run only by the post-freeze route of
+    # R6.RECON.2; a review record is never a primary record; in the control harness every other record kind is
+    # linted at its record commit (OBL-28 C-29)
+    route_cands = []
     for r in a.classify:
+        rev_text, rpath = split_ref(r)
+        if not re.fullmatch(r'[0-9a-f]{40}', rev_text):
+            records.items.append(oc.make_item('RECORD', 'record-invalid', rpath, None,
+                                              {'why': 'the record commit is not a full commit id'},
+                                              detail='a --classify record commit must be a full commit id'))
+            continue
+        rev = resolve(repo, rev_text)
+        try:
+            data = repo.read(rev, rpath)
+        except Unresolvable as exc:
+            records.items.append(oc.make_item('RECORD', 'record-invalid', rpath, None, {'why': 'not a regular file'},
+                                              detail=str(exc)))
+            continue
+        if data is None:
+            raise oc.Stop(oc.error, 'SOURCE_CHANGED', 'record %s not present at %s' % (rpath, rev[:12]))
+        try:
+            doc = json.loads(data.decode('utf-8'))
+        except (ValueError, UnicodeDecodeError):
+            doc = None
+        schema = doc.get('schema') if isinstance(doc, dict) else None
+        if schema in recon_route.recon_schemas:
+            records.used.append({'path': rpath, 'blob_sha256': util.sha256(data), 'kind': 'classification'})
+            route_cands.append((rev_text, rev, rpath, data, doc))
+            continue
+        if schema == recon_route.review_schema:
+            records.used.append({'path': rpath, 'blob_sha256': util.sha256(data), 'kind': 'classification'})
+            records.items.append(oc.make_item('RECORD', 'record-invalid', rpath, None,
+                                              {'sha': util.sha256(data), 'why': 'a review record named as the '
+                                                                                'primary record'}))
+            continue
         d = records.admit(repo, r, 'classification')
         if d is None:
             continue
+        if records.harness:
+            probs = recon_route.lint_classified(repo, rev, rpath, data, d, None)
+            if probs:
+                records.items.append(oc.make_item('RECORD', 'record-invalid', rpath, None,
+                                                  {'sha': d['_ref']['blob_sha256'], 'why': probs[0]}, detail=probs))
+                continue
         if d.get('schema') == 'oi-side-change-classes/1':
             missing = rec.item_list_problems(d) or ['%s entry %d lacks its id field' % m
                                                     for m in rec.entries_without_id(d)]
@@ -1190,13 +1720,27 @@ def op_execution(a, repo, ctx, loaded, records, result, control=None):
                 class_docs.append(d)
                 side += d.get('classes', [])
                 record_refs[d['_ref']['path']] = d['_ref']['blob_sha256']
-        elif d.get('schema') == 'oi-reconciliation/1' and \
-                d['_ref']['blob_sha256'] not in {x['_ref']['blob_sha256'] for x in recon}:
-            recon.append(d)
+    M = resolve(repo, a.main) if a.main else None
+    if route_cands:
+        if M is None:
+            for c in route_cands:
+                records.items.append(oc.make_item('RECORD', 'record-invalid', c[2], None,
+                                                  {'sha': util.sha256(c[3]), 'why': 'no --main: nothing to reconcile'}))
+        else:
+            pinned = (cfg['roles'].get('side_change_classes') or {}) if isinstance(cfg.get('roles'), dict) else {}
+            pinned_doc = loaded.store.get(pinned) if pinned.get('path') in record_refs else None
+            scope = recon_route.Scope(repo, H, M, X, resolve(repo, a.freeze) if a.freeze else None, records.harness,
+                                      pinned_doc, posixpath.dirname(split_ref(a.config)[1]), led['files'],
+                                      ctx.in_corpus, recon, record_base=a.record_base)
+            got, listing, clash = recon_route.admit(repo, route_cands, scope, records.items)
+            if clash:
+                # (e): a configuration-referenced record that shares a path with another is not used either
+                recon = [r for r in recon if recon_route.reference_key(r['_ref']) not in clash]
+            recon += got
+            result.setdefault('inputs', {})['classify_records'] = listing
     dup = rcmod.duplicate_class_ids(class_docs)
     if dup:
         raise oc.Stop(oc.error, 'CONFIG_INCONSISTENT', 'side-change class id defined more than once: %s' % dup[:3])
-    M = resolve(repo, a.main) if a.main else None
     L = resolve(repo, a.landing) if a.landing else None
     C = resolve(repo, a.certified) if a.certified else None
     ex = candidate_with_and_without(ctx, H, X, led, dele, M, L, C, side, recon, record_refs)
@@ -1241,12 +1785,22 @@ def op_execution(a, repo, ctx, loaded, records, result, control=None):
         items.append(oc.make_item('DELEGATED', 'delegated-evidence-missing', 'delegation contract', None,
                                   {'why': 'no contract given'}))
     if M:
+        if a.freeze:
+            # amendment r4, A.4 and A.7: the record-directory rule, evaluated only by an operation that evaluates M
+            # with F
+            ex.record_dir_args = {'freeze': resolve(repo, a.freeze), 'cpath': split_ref(a.config)[1],
+                                  'authorized': record_authority.authorized_record_directories}
         corp = set(ctx.corpus(H)) | set(ctx.corpus(M))
         rp = cfg['adapters'].get('replay') or {}
         rdir = rp.get('module_path', '').rsplit('/', 1)[0] if rp else None
         ex.main_role(set(led['files']) | corp, rp.get('record_tree'), rdir)
-        items += [i for i in ex.items if i['obligation'] == 'MAIN' and i not in items]
+        # the main role's own items: MAIN, and RECORD for a record entry's form or RC12 (amendment 3)
+        items += [i for i in ex.items if i['obligation'] in ('MAIN', 'RECORD') and i not in items]
+        items += category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, records)
         result['side_changes'] = ex.side_changes
+        result['dispositions'] = getattr(ex, 'dispositions', [])
+        if ex.rd is not None:
+            result['record_directory'] = ex.rd.summary()
     if L:
         if not M:
             raise oc.Stop(oc.usage, 'USAGE', '--landing needs --main')

@@ -28,6 +28,21 @@ def _sha(b):
     return hashlib.sha256(b).hexdigest()
 
 
+def _json_object(pairs):
+    result = dict(pairs)
+    if len(result) != len(pairs):
+        raise ValueError('duplicate JSON key')
+    return result
+
+
+def _invalid_number(_value):
+    raise ValueError('non-finite JSON number')
+
+
+def _parse(data):
+    return json.loads(data.decode('utf-8'), object_pairs_hook=_json_object, parse_constant=_invalid_number)
+
+
 def pairs_of(e):
     out = [(e['old'], e['new'])]
     if 'old_step2' in e:
@@ -85,7 +100,7 @@ class Running:
         return hspan
 
 
-def correspondence(edits, splices, read, base):
+def correspondence(edits, splices, read, base, retained=()):
     """Errors (kind, message) when the splices are not exactly P's application of the edit list at base."""
     errors = []
     files = sorted({e['file'] for e in edits})
@@ -122,10 +137,12 @@ def correspondence(edits, splices, read, base):
             continue
         hb = (len(texts[f][:hs[0]].encode('utf-8')), len(texts[f][:hs[1]].encode('utf-8')))
         sp = by_id.get(e['id'])
-        if o == n:
+        if o == n and (sp is None or e['id'] not in retained):
             if sp is not None:
                 errors.append(('correspondence', '%s: a retained edit has a splice' % e['id']))
             continue
+        # R6.PIPE.15 assigns a bound splice of an explicitly retained entry to candidate
+        # evaluation. The splice still has to match the selected source and image exactly.
         if sp is None:
             errors.append(('correspondence', '%s: edit without a splice' % e['id']))
             continue
@@ -160,17 +177,22 @@ def guard_pins(edits):
 def load(main, companions, read=None):
     """main: ledger.json bytes; companions: {'edits': edits.json, 'checker': the plan checker source}."""
     errors = []
-    led = json.loads(main.decode('utf-8'))
-    if led.get('schema') != LEDGER_SCHEMA:
-        return {'errors': [('schema', 'unknown ledger schema %r' % led.get('schema'))]}
     edits_b = companions.get('edits')
-    edits = json.loads(edits_b.decode('utf-8')) if edits_b is not None else None
-    if edits is not None and edits.get('schema') != EDITS_SCHEMA:
-        errors.append(('schema', 'unknown edit-list schema %r' % edits.get('schema')))
+    try:
+        led = _parse(main)
+        edits = _parse(edits_b) if edits_b is not None else None
+    except ValueError as exc:
+        return {'errors': [('schema', 'invalid ledger or edit-list JSON: %s' % exc)]}
+    if not isinstance(led, dict) or led.get('schema') != LEDGER_SCHEMA:
+        return {'errors': [('schema', 'unknown ledger schema')]}
+    if edits_b is not None and (not isinstance(edits, dict) or edits.get('schema') != EDITS_SCHEMA):
+        return {'errors': [('schema', 'unknown edit-list schema')]}
     if led.get('edits_sha256') is not None and edits_b is not None and _sha(edits_b) != led['edits_sha256']:
         errors.append(('edits_sha256', 'edits.json does not hash to edits_sha256'))
     splices = []
     for s in led['splices']:
+        if any(type(s[p]) is not int or s[p] < 0 for p in ('start', 'end')):
+            return {'errors': [('schema', '%s: invalid byte offset' % s['id'])]}
         nb = s['new'].encode('utf-8')
         if _sha(nb) != s['new_sha256']:
             errors.append(('hash', '%s: new_sha256 mismatch' % s['id']))
@@ -192,8 +214,9 @@ def load(main, companions, read=None):
     kinds = {e['id']: e.get('kind') for e in elist}
     for s in splices:
         s['kind'] = kinds.get(s['id'])
+    retained_ids = led.get('retained_unchanged', [])
     if edits is not None and read is not None and not errors:
-        errors += correspondence(elist, splices, read, led['base'])
+        errors += correspondence(elist, splices, read, led['base'], retained_ids)
     retained, mirrors = [], []
     prim = {}
     for e in elist:
@@ -203,10 +226,15 @@ def load(main, companions, read=None):
         if e.get('mirror_of') is not None:
             mirrors.append({'id': e['id'], 'mirror_of': prim.get((e['mirror_of'], e['part']))})
     byid = {e['id']: e for e in elist}
-    for rid in led.get('retained_unchanged', []):
+    for rid in retained_ids:
         e = byid.get(rid)
+        pair = (e['old'], e['new']) if e else None
+        if e is not None and read is not None and not errors:
+            data = read(led['base'], e['file'])
+            pair = select(e, data.decode('utf-8')) if data is not None else None
+        identity = pair is not None and pair[0] == pair[1]
         retained.append({'id': rid, 'site_ref': e['site'] if e else None, 'file': e['file'] if e else None,
-                         'text': e['old'] if e else None, 'identity': bool(e) and e['old'] == e['new']})
+                         'text': pair[0] if identity else None, 'identity': identity})
     units = [{'id': e['id'], 'file': e['file'], 'kind': e.get('kind'), 'pairs': [list(p) for p in pairs_of(e)],
               'raw_keys': sorted(e)} for e in elist]
     pin_rules = _pin_rules(companions['checker']) if companions.get('checker') is not None else None

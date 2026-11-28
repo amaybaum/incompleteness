@@ -5,6 +5,11 @@ the plan at F. This runs the engine's purity lint exactly as `ledger_coverage.py
 does, with the configuration read from an in-memory stand-in for F (REV's tree plus the staged file at PATH).
 Nothing reaches the repository.
 
+It records control Z9-STAGED (design r6; the purity job's record, formerly `outcome`): `control-records.json`
+(oi-control-records/1) and `evidence/purity/Z9-STAGED/` beside `result.json`, with the lint report, the linted
+source map (path to sha256) and the staged configuration's value set as the `lint` procedure's inputs (R6.GATE.5,
+R6.GATE.7).
+
 Usage: python3 -I -B tools/ledger_coverage/adapters/staged_purity_lint.py --repo DIR --config REV:PATH
        --staged-config FILE --out DIR
 """
@@ -25,7 +30,7 @@ if 'ledger_coverage' not in sys.modules:
     _spec.loader.exec_module(sys.modules['ledger_coverage'])
 
 from ledger_coverage.engine import config as cfgmod, gitobj, outcome as oc, purity, util  # noqa: E402
-from ledger_coverage.adapters import a1_controls as a1c  # noqa: E402
+from ledger_coverage.adapters import a1_controls as a1c, control_records  # noqa: E402
 
 
 def main(argv=None):
@@ -50,6 +55,19 @@ def main(argv=None):
     os.makedirs(args.out, exist_ok=True)
     with open(os.path.join(args.out, 'result.json'), 'w', encoding='utf-8') as f:
         f.write(util.dump_result(doc))
+    rec = control_records.Recorder('purity', args.out)
+    rec.capture(['staged_purity_lint.py', '--config', args.config, '--staged-config',
+                 os.path.basename(args.staged_config), '--out', args.out], doc['exit_status'], args.out,
+                attested={'outcome': doc['outcome'], 'findings': res})
+    smap = {p: util.sha256(t.encode('utf-8')) for p, t in sorted(purity.engine_sources().items())}
+    rec.record('Z9-STAGED', 'PASS' if not res else 'FAIL', {'outcome': doc['outcome'], 'exit': doc['exit_status'],
+                                                           'findings': res},
+               'the staged configuration\'s value set and its review and deny patterns appear in no engine source',
+               files={'lint-findings.json': res, 'linted-source-map.json': smap,
+                      'value-set.json': sorted(values)},
+               procedure={'name': 'purity-lint', 'lib': 'lint', 'findings': 'lint-findings.json',
+                          'source_map': 'linted-source-map.json', 'values': 'value-set.json'})
+    rec.write()
     print(json.dumps({'outcome': doc['outcome'], 'findings': len(res)}))
     return doc['exit_status']
 

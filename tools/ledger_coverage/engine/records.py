@@ -4,18 +4,107 @@ approval is procedural and outside the tool: no record kind stands in for it."""
 import json
 import re
 
+from . import findings as fd
 from . import util
 
 review_schema = 'oi-review-record/1'
+migration_schema = 'oi-edit-id-migration/1'
+migration_kind = 'edit-id-migration'
+class_schema = 'oi-side-change-classes/1'
 record_schemas = ('oi-term-rules/2', 'oi-hp-adjudication/1', 'oi-context-adjudication/1', 'oi-hit-classification/1',
-                  'oi-scope/1', 'oi-side-change-classes/1', 'oi-reconciliation/1', 'oi-retirement-config/1',
-                  'oi-delegation/1')
+                  'oi-scope/1', 'oi-side-change-classes/1', 'oi-reconciliation/1', 'oi-reconciliation/2', 'oi-retirement-config/1',
+                  'oi-delegation/1', 'oi-reassessment/1', 'oi-adjudication/1', migration_schema)
 
 _url = re.compile(r'://|/runs/|/actions|check[-_ ]run|/issues/\d+$|^#\d+$|/pull/\d+$')
 
 
 item_lists = (('rules', 'id'), ('sites', 'site_id'), ('entries', 'id'), ('classifications', 'id'), ('records', 'id'),
               ('classes', 'id'))
+
+class_keys = {'id': ('nestr', True), 'prefixes': (('arr', 'path'), True),
+              'pins': (('arr', ('keyed', fd.ref_keys)), True)}
+class_record_keys = {'schema': (('lit', (class_schema,)), True), 'record_id': ('nestr', True),
+                     'supersedes': (('or', ('null',), ('keyed', fd.ref_keys)), True),
+                     'author': ('identity', True), 'classes': (('nearray', ('keyed', class_keys)), True)}
+
+
+def class_record_problems(doc):
+    """Check class record fields, including the exact path and digest of each pin."""
+    # R6.RECON.34.
+    out = []
+    fd.validate(class_record_keys, doc, '$', out)
+    if out:
+        return out
+    for i, cls in enumerate(doc['classes']):
+        paths = [p['path'] for p in cls['pins']]
+        if len(paths) != len(set(paths)):
+            out.append('$.classes[%d].pins: repeated pin path' % i)
+    return out
+
+
+def class_widening(old, new):
+    """Return the review items for a widened class record."""
+    # R6.RECON.34 and R6.RECON.31.
+    before = {c['id']: c for c in old['classes']}
+    after = {c['id']: c for c in new['classes']}
+    for cid, cls in after.items():
+        prior = before.get(cid, {'prefixes': [], 'pins': []})
+        prefixes = set(cls['prefixes'])
+        old_prefixes = set(prior['prefixes'])
+        pins = {(p['path'], p['blob_sha256']) for p in cls['pins']}
+        old_pins = {(p['path'], p['blob_sha256']) for p in prior['pins']}
+        if prefixes - old_prefixes or pins - old_pins:
+            break
+    else:
+        return []
+    items = {cid for cid in before.keys() | after.keys() if before.get(cid) != after.get(cid)}
+    changed = {'field:' + k for k in (old.keys() | new.keys()) - {'classes', 'supersedes', 'version'}
+               if old.get(k) != new.get(k)}
+    return sorted(items) + sorted(changed)
+
+
+def migration_problems(doc):
+    """Check the migration record and its owner attribution."""
+    # R6.RECON.28, R6.RECON.32 and staging S-2.
+    from ..record_authority import owner_identities
+    from .adjudication import parse_time
+
+    approval = {'quote': ('nestr', True), 'author': ('identity', True), 'time': ('nestr', True)}
+    pair = {'old': ('nestr', True), 'new': ('nestr', True)}
+    table = {'schema': (('lit', (migration_schema,)), True), 'record_id': ('nestr', True),
+             'supersedes': (('or', ('null',), ('keyed', fd.ref_keys)), True), 'author': ('identity', True),
+             'migrations': (('nearray', ('keyed', pair)), True), 'approval': (('keyed', approval), True)}
+    problems = []
+    fd.validate(table, doc, '$', problems)
+    if problems:
+        return problems
+    approval = doc['approval']
+    if parse_time(approval['time']) is None:
+        problems.append('approval.time must use the prescribed zero-offset time format')
+    if not any(fd.same_identity(approval['author'], owner) for owner in owner_identities):
+        problems.append('approval.author does not name an owner identity')
+    pairs = doc['migrations']
+    if any(len({p[k] for p in pairs}) != len(pairs) for k in ('old', 'new')):
+        problems.append('a migration old or new id is repeated')
+    if any(p['old'] == p['new'] for p in pairs):
+        problems.append('a migration maps an edit id to itself')
+    return problems
+
+
+def first_parent_record(repo, anchor, ref):
+    """Return the newest regular file with the exact path and digest on this first-parent walk."""
+    # R6.RECON.33.
+    path, digest = ref.get('path'), ref.get('blob_sha256')
+    commit = anchor
+    while commit:
+        entry = repo.entries(commit).get(path)
+        if entry and entry[0] in ('100644', '100755'):
+            data = repo.read_blob(entry[1])
+            if util.sha256(data) == digest:
+                return commit, data
+        parents = repo.parents(commit)
+        commit = parents[0] if parents else None
+    return None, None
 
 
 def item_list_problems(doc):
@@ -45,6 +134,31 @@ def item_ids(doc):
     and is record-invalid: the record id never stands in for an entry's id."""
     if doc.get('schema') == 'oi-retirement-config/1':
         return [doc.get('config_id')]
+    if doc.get('schema') == migration_schema:
+        pairs = doc.get('migrations')
+        if not isinstance(pairs, list) or not pairs or not all(
+                isinstance(p, dict) and isinstance(p.get('old'), str) and p['old'] for p in pairs):
+            return []
+        return ['migration:%s' % p['old'] for p in pairs] + ['approval']
+    if doc.get('schema') == 'oi-adjudication/1':
+        # #1605 sec. 6 (R6.RECON.31 row, R6.ADJ.2): authorization, binding, dissents, disposition, conflicts and
+        # ground:<id> for each ground
+        return ['authorization', 'binding', 'dissents', 'disposition', 'conflicts'] + \
+            ['ground:%s' % g.get('id') for g in doc.get('grounds') or [] if isinstance(g, dict)]
+    if doc.get('schema') == 'oi-obl29-custody/1':
+        # R6.CUST.8: a custody version's review covers `entry:<i>` for each index it adds; without its predecessor
+        # every index is listed (custody.item_ids computes the added indices)
+        return ['entry:%d' % i for i in range(len(doc.get('entries') or []))]
+    if doc.get('schema') == 'oi-reconciliation/2' and isinstance(doc.get('paths'), list):
+        # design r6 amendment 3: each path entry, its scientific effect and each resolution are items of the review
+        ids = []
+        for e in doc['paths']:
+            if not (isinstance(e, dict) and isinstance(e.get('path'), str) and e['path']):
+                return []
+            ids += [e['path'], e['path'] + ':scientific_effect']
+            ids += [e['path'] + ':resolution:' + str(x.get('splice')) for x in (e.get('resolutions') or [])
+                    if isinstance(x, dict)]
+        return sorted(ids)
     if item_list_problems(doc) or entries_without_id(doc):
         return []
     ids = []
@@ -60,7 +174,38 @@ def item_ids(doc):
 
 
 def _person(v):
-    return isinstance(v, str) and v.strip() and not _url.search(v) and '/' not in v and not v.isdigit()
+    """An identity string (staging S-2 S2.1)."""
+    return fd.identity_ok(v)
+
+
+def revision_problems(repo, roots, review, record_commit=None):
+    # S-1 sec. 3, kept by staging S-2 S2.3: `revision` is a commit id reachable through any parent from one of
+    # `roots` (the roots the review is read from) whose tree holds reviewed.path at a regular mode with bytes hashing
+    # to reviewed.blob_sha256. For the review R6.RECON.2 (d) admits with a record read by the post-freeze route
+    # (`record_commit` = REV; r6 Amendment 10), `revision` equals the record base, REV's single parent, and the reviewed
+    # bytes are read from REV's tree. [] when it binds; a review read with no root binds nothing.
+    rev = review.get('revision') if isinstance(review, dict) else None
+    rv = review.get('reviewed') if isinstance(review, dict) and isinstance(review.get('reviewed'), dict) else {}
+    roots = [r for r in (roots or ()) if r]
+    if repo is None or not (roots or record_commit):
+        return ['revision cannot be checked: the review is read with no root']
+    if not (isinstance(rev, str) and re.match(r'[0-9a-f]{40}\Z', rev)):
+        return ['revision is missing or not a commit id']
+    if record_commit is not None:
+        if repo.parents(record_commit) != [rev]:
+            return ['revision is not the record base, the single parent of the record commit']
+        holder = record_commit
+    else:
+        if not any(rev == r or repo.is_ancestor(rev, r) for r in roots):
+            return ['revision is not reachable from the root the review is read from']
+        holder = rev
+    # A referenced object reached in the verified walk may be unreadable. Let that error reach the caller.
+    ent = repo.entries(holder).get(rv.get('path'))
+    if ent is None or ent[0] not in ('100644', '100755') or \
+            util.sha256(repo.read(holder, rv['path'])) != rv.get('blob_sha256'):
+        return ['revision does not hold the reviewed bytes' if record_commit is None else
+                'the record commit does not hold the reviewed bytes']
+    return []
 
 
 class Store:
@@ -70,9 +215,13 @@ class Store:
     plan's record directory at F; it is read only when a `supersedes` chain is walked (DI-2). `widening` maps (old doc,
     new doc) to the widening items of a rule file or configuration."""
 
-    def __init__(self, entries):
+    def __init__(self, entries, repo=None, roots=(), record_commit=None):
+        # the repository and the roots a review's revision is checked against (S-1 sec. 3); for a record read by
+        # the post-freeze route, its record commit REV (r6 Amendment 10)
+        self.repo, self.roots, self.record_commit = repo, list(roots), record_commit
         self.by_path = {}
         self.by_sha = {}
+        self.strict_parse_failures = set()
         for path, data in entries:
             self.add(path, data)
         self._scanned = None
@@ -83,10 +232,17 @@ class Store:
     widening = None
     heads_problems = None
 
+    def _decode(self, sha, data):
+        doc = json.loads(data.decode('utf-8'))
+        if isinstance(doc, dict) and doc.get('schema') in (class_schema, review_schema, migration_schema) and \
+                fd.strict_parse(data) is None:
+            self.strict_parse_failures.add(sha)
+        return doc
+
     def add(self, path, data):
         sha = util.sha256(data)
         try:
-            doc = json.loads(data.decode('utf-8'))
+            doc = self._decode(sha, data)
         except (ValueError, UnicodeDecodeError):
             doc = None
         self.by_path.setdefault(path, []).append((sha, doc))
@@ -94,10 +250,11 @@ class Store:
         return sha
 
     def get(self, ref):
-        hit = self.by_sha.get(ref.get('blob_sha256'))
-        if hit is None or hit[0] != ref.get('path'):
-            return None
-        return hit[1]
+        """The record at exactly {path, blob_sha256}: a byte-identical blob at another path is another record."""
+        for sha, doc in self.by_path.get(ref.get('path'), []):
+            if sha == ref.get('blob_sha256'):
+                return doc
+        return None
 
     def resolve(self, ref):
         """A record read from the object store (at or before F) by {path, blob_sha256}, or None."""
@@ -118,7 +275,7 @@ class Store:
                 if sha in self._scanned:
                     continue
                 try:
-                    self._scanned[sha] = (path, json.loads(data.decode('utf-8')))
+                    self._scanned[sha] = (path, self._decode(sha, data))
                 except (ValueError, UnicodeDecodeError):
                     continue
         return self._scanned
@@ -133,7 +290,7 @@ def lineage_id(doc):
     return v if isinstance(v, str) and v else None
 
 
-def supersedes_problems(ref, doc, store):
+def supersedes_problems(ref, doc, store, *, observed_reviews=(), plan_directory=None):
     """S4 and DI-2 over the `supersedes` chain of one record: every step names a record that exists in the object
     store at or before F and has the same kind, schema and lineage (`record_id`, or `config_id` for the
     configuration); a record that supersedes, or is named by a `supersedes`, carries a valid lineage id; every
@@ -178,7 +335,8 @@ def supersedes_problems(ref, doc, store):
             out.append('record %s: ambiguous ancestry: %s also supersedes %s' % (ref.get('path'), forks[0],
                                                                                sup.get('path')))
             break
-        why = predecessor_problems(sup, prev, store)
+        why = predecessor_problems(sup, prev, store, observed_reviews=observed_reviews,
+                                   plan_directory=plan_directory)
         if why:
             out.append('record %s: its predecessor %s does not pass the lint: %s' % (ref.get('path'), sup.get('path'),
                                                                                     why[0]))
@@ -187,16 +345,20 @@ def supersedes_problems(ref, doc, store):
     return out
 
 
-def predecessor_problems(ref, doc, store):
+def predecessor_problems(ref, doc, store, *, observed_reviews=(), plan_directory=None):
     """DI-2: the lint of a predecessor named by a `supersedes`, read from the object store at or before F and verified
     independently of the superseding record: its own review (found among the records of the audit and plan record
     directories), and, when it widens the record it supersedes, its widening review. Its own chain is walked by the
     caller."""
+    # The scope and reviews of an admitted migration depend on the referring configuration and assessed trees.
+    reusable = doc.get('schema') != migration_schema
     key = ref.get('blob_sha256')
-    if key in store._pred_cache:
-        return store._pred_cache[key]
-    store._pred_cache[key] = ['the predecessor chain is being evaluated']
-    out = lint_chain(ref, store, None, predecessor=True)
+    if reusable:
+        if key in store._pred_cache:
+            return store._pred_cache[key]
+        store._pred_cache[key] = ['the predecessor chain is being evaluated']
+    out = lint_chain(ref, store, None, predecessor=True, observed_reviews=observed_reviews,
+                     plan_directory=plan_directory)
     if not out and store.widening is not None:
         old = store.resolve(doc.get('supersedes')) if doc.get('supersedes') is not None else None
         changed = store.widening(old, doc)
@@ -205,11 +367,12 @@ def predecessor_problems(ref, doc, store):
                                           doc.get('author'), doc.get('supersedes'), changed, predecessor=True)
             if wp:
                 out = ['widening without a valid widening review: %s' % wp[0]]
-    store._pred_cache[key] = out
+    if reusable:
+        store._pred_cache[key] = out
     return out
 
 
-def lint_chain(ref, store, admitted_shas, predecessor=False):
+def lint_chain(ref, store, admitted_shas, predecessor=False, *, observed_reviews=(), plan_directory=None):
     """Problems with one record's chain. ref = {path, blob_sha256}; admitted_shas: the blobs the configuration
     references (records and reviews). With `predecessor`, the record is a predecessor named by a `supersedes` (DI-2):
     it need not be referenced, and its review is found among the records of the object store at F."""
@@ -217,15 +380,37 @@ def lint_chain(ref, store, admitted_shas, predecessor=False):
     doc = store.resolve(ref) if predecessor else store.get(ref)
     if doc is None:
         return ['record %s: blob not in the object store at its path' % ref.get('path')]
+    if isinstance(doc, dict) and doc.get('schema') == migration_schema:
+        if plan_directory and not ref['path'].startswith(plan_directory + '/'):
+            return ['the migration is outside its referring plan record directory']
+        if ref['blob_sha256'] in store.strict_parse_failures:
+            return ['the migration does not parse as a strict object']
+        problems = migration_problems(doc)
+        if problems:
+            return problems
+        # R6.RECON.29 and R6.REC.7: identical bytes at a second path form a separate record.
+        path, digest = ref['path'], ref['blob_sha256']
+        aliases = any(p != path and any(sha == digest for sha, _ in entries)
+                      for p, entries in store.by_path.items())
+        if aliases or (store.scan is not None and any(p != path and util.sha256(raw) == digest
+                                                      for p, raw in store.scan())):
+            return ['the migration record id is reused at another path']
     pool = store.scanned() if predecessor else store.by_sha
     if not predecessor and ref['blob_sha256'] not in admitted_shas:
         out.append('record %s: not referenced by the configuration' % ref['path'])
     if doc.get('schema') not in record_schemas:
         out.append('record %s: unknown schema %r' % (ref['path'], doc.get('schema')))
+    if doc.get('schema') == class_schema:
+        if ref['blob_sha256'] in store.strict_parse_failures:
+            out.append('record %s: does not parse as a strict object' % ref['path'])
+        out.extend('record %s: %s' % (ref['path'], problem) for problem in class_record_problems(doc))
+        if out:
+            return out
     if 'supersedes' not in doc:
         out.append('record %s: no supersedes field' % ref['path'])
     if not predecessor:
-        out += supersedes_problems(ref, doc, store)
+        out += supersedes_problems(ref, doc, store, observed_reviews=observed_reviews,
+                                  plan_directory=plan_directory)
         if store.heads_problems:
             out += [p for p in store.heads_problems.get(ref['blob_sha256'], [])]
     author = doc.get('author')
@@ -245,6 +430,17 @@ def lint_chain(ref, store, admitted_shas, predecessor=False):
         else:
             out.append('record %s: no review record' % ref['path'])
         return out
+    checks = [(sha, path, rv, store.roots) for sha, path, rv in exact]
+    if doc.get('schema') == migration_schema:
+        known = {(sha, path) for sha, path, _ in exact}
+        visible = [(sha, path, rv, store.roots) for sha, (path, rv) in store.scanned().items()]
+        visible += [(util.sha256(raw), path, fd.strict_parse(raw), [at]) for at, path, raw in observed_reviews]
+        target = {'path': ref['path'], 'blob_sha256': ref['blob_sha256']}
+        for sha, path, rv, roots in visible:
+            if ((sha, path) not in known and isinstance(rv, dict) and rv.get('schema') == review_schema
+                    and rv.get('kind', 'review') == 'review' and rv.get('reviewed') == target):
+                checks.append((sha, path, rv, roots))
+                known.add((sha, path))
     shape = item_list_problems(doc)
     if shape:
         out.append('record %s: %s' % (ref['path'], shape[0]))
@@ -258,7 +454,7 @@ def lint_chain(ref, store, admitted_shas, predecessor=False):
     # class record sharing an id are instead the configuration inconsistency of S7 (ERROR CONFIG_INCONSISTENT,
     # control Z11), raised where the classes are collected
     dup = sorted({i for i in ids if ids.count(i) > 1})
-    if dup and doc.get('schema') != 'oi-side-change-classes/1':
+    if dup and (doc.get('schema') != class_schema or predecessor):
         out.append('record %s: item id %s is given to more than one item' % (ref['path'], dup[0]))
         return out
     if not ids:
@@ -266,24 +462,46 @@ def lint_chain(ref, store, admitted_shas, predecessor=False):
         # rather than covered by a single verdict
         out.append('record %s: no item ids can be identified' % ref['path'])
         return out
-    for sha, path, rv in exact:
-        bad = []
-        if not _person(rv.get('reviewer')):
-            bad.append('reviewer is not a person')
-        if rv.get('reviewer') == author:
-            bad.append('reviewer equals author')
+    for sha, path, rv, roots in checks:
+        # R6.REC.6 as staging S-2 S2.5 restates it: a review not independent (S2.4) of the record's author is no review
+        bad = fd.independence_problems(rv, [author])
+        if doc.get('schema') in (class_schema, migration_schema) and sha in store.strict_parse_failures:
+            bad.append('the review does not parse as a strict object')
+        # r6 Amendment 10 binds the admitted review of the post-freeze route; a predecessor's review keeps S-1 sec. 3
+        bad += revision_problems(store.repo, roots, rv, None if predecessor else store.record_commit)
+        if doc.get('schema') == migration_schema:
+            bad += fd.review_schema_problems(rv)
+            if plan_directory and not path.startswith(plan_directory + '/'):
+                bad.append('the migration review is outside the plan record directory')
+            if isinstance(rv.get('dissent'), str) and rv['dissent'].strip():
+                bad.append('the review dissents')
         verdicts = {v.get('item'): v.get('verdict') for v in rv.get('verdicts', []) if isinstance(v, dict)}
         named = [v.get('item') for v in rv.get('verdicts', []) if isinstance(v, dict)]
         if len(named) != len(set(named)):
             bad.append('an item has more than one verdict')
         if set(ids) - set(verdicts):
             bad.append('verdicts do not cover every item')
+        if doc.get('schema') in fd.recon_schemas + (migration_schema,) and set(verdicts) - set(ids):
+            bad.append('a verdict names an item outside the reconciliation record')
         if any(verdicts.get(i) != 'accept' for i in ids):
             bad.append('an item is not accepted')
         if not rv.get('method'):
             bad.append('no method')
         if bad:
             out.append('record %s: review %s: %s' % (ref['path'], path, '; '.join(bad)))
+    if not out and doc.get('schema') == class_schema and doc['supersedes'] is not None:
+        old = store.resolve(doc['supersedes'])
+        if class_record_problems(old):
+            return ['record %s: the class predecessor fails its schema checks' % ref['path']]
+        changed = class_widening(old, doc)
+        if changed:
+            if len(changed) != len(set(changed)):
+                return ['record %s: an ambiguous class widening review item' % ref['path']]
+            reviewers = {r['reviewer'] for _, _, r in exact}
+            problems = widening_review_problems(ref, store, admitted_shas, reviewers, author,
+                                                doc['supersedes'], changed, predecessor=predecessor)
+            if problems:
+                out.append('record %s: widening without a valid widening review: %s' % (ref['path'], problems[0]))
     return out
 
 
@@ -365,26 +583,88 @@ def widening_review_problems(ref, store, admitted_shas, regular_reviewers, autho
 
     def usable(sha):
         return predecessor or sha in admitted_shas
+    target = store.resolve(ref) if predecessor else store.get(ref)
+    class_review = isinstance(target, dict) and target.get('schema') == class_schema
     why = []
+    qualified = False
     for sha, (path, d) in sorted(pool.items()):
         if not isinstance(d, dict) or d.get('schema') != review_schema or d.get('kind') != 'widening':
             continue
-        if not usable(sha) or d.get('reviewed', {}).get('blob_sha256') != ref['blob_sha256']:
+        reviewed = d.get('reviewed')
+        if not usable(sha) or not isinstance(reviewed, dict) or reviewed.get('blob_sha256') != ref['blob_sha256']:
+            continue
+        if class_review and reviewed.get('path') != ref['path']:
             continue
         bad = []
-        if old_ref is not None and (d.get('replaces') or {}).get('blob_sha256') != old_ref.get('blob_sha256'):
-            bad.append('does not name the blob it replaces')
+        if reviewed.get('path') != ref.get('path'):
+            bad.append('names the reviewed blob at another path')
+        # A1 staging amendment r2, sec. 2: `replaces` is an explicit JSON null only in the widening review of the
+        # designated first allow-rule record (a root whose supersedes is null); there it must be present and null.
+        # Every other widening review names the exact superseded record, path and blob.
+        designated = (ref.get('path'), ref.get('blob_sha256')) in (getattr(store, 'designated_roots', None) or ())
+        if designated:
+            if old_ref is not None or 'replaces' not in d or d['replaces'] is not None:
+                bad.append('the designated root\'s widening review does not carry replaces: null')
+        elif 'replaces' in d and d['replaces'] is None:
+            bad.append('replaces is null outside the designated root')
+        elif old_ref is None:
+            # R6.RECON.31 (replaces required for a widening review) as amended by staging r2: a record with no
+            # predecessor other than the designated root has no widening review that can name one
+            bad.append('a widening review of a record without a predecessor outside the designated root')
+        elif old_ref is not None and (not isinstance(d.get('replaces'), dict) or
+                                      d['replaces'].get('blob_sha256') != old_ref.get('blob_sha256') or
+                                      d['replaces'].get('path') != old_ref.get('path')):
+            bad.append('does not name the record it replaces by path and blob')
+        # R6.REC.13 as staging S-2 S2.5 restates it: independent (S2.4) of the author and of every ordinary reviewer
         who = d.get('reviewer')
-        if not _person(who) or who == author or who in regular_reviewers:
-            bad.append('reviewer is the author, a regular reviewer, or not a person')
-        verdicts = {v.get('item'): v.get('verdict') for v in d.get('verdicts', []) if isinstance(v, dict)}
-        miss = [c for c in changed if verdicts.get(c) != 'accept']
-        if miss or any(v != 'accept' for v in verdicts.values()) or not verdicts:
-            bad.append('verdicts do not accept every changed item (%s)' % ', '.join(miss[:3]))
+        bad += fd.independence_problems(d, [author] + sorted(x for x in regular_reviewers if isinstance(x, str)))
+        if designated and any(fd.declared_dependency(o, [who]) for o in ordinary_reviews(ref, pool, usable)):
+            # S-2 sec. 3, allow root: the ordinary reviewer is independent of the widening reviewer as well
+            bad.append('an ordinary reviewer declares a dependency on the widening reviewer')
+        shape = fd.review_schema_problems(d) if class_review else []
+        if class_review and sha in store.strict_parse_failures:
+            shape.append('the review does not parse as a strict object')
+        bad += shape
+        if not shape:
+            bad += revision_problems(store.repo, store.roots, d, None if predecessor else store.record_commit)
+            bad += widening_verdict_problems(d, changed)
+            if class_review:
+                if len(d['verdicts']) != len(changed):
+                    bad.append('the verdict list does not exactly cover the class widening items')
+                if not re.search(r'\b[0-9a-f]{40}\b', d['method']):
+                    bad.append('the method names no full object id')
         if not bad:
-            return []
-        why.append('widening review %s: %s' % (path, '; '.join(bad)))
+            if not class_review:
+                return []
+            qualified = True
+        else:
+            why.append('widening review %s: %s' % (path, '; '.join(bad)))
+    if qualified and not why:
+        return []
     return why or ['no widening review names the superseding blob']
+
+
+def ordinary_reviews(ref, pool, usable):
+    """The ordinary reviews among `pool` naming the exact reference `ref` whose blob `usable` admits."""
+    return [d for sha, (p, d) in sorted(pool.items()) if usable(sha) and isinstance(d, dict) and
+            d.get('schema') == review_schema and d.get('kind', 'review') == 'review' and
+            isinstance(d.get('reviewed'), dict) and d['reviewed'].get('path') == ref.get('path') and
+            d['reviewed'].get('blob_sha256') == ref.get('blob_sha256')]
+
+
+def widening_verdict_problems(review, changed):
+    """The item coverage of a widening review: a verdict for every changed item, each item listed once, every
+    verdict accept, and at least one verdict."""
+    entries = [v for v in (review.get('verdicts') or []) if isinstance(v, dict)] if isinstance(review, dict) else []
+    named = [v.get('item') for v in entries]
+    verdicts = {v.get('item'): v.get('verdict') for v in entries}
+    miss = [c for c in changed if verdicts.get(c) != 'accept']
+    out = []
+    if miss or any(v != 'accept' for v in verdicts.values()) or not verdicts:
+        out.append('verdicts do not accept every changed item (%s)' % ', '.join(str(m) for m in miss[:3]))
+    if len(named) != len(set(named)):
+        out.append('an item has more than one verdict')
+    return out
 
 
 def widening_review_ok(ref, store, admitted_shas, regular_reviewers, author, old_ref=None, changed=()):

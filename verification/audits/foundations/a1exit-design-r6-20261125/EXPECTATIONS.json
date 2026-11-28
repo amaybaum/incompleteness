@@ -67,7 +67,16 @@
    "flags": [
     "VD-7: restored (clean-lint) half unreachable in the runner today",
     "VD-RESTORE: no restored case executed (the restored half is unreachable in the runner, VD-7)"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "A12r",
@@ -187,7 +196,16 @@
    "flags": [
     "VD-RESTORE: no restored case executed",
     "RE-20 (b): the case runs on W2-a, whose literal \"(A1)\" is a true shortening, and asserts that the finding is a widening by shortening; the runner shortens W1-d to \"six structural\" today (verification defect, OBL-21)"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "A3r",
@@ -251,7 +269,16 @@
    "source": "D:2166",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "A5r",
@@ -305,7 +332,16 @@
    "flags": [
     "RD-35: D:2083-2084 requires the deny FAIL to name the rule that produces it (DR-3, the profile the runner evaluates); the runner asserts no rule id today (verification defect)",
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "A5r-generic",
@@ -410,7 +446,16 @@
    "source": "D:2169",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "A8r",
@@ -500,7 +545,16 @@
    "flags": [
     "VD-7: the runner check of this half is unreachable today",
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "ACCEPT-SCHEMA",
@@ -2220,7 +2274,16 @@
    "source": "D:2186",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "G2",
@@ -2253,7 +2316,16 @@
    "source": "D:2187",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "G3",
@@ -2294,7 +2366,16 @@
    "flags": [
     "design says FAIL without a class; MC-17 names delegated-evidence-invalid (controls.json agrees)",
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "G4",
@@ -4246,7 +4327,16 @@
    "source": "D:2130",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "L2",
@@ -4291,7 +4381,16 @@
    "source": "D:2131",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "L3",
@@ -4321,7 +4420,16 @@
    "source": "D:2132",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "L4",
@@ -4351,7 +4459,16 @@
    "source": "D:2133",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "LN1",
@@ -5027,7 +5144,16 @@
    "source": "D:2158",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "N1",
@@ -5652,7 +5778,16 @@
    "source": "D:2508; second direction: r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B2)",
    "flags": [
     "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "N4",
@@ -7995,7 +8130,16 @@
    "source": "D:2206",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "RT-C",
@@ -8058,7 +8202,16 @@
     "inputs off main: acceptance reference only for runs with those pinned inputs (RD-23)",
     "RD-3: the 399/23/21 figures are design figures the runner does not assert today (verification defect)",
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "RT-D",
@@ -8140,7 +8293,16 @@
     "Q14: aggregate precedence ERROR > FAIL > NOT RUN > PASS over its own record and its components; every component result is preserved in gate-result.json",
     "OC-3: runs at X_rep (R6.EVID.8); the verdict reads only paths that H and the ledger determine, so T1''s identity and ancestry are not material; landing decision: kind 1 on the exact tool candidate; enduring claim: kind 2 once the landing merge is on main, kind 3 re-run on main, every input reachable from main",
     "amendment 6 (amendment 5 delta review, PR #1592 comment 7189385508, nit 3): the count of 10 W1/W2 PASS lines and the SM:1394 site hold only with the superseding rule file that drops W1-a, under the owner's decision on the W1-a row (amaybaum, 2026-11-26T07:55:49Z, #1169 comment 7185991140); rule content is plan content (R6.DENY.1), and until that rule file is written and reviewed RT-D is not run against these figures"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "RT-D-gr58",
@@ -8177,7 +8339,16 @@
      }
     ]
    },
-   "source": "D:2212 (with its record)"
+   "source": "D:2212 (with its record)",
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "RT-DR",
@@ -8304,7 +8475,16 @@
     "targets checked by rule id, not by the run outcome (O3); ch09 path abbreviated in the design, the evidence manifest gives the full path",
     "the T1' case: inputs off main: acceptance reference only for runs with those pinned inputs (RD-23)",
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "RT-DR3W",
@@ -8420,7 +8600,16 @@
      }
     ]
    },
-   "source": "D:2207"
+   "source": "D:2207",
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "RT-H0",
@@ -8535,7 +8724,16 @@
    "flags": [
     "MC-1 applied (7 structure items, not 3); MC-3 removes the runner reference_difference",
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "RT-I7",
@@ -8800,7 +8998,16 @@
    "flags": [
     "RD-25: composed landing REVIEW_REQUIRED exit 10 (delegated evidence missing), as controls.json and the runner have it",
     "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "RT-L2",
@@ -8942,12 +9149,18 @@
     ]
    },
    "status_allowed": [
-    "PASS"
+    "PASS",
+    "NOT RUN"
    ],
    "source": "r5:220 (MC-4, OD-18; split per RD-6 and Q6)",
    "flags": [
     "Q6/RD-6: its own record-directory checks are gated and run whatever RT-L2's status; the clause \"RT-L2 still PASS\" and the absence of base-drift, which rests on the drafted reconciliation record, are RT-O9-L2"
-   ]
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "RT-O9-L2",
@@ -9156,7 +9369,16 @@
     "RD-3: region_splices_distinct 31 is asserted by the runner and kept; site_counts:unchanged 383, the 18 line-attributed overlaps and the D029-only overlap are design figures the runner does not assert today (verification defect)",
     "VD-RESTORE: the paired row is not executed (no runner, or NOT RUN)",
     "OC-3: runs at X_rep (R6.EVID.8); the verdict reads only paths that H and the ledger determine, so T1''s identity and ancestry are not material; landing decision: kind 1 on the exact tool candidate; enduring claim: kind 2 once the landing merge is on main, kind 3 re-run on main, every input reachable from main"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "RT-X",
@@ -9207,7 +9429,16 @@
    "source": "v2:628 (D:2502 stands; OD-17 translation; OD-21); second direction: r6 amendment 1 (owner decision of 2026-11-26T04:39:58Z, #1169 comment 7182798225; B2)",
    "flags": [
     "VD-RESTORE: second direction recorded by amendment 1 (B2); restored case or countercase not executed by the runners of the tool commit"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "S11-1",
@@ -9289,7 +9520,16 @@
      }
     ]
    },
-   "source": "D:2351"
+   "source": "D:2351",
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "S11-12",
@@ -9397,7 +9637,16 @@
    "source": "D:2354",
    "flags": [
     "VD-10: landing half asserted (today only in RT-L)"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "S11-2",
@@ -9423,6 +9672,15 @@
     "S11-2b",
     "S11-2c"
    ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   },
    "source": "D:2342",
    "flags": [
     "Q14: aggregate precedence ERROR > FAIL > NOT RUN > PASS over its own record and its components; every component result is preserved in gate-result.json"
@@ -9461,7 +9719,16 @@
      }
     ]
    },
-   "source": "D:2342 (first countercontrol)"
+   "source": "D:2342 (first countercontrol)",
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "S11-2b",
@@ -9557,7 +9824,16 @@
      }
     ]
    },
-   "source": "D:2343"
+   "source": "D:2343",
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "S11-4",
@@ -9600,7 +9876,16 @@
      }
     ]
    },
-   "source": "D:2344 (class per MC-17)"
+   "source": "D:2344 (class per MC-17)",
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "S11-5",
@@ -9690,7 +9975,16 @@
    "source": "D:2292",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "S11-57a",
@@ -9850,14 +10144,20 @@
    "direction": {
     "of": "positive",
     "required": "opposite direction",
-    "why": "mutation: an added sentence pair; also asserts acceptance (PASS)"
+    "why": "The added sentence pair produces the infinity deny finding and agrees with the pinned P checker."
    },
    "predicate_kind": "procedural",
    "expect": {
-    "outcome": "PASS",
+    "outcome": "FAIL",
     "counts": {
-     "sentences": 2
-    }
+     "sentences": 2,
+     "items": 1,
+     "items[class=deny-match,profile=infinity,edit_id=E1,match=is infinite]": 1
+    },
+    "exit": 20,
+    "classes_exact": [
+     "deny-match"
+    ]
    },
    "restored": {
     "outcome": "RESULT_EQUAL_CLEAN",
@@ -10360,7 +10660,16 @@
    "source": "D:2175",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "S4a",
@@ -12212,8 +12521,64 @@
      {
       "case": "landing under the computed composition",
       "outcome": "FAIL",
-      "classes_include": [
+      "classes_exact": [
+       "base-drift"
+      ],
+      "counts": {
+       "items": 1
+      },
+      "invariants": [
+       {
+        "items_include": [
+         {
+          "class": "base-drift",
+          "decision": "FAIL",
+          "obligation": "MAIN",
+          "file": "$ledgered"
+         }
+        ]
+       },
+       {
+        "composed_blob": "e5cfde9c8f69036d38ec8f8d89b87993b9268d7e"
+       },
+       {
+        "L_blob": "e5cfde9c8f69036d38ec8f8d89b87993b9268d7e"
+       }
+      ]
+     },
+     {
+      "case": "landing that drops the main-side edit",
+      "outcome": "FAIL",
+      "classes_exact": [
+       "base-drift",
        "landing-conflict-unresolved"
+      ],
+      "counts": {
+       "items": 2
+      },
+      "invariants": [
+       {
+        "items_include": [
+         {
+          "class": "base-drift",
+          "decision": "FAIL",
+          "obligation": "MAIN",
+          "file": "$ledgered"
+         },
+         {
+          "class": "landing-conflict-unresolved",
+          "decision": "FAIL",
+          "obligation": "MAIN",
+          "file": "$ledgered"
+         }
+        ]
+       },
+       {
+        "composed_blob": "e5cfde9c8f69036d38ec8f8d89b87993b9268d7e"
+       },
+       {
+        "L_blob": "80a00051601605443377fcb9b9f3f03ad52f30ac"
+       }
       ]
      }
     ]
@@ -12853,7 +13218,16 @@
    "source": "D:2134",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "V10",
@@ -12893,7 +13267,16 @@
    "source": "D:2145",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "V11",
@@ -12933,7 +13316,16 @@
    "source": "D:2146",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "V12",
@@ -12973,7 +13365,16 @@
    "source": "D:2147",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "V13",
@@ -13013,7 +13414,16 @@
    "source": "D:2148",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "V14",
@@ -13064,7 +13474,16 @@
    "source": "D:2149",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "V15",
@@ -13123,7 +13542,16 @@
     "VD-RESTORE: no restored case executed",
     "owner decision 3 of 2026-11-25 (#1169 comment 7166844576): resolution (a); `expect` is the candidate expectation recorded under RE-1 as \"reversal adopted (REVIEW_REQUIRED unclassified through resid only)\"; the candidate \"reversal rejected (a plan rule record of this form under a new identifier, sec. 12; DR-1d and DR-2 stay retired, sec. 33)\" is not selected (V4-COMPARISON.md)",
     "rests on V5-D1, whose reversal owner decision 3 accepts in the owner's words; no deny rule is added"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "V16",
@@ -13164,7 +13592,16 @@
    "flags": [
     "design By column names the rule; alternative a is the runner value, measured on the control text (D:2083-2085)",
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "V17",
@@ -13205,7 +13642,16 @@
    "flags": [
     "design By column names the rule; alternative a is the runner value, measured on the control text (D:2083-2085)",
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "V18",
@@ -13246,7 +13692,16 @@
    "flags": [
     "design By column names the rule; alternative a is the runner value, measured on the control text (D:2083-2085)",
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "V19",
@@ -13287,7 +13742,16 @@
    "flags": [
     "design By column names the rule; alternative a is the runner value, measured on the control text (D:2083-2085)",
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "V2",
@@ -13328,7 +13792,16 @@
    "source": "D:2135",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "V20",
@@ -13368,7 +13841,16 @@
    "source": "D:2155",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "V21",
@@ -13418,7 +13900,16 @@
    "source": "D:2156",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "V22",
@@ -13469,7 +13960,16 @@
    "source": "D:2157",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "V23",
@@ -13620,7 +14120,16 @@
      }
     ]
    },
-   "source": "D:2161"
+   "source": "D:2161",
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "V26",
@@ -13679,7 +14188,16 @@
    "source": "D:2162",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "V27",
@@ -13729,7 +14247,16 @@
     "owner decision 3 of 2026-11-25 (#1169 comment 7166844576): resolution (a); `expect` is the candidate expectation recorded under RE-1 as \"reversal adopted (accepted residual: PASS, no hit)\"; the candidate \"reversal rejected (a plan rule record of this form under a new identifier, sec. 12; DR-1d and DR-2 stay retired, sec. 33)\" is not selected (V4-COMPARISON.md)",
     "rests on V5-D1, whose reversal owner decision 3 accepts in the owner's words; no deny rule is added",
     "Q14: aggregate precedence ERROR > FAIL > NOT RUN > PASS over its own record and its components; every component result is preserved in gate-result.json"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "V27-glossary",
@@ -13773,7 +14300,16 @@
     "VD-RESTORE: no restored case executed",
     "owner decision 3 of 2026-11-25 (#1169 comment 7166844576): resolution (a); `expect` is the candidate expectation recorded under RE-1 as \"reversal adopted (accepted residual: PASS, no hit)\"; the candidate \"reversal rejected (a plan rule record of this form under a new identifier, sec. 12; DR-1d and DR-2 stay retired, sec. 33)\" is not selected (V4-COMPARISON.md)",
     "rests on V5-D1, whose reversal owner decision 3 accepts in the owner's words; no deny rule is added"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "V3",
@@ -13815,7 +14351,16 @@
    "flags": [
     "design By column names the rule; alternative a is the runner value, measured on the control text (D:2083-2085)",
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "V3-countercontrol",
@@ -13897,7 +14442,16 @@
     "VD-RESTORE: no restored case executed",
     "owner decision 3 of 2026-11-25 (#1169 comment 7166844576): resolution (a); `expect` is the candidate expectation recorded under RE-1 as \"reversal adopted (accepted residual: PASS, no hit)\"; the candidate \"reversal rejected (a plan rule record of this form under a new identifier, sec. 12; DR-1d and DR-2 stay retired, sec. 33)\" is not selected (V4-COMPARISON.md)",
     "rests on V5-D1, whose reversal owner decision 3 accepts in the owner's words; no deny rule is added"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "V5",
@@ -13939,7 +14493,16 @@
    "flags": [
     "design By column names the rule; alternative a is the runner value, measured on the control text (D:2083-2085)",
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "V6",
@@ -13983,7 +14546,16 @@
    "source": "D:2140",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "V7a",
@@ -14034,7 +14606,16 @@
    "source": "D:2141",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "V7b",
@@ -14074,7 +14655,16 @@
    "source": "D:2142",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "V7c",
@@ -14113,7 +14703,16 @@
    "source": "D:2143",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "V9",
@@ -14153,7 +14752,16 @@
    "source": "D:2144",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "WB1",
@@ -14194,7 +14802,16 @@
    "source": "D:2250",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "WB10",
@@ -14232,7 +14849,16 @@
    "source": "D:2259",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "WB11",
@@ -14313,7 +14939,16 @@
    "source": "D:2261",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "WB13",
@@ -14355,7 +14990,16 @@
    "source": "D:2262",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "WB14",
@@ -14403,7 +15047,16 @@
    "source": "D:2263",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "WB15",
@@ -14440,7 +15093,16 @@
    "source": "D:2264",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "WB2",
@@ -14478,7 +15140,16 @@
    "source": "D:2251",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "WB3",
@@ -14522,7 +15193,16 @@
    "source": "D:2252",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "WB4",
@@ -14552,7 +15232,16 @@
    "source": "D:2253",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "WB5",
@@ -14592,7 +15281,16 @@
    "source": "D:2254",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "WB6",
@@ -14629,7 +15327,16 @@
    "source": "D:2255",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "WB7",
@@ -14667,7 +15374,16 @@
    "source": "D:2256",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "WB8",
@@ -14704,7 +15420,16 @@
    "source": "D:2257",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "WB9",
@@ -14745,7 +15470,16 @@
    "source": "D:2258",
    "flags": [
     "VD-RESTORE: no restored case executed"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "X1",
@@ -15199,7 +15933,16 @@
      }
     ]
    },
-   "source": "D:3062"
+   "source": "D:3062",
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "Y10",
@@ -15332,7 +16075,16 @@
      ]
     }
    },
-   "source": "D:3066"
+   "source": "D:3066",
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "Y6",
@@ -15451,7 +16203,16 @@
      "context-structure-changed"
     ]
    },
-   "source": "D:3070"
+   "source": "D:3070",
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "Z1",
@@ -15984,7 +16745,16 @@
      "value set"
     ]
    },
-   "source": "D:2883"
+   "source": "D:2883",
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "Z9f",
@@ -16157,7 +16927,16 @@
     "VD-10: 176-line count asserted",
     "inputs off main: candidate evidence only, not acceptance support (owner decision A2 of 2026-11-25; RD-23)",
     "OC-3: the repo scan reads the content of T1''s delegated and record paths (two of the 176 lines lie in generated artifacts), which H and the ledger do not determine: the exact trial tree is material; the run on the exact tool candidate with X = T1' is candidate evidence only, not acceptance support; no enduring claim rests on it (owner decision A2 of 2026-11-25; OBL-23)"
-   ]
+   ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   }
   },
   {
    "id": "lint-ok",
@@ -16231,7 +17010,16 @@
      "declarative-mismatch"
     ]
    },
-   "source": "r6 GATE (Q1, Q2, OD-1, VD-1)"
+   "source": "r6 GATE (Q1, Q2, OD-1, VD-1)",
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "GATE-2",
@@ -16250,7 +17038,16 @@
      "missing-id"
     ]
    },
-   "source": "r6 GATE (Q1, Q2, OD-1, VD-1)"
+   "source": "r6 GATE (Q1, Q2, OD-1, VD-1)",
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "GATE-3",
@@ -16270,7 +17067,16 @@
      "duplicate-id"
     ]
    },
-   "source": "r6 GATE (Q1, Q2, OD-1, VD-1)"
+   "source": "r6 GATE (Q1, Q2, OD-1, VD-1)",
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "GATE-4",
@@ -16290,7 +17096,16 @@
      "unexpected-id"
     ]
    },
-   "source": "r6 GATE (Q1, Q2, OD-1, VD-1)"
+   "source": "r6 GATE (Q1, Q2, OD-1, VD-1)",
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "GATE-5",
@@ -16311,7 +17126,16 @@
      "status-not-allowed"
     ]
    },
-   "source": "r6 GATE (Q1, Q2, OD-1, VD-1)"
+   "source": "r6 GATE (Q1, Q2, OD-1, VD-1)",
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "GATE-6",
@@ -16333,7 +17157,16 @@
      "declarative-mismatch"
     ]
    },
-   "source": "r6 GATE (Q1, Q2, OD-1, VD-1)"
+   "source": "r6 GATE (Q1, Q2, OD-1, VD-1)",
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "GATE-7",
@@ -16353,7 +17186,16 @@
      "correspondence-orphan-row"
     ]
    },
-   "source": "r6 GATE (Q1, Q2, OD-1, VD-1)"
+   "source": "r6 GATE (Q1, Q2, OD-1, VD-1)",
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "GATE-8",
@@ -16374,7 +17216,16 @@
      "correspondence-orphan-requirement"
     ]
    },
-   "source": "r6 GATE (Q1, Q2, OD-1, VD-1)"
+   "source": "r6 GATE (Q1, Q2, OD-1, VD-1)",
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "GATE-9",
@@ -16395,7 +17246,16 @@
      "raw-evidence-missing"
     ]
    },
-   "source": "r6 GATE (Q1, Q2, OD-1, VD-1)"
+   "source": "r6 GATE (Q1, Q2, OD-1, VD-1)",
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "GATE-10",
@@ -16416,7 +17276,16 @@
      "procedural-failed"
     ]
    },
-   "source": "r6 GATE (Q1, Q2, OD-1, VD-1)"
+   "source": "r6 GATE (Q1, Q2, OD-1, VD-1)",
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "GATE-11",
@@ -16436,7 +17305,16 @@
      "status-not-allowed"
     ]
    },
-   "source": "r6 GATE (Q1, Q2, OD-1, VD-1)"
+   "source": "r6 GATE (Q1, Q2, OD-1, VD-1)",
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "GATE-12",
@@ -16458,7 +17336,16 @@
      "missing-id"
     ]
    },
-   "source": "r6 GATE (Q1, Q2, OD-1, VD-1)"
+   "source": "r6 GATE (Q1, Q2, OD-1, VD-1)",
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "GATE-13",
@@ -16568,7 +17455,16 @@
      "file-invalid"
     ]
    },
-   "source": "r6 GATE (Q1, Q2, OD-1, VD-1)"
+   "source": "r6 GATE (Q1, Q2, OD-1, VD-1)",
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "GATE-18",
@@ -16630,7 +17526,16 @@
      "status-actual-inconsistent"
     ]
    },
-   "source": "r6 GATE (Q1, Q2, OD-1, VD-1)"
+   "source": "r6 GATE (Q1, Q2, OD-1, VD-1)",
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "GATE-21",
@@ -16651,7 +17556,16 @@
      "status-not-allowed"
     ]
    },
-   "source": "r6 GATE (Q1, Q8)"
+   "source": "r6 GATE (Q1, Q8)",
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "GATE-22",
@@ -16672,7 +17586,16 @@
      "missing-id"
     ]
    },
-   "source": "r6 GATE (Q1, Q8)"
+   "source": "r6 GATE (Q1, Q8)",
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "GATE-23",
@@ -16693,7 +17616,16 @@
      "limitation-reported"
     ]
    },
-   "source": "r6 GATE (Q1, Q8)"
+   "source": "r6 GATE (Q1, Q8)",
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "GATE-24",
@@ -16714,7 +17646,16 @@
      "status-not-allowed"
     ]
    },
-   "source": "r6 GATE (Q1, Q8)"
+   "source": "r6 GATE (Q1, Q8)",
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "GATE-25",
@@ -16734,7 +17675,16 @@
      "procedural-failed"
     ]
    },
-   "source": "r6 GATE (Q1, Q8)"
+   "source": "r6 GATE (Q1, Q8)",
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "GATE-26",
@@ -16755,7 +17705,16 @@
      "procedural-failed"
     ]
    },
-   "source": "r6 GATE (Q1, Q8)"
+   "source": "r6 GATE (Q1, Q8)",
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:c1:C01",
@@ -16774,7 +17733,8 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
@@ -16782,7 +17742,12 @@
      "conformance/TR28-consumer"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: c1:C01; mutated file ledger_coverage/engine/checker.py; rule: B-1: the owner is a GitHub account name (the rule before the fix) (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: c1:C01; mutated file ledger_coverage/engine/checker.py; rule: B-1: the owner is a GitHub account name (the rule before the fix) (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:c1:C02",
@@ -16801,7 +17766,8 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
@@ -16809,7 +17775,12 @@
      "conformance/TR28-consumer"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: c1:C02; mutated file ledger_coverage/engine/checker.py; rule: B-1: the owner admits no dot (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: c1:C02; mutated file ledger_coverage/engine/checker.py; rule: B-1: the owner admits no dot (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:c1:C03",
@@ -16828,7 +17799,8 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
@@ -16836,7 +17808,12 @@
      "conformance/TR28-consumer"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: c1:C03; mutated file ledger_coverage/engine/checker.py; rule: B-1: the owner admits no parent path (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: c1:C03; mutated file ledger_coverage/engine/checker.py; rule: B-1: the owner admits no parent path (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:c1:C04",
@@ -16855,14 +17832,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/EI7-tool"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: c1:C04; mutated file ledger_coverage/engine/checker.py; rule: B-1: the owner does not start with a hyphen (outside the B-1 counterexamples) (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: c1:C04; mutated file ledger_coverage/engine/checker.py; rule: B-1: the owner does not start with a hyphen (outside the B-1 counterexamples) (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:c1:C05",
@@ -16881,14 +17864,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/ACCEPT-SCHEMA"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: c1:C05; mutated file ledger_coverage/engine/schemas/oi-ledger-coverage-5.schema.json; rule: N-2: the /5 schema requires config.admission (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: c1:C05; mutated file ledger_coverage/engine/schemas/oi-ledger-coverage-5.schema.json; rule: N-2: the /5 schema requires config.admission (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:c1:C06",
@@ -16907,14 +17896,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/EI5"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: c1:C06; mutated file ledger_coverage/engine/checker.py; rule: N-1: the re-resolved main must be readable by the verified reader (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: c1:C06; mutated file ledger_coverage/engine/checker.py; rule: N-1: the re-resolved main must be readable by the verified reader (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:c1:C07",
@@ -16933,14 +17928,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/O3-FILTER"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: c1:C07; mutated file ledger_coverage/engine/delegation.py; rule: D-11 (O-3): the delegated clone ignores the global git configuration (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: c1:C07; mutated file ledger_coverage/engine/delegation.py; rule: D-11 (O-3): the delegated clone ignores the global git configuration (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:c1:C08",
@@ -16959,14 +17960,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/O3-FILTER"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: c1:C08; mutated file ledger_coverage/engine/delegation.py; rule: D-11 (O-3): the delegated clone ignores the system git configuration (outside the local control) (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: c1:C08; mutated file ledger_coverage/engine/delegation.py; rule: D-11 (O-3): the delegated clone ignores the system git configuration (outside the local control) (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:c1:C09",
@@ -16985,7 +17992,8 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
@@ -16993,7 +18001,12 @@
      "conformance/GV5"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: c1:C09; mutated file ledger_coverage/engine/config.py; rule: D-6: an unresolvable HP merge is an error (GV4 accepts either error class) (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: c1:C09; mutated file ledger_coverage/engine/config.py; rule: D-6: an unresolvable HP merge is an error (GV4 accepts either error class) (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:c1:C10",
@@ -17012,7 +18025,8 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
@@ -17020,7 +18034,12 @@
      "conformance/GV5"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: c1:C10; mutated file ledger_coverage/engine/config.py; rule: D-6: an unresolvable HP merge ends the HP check with an error, not a pass (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: c1:C10; mutated file ledger_coverage/engine/config.py; rule: D-6: an unresolvable HP merge ends the HP check with an error, not a pass (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:c1:C11",
@@ -17039,14 +18058,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/EI6"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: c1:C11; mutated file ledger_coverage/adapters/conformance_controls.py; rule: D-7: EI6 admits only the standard library (the -I import path before the correction) (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: c1:C11; mutated file ledger_coverage/adapters/conformance_controls.py; rule: D-7: EI6 admits only the standard library (the -I import path before the correction) (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:c1:C12",
@@ -17065,14 +18090,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/EI6"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: c1:C12; mutated file ledger_coverage/adapters/conformance_controls.py; rule: D-7: the EI runs use the workflow's flags -I -S -B (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: c1:C12; mutated file ledger_coverage/adapters/conformance_controls.py; rule: D-7: the EI runs use the workflow's flags -I -S -B (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:c2:D01",
@@ -17091,14 +18122,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/EI6"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: c2:D01; mutated file ledger_coverage/adapters/conformance_controls.py; rule: R-B1: EI6's predicate as at 3184c7f9 (a prefix test on the -I -S path) (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: c2:D01; mutated file ledger_coverage/adapters/conformance_controls.py; rule: R-B1: EI6's predicate as at 3184c7f9 (a prefix test on the -I -S path) (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:c2:D02",
@@ -17118,12 +18155,18 @@
     ]
    },
    "status_allowed": [
-    "SURVIVED"
+    "SURVIVED",
+    "NOT RUN"
    ],
    "source": "CI run 45569710442 9-mutation-results.json: c2:D02; mutated file ledger_coverage/adapters/conformance_controls.py; rule: R-B1: the installed-package directories are excluded by real path (redundant with the name rule on this layout) (RD-1, Q8)",
    "flags": [
     "LIMITATION (Q8, known survivor): equivalent on this layout: the installed-package directories are also excluded by the name rule (recorded with the mutant)"
-   ]
+   ],
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:c2:D03",
@@ -17142,14 +18185,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/EI6"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: c2:D03; mutated file ledger_coverage/adapters/conformance_controls.py; rule: R-B1: a site-packages or dist-packages directory inside a standard-library directory is refused (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: c2:D03; mutated file ledger_coverage/adapters/conformance_controls.py; rule: R-B1: a site-packages or dist-packages directory inside a standard-library directory is refused (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:cache:K01",
@@ -17168,7 +18217,8 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
@@ -17181,7 +18231,12 @@
    "source": "CI run 45569710442 9-mutation-results.json: cache:K01; mutated file ledger_coverage/engine/gitobj.py; rule: GitRepo.paths returns a read-only view (RD-1, Q8)",
    "flags": [
     "killed via a group-error record (conformance/GV-CACHE-group): the tool revision maps a group error to its member ids"
-   ]
+   ],
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:cache:K02",
@@ -17200,7 +18255,8 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
@@ -17213,7 +18269,12 @@
    "source": "CI run 45569710442 9-mutation-results.json: cache:K02; mutated file ledger_coverage/engine/gitobj.py; rule: GitRepo.entries returns a read-only view (RD-1, Q8)",
    "flags": [
     "killed via a group-error record (conformance/GV-CACHE-group): the tool revision maps a group error to its member ids"
-   ]
+   ],
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:cache:K03",
@@ -17232,7 +18293,8 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
@@ -17240,7 +18302,12 @@
      "conformance/GV-CACHE-KEY"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: cache:K03; mutated file ledger_coverage/engine/gitobj.py; rule: the path cache is keyed by the commit id (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: cache:K03; mutated file ledger_coverage/engine/gitobj.py; rule: the path cache is keyed by the commit id (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:cache:K04",
@@ -17259,14 +18326,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/GV-CACHE"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: cache:K04; mutated file ledger_coverage/engine/gitobj.py; rule: a refused tree caches nothing (the map is stored only after the whole walk) (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: cache:K04; mutated file ledger_coverage/engine/gitobj.py; rule: a refused tree caches nothing (the map is stored only after the whole walk) (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:cache:K05",
@@ -17285,7 +18358,8 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
@@ -17382,7 +18456,12 @@
    "source": "CI run 45569710442 9-mutation-results.json: cache:K05; mutated file ledger_coverage/engine/gitobj.py; rule: the overlay path cache is keyed by the commit id (RD-1, Q8)",
    "flags": [
     "killed via a group-error record (conformance/acceptance-group, self-test/H, self-test/U, synthetic/X-group-error): the tool revision maps a group error to its member ids"
-   ]
+   ],
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:cache:K06",
@@ -17401,7 +18480,8 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
@@ -17414,7 +18494,12 @@
    "source": "CI run 45569710442 9-mutation-results.json: cache:K06; mutated file ledger_coverage/engine/gitobj.py; rule: the overlay entry map is a read-only copy, not the in-memory tree's own dict (RD-1, Q8)",
    "flags": [
     "killed via a group-error record (conformance/GV-CACHE-group): the tool revision maps a group error to its member ids"
-   ]
+   ],
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:cache:K07",
@@ -17433,14 +18518,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/GV-CACHE"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: cache:K07; mutated file ledger_coverage/engine/gitobj.py; rule: an object listed in a cached path map is still verified on first read (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: cache:K07; mutated file ledger_coverage/engine/gitobj.py; rule: an object listed in a cached path map is still verified on first read (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:cache:K08",
@@ -17460,13 +18551,19 @@
     ]
    },
    "status_allowed": [
-    "SURVIVED"
+    "SURVIVED",
+    "NOT RUN"
    ],
    "source": "CI run 45569710442 9-mutation-results.json: cache:K08; mutated file ledger_coverage/engine/gitobj.py; rule: the path map lists blobs and symlinks, not submodules (RD-1, Q8)",
    "flags": [
     "LIMITATION (Q8, known survivor): no control distinguishes a path map that omits submodules; no equivalence argument is recorded",
     "RE-10 (b): also a verification defect; distinguishing control: a control distinguishing a path map that omits submodules (OBL-24)"
-   ]
+   ],
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:o9:RDIR-m1",
@@ -17488,7 +18585,8 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
@@ -17496,7 +18594,12 @@
      "conformance/RDIR-4"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: o9:O9-m1; mutated file ledger_coverage/engine/reconcile.py; rule: A.5 omitted for paths of F absent at M: only the H-to-M scan finds the directory's files (O9-4) (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: o9:O9-m1; mutated file ledger_coverage/engine/reconcile.py; rule: A.5 omitted for paths of F absent at M: only the H-to-M scan finds the directory's files (O9-4) (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:o9:RDIR-m10",
@@ -17518,14 +18621,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/RDIR-8"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: o9:O9-m10; mutated file ledger_coverage/engine/reconcile.py; rule: A.5 reads bytes before checking the entry type (O9-8, symbolic link and submodule cases) (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: o9:O9-m10; mutated file ledger_coverage/engine/reconcile.py; rule: A.5 reads bytes before checking the entry type (O9-8, symbolic link and submodule cases) (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:o9:RDIR-m11",
@@ -17548,7 +18657,8 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
@@ -17556,7 +18666,12 @@
      "conformance/RDIR-8"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: o9:O9-m11; mutated file ledger_coverage/engine/reconcile.py; rule: R11 uses the classifier without A.5 (O9-19) (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: o9:O9-m11; mutated file ledger_coverage/engine/reconcile.py; rule: R11 uses the classifier without A.5 (O9-19) (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:o9:RDIR-m12",
@@ -17578,7 +18693,8 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
@@ -17586,7 +18702,12 @@
      "conformance/RDIR-24"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: o9:O9-m12; mutated file ledger_coverage/engine/reconcile.py; rule: D5 removed (O9-17, O9-24) (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: o9:O9-m12; mutated file ledger_coverage/engine/reconcile.py; rule: D5 removed (O9-17, O9-24) (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:o9:RDIR-m13",
@@ -17608,14 +18729,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/RDIR-21"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: o9:O9-m13; mutated file ledger_coverage/engine/execution.py; rule: A.5's items suppressed for a path a matching class pin classifies (O9-21) (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: o9:O9-m13; mutated file ledger_coverage/engine/execution.py; rule: A.5's items suppressed for a path a matching class pin classifies (O9-21) (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:o9:RDIR-m14",
@@ -17637,14 +18764,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/RDIR-8"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: o9:O9-m14; mutated file ledger_coverage/engine/reconcile.py; rule: a non-regular entry inside D passed to the existing classifier (O9-8, full-path cases) (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: o9:O9-m14; mutated file ledger_coverage/engine/reconcile.py; rule: a non-regular entry inside D passed to the existing classifier (O9-8, full-path cases) (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:o9:RDIR-m15",
@@ -17666,7 +18799,8 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
@@ -17674,7 +18808,12 @@
      "conformance/RDIR-25"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: o9:O9-m15; mutated file ledger_coverage/engine/reconcile.py; rule: the authority ERROR raised for an unauthorized D that H holds (O9-25) (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: o9:O9-m15; mutated file ledger_coverage/engine/reconcile.py; rule: the authority ERROR raised for an unauthorized D that H holds (O9-25) (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:o9:RDIR-m16",
@@ -17696,7 +18835,8 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
@@ -17710,7 +18850,12 @@
      "conformance/R5-N6"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: o9:O9-m16; mutated file ledger_coverage/engine/reconcile.py; rule: the authority ERROR raised whenever D is unauthorized, whatever M holds (O9-22) (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: o9:O9-m16; mutated file ledger_coverage/engine/reconcile.py; rule: the authority ERROR raised whenever D is unauthorized, whatever M holds (O9-22) (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:o9:RDIR-m17",
@@ -17732,7 +18877,8 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
@@ -17741,7 +18887,12 @@
      "conformance/RDIR-20"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: o9:O9-m17; mutated file ledger_coverage/engine/reconcile.py; rule: the authority ERROR removed for an unauthorized D absent at H and present on M (O9-16) (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: o9:O9-m17; mutated file ledger_coverage/engine/reconcile.py; rule: the authority ERROR removed for an unauthorized D absent at H and present on M (O9-16) (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:o9:RDIR-m2",
@@ -17763,14 +18914,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/RDIR-6"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: o9:O9-m2; mutated file ledger_coverage/engine/reconcile.py; rule: the shared membership predicate without the trailing / (O9-6) (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: o9:O9-m2; mutated file ledger_coverage/engine/reconcile.py; rule: the shared membership predicate without the trailing / (O9-6) (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:o9:RDIR-m3",
@@ -17792,14 +18949,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/RDIR-11"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: o9:O9-m3; mutated file ledger_coverage/engine/reconcile.py; rule: D2 removed (O9-11) (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: o9:O9-m3; mutated file ledger_coverage/engine/reconcile.py; rule: D2 removed (O9-11) (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:o9:RDIR-m4",
@@ -17822,7 +18985,8 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
@@ -17837,7 +19001,12 @@
      "conformance/R5-N6"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: o9:O9-m4; mutated file ledger_coverage/engine/reconcile.py; rule: the authority check (A.3) removed (O9-16) (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: o9:O9-m4; mutated file ledger_coverage/engine/reconcile.py; rule: the authority check (A.3) removed (O9-16) (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:o9:RDIR-m5",
@@ -17859,14 +19028,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/RDIR-8"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: o9:O9-m5; mutated file ledger_coverage/engine/reconcile.py; rule: mode not compared (O9-8, mode case) (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: o9:O9-m5; mutated file ledger_coverage/engine/reconcile.py; rule: mode not compared (O9-8, mode case) (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:o9:RDIR-m6",
@@ -17888,7 +19063,8 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
@@ -17906,7 +19082,12 @@
      "conformance/RDIR-8"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: o9:O9-m6; mutated file ledger_coverage/engine/reconcile.py; rule: the entries at M compared with H instead of F (O9-1) (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: o9:O9-m6; mutated file ledger_coverage/engine/reconcile.py; rule: the entries at M compared with H instead of F (O9-1) (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:o9:RDIR-m7",
@@ -17928,7 +19109,8 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
@@ -17936,7 +19118,12 @@
      "conformance/RDIR-9"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: o9:O9-m7; mutated file ledger_coverage/engine/reconcile.py; rule: D3 removed (O9-12) (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: o9:O9-m7; mutated file ledger_coverage/engine/reconcile.py; rule: D3 removed (O9-12) (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:o9:RDIR-m8",
@@ -17958,14 +19145,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/RDIR-7"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: o9:O9-m8; mutated file ledger_coverage/engine/reconcile.py; rule: the clean-path test removed (O9-7) (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: o9:O9-m8; mutated file ledger_coverage/engine/reconcile.py; rule: the clean-path test removed (O9-7) (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:o9:RDIR-m9",
@@ -17987,14 +19180,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/RDIR-13"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: o9:O9-m9; mutated file ledger_coverage/engine/reconcile.py; rule: A.6 row 2 bypassed: the rule applied when a class pin names the path but differs (O9-13) (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: o9:O9-m9; mutated file ledger_coverage/engine/reconcile.py; rule: A.6 row 2 bypassed: the rule applied when a class pin names the path but differs (O9-13) (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:A01",
@@ -18013,14 +19212,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/TR1"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:A01; mutated file ledger_coverage/engine/cli.py; rule: TR1: no admission without --freeze (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:A01; mutated file ledger_coverage/engine/cli.py; rule: TR1: no admission without --freeze (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:A02",
@@ -18039,14 +19244,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/ADM-CONFIG-AT-F"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:A02; mutated file ledger_coverage/engine/cli.py; rule: configuration read from F only (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:A02; mutated file ledger_coverage/engine/cli.py; rule: configuration read from F only (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:A03",
@@ -18065,14 +19276,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/TR2"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:A03; mutated file ledger_coverage/engine/cli.py; rule: TR2/EI4: the configuration listed in the last Record pins subsection (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:A03; mutated file ledger_coverage/engine/cli.py; rule: TR2/EI4: the configuration listed in the last Record pins subsection (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:A04",
@@ -18091,14 +19308,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/TR3"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:A04; mutated file ledger_coverage/engine/cli.py; rule: TR3: the review record listed in the pin table (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:A04; mutated file ledger_coverage/engine/cli.py; rule: TR3: the review record listed in the pin table (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:A05",
@@ -18117,7 +19340,8 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
@@ -18153,7 +19377,12 @@
    "source": "CI run 45569710442 9-mutation-results.json: v60e:A05; mutated file ledger_coverage/engine/cli.py; rule: TR13: no chain outside a host job (crashes rather than refusing) (RD-1, Q8)",
    "flags": [
     "killed via a group-error record (conformance/TR-group): the tool revision maps a group error to its member ids"
-   ]
+   ],
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:A06",
@@ -18172,14 +19401,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/EI4"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:A06; mutated file ledger_coverage/engine/config.py; rule: EI4 (c): the last Record pins subsection (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:A06; mutated file ledger_coverage/engine/config.py; rule: EI4 (c): the last Record pins subsection (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:A07",
@@ -18198,14 +19433,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/EI4"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:A07; mutated file ledger_coverage/engine/config.py; rule: EI4: a malformed row refuses (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:A07; mutated file ledger_coverage/engine/config.py; rule: EI4: a malformed row refuses (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:A08",
@@ -18224,14 +19465,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/EI4"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:A08; mutated file ledger_coverage/engine/config.py; rule: a file listed twice is malformed (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:A08; mutated file ledger_coverage/engine/config.py; rule: a file listed twice is malformed (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:A09",
@@ -18250,14 +19497,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/CONFIG-LINT"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:A09; mutated file ledger_coverage/engine/config.py; rule: sec. 16.2 lint: tool.files only the entry point and package paths (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:A09; mutated file ledger_coverage/engine/config.py; rule: sec. 16.2 lint: tool.files only the entry point and package paths (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:A10",
@@ -18276,14 +19529,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/CONFIG-LINT"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:A10; mutated file ledger_coverage/engine/config.py; rule: sec. 16.2 lint: the entry point named (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:A10; mutated file ledger_coverage/engine/config.py; rule: sec. 16.2 lint: the entry point named (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:A11",
@@ -18302,14 +19561,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/CONFIG-LINT"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:A11; mutated file ledger_coverage/engine/config.py; rule: sec. 16.2 lint: repository_id a positive integer (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:A11; mutated file ledger_coverage/engine/config.py; rule: sec. 16.2 lint: repository_id a positive integer (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:A12",
@@ -18328,14 +19593,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/CONFIG-LINT"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:A12; mutated file ledger_coverage/engine/config.py; rule: sec. 16.2: retirement holds name and issue only (an owner field is unknown) (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:A12; mutated file ledger_coverage/engine/config.py; rule: sec. 16.2: retirement holds name and issue only (an owner field is unknown) (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:A13",
@@ -18354,14 +19625,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/CONFIG-LINT"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:A13; mutated file ledger_coverage/engine/config.py; rule: sec. 16.2: a record kind the design does not define is CONFIG_INVALID (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:A13; mutated file ledger_coverage/engine/config.py; rule: sec. 16.2: a record kind the design does not define is CONFIG_INVALID (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:A14",
@@ -18380,14 +19657,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/CONFIG-LINT"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:A14; mutated file ledger_coverage/engine/config.py; rule: sec. 16.6: tool and repository_id lint at load (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:A14; mutated file ledger_coverage/engine/config.py; rule: sec. 16.6: tool and repository_id lint at load (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:C01",
@@ -18406,14 +19689,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/ACCEPT-SCHEMA"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:C01; mutated file ledger_coverage/engine/checker.py; rule: acceptance: schema /5 only (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:C01; mutated file ledger_coverage/engine/checker.py; rule: acceptance: schema /5 only (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:C02",
@@ -18432,14 +19721,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/X11"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:C02; mutated file ledger_coverage/engine/checker.py; rule: X11: chain only (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:C02; mutated file ledger_coverage/engine/checker.py; rule: X11: chain only (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:C03",
@@ -18458,7 +19753,8 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
@@ -18466,7 +19762,12 @@
      "synthetic/X10"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:C03; mutated file ledger_coverage/engine/checker.py; rule: EI3: F equal to the landing record's (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:C03; mutated file ledger_coverage/engine/checker.py; rule: EI3: F equal to the landing record's (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:C04",
@@ -18485,14 +19786,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/EI3"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:C04; mutated file ledger_coverage/engine/checker.py; rule: EI3: the pin table equal to the landing record's (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:C04; mutated file ledger_coverage/engine/checker.py; rule: EI3: the pin table equal to the landing record's (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:C05",
@@ -18511,14 +19818,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "synthetic/X10"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:C05; mutated file ledger_coverage/engine/checker.py; rule: X10: recorded tool blobs equal to the configuration's tool pins (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:C05; mutated file ledger_coverage/engine/checker.py; rule: X10: recorded tool blobs equal to the configuration's tool pins (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:C06",
@@ -18537,7 +19850,8 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
@@ -18545,7 +19859,12 @@
      "conformance/TR14"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:C06; mutated file ledger_coverage/engine/checker.py; rule: TR14/EI2 at the consumer (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:C06; mutated file ledger_coverage/engine/checker.py; rule: TR14/EI2 at the consumer (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:C07",
@@ -18564,14 +19883,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/TR29"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:C07; mutated file ledger_coverage/engine/checker.py; rule: TR29: recorded T equal to head_sha (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:C07; mutated file ledger_coverage/engine/checker.py; rule: TR29: recorded T equal to head_sha (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:C08",
@@ -18591,13 +19916,19 @@
     ]
    },
    "status_allowed": [
-    "SURVIVED"
+    "SURVIVED",
+    "NOT RUN"
    ],
    "source": "CI run 45569710442 9-mutation-results.json: v60e:C08; mutated file ledger_coverage/engine/checker.py; rule: TR52 at the consumer (RD-1, Q8)",
    "flags": [
     "LIMITATION (Q8, known survivor): the consumer half of TR52 is not implemented (TR52-consumer, RD-26); no equivalence argument",
     "RE-10 (b): also a verification defect; distinguishing control: TR52-consumer (OBL-24)"
-   ]
+   ],
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:C09",
@@ -18616,14 +19947,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/TR28-consumer"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:C09; mutated file ledger_coverage/engine/checker.py; rule: TR28/TR51 at the consumer (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:C09; mutated file ledger_coverage/engine/checker.py; rule: TR28/TR51 at the consumer (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:C10",
@@ -18642,14 +19979,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/TR28-consumer"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:C10; mutated file ledger_coverage/engine/checker.py; rule: EI7 at the consumer (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:C10; mutated file ledger_coverage/engine/checker.py; rule: EI7 at the consumer (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:C11",
@@ -18668,14 +20011,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/TR29"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:C11; mutated file ledger_coverage/engine/checker.py; rule: TR29: T on M's first-parent chain (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:C11; mutated file ledger_coverage/engine/checker.py; rule: TR29: T on M's first-parent chain (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:C12",
@@ -18694,14 +20043,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/TR30"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:C12; mutated file ledger_coverage/engine/checker.py; rule: TR30 (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:C12; mutated file ledger_coverage/engine/checker.py; rule: TR30 (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:C13",
@@ -18720,14 +20075,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/GV7-consumer"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:C13; mutated file ledger_coverage/engine/checker.py; rule: R4-N2: the result is the run's artifact (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:C13; mutated file ledger_coverage/engine/checker.py; rule: R4-N2: the result is the run's artifact (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:C14",
@@ -18746,14 +20107,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/EI5"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:C14; mutated file ledger_coverage/engine/checker.py; rule: EI5: exactly one main line (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:C14; mutated file ledger_coverage/engine/checker.py; rule: EI5: exactly one main line (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:C15",
@@ -18772,14 +20139,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/EI5"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:C15; mutated file ledger_coverage/engine/checker.py; rule: EI5: M equal to L's first parent (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:C15; mutated file ledger_coverage/engine/checker.py; rule: EI5: M equal to L's first parent (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:C16",
@@ -18798,14 +20171,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/EI5"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:C16; mutated file ledger_coverage/engine/checker.py; rule: EI5: M readable by the verified reader (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:C16; mutated file ledger_coverage/engine/checker.py; rule: EI5: M readable by the verified reader (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:E01",
@@ -18824,14 +20203,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/EI6"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:E01; mutated file ledger_coverage/ledger_coverage.py; rule: EI6: isolated mode required (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:E01; mutated file ledger_coverage/ledger_coverage.py; rule: EI6: isolated mode required (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:E02",
@@ -18850,14 +20235,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/EI6"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:E02; mutated file ledger_coverage/ledger_coverage.py; rule: EI6: no sys.path entry inside the checkout (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:E02; mutated file ledger_coverage/ledger_coverage.py; rule: EI6: no sys.path entry inside the checkout (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:H01",
@@ -18876,14 +20267,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/GV7-tool"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:H01; mutated file ledger_coverage/engine/delegation.py; rule: sec. 7.2 / F-12: host-run evidence from push or dispatch runs in the repository (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:H01; mutated file ledger_coverage/engine/delegation.py; rule: sec. 7.2 / F-12: host-run evidence from push or dispatch runs in the repository (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:H02",
@@ -18902,14 +20299,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/GV7-tool"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:H02; mutated file ledger_coverage/engine/delegation.py; rule: GV7: an incomplete run record is missing evidence (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:H02; mutated file ledger_coverage/engine/delegation.py; rule: GV7: an incomplete run record is missing evidence (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:H03",
@@ -18929,12 +20332,18 @@
     ]
    },
    "status_allowed": [
-    "SURVIVED"
+    "SURVIVED",
+    "NOT RUN"
    ],
    "source": "CI run 45569710442 9-mutation-results.json: v60e:H03; mutated file ledger_coverage/engine/delegation.py; rule: GV7: equivalent (an empty list is also no evidence) (RD-1, Q8)",
    "flags": [
     "LIMITATION (Q8, known survivor): equivalent: an empty list is also no evidence (recorded with the mutant)"
-   ]
+   ],
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:I01",
@@ -18953,14 +20362,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/TR14-tool"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:I01; mutated file ledger_coverage/engine/cli.py; rule: TR14: the head repository id (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:I01; mutated file ledger_coverage/engine/cli.py; rule: TR14: the head repository id (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:I02",
@@ -18979,14 +20394,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/TR14-tool"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:I02; mutated file ledger_coverage/engine/cli.py; rule: TR14: the repository id (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:I02; mutated file ledger_coverage/engine/cli.py; rule: TR14: the repository id (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:I03",
@@ -19005,14 +20426,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/EI2"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:I03; mutated file ledger_coverage/engine/cli.py; rule: EI2: event push or workflow_dispatch only (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:I03; mutated file ledger_coverage/engine/cli.py; rule: EI2: event push or workflow_dispatch only (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:I04",
@@ -19031,14 +20458,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/TR29-tool"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:I04; mutated file ledger_coverage/engine/cli.py; rule: TR29: head branch main (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:I04; mutated file ledger_coverage/engine/cli.py; rule: TR29: head branch main (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:I05",
@@ -19057,7 +20490,8 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
@@ -19090,7 +20524,12 @@
    "source": "CI run 45569710442 9-mutation-results.json: v60e:I05; mutated file ledger_coverage/engine/cli.py; rule: TR28/TR52: no extra file under the package (RD-1, Q8)",
    "flags": [
     "killed via a group-error record (conformance/TR-group): the tool revision maps a group error to its member ids"
-   ]
+   ],
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:I06",
@@ -19110,13 +20549,19 @@
     ]
    },
    "status_allowed": [
-    "SURVIVED"
+    "SURVIVED",
+    "NOT RUN"
    ],
    "source": "CI run 45569710442 9-mutation-results.json: v60e:I06; mutated file ledger_coverage/engine/cli.py; rule: TR51: regular files only at T (RD-1, Q8)",
    "flags": [
     "LIMITATION (Q8, known survivor): no control detects removal of the regular-files-only check at T (TR51); no equivalence argument is recorded",
     "RE-10 (b): also a verification defect; distinguishing control: a control detecting removal of TR51's regular-files-only check at T (OBL-24)"
-   ]
+   ],
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:I07",
@@ -19135,14 +20580,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/TR28-tool"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:I07; mutated file ledger_coverage/engine/cli.py; rule: TR28: each tool blob equal to its pin (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:I07; mutated file ledger_coverage/engine/cli.py; rule: TR28: each tool blob equal to its pin (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:I08",
@@ -19161,14 +20612,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/TR15"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:I08; mutated file ledger_coverage/engine/cli.py; rule: TR15: the run's workflow path is the pinned one (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:I08; mutated file ledger_coverage/engine/cli.py; rule: TR15: the run's workflow path is the pinned one (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:I09",
@@ -19187,7 +20644,8 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
@@ -19195,7 +20653,12 @@
      "conformance/TR50"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:I09; mutated file ledger_coverage/engine/cli.py; rule: TR15/TR50: workflow blob equal to its pin (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:I09; mutated file ledger_coverage/engine/cli.py; rule: TR15/TR50: workflow blob equal to its pin (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:I10",
@@ -19214,14 +20677,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/EI7-tool"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:I10; mutated file ledger_coverage/engine/cli.py; rule: EI7: the uses: line rule at the tool (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:I10; mutated file ledger_coverage/engine/cli.py; rule: EI7: the uses: line rule at the tool (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:I11",
@@ -19240,14 +20709,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/EI1"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:I11; mutated file ledger_coverage/engine/cli.py; rule: EI1: the checkout byte-identical to T (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:I11; mutated file ledger_coverage/engine/cli.py; rule: EI1: the checkout byte-identical to T (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:I12",
@@ -19266,14 +20741,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/EI1"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:I12; mutated file ledger_coverage/engine/cli.py; rule: EI1: no extra file in the checkout (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:I12; mutated file ledger_coverage/engine/cli.py; rule: EI1: no extra file in the checkout (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:I13",
@@ -19292,7 +20773,8 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
@@ -19315,7 +20797,12 @@
    "source": "CI run 45569710442 9-mutation-results.json: v60e:I13; mutated file ledger_coverage/engine/cli.py; rule: GV7: an incomplete run record refuses (RD-1, Q8)",
    "flags": [
     "killed via a group-error record (conformance/TR-group): the tool revision maps a group error to its member ids"
-   ]
+   ],
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:I14",
@@ -19334,14 +20821,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/GV7-tool"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:I14; mutated file ledger_coverage/engine/cli.py; rule: GV7: a failed run-record read refuses (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:I14; mutated file ledger_coverage/engine/cli.py; rule: GV7: a failed run-record read refuses (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:O01",
@@ -19360,14 +20853,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/B4-MEANING"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:O01; mutated file ledger_coverage/engine/outcome.py; rule: B-4: explanations quote the class meaning (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:O01; mutated file ledger_coverage/engine/outcome.py; rule: B-4: explanations quote the class meaning (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:O02",
@@ -19386,7 +20885,8 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
@@ -19395,7 +20895,12 @@
      "synthetic/S7-schema-and-checker"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:O02; mutated file ledger_coverage/engine/outcome.py; rule: B-4: the fixed table in every result (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:O02; mutated file ledger_coverage/engine/outcome.py; rule: B-4: the fixed table in every result (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:P01",
@@ -19415,13 +20920,19 @@
     ]
    },
    "status_allowed": [
-    "SURVIVED"
+    "SURVIVED",
+    "NOT RUN"
    ],
    "source": "CI run 45569710442 9-mutation-results.json: v60e:P01; mutated file ledger_coverage/engine/purity.py; rule: Z9: the allowlist exempts only its listed values (RD-1, Q8)",
    "flags": [
     "LIMITATION (Q8, known survivor): no control detects an allowlist exempting values beyond its listed ones (Z9); no equivalence argument is recorded",
     "RE-10 (b): also a verification defect; distinguishing control: a control detecting an allowlist that exempts values beyond its listed ones (Z9) (OBL-24)"
-   ]
+   ],
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:R01",
@@ -19440,14 +20951,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/LN4"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:R01; mutated file ledger_coverage/engine/records.py; rule: LN4/O3: every item accepted (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:R01; mutated file ledger_coverage/engine/records.py; rule: LN4/O3: every item accepted (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:R02",
@@ -19466,7 +20983,8 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
@@ -19474,7 +20992,12 @@
      "conformance/LN4"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:R02; mutated file ledger_coverage/engine/records.py; rule: A12r: the widening review accepts every changed item (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:R02; mutated file ledger_coverage/engine/records.py; rule: A12r: the widening review accepts every changed item (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:R03",
@@ -19493,14 +21016,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/A12r"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:R03; mutated file ledger_coverage/engine/records.py; rule: A12r: the widening review names the superseded blob (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:R03; mutated file ledger_coverage/engine/records.py; rule: A12r: the widening review names the superseded blob (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:U01",
@@ -19515,12 +21044,18 @@
     "outcome": "NOT_APPLIED"
    },
    "status_allowed": [
-    "NOT APPLIED"
+    "NOT APPLIED",
+    "NOT RUN"
    ],
    "source": "CI run 45569710442 9-mutation-results.json: v60e:U01; mutated file ledger_coverage/engine/checker.py; rule: EI7 clause 1: owner/repo(at)40-hex only (RD-1, Q8)",
    "flags": [
     "LIMITATION (Q8, not applied): the mutation's old string occurs 0 times in checker.py at the tool commit (EI7 clause 1, owner/repo(at)40-hex only); the mutant was never applied, so the property is untested by mutation"
-   ]
+   ],
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:U02",
@@ -19539,14 +21074,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/EI7-tool"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:U02; mutated file ledger_coverage/engine/checker.py; rule: EI7 clause 2: any number of dash or document markers with any whitespace (review v6.0d B-1) (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:U02; mutated file ledger_coverage/engine/checker.py; rule: EI7 clause 2: any number of dash or document markers with any whitespace (review v6.0d B-1) (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:U03",
@@ -19565,14 +21106,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/EI7-tool"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:U03; mutated file ledger_coverage/engine/checker.py; rule: EI7 clause 2: quotes, complex keys, anchors, aliases, tags (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:U03; mutated file ledger_coverage/engine/checker.py; rule: EI7 clause 2: quotes, complex keys, anchors, aliases, tags (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:U04",
@@ -19591,14 +21138,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/EI7-tool"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:U04; mutated file ledger_coverage/engine/checker.py; rule: EI7 clause 3: any whitespace after the colon (a tab) (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:U04; mutated file ledger_coverage/engine/checker.py; rule: EI7 clause 3: any whitespace after the colon (a tab) (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:U05",
@@ -19617,14 +21170,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/EI7-tool"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:U05; mutated file ledger_coverage/engine/checker.py; rule: EI7 clause 1: any letter case (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:U05; mutated file ledger_coverage/engine/checker.py; rule: EI7 clause 1: any letter case (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:V01",
@@ -19643,7 +21202,8 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
@@ -19652,7 +21212,12 @@
      "conformance/GV4"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:V01; mutated file ledger_coverage/engine/gitobj.py; rule: GV4: every object id recomputed from type, length and content (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:V01; mutated file ledger_coverage/engine/gitobj.py; rule: GV4: every object id recomputed from type, length and content (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:V02",
@@ -19671,14 +21236,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/GV1"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:V02; mutated file ledger_coverage/engine/gitobj.py; rule: GV1: replace refs never applied (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:V02; mutated file ledger_coverage/engine/gitobj.py; rule: GV1: replace refs never applied (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:V03",
@@ -19697,14 +21268,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/GV1"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:V03; mutated file ledger_coverage/engine/gitobj.py; rule: GV1: role commits are full ids only (no ref names) (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:V03; mutated file ledger_coverage/engine/gitobj.py; rule: GV1: role commits are full ids only (no ref names) (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:V04",
@@ -19723,14 +21300,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/GV6-disk"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:V04; mutated file ledger_coverage/engine/gitobj.py; rule: GV6: records, configuration and pin table only from regular-file entries (on disk) (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:V04; mutated file ledger_coverage/engine/gitobj.py; rule: GV6: records, configuration and pin table only from regular-file entries (on disk) (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:V05",
@@ -19750,12 +21333,18 @@
     ]
    },
    "status_allowed": [
-    "SURVIVED"
+    "SURVIVED",
+    "NOT RUN"
    ],
    "source": "CI run 45569710442 9-mutation-results.json: v60e:V05; mutated file ledger_coverage/engine/gitobj.py; rule: overlay ancestry shortcut (equivalent: the base walk also answers False, at the cost of a full walk) (RD-1, Q8)",
    "flags": [
     "LIMITATION (Q8, known survivor): equivalent: the base walk also answers False, at the cost of a full walk (recorded with the mutant)"
-   ]
+   ],
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:V06",
@@ -19774,7 +21363,8 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
@@ -19798,7 +21388,12 @@
    "source": "CI run 45569710442 9-mutation-results.json: v60e:V06; mutated file ledger_coverage/engine/gitobj.py; rule: GV6: a non-regular in-memory entry is never read as a file (RD-1, Q8)",
    "flags": [
     "killed via a group-error record (conformance/TR-group): the tool revision maps a group error to its member ids"
-   ]
+   ],
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "MUT:v60e:V07",
@@ -19817,14 +21412,20 @@
     ]
    },
    "status_allowed": [
-    "KILLED"
+    "KILLED",
+    "NOT RUN"
    ],
    "reference": {
     "killed_by_at_ci_45569710442": [
      "conformance/GV3"
     ]
    },
-   "source": "CI run 45569710442 9-mutation-results.json: v60e:V07; mutated file ledger_coverage/engine/gitobj.py; rule: parents parsed from the verified commit: every parent line (RD-1, Q8)"
+   "source": "CI run 45569710442 9-mutation-results.json: v60e:V07; mutated file ledger_coverage/engine/gitobj.py; rule: parents parsed from the verified commit: every parent line (RD-1, Q8)",
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "CLASS-RETAINED",
@@ -20554,7 +22155,16 @@
      }
     ]
    },
-   "source": "r6 GATE (RE-4, Q11)"
+   "source": "r6 GATE (RE-4, Q11)",
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "GATE-28",
@@ -20600,7 +22210,16 @@
      }
     ]
    },
-   "source": "r6 GATE (RE-30, Q14)"
+   "source": "r6 GATE (RE-30, Q14)",
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "GATE-29",
@@ -20620,7 +22239,16 @@
      "deferred-expectation"
     ]
    },
-   "source": "r6 GATE (RE-1)"
+   "source": "r6 GATE (RE-1)",
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "GATE-30",
@@ -20650,7 +22278,16 @@
      }
     ]
    },
-   "source": "r6 GATE (RE-11)"
+   "source": "r6 GATE (RE-11)",
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "outside the A1 path (amendment 8)",
+    "release_condition": "an owner-approved expectation change reinstates the row, before a configuration other than A1 relies on the tool (amendment 8, M8-3)",
+    "release_check": "false until an owner-approved expectation change replaces this entry"
+   }
   },
   {
    "id": "LC-1",
@@ -21231,7 +22868,7 @@
    "requirements": [
     "R6.EVID.8"
    ],
-   "runner": null,
+   "runner": "a1_controls.py:1961",
    "operations": [],
    "direction": {
     "of": "both",
@@ -21275,6 +22912,15 @@
       ]
      }
     ]
+   },
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "live REP-BUILD is due at the candidate F (Amendment 11)",
+    "release_condition": "the exact candidate-F assessment under OBL-16(a), with all three live REP-BUILD cases required to PASS",
+    "release_check": "the subject under check is the exact candidate F assessed by OBL-16(a)"
    },
    "source": "r6 R6.EVID.8 (OC-3)",
    "flags": [
@@ -24652,6 +26298,132 @@
         ]
        }
       ]
+     },
+     {
+      "case": "amendment 7, sec. 2, case 1: a first-kind finding with a well-formed invalidated element and a resolvable configuration of the run's lineage, whose entry has side_change_commits: []",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "amendment 7, sec. 2, case 2: the same, the record deleted by a later commit on M (historical only)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked"
+      ]
+     },
+     {
+      "case": "amendment 7, sec. 2, case 3: the same, the list holding one well-formed commit id that the object store does not hold",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "amendment 7, sec. 2, case 4: the same, the list holding one commit the store holds that does not change the entry's path",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "amendment 7, sec. 2, case 5: the same, the list holding one commit that changes the path but is not in the run's M, plus one element \"junk\"",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "amendment 7, sec. 2, case 6: a second-kind finding (independent reviewer, invalidates on <path>:scientific_effect) on an entry whose side_change_commits is []",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "amendment 7, sec. 2, case 7: a class (b) malformed file with an invalidation signal (for example the BOM-prefixed copy of a finding) (run-level retirement-blocked; no ERROR)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked"
+      ]
+     },
+     {
+      "case": "amendment 7, sec. 2, case 8: the list holding, as its only element, a held commit on an unmerged branch that changes the entry's path, not an ancestor of any witness of the record (an abandoned branch)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "amendment 7, sec. 2, case 9: the list holding, as its only element, a merge commit whose tree entry for the path equals its first parent's (the path differs only from the second parent)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "amendment 7, sec. 2, case 8b: case 8's list, the record squash-landed on M (its witness in M's ancestry does not descend from the listed commit), and F on the abandoned branch, so that a witness reached through F descends from the listed commit",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "amendment 7, sec. 2, case 10: provisional, with r9 Amendment 1: a second-kind finding by a reviewer distinct from every author in R*, whose reviewed names no record in R* (run-level retirement-blocked; no ERROR)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "amendment 7, sec. 2, case C1: countercase: a well-formed finding whose record has no witness in the run's M ancestry and is found through REV, whose side_change_commits lists only commits that change the path, are ancestors of that witness, and are not contained in the run's M (the run's M predates the change) (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "not_class": [
+         "retirement-blocked"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "amendment 7, sec. 2, case C2: countercase: a no-effect entry, not a finding, with side_change_commits: [] on a mode-only change (RECON-FIELDS countercase 2, unchanged)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "base-drift"
+      ],
+      "invariants": [
+       {
+        "failed_conditions_include": "RC1"
+       },
+       {
+        "not_class": [
+         "retirement-blocked",
+         "record-invalid"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "amendment 7, sec. 2, case C3: countercase: C1 (the record found through REV only) with its only element a merge commit that brings the change in (its tree entry for the path differs from its first parent's), an ancestor of the witness, not in the run's M (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "not_class": [
+         "retirement-blocked"
+        ]
+       }
+      ]
      }
     ]
    },
@@ -24706,7 +26478,7 @@
       ]
      },
      {
-      "case": "a finding naming no configuration, or one that cannot be read: it binds every configuration whose ledger carries the edit by id, a migrated id or the target, the other retirement's id collision included",
+      "case": "a finding naming no configuration, or one that cannot be read: it binds every configuration whose ledger carries the edit by id, a migrated id or the target, the other retirement's id collision included, and every configuration at run level",
       "outcome": "FAIL",
       "classes_include": [
        "retirement-blocked",
@@ -24729,7 +26501,7 @@
       ]
      },
      {
-      "case": "countercase: the other retirement bound only by the fallback's id collision, frozen anew with the colliding id renamed under a recorded migration, its target different (positive)",
+      "case": "countercase: the other retirement bound only by the fallback's id collision, the finding naming a readable configuration with which an element differs, frozen anew with the colliding id renamed under a recorded migration, its target different (positive)",
       "outcome": "ANY",
       "invariants": [
        {
@@ -24737,6 +26509,14 @@
          "retirement-blocked"
         ]
        }
+      ]
+     },
+     {
+      "case": "amendment 7, sec. 3, case 7: an unknown-id element under a configuration that cannot be resolved, the run under a configuration of another retirement that carries neither the id nor the target (run-level retirement-blocked)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
       ]
      }
     ]
@@ -24775,7 +26555,7 @@
       ]
      },
      {
-      "case": "an element whose id is absent from the named configuration's ledger: the fallback binds every configuration carrying the id, a migrated id or the target",
+      "case": "an element whose id is absent from the named configuration's ledger: the fallback binds every configuration carrying the id, a migrated id or the target, and binds the lineage at run level",
       "outcome": "FAIL",
       "classes_include": [
        "retirement-blocked",
@@ -24807,6 +26587,69 @@
      },
      {
       "case": "countercase: a revised configuration keeping only an edit of the same path that no finding names, under another id, whose old bytes' sha256 differs from every recorded old_sha256, without a reassessment (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "not_class": [
+         "retirement-blocked"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "amendment 7, sec. 3, case 1: an element {id: \"NO-SUCH-EDIT\", sha256, target}, its target's path and old_sha256 held by no ledger, under a configuration that resolves to the run's configuration (run-level retirement-blocked naming the finding)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "amendment 7, sec. 3, case 2: the same, the record deleted by a later commit on M (run-level retirement-blocked)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked"
+      ]
+     },
+     {
+      "case": "amendment 7, sec. 3, case 3: the same, the run under a later version, on the named configuration's supersedes chain, that carries no edit of that id (run-level retirement-blocked)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked"
+      ]
+     },
+     {
+      "case": "amendment 7, sec. 3, case 4: a valid element naming edit E1 and a second element with an unknown id (category3.blocked holds an entry for E1 and a run-level entry with edit null for the finding)",
+      "outcome": "FAIL"
+     },
+     {
+      "case": "amendment 7, sec. 3, case 5: a valid element and a second element that is an object without id, or whose id is a number (run-level retirement-blocked)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked",
+       "record-invalid"
+      ]
+     },
+     {
+      "case": "amendment 7, sec. 3, case 6: an element with an unknown id whose target matches an edit of the run's ledger by path and old_sha256 (run-level retirement-blocked; the target match does not keep it below run level)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked"
+      ]
+     },
+     {
+      "case": "amendment 7, sec. 3, case C1: countercase: case 1's finding, the run under a configuration of another retirement outside the named configuration's lineage that carries neither the id nor the target (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "not_class": [
+         "retirement-blocked"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "amendment 7, sec. 3, case C2: countercase: case 1's finding, the configuration frozen anew citing an applying reassessment that names the finding with edit null (positive)",
       "outcome": "ANY",
       "invariants": [
        {
@@ -25027,6 +26870,31 @@
      },
      {
       "case": "countercase: two reassessments, one for each finding, each naming its record and item, with repair and edit as defined (positive)",
+      "outcome": "ANY",
+      "invariants": [
+       {
+        "not_class": [
+         "retirement-blocked"
+        ]
+       }
+      ]
+     },
+     {
+      "case": "amendment 7, sec. 3, case 8: case 4, then a new freeze that rewords E1 (the same id and target) and cites an applying reassessment naming the finding with edit null (retirement-blocked on E1)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked"
+      ]
+     },
+     {
+      "case": "amendment 7, sec. 3, case C3: countercase: case 1's finding and an applying reassessment naming it with a non-null edit (run-level retirement-blocked; an edit reassessment does not lift the run-level binding)",
+      "outcome": "FAIL",
+      "classes_include": [
+       "retirement-blocked"
+      ]
+     },
+     {
+      "case": "amendment 7, sec. 3, case C4: countercase: case 8's freeze also citing an applying reassessment naming the finding and E1 as now worded (positive)",
       "outcome": "ANY",
       "invariants": [
        {

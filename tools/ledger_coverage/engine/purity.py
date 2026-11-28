@@ -32,14 +32,23 @@ field_names = frozenset([
     'exclude_patterns', 'ledgered_paths', 'params', 'evidence', 'sha256', 'blob', 'class_adapters', 'issue', 'sentences',
     'manuscript_digest', 'paths_record', 'record-dir', 'interface', 'module_sha256', 'regex', 'context_field',
     'INTERFACE', 'NAME', 'VERSION', 'outcome', 'exit_status', 'items', 'preflight', 'record_checks', 'passed',
+    'scientific_effect', 'conclusions', 'assessment', 'invalidated', 'resolutions', 'ledger_binding', 'ledger_base',
     'holds', 'obligation', 'class', 'decision', 'subject', 'fingerprint', 'm', 'l', 'h', 'c', 'x', 'list', 'check',
     'message', 'status', 'match', 'H', 'X', 'M', 'L', 'C', 'GITHUB_ACTIONS', 'GITHUB_RUN_ID', 'GITHUB_TOKEN',
     'GITHUB_API_URL', 'GITHUB_REPOSITORY_ID',
+    # design r6 amendment 4: the record base and the reassessment record (R6.RECON.2 (c), R6.RECON.27)
+    'record_base', 'finding', 'repair', 'edit', 'rederivation', 'commits', 'target', 'start_H',
+    'side_change_commits', 'category3', 'findings', 'blocked', 'reassessments', 'run_level',
+    # the site field of R6.CTX.10 and the key of the session registry's withdrawals (oi-a1-staging-sessions/1)
+    'partial_quote', 'withdrawn',
+    # R6.RECON.32 migration.record and migration.approval.
+    'migrations', 'approval',
 ])
 schema_ids = frozenset([
     'oi-ledger-coverage/5', 'oi-retirement-config/1', 'oi-term-rules/2', 'oi-delegation/1', 'oi-hp-adjudication/1',
     'oi-context-adjudication/1', 'oi-hit-classification/1', 'oi-scope/1', 'oi-side-change-classes/1',
-    'oi-reconciliation/1', 'oi-review-record/1', 'oi-ledger-landing/1',
+    'oi-reconciliation/1', 'oi-reconciliation/2', 'oi-review-record/1', 'oi-ledger-landing/1', 'oi-reassessment/1',
+    'oi-obl29-custody/1', 'oi-edit-id-migration/1',
 ])
 enumerations = frozenset([
     'PASS', 'REVIEW_REQUIRED', 'FAIL', 'USAGE', 'ERROR', 'VOID', 'INTERNAL',
@@ -52,7 +61,9 @@ enumerations = frozenset([
     'landing-drops-main-change', 'landing-conflict-unresolved', 'landing-extra-change', 'base-drift', 'unclassified',
     'new-pattern-in-replacement', 'unclassified-in-replacement', 'rule-fingerprint-mismatch', 'rule-stale',
     'context-structure-changed', 'delegated-evidence-missing', 'side-change-unclassified',
+    'retirement-blocked', 'RC14', 'reconciled-state', 'reconciled', 'reconciled-resolved', 'no-effect', 'invalidates',
     'PIN_MISMATCH', 'RECORD_TREE_MISMATCH', 'SCIENTIFIC_BASE_MISMATCH', 'MAIN_NOT_DESCENDANT', 'SOURCE_CHANGED',
+    'NOT_ISOLATED',
     'LEDGER_INTEGRITY', 'EDITS_HASH_MISMATCH', 'ENCODING', 'UNRESOLVABLE', 'CONFIG_INVALID', 'CONFIG_UNSUPPORTED',
     'CONFIG_UNREVIEWED', 'CONFIG_INCONSISTENT', 'CONFIG_NO_CONTROLS', 'PREFLIGHT_FAILED',
     'json-pointer', 'python-ast-assign', 'literal-list', 'review', 'deny', 'tree', 'added-text', 'accept', 'reject',
@@ -63,14 +74,44 @@ enumerations = frozenset([
     'RECORD', 'MAIN', 'DELEGATED', 'BOF', 'EOF', 'hp', 'ledgered', 'unledgered', 'unchanged', 'moved',
     'authorized-replacement', 'authorized-removal', 'unresolved', 'carried', 'changed', 'removed', 'conforms',
     'pass', 'fail', 'missing', 'widening', 'edits', 'checker', 'identity', 'scope', 'classification',
-    'none', 'side-change-classes', 'REPLAY_REFUSED', 'REPLAY_MISMATCH',
-    'R1', 'R2', 'R3', 'R4', 'R5', 'R6', 'R7', 'R8', 'R9', 'R10', 'R11', 'R12', 'R13',
+    'none', 'side-change-classes', 'REPLAY_REFUSED', 'REPLAY_MISMATCH', 'reassessment', 'edit-id-migration',
+    # the outcome names of R6.GATE.3 the engine controls attest
+    'COUNTERCONTROL', 'LINT_PASS', 'LINT_FAIL',
+    'RC1', 'RC2', 'RC3', 'RC4', 'RC5', 'RC6', 'RC7', 'RC8', 'RC9', 'RC10', 'RC11', 'RC12', 'RC13',
     'U', 'M', 'K', 'B', 'H', 'O', 'R', 'S1', 'N2', 'B1', 'B2', 'B3', 'B4', 'B6', 'K1', 'K2', 'K3', 'K4', 'K5',
     'M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M11', 'O1', 'O9',
 ])
 # The design's fixed name of the plan's file of record pins (sec. 6.3, configuration admission point 2): a fourth
 # category, linted to be one file name of the plan's record directory. It names no retirement.
 interface_names = frozenset(['PREREG.md'])
+# Public result and runtime literals, limited to their existing engine routines.
+protocol_literals = {
+    'engine/adjudication.py': {
+        'Run.review_problems': {'ADJ-REVIEW': 1},
+        'addressed_problems_at': {'ADJ-FORM': 1},
+        'authorization_problems': {'ADJ-AUTH-FORM': 1, 'ADJ-AUTH-OWNER': 1,
+                                   'ADJ-AUTH-SCOPE': 4, 'ADJ-AUTH-TIME': 1},
+        'binds': {'ADJ-BIND': 4},
+        'citation_problems': {'ADJ-ADMIT': 2},
+        'contradiction_problems': {'ADJ-CONTRA': 1},
+        'dedicated_landing_problems': {'ADJ-DEDICATED': 2},
+        'dissents_addressed_problems': {'ADJ-FORM': 2},
+        'evaluate': {'ADJ-ADMIT': 1, 'ADJ-BIND': 1, 'ADJ-FORM': 1, 'ADJ-LANDED': 1,
+                     'ADJ-REVIEW': 2, 'ADJ-UPHELD': 1},
+        'form_problems': {'ADJ-AUTH-FORM': 2, 'ADJ-FORM': 6},
+        'independence_problems': {'ADJ-INDEP': 7},
+        'location_problems': {'ADJ-ADMIT': 1},
+        'record_id_problems': {'ADJ-FORM': 1},
+        'review_form_problems': {'ADJ-REVIEW': 5},
+        'self_consistency': {'ADJ-BIND': 4},
+        'substance_problems': {'ADJ-SUBST': 4},
+    },
+    'engine/category3.py': {
+        'Cumulative.findings': {'b': 1},
+        'custody_decisions': {'ADJ-DISSENT': 1},
+    },
+    'engine/delegation.py': {'clone_env': {'PATH': 1}},
+}
 _hex = re.compile(r'(?<![0-9A-Za-z])[0-9a-fA-F]{7,}(?![0-9A-Za-z])')
 _field_rx = re.compile(r'^[A-Za-z_][A-Za-z0-9_-]*$')
 _schema_rx = re.compile(r'^oi-[a-z0-9-]+/[0-9]+$')
@@ -83,6 +124,9 @@ def lint_allowlist():
     bad += ['schema id %r' % x for x in schema_ids if not _schema_rx.match(x)]
     bad += ['enumeration %r' % x for x in enumerations if not _enum_rx.match(x)]
     bad += ['interface name %r' % x for x in interface_names if not re.match(r'^[A-Za-z][A-Za-z0-9_-]*\.md$', x)]
+    bad += ['scoped protocol literal %r' % x for scopes in protocol_literals.values()
+            for literals in scopes.values() for x, limit in literals.items()
+            if not _enum_rx.fullmatch(x) or type(limit) is not int or limit < 1]
     return bad
 
 
@@ -155,6 +199,47 @@ def config_values(read, commit, cfg):
     return values
 
 
+def protocol_nodes(name, tree):
+    """Select exact protocol literals in their approved lexical scopes."""
+    name = name.replace(os.sep, '/')
+    if name == 'engine/purity.py':
+        definitions = [node.value for node in tree.body if isinstance(node, ast.Assign)
+                       and len(node.targets) == 1 and isinstance(node.targets[0], ast.Name)
+                       and node.targets[0].id == 'protocol_literals']
+        if len(definitions) != 1:
+            return set()
+        expected = ast.parse(repr(protocol_literals), mode='eval').body
+        if ast.dump(definitions[0]) != ast.dump(expected):
+            return set()
+        return {key for module in definitions[0].values for scope in module.values for key in scope.keys}
+
+    scoped = set()
+    for qualified, limits in protocol_literals.get(name, {}).items():
+        class_name, _, function_name = qualified.rpartition('.')
+        body = tree.body
+        if class_name:
+            classes = [node for node in body if isinstance(node, ast.ClassDef) and node.name == class_name]
+            if len(classes) != 1:
+                continue
+            body = classes[0].body
+        routines = [node for node in body if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
+                    and node.name == function_name]
+        if len(routines) != 1:
+            continue
+        observed = {}
+        pending = list(routines[0].body)
+        while pending:
+            node = pending.pop()
+            if isinstance(node, (ast.ClassDef, ast.FunctionDef, ast.AsyncFunctionDef, ast.Lambda, ast.JoinedStr)):
+                continue
+            if isinstance(node, ast.Constant) and isinstance(node.value, str) and node.value in limits:
+                observed.setdefault(node.value, []).append(node)
+            pending.extend(ast.iter_child_nodes(node))
+        scoped.update(node for literal, nodes in observed.items() if len(nodes) <= limits[literal]
+                      for node in nodes)
+    return scoped
+
+
 def lint_sources(sources, values, profiles):
     """sources: {name: text}; values: strings of the configurations and their records; profiles: compiled
     review and deny profiles of the first configuration. Returns findings."""
@@ -165,13 +250,16 @@ def lint_sources(sources, values, profiles):
         except SyntaxError as exc:
             found.append('%s: does not parse (%s)' % (name, exc))
             continue
+        scoped = protocol_nodes(name, tree)
         for node in ast.walk(tree):
             if isinstance(node, ast.Constant) and isinstance(node.value, str):
                 s = node.value
-                if allowed(s):
-                    continue
+                # the hexadecimal clause applies to every literal (R6.CORE.3); the allowlist exempts a value from the
+                # value-set clause and, as the design reads it (sec. 0.3 F1; amendment 2), from the profile clause
                 if _hex.search(s):
                     found.append('%s:%d: hexadecimal literal of 7 or more digits' % (name, node.lineno))
+                if allowed(s) or node in scoped:
+                    continue
                 if s in values and s.strip():
                     found.append('%s:%d: string literal %r occurs in a configuration or record'
                                  % (name, node.lineno, s[:60]))

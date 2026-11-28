@@ -1,6 +1,5 @@
 """Operation C: a candidate is exactly the scientific base plus the ledger; tree roles H, M, X, C, L (sec. 13)."""
 import ast
-import difflib
 import re
 import warnings
 
@@ -71,6 +70,9 @@ class Execution:
         self.pin_ok = list(pin_ok)
         self.records_after_freeze = list(records_after_freeze)
         self.freeze = None
+        # amendment r4 (O-9): {'freeze', 'cpath', 'authorized'}, set by an operation that evaluates M with F (A.4, A.7)
+        self.record_dir_args = None
+        self.rd = None
 
     def item(self, obligation, cls, subject, fp=None, **kw):
         self.items.append(oc.make_item(obligation, cls, subject, kw.pop('segment', None), fp, **kw))
@@ -89,10 +91,6 @@ class Execution:
             d = self.repo.read(self.H, sp['file']) or b''
             if util.sha256(d[sp['start']:sp['end']]) != sp['old_sha256']:
                 bad.append('%s: old_sha256 does not match its span at H' % sp['id'])
-        sids = {sp['id'] for sp in led['splices']}
-        for r in led['retained']:
-            if r['id'] in sids:
-                bad.append('%s: retained edit has a splice' % r['id'])
         if bad:
             raise oc.Stop(oc.error, 'LEDGER_INTEGRITY', bad[0], {'problems': bad[:50], 'count': len(bad)})
         self.checks.append({'name': 'preconditions-at-H', 'holds': True, 'splices': len(led['splices']),
@@ -206,9 +204,10 @@ class Execution:
         for r in self.ledger['retained']:
             ok = r['id'] not in sids and r.get('text') is not None
             if ok:
-                h = (self.repo.read(self.H, r['file']) or b'').decode('utf-8', 'replace')
-                x = (self.repo.read(X, r['file']) or b'').decode('utf-8', 'replace')
-                ok = h.count(r['text']) == 1 and x.count(r['text']) == 1
+                text = r['text'].encode('utf-8')
+                h = self.repo.read(self.H, r['file']) or b''
+                x = self.repo.read(X, r['file']) or b''
+                ok = h.count(text) == 1 and x.count(text) == 1
             if not ok:
                 self.item('RET', 'retained-changed', r['id'], {'site': r.get('site_ref')}, file=r.get('file'))
 
@@ -307,45 +306,120 @@ class Execution:
         if record_tree is not None and self.repo.tree_id(M, record_path) != record_tree:
             raise oc.Stop(oc.error, 'RECORD_TREE_MISMATCH', 'the frozen record tree differs at M')
         hp, mp = self.repo.paths(self.H), self.repo.paths(M)
+        # side-change entries compare by (mode, blob id): a change of mode alone with the same blob is a side change
+        # (R6.PUR.12; a symbolic link at M is `not a regular file`, a regular-to-regular flip is classified as usual)
+        he = {p_: e_ for p_, e_ in self.repo.entries(self.H).items() if e_[0] != '160000'}
+        me = {p_: e_ for p_, e_ in self.repo.entries(M).items() if e_[0] != '160000'}
         chain = []
         c = M
         while c != self.H:
             chain.append(c)
             c = self.repo.parents(c)[0]
         chain.reverse()
+        self.rd = rd = self._record_directory(ledgered_or_corpus)
+        if rd is not None and rd.active:
+            # A.5: an independent, mandatory invariant, issued whatever any other route decides about the path
+            for path, why in sorted(rd.unequal.items()):
+                self.item('MAIN', 'side-change-unclassified', path,
+                          {'f': rd.entry(path, rd.F), 'm': rd.entry(path, M)}, file=path, why=why,
+                          rule='record-directory completeness')
+        # amendment 3: one run-level assessment of every entry for the drifted ledgered or corpus paths (RC10 and
+        # RC11 read over the locally valid entries), and one disposition per such path (R6.RECON.22)
+        drifted = {p for p in set(hp) | set(mp) if he.get(p) != me.get(p) and p in ledgered_or_corpus}
+        retained = rc.retained_windows(self.repo, self.H, self.ledger, drifted)
+        self.assessment = rc.assess(self.repo, self.ctx, self.H, M, self.X, self.ledger, self.reconciliations,
+                                    self.side_classes, getattr(self, 'record_refs', {}), rd, drifted, retained)
+        self.dispositions = []
+        invalid_forms = set()
         for path in sorted(set(hp) | set(mp)):
-            if hp.get(path) == mp.get(path):
+            if he.get(path) == me.get(path):
                 continue
             made = None
             prev = self.H
             for c in chain:
-                if self.repo.blob_id(c, path) != self.repo.blob_id(prev, path):
+                if self.repo.entries(c).get(path) != self.repo.entries(prev).get(path):
                     made = c
                 prev = c
-            entry = {'path': path, 'h': hp.get(path), 'm': mp.get(path), 'commit': made}
+            # the modes at H and M: the evidence of why a mode-only change counts as a change
+            entry = {'path': path, 'h': hp.get(path), 'm': mp.get(path), 'commit': made,
+                     'h_mode': (he.get(path) or (None,))[0], 'm_mode': (me.get(path) or (None,))[0]}
             if path in ledgered_or_corpus:
-                rec, ev = self._reconciled(path)
+                a = self.assessment.get(path) or {'evaluations': [], 'applies': None, 'form': []}
+                rec, ev = a['applies'], a['evaluations']
                 entry['class'] = 'base-drift'
                 entry['reconciled'] = bool(rec)
                 entry['record_conditions'] = ev
+                for r_, e_, form in a['form']:
+                    key = ((r_.get('_ref') or {}).get('path'), e_.get('path'))
+                    if form and key not in invalid_forms:
+                        invalid_forms.add(key)
+                        self.item('RECORD', 'record-invalid', '%s:%s' % key, {'why': form[0]},
+                                  detail='scientific_effect: %s' % '; '.join(form))
+                conflict = rc.path_conflicts(self.repo, self.ctx, self.H, M, path, self.ledger, retained.get(path, ())) \
+                    if path in (self.ledger.get('files') or {}) or path in retained else []
+                disp = {'path': path, 'disposition': 'reconciled' if rec else 'base-drift',
+                        'category': 2 if conflict else 1,
+                        'record': (rec or {}).get('_ref'), 'failed': [e['failed'] for e in ev],
+                        'conflicts': conflict}
+                if not rec and not ev:
+                    disp['why'] = 'no admitted record covers the path'
+                self.dispositions.append(disp)
                 if not rec:
                     self.item('MAIN', 'base-drift', path, {'h': hp.get(path), 'm': mp.get(path)}, file=path,
                               commit=made, failed_conditions=[e['failed'] for e in ev])
                 for e in ev:
-                    if 'R12' in e['failed']:
+                    if 'RC12' in e['failed']:
                         self.item('RECORD', 'record-invalid', '%s:%s' % ((e.get('record') or {}).get('path'), path),
-                                  {'why': 'R12'}, detail='the record states decisions it changes on X (R12)')
+                                  {'why': 'RC12'}, detail='the record states decisions it changes on X (RC12)')
             else:
                 cls, why = self._side_class(path)
                 entry['class'] = cls
+                if cls == rc.record_directory_class:
+                    entry['record_directory'] = dict(rd.equal[path])
                 if cls is None:
-                    self.item('MAIN', 'side-change-unclassified', path, {'h': hp.get(path), 'm': mp.get(path)},
-                              file=path, commit=made, why=why)
+                    if rd is not None and rd.active:
+                        entry['why'] = why
+                    # an unequal path of the record directory already carries A.5's item
+                    if not (rd is not None and rd.active and path in rd.unequal):
+                        self.item('MAIN', 'side-change-unclassified', path, {'h': hp.get(path), 'm': mp.get(path)},
+                                  file=path, commit=made, why=why, h_mode=entry['h_mode'], m_mode=entry['m_mode'])
             self.side_changes.append(entry)
+        # R6.PUR.12 (SIDE-NONREG): a submodule entry is not a blob entry, so the blob comparison above does not list
+        # it; a submodule side change (added, removed or moved to another commit, at a path that is no blob entry at
+        # either end) is never read as file content and is REVIEW_REQUIRED side-change-unclassified, `not a regular
+        # file`, inside or outside the plan's record directory
+        def gitlinks(c_):
+            return {p_: e_[1] for p_, e_ in self.repo.entries(c_).items() if e_[0] == '160000'}
+        gh, gm = gitlinks(self.H), gitlinks(M)
+        for path in sorted(set(gh) | set(gm)):
+            if gh.get(path) == gm.get(path) or path in hp or path in mp:
+                continue
+            made = None
+            prev = self.H
+            for c in chain:
+                if gitlinks(c).get(path) != gitlinks(prev).get(path):
+                    made = c
+                prev = c
+            self.side_changes.append({'path': path, 'h': gh.get(path), 'm': gm.get(path), 'commit': made,
+                                      'class': None, 'why': 'not a regular file'})
+            if not (rd is not None and rd.active and path in rd.unequal):
+                self.item('MAIN', 'side-change-unclassified', path, {'h': gh.get(path), 'm': gm.get(path)},
+                          file=path, commit=made, why='not a regular file')
+
+    def _record_directory(self, ledgered_or_corpus):
+        """Amendment r4, A.4 and A.7: the record-directory context, built once per M role when the operation
+        evaluates M with F; None otherwise (the rule and A.5 are then not evaluated)."""
+        a = self.record_dir_args
+        if not a or not a.get('freeze') or not a.get('cpath'):
+            return None
+        in_corpus = getattr(self.ctx, 'in_corpus', None) or (lambda p: False)
+        ledgered = set(self.ledger['files']) | set(ledgered_or_corpus)
+        return rc.RecordDirectory(self.repo, self.H, a['freeze'], self.M, a['cpath'], a['authorized'], ledgered, in_corpus,
+                                  self.side_classes)
 
     def _side_class(self, path):
-        """S3: a path matches a class only if its blob at M equals the class pin."""
-        return rc.classify_side(self.repo, self.M, path, self.side_classes, getattr(self, 'record_refs', {}))
+        """S3: a path matches a class only if its blob at M equals the class pin; amendment r4, A.6."""
+        return rc.side_class(self.repo, self.M, path, self.side_classes, getattr(self, 'record_refs', {}), self.rd)
 
     def _reconciled(self, path):
         """(entry, evaluations): the record entry that applies (every condition holds, S5), or None."""
@@ -355,7 +429,7 @@ class Execution:
                 if e.get('path') != path:
                     continue
                 ev = rc.evaluate(self.repo, self.ctx, self.H, self.M, self.X, self.ledger, r, e, self.side_classes,
-                                 getattr(self, 'record_refs', {}))
+                                 getattr(self, 'record_refs', {}), self.rd)
                 ev['record'] = r.get('_ref')
                 evs.append(ev)
                 if not ev['failed']:
@@ -405,7 +479,7 @@ class Execution:
                         if e.get('l') != comp_id:
                             self.item('RECORD', 'record-invalid', '%s:%s' % ((r.get('_ref') or {}).get('path'), path),
                                       {'l': e.get('l'), 'composed': comp_id}, file=path,
-                                      detail='the record\'s l differs from the composition (the record\'s R7)')
+                                      detail='the record\'s l differs from the composition (the record\'s RC7)')
                     if comp is not None and l is not None and l == comp_id:
                         continue
                 if generated_rx is not None and generated_rx.search(path):
@@ -414,39 +488,14 @@ class Execution:
                     continue
                 self.item('MAIN', 'landing-conflict-unresolved', path, {'l': l, 'm': m, 'c': c}, file=path)
 
-    def translate_onto_main(self, path, splices):
-        """M's bytes with C's splices applied at M-translated offsets, each old_sha256 re-verified."""
-        h = self.repo.read(self.H, path) or b''
-        m = self.repo.read(self.M, path) or b''
-        hl, ml = h.split(b'\n'), m.split(b'\n')
-        hs, ms = [0], [0]
-        for x in hl:
-            hs.append(hs[-1] + len(x) + 1)
-        for x in ml:
-            ms.append(ms[-1] + len(x) + 1)
-        blocks = difflib.SequenceMatcher(None, hl, ml, autojunk=False).get_matching_blocks()
-        out = []
-        for sp in splices:
-            mapped = None
-            for a, b, n in blocks:
-                if n and hs[a] <= sp['start'] and sp['end'] <= hs[a + n]:
-                    mapped = ms[b] + (sp['start'] - hs[a])
-                    break
-            if mapped is None:
-                return None
-            ln = sp['end'] - sp['start']
-            if util.sha256(m[mapped:mapped + ln]) != sp['old_sha256']:
-                return None
-            out.append(dict(sp, start=mapped, end=mapped + ln))
-        return sg.apply_splices(m, out)
+class LandingCompositionError(ValueError):
+    """The ledgered landing has no verified byte composition."""
 
 
 def compose_landing(repo, H, M, C, ledger, overlay):
-    """An in-memory landing built by the composition rule (for the RT-L controls); never committed."""
+    """Build an in-memory landing, or refuse a ledgered conflict without a verified composition."""
     hp, mp, cp = repo.paths(H), repo.paths(M), repo.paths(C)
     changes = {}
-    ex = Execution.__new__(Execution)
-    ex.repo, ex.H, ex.M = repo, H, M
     by_file = {}
     for sp in ledger['splices']:
         by_file.setdefault(sp['file'], []).append(sp)
@@ -455,6 +504,11 @@ def compose_landing(repo, H, M, C, ledger, overlay):
         if c != h and m == h:
             changes[path] = repo.read(C, path)
         elif c != h and m != h and c != m:
-            want = ex.translate_onto_main(path, by_file.get(path, [])) if path in ledger['files'] else None
-            changes[path] = want if want is not None else repo.read(C, path)
+            if path in ledger['files']:
+                want, why = rc.compose(repo, H, M, path, by_file.get(path, []))
+                if want is None:
+                    raise LandingCompositionError('%s: %s' % (path, why))
+                changes[path] = want
+            else:
+                changes[path] = repo.read(C, path)
     return overlay.derive(M, changes, parents=[M, C], subject='in-memory landing')

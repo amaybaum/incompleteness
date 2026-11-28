@@ -55,11 +55,6 @@ class RunContext:
                 return c
         return None
 
-    def default_check(self, op):
-        for c in self.config['checks']:
-            if op in c.get('default_for', []):
-                return c
-        return None
 
 
 # ---- sites ------------------------------------------------------------------------------------------------
@@ -95,7 +90,35 @@ def held_lines(states):
     return out
 
 
+def record_of(entry):
+    # R6.HP.6 / R6.REC.10: a record-invalid item of an HP adjudication names its record: `file` the record's path
+    # and `record` its reference, when the entry came from an admitted record (`_ref`).
+    ref = (entry or {}).get('_ref')
+    return {'file': ref['path'], 'record': ref} if isinstance(ref, dict) and ref.get('path') else {}
+
+
+def out_of_scope_entry(schema, e):
+    """An entry reported as out-of-scope (sec. 7): its record schema, record, digest, id, segment and tree."""
+    return {'schema': schema, 'record': (e.get('_ref') or {}).get('path'), 'entry': entry_sha(e),
+            'id': e.get('id'), 'segment': e.get('segment'), 'tree': e.get('tree')}
+
+
+def entry_sha(e):
+    """The sha256 of a record entry as written (the fields the record states, not the tool's own `_` fields)."""
+    return util.sha256(util.canonical({k: v for k, v in e.items() if not k.startswith('_')}))
+
+
 # ---- coverage (op B) -------------------------------------------------------------------------------------
+
+def check_segment_chain(pin, commit, segments):
+    endpoint = pin
+    for segment in segments:
+        if segment['from'] != endpoint:
+            raise oc.Stop(oc.error, 'CONFIG_INCONSISTENT', 'segment chain is not contiguous at %s' % segment['from'])
+        endpoint = segment['to']
+    if endpoint != commit:
+        raise oc.Stop(oc.error, 'CONFIG_INCONSISTENT', 'segment chain does not end at the commit')
+
 
 class Coverage:
     def __init__(self, ctx, commit, segments, check, adjudications, hit_records):
@@ -103,10 +126,16 @@ class Coverage:
         self.commit = commit
         self.segments = segments
         self.check = check
-        self.hp_records = {a['site_id']: a for a in adjudications.get('hp', [])}
-        self.context_adj = adjudications.get('context', [])
-        self.hit_records = hit_records
         self.items = []
+        # R6.REC.10, sec. 7: entries naming a segment outside the chain or another tree, reported as out-of-scope
+        # (not items)
+        self.out_of_scope = []
+        # R6.REC.10: two entries naming the same subject, in one record or in two records of the same kind, are
+        # duplicates: FAIL record-invalid naming both, and neither entry is applied
+        self.hp_records = self._unique('hp', adjudications.get('hp', []), lambda a: a.get('site_id'))
+        self.context_adj = list(self._unique('context', adjudications.get('context', []),
+                                             lambda a: (a.get('site_id'), a.get('segment'))).values())
+        self.hit_records = hit_records
         self.site_out = {}
         self.states = []
         self.snapshots = []
@@ -115,8 +144,28 @@ class Coverage:
     def item(self, obligation, cls, subject, segment, fp=None, **kw):
         self.items.append(oc.make_item(obligation, cls, subject, segment, fp, **kw))
 
+    def _unique(self, kind, entries, key):
+        # {key: entry} of the entries whose key no other entry of the same kind names; each duplicated key gives
+        # one FAIL record-invalid naming the record and every entry that names it (R6.REC.10).
+        by = {}
+        for e in entries:
+            by.setdefault(key(e), []).append(e)
+        out = {}
+        for k, es in by.items():
+            if len(es) == 1:
+                out[k] = es[0]
+                continue
+            refs = [e.get('_ref') for e in es]
+            self.item('RECORD', 'record-invalid', (refs[0] or {}).get('path') or kind, None,
+                      {'why': 'duplicate %s entry' % kind, 'key': list(k) if isinstance(k, tuple) else k,
+                       'entries': sorted(entry_sha(e) for e in es)},
+                      why='duplicate %s adjudication entry' % kind, records=refs,
+                      entries=sorted(entry_sha(e) for e in es))
+        return out
+
     def run(self, sweep_files=None):
         ctx = self.ctx
+        check_segment_chain(ctx.config['roles']['pin'], self.commit, self.segments)
         sites = build_sites(ctx)
         self.sites = sites
         for s in sites:
@@ -126,13 +175,12 @@ class Coverage:
                 'site_id': s['site_id'], 'file': s['file'], 'pin_count': s['pin_count'], 'ordinal': s['ordinal'],
                 'pin_context_sha256': s['pin_context_sha256'], 'meaning_context': s['meaning_context'],
                 'context_required': s['pin_count'] > 1, 'indicators': s['indicators'],
+                # R6.CTX.10: a PARTIAL site (a quote indicator holds) carries partial_quote: true, informational only
+                'partial_quote': any(s['indicators'].get(d['name']) for d in ctx.indicators.defs if d['on'] == 'quote'),
                 'structure_context_sha256': s['pin_structure_sha256'], 'provenance': None,
                 'region_shared_with': None, 'hp_overlap': False, 'region_splices': [], 'line_splices': [],
                 'carried': s['carried'], 'statuses': [], 'context_changed': False}
-        prev = ctx.config['roles']['pin']
         for seg in self.segments:
-            if seg['from'] != prev:
-                raise oc.Stop(oc.usage, 'USAGE', 'segment chain is not contiguous at %s' % seg['from'])
             name = '%s..%s' % (seg['from'][:8], seg['to'][:8])
             seg['name'] = name
             if seg['kind'] == 'hp':
@@ -142,9 +190,29 @@ class Coverage:
             else:
                 self.unledgered_segment(seg)
             self.snapshots.append((seg, held_lines(self.states)))
-            prev = seg['to']
-        if prev != self.commit:
-            raise oc.Stop(oc.usage, 'USAGE', 'segment chain does not end at the commit')
+        # R6.REC.10: an HP adjudication entry whose site_id no tracked site carries is FAIL stale-adjudication (an
+        # entry naming an existing site but disagreeing with it is decided by that site's own rule); R6.HP.7: a site
+        # its adjudication resolves carries the distinct state provenance-adjudicated
+        resolved = {st.site['site_id'] for st in self.states if getattr(st, 'adjudicated', False)}
+        tracked = set(self.site_out)
+        for sid in sorted(self.hp_records):
+            if sid not in tracked:
+                rec = self.hp_records[sid]
+                self.item('HP', 'stale-adjudication', sid, None, {'entry': util.sha256(util.canonical(
+                    {k: v for k, v in rec.items() if not k.startswith('_')}))}, record=rec.get('_ref'))
+        # R6.REC.10: a context adjudication entry for a segment of the chain whose site_id no tracked site carries
+        # resolves nothing and is FAIL record-invalid; an entry naming a segment outside the chain is out of scope
+        chain = {sg_['name'] for sg_ in self.segments}
+        for e in self.context_adj:
+            if e.get('segment') not in chain:
+                self.out_of_scope.append(out_of_scope_entry('oi-context-adjudication/1', e))
+                continue
+            if e.get('site_id') not in tracked:
+                subj = e.get('id') or e.get('site_id')
+                self.item('RECORD', 'record-invalid', subj, e.get('segment'), {'entry': entry_sha(e)},
+                          why='context adjudication entry matches no subject', record=e.get('_ref'))
+        for sid in resolved:
+            self.site_out[sid]['provenance_adjudicated'] = True
         for st in self.states:
             so = self.site_out[st.site['site_id']]
             so['current'] = ({'file': st.file, 'lines': [st.start + 1, st.start + len(st.block)],
@@ -261,7 +329,8 @@ class Coverage:
                 cls = check_hp_shared(rec, self.site_out[st.site['site_id']], st, ctx.ft(seg['to'], st.file))
                 if cls:
                     st.adjudicated = False
-                    self.item('HP', 'record-invalid', st.site['site_id'], name, {'why': cls}, detail=cls)
+                    self.item('HP', 'record-invalid', st.site['site_id'], name, {'why': cls}, detail=cls,
+                              **record_of(rec))
                 elif self.site_out[st.site['site_id']]['region_shared_with']:
                     by_region.setdefault((st.file, sg.block_sha(st.block)), []).append(st)
         for key, sts in by_region.items():
@@ -273,7 +342,8 @@ class Coverage:
                     'shared region: own_lines leave a non-blank line unassigned'
                 for s_ in sts:
                     s_.adjudicated = False
-                    self.item('HP', 'record-invalid', s_.site['site_id'], name, {'why': why}, detail=why)
+                    self.item('HP', 'record-invalid', s_.site['site_id'], name, {'why': why}, detail=why,
+                              **record_of(self.hp_records.get(s_.site['site_id'])))
         self.merger_groups = sorted({(k[0], k[1], k[2]) for k, m in groups.items() if len({x[0] for x in m}) > 1})
 
     def unledgered_segment(self, seg):
@@ -304,6 +374,7 @@ class Coverage:
         status, cls, det = sg.search_relocate(st, ff, ft, cf[0])
         so = self.site_out[st.site['site_id']]
         so['statuses'].append({'segment': name, 'status': status if status != 'unresolved' else cls})
+        site_fields(so, status, det)
         if status == 'unresolved':
             st.resolved = False
             self.item(seg.get('obligation', 'RET'), cls, st.site['site_id'], name,
@@ -351,6 +422,7 @@ class Coverage:
                     so = self.site_out[st.site['site_id']]
                     so['statuses'].append({'segment': name, 'status': status if status != 'unresolved' else cls,
                                            'splice_ids': det.get('splice_ids', [])})
+                    site_fields(so, status, det, by_file.get(path, []))
                     if status == 'unresolved':
                         st.resolved = False
                         self.item('RET', cls, st.site['site_id'], name, {'file': path}, file=path,
@@ -409,7 +481,27 @@ class Coverage:
                         st.adjudicated = False
                         self.item('HP', 'record-invalid', st.site['site_id'], seg['name'],
                                   {'why': 'unattributed splice', 'splices': sorted(set(hit) - attributed)},
-                                  detail='a splice overlapping the shared region is attributed to no site')
+                                  detail='a splice overlapping the shared region is attributed to no site',
+                                  **record_of(self.hp_records.get(st.site['site_id'])))
+
+
+# design r6 R6.OUT.18 site fields from the segment rule that set the site's status: `line_delta` of a moved site
+# (R6.ANCH.11); `splice_ids`, each splice's old_sha256 and new_sha256 (`per_splice_hashes`) and `new_region_sha256`
+# of an authorized replacement (R6.ANCH.13); `whitespace_only` of a site the unledgered search leaves unresolved
+# (R6.ANCH.6). A field a later segment's rule does not set is dropped, so each describes the site's last status.
+def site_fields(so, status, det, splices=()):
+    for k in ('line_delta', 'splice_ids', 'per_splice_hashes', 'new_region_sha256', 'whitespace_only'):
+        so.pop(k, None)
+    if status == 'moved':
+        so['line_delta'] = det['line_delta']
+    elif status == 'authorized-replacement':
+        by_id = {sp['id']: sp for sp in splices}
+        so['splice_ids'] = list(det['splice_ids'])
+        so['per_splice_hashes'] = {i: {'old_sha256': by_id[i]['old_sha256'], 'new_sha256': by_id[i]['new_sha256']}
+                                   for i in det['splice_ids']}
+        so['new_region_sha256'] = det['new_region_sha256']
+    elif status == 'unresolved' and 'whitespace_only' in det:
+        so['whitespace_only'] = det['whitespace_only']
 
 
 def check_hp_record(rec, site, steps):
@@ -500,21 +592,68 @@ class Terms:
     """Hits of review profiles, deny matches, rule and record application on one tree."""
 
     def __init__(self, ctx, commit, review_profiles, deny_profiles, added=None, hit_records=(), check=None,
-                 scope_paths=None, splice_texts=None):
+                 scope_paths=None, splice_texts=None, chain_segments=None):
         self.ctx = ctx
         self.commit = commit
         self.review_profiles = review_profiles
         self.deny_profiles = deny_profiles
         self.added = added or {}
-        self.hit_records = list(hit_records)
         self.check = check
+        self.items = []
+        self.out_of_scope = []
+        self.hit_records = self._hit_scope(list(hit_records), chain_segments)
         self.scope_paths = scope_paths
         self.splice_texts = splice_texts
         self.deny_line_set = {}
-        self.items = []
         self.hits = []
         self.rule_counts = {}
         self.evaluated = []
+
+    def _hit_scope(self, recs, chain_segments):
+        # R6.REC.10 for hit classification records. Two in-scope entries naming the same `{file, line_sha256}`
+        # are duplicates: FAIL record-invalid naming both, and neither is applied. With the run's chain given (op B;
+        # empty in op D), an entry applies to this tree when it names no tree or this tree, and no segment or a segment
+        # of the chain. Such an entry whose line matches no line of its file on this tree resolves nothing and is
+        # FAIL record-invalid. An entry naming another tree or a segment outside the chain is out of scope (no
+        # finding). Without a chain (None) the entries are applied as given and no orphan is checked.
+        if chain_segments is None:
+            scoped = recs
+        else:
+            chain = set(chain_segments)
+            scoped = [r for r in recs if r.get('tree') in (None, self.commit) and r.get('segment') in (None,) + tuple(chain)]
+        by = {}
+        for r in scoped:
+            by.setdefault((r.get('file'), r.get('line_sha256')), []).append(r)
+        kept = []
+        for k, rs in by.items():
+            if len(rs) > 1:
+                refs = [r.get('_ref') for r in rs]
+                self.items.append(oc.make_item('RECORD', 'record-invalid', (refs[0] or {}).get('path') or 'hit',
+                                               None, {'why': 'duplicate hit classification entry', 'key': list(k),
+                                                      'entries': sorted(entry_sha(r) for r in rs)},
+                                               why='duplicate hit classification entry', records=refs,
+                                               entries=sorted(entry_sha(r) for r in rs)))
+                continue
+            r = rs[0]
+            if chain_segments is not None:
+                try:
+                    lines = self.ctx.ft(self.commit, r.get('file')).lines if r.get('file') else []
+                except Exception:
+                    lines = []
+                if not any(util.sha256(x) == r.get('line_sha256') for x in lines):
+                    subj = r.get('id') or '%s:%s' % (r.get('file'), r.get('line_sha256'))
+                    self.items.append(oc.make_item('RECORD', 'record-invalid', subj, r.get('segment'),
+                                                   {'entry': entry_sha(r)},
+                                                   why='hit classification entry matches no line of the tree',
+                                                   record=r.get('_ref')))
+                    continue
+            kept.append(r)
+        if chain_segments is None:
+            return kept
+        # out-of-scope entries are reported as out-of-scope (sec. 7; not items) and kept as given
+        outside = [r for r in recs if r not in scoped]
+        self.out_of_scope += [out_of_scope_entry('oi-hit-classification/1', r) for r in outside]
+        return kept + outside
 
     def paths_for(self, profile):
         if profile.spec.get('scope') == 'repo' and self.scope_paths is not None:
@@ -602,10 +741,8 @@ class Terms:
     def deny_on_sentence(self, sentence):
         return [p.name for p in self.deny_profiles if p.applies_to == 'tree' and p.matches(sentence)]
 
-    def review(self, held=None, region_info=None):
-        """Review-profile hits; held lines pass; others are classified by records and rules or stay for review."""
-        held = held or {}
-        region_info = region_info or {}
+    def review_lines(self):
+        """Match the review profiles to lines in the selected tree and scope."""
         by_line = {}
         for p in self.review_profiles:
             for path in self.paths_for(p):
@@ -622,14 +759,23 @@ class Terms:
                         continue
                 for ln, m in sg_scan(p, lines, only).items():
                     by_line.setdefault((path, ln), []).append((p.name, m))
+        return by_line
+
+    def review(self, held=None, region_info=None, prior_lines=None):
+        """Review-profile hits; held lines pass; others are classified by records and rules or stay for review."""
+        held = held or {}
+        region_info = region_info or {}
         rec_index = {}
         for r in self.hit_records:
             rec_index.setdefault((r['file'], r['line_sha256']), []).append(r)
-        for (path, ln), plist in sorted(by_line.items()):
+        for (path, ln), plist in sorted(self.review_lines().items()):
             line = self.ctx.ft(self.commit, path).lines[ln - 1]
             profs = sorted({n for n, _ in plist})
             hit = {'file': path, 'line': ln, 'line_sha256': util.sha256(line), 'profiles': profs,
                    'tree': self.commit, 'keys': {n: sorted({k for k, _, _ in m}) for n, m in plist}}
+            info = region_info.get((path, ln), {})
+            if prior_lines is not None:
+                hit['pre_existing'] = info.get('pre_existing', (path, line) in prior_lines)
             if (path, ln) in held:
                 hit.update(state='PASS', held_by=held[(path, ln)])
                 self.hits.append(hit)
@@ -638,7 +784,6 @@ class Terms:
                 hit.update(state='FAIL', cls='deny-match', rule_id=sorted(self.deny_line_set[(path, ln)]))
                 self.hits.append(hit)
                 continue
-            info = region_info.get((path, ln), {})
             recs = rec_index.get((path, util.sha256(line)), [])
             lines = self.ctx.ft(self.commit, path).lines
             if recs and lines.count(line) == 1 and set(profs) <= set(recs[0].get('profiles', [])):
@@ -685,7 +830,7 @@ class Terms:
                                            info.get('segment'), {'line_sha256': hit['line_sha256'],
                                                                  'profiles': profs, 'rule': rid},
                                            file=path, line=ln, profiles=profs, rule_id=rid,
-                                           pre_existing=info.get('pre_existing'),
+                                           pre_existing=hit.get('pre_existing'),
                                            resolution_needed=None if rank == 3 else
                                            {'record': 'oi-hit-classification/1',
                                             'fields': ['file', 'line_sha256', 'segment', 'profiles',

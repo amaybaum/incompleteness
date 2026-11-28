@@ -74,6 +74,7 @@ class Delegation:
                     except Exception as exc:  # a class adapter fault is a defect of the evidence
                         got = [('fail', 'class adapter raised %s: %s' % (type(exc).__name__, exc))]
                     results.append((name, got))
+            supplied_paths = {}
             for name, n in sorted((supplied or {}).items()):
                 if name in c.get('evidence', []):
                     # a supplied file is never evidence; it is inspected only to reject a defective one (G8)
@@ -82,15 +83,18 @@ class Delegation:
                     except (ValueError, UnicodeDecodeError, AttributeError):
                         doc = None
                     if isinstance(doc, dict) and ('plan' not in doc or doc.get('plan') is None):
-                        results.append(('supplied', [('fail', '%s: plan field null or absent' % name)]))
+                        why = '%s: plan field null or absent' % name
+                        supplied_paths[why] = name
+                        results.append(('supplied', [('fail', why)]))
             for name, got in results:
                 for st, why in got:
                     if st == 'fail':
                         state = 'fail'
+                        path = {'file': supplied_paths[why]} if name == 'supplied' and why in supplied_paths else {}
                         items.append(oc.make_item('DELEGATED', 'delegated-evidence-invalid',
                                                   '%s: %s' % (c['id'], why), None,
                                                   {'class': c['id'], 'tree': name, 'why': why},
-                                                  delegated_class=c['id'], tree=name))
+                                                  delegated_class=c['id'], tree=name, **path))
                     elif st == 'missing':
                         state = 'missing' if state == 'pass' else state
                         items.append(oc.make_item('DELEGATED', 'delegated-evidence-missing',
@@ -112,6 +116,18 @@ def _bytes_record(b):
     except UnicodeDecodeError:
         return {'base64': base64.b64encode(b).decode('ascii'), 'sha256': util.sha256(b)}
 
+
+def clone_env(environ):
+    # The local clone and its checks retain the executable search path and the Windows system root.
+    # Disable the system and global configuration for all three Git commands (R6.DELEG.3).
+    env = {name: environ[name] for name in ('PATH', 'SystemRoot') if name in environ}
+    env.update(GIT_CONFIG_NOSYSTEM='1', GIT_CONFIG_GLOBAL=os.devnull)
+    return env
+
+
+def clone_options():
+    """Options of the delegated clone: an empty template, so no template config or hook reaches the clone."""
+    return ['--template=']
 
 class Native:
     """The disposable clones, the checker blobs from F and the run records of one tool run."""
@@ -144,10 +160,11 @@ class Native:
         if os.path.exists(d):
             shutil.rmtree(d)
         os.makedirs(os.path.dirname(d), exist_ok=True)
-        # the runner's global and system git configuration (for example a filter driver) does not apply to the
-        # clone, so its working tree is checked out from X's blobs as they are (O-3)
-        env = dict(os.environ, GIT_CONFIG_NOSYSTEM='1', GIT_CONFIG_GLOBAL=os.devnull)
-        r = subprocess.run(['git', 'clone', '--no-local', '--no-checkout', '--quiet', self.repo_path, d],
+        # no configuration from the runner (for example a filter driver) applies to the clone, so its working tree is
+        # checked out from X's blobs as they are (O-3, R6.DELEG.3)
+        env = clone_env(os.environ)
+        r = subprocess.run(['git', 'clone'] + clone_options() + ['--no-local', '--no-checkout', '--quiet',
+                                                                  self.repo_path, d],
                            capture_output=True, text=True, env=env)
         if r.returncode != 0:
             raise RuntimeError('clone failed: %s' % r.stderr[-300:])
@@ -158,7 +175,7 @@ class Native:
         if r.returncode != 0:
             raise RuntimeError('checkout failed: %s' % r.stderr[-300:])
         head = subprocess.run(['git', '-C', d, 'log', '-1', '--format=%H %T'], capture_output=True,
-                              text=True).stdout.split()
+                              text=True, env=env).stdout.split()
         if head != [commit, self.repo.tree_id(commit)]:
             raise RuntimeError('the clone\'s commit or tree differs from %s' % commit)
         self.clones[commit] = d
