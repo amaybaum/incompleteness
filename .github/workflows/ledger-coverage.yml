@@ -197,7 +197,7 @@ jobs:
         run: |
           O="$RUNNER_TEMP/suite"
           set +e
-          python3 -I -B tools/ledger_coverage/adapters/staged_purity_lint.py --repo . --config "$GITHUB_SHA:$CFG" --staged-config "$RUNNER_TEMP/staged-config.json" --out "$O/purity"
+          python3 -I -B tools/ledger_coverage/adapters/staged_purity_lint.py --repo . --config "$F:$CFG" --staged-config "$RUNNER_TEMP/staged-config.json" --out "$O/purity"
           echo "$?" > "$O/purity.exit"
       - name: synthetic fixture
         run: |
