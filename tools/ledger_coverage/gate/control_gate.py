@@ -3669,6 +3669,66 @@ def _pipeline_restored(ev, restored, result, exit_code):
             TOOL_EXIT.get(recompute_outcome(result)))
 
 
+def _record_control_restore(row, ev):
+    """Verify the two op-A controls against their named clean run and retained fixture inputs."""
+    anchor = row['id'] == 'ANCH-OVERRIDE'
+    names = [case['case'] for case in row['expect']['cases']] if anchor else ['', 'baseline']
+    adverse, clean, restored = [ev.case(name) for name in (*names, 'restored')]
+    if not all(isinstance(c, dict) for c in (adverse, clean, restored)):
+        return False
+    contexts = []
+    for case, exit_code in zip((adverse, clean, restored), (20 if anchor else 71, 0, 0)):
+        argv = case['argv']
+        result = ev.json(case['result_file'])
+        if (argv[:1] != ['record'] or argv[1::2] != ['--config', '--out', '--freeze', '--pin', '--record']
+                or len(argv) != 11 or not isinstance(result, dict) or result.get('operation') != 'record'
+                or result.get('invocation') != argv[:3] + argv[5:] or result.get('exit_status') != exit_code
+                or ev.text(case['exit_file']) != ('%d\n' % exit_code).encode()):
+            return False
+        config, output, freeze, pin, record = argv[2::2]
+        configured = result.get('config') or {}
+        if config != freeze + ':' + configured.get('path', '') or configured.get('commit') != freeze or \
+                not all(HEX40.fullmatch(x) for x in (freeze, pin, record)) or \
+                (exit_code == 0 and (recompute_outcome(result) != 'PASS' or
+                                     (result.get('record_checks') or {}).get('holds') is not True)):
+            return False
+        contexts.append((output, pin, record))
+    files = (clean['result_file'], restored['baseline_file'], restored['result_file'])
+    result_bytes = [ev.text(f) for f in files]
+    if (len({c[0] for c in contexts}) != 3 or len({c[1] for c in contexts}) != 1 or
+            contexts[0][2] == contexts[1][2] or contexts[1][2] != contexts[2][2] or
+            restored.get('baseline_argv') != clean['argv'] or len(set(files)) != 3 or not all(result_bytes) or
+            result_bytes[0] != result_bytes[1] or result_bytes[0] != result_bytes[2]):
+        return False
+    if anchor:
+        pin = ev.text('pin.txt')
+        shifted = ev.text('clean.record.txt')
+        if not pin or not shifted or shifted != ev.text('adverse.record.txt') or shifted != ev.text('restored.record.txt'):
+            return False
+        inserted, _, remainder = shifted.partition(b'\n')
+        invalid, valid = (ev.json(label + '.rows.json') for label in ('adverse', 'clean'))
+        if remainder != pin or valid != ev.json('restored.rows.json'):
+            return False
+        targets = [rows['site_overrides']['doc/s.md:5']['anchor'].encode() for rows in (invalid, valid)]
+        line = pin.splitlines()[4]
+        return (targets == [inserted, line] and inserted not in line and shifted.splitlines()[4] != line and
+                all(rows['site_map']['pin'] == contexts[0][1] and rows['digest'] == _file_sha(pin)
+                    for rows in (invalid, valid)))
+    clean_checker, fault_checker = (ev.text(label + '.ledger_check.py') for label in ('clean', 'adverse'))
+    worker = ev.json('adverse.replay-result.json')
+    detail = ev.json(adverse['result_file'])['stop']['detail']
+    stage = b'def build():\n'
+    return (clean_checker is not None and stage in clean_checker and
+            clean_checker == ev.text('restored.ledger_check.py') and
+            fault_checker == clean_checker.replace(stage, stage + b'    raise LookupError("fixture failure")\n', 1) and
+            detail == {'stage': 'build', 'class': 'LookupError', 'message': 'fixture failure',
+                       'calls': ['load_sitemap', 'load_rows', 'manuscript_digest']} and
+            worker['exception'] == {k: detail[k] for k in ('stage', 'class', 'message')} and
+            list(worker['calls']) == detail['calls'] and
+            ev.text('clean.replay-result.json') == ev.text('restored.replay-result.json') and
+            ev.text('clean.replay-result.json') is not None)
+
+
 def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None, phase=None):
     """Evaluates one expectation (the row's, one of its cases, or its restored case) against the retained
     evidence of the case. Appends findings; returns the extracted actual."""
@@ -3897,6 +3957,15 @@ def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None, phase=Non
             actual['outcome'] = o if same else 'RESULT_DIFFERS'
             if not same:
                 findings_out.append(('declarative-mismatch', 'restoring --repo did not restore the clean result'))
+        elif rid in ('ANCH-OVERRIDE', 'OUT-FROZEN') and o == 'RESULT_EQUAL_CLEAN':
+            try:
+                same = _record_control_restore(row, ev)
+            except (AttributeError, IndexError, KeyError, TypeError, ValueError):
+                same = False
+            actual['outcome'] = o if same else 'RESULT_DIFFERS'
+            if not same:
+                findings_out.append(('declarative-mismatch', 'case %r does not bind the op-A fixture and clean run'
+                                     % case_name))
         elif o in ('RESULT_EQUAL_CLEAN', 'RESULT_EQUAL_FULL_STORE', 'RESULT_EQUAL_WITHOUT_AMENDMENT',
                    'REPLAY_EQUAL') and c.get('baseline_file'):
             # gate-computed: the case's item tuples and outcome equal those of the retained baseline run

@@ -34,6 +34,7 @@ class Capture(object):
         self.rec = rec
         self.runs_of = {}
         self.procedures = {}
+        self.files = {}
 
     def result_map(self):
         return control_records.RunMap(self.rec, self.runs_of)
@@ -393,7 +394,8 @@ def main():
         summary = 'Fixture record summary.\n'
         inserted_line = 'An inserted line in the record tree.'
 
-        def record_checks(case, mutant=False, baseline=None, override=None, shifted=False, frozen_failure=False):
+        def record_checks(case, mutant=False, baseline=None, override=None, shifted=False, frozen_failure=False,
+                          retain=None):
             rows = {'site_map': smap, 'digest': wanted, 'summary': summary}
             if mutant:
                 override = 'fixture anchor absent from the pinned line'
@@ -422,7 +424,21 @@ def main():
             variant = {'operations': ['record'], 'control_ops': ['record'], 'drop': ['sites'],
                        'extra': {'adapters': ads, 'roles': {'scientific_base': syn.H, 'pin': syn.pin,
                                                            'record_commit': rc, 'side_change_classes': None}}}
-            return run(syn, variant, lambda _: ['record', '--pin', syn.pin, '--record', rc], case, baseline)
+            observed = run(syn, variant, lambda _: ['record', '--pin', syn.pin, '--record', rc], case, baseline)
+            if retain:
+                cid, label = retain
+                files = cap.files.setdefault(cid, {})
+                if cid == 'ANCH-OVERRIDE':
+                    files['pin.txt'] = pin_text
+                    files[label + '.record.txt'] = syn.repo.read(rc, sf.DOC)
+                    files[label + '.rows.json'] = blobs[rows_path]
+                else:
+                    argv = cap.rec.pending[-1]['argv']
+                    replay = os.path.join(argv[argv.index('--out') + 1], 'replay')
+                    for output in ('replay-result.json', record + 'ledger_check.py'):
+                        with open(os.path.join(replay, output), 'rb') as f:
+                            files[label + '.' + os.path.basename(output)] = f.read()
+            return observed
 
         code, result = record_checks('', mutant=True)
         clean_code, clean = record_checks('baseline')
@@ -434,20 +450,21 @@ def main():
 
         fixture_anchor = pin_text.splitlines()[4].decode('utf-8')
         bad_code, bad = record_checks('an override whose anchor is not a substring of the pin line',
-                                      override=inserted_line, shifted=True)
+                                      override=inserted_line, shifted=True, retain=('ANCH-OVERRIDE', 'adverse'))
         good_code, good = record_checks('a valid override whose pin-line text moves after the pin '
                                         '(positive: the anchor is never searched later)',
-                                        override=fixture_anchor, shifted=True)
+                                        override=fixture_anchor, shifted=True, retain=('ANCH-OVERRIDE', 'clean'))
         baseline = cap.rec.pending[-1]
-        restored_code, clean = record_checks('restored', baseline=baseline, override=fixture_anchor, shifted=True)
+        restored_code, clean = record_checks('restored', baseline=baseline, override=fixture_anchor, shifted=True,
+                                             retain=('ANCH-OVERRIDE', 'restored'))
         out['ANCH-OVERRIDE'] = (bad_code == 20 and sf.classes(bad) == ['record-invalid'] and
                                 bool(bad['record_checks']['pin_findings']) and good_code == restored_code == 0 and
                                 not good['record_checks']['pin_findings'] and
                                 good['record_checks'] == clean['record_checks'])
 
-        frozen_code, frozen_result = record_checks('', frozen_failure=True)
-        clean_code, clean = record_checks('baseline')
-        restored_code, restored = record_checks('restored', baseline=cap.rec.pending[-1])
+        frozen_code, frozen_result = record_checks('', frozen_failure=True, retain=('OUT-FROZEN', 'adverse'))
+        clean_code, clean = record_checks('baseline', retain=('OUT-FROZEN', 'clean'))
+        restored_code, restored = record_checks('restored', baseline=cap.rec.pending[-1], retain=('OUT-FROZEN', 'restored'))
         failure = frozen_result.get('stop') or {}
         out['OUT-FROZEN'] = (frozen_code == 71 and failure.get('message') == 'build raised LookupError: fixture failure'
                              and failure.get('detail', {}).get('calls') ==
@@ -496,7 +513,7 @@ def main(out_dir):
             continue
         rec.pending = cap.runs_of.get(cid, [])
         rec.record(cid, 'PASS' if v is True else 'FAIL', {'value': v, 'detail': extra.get('_' + cid)},
-                   'the boolean computed for this id in adapters/engine_controls.py')
+                   'the boolean computed for this id in adapters/engine_controls.py', files=cap.files.get(cid))
     for r in results:
         if r['id'] == 'RB-P1':
             # The conformance runner retains both RB-P1 executions. Keep this route unit check in the self-test.
