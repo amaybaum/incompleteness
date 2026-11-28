@@ -29,7 +29,8 @@ class_record_keys = {'schema': (('lit', (class_schema,)), True), 'record_id': ('
 
 
 def class_record_problems(doc):
-    """R6.RECON.34 class record fields, including the exact path and digest of each pin."""
+    """Check class record fields, including the exact path and digest of each pin."""
+    # R6.RECON.34.
     out = []
     fd.validate(class_record_keys, doc, '$', out)
     if out:
@@ -42,7 +43,8 @@ def class_record_problems(doc):
 
 
 def class_widening(old, new):
-    """R6.RECON.34 widening and R6.RECON.31 review items."""
+    """Return the review items for a widened class record."""
+    # R6.RECON.34 and R6.RECON.31.
     before = {c['id']: c for c in old['classes']}
     after = {c['id']: c for c in new['classes']}
     for cid, cls in after.items():
@@ -62,8 +64,9 @@ def class_widening(old, new):
 
 
 def migration_problems(doc):
-    """R6.RECON.28 and .32: the migration record, including S-2 owner attribution."""
-    from ..record_authority import OWNER_IDENTITIES
+    """Check the migration record and its owner attribution."""
+    # R6.RECON.28, R6.RECON.32 and staging S-2.
+    from ..record_authority import owner_identities
     from .adjudication import parse_time
 
     approval = {'quote': ('nestr', True), 'author': ('identity', True), 'time': ('nestr', True)}
@@ -77,8 +80,8 @@ def migration_problems(doc):
         return problems
     approval = doc['approval']
     if parse_time(approval['time']) is None:
-        problems.append('approval.time is not a UTC time of R6.RECON.29')
-    if not any(fd.same_identity(approval['author'], owner) for owner in OWNER_IDENTITIES):
+        problems.append('approval.time must use the prescribed zero-offset time format')
+    if not any(fd.same_identity(approval['author'], owner) for owner in owner_identities):
         problems.append('approval.author does not name an owner identity')
     pairs = doc['migrations']
     if any(len({p[k] for p in pairs}) != len(pairs) for k in ('old', 'new')):
@@ -89,7 +92,8 @@ def migration_problems(doc):
 
 
 def first_parent_record(repo, anchor, ref):
-    """R6.RECON.33: the newest regular file with the exact path and digest on this first-parent walk."""
+    """Return the newest regular file with the exact path and digest on this first-parent walk."""
+    # R6.RECON.33.
     path, digest = ref.get('path'), ref.get('blob_sha256')
     commit = anchor
     while commit:
@@ -380,10 +384,17 @@ def lint_chain(ref, store, admitted_shas, predecessor=False, *, observed_reviews
         if plan_directory and not ref['path'].startswith(plan_directory + '/'):
             return ['the migration is outside its referring plan record directory']
         if ref['blob_sha256'] in store.strict_parse_failures:
-            return ['the migration is not a strict JSON object']
+            return ['the migration does not parse as a strict object']
         problems = migration_problems(doc)
         if problems:
             return problems
+        # R6.RECON.29 and R6.REC.7: identical bytes at a second path form a separate record.
+        path, digest = ref['path'], ref['blob_sha256']
+        aliases = any(p != path and any(sha == digest for sha, _ in entries)
+                      for p, entries in store.by_path.items())
+        if aliases or (store.scan is not None and any(p != path and util.sha256(raw) == digest
+                                                      for p, raw in store.scan())):
+            return ['the migration record id is reused at another path']
     pool = store.scanned() if predecessor else store.by_sha
     if not predecessor and ref['blob_sha256'] not in admitted_shas:
         out.append('record %s: not referenced by the configuration' % ref['path'])
@@ -391,7 +402,7 @@ def lint_chain(ref, store, admitted_shas, predecessor=False, *, observed_reviews
         out.append('record %s: unknown schema %r' % (ref['path'], doc.get('schema')))
     if doc.get('schema') == class_schema:
         if ref['blob_sha256'] in store.strict_parse_failures:
-            out.append('record %s: not a strict JSON object' % ref['path'])
+            out.append('record %s: does not parse as a strict object' % ref['path'])
         out.extend('record %s: %s' % (ref['path'], problem) for problem in class_record_problems(doc))
         if out:
             return out
@@ -455,7 +466,7 @@ def lint_chain(ref, store, admitted_shas, predecessor=False, *, observed_reviews
         # R6.REC.6 as staging S-2 S2.5 restates it: a review not independent (S2.4) of the record's author is no review
         bad = fd.independence_problems(rv, [author])
         if doc.get('schema') in (class_schema, migration_schema) and sha in store.strict_parse_failures:
-            bad.append('the review is not a strict JSON object')
+            bad.append('the review does not parse as a strict object')
         # r6 Amendment 10 binds the admitted review of the post-freeze route; a predecessor's review keeps S-1 sec. 3
         bad += revision_problems(store.repo, roots, rv, None if predecessor else store.record_commit)
         if doc.get('schema') == migration_schema:
@@ -481,7 +492,7 @@ def lint_chain(ref, store, admitted_shas, predecessor=False, *, observed_reviews
     if not out and doc.get('schema') == class_schema and doc['supersedes'] is not None:
         old = store.resolve(doc['supersedes'])
         if class_record_problems(old):
-            return ['record %s: the superseded class record is malformed' % ref['path']]
+            return ['record %s: the class predecessor fails its schema checks' % ref['path']]
         changed = class_widening(old, doc)
         if changed:
             if len(changed) != len(set(changed)):
@@ -612,7 +623,7 @@ def widening_review_problems(ref, store, admitted_shas, regular_reviewers, autho
             bad.append('an ordinary reviewer declares a dependency on the widening reviewer')
         shape = fd.review_schema_problems(d) if class_review else []
         if class_review and sha in store.strict_parse_failures:
-            shape.append('the review is not a strict JSON object')
+            shape.append('the review does not parse as a strict object')
         bad += shape
         if not shape:
             bad += revision_problems(store.repo, store.roots, d, None if predecessor else store.record_commit)

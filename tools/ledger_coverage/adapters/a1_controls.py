@@ -962,6 +962,14 @@ def v_controls(a):
                                           profile='item7-literal')
     a.record('V22', 'DR-5' in rids and code_l == 20, 'FAIL deny-match DR-5; the literal item 7 fails too',
              {'rules': sorted(rids), 'literal_exit': code_l})
+    # S11-7 is the same added passage under the same two operations, with their complete run outputs.
+    deny_run, literal_run = a.runs_of['V22']
+    a.rec.pending = [dict(literal_run, case='item7-literal profile'), dict(deny_run, case='deny profiles')]
+    a.record('S11-7', code == code_l == 20 and 'DR-5' in rids and
+             set(classes(res_l)) == {'item7-literal-match'},
+             'the restored passage fails under the literal check and the deny profiles',
+             {'deny_exit': code, 'deny_rules_on_added_passage': sorted(rids),
+              'literal_exit': code_l, 'literal_classes': sorted(set(classes(res_l)))})
     # residuals and resid
     for cid, f, text, exp in [('V4', 'papers/GR.md', "the framework's sixth structural property, finiteness of the bijection\n", 'PASS'),
                               ('V27', 'papers/GR.md', "The framework's sixth structural property is finiteness of the substratum\n", 'PASS'),

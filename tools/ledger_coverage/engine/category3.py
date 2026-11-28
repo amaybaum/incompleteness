@@ -743,7 +743,7 @@ def migration_map(repo, loaded, load_ancestor, ledger_of, review_inputs):
     observed = review_inputs()
     ids = {}
     states = {0: loaded}
-    proposals, errors = {}, {}
+    proposals, errors, exact_paths = {}, {}, {}
     for i, ref in cited:
         _, cref, at = chain[i]
         if i not in states:
@@ -758,6 +758,8 @@ def migration_map(repo, loaded, load_ancestor, ledger_of, review_inputs):
             issues.append('the migration is outside its referring plan record directory')
         if raw is None or not isinstance(record, dict) or fd.strict_parse(raw) != record:
             issues.append('the exact migration reference is absent or its bytes fail strict parsing')
+        else:
+            exact_paths.setdefault(key[1], set()).add(key[0])
         if not issues:
             issues = rec.migration_problems(record) or rec.lint_chain(
                 ref, state.store, state.admitted, observed_reviews=observed, plan_directory=directory)
@@ -777,6 +779,10 @@ def migration_map(repo, loaded, load_ancestor, ledger_of, review_inputs):
             errors.setdefault(key, []).extend(issues)
         else:
             proposals[key] = [(p['old'], p['new']) for p in record['migrations']]
+    for sha, paths in exact_paths.items():
+        if len(paths) > 1:
+            for path in sorted(paths):
+                errors.setdefault((path, sha), []).append('the migration record id is reused at another path')
 
     # An invalid record contributes no edges, including any otherwise valid pair in the same record.
     edges = {}
