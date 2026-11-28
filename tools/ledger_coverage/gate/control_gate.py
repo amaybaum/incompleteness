@@ -153,7 +153,9 @@ RC_TR5 = ('the configuration path at the candidate F named by --freeze is listed
           'the PREREG.md beside it')
 # r6 amendment 9 (owner-approved; rows that read the configuration's rule records gate plan freeze F, OBL-3)
 RC_RULES = 'the configuration at the commit under check references reviewed rule records (OBL-3)'
-RELEASE_CHECKS = frozenset([RC_FALSE, RC_TR5_PASS, RC_EI14, RC_RTL2, RC_RTT, RC_TR5, RC_RULES])
+RC_REP_BUILD = 'the subject under check is the exact candidate F assessed by OBL-16(a)'
+RELEASE_CHECKS = frozenset([RC_FALSE, RC_TR5_PASS, RC_EI14, RC_RTL2, RC_RTT, RC_TR5, RC_RULES, RC_REP_BUILD])
+F_REQUIRED_ROWS = frozenset(['REP-BUILD', 'RT-T', 'TR5', 'S11-2', 'S11-2a', 'S11-2b', 'S11-2c'])
 # amendment 8, M8-3 and M8-4 (R6.GATE.15): a row outside the A1 path admits NOT RUN with this reason and RC_FALSE;
 # where no runner records it, the gate records it NOT RUN
 A8_REASON = 'outside the A1 path (amendment 8)'
@@ -438,6 +440,8 @@ def evaluate_release(ctx, text, statuses):
         return tr5_release(ctx)
     if text == RC_RULES:
         return rules_release(ctx)
+    if text == RC_REP_BUILD:
+        return assessment_subject(ctx)['phase'] == 'candidate-F'
     raise FileInvalid('unknown release check %r' % text)
 
 
@@ -1248,6 +1252,785 @@ def git_entry(repo, commit, path):
     return None
 
 
+REGULAR_MODES = ('100644', '100755')
+REP_LEDGER = AUDIT_DIR + 'rep/ledger.json'
+REP_EDITS = AUDIT_DIR + 'rep/edits.json'
+REP_TEMPLATE = AUDIT_DIR + 'rep/control-instance.json'
+REP_BUILDER = 'tools/ledger_coverage/adapters/rep_build.py'
+REP_LEDGER_GIT = 'ba37c1cdb560cb5fceeeb2b46a3091c832b4a80e'
+REP_EDITS_GIT = 'ec384fdfbc12937b860e2f226355e8c5d94820a5'
+REP_E = 'e837e3dbaa605efc867a213f3345cee14c36d8f5'
+REP_SUBJECT = 'X_rep: the representative retirement candidate of design r6 R6.EVID.8'
+REP_MARKER = b'X_rep delegated-path marker (design r6 R6.EVID.8): %s\n'
+REP_CASES = (
+    'build X_rep from H, the pinned ledger and edit list, and the configuration\'s control instance',
+    "the pinned ledger with one splice's new bytes changed by one byte",
+    'a builder that imports a module under tools/ledger_coverage/engine/',
+)
+REP_HASH_REASON = "a ledgered path's sha256 differs from the ledger's expected_sha256"
+REP_IMPORT_REASON = 'the builder imports from the engine under test'
+REP_DESCRIPTOR = 'a1-staging-transition.json'
+REP_PRIOR = 'a1-staging-prior.json'
+REP_LANDING_PREFIXES = LANDING_PREFIXES + ('verification/audits/foundations/a1exit-design-r6-20261125/',)
+REP_NAMESPACES = (
+    ('class', AUDIT_DIR + 'records/a1-staging-class-', 'oi-side-change-classes/1', 'a1-staging-tool-landing'),
+    ('allow', S11_A1_DIRECTORY + '/a1-staging-allow-', 'oi-term-rules/2', 'a1-staging-w1-w2'),
+)
+
+
+def _file_sha(data):
+    return hashlib.sha256(data).hexdigest()
+
+
+def _git_oid(kind, data):
+    return hashlib.sha1(('%s %d\0' % (kind, len(data))).encode() + data).hexdigest()
+
+
+def _git_rep_read(repo, *args):
+    env = dict(os.environ, GIT_NO_LAZY_FETCH='1', GIT_ALLOW_PROTOCOL='', GIT_TERMINAL_PROMPT='0',
+               GIT_GRAFT_FILE=os.devnull)
+    result = subprocess.run(['git', '--no-replace-objects', '-C', repo, *args], capture_output=True, env=env)
+    if result.returncode:
+        raise ValueError('Git could not read %s' % ' '.join(args))
+    return result.stdout
+
+
+def _rep_commit(repo, oid):
+    if not isinstance(oid, str) or not HEX40.fullmatch(oid):
+        raise ValueError('a representative role has no full commit id')
+    raw = _git_rep_read(repo, 'cat-file', 'commit', oid)
+    header = raw.split(b'\n\n', 1)[0].splitlines()
+    if _git_oid('commit', raw) != oid or not header or not header[0].startswith(b'tree '):
+        raise ValueError('Git commit %s does not verify' % oid)
+    return (header[0][5:].decode('ascii'),
+            [line[7:].decode('ascii') for line in header if line.startswith(b'parent ')])
+
+
+def _rep_walk(repo, start, end):
+    """Inclusive first-parent path from independently read commit headers."""
+    path = []
+    current = end
+    while True:
+        path.append(current)
+        _, parents = _rep_commit(repo, current)
+        if current == start:
+            return list(reversed(path))
+        if not parents:
+            raise ValueError('%s is absent from the first-parent path ending at %s' % (start, end))
+        current = parents[0]
+
+
+def _rep_entries(repo, commit):
+    tree, _ = _rep_commit(repo, commit)
+    out = {}
+    for line in _git_rep_read(repo, 'ls-tree', '-rz', '--full-tree', tree).split(b'\0'):
+        if line:
+            meta, path = line.split(b'\t', 1)
+            mode, _, oid = meta.decode('ascii').split()
+            out[path.decode('utf-8', 'surrogateescape')] = (mode, oid)
+    return out
+
+
+def _rep_entry(repo, commit, path):
+    if not isinstance(path, str) or not path or any(p in ('', '.', '..') for p in path.split('/')):
+        raise ValueError('a representative input names an invalid repository path')
+    entry = git_entry(repo, commit, path)
+    if not entry or entry[0] not in REGULAR_MODES:
+        raise ValueError('%s is not a regular entry at %s' % (path, commit))
+    return _rep_blob(repo, entry)
+
+
+def _rep_blob(repo, entry):
+    mode, oid = entry
+    raw = _git_rep_read(repo, 'cat-file', 'blob', oid)
+    if _git_oid('blob', raw) != oid:
+        raise ValueError('Git blob %s does not verify' % oid)
+    return {'mode': mode, 'git_blob': oid, 'blob_sha256': _file_sha(raw)}, raw
+
+
+def _rep_input(repo, ref, commit, path=None):
+    """Read a named operand and verify every retained identity field against Git."""
+    if not isinstance(ref, dict) or ref.get('commit') != commit or (path and ref.get('path') != path):
+        raise ValueError('the recorded operand does not name its required commit and path')
+    path = ref['path']
+    entry, raw = _rep_entry(repo, commit, path)
+    if ref != dict(entry, commit=commit, path=path):
+        raise ValueError('the recorded operand %s differs from its Git entry' % path)
+    return raw
+
+
+def _rep_pin(repo, commit, ref):
+    if not isinstance(ref, dict) or set(ref) != {'path', 'blob_sha256'}:
+        raise ValueError('a representative reference is not a path and a digest')
+    _, raw = _rep_entry(repo, commit, ref['path'])
+    if _file_sha(raw) != ref['blob_sha256']:
+        raise ValueError('the representative reference %s differs from the blob at %s' % (ref['path'], commit))
+    return raw
+
+
+def _rep_plan_pin(repo, commit, name):
+    _, prereg = _rep_entry(repo, commit, S11_A1_DIRECTORY + '/PREREG.md')
+    digests = [h for p, h in (last_pin_rows(prereg) or []) if p == name]
+    if len(digests) != 1 or not re.fullmatch('[0-9a-f]{64}', digests[0]):
+        raise ValueError('the Record pins table does not uniquely pin %s' % name)
+    return {'path': S11_A1_DIRECTORY + '/' + name, 'blob_sha256': digests[0]}
+
+
+def _rep_lineage(repo, commits, role, prefix, schema, record_id, root):
+    """Independently recover the designated lineage, including retention and entry modes at each commit."""
+    if root.get('path') != prefix + 'root.json':
+        raise ValueError('the descriptor names another %s root' % role)
+    chain, known = [], {}
+    for commit in commits:
+        current = {p: e for p, e in _rep_entries(repo, commit).items()
+                   if p.startswith(prefix) and '/' not in p[len(prefix):]}
+        if not known and set(current) != {root['path']}:
+            raise ValueError('the preparation base does not hold exactly the designated %s root' % role)
+        if any(current.get(p) != e for p, e in known.items()):
+            raise ValueError('a %s lineage entry is missing or was changed at %s' % (role, commit))
+        pending = []
+        for p in sorted(current.keys() - known.keys()):
+            entry, raw = _rep_entry(repo, commit, p)
+            pin, doc = {'path': p, 'blob_sha256': entry['blob_sha256']}, json.loads(raw)
+            if not isinstance(doc, dict) or doc.get('schema') != schema or doc.get('record_id') != record_id or \
+                    'supersedes' not in doc:
+                raise ValueError('a %s namespace member has the wrong schema or lineage id' % role)
+            pending.append((pin, doc['supersedes']))
+        while pending:
+            tip = chain[-1] if chain else None
+            successors = [pair for pair in pending if pair[1] == tip]
+            if len(successors) != 1 or (tip is None and successors[0][0] != root):
+                raise ValueError('the %s lineage has a fork, another root or a wrong predecessor' % role)
+            chain.append(successors[0][0])
+            pending.remove(successors[0])
+        known = current
+    return chain
+
+
+def _rep_ref(value):
+    return {k: value[k] for k in ('path', 'blob_sha256')}
+
+
+def _rep_role_selection(config, class_tip, allow_tip):
+    """Match the actual configured roles, including the records through which they are read."""
+    classes = [r for r in config['records'] if r.get('kind') == 'side-change-classes' and
+               r['path'].startswith(REP_NAMESPACES[0][1])]
+    rules = [r for r in config['rules'] if r['path'].startswith(REP_NAMESPACES[1][1])]
+    if config['roles'].get('side_change_classes') != class_tip or [_rep_ref(r) for r in classes] != [class_tip] or \
+            [_rep_ref(r) for r in rules] != [allow_tip]:
+        raise ValueError('the configuration does not select the exact active class and allow references')
+
+
+def _rep_review_pool(repo, commit, config=None):
+    """Read exact configured reviews and the eligible record-directory reviews of predecessors."""
+    if config is not None:
+        refs = [_rep_ref(r) for r in config['records'] if r.get('kind') == 'review']
+        candidates = [(r['path'], _rep_pin(repo, commit, r)) for r in refs]
+    else:
+        dirs = (AUDIT_DIR + 'records/', S11_A1_DIRECTORY + '/')
+        candidates = [(p, _rep_blob(repo, ent)[1]) for p, ent in _rep_entries(repo, commit).items()
+                      if p.startswith(dirs) and p.endswith('.json') and ent[0] in REGULAR_MODES]
+    reviews = []
+    for path, raw in candidates:
+        try:
+            review = json.loads(raw)
+        except ValueError:
+            if config is not None:
+                raise ValueError('the configured review %s is invalid JSON' % path)
+            continue
+        if isinstance(review, dict) and review.get('schema') == 'oi-review-record/1':
+            reviews.append(review)
+        elif config is not None:
+            raise ValueError('the configured review %s does not have the ordinary review schema' % path)
+    return reviews
+
+
+def _rep_review_valid(repo, commit, review, ref, author, items):
+    rev = review.get('revision')
+    verdicts = review.get('verdicts')
+    if not (isinstance(rev, str) and HEX40.fullmatch(rev) and _independent_of_author(review, author) and
+            isinstance(verdicts, list) and all(isinstance(v, dict) for v in verdicts)):
+        return False
+    _rep_commit(repo, rev)
+    _git_rep_read(repo, 'merge-base', '--is-ancestor', rev, commit)
+    return (_rep_pin(repo, rev, ref) is not None and bool(items) and
+            len({v.get('item') for v in verdicts}) == len(verdicts) and
+            set(items) <= {v.get('item') for v in verdicts if v.get('verdict') == 'accept'})
+
+
+def _rep_allow_widening(old, current):
+    """R6.REC.13 changed items for the designated allow lineage."""
+    old_rules = {r['id']: r for r in old.get('rules', [])}
+    changed = []
+    for r in current['rules']:
+        if r.get('kind') != 'allow':
+            raise ValueError('the designated allow lineage carries a non-allow rule')
+        rid = r['id']
+        if rid not in {'W1-b', 'W1-c', 'W1-d', 'W2-a', 'W2-b'}:
+            raise ValueError('the designated allow lineage carries an allowance outside the adopted ids')
+        q = old_rules.get(rid)
+        if q is None:
+            changed.append(rid + ':new allow rule without supersedes')
+            continue
+        before, after = q['matcher'], r['matcher']
+        conditions = (
+            (set(r['scope']['files']) - set(q['scope']['files']), 'added files'),
+            (before['literal'] != after['literal'], 'changed literal'),
+            (set(map(str, before.get('context', []))) - set(map(str, after.get('context', []))),
+             'fewer context literals'),
+            (set(map(str, before.get('negative', []))) - set(map(str, after.get('negative', []))),
+             'fewer negative literals'),
+            (sorted(json.dumps(f, sort_keys=True) for f in q['fingerprints']) !=
+             sorted(json.dumps(f, sort_keys=True) for f in r['fingerprints']), 'fingerprint set changed'),
+            (r['max_instances'] > q['max_instances'], 'larger max_instances'),
+            (q['context_required'] and not r['context_required'], 'context_required turned off'),
+        )
+        changed.extend(rid + ':' + what for changed_scope, what in conditions if changed_scope)
+        old_allowance = {(f['file'], f['sentence_sha256'], f['context_sha256']): f.get('negative_allowance') or {}
+                         for f in q['fingerprints']}
+        for f in r['fingerprints']:
+            prior = old_allowance.get((f['file'], f['sentence_sha256'], f['context_sha256']))
+            new = f.get('negative_allowance') or {}
+            if new and (prior is None or any(n > prior.get(k, 0) for k, n in new.items())):
+                changed.append(rid + ':negative_allowance added, raised or moved')
+                break
+    return changed
+
+
+def _rep_lineage_reviews(repo, snapshot, config_commit, config, chains):
+    active = _rep_review_pool(repo, config_commit, config)
+    history = _rep_review_pool(repo, snapshot)
+    for role, chain in chains.items():
+        prior_doc, prior_ref = {}, None
+        for ref in chain:
+            doc = json.loads(_rep_pin(repo, snapshot, ref))
+            is_tip = ref == chain[-1]
+            pool, scope = (active, config_commit) if is_tip else (history, snapshot)
+            if is_tip:
+                _rep_pin(repo, config_commit, ref)
+            exact = [r for r in pool if r.get('reviewed') == ref]
+            ordinary = [r for r in exact if r.get('kind', 'review') == 'review']
+            entries = doc['classes' if role == 'class' else 'rules']
+            if not entries:
+                raise ValueError('the %s representative scope is empty' % role)
+            items = [r['id'] for r in entries] or [doc['record_id']]
+            author = doc.get('author')
+            if not ordinary or not all(r.get('method') and
+                                       _rep_review_valid(repo, scope, r, ref, author, items) for r in ordinary):
+                raise ValueError('ordinary review does not qualify %s' % ref['path'])
+            widened = _rep_allow_widening(prior_doc, doc) if role == 'allow' else []
+            if widened:
+                # At the designated root the predecessor field must be explicitly null.
+                others = [r['reviewer'] for r in ordinary]
+                if not any(r.get('kind') == 'widening' and 'replaces' in r and r['replaces'] == prior_ref and
+                           all(v['verdict'] == 'accept' for v in r.get('verdicts', [])) and
+                           _rep_review_valid(repo, scope, r, ref, author, widened) and
+                           all(_independent_of_author(r, who) for who in others) and
+                           (prior_ref is not None or
+                            all(_independent_of_author(o, r['reviewer']) for o in ordinary)) for r in exact):
+                    raise ValueError('widening review does not qualify %s' % ref['path'])
+            prior_doc, prior_ref = doc, ref
+
+
+def _rep_class_pins(repo, commit, class_tip):
+    doc = json.loads(_rep_pin(repo, commit, class_tip))
+    classes = [c for c in doc['classes'] if c['id'] == 'tool-landing']
+    if len(classes) != 1:
+        raise ValueError('the active class does not define tool-landing exactly once')
+    pins = classes[0]['pins']
+    result = {}
+    for pin in pins:
+        _rep_pin(repo, commit, pin)
+        if pin['path'] in result:
+            raise ValueError('the tool-landing class repeats a pin')
+        result[pin['path']] = pin['blob_sha256']
+    return result
+
+
+def _reviewed_items(doc):
+    fields = (('rules', 'id'), ('sites', 'site_id'), ('entries', 'id'), ('classifications', 'id'),
+              ('records', 'id'), ('classes', 'id'))
+    if doc.get('schema') == 'oi-retirement-config/1':
+        return [doc['config_id']]
+    return [v[k] for field, k in fields for v in doc.get(field, [])] or [doc['record_id']]
+
+
+def _rep_tool_image(repo, commit, config):
+    entries = _rep_entries(repo, commit)
+    paths = {p for p in entries if p == 'tools/ledger_coverage.py' or p.startswith('tools/ledger_coverage/')}
+    refs = config['tool']['files']
+    pins = {r['path']: r['blob_sha256'] for r in refs}
+    if not paths or len(pins) != len(refs) or pins.keys() != paths or \
+            config['tool']['workflow']['path'] != WORKFLOW_PATH:
+        raise ValueError('the configuration does not pin the complete tool and workflow image')
+    pins[WORKFLOW_PATH] = config['tool']['workflow']['blob_sha256']
+    for path, digest in pins.items():
+        _rep_pin(repo, commit, {'path': path, 'blob_sha256': digest})
+    return paths | {WORKFLOW_PATH}
+
+
+def _rep_live_subject(ctx, binding, config, descriptor, chains, class_pins, template):
+    """Tie the live binding to the assessed F, the independently read main tip and the actual normal merge."""
+    repo, F = ctx.repo, ctx.freeze
+    B, S, M, T = binding['B'], ctx.rep_snapshot, ctx.rep_main, ctx.tool_landing
+    tip = ctx.main_tip
+    if not isinstance(tip, str) or not HEX40.fullmatch(tip) or \
+            git_blob_id(repo, 'refs/remotes/origin/main^{commit}') != tip:
+        raise ValueError('the representative main tip differs from the independently read origin/main')
+    if binding.get('T_land') != T or binding.get('M_rep') != M or binding.get('main_tip') != tip:
+        raise ValueError('the live landing or main roles differ from the assessment operands')
+    if T == B or _rep_walk(repo, M, tip) != binding['main_path'] or \
+            _rep_walk(repo, T, B) != binding['landing_to_base']:
+        raise ValueError('the representative anchor and preparation base lack the required first-parent placement')
+    if binding['descriptor'] != _rep_plan_pin(repo, F, REP_DESCRIPTOR) or \
+            _rep_pin(repo, F, binding['descriptor']) != _rep_pin(repo, S, binding['descriptor']):
+        raise ValueError('the representative descriptor differs from the one pinned at F')
+    path_f = _rep_walk(repo, B, F)
+    for role, prefix, schema, record_id in REP_NAMESPACES:
+        if _rep_lineage(repo, path_f, role, prefix, schema, record_id, descriptor[role + '_root']) != chains[role]:
+            raise ValueError('the candidate F and representative snapshot select different %s lineages' % role)
+    prior = json.loads(_rep_pin(repo, F, _rep_plan_pin(repo, F, REP_PRIOR)))
+    if not isinstance(prior, dict) or set(prior) != {'schema', 'freeze'} or \
+            prior.get('schema') != 'oi-a1-staging-prior/1':
+        raise ValueError('the prior-freeze declaration at F is invalid')
+    if prior['freeze'] is not None:
+        previous = prior['freeze']
+        if previous not in path_f[:-1] or _rep_plan_pin(repo, previous, REP_DESCRIPTOR) != binding['descriptor']:
+            raise ValueError('the prior freeze lacks continuity with the assessed F')
+        _rep_pin(repo, previous, binding['descriptor'])
+        _, prereg = _rep_entry(repo, previous, S11_A1_DIRECTORY + '/PREREG.md')
+        older_configs = []
+        for name, digest in last_pin_rows(prereg) or []:
+            ref = {'path': S11_A1_DIRECTORY + '/' + name, 'blob_sha256': digest}
+            raw = _rep_pin(repo, previous, ref)
+            try:
+                doc = json.loads(raw)
+            except ValueError:
+                continue
+            if isinstance(doc, dict) and doc.get('schema') == 'oi-retirement-config/1':
+                older_configs.append(ref)
+        if len(older_configs) != 1:
+            raise ValueError('the prior freeze does not uniquely pin its configuration')
+        old_pin = older_configs[0]
+        current_pin = _rep_plan_pin(repo, F, os.path.basename(ctx.config_path))
+        if old_pin['blob_sha256'] != current_pin['blob_sha256'] and config.get('supersedes') != old_pin:
+            raise ValueError('the configuration does not supersede the previously pinned configuration')
+    ledger = json.loads(_rep_pin(repo, F, _rep_plan_pin(repo, F, 'ledger.json')))
+    edits = _rep_plan_pin(repo, F, 'edits.json')
+    _rep_pin(repo, F, edits)
+    final_h = config['roles']['scientific_base']
+    if ledger.get('base') != final_h or ledger.get('edits_sha256') != edits['blob_sha256'] or \
+            B == final_h or final_h not in binding['landing_to_base']:
+        raise ValueError('the final ledger, edit list or scientific base at F is misbound')
+    ledger_paths = sorted(ledger['files'])
+    if not ledger_paths or binding.get('ledger_paths') != ledger_paths:
+        raise ValueError('the representative evidence omits the complete final ledger path set')
+
+    tree, parents = _rep_commit(repo, T)
+    if len(parents) != 2 or (tree, parents, parents[1]) != (binding.get('landing_tree'),
+                                                           binding.get('landing_parents'),
+                                                           binding.get('tool_candidate')):
+        raise ValueError('the landing record does not identify the actual normal tool merge and candidate')
+    base, landed, candidate, main = [_rep_entries(repo, c) for c in (parents[0], T, parents[1], M)]
+    delta = {p for p in base.keys() | landed.keys() if base.get(p) != landed.get(p)}
+    if not delta or delta & set(ledger_paths) or any(
+            p != WORKFLOW_PATH and not p.startswith(REP_LANDING_PREFIXES) for p in delta):
+        raise ValueError('the actual first-parent landing delta is outside the approved path scope')
+    if any(p not in landed or landed[p][0] not in REGULAR_MODES or
+           landed[p] != candidate.get(p) or landed[p] != main.get(p) for p in delta):
+        raise ValueError('a landing delta entry is missing, nonregular or substituted')
+    after = {p: _rep_blob(repo, landed[p])[0] for p in delta}
+    before = {}
+    for p in delta & base.keys():
+        mode, oid = base[p]
+        before[p] = (_rep_blob(repo, base[p])[0] if mode in REGULAR_MODES else
+                     {'mode': mode, 'git_blob': oid, 'blob_sha256': None})
+    if binding.get('landing_delta') != {p: {'before': before.get(p), 'after': after[p]} for p in delta} or \
+            class_pins != {p: e['blob_sha256'] for p, e in after.items()}:
+        raise ValueError('the retained delta or class pins differ from the complete actual first-parent delta')
+    if not {REP_TEMPLATE, REP_EDITS, REP_LEDGER} <= delta:
+        raise ValueError('the actual tool landing delta omits the template or its fixed input copies')
+    tool_paths = _rep_tool_image(repo, T, template)
+    audit_refs = [r for r in _rep_refs(template) if r['path'].startswith(AUDIT_DIR)]
+    for ref in audit_refs:
+        _rep_pin(repo, T, ref)
+    image_paths = tool_paths | {p for p in landed if p.startswith(AUDIT_DIR + 'rep/')} | \
+        {r['path'] for r in audit_refs}
+    current = _rep_entries(repo, binding['tool_rev'])
+    for entries in (candidate, main, current):
+        if any(entries.get(p) != landed[p] for p in image_paths) or any(
+                p not in image_paths for p in entries if
+                p.startswith(('tools/ledger_coverage/', AUDIT_DIR + 'rep/'))):
+            raise ValueError('the accepted tool, workflow, template or control input image has changed')
+    if binding.get('tool_image') != {p: after[p] if p in after else _rep_blob(repo, landed[p])[0]
+                                     for p in image_paths} or config.get('tool') != template.get('tool'):
+        raise ValueError('the candidate F or retained image does not pin the exact accepted tool')
+
+
+def _rep_fill(template, roles):
+    if isinstance(template, list):
+        return [_rep_fill(v, roles) for v in template]
+    if isinstance(template, dict):
+        result = {k: _rep_fill(v, roles) for k, v in template.items() if k != 'fill'}
+        if 'fill' in template:
+            if {'path', 'blob_sha256'} & result.keys():
+                raise ValueError('a template hole also names a fixed reference')
+            result.update(roles[template['fill']])
+        return result
+    return template
+
+
+def _rep_refs(value):
+    if isinstance(value, dict):
+        pin = [_rep_ref(value)] if {'path', 'blob_sha256'} <= value.keys() else []
+        return pin + [r for child in value.values() for r in _rep_refs(child)]
+    if isinstance(value, list):
+        return [r for child in value for r in _rep_refs(child)]
+    return []
+
+
+def _rep_dependency_check(repo, binding, instance, template, template_raw, config, operands):
+    """Reconstruct K1 edges from the filled/template bytes and references actually available to the binding."""
+    S, M, B = binding['S'], binding['M'], binding['B']
+    commits = list(dict.fromkeys([M, S, B, binding['template']['commit'], operands['config']['commit']]))
+    entries = [_rep_entries(repo, c) for c in commits]
+    template_digest, instance_digest = _file_sha(template_raw), binding['instance_sha256']
+    fixed = [_rep_ref(operands[k]) for k in ('builder', 'ledger', 'edits', 'delegation')]
+    nodes = {template_digest: _rep_refs(template),
+             instance_digest: _rep_refs(instance) + fixed + [binding['descriptor'], _rep_ref(binding['template'])]}
+    active, done = set(), set()
+
+    def walk(digest, references):
+        if digest in active:
+            raise ValueError('the representative instance has a cycle in its actual dependency links')
+        if digest in done:
+            return
+        active.add(digest)
+        for ref in references:
+            child = ref['blob_sha256']
+            if child not in nodes:
+                nodes[child] = []
+                for tree in entries:
+                    entry = tree.get(ref['path'])
+                    if entry and entry[0] in REGULAR_MODES:
+                        info, raw = _rep_blob(repo, entry)
+                        if info['blob_sha256'] == child:
+                            try:
+                                nodes[child] = _rep_refs(json.loads(raw))
+                            except ValueError:
+                                pass
+                            break
+            walk(child, nodes[child])
+        active.remove(digest)
+        done.add(digest)
+
+    walk(instance_digest, nodes[instance_digest])
+    config_digest = operands['config']['blob_sha256']
+    walk(config_digest, _rep_refs(config))
+
+
+def _rep_build_inputs(ev, ctx, phase, observed):
+    repo, binding, operands = ctx.repo, observed['control_instance'], observed['operands']
+    mode = {'tool-acceptance': 'fixture', 'candidate-F': 'live'}[phase]
+    F = ctx.freeze if mode == 'live' else None
+    B, S, M, tool = (binding[k] for k in ('B', 'S', 'M', 'tool_rev'))
+    if binding.get('mode') != mode or binding.get('freeze') != F or \
+            tool != git_blob_id(repo, 'HEAD^{commit}') or (F is None and tool != ctx.tool_candidate):
+        raise ValueError('the REP-BUILD evidence belongs to another assessed subject or applicability')
+    if F is not None and (S != ctx.rep_snapshot or M != ctx.rep_main):
+        raise ValueError('the representative snapshot or main differs from the assessment operands')
+    config_commit = F or S
+    config = json.loads(_rep_input(repo, operands['config'], config_commit, ctx.config_path if F else None))
+    if config.get('schema') != 'oi-retirement-config/1':
+        raise ValueError('the selected configuration does not have the retirement config schema')
+    if F is not None and _rep_ref(operands['config']) != _rep_plan_pin(repo, F, os.path.basename(ctx.config_path)):
+        raise ValueError('the live representative configuration differs from the Record pin at F')
+    if binding['descriptor']['path'] != S11_A1_DIRECTORY + '/' + REP_DESCRIPTOR:
+        raise ValueError('the representative descriptor is outside its designated path')
+    desc = json.loads(_rep_pin(repo, S, binding['descriptor']))
+    if not isinstance(desc, dict) or set(desc) != {'schema', 'base', 'custody', 'class_root', 'allow_root'} or \
+            desc['schema'] != 'oi-a1-staging-transition/1' or desc['base'] != B:
+        raise ValueError('the descriptor does not bind the stated preparation base and two roots')
+    _rep_pin(repo, B, desc['custody'])
+    walk_s, walk_m = _rep_walk(repo, B, S), _rep_walk(repo, B, M)
+    chains = {}
+    for walk, name in ((walk_s, 'S'), (walk_m, 'M')):
+        chain = {role: _rep_lineage(repo, walk, role, prefix, schema, record_id, desc[role + '_root'])
+                 for role, prefix, schema, record_id in REP_NAMESPACES}
+        chains[name] = chain
+        if binding.get('chains_at_' + name) != chain or binding.get(
+                'snapshot_path' if name == 'S' else 'representative_path') != walk:
+            raise ValueError('the retained role lineage or path differs from the verified %s lineage' % name)
+    class_tip = chains['M']['class'][-1]
+    allow_tip = chains['S']['allow'][-1]
+    if class_tip != binding['class_tip'] or class_tip != chains['S']['class'][-1] or allow_tip != binding['allow_tip']:
+        raise ValueError('the representative and snapshot class/allow roles are stale or mismatched')
+    _rep_role_selection(config, class_tip, allow_tip)
+    _rep_lineage_reviews(repo, S, config_commit, config, chains['S'])
+    class_pins = _rep_class_pins(repo, M, class_tip)
+    origin = ctx.tool_landing if F else tool
+    tpl = binding['template']
+    template_raw = _rep_input(repo, tpl, origin, REP_TEMPLATE)
+    template = json.loads(template_raw)
+    roles = {'class-tip-at-M': class_tip, 'allow-tip-at-S': allow_tip}
+    inst_raw = ev.text('control-instance.json')
+    if (template['roles'].get('side_change_classes') != {'fill': 'class-tip-at-M'} or
+            {r['blob_sha256'] for r in chains['M']['class']} &
+            {r['blob_sha256'] for r in _rep_refs(template)} or inst_raw is None or
+            tpl['blob_sha256'] != class_pins.get(REP_TEMPLATE) or
+            _file_sha(inst_raw) != binding['instance_sha256']):
+        raise ValueError('the exact unfilled template and filled instance are not bound to the role pins')
+    instance = json.loads(inst_raw)
+    if instance != _rep_fill(template, roles):
+        raise ValueError('the retained instance does not fill the exact template from the resolved roles')
+    _rep_role_selection(instance, class_tip, allow_tip)
+    if F:
+        _rep_live_subject(ctx, binding, config, desc, chains['S'], class_pins, template)
+    else:
+        _rep_tool_image(repo, tool, template)
+        for path in (REP_BUILDER, REP_EDITS, REP_LEDGER):
+            entry, _ = _rep_entry(repo, tool, path)
+            if class_pins.get(path) != entry['blob_sha256']:
+                raise ValueError('the fixture omits the exact tool-candidate input %s' % path)
+    builder = _rep_input(repo, operands['builder'], tool, REP_BUILDER)
+    ledger = _rep_input(repo, operands['ledger'], origin, REP_LEDGER)
+    edits = _rep_input(repo, operands['edits'], origin, REP_EDITS)
+    dref = _rep_ref(instance['delegation'])
+    delegation = _rep_input(repo, operands['delegation'], origin, dref['path'])
+    if _file_sha(delegation) != dref['blob_sha256'] or \
+            _git_oid('blob', ledger) != REP_LEDGER_GIT or _git_oid('blob', edits) != REP_EDITS_GIT:
+        raise ValueError('the representative delegation, ledger or edits differ from their exact pins')
+    H, E = json.loads(ledger)['base'], operands['E']
+    if operands['H'] != H or E != REP_E:
+        raise ValueError('the representative E or ledger base is substituted')
+    _rep_walk(repo, E, H)
+    if F:
+        _rep_walk(repo, H, ctx.tool_landing)
+    _rep_dependency_check(repo, binding, instance, template, template_raw, config, operands)
+    return H, M, ledger, edits, builder, json.loads(delegation)
+
+
+def _rep_spliced(raw, path, ledger):
+    want = ledger['files'][path]
+    if _file_sha(raw) != want['base_sha256']:
+        raise ValueError('a ledgered path does not match its exact scientific base')
+    body, previous = raw, len(raw)
+    splices = sorted((s for s in ledger['splices'] if s['file'] == path),
+                     key=lambda s: (s['start'], s['end']), reverse=True)
+    for splice in splices:
+        start, end, new = splice['start'], splice['end'], splice['new'].encode()
+        if not 0 <= start <= end <= previous or _file_sha(raw[start:end]) != splice['old_sha256'] or \
+                _file_sha(new) != splice['new_sha256']:
+            raise ValueError('a retained ledger splice is out of bounds, overlapping or mismatched')
+        body = body[:start] + new + body[end:]
+        previous = start
+    return body
+
+
+def _rep_construction(repo, inputs):
+    H, M, ledger_bytes, edits, _, delegation = inputs
+    ledger = json.loads(ledger_bytes)
+    if ledger['edits_sha256'] != _file_sha(edits) or any(s['file'] not in ledger['files'] for s in ledger['splices']):
+        raise ValueError('the ledger does not bind the edits or one of its splices names another path')
+    changes = {}
+    for path, pin in ledger['files'].items():
+        _, raw = _rep_entry(repo, H, path)
+        body = _rep_spliced(raw, path, ledger)
+        if _file_sha(body) != pin['expected_sha256']:
+            raise ValueError(REP_HASH_REASON)
+        if body != raw:
+            changes[path] = body
+    for path, raw in ((S11_A1_DIRECTORY + '/ledger.json', ledger_bytes), (S11_A1_DIRECTORY + '/edits.json', edits)):
+        if path in ledger['files']:
+            raise ValueError('a pinned plan copy aliases a ledgered path')
+        changes[path] = raw
+    delegated = {p for c in delegation['classes'] for p in c['paths'] if not p.endswith('/')}
+    markers = {p: REP_MARKER % p.encode() for p in delegated - ledger['files'].keys()}
+    if changes.keys() & markers.keys():
+        raise ValueError('a delegated marker aliases a pinned plan copy')
+    entries_h, entries_m = _rep_entries(repo, H), _rep_entries(repo, M)
+    if any(e.get(p, (None, None))[1] == _git_oid('blob', b) for p, b in markers.items()
+           for e in (entries_h, entries_m)):
+        raise ValueError('a representative marker does not differ from both H and its designated M')
+    changes.update(markers)
+    measured = {p: {'mode': '100644', 'git_blob': _git_oid('blob', b), 'blob_sha256': _file_sha(b)}
+                for p, b in changes.items()}
+    changed_values = {p: '100644:' + ent['git_blob'] for p, ent in measured.items()}
+    h = hashlib.sha1()
+    h.update(REP_SUBJECT.encode())
+    h.update(H.encode())
+    for p in sorted(changed_values):
+        h.update(p.encode() + b'\0' + changed_values[p].encode())
+    h.update(H.encode())
+    # The overlay reports its deterministic tree id from materialized file values, while its entry map
+    # preserves the untouched base's modes. Derive the id and the changed entry map independently.
+    values = {p: '100644:' + oid if mode in REGULAR_MODES else '120000:' + _git_oid('blob', b'')
+              for p, (mode, oid) in entries_h.items() if mode != '160000'}
+    values.update(changed_values)
+    tree = hashlib.sha1(repr(sorted(values.items())).encode()).hexdigest()
+    delta = {p: e for p, e in measured.items() if entries_h.get(p) != (e['mode'], e['git_blob'])}
+    return {'commit': h.hexdigest(), 'tree': tree, 'parents': [H], 'changes': delta,
+            'reads': {'H': sorted(ledger['files'].keys() | markers.keys()), 'M': sorted(markers)}}
+
+
+def _rep_imports(source):
+    imports = set()
+    for node in ast.walk(ast.parse(source)):
+        if isinstance(node, ast.Import):
+            imports.update(n.name for n in node.names)
+        elif isinstance(node, ast.ImportFrom):
+            imports.add('.' * node.level + (node.module or ''))
+    return imports
+
+
+def _rep_mutated_ledger(repo, H, ledger_raw, mutant_raw):
+    ledger, mutant = json.loads(ledger_raw), json.loads(mutant_raw)
+    original, changed = ledger['splices'][0], mutant['splices'][0]
+    before, after = original['new'].encode(), changed['new'].encode()
+    if len(before) != len(after) or sum(o != n for o, n in zip(before, after)) != 1 or \
+            changed['new_sha256'] != _file_sha(after):
+        raise ValueError('the retained ledger mutant does not change exactly one new byte and its splice digest')
+    mutant['splices'][0] = dict(changed, new=original['new'], new_sha256=original['new_sha256'])
+    if mutant != ledger:
+        raise ValueError('the retained ledger mutant makes changes outside that byte')
+    mutant['splices'][0] = changed
+    path = original['file']
+    _, raw = _rep_entry(repo, H, path)
+    if _file_sha(_rep_spliced(raw, path, mutant)) == ledger['files'][path]['expected_sha256']:
+        raise ValueError('the retained one-byte mutant did not violate the expected path digest')
+    return original['id'], path
+
+
+def eval_rep_build(row, ev, ctx, phase, findings):
+    """Read the three existing case observations and independently bind and evaluate their actual inputs."""
+    actual = [{'case': name} for name in REP_CASES]
+    cases = row['expect'].get('cases', [])
+    if tuple(c.get('case') for c in cases) != REP_CASES:
+        raise FileInvalid('REP-BUILD does not specify its three adopted cases')
+    if ev.man is None or [c.get('case') for c in ev.man['cases']] != list(REP_CASES):
+        findings.append(('raw-evidence-missing', 'REP-BUILD must retain each of its three cases exactly once'))
+        return actual
+    observed = [ev.json(ev.case(name).get('result_file')) for name in REP_CASES]
+    if not all(isinstance(d, dict) for d in observed):
+        findings.append(('raw-evidence-missing', 'REP-BUILD is missing a raw case observation'))
+        return actual
+    inputs = None
+    try:
+        inputs = _rep_build_inputs(ev, ctx, phase, observed[0])
+        expected = _rep_construction(ctx.repo, inputs)
+        builds = observed[0]['builds']
+        if not isinstance(builds, list) or len(builds) != 2 or any(
+                {k: b[k] for k in expected} != expected for b in builds):
+            raise ValueError('the two observed builds differ from the independently derived commit, tree or entries')
+        if _rep_imports(inputs[4]) - {'hashlib', 'json'} or observed[0].get('nonconforming') != []:
+            raise ValueError('the exact builder imports outside its standard-library scope or reports nonconformance')
+        actual[0].update(outcome='HASH_EQUAL', builds=builds, applicability=observed[0]['control_instance']['mode'],
+                         operands=observed[0]['operands'])
+    except (ValueError, SyntaxError, KeyError, AttributeError, TypeError) as exc:
+        findings.append(('declarative-mismatch', 'REP-BUILD construction/binding: %s' % exc))
+    if inputs is None:
+        return actual
+    try:
+        mutant = ev.text('ledger.mutant.json')
+        splice, path = _rep_mutated_ledger(ctx.repo, inputs[0], inputs[2], mutant)
+        wanted = {'outcome': 'REFUSED', 'reason': REP_HASH_REASON}
+        if (observed[1].get('splice'), observed[1].get('file')) != (splice, path) or \
+                (observed[1].get('outcome'), observed[1].get('reason')) != (wanted['outcome'], wanted['reason']):
+            raise ValueError('the one-byte mutant did not report the required expected_sha256 refusal')
+        actual[1].update(wanted, splice=splice, path=path)
+    except (ValueError, KeyError, TypeError) as exc:
+        findings.append(('declarative-mismatch', 'REP-BUILD ledger mutant: %s' % exc))
+    try:
+        source, mutant = inputs[4], ev.text('rep_build.mutant.py')
+        planted = source.replace(b'import hashlib\n', b'import hashlib\nfrom ledger_coverage.engine import util\n', 1)
+        if mutant != planted or source == mutant or _rep_imports(mutant) - _rep_imports(source) != {
+                'ledger_coverage.engine'}:
+            raise ValueError('the retained builder mutant is not the exact engine import case')
+        if (observed[2].get('outcome'), observed[2].get('reason')) != ('REFUSED', REP_IMPORT_REASON):
+            raise ValueError('the engine-import mutant did not report the required refusal')
+        actual[2].update(outcome='REFUSED', reason=REP_IMPORT_REASON)
+    except (ValueError, SyntaxError, TypeError) as exc:
+        findings.append(('declarative-mismatch', 'REP-BUILD import mutant: %s' % exc))
+    return actual
+
+
+def _case_args(argv, flag):
+    if not isinstance(argv, list) or not all(isinstance(arg, str) for arg in argv):
+        return None
+    values = [argv[i + 1] for i, arg in enumerate(argv[:-1]) if arg == flag and not argv[i + 1].startswith('--')]
+    return values if len(values) == argv.count(flag) else None
+
+
+def _candidate_case_bound(rid, case, result, ctx):
+    """Check the exact operands of an OBL-15 or OBL-16(a) result independently of its status."""
+    F, path, digest, _ = s11_binding(ctx)
+    repo, argv = ctx.repo, case.get('argv')
+    config = json.loads(_rep_pin(repo, F, {'path': path, 'blob_sha256': digest}))
+    info = result['config']
+    if (info.get('path'), info.get('blob_sha256')) != (path, digest) or \
+            _case_args(argv, '--config') != [F + ':' + path]:
+        return False
+    if rid == 'TR5':
+        adm = info['admission']
+        snap = adm['snapshot']
+        run = snap['run']
+        T = snap['tool_commit']
+        _, prereg = _rep_entry(repo, F, S11_A1_DIRECTORY + '/PREREG.md')
+        if (_case_args(argv, '--freeze') != [F] or adm['mode'] != 'chain' or result.get('harness') or
+                snap['freeze'] != F or snap['configuration'] != {'path': path, 'blob_sha256': digest} or
+                snap['pin_table'] != {'path': S11_A1_DIRECTORY + '/PREREG.md', 'blob_sha256': _file_sha(prereg)} or
+                run.get('head_sha') != T or run.get('event') != 'workflow_dispatch' or
+                run.get('head_branch') != 'main' or run.get('workflow_path') != WORKFLOW_PATH or
+                run.get('repository_id') != config['repository_id'] or
+                run.get('head_repository_id') != config['repository_id'] or not run.get('run_id') or
+                snap.get('workflow') != config['tool']['workflow'] or snap.get('evaluated') != result.get('evaluated')):
+            return False
+        _rep_walk(repo, T, ctx.main_tip)
+        _rep_tool_image(repo, T, config)
+        reviews = snap['configuration_review']
+        config_ref = {'path': path, 'blob_sha256': digest}
+        if not reviews or snap.get('tool_blobs') != {r['path']: r['blob_sha256'] for r in config['tool']['files']}:
+            return False
+        ordinary = []
+        for ref in reviews:
+            if ref != _rep_plan_pin(repo, F, os.path.basename(ref['path'])):
+                return False
+            review = json.loads(_rep_pin(repo, F, ref))
+            if review.get('schema') == 'oi-review-record/1' and review.get('kind', 'review') == 'review' and \
+                    review.get('reviewed') == config_ref:
+                ordinary.append(review)
+        return bool(ordinary) and all(
+            r.get('method') and _rep_review_valid(repo, F, r, config_ref, config.get('author'), _reviewed_items(config))
+            for r in ordinary)
+
+    evaluated = result['evaluated']['commit']
+    H = config['roles']['scientific_base']
+    if (not isinstance(evaluated, str) or not HEX40.fullmatch(evaluated) or not argv or argv[0] != 'coverage' or
+            _case_args(argv, '--check') != [ITEM2_CHECK] or _case_args(argv, '--commit') != [evaluated] or
+            _case_args(argv, '--segment') != [REP_E + '..' + H,
+                                              H + '..' + evaluated + '=' + F + ':' + S11_A1_DIRECTORY + '/ledger.json']):
+        return False
+    refs = [r for r in config['records'] if r.get('kind') in SEC82_KINDS]
+    if {r['kind'] for r in refs} != SEC82_KINDS:
+        return False
+    hp = [F + ':' + r['path'] for r in refs if r['kind'] == 'hp']
+    classifications = [F + ':' + r['path'] for r in refs if r['kind'] != 'hp']
+    if len(hp) != 1 or _case_args(argv, '--hp') != hp or \
+            sorted(_case_args(argv, '--classify') or []) != sorted(classifications):
+        return False
+    reviews = _rep_review_pool(repo, F, config)
+    used = {(r['path'], r['blob_sha256']) for r in result['records_used']}
+    for r in refs:
+        ref = _rep_ref(r)
+        record = json.loads(_rep_pin(repo, F, ref))
+        if (r['path'], r['blob_sha256']) not in used or not any(
+                rv.get('kind', 'review') == 'review' and rv.get('reviewed') == ref and rv.get('method') and
+                _rep_review_valid(repo, F, rv, ref, record.get('author'), _reviewed_items(record)) and
+                all(v['verdict'] == 'accept' for v in rv['verdicts']) for rv in reviews):
+            return False
+    return True
+
+
 def s11_standin(F, P, b):
     """standin(F, P, b): the id the runner's in-memory stand-in for F carries (sec. 2 of the supplement)."""
     h = hashlib.sha1()
@@ -1553,7 +2336,7 @@ def eval_z9f_case(exp, case_name, ev, findings_out, ctx):
     return actual
 
 
-def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None):
+def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None, phase=None):
     """Evaluates one expectation (the row's, one of its cases, or its restored case) against the retained
     evidence of the case. Appends findings; returns the extracted actual."""
     if is_line_patch_rc8(row):
@@ -1580,6 +2363,14 @@ def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None):
         if exit_code is None:
             findings_out.append(('raw-evidence-missing', 'exit file of case %r unreadable' % case_name))
     result = ev.json(c['result_file']) if c.get('result_file') else None
+    if phase == 'candidate-F' and rid in ('RT-T', 'TR5'):
+        try:
+            bound = _candidate_case_bound(rid, c, result, ctx)
+        except (ValueError, KeyError, TypeError, AttributeError):
+            bound = False
+        if not bound:
+            findings_out.append(('declarative-mismatch', 'case %r does not bind the actual %s operands at F'
+                                 % (case_name, rid)))
     c['_exit'] = exit_code
     listing = ev.json(c['out_listing']) if c.get('out_listing') else None
     if listing is not None:
@@ -2018,12 +2809,41 @@ class Ctx(object):
     """The release-check context: the repository, the commit under check (whose tree holds the release facts), the
     facts directory in that tree, the candidate F and the configuration path."""
 
-    def __init__(self, repo=None, commit=None, freeze=None, config_path=None, facts_dir=FACTS_DIR):
+    def __init__(self, repo=None, commit=None, freeze=None, config_path=None, facts_dir=FACTS_DIR, *,
+                 tool_candidate=None, rep_main=None, rep_snapshot=None, tool_landing=None, main_tip=None):
         self.repo = repo
         self.commit = commit
         self.freeze = freeze
         self.config_path = config_path
         self.facts_dir = facts_dir
+        self.tool_candidate = tool_candidate
+        self.rep_main = rep_main
+        self.rep_snapshot = rep_snapshot
+        self.tool_landing = tool_landing
+        self.main_tip = main_tip
+
+
+def assessment_subject(ctx):
+    """Identify the Amendment 11 assessment before examining any runner result or release evidence."""
+    if ctx.tool_candidate is not None:
+        candidate = ctx.tool_candidate
+        if ctx.freeze is not None or any(v is not None for v in
+                                         (ctx.rep_main, ctx.rep_snapshot, ctx.tool_landing, ctx.main_tip)):
+            why = 'tool acceptance and candidate-F operands were supplied together'
+        elif not (ctx.repo and HEX40.fullmatch(candidate) and candidate == ctx.commit and
+                  candidate == git_blob_id(ctx.repo, 'HEAD^{commit}')):
+            why = 'the tool candidate is not the full commit id of the checkout under check'
+        elif git_entry(ctx.repo, candidate, S11_A1_DIRECTORY + '/PREREG.md') is not None:
+            why = 'the checkout under check carries the A1 PREREG.md'
+        else:
+            return {'phase': 'tool-acceptance', 'tool_candidate': candidate}
+    else:
+        binding = s11_binding(ctx)
+        if binding is not None and git_blob_id(ctx.repo, ctx.freeze + '^{commit}') == ctx.freeze:
+            F, path, digest, _ = binding
+            return {'phase': 'candidate-F', 'freeze': F, 'configuration': {'path': path, 'blob_sha256': digest}}
+        why = 'the checked subject lacks a matching exact candidate F and configuration Record pin'
+    return {'phase': 'invalid', 'reason': why}
 
 
 def reference_differences(row, actuals):
@@ -2070,6 +2890,11 @@ def evaluate(exp_doc, rows, retired, reqs, records, mutations, ctx):
         add(subj, f, d)
     recs, dup = records
     muts, mdup = mutations
+    # Standalone release-check controls still exercise the unchanged individual release facts.
+    # The retained A1 gate has the REP-BUILD phase contract and applies it to all its due rows.
+    subject = assessment_subject(ctx) if {'REP-BUILD', 'S11-2'} & rows.keys() else None
+    phase = subject['phase'] if subject else None
+    rules_at_f = rules_release(ctx) if phase == 'candidate-F' else None
     for subj, f, d in dup + mdup:
         add(subj, f, d)
     for rid in sorted(set(recs) | set(muts)):
@@ -2101,6 +2926,13 @@ def evaluate(exp_doc, rows, retired, reqs, records, mutations, ctx):
         allowed = row.get('status_allowed', ['PASS'])
         own = []
         nr = row.get('not_run') or {}
+        due_at_f = rid in F_REQUIRED_ROWS or nr.get('release_check') == RC_RULES
+        if phase == 'invalid' and due_at_f:
+            add(rid, 'status-not-allowed', subject['reason'])
+        if rules_at_f is False and nr.get('release_check') == RC_RULES:
+            add(rid, 'status-not-allowed', 'the required reviewed rule records are absent or misbound at F')
+        if rid == 'S11-2' and phase and rid in recs:
+            add(rid, 'unexpected-id', 'S11-2 is determined by its three component records')
         if (nr.get('reason') == A8_REASON and nr.get('release_check') == RC_FALSE and 'NOT RUN' in allowed
                 and rid not in recs and rid not in muts and not row.get('composed_of')):
             e['details'].append('not-run: %s; no runner records it' % A8_REASON)
@@ -2155,6 +2987,10 @@ def evaluate(exp_doc, rows, retired, reqs, records, mutations, ctx):
                 if rec_status == 'NOT RUN':
                     if 'NOT RUN' not in allowed:
                         add(rid, 'status-not-allowed', 'NOT RUN not allowed')
+                    elif rid == 'REP-BUILD' and phase == 'tool-acceptance':
+                        add(rid, 'status-not-allowed', 'tool acceptance requires all three REP-BUILD fixture cases')
+                    elif due_at_f and phase == 'candidate-F':
+                        add(rid, 'status-not-allowed', 'PASS is required at the assessed candidate F')
                     elif evaluate_release(ctx, row['not_run']['release_check'], status):
                         add(rid, 'status-not-allowed', 'NOT RUN while its release check holds')
                 else:
@@ -2165,15 +3001,17 @@ def evaluate(exp_doc, rows, retired, reqs, records, mutations, ctx):
                     acts = []
                     if ev.man is not None and row['expect'] is not None and row['expect'].get('outcome') != 'DEFERRED':
                         ex = row['expect']
-                        if 'cases' in ex:
+                        if rid == 'REP-BUILD':
+                            acts.extend(eval_rep_build(row, ev, ctx, phase, fl))
+                        elif 'cases' in ex:
                             for c in ex['cases']:
                                 names = c['case'] if isinstance(c['case'], list) else [c['case']]
                                 for n in names:
-                                    acts.append(eval_case(c, n, ev, row, rec, fl, ctx))
+                                    acts.append(eval_case(c, n, ev, row, rec, fl, ctx, phase))
                         elif ex.get('outcome') != 'COMPOSITE':
-                            acts.append(eval_case(ex, '', ev, row, rec, fl, ctx))
+                            acts.append(eval_case(ex, '', ev, row, rec, fl, ctx, phase))
                         if row.get('restored') is not None and row['restored'].get('outcome') != 'COMPOSITE':
-                            acts.append(eval_case(row['restored'], 'restored', ev, row, rec, fl, ctx))
+                            acts.append(eval_case(row['restored'], 'restored', ev, row, rec, fl, ctx, phase))
                         if row.get('procedure'):
                             acts.append(eval_procedure(row, ev, fl, ctx.repo))
                         if ev.problems:
@@ -2194,6 +3032,10 @@ def evaluate(exp_doc, rows, retired, reqs, records, mutations, ctx):
                         if status.get(dep) != 'PASS':
                             add(rid, 'status-not-allowed', 'PASS while dependency %s is %s' % (dep, status.get(dep)))
         own = rec_status
+        if rid == 'REP-BUILD' and phase == 'tool-acceptance' and rec_status == 'PASS' and \
+                not (set(e['findings']) & FINDING_FAIL):
+            own = 'NOT RUN'
+            e['details'].append('not-run: %s; the three tool-acceptance fixture cases passed' % nr['reason'])
         if row.get('composed_of'):
             comps = [(c, status.get(c, 'FAIL'), list(entries.get(c, {}).get('findings', []))) for c in row['composed_of']]
             e['components'] = [{'id': c, 'status': cs, 'findings': cf} for c, cs, cf in comps]
@@ -2213,6 +3055,8 @@ def evaluate(exp_doc, rows, retired, reqs, records, mutations, ctx):
             elif agg == 'NOT RUN':
                 if 'NOT RUN' not in allowed:
                     add(rid, 'status-not-allowed', 'composite NOT RUN not allowed')
+                elif due_at_f and phase == 'candidate-F':
+                    add(rid, 'status-not-allowed', 'composite PASS is required at the assessed candidate F')
                 elif evaluate_release(ctx, row['not_run']['release_check'], status):
                     add(rid, 'status-not-allowed', 'composite NOT RUN while its release check holds')
             status[rid] = 'FAIL' if set(e['findings']) & FINDING_FAIL else agg
@@ -2235,7 +3079,7 @@ def evaluate(exp_doc, rows, retired, reqs, records, mutations, ctx):
     for rid in rows:
         s = entries[rid]['status']
         counts[s] = counts.get(s, 0) + 1
-    return {
+    result = {
         'schema': SCHEMA_GATE,
         'expectation_record_id': exp_doc['record_id'],
         'verdict': 'GATE_HOLDS' if holds else 'GATE_FAIL',
@@ -2246,6 +3090,9 @@ def evaluate(exp_doc, rows, retired, reqs, records, mutations, ctx):
         'compound_invariants': sorted(set(COMPOUND)),
         'rows': [entries[k] for k in sorted(entries)],
     }
+    if subject is not None:
+        result['subject'] = subject
+    return result
 
 
 def run_gate(exp_path, req_path, record_paths, mut_path, ctx, exp_doc=None, req_doc=None):
@@ -2280,8 +3127,13 @@ def main(argv=None):
     ap.add_argument('--commit', help='the commit under check (default: the repository HEAD); its tree holds the '
                     'release facts')
     ap.add_argument('--facts-dir', default=FACTS_DIR, help='the release facts directory in that tree')
-    ap.add_argument('--freeze', help='candidate F, a full commit id (TR5 release check)')
-    ap.add_argument('--config', help='configuration path in F (TR5 release check)')
+    ap.add_argument('--freeze', help='the full commit id of the candidate F under assessment')
+    ap.add_argument('--config', help='configuration path in the assessed commit')
+    ap.add_argument('--tool-candidate', help='the full checkout id for tool acceptance')
+    ap.add_argument('--rep-main', help='the full commit id of the representative main anchor')
+    ap.add_argument('--rep-snapshot', help='the full commit id of the reviewed representative snapshot')
+    ap.add_argument('--tool-landing', help='the full commit id of the actual tool landing')
+    ap.add_argument('--main-tip', help='the full commit id of independently read main')
     ap.add_argument('--out', required=True)
     try:
         a = ap.parse_args(argv)
@@ -2315,7 +3167,9 @@ def main(argv=None):
                              + '\n')
             return USAGE_EXIT
     code, res = run_gate(a.expectations, a.requirements, recs, a.mutation_records,
-                         Ctx(a.repo, commit, a.freeze, a.config, a.facts_dir))
+                         Ctx(a.repo, commit, a.freeze, a.config, a.facts_dir, tool_candidate=a.tool_candidate,
+                             rep_main=a.rep_main, rep_snapshot=a.rep_snapshot, tool_landing=a.tool_landing,
+                             main_tip=a.main_tip))
     res['commit_under_check'] = commit
     write_json(os.path.join(a.out, 'gate-result.json'), res)
     return code

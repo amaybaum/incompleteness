@@ -9672,6 +9672,15 @@
     "S11-2b",
     "S11-2c"
    ],
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "needs the reviewed rule records of OBL-3, which do not yet exist",
+    "release_condition": "the reviewed rule records of OBL-3 present at F and verifying under the ownership chain and record lint of sec. 11 (R6.REC.1 to R6.REC.6)",
+    "release_check": "the configuration at the commit under check references reviewed rule records (OBL-3)"
+   },
    "source": "D:2342",
    "flags": [
     "Q14: aggregate precedence ERROR > FAIL > NOT RUN > PASS over its own record and its components; every component result is preserved in gate-result.json"
@@ -22841,6 +22850,15 @@
       ]
      }
     ]
+   },
+   "status_allowed": [
+    "PASS",
+    "NOT RUN"
+   ],
+   "not_run": {
+    "reason": "live REP-BUILD is due at the candidate F (Amendment 11)",
+    "release_condition": "the exact candidate-F assessment under OBL-16(a), with all three live REP-BUILD cases required to PASS",
+    "release_check": "the subject under check is the exact candidate F assessed by OBL-16(a)"
    },
    "source": "r6 R6.EVID.8 (OC-3)",
    "flags": [

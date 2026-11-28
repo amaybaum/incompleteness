@@ -113,7 +113,8 @@ class Fixture(object):
         man = {'schema': G.SCHEMA_MAN, 'id': rid, 'job': job, 'files': {}, 'cases': []}
         for name, c in sorted((cases or {}).items()):
             tag = name.strip('()') or 'main'
-            entry = {'case': name, 'argv': ['ledger_coverage.py', 'fixture'], 'bindings': c.get('bindings', {}),
+            entry = {'case': name, 'argv': c.get('argv', ['ledger_coverage.py', 'fixture']),
+                     'bindings': c.get('bindings', {}),
                      'mutation': []}
             if 'exit' in c:
                 entry['exit_file'] = tag + '.exit'
@@ -525,6 +526,34 @@ def case_28b(fx):
     composite_28(fx, False)
 
 
+def a11_composite(fx, assess_freeze=False, bad_pin=False, bad_child=None, omit_candidate=False):
+    """Amendment 11 extends the existing Q14 control with S11-2's exact phase and mandatory children."""
+    repo = os.path.join(fx.root, 'repo')
+    path = G.S11_A1_DIRECTORY + '/retirement-config.json'
+    config = b'{"schema":"oi-retirement-config/1"}\n'
+    if assess_freeze:
+        prereg = ('### 1.1 Record pins\n\n| `retirement-config.json` | `%s` |\n' %
+                  ('0' * 64 if bad_pin else sha(config))).encode()
+        commit = git_commit(repo, {path: config, G.S11_A1_DIRECTORY + '/PREREG.md': prereg})
+        fx.ctx = G.Ctx(repo, commit, commit, path)
+    else:
+        commit = git_commit(repo, {'tool.py': b'pass\n'})
+        fx.ctx = G.Ctx(repo, commit, tool_candidate=None if omit_candidate else commit)
+    nr = {'reason': 'needs the reviewed rule records of OBL-3, which do not yet exist',
+          'release_condition': 'the reviewed rule records at F', 'release_check': G.RC_RULES}
+    fx.row('S11-2a', {'outcome': 'PASS'}, status_allowed=['PASS', 'NOT RUN'], not_run=nr)
+    fx.record('S11-2a', 'NOT RUN', None)
+    for child in ('S11-2b', 'S11-2c'):
+        fx.row(child, {'outcome': 'PASS'})
+        if child == bad_child:
+            fx.record(child, 'NOT RUN', None)
+        else:
+            argv = ['coverage', '--commit', commit, '--out', 'out', '--check', G.ITEM2_CHECK]
+            fx.record(child, 'PASS', fx.evidence(child, {'': {'argv': argv, 'exit': 0, 'result': tool_result('PASS')}}))
+    fx.row('S11-2', {'outcome': 'COMPOSITE'}, runner=None, composed_of=['S11-2a', 'S11-2b', 'S11-2c'],
+           status_allowed=['PASS', 'NOT RUN'], not_run=nr)
+
+
 def case_29(fx):
     clean(fx)
     fx.row('D1', {'outcome': 'DEFERRED'})
@@ -575,8 +604,13 @@ TABLE = {
     'GATE-26': [('', [case_26], 'GATE_FAIL', ['procedural-failed'], None)],
     'GATE-27': [('(a)', [case_27a], 'GATE_FAIL', ['direction-missing'], None),
                 ('(b)', [case_27b], 'GATE_FAIL', ['direction-missing'], None)],
-    'GATE-28': [('(a)', [case_28a], 'GATE_FAIL', ['status-not-allowed'], None),
-                ('(b)', [case_28b], 'GATE_HOLDS', [], [])],
+    'GATE-28': [('(a)', [case_28a, lambda f: a11_composite(f, assess_freeze=True),
+                        lambda f: a11_composite(f, assess_freeze=True, bad_pin=True),
+                        lambda f: a11_composite(f, omit_candidate=True),
+                        lambda f: a11_composite(f, bad_child='S11-2b'),
+                        lambda f: a11_composite(f, bad_child='S11-2c')],
+                 'GATE_FAIL', ['status-not-allowed'], None),
+                ('(b)', [case_28b, a11_composite], 'GATE_HOLDS', [], [])],
     'GATE-29': [('', [case_29], 'GATE_FAIL', ['deferred-expectation'], None)],
     'GATE-30': [('(a)', [case_30a], 'GATE_FAIL', ['correspondence-orphan-requirement'], None),
                 ('(b)', [case_30b], 'GATE_HOLDS', [], None)],
