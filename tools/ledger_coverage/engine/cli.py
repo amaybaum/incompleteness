@@ -1047,6 +1047,15 @@ def declared_sites(repo, loaded):
     return {'pin': pin, 'sites': out, 'override_anchors': {}, 'read_entries': [], 'errors': []}
 
 
+def _canonical_ledger_value(value):
+    """The raw values hashed for ledger bindings contain only integer numbers."""
+    if isinstance(value, dict):
+        return all(isinstance(key, str) and _canonical_ledger_value(item) for key, item in value.items())
+    if isinstance(value, list):
+        return all(_canonical_ledger_value(item) for item in value)
+    return value is None or isinstance(value, (str, int))
+
+
 def load_adapter_input(repo, loaded, iface, rev_path=None):
     """Reads an adapter's main input and companions by their pins; returns the adapter's output."""
     ov = getattr(loaded, 'control_overrides', {}).get(iface)
@@ -1086,6 +1095,13 @@ def load_adapter_input(repo, loaded, iface, rev_path=None):
             rec_, _ = peredit.evaluate(out, loaded.ctx.edit_params, loaded.ctx.profiles)
             detail['per_edit'] = rec_
         raise oc.Stop(oc.error, cls, errs[0][1], detail)
+    if iface == 'ledger':
+        raw = out.get('raw')
+        if not isinstance(raw, dict) or not isinstance(raw.get('files'), dict) or \
+                not isinstance(raw.get('splices'), list) or not isinstance(raw.get('edits'), list):
+            raise oc.Stop(oc.error, 'LEDGER_INTEGRITY', 'ledger adapter did not return the raw binding entries')
+        if not all(_canonical_ledger_value(raw[key]) for key in ('files', 'splices', 'edits')):
+            raise oc.Stop(oc.error, 'LEDGER_INTEGRITY', 'ledger binding entries cannot be canonically hashed')
     return out
 
 

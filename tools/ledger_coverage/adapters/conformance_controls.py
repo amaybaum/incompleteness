@@ -3432,7 +3432,7 @@ ALL_IDS = ['TR5-sim', 'TR5', 'TR1', 'TR2', 'TR3', 'TR13', 'TR14-tool', 'TR14', '
            'GV2', 'GV3', 'GV4', 'GV5', 'GV6', 'GV6-disk', 'GV7-tool', 'GV7-consumer', 'R16', 'R17', 'A12r', 'Z11',
            'S4a', 'G4', 'G5', 'G6', 'G7', 'G8', 'G9', 'G-A1', 'R3-F2', 'R4-B3', 'R4-B3-DUP', 'R5-N6', 'R6-G6',
            'LN1', 'LN2', 'LN3', 'LN4', 'LN5', 'LN6', 'LN7', 'LN8', 'LN10', 'O3-FILTER',
-           'RULE-MINLIT', 'RULE-ZEROFP'] + rdc.IDS
+           'RULE-MINLIT', 'RULE-ZEROFP', 'CANON-JSON'] + rdc.IDS
 
 
 def write(out_root):
@@ -3484,6 +3484,7 @@ def main(out_root, native_tr5=False):
               # design amendment 1: the post-freeze route
               ('POSTF', lambda: pfc.postf_controls(r, check)),
               ('LINE-PATCH-RC8', lambda: pfc.line_patch_control(r, check, REC.capture_doc)),
+              ('CANON-JSON', lambda: pfc.canonical_binding_control(r, check)),
               # design amendment 4: the record base of a predicted M
               ('RECORD-BASE', lambda: pfc.rb_controls(r, check)),
               # design amendments 3 and 4: the category-3 block

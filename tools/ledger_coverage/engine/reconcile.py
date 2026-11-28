@@ -516,13 +516,18 @@ def evaluate(repo, ctx, H, M, X, led, rdoc, entry, classes, record_refs, rd=None
         if comp is None:
             res.update(RC6=False, RC7=False, RC9=False)
         else:
+            x_offsets, x_shift = {}, 0
+            for sp in sorted(sps, key=lambda s: s['start']):
+                x_offsets[sp['id']] = sp['start'] + x_shift
+                x_shift += len(sp['new_bytes']) - (sp['end'] - sp['start'])
             img_ok, shift = True, 0
             for sp, a, e in sorted(placed, key=lambda q: q[1]):
                 at = a + shift
+                at_x = x_offsets[sp['id']]
                 img_ok = img_ok and comp[at:at + len(sp['new_bytes'])] == sp['new_bytes'] and \
                     util.sha256(sp['new_bytes']) == sp['new_sha256'] and \
                     rsp.get(sp['id'], {}).get('new_sha256') == sp['new_sha256'] and \
-                    (x or b'')[sp['start']:sp['start'] + len(sp['new_bytes'])] == sp['new_bytes']
+                    (x or b'')[at_x:at_x + len(sp['new_bytes'])] == sp['new_bytes']
                 shift += len(sp['new_bytes']) - (e - a)
             res['RC6'] = img_ok
             res['RC7'] = blob_id_of(comp) == entry.get('l') and util.sha256(comp) == entry.get('l_sha256')

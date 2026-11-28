@@ -12,9 +12,23 @@ def _sha(b):
     return hashlib.sha256(b).hexdigest()
 
 
+def _json_object(pairs):
+    result = dict(pairs)
+    if len(result) != len(pairs):
+        raise ValueError('duplicate JSON key')
+    return result
+
+
+def _invalid_number(_value):
+    raise ValueError('non-finite JSON number')
+
+
 def load(main, companions, read=None):
-    doc = json.loads(main.decode('utf-8'))
-    if doc.get('schema') != SCHEMA:
+    try:
+        doc = json.loads(main.decode('utf-8'), object_pairs_hook=_json_object, parse_constant=_invalid_number)
+    except ValueError as exc:
+        return {'errors': [('schema', 'invalid line-patch JSON: %s' % exc)]}
+    if not isinstance(doc, dict) or doc.get('schema') != SCHEMA:
         return {'errors': [('schema', 'unknown line-patch schema')]}
     base = doc['base']
     splices, files, errors = [], {}, []

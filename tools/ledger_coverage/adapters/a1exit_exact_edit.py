@@ -28,6 +28,21 @@ def _sha(b):
     return hashlib.sha256(b).hexdigest()
 
 
+def _json_object(pairs):
+    result = dict(pairs)
+    if len(result) != len(pairs):
+        raise ValueError('duplicate JSON key')
+    return result
+
+
+def _invalid_number(_value):
+    raise ValueError('non-finite JSON number')
+
+
+def _parse(data):
+    return json.loads(data.decode('utf-8'), object_pairs_hook=_json_object, parse_constant=_invalid_number)
+
+
 def pairs_of(e):
     out = [(e['old'], e['new'])]
     if 'old_step2' in e:
@@ -162,17 +177,22 @@ def guard_pins(edits):
 def load(main, companions, read=None):
     """main: ledger.json bytes; companions: {'edits': edits.json, 'checker': the plan checker source}."""
     errors = []
-    led = json.loads(main.decode('utf-8'))
-    if led.get('schema') != LEDGER_SCHEMA:
-        return {'errors': [('schema', 'unknown ledger schema %r' % led.get('schema'))]}
     edits_b = companions.get('edits')
-    edits = json.loads(edits_b.decode('utf-8')) if edits_b is not None else None
-    if edits is not None and edits.get('schema') != EDITS_SCHEMA:
-        errors.append(('schema', 'unknown edit-list schema %r' % edits.get('schema')))
+    try:
+        led = _parse(main)
+        edits = _parse(edits_b) if edits_b is not None else None
+    except ValueError as exc:
+        return {'errors': [('schema', 'invalid ledger or edit-list JSON: %s' % exc)]}
+    if not isinstance(led, dict) or led.get('schema') != LEDGER_SCHEMA:
+        return {'errors': [('schema', 'unknown ledger schema')]}
+    if edits_b is not None and (not isinstance(edits, dict) or edits.get('schema') != EDITS_SCHEMA):
+        return {'errors': [('schema', 'unknown edit-list schema')]}
     if led.get('edits_sha256') is not None and edits_b is not None and _sha(edits_b) != led['edits_sha256']:
         errors.append(('edits_sha256', 'edits.json does not hash to edits_sha256'))
     splices = []
     for s in led['splices']:
+        if any(type(s[p]) is not int or s[p] < 0 for p in ('start', 'end')):
+            return {'errors': [('schema', '%s: invalid byte offset' % s['id'])]}
         nb = s['new'].encode('utf-8')
         if _sha(nb) != s['new_sha256']:
             errors.append(('hash', '%s: new_sha256 mismatch' % s['id']))

@@ -197,6 +197,75 @@ def line_patch_control(r, check, capture):
                      'oracle_output': 'candidate.bin', 'candidate_digest': 'candidate-digest.bin'})
 
 
+def canonical_binding_control(r, check):
+    """Run the bound ledger and three integrity refusals through the real op C route."""
+    names = [
+        "a ledger_binding computed from the raw files entry, the path's raw splices in ledger order and the "
+        "path's raw edit-list entries in edit-list order, canonical JSON with non-ASCII text written as UTF-8 (positive)",
+        r'countercase: edit_records_sha256 computed with non-ASCII characters escaped as \u sequences',
+        'countercase: splices_sha256 computed over the splices in another order',
+        'countercase: a ledger adapter that returns no raw edit-list entries (the interface is incomplete)',
+        'countercase: an edit list with a duplicate key in an entry, or a non-integer number in a hashed value',
+    ]
+    w = World(r, edits=[('# synthetic', ['# synthetic', '', 'A café note.']),
+                        ('Intro to the list:', ['Intro to the list of examples:'])])
+    record = w.record()
+    raw = w.led['raw']
+    ref = dict(path=w.p, blob_sha256=sha(w.repo.read(w.c, w.p)))
+    record['paths'][0]['scientific_effect']['configuration'] = ref
+    patch = w.repo.read(w.c, 'syn/patch.json')
+    evidence = {'ledger-input.json': patch, 'binding-inputs.json': raw}
+    observations = []
+    for i, (field, source, transform) in enumerate((
+            (None, None, None),
+            ('edit_records_sha256', raw['edits'],
+             lambda value: json.dumps(value, sort_keys=True, separators=(',', ':'), ensure_ascii=True).encode()),
+            ('splices_sha256', raw['splices'], lambda value: util.canonical(list(reversed(value)))))):
+        candidate = copy.deepcopy(record)
+        if field is not None:
+            candidate['paths'][0]['ledger_binding'][field] = sha(transform(source))
+            assert candidate['paths'][0]['ledger_binding'][field] != record['paths'][0]['ledger_binding'][field]
+        rev, path, data = w.standard(candidate)
+        code, result = w.run(['%s:%s' % (rev, path)], harness=True)
+        evidence['reconciliation-%d.json' % i] = data
+        evidence['review-%d.json' % i] = w.repo.read(rev, path[:-5] + '.review.json')
+        failures = [c for side in (result or {}).get('side_changes') or [] for state in side.get('record_conditions') or []
+                    for c in state.get('failed') or []]
+        observations.append({'exit': code, 'classes': classes(result), 'failed_conditions': failures})
+
+    path = sf.AD + 'line_patch.py'
+    incomplete_module = w.repo.read(w.c, path).replace(b"'edits': doc['edits']", b'')
+    assert incomplete_module != w.repo.read(w.c, path)
+    duplicate = patch.replace(b'"id": "E1"', b'"id": "E1", "id": "E1"', 1)
+    numeric = patch.replace(b'"id": "E1"', b'"id": "E1", "weight": 1.5', 1)
+    assert patch != duplicate and patch != numeric
+    original = w.c
+    for label, changes in (('incomplete', {path: incomplete_module}), ('duplicate', {'syn/patch.json': duplicate}),
+                           ('noninteger', {'syn/patch.json': numeric})):
+        cfg = json.loads(w.repo.read(original, w.p))
+        spec = cfg['adapters']['ledger']
+        if path in changes:
+            spec['module']['blob_sha256'] = sha(changes[path])
+        if 'syn/patch.json' in changes:
+            spec['blob_sha256'] = sha(changes['syn/patch.json'])
+        cfg_bytes = jb(cfg)
+        w.c = w.repo.derive(original, {**changes, w.p: cfg_bytes}, parents=[original], subject=label + ' ledger input')
+        code, result = w.run(harness=True)
+        evidence[label + '-config.json'] = cfg_bytes
+        evidence[label + ('-adapter.py' if path in changes else '-edits.json')] = next(iter(changes.values()))
+        observations.append({'exit': code, 'stop': ((result or {}).get('stop') or {}).get('class')})
+
+    positive, escaped, unordered, *refusals = observations
+    accepted = not {'base-drift', 'record-invalid'} & set(positive['classes']) and positive['exit'] in (0, 10)
+    differs = all(x['exit'] == 20 and 'base-drift' in x['classes'] and 'RC13' in x['failed_conditions']
+                  for x in (escaped, unordered))
+    rejected = all(x == {'exit': 65, 'stop': 'LEDGER_INTEGRITY'} for x in refusals)
+    check('CANON-JSON', 'canonical UTF-8 ledger binding with strict raw input',
+          'the binding applies, both hash alternatives fail RC13, and all incomplete or invalid inputs stop',
+          observations, accepted and differs and rejected,
+          cases=[(name, {}) for name in names + ['non-integer hashed edit-list value']], files=evidence)
+
+
 def postf_controls(r, check):
     out = {}
     # POSTF-1 (both directions)
