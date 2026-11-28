@@ -1122,16 +1122,24 @@ def op_record(a, repo, ctx, loaded, result):
             lines = ctx.ft(pin, f).lines
             if not (0 < int(ln) <= len(lines)) or anchor not in lines[int(ln) - 1]:
                 pin_findings.append('%s: override anchor not in its pin line' % key)
-    holds = all(e['equal'] for e in rr['equalities']) and not rr['errors'] and rr['self_test'] and \
-        not pin_findings and len(rr['equalities']) == 5
+    failed = [(e['name'], e) for e in rr['equalities'] if not e['equal']]
+    if len(rr['equalities']) != 5:
+        failed.append(('equalities', 'the replay did not report five equalities'))
+    if rr['errors']:
+        failed.append(('errors', rr['errors']))
+    if not rr['self_test']:
+        failed.append(('frozen_self_test', False))
+    if pin_findings:
+        failed.append(('pin_findings', pin_findings))
     anchors = [{'site_id': s['site_id'], 'anchor_sha256': s['anchor_sha256'], 'pin_count': s['pin_count'],
                 'ordinal': s['ordinal'], 'context_sha256': s['pin_context_sha256']} for s in sites]
-    result['record_checks'] = {'holds': holds, 'equalities': rr['equalities'], 'errors': rr['errors'],
+    result['record_checks'] = {'holds': not failed, 'equalities': rr['equalities'], 'errors': rr['errors'],
                                'frozen_self_test': rr['self_test'], 'ck_errors': rr.get('ck_errors'),
                                'extended_unmapped': rr.get('extended_unmapped'), 'pin_findings': pin_findings,
                                'anchors': len(anchors), 'anchors_sha256': util.fingerprint(anchors)}
     result['covered_paths'] = ctx.corpus(pin)
-    return []
+    return [oc.make_item('RECORD', 'record-invalid', name, None, {'detail': value}, detail=value)
+            for name, value in failed]
 
 
 def _with_sitemap(ctx, sm):

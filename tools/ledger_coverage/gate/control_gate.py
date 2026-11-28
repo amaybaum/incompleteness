@@ -979,6 +979,27 @@ def _computed_invariant(k, v, result, bindings):
         # op A: the frozen checks that failed, the identifier that leads each entry of record_checks.ck_errors
         a = sorted({str(e).split()[0] for e in result['record_checks']['ck_errors'] if str(e).split()})
         return v in a, a, 'result'
+    if k == 'per_failed_check':
+        checks = result.get('record_checks')
+        if result.get('operation') != 'record' or not isinstance(checks, dict) or checks.get('holds') is not False:
+            return False, None, 'result'
+        eq = checks.get('equalities')
+        if not (isinstance(eq, list) and all(isinstance(e, dict) and isinstance(e.get('name'), str) and e['name']
+                                            and type(e.get('equal')) is bool for e in eq) and
+                isinstance(checks.get('errors'), list) and isinstance(checks.get('pin_findings'), list) and
+                type(checks.get('frozen_self_test')) is bool):
+            return False, None, 'result'
+        if len({e['name'] for e in eq}) != len(eq):
+            return False, None, 'result'
+        failed = {e['name'] for e in eq if not e['equal']}
+        failed.update(name for name, bad in (('equalities', len(eq) != 5), ('errors', checks['errors']),
+                                             ('frozen_self_test', not checks['frozen_self_test']),
+                                             ('pin_findings', checks['pin_findings'])) if bad)
+        named = {i['subject'] for i in result.get('items', []) if isinstance(i, dict) and
+                 i.get('obligation') == 'RECORD' and i.get('class') == 'record-invalid' and
+                 i.get('decision') == 'FAIL' and isinstance(i.get('subject'), str)}
+        missing = failed - named
+        return bool(failed) and not missing, {'failed': sorted(failed), 'missing': sorted(missing)}, 'result'
     if k == 'composed_blob' and isinstance(result.get('landing_compositions'), list):
         a = sorted(str(c.get('composed_blob')) for c in result['landing_compositions'] if isinstance(c, dict))
         return v in a, a, 'result'

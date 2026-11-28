@@ -161,6 +161,271 @@ def extra_controls(cap):
     return out
 
 
+def class_controls(cap):
+    """Retain the actual execution and coverage stages for the named class controls."""
+    from ledger_coverage.adapters import a1exit_exact_edit as exact_edit
+    from ledger_coverage.engine import execution as exmod
+
+    out = cap.result_map()
+    ce.capture_hook = cap
+    try:
+        guard = 'checks/fixture_pin.py'
+        targets = ('notes/first.md', 'notes/second.md')
+        old = 'the former fixture term remains in use'
+        new = 'the revised fixture term remains in use'
+        old_guard = 'EXPECTED = %r\n' % old
+        new_guard = 'EXPECTED = %r\n' % new
+        w = ce.World(extra={guard: old_guard.encode(), **{p: old.encode() for p in targets}})
+        led = ce.ledger(w.pin, [(guard, 0, len(old_guard), new_guard)], w.repo)
+        led['guard_pins'] = exact_edit.guard_pins([{'id': 'guard-edit', 'file': guard, 'old': old_guard,
+                                                   'new': new_guard, 'kind': 'guard-pin', 'targets': targets}])
+        good = {guard: new_guard.encode(), **{p: new.encode() for p in targets}}
+
+        def pins(changes):
+            x = w.child(w.pin, files=changes, subject='guard pin target fixture')
+            ex = exmod.Execution(w.ctx(), w.pin, x, led)
+            ex.pins({'min_len': 20, 'skip_prefixes': [], 'ok': []})
+            return ce._stage('execution', ex.items, roles={'H': w.pin, 'X': x}, guard_pins=led['guard_pins'],
+                             entries={p: w.repo.read(x, p).decode() for p in (guard, *targets)})
+
+        outside_guard = pins({**good, guard: old_guard.encode()})
+        ce._case('an updated guard pin whose new literal is absent from its file')
+        outside_target = pins({**good, targets[1]: old.encode()})
+        ce._case('an updated guard pin whose new literal does not occur in one of its targets')
+        ce._restore_with(lambda: pins(good), 'execution')
+        out['CLASS-PIN-TARGET'] = [(i['class'], i['subject']) for i in outside_guard] == [
+            ('pin-target-missing', 'guard-edit')] and [(i['class'], i['subject']) for i in outside_target] == [
+            ('pin-target-missing', 'guard-edit->' + targets[1])]
+
+        w = ce.World(sites=[(5, 'sr')])
+        site_line = ce.base_text.splitlines()[4]
+
+        def hp(steps):
+            parent = w.pin
+            parents = {}
+            for text in steps:
+                child = w.child(parent, text, subject='historical provenance fixture')
+                parents[child] = parent
+                parent = child
+            seg = ce.seg(w.pin, parent, 'hp', chain=list(parents), parent_of=parents, merges=set(parents),
+                         obligation='HP')
+            return w.coverage(parent, [seg], hits=False, facts={
+                'files_at_chain': {c: w.repo.read(c, ce.doc_path).decode() for c in [w.pin, *parents]},
+                'chain': seg['chain'], 'parent_of': parents, 'pin_line': site_line})[1]
+
+        duplicated = ce.base_text + site_line + '\n'
+        dup_items = hp([duplicated, duplicated + 'A new end of file.\n'])
+        ce._case('an HP region not unique as a whole-line block at a parent')
+        # The distinct closest anchors exchange positions and the original site changes.
+        lines = ce.base_text.splitlines(keepends=True)
+        lines[2], lines[6] = lines[6], lines[2]
+        lines[4] = 'A revised site between the anchors.\n'
+        rev_items = hp([''.join(lines)])
+        ce._case('HP anchors that do not keep their order')
+        ce._restore_with(lambda: hp([ce.base_text]), 'coverage')
+        out['CLASS-PROV-AMBIGUOUS'] = all(ce.classes(items) == ['provenance-ambiguous']
+                                         for items in (dup_items, rev_items))
+
+        w = ce.World(extra={ce.other_path: b'An unchanged unledgered file.\n'})
+        at = ce.off(ce.base_text, 'beta line two')
+        led = ce.ledger(w.pin, [(ce.doc_path, at, at + len('beta line two'), 'beta line revised')], w.repo)
+        text = ce.base_text.replace('beta line two', 'beta line revised', 1)
+
+        def segment(files):
+            x = w.child(w.pin, text, files=files, subject='ledgered segment file-scope fixture')
+            return w.coverage(x, [ce.seg(w.pin, x, 'ledgered', ledger=led)], hits=False, facts={
+                'roles': {'FROM': w.pin, 'TO': x}, 'ledger_paths': sorted(led['files']),
+                'file_entries': [w.repo.read(c, ce.other_path).decode() for c in (w.pin, x)]})[1]
+
+        items = segment({ce.other_path: b'A changed unledgered file.\n'})
+        ce._case('in a ledgered segment, a file not in the ledger whose bytes differ between FROM and TO')
+        ce._restore_with(lambda: segment({}), 'coverage')
+        out['CLASS-UNLEDGERED'] = [(i['class'], i['subject']) for i in items] == [
+            ('unledgered-file-change', ce.other_path)]
+    finally:
+        ce.capture_hook = None
+    return out
+
+
+def class_entrypoint_controls(cap):
+    """Check the retained, class-record and replay predicates through their adapter and CLI routes."""
+    from ledger_coverage.adapters import a1exit_exact_edit as exact_edit, a1exit_sitemap as sitemap
+    from ledger_coverage.adapters import synthetic_fixture as sf
+    from ledger_coverage.engine import cli
+
+    out = cap.result_map()
+    runner = sf.Runner(os.path.join(cap.rec.out_dir, 'class-cases'))
+    unwrap = cap.rec.wrap_cli(cli)
+
+    def run(syn, variant, args, case, baseline=None):
+        commit, path, digest, _ = syn.build(variant)
+        code, result = runner.cli(syn.repo, args(commit), commit, path, digest)
+        cap.rec.name_last(case, baseline=baseline)
+        return code, result or {}
+
+    try:
+        syn = sf.Syn()
+        adapter_path = sf.AD + 'a1exit_exact_edit.py'
+        adapter = sf.module_bytes('a1exit_exact_edit.py')
+        syn.H = syn.repo.derive(syn.H, {adapter_path: adapter}, subject='exact ledger adapter fixture')
+        h_bytes = syn.repo.read(syn.H, sf.DOC)
+        retained_text = 'Remark two notes a side fact.'
+        edit = {'id': 'retained-fixture', 'file': sf.DOC, 'site': 's-rem', 'part': 'text',
+                'old': retained_text, 'new': retained_text}
+        at = h_bytes.index(retained_text.encode())
+        ld, ep = 'syn/exact-ledger.json', 'syn/edits.json'
+
+        def retained(case, edits, splice=False, changed=False, baseline=None):
+            eb = sf.jb({'schema': exact_edit.EDITS_SCHEMA, 'edits': edits})
+            splices = []
+            if splice:
+                splices.append({'id': edit['id'], 'file': sf.DOC, 'start': at, 'end': at + len(retained_text),
+                                'new': retained_text, 'old_sha256': sf.sha(retained_text.encode()),
+                                'new_sha256': sf.sha(retained_text.encode())})
+            digest = sf.sha(h_bytes)
+            lb = sf.jb({'schema': exact_edit.LEDGER_SCHEMA, 'base': syn.H, 'edits_sha256': sf.sha(eb),
+                        'splices': splices, 'files': {sf.DOC: {'base_sha256': digest, 'expected_sha256': digest}},
+                        'retained_unchanged': [edit['id']]})
+            spec = {'adapter': exact_edit.NAME, 'adapter_version': exact_edit.VERSION,
+                    'module': {'path': adapter_path, 'blob_sha256': sf.sha(adapter)},
+                    'path': ld, 'blob_sha256': sf.sha(lb),
+                    'companion': [{'role': 'edits', 'path': ep, 'blob_sha256': sf.sha(eb)}]}
+            x_bytes = h_bytes.replace(retained_text.encode(), b'Remark two records a changed fact.') \
+                if changed else h_bytes
+            x = syn.repo.derive(syn.H, {sf.DOC: x_bytes}, subject='retained edit fixture')
+            variant = {'files': {ld: lb, ep: eb},
+                       'extra': {'adapters': {'ledger': spec, 'sitemap': None, 'replay': None}}}
+            return run(syn, variant, lambda c: ['execution', '--scientific-base', syn.H, '--candidate', x,
+                                                '--ledger', c + ':' + ld, '--edits', c + ':' + ep], case, baseline)
+
+        ret = [retained('a ledger entry listed as retained that is absent from edits.json', []),
+               retained('a ledger entry listed as retained that has a splice', [edit], splice=True),
+               retained('a ledger entry listed as retained whose site text differs between H and X', [edit],
+                        changed=True)]
+        retained('baseline', [edit])
+        retained('restored', [edit], baseline=cap.rec.pending[-1])
+        out['CLASS-RETAINED'] = all(code == 20 and 'retained-changed' in sf.classes(result) for code, result in ret)
+
+        syn = sf.Syn()
+        first, second = 'notes/first.txt', 'notes/second.txt'
+        sides = {first: b'first side record\n', second: b'second side record\n'}
+        m = syn.repo.derive(syn.H, sides, subject='class schema fixture main')
+        x = syn.repo.derive(syn.H, {}, subject='class schema fixture candidate')
+        patch = sf.patch_doc(syn.H, [])
+        base_path, tip_path = 'syn/side-classes-root.json', 'syn/side-classes-tip.json'
+        pin = {'path': first, 'blob_sha256': sf.sha(sides[first])}
+        root = {'schema': 'oi-side-change-classes/1', 'record_id': 'fixture-classes', 'author': sf.WRITER,
+                'supersedes': None, 'classes': [{'id': 'notes', 'prefixes': ['notes/'], 'pins': [pin]}]}
+        good = 'a class record whose classes carry id, prefixes and pins [{path, blob_sha256}] (positive)'
+
+        def classes(case, entry=None, successor=False, baseline=None):
+            files = {'syn/patch.json': patch}
+            primary = tip_path if successor else base_path
+            records = []
+            if successor:
+                files[base_path] = sf.jb(root)
+                syn.chain(files, base_path, sf.REVIEWER)
+                predecessor = {'path': base_path, 'blob_sha256': sf.sha(files[base_path])}
+                entry = dict(root['classes'][0], pins=[pin, {'path': second, 'blob_sha256': sf.sha(sides[second])}])
+            else:
+                predecessor = None
+            files[primary] = sf.jb(dict(root, classes=[entry or root['classes'][0]], supersedes=predecessor))
+            ref = {'path': primary, 'blob_sha256': sf.sha(files[primary])}
+            records.append({'kind': 'side-change-classes', **ref})
+            records.extend(syn.chain(files, primary, sf.REVIEWER))
+            variant = {'patch_sha': sf.sha(patch), 'files': files, 'add_records': records,
+                       'extra': {'roles': {'scientific_base': syn.H, 'pin': syn.pin, 'side_change_classes': ref}}}
+            return run(syn, variant, lambda c: ['execution', '--scientific-base', syn.H, '--candidate', x,
+                                                '--main', m, '--ledger', c + ':syn/patch.json'], case, baseline)
+
+        _, clean = classes(good)
+        clean_run = cap.rec.pending[-1]
+        cls = root['classes'][0]
+        adversaries = [
+            classes('countercase: a pin carrying git_blob (a key outside the table)',
+                    dict(cls, pins=[dict(pin, git_blob=syn.repo.blob_id(m, first))])),
+            classes('countercase: a class carrying the class-level paths form',
+                    {'id': 'notes', 'prefixes': ['notes/'], 'paths': [first], 'blob_sha256': pin['blob_sha256']}),
+            classes('countercase: a superseding class record that adds a pin without a widening review',
+                    successor=True),
+        ]
+        classes('restored', baseline=clean_run)
+        first_class = next((entry.get('class') for entry in clean.get('side_changes', []) if entry['path'] == first),
+                           None)
+        out['CLASS-SCHEMA'] = first_class == 'notes' and not (
+            {'base-drift', 'record-invalid'} & set(sf.classes(clean))) and all(
+                code == 20 and 'record-invalid' in sf.classes(result) for code, result in adversaries)
+
+        syn = sf.Syn()
+        modules = {sf.AD + p: sf.module_bytes(p) for p in ('a1exit_sitemap.py', 'python_frozen_replay.py')}
+        syn.H = syn.repo.derive(syn.H, modules, subject='record adapters fixture')
+        record = 'syn/frozen/'
+        checker = b'''import hashlib, json, os
+HERE = os.path.dirname(__file__)
+SITEMAP = os.path.join(HERE, "sitemap.json")
+ROWS = os.path.join(HERE, "rows.json")
+def load(path):
+    with open(path, encoding="utf-8") as f:
+        return json.load(f)
+def manuscript_digest():
+    with open("doc/s.md", "rb") as f:
+        return hashlib.sha256(f.read()).hexdigest()
+def build():
+    rows = load(ROWS)
+    return dict(rows["site_map"], manuscript_digest=manuscript_digest())
+def render(sm, rows):
+    return {"body": rows["summary"]}
+def splice_block(text, name, replacement):
+    return replacement
+def check(sm, rows, quiet=True):
+    return [] if sm["pin"] == rows["site_map"]["pin"] else ["record pin differs from its source"]
+def extended_unmapped(sm):
+    return [site["file"] for site in sm["sites"] if not os.path.isfile(site["file"])]
+def self_test():
+    return manuscript_digest() == load(ROWS)["digest"]
+'''
+        wanted = sf.sha(syn.repo.read(syn.pin, sf.DOC))
+        smap = {'schema': sitemap.SITEMAP_SCHEMA, 'pin': syn.pin,
+                'sites': [{'file': sf.DOC, 'line': 5, 's3': 'definition'}]}
+        summary = 'Fixture record summary.\n'
+
+        def record_checks(case, mutant=False, baseline=None):
+            rows = {'site_map': smap, 'digest': wanted, 'summary': summary}
+            if mutant:
+                rows['site_overrides'] = {sf.DOC + ':5': {'anchor': 'fixture anchor absent from the pinned line'}}
+            blobs = {record + 'ledger_check.py': checker, record + 'rows.json': sf.jb(rows),
+                     record + 'sitemap.json': sf.jb(dict(smap, manuscript_digest=('0' * 64 if mutant else wanted))),
+                     record + 'LEDGER.md': summary.encode()}
+            rc = syn.repo.derive(syn.H, blobs, subject='record checks fixture')
+
+            def module(name):
+                p = sf.AD + name
+                return {'path': p, 'blob_sha256': sf.sha(modules[p])}
+            sm_path, rows_path = record + 'sitemap.json', record + 'rows.json'
+            ads = {'sitemap': {'adapter': sitemap.NAME, 'adapter_version': sitemap.VERSION,
+                               'module': module('a1exit_sitemap.py'), 'commit': rc, 'path': sm_path,
+                               'blob_sha256': sf.sha(blobs[sm_path]),
+                               'companion': [{'role': 'rows', 'path': rows_path, 'blob_sha256': sf.sha(blobs[rows_path])}]},
+                   'replay': {'adapter': 'python-frozen-replay', 'adapter_version': 1,
+                              'module': module('python_frozen_replay.py'), 'module_path': record + 'ledger_check.py',
+                              'record_tree': syn.repo.tree_id(rc, record[:-1])}}
+            variant = {'operations': ['record'], 'control_ops': ['record'], 'drop': ['sites'],
+                       'extra': {'adapters': ads, 'roles': {'scientific_base': syn.H, 'pin': syn.pin,
+                                                           'record_commit': rc, 'side_change_classes': None}}}
+            return run(syn, variant, lambda _: ['record', '--pin', syn.pin, '--record', rc], case, baseline)
+
+        code, result = record_checks('', mutant=True)
+        clean_code, clean = record_checks('baseline')
+        restore_code, restored = record_checks('restored', baseline=cap.rec.pending[-1])
+        out['CLASS-RECORD-CHECKS'] = code == 20 and clean_code == restore_code == 0 and {
+            'digest_equal', 'rebuild_equal', 'pin_findings'
+        } <= {i['subject'] for i in result.get('items', []) if i['obligation'] == 'RECORD' and
+              i['class'] == 'record-invalid'} and clean.get('record_checks') == restored.get('record_checks')
+    finally:
+        unwrap()
+    return out
+
+
 def main(out_dir):
     os.makedirs(out_dir, exist_ok=True)
     rec = control_records.Recorder(JOB, out_dir)
@@ -174,6 +439,16 @@ def main(out_dir):
         extra = extra_controls(cap)
     except Exception as exc:
         extra = {'extra-group-error': '%s: %s' % (type(exc).__name__, exc)}
+    try:
+        extra.update(class_controls(cap))
+    except Exception as exc:
+        cap.rec.discard()
+        extra['class-group-error'] = '%s: %s' % (type(exc).__name__, exc)
+    try:
+        extra.update(class_entrypoint_controls(cap))
+    except Exception as exc:
+        cap.rec.discard()
+        extra['class-entrypoint-error'] = '%s: %s' % (type(exc).__name__, exc)
     from ledger_coverage.adapters import recon_controls
     try:
         extra.update(recon_controls.recon_controls(cap))
