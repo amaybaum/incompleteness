@@ -32,7 +32,7 @@ def _load_gate():
 G = _load_gate()
 
 STDLIB = frozenset(['argparse', 'ast', 'copy', 'functools', 'hashlib', 'importlib', 'importlib.util', 'json', 'os', 're',
-                    'shutil', 'subprocess', 'sys', 'tempfile'])
+                    'shutil', 'stat', 'subprocess', 'sys', 'tempfile'])
 
 
 def imports_are_stdlib():

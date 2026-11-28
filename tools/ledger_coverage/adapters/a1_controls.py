@@ -27,6 +27,7 @@ import io
 import json
 import os
 import re
+import subprocess
 import sys
 import tempfile
 import time
@@ -1344,17 +1345,22 @@ def execution_control_config(a):
     return fixture_path, loaded
 
 
+def execution_control_plan(a):
+    fixture_path, loaded = execution_control_config(a)
+    spec = loaded.config['adapters']['ledger']
+    edits = next(ref for ref in spec['companion'] if ref['role'] == 'edits')
+    delegation = loaded.config['delegation']
+    revision = spec.get('commit') or a.crev
+    operands = ['--ledger', revision + ':' + spec['path'],
+                '--edits', (edits.get('commit') or revision) + ':' + edits['path'],
+                '--delegation', (delegation.get('commit') or a.crev) + ':' + delegation['path']]
+    return fixture_path, loaded, operands
+
+
 def ex_controls(a):
     fixture_path = None
     if a.tool_acceptance:
-        fixture_path, loaded = execution_control_config(a)
-        spec = loaded.config['adapters']['ledger']
-        edits = next(ref for ref in spec['companion'] if ref['role'] == 'edits')
-        delegation = loaded.config['delegation']
-        revision = spec.get('commit') or a.crev
-        operands = ['--ledger', revision + ':' + spec['path'],
-                    '--edits', (edits.get('commit') or revision) + ':' + edits['path'],
-                    '--delegation', (delegation.get('commit') or a.crev) + ':' + delegation['path']]
+        fixture_path, loaded, operands = execution_control_plan(a)
         ledger = cli.load_adapter_input(a.repo, loaded, 'ledger')
     else:
         ledger = a.led
@@ -2062,6 +2068,38 @@ def engine_identity_y8(a, syn_engine=None):
     a.procedures['Y8'] = {'name': 'engine-identity', 'lib': 'hash', 'runs': names}
 
 
+def repro_controls(a):
+    """Run every A1 operation and the second configuration twice on their fixed inputs."""
+    from ledger_coverage.adapters import synthetic_fixture as sf
+
+    cid = 'REPRO-DOUBLE'
+    files = a.files_of[cid] = {}
+    actual = {}
+    config = a.crev + ':' + a.cpath
+    for label in ('record', 'coverage', 'terms', 'execution', 'synthetic'):
+        try:
+            repo, args = a.repo_path, None
+            if label == 'record':
+                args = ['record', '--config', config, '--pin', E, '--record', H]
+            elif label == 'coverage':
+                args = ['coverage', '--config', config, '--commit', E, '--check', 'item2']
+            elif label == 'terms':
+                args = ['terms', '--config', config, '--commit', H, '--profile', 'DR-1,DR-3,DR-4,DR-5']
+            elif label == 'execution':
+                fixed = a.fixed or a
+                fixture_path, _, operands = execution_control_plan(fixed)
+                args = ['execution', '--config', fixed.crev + ':' + fixture_path, '--scientific-base', H,
+                        '--candidate', T, *operands]
+            else:
+                repo = None
+            actual[label] = sf.reproducibility_pair(a.rec, a.out_root, label, files, repo, args)
+        except (OSError, RuntimeError, ValueError, KeyError, subprocess.CalledProcessError) as exc:
+            files[label + '.error'] = ('%s: %s\n' % (type(exc).__name__, exc)).encode()
+            actual[label] = False
+    a.procedures[cid] = {'name': 'double-run', 'lib': 'double-run'}
+    a.record(cid, all(actual.values()), 'equal configured inputs and result bytes within each pair', actual)
+
+
 PREDICATES = {
     'RT-DR': "terms --profile DR-1,DR-3,DR-4,DR-5: at H 86 distinct deny lines, per rule DR-1 61 / DR-4 28 / DR-5 1, "
              "DR-1 alternatives a 6 / b 2 / c 55, and the six named lines hit at line level by their rule; at E 95 "
@@ -2738,6 +2776,7 @@ def main():
     if a.freeze is not None:
         groups.append(('rt-t', rt_t))
     groups.append(('y8', lambda x: engine_identity_y8(x, args.syn_engine)))
+    groups.append(('repro', repro_controls))
     if not args.skip_sweeps:
         groups.append(('sweeps', sweeps))
     only = set(args.only.split(',')) if args.only else None

@@ -14,6 +14,7 @@ import hashlib
 import io
 import json
 import os
+import re
 import shutil
 import stat
 import subprocess
@@ -458,7 +459,7 @@ def self_test():
 
 
 def record_world(syn):
-    """The small record/replay fixture used by CLASS-RECORD-CHECKS, materialized with real commit ids when on disk."""
+    """Build the small record/replay fixture with real object ids when backed by a Git store."""
     from ledger_coverage.adapters import a1exit_sitemap, python_frozen_replay
 
     modules = {AD + p: module_bytes(p) for p in ('a1exit_sitemap.py', 'python_frozen_replay.py')}
@@ -506,6 +507,50 @@ sys.exit(cli.run(sys.argv[2:], harness=True)[0])
 '''
 
 
+def _fixture_env(scratch):
+    return {'PATH': os.environ.get('PATH', os.defpath), 'LC_ALL': 'C', 'TMPDIR': scratch,
+            'XDG_CACHE_HOME': scratch, 'XDG_CONFIG_HOME': scratch, 'GIT_CONFIG_NOSYSTEM': '1',
+            'GIT_CONFIG_GLOBAL': os.devnull, 'GIT_NO_LAZY_FETCH': '1', 'GIT_TERMINAL_PROMPT': '0'}
+
+
+def _harness_command(entry, repo, output, args):
+    return [sys.executable, '-I', '-S', '-B', '-c', _HARNESS_DRIVER, entry, args[0],
+            '--repo', repo, '--out', output, *args[1:]]
+
+
+def _small_git_world(root, env, record=False):
+    from ledger_coverage.adapters.conformance_controls import Disk, gitb, tool_tree
+
+    disk = Disk(os.path.join(root, 'source'))
+    syn = Syn()
+    syn.pin = disk.commit(syn.repo, syn.pin)
+    syn.H = syn.m1 = disk.commit(syn.repo, syn.H)
+    syn.repo = gitobj.Overlay(gitobj.GitRepo(disk.d))
+    syn.materialize = lambda commit: disk.commit(syn.repo, commit)
+    if record:
+        config, path, record_commit = record_world(syn)
+        args = ['record', '--pin', syn.pin, '--record', record_commit]
+        parents = [config, record_commit]
+    else:
+        _, c, path, _ = y_world(syn, [])
+        config = syn.materialize(c)
+        args = ['coverage', '--commit', syn.H, '--check', 'zc']
+        parents = [config, syn.H]
+    # Only fixture objects and the executing source go into the clone's object store.
+    tip = syn.materialize(syn.repo.derive(config, tool_tree(), parents=parents, subject='fixture tool checkout'))
+    gitb(disk.d, 'update-ref', 'refs/heads/main', tip)
+    gitb(disk.d, 'symbolic-ref', 'HEAD', 'refs/heads/main')
+    checkout = os.path.join(root, 'clone')
+    subprocess.run(['git', 'clone', '--quiet', '--no-local', disk.d, checkout], env=env, check=True, capture_output=True)
+    return checkout, [args[0], '--config', config + ':' + path, *args[1:]]
+
+
+def _git_observation(repo, env, *args):
+    proc = subprocess.run(['git', '--no-optional-locks', '--no-replace-objects', '-C', repo, *args], env=env,
+                          check=True, capture_output=True)
+    return proc.stdout
+
+
 def tree_listing(root, excluded=None):
     """List directory entries without following links, retaining modes, write times and regular-file digests."""
     listing = {}
@@ -531,11 +576,10 @@ def tree_listing(root, excluded=None):
 
 def confined_snapshot(root, checkout, output, env, label, files):
     """Take byte measurements of the clone and its sibling scratch directories outside --out."""
-    prefix = ['git', '--no-optional-locks', '--no-replace-objects', '-C', checkout]
     for key, args in (('status', ['status', '--porcelain', '-z', '--untracked-files=all']),
                       ('refs', ['show-ref', '--head', '--dereference']),
                       ('worktrees', ['worktree', 'list', '--porcelain', '-z'])):
-        files[label + '.' + key] = subprocess.run(prefix + args, env=env, check=True, capture_output=True).stdout
+        files[label + '.' + key] = _git_observation(checkout, env, *args)
     with open(os.path.join(checkout, '.git', 'index'), 'rb') as f:
         files[label + '.index'] = f.read()
     files[label + '.input.json'] = tree_listing(root, excluded=output)
@@ -544,40 +588,21 @@ def confined_snapshot(root, checkout, output, env, label, files):
 
 def out_confined(out_root):
     """Run the configured record replay from a small, fresh clone and retain raw before/after observations."""
-    from ledger_coverage.adapters.conformance_controls import Disk, gitb, tool_tree
-
     cid = 'OUT-CONFINED'
     out = outmap()
     files = FILES[cid] = {}
     PROCS[cid] = {'name': 'out-confined', 'lib': 'set', 'scope': 'scope.json'}
     try:
         root = tempfile.mkdtemp(prefix='confined-', dir=os.path.realpath(out_root))
-        checkout, output, scratch = (os.path.join(root, n) for n in ('clone', 'output', 'scratch'))
+        output, scratch = (os.path.join(root, n) for n in ('output', 'scratch'))
         os.mkdir(output)
         os.mkdir(scratch)
-        env = {'PATH': os.environ.get('PATH', os.defpath), 'LC_ALL': 'C', 'TMPDIR': scratch,
-               'XDG_CACHE_HOME': scratch, 'XDG_CONFIG_HOME': scratch, 'GIT_CONFIG_NOSYSTEM': '1',
-               'GIT_CONFIG_GLOBAL': os.devnull}
-        disk = Disk(os.path.join(root, 'source'))
-        syn = Syn()
-        syn.pin = disk.commit(syn.repo, syn.pin)
-        syn.H = syn.m1 = disk.commit(syn.repo, syn.H)
-        syn.repo = gitobj.Overlay(gitobj.GitRepo(disk.d))
-        syn.materialize = lambda commit: disk.commit(syn.repo, commit)
-        config, path, record = record_world(syn)
-        # Only the tiny fixture and the executing source go into the clone's object store.
-        tip = syn.materialize(syn.repo.derive(config, tool_tree(), parents=[config, record],
-                                              subject='record fixture tool checkout'))
-        gitb(disk.d, 'update-ref', 'refs/heads/main', tip)
-        gitb(disk.d, 'symbolic-ref', 'HEAD', 'refs/heads/main')
-        subprocess.run(['git', 'clone', '--quiet', '--no-local', disk.d, checkout], env=env, check=True,
-                       capture_output=True)
+        env = _fixture_env(scratch)
+        checkout, args = _small_git_world(root, env, record=True)
         files['scope.json'] = {'root': root, 'cwd': checkout}
         confined_snapshot(root, checkout, output, env, 'before', files)
         entry = os.path.join(checkout, 'tools', 'ledger_coverage.py')
-        argv = [sys.executable, '-I', '-S', '-B', '-c', _HARNESS_DRIVER, entry,
-                'record', '--repo', checkout, '--out', output, '--config', config + ':' + path,
-                '--pin', syn.pin, '--record', record]
+        argv = _harness_command(entry, checkout, output, args)
         proc = subprocess.run(argv, cwd=checkout, env=env, capture_output=True)
         if REC is not None:
             REC.capture(argv, proc.returncode, output, case='')
@@ -594,6 +619,62 @@ def out_confined(out_root):
         files['error.txt'] = ('%s: %s\n' % (type(exc).__name__, exc)).encode()
         out[cid] = False
     return out
+
+
+def _repro_inputs(repo, env, argv, case, output, files):
+    """Retain the configuration bytes and Git objects read before starting one subprocess."""
+    config_ref = argv[argv.index('--config') + 1]
+    config_commit, config_path = config_ref.split(':', 1)
+    config_bytes = _git_observation(repo, env, 'cat-file', 'blob', config_ref)
+    config = json.loads(config_bytes)
+    refs = [value for value in argv[9::2] if re.fullmatch('[a-f0-9]{40}(?::.*)?', value)]
+    ids = {ref.split(':', 1)[0] for ref in refs}
+    ids.update(config['roles'][k] for k in ('pin', 'record_commit', 'scientific_base') if k in config['roles'])
+    commits = {}
+    for oid in sorted(ids):
+        name = case + '.' + oid + '.commit'
+        commits[oid] = name
+        files[name] = _git_observation(repo, env, 'cat-file', 'commit', oid)
+    # Copy the successive raw trees on the configuration's path to prove blob membership without the clone.
+    trees = []
+    parts = config_path.split('/')
+    for i in range(len(parts)):
+        name = '%s.config-tree-%d' % (case, i)
+        tree_ref = config_commit + ':' + '/'.join(parts[:i]) if i else config_commit + '^{tree}'
+        files[name] = _git_observation(repo, env, 'cat-file', 'tree', tree_ref)
+        trees.append(name)
+    config_name = case + '.config.json'
+    files[config_name] = config_bytes
+    files[case + '.inputs.json'] = {'argv': argv, 'cwd': repo, 'environment': env, 'out_before': os.listdir(output),
+                                    'configuration': config_name, 'commits': commits, 'configuration_trees': trees}
+    return argv[:11] + argv[12:], env, config_bytes, {oid: files[name] for oid, name in commits.items()}
+
+
+def reproducibility_pair(rec, root, label, files, repo=None, args=None):
+    """Repeat one configured invocation from a real Git store in fresh output directories."""
+    root = os.path.realpath(root)
+    scratch = tempfile.mkdtemp(prefix=label + '-scratch-', dir=root)
+    env = _fixture_env(scratch)
+    if repo is None:
+        world = tempfile.mkdtemp(prefix='syn-repro-', dir=root)
+        repo, args = _small_git_world(world, env)
+        entry = os.path.join(repo, 'tools', 'ledger_coverage.py')
+    else:
+        repo = os.path.realpath(repo)
+        entry = os.path.join(tools, 'ledger_coverage.py')
+    measured, outcome = [], []
+    for n in (1, 2):
+        case = '%s-%d' % (label, n)
+        output = tempfile.mkdtemp(prefix=case + '-', dir=root)
+        argv = _harness_command(entry, repo, output, args)
+        measured.append(_repro_inputs(repo, env, argv, case, output, files))
+        proc = subprocess.run(argv, cwd=repo, env=env, capture_output=True)
+        if proc.stderr:
+            files[case + '.stderr'] = proc.stderr
+        run = rec.capture(argv, proc.returncode, output, case=case)
+        outcome.append((proc.returncode, run['result']))
+    return measured[0] == measured[1] and outcome[0] == outcome[1] and outcome[0][0] in (0, 10, 20) and \
+        outcome[0][1] is not None and outcome[0][1][0] == 'control-result.json'
 
 
 def classes(res):

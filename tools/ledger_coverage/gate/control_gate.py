@@ -4410,6 +4410,10 @@ def is_confinement_check(row):
     return row['id'] == 'OUT-CONFINED' and row.get('procedure', {}).get('name') == 'out-confined'
 
 
+def is_reproducibility_check(row):
+    return row['id'] == 'REPRO-DOUBLE' and row.get('procedure', {}).get('name') == 'double-run'
+
+
 def _procedure_bytes(ev, name):
     data = ev.text(name) if isinstance(name, str) else None
     if data is None:
@@ -4523,11 +4527,181 @@ def eval_out_confined(ev, findings):
     return actual
 
 
-def eval_procedure(row, ev, findings_out, repo=None):
+def _git_tree_member(raw, component):
+    while raw:
+        head, sep, rest = raw.partition(b'\0')
+        mode, space, name = head.partition(b' ')
+        if not sep or not space or len(rest) < 20:
+            raise ValueError('malformed raw Git tree')
+        if name == component.encode():
+            return mode, rest[:20].hex()
+        raw = rest[20:]
+    raise ValueError('the Git tree does not contain ' + component)
+
+
+def _repro_config(ev, observed, reference, commits):
+    commit, path = reference.split(':', 1)
+    pieces = path.split('/')
+    tree_files = observed['configuration_trees']
+    if not all(piece and piece not in ('.', '..') for piece in pieces) or len(tree_files) != len(pieces):
+        raise ValueError('the configuration has no full Git tree path')
+    header = commits[commit].split(b'\n', 1)[0]
+    if not header.startswith(b'tree '):
+        raise ValueError('the configuration commit has no root tree')
+    oid = header[5:].decode('ascii')
+    for index, (component, name) in enumerate(zip(pieces, tree_files)):
+        raw = _procedure_bytes(ev, name)
+        if _git_oid('tree', raw) != oid:
+            raise ValueError('retained Git tree does not match the configuration path')
+        mode, oid = _git_tree_member(raw, component)
+        if mode not in ((b'100644', b'100755') if index == len(pieces) - 1 else (b'40000',)):
+            raise ValueError('the configuration path is not a regular file')
+    config_bytes = _procedure_bytes(ev, observed['configuration'])
+    if _git_oid('blob', config_bytes) != oid:
+        raise ValueError('the configuration bytes differ from its Git blob')
+    return config_bytes
+
+
+def _repro_arguments(label, options, config, ctx):
+    ref = options['--config']
+    extra = {option: value for option, value in options.items() if option not in ('--out', '--repo', '--config')}
+    roles = config['roles']
+    if label == 'synthetic':
+        if config.get('config_id') != 'synthetic-retirement-config' or ref.split(':', 1)[1] != 'syn/cfg/config.json' or \
+                extra != {'--commit': roles['scientific_base'], '--check': 'zc'}:
+            raise ValueError('the synthetic pair does not use the second configuration')
+        return
+
+    frozen_config = ctx and ctx.freeze and ctx.config_path and ctx.freeze + ':' + ctx.config_path
+    fixed_config = ctx and ctx.fixed_config
+    expected = (fixed_config if label == 'execution' else frozen_config or fixed_config)
+    if not (expected and ctx.repo):
+        raise FileNotFoundError('the exact A1 configuration reference')
+    commit, path = expected.split(':', 1)
+    base = '53c6601a10419b6b333cc992474272501ab542af'
+    want = {'record': {'--pin': REP_E, '--record': base},
+            'coverage': {'--commit': REP_E, '--check': 'item2'},
+            'terms': {'--commit': base, '--profile': ','.join(FIXED_DENY_PROFILES)}}
+    if label == 'execution':
+        expected = commit + ':' + os.path.join(os.path.dirname(path), 'execution-control-config.json')
+        ledger = config['adapters']['ledger']
+        edits = next(e for e in ledger['companion'] if e['role'] == 'edits')
+        delegation = config['delegation']
+        ledger_commit = ledger.get('commit') or commit
+        want[label] = {'--scientific-base': base, '--candidate': T_PRIME, '--ledger': ledger_commit + ':' + ledger['path'],
+                       '--edits': (edits.get('commit') or ledger_commit) + ':' + edits['path'],
+                       '--delegation': (delegation.get('commit') or commit) + ':' + delegation['path']}
+    if ref != expected or roles.get('pin') != REP_E or roles.get('scientific_base') != base or extra != want[label]:
+        raise ValueError('the pair does not use the fixed A1 operation operands')
+
+
+def _repro_observation(ev, label, n, ctx):
+    name = '%s-%d' % (label, n)
+    case = ev.case(name)
+    if case is None:
+        raise FileNotFoundError('case ' + name)
+    observed = json.loads(_procedure_bytes(ev, name + '.inputs.json'))
+    argv = case['argv']
+    operation = 'coverage' if label == 'synthetic' else label
+    if not isinstance(argv, list) or len(argv) < 14 or len(argv) % 2 or argv != observed['argv'] or \
+            not all(isinstance(arg, str) for arg in argv) or argv[1:5] != ['-I', '-S', '-B', '-c'] or \
+            argv[7] != operation or argv[8:12:2] != ['--repo', '--out'] or \
+            not os.path.isabs(argv[0]) or not argv[6].endswith('/tools/ledger_coverage.py'):
+        raise ValueError('argv is missing or does not describe the invocation')
+    flags = argv[8::2]
+    options = dict(zip(flags, argv[9::2]))
+    if len(flags) != len(options) or any(not flag.startswith('--') for flag in flags) or \
+            options['--repo'] != observed['cwd'] or not os.path.isabs(observed['cwd']) or \
+            not os.path.isabs(options['--out']) or os.path.normpath(options['--out']) != options['--out'] or \
+            not isinstance(observed['environment'], dict) or \
+            not observed['environment'] or not all(isinstance(k, str) and isinstance(v, str)
+                                                    for k, v in observed['environment'].items()) or \
+            observed['out_before'] != [] or case.get('out_dir_exists') is not True:
+        raise ValueError('missing invocation environment, repository or fresh --out listing')
+
+    commits = {oid: _procedure_bytes(ev, file) for oid, file in observed['commits'].items()}
+    if not all(_git_oid('commit', raw) == oid for oid, raw in commits.items()):
+        raise ValueError('a retained Git commit does not match its object id')
+    config_ref = options['--config']
+    config_bytes = _repro_config(ev, observed, config_ref, commits)
+    config = json.loads(config_bytes)
+    object_ids = {v.split(':', 1)[0] for v in options.values() if re.fullmatch('[a-f0-9]{40}(?::.*)?', v)}
+    object_ids.update(config['roles'][k] for k in ('pin', 'record_commit', 'scientific_base') if k in config['roles'])
+    if object_ids != set(commits):
+        raise ValueError('the object manifest does not cover the operation operands and roles')
+    _repro_arguments(label, options, config, ctx)
+    if label != 'synthetic' and _git_rep_read(ctx.repo, 'cat-file', 'blob', config_ref) != config_bytes:
+        raise ValueError('configuration bytes differ from the configuration in the assessed repository')
+
+    result_file = case.get('result_file')
+    result_bytes = _procedure_bytes(ev, result_file)
+    result = json.loads(result_bytes)
+    config_result = result.get('config') or {}
+    logical_argv = [operation, *(arg for flag, value in options.items() if flag not in ('--repo', '--out')
+                                  for arg in (flag, value))]
+    exit_status = result.get('exit_status')
+    listing = json.loads(_procedure_bytes(ev, case.get('out_listing')))
+    if result.get('schema') != 'oi-ledger-coverage/5' or result.get('operation') != operation or result.get('stop') or \
+            result.get('invocation') != logical_argv or not result_file.endswith('.control-result.json') or \
+            not isinstance(listing, list) or 'control-result.json' not in listing or result.get('harness') is not True or \
+            (config_result.get('admission') or {}).get('mode') != 'control-harness' or \
+            config_ref != config_result.get('commit', '') + ':' + config_result.get('path', '') or \
+            _file_sha(config_bytes) != config_result.get('blob_sha256') or exit_status not in (0, 10, 20) or \
+            result.get('outcome') != recompute_outcome(result) or TOOL_EXIT.get(result.get('outcome')) != exit_status or \
+            _procedure_bytes(ev, case.get('exit_file')) != ('%d\n' % exit_status).encode():
+        raise ValueError('retained bytes do not bind a completed configured operation')
+    sources = [name + '.inputs.json', observed['configuration'], *observed['commits'].values(),
+               *observed['configuration_trees'], result_file, case['exit_file'], case['out_listing']]
+    if len(sources) != len(set(sources)):
+        raise ValueError('an evidence file is reused within the invocation')
+    inputs = (argv[:11] + argv[12:], observed['environment'], config_bytes, commits)
+    return inputs, options['--out'], result_bytes, sources
+
+
+def eval_reproducibility(row, ev, ctx, findings):
+    """Compute equality within each fixed configured pair and check that all pairs are present."""
+    proc = (ev.man or {}).get('procedure') or {}
+    actual = {'lib': 'double-run', 'outcome': None, 'pairs': {}, 'admission': 'control-harness',
+              'result_artifact': 'control-result.json'}
+    if proc.get('name') != 'double-run' or proc.get('lib') != 'double-run':
+        findings.append(('raw-evidence-missing', 'double-run: the per-operation procedure is absent'))
+        return actual
+    labels = [*row['operations'], 'synthetic']
+    expected = {'%s-%d' % (label, n) for label in labels for n in (1, 2)}
+    observed = [c.get('case') for c in ev.man.get('cases', []) if isinstance(c, dict)]
+    if len(observed) != len(set(observed)) or set(observed) - expected:
+        findings.append(('procedural-failed', 'double-run: unexpected or duplicate invocation case'))
+    all_sources, all_outputs = set(), set()
+    for label in labels:
+        try:
+            first, second = (_repro_observation(ev, label, n, ctx) for n in (1, 2))
+            sources = first[3] + second[3]
+            outputs = {first[1], second[1]}
+            distinct = len(sources) == len(set(sources)) and not all_sources.intersection(sources) and \
+                len(outputs) == 2 and not all_outputs.intersection(outputs)
+            equal = first[0] == second[0]
+            identical = first[2] == second[2]
+            actual['pairs'][label] = {'inputs_equal': equal, 'byte_identical': identical, 'distinct_outputs': distinct}
+            all_sources.update(sources)
+            all_outputs.update(outputs)
+            if not (equal and identical and distinct):
+                findings.append(('procedural-failed', 'double-run %s: changed inputs or results, or reused outputs' % label))
+        except FileNotFoundError as exc:
+            findings.append(('raw-evidence-missing', 'double-run %s: %s' % (label, exc)))
+        except (AttributeError, IndexError, KeyError, StopIteration, TypeError, ValueError) as exc:
+            findings.append(('procedural-failed', 'double-run %s: %s' % (label, exc)))
+    if not findings:
+        actual.update(outcome='TEXT_EQUAL', per_operation=row['operations'], synthetic=True)
+    return actual
+
+
+def eval_procedure(row, ev, findings_out, repo=None, ctx=None):
     if is_line_patch_rc8(row):
         return eval_line_patch_oracle(row, ev, findings_out)
     if is_confinement_check(row):
         return eval_out_confined(ev, findings_out)
+    if is_reproducibility_check(row):
+        return eval_reproducibility(row, ev, ctx, findings_out)
     lib = row['procedure']['lib']
     proc = (ev.man or {}).get('procedure') or {}
     missing = [k for k in LIB_INPUTS[lib] if k not in proc]
@@ -4921,12 +5095,13 @@ def evaluate(exp_doc, rows, retired, reqs, records, mutations, ctx):
                                 names = c['case'] if isinstance(c['case'], list) else [c['case']]
                                 for n in names:
                                     acts.append(eval_case(c, n, ev, row, rec, fl, ctx, phase))
-                        elif ex.get('outcome') != 'COMPOSITE' and not is_confinement_check(row):
+                        elif ex.get('outcome') != 'COMPOSITE' and not (is_confinement_check(row) or
+                                                                       is_reproducibility_check(row)):
                             acts.append(eval_case(ex, '', ev, row, rec, fl, ctx, phase))
                         if row.get('restored') is not None and row['restored'].get('outcome') != 'COMPOSITE':
                             acts.append(eval_case(row['restored'], 'restored', ev, row, rec, fl, ctx, phase))
                         if row.get('procedure'):
-                            acts.append(eval_procedure(row, ev, fl, ctx.repo))
+                            acts.append(eval_procedure(row, ev, fl, ctx.repo, ctx=ctx))
                         if ev.problems:
                             fl.append(('raw-evidence-missing', '; '.join(sorted(set(ev.problems)))))
                     for f, d in fl:
