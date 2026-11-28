@@ -1063,8 +1063,12 @@ def load_adapter_input(repo, loaded, iface, rev_path=None):
     errs = out.get('errors', [])
     if errs:
         kind = errs[0][0]
-        cls = 'SOURCE_CHANGED' if kind in ('schema', 'correspondence') else 'EDITS_HASH_MISMATCH' \
-            if kind == 'edits_sha256' else 'LEDGER_INTEGRITY'
+        if kind == 'edits_sha256':
+            cls = 'EDITS_HASH_MISMATCH'
+        elif iface != 'ledger' and kind in ('schema', 'correspondence'):
+            cls = 'SOURCE_CHANGED'
+        else:
+            cls = 'LEDGER_INTEGRITY'
         detail = {'errors': [e[1] for e in errs[:20]]}
         if kind == 'correspondence' and getattr(loaded, 'ctx', None) is not None:
             # the per-edit result of items 5 and 6 is computed and recorded even on a refusal (sec. 6.1, C4)

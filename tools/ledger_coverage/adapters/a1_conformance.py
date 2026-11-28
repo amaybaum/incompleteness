@@ -448,7 +448,7 @@ def s11_controls(a):
     errs = correspond(text, [e1, e2], [one])
     retain('S11-57c', {'correspondence': (text, [e1, e2], [one]), 'per edit': (text, [e1, e2], None)},
            (text, [e1, e2], [splice_for(text, e, le.select(e, text)) for e in (e1, e2)]))
-    check('S11-57c', 'one splice covering two edits (one deletes "now", the other adds it): ERROR SOURCE_CHANGED; '
+    check('S11-57c', 'one splice covering two edits (one deletes "now", the other adds it): ERROR LEDGER_INTEGRITY; '
           'evaluated per edit, FAIL deny-match (register), as P', "the correspondence refuses and the per-edit "
           "register count equals P's (1)", {'refusal': [m for _, m in errs][:3], 'tool': ours(unit, params, [e1, e2]),
                                            'P': theirs(p, [e1, e2])},
@@ -478,7 +478,7 @@ def s11_controls(a):
     want = {'a': 'alpha one.', 'b': 'beta two.', 'c': None, 'd': 'alpha one.', 'e': 'beta two.', 'f': None}
     retain('S11-58a-f', fixtures58, fixtures58['a'])
     check('S11-58a-f', 'one two-variant edit with H holding old once, old_step2 only, neither, both once, old twice and '
-          'old_step2 once, both ambiguous: selection, refusal (ERROR SOURCE_CHANGED in c and f) and items 5-6 equal '
+          'old_step2 once, both ambiguous: selection, refusal (ERROR LEDGER_INTEGRITY in c and f) and items 5-6 equal '
           'to P\'s', "the tool's selection equals P's and the expected one in each case; refusal exactly in c and f; "
           "items equal", out58,
           all(out58[k]['tool_selected'] == out58[k]['P_selected'] == want[k] and out58[k]['refused'] == (k in 'cf')
@@ -487,7 +487,7 @@ def s11_controls(a):
     wrong_variant = [splice_for(text_g, e, (e['old'], e['new']))]
     errs_g = correspond(text_g, [e], wrong_variant)
     retain('S11-58g', {'': (text_g, [e], wrong_variant)}, fixtures58['e'])
-    check('S11-58g', 'a splice built for (old, new) while P selects (old_step2, new_step2): ERROR SOURCE_CHANGED',
+    check('S11-58g', 'a splice built for (old, new) while P selects (old_step2, new_step2): ERROR LEDGER_INTEGRITY',
           "the correspondence refuses", [m for _, m in errs_g][:2], bool(errs_g))
     e1 = {'id': 'E1', 'file': 'f.md', 'kind': 'prose', 'old': 'red fox', 'new': 'blue fox'}
     e2 = {'id': 'E2', 'file': 'f.md', 'kind': 'prose', 'old': 'red fox jumps', 'new': 'red fox runs'}
@@ -496,7 +496,7 @@ def s11_controls(a):
     errs_h = correspond(text, [e1, e2], first_splice)
     retain('S11-58h', {'': (text, [e1, e2], first_splice)},
            (text, [e2], [splice_for(text, e2, le.select(e2, text))]))
-    check('S11-58h', 'an earlier edit that destroys a later edit\'s old: ERROR SOURCE_CHANGED, as P reports the edit '
+    check('S11-58h', 'an earlier edit that destroys a later edit\'s old: ERROR LEDGER_INTEGRITY, as P reports the edit '
           'lost', "the correspondence refuses naming E2 as lost", [m for _, m in errs_h][:2],
           any(m.startswith('E2') and 'lost' in m for _, m in errs_h))
     e = {'id': 'E1', 'file': 'f.md', 'kind': 'prose', 'old': 'aa', 'new': 'b'}
@@ -516,7 +516,7 @@ def s11_controls(a):
     retain('S11-58j', {'': (text, [e1, e2], first_splice)},
            (text, [e2], [splice_for(text, e2, le.select(e2, text))]))
     check('S11-58j', 'chained edits (edit 2\'s only occurrence after edit 1 lies inside edit 1\'s image): ERROR '
-          'SOURCE_CHANGED naming edit 2 (chained); P\'s items 5 and 6 recorded', "a refusal naming E2 as chained",
+          'LEDGER_INTEGRITY naming edit 2 (chained); P\'s items 5 and 6 recorded', "a refusal naming E2 as chained",
           {'refusal': [m for _, m in errs_j][:2], 'P': theirs(p, [e1, e2])},
           any(m.startswith('E2') and 'chained' in m for _, m in errs_j))
     e1 = {'id': 'E1', 'file': 'f.md', 'kind': 'prose', 'old': 'ab q', 'new': 'xy'}
@@ -532,7 +532,7 @@ def s11_controls(a):
     p_sel = p.variant(e2, p_text)
     p_text = p_text.replace(p_sel[0], p_sel[1], 1)
     check('S11-58k', 'chained across the image boundary (H "ab qc", edit 1 "ab q"->"xy", edit 2 qc/yc): ERROR '
-          'SOURCE_CHANGED naming edit 2 (chained); P applies the list, with result "xQ"',
+          'LEDGER_INTEGRITY naming edit 2 (chained); P applies the list, with result "xQ"',
           "a refusal naming E2 as chained, and P's application gives 'xQ'",
           {'refusal': [m for _, m in errs_k][:2], 'P_result': p_text},
           any(m.startswith('E2') and 'chained' in m for _, m in errs_k) and p_text == 'xQ')
