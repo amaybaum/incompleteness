@@ -1222,6 +1222,82 @@ def pipeline_chain_control(r):
           outcomes, all(outcomes.values()), files={'pipeline-config.json': t.repo.read(t.c, t.p)})
 
 
+def pipeline_stages_control(r):
+    from ledger_coverage.engine import selftest
+
+    syn = sf.Syn()
+    source = syn.repo.read(syn.H, sf.DOC)
+    old = b'Closing words of the file.'
+    new = b'Revised closing words.'
+    start = source.index(old)
+    clean_text = source.replace(old, new)
+    deny_text = clean_text + b'\nAxiom Z holds.\n'
+    clean_tree = syn.repo.derive(syn.H, {sf.DOC: clean_text}, parents=[syn.H], subject='valid replacement')
+    deny_tree = syn.repo.derive(clean_tree, {sf.DOC: deny_text}, parents=[clean_tree], subject='deny fixture')
+    sp = {'id': 'PIPE-SPLICE', 'file': sf.DOC, 'start': start, 'end': start + len(old),
+          'old_sha256': sha(old), 'new_sha256': sha(new), 'new': new.decode()}
+    original = {'schema': 'a1exit deletion exact-edit ledger v2', 'base': syn.H, 'splices': [sp],
+                'files': {sf.DOC: {'base_sha256': sha(source), 'expected_sha256': sha(clean_text)}}}
+    changed = dict(original, splices=[dict(sp, old_sha256=sha(b'wrong original bytes'))])
+    module = sf.module_bytes('a1exit_exact_edit.py')
+    module_path = sf.AD + 'a1exit_exact_edit.py'
+    ledger_path = 'syn/patch.json'
+    evidence = {'scientific-base.txt': source, 'clean-image.txt': clean_text, 'deny-image.txt': deny_text,
+                'preflight-good.txt': b'approved witness\n', 'preflight-bad.txt': b'mutated witness\n'}
+    configs = {}
+    for kind, ledger in [('good', original), ('bad', changed)]:
+        raw = sf.jb(ledger)
+        adapter = {'adapter': 'a1exit-exact-edit', 'adapter_version': 2, 'path': ledger_path,
+                   'blob_sha256': sha(raw), 'module': {'path': module_path, 'blob_sha256': sha(module)},
+                   'companion': []}
+        rev, path, _, _ = syn.build({'extra': {'adapters': {'ledger': adapter, 'sitemap': None, 'replay': None}},
+                                     'files': {ledger_path: raw, module_path: module}})
+        configs[kind] = rev, path
+        evidence['%s-ledger.json' % kind] = syn.repo.read(rev, ledger_path)
+        evidence['%s-config.json' % kind] = syn.repo.read(rev, path)
+    observations = {}
+
+    def run(name, *, config='good', witness='good', target=clean_tree, extra=(), baseline=None):
+        rev, path = configs[config]
+        operand = 'preflight-%s.txt' % witness
+        observations[name] = {'operand': operand, 'reads': []}
+
+        def preflight():
+            raw = evidence[operand]
+            observations[name]['reads'].append(sha(raw))
+            return selftest.preflight() + [{'id': 'PIPE-PREFLIGHT-WITNESS',
+                                            'passed': raw == evidence['preflight-good.txt']}]
+
+        argv = ['terms', '--config', '%s:%s' % (rev, path), '--commit', target, '--out', r.out(), '--base', syn.H,
+                '--ledger', '%s:%s' % (rev, ledger_path), '--profile', 'Z-premise'] + list(extra)
+        err = io.StringIO()
+        outcome = cli.run(argv, repo=syn.repo, stderr=err, harness=True, preflight_fn=preflight)
+        capture = REC.name_last(name, baseline=baseline)
+        return outcome, capture
+
+    clean, baseline = run('baseline')
+    usage, usage_raw = run('an unknown flag together with a ledger whose splice hash differs from H',
+                           config='bad', extra=['--unknown-pipeline-flag'])
+    integrity, _ = run('a ledger whose splice hash differs from H together with a failing preflight control',
+                       config='bad', witness='bad')
+    preflight, _ = run('a failing preflight control together with a planted deny match',
+                       witness='bad', target=deny_tree)
+    deny, _ = run('deny-only', target=deny_tree)
+    restored, _ = run('restored', baseline=baseline)
+    outcomes = {
+        'usage': usage == (64, None) and usage_raw['result'] is None and not usage_raw['out_exists'],
+        'integrity': integrity[0] == 65 and stop(integrity[1]) == 'LEDGER_INTEGRITY' and
+        integrity[1]['items'] == integrity[1]['preflight'] == [],
+        'preflight': preflight[0] == 70 and stop(preflight[1]) == 'PREFLIGHT_FAILED' and not preflight[1]['items'],
+        'deny_control': deny[0] == 20 and 'deny-match' in classes(deny[1]),
+        'restored': clean[0] == 0 and not stop(clean[1]) and same(clean, restored),
+    }
+    evidence['preflight-observations.json'] = observations
+    check('PIPE-STAGES', 'usage precedes integrity, integrity precedes preflight, and preflight precedes scanning',
+          'each paired fault stops at the earlier stage; the deny witness and clean restoration run independently',
+          outcomes, all(outcomes.values()), files=evidence)
+
+
 def gv_disk_controls(r):
     dk, ids, p, run = disk_world(r, 'gv-store')
     clean = run()
@@ -3457,7 +3533,7 @@ ALL_IDS = ['TR5-sim', 'TR5', 'TR1', 'TR2', 'TR3', 'TR13', 'TR14-tool', 'TR14', '
            'GV2', 'GV3', 'GV4', 'GV5', 'GV6', 'GV6-disk', 'GV7-tool', 'GV7-consumer', 'R16', 'R17', 'A12r', 'Z11',
            'S4a', 'G4', 'G5', 'G6', 'G7', 'G8', 'G9', 'G-A1', 'R3-F2', 'R4-B3', 'R4-B3-DUP', 'R5-N6', 'R6-G6',
            'LN1', 'LN2', 'LN3', 'LN4', 'LN5', 'LN6', 'LN7', 'LN8', 'LN10', 'O3-FILTER',
-           'PIPE-REPO', 'PIPE-CHAIN',
+           'PIPE-REPO', 'PIPE-CHAIN', 'PIPE-STAGES',
            'RULE-MINLIT', 'RULE-ZEROFP', 'CANON-JSON'] + rdc.IDS
 
 
@@ -3502,6 +3578,7 @@ def main(out_root, native_tr5=False):
     groups = [('TR', lambda: tr_controls(r, native_tr5)), ('EI5', lambda: ei5_controls(r)), ('O3', lambda: o3_controls(r)),
               ('PIPE-REPO', lambda: pipeline_repo_control(r)),
               ('PIPE-CHAIN', lambda: pipeline_chain_control(r)),
+              ('PIPE-STAGES', lambda: pipeline_stages_control(r)),
               ('R16', lambda: r_controls(r)),
               ('A12r', lambda: a12r(r)), ('rule limits', lambda: allow_rule_limits(r)),
               ('Z11', lambda: z11_s4a(r)), ('G', lambda: g_controls(r)),

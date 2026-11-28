@@ -576,6 +576,8 @@ def run(argv, repo=None, harness=False, stderr=None, extra_records=(), preflight
             return custody_gate(a, out, repo, repo_path, argv)
         if getattr(a, 'final', False) and not getattr(a, 'check', None):
             raise UsageError('--final requires --check')
+        if a.op == 'terms' and bool(a.base) != bool(a.ledger):
+            raise UsageError('--base and --ledger go together')
     except UsageError as exc:
         msg = {'schema': oc.result_schema, 'outcome': oc.usage, 'exit_status': 64, 'message': str(exc)}
         stderr.write(json.dumps(msg, sort_keys=True) + '\n')
@@ -907,8 +909,24 @@ def stages(a, repo, harness, result, extra_records, preflight_fn, control, envir
     result['profiles'] = loaded.profile_records
     result['rule_files'] = [{'path': r['path'], 'blob_sha256': r['blob_sha256']} for r, _ in loaded.rule_files]
     result['hp_merges'] = cfg['hp_obligations']
+    if harness and control.get('overrides'):
+        loaded.control_overrides = control['overrides']
     if a.op == 'coverage':
         commit, segment_refs = coverage_chain(a, repo, cfg)
+    elif a.op == 'terms':
+        commit = resolve(repo, a.commit)
+        base = ledger = None
+        if a.base:
+            base = resolve(repo, a.base)
+
+            def correspondence_context():
+                return classification_context(repo, loaded, result, harness, control)[0]
+
+            ledger = load_adapter_input(repo, loaded, 'ledger', a.ledger,
+                                        correspondence_context=correspondence_context)
+            if ledger['base'] != base:
+                raise oc.Stop(oc.error, 'SCIENTIFIC_BASE_MISMATCH', 'ledger base is not --base')
+            pl.check_ledger(repo, base, ledger)
     # controls
     from . import selftest
     pf = (preflight_fn or selftest.preflight)()
@@ -919,25 +937,7 @@ def stages(a, repo, harness, result, extra_records, preflight_fn, control, envir
     if getattr(a, 'record_base', None) is not None:
         result.setdefault('inputs', {})['record_base'] = a.record_base
     records = RecordSet(loaded, harness)
-    indicators = ctxmod.Indicators(cfg['indicators'])
-    ctx = pl.RunContext(repo, cfg, loaded.profiles, [], {}, indicators)
-    lookup = lookups(ctx, loaded)
-    if harness and control.get('overrides'):
-        loaded.control_overrides = control['overrides']
-        result['control'] = 'adapter output replaced in memory by the control: %s' % sorted(control['overrides'])
-    if harness and control.get('without_allow_rules'):
-        loaded.rule_files = [(r, d) for r, d in loaded.rule_files
-                             if not any(x.get('kind') == 'allow' for x in (d or {}).get('rules', []))]
-        result['control'] = 'allow-rule files withheld (a "no records" control)'
-    if harness and control.get('replace_rule_files') is not None:
-        loaded.rule_files = control['replace_rule_files'](loaded.rule_files)
-        result['control'] = 'rule files replaced in memory by the control'
-    lookup['force_widening'] = bool(harness and control.get('force_widening'))
-    allow, rule_items = rule_files(loaded, harness and not control.get('lint_chain'), lookup)
-    ctx.allow_rules = allow
-    bad = {i['subject'] for i in rule_items}
-    ctx.edit_params = peredit.find_params([(r, d) for r, d in loaded.rule_files if r['path'] not in bad])
-    loaded.ctx = ctx
+    ctx, rule_items = classification_context(repo, loaded, result, harness, control)
     items = list(rule_items)
     op = a.op
     if op == 'record':
@@ -945,7 +945,7 @@ def stages(a, repo, harness, result, extra_records, preflight_fn, control, envir
     elif op == 'coverage':
         body = op_coverage(a, repo, ctx, loaded, records, result, commit, segment_refs)
     elif op == 'terms':
-        body = op_terms(a, repo, ctx, loaded, records, result)
+        body = op_terms(a, repo, ctx, loaded, records, result, commit, base, ledger)
     else:
         body = op_execution(a, repo, ctx, loaded, records, result, control)
     items += body + records.items
@@ -963,6 +963,29 @@ def stages(a, repo, harness, result, extra_records, preflight_fn, control, envir
     result['exit_status'] = oc.exit_codes[outc]
     finish_snapshot(result)
     return result
+
+
+def classification_context(repo, loaded, result, harness, control):
+    cfg = loaded.config
+    indicators = ctxmod.Indicators(cfg['indicators'])
+    ctx = pl.RunContext(repo, cfg, loaded.profiles, [], {}, indicators)
+    lookup = lookups(ctx, loaded)
+    if harness and control.get('overrides'):
+        result['control'] = 'adapter output replaced in memory by the control: %s' % sorted(control['overrides'])
+    if harness and control.get('without_allow_rules'):
+        loaded.rule_files = [(r, d) for r, d in loaded.rule_files
+                             if not any(x.get('kind') == 'allow' for x in (d or {}).get('rules', []))]
+        result['control'] = 'allow-rule files withheld (a "no records" control)'
+    if harness and control.get('replace_rule_files') is not None:
+        loaded.rule_files = control['replace_rule_files'](loaded.rule_files)
+        result['control'] = 'rule files replaced in memory by the control'
+    lookup['force_widening'] = bool(harness and control.get('force_widening'))
+    allow, rule_items = rule_files(loaded, harness and not control.get('lint_chain'), lookup)
+    ctx.allow_rules = allow
+    bad = {i['subject'] for i in rule_items}
+    ctx.edit_params = peredit.find_params([(r, d) for r, d in loaded.rule_files if r['path'] not in bad])
+    loaded.ctx = ctx
+    return ctx, rule_items
 
 
 def finish_snapshot(result):
@@ -1064,7 +1087,7 @@ def _canonical_ledger_value(value):
     return value is None or isinstance(value, (str, int))
 
 
-def load_adapter_input(repo, loaded, iface, rev_path=None):
+def load_adapter_input(repo, loaded, iface, rev_path=None, correspondence_context=None):
     """Reads an adapter's main input and companions by their pins; returns the adapter's output."""
     ov = getattr(loaded, 'control_overrides', {}).get(iface)
     if ov is not None:
@@ -1098,10 +1121,14 @@ def load_adapter_input(repo, loaded, iface, rev_path=None):
         else:
             cls = 'LEDGER_INTEGRITY'
         detail = {'errors': [e[1] for e in errs[:20]]}
-        if kind == 'correspondence' and getattr(loaded, 'ctx', None) is not None:
+        if kind == 'correspondence':
             # the per-edit result of items 5 and 6 is computed and recorded even on a refusal (sec. 6.1, C4)
-            rec_, _ = peredit.evaluate(out, loaded.ctx.edit_params, loaded.ctx.profiles)
-            detail['per_edit'] = rec_
+            ctx = getattr(loaded, 'ctx', None)
+            if ctx is None and correspondence_context is not None:
+                ctx = correspondence_context()
+            if ctx is not None:
+                rec_, _ = peredit.evaluate(out, ctx.edit_params, ctx.profiles)
+                detail['per_edit'] = rec_
         raise oc.Stop(oc.error, cls, errs[0][1], detail)
     if iface == 'ledger':
         raw = out.get('raw')
@@ -1400,8 +1427,7 @@ def hit_counts(hits):
 
 # ---- op D ------------------------------------------------------------------------------------------------
 
-def op_terms(a, repo, ctx, loaded, records, result):
-    commit = resolve(repo, a.commit)
+def op_terms(a, repo, ctx, loaded, records, result, commit, base, led):
     result['evaluated'] = {'commit': commit}
     if a.profile and a.check:
         raise oc.Stop(oc.usage, 'USAGE', '--profile and --check are exclusive')
@@ -1424,19 +1450,11 @@ def op_terms(a, repo, ctx, loaded, records, result):
     profs = [ctx.profiles[n] for n in names]
     added = {}
     stexts = None
-    if a.base or a.ledger:
-        if not (a.base and a.ledger):
-            raise oc.Stop(oc.usage, 'USAGE', '--base and --ledger go together')
-        base = resolve(repo, a.base)
-        led = load_adapter_input(repo, loaded, 'ledger', a.ledger)
-        if led['base'] != base:
-            raise oc.Stop(oc.error, 'SCIENTIFIC_BASE_MISMATCH', 'ledger base is not --base')
-        if commit != base:
-            added = pl.added_lines(ctx, commit, led, ctx.corpus(commit))
-            stexts = pl.splice_texts(ctx, base, commit, led)
-            if any(p.applies_to == 'added-text' and p.kind == 'deny' for p in profs):
-                records.items.extend(i for i in per_edit(ctx, led, result)
-                                     if set(i.get('profiles', [])) <= set(names))
+    if led is not None and commit != base:
+        added = pl.added_lines(ctx, commit, led, ctx.corpus(commit))
+        stexts = pl.splice_texts(ctx, base, commit, led)
+        if any(p.applies_to == 'added-text' and p.kind == 'deny' for p in profs):
+            records.items.extend(i for i in per_edit(ctx, led, result) if set(i.get('profiles', [])) <= set(names))
     scope_paths = None
     if any(p.spec.get('scope') == 'repo' for p in profs):
         if not a.scope:

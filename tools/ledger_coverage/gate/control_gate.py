@@ -3774,6 +3774,75 @@ def _pipeline_chain_case(ev, case_name, argv, result, exit_code):
             exit_code == result.get('exit_status') == TOOL_EXIT.get(recompute_outcome(result)))
 
 
+def _pipeline_stages_case(ev, case_name, case, result):
+    usage = 'an unknown flag together with a ledger whose splice hash differs from H'
+    integrity = 'a ledger whose splice hash differs from H together with a failing preflight control'
+    preflight = 'a failing preflight control together with a planted deny match'
+    kind = 'bad' if case_name in (usage, integrity) else 'good'
+    witness = 'preflight-bad.txt' if case_name in (integrity, preflight) else 'preflight-good.txt'
+    witness_raw, valid_witness = ev.text(witness), ev.text('preflight-good.txt')
+    observations = ev.json('preflight-observations.json')
+    inv = _pipeline_argv(case.get('argv'), '--out')
+    if not (inv and inv[0] == 'terms' and isinstance(result, dict) and witness_raw and valid_witness and
+            (witness_raw == valid_witness) == (witness == 'preflight-good.txt')):
+        return False
+    calls = [] if case_name in (usage, integrity) else [hashlib.sha256(witness_raw).hexdigest()]
+    if observations.get(case_name) != {'operand': witness, 'reads': calls}:
+        return False
+    if case_name == usage:
+        other = _pipeline_argv((ev.case(integrity) or {}).get('argv'), '--out')
+        return (other and inv == other + ['--unknown-pipeline-flag'] and
+                case.get('result_file', '').endswith('.stderr.json') and case.get('out_dir_exists') is False and
+                result.get('message') == 'unrecognized arguments: --unknown-pipeline-flag')
+
+    good, bad = [ev.json('%s-ledger.json' % label) for label in ('good', 'bad')]
+    sp, changed = good['splices'][0], bad['splices'][0]
+    frm, clean = ev.text('scientific-base.txt'), ev.text('clean-image.txt')
+    start, end = sp['start'], sp['end']
+    replacement = sp['new'].encode('utf-8')
+    if not (0 <= start < end <= len(frm) and clean == frm[:start] + replacement + frm[end:] and
+            good['files'][sp['file']]['base_sha256'] == hashlib.sha256(frm).hexdigest() and
+            good['files'][sp['file']]['expected_sha256'] == hashlib.sha256(clean).hexdigest() and
+            sp['old_sha256'] == hashlib.sha256(frm[start:end]).hexdigest() != changed['old_sha256'] and
+            sp['new_sha256'] == hashlib.sha256(replacement).hexdigest() and
+            bad == dict(good, splices=[dict(sp, old_sha256=changed['old_sha256'])])):
+        return False
+    config_raw = ev.text('%s-config.json' % kind)
+    cfg = ev.json('%s-config.json' % kind)
+    ledger_raw = ev.text('%s-ledger.json' % kind)
+    spec = cfg['adapters']['ledger']
+    ref = result['config']
+    target = _case_args(inv, '--commit')
+    if not (target and len(target) == 1 and HEX40.fullmatch(target[0]) and
+            result.get('invocation') == inv and
+            _case_args(inv, '--profile') == ['Z-premise'] and
+            _case_args(inv, '--config') == ['%s:%s' % (ref['commit'], ref['path'])] and
+            ref['blob_sha256'] == hashlib.sha256(config_raw).hexdigest() and
+            cfg['roles']['scientific_base'] == good['base'] and _case_args(inv, '--base') == [good['base']] and
+            _case_args(inv, '--ledger') == ['%s:%s' % (ref['commit'], spec['path'])] and
+            spec['blob_sha256'] == hashlib.sha256(ledger_raw).hexdigest()):
+        return False
+    if case_name == integrity:
+        baseline = (ev.case('baseline') or {}).get('argv')
+        return (_case_args(baseline, '--commit') == target and result['items'] == result['preflight'] == [] and
+                result['stop']['message'] == '%s: old_sha256 does not match its span' % sp['id'])
+    probe = [p['passed'] for p in result['preflight'] if p['id'] == 'PIPE-PREFLIGHT-WITNESS']
+    if case_name == preflight:
+        deny = ev.case('deny-only') or {}
+        other = ev.json(deny['result_file'])
+        return (result['items'] == [] and probe == [False] and isinstance(other, dict) and
+                inv == _pipeline_argv(deny.get('argv'), '--out') == other.get('invocation') and
+                other.get('evaluated') == {'commit': target[0]} and
+                recompute_outcome(other) == other.get('outcome') == 'FAIL' and
+                [p['passed'] for p in other['preflight'] if p['id'] == 'PIPE-PREFLIGHT-WITNESS'] == [True] and
+                observations.get('deny-only') == {'operand': 'preflight-good.txt',
+                                                  'reads': [hashlib.sha256(valid_witness).hexdigest()]} and
+                ev.text(deny['exit_file']) == b'20\n' and ev.text('deny-image.txt') == clean + b'\nAxiom Z holds.\n' and
+                any(i['class'] == 'deny-match' and i.get('rule_id') == 'Z-premise' and
+                    i.get('file') == sp['file'] for i in other['items']))
+    return probe == [True] and result['items'] == [] and result.get('evaluated') == {'commit': target[0]}
+
+
 def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None, phase=None):
     """Evaluates one expectation (the row's, one of its cases, or its restored case) against the retained
     evidence of the case. Appends findings; returns the extracted actual."""
@@ -3873,6 +3942,14 @@ def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None, phase=Non
                 result.get('preflight') == [] and 'config' not in result and
                 (result.get('stop') or {}).get('message') == 'not a git repository: ' + bad_repo[0]):
             findings_out.append(('declarative-mismatch', 'terms did not refuse the selected non-repository'))
+    if rid == 'PIPE-STAGES':
+        try:
+            fault_check = _pipeline_stages_case(ev, case_name, c, result)
+        except (TypeError, KeyError, AttributeError, ValueError, IndexError):
+            fault_check = False
+        if not fault_check:
+            findings_out.append(('declarative-mismatch', 'case %r: the paired stage inputs or effects do not verify'
+                                 % case_name))
     if rid == 'S11-2b' and case_name == '':
         # A1 staging amendment r2: S11-2b runs coverage under the same named Item 2 check on its own child
         inv = _coverage_invocation(c.get('argv'))
@@ -4002,7 +4079,7 @@ def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None, phase=Non
             if not same:
                 findings_out.append(('declarative-mismatch', 'case %r differs from the actual fixed clean scan'
                                      % case_name))
-        elif rid in ('PIPE-REPO', 'PIPE-CHAIN') and o == 'RESULT_EQUAL_CLEAN':
+        elif rid in ('PIPE-REPO', 'PIPE-CHAIN', 'PIPE-STAGES') and o == 'RESULT_EQUAL_CLEAN':
             same = _pipeline_restored(ev, c, result, exit_code)
             actual['outcome'] = o if same else 'RESULT_DIFFERS'
             if not same:
