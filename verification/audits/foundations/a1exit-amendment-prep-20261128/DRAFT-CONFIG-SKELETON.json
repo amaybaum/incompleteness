@@ -1,0 +1,39 @@
+{
+ "_DRAFT": "DRAFT field skeleton of retirement-config.json (r6 R6.CFG.4, R6.A1CFG.2, staging r2 secs. 1-3). Not a configuration: the _DRAFT key alone makes it invalid. Every PENDING value waits on the final H, the landed tool T_land, B or an owner decision.",
+ "schema": "oi-retirement-config/1",
+ "config_id": "a1exit-retirement-config",
+ "version": 1,
+ "supersedes": null,
+ "retirement": {"name": "A1 retirement", "issue": "PENDING-O-7"},
+ "roles": {
+  "scientific_base": "PENDING-H",
+  "pin": "PENDING-E (unchanged ledger pin)",
+  "record_commit": "PENDING (unchanged record commit)",
+  "side_change_classes": {"path": "verification/audits/foundations/ledger-coverage-tool-20261123/records/a1-staging-class-root.json", "blob_sha256": "PENDING-B"}
+ },
+ "corpus": "PENDING (papers/*.md, book/*.md through the scope record)",
+ "adapters": {
+  "ledger": {"adapter": "a1exit-exact-edit", "adapter_version": 2, "module": {"path": "PENDING-T_LAND", "blob_sha256": "PENDING-T_LAND"}, "path": "verification/audits/foundations/a1exit-deletion-20261121/ledger.json", "blob_sha256": "PENDING-H", "companion": [{"role": "edits", "path": "verification/audits/foundations/a1exit-deletion-20261121/edits.json", "blob_sha256": "PENDING-H"}]},
+  "sitemap": "PENDING (a1exit-sitemap/2, as the representative instance)",
+  "replay": "PENDING (python-frozen-replay/1, record tree b05efdca935a42b9c94ef1748c964696bf58fcd9)"
+ },
+ "profiles": "PENDING (p0-core, p0-para, ledger-ext, ptr, repo, count-grep, item7-literal, register, register-caps, infinity, resid, DR-1, DR-3, DR-4, DR-5; item-2 pins from DELTA-PROPOSAL.json)",
+ "checks": [
+  {"id": "item2", "profiles": ["p0-core", "p0-para", "ledger-ext"], "final_profiles": []},
+  {"id": "item7", "profiles": ["ptr", "count-grep", "resid", "DR-1", "DR-3", "DR-4", "DR-5"], "final_profiles": ["ptr", "count-grep"]},
+  {"id": "item11", "profiles": ["repo"], "final_profiles": ["repo"]}
+ ],
+ "executed_suffixes": [".py", ".lean", ".yml", ".yaml", ".sh"],
+ "rules": "PENDING-H (allow-root tip a1-staging-allow-root.json; DR and resid rule records)",
+ "context_mapping": "PENDING (source_field s3, as the representative instance)",
+ "indicators": "PENDING (ANAPH, LIST, TABLE, PARTIAL)",
+ "sentence": "PENDING (splitter_version 2)",
+ "hp_obligations": [{"segment": ["PENDING-E", "PENDING-H"], "merges": "PENDING-H (every corpus-changing first-parent merge on E..H)"}],
+ "delegation": "PENDING-O-8",
+ "records": "PENDING (hp.json, context-adjudications.json, hit-classifications.json, gr58 v3, scope record, rule records, delegation, each with its review; no reassessment kind)",
+ "tool": {"files": "PENDING-T_LAND", "workflow": {"path": ".github/workflows/ledger-coverage.yml", "blob_sha256": "PENDING-T_LAND"}},
+ "repository_id": 1156244443,
+ "operations": ["record", "coverage", "execution", "terms"],
+ "controls": {"path": "verification/audits/foundations/ledger-coverage-tool-20261123/controls.json", "blob_sha256": "PENDING-T_LAND"},
+ "author": "PENDING"
+}
