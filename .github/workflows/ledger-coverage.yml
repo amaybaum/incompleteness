@@ -74,6 +74,14 @@ on:
         description: exact accepted tool landing on main for candidate F
         required: false
         type: string
+      accepted_tool:
+        description: exact reviewed tool candidate in the landing record
+        required: false
+        type: string
+      tool_base:
+        description: exact reviewed first parent in the tool landing record
+        required: false
+        type: string
       fixed_config:
         description: the exact Git-backed configuration ref for the tool's retained fixed cases at candidate F
         required: false
@@ -144,6 +152,8 @@ jobs:
       M: ${{ inputs.m }}
       S: ${{ inputs.rep_snapshot }}
       T_LAND: ${{ inputs.tool_landing }}
+      ACCEPTED: ${{ inputs.accepted_tool }}
+      TOOL_BASE: ${{ inputs.tool_base }}
       FIXED: ${{ inputs.fixed_config }}
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
@@ -154,9 +164,9 @@ jobs:
         run: |
           if [[ "$PHASE" == control-suite ]]; then
             [[ "$GITHUB_REF" == refs/heads/main && -n "$S" && -n "$T_LAND" && "$FIXED" == *:* ]]
-            ids=("$F" "$M" "$S" "$T_LAND" "${FIXED%%:*}")
+            ids=("$F" "$M" "$S" "$T_LAND" "$ACCEPTED" "$TOOL_BASE" "${FIXED%%:*}")
           else
-            [[ "$PHASE" == tool-acceptance && -z "$S" && -z "$T_LAND" && -z "$FIXED" ]]
+            [[ "$PHASE" == tool-acceptance && -z "$S$T_LAND$ACCEPTED$TOOL_BASE$FIXED" ]]
             ids=("$F" "$M")
           fi
           for id in "${ids[@]}"; do
@@ -273,15 +283,16 @@ jobs:
             set -- "$@" --commit "$F" --freeze "$F" --config "$CFG" --rep-main "$M" --rep-snapshot "$S" \
               --tool-landing "$T_LAND" --main-tip "$GITHUB_SHA" --fixed-config "$FIXED"
           else
-            BASE=$(git --no-replace-objects rev-parse --verify 'refs/remotes/origin/main^{commit}')
-            TREE=$(git --no-replace-objects merge-tree --write-tree "$BASE" "$GITHUB_SHA")
-            PREVIEW=$(GIT_AUTHOR_DATE=1700000000 GIT_COMMITTER_DATE=1700000000 git --no-replace-objects \
-              -c user.name='A1 tool preview' -c user.email=preview@invalid.invalid \
-              commit-tree "$TREE" -p "$BASE" -p "$GITHUB_SHA" -m 'A1 tool preview')
-            set -- "$@" --tool-candidate "$GITHUB_SHA" --tool-base "$BASE" --tool-preview "$PREVIEW" \
-              --fixed-config "$F:$CFG"
+            TOOL_BASE=$(git --no-replace-objects rev-parse --verify 'refs/remotes/origin/main^{commit}')
+            ACCEPTED="$GITHUB_SHA"
+            set -- "$@" --tool-candidate "$ACCEPTED" --fixed-config "$F:$CFG"
           fi
-          python3 -I -S -B tools/ledger_coverage/gate/control_gate.py --expectations "$EXP" --requirements "$REQ" "$@" --repo . --out "$O/gate"
+          TREE=$(git --no-replace-objects merge-tree --write-tree "$TOOL_BASE" "$ACCEPTED")
+          PREVIEW=$(GIT_AUTHOR_DATE='1700000000 +0000' GIT_COMMITTER_DATE='1700000000 +0000' git --no-replace-objects \
+            -c user.name='A1 tool preview' -c user.email=preview@invalid.invalid \
+            commit-tree "$TREE" -p "$TOOL_BASE" -p "$ACCEPTED" -m 'A1 tool preview')
+          python3 -I -S -B tools/ledger_coverage/gate/control_gate.py --expectations "$EXP" --requirements "$REQ" "$@" \
+            --repo . --tool-base "$TOOL_BASE" --tool-preview "$PREVIEW" --out "$O/gate"
       - name: control expectations hold
         if: steps.gate.outcome == 'success'
         run: "true"
