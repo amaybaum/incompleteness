@@ -2504,6 +2504,7 @@ def _fixed_terms_inputs(ctx, phase, ev):
             (config['roles']['scientific_base'], config['roles']['record_commit'], config['roles']['pin']) != (
                 H, H, REP_E):
         raise ValueError('the fixed E, H, ledger or edit input differs from its adopted pin')
+    _rep_walk(repo, REP_E, H)
     for name in ('delegation', 'controls'):
         spec = config[name]
         raw = _rep_input(repo, scope[name], spec.get('commit') or C, spec['path'])
@@ -2548,8 +2549,8 @@ def _fixed_dr3w_case(repo, C, H, X, case, result, config, controls, build):
                'sha256': FIXED_DR3_X_SHA}
     entry = _rep_entry(repo, H, path)[0] if subject == H else build['changes'][path]
     if (refs[witness['id']] != witness or refs[counter['id']] != counter or
-            (entry['git_blob'], entry['blob_sha256']) !=
-            ((FIXED_DR3_H, FIXED_DR3_H_SHA) if subject == H else (entry['git_blob'], FIXED_DR3_X_SHA)) or
+            entry['blob_sha256'] != (FIXED_DR3_H_SHA if subject == H else FIXED_DR3_X_SHA) or
+            (subject == H and entry['git_blob'] != FIXED_DR3_H) or
             result['input'] != dict(entry, path=path, commit=subject) or
             case['argv'] != ['in-process', 'DR-3 fixed sentence scan']):
         raise ValueError('the exact DR-3 witness or countercase input differs')
@@ -2590,6 +2591,7 @@ def _fixed_terms_case(ctx, phase, rid, ev, case, result, observed):
     subject = X if name == FIXED_X_CASE or (name == 'restored' and rid == 'RT-I7A') else H
     expected = ['terms', '--config', C + ':' + path, '--commit', subject]
     adapters = cfg['adapters']['ledger']
+    ledger_paths = set()
     if rid == 'RT-I7':
         names = ['item7-literal']
         expected += ['--profile', 'item7-literal']
@@ -2611,6 +2613,9 @@ def _fixed_terms_case(ctx, phase, rid, ev, case, result, observed):
                 REP_LEDGER not in observed['paths_by_commit'].get(pinned_led, ()) or
                 REP_EDITS not in observed['paths_by_commit'].get(companion.get('commit') or pinned_led, ())):
             raise ValueError('the item7 scan did not read the exact ledger and companion edits')
+        ledger_paths = set(json.loads(led)['files'])
+        if subject == X and observed['paths_by_commit'].get(H) != sorted(ledger_paths):
+            raise ValueError('the item7 candidate scan does not retain the complete H-ledger read scope')
     invocation = list(case['argv'])
     for flag in ('--out', '--repo'):
         if len(_case_args(invocation, flag) or []) != 1:
@@ -2652,7 +2657,7 @@ def _fixed_terms_case(ctx, phase, rid, ev, case, result, observed):
     allowed = {p for p in entries.keys() | (build['changes'].keys() if subject == X else set())
                if p in exact or any(rx.search(p) for rx in patterns)}
     if (not allowed or result['covered_paths'] != sorted(allowed) or
-            not allowed <= set(observed['read_paths']) or
+            observed['read_paths'] != sorted(allowed | ledger_paths) or
             not _representative_read_scope(repo, cfg, led, edits, build if subject == X else {'changes': {}}, observed)):
         raise ValueError('the fixed terms path reads do not cover exactly the applicable corpus and ledger scope')
 
