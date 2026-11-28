@@ -5,7 +5,7 @@ R19). Every run uses the control harness (the A1 records are unreviewed drafts);
 records exist only in memory. Each control is reported as {id, expected, predicate, actual, status}.
 
 Usage: python3 -I -B tools/ledger_coverage/adapters/a1_conformance.py --repo DIR --config REV:PATH --staged-config FILE
-       --out DIR (PATH: the staged configuration's path in the plan's record directory; see a1_controls.py)
+       --out DIR [--tool-revision HEAD] (see a1_controls.py for the staged configuration's path)
 """
 import argparse
 import copy
@@ -836,9 +836,15 @@ def main():
     ap.add_argument('--only', default=None)
     ap.add_argument('--staged-config', default=None,
                     help='the staged configuration file; --config REV:PATH names its path in the plan directory')
+    ap.add_argument('--tool-revision', help='full checkout HEAD when the configuration is on a distinct revision')
     args = ap.parse_args()
     os.makedirs(args.out, exist_ok=True)
     a = a1c.A1(args.repo, args.config, args.out, args.staged_config)
+    if args.tool_revision is not None:
+        head = a1c.rev_parse(args.repo, 'HEAD')
+        if args.tool_revision != head:
+            ap.error('--tool-revision must be the full checkout HEAD')
+        a.tool_rev = a.base.resolve(head)
     global REC
     REC = a.rec = control_records.Recorder('a1-conformance', args.out)
     groups = [('WB', wb_controls), ('S11', s11_controls), ('N', n_controls)]
