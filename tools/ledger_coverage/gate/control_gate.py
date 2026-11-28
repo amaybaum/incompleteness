@@ -1801,7 +1801,7 @@ def _rep_live_subject(ctx, binding, config, descriptor, chains, class_pins, temp
                for r in reviews):
             staged.append(ref)
             if record.get('schema') == 'oi-side-change-classes/1':
-                staged.extend(_rep_ref(p) for c in record['classes'] if c['id'] != 'tool-landing'
+                staged.extend(p for c in record['classes'] if c['id'] != 'tool-landing'
                               for p in c.get('pins', []) if {'path', 'blob_sha256'} <= p.keys())
     for source in config['records']:
         if source.get('kind') == 'review':
@@ -1809,18 +1809,29 @@ def _rep_live_subject(ctx, binding, config, descriptor, chains, class_pins, temp
             review = json.loads(_rep_pin(repo, F, ref))
             if review.get('reviewed') in staged:
                 staged.append(ref)
-    pins = {(r['path'], r['blob_sha256']) for r in staged}
+    pins = {(r['path'], r['blob_sha256'], r.get('git_blob')) for r in staged}
     patterns = [re.compile(p) for p in config['corpus'].get('patterns', [])]
     corpus = set(config['corpus'].get('paths', []))
+    staging_delta = _first_parent_delta(_rep_entries(repo, final_h), main)
     unresolved = []
-    for p in _first_parent_delta(_rep_entries(repo, final_h), main):
+    for p in staging_delta:
         if p in ledger['files'] or p in corpus or any(pat.search(p) for pat in patterns):
             unresolved.append(p)
-        elif p not in main or main[p][0] not in REGULAR_MODES or \
-                (p, _rep_blob(repo, main[p])[0]['blob_sha256']) not in pins:
+            continue
+        if p not in main or main[p][0] not in REGULAR_MODES:
+            unresolved.append(p)
+            continue
+        observed = _rep_blob(repo, main[p])[0]
+        if not any((p, observed['blob_sha256'], git_blob) in pins for git_blob in (None, observed['git_blob'])):
             unresolved.append(p)
     if unresolved:
         raise ValueError('unclassified or drifted representative staging paths: %s' % sorted(unresolved)[:8])
+    path = _rep_walk(repo, final_h, M)
+    changes = {}
+    for a, b in zip(path, path[1:]):
+        scope = _first_parent_delta(_rep_entries(repo, a), _rep_entries(repo, b)) & staging_delta
+        changes.update({p: b for p in scope})
+    return {p: {'commit': changes[p], **_rep_blob(repo, main[p])[0]} for p in sorted(staging_delta)}
 
 
 def _rep_fill(template, roles):
@@ -1942,8 +1953,9 @@ def _rep_build_inputs(ev, ctx, phase, observed):
     if instance != _rep_fill(template, roles):
         raise ValueError('the retained instance does not fill the exact template from the resolved roles')
     _rep_role_selection(instance, class_tip, allow_tip)
+    verified_staging = {}
     if F:
-        _rep_live_subject(ctx, binding, config, desc, chains['S'], class_pins, template)
+        verified_staging = _rep_live_subject(ctx, binding, config, desc, chains['S'], class_pins, template)
     else:
         _rep_tool_image(repo, tool, template)
         for path in (REP_BUILDER, REP_EDITS, REP_LEDGER):
@@ -1965,7 +1977,7 @@ def _rep_build_inputs(ev, ctx, phase, observed):
     if F:
         _rep_walk(repo, H, ctx.tool_landing)
     _rep_dependency_check(repo, binding, instance, template, template_raw, config, operands)
-    return H, M, ledger, edits, builder, json.loads(delegation)
+    return H, M, ledger, edits, builder, json.loads(delegation), verified_staging
 
 
 def _rep_spliced(raw, path, ledger):
@@ -1986,7 +1998,7 @@ def _rep_spliced(raw, path, ledger):
 
 
 def _rep_construction(repo, inputs):
-    H, M, ledger_bytes, edits, _, delegation = inputs
+    H, M, ledger_bytes, edits, _, delegation = inputs[:6]
     ledger = json.loads(ledger_bytes)
     if ledger['edits_sha256'] != _file_sha(edits) or any(s['file'] not in ledger['files'] for s in ledger['splices']):
         raise ValueError('the ledger does not bind the edits or one of its splices names another path')
@@ -2088,6 +2100,8 @@ def eval_rep_build(row, ev, ctx, phase, findings):
             raise ValueError('the exact builder imports outside its standard-library scope or reports nonconformance')
         actual[0].update(outcome='HASH_EQUAL', builds=builds, applicability=observed[0]['control_instance']['mode'],
                          operands=observed[0]['operands'])
+        if phase == 'candidate-F':
+            actual[0]['verified_staging_changes'] = inputs[-1]
     except (ValueError, SyntaxError, KeyError, AttributeError, TypeError) as exc:
         findings.append(('declarative-mismatch', 'REP-BUILD construction/binding: %s' % exc))
     if inputs is None:
@@ -3407,6 +3421,10 @@ def evaluate(exp_doc, rows, retired, reqs, records, mutations, ctx):
                         add(rid, 'status-not-allowed', 'tool acceptance requires all three REP-BUILD fixture cases')
                     elif due_at_f and phase == 'candidate-F':
                         add(rid, 'status-not-allowed', 'PASS is required at the assessed candidate F')
+                    elif rid == 'G-A1' and phase == 'candidate-F':
+                        # OBL-16 keeps native delegated checks on X and C at retirement execution.
+                        # The candidate-F chain attestation by itself supplies neither subject.
+                        pass
                     elif evaluate_release(ctx, row['not_run']['release_check'], status):
                         add(rid, 'status-not-allowed', 'NOT RUN while its release check holds')
                 else:
