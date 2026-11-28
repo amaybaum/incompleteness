@@ -1654,13 +1654,54 @@ def _rep_allow_widening(old, current):
     return changed
 
 
-def _rep_lineage_reviews(repo, snapshot, config_commit, config, chains):
+def _rep_class_widening(old, current):
+    """R6.RECON.34 widening and R6.RECON.31 review items for a class successor."""
+    def classes(doc):
+        by_id = {}
+        for entry in doc['classes']:
+            cid, prefixes, pins = entry['id'], entry['prefixes'], entry['pins']
+            if not isinstance(cid, str) or not cid or cid in by_id:
+                raise ValueError('a class record has a missing or duplicate class id')
+            if not isinstance(prefixes, list) or not all(isinstance(p, str) and p for p in prefixes):
+                raise ValueError('a class has malformed prefixes')
+            if not isinstance(pins, list):
+                raise ValueError('a class has no pin list')
+            by_path = {}
+            for pin in pins:
+                if not isinstance(pin, dict) or set(pin) != {'path', 'blob_sha256'} or \
+                        not isinstance(pin['path'], str) or not pin['path'] or \
+                        not isinstance(pin['blob_sha256'], str) or not re.fullmatch('[0-9a-f]{64}', pin['blob_sha256']):
+                    raise ValueError('a class pin must name an exact path and SHA-256')
+                if pin['path'] in by_path:
+                    raise ValueError('a class has a duplicate pin path')
+                by_path[pin['path']] = pin['blob_sha256']
+            by_id[cid] = entry, {p.rstrip('/') for p in prefixes}, by_path
+        return by_id
+
+    before, after = classes(old), classes(current)
+    for cid, (_, prefixes, pins) in after.items():
+        _, old_prefixes, old_pins = before.get(cid, (None, set(), {}))
+        if prefixes - old_prefixes or pins.items() - old_pins.items():
+            break
+    else:
+        return []
+    items = {cid for cid in before.keys() | after.keys() if before.get(cid) != after.get(cid)}
+    absent = object()
+    fields = (old.keys() | current.keys()) - {'classes', 'supersedes', 'version'}
+    changed_fields = {'field:' + key for key in fields if old.get(key, absent) != current.get(key, absent)}
+    if items & changed_fields:
+        raise ValueError('a class widening review item is ambiguous')
+    return sorted(items | changed_fields)
+
+
+def _rep_lineage_reviews(repo, snapshot, config_commit, config, chains, *, record_commits=None):
     history = _rep_review_pool(repo, snapshot)
     active = history if config is None else _rep_review_pool(repo, config_commit, config)
     for role, chain in chains.items():
         prior_doc, prior_ref = {}, None
         for ref in chain:
-            doc = json.loads(_rep_pin(repo, snapshot, ref))
+            holder = snapshot if record_commits is None else record_commits[ref['path']]
+            doc = json.loads(_rep_pin(repo, holder, ref))
             is_tip = ref == chain[-1]
             pool, scope = (active, config_commit) if is_tip else (history, snapshot)
             if is_tip:
@@ -1675,6 +1716,19 @@ def _rep_lineage_reviews(repo, snapshot, config_commit, config, chains):
             if not ordinary or not all(r.get('method') and
                                        _rep_review_valid(repo, scope, r, ref, author, items) for r in ordinary):
                 raise ValueError('ordinary review does not qualify %s' % ref['path'])
+            if role == 'class' and prior_ref is not None:
+                changed = _rep_class_widening(prior_doc, doc)
+                if changed:
+                    reviews = [r for r in exact if r.get('kind') == 'widening']
+                    if not reviews or not all(
+                            r.get('replaces') == prior_ref and isinstance(r.get('method'), str) and
+                            re.search(r'\b[0-9a-f]{40}\b', r['method']) and
+                            _rep_review_valid(repo, scope, r, ref, author, changed) and
+                            len(r['verdicts']) == len(changed) and
+                            all(set(v) == {'item', 'verdict', 'reason'} and isinstance(v['reason'], str)
+                                for v in r['verdicts']) and
+                            all(_independent_of_author(r, o['reviewer']) for o in ordinary) for r in reviews):
+                        raise ValueError('class widening review does not qualify %s' % ref['path'])
             widened = _rep_allow_widening(prior_doc, doc) if role == 'allow' else []
             if widened:
                 # At the designated root the predecessor field must be explicitly null.
@@ -1687,6 +1741,77 @@ def _rep_lineage_reviews(repo, snapshot, config_commit, config, chains):
                             all(_independent_of_author(o, r['reviewer']) for o in ordinary)) for r in exact):
                     raise ValueError('widening review does not qualify %s' % ref['path'])
             prior_doc, prior_ref = doc, ref
+
+
+def _rep_auxiliary_class_lineage(repo, freeze, config, tip):
+    """Resolve a configured class and its exact predecessors on F's first-parent history (R6.RECON.33)."""
+    chain, holders = [], {}
+    ref, lineage_id = tip, None
+    while ref is not None:
+        if not isinstance(ref, dict) or set(ref) != {'path', 'blob_sha256'} or \
+                not isinstance(ref['path'], str) or any(p in ('', '.', '..') for p in ref['path'].split('/')) or \
+                not isinstance(ref['blob_sha256'], str) or not re.fullmatch('[0-9a-f]{64}', ref['blob_sha256']) or \
+                ref['path'] in holders:
+            raise ValueError('the auxiliary class lineage has an invalid or repeated reference')
+        holder = freeze
+        while True:
+            entry = _rep_entries(repo, holder).get(ref['path'])
+            if entry is not None:
+                if entry[0] not in REGULAR_MODES:
+                    raise ValueError('the auxiliary class lineage contains a nonregular record')
+                info, raw = _rep_blob(repo, entry)
+                if info['blob_sha256'] == ref['blob_sha256']:
+                    break
+            parents = _rep_commit(repo, holder)[1]
+            if not parents or ref == tip:
+                raise ValueError('the auxiliary class lineage lacks its exact record at %s' % ref['path'])
+            holder = parents[0]
+        doc = json.loads(raw)
+        if not isinstance(doc, dict) or doc.get('schema') != REP_NAMESPACES[0][2] or \
+                not isinstance(doc.get('record_id'), str) or not doc['record_id'] or 'supersedes' not in doc or \
+                (lineage_id is not None and doc['record_id'] != lineage_id):
+            raise ValueError('the auxiliary class record is outside its declared lineage')
+        lineage_id = doc['record_id']
+        chain.append(ref)
+        holders[ref['path']] = holder
+        ref = doc['supersedes']
+
+    chain_entries = {(r['path'], r['blob_sha256']) for r in chain}
+    successors = {(older['path'], older['blob_sha256']): (newer['path'], newer['blob_sha256'])
+                  for newer, older in zip(chain, chain[1:])}
+    extra = set()
+    dirs = (AUDIT_DIR + 'records/', S11_A1_DIRECTORY + '/')
+    configured = {r['path'] for r in config['records'] if r.get('kind') == 'side-change-classes'}
+    for path, entry in _rep_entries(repo, freeze).items():
+        if entry[0] not in REGULAR_MODES or not (path in configured or path.startswith(dirs) and
+                                                path.endswith('.json')):
+            continue
+        info, raw = _rep_blob(repo, entry)
+        key = (path, info['blob_sha256'])
+        if key in chain_entries:
+            continue
+        try:
+            doc = json.loads(raw)
+        except ValueError:
+            continue
+        if not isinstance(doc, dict) or (doc.get('schema'), doc.get('record_id')) != (REP_NAMESPACES[0][2], lineage_id):
+            continue
+        predecessor = doc.get('supersedes')
+        if not isinstance(predecessor, dict) or set(predecessor) != {'path', 'blob_sha256'}:
+            raise ValueError('the auxiliary class lineage has another root')
+        before = (predecessor['path'], predecessor['blob_sha256'])
+        if before in successors:
+            raise ValueError('the auxiliary class lineage has ambiguous successors')
+        successors[before] = key
+        extra.add(key)
+    # An unused descendant can be on this lineage. A fork or reused lineage id cannot qualify the selected class.
+    point = (tip['path'], tip['blob_sha256'])
+    while successors.get(point) in extra:
+        point = successors[point]
+        extra.remove(point)
+    if extra:
+        raise ValueError('the auxiliary class record_id is reused outside its exact lineage')
+    return list(reversed(chain)), holders
 
 
 def _rep_class_pins(repo, commit, class_tip):
@@ -1837,6 +1962,14 @@ def _rep_live_subject(ctx, binding, config, descriptor, chains, class_pins, temp
         raise ValueError('the candidate F or retained image does not pin the exact accepted tool')
     # After final H, the representative staging comparison has its own exact role and record pins.
     # A matching prefix does not classify an added path. The later actual M has its own full check.
+    patterns = [re.compile(p) for p in config['corpus'].get('patterns', [])]
+    corpus = set(config['corpus'].get('paths', []))
+    staging_delta = _first_parent_delta(_rep_entries(repo, final_h), main)
+    staged_entries = {p: _rep_blob(repo, main[p])[0] for p in staging_delta if p in main and
+                      main[p][0] in REGULAR_MODES and p not in ledger['files'] and p not in corpus and
+                      not any(pat.search(p) for pat in patterns)}
+    observed_pins = {(p, entry['blob_sha256'], blob) for p, entry in staged_entries.items()
+                     for blob in (None, entry['git_blob'])}
     staged = [descriptor['custody'], binding['descriptor'],
               *(r for role in binding['chains_at_M'].values() for r in role)]
     reviews = _rep_review_pool(repo, F, config)
@@ -1850,8 +1983,13 @@ def _rep_live_subject(ctx, binding, config, descriptor, chains, class_pins, temp
                for r in reviews):
             staged.append(ref)
             if record.get('schema') == 'oi-side-change-classes/1':
-                staged.extend(p for c in record['classes'] if c['id'] != 'tool-landing'
-                              for p in c.get('pins', []) if {'path', 'blob_sha256'} <= p.keys())
+                other_pins = [p for c in record['classes'] if c['id'] != 'tool-landing'
+                              for p in c.get('pins', []) if {'path', 'blob_sha256'} <= p.keys()]
+                if ref != chains['class'][-1] and ('supersedes' not in record or record['supersedes'] is not None) and any(
+                        (p['path'], p['blob_sha256'], p.get('git_blob')) in observed_pins for p in [ref, *other_pins]):
+                    chain, holders = _rep_auxiliary_class_lineage(repo, F, config, ref)
+                    _rep_lineage_reviews(repo, F, F, config, {'class': chain}, record_commits=holders)
+                staged.extend(other_pins)
     for source in config['records']:
         if source.get('kind') == 'review':
             ref = _rep_ref(source)
@@ -1859,20 +1997,7 @@ def _rep_live_subject(ctx, binding, config, descriptor, chains, class_pins, temp
             if review.get('reviewed') in staged:
                 staged.append(ref)
     pins = {(r['path'], r['blob_sha256'], r.get('git_blob')) for r in staged}
-    patterns = [re.compile(p) for p in config['corpus'].get('patterns', [])]
-    corpus = set(config['corpus'].get('paths', []))
-    staging_delta = _first_parent_delta(_rep_entries(repo, final_h), main)
-    unresolved = []
-    for p in staging_delta:
-        if p in ledger['files'] or p in corpus or any(pat.search(p) for pat in patterns):
-            unresolved.append(p)
-            continue
-        if p not in main or main[p][0] not in REGULAR_MODES:
-            unresolved.append(p)
-            continue
-        observed = _rep_blob(repo, main[p])[0]
-        if not any((p, observed['blob_sha256'], git_blob) in pins for git_blob in (None, observed['git_blob'])):
-            unresolved.append(p)
+    unresolved = staging_delta - {p for p, _, _ in observed_pins & pins}
     if unresolved:
         raise ValueError('unclassified or drifted representative staging paths: %s' % sorted(unresolved)[:8])
     path = _rep_walk(repo, final_h, M)
@@ -1880,7 +2005,7 @@ def _rep_live_subject(ctx, binding, config, descriptor, chains, class_pins, temp
     for a, b in zip(path, path[1:]):
         scope = _first_parent_delta(_rep_entries(repo, a), _rep_entries(repo, b)) & staging_delta
         changes.update({p: b for p in scope})
-    return {p: {'commit': changes[p], **_rep_blob(repo, main[p])[0]} for p in sorted(staging_delta)}
+    return {p: {'commit': changes[p], **staged_entries[p]} for p in sorted(staging_delta)}
 
 
 def _rep_fill(template, roles):
