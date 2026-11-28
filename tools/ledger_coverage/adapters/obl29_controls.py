@@ -301,13 +301,16 @@ def topology_controls(r):
     w = pfc.World(r)
     base = w.M
     side = pfc.land(w, [(FP, doc)], 'draft')
+    earlier = w.repo.parents(side)[0]
+    # The review binding can add a parent with the same finding bytes.
+    witness = min(c for c in (earlier, side) if w.repo.read(c, FP) == pfc.jb(doc))
     side2 = step(w, {FP: None, rv: None}, 'removed on the branch')
     w.M = base
     mainline = step(w, {'notes/m.txt': b'main\n'}, 'main moves')
     w.M = w.repo.derive(mainline, {'notes/b.txt': b'b\n'}, parents=[mainline, side2], subject='merge the branch')
     o = outcome(w)
     case('N-BRANCH-DRAFT', 'f added and removed on a branch merged with its history: still blocked', o,
-         blocked(o, False, side))
+         blocked(o, False, witness))
     # foxtrot: the old M reached only through a second parent of the new M
     w, c1, fb = landed(r)
     other = w.repo.derive(pfc.World(r).M, {'notes/o.txt': b'o\n'}, parents=[pfc.World(r).M], subject='other line')
@@ -1401,8 +1404,7 @@ def tl_variant(prefix, pins=()):
 
     def variant(w):
         doc = {'schema': 'oi-side-change-classes/1', 'record_id': 'syn-tool-landing', 'author': sf.WRITER,
-               'supersedes': None, 'classes': [{'id': ra.tool_landing_class_id, 'prefixes': [prefix],
-                                                'reason': 'synthetic tool landing',
+               'supersedes': None, 'classes': [{'id': ra.tool_landing_class_id, 'prefixes': [prefix.rstrip('/')],
                                                 'pins': [{'path': q, 'blob_sha256': sf.sha(x)} for q, x in pins]}]}
         b = pfc.jb(doc)
         ref = {'path': 'syn/cfg/classes.json', 'blob_sha256': sf.sha(b)}

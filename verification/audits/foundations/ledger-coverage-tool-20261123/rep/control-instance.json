@@ -720,7 +720,7 @@
    },
    {
     "path": "tools/ledger_coverage/adapters/obl29_controls.py",
-    "blob_sha256": "88a3c15996d34e13e08976493f1a1d6512bed5b6c63c94f64005c57faa98ac65"
+    "blob_sha256": "3cd48aceee8d1874392fc3a3f03c7f3312e6a8944aed78a7571fc6a02308fd44"
    },
    {
     "path": "tools/ledger_coverage/adapters/postfreeze_controls.py",
