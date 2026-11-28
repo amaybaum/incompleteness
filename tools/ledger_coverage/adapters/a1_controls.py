@@ -422,8 +422,11 @@ def rt_coverage(a):
     x = x_rep(a)
     ledger = '%s:%srep/ledger.json' % (a.tool_rev, a.ad)
     seg = ['--segment', '%s..%s' % (E, H), '--segment', '%s..%s=%s' % (H, x, ledger)]
-    code, res, t, scan = rep_run(a, ['coverage', '--commit', x, '--check', 'item2'] + seg,
-                                 'ledgered and corpus paths of X_rep, and the segments E..H and H..X')
+    argv = ['coverage', '--commit', x, '--check', 'item2'] + seg
+    scope = 'ledgered and corpus paths of X_rep, and the segments E..H and H..X'
+    code, res, t, scan = rep_run(a, argv, scope)
+    restored_code, restored, _, restored_scan = rep_run(a, argv, scope, case='restored',
+                                                        baseline=a.rec.pending[-1])
     fc = res.get('finding_counts', {})
     sites = res.get('sites', [])
     moved = sum(1 for s in sites for x in s['statuses'] if x['segment'].startswith(H[:8]) and x['status'] == 'moved')
@@ -438,7 +441,8 @@ def rt_coverage(a):
           and fc.get('RET/REVIEW_REQUIRED/context-structure-changed') == 3 and not any('deny' in k for k in fc)
           and res['site_counts'].get('authorized-replacement') == 197 and res['site_counts'].get('authorized-removal') == 4
           and moved == 168 and shared == 22 and len(res.get('merger_groups', [])) == 9 and len(splices) == 31
-          and (res.get('region_lines') or {}).get('count') == 215)
+          and (res.get('region_lines') or {}).get('count') == 215
+          and restored_code == code and restored_scan == scan and restored.get('items') == res.get('items'))
     a.record('RT-T0', ok, 'FAIL; HP 113/7/3; RET 19/5/3; deny 0; 383 unchanged (168 moved), 197 replaced, 4 removed; '
                           '215 region lines; 9 merger groups, 22 sites',
              {'exit': code, 'finding_counts': fc, 'site_counts': res.get('site_counts'), 'moved_H_T': moved,
@@ -654,9 +658,10 @@ def rt_terms(a):
     live_rev = a.freeze
     if live_rev is not None and a.rep_instance_doc is None:
         raise RepRefused('RT-D requires the live filled control instance at candidate F')
-    code, res, t, scan_d = rep_run(a, ['terms', '--commit', x_rep(a), '--base', H, '--ledger', ledger_ref,
-                                       '--check', 'item7'], 'ledgered and corpus paths of X_rep',
-                                   config_revision=live_rev)
+    argv = ['terms', '--commit', x_rep(a), '--base', H, '--ledger', ledger_ref, '--check', 'item7']
+    scope = 'ledgered and corpus paths of X_rep'
+    code, res, t, scan_d = rep_run(a, argv, scope, config_revision=live_rev)
+    baseline = a.rec.pending[-1]
     hits = res.get('hits', [])
     w_pass = sorted('%s:%d' % (h['file'], h['line']) for h in hits if h['state'] == 'PASS')
     resid = [h for h in hits if 'resid' in h['profiles'] and h['state'] != 'PASS']
@@ -681,10 +686,13 @@ def rt_terms(a):
         scan_all = None
     prof_at = {(h['file'], h['line']): set(h['profiles']) for h in r_all.get('hits', [])}
     resid_only = [h for h in resid if not prof_at.get((h['file'], h['line']), set()) & others]
+    closed_code, closed, _, closed_scan = rep_run(a, argv, scope, case='restored', baseline=baseline,
+                                                  config_revision=live_rev)
     a.record('RT-D', not any(i['class'] == 'deny-match' for i in res.get('items', [])) and
              all(st_of.get(k) == 'PASS' for k in w1_lines + w2_lines) and gr58 == 'REVIEW_REQUIRED' and
              st_of.get(('papers/SM.md', 1394)) == 'REVIEW_REQUIRED' and
              len(resid) == 45 and len(resid_only) == 17 and
+             closed_code == code and closed_scan == scan_d and closed.get('items') == res.get('items') and
              (live_rev is None or (scan_d['outside_scope'] == scan_all['outside_scope'] == [] and
                                    c_all in (0, 10, 20))),
              '0 deny; the 6 W1 lines (W1-c with its allowance) and the 4 W2 lines PASS with their rules; SM:1394 and '
@@ -700,11 +708,13 @@ def rt_terms(a):
              predicate='no deny-match; the 10 W1/W2 hit states are PASS; SM:1394 and GR.md:58 REVIEW_REQUIRED; 45 resid '
                        'REVIEW lines of which 17 carry no other review profile')
     gr58_ref = a.ad + 'records/gr58-hit-classification-v3.json' if live_rev else hit_record_path(a)
-    code, res, t, _ = rep_run(a, ['terms', '--commit', x_rep(a), '--base', H, '--ledger', ledger_ref,
-                                  '--check', 'item7', '--classify', '%s:%s' % (live_rev or a.crev, gr58_ref)],
-                              'ledgered and corpus paths of X_rep', config_revision=live_rev)
+    argv += ['--classify', '%s:%s' % (live_rev or a.crev, gr58_ref)]
+    code, res, t, scan = rep_run(a, argv, scope, config_revision=live_rev)
+    closed_code, closed, _, closed_scan = rep_run(a, argv, scope, case='restored', baseline=a.rec.pending[-1],
+                                                  config_revision=live_rev)
     gr = [h for h in res.get('hits', []) if h['file'] == 'papers/GR.md' and h['line'] == 58]
-    a.record('RT-D-gr58', gr and gr[0]['state'] == 'PASS', 'GR.md:58 PASS with its record',
+    a.record('RT-D-gr58', gr and gr[0]['state'] == 'PASS' and scan == closed_scan and
+             code == closed_code and res.get('items') == closed.get('items'), 'GR.md:58 PASS with its record',
              {'gr58': gr[0] if gr else None})
     # item 11 (repo) with the scope record
     code, res, t = a.run(['terms', '--commit', T, '--check', 'item11', '--scope',
