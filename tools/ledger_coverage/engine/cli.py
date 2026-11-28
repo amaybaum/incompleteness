@@ -438,8 +438,6 @@ def category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, r
             custody = chk.run()
         except fd.Unsettled as exc:
             raise oc.Stop(oc.error, 'DESIGN_UNSETTLED', str(exc))
-        except cust.Unimplemented as exc:
-            raise oc.Stop(oc.error, 'NOT_IMPLEMENTED', str(exc))
         except Unresolvable as exc:
             raise oc.Stop(oc.error, 'UNRESOLVABLE', 'a custody object cannot be read: %s' % exc)
         for p_ in custody.get('problems') or []:
@@ -630,7 +628,7 @@ def custody_gate(a, out, repo, repo_path, argv):
     # R6.CUST.10: at the commit under check as M, R6.CUST.2 for the version in its tree, R6.CUST.4, the mechanical
     # parts of R6.CUST.5 (c1) for freeze entries, (c3), (c4)'s second clause and (c5), the second and third clauses of
     # (c2), and R6.CUST.8; it does not require a close for every context and establishes nothing for a run. Exit 0 when
-    # every clause holds, 20 with record-invalid items otherwise, 65 on an unreadable object or an unsettled clause.
+    # every clause holds, 20 with record-invalid items otherwise, 65 on an unreadable object.
     from .. import record_authority as ra_
     from . import custody as cust
     res = {'schema': oc.result_schema, 'operation': 'custody', 'engine': engine_identity(), 'preflight': [],
@@ -659,9 +657,6 @@ def custody_gate(a, out, repo, repo_path, argv):
                                                    detail=['%s: %s' % (p['item'], p['why'])])
                                       for p in rep['problems']])
         outc = oc.compute(res['preflight'], None, res['items'])
-    except (fd.Unsettled, cust.Unimplemented) as exc:
-        res['stop'] = {'class': 'DESIGN_UNSETTLED', 'message': str(exc)}
-        outc = oc.error
     except Unresolvable as exc:
         res['stop'] = {'class': 'UNRESOLVABLE', 'message': str(exc)}
         outc = oc.error
