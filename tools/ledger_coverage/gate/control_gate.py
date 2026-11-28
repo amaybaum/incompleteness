@@ -15,6 +15,7 @@ Run with `python3 -I -S -B tools/ledger_coverage/gate/control_gate.py ...`.
 """
 import argparse
 import ast
+import functools
 import hashlib
 import json
 import os
@@ -1295,6 +1296,11 @@ REP_CASES = (
     "the pinned ledger with one splice's new bytes changed by one byte",
     'a builder that imports a module under tools/ledger_coverage/engine/',
 )
+REP_INVOCATIONS = (
+    'X_rep build (a1_controls.py rep_build_control)',
+    'X_rep build with a mutated ledger (a1_controls.py rep_build_control)',
+    'X_rep builder importing the engine (a1_controls.py rep_build_control)',
+)
 REP_HASH_REASON = "a ledgered path's sha256 differs from the ledger's expected_sha256"
 REP_IMPORT_REASON = 'the builder imports from the engine under test'
 REP_DESCRIPTOR = 'a1-staging-transition.json'
@@ -1314,10 +1320,14 @@ def _git_oid(kind, data):
     return hashlib.sha1(('%s %d\0' % (kind, len(data))).encode() + data).hexdigest()
 
 
+def _rep_git_env():
+    return dict(os.environ, GIT_NO_LAZY_FETCH='1', GIT_ALLOW_PROTOCOL='', GIT_TERMINAL_PROMPT='0',
+                GIT_GRAFT_FILE=os.devnull)
+
+
 def _git_rep_read(repo, *args):
-    env = dict(os.environ, GIT_NO_LAZY_FETCH='1', GIT_ALLOW_PROTOCOL='', GIT_TERMINAL_PROMPT='0',
-               GIT_GRAFT_FILE=os.devnull)
-    result = subprocess.run(['git', '--no-replace-objects', '-C', repo, *args], capture_output=True, env=env)
+    result = subprocess.run(['git', '--no-replace-objects', '-C', repo, *args], capture_output=True,
+                            env=_rep_git_env())
     if result.returncode:
         raise ValueError('Git could not read %s' % ' '.join(args))
     return result.stdout
@@ -1348,21 +1358,48 @@ def _rep_walk(repo, start, end):
         current = parents[0]
 
 
+@functools.lru_cache(maxsize=32)
 def _rep_entries(repo, commit):
+    """Resolve paths, modes and ids through rehashed raw tree objects, independently of rev/path lookup."""
     tree, _ = _rep_commit(repo, commit)
     out = {}
-    for line in _git_rep_read(repo, 'ls-tree', '-rz', '--full-tree', tree).split(b'\0'):
-        if line:
-            meta, path = line.split(b'\t', 1)
-            mode, _, oid = meta.decode('ascii').split()
-            out[path.decode('utf-8', 'surrogateescape')] = (mode, oid)
+    args = ['git', '--no-replace-objects', '-C', repo, 'cat-file', '--batch']
+    with subprocess.Popen(args, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL,
+                          env=_rep_git_env()) as proc:
+        def walk(oid, directory):
+            proc.stdin.write(oid.encode('ascii') + b'\n')
+            proc.stdin.flush()
+            header = proc.stdout.readline().split()
+            if len(header) != 3 or header[:2] != [oid.encode('ascii'), b'tree']:
+                raise ValueError('Git tree %s is unreadable' % oid)
+            size = int(header[2])
+            raw = proc.stdout.read(size)
+            if len(raw) != size or proc.stdout.read(1) != b'\n' or _git_oid('tree', raw) != oid:
+                raise ValueError('Git tree %s does not verify' % oid)
+            pos, names = 0, set()
+            while pos < len(raw):
+                space = raw.index(b' ', pos)
+                nul = raw.index(b'\0', space)
+                mode, name, child = raw[pos:space], raw[space + 1:nul], raw[nul + 1:nul + 21].hex()
+                if mode not in (b'40000', b'100644', b'100755', b'120000', b'160000') or \
+                        not HEX40.fullmatch(child) or name in (b'', b'.', b'..') or b'/' in name or name in names:
+                    raise ValueError('Git tree %s has an invalid entry' % oid)
+                names.add(name)
+                path = directory + name.decode('utf-8', 'surrogateescape')
+                if mode == b'40000':
+                    walk(child, path + '/')
+                else:
+                    out[path] = (mode.decode('ascii'), child)
+                pos = nul + 21
+
+        walk(tree, '')
     return out
 
 
 def _rep_entry(repo, commit, path):
     if not isinstance(path, str) or not path or any(p in ('', '.', '..') for p in path.split('/')):
         raise ValueError('a representative input names an invalid repository path')
-    entry = git_entry(repo, commit, path)
+    entry = _rep_entries(repo, commit).get(path)
     if not entry or entry[0] not in REGULAR_MODES:
         raise ValueError('%s is not a regular entry at %s' % (path, commit))
     return _rep_blob(repo, entry)
@@ -1402,6 +1439,45 @@ def _rep_plan_pin(repo, commit, name):
     if len(digests) != 1 or not re.fullmatch('[0-9a-f]{64}', digests[0]):
         raise ValueError('the Record pins table does not uniquely pin %s' % name)
     return {'path': S11_A1_DIRECTORY + '/' + name, 'blob_sha256': digests[0]}
+
+
+def _first_parent_delta(base, after):
+    return {p for p in base.keys() | after.keys() if base.get(p) != after.get(p)}
+
+
+def _tool_acceptance_scope(ctx, candidate, *, current_main):
+    """Compare the complete proposed landing tree with its first parent and the existing reviewed edit scope."""
+    repo, base, preview = ctx.repo, ctx.tool_base, ctx.tool_preview
+    if not base or not preview:
+        raise ValueError('tool acceptance requires the exact proposed first parent and merge preview')
+    if current_main and base != git_blob_id(repo, 'refs/remotes/origin/main^{commit}'):
+        raise ValueError('the proposed first parent differs from the independently read origin/main')
+    tree, parents = _rep_commit(repo, preview)
+    if parents != [base, candidate]:
+        raise ValueError('the proposed landing does not have the exact first parent and tool candidate')
+    original, proposed, accepted = [_rep_entries(repo, c) for c in (base, preview, candidate)]
+    merge_base = _git_rep_read(repo, 'merge-base', '--all', base, candidate).decode('ascii').splitlines()
+    if len(merge_base) != 1:
+        raise ValueError('the tool candidate has no unique merge base with the proposed first parent')
+    fork = _rep_entries(repo, merge_base[0])
+    delta = _first_parent_delta(original, proposed)
+    if not delta or delta != {p for p in _first_parent_delta(fork, accepted) if accepted.get(p) != original.get(p)}:
+        raise ValueError('the proposed first-parent delta omits or adds paths relative to the exact candidate')
+    led_entry, led = _rep_entry(repo, candidate, REP_LEDGER)
+    edit_entry, edits = _rep_entry(repo, candidate, REP_EDITS)
+    ledger, plan = json.loads(led), json.loads(edits)
+    scope = set(ledger['files'])
+    if ((led_entry['git_blob'], edit_entry['git_blob']) != (REP_LEDGER_GIT, REP_EDITS_GIT) or
+            ledger['edits_sha256'] != edit_entry['blob_sha256'] or not scope or
+            scope != {item['file'] for item in plan['edits']}):
+        raise ValueError('the checkout lacks the existing complete approved edit-path scope')
+    if delta & scope or any(p != WORKFLOW_PATH and not p.startswith(REP_LANDING_PREFIXES) for p in delta):
+        raise ValueError('the proposed tool landing touches an edit path or exceeds the authorized landing scope')
+    if any(p not in proposed or proposed[p][0] not in REGULAR_MODES or proposed[p] != accepted.get(p)
+           for p in delta):
+        raise ValueError('a proposed first-parent delta entry is nonregular, deleted or differs from the candidate')
+    return {'base': base, 'preview': preview, 'tree': tree, 'edit_paths': sorted(scope), 'delta': {
+        p: {'before': original.get(p), 'after': proposed[p]} for p in sorted(delta)}}
 
 
 def _rep_lineage(repo, commits, role, prefix, schema, record_id, root):
@@ -1508,8 +1584,9 @@ def _rep_allow_widening(old, current):
              'fewer context literals'),
             (set(map(str, before.get('negative', []))) - set(map(str, after.get('negative', []))),
              'fewer negative literals'),
-            (sorted(json.dumps(f, sort_keys=True) for f in q['fingerprints']) !=
-             sorted(json.dumps(f, sort_keys=True) for f in r['fingerprints']), 'fingerprint set changed'),
+            (sorted((f['file'], f['sentence_sha256'], f['context_sha256']) for f in q['fingerprints']) !=
+             sorted((f['file'], f['sentence_sha256'], f['context_sha256']) for f in r['fingerprints']),
+             'fingerprint set changed'),
             (r['max_instances'] > q['max_instances'], 'larger max_instances'),
             (q['context_required'] and not r['context_required'], 'context_required turned off'),
         )
@@ -1526,8 +1603,8 @@ def _rep_allow_widening(old, current):
 
 
 def _rep_lineage_reviews(repo, snapshot, config_commit, config, chains):
-    active = _rep_review_pool(repo, config_commit, config)
     history = _rep_review_pool(repo, snapshot)
+    active = history if config is None else _rep_review_pool(repo, config_commit, config)
     for role, chain in chains.items():
         prior_doc, prior_ref = {}, None
         for ref in chain:
@@ -1565,12 +1642,16 @@ def _rep_class_pins(repo, commit, class_tip):
     classes = [c for c in doc['classes'] if c['id'] == 'tool-landing']
     if len(classes) != 1:
         raise ValueError('the active class does not define tool-landing exactly once')
+    prefixes = tuple(p.rstrip('/') + '/' for p in classes[0]['prefixes'])
+    if any(not p.startswith(REP_LANDING_PREFIXES) or any(e in ('', '.', '..') for e in p[:-1].split('/'))
+           for p in prefixes):
+        raise ValueError('the tool-landing class has a prefix outside its allowed scope')
     pins = classes[0]['pins']
     result = {}
     for pin in pins:
         _rep_pin(repo, commit, pin)
-        if pin['path'] in result:
-            raise ValueError('the tool-landing class repeats a pin')
+        if pin['path'] in result or (pin['path'] != WORKFLOW_PATH and not pin['path'].startswith(prefixes)):
+            raise ValueError('the tool-landing class pin is repeated or outside its permitted prefixes')
         result[pin['path']] = pin['blob_sha256']
     return result
 
@@ -1648,25 +1729,29 @@ def _rep_live_subject(ctx, binding, config, descriptor, chains, class_pins, temp
     _rep_pin(repo, F, edits)
     final_h = config['roles']['scientific_base']
     if ledger.get('base') != final_h or ledger.get('edits_sha256') != edits['blob_sha256'] or \
-            B == final_h or final_h not in binding['landing_to_base']:
+            final_h in (B, T) or final_h not in binding['landing_to_base']:
         raise ValueError('the final ledger, edit list or scientific base at F is misbound')
     ledger_paths = sorted(ledger['files'])
     if not ledger_paths or binding.get('ledger_paths') != ledger_paths:
         raise ValueError('the representative evidence omits the complete final ledger path set')
 
     tree, parents = _rep_commit(repo, T)
-    if len(parents) != 2 or (tree, parents, parents[1]) != (binding.get('landing_tree'),
+    if len(parents) != 2 or parents[0] != ctx.tool_base or (tree, parents, parents[1]) != (binding.get('landing_tree'),
                                                            binding.get('landing_parents'),
                                                            binding.get('tool_candidate')):
         raise ValueError('the landing record does not identify the actual normal tool merge and candidate')
     base, landed, candidate, main = [_rep_entries(repo, c) for c in (parents[0], T, parents[1], M)]
-    delta = {p for p in base.keys() | landed.keys() if base.get(p) != landed.get(p)}
+    delta = _first_parent_delta(base, landed)
     if not delta or delta & set(ledger_paths) or any(
             p != WORKFLOW_PATH and not p.startswith(REP_LANDING_PREFIXES) for p in delta):
         raise ValueError('the actual first-parent landing delta is outside the approved path scope')
     if any(p not in landed or landed[p][0] not in REGULAR_MODES or
            landed[p] != candidate.get(p) or landed[p] != main.get(p) for p in delta):
         raise ValueError('a landing delta entry is missing, nonregular or substituted')
+    proposal = _tool_acceptance_scope(ctx, parents[1], current_main=False)
+    actual_delta = {p: {'before': base.get(p), 'after': landed[p]} for p in delta}
+    if proposal['delta'] != actual_delta:
+        raise ValueError('the actual tool landing differs from the retained reviewed proposal')
     after = {p: _rep_blob(repo, landed[p])[0] for p in delta}
     before = {}
     for p in delta & base.keys():
@@ -1795,6 +1880,8 @@ def _rep_build_inputs(ev, ctx, phase, observed):
         raise ValueError('the representative and snapshot class/allow roles are stale or mismatched')
     _rep_role_selection(config, class_tip, allow_tip)
     _rep_lineage_reviews(repo, S, config_commit, config, chains['S'])
+    if chains['M']['allow'] != chains['S']['allow']:
+        _rep_lineage_reviews(repo, M, M, None, {'allow': chains['M']['allow']})
     class_pins = _rep_class_pins(repo, M, class_tip)
     origin = ctx.tool_landing if F else tool
     tpl = binding['template']
@@ -1821,10 +1908,10 @@ def _rep_build_inputs(ev, ctx, phase, observed):
             if class_pins.get(path) != entry['blob_sha256']:
                 raise ValueError('the fixture omits the exact tool-candidate input %s' % path)
     builder = _rep_input(repo, operands['builder'], tool, REP_BUILDER)
-    ledger = _rep_input(repo, operands['ledger'], origin, REP_LEDGER)
-    edits = _rep_input(repo, operands['edits'], origin, REP_EDITS)
+    ledger = _rep_input(repo, operands['ledger'], tool, REP_LEDGER)
+    edits = _rep_input(repo, operands['edits'], tool, REP_EDITS)
     dref = _rep_ref(instance['delegation'])
-    delegation = _rep_input(repo, operands['delegation'], origin, dref['path'])
+    delegation = _rep_input(repo, operands['delegation'], instance['delegation'].get('commit') or origin, dref['path'])
     if _file_sha(delegation) != dref['blob_sha256'] or \
             _git_oid('blob', ledger) != REP_LEDGER_GIT or _git_oid('blob', edits) != REP_EDITS_GIT:
         raise ValueError('the representative delegation, ledger or edits differ from their exact pins')
@@ -1935,8 +2022,12 @@ def eval_rep_build(row, ev, ctx, phase, findings):
     cases = row['expect'].get('cases', [])
     if tuple(c.get('case') for c in cases) != REP_CASES:
         raise FileInvalid('REP-BUILD does not specify its three adopted cases')
-    if ev.man is None or [c.get('case') for c in ev.man['cases']] != list(REP_CASES):
+    if ev.man is None or not all(isinstance(c, dict) for c in ev.man['cases']) or \
+            [c.get('case') for c in ev.man['cases']] != list(REP_CASES):
         findings.append(('raw-evidence-missing', 'REP-BUILD must retain each of its three cases exactly once'))
+        return actual
+    if [c.get('argv') for c in ev.man['cases']] != [['in-process', name] for name in REP_INVOCATIONS]:
+        findings.append(('raw-evidence-missing', 'REP-BUILD does not retain the three prescribed actual invocations'))
         return actual
     observed = [ev.json(ev.case(name).get('result_file')) for name in REP_CASES]
     if not all(isinstance(d, dict) for d in observed):
@@ -1963,7 +2054,8 @@ def eval_rep_build(row, ev, ctx, phase, findings):
         splice, path = _rep_mutated_ledger(ctx.repo, inputs[0], inputs[2], mutant)
         wanted = {'outcome': 'REFUSED', 'reason': REP_HASH_REASON}
         if (observed[1].get('splice'), observed[1].get('file')) != (splice, path) or \
-                (observed[1].get('outcome'), observed[1].get('reason')) != (wanted['outcome'], wanted['reason']):
+                observed[1].get('outcome') != wanted['outcome'] or observed[1].get('reason') not in (
+                    REP_HASH_REASON, '%s: %s' % (REP_HASH_REASON, path)):
             raise ValueError('the one-byte mutant did not report the required expected_sha256 refusal')
         actual[1].update(wanted, splice=splice, path=path)
     except (ValueError, KeyError, TypeError) as exc:
@@ -1987,6 +2079,92 @@ def _case_args(argv, flag):
         return None
     values = [argv[i + 1] for i, arg in enumerate(argv[:-1]) if arg == flag and not argv[i + 1].startswith('--')]
     return values if len(values) == argv.count(flag) else None
+
+
+def _rep_fixed_reconciliation(ctx, phase, rid, ev, case, result):
+    """Bind fixed N10/N11 to their own Git inputs and the same accepted tool image."""
+    repo = ctx.repo
+    fixed_commit, sep, fixed_path = (ctx.fixed_config or '').partition(':')
+    if not sep or not HEX40.fullmatch(fixed_commit):
+        raise ValueError('the gate has no exact fixed configuration ref')
+    scope = ev.json('fixed-inputs.json')
+    if not isinstance(scope, dict) or scope.get('scope') != 'fixed representative reconciliation control':
+        raise ValueError('the exact fixed reconciliation scope is missing')
+    tool = scope['tool']
+    allowed = {git_blob_id(repo, 'HEAD^{commit}')}
+    if phase == 'candidate-F':
+        _, parents = _rep_commit(repo, ctx.tool_landing)
+        if len(parents) != 2:
+            raise ValueError('the fixed control cannot be attributed to an accepted tool merge')
+        allowed.add(parents[1])
+    if tool not in allowed or case.get('argv') != [
+            'in-process', 'execution main role and landing (a1_conformance.n10_n11)']:
+        raise ValueError('the fixed control ran at a different tool or invocation')
+    config_bytes = _rep_input(repo, scope['configuration'], fixed_commit, fixed_path)
+    config = json.loads(config_bytes)
+    delegation = scope['delegation']
+    delegation_bytes = _rep_input(repo, delegation, fixed_commit, config['delegation']['path'])
+    if config_bytes != ev.text('configuration.json') or delegation_bytes != ev.text('delegation.json') or \
+            _rep_ref(delegation) != _rep_ref(config['delegation']):
+        raise ValueError('the retained configuration or delegation differs from its fixed Git input')
+    builder = {k: v for k, v in scope['builder'].items() if k != 'imports'}
+    source = _rep_input(repo, builder, tool, REP_BUILDER)
+    _rep_input(repo, scope['runner'], tool, 'tools/ledger_coverage/adapters/a1_conformance.py')
+    if [r['blob_sha256'] for r in config['tool']['files'] if r['path'] == REP_BUILDER] != [builder['blob_sha256']] or \
+            _rep_imports(source) - {'hashlib', 'json'}:
+        raise ValueError('the fixed config does not pin the actual representative builder')
+    copies = []
+    for name, path, oid in (('ledger', REP_LEDGER, REP_LEDGER_GIT), ('edits', REP_EDITS, REP_EDITS_GIT)):
+        source_entry, raw = _rep_entry(repo, tool, path)
+        observed, copy_path = scope['inputs'][name], S11_A1_DIRECTORY + '/' + name + '.json'
+        if (source_entry['mode'], source_entry['git_blob']) != ('100644', oid) or observed['path'] != path or \
+                observed['copy_at'] != copy_path or any(observed[k] != v for k, v in source_entry.items()) or \
+                len(observed['copies']) != 3 or any(
+                    (c['path'], c['mode'], c['git_blob']) != (copy_path, '100644', oid) for c in observed['copies']):
+            raise ValueError('the fixed control changes a pinned %s source or copy' % name)
+        copies.append(raw)
+    ledger, H, M = json.loads(copies[0]), scope['H_rep'], scope['M']
+    if (scope['E'], H, M) != (REP_E, ledger['base'], '8e9b83341cf5bc7fd9fb260892d0385fc9bfab4d') or \
+            config['roles']['scientific_base'] != H or config['roles']['record_commit'] != H or \
+            config['roles']['pin'] != REP_E:
+        raise ValueError('the fixed representative E, H or M binding differs')
+    build = _rep_construction(repo, (H, M, copies[0], copies[1], source, json.loads(delegation_bytes)))
+    X, L = scope['X_rep'], scope['L']
+    if (X, scope['X_rep_tree'], scope['X_rep_parents']) != (build['commit'], build['tree'], build['parents']) or \
+            scope['L_parents'] != [M, X] or scope['landing_pair_delta'] != ['AGENTS.md']:
+        raise ValueError('the fixed candidate or comparison landing is misbound')
+    agents = scope['AGENTS']
+    composed = [c for c in result.get('landing_compositions', []) if c.get('path') == 'AGENTS.md']
+    path = 'AGENTS.md'
+    h_entry, m_entry = [_rep_entries(repo, c)[path] for c in (H, M)]
+    if len(composed) != 1:
+        raise ValueError('the fixed result does not retain exactly one AGENTS.md composition')
+    want_x, want_l = build['changes'][path]['git_blob'], composed[0]['l']
+    if len(agents) != 4 or any(
+            (r['commit'], r['path'], r['mode'], r['git_blob']) != (commit, path, mode, oid)
+            for r, (commit, mode, oid) in zip(agents, ((H, *h_entry), (M, *m_entry),
+                                                      (X, '100644', want_x), (L, '100644', want_l)))):
+        raise ValueError('the AGENTS.md comparison uses substituted entries')
+    if want_l != (want_x if rid == 'N10' else composed[0]['composed_blob']):
+        raise ValueError('the fixed landing no longer has its prescribed AGENTS.md operand')
+    read = scope['read_scope']
+    trace = scope['execution_reads']['paths']
+    h_entries, m_entries = _rep_entries(repo, H), _rep_entries(repo, M)
+    ledgered, side = set(ledger['files']), _first_parent_delta(h_entries, m_entries)
+    x_entries = dict(h_entries)
+    x_entries.update({p: (e['mode'], e['git_blob']) for p, e in build['changes'].items()})
+    patterns = [re.compile(p) for p in config['corpus'].get('patterns', [])]
+    exact = set(config['corpus'].get('paths', []))
+    corpus = {p for table in (h_entries, m_entries, x_entries) for p, (mode, _) in table.items()
+              if mode != '160000' and (p in exact or any(rx.search(p) for rx in patterns))}
+    inherited = {oid for mode, oid in h_entries.values() if mode != '160000'} | {REP_LEDGER_GIT, REP_EDITS_GIT}
+    by_id = set(scope['execution_reads']['blobs']) - inherited
+    read_paths = set(trace.get(X, [])) | {p for p, (_, oid) in x_entries.items() if oid in by_id}
+    if (scope['ledgered_paths'] != sorted(ledgered) or scope['side_change_paths'] != sorted(side) or
+            scope['corpus_paths'] != sorted(corpus) or 'AGENTS.md' not in read_paths or
+            read['paths'] != sorted(read_paths) or read['read_at_X_rep'] != len(read_paths) or
+            read['outside_scope'] or read_paths - ledgered - side - corpus):
+        raise ValueError('the fixed reconciliation path-read scope differs')
 
 
 def _candidate_case_bound(rid, case, result, ctx):
@@ -2391,6 +2569,11 @@ def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None, phase=Non
         if exit_code is None:
             findings_out.append(('raw-evidence-missing', 'exit file of case %r unreadable' % case_name))
     result = ev.json(c['result_file']) if c.get('result_file') else None
+    if phase in ('tool-acceptance', 'candidate-F') and rid in ('N10', 'N11') and case_name == '':
+        try:
+            _rep_fixed_reconciliation(ctx, phase, rid, ev, c, result)
+        except (ValueError, SyntaxError, KeyError, IndexError, TypeError, AttributeError) as exc:
+            findings_out.append(('declarative-mismatch', 'the fixed %s operands do not verify: %s' % (rid, exc)))
     if phase == 'candidate-F' and rid in ('RT-T', 'TR5'):
         try:
             bound = _candidate_case_bound(rid, c, result, ctx)
@@ -2877,7 +3060,8 @@ class Ctx(object):
     facts directory in that tree, the candidate F and the configuration path."""
 
     def __init__(self, repo=None, commit=None, freeze=None, config_path=None, facts_dir=FACTS_DIR, *,
-                 tool_candidate=None, rep_main=None, rep_snapshot=None, tool_landing=None, main_tip=None):
+                 tool_candidate=None, rep_main=None, rep_snapshot=None, tool_landing=None, main_tip=None,
+                 tool_base=None, tool_preview=None, fixed_config=None):
         self.repo = repo
         self.commit = commit
         self.freeze = freeze
@@ -2888,6 +3072,9 @@ class Ctx(object):
         self.rep_snapshot = rep_snapshot
         self.tool_landing = tool_landing
         self.main_tip = main_tip
+        self.tool_base = tool_base
+        self.tool_preview = tool_preview
+        self.fixed_config = fixed_config
 
 
 def assessment_subject(ctx):
@@ -2961,7 +3148,16 @@ def evaluate(exp_doc, rows, retired, reqs, records, mutations, ctx):
     # The retained A1 gate has the REP-BUILD phase contract and applies it to all its due rows.
     subject = assessment_subject(ctx) if {'REP-BUILD', 'S11-2'} & rows.keys() else None
     phase = subject['phase'] if subject else None
-    rules_at_f = rules_release(ctx) if phase == 'candidate-F' else None
+    try:
+        rules_at_f = rules_release(ctx) if phase == 'candidate-F' else None
+    except (ValueError, TypeError, AttributeError):
+        rules_at_f = False
+    scope_problem = None
+    if phase == 'tool-acceptance' and 'REP-BUILD' in rows:
+        try:
+            subject['landing_scope'] = _tool_acceptance_scope(ctx, ctx.tool_candidate, current_main=True)
+        except (ValueError, KeyError, TypeError, AttributeError) as exc:
+            scope_problem = str(exc)
     for subj, f, d in dup + mdup:
         add(subj, f, d)
     for rid in sorted(set(recs) | set(muts)):
@@ -2996,6 +3192,8 @@ def evaluate(exp_doc, rows, retired, reqs, records, mutations, ctx):
         due_at_f = rid in F_REQUIRED_ROWS or nr.get('release_check') == RC_RULES
         if phase == 'invalid' and due_at_f:
             add(rid, 'status-not-allowed', subject['reason'])
+        if rid == 'REP-BUILD' and scope_problem:
+            add(rid, 'status-not-allowed', scope_problem)
         if rules_at_f is False and nr.get('release_check') == RC_RULES:
             add(rid, 'status-not-allowed', 'the required reviewed rule records are absent or misbound at F')
         if rid == 'S11-2' and phase and rid in recs:
@@ -3197,6 +3395,9 @@ def main(argv=None):
     ap.add_argument('--freeze', help='the full commit id of the candidate F under assessment')
     ap.add_argument('--config', help='configuration path in the assessed commit')
     ap.add_argument('--tool-candidate', help='the full checkout id for tool acceptance')
+    ap.add_argument('--tool-base', help='the proposed landing first parent at origin/main')
+    ap.add_argument('--tool-preview', help='the exact proposed merge commit of the tool candidate into its base')
+    ap.add_argument('--fixed-config', help='the full revision and path of the retained fixed-case configuration')
     ap.add_argument('--rep-main', help='the full commit id of the representative main anchor')
     ap.add_argument('--rep-snapshot', help='the full commit id of the reviewed representative snapshot')
     ap.add_argument('--tool-landing', help='the full commit id of the actual tool landing')
@@ -3236,7 +3437,8 @@ def main(argv=None):
     code, res = run_gate(a.expectations, a.requirements, recs, a.mutation_records,
                          Ctx(a.repo, commit, a.freeze, a.config, a.facts_dir, tool_candidate=a.tool_candidate,
                              rep_main=a.rep_main, rep_snapshot=a.rep_snapshot, tool_landing=a.tool_landing,
-                             main_tip=a.main_tip))
+                             main_tip=a.main_tip, tool_base=a.tool_base, tool_preview=a.tool_preview,
+                             fixed_config=a.fixed_config))
     res['commit_under_check'] = commit
     write_json(os.path.join(a.out, 'gate-result.json'), res)
     return code
