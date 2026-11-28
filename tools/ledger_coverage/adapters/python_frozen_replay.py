@@ -14,21 +14,30 @@ VERSION = 1
 SIBLINGS = ['../a1-scope-phase0-20261120', '../a1-scope-phase2-20261120']
 
 DRIVER = r'''
-import json, sys, traceback
+import json, sys
 sys.path[:] = [sys.argv[1]] + [p for p in sys.path if 'site-packages' not in p and p != '']
 out = {'calls': {}}
+def save():
+    with open(sys.argv[2], 'w', encoding='utf-8') as f:
+        json.dump(out, f, ensure_ascii=False)
+def stop(stage, exc):
+    out['exception'] = {'stage': stage, 'class': type(exc).__name__, 'message': str(exc)[:500]}
+    save()
+    sys.exit(0)
 def call(name, fn):
     try:
-        out['calls'][name] = {'ok': True, 'value': fn()}
+        value = fn()
     except BaseException as exc:
-        out['calls'][name] = {'ok': False, 'error': type(exc).__name__, 'message': str(exc)[:500]}
+        stop(name, exc)
+    out['calls'][name] = value
+    return value
 try:
     import ledger_check as L
 except BaseException as exc:
-    out['import_error'] = '%s: %s' % (type(exc).__name__, exc)
-    json.dump(out, open(sys.argv[2], 'w')); sys.exit(0)
-sm = L.load(L.SITEMAP); rows = L.load(L.ROWS)
-call('manuscript_digest', L.manuscript_digest)
+    stop('import', exc)
+sm = call('load_sitemap', lambda: L.load(L.SITEMAP))
+rows = call('load_rows', lambda: L.load(L.ROWS))
+call('manuscript_digest', lambda: L.manuscript_digest())
 call('build', lambda: L.build())
 def rendered():
     blocks = L.render(sm, rows)
@@ -46,7 +55,7 @@ def st():
         return bool(L.self_test())
 call('self_test', st)
 out['sitemap'] = sm
-json.dump(out, open(sys.argv[2], 'w'), ensure_ascii=False)
+save()
 '''
 
 
@@ -79,22 +88,16 @@ def replay(read, pin, record_commit, module_path, corpus_paths, root):
         return {'equalities': [], 'errors': ['replay process exited %d' % r.returncode], 'self_test': False}
     with open(res, encoding='utf-8') as f:
         out = json.load(f)
-    if 'import_error' in out:
-        return {'equalities': [], 'errors': [out['import_error']], 'self_test': False}
-    calls = out['calls']
+    if 'exception' in out:
+        return {'exception': out['exception'], 'calls': list(out['calls'])}
+    val = out['calls'].get
     with open(os.path.join(mod_dir, 'sitemap.json'), encoding='utf-8') as f:
         frozen = json.load(f)
-    errs = []
-    for k, v in sorted(calls.items()):
-        if not v['ok']:
-            errs.append('%s raised %s: %s' % (k, v['error'], v['message']))
-    def val(k):
-        return calls.get(k, {}).get('value')
     eq = [{'name': 'digest_equal', 'equal': val('manuscript_digest') == frozen.get('manuscript_digest')},
           {'name': 'rebuild_equal', 'equal': val('build') == frozen},
           {'name': 'render_equal', 'equal': val('render_equal') is True},
           {'name': 'ck_errors_empty', 'equal': val('check') == []},
           {'name': 'extended_unmapped_empty', 'equal': val('extended_unmapped') == []}]
-    return {'equalities': eq, 'errors': errs, 'self_test': val('self_test') is True,
+    return {'equalities': eq, 'errors': [], 'self_test': val('self_test') is True,
             'ck_errors': val('check'), 'extended_unmapped': val('extended_unmapped'),
             'sites': len(frozen.get('sites', []))}

@@ -1142,6 +1142,10 @@ def op_record(a, repo, ctx, loaded, result):
             return res
 
     rr = loaded.modules['replay'].replay(Reader(), pin, rc, rp['module_path'], ctx.corpus(pin), out_root)
+    if 'exception' in rr:
+        error = rr['exception']
+        message = '%s raised %s: %s' % (error['stage'], error['class'], error['message'])
+        raise oc.Stop(oc.internal, oc.internal, message, dict(error, calls=rr['calls']))
     sites = pl.build_sites(_with_sitemap(ctx, sm))
     pin_findings = []
     for s in sites:

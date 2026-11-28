@@ -965,6 +965,21 @@ def _select(spec, result, bindings):
 
 def _computed_invariant(k, v, result, bindings):
     """(holds, actual, 'result') for an invariant the gate computes from the result alone, else None."""
+    frozen_message = k == 'message_names' and v == 'the exception class and the failing stage'
+    frozen_main = k == 'none' and v == 'calls of the frozen main()'
+    if (frozen_message or frozen_main) and result.get('operation') == 'record' and result.get('outcome') == 'INTERNAL':
+        stop = result.get('stop') or {}
+        detail = stop.get('detail') if isinstance(stop, dict) else None
+        if not isinstance(detail, dict):
+            return False, None, 'result'
+        stage, cls, message = (detail.get(f) for f in ('stage', 'class', 'message'))
+        if frozen_message:
+            expected = '%s raised %s: %s' % (stage, cls, message)
+            holds = all(isinstance(f, str) for f in (stage, cls, message)) and bool(stage and cls)
+            return holds and stop.get('message') == expected, stop.get('message'), 'result'
+        calls = detail.get('calls')
+        holds = isinstance(calls, list) and all(isinstance(c, str) and c not in ('main', 'main()') for c in calls)
+        return holds and isinstance(stage, str) and stage not in ('main', 'main()'), calls, 'result'
     if k == 'none':
         sel = _select(v, result, bindings)
         if sel is not None:

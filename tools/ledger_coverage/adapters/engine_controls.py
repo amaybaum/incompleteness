@@ -383,6 +383,8 @@ def extended_unmapped(sm):
     return [site["file"] for site in sm["sites"] if not os.path.isfile(site["file"])]
 def self_test():
     return manuscript_digest() == load(ROWS)["digest"]
+def main():
+    raise AssertionError("the replay called frozen main")
 '''
         pin_text = syn.repo.read(syn.pin, sf.DOC)
         wanted = sf.sha(pin_text)
@@ -391,13 +393,15 @@ def self_test():
         summary = 'Fixture record summary.\n'
         inserted_line = 'An inserted line in the record tree.'
 
-        def record_checks(case, mutant=False, baseline=None, override=None, shifted=False):
+        def record_checks(case, mutant=False, baseline=None, override=None, shifted=False, frozen_failure=False):
             rows = {'site_map': smap, 'digest': wanted, 'summary': summary}
             if mutant:
                 override = 'fixture anchor absent from the pinned line'
             if override is not None:
                 rows['site_overrides'] = {sf.DOC + ':5': {'anchor': override}}
-            blobs = {record + 'ledger_check.py': checker, record + 'rows.json': sf.jb(rows),
+            frozen_code = (checker.replace(b'def build():\n', b'def build():\n    raise LookupError("fixture failure")\n')
+                           if frozen_failure else checker)
+            blobs = {record + 'ledger_check.py': frozen_code, record + 'rows.json': sf.jb(rows),
                      record + 'sitemap.json': sf.jb(dict(smap, manuscript_digest=('0' * 64 if mutant else wanted))),
                      record + 'LEDGER.md': summary.encode()}
             if shifted:
@@ -440,6 +444,15 @@ def self_test():
                                 bool(bad['record_checks']['pin_findings']) and good_code == restored_code == 0 and
                                 not good['record_checks']['pin_findings'] and
                                 good['record_checks'] == clean['record_checks'])
+
+        frozen_code, frozen_result = record_checks('', frozen_failure=True)
+        clean_code, clean = record_checks('baseline')
+        restored_code, restored = record_checks('restored', baseline=cap.rec.pending[-1])
+        failure = frozen_result.get('stop') or {}
+        out['OUT-FROZEN'] = (frozen_code == 71 and failure.get('message') == 'build raised LookupError: fixture failure'
+                             and failure.get('detail', {}).get('calls') ==
+                             ['load_sitemap', 'load_rows', 'manuscript_digest']
+                             and clean_code == restored_code == 0 and clean == restored)
     finally:
         unwrap()
     return out
