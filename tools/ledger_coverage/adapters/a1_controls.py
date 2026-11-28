@@ -620,7 +620,7 @@ def rt_terms(a):
     # V3 countercontrol: one retired line restored to REVIEW would be visible
     a.results['V3-countercontrol'] = v3_countercontrol(a, retired)
     a = phase
-    ledger_ref = '%s:%srep/ledger.json' % (a.tool_rev, a.ad)
+    ledger_ref = '%s:%srep/ledger.json' % (rep_ledger_revision(a), a.ad)
     live_rev = a.freeze
     if live_rev is not None and a.rep_instance_doc is None:
         raise RepRefused('RT-D requires the live filled control instance at candidate F')
@@ -1866,10 +1866,15 @@ def rep_builder(source):
     return mod, sorted(mods)
 
 
+def rep_ledger_revision(a):
+    return (a.rep_binding or {}).get('T_land') or a.tool_rev
+
+
 def rep_ledger_inputs(a):
     """Read the exact ledger and edit list pinned with the tool revision."""
-    led = a.repo.read(a.tool_rev, a.ad + 'rep/ledger.json')
-    eds = a.repo.read(a.tool_rev, a.ad + 'rep/edits.json')
+    rev = rep_ledger_revision(a)
+    led = a.repo.read(rev, a.ad + 'rep/ledger.json')
+    eds = a.repo.read(rev, a.ad + 'rep/edits.json')
     if led is None or eds is None or gitobj.blob_id_of(led) != REP_LEDGER_GIT or gitobj.blob_id_of(eds) != REP_EDITS_GIT:
         raise RepRefused('the pinned ledger or edit list of the tool revision is not the retirement ledger\'s blob')
     return led, eds
@@ -1998,8 +2003,9 @@ def build_x_rep(a, repo=None, ledger=None, source=None, *, frozen=False, reads=N
     except rb.Refused as exc:
         raise RepRefused(str(exc))
     if a.main is not None:
+        ledger_paths = json.loads(led)['files']
         for p in rb.delegated_paths(deleg):
-            if p not in ch:
+            if p not in ch or p in ledger_paths:
                 continue
             if reads is not None:
                 reads['M'].add(p)
@@ -2127,7 +2133,7 @@ def rep_build_control(a):
         operands = {'E': E, 'H': H, 'config': cfg, 'delegation': delegation,
                     'builder': raw_ref(a.base, a.tool_rev, REP_BUILDER)}
         for name in ('ledger', 'edits'):
-            operands[name] = raw_ref(a.base, a.tool_rev, '%srep/%s.json' % (a.ad, name))
+            operands[name] = raw_ref(a.base, rep_ledger_revision(a), '%srep/%s.json' % (a.ad, name))
         first_reads = {'H': set(), 'M': set()}
         second_reads = {'H': set(), 'M': set()}
         x1, ch = build_x_rep(a, reads=first_reads)
