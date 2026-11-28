@@ -3659,14 +3659,24 @@ def _pipeline_restored(ev, restored, result, exit_code):
     clean_argv, restored_argv = clean.get('argv'), restored.get('argv')
     clean_out, restored_out = _case_args(clean_argv, '--out'), _case_args(restored_argv, '--out')
     shared = _pipeline_argv(clean_argv, '--out')
-    return (all(paths) and len(set(paths)) == 3 and shared is not None and
+    if not (shared and shared[0] in ('terms', 'coverage') and isinstance(result, dict)):
+        return False
+    invocation = _pipeline_argv(shared, '--repo') if '--repo' in shared else shared
+    preflight, ref = result.get('preflight'), result.get('config')
+    raw = ev.text(paths[0])
+    return (all(paths) and len(set(paths)) == 3 and all(path.endswith('result.json') for path in paths) and
             shared == _pipeline_argv(restored_argv, '--out') and clean_out != restored_out and
             clean_argv == restored.get('baseline_argv') and
-            ev.text(paths[0]) == ev.text(paths[1]) == ev.text(paths[2]) and
-            ev.text(clean.get('exit_file')) == ev.text(restored.get('exit_file')) and
-            isinstance(result, dict) and not result.get('stop') and
-            exit_code in (0, 10, 20) and exit_code == result.get('exit_status') ==
-            TOOL_EXIT.get(recompute_outcome(result)))
+            raw is not None and raw == ev.text(paths[1]) == ev.text(paths[2]) and
+            exit_code in (0, 10, 20) and ev.text(clean.get('exit_file')) == ev.text(restored.get('exit_file')) ==
+            ('%d\n' % exit_code).encode() and exit_code == result.get('exit_status') and
+            invocation and result.get('operation') == invocation[0] and result.get('invocation') == invocation and
+            isinstance(ref, dict) and _case_args(invocation, '--config') ==
+            ['%s:%s' % (ref.get('commit'), ref.get('path'))] and isinstance(result.get('evaluated'), dict) and
+            _case_args(invocation, '--commit') == [result['evaluated'].get('commit')] and
+            isinstance(preflight, list) and preflight and
+            all(isinstance(p, dict) and p.get('passed') is True for p in preflight) and not result.get('stop') and
+            result.get('outcome') == recompute_outcome(result) and exit_code == TOOL_EXIT.get(result['outcome']))
 
 
 def _record_control_restore(row, ev):
@@ -3757,6 +3767,7 @@ def _pipeline_chain_case(ev, case_name, argv, result, exit_code):
         if (_case_args(baseline, '--commit') != commits or _case_args(baseline, '--config') != configs or
                 _case_args(baseline, '--check') != _case_args(argv, '--check') or
                 result.get('items') != [] or result.get('preflight') != [] or 'segments' in result or
+                result.get('exit_status') != exit_code or exit_code != 65 or
                 (result.get('stop') or {}).get('class') != 'CONFIG_INCONSISTENT'):
             return False
         if case_name == 'two segments whose consecutive endpoints differ':
@@ -3814,7 +3825,7 @@ def _pipeline_stages_case(ev, case_name, case, result):
     ref = result['config']
     target = _case_args(inv, '--commit')
     if not (target and len(target) == 1 and HEX40.fullmatch(target[0]) and
-            result.get('invocation') == inv and
+            result.get('operation') == 'terms' and result.get('invocation') == inv and
             _case_args(inv, '--profile') == ['Z-premise'] and
             _case_args(inv, '--config') == ['%s:%s' % (ref['commit'], ref['path'])] and
             ref['blob_sha256'] == hashlib.sha256(config_raw).hexdigest() and
@@ -3832,7 +3843,9 @@ def _pipeline_stages_case(ev, case_name, case, result):
         other = ev.json(deny['result_file'])
         return (result['items'] == [] and probe == [False] and isinstance(other, dict) and
                 inv == _pipeline_argv(deny.get('argv'), '--out') == other.get('invocation') and
-                other.get('evaluated') == {'commit': target[0]} and
+                other.get('evaluated') == {'commit': target[0]} and other.get('operation') == 'terms' and
+                other.get('engine') == result.get('engine') and other.get('config') == ref and
+                other.get('exit_status') == 20 and
                 recompute_outcome(other) == other.get('outcome') == 'FAIL' and
                 [p['passed'] for p in other['preflight'] if p['id'] == 'PIPE-PREFLIGHT-WITNESS'] == [True] and
                 observations.get('deny-only') == {'operand': 'preflight-good.txt',
@@ -3927,7 +3940,10 @@ def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None, phase=Non
         c['_result_absent'] = not any(str(x).endswith('result.json') for x in listing)
     actual['exit'] = exit_code
     if rid == 'PIPE-CHAIN':
-        chain_ok = _pipeline_chain_case(ev, case_name, c.get('argv'), result, exit_code)
+        try:
+            chain_ok = _pipeline_chain_case(ev, case_name, c.get('argv'), result, exit_code)
+        except (TypeError, KeyError, AttributeError, ValueError, IndexError):
+            chain_ok = False
         if not chain_ok:
             findings_out.append(('declarative-mismatch', 'case %r: the invocation and coverage chain do not verify'
                                  % case_name))
@@ -3938,13 +3954,15 @@ def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None, phase=Non
         shared = _pipeline_argv(argv, '--out', '--repo')
         if not (bad_repo and clean_repo and bad_repo != clean_repo and shared and shared[0] == 'terms' and
                 shared == _pipeline_argv(baseline, '--out', '--repo') and isinstance(result, dict) and
+                result.get('operation') == 'terms' and result.get('exit_status') == exit_code == 65 and
                 result.get('invocation') == shared and result.get('items') == [] and
                 result.get('preflight') == [] and 'config' not in result and
                 (result.get('stop') or {}).get('message') == 'not a git repository: ' + bad_repo[0]):
             findings_out.append(('declarative-mismatch', 'terms did not refuse the selected non-repository'))
     if rid == 'PIPE-STAGES':
         try:
-            fault_check = _pipeline_stages_case(ev, case_name, c, result)
+            fault_check = isinstance(result, dict) and result.get('exit_status') == exit_code and \
+                _pipeline_stages_case(ev, case_name, c, result)
         except (TypeError, KeyError, AttributeError, ValueError, IndexError):
             fault_check = False
         if not fault_check:
