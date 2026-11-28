@@ -2260,6 +2260,40 @@ def _rt_d_counts(result, census):
     return counts
 
 
+def _fixed_item7a(result, ctx):
+    """Derive the original Item 7 counts and retired-line predicate from the actual payload."""
+    items = result['items']
+    line_deny = {(i['file'], i['line']) for i in items if i['class'] == 'deny-match' and i['level'] == 'line'}
+    sentences = {(i['file'], n) for i in items if i['class'] == 'deny-match' and i['level'] == 'sentence'
+                 for n in range(i['line'], i['last_line'] + 1)}
+    unclassified = {(i['file'], i['line']) for i in items if i['class'] == 'final-unclassified'
+                    and i['decision'] == 'FAIL'}
+    counts = {'lines[class=deny-match]': len(line_deny), 'lines[class=final-unclassified]': len(unclassified),
+              'fail_lines': len(line_deny | unclassified),
+              'lines[class=deny-match,count_sentence_lines=true]': len(line_deny | sentences),
+              'fail_lines[count_sentence_lines=true]': len(line_deny | sentences | unclassified)}
+    T = ctx.tool_candidate or ctx.tool_landing
+    repo = ctx.repo
+    _, raw = _rep_entry(repo, T, REP_LEDGER)
+    if _git_oid('blob', raw) != REP_LEDGER_GIT:
+        raise ValueError('the fixed Item 7 ledger does not match the adopted control copy')
+    ledger = json.loads(raw)
+    H = ledger['base']
+    retired = set()
+    if result['evaluated']['commit'] == H:
+        pattern = re.compile(r'\bA1\b|Fourteen|six structural|sixth of')
+        for p, entry in _rep_entries(repo, H).items():
+            if not re.fullmatch(r'(book|papers)/[^/]+\.md', p):
+                continue
+            _, body = _rep_blob(repo, entry)
+            after = _rep_spliced(body, p, ledger) if p in ledger['files'] else body
+            current = set(after.decode('utf-8').splitlines())
+            retired.update((p, n) for n, line in enumerate(body.decode('utf-8').splitlines(), 1)
+                           if pattern.search(line) and line not in current and (p, n) not in line_deny)
+        counts['retired_lines'] = len(retired)
+    return counts, bool(retired) and retired <= unclassified, unclassified
+
+
 def _candidate_case_bound(rid, case, result, observed, ctx, *, profile_census=False):
     """Check exact candidate-F operands independently of the runner's status."""
     F, path, digest, _ = s11_binding(ctx)
@@ -2723,6 +2757,12 @@ def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None, phase=Non
             findings_out.append(('raw-evidence-missing', 'exit file of case %r unreadable' % case_name))
     result = ev.json(c['result_file']) if c.get('result_file') else None
     terminology_counts = {}
+    retired_hold, unclassified = False, set()
+    if phase in ('tool-acceptance', 'candidate-F') and rid == 'RT-I7A' and case_name != 'restored':
+        try:
+            terminology_counts, retired_hold, unclassified = _fixed_item7a(result, ctx)
+        except (ValueError, KeyError, TypeError, AttributeError):
+            findings_out.append(('raw-evidence-missing', 'the fixed Item 7 partitions cannot be reconstructed'))
     if phase in ('tool-acceptance', 'candidate-F') and rid in ('N10', 'N11') and case_name == '':
         try:
             _rep_fixed_reconciliation(ctx, phase, rid, ev, c, result)
@@ -2888,7 +2928,15 @@ def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None, phase=Non
                     findings_out.append(('declarative-mismatch', 'case %r: %s %s = %s, expected %s'
                                          % (case_name, key, filt, got, want)))
         for key, want in sorted((exp.get('counts') or {}).items()):
-            if phase == 'candidate-F' and rid == 'RT-D' and key.startswith('lines['):
+            if rid == 'RT-I7' and key.startswith('lines[literal='):
+                literal = key.removeprefix('lines[literal=').removesuffix(']')
+                if literal == 'A1':
+                    got = (result or {}).get('reports', {}).get('item7-literal', {}).get('report_regex_lines')
+                else:
+                    got = len({(i['file'], i['line']) for i in items if literal in i.get('literals', [])})
+                src = 'result' if got is not None else None
+            elif ((rid == 'RT-I7A' and phase in ('tool-acceptance', 'candidate-F')) or
+                  (rid == 'RT-D' and phase == 'candidate-F' and key.startswith('lines['))):
                 got = terminology_counts.get(key)
                 src = 'result' if got is not None else None
             else:
@@ -2914,7 +2962,22 @@ def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None, phase=Non
                                          % (case_name, s, bad[:5] or 'no selected site')))
                 continue
             if subj is None:
-                got = attested.get('sites:' + json.dumps(s, sort_keys=True))
+                if rid == 'RT-DR3W':
+                    got = any(i.get('rule_id') == 'DR-3' and
+                              i['sentence_start_line'] == s['sentence_start_line'] and
+                              set(s['lines']) <= set(range(i['sentence_start_line'], i['sentence_end_line'] + 1))
+                              for i in items)
+                elif rid == 'RT-I7A' and phase in ('tool-acceptance', 'candidate-F'):
+                    full = 'book/The-Incompleteness-of-Observation-FULL.md'
+                    want = {('papers/SM.md', 1394), ('papers/GR.md', 58),
+                            ('book/ch09-universality.md', 137), ('book/ch19-open-problems.md', 198),
+                            ('book/ch19-open-problems.md', 212), ('book/appendix-b-derivations.md', 235),
+                            ('book/appendix-b-derivations.md', 246),
+                            *((full, n) for n in (2554, 5270, 5284, 5914, 5925))}
+                    got = unclassified == want and all(i['class'] == 'final-unclassified'
+                                                     for i in items if (i.get('file'), i.get('line')) in want)
+                else:
+                    got = attested.get('sites:' + json.dumps(s, sort_keys=True))
                 if got is not True:
                     findings_out.append(('raw-evidence-missing' if got is None else 'declarative-mismatch',
                                          'case %r: site condition %s not attested' % (case_name, s)))
@@ -2924,7 +2987,9 @@ def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None, phase=Non
             sitems = [i for i in items if _names(i, subj)]
             ok = bool(sites or sitems)
             for k, v in fields.items():
-                if k in ('classes_exact', 'classes_include'):
+                if rid == 'RT-I7' and k == 'literal':
+                    ok = ok and any(v in i.get('literals', []) for i in sitems)
+                elif k in ('classes_exact', 'classes_include'):
                     got = sorted({i.get('class') for i in sitems})
                     ok = ok and (set(v) == set(got) if k == 'classes_exact' else set(v) <= set(got))
                 elif k == 'added_relative_to_unmutated':
@@ -2959,7 +3024,9 @@ def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None, phase=Non
                 k, v = next(iter(inv.items()))
             if k == 'baseline':
                 continue
-            if rid == 'TT7' and k in ('L_blob', 'composed_blob'):
+            if rid == 'RT-I7A' and phase in ('tool-acceptance', 'candidate-F') and 'each_listed_line' in inv:
+                holds, got, src = retired_hold, retired_hold, 'result'
+            elif rid == 'TT7' and k in ('L_blob', 'composed_blob'):
                 roles = _tt7_landing_roles(result)
                 blobs = _tt7_landing_blobs(result, roles, bindings)
                 got = (blobs or {}).get(k)

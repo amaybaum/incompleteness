@@ -612,7 +612,8 @@ def rt_terms(a):
         assert sha(data) == spec['sha256']
         ss = util.sentences_of(util.lines_of(data.decode()), cfg['sentence']['abbreviations'], 2)
         matches = [(s1, s2) for s, s1, s2 in ss if prof.matches(s)]
-        items = [{'file': spec['path'], 'line': s1, 'sentence': [s1, s2], 'rule_id': 'DR-3'}
+        items = [{'file': spec['path'], 'line': s1, 'sentence': '%d:%d' % (s1, s2),
+                  'sentence_start_line': s1, 'sentence_end_line': s2, 'rule_id': 'DR-3'}
                  for s1, s2 in matches]
         facts = {}
         if key == 'agents-md-at-Xrep' and not a._x_rep_why and spec['path'] == 'AGENTS.md':
