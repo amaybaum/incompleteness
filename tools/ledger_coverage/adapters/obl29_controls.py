@@ -1699,6 +1699,7 @@ def amendment_7_unit_controls(r):
     # gap (ii): an element naming a retained edit of the named configuration is a known id (no run-level binding)
     class B:
         repo = None
+        migrations = {}
         led = {'raw': {'edits': []}, 'splices': [], 'retained': []}
 
         def finding_config(self, cref):

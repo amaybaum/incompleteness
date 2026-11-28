@@ -1150,6 +1150,116 @@ def with_custody(w):
     return w
 
 
+def migration_controls(r, check):
+    """R6.RECON.28 through op C, with the original finding held at M throughout."""
+    names = [
+        'an edit renamed, its old bytes also rewritten, under a reviewed edit-id migration record that the '
+        'configuration references with kind edit-id-migration',
+        'the same migration record referenced only by an earlier configuration on the supersedes chain',
+        'two referenced migration records chaining A to B and B to C (transitive closure)',
+        "a migration record that fails record lint, the renamed edit's old bytes unchanged "
+        '(the path-and-old-bytes match still applies)',
+        'a migration record whose new is an id in use (a configuration on the supersedes chain holds both the old '
+        "and the new id), or that repeats an old: record lint fails and it maps nothing; the renamed edit's old "
+        'bytes unchanged',
+        'countercase: a configuration that removes the renamed edit (neither its old id, its new id nor its old '
+        'bytes remain) (positive)',
+        'countercase: a lint-passing migration record found at M that neither the configuration nor its supersedes '
+        'chain references, mapping the invalidated id to an id of this configuration whose edit has another target '
+        'and another path (the mapping is not applied) (positive)',
+    ]
+    out = {}
+
+    def record(w, index, pairs, owner='AMaybaum'):
+        path = w.p.rsplit('/', 1)[0] + '/migration-%s.json' % index
+        doc = {'schema': rec.migration_schema, 'record_id': 'migration-%s' % index,
+               'author': sf.WRITER, 'supersedes': None, 'migrations': pairs,
+               'approval': {'quote': 'Synthetic migration approval for control inputs.',
+                            'author': owner, 'time': '2026-01-01T00:00Z'}}
+        raw = jb(doc)
+        return path, raw, w.review(path, raw)
+
+    def configure(w, rules, parent=None, older=None, edits=None, first_id=2):
+        spec = copy.deepcopy(w.build_spec)
+        if edits is not None:
+            patch = sf.patch_doc(w.syn.H, edits, first_id)
+            path = 'syn/patch-previous.json'
+            spec['files'][path] = patch
+            adapters = copy.deepcopy(w.ctx.config['adapters'])
+            adapters['ledger'].update(path=path, blob_sha256=sha(patch))
+            spec.setdefault('extra', {})['adapters'] = adapters
+        if older:
+            spec['supersedes'] = {'path': w.p, 'blob_sha256': sha(w.repo.read(older, w.p))}
+            spec['version'] = 2
+        for i, pairs, kwargs in rules:
+            path, raw, review = record(w, i, pairs, **kwargs)
+            review_path = path[:-5] + '.review.json'
+            spec['files'].update({path: raw, review_path: review})
+            spec.setdefault('add_records', []).extend(
+                [{'kind': rec.migration_kind, 'path': path, 'blob_sha256': sha(raw)},
+                 {'kind': 'review', 'path': review_path, 'blob_sha256': sha(review)}])
+        c, _, _, _ = w.syn.build(spec, at=parent or w.c)
+        return c
+
+    def run(index, w):
+        code, result = w.run(harness=True)
+        if code not in (0, 10, 20):
+            raise ValueError('%s did not complete: %s' % (names[index], (result or {}).get('stop')))
+        out[names[index]] = {'exit': code, 'classes': classes(result),
+                             'records': result.get('records_used'),
+                             'blocked': result.get('category3', {}).get('blocked')}
+
+    direct = [(1, [{'old': 'E1', 'new': 'E2'}], {})]
+    w = finding_world(r, edits=EDITS_OTHER, first_id=2)
+    w.c = configure(w, direct)
+    run(0, w)
+    w = finding_world(r, edits=EDITS_OTHER, first_id=2)
+    previous = configure(w, direct)
+    w.c = configure(w, [], parent=previous, older=previous)
+    run(1, w)
+    w = finding_world(r, edits=EDITS_OTHER, first_id=3)
+    w.c = configure(w, direct + [(2, [{'old': 'E2', 'new': 'E3'}], {})])
+    run(2, w)
+    w = finding_world(r, first_id=2)
+    w.c = configure(w, [(1, [{'old': 'E1', 'new': 'E2'}], {'owner': sf.WRITER})])
+    run(3, w)
+    w = finding_world(r, first_id=2)
+    previous = configure(w, [], edits=EDITS + EDITS_OTHER, first_id=1)
+    w.c = configure(w, direct, parent=previous, older=previous)
+    run(4, w)
+    w = finding_world(r, edits=EDITS_OTHER, first_id=3)
+    w.c = configure(w, direct)
+    run(5, w)
+    w = finding_world(r, edits=EDITS_OTHER, first_id=2)
+    original = w.repo.read(w.syn.H, sf.WITNESS).rstrip(b'\n')
+    replacement = b'A separate witness is preserved.'
+    patch = jb({'schema': 'line patch v1', 'base': w.syn.H, 'edits': [
+        {'id': 'E2', 'file': sf.WITNESS, 'old_line_sha256': sha(original),
+         'new_lines': [replacement.decode()]}]})
+    spec = copy.deepcopy(w.build_spec)
+    spec['files']['syn/patch.json'] = patch
+    spec['patch_sha'] = sha(patch)
+    w.c, _, _, _ = w.syn.build(spec, at=w.c)
+    w.X = w.repo.derive(w.syn.H, {sf.WITNESS: replacement + b'\n',
+                                 'out/digest.txt': (sha(w.repo.read(w.syn.H, sf.DOC)) + '\n').encode()},
+                        parents=[w.syn.H], subject='an edit on another path')
+    path, raw, review = record(w, 1, direct[0][1])
+    w.M = w.repo.derive(w.M, {path: raw}, parents=[w.M], subject='unreferenced migration bytes at M')
+    review = jb(idf.bind(json.loads(review), w.M))
+    w.M = w.repo.derive(w.M, {path[:-5] + '.review.json': review}, parents=[w.M],
+                        subject='review of the unreferenced migration')
+    run(6, w)
+    blocking = [out[name] for name in names[:5]]
+    holds = all(s['exit'] == 20 and 'retirement-blocked' in s['classes'] for s in blocking)
+    holds &= all(any(b['edit'] == eid for b in out[name]['blocked'] or [])
+                 for name, eid in zip(names[:3], ('E2', 'E2', 'E3')))
+    holds &= all('record-invalid' in s['classes'] for s in blocking[3:])
+    holds &= all('retirement-blocked' not in out[name]['classes'] for name in names[5:])
+    check('MIGRATION-RECORD', 'only reviewed and cited migrations extend the finding',
+          'direct, inherited and transitive mappings block; invalid maps preserve target binding', out, holds,
+          cases=[(name, {}) for name in names])
+
+
 def bk_controls(r, check):
     res, names, rf, rnames = {}, [], {}, []
 

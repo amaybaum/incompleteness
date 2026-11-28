@@ -715,21 +715,115 @@ def repair_review_problems(store, ref, repair, retained, disregarded):
 
 # ---- the binding of a finding (R6.RECON.26, Form of a finding (ii)-(v)) -------------------------------------------
 
+def migration_map(repo, loaded, load_ancestor, ledger_of, review_inputs):
+    """Read reviewed migrations cited by the configuration or one of its exact predecessors."""
+    chain, seen = [(loaded.config, _ref(loaded.ref), loaded.ref['commit'])], set()
+    seen.add((loaded.ref['path'], loaded.ref['blob_sha256']))
+    broken = False
+    while chain[-1][0].get('supersedes') is not None:
+        ref = chain[-1][0]['supersedes']
+        form = []
+        fd.validate(fd.ref_keys, ref, '$.supersedes', form)
+        key = (ref['path'], ref['blob_sha256']) if not form else None
+        at, raw = rec.first_parent_record(repo, loaded.ref['commit'], ref) if key and key not in seen else (None, None)
+        doc = fd.strict_parse(raw) if raw is not None else None
+        if not isinstance(doc, dict):
+            broken = True
+            break
+        seen.add(key)
+        chain.append((doc, ref, at))
+
+    cited = [(i, ref) for i, (doc, _, _) in enumerate(chain) for ref in doc.get('records') or []
+             if isinstance(ref, dict) and ref.get('kind') == rec.migration_kind]
+    if not cited:
+        return {}, [], []
+    if broken:
+        raise oc.Stop(oc.error, 'CONFIG_INVALID', 'a configuration predecessor for migration does not resolve')
+
+    observed = review_inputs()
+    ids = {}
+    states = {0: loaded}
+    proposals, errors = {}, {}
+    for i, ref in cited:
+        _, cref, at = chain[i]
+        if i not in states:
+            states[i] = load_ancestor(cref, at)
+        state = states[i]
+        key = (ref['path'], ref['blob_sha256'])
+        directory = posixpath.dirname(cref['path'])
+        record = state.store.get(ref)
+        _, raw = rec.first_parent_record(repo, at, ref)
+        issues = []
+        if not isinstance(key[0], str) or (directory and not key[0].startswith(directory + '/')):
+            issues.append('the migration is outside its referring plan record directory')
+        if raw is None or not isinstance(record, dict) or fd.strict_parse(raw) != record:
+            issues.append('the exact migration reference is absent or its bytes fail strict parsing')
+        if not issues:
+            issues = rec.migration_problems(record) or rec.lint_chain(
+                ref, state.store, state.admitted, observed_reviews=observed, plan_directory=directory)
+        if not issues:
+            for k in range(i, len(chain)):
+                if k not in ids:
+                    try:
+                        old = ledger_of(chain[k][1], chain[k][2])
+                    except fd.RunLevelBlock as exc:
+                        issues.append(str(exc))
+                        break
+                    ids[k] = set(_edits(old)) | {r['id'] for r in old.get('retained') or []}
+                if any({pair['old'], pair['new']} <= ids[k] for pair in record['migrations']):
+                    issues.append('a predecessor ledger contains both the old and new edit ids')
+                    break
+        if issues:
+            errors.setdefault(key, []).extend(issues)
+        else:
+            proposals[key] = [(p['old'], p['new']) for p in record['migrations']]
+
+    # An invalid record contributes no edges, including any otherwise valid pair in the same record.
+    edges = {}
+    for key, pairs in proposals.items():
+        if key not in errors:
+            for old, new in pairs:
+                edges.setdefault(old, {}).setdefault(new, set()).add(key)
+    for targets in edges.values():
+        if len(targets) > 1:
+            for key in set().union(*targets.values()):
+                errors.setdefault(key, []).append('an old edit id maps to more than one new id')
+
+    def qualified_edges():
+        return {old: (new, keys - errors.keys()) for old, targets in edges.items()
+                for new, keys in targets.items() if keys - errors.keys()}
+
+    chosen = qualified_edges()
+    visited = set()
+    for start in chosen:
+        path, node = {}, start
+        while node in chosen and node not in visited and node not in path:
+            path[node] = len(path)
+            node = chosen[node][0]
+        if node in path:
+            for old in list(path)[path[node]:]:
+                for key in chosen[old][1]:
+                    errors.setdefault(key, []).append('the applied migration edges form a cycle')
+        visited.update(path)
+    report = [oc.make_item('RECORD', 'record-invalid', path, None, {'sha': sha, 'why': problems[0]},
+                           detail=list(dict.fromkeys(problems))) for (path, sha), problems in errors.items()]
+    used = [{'path': path, 'blob_sha256': sha, 'kind': rec.migration_kind}
+            for path, sha in proposals.keys() - errors.keys()]
+    return {old: new for old, (new, _) in qualified_edges().items()}, report, used
+
+
 class Binding:
     # The run's view for binding: its reader, M, configuration (doc and reference) and ledger, and two callbacks
     # the CLI supplies: resolve_cfg(ref) -> (doc, commit) or None (R6.RECON.33 resolution), and ledger_of(ref, commit)
-    # -> the configuration's ledger (raises findings.Unsettled when it cannot be read).
+    # -> the configuration's ledger (raises RunLevelBlock when its readable inputs cannot be used).
 
-    def __init__(self, repo, M, cfg, cfg_ref, led, resolve_cfg, ledger_of, record_at=None, cfg_commit=None):
+    def __init__(self, repo, M, cfg, cfg_ref, led, resolve_cfg, ledger_of, record_at=None, cfg_commit=None,
+                 migrations=None):
         self.repo, self.M, self.cfg, self.cfg_ref, self.led = repo, M, cfg, cfg_ref, led
         self.resolve_cfg, self.ledger_of, self.record_at, self.cfg_commit = resolve_cfg, ledger_of, record_at, cfg_commit
         self._commit_of = {}
         self._ledgers = {}
-        if any(isinstance(r, dict) and r.get('kind') == 'edit-id-migration' for r in cfg.get('records') or []):
-            # Form (iv)-(vi) follow R6.RECON.28 migrations, which this tool revision does not read; a configuration
-            # that references one cannot be bound faithfully
-            raise fd.Unsettled('the configuration references an edit-id-migration record, which this '
-                               'tool revision does not implement')
+        self.migrations = migrations or {}
 
     def finding_config(self, cref):
         """(doc, ledger, H) of the configuration a finding names, or None when it is absent or does not resolve."""
@@ -937,30 +1031,30 @@ def _bind(f, b):
                     global_scope = True
     bound = []
 
-    def carry_id(eid, path):
-        if not isinstance(eid, str) or eid not in run_edits:
-            return False
-        if lineage or global_scope:
-            return True
-        return path is not None and run_edits[eid].get('file') == path
+    def carried_ids(eid, path):
+        if not isinstance(eid, str):
+            return []
+        if not (lineage or global_scope):
+            return [eid] if eid in run_edits and path is not None and run_edits[eid].get('file') == path else []
+        hits = []
+        while eid is not None:
+            if eid in run_edits:
+                hits.append(eid)
+            eid = b.migrations.get(eid)
+        return hits
 
     if usable:
         for eid, tgt in elems:
             path = (tgt or {}).get('path')
-            if carry_id(eid, path):
-                bound.append(eid)
-                continue
+            bound.extend(carried_ids(eid, path))
             if isinstance(tgt, dict) and tgt.get('path') and tgt.get('old_sha256'):
                 for s in b.led.get('splices') or []:
                     if s.get('file') == tgt['path'] and s.get('old_sha256') == tgt['old_sha256']:
                         bound.append(s.get('id'))
-                        break
-                else:
-                    for r in b.led.get('retained') or []:
-                        if isinstance(r, dict) and r.get('file') == tgt['path'] and isinstance(r.get('text'), str) \
-                                and util.sha256(r['text'].encode('utf-8')) == tgt['old_sha256']:
-                            bound.append(r.get('id'))
-                            break
+                for r in b.led.get('retained') or []:
+                    if isinstance(r, dict) and r.get('file') == tgt['path'] and isinstance(r.get('text'), str) \
+                            and util.sha256(r['text'].encode('utf-8')) == tgt['old_sha256']:
+                        bound.append(r.get('id'))
         return sorted(set(x for x in bound if x)), amend7, form
     # Form (iv) fallback: the entry's conclusions, or every edit of the entry's path. Elements that carry an id but
     # lack another key "block through the fallback of (iii)" (Form (ii)): the id match is then global, and those ids
@@ -969,7 +1063,8 @@ def _bind(f, b):
                isinstance(x.get('id'), str) and not fd.element_ok(x)]
     if partial:
         global_scope = True
-        bound += [eid for eid in partial if carry_id(eid, None)]
+        for eid in partial:
+            bound.extend(carried_ids(eid, None))
     if entry is None:
         return sorted(set(bound)), True, form
     se = entry.get('scientific_effect') if isinstance(entry.get('scientific_effect'), dict) else {}
@@ -985,8 +1080,7 @@ def _bind(f, b):
     if not named:
         return sorted(set(bound)), (lineage or unresolved or amend7), form
     for eid, path in named:
-        if carry_id(eid, path):
-            bound.append(eid)
+        bound.extend(carried_ids(eid, path))
     return sorted(set(bound)), amend7, form
 
 
@@ -1197,13 +1291,24 @@ def replay_run(repo, c_, m, rev, load_config, schemas, prefix, context_ledger=No
     f, cref = c_['f'], c_['config']
     try:
         loaded = load_config(f, cref)
-    except fd.Unsettled:
-        raise
     except Exception as exc:  # the configuration does not admit at f (R6.CFG.1-.2); an unreadable object is ERROR
         if type(exc).__name__ == 'Unresolvable':
             raise
         raise ReplayFailure('the configuration %s does not admit at %s: %s' % (cref.get('path'), f, exc))
     cfg = loaded.config
+    states = {(cref['path'], cref['blob_sha256'], f): loaded}
+
+    def load_ancestor(ref, at):
+        key = (ref['path'], ref['blob_sha256'], at)
+        if key not in states:
+            states[key] = load_config(at, ref)
+        return states[key]
+
+    def ledger_of(ref, at):
+        if context_ledger is None:
+            raise ReplayFailure('the context does not provide its pinned ledger for migration')
+        return context_ledger(load_ancestor(ref, at))
+
     roles = cfg.get('roles') if isinstance(cfg.get('roles'), dict) else {}
     pinned = roles.get('side_change_classes')
     pinned_doc = None
@@ -1214,6 +1319,15 @@ def replay_run(repo, c_, m, rev, load_config, schemas, prefix, context_ledger=No
     # the original selector: the context's class record, its prefixes and the plan's record directory at f
     scope = recon_route.Scope(repo, roles.get('scientific_base'), m, None, f, False, pinned_doc,
                               posixpath.dirname(cref['path']), (), lambda p: False, [])
+    try:
+        _, migration_items, _ = migration_map(repo, loaded, load_ancestor, ledger_of, lambda: [
+            (at, path, raw) for at in dict.fromkeys([m, f] + ([rev] if rev else []))
+            for path, raw in recon_route.scanned(repo, at, scope)])
+    except oc.Stop as exc:
+        raise ReplayFailure('the historical migration inputs do not admit: %s' % exc) from exc
+    if migration_items:
+        raise ReplayFailure('the historical migration records fail their exact bindings: %s'
+                            % migration_items[0]['subject'])
     # R*(m): the finding lookup, the reviews that qualify witnesses for this run and the competing successors are
     # read over the record set of m (the mapping table's rows; rev is null here)
     cum_m = Cumulative(repo, [m], schemas, prefix)
@@ -1227,7 +1341,7 @@ def replay_run(repo, c_, m, rev, load_config, schemas, prefix, context_ledger=No
     if rev is not None:
         X, landed_admitted = run_roles_x(repo, c_, m, rev)
         try:
-            ledgered = set(context_ledger(loaded)) if context_ledger else None
+            ledgered = set(context_ledger(loaded)['files']) if context_ledger else None
         except Exception as exc:  # the context's ledger cannot be read: the scope is undecided
             if type(exc).__name__ == 'Unresolvable':
                 raise

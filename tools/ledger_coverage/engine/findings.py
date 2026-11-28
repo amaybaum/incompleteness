@@ -38,8 +38,7 @@ class Unsettled(Exception):
 class RunLevelBlock(Exception):
     # A finding whose binding cannot be decided from readable inputs: the named configuration's ledger cannot be read,
     # or a ledger target is ambiguous or missing. Owner decision of 2026-11-27: a run-level FAIL retirement-blocked with
-    # FAIL record-invalid, its evidence and provenance kept; ERROR stays only for an unreadable object and for edit-id
-    # migrations (R6.RECON.28, not implemented).
+    # FAIL record-invalid, its evidence and provenance kept. An unreadable object stays ERROR.
     pass
 
 

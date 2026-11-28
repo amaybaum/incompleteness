@@ -8,15 +8,59 @@ from . import findings as fd
 from . import util
 
 review_schema = 'oi-review-record/1'
+migration_schema = 'oi-edit-id-migration/1'
+migration_kind = 'edit-id-migration'
 record_schemas = ('oi-term-rules/2', 'oi-hp-adjudication/1', 'oi-context-adjudication/1', 'oi-hit-classification/1',
                   'oi-scope/1', 'oi-side-change-classes/1', 'oi-reconciliation/1', 'oi-reconciliation/2', 'oi-retirement-config/1',
-                  'oi-delegation/1', 'oi-reassessment/1', 'oi-adjudication/1')
+                  'oi-delegation/1', 'oi-reassessment/1', 'oi-adjudication/1', migration_schema)
 
 _url = re.compile(r'://|/runs/|/actions|check[-_ ]run|/issues/\d+$|^#\d+$|/pull/\d+$')
 
 
 item_lists = (('rules', 'id'), ('sites', 'site_id'), ('entries', 'id'), ('classifications', 'id'), ('records', 'id'),
               ('classes', 'id'))
+
+
+def migration_problems(doc):
+    """R6.RECON.28 and .32: the migration record, including S-2 owner attribution."""
+    from ..record_authority import OWNER_IDENTITIES
+    from .adjudication import parse_time
+
+    approval = {'quote': ('nestr', True), 'author': ('identity', True), 'time': ('nestr', True)}
+    pair = {'old': ('nestr', True), 'new': ('nestr', True)}
+    table = {'schema': (('lit', (migration_schema,)), True), 'record_id': ('nestr', True),
+             'supersedes': (('or', ('null',), ('keyed', fd.ref_keys)), True), 'author': ('identity', True),
+             'migrations': (('nearray', ('keyed', pair)), True), 'approval': (('keyed', approval), True)}
+    problems = []
+    fd.validate(table, doc, '$', problems)
+    if problems:
+        return problems
+    approval = doc['approval']
+    if parse_time(approval['time']) is None:
+        problems.append('approval.time is not a UTC time of R6.RECON.29')
+    if not any(fd.same_identity(approval['author'], owner) for owner in OWNER_IDENTITIES):
+        problems.append('approval.author does not name an owner identity')
+    pairs = doc['migrations']
+    if any(len({p[k] for p in pairs}) != len(pairs) for k in ('old', 'new')):
+        problems.append('a migration old or new id is repeated')
+    if any(p['old'] == p['new'] for p in pairs):
+        problems.append('a migration maps an edit id to itself')
+    return problems
+
+
+def first_parent_record(repo, anchor, ref):
+    """R6.RECON.33: the newest regular file with the exact path and digest on this first-parent walk."""
+    path, digest = ref.get('path'), ref.get('blob_sha256')
+    commit = anchor
+    while commit:
+        entry = repo.entries(commit).get(path)
+        if entry and entry[0] in ('100644', '100755'):
+            data = repo.read_blob(entry[1])
+            if util.sha256(data) == digest:
+                return commit, data
+        parents = repo.parents(commit)
+        commit = parents[0] if parents else None
+    return None, None
 
 
 def item_list_problems(doc):
@@ -46,6 +90,12 @@ def item_ids(doc):
     and is record-invalid: the record id never stands in for an entry's id."""
     if doc.get('schema') == 'oi-retirement-config/1':
         return [doc.get('config_id')]
+    if doc.get('schema') == migration_schema:
+        pairs = doc.get('migrations')
+        if not isinstance(pairs, list) or not pairs or not all(
+                isinstance(p, dict) and isinstance(p.get('old'), str) and p['old'] for p in pairs):
+            return []
+        return ['migration:%s' % p['old'] for p in pairs] + ['approval']
     if doc.get('schema') == 'oi-adjudication/1':
         # #1605 sec. 6 (R6.RECON.31 row, R6.ADJ.2): authorization, binding, dissents, disposition, conflicts and
         # ground:<id> for each ground
@@ -264,7 +314,7 @@ def predecessor_problems(ref, doc, store):
     return out
 
 
-def lint_chain(ref, store, admitted_shas, predecessor=False):
+def lint_chain(ref, store, admitted_shas, predecessor=False, *, observed_reviews=(), plan_directory=None):
     """Problems with one record's chain. ref = {path, blob_sha256}; admitted_shas: the blobs the configuration
     references (records and reviews). With `predecessor`, the record is a predecessor named by a `supersedes` (DI-2):
     it need not be referenced, and its review is found among the records of the object store at F."""
@@ -272,6 +322,10 @@ def lint_chain(ref, store, admitted_shas, predecessor=False):
     doc = store.resolve(ref) if predecessor else store.get(ref)
     if doc is None:
         return ['record %s: blob not in the object store at its path' % ref.get('path')]
+    if isinstance(doc, dict) and doc.get('schema') == migration_schema:
+        problems = migration_problems(doc)
+        if problems:
+            return problems
     pool = store.scanned() if predecessor else store.by_sha
     if not predecessor and ref['blob_sha256'] not in admitted_shas:
         out.append('record %s: not referenced by the configuration' % ref['path'])
@@ -300,6 +354,17 @@ def lint_chain(ref, store, admitted_shas, predecessor=False):
         else:
             out.append('record %s: no review record' % ref['path'])
         return out
+    checks = [(sha, path, rv, store.roots) for sha, path, rv in exact]
+    if doc.get('schema') == migration_schema:
+        known = {(sha, path) for sha, path, _ in exact}
+        visible = [(sha, path, rv, store.roots) for sha, (path, rv) in store.scanned().items()]
+        visible += [(util.sha256(raw), path, fd.strict_parse(raw), [at]) for at, path, raw in observed_reviews]
+        target = {'path': ref['path'], 'blob_sha256': ref['blob_sha256']}
+        for sha, path, rv, roots in visible:
+            if ((sha, path) not in known and isinstance(rv, dict) and rv.get('schema') == review_schema
+                    and rv.get('kind', 'review') == 'review' and rv.get('reviewed') == target):
+                checks.append((sha, path, rv, roots))
+                known.add((sha, path))
     shape = item_list_problems(doc)
     if shape:
         out.append('record %s: %s' % (ref['path'], shape[0]))
@@ -321,18 +386,24 @@ def lint_chain(ref, store, admitted_shas, predecessor=False):
         # rather than covered by a single verdict
         out.append('record %s: no item ids can be identified' % ref['path'])
         return out
-    for sha, path, rv in exact:
+    for sha, path, rv, roots in checks:
         # R6.REC.6 as staging S-2 S2.5 restates it: a review not independent (S2.4) of the record's author is no review
         bad = fd.independence_problems(rv, [author])
         # r6 Amendment 10 binds the admitted review of the post-freeze route; a predecessor's review keeps S-1 sec. 3
-        bad += revision_problems(store.repo, store.roots, rv, None if predecessor else store.record_commit)
+        bad += revision_problems(store.repo, roots, rv, None if predecessor else store.record_commit)
+        if doc.get('schema') == migration_schema:
+            bad += fd.review_schema_problems(rv)
+            if plan_directory and not path.startswith(plan_directory + '/'):
+                bad.append('the migration review is outside the plan record directory')
+            if isinstance(rv.get('dissent'), str) and rv['dissent'].strip():
+                bad.append('the review dissents')
         verdicts = {v.get('item'): v.get('verdict') for v in rv.get('verdicts', []) if isinstance(v, dict)}
         named = [v.get('item') for v in rv.get('verdicts', []) if isinstance(v, dict)]
         if len(named) != len(set(named)):
             bad.append('an item has more than one verdict')
         if set(ids) - set(verdicts):
             bad.append('verdicts do not cover every item')
-        if doc.get('schema') in fd.recon_schemas and set(verdicts) - set(ids):
+        if doc.get('schema') in fd.recon_schemas + (migration_schema,) and set(verdicts) - set(ids):
             bad.append('a verdict names an item outside the reconciliation record')
         if any(verdicts.get(i) != 'accept' for i in ids):
             bad.append('an item is not accepted')

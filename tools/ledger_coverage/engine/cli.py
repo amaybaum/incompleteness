@@ -268,7 +268,7 @@ def category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, r
     """Scan M's tree, the records the run reads and the scanned sets of F's tree and of each record commit the run
     names; block the run where a finding applies and no reassessment the configuration cites lifts it."""
     pinned = (cfg['roles'].get('side_change_classes') or {}) if isinstance(cfg.get('roles'), dict) else {}
-    pinned_doc = loaded.store.get(pinned) if pinned.get('path') else None
+    pinned_doc = loaded.store.get(pinned) if pinned.get('path') in getattr(ex, 'record_refs', {}) else None
     F = resolve(repo, a.freeze) if a.freeze else None
     scope = recon_route.Scope(repo, H, M, None, F, records.harness, pinned_doc,
                               posixpath.dirname(split_ref(a.config)[1]), led['files'], lambda p: False, [])
@@ -340,10 +340,19 @@ def category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, r
                     c = ps[0] if ps else None
         return rcache[key]
 
+    ancestor_loads = {}
+
+    def load_ancestor(ref, commit):
+        key = (ref['path'], ref['blob_sha256'], commit)
+        if key not in ancestor_loads:
+            ancestor_loads[key] = cfgmod.load(repo, commit, ref['path'], ref['blob_sha256'], None, 'harness')
+        return ancestor_loads[key]
+
     def ledger_of(ref, commit):
+        if commit == loaded.ref['commit'] and ref == {k: loaded.ref[k] for k in ('path', 'blob_sha256')}:
+            return led
         try:
-            other = cfgmod.load(repo, commit, ref['path'], ref['blob_sha256'], None, 'harness')
-            return load_adapter_input(repo, other, 'ledger')
+            return load_adapter_input(repo, load_ancestor(ref, commit), 'ledger')
         except Unresolvable:
             raise  # an unreadable object: ERROR
         except Exception as exc:  # the named configuration resolves but its ledger cannot be read
@@ -365,9 +374,15 @@ def category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, r
             cum_m_holder.append(c3.Cumulative(repo, [M], schemas, recon_route.audits_root))
         return cum_m_holder[0]
     try:
+        migrations, migration_items, migration_refs = c3.migration_map(
+            repo, loaded, load_ancestor, ledger_of, lambda: [(M, p, b) for p, b in m_scan] + [
+                (at, p, b) for at in sorted(set(revs + ([F] if F else [])) - {M})
+                for p, b in recon_route.scanned(repo, at, scope)])
+        out.extend(migration_items)
+        records.used.extend(migration_refs)
         bview = c3.Binding(repo, M, cfg, {'path': loaded.ref['path'], 'blob_sha256': loaded.ref['blob_sha256']}, led,
                            resolve_cfg, ledger_of, record_at=lambda ref: cum.record_at(ref) or explicit_at(ref),
-                           cfg_commit=loaded.ref['commit'])
+                           cfg_commit=loaded.ref['commit'], migrations=migrations)
         for f in found:
             present, wit = cum.witness(f['record'] or {}, M, revs, F)
             entry = f.get('entry')
@@ -396,8 +411,6 @@ def category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, r
                 bound[fkey(f)] = (edits, run_level, form, present)
             findings.append({'record': f['record'], 'item': f.get('item'), 'kind': f['kind'], 'path': f['path'],
                              'class': f.get('class'), 'present_at_M': present, 'witness': wit})
-    except fd.Unsettled as exc:
-        raise oc.Stop(oc.error, 'DESIGN_UNSETTLED', str(exc))
     except Unresolvable as exc:
         raise oc.Stop(oc.error, 'UNRESOLVABLE', 'a category-3 input cannot be read: %s' % exc)
     # OBL-29 custody (R6.CUST.1-.9): checked at effective M whenever the configuration cites a reassessment
@@ -414,7 +427,7 @@ def category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, r
             return cfgmod.load(repo, f_, cref_['path'], cref_['blob_sha256'], None, 'harness')
 
         def context_ledger(loaded_):
-            return set((load_adapter_input(repo, loaded_, 'ledger').get('files') or {}).keys())
+            return load_adapter_input(repo, loaded_, 'ledger')
 
         check.replayer = lambda c_, m_, rev_: c3.replay_run(repo, c_, m_, rev_, load_context_config, schemas,
                                                            recon_route.audits_root, context_ledger)
@@ -436,8 +449,6 @@ def category3(a, repo, cfg, loaded, H, M, led, recon, route_cands, ex, result, r
         try:
             chk = build_custody(M, F, cum)
             custody = chk.run()
-        except fd.Unsettled as exc:
-            raise oc.Stop(oc.error, 'DESIGN_UNSETTLED', str(exc))
         except Unresolvable as exc:
             raise oc.Stop(oc.error, 'UNRESOLVABLE', 'a custody object cannot be read: %s' % exc)
         for p_ in custody.get('problems') or []:
@@ -1549,7 +1560,9 @@ def op_execution(a, repo, ctx, loaded, records, result, control=None):
     for r in cfg['records']:
         d = loaded.store.get(r)
         kind = r.get('kind')
-        if kind == 'side-change-classes' and (d is None or d.get('schema') != 'oi-side-change-classes/1'):
+        if kind == 'side-change-classes' and (not isinstance(d, dict) or d.get('schema') != 'oi-side-change-classes/1'):
+            records.items.append(oc.make_item('RECORD', 'record-invalid', r['path'], None,
+                                              {'sha': r['blob_sha256'], 'why': 'invalid side-change class record'}))
             continue
         if kind == 'reconciliation' and (d is None or d.get('schema') not in rcmod.reconciliation_schemas):
             continue
@@ -1636,7 +1649,7 @@ def op_execution(a, repo, ctx, loaded, records, result, control=None):
                                                   {'sha': util.sha256(c[3]), 'why': 'no --main: nothing to reconcile'}))
         else:
             pinned = (cfg['roles'].get('side_change_classes') or {}) if isinstance(cfg.get('roles'), dict) else {}
-            pinned_doc = loaded.store.get(pinned) if pinned.get('path') else None
+            pinned_doc = loaded.store.get(pinned) if pinned.get('path') in record_refs else None
             scope = recon_route.Scope(repo, H, M, X, resolve(repo, a.freeze) if a.freeze else None, records.harness,
                                       pinned_doc, posixpath.dirname(split_ref(a.config)[1]), led['files'],
                                       ctx.in_corpus, recon, record_base=a.record_base)

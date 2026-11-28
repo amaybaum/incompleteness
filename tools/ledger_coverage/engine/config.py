@@ -6,6 +6,7 @@ import re
 import types
 
 from . import outcome as oc
+from . import findings as fd
 from . import profiles as pr
 from . import records as rec
 from . import rules as rulemod
@@ -281,13 +282,20 @@ def load(repo, rev, path, expected_sha, operation, mode, extra_records=(), admis
     entries = []
     L.nonregular = set()
     for r in list(cfg['rules']) + list(cfg['records']):
-        if repo.mode(commit, r['path']) not in (None, '100644', '100755'):
-            L.nonregular.add(r['path'])
-            continue
-        entries.append((r['path'], read_ref(repo, commit, r, 'record %s' % r['path'])))
-    # a record kind this design does not define (for example a retired schema) is a configuration error (sec. 16.2)
-    for r, (_, b) in zip([r for r in list(cfg['rules']) + list(cfg['records']) if r['path'] not in L.nonregular],
-                         entries):
+        if r.get('kind') == rec.migration_kind:
+            problems = []
+            fd.validate(dict(fd.ref_keys, kind=(('lit', (rec.migration_kind,)), True)), r, '$.records', problems)
+            if problems:
+                raise stop('CONFIG_INVALID', '; '.join(problems))
+            _, b = rec.first_parent_record(repo, commit, r)
+            if b is None:
+                continue  # R6.RECON.33: the migration evaluator reports a missing exact reference as record-invalid.
+        else:
+            if repo.mode(commit, r['path']) not in (None, '100644', '100755'):
+                L.nonregular.add(r['path'])
+                continue
+            b = read_ref(repo, commit, r, 'record %s' % r['path'])
+        entries.append((r['path'], b))
         if r not in cfg['records']:
             continue
         try:
@@ -302,6 +310,9 @@ def load(repo, rev, path, expected_sha, operation, mode, extra_records=(), admis
         if isinstance(doc, dict) and ((r.get('kind') == 'adjudication') != (doc.get('schema') == 'oi-adjudication/1')):
             raise stop('CONFIG_INVALID', 'record %s: the kind adjudication and the schema oi-adjudication/1 go '
                        'together' % r['path'])
+        if isinstance(doc, dict) and 'schema' in doc and (
+                (r.get('kind') == rec.migration_kind) != (doc['schema'] == rec.migration_schema)):
+            raise stop('CONFIG_INVALID', 'record %s: the migration kind and schema must agree' % r['path'])
     controls_b = read_ref(repo, commit, cfg['controls'], 'controls file')
     for r in extra_records:
         entries.append((r['path'], r['data']))
@@ -326,11 +337,17 @@ def load(repo, rev, path, expected_sha, operation, mode, extra_records=(), admis
         except Unresolvable:
             return None
         if b is None or util.sha256(b) != ref['blob_sha256']:
-            return None
+            # Migration predecessors have the first-parent reference rule of R6.RECON.33.
+            _, raw = rec.first_parent_record(repo, _c, ref)
+            older = fd.strict_parse(raw) if raw is not None else None
+            return older if isinstance(older, dict) and older.get('schema') == rec.migration_schema else None
         try:
-            return json.loads(b.decode('utf-8'))
+            doc = json.loads(b.decode('utf-8'))
         except (ValueError, UnicodeDecodeError):
             return None
+        if isinstance(doc, dict) and doc.get('schema') == rec.migration_schema:
+            return fd.strict_parse(b)
+        return doc
     L.store.resolver = resolver
 
     def scan(_c=commit):

@@ -232,26 +232,18 @@ def independence():
     variants('PRED:S2-OWNER-ROLES', 'the adjudicator, or the technical reviewer, AMaybaum: ADJ-INDEP',
              {'adjudicator': author('AMaybaum'), 'technical reviewer': lambda fx, J: {'T': fx.T('AMaybaum')}},
              'ADJ-INDEP')
-    RESULTS.append({'id': 'PRED:S2-OWNER-ROLES/migration', 'expected': 'a migration approval.author that is not an '
-                    'owner identity: FAIL record-invalid', 'actual': None, 'status': 'NOT RUN', 'attested': None,
-                    'reason': 'not runnable: the tool refuses a configuration referencing an edit-id-migration record '
-                              'fail-closed (R6.RECON.28 is not read; category3 raises Unsettled), so no '
-                              'migration.approval is ever evaluated'})
-    LOCAL.case('PRED:S2-OWNER-ROLES/migration')
-    # the reason, checked: the binding of a run refuses a configuration referencing an edit-id-migration record
-    from ledger_coverage.engine import category3 as c3
+    from ledger_coverage.engine import records as rec
 
-    def binding_of(records):
-        try:
-            c3.Binding(None, None, {'records': records}, None, None, None, None)
-            return 'bound'
-        except fd.Unsettled as exc:
-            return 'refused: %s' % exc
-    mig = {'kind': 'edit-id-migration', 'path': 'syn/cfg/migration.json', 'blob_sha256': h64('m')}
-    got = {'with a migration record': binding_of([mig]), 'without one': binding_of([])}
-    case('PRED:S2-OWNER-ROLES/migration-refused', 'the reason the migration variant is not runnable: a configuration '
-         'referencing an edit-id-migration record is refused (Unsettled) before any binding, and one without it is not',
-         got, got['with a migration record'].startswith('refused') and got['without one'] == 'bound')
+    record = {'schema': rec.migration_schema, 'record_id': 'migration', 'supersedes': None,
+              'author': 'writer', 'migrations': [{'old': 'E1', 'new': 'E2'}],
+              'approval': {'quote': 'Synthetic owner attribution control.', 'time': '2026-01-01T00:00Z'}}
+    got = {}
+    for author in (OWNERS[0].capitalize(), 'another-person'):
+        record['approval']['author'] = author
+        got[author] = rec.migration_problems(record)
+    case('PRED:S2-OWNER-ROLES/migration', 'a respelled owner identity passes attribution and another person fails it',
+         got, got[OWNERS[0].capitalize()] == [] and
+         got['another-person'] == ['approval.author does not name an owner identity'])
     variants('PRED:ADJ-N-OWNER-TECH-REVIEWER', 'the owner as technical reviewer (OD-4): ADJ-INDEP',
              {'a': lambda fx, J: {'T': fx.T(OWNERS[0])}}, 'ADJ-INDEP')
 

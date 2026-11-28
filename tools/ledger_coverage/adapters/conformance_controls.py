@@ -3492,6 +3492,7 @@ def main(out_root, native_tr5=False):
               ('RECON-BLOCK', lambda: pfc.block_controls(r, check)),
               # design amendment 4: the category-3 keying and the reassessment
               ('BLOCK-KEY', lambda: pfc.bk_controls(r, check)),
+              ('MIGRATION-RECORD', lambda: pfc.migration_controls(r, check)),
               # design amendment 3: the scientific effect, through the post-freeze route
               ('RECON-SCI', lambda: pfc.sci_controls(r, check))]
     for name, fn in groups:
