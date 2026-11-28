@@ -2,10 +2,10 @@
 countercontrols, the four-tree controls on real objects (sec. 13) and Z9g, compared with the preregistered
 expectations of the A1 controls file.
 
-The A1 configuration and its records are unreviewed drafts, so every run here uses the control harness: the
-configuration is admitted without its review chain and each result says so. Under the review chain the same
-configuration is refused (ERROR CONFIG_UNREVIEWED); control CHAIN-REFUSAL shows it. Mutant trees, ledgers and
-evidence exist only in memory or under the output directory.
+Fixed cases use the control harness with their exact case configuration. Amendment 11's live cases require
+the exact candidate F and verified representative binding. Their evidence stays separate from implementation
+fixtures and governed execution. Mutant trees, ledgers and evidence exist only in memory or under the output
+directory.
 
 The configuration does not land with the tool (design sec. 16.2): it belongs in the retirement plan's record
 directory, frozen with the plan at F. A staged draft is given with --staged-config FILE and --config REV:PATH,
@@ -41,10 +41,12 @@ if 'ledger_coverage' not in sys.modules:
     sys.modules['ledger_coverage'] = importlib.util.module_from_spec(_spec)
     _spec.loader.exec_module(sys.modules['ledger_coverage'])
 
-from ledger_coverage.engine import cli, gitobj, execution as exmod, pipeline as pl, purity, util  # noqa: E402
+from ledger_coverage.engine import cli, config as cfgmod, gitobj, outcome as oc  # noqa: E402
+from ledger_coverage.engine import execution as exmod, pipeline as pl, purity, util  # noqa: E402
 from ledger_coverage.engine import profiles as prf, rules as rulemod, records as rec  # noqa: E402
 from ledger_coverage.adapters import control_records  # noqa: E402
 from ledger_coverage.adapters.identity_fixture import review_record  # noqa: E402
+from ledger_coverage import record_authority as ra  # noqa: E402
 
 E = 'e837e3dbaa605efc867a213f3345cee14c36d8f5'
 H = '53c6601a10419b6b333cc992474272501ab542af'
@@ -85,6 +87,8 @@ def rules_not_due(a, repo_root):
     """r6 amendment 9: the ids of the expectation rows released by RC_RULES when the configuration under test does not
     yet reference reviewed rule records (OBL-3). Such a row is recorded NOT RUN; its evidence is kept as its actual.
     The configuration and its records are read from the tree the run reads (the staged draft over the commit)."""
+    if a.freeze is not None:
+        return set()
     import importlib.util as _ilu
     gp = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'gate', 'control_gate.py')
     spec = _ilu.spec_from_file_location('control_gate_a9', gp)
@@ -126,6 +130,11 @@ class A1:
                 self.crev = simulated_freeze(self.repo, self.crev, self.cpath, f.read())
         data = self.repo.read(self.crev, self.cpath)
         self.csha = sha(data) if data is not None else None
+        self.freeze = None
+        self.rep_binding = None
+        self.rep_instance_doc = None
+        self.rep_instance_bytes = None
+        self.fixed = None
         # the tool's record directory: where the configuration's controls file lies
         cfg = json.loads(data) if data is not None else {}
         self.ad = (cfg.get('controls') or {}).get('path', self.cpath).rsplit('/', 1)[0] + '/'
@@ -148,9 +157,9 @@ class A1:
         return os.path.join(self.out_root, 'run%03d' % self.n)
 
     def run(self, args, harness=True, control=None, case=None, mutation=None, bindings=None, baseline=None,
-            reader=None, attested=None):
+            reader=None, attested=None, config_revision=None):
         out = self.out()
-        argv = args[:1] + ['--config', '%s:%s' % (self.crev, self.cpath), '--out', out,
+        argv = args[:1] + ['--config', '%s:%s' % (config_revision or self.crev, self.cpath), '--out', out,
                            '--repo', self.repo_path] + args[1:]
         t = time.time()
         err = io.StringIO()
@@ -407,8 +416,11 @@ def rt_coverage(a):
              reference_difference='7 HP context-structure-changed, not 3: the 4 further sites (FULL:706, ch02:76, '
                                   'Substratum.md:94, :253) are unique at E and H and rewritten in H..T1\'; the '
                                   'reference population required uniqueness at T1\' as well (sec. 14).')
+    phase = a
+    a = a.fixed or a
     x = x_rep(a)
-    seg = ['--segment', '%s..%s' % (E, H), '--segment', '%s..%s=%s' % (H, x, LEDGER)]
+    ledger = '%s:%srep/ledger.json' % (a.tool_rev, a.ad)
+    seg = ['--segment', '%s..%s' % (E, H), '--segment', '%s..%s=%s' % (H, x, ledger)]
     code, res, t, scan = rep_run(a, ['coverage', '--commit', x, '--check', 'item2'] + seg,
                                  'ledgered and corpus paths of X_rep, and the segments E..H and H..X')
     fc = res.get('finding_counts', {})
@@ -436,12 +448,69 @@ def rt_coverage(a):
              predicate='exit 20; HP 113/7 and 7 HP structure REVIEWs; RET 19/5/3; no deny; 197 replaced, 4 removed; '
                        '168 moved; 22 shared sites in 9 groups; 31 region splices; region_lines.count == 215 (the '
                        'LF-inclusive site span, sec. 5)')
-    a.results['RT-T'] = {'id': 'RT-T', 'passed': False, 'status': 'NOT RUN', 'predicate': None,
-                         'expected': 'PASS only when every record verifies; any missing '
-                                     'record leaves REVIEW_REQUIRED or FAIL. Reported NOT RUN while no reviewed record '
-                                     'exists (sec. 10.4)',
-                         'actual': {'note': 'no reviewed record exists; RT-T0 shows the result without them',
-                                    'exit': code}}
+    a = phase
+    if a.freeze is None:
+        a.results['RT-T'] = {'id': 'RT-T', 'passed': False, 'status': 'NOT RUN', 'predicate': None,
+                             'expected': 'PASS only when every record verifies at candidate F',
+                             'actual': {'note': 'candidate-F evidence is not part of this fixed control', 'exit': code}}
+
+
+def rt_t(a):
+    """Candidate-F RT-T reads its ledger, configuration and reviews at that exact freeze candidate."""
+    if a.rep_instance_doc is None:
+        a.record('RT-T', False, 'PASS on the exact candidate F', {'refused': 'no verified live binding'})
+        return
+    F = a.freeze
+    directory = a.cpath.rsplit('/', 1)[0] + '/'
+    _, _, admitted, _, cfg = cli.freeze_admission(a.base, F, F, a.cpath, refuse_rep)
+    ledger_path, edits_path = (directory + name for name in ('ledger.json', 'edits.json'))
+    hp, context, hit = (directory + name for name in
+                        ('hp.json', 'context-adjudications.json', 'hit-classifications.json'))
+    gr = a.ad + 'records/gr58-hit-classification-v3.json'
+    records = {r['path']: r for r in cfg['records'] if r.get('commit', F) == F}
+    if any(p not in admitted or p not in records or sha(admitted[p]) != records[p]['blob_sha256']
+           for p in (hp, context, hit)) or gr not in records:
+        a.record('RT-T', False, 'PASS on the exact candidate F', {'refused': 'required reviewed input absent'})
+        return
+    cfgmod.read_ref(a.base, F, records[gr], 'the GR:58 hit record')
+    h, e = cfg['roles']['scientific_base'], cfg['roles']['pin']
+    x, changes = build_x_rep(a, frozen=True)
+    conforming = not rep_conforms(a, x, changes, frozen=True)
+    args = ['coverage', '--freeze', F, '--commit', x, '--check', 'item2',
+            '--segment', '%s..%s' % (e, h), '--segment', '%s..%s=%s:%s' % (h, x, F, ledger_path),
+            '--hp', '%s:%s' % (F, hp)]
+    for path in (gr, context, hit):
+        args += ['--classify', '%s:%s' % (F, path)]
+    scope = 'ledgered and corpus paths of X_rep, and the segments E..H and H..X'
+    inputs = {'H': h, 'E': e, 'config': raw_ref(a.base, F, a.cpath),
+              'ledger': raw_ref(a.base, F, ledger_path), 'edits': raw_ref(a.base, F, edits_path),
+              'records': [raw_ref(a.base, F, p) for p in (hp, gr, context, hit)]}
+
+    def observed(result, logged):
+        paths = logged.read_at(a, h=h, pins=tuple(inputs[k]['git_blob'] for k in ('ledger', 'edits')))
+        result = result or {}
+        admission = (result.get('config') or {}).get('admission') or {}
+        attested = {'representative_inputs': inputs, 'read_paths': paths,
+                    'every_record_verifies': result.get('outcome') == 'PASS' and admission.get('mode') == 'chain'}
+        if conforming:
+            attested['representative_candidate'] = REP_CANDIDATE.replace(
+                "the ledger's splices,", "the splices of the ledger frozen at F,", 1)
+        if not rep_scope(a, x, paths, frozen=True):
+            attested['scanned_paths_within'] = scope
+        return attested
+
+    logged = ReadLog(a.repo, x)
+    code, result, _ = a.run(args, harness=False, reader=logged, attested=lambda r: observed(r, logged))
+    baseline = a.rec.pending[-1]
+    restored = ReadLog(a.repo, x)
+    clean_code, clean_result, _ = a.run(args, harness=False, reader=restored, case='restored',
+                                       baseline=baseline, attested=lambda r: observed(r, restored))
+    facts = observed(result, logged)
+    a.record('RT-T', code == clean_code == 0 and result == clean_result and
+             facts == observed(clean_result, restored) and facts.get('every_record_verifies') and conforming and
+             facts.get('scanned_paths_within') == scope,
+             'PASS on the exact candidate F with reviewed records and the restored case',
+             {'exit': code, 'restored_exit': clean_code, 'X_rep': x, **facts})
 
 
 RTDR_MISSING = ('countercase: at H with the DR-1 alternative-a match at book/The-Incompleteness-of-Observation-FULL.md:6504 '
@@ -484,7 +553,9 @@ def rt_terms(a):
     a.results['RT-DR']['actual']['target_missing'] = {'exit': code, 'item_at_6504': not gone}
     a.results['RT-DR']['passed'] &= code == 20 and gone
     a.runs_of['RT-DR'] = a.rec.take()
-    # RT-DR3W: control-only scan of AGENTS.md with DR-3 alone
+    # RT-DR3W, RT-I7 and RT-I7A retain their fixed control configuration at either phase.
+    phase = a
+    a = a.fixed or a
     cfg = json.loads(a.repo.read(a.crev, a.cpath))
     controls = json.loads(a.repo.read(a.crev, cfg['controls']['path']))
     inputs = {i['id']: i for i in controls['control_inputs']}
@@ -517,7 +588,8 @@ def rt_terms(a):
     # RT-I7A and V3
     retired = retired_lines(a)
     for c, name in ((H, 'H'), ('X_rep', 'X_rep')):
-        args = ['terms', '--commit', x_rep(a) if c == 'X_rep' else c, '--base', H, '--ledger', LEDGER, '--check',
+        args = ['terms', '--commit', x_rep(a) if c == 'X_rep' else c, '--base', H, '--ledger',
+                '%s:%srep/ledger.json' % (a.tool_rev, a.ad), '--check',
                 'item7', '--final']
         if c == 'X_rep':
             code, res, t, scan = rep_run(a, args, 'ledgered and corpus paths of X_rep', case='at X_rep (R6.EVID.8)',
@@ -547,8 +619,14 @@ def rt_terms(a):
         a.results['RT-I7A']['passed'] &= ok
     # V3 countercontrol: one retired line restored to REVIEW would be visible
     a.results['V3-countercontrol'] = v3_countercontrol(a, retired)
-    code, res, t, scan_d = rep_run(a, ['terms', '--commit', x_rep(a), '--base', H, '--ledger', LEDGER, '--check',
-                                       'item7'], 'ledgered and corpus paths of X_rep')
+    a = phase
+    ledger_ref = '%s:%srep/ledger.json' % (a.tool_rev, a.ad)
+    live_rev = a.freeze
+    if live_rev is not None and a.rep_instance_doc is None:
+        raise RepRefused('RT-D requires the live filled control instance at candidate F')
+    code, res, t, scan_d = rep_run(a, ['terms', '--commit', x_rep(a), '--base', H, '--ledger', ledger_ref,
+                                       '--check', 'item7'], 'ledgered and corpus paths of X_rep',
+                                   config_revision=live_rev)
     hits = res.get('hits', [])
     w_pass = sorted('%s:%d' % (h['file'], h['line']) for h in hits if h['state'] == 'PASS')
     resid = [h for h in hits if 'resid' in h['profiles'] and h['state'] != 'PASS']
@@ -562,9 +640,10 @@ def rt_terms(a):
     gr58 = st_of.get(('papers/GR.md', 58))
     others = {'p0-core', 'p0-para', 'ledger-ext', 'ptr', 'repo', 'count-grep'}
     # "hit by no other review profile": every review profile evaluated on the same tree (repo with its scope)
-    c_all, r_all, _ = a.run(['terms', '--commit', x_rep(a), '--base', H, '--ledger', LEDGER, '--profile',
+    c_all, r_all, _ = a.run(['terms', '--commit', x_rep(a), '--base', H, '--ledger', ledger_ref, '--profile',
                              ','.join(sorted(others | {'resid'})), '--scope',
-                             '%s:%srecords/repo-scope-v1.json' % (a.crev, a.ad)])
+                             '%s:%srecords/repo-scope-v1.json' % (live_rev or a.crev, a.ad)],
+                            config_revision=live_rev)
     prof_at = {(h['file'], h['line']): set(h['profiles']) for h in r_all.get('hits', [])}
     resid_only = [h for h in resid if not prof_at.get((h['file'], h['line']), set()) & others]
     a.record('RT-D', not any(i['class'] == 'deny-match' for i in res.get('items', [])) and
@@ -583,8 +662,10 @@ def rt_terms(a):
              reference_difference=None,
              predicate='no deny-match; the 10 W1/W2 hit states are PASS; SM:1394 and GR.md:58 REVIEW_REQUIRED; 45 resid '
                        'REVIEW lines of which 17 carry no other review profile')
-    code, res, t = a.run(['terms', '--commit', x_rep(a), '--base', H, '--ledger', LEDGER, '--check', 'item7',
-                          '--classify', '%s:%s' % (a.crev, hit_record_path(a))])
+    gr58_ref = a.ad + 'records/gr58-hit-classification-v3.json' if live_rev else hit_record_path(a)
+    code, res, t, _ = rep_run(a, ['terms', '--commit', x_rep(a), '--base', H, '--ledger', ledger_ref,
+                                  '--check', 'item7', '--classify', '%s:%s' % (live_rev or a.crev, gr58_ref)],
+                              'ledgered and corpus paths of X_rep', config_revision=live_rev)
     gr = [h for h in res.get('hits', []) if h['file'] == 'papers/GR.md' and h['line'] == 58]
     a.record('RT-D-gr58', gr and gr[0]['state'] == 'PASS', 'GR.md:58 PASS with its record',
              {'gr58': gr[0] if gr else None})
@@ -1751,6 +1832,7 @@ PREDICATES = {
 REP_LEDGER_GIT = 'ba37c1cdb560cb5fceeeb2b46a3091c832b4a80e'  # the retirement ledger's git blob (R6.EVID.8)
 REP_EDITS_GIT = 'ec384fdfbc12937b860e2f226355e8c5d94820a5'  # the edit list's git blob (R6.EVID.8)
 REP_ALLOWED_IMPORTS = ('hashlib', 'json')
+REP_BUILDER = 'tools/ledger_coverage/adapters/rep_build.py'
 REP_CANDIDATE = ("X_rep (R6.EVID.8): single parent H; ledgered paths H plus the ledger's splices, sha256 equal to the "
                  "ledger's expected_sha256; plan record-directory paths the pinned ledger and edit list; delegated paths "
                  "a fixed marker blob; every other path H's")
@@ -1793,8 +1875,24 @@ def rep_ledger_inputs(a):
     return led, eds
 
 
-def rep_inputs(a):
+def raw_ref(repo, commit, path):
+    mode = repo.mode(commit, path)
+    data = repo.read(commit, path)
+    if mode not in gitobj.regular_modes or data is None:
+        raise RepRefused('expected regular pinned input at %s:%s' % (commit, path))
+    return {'commit': commit, 'path': path, 'mode': mode, 'git_blob': gitobj.blob_id_of(data),
+            'blob_sha256': sha(data)}
+
+
+def rep_inputs(a, *, frozen=False):
     """The pinned ledger, edit list and delegation inputs for the representative build."""
+    if frozen:
+        _, _, admitted, _, cfg = cli.freeze_admission(a.base, a.freeze, a.freeze, a.cpath, refuse_rep)
+        directory = a.cpath.rsplit('/', 1)[0] + '/'
+        led, eds = (admitted.get(directory + name) for name in ('ledger.json', 'edits.json'))
+        if led is None or eds is None or json.loads(led).get('base') != cfg['roles']['scientific_base']:
+            raise RepRefused('the candidate F ledger and edits must be pinned to its scientific base')
+        return led, eds, json.loads(cfgmod.read_ref(a.base, a.freeze, cfg['delegation'], 'delegation'))
     led, eds = rep_ledger_inputs(a)
     # the configuration's control instance when the runner bound one (rep_instance, R6.EVID.8; staging r2 sec. 2),
     # else the configuration
@@ -1803,7 +1901,7 @@ def rep_inputs(a):
     dref = cfg.get('delegation') or {}
     deleg = {}
     if dref.get('path'):
-        revision = a.rep_binding['template']['commit'] if inst is not None else a.crev
+        revision = dref.get('commit') or (a.rep_binding['template']['commit'] if inst is not None else a.crev)
         encoded = a.repo.read(revision, dref['path'])
         if encoded is None or sha(encoded) != dref.get('blob_sha256'):
             raise RepRefused('the delegation contract differs from its configuration pin')
@@ -1816,7 +1914,7 @@ def rep_inputs(a):
     return led, eds, deleg
 
 
-def bind_control_instance(a, template, snapshot, descriptor_sha256):
+def bind_control_instance(a, template, snapshot, descriptor_sha256, *, tool_landing=None, main_tip=None):
     """R6.EVID.8: the configuration's control instance, the landed template filled from the class tip in the run's
     M, with the role binding at the reviewed snapshot S (rep_instance.bind and fill). Sets a.rep_instance_doc and
     a.rep_binding; a refused binding is kept as {'refused': reason} and leaves REP-BUILD open (FAIL)."""
@@ -1828,40 +1926,83 @@ def bind_control_instance(a, template, snapshot, descriptor_sha256):
         if tb is None:
             raise ri.Refused('no control-instance template at %s' % template)
         template_ref = {'path': tpath, 'blob_sha256': sha(tb)}
-        b = ri.bind(a.base, a.base.resolve(snapshot), a.main, descriptor_sha256, template=template_ref)
+        live = {}
+        if a.freeze is not None:
+            if template_commit != tool_landing or not main_tip:
+                raise RepRefused('the live template must be read from the exact tool landing')
+            _, _, admitted, _, cfg = cli.freeze_admission(a.base, a.freeze, a.freeze, a.cpath,
+                                                          refuse_rep)
+            directory = a.cpath.rsplit('/', 1)[0] + '/'
+            dpath = directory + ra.transition_descriptor
+            ledger = admitted.get(directory + 'ledger.json')
+            if not ledger or not admitted.get(dpath) or sha(admitted[dpath]) != descriptor_sha256:
+                raise RepRefused('the candidate F does not pin the representative descriptor and final ledger')
+            trans = cfgmod.transition_admission(a.base, a.freeze, directory, a.cpath, a.csha, cfg, admitted)
+            if not trans:
+                raise RepRefused('the candidate F has no admitted transition')
+            paths = json.loads(ledger).get('files')
+            if not isinstance(paths, dict) or not paths:
+                raise RepRefused('the candidate F ledger does not give a complete path set')
+            live = {'tool_landing': tool_landing, 'main_tip': main_tip, 'ledger_paths': paths}
+        b = ri.bind(a.base, a.base.resolve(snapshot), a.main, descriptor_sha256, template=template_ref, **live)
+        if live and (trans['base'] != b['B'] or
+                     trans['tips'] != {'class': b[ri.CLASS_FILL], 'allow': b[ri.ALLOW_FILL]}):
+            raise RepRefused('the bound snapshot differs from the exact candidate F role tips')
+        if live and not all(gitobj.on_first_parent_chain(a.base, x, main_tip) for x in (H, E)):
+            raise RepRefused('the pinned representative H and E must be on main')
+        if live:
+            final_h = cfg['roles']['scientific_base']
+            if final_h in (tool_landing, b['B']) or not (
+                    gitobj.on_first_parent_chain(a.base, tool_landing, final_h) and
+                    gitobj.on_first_parent_chain(a.base, final_h, b['B'])):
+                raise RepRefused('the final scientific base must lie between the tool landing and preparation base')
         inst = ri.fill(tb, b)
         a.rep_instance_doc = json.loads(inst)
-        a.rep_binding = {'template': {'commit': template_commit, **template_ref},
-                         'S': b['S'], 'M': b['M'], 'B': b['B'], 'descriptor': b['descriptor'],
-                         'class_tip': b[ri.CLASS_FILL], 'allow_tip': b[ri.ALLOW_FILL],
-                         'pins_checked': b['pins_checked'], 'instance_sha256': sha(inst)}
-    except (ri.Refused, gitobj.Unresolvable) as exc:
+        a.rep_instance_bytes = inst
+        a.rep_binding = {**b, 'template': {'commit': template_commit, **template_ref},
+                         'mode': 'live' if live else 'fixture', 'freeze': a.freeze, 'tool_rev': a.tool_rev,
+                         'class_tip': b[ri.CLASS_FILL], 'allow_tip': b[ri.ALLOW_FILL], 'instance_sha256': sha(inst)}
+    except (ri.Refused, RepRefused, gitobj.Unresolvable, oc.Stop, ValueError) as exc:
         a.rep_instance_doc = None
+        a.rep_instance_bytes = None
         a.rep_binding = {'template': template, 'refused': str(exc)}
 
 
-def build_x_rep(a, repo=None, ledger=None, source=None):
+def refuse_rep(reason):
+    raise RepRefused(reason)
+
+
+def build_x_rep(a, repo=None, ledger=None, source=None, *, frozen=False, reads=None):
     """X_rep in `repo` (default the runner's reader): (commit id, change set). Refuses (RepRefused) when the inputs
     determine no representative candidate, or a marker blob equals the run's M blob."""
     repo = repo or a.repo
-    with open(os.path.join(here, 'rep_build.py'), 'rb') as f:
-        src = f.read() if source is None else source
+    src = a.base.read(a.tool_rev, REP_BUILDER) if source is None else source
+    if src is None:
+        raise RepRefused('the exact tool revision does not hold the builder')
     rb, _mods = rep_builder(src)
-    led, eds, deleg = rep_inputs(a)
+    led, eds, deleg = rep_inputs(a, frozen=frozen)
+    h = json.loads(led)['base'] if frozen else H
+    directory = (a.cpath.rsplit('/', 1)[0] + '/') if frozen else PL
     if ledger is not None:
         led = ledger
 
     def read_h(p):
-        return a.base.read(H, p) if a.base.blob_id(H, p) else None
+        if reads is not None:
+            reads['H'].add(p)
+        return a.base.read(h, p) if a.base.blob_id(h, p) else None
     try:
-        ch = rb.changes(H, led, eds, deleg, read_h, PL)
+        ch = rb.changes(h, led, eds, deleg, read_h, directory)
     except rb.Refused as exc:
         raise RepRefused(str(exc))
     if a.main is not None:
         for p in rb.delegated_paths(deleg):
-            if p in ch and a.base.blob_id(a.main, p) and a.base.read(a.main, p) == ch[p]:
+            if p not in ch:
+                continue
+            if reads is not None:
+                reads['M'].add(p)
+            if a.base.blob_id(a.main, p) and a.base.read(a.main, p) == ch[p]:
                 raise RepRefused('the marker blob equals the run\'s M blob at %s' % p)
-    return repo.derive(H, ch, parents=[H], subject=rb.SUBJECT), ch
+    return repo.derive(h, ch, parents=[h], subject=rb.SUBJECT), ch
 
 
 def x_rep(a):
@@ -1871,27 +2012,30 @@ def x_rep(a):
     return a._x_rep
 
 
-def rep_conforms(a, x, ch):
+def rep_conforms(a, x, ch, *, frozen=False):
     """The representative_candidate invariant checked on the built commit: [] when it holds."""
     out = []
-    led = json.loads(rep_inputs(a)[0])
-    if a.repo.parents(x) != [H]:
+    raw_ledger, edits, deleg = rep_inputs(a, frozen=frozen)
+    led = json.loads(raw_ledger)
+    h = led['base'] if frozen else H
+    directory = (a.cpath.rsplit('/', 1)[0] + '/') if frozen else PL
+    if a.repo.parents(x) != [h]:
         out.append('the parent is not H')
     for p, want in led['files'].items():
         b = a.repo.read(x, p)
         if b is None or sha(b) != want['expected_sha256']:
             out.append('ledgered path %s does not carry its expected_sha256' % p)
-    for p in (PL + 'ledger.json', PL + 'edits.json'):
-        if gitobj.blob_id_of(a.repo.read(x, p) or b'') not in (REP_LEDGER_GIT, REP_EDITS_GIT):
+    for name, data in (('ledger.json', raw_ledger), ('edits.json', edits)):
+        p = directory + name
+        if a.repo.read(x, p) != data:
             out.append('plan record-directory path %s does not carry the pinned input' % p)
-    deleg = rep_inputs(a)[2]
     for p in sorted({q for c in deleg.get('classes') or [] for q in c.get('paths') or []
                      if not q.endswith('/') and q not in led['files']}):
         b = a.repo.read(x, p)
-        if b is None or b == a.base.read(H, p) or (a.main is not None and a.base.blob_id(a.main, p) and
+        if b is None or b == a.base.read(h, p) or (a.main is not None and a.base.blob_id(a.main, p) and
                                                    b == a.base.read(a.main, p)):
             out.append('delegated path %s carries no marker blob differing from H and M' % p)
-    hx, xx = a.base.paths(H), a.repo.paths(x)
+    hx, xx = a.base.entries(h), a.repo.entries(x)
     changed = {p for p in set(hx) | set(xx) if hx.get(p) != xx.get(p)}
     if changed - set(ch):
         out.append('paths outside the change set differ from H: %s' % sorted(changed - set(ch))[:5])
@@ -1921,20 +2065,20 @@ class ReadLog:
         self.blobs.add(bid)
         return self._r.read_blob_uncached(bid)
 
-    def read_at(self, a):
+    def read_at(self, a, *, h=H, pins=(REP_LEDGER_GIT, REP_EDITS_GIT)):
         # a blob read by id is attributed to the commit's paths only when H's tree lacks it and it is not the pinned
-        # ledger or edit list, which a run reads by blob as its --ledger input at P (the same bytes); X_rep's own
+        # ledger or edit list, which a run reads at their checked pins; X_rep's own
         # copies of them are still logged when read by path
-        hb = set(a.base.paths(H).values()) | {REP_LEDGER_GIT, REP_EDITS_GIT}
+        hb = set(a.base.paths(h).values()) | set(pins)
         return sorted(self.seen | {p for p, b in a.repo.paths(self.commit).items() if b in self.blobs and b not in hb})
 
 
-def rep_scope(a, x, read, extra=()):
+def rep_scope(a, x, read, extra=(), *, config_revision=None, frozen=False):
     """The paths of `read` outside the ledgered and corpus path sets of X_rep and `extra` (R6.EVID.8)."""
     import re as _re
-    cfg = json.loads(a.repo.read(a.crev, a.cpath))
+    cfg = json.loads(a.repo.read(config_revision or a.crev, a.cpath))
     pats = [_re.compile(q) for q in (cfg.get('corpus') or {}).get('patterns') or []]
-    led = set(json.loads(rep_inputs(a)[0])['files'])
+    led = set(json.loads(rep_inputs(a, frozen=frozen)[0])['files'])
     return sorted(p for p in read if p not in led and p not in extra and not any(q.search(p) for q in pats))
 
 
@@ -1947,8 +2091,10 @@ def rep_run(a, args, scope_text, case=None, extra=(), **kw):
     holder = {}
 
     def att(_res):
-        holder['outside'] = out = rep_scope(a, x, log.read_at(a), extra)
-        d = {}
+        reads = log.read_at(a)
+        holder['outside'] = out = rep_scope(a, x, reads, extra, config_revision=kw.get('config_revision'))
+        d = {'read_paths': reads,
+             'config': raw_ref(a.repo, kw.get('config_revision') or a.crev, a.cpath)}
         if not getattr(a, '_x_rep_why', ['unchecked']):
             d['representative_candidate'] = REP_CANDIDATE
         if not out:
@@ -1961,8 +2107,9 @@ def rep_run(a, args, scope_text, case=None, extra=(), **kw):
 def rep_build_control(a):
     """REP-BUILD (R6.EVID.8): two builds in two readers with equal commit and tree ids, conforming; a ledger with one
     splice's new bytes changed by one byte refused for the expected_sha256; a builder importing the engine refused."""
-    acts = {}
+    acts, files = {}, {}
     bound = getattr(a, 'rep_binding', None)
+    src = a.base.read(a.tool_rev, REP_BUILDER)
     try:
         if bound is None:
             raise RepRefused('no representative template and snapshot binding supplied')
@@ -1970,13 +2117,35 @@ def rep_build_control(a):
             raise RepRefused(bound['refused'])
         if getattr(a, 'rep_instance_doc', None) is None:
             raise RepRefused('the verified binding has no filled control instance')
-        x1, ch = build_x_rep(a)
+        config_rev = a.freeze or bound['S']
+        cfg = raw_ref(a.base, config_rev, a.cpath)
+        delegation = a.rep_instance_doc['delegation']
+        delegation = raw_ref(a.base, delegation.get('commit') or bound['template']['commit'], delegation['path'])
+        operands = {'E': E, 'H': H, 'config': cfg, 'delegation': delegation,
+                    'builder': raw_ref(a.base, a.tool_rev, REP_BUILDER)}
+        for name in ('ledger', 'edits'):
+            operands[name] = raw_ref(a.base, a.tool_rev, '%srep/%s.json' % (a.ad, name))
+        first_reads = {'H': set(), 'M': set()}
+        second_reads = {'H': set(), 'M': set()}
+        x1, ch = build_x_rep(a, reads=first_reads)
         r2 = gitobj.Overlay(a.base)
-        x2, _ = build_x_rep(a, repo=r2)
+        x2, _ = build_x_rep(a, repo=r2, reads=second_reads)
         ids = [(x1, a.repo.tree_id(x1)), (x2, r2.tree_id(x2))]
         why = rep_conforms(a, x1, ch)
-        with open(os.path.join(here, 'rep_build.py'), 'rb') as f:
-            _, mods = rep_builder(f.read())
+        _, mods = rep_builder(src)
+        base = a.base.entries(H)
+        builds = []
+        for repo, commit, reads in ((a.repo, x1, first_reads), (r2, x2, second_reads)):
+            entries = repo.entries(commit)
+            delta = {}
+            for path in sorted(p for p in set(base) | set(entries) if base.get(p) != entries.get(p)):
+                if path not in entries:
+                    raise RepRefused('the representative build deleted %s' % path)
+                ref = raw_ref(repo, commit, path)
+                delta[path] = {k: ref[k] for k in ('mode', 'git_blob', 'blob_sha256')}
+            builds.append({'commit': commit, 'tree': repo.tree_id(commit), 'parents': repo.parents(commit),
+                           'changes': delta, 'reads': {k: sorted(v) for k, v in reads.items()}})
+        files['control-instance.json'] = a.rep_instance_bytes
         ok1 = ids[0] == ids[1] and not why
         att = {'outcome': 'HASH_EQUAL' if ids[0] == ids[1] else 'HASH_DIFFERS'}
         if not why:
@@ -1987,8 +2156,8 @@ def rep_build_control(a):
             att['imported_files_within'] = 'the builder and the standard library; no module under tools/ledger_coverage/engine/'
         acts['build'] = {'commit_ids': [ids[0][0], ids[1][0]], 'tree_ids': [ids[0][1], ids[1][1]],
                          'changed_paths': len(ch), 'nonconforming': why, 'imports': mods,
-                         'control_instance': bound}
-    except RepRefused as exc:
+                         'control_instance': bound, 'operands': operands, 'builds': builds}
+    except (RepRefused, gitobj.Unresolvable, KeyError) as exc:
         ok1, att = False, {'outcome': 'REFUSED', 'reason': str(exc)}
         acts['build'] = {'refused': str(exc)}
     a.rec.capture_doc('X_rep build (a1_controls.py rep_build_control)', dict(acts['build'], exit_status=None),
@@ -2000,37 +2169,44 @@ def rep_build_control(a):
     try:
         led = json.loads(rep_ledger_inputs(a)[0])
         s0 = led['splices'][0]
-        s0['new'] = s0['new'][:-1] + ('x' if s0['new'][-1:] != 'x' else 'y')
+        if not s0['new'] or len(s0['new'][-1].encode('utf-8')) != 1:
+            raise RepRefused('the retained splice does not have a final single byte for the control')
+        s0['new'] = s0['new'][:-1] + ('x' if s0['new'][-1] != 'x' else 'y')
         s0['new_sha256'] = sha(s0['new'].encode('utf-8'))
         bad_ledger = json.dumps(led).encode('utf-8')
+        files['ledger.mutant.json'] = bad_ledger
         mutated.update(splice=s0['id'], file=s0['file'])
         mutation = [{'path': a.ad + 'rep/ledger.json', 'splice': s0['id'], 'change': 'one byte of new'}]
         build_x_rep(a, repo=gitobj.Overlay(a.base), ledger=bad_ledger)
         att2, ok2 = {'outcome': 'NOT_REFUSED'}, False
-    except RepRefused as exc:
+    except (RepRefused, gitobj.Unresolvable) as exc:
         reason = str(exc)
         ok2 = reason.startswith("a ledgered path's sha256 differs from the ledger's expected_sha256")
         att2 = {'outcome': 'REFUSED',
                 'reason': "a ledgered path's sha256 differs from the ledger's expected_sha256" if ok2 else reason}
-    acts['mutated_ledger'] = dict(mutated, attested=att2)
+    acts['mutated_ledger'] = dict(mutated, attested=att2, outcome=att2['outcome'],
+                                  reason=reason if att2['outcome'] == 'REFUSED' else None)
     a.rec.capture_doc('X_rep build with a mutated ledger (a1_controls.py rep_build_control)',
                       dict(acts['mutated_ledger'], exit_status=None), case=REP_CASES[1],
                       mutation=mutation, attested=att2)
     # a builder whose source also imports a module of the engine
-    with open(os.path.join(here, 'rep_build.py'), 'rb') as f:
-        src = f.read()
-    evil = src.replace(b'import hashlib\n', b'import hashlib\nfrom ledger_coverage.engine import util\n', 1)
+    evil = (src or b'').replace(b'import hashlib\n', b'import hashlib\nfrom ledger_coverage.engine import util\n', 1)
     try:
+        if not src or evil == src:
+            raise RepRefused('the exact builder source cannot be mutated as declared')
+        files['rep_build.mutant.py'] = evil
         build_x_rep(a, repo=gitobj.Overlay(a.base), source=evil)
         att3, ok3 = {'outcome': 'NOT_REFUSED'}, False
     except RepRefused as exc:
         ok3 = str(exc) == 'the builder imports from the engine under test'
         att3 = {'outcome': 'REFUSED', 'reason': str(exc)}
-    acts['engine_import'] = {'source_differs': evil != src, 'attested': att3}
+    acts['engine_import'] = {'source_differs': bool(src and evil != src), 'attested': att3,
+                             'outcome': att3['outcome'], 'reason': att3.get('reason')}
     a.rec.capture_doc('X_rep builder importing the engine (a1_controls.py rep_build_control)',
                       dict(acts['engine_import'], exit_status=None), case=REP_CASES[2],
                       mutation=[{'path': 'tools/ledger_coverage/adapters/rep_build.py',
                                  'change': 'adds from ledger_coverage.engine import util'}], attested=att3)
+    a.files_of['REP-BUILD'] = files
     a.record('REP-BUILD', ok1 and ok2 and ok3 and evil != src,
              'HASH_EQUAL over two builds, conforming, stdlib imports only; the mutated ledger REFUSED for the '
              'expected_sha256; the engine-importing builder REFUSED', acts,
@@ -2056,6 +2232,12 @@ def main():
                          'runs in place of the drafted reconciliation record (repeatable; REV resolved here)')
     ap.add_argument('--main', default=None,
                     help='required: the main commit the sequencing safeguard (RT-L2) and the drift classes use')
+    phase = ap.add_mutually_exclusive_group()
+    phase.add_argument('--tool-candidate', help='the full tool-acceptance checkout id')
+    phase.add_argument('--freeze', help='the exact candidate F for candidate-F validation')
+    ap.add_argument('--tool-landing', help='the exact tool landing on main for live representative binding')
+    ap.add_argument('--main-tip', help='the observed first-parent main tip for live representative binding')
+    ap.add_argument('--fixed-config', help='the reviewed Git-backed configuration of the retained fixed cases at F')
     ap.add_argument('--rep-template', default=None,
                     help='REV:PATH of the landed control-instance template (R6.EVID.8); with --rep-snapshot and '
                          '--rep-descriptor-sha256 the runner binds and fills the control instance (rep_instance)')
@@ -2063,14 +2245,33 @@ def main():
     ap.add_argument('--rep-descriptor-sha256', default=None, help='the sha256 of the transition descriptor S carries')
     args = ap.parse_args()
     rep_opts = (args.rep_template, args.rep_snapshot, args.rep_descriptor_sha256)
-    if any(rep_opts) and not all(rep_opts):
-        ap.error('--rep-template, --rep-snapshot and --rep-descriptor-sha256 are given together')
+    if (any(rep_opts) and not all(rep_opts)) or (args.tool_candidate or args.freeze) and not all(rep_opts):
+        ap.error('--rep-template, --rep-snapshot and --rep-descriptor-sha256 are required together')
     if not args.main:
         ap.error('--main is required: the main commit the sequencing safeguard is measured against')
     try:
-        main_c = gitobj.GitRepo(args.repo).resolve(rev_parse(args.repo, args.main))
-    except Exception as exc:
-        ap.error('--main %s does not resolve: %s' % (args.main, exc))
+        base = gitobj.GitRepo(args.repo)
+        main_c = base.resolve(rev_parse(args.repo, args.main))
+        head = rev_parse(args.repo, 'HEAD')
+        if args.tool_candidate or args.freeze:
+            rev = args.config.split(':', 1)[0]
+            picked = args.freeze or args.rep_snapshot
+            if args.staged_config or args.overlay_from_disk or base.resolve(picked) != picked or rev != picked:
+                raise ValueError('the assessment configuration must name its exact Git snapshot without an overlay')
+            if args.tool_candidate and args.tool_candidate != head:
+                raise ValueError('the tool-acceptance subject is not the checkout')
+            if args.freeze:
+                if not args.main_tip or not args.tool_landing or base.resolve(args.tool_landing) != args.tool_landing:
+                    raise ValueError('candidate-F validation requires an exact tool landing and main tip')
+                if base.resolve(args.main_tip) != head or args.main_tip != head or main_c != args.main:
+                    raise ValueError('candidate-F validation requires the exact main checkout and representative anchor')
+                fix, path = (args.fixed_config or ':').split(':', 1)
+                if not fix or fix == args.freeze or base.resolve(fix) != fix or base.read(fix, path) is None:
+                    raise ValueError('candidate-F validation requires the exact configuration of the fixed cases')
+        if not args.freeze and (args.tool_landing or args.main_tip or args.fixed_config):
+            raise ValueError('live representative arguments require an explicit candidate F')
+    except (ValueError, gitobj.Unresolvable) as exc:
+        ap.error(str(exc))
     os.makedirs(args.out, exist_ok=True)
     out_root = tempfile.mkdtemp(prefix='a1-controls-', dir=args.out)
     cref = args.config
@@ -2094,19 +2295,27 @@ def main():
         a.csha = sha(a.repo.read(wt, cpath))
     else:
         a = probe
-        head = a.tool_rev
-        for p, b in a.base.paths(head).items():
+        if args.tool_candidate or args.freeze:
+            a.tool_rev = head
+        for p, b in a.base.paths(a.tool_rev).items():
             if p.startswith(('tools/ledger_coverage/', ad + '/')) or p in ('tools/ledger_coverage.py', WORKFLOW_PATH):
                 tool_files[p] = a.base.read_blob(b)
     a.classify = ['%s:%s' % (rev_parse(args.repo, ref.split(':', 1)[0]), ref.split(':', 1)[1]) for ref in args.classify]
+    a.freeze = args.freeze
+    if args.freeze:
+        a.fixed = A1(args.repo, args.fixed_config, tempfile.mkdtemp(prefix='fixed-', dir=out_root), main=main_c)
+        a.fixed.tool_rev = a.tool_rev
+        a.fixed.rec, a.fixed.results, a.fixed.runs_of = a.rec, a.results, a.runs_of
     if all(rep_opts):
         trev, tpath = args.rep_template.split(':', 1)
         bind_control_instance(a, '%s:%s' % (rev_parse(args.repo, trev), tpath), rev_parse(args.repo, args.rep_snapshot),
-                              args.rep_descriptor_sha256)
+                              args.rep_descriptor_sha256, tool_landing=args.tool_landing, main_tip=args.main_tip)
     groups = [('chain', chain_refusal), ('record', rt_record), ('coverage', rt_coverage), ('terms', rt_terms),
               ('v', v_controls), ('rules', rule_lint_controls), ('exec', ex_controls),
               ('trees', lambda x: tree_controls(x, tool_files)), ('k1', lambda x: k1_graph(x, tool_files)),
               ('z9g', z9g), ('rep', rep_build_control)]
+    if a.freeze is not None:
+        groups.append(('rt-t', rt_t))
     groups.append(('y8', lambda x: engine_identity_y8(x, args.syn_engine)))
     if not args.skip_sweeps:
         groups.append(('sweeps', sweeps))
