@@ -46,6 +46,7 @@ if 'ledger_coverage' not in sys.modules:
 from ledger_coverage.engine import cli, config as cfgmod, gitobj, outcome as oc  # noqa: E402
 from ledger_coverage.engine import execution as exmod, pipeline as pl, purity, util  # noqa: E402
 from ledger_coverage.engine import profiles as prf, rules as rulemod, records as rec  # noqa: E402
+from ledger_coverage.engine import findings as fd  # noqa: E402
 from ledger_coverage.adapters import control_records  # noqa: E402
 from ledger_coverage.adapters.identity_fixture import review_record  # noqa: E402
 from ledger_coverage import record_authority as ra  # noqa: E402
@@ -2391,20 +2392,91 @@ def rt_d_projection(a, result, residual, profile, scope_doc, scope_read, source_
 
 
 def rt_d_scope_record(repo, revision, loaded):
-    """Admit the exact reviewed repo scope root for the RT-D overlap."""
+    """Admit the exact reviewed repo scope and check every widening in its lineage."""
     refs = [r for r in loaded.config['records'] if r.get('kind') == 'scope'
             and (loaded.store.get(r) or {}).get('profile') == 'repo']
     if len(refs) != 1:
         raise RepRefused('RT-D needs exactly one configured repo scope')
     ref = refs[0]
-    records = cli.RecordSet(loaded, False)
+    def resolve_predecessor(pin):
+        problems = []
+        fd.validate(fd.ref_keys, pin, 'scope predecessor', problems)
+        if problems:
+            raise RepRefused('RT-D scope has an invalid predecessor reference')
+        c = revision
+        while c:
+            if repo.mode(c, pin['path']) in ('100644', '100755'):
+                raw = repo.read(c, pin['path'])
+                if sha(raw) == pin['blob_sha256']:
+                    return json.loads(raw)
+            parents = repo.parents(c)
+            c = parents[0] if parents else None
+        return None
+
+    scope_input = loaded
+    if loaded.store.get(ref).get('supersedes') is not None:
+        scope_input = copy.copy(loaded)
+        scope_input.store = store = copy.copy(loaded.store)
+        store._pred_cache = {}
+        store.resolver = resolve_predecessor
+        store.heads_problems = rec.lineage_heads(refs, store)
+    records = cli.RecordSet(scope_input, False)
     scope = records.admit(repo, revision + ':' + ref['path'], 'scope')
     if scope is None or scope.get('schema') != 'oi-scope/1':
         raise RepRefused('RT-D repo scope is not admitted by its exact review chain')
-    # This control implements the root route. R6.RULE.13 requires a separate widening check for successors.
     if scope['supersedes'] is not None:
-        raise RepRefused('RT-D successor scope requires independent widening verification')
+        rt_d_scope_reviews(scope_input, {k: ref[k] for k in ('path', 'blob_sha256')})
     return ref, scope, records.used
+
+
+def rt_d_scope_reviews(loaded, tip):
+    """Verify the review profile's changed fields at each exact supersession edge."""
+    store = loaded.store
+    paths_by_sha = collections.defaultdict(set)
+    for p, data in store.scan():
+        paths_by_sha[sha(data)].add(p)
+    ref = tip
+    while ref is not None:
+        if paths_by_sha[ref['blob_sha256']] - {ref['path']}:
+            raise RepRefused('RT-D scope lineage has the same record at distinct paths')
+        doc = store.resolve(ref)
+        old_ref = doc['supersedes']
+        problems = []
+        if old_ref is not None:
+            fd.validate(fd.ref_keys, old_ref, 'scope predecessor', problems)
+        if problems:
+            raise RepRefused('RT-D scope has an invalid predecessor reference')
+        old = store.resolve(old_ref) if old_ref is not None else {}
+        previous = ref != tip
+        pool = store.scanned() if previous else store.by_sha
+
+        def usable(digest):
+            return previous or digest in loaded.admitted
+
+        def has_form(review, items):
+            return (not fd.review_schema_problems(review) and
+                    re.search(r'\b[0-9a-f]{40}\b', review['method']) is not None and
+                    len(review['verdicts']) == len(items) and
+                    {v['item'] for v in review['verdicts']} == set(items) and
+                    all(set(v) == {'item', 'verdict', 'reason'} and v['verdict'] == 'accept'
+                        for v in review['verdicts']))
+
+        ordinary = rec.ordinary_reviews(ref, pool, usable)
+        if not ordinary or not all(has_form(review, rec.item_ids(doc)) for review in ordinary):
+            raise RepRefused('RT-D scope lacks a complete ordinary review at %s' % ref['path'])
+        absent = object()
+        fields = (old.keys() | doc.keys()) - {'supersedes', 'version'}
+        changed = sorted('field:' + k for k in fields if old.get(k, absent) != doc.get(k, absent))
+        if old_ref is not None and changed:
+            widening = [d for digest, (_, d) in pool.items()
+                        if usable(digest) and isinstance(d, dict) and d.get('schema') == rec.review_schema and
+                        d.get('kind') == 'widening' and d.get('reviewed') == ref]
+            if (not widening or not all(has_form(review, changed) for review in widening) or
+                    rec.widening_review_problems(ref, store, loaded.admitted,
+                        {review['reviewer'] for review in ordinary}, doc['author'], old_ref, changed,
+                        predecessor=previous)):
+                raise RepRefused('RT-D scope lacks a qualifying independent widening review at %s' % ref['path'])
+        ref = old_ref
 
 
 def rt_d_repo_overlap(a, result, residual, other_profiles):

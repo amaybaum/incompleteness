@@ -1599,13 +1599,12 @@ def _rep_role_selection(config, class_tip, allow_tip):
         raise ValueError('the configuration does not select the exact active class and allow references')
 
 
-def _rep_review_pool(repo, commit, config=None):
+def _rep_review_pool(repo, commit, config=None, *, dirs=(AUDIT_DIR + 'records/', S11_A1_DIRECTORY + '/')):
     """Read exact configured reviews and the eligible record-directory reviews of predecessors."""
     if config is not None:
         refs = [_rep_ref(r) for r in config['records'] if r.get('kind') == 'review']
         candidates = [(r['path'], _rep_pin(repo, commit, r)) for r in refs]
     else:
-        dirs = (AUDIT_DIR + 'records/', S11_A1_DIRECTORY + '/')
         candidates = [(p, _rep_blob(repo, ent)[1]) for p, ent in _rep_entries(repo, commit).items()
                       if p.startswith(dirs) and p.endswith('.json') and ent[0] in REGULAR_MODES]
     reviews = []
@@ -1725,7 +1724,7 @@ def _rep_lineage_reviews(repo, snapshot, config_commit, config, chains, *, recor
     for role, chain in chains.items():
         prior_doc, prior_ref = {}, None
         for ref in chain:
-            holder = snapshot if record_commits is None else record_commits[ref['path']]
+            holder = snapshot if record_commits is None else record_commits[ref['path'], ref['blob_sha256']]
             doc = json.loads(_rep_pin(repo, holder, ref))
             is_tip = ref == chain[-1]
             pool, scope = (active, config_commit) if is_tip else (history, snapshot)
@@ -1768,45 +1767,48 @@ def _rep_lineage_reviews(repo, snapshot, config_commit, config, chains, *, recor
             prior_doc, prior_ref = doc, ref
 
 
-def _rep_auxiliary_class_lineage(repo, freeze, config, tip):
-    """Resolve a configured class and its exact predecessors on F's first-parent history (R6.RECON.33)."""
+def _rep_auxiliary_lineage(repo, freeze, config, tip, kind, schema, dirs):
+    """Resolve the exact predecessors of a configured record on F's first-parent history."""
     chain, holders = [], {}
-    ref, lineage_id = tip, None
+    ref, lineage_id, paths = tip, None, set()
     while ref is not None:
         if not isinstance(ref, dict) or set(ref) != {'path', 'blob_sha256'} or \
                 not isinstance(ref['path'], str) or any(p in ('', '.', '..') for p in ref['path'].split('/')) or \
-                not isinstance(ref['blob_sha256'], str) or not re.fullmatch('[0-9a-f]{64}', ref['blob_sha256']) or \
-                ref['path'] in holders:
-            raise ValueError('the auxiliary class lineage has an invalid or repeated reference')
+                not isinstance(ref['blob_sha256'], str) or not re.fullmatch('[0-9a-f]{64}', ref['blob_sha256']):
+            raise ValueError('the %s lineage has an invalid reference' % kind)
+        key = (ref['path'], ref['blob_sha256'])
+        if key in holders or (kind == 'side-change-classes' and ref['path'] in paths):
+            raise ValueError('the %s lineage has a repeated reference' % kind)
         holder = freeze
         while True:
             entry = _rep_entries(repo, holder).get(ref['path'])
             if entry is not None:
-                if entry[0] not in REGULAR_MODES:
+                if entry[0] in REGULAR_MODES:
+                    info, raw = _rep_blob(repo, entry)
+                    if info['blob_sha256'] == ref['blob_sha256']:
+                        break
+                elif kind == 'side-change-classes':
                     raise ValueError('the auxiliary class lineage contains a nonregular record')
-                info, raw = _rep_blob(repo, entry)
-                if info['blob_sha256'] == ref['blob_sha256']:
-                    break
             parents = _rep_commit(repo, holder)[1]
             if not parents or ref == tip:
-                raise ValueError('the auxiliary class lineage lacks its exact record at %s' % ref['path'])
+                raise ValueError('the %s lineage lacks its exact record at %s' % (kind, ref['path']))
             holder = parents[0]
         doc = json.loads(raw)
-        if not isinstance(doc, dict) or doc.get('schema') != REP_NAMESPACES[0][2] or \
+        if not isinstance(doc, dict) or doc.get('schema') != schema or \
                 not isinstance(doc.get('record_id'), str) or not doc['record_id'] or 'supersedes' not in doc or \
                 (lineage_id is not None and doc['record_id'] != lineage_id):
-            raise ValueError('the auxiliary class record is outside its declared lineage')
+            raise ValueError('the %s record is outside its declared lineage' % kind)
         lineage_id = doc['record_id']
         chain.append(ref)
-        holders[ref['path']] = holder
+        holders[key] = holder
+        paths.add(ref['path'])
         ref = doc['supersedes']
 
     chain_entries = {(r['path'], r['blob_sha256']) for r in chain}
     successors = {(older['path'], older['blob_sha256']): (newer['path'], newer['blob_sha256'])
                   for newer, older in zip(chain, chain[1:])}
     extra = set()
-    dirs = (AUDIT_DIR + 'records/', S11_A1_DIRECTORY + '/')
-    configured = {r['path'] for r in config['records'] if r.get('kind') == 'side-change-classes'}
+    configured = {r['path'] for r in config['records'] if r.get('kind') == kind}
     for path, entry in _rep_entries(repo, freeze).items():
         if entry[0] not in REGULAR_MODES or not (path in configured or path.startswith(dirs) and
                                                 path.endswith('.json')):
@@ -1819,24 +1821,36 @@ def _rep_auxiliary_class_lineage(repo, freeze, config, tip):
             doc = json.loads(raw)
         except ValueError:
             continue
-        if not isinstance(doc, dict) or (doc.get('schema'), doc.get('record_id')) != (REP_NAMESPACES[0][2], lineage_id):
+        if not isinstance(doc, dict):
+            continue
+        if (doc.get('schema'), doc.get('record_id')) != (schema, lineage_id):
+            parent = doc.get('supersedes')
+            if kind == 'scope' and isinstance(parent, dict) and set(parent) == {'path', 'blob_sha256'} and \
+                    isinstance(parent['path'], str) and isinstance(parent['blob_sha256'], str) and \
+                    (parent['path'], parent['blob_sha256']) in successors:
+                raise ValueError('the scope lineage has an incompatible competing successor')
             continue
         predecessor = doc.get('supersedes')
         if not isinstance(predecessor, dict) or set(predecessor) != {'path', 'blob_sha256'}:
-            raise ValueError('the auxiliary class lineage has another root')
+            raise ValueError('the %s lineage has another root' % kind)
         before = (predecessor['path'], predecessor['blob_sha256'])
         if before in successors:
-            raise ValueError('the auxiliary class lineage has ambiguous successors')
+            raise ValueError('the %s lineage has ambiguous successors' % kind)
         successors[before] = key
         extra.add(key)
-    # An unused descendant can be on this lineage. A fork or reused lineage id cannot qualify the selected class.
+    # An unused descendant can be on this lineage. A fork or reused lineage id cannot qualify the selected record.
     point = (tip['path'], tip['blob_sha256'])
     while successors.get(point) in extra:
         point = successors[point]
         extra.remove(point)
     if extra:
-        raise ValueError('the auxiliary class record_id is reused outside its exact lineage')
+        raise ValueError('the %s record_id is reused outside its exact lineage' % kind)
     return list(reversed(chain)), holders
+
+
+def _rep_auxiliary_class_lineage(repo, freeze, config, tip):
+    return _rep_auxiliary_lineage(repo, freeze, config, tip, 'side-change-classes', REP_NAMESPACES[0][2],
+                                  (AUDIT_DIR + 'records/', S11_A1_DIRECTORY + '/'))
 
 
 def _rep_class_pins(repo, commit, class_tip):
@@ -2588,7 +2602,7 @@ def _rt_d_counts(result, census):
 
 
 def _rt_d_scope(repo, F, config, projected):
-    """Bind the exact scope root and its configured independent review."""
+    """Bind the selected scope and independently check its exact supersession chain."""
     refs = [_rep_ref(r) for r in config['records'] if r.get('kind') == 'scope']
     scopes = [(r, json.loads(_rep_pin(repo, F, r))) for r in refs]
     (ref, scope), = [(r, d) for r, d in scopes if d.get('profile') == 'repo']
@@ -2596,15 +2610,56 @@ def _rt_d_scope(repo, F, config, projected):
     if (_file_sha(scope_bytes) != ref['blob_sha256'] or scope['schema'] != 'oi-scope/1' or
             'supersedes' not in scope or projected['records_used'] != [dict(ref, kind='scope')]):
         raise ValueError('RT-D did not read the exact configured repo scope')
-    if scope['supersedes'] is not None:
-        raise ValueError('RT-D successor scope requires independent widening verification')
-    reviews = [r for r in _rep_review_pool(repo, F, config) if r.get('reviewed') == ref]
-    ordinary = [r for r in reviews if r.get('kind', 'review') == 'review']
-    if not ordinary or not all(r.get('method') and
-                               _rep_review_valid(repo, F, r, ref, scope.get('author'), _reviewed_items(scope)) and
-                               all(v['verdict'] == 'accept' for v in r['verdicts']) for r in ordinary):
-        raise ValueError('the RT-D scope lacks qualifying independent review')
+    active = _rep_review_pool(repo, F, config)
+    if scope['supersedes'] is None:
+        ordinary = [r for r in active if r.get('reviewed') == ref and r.get('kind', 'review') == 'review']
+        if not ordinary or not all(r.get('method') and
+                                   _rep_review_valid(repo, F, r, ref, scope.get('author'), _reviewed_items(scope)) and
+                                   all(v['verdict'] == 'accept' for v in r['verdicts']) for r in ordinary):
+            raise ValueError('the RT-D scope lacks qualifying independent review')
+        return scope
+
+    config_dir = os.path.dirname(projected['config']['path'])
+    record_dirs = [os.path.dirname(r['path']) for r in config['rules'] + config['records']]
+    common = os.path.commonpath(record_dirs)
+    dirs = tuple(d + '/' if d else '' for d in sorted({config_dir} | ({common} if common else set(record_dirs))))
+    chain, holders = _rep_auxiliary_lineage(repo, F, config, ref, 'scope', 'oi-scope/1', dirs)
+    history = _rep_review_pool(repo, F, dirs=dirs)
+    prior, prior_ref = {}, None
+    for current_ref in chain:
+        current = json.loads(_rep_pin(repo, holders[current_ref['path'], current_ref['blob_sha256']], current_ref))
+        reviews = [r for r in (active if current_ref == ref else history) if r.get('reviewed') == current_ref]
+        ordinary = [r for r in reviews if r.get('kind', 'review') == 'review']
+        if not ordinary or not all(_rt_d_scope_review_form(r, _reviewed_items(current)) and
+                                   _rep_review_valid(repo, F, r, current_ref, current['author'],
+                                                     _reviewed_items(current)) for r in ordinary):
+            raise ValueError('the RT-D scope lacks a complete independent ordinary review')
+        absent = object()
+        fields = (prior.keys() | current.keys()) - {'supersedes', 'version'}
+        changed = sorted('field:' + k for k in fields if prior.get(k, absent) != current.get(k, absent))
+        if prior_ref is not None and changed:
+            widening = [r for r in reviews if r.get('kind') == 'widening']
+            if (not widening or not all(_rt_d_scope_review_form(r, changed) for r in widening) or
+                    not any(r.get('replaces') == prior_ref and
+                            _rep_review_valid(repo, F, r, current_ref, current['author'], changed) and
+                            all(_independent_of_author(r, o['reviewer']) for o in ordinary) for r in widening)):
+                raise ValueError('the RT-D scope lacks a qualifying independent widening review')
+        prior, prior_ref = current, current_ref
     return scope
+
+
+def _rt_d_scope_review_form(review, items):
+    required = {'schema', 'reviewer', 'reviewed', 'revision', 'independence', 'method', 'verdicts'}
+    if review.get('kind') == 'widening':
+        required.add('replaces')
+    method, verdicts = review.get('method'), review.get('verdicts')
+    return (required <= review.keys() <= required | {'kind', 'dissent'} and
+            ('dissent' not in review or isinstance(review['dissent'], str)) and
+            isinstance(method, str) and re.search(r'\b[0-9a-f]{40}\b', method) is not None and
+            isinstance(verdicts, list) and len(verdicts) == len(items) and
+            all(isinstance(v, dict) and set(v) == {'item', 'verdict', 'reason'} and
+                isinstance(v['item'], str) and isinstance(v['reason'], str) and
+                v['verdict'] == 'accept' for v in verdicts) and {v['item'] for v in verdicts} == set(items))
 
 
 def _rt_d_repo_pattern(repo, F, specs, projected):
