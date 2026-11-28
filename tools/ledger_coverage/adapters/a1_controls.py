@@ -596,13 +596,37 @@ def rt_terms(a):
     dr3 = [p for p in cfg['profiles'] if p['name'] == 'DR-3'][0]
     prof, _ = prf.load_profile(dr3, lambda s: a.repo.read(s.get('commit') or a.crev, s['path']))
     got = {}
-    for key in ('agents-md-at-H', 'agents-md-at-Xrep'):
+    dr3_cases = (
+        ('agents-md-at-H', 'AGENTS.md at H (control input agents-md-at-H)'),
+        ('agents-md-at-Xrep', "AGENTS.md in X_rep (control input agents-md-at-Xrep: H's AGENTS.md with the ledger's "
+         "splices, sha256 59b68984e659ef808819e02d4653d80388f8bd2f4c009796b162fc2453882ce2, "
+         "the bytes of T1''s copy)"),
+        ('agents-md-at-H', 'restored'),
+    )
+    clean = None
+    for key, case in dr3_cases:
         spec = inputs[key]
         # the countercontrol input is AGENTS.md in X_rep (R6.EVID.8), never T1''s copy
-        data = a.repo.read(x_rep(a) if spec.get('candidate') else spec['commit'], spec['path'])
+        revision = x_rep(a) if spec.get('candidate') else spec['commit']
+        data = a.repo.read(revision, spec['path'])
         assert sha(data) == spec['sha256']
         ss = util.sentences_of(util.lines_of(data.decode()), cfg['sentence']['abbreviations'], 2)
-        got[key] = [(s1, s2) for s, s1, s2 in ss if prof.matches(s)]
+        matches = [(s1, s2) for s, s1, s2 in ss if prof.matches(s)]
+        items = [{'file': spec['path'], 'line': s1, 'sentence': [s1, s2], 'rule_id': 'DR-3'}
+                 for s1, s2 in matches]
+        facts = {}
+        if key == 'agents-md-at-Xrep' and not a._x_rep_why and spec['path'] == 'AGENTS.md':
+            facts = {'representative_candidate': REP_CANDIDATE,
+                     'scanned_paths_within': 'AGENTS.md (a ledgered path) of X_rep'}
+        run = a.rec.capture_doc('DR-3 fixed sentence scan', {'input': raw_ref(a.repo, revision, spec['path']),
+                                'items': items}, case=case, baseline=clean if case == 'restored' else None,
+                                attested=facts)
+        if case == 'restored':
+            assert matches == got[key]
+        else:
+            got[key] = matches
+            if clean is None:
+                clean = run
     hgot = got['agents-md-at-H']
     a.record('RT-DR3W', len(hgot) == 1 and hgot[0][0] == 37 and hgot[0][1] >= 38 and not got['agents-md-at-Xrep'],
              'exactly one DR-3 sentence at H starting on line 37 and including lines 37-38; 0 in X_rep', got)
@@ -619,6 +643,10 @@ def rt_terms(a):
                                                                    'A1 179', 'actual': {}})
         a.results['RT-I7']['actual'][name] = {'exit': code, 'lines': n, 'literals': dict(lit), 'A1_lines': rep}
         a.results['RT-I7']['passed'] &= code == 20 and (n, rep) == want
+    redo, reread, _ = a.run(['terms', '--commit', H, '--profile', 'item7-literal'], case='restored',
+                             baseline=a.rec.pending[-1])
+    a.results['RT-I7']['passed'] &= redo == code and reread == res
+    a.runs_of['RT-I7'] = a.rec.take()
     # RT-I7A and V3
     retired = retired_lines(a)
     for c, name in ((H, 'H'), ('X_rep', 'X_rep')):
@@ -651,8 +679,13 @@ def rt_terms(a):
                                         'actual': {}})
         a.results['RT-I7A']['actual'][name] = act
         a.results['RT-I7A']['passed'] &= ok
+    redo, reread, _, scoped = rep_run(a, args, 'ledgered and corpus paths of X_rep', case='restored',
+                                     baseline=a.rec.pending[-1], control={'without_allow_rules': True})
+    a.results['RT-I7A']['passed'] &= redo == code and reread == res and scoped == scan
+    a.runs_of['RT-I7A'] = a.rec.take()
     # V3 countercontrol: one retired line restored to REVIEW would be visible
     a.results['V3-countercontrol'] = v3_countercontrol(a, retired)
+    a.runs_of['V3-countercontrol'] = a.rec.take()
     a = phase
     ledger_ref = '%s:%srep/ledger.json' % (rep_ledger_revision(a), a.ad)
     live_rev = a.freeze
