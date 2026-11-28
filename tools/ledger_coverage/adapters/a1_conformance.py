@@ -512,6 +512,7 @@ def n10_n11(a):
     roles = config['roles']
     if ledger['errors'] or h != H or roles['scientific_base'] != h or roles['record_commit'] != h or roles['pin'] != E:
         raise a1c.RepRefused('N10/N11 require the fixed representative ledger base and configuration roles')
+    build_reads.resolve(E)
     if sha(config_bytes) != a.csha or build_reads.mode(a.crev, a.cpath) != '100644':
         raise a1c.RepRefused('N10/N11 configuration differs from the selected regular-file input')
     # Check the same source pair against both of its build outputs and both landing inputs.
@@ -526,13 +527,19 @@ def n10_n11(a):
                         'blob_sha256': digest}
     dref = config['delegation']
     delegation_bytes = build_reads.read(a.crev, dref['path'])
-    if sha(delegation_bytes) != dref['blob_sha256'] or build_reads.mode(a.crev, dref['path']) != '100644':
+    if dref.get('commit') not in (None, a.crev) or delegation_bytes is None or \
+            sha(delegation_bytes) != dref['blob_sha256'] or build_reads.mode(a.crev, dref['path']) != '100644':
         raise a1c.RepRefused('N10/N11 require the pinned regular-file delegation')
     source = 'tools/ledger_coverage/adapters/rep_build.py'
     source_bytes = build_reads.read(a.tool_rev, source)
     builder_pins = [ref['blob_sha256'] for ref in config['tool']['files'] if ref['path'] == source]
     if source_bytes is None or build_reads.mode(a.tool_rev, source) != '100644' or builder_pins != [sha(source_bytes)]:
         raise a1c.RepRefused('N10/N11 representative builder differs from its configuration pin')
+    runner_path = 'tools/ledger_coverage/adapters/a1_conformance.py'
+    runner_bytes = build_reads.read(a.tool_rev, runner_path)
+    with open(__file__, 'rb') as f:
+        if runner_bytes != f.read() or build_reads.mode(a.tool_rev, runner_path) != '100644':
+            raise a1c.RepRefused('N10/N11 runner bytes differ from the tool revision')
     builder, imports = a1c.rep_builder(source_bytes)
     x, changes = a1c.build_x_rep(fixed, source=source_bytes)
     problems = a1c.rep_conforms(fixed, x, changes)
@@ -588,6 +595,7 @@ def n10_n11(a):
               'configuration': {**entry(setup, a.crev, a.cpath), 'blob_sha256': sha(config_bytes)},
               'delegation': {**entry(setup, a.crev, dref['path']), 'blob_sha256': sha(delegation_bytes)},
               'builder': {**entry(setup, a.tool_rev, source), 'blob_sha256': sha(source_bytes), 'imports': imports},
+              'runner': {**entry(setup, a.tool_rev, runner_path), 'blob_sha256': sha(runner_bytes)},
               'markers': markers, 'protected_ranges': protected, 'classes': classes,
               'ledgered_paths': sorted(ledger['files']), 'corpus_paths': corpus, 'side_change_paths': side,
               'landing_pair_delta': pair_delta,
