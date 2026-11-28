@@ -2210,12 +2210,21 @@ def _rep_fixed_reconciliation(ctx, phase, rid, ev, case, result):
         raise ValueError('the fixed reconciliation path-read scope differs')
 
 
-def _representative_read_scope(repo, config, ledger, x, reads):
+def _representative_read_scope(repo, config, ledger, edits, x, observed):
     origin = json.loads(ledger)
-    paths = _rep_entries(repo, origin['base']).keys() | x['changes'].keys()
+    base = {p: oid for p, (mode, oid) in _rep_entries(repo, origin['base']).items() if mode in REGULAR_MODES}
+    paths = {**base, **{p: e['git_blob'] for p, e in x['changes'].items()}}
+    excluded = set(base.values()) | {_git_oid('blob', ledger), _git_oid('blob', edits)}
+    trace = observed['read_trace']
+    path_reads, blob_reads = trace['paths'], trace['blobs']
+    if (path_reads != sorted(set(path_reads)) or blob_reads != sorted(set(blob_reads)) or
+            not all(HEX40.fullmatch(oid) for oid in blob_reads)):
+        return False
+    x_blobs = set(blob_reads) - excluded
+    reads = set(path_reads) | {p for p, oid in paths.items() if oid in x_blobs}
     scope = set(origin['files']) | set(config['corpus'].get('paths', []))
     patterns = [re.compile(s) for s in config['corpus'].get('patterns', [])]
-    return (isinstance(reads, list) and bool(reads) and len(reads) == len(set(reads)) and
+    return (bool(reads) and sorted(reads) == observed['read_paths'] and
             all(p in paths and (p in scope or any(rx.search(p) for rx in patterns)) for p in reads))
 
 
@@ -2288,7 +2297,7 @@ def _candidate_case_bound(rid, case, result, observed, ctx, *, profile_census=Fa
                      _case_args(argv, '--check') == ['item7'])
         classified = [hit] if rid == 'RT-D-gr58' else []
         return (valid and _case_args(argv, '--classify') == classified and
-                _representative_read_scope(repo, config, ledger, x, observed['read_paths']))
+                _representative_read_scope(repo, config, ledger, edits, x, observed))
     if rid == 'TR5':
         adm = info['admission']
         snap = adm['snapshot']
@@ -2351,7 +2360,6 @@ def _candidate_case_bound(rid, case, result, observed, ctx, *, profile_census=Fa
                 all(v['verdict'] == 'accept' for v in rv['verdicts']) for rv in reviews):
             return False
     inputs = observed['representative_inputs']
-    reads = observed['read_paths']
     if (inputs['H'], inputs['E']) != (H, REP_E) or not config['roles'].get('pin') == REP_E or \
             sorted(r['path'] for r in inputs['records']) != sorted(r['path'] for r in refs):
         return False
@@ -2365,7 +2373,7 @@ def _candidate_case_bound(rid, case, result, observed, ctx, *, profile_census=Fa
     delegation = json.loads(_rep_pin(repo, F, _rep_ref(config['delegation'])))
     _, builder = _rep_entry(repo, git_blob_id(repo, 'HEAD^{commit}'), REP_BUILDER)
     x = _rep_construction(repo, (H, ctx.rep_main, ledger, edits, builder, delegation))
-    return evaluated == x['commit'] and _representative_read_scope(repo, config, ledger, x, reads)
+    return evaluated == x['commit'] and _representative_read_scope(repo, config, ledger, edits, x, observed)
 
 
 def s11_standin(F, P, b):

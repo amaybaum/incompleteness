@@ -495,7 +495,7 @@ def rt_t(a):
         paths = logged.read_at(a, h=h, pins=tuple(inputs[k]['git_blob'] for k in ('ledger', 'edits')))
         result = result or {}
         admission = (result.get('config') or {}).get('admission') or {}
-        attested = {'representative_inputs': inputs, 'read_paths': paths,
+        attested = {'representative_inputs': inputs, 'read_paths': paths, 'read_trace': logged.trace(),
                     'every_record_verifies': result.get('outcome') == 'PASS' and admission.get('mode') == 'chain'}
         if conforming:
             attested['representative_candidate'] = REP_CANDIDATE.replace(
@@ -2124,6 +2124,9 @@ class ReadLog:
         self.blobs.add(bid)
         return self._r.read_blob_uncached(bid)
 
+    def trace(self):
+        return {'paths': sorted(self.seen), 'blobs': sorted(self.blobs)}
+
     def read_at(self, a, *, h=H, pins=(REP_LEDGER_GIT, REP_EDITS_GIT)):
         # a blob read by id is attributed to the commit's paths only when H's tree lacks it and it is not the pinned
         # ledger or edit list, which a run reads at their checked pins; X_rep's own
@@ -2155,6 +2158,7 @@ def rep_run(a, args, scope_text, case=None, extra=(), **kw):
         d = {'read_paths': reads,
              'config': raw_ref(a.repo, kw.get('config_revision') or a.crev, a.cpath)}
         if a.freeze is not None:
+            d['read_trace'] = log.trace()
             d['representative_binding'] = {k: a.rep_binding[k] for k in
                                            ('freeze', 'T_land', 'M_rep', 'S', 'class_tip', 'allow_tip',
                                             'instance_sha256')}
