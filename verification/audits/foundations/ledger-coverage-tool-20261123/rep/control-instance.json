@@ -644,11 +644,11 @@
    },
    {
     "path": "tools/ledger_coverage/adapters/a1_conformance.py",
-    "blob_sha256": "cd27ee0c15ea1be4f0fa2fb0ee6c69f86e599a141ab181ea3d22d76c803e65d1"
+    "blob_sha256": "215a4a7071144b405dd83b8ed1a9e74ddc7a27d48016a1dd4c17621db6740358"
    },
    {
     "path": "tools/ledger_coverage/adapters/a1_controls.py",
-    "blob_sha256": "fdf4efc9aa15f8add887d9c8f4fbe23423750f55c09c59d5284bcb103952f856"
+    "blob_sha256": "d647bce6701353d6d55f42515c639171ed1f0c4fce93a8292f497e6ae36e9ca2"
    },
    {
     "path": "tools/ledger_coverage/adapters/a1exit_exact_edit.py",
@@ -784,7 +784,7 @@
    },
    {
     "path": "tools/ledger_coverage/engine/cli.py",
-    "blob_sha256": "b6dfcfa9548c4652c987ed3195249a0239eb23e49263bd486385e885c8f0bc05"
+    "blob_sha256": "dae047ec0fae55ad77b582705e3d10b89bb79453345270fde54267e2e0344819"
    },
    {
     "path": "tools/ledger_coverage/engine/config.py",
@@ -844,7 +844,7 @@
    },
    {
     "path": "tools/ledger_coverage/engine/purity.py",
-    "blob_sha256": "c8e4b7fa9b475ceb8e5b03652addfe8f2ff770724f85471c3d36accb9dc45dd5"
+    "blob_sha256": "9d600388bb0f3cf92c0b82e4fbe1fe0ad7ae49a1cc342afa355fa5854e81aa0f"
    },
    {
     "path": "tools/ledger_coverage/engine/recon_route.py",
@@ -896,7 +896,7 @@
    },
    {
     "path": "tools/ledger_coverage/gate/control_gate.py",
-    "blob_sha256": "f53547b05f84d3b1de8788bb59bbc089a4284c3ac3cd5618fc83d0eef91049c4"
+    "blob_sha256": "6ffc0759671d42854ef0bf734cc3e0bfdee53a11443804d5eddd2d377d17a0e2"
    },
    {
     "path": "tools/ledger_coverage/gate/gate_selftest.py",
