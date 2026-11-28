@@ -506,25 +506,36 @@ def rt_t(a):
     clean_code, clean_result, _ = a.run(args, harness=False, reader=restored, case='restored',
                                        baseline=baseline, attested=lambda r: observed(r, restored))
     facts = observed(result, logged)
-    cases = list(a.rec.pending)
     a.record('RT-T', code == clean_code == 0 and result == clean_result and
              facts == observed(clean_result, restored) and facts.get('every_record_verifies') and conforming and
              facts.get('scanned_paths_within') == scope,
              'PASS on the exact candidate F with reviewed records and the restored case',
              {'exit': code, 'restored_exit': clean_code, 'X_rep': x, **facts})
-    # The same real main run supplies TR5(a)'s chain-admitted result. The separate candidate check
-    # and the identifier comparison remain OBL-16 evidence outside this run.
-    admission = (result.get('config') or {}).get('admission') or {}
-    snapshot = admission.get('snapshot') or {}
-    host = snapshot.get('run') or {}
+
+    tr5(a, x, gr)
+
+
+def tr5(a, x, gr):
+    """Native TR5 terms run. The separate candidate check and designation comparison stay in OBL-16."""
+    F = a.freeze
     fields = ['freeze', 'pin_table', 'configuration', 'run', 'tool_commit', 'tool_blobs', 'workflow', 'evaluated']
-    complete = (all(k in snapshot for k in fields) and
-                all(k in host for k in ('run_id', 'repository_id', 'head_repository_id', 'event', 'head_branch',
-                                        'workflow_path', 'head_sha')))
+    run_fields = ['run_id', 'repository_id', 'head_repository_id', 'event', 'head_branch', 'workflow_path', 'head_sha']
     names = ['F', 'pin_table', 'configuration', 'run', 'repository_id', 'head_repository_id', 'event', 'T',
              'tool_blobs', 'workflow_blob', 'evaluated_commits']
-    a.rec.pending = [{**case, 'attested': {'snapshot_fields_all_present': names if complete else []}}
-                     for case in cases]
+
+    def observed(result):
+        snapshot = (((result or {}).get('config') or {}).get('admission') or {}).get('snapshot') or {}
+        host = snapshot.get('run') or {}
+        complete = all(k in snapshot for k in fields) and all(k in host for k in run_fields)
+        return {'snapshot_fields_all_present': names if complete else []}
+
+    args = ['terms', '--freeze', F, '--commit', x, '--profile', 'ptr', '--classify', '%s:%s' % (F, gr)]
+    code, result, _ = a.run(args, harness=False, attested=observed)
+    clean_code, clean_result, _ = a.run(args, harness=False, case='restored', baseline=a.rec.pending[-1],
+                                       attested=observed)
+    admission = (result.get('config') or {}).get('admission') or {}
+    host = (admission.get('snapshot') or {}).get('run') or {}
+    complete = observed(result)['snapshot_fields_all_present'] == names
     a.record('TR5', code == clean_code == 0 and result == clean_result and complete and
              admission.get('mode') == 'chain', 'chain admission at the exact F on main with a complete snapshot',
              {'exit': code, 'restored_exit': clean_code, 'freeze': F, 'head_sha': host.get('head_sha'),
