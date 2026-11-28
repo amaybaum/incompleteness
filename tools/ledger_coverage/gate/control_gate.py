@@ -21,6 +21,7 @@ import json
 import os
 import re
 import shutil
+import stat
 import subprocess
 import sys
 import tempfile
@@ -4405,9 +4406,128 @@ def eval_line_patch_oracle(row, ev, findings):
     return actual
 
 
+def is_confinement_check(row):
+    return row['id'] == 'OUT-CONFINED' and row.get('procedure', {}).get('name') == 'out-confined'
+
+
+def _procedure_bytes(ev, name):
+    data = ev.text(name) if isinstance(name, str) else None
+    if data is None:
+        raise FileNotFoundError(str(name))
+    return data
+
+
+def _tree_capture(ev, name):
+    tree = json.loads(_procedure_bytes(ev, name))
+    if not isinstance(tree, dict) or '.' not in tree:
+        raise ValueError('no directory listing in ' + name)
+    for path, entry in tree.items():
+        if os.path.isabs(path) or path.startswith('../') or path == '..' or os.path.normpath(path) != path or \
+                not isinstance(entry, dict) or type(entry.get('mode')) is not int or \
+                any(type(entry.get(key)) is not int for key in ('mtime_ns', 'ctime_ns')):
+            raise ValueError('invalid entry in ' + name)
+        if stat.S_ISREG(entry['mode']) and not re.fullmatch('[a-f0-9]{64}', entry.get('sha256', '')):
+            raise ValueError('file hash missing in ' + name)
+        if stat.S_ISLNK(entry['mode']) and not isinstance(entry.get('target'), str):
+            raise ValueError('symlink target missing in ' + name)
+        parent = os.path.dirname(path) or '.'
+        if not stat.S_ISDIR((tree.get(parent) or {}).get('mode', 0)):
+            raise ValueError('directory missing in ' + name)
+    return tree
+
+
+def eval_out_confined(ev, findings):
+    """Compare the clone and its scratch area, the raw Git state, and the output of a completed record replay."""
+    actual = {'lib': 'set', 'outcome': None}
+    try:
+        proc = (ev.man or {}).get('procedure') or {}
+        if proc.get('name') != 'out-confined' or proc.get('lib') != 'set':
+            raise FileNotFoundError('out-confined procedure')
+        scope = json.loads(_procedure_bytes(ev, proc.get('scope')))
+        case = ev.case('') or {}
+        argv = case.get('argv') or []
+        if not (len(argv) == 18 and argv[1:5] == ['-I', '-S', '-B', '-c'] and argv[7] == 'record'
+                and argv[8::2] == ['--repo', '--out', '--config', '--pin', '--record']):
+            raise ValueError('the observation does not name the configured replay invocation')
+        cwd, output, config, pin, record = argv[9::2]
+        root = scope['root']
+        if not os.path.isabs(root) or os.path.normpath(root) != root or scope['cwd'] != cwd or \
+                os.path.dirname(cwd) != root or os.path.dirname(output) != root or cwd == output or \
+                argv[6] != os.path.join(cwd, 'tools', 'ledger_coverage.py') or \
+                not all(HEX40.fullmatch(oid) for oid in (pin, record)):
+            raise ValueError('argv or paths do not bind the clone, the output and the record replay')
+
+        before, after = (_tree_capture(ev, phase + '.input.json') for phase in ('before', 'after'))
+        out_before, out_after = (_tree_capture(ev, phase + '.output.json') for phase in ('before', 'after'))
+        clone = os.path.basename(cwd) + '/'
+        out_prefix = os.path.basename(output)
+        if any(p == out_prefix or p.startswith(out_prefix + '/') for p in set(before) | set(after)) or \
+                any(clone + p not in before for p in ('.git/index', '.git/HEAD', 'tools/ledger_coverage.py')) or \
+                clone + '.git/objects/info/alternates' in before:
+            raise ValueError('the input listing does not identify a physical clone separate from --out')
+
+        def read_snapshots(kind):
+            return tuple(_procedure_bytes(ev, phase + '.' + kind) for phase in ('before', 'after'))
+
+        index = read_snapshots('index')
+        for raw, tree in zip(index, (before, after)):
+            if len(raw) < 32 or not raw.startswith(b'DIRC') or hashlib.sha1(raw[:-20]).digest() != raw[-20:] or \
+                    (tree.get(clone + '.git/index') or {}).get('sha256') != hashlib.sha256(raw).hexdigest():
+                raise ValueError('the index bytes do not identify the index in the observed clone')
+        refs = read_snapshots('refs')
+        worktrees = read_snapshots('worktrees')
+        for raw_refs, raw_trees in zip(refs, worktrees):
+            all_refs = raw_refs.decode().splitlines()
+            entries = raw_trees.decode().split('\0')
+            paths = [item[9:] for item in entries if item.startswith('worktree ')]
+            if cwd not in paths or any(output == p or output.startswith(p.rstrip('/') + '/') for p in paths) or \
+                    not all(re.fullmatch('[a-f0-9]{40} [^ ]+', line) for line in all_refs) or \
+                    not any(line.endswith(' HEAD') and 'HEAD ' + line[:40] in entries for line in all_refs) or \
+                    not any(' refs/heads/' in line for line in all_refs):
+                raise ValueError('the retained refs and worktrees do not show a clone outside --out')
+
+        result_bytes = _procedure_bytes(ev, case.get('result_file'))
+        result = json.loads(result_bytes)
+        config_ref = result.get('config') or {}
+        result_name = 'control-result.json' if result.get('harness') is True else 'result.json'
+        top_level = sorted(p for p in out_after if p != '.' and '/' not in p)
+        files = json.loads(_procedure_bytes(ev, case.get('out_listing')))
+        if result.get('operation') != 'record' or result.get('outcome') != 'PASS' or result.get('exit_status') != 0 or \
+                _procedure_bytes(ev, case.get('exit_file')) != b'0\n' or recompute_outcome(result) != 'PASS' or \
+                (result.get('record_checks') or {}).get('holds') is not True or \
+                config_ref.get('commit', '') + ':' + config_ref.get('path', '') != config or \
+                result.get('invocation') != ['record', '--config', config, '--pin', pin, '--record', record] or \
+                case.get('out_dir_exists') is not True or files != top_level or top_level != sorted([result_name, 'replay']) or \
+                (out_after.get(result_name) or {}).get('sha256') != hashlib.sha256(result_bytes).hexdigest() or \
+                'sha256' not in (out_after.get('replay/replay-result.json') or {}):
+            raise ValueError('the retained result and output do not bind a completed replay')
+        replay_sources = [p for p in out_after if p.startswith('replay/') and p[7:] in result.get('covered_paths', [])]
+        if not replay_sources or any((out_after[p].get('sha256') or False) !=
+                                     (before.get(clone + p[7:]) or {}).get('sha256') for p in replay_sources):
+            raise ValueError('replay materialization does not match the observed source files')
+
+        changed = sorted(p for p in set(before) | set(after) if before.get(p) != after.get(p))
+        actual.update(writes_only_under='--out' if not changed and set(out_before) == {'.'} else None,
+                      changed_outside=changed, git_status_porcelain_empty=read_snapshots('status') == (b'', b''),
+                      refs_unchanged=refs[0] == refs[1] and worktrees[0] == worktrees[1],
+                      index_unchanged=index[0] == index[1])
+        if actual['writes_only_under'] and all(actual[k] for k in ('git_status_porcelain_empty', 'refs_unchanged',
+                                                                   'index_unchanged')):
+            actual['outcome'] = 'PREDICATE'
+        else:
+            findings.append(('procedural-failed', 'out-confined: the output was not fresh or changes escaped --out'))
+    except FileNotFoundError as exc:
+        findings.append(('raw-evidence-missing', 'out-confined: %s' % exc))
+    except (AttributeError, KeyError, TypeError, ValueError) as exc:
+        findings.append(('procedural-failed', 'out-confined: %s' % exc))
+    return actual
+
+
 def eval_procedure(row, ev, findings_out, repo=None):
     if is_line_patch_rc8(row):
         return eval_line_patch_oracle(row, ev, findings_out)
+    if is_confinement_check(row):
+        return eval_out_confined(ev, findings_out)
     lib = row['procedure']['lib']
     proc = (ev.man or {}).get('procedure') or {}
     missing = [k for k in LIB_INPUTS[lib] if k not in proc]
@@ -4801,7 +4921,7 @@ def evaluate(exp_doc, rows, retired, reqs, records, mutations, ctx):
                                 names = c['case'] if isinstance(c['case'], list) else [c['case']]
                                 for n in names:
                                     acts.append(eval_case(c, n, ev, row, rec, fl, ctx, phase))
-                        elif ex.get('outcome') != 'COMPOSITE':
+                        elif ex.get('outcome') != 'COMPOSITE' and not is_confinement_check(row):
                             acts.append(eval_case(ex, '', ev, row, rec, fl, ctx, phase))
                         if row.get('restored') is not None and row['restored'].get('outcome') != 'COMPOSITE':
                             acts.append(eval_case(row['restored'], 'restored', ev, row, rec, fl, ctx, phase))

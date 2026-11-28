@@ -15,6 +15,7 @@ import io
 import json
 import os
 import shutil
+import stat
 import subprocess
 import sys
 import tempfile
@@ -428,6 +429,171 @@ def y_world(syn, edits, extra_files=None, edits_doc=None, x_text=None):
     X = syn.repo.derive(syn.H, xf, parents=[syn.H], subject='candidate')
     c, p, s, files = syn.build({'patch_sha': sha(pd), 'files': {'syn/patch.json': pd}}, at=syn.H)
     return X, c, p, s
+
+
+_FROZEN_CHECKER = b'''import hashlib, json, os
+HERE = os.path.dirname(__file__)
+SITEMAP = os.path.join(HERE, "sitemap.json")
+ROWS = os.path.join(HERE, "rows.json")
+def load(path):
+    with open(path, encoding="utf-8") as f:
+        return json.load(f)
+def manuscript_digest():
+    with open("doc/s.md", "rb") as f:
+        return hashlib.sha256(f.read()).hexdigest()
+def build():
+    rows = load(ROWS)
+    return dict(rows["site_map"], manuscript_digest=manuscript_digest())
+def render(sm, rows):
+    return {"body": rows["summary"]}
+def splice_block(text, name, replacement):
+    return replacement
+def check(sm, rows, quiet=True):
+    return [] if sm["pin"] == rows["site_map"]["pin"] else ["record pin differs from its source"]
+def extended_unmapped(sm):
+    return [site["file"] for site in sm["sites"] if not os.path.isfile(site["file"])]
+def self_test():
+    return manuscript_digest() == load(ROWS)["digest"]
+'''
+
+
+def record_world(syn):
+    """The small record/replay fixture used by CLASS-RECORD-CHECKS, materialized with real commit ids when on disk."""
+    from ledger_coverage.adapters import a1exit_sitemap, python_frozen_replay
+
+    modules = {AD + p: module_bytes(p) for p in ('a1exit_sitemap.py', 'python_frozen_replay.py')}
+    base, pin = syn.H, syn.pin
+    record_dir = 'syn/frozen/'
+    site_map_path, rows_path = record_dir + 'sitemap.json', record_dir + 'rows.json'
+    digest = sha(syn.repo.read(pin, DOC))
+    site_map = {'schema': a1exit_sitemap.SITEMAP_SCHEMA, 'pin': pin,
+                'sites': [{'file': DOC, 'line': 5, 's3': 'definition'}]}
+    summary = 'Fixture record summary.\n'
+    records = {record_dir + 'ledger_check.py': _FROZEN_CHECKER,
+               rows_path: jb({'site_map': site_map, 'digest': digest, 'summary': summary}),
+               site_map_path: jb(dict(site_map, manuscript_digest=digest)),
+               record_dir + 'LEDGER.md': summary.encode()}
+    record = syn.materialize(syn.repo.derive(base, {**modules, **records}, subject='record checks fixture'))
+
+    def module(name):
+        path = AD + name
+        return {'path': path, 'blob_sha256': sha(modules[path])}
+
+    adapters = {
+        'sitemap': {'adapter': a1exit_sitemap.NAME, 'adapter_version': a1exit_sitemap.VERSION,
+                    'module': module('a1exit_sitemap.py'), 'commit': record, 'path': site_map_path,
+                    'blob_sha256': sha(records[site_map_path]),
+                    'companion': [{'role': 'rows', 'path': rows_path, 'blob_sha256': sha(records[rows_path])}]},
+        'replay': {'adapter': python_frozen_replay.NAME, 'adapter_version': python_frozen_replay.VERSION,
+                   'module': module('python_frozen_replay.py'), 'module_path': record_dir + 'ledger_check.py',
+                   'record_tree': syn.repo.tree_id(record, record_dir[:-1])},
+    }
+    variant = {'operations': ['record'], 'control_ops': ['record'], 'drop': ['sites'],
+               'extra': {'adapters': adapters, 'roles': {'scientific_base': base, 'pin': pin,
+                                                        'record_commit': record, 'side_change_classes': None}}}
+    config, path, _, _ = syn.build(variant, at=record)
+    return syn.materialize(config), path, record
+
+
+_HARNESS_DRIVER = '''import importlib.util, sys
+entry = sys.argv[1]
+spec = importlib.util.spec_from_file_location('lc_entry', entry)
+module = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(module)
+module._load_package()
+from ledger_coverage.engine import cli
+sys.exit(cli.run(sys.argv[2:], harness=True)[0])
+'''
+
+
+def tree_listing(root, excluded=None):
+    """List directory entries without following links, retaining modes, write times and regular-file digests."""
+    listing = {}
+
+    def visit(path, name):
+        info = os.lstat(path)
+        entry = {'mode': info.st_mode, 'mtime_ns': info.st_mtime_ns, 'ctime_ns': info.st_ctime_ns}
+        listing[name] = entry
+        if stat.S_ISDIR(info.st_mode):
+            for child in sorted(os.listdir(path)):
+                full = os.path.join(path, child)
+                if full != excluded:
+                    visit(full, os.path.normpath(os.path.join(name, child)))
+        elif stat.S_ISREG(info.st_mode):
+            with open(path, 'rb') as f:
+                entry['sha256'] = sha(f.read())
+        elif stat.S_ISLNK(info.st_mode):
+            entry['target'] = os.readlink(path)
+
+    visit(root, '.')
+    return listing
+
+
+def confined_snapshot(root, checkout, output, env, label, files):
+    """Take byte measurements of the clone and its sibling scratch directories outside --out."""
+    prefix = ['git', '--no-optional-locks', '--no-replace-objects', '-C', checkout]
+    for key, args in (('status', ['status', '--porcelain', '-z', '--untracked-files=all']),
+                      ('refs', ['show-ref', '--head', '--dereference']),
+                      ('worktrees', ['worktree', 'list', '--porcelain', '-z'])):
+        files[label + '.' + key] = subprocess.run(prefix + args, env=env, check=True, capture_output=True).stdout
+    with open(os.path.join(checkout, '.git', 'index'), 'rb') as f:
+        files[label + '.index'] = f.read()
+    files[label + '.input.json'] = tree_listing(root, excluded=output)
+    files[label + '.output.json'] = tree_listing(output)
+
+
+def out_confined(out_root):
+    """Run the configured record replay from a small, fresh clone and retain raw before/after observations."""
+    from ledger_coverage.adapters.conformance_controls import Disk, gitb, tool_tree
+
+    cid = 'OUT-CONFINED'
+    out = outmap()
+    files = FILES[cid] = {}
+    PROCS[cid] = {'name': 'out-confined', 'lib': 'set', 'scope': 'scope.json'}
+    try:
+        root = tempfile.mkdtemp(prefix='confined-', dir=os.path.realpath(out_root))
+        checkout, output, scratch = (os.path.join(root, n) for n in ('clone', 'output', 'scratch'))
+        os.mkdir(output)
+        os.mkdir(scratch)
+        env = {'PATH': os.environ.get('PATH', os.defpath), 'LC_ALL': 'C', 'TMPDIR': scratch,
+               'XDG_CACHE_HOME': scratch, 'XDG_CONFIG_HOME': scratch, 'GIT_CONFIG_NOSYSTEM': '1',
+               'GIT_CONFIG_GLOBAL': os.devnull}
+        disk = Disk(os.path.join(root, 'source'))
+        syn = Syn()
+        syn.pin = disk.commit(syn.repo, syn.pin)
+        syn.H = syn.m1 = disk.commit(syn.repo, syn.H)
+        syn.repo = gitobj.Overlay(gitobj.GitRepo(disk.d))
+        syn.materialize = lambda commit: disk.commit(syn.repo, commit)
+        config, path, record = record_world(syn)
+        # Only the tiny fixture and the executing source go into the clone's object store.
+        tip = syn.materialize(syn.repo.derive(config, tool_tree(), parents=[config, record],
+                                              subject='record fixture tool checkout'))
+        gitb(disk.d, 'update-ref', 'refs/heads/main', tip)
+        gitb(disk.d, 'symbolic-ref', 'HEAD', 'refs/heads/main')
+        subprocess.run(['git', 'clone', '--quiet', '--no-local', disk.d, checkout], env=env, check=True,
+                       capture_output=True)
+        files['scope.json'] = {'root': root, 'cwd': checkout}
+        confined_snapshot(root, checkout, output, env, 'before', files)
+        entry = os.path.join(checkout, 'tools', 'ledger_coverage.py')
+        argv = [sys.executable, '-I', '-S', '-B', '-c', _HARNESS_DRIVER, entry,
+                'record', '--repo', checkout, '--out', output, '--config', config + ':' + path,
+                '--pin', syn.pin, '--record', record]
+        proc = subprocess.run(argv, cwd=checkout, env=env, capture_output=True)
+        if REC is not None:
+            REC.capture(argv, proc.returncode, output, case='')
+        confined_snapshot(root, checkout, output, env, 'after', files)
+        if proc.stderr:
+            files['stderr.txt'] = proc.stderr
+        held = all(files['before.' + key] == files['after.' + key]
+                   for key in ('input.json', 'index', 'refs', 'worktrees'))
+        clean = files['before.status'] == files['after.status'] == b''
+        nonempty = 'control-result.json' in files['after.output.json'] and \
+            'replay/replay-result.json' in files['after.output.json']
+        out[cid] = proc.returncode == 0 and held and clean and set(files['before.output.json']) == {'.'} and nonempty
+    except (OSError, RuntimeError, ValueError, subprocess.CalledProcessError) as exc:
+        files['error.txt'] = ('%s: %s\n' % (type(exc).__name__, exc)).encode()
+        out[cid] = False
+    return out
 
 
 def classes(res):
@@ -902,7 +1068,7 @@ def run_all(out_root, repo_path):
     r = Runner(out_root)
     res = {}
     for name, fn in (('Y', lambda: y_controls(r)), ('Z', lambda: z_controls(r)), ('X', lambda: x_controls(r, repo_path)),
-                     ('Z9', z9_controls), ('B1', lambda: b1_controls(r))):
+                     ('Z9', z9_controls), ('B1', lambda: b1_controls(r)), ('confined', lambda: out_confined(out_root))):
         try:
             res.update(fn())
         except Exception as exc:
