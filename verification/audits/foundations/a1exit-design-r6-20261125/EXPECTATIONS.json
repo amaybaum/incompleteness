@@ -10144,14 +10144,20 @@
    "direction": {
     "of": "positive",
     "required": "opposite direction",
-    "why": "mutation: an added sentence pair; also asserts acceptance (PASS)"
+    "why": "The added sentence pair produces the infinity deny finding and agrees with the pinned P checker."
    },
    "predicate_kind": "procedural",
    "expect": {
-    "outcome": "PASS",
+    "outcome": "FAIL",
     "counts": {
-     "sentences": 2
-    }
+     "sentences": 2,
+     "items": 1,
+     "items[class=deny-match,profile=infinity,edit_id=E1,match=is infinite]": 1
+    },
+    "exit": 20,
+    "classes_exact": [
+     "deny-match"
+    ]
    },
    "restored": {
     "outcome": "RESULT_EQUAL_CLEAN",
