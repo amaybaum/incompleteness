@@ -1731,6 +1731,11 @@ def _rep_live_subject(ctx, binding, config, descriptor, chains, class_pins, temp
     if ledger.get('base') != final_h or ledger.get('edits_sha256') != edits['blob_sha256'] or \
             final_h in (B, T) or final_h not in binding['landing_to_base']:
         raise ValueError('the final ledger, edit list or scientific base at F is misbound')
+    allowances = json.loads(_rep_pin(repo, S, chains['allow'][-1]))['rules']
+    if not allowances or any(r.get('recorded_at') != final_h or not r.get('fingerprints') for r in allowances):
+        raise ValueError('the active allowance proofs do not bind their fingerprints to final H')
+    for path in {f['file'] for r in allowances for f in r['fingerprints']}:
+        _rep_entry(repo, final_h, path)
     ledger_paths = sorted(ledger['files'])
     if not ledger_paths or binding.get('ledger_paths') != ledger_paths:
         raise ValueError('the representative evidence omits the complete final ledger path set')
@@ -1908,8 +1913,8 @@ def _rep_build_inputs(ev, ctx, phase, observed):
             if class_pins.get(path) != entry['blob_sha256']:
                 raise ValueError('the fixture omits the exact tool-candidate input %s' % path)
     builder = _rep_input(repo, operands['builder'], tool, REP_BUILDER)
-    ledger = _rep_input(repo, operands['ledger'], tool, REP_LEDGER)
-    edits = _rep_input(repo, operands['edits'], tool, REP_EDITS)
+    ledger = _rep_input(repo, operands['ledger'], origin, REP_LEDGER)
+    edits = _rep_input(repo, operands['edits'], origin, REP_EDITS)
     dref = _rep_ref(instance['delegation'])
     delegation = _rep_input(repo, operands['delegation'], instance['delegation'].get('commit') or origin, dref['path'])
     if _file_sha(delegation) != dref['blob_sha256'] or \
@@ -2167,7 +2172,7 @@ def _rep_fixed_reconciliation(ctx, phase, rid, ev, case, result):
         raise ValueError('the fixed reconciliation path-read scope differs')
 
 
-def _candidate_case_bound(rid, case, result, ctx):
+def _candidate_case_bound(rid, case, result, observed, ctx):
     """Check the exact operands of an OBL-15 or OBL-16(a) result independently of its status."""
     F, path, digest, _ = s11_binding(ctx)
     repo, argv = ctx.repo, case.get('argv')
@@ -2176,20 +2181,30 @@ def _candidate_case_bound(rid, case, result, ctx):
     if (info.get('path'), info.get('blob_sha256')) != (path, digest) or \
             _case_args(argv, '--config') != [F + ':' + path]:
         return False
+    invocation = list(argv)
+    for flag in ('--out', '--repo'):
+        if len(_case_args(argv, flag) or []) != 1:
+            return False
+        i = invocation.index(flag)
+        del invocation[i:i + 2]
+    if result.get('invocation') != invocation:
+        return False
     if rid == 'TR5':
         adm = info['admission']
         snap = adm['snapshot']
         run = snap['run']
         T = snap['tool_commit']
         _, prereg = _rep_entry(repo, F, S11_A1_DIRECTORY + '/PREREG.md')
-        if (_case_args(argv, '--freeze') != [F] or adm['mode'] != 'chain' or result.get('harness') or
+        if (argv[0] != 'terms' or result.get('operation') != 'terms' or
+                _case_args(argv, '--freeze') != [F] or adm['mode'] != 'chain' or result.get('harness') or
                 snap['freeze'] != F or snap['configuration'] != {'path': path, 'blob_sha256': digest} or
                 snap['pin_table'] != {'path': S11_A1_DIRECTORY + '/PREREG.md', 'blob_sha256': _file_sha(prereg)} or
                 run.get('head_sha') != T or run.get('event') != 'workflow_dispatch' or
                 run.get('head_branch') != 'main' or run.get('workflow_path') != WORKFLOW_PATH or
                 run.get('repository_id') != config['repository_id'] or
                 run.get('head_repository_id') != config['repository_id'] or not run.get('run_id') or
-                snap.get('workflow') != config['tool']['workflow'] or snap.get('evaluated') != result.get('evaluated')):
+                snap.get('workflow') != config['tool']['workflow'] or snap.get('evaluated') != result.get('evaluated') or
+                snap.get('invocation') != invocation):
             return False
         _rep_walk(repo, T, ctx.main_tip)
         _rep_tool_image(repo, T, config)
@@ -2212,6 +2227,7 @@ def _candidate_case_bound(rid, case, result, ctx):
     evaluated = result['evaluated']['commit']
     H = config['roles']['scientific_base']
     if (not isinstance(evaluated, str) or not HEX40.fullmatch(evaluated) or not argv or argv[0] != 'coverage' or
+            _case_args(argv, '--freeze') != [F] or info.get('admission', {}).get('mode') != 'chain' or
             _case_args(argv, '--check') != [ITEM2_CHECK] or _case_args(argv, '--commit') != [evaluated] or
             _case_args(argv, '--segment') != [REP_E + '..' + H,
                                               H + '..' + evaluated + '=' + F + ':' + S11_A1_DIRECTORY + '/ledger.json']):
@@ -2234,7 +2250,27 @@ def _candidate_case_bound(rid, case, result, ctx):
                 _rep_review_valid(repo, F, rv, ref, record.get('author'), _reviewed_items(record)) and
                 all(v['verdict'] == 'accept' for v in rv['verdicts']) for rv in reviews):
             return False
-    return True
+    inputs = observed['representative_inputs']
+    reads = observed['read_paths']
+    if (inputs['H'], inputs['E']) != (H, REP_E) or not config['roles'].get('pin') == REP_E or \
+            sorted(r['path'] for r in inputs['records']) != sorted(r['path'] for r in refs):
+        return False
+    _rep_input(repo, inputs['config'], F, path)
+    for operand in inputs['records']:
+        _rep_input(repo, operand, F)
+    pinned = [_rep_plan_pin(repo, F, name + '.json') for name in ('ledger', 'edits')]
+    ledger, edits = [_rep_input(repo, inputs[name], F, ref['path']) for name, ref in zip(('ledger', 'edits'), pinned)]
+    if any(_rep_ref(inputs[name]) != ref for name, ref in zip(('ledger', 'edits'), pinned)):
+        return False
+    delegation = json.loads(_rep_pin(repo, F, _rep_ref(config['delegation'])))
+    _, builder = _rep_entry(repo, git_blob_id(repo, 'HEAD^{commit}'), REP_BUILDER)
+    x = _rep_construction(repo, (H, ctx.rep_main, ledger, edits, builder, delegation))
+    scope = set(json.loads(ledger)['files']) | set(config['corpus'].get('paths', []))
+    patterns = [re.compile(s) for s in config['corpus'].get('patterns', [])]
+    x_paths = _rep_entries(repo, H).keys() | x['changes'].keys()
+    return (evaluated == x['commit'] and isinstance(reads, list) and bool(reads) and
+            len(reads) == len(set(reads)) and all(p in x_paths and
+                (p in scope or any(rx.search(p) for rx in patterns)) for p in reads))
 
 
 def s11_standin(F, P, b):
@@ -2576,7 +2612,7 @@ def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None, phase=Non
             findings_out.append(('declarative-mismatch', 'the fixed %s operands do not verify: %s' % (rid, exc)))
     if phase == 'candidate-F' and rid in ('RT-T', 'TR5'):
         try:
-            bound = _candidate_case_bound(rid, c, result, ctx)
+            bound = _candidate_case_bound(rid, c, result, attested, ctx)
         except (ValueError, KeyError, TypeError, AttributeError):
             bound = False
         if not bound:
