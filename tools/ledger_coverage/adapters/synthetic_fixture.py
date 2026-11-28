@@ -432,7 +432,7 @@ def y_world(syn, edits, extra_files=None, edits_doc=None, x_text=None):
     return X, c, p, s
 
 
-_FROZEN_CHECKER = b'''import hashlib, json, os
+FROZEN_CHECKER = b'''import hashlib, json, os
 HERE = os.path.dirname(__file__)
 SITEMAP = os.path.join(HERE, "sitemap.json")
 ROWS = os.path.join(HERE, "rows.json")
@@ -455,6 +455,8 @@ def extended_unmapped(sm):
     return [site["file"] for site in sm["sites"] if not os.path.isfile(site["file"])]
 def self_test():
     return manuscript_digest() == load(ROWS)["digest"]
+def main():
+    raise AssertionError("the replay called frozen main")
 '''
 
 
@@ -470,7 +472,7 @@ def record_world(syn):
     site_map = {'schema': a1exit_sitemap.SITEMAP_SCHEMA, 'pin': pin,
                 'sites': [{'file': DOC, 'line': 5, 's3': 'definition'}]}
     summary = 'Fixture record summary.\n'
-    records = {record_dir + 'ledger_check.py': _FROZEN_CHECKER,
+    records = {record_dir + 'ledger_check.py': FROZEN_CHECKER,
                rows_path: jb({'site_map': site_map, 'digest': digest, 'summary': summary}),
                site_map_path: jb(dict(site_map, manuscript_digest=digest)),
                record_dir + 'LEDGER.md': summary.encode()}

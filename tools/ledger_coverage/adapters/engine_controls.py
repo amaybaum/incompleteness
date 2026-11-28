@@ -361,32 +361,7 @@ def class_entrypoint_controls(cap):
         modules = {sf.AD + p: sf.module_bytes(p) for p in ('a1exit_sitemap.py', 'python_frozen_replay.py')}
         syn.H = syn.repo.derive(syn.H, modules, subject='record adapters fixture')
         record = 'syn/frozen/'
-        checker = b'''import hashlib, json, os
-HERE = os.path.dirname(__file__)
-SITEMAP = os.path.join(HERE, "sitemap.json")
-ROWS = os.path.join(HERE, "rows.json")
-def load(path):
-    with open(path, encoding="utf-8") as f:
-        return json.load(f)
-def manuscript_digest():
-    with open("doc/s.md", "rb") as f:
-        return hashlib.sha256(f.read()).hexdigest()
-def build():
-    rows = load(ROWS)
-    return dict(rows["site_map"], manuscript_digest=manuscript_digest())
-def render(sm, rows):
-    return {"body": rows["summary"]}
-def splice_block(text, name, replacement):
-    return replacement
-def check(sm, rows, quiet=True):
-    return [] if sm["pin"] == rows["site_map"]["pin"] else ["record pin differs from its source"]
-def extended_unmapped(sm):
-    return [site["file"] for site in sm["sites"] if not os.path.isfile(site["file"])]
-def self_test():
-    return manuscript_digest() == load(ROWS)["digest"]
-def main():
-    raise AssertionError("the replay called frozen main")
-'''
+        checker = sf.FROZEN_CHECKER
         pin_text = syn.repo.read(syn.pin, sf.DOC)
         wanted = sf.sha(pin_text)
         smap = {'schema': sitemap.SITEMAP_SCHEMA, 'pin': syn.pin,
