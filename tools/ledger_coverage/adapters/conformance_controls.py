@@ -841,7 +841,6 @@ def acceptance_controls(r, t):
         ('run record fails', {'host': run_fail}),
         ('R4-N2: the artifact digest differs from the result', {'raw_': raw + b'\n'})],
         'complete host data')
-    replay_controls(r, t, F, chain, raw, gz, snap)
 
 
 def ei5_controls(r):
@@ -3027,45 +3026,6 @@ def r6_g6(r):
           _invalid(reused, PAT, 'reused') and clean['exit'] == 0 and not clean['record_invalid'])
 
 
-def replay_controls(r, t, F, chain, raw, gz, snap):
-    d = tempfile.mkdtemp(prefix='landing-', dir=r.out_root)
-    land = {'schema': 'oi-ledger-landing/1', 'name': 'syn-round-1',
-            'result': {'path': 'result.json.gz', 'sha256': sha(raw), 'compressed_sha256': sha(gz)},
-            'snapshot': {'path': 'snapshot.json', 'sha256': chain['config']['admission']['snapshot_sha256']}}
-    open(os.path.join(d, 'landing.json'), 'wb').write(hf.jb(land))
-    open(os.path.join(d, 'result.json.gz'), 'wb').write(gz)
-    open(os.path.join(d, 'snapshot.json'), 'wb').write(hf.jb(snap))
-    out = r.out()
-    code, res = cli.run(['replay', '--snapshot', os.path.join(d, 'landing.json'), '--out', out], repo=t.repo,
-                        stderr=io.StringIO())
-    eq = (res or {}).get('replay', {}).get('equal_to_committed')
-    mode = ((res or {}).get('config') or {}).get('admission', {}).get('mode')
-    REC.name_last('op-B replay', attested={'outcome': 'REPLAY_EQUAL' if eq is True else None,
-                                           'acceptable_as_new_run': checker.accept(res or {}, code, {})})
-    op_b = REC.pending[-1]
-    bad = tempfile.mkdtemp(prefix='landing-bad-', dir=r.out_root)
-    for f in ('landing.json', 'snapshot.json'):
-        shutil.copy(os.path.join(d, f), bad)
-    open(os.path.join(bad, 'result.json.gz'), 'wb').write(checker.deterministic_gzip(raw + b'\n'))
-    code_b, res_b = cli.run(['replay', '--snapshot', os.path.join(bad, 'landing.json'), '--out', r.out()],
-                            repo=t.repo, stderr=io.StringIO())
-    REC.name_last('recorded result hash differs')
-    # restored: the same replay of the unaltered landing, against the op-B replay
-    cli.run(['replay', '--snapshot', os.path.join(d, 'landing.json'), '--out', r.out()], repo=t.repo,
-            stderr=io.StringIO())
-    REC.name_last('restored', baseline=op_b)
-    check('TR45-opB', 'the offline replay of an op-B/D result from its committed snapshot: output equal to the '
-          'committed result except config.admission.mode = "replay"; never acceptable; a result file that does not '
-          'hash to its recorded sha256 makes the replay refuse',
-          "replay exit equals the committed exit, equal_to_committed is true, mode is 'replay', accept() is false; "
-          "the altered landing refuses with REPLAY_REFUSED",
-          {'exit': code, 'equal': eq, 'mode': mode, 'altered': (code_b, stop(res_b))},
-          code == chain['exit_status'] and eq is True and mode == 'replay' and
-          not checker.accept(res or {}, code, {}) and (code_b, stop(res_b)) == (65, 'REPLAY_REFUSED'),
-          files={'committed-result.json': raw, 'landing.json': land, 'snapshot.json': snap},
-          procedure={'name': 'landing-verify', 'lib': 'replay', 'run_cases': ['op-B replay', 'restored']})
-
-
 SC42 = 'audit/sc42-result.json'
 CTL = 'audit/sc42-controls.json'
 CHK = 'audit/check_sc42.py'
@@ -3427,7 +3387,8 @@ def z11_s4a(r):
 ALL_IDS = ['TR5-sim', 'TR5', 'TR1', 'TR2', 'TR3', 'TR13', 'TR14-tool', 'TR14', 'TR15', 'ADM-CONFIG-AT-F',
            'ACCEPT-SCHEMA', 'CONFIG-LINT', 'B4-MEANING', 'GV-CACHE', 'GV-CACHE-IMMUTABLE', 'GV-CACHE-KEY',
            'GV-CACHE-AFTER-READ', 'TR28-tool', 'TR28-consumer', 'TR29-tool',
-           'TR29', 'TR30', 'TR45-opB', 'TR46', 'TR48', 'TR50', 'TR51', 'TR52', 'X11', 'EI1', 'EI2', 'EI2-consumer',
+           'TR29', 'TR30', 'TR45-opB', 'TR45-opC', 'TR46', 'TR48', 'TR50', 'TR51', 'TR52', 'X11', 'EI1', 'EI2',
+           'EI2-consumer',
            'EI3', 'EI4', 'EI5', 'EI6', 'EI7-tool', 'EI8', 'EI9', 'EI10', 'EI11', 'EI12', 'EI13', 'EI14', 'EI15', 'GV1',
            'GV2', 'GV3', 'GV4', 'GV5', 'GV6', 'GV6-disk', 'GV7-tool', 'GV7-consumer', 'R16', 'R17', 'A12r', 'Z11',
            'S4a', 'G4', 'G5', 'G6', 'G7', 'G8', 'G9', 'G-A1', 'R3-F2', 'R4-B3', 'R4-B3-DUP', 'R5-N6', 'R6-G6',
@@ -3468,6 +3429,10 @@ def main(out_root, native_tr5=False):
     os.makedirs(out_root, exist_ok=True)
     REC.wrap_cli(cli)
     r = sf.Runner(tempfile.mkdtemp(prefix='conf-', dir=out_root))
+    # R6.GATE.15 and the owner decision A1 of 2026-11-25.
+    replay_deferral = 'offline replay is deferred with R6.OUT.15 and OBL-17'
+    not_run('TR45-opB', 'offline replay of an op-B or op-D result', replay_deferral)
+    not_run('TR45-opC', 'offline replay of an op-C result', replay_deferral)
     t = None
     groups = [('TR', lambda: tr_controls(r, native_tr5)), ('EI5', lambda: ei5_controls(r)), ('O3', lambda: o3_controls(r)),
               ('R16', lambda: r_controls(r)),

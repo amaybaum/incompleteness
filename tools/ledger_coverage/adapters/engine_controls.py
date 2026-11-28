@@ -384,18 +384,24 @@ def extended_unmapped(sm):
 def self_test():
     return manuscript_digest() == load(ROWS)["digest"]
 '''
-        wanted = sf.sha(syn.repo.read(syn.pin, sf.DOC))
+        pin_text = syn.repo.read(syn.pin, sf.DOC)
+        wanted = sf.sha(pin_text)
         smap = {'schema': sitemap.SITEMAP_SCHEMA, 'pin': syn.pin,
                 'sites': [{'file': sf.DOC, 'line': 5, 's3': 'definition'}]}
         summary = 'Fixture record summary.\n'
+        inserted_line = 'An inserted line in the record tree.'
 
-        def record_checks(case, mutant=False, baseline=None):
+        def record_checks(case, mutant=False, baseline=None, override=None, shifted=False):
             rows = {'site_map': smap, 'digest': wanted, 'summary': summary}
             if mutant:
-                rows['site_overrides'] = {sf.DOC + ':5': {'anchor': 'fixture anchor absent from the pinned line'}}
+                override = 'fixture anchor absent from the pinned line'
+            if override is not None:
+                rows['site_overrides'] = {sf.DOC + ':5': {'anchor': override}}
             blobs = {record + 'ledger_check.py': checker, record + 'rows.json': sf.jb(rows),
                      record + 'sitemap.json': sf.jb(dict(smap, manuscript_digest=('0' * 64 if mutant else wanted))),
                      record + 'LEDGER.md': summary.encode()}
+            if shifted:
+                blobs[sf.DOC] = (inserted_line + '\n').encode() + pin_text
             rc = syn.repo.derive(syn.H, blobs, subject='record checks fixture')
 
             def module(name):
@@ -421,6 +427,19 @@ def self_test():
             'digest_equal', 'rebuild_equal', 'pin_findings'
         } <= {i['subject'] for i in result.get('items', []) if i['obligation'] == 'RECORD' and
               i['class'] == 'record-invalid'} and clean.get('record_checks') == restored.get('record_checks')
+
+        fixture_anchor = pin_text.splitlines()[4].decode('utf-8')
+        bad_code, bad = record_checks('an override whose anchor is not a substring of the pin line',
+                                      override=inserted_line, shifted=True)
+        good_code, good = record_checks('a valid override whose pin-line text moves after the pin '
+                                        '(positive: the anchor is never searched later)',
+                                        override=fixture_anchor, shifted=True)
+        baseline = cap.rec.pending[-1]
+        restored_code, clean = record_checks('restored', baseline=baseline, override=fixture_anchor, shifted=True)
+        out['ANCH-OVERRIDE'] = (bad_code == 20 and sf.classes(bad) == ['record-invalid'] and
+                                bool(bad['record_checks']['pin_findings']) and good_code == restored_code == 0 and
+                                not good['record_checks']['pin_findings'] and
+                                good['record_checks'] == clean['record_checks'])
     finally:
         unwrap()
     return out
