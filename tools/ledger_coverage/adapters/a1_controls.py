@@ -1045,10 +1045,14 @@ def v_controls(a):
     ch9 = 'book/ch09-universality.md'
     v7c = a.lines(T, ch9)[136].replace('generation count', 'generation number')
     code, res, its = edited(ch9, 137, v7c, profile='count-grep', retain_planted=True)
+    same_runs = list(a.rec.pending)
     a.record('V7c', [i['class'] for i in its] == ['rule-fingerprint-mismatch'], 'REVIEW rule-fingerprint-mismatch',
              [(i['class'], i.get('rule_id')) for i in its])
-    a.record('S1r', [i['class'] for i in its] == ['rule-fingerprint-mismatch'], 'REVIEW rule-fingerprint-mismatch',
-             'as V7c')
+    a.rec.pending = same_runs
+    observed = sorted(classes(res))
+    a.record('S1r', code == 10 and observed == ['rule-fingerprint-mismatch'] and
+             same_runs[0]['result'] == same_runs[-1]['result'], 'REVIEW rule-fingerprint-mismatch',
+             {'exit': code, 'classes': observed})
     lines = a.lines(T, ch)
     del lines[211]
     x = a.repo.derive(T, {ch: ('\n'.join(lines) + '\n').encode()}, parents=[H])
@@ -1885,7 +1889,16 @@ def z9g(a):
     values |= purity.string_values(json.loads(files[p]))
     loaded = cfgmod_loaded(a)
     profs = [pp for pp in loaded.profiles.values() if pp.kind in ('review', 'deny')]
-    found = purity.lint_engine(values, profs)
+    sources = purity.engine_sources()
+    found = purity.lint_sources(sources, values, profs)
+    source_map = {path: sha(src.encode()) for path, src in sorted(sources.items())}
+    a.rec.capture_doc('purity lint of the engine tree', {'findings': found, 'source_map': source_map,
+                      'exit_status': 20 if found else 0},
+                      attested={'outcome': 'LINT_FAIL' if found else 'LINT_PASS'})
+    a.files_of['Z9g'] = {'lint-findings.json': found, 'lint-source-map.json': source_map,
+                         'lint-value-set.json': sorted(values)}
+    a.procedures['Z9g'] = {'name': 'purity-lint', 'lib': 'lint', 'findings': 'lint-findings.json',
+                           'source_map': 'lint-source-map.json', 'value_set': 'lint-value-set.json'}
     a.record('Z9g', not found, 'the real engine tree: lint PASS', found[:40])
     # Z9h: 'guard-pin' planted in an engine module, with the adapter companions in the value set
     clean_src = open(os.path.join(tools, 'ledger_coverage', 'engine', 'outcome.py')).read()
