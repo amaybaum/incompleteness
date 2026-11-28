@@ -46,6 +46,12 @@ class Parser(argparse.ArgumentParser):
         raise UsageError('help requested:\n' + self.format_help())
 
 
+def segment_spec(value):
+    if '..' not in value.partition('=')[0]:
+        raise argparse.ArgumentTypeError('segment must be from..to')
+    return value
+
+
 def build_parser():
     p = Parser(prog='ledger_coverage.py', add_help=True)
     sub = p.add_subparsers(dest='op')
@@ -63,7 +69,7 @@ def build_parser():
     c = sub.add_parser('coverage')
     common(c)
     c.add_argument('--commit', required=True)
-    c.add_argument('--segment', action='append', default=[])
+    c.add_argument('--segment', action='append', type=segment_spec, default=[])
     c.add_argument('--hp', action='append', default=[])
     c.add_argument('--classify', action='append', default=[])
     c.add_argument('--check', action='append', default=[])
@@ -901,6 +907,8 @@ def stages(a, repo, harness, result, extra_records, preflight_fn, control, envir
     result['profiles'] = loaded.profile_records
     result['rule_files'] = [{'path': r['path'], 'blob_sha256': r['blob_sha256']} for r, _ in loaded.rule_files]
     result['hp_merges'] = cfg['hp_obligations']
+    if a.op == 'coverage':
+        commit, segment_refs = coverage_chain(a, repo, cfg)
     # controls
     from . import selftest
     pf = (preflight_fn or selftest.preflight)()
@@ -935,7 +943,7 @@ def stages(a, repo, harness, result, extra_records, preflight_fn, control, envir
     if op == 'record':
         body = op_record(a, repo, ctx, loaded, result)
     elif op == 'coverage':
-        body = op_coverage(a, repo, ctx, loaded, records, result)
+        body = op_coverage(a, repo, ctx, loaded, records, result, commit, segment_refs)
     elif op == 'terms':
         body = op_terms(a, repo, ctx, loaded, records, result)
     else:
@@ -1184,23 +1192,25 @@ def _with_sitemap(ctx, sm):
 
 # ---- op B ------------------------------------------------------------------------------------------------
 
-def parse_segments(a, repo, ctx, loaded, commit):
-    cfg = loaded.config
+def coverage_chain(a, repo, cfg):
+    commit = resolve(repo, a.commit)
     pin = cfg['roles']['pin']
-    specs = a.segment or (['%s..%s' % (pin, commit)] if commit != pin else [])
+    specs = a.segment or ['%s..%s' % (pin, commit)]
+    segments = []
+    for spec in specs:
+        span, _, ledger_ref = spec.partition('=')
+        start, end = span.split('..', 1)
+        segments.append({'from': resolve(repo, start), 'to': resolve(repo, end), 'ledger_ref': ledger_ref})
+    pl.check_segment_chain(pin, commit, segments)
+    return commit, segments
+
+
+def parse_segments(repo, loaded, segment_refs):
     segs = []
-    for s in specs:
-        led = None
-        if '=' in s:
-            rng, lref = s.split('=', 1)
-        else:
-            rng, lref = s, None
-        if '..' not in rng:
-            raise UsageError('segment must be from..to')
-        f, t = rng.split('..', 1)
-        f, t = resolve(repo, f), resolve(repo, t)
+    for ref in segment_refs:
+        f, t, lref = ref['from'], ref['to'], ref['ledger_ref']
         seg = {'from': f, 'to': t}
-        hp = [o for o in cfg['hp_obligations'] if o['segment'] == [f, t]]
+        hp = [o for o in loaded.config['hp_obligations'] if o['segment'] == [f, t]]
         if lref:
             led = load_adapter_input(repo, loaded, 'ledger', lref)
             pl.check_ledger(repo, f, led)
@@ -1222,17 +1232,13 @@ def parse_segments(a, repo, ctx, loaded, commit):
     return segs
 
 
-def op_coverage(a, repo, ctx, loaded, records, result):
-    commit = resolve(repo, a.commit)
+def op_coverage(a, repo, ctx, loaded, records, result, commit, segment_refs):
     result['evaluated'] = {'commit': commit}
     sm = load_adapter_input(repo, loaded, 'sitemap')
     ctx.sitemap = sm
     for f in ctx.corpus(commit):
         ctx.ft(commit, f)
-    try:
-        segs = parse_segments(a, repo, ctx, loaded, commit)
-    except UsageError as exc:
-        raise oc.Stop(oc.usage, 'USAGE', str(exc))
+    segs = parse_segments(repo, loaded, segment_refs)
     hp_recs, ctx_recs, hit_recs = [], [], []
     for r in a.hp:
         d = records.admit(repo, r, 'hp')

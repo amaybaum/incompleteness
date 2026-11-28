@@ -1181,6 +1181,47 @@ def pipeline_repo_control(r):
           clean[0] in (0, 10, 20) and not stop(clean[1]) and same(clean, restored))
 
 
+def pipeline_chain_control(r):
+    t = TR(r)
+    pin, base = t.syn.pin, t.syn.H
+    commit = t.repo.derive(base, {'syn/step.txt': b'next segment\n'}, parents=[base], subject='next segment')
+
+    def run(target, *segments):
+        args = ['coverage', '--commit', target, '--check', 'zc']
+        for start, end in segments:
+            args += ['--segment', '%s..%s' % (start, end)]
+        return r.cli(t.repo, args, t.c, t.p, t.s, harness=True)
+
+    clean_chain = ((pin, base), (base, commit))
+    clean = run(commit, *clean_chain)
+    baseline = REC.name_last('baseline')
+    outcomes = {}
+    adverse = [
+        ('two segments whose consecutive endpoints differ', ((pin, base), (pin, commit))),
+        ('a chain that does not end at the named commit', ((pin, base),)),
+    ]
+    for name, segments in adverse:
+        code, res = run(commit, *segments)
+        evidence = REC.name_last(name)
+        outcomes[name] = (code == 65 and stop(res) == 'CONFIG_INCONSISTENT' and
+                          res['items'] == res['preflight'] == [] and bool(evidence['result']))
+    defaults = [
+        ('no --segment, an HP obligation of the configuration naming the segment (positive)', base, 'hp'),
+        ('no --segment and no HP obligation naming it (positive)', commit, 'unledgered'),
+    ]
+    for name, target, kind in defaults:
+        code, res = run(target)
+        REC.name_last(name)
+        expected = {'name': '%s..%s' % (pin[:8], target[:8]), 'from': pin, 'to': target, 'kind': kind}
+        outcomes[name] = code in (0, 10, 20) and res.get('segments') == [expected]
+    restored = run(commit, *clean_chain)
+    REC.name_last('restored', baseline=baseline)
+    outcomes['restored'] = clean[0] in (0, 10, 20) and not stop(clean[1]) and same(clean, restored)
+    check('PIPE-CHAIN', 'broken chains produce ERROR with a result, and default chains use the configured kind',
+          'both invalid endpoint chains stop before preflight; default segments and repaired chain match',
+          outcomes, all(outcomes.values()), files={'pipeline-config.json': t.repo.read(t.c, t.p)})
+
+
 def gv_disk_controls(r):
     dk, ids, p, run = disk_world(r, 'gv-store')
     clean = run()
@@ -3416,7 +3457,7 @@ ALL_IDS = ['TR5-sim', 'TR5', 'TR1', 'TR2', 'TR3', 'TR13', 'TR14-tool', 'TR14', '
            'GV2', 'GV3', 'GV4', 'GV5', 'GV6', 'GV6-disk', 'GV7-tool', 'GV7-consumer', 'R16', 'R17', 'A12r', 'Z11',
            'S4a', 'G4', 'G5', 'G6', 'G7', 'G8', 'G9', 'G-A1', 'R3-F2', 'R4-B3', 'R4-B3-DUP', 'R5-N6', 'R6-G6',
            'LN1', 'LN2', 'LN3', 'LN4', 'LN5', 'LN6', 'LN7', 'LN8', 'LN10', 'O3-FILTER',
-           'PIPE-REPO',
+           'PIPE-REPO', 'PIPE-CHAIN',
            'RULE-MINLIT', 'RULE-ZEROFP', 'CANON-JSON'] + rdc.IDS
 
 
@@ -3460,6 +3501,7 @@ def main(out_root, native_tr5=False):
     t = None
     groups = [('TR', lambda: tr_controls(r, native_tr5)), ('EI5', lambda: ei5_controls(r)), ('O3', lambda: o3_controls(r)),
               ('PIPE-REPO', lambda: pipeline_repo_control(r)),
+              ('PIPE-CHAIN', lambda: pipeline_chain_control(r)),
               ('R16', lambda: r_controls(r)),
               ('A12r', lambda: a12r(r)), ('rule limits', lambda: allow_rule_limits(r)),
               ('Z11', lambda: z11_s4a(r)), ('G', lambda: g_controls(r)),

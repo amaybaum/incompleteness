@@ -3729,6 +3729,51 @@ def _record_control_restore(row, ev):
             ev.text('clean.replay-result.json') is not None)
 
 
+def _pipeline_chain_case(ev, case_name, argv, result, exit_code):
+    """Derive the expected coverage chain from the invocation and pinned configuration."""
+    inv = _pipeline_argv(argv, '--out')
+    configs = _case_args(argv, '--config')
+    commits = _case_args(argv, '--commit')
+    specs = _case_args(argv, '--segment')
+    raw = ev.text('pipeline-config.json')
+    cfg = ev.json('pipeline-config.json')
+    if not (raw and isinstance(cfg, dict) and inv and inv[0] == 'coverage' and
+            configs and len(configs) == 1 and commits and len(commits) == 1 and specs is not None and
+            isinstance(result, dict) and result.get('operation') == 'coverage' and result.get('invocation') == inv):
+        return False
+    ref = result.get('config') or {}
+    pin, commit = (cfg.get('roles') or {}).get('pin'), commits[0]
+    if not (isinstance(ref, dict) and configs[0] == '%s:%s' % (ref.get('commit'), ref.get('path')) and
+            ref.get('blob_sha256') == hashlib.sha256(raw).hexdigest() and
+            isinstance(pin, str) and HEX40.fullmatch(pin) and HEX40.fullmatch(commit)):
+        return False
+    pairs = [value.split('..') for value in specs] or [[pin, commit]]
+    if not all(len(pair) == 2 and all(HEX40.fullmatch(endpoint) for endpoint in pair) for pair in pairs):
+        return False
+    contiguous = pairs[0][0] == pin and all(a[1] == b[0] for a, b in zip(pairs, pairs[1:]))
+    reaches_commit = pairs[-1][1] == commit
+    if case_name in ('two segments whose consecutive endpoints differ', 'a chain that does not end at the named commit'):
+        baseline = (ev.case('baseline') or {}).get('argv')
+        if (_case_args(baseline, '--commit') != commits or _case_args(baseline, '--config') != configs or
+                _case_args(baseline, '--check') != _case_args(argv, '--check') or
+                result.get('items') != [] or result.get('preflight') != [] or 'segments' in result or
+                (result.get('stop') or {}).get('class') != 'CONFIG_INCONSISTENT'):
+            return False
+        if case_name == 'two segments whose consecutive endpoints differ':
+            return len(specs) == 2 and pairs[0][0] == pin and not contiguous and reaches_commit
+        return bool(specs) and contiguous and not reaches_commit
+    obligations = cfg.get('hp_obligations')
+    if not isinstance(obligations, list) or not all(isinstance(o, dict) for o in obligations):
+        return False
+    expected = [{'name': '%s..%s' % (f[:8], t[:8]), 'from': f, 'to': t,
+                 'kind': 'hp' if any(o.get('segment') == [f, t] for o in obligations) else 'unledgered'}
+                for f, t in pairs]
+    return (contiguous and reaches_commit and (bool(specs) == (case_name == 'restored')) and
+            result.get('segments') == expected and result.get('evaluated') == {'commit': commit} and
+            not result.get('stop') and exit_code in (0, 10, 20) and
+            exit_code == result.get('exit_status') == TOOL_EXIT.get(recompute_outcome(result)))
+
+
 def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None, phase=None):
     """Evaluates one expectation (the row's, one of its cases, or its restored case) against the retained
     evidence of the case. Appends findings; returns the extracted actual."""
@@ -3812,6 +3857,11 @@ def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None, phase=Non
     if listing is not None:
         c['_result_absent'] = not any(str(x).endswith('result.json') for x in listing)
     actual['exit'] = exit_code
+    if rid == 'PIPE-CHAIN':
+        chain_ok = _pipeline_chain_case(ev, case_name, c.get('argv'), result, exit_code)
+        if not chain_ok:
+            findings_out.append(('declarative-mismatch', 'case %r: the invocation and coverage chain do not verify'
+                                 % case_name))
     if rid == 'PIPE-REPO' and case_name == '':
         argv = c.get('argv')
         baseline = (ev.case('baseline') or {}).get('argv')
@@ -3952,11 +4002,11 @@ def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None, phase=Non
             if not same:
                 findings_out.append(('declarative-mismatch', 'case %r differs from the actual fixed clean scan'
                                      % case_name))
-        elif rid == 'PIPE-REPO' and o == 'RESULT_EQUAL_CLEAN':
+        elif rid in ('PIPE-REPO', 'PIPE-CHAIN') and o == 'RESULT_EQUAL_CLEAN':
             same = _pipeline_restored(ev, c, result, exit_code)
             actual['outcome'] = o if same else 'RESULT_DIFFERS'
             if not same:
-                findings_out.append(('declarative-mismatch', 'restoring --repo did not restore the clean result'))
+                findings_out.append(('declarative-mismatch', 'case %r did not restore the clean result' % case_name))
         elif rid in ('ANCH-OVERRIDE', 'OUT-FROZEN') and o == 'RESULT_EQUAL_CLEAN':
             try:
                 same = _record_control_restore(row, ev)
@@ -4131,6 +4181,11 @@ def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None, phase=Non
             elif rid == 'EI6' and phase in ('tool-acceptance', 'candidate-F') and k == 'before_unloaded_import':
                 got, src = _bootstrap_refusals_hold(ev.json('import-trace.json')), 'result'
                 holds = got == v
+            elif rid == 'PIPE-CHAIN' and k == 'equals':
+                kind = {'one segment from the pin to the named commit, of kind hp': 'hp',
+                        'one unledgered segment from the pin to the named commit': 'unledgered'}.get(v)
+                got, src = (result or {}).get('segments'), 'result and configuration'
+                holds = chain_ok and len(got) == 1 and got[0].get('kind') == kind
             elif fixed_terms and k in ('representative_candidate', 'scanned_paths_within'):
                 holds, got, src = fixed_bound, v if fixed_bound else None, 'verified fixed inputs and reads'
             elif rid == 'RT-I7A' and phase in ('tool-acceptance', 'candidate-F') and 'each_listed_line' in inv:

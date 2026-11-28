@@ -110,6 +110,16 @@ def entry_sha(e):
 
 # ---- coverage (op B) -------------------------------------------------------------------------------------
 
+def check_segment_chain(pin, commit, segments):
+    endpoint = pin
+    for segment in segments:
+        if segment['from'] != endpoint:
+            raise oc.Stop(oc.error, 'CONFIG_INCONSISTENT', 'segment chain is not contiguous at %s' % segment['from'])
+        endpoint = segment['to']
+    if endpoint != commit:
+        raise oc.Stop(oc.error, 'CONFIG_INCONSISTENT', 'segment chain does not end at the commit')
+
+
 class Coverage:
     def __init__(self, ctx, commit, segments, check, adjudications, hit_records):
         self.ctx = ctx
@@ -155,6 +165,7 @@ class Coverage:
 
     def run(self, sweep_files=None):
         ctx = self.ctx
+        check_segment_chain(ctx.config['roles']['pin'], self.commit, self.segments)
         sites = build_sites(ctx)
         self.sites = sites
         for s in sites:
@@ -169,10 +180,7 @@ class Coverage:
                 'structure_context_sha256': s['pin_structure_sha256'], 'provenance': None,
                 'region_shared_with': None, 'hp_overlap': False, 'region_splices': [], 'line_splices': [],
                 'carried': s['carried'], 'statuses': [], 'context_changed': False}
-        prev = ctx.config['roles']['pin']
         for seg in self.segments:
-            if seg['from'] != prev:
-                raise oc.Stop(oc.usage, 'USAGE', 'segment chain is not contiguous at %s' % seg['from'])
             name = '%s..%s' % (seg['from'][:8], seg['to'][:8])
             seg['name'] = name
             if seg['kind'] == 'hp':
@@ -182,9 +190,6 @@ class Coverage:
             else:
                 self.unledgered_segment(seg)
             self.snapshots.append((seg, held_lines(self.states)))
-            prev = seg['to']
-        if prev != self.commit:
-            raise oc.Stop(oc.usage, 'USAGE', 'segment chain does not end at the commit')
         # R6.REC.10: an HP adjudication entry whose site_id no tracked site carries is FAIL stale-adjudication (an
         # entry naming an existing site but disagreeing with it is decided by that site's own rule); R6.HP.7: a site
         # its adjudication resolves carries the distinct state provenance-adjudicated
