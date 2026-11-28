@@ -117,19 +117,10 @@ def _bytes_record(b):
         return {'base64': base64.b64encode(b).decode('ascii'), 'sha256': util.sha256(b)}
 
 
-
-# environment variables through which git reads configuration, or is pointed at another repository, index or object
-# store; none of them passes to a delegated clone (R6.DELEG.3: no clone runs a configured smudge filter)
-_git_env_drop = ('GIT_CONFIG_PARAMETERS', 'GIT_CONFIG_COUNT', 'GIT_CONFIG', 'GIT_DIR', 'GIT_WORK_TREE',
-                 'GIT_INDEX_FILE', 'GIT_OBJECT_DIRECTORY', 'GIT_ALTERNATE_OBJECT_DIRECTORIES', 'GIT_COMMON_DIR',
-                 'GIT_TEMPLATE_DIR', 'GIT_EXEC_PATH')
-
-
 def clone_env(environ):
-    # The delegated clone and its checks omit caller variables carrying configuration, redirecting the repository,
-    # naming a template directory or replacing git's helper programs. System and global configuration are disabled.
-    env = {k: v for k, v in environ.items()
-           if k not in _git_env_drop and not k.startswith(('GIT_CONFIG_KEY_', 'GIT_CONFIG_VALUE_'))}
+    # The local clone and its checks retain the executable search path and the Windows system root.
+    # Disable the system and global configuration for all three Git commands (R6.DELEG.3).
+    env = {name: environ[name] for name in ('PATH', 'SystemRoot') if name in environ}
     env.update(GIT_CONFIG_NOSYSTEM='1', GIT_CONFIG_GLOBAL=os.devnull)
     return env
 
