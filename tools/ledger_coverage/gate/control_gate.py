@@ -2291,6 +2291,134 @@ def _representative_read_scope(repo, config, ledger, edits, x, observed):
             all(p in paths and (p in scope or any(rx.search(p) for rx in patterns)) for p in reads))
 
 
+def _rt_t0_observations(result):
+    """Read RT-T0's site, merger and overlap counts from the coverage result."""
+    historical, retirement = result['segments']
+    E, H, X = historical['from'], historical['to'], retirement['to']
+    if (E != REP_E or not all(isinstance(c, str) and HEX40.fullmatch(c) for c in (H, X)) or
+            retirement['from'] != H or result['evaluated'] != {'commit': X} or
+            (historical['kind'], retirement['kind']) != ('hp', 'ledgered') or
+            (historical['name'], retirement['name']) != (E[:8] + '..' + H[:8], H[:8] + '..' + X[:8])):
+        raise ValueError('RT-T0 coverage does not retain the exact E..H and H..X segments')
+
+    moved, unchanged = 0, 0
+    groups, peers, by_site, splices = {}, {}, {}, set()
+    for site in result['sites']:
+        sid = site['site_id']
+        if (sid in by_site or not re.fullmatch(re.escape(site['file']) + r':[1-9][0-9]*@' + E[:8], sid)):
+            raise ValueError('RT-T0 repeats or misidentifies a pinned site')
+        by_site[sid] = site
+        statuses = [(s['segment'], s['status']) for s in site['statuses']]
+        if [segment for segment, _ in statuses] not in ([], [historical['name']],
+                                                         [historical['name'], retirement['name']]):
+            raise ValueError('RT-T0 case has unknown, repeated or misordered site segments')
+        moved += (retirement['name'], 'moved') in statuses
+        unchanged += (retirement['name'], 'unchanged') in statuses
+        region, line = site['region_splices'], site['line_splices']
+        if (not isinstance(region, list) or not isinstance(line, list) or
+                not all(isinstance(s, str) and s for s in region + line) or
+                region != sorted(set(region)) or line != sorted(set(line)) or not set(line) <= set(region) or
+                site['hp_overlap'] is not bool(region)):
+            raise ValueError('RT-T0 region and line overlap observations disagree')
+        splices.update(region)
+        group = site['region_shared_with']
+        if group is not None:
+            identity = site['file'], group['step'], group['region_sha256']
+            groups.setdefault(identity, set()).add(sid)
+            peers[sid] = group['with']
+    if (not isinstance(result['merger_groups'], list) or sorted(result['merger_groups']) !=
+            sorted(list(group) for group in groups) or any(
+                peers[sid] != sorted(members - {sid}) or len(members) < 2
+                for members in groups.values() for sid in members)):
+        raise ValueError('RT-T0 reported mergers disagree with their reciprocal site memberships')
+
+    overlaps = set()
+    for item in result['items']:
+        if item['obligation'] == 'RET' and item['class'] == 'untracked-hp-overlap':
+            sid = item['subject']
+            site = by_site[sid]
+            if (sid in overlaps or item['segment'] != retirement['name'] or item['decision'] != 'FAIL' or
+                    item['file'] != site['file'] or not site['region_splices'] or
+                    item['splices'] != site['region_splices'] or item['hp_overlap'] is not True):
+                raise ValueError('RT-T0 retirement finding does not bind the same site region and segment')
+            overlaps.add(sid)
+    if overlaps != {sid for sid, site in by_site.items() if site['region_splices']}:
+        raise ValueError('RT-T0 has unaccounted region overlaps')
+    return {
+        'sites[moved_in=H..X]': moved,
+        'site_counts:unchanged': unchanged + moved,
+        'merger_groups': len(groups),
+        'sites[region_shared_with_nonempty]': len(peers),
+        'region_splices_distinct': len(splices),
+        'items[obligation=RET,class=untracked-hp-overlap,attribution=line]':
+            sum(bool(by_site[sid]['line_splices']) for sid in overlaps),
+    }, {sid.rsplit('@', 1)[0]: by_site[sid]['region_splices'] for sid in peers}
+
+
+def _rt_t0_case_bound(case, result, observed, ctx):
+    """Bind the fixed adverse coverage run independently of the live RT-T inputs."""
+    repo = ctx.repo
+    fixed, sep, path = (ctx.fixed_config or '').partition(':')
+    if not sep or not HEX40.fullmatch(fixed) or fixed == ctx.freeze:
+        return False
+    config_bytes = _rep_input(repo, observed['config'], fixed, path)
+    config = json.loads(config_bytes)
+    T = git_blob_id(repo, 'HEAD^{commit}')
+    copies = []
+    for name, oid in ((REP_LEDGER, REP_LEDGER_GIT), (REP_EDITS, REP_EDITS_GIT), (REP_BUILDER, None)):
+        ref, raw = _rep_entry(repo, T, name)
+        if ref != _rep_entry(repo, ctx.tool_landing, name)[0] or (oid is not None and ref['git_blob'] != oid):
+            return False
+        copies.append(raw)
+    ledger, edits, builder = copies
+    H = json.loads(ledger)['base']
+    roles = config['roles']
+    if (roles['pin'], roles['scientific_base'], roles['record_commit']) != (REP_E, H, H):
+        return False
+    _rep_walk(repo, REP_E, H)
+    spec = config['adapters']['ledger']
+    edit_pins = [r for r in spec['companion'] if r['role'] == 'edits']
+    if (_rep_ref(spec) != {'path': REP_LEDGER, 'blob_sha256': _file_sha(ledger)} or
+            len(edit_pins) != 1 or _rep_pin(repo, edit_pins[0].get('commit') or T, _rep_ref(edit_pins[0])) != edits):
+        return False
+    delegation = config['delegation']
+    contract = _rep_pin(repo, delegation.get('commit') or fixed, _rep_ref(delegation))
+    built = _rep_construction(repo, (H, ctx.rep_main, ledger, edits, builder, json.loads(contract)))
+    X = built['commit']
+    observed_cfg = result['config']
+    invocation = ['coverage', '--config', fixed + ':' + path, '--commit', X, '--check', ITEM2_CHECK,
+                  '--segment', REP_E + '..' + H, '--segment', H + '..' + X + '=' + T + ':' + REP_LEDGER]
+    argv = list(case['argv'])
+    for flag in ('--out', '--repo'):
+        if len(_case_args(argv, flag) or []) != 1:
+            return False
+        i = argv.index(flag)
+        del argv[i:i + 2]
+    if (argv != invocation or result['invocation'] != invocation or result['operation'] != 'coverage' or
+            result['harness'] is not True or observed_cfg['admission']['mode'] != 'control-harness' or
+            (observed_cfg['commit'], observed_cfg['path'], observed_cfg['blob_sha256']) !=
+            (fixed, path, _file_sha(config_bytes)) or result['records_used'] or
+            [s['from'] for s in result['segments']] != [REP_E, H] or
+            [s['to'] for s in result['segments']] != [H, X] or result['evaluated'] != {'commit': X}):
+        return False
+    checked = [c['profiles'] for c in config['checks'] if c['id'] == ITEM2_CHECK]
+    if len(checked) != 1 or set(checked[0]) != set(ITEM2_PROFILES):
+        return False
+    profiles = []
+    for p in config['profiles']:
+        source = p['source']
+        if p['name'] in checked[0] or p['kind'] == 'deny':
+            _rep_pin(repo, source.get('commit') or fixed, _rep_ref(source))
+        profiles.append({'name': p['name'], 'kind': p['kind'], 'source_commit': source.get('commit'),
+                         'path': source['path'], 'blob_sha256': source['blob_sha256'],
+                         'pattern_sha256': p['pattern_sha256']})
+    denies = {p['name'] for p in profiles if p['kind'] == 'deny'}
+    return (bool(denies) and result['profiles'] == profiles and
+            result['profiles_evaluated'] == {X: sorted(set(ITEM2_PROFILES) | denies)} and
+            result['rule_files'] == [_rep_ref(r) for r in config['rules']] and
+            _representative_read_scope(repo, config, ledger, edits, built, observed))
+
+
 def _rt_d_counts(result, census):
     hits = result.get('hits') if isinstance(result, dict) else None
     other_hits = census.get('hits') if isinstance(census, dict) else None
@@ -2805,6 +2933,16 @@ def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None, phase=Non
         if exit_code is None:
             findings_out.append(('raw-evidence-missing', 'exit file of case %r unreadable' % case_name))
     result = ev.json(c['result_file']) if c.get('result_file') else None
+    rt_t0 = rid == 'RT-T0' and 'sites[moved_in=H..X]' in row['expect'].get('counts', {})
+    rt_t0_counts, rt_t0_merged = {}, {}
+    if rt_t0:
+        try:
+            rt_t0_counts, rt_t0_merged = _rt_t0_observations(result)
+            actual['merger_group_overlaps'] = {p: s for p, s in rt_t0_merged.items() if s}
+            if phase == 'candidate-F' and not _rt_t0_case_bound(c, result, attested, ctx):
+                raise ValueError('the exact fixed inputs or representative read scope do not verify')
+        except (ValueError, KeyError, TypeError, AttributeError) as exc:
+            findings_out.append(('declarative-mismatch', 'RT-T0 case %r: %s' % (case_name, exc)))
     terminology_counts = {}
     retired_hold, unclassified = False, set()
     if phase in ('tool-acceptance', 'candidate-F') and rid == 'RT-I7A' and case_name != 'restored':
@@ -2895,6 +3033,15 @@ def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None, phase=Non
             if actual['outcome'] != o:
                 findings_out.append(('declarative-mismatch', 'case %r: %s, expected %s' % (case_name,
                                                                                          actual['outcome'], o)))
+        elif rt_t0 and o == 'RESULT_EQUAL_CLEAN':
+            primary = ev.case('')
+            first = ev.json(primary.get('result_file')) if primary else None
+            clean = ev.json(c.get('baseline_file'))
+            same = (result is not None and result == first == clean and bool(rt_t0_counts) and
+                    exit_code == result['exit_status'] and c.get('baseline_argv') == primary.get('argv'))
+            actual['outcome'] = o if same else 'RESULT_DIFFERS'
+            if not same:
+                findings_out.append(('declarative-mismatch', 'RT-T0 restored result differs from its bound raw case'))
         elif rid == 'TT2' and o == 'RESULT_EQUAL_CLEAN':
             baseline = ev.json(c['baseline_file']) if c.get('baseline_file') else None
             countercase = ev.case('') or {}
@@ -2977,7 +3124,9 @@ def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None, phase=Non
                     findings_out.append(('declarative-mismatch', 'case %r: %s %s = %s, expected %s'
                                          % (case_name, key, filt, got, want)))
         for key, want in sorted((exp.get('counts') or {}).items()):
-            if rid == 'RT-I7' and key.startswith('lines[literal='):
+            if key in rt_t0_counts:
+                got, src = rt_t0_counts[key], 'result'
+            elif rid == 'RT-I7' and key.startswith('lines[literal='):
                 literal = key.removeprefix('lines[literal=').removesuffix(']')
                 if literal == 'A1':
                     got = (result or {}).get('reports', {}).get('item7-literal', {}).get('report_regex_lines')
@@ -3011,7 +3160,11 @@ def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None, phase=Non
                                          % (case_name, s, bad[:5] or 'no selected site')))
                 continue
             if subj is None:
-                if rid == 'RT-DR3W':
+                if rt_t0 and fields == {'all': 'other merger-group sites', 'overlapped_by_splice': None}:
+                    named = {s['subject'] for s in exp['sites'] if 'subject' in s}
+                    other = rt_t0_merged.keys() - named
+                    got = bool(other) and all(not rt_t0_merged[site] for site in other)
+                elif rid == 'RT-DR3W':
                     got = any(i.get('rule_id') == 'DR-3' and
                               i['sentence_start_line'] == s['sentence_start_line'] and
                               set(s['lines']) <= set(range(i['sentence_start_line'], i['sentence_end_line'] + 1))
@@ -3036,7 +3189,9 @@ def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None, phase=Non
             sitems = [i for i in items if _names(i, subj)]
             ok = bool(sites or sitems)
             for k, v in fields.items():
-                if rid == 'RT-I7' and k == 'literal':
+                if rt_t0 and k == 'overlapped_by_splice':
+                    ok = ok and rt_t0_merged.get(subj) == [v]
+                elif rid == 'RT-I7' and k == 'literal':
                     ok = ok and any(v in i.get('literals', []) for i in sitems)
                 elif k in ('classes_exact', 'classes_include'):
                     got = sorted({i.get('class') for i in sitems})

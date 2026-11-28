@@ -424,15 +424,21 @@ def rt_coverage(a):
     seg = ['--segment', '%s..%s' % (E, H), '--segment', '%s..%s=%s' % (H, x, ledger)]
     argv = ['coverage', '--commit', x, '--check', 'item2'] + seg
     scope = 'ledgered and corpus paths of X_rep, and the segments E..H and H..X'
-    code, res, t, scan = rep_run(a, argv, scope)
+    code, res, t, scan = rep_run(a, argv, scope, retain_reads=True)
     restored_code, restored, _, restored_scan = rep_run(a, argv, scope, case='restored',
-                                                        baseline=a.rec.pending[-1])
+                                                        baseline=a.rec.pending[-1], retain_reads=True)
     fc = res.get('finding_counts', {})
     sites = res.get('sites', [])
-    moved = sum(1 for s in sites for x in s['statuses'] if x['segment'].startswith(H[:8]) and x['status'] == 'moved')
+    segment = '%s..%s' % (H[:8], x[:8])
+    moved = sum(any(o['segment'] == segment and o['status'] == 'moved' for o in s['statuses']) for s in sites)
     shared = sum(1 for s in sites if s['region_shared_with'])
     splices = sorted({x for s in sites for x in s['region_splices']})
-    line_sites = [s for s in sites if s['line_splices']]
+    overlap = {i['subject'] for i in res.get('items', []) if
+               (i['obligation'], i['class'], i['decision'], i['segment']) ==
+               ('RET', 'untracked-hp-overlap', 'FAIL', segment)}
+    line_sites = [s for s in sites if s['site_id'] in overlap and s['line_splices']]
+    merged_overlaps = {s['site_id'].rsplit('@', 1)[0]: s['region_splices'] for s in sites
+                       if s['region_shared_with'] and s['region_splices']}
     hp_struct = sum(1 for i in res.get('items', []) if i['class'] == 'context-structure-changed' and
                     i['obligation'] == 'HP')
     ok = (code == 20 and fc.get('HP/FAIL/hp-unadjudicated') == 113 and fc.get('HP/FAIL/context-meaning-unverified') == 7
@@ -440,19 +446,28 @@ def rt_coverage(a):
           and fc.get('RET/FAIL/untracked-hp-overlap') == 19 and fc.get('RET/FAIL/context-meaning-unverified') == 5
           and fc.get('RET/REVIEW_REQUIRED/context-structure-changed') == 3 and not any('deny' in k for k in fc)
           and res['site_counts'].get('authorized-replacement') == 197 and res['site_counts'].get('authorized-removal') == 4
+          and res['site_counts'].get('unchanged', 0) + moved == 383
           and moved == 168 and shared == 22 and len(res.get('merger_groups', [])) == 9 and len(splices) == 31
+          and len(line_sites) == 18 and merged_overlaps == {'papers/Substratum.md:266': ['D029'],
+                                                           'papers/Substratum.md:268': ['D029']}
           and (res.get('region_lines') or {}).get('count') == 215
-          and restored_code == code and restored_scan == scan and restored.get('items') == res.get('items'))
-    a.record('RT-T0', ok, 'FAIL; HP 113/7/3; RET 19/5/3; deny 0; 383 unchanged (168 moved), 197 replaced, 4 removed; '
-                          '215 region lines; 9 merger groups, 22 sites',
+          and scan['outside_scope'] == [] and restored_code == code and restored_scan == scan
+          and all(restored.get(k) == res.get(k) for k in
+                  ('items', 'sites', 'segments', 'site_counts', 'merger_groups', 'region_lines')))
+    a.record('RT-T0', ok, 'FAIL with HP 113/7/7, RET 19/5/3 and no denies. '
+                          '383 unchanged (168 moved), 197 replaced, 4 removed, 215 region lines. '
+                          'Nine merger groups, 22 shared sites, 31 region splices and 18 line-attributed overlaps. '
+                          'D029 overlaps only Substratum.md:266 and :268 among merger-group sites.',
              {'exit': code, 'finding_counts': fc, 'site_counts': res.get('site_counts'), 'moved_H_T': moved,
               'merger_groups': len(res.get('merger_groups', [])), 'shared_sites': shared,
               'region_splices_distinct': len(splices), 'line_attributed_sites': len(line_sites),
+              'merger_group_overlaps': merged_overlaps,
               'hit_counts': res.get('hit_counts'), 'region_lines': res.get('region_lines'), 'X_rep': x,
               'scope': scan},
              predicate='exit 20; HP 113/7 and 7 HP structure REVIEWs; RET 19/5/3; no deny; 197 replaced, 4 removed; '
-                       '168 moved; 22 shared sites in 9 groups; 31 region splices; region_lines.count == 215 (the '
-                       'LF-inclusive site span, sec. 5)')
+                       '383 unchanged including 168 moved; 22 shared sites in 9 groups; 31 region splices; '
+                       '18 line-attributed overlaps; D029 at Substratum.md:266 and :268 alone among merged sites; '
+                       '215 region lines; confined run and restored result')
     a = phase
     if a.freeze is None:
         a.results['RT-T'] = {'id': 'RT-T', 'passed': False, 'status': 'NOT RUN', 'predicate': None,
@@ -2191,7 +2206,7 @@ def rep_scope(a, x, read, extra=(), *, config_revision=None, frozen=False):
     return sorted(p for p in read if p not in led and p not in extra and not any(q.search(p) for q in pats))
 
 
-def rep_run(a, args, scope_text, case=None, extra=(), **kw):
+def rep_run(a, args, scope_text, case=None, extra=(), *, retain_reads=False, **kw):
     """A tool run at X_rep with its read log; the attested invariants are those of R6.EVID.8 when they hold:
     representative_candidate (the build conforms) and scanned_paths_within (every path read at X_rep lies in the
     ledgered and corpus path sets, or `extra`)."""
@@ -2204,8 +2219,9 @@ def rep_run(a, args, scope_text, case=None, extra=(), **kw):
         holder['outside'] = out = rep_scope(a, x, reads, extra, config_revision=kw.get('config_revision'))
         d = {'read_paths': reads,
              'config': raw_ref(a.repo, kw.get('config_revision') or a.crev, a.cpath)}
-        if a.freeze is not None:
+        if a.freeze is not None or retain_reads:
             d['read_trace'] = log.trace()
+        if a.freeze is not None:
             d['representative_binding'] = {k: a.rep_binding[k] for k in
                                            ('freeze', 'T_land', 'M_rep', 'S', 'class_tip', 'allow_tip',
                                             'instance_sha256')}
