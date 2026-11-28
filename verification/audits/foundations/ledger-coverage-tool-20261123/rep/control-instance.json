@@ -32,7 +32,7 @@
     "self_test"
    ],
    "module": {
-    "blob_sha256": "79ad93539fb24ba9bce8ece8c140fdfbaf38dbcb9b38d60a5327bfd41b2e2b0a",
+    "blob_sha256": "7f659ce3dd31af83e5273da16dd6d1480b0c7e4f6ccb97a990c2a7f920eff509",
     "path": "tools/ledger_coverage/adapters/python_frozen_replay.py"
    },
    "module_path": "verification/audits/foundations/a1exit-ledger-20261120/ledger_check.py",
@@ -648,7 +648,7 @@
    },
    {
     "path": "tools/ledger_coverage/adapters/a1_controls.py",
-    "blob_sha256": "3ea839ba722ce16385d4ab8cce9a7113e81317857b08c49959d7b69726188685"
+    "blob_sha256": "1e72032bab6d25bf1108f6d26db11501db9ac7d43a1e10cea84d326475a5d3ed"
    },
    {
     "path": "tools/ledger_coverage/adapters/a1exit_exact_edit.py",
@@ -668,7 +668,7 @@
    },
    {
     "path": "tools/ledger_coverage/adapters/conformance_controls.py",
-    "blob_sha256": "f179de7e9d05b4aa7e5e98ee06b82a56ce100a6cdac703b69bce5b063e2cc12f"
+    "blob_sha256": "6af825ace5293a6a5d7fc8e0e16ec050c59d2980ea0dd67b6bb1b4bd62cf621b"
    },
    {
     "path": "tools/ledger_coverage/adapters/control_records.py",
@@ -700,7 +700,7 @@
    },
    {
     "path": "tools/ledger_coverage/adapters/engine_controls.py",
-    "blob_sha256": "8c26e141270685abe1210094f80ac04f1c9f43ea92204ca801b88b4ba04a2b0d"
+    "blob_sha256": "21eae00d0c978d666cf4974ada0cddc1ee8c2e30ad46bbc1327388f3d6432323"
    },
    {
     "path": "tools/ledger_coverage/adapters/history_cost.py",
@@ -720,7 +720,7 @@
    },
    {
     "path": "tools/ledger_coverage/adapters/obl29_controls.py",
-    "blob_sha256": "3cd48aceee8d1874392fc3a3f03c7f3312e6a8944aed78a7571fc6a02308fd44"
+    "blob_sha256": "49a54937cffa8148347fd4b2781ade569752a7dae2630ad3a47bc0da5d66a0b6"
    },
    {
     "path": "tools/ledger_coverage/adapters/postfreeze_controls.py",
@@ -728,7 +728,7 @@
    },
    {
     "path": "tools/ledger_coverage/adapters/python_frozen_replay.py",
-    "blob_sha256": "79ad93539fb24ba9bce8ece8c140fdfbaf38dbcb9b38d60a5327bfd41b2e2b0a"
+    "blob_sha256": "7f659ce3dd31af83e5273da16dd6d1480b0c7e4f6ccb97a990c2a7f920eff509"
    },
    {
     "path": "tools/ledger_coverage/adapters/read_domain.py",
@@ -764,7 +764,7 @@
    },
    {
     "path": "tools/ledger_coverage/adapters/synthetic_fixture.py",
-    "blob_sha256": "38bd280b2aa18a673c26f709cb3cf7a110ae0b865677b8fd38485bdf59e02898"
+    "blob_sha256": "4c684e658b30074941b05bd901dad69f2784bd2df4886b07fbc93b4632420134"
    },
    {
     "path": "tools/ledger_coverage/engine/__init__.py",
@@ -776,7 +776,7 @@
    },
    {
     "path": "tools/ledger_coverage/engine/category3.py",
-    "blob_sha256": "cf101a2a433705edc15e569da20c23896d1c8898d2f617d43685323441e9b257"
+    "blob_sha256": "a234a209ba4abf1a5cf2e0d684705d3cafd74dbb37540f1dade3345d3848ed84"
    },
    {
     "path": "tools/ledger_coverage/engine/checker.py",
@@ -784,7 +784,7 @@
    },
    {
     "path": "tools/ledger_coverage/engine/cli.py",
-    "blob_sha256": "32574482d8ef126a9f5c5fb44a0cdb37f40bbefe3fc8b8ac9adfa2817ddd468d"
+    "blob_sha256": "9d39749dd9f36b06ab5060628fb8a93311cac2ebf9c10cddf7ea438590748c63"
    },
    {
     "path": "tools/ledger_coverage/engine/config.py",
@@ -836,7 +836,7 @@
    },
    {
     "path": "tools/ledger_coverage/engine/pipeline.py",
-    "blob_sha256": "77e438481cb5b8e7cc0bf8c06ced05090405fe90dcea210a0659acd1705362d8"
+    "blob_sha256": "c4484e419945f59595511bdd8d8569743717463dfb61b1bd89b2c50f0091fa0f"
    },
    {
     "path": "tools/ledger_coverage/engine/profiles.py",
@@ -848,7 +848,7 @@
    },
    {
     "path": "tools/ledger_coverage/engine/recon_route.py",
-    "blob_sha256": "4d45f517d159098b2dffd1e694dd72c77a066eccac21d855550ddab8640a7f48"
+    "blob_sha256": "16fd9b4bce27aea914c6128380240df36a2af08ad25a5926c953732c1c8dde52"
    },
    {
     "path": "tools/ledger_coverage/engine/reconcile.py",
@@ -896,11 +896,11 @@
    },
    {
     "path": "tools/ledger_coverage/gate/control_gate.py",
-    "blob_sha256": "afe61fda25f5a658fbfe547822151a39cebac6f2d911024d3f4670c35d886053"
+    "blob_sha256": "48f9a00fbad371b3014e5ed1c2f52774e6dc4f6f379792eae87dd1c404860a1c"
    },
    {
     "path": "tools/ledger_coverage/gate/gate_selftest.py",
-    "blob_sha256": "d1a4f025173d567e23e278eab3072c36cca1b086fab661582fbde673e6ba0bf5"
+    "blob_sha256": "308ba288f719aaa7a8f5936fec80e31f5f191546ad540d1573d8dfe18f550a8b"
    },
    {
     "path": "tools/ledger_coverage/record_authority.py",
