@@ -5,7 +5,7 @@ R19). Every run uses the control harness (the A1 records are unreviewed drafts);
 records exist only in memory. Each control is reported as {id, expected, predicate, actual, status}.
 
 Usage: python3 -I -B tools/ledger_coverage/adapters/a1_conformance.py --repo DIR --config REV:PATH --staged-config FILE
-       --out DIR [--tool-revision HEAD] (see a1_controls.py for the staged configuration's path)
+       --out DIR [--tool-revision HEAD] [--fixed-config REV:PATH] (see a1_controls.py for the configuration path)
 """
 import argparse
 import copy
@@ -638,7 +638,7 @@ def n10_n11(a):
     return correct
 
 
-def n_controls(a):
+def n_controls(a, fixture=None):
     rcn = Recon(a)
     repo, path, rec = rcn.repo, rcn.path, rcn.rec
     comp = repo.read(M, path)
@@ -748,7 +748,7 @@ def n_controls(a):
     restored()
     check('N18-record', 'the record is record-invalid', "a record-invalid item", [i['class'] for i in e18.items],
           'record-invalid' in [i['class'] for i in e18.items])
-    L11 = n10_n11(a)
+    L11 = n10_n11(fixture or a)
     # the configuration route (owner: the record is frozen with the plan and referenced by the configuration)
     cfg = json.loads(repo.read(a.crev, a.cpath))
     classes_doc = {'schema': 'oi-side-change-classes/1', 'record_id': 'n3-classes', 'author': 'session.fixture-control-writer',
@@ -837,17 +837,25 @@ def main():
     ap.add_argument('--staged-config', default=None,
                     help='the staged configuration file; --config REV:PATH names its path in the plan directory')
     ap.add_argument('--tool-revision', help='full checkout HEAD when the configuration is on a distinct revision')
+    ap.add_argument('--fixed-config', help='full REV:PATH of the N10/N11 configuration when distinct from --config')
     args = ap.parse_args()
     os.makedirs(args.out, exist_ok=True)
     a = a1c.A1(args.repo, args.config, args.out, args.staged_config)
-    if args.tool_revision is not None:
+    if args.tool_revision is not None or args.fixed_config is not None:
         head = a1c.rev_parse(args.repo, 'HEAD')
-        if args.tool_revision != head:
+        if args.tool_revision is not None and args.tool_revision != head:
             ap.error('--tool-revision must be the full checkout HEAD')
         a.tool_rev = a.base.resolve(head)
+    fixture = None
+    if args.fixed_config is not None:
+        revision, sep, path = args.fixed_config.partition(':')
+        if not sep or not path or len(revision) != 40 or any(ch not in '0123456789abcdef' for ch in revision):
+            ap.error('--fixed-config must name a full commit id and a configuration path')
+        fixture = a1c.A1(args.repo, args.fixed_config, args.out)
+        fixture.base, fixture.repo, fixture.tool_rev = a.base, a.repo, a.tool_rev
     global REC
     REC = a.rec = control_records.Recorder('a1-conformance', args.out)
-    groups = [('WB', wb_controls), ('S11', s11_controls), ('N', n_controls)]
+    groups = [('WB', wb_controls), ('S11', s11_controls), ('N', lambda runner: n_controls(runner, fixture))]
     for name, fn in groups:
         if args.only and name not in args.only.split(','):
             continue
