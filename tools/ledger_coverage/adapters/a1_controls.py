@@ -2654,6 +2654,10 @@ def main():
         timing[name] = round(time.time() - t, 1)
     # sec. 10.4: every control carries a status and its predicate
     for cid, v in a.results.items():
+        if a.tool_acceptance and cid in ('RT-L2', 'RT-O9-L2'):
+            # M8-2 and Amendment 11: retain the predicted-main observations as diagnostics.
+            v.update(passed=False, status='NOT RUN',
+                     not_run_reason='real drift and reconciliation are assessed at the retirement landing')
         v.setdefault('status', 'PASS' if v.get('passed') else 'FAIL')
         if not v.get('predicate'):
             v['predicate'] = PREDICATES.get(cid, 'the boolean computed for this id in a1_controls.py')

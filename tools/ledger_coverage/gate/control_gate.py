@@ -157,6 +157,7 @@ RC_RULES = 'the configuration at the commit under check references reviewed rule
 RC_REP_BUILD = 'the subject under check is the exact candidate F assessed by OBL-16(a)'
 RELEASE_CHECKS = frozenset([RC_FALSE, RC_TR5_PASS, RC_EI14, RC_RTL2, RC_RTT, RC_TR5, RC_RULES, RC_REP_BUILD])
 F_REQUIRED_ROWS = frozenset(['REP-BUILD', 'RT-T', 'TR5', 'S11-2', 'S11-2a', 'S11-2b', 'S11-2c'])
+RETIREMENT_DRIFT_ROWS = frozenset(('RT-L2', 'RT-O9-L2'))
 # amendment 8, M8-3 and M8-4 (R6.GATE.15): a row outside the A1 path admits NOT RUN with this reason and RC_FALSE;
 # where no runner records it, the gate records it NOT RUN
 A8_REASON = 'outside the A1 path (amendment 8)'
@@ -4313,14 +4314,15 @@ def evaluate(exp_doc, rows, retired, reqs, records, mutations, ctx):
     muts, mdup = mutations
     # Standalone release-check controls still exercise the unchanged individual release facts.
     # The retained A1 gate has the REP-BUILD phase contract and applies it to all its due rows.
-    subject = assessment_subject(ctx) if {'REP-BUILD', 'S11-2'} & rows.keys() else None
+    tool_drift_scope = ctx.tool_candidate is not None and bool(RETIREMENT_DRIFT_ROWS & rows.keys())
+    subject = assessment_subject(ctx) if {'REP-BUILD', 'S11-2'} & rows.keys() or tool_drift_scope else None
     phase = subject['phase'] if subject else None
     try:
         rules_at_f = rules_release(ctx) if phase == 'candidate-F' else None
     except (ValueError, TypeError, AttributeError):
         rules_at_f = False
     scope_problem = None
-    if phase == 'tool-acceptance' and 'REP-BUILD' in rows:
+    if phase == 'tool-acceptance' and ('REP-BUILD' in rows or tool_drift_scope):
         try:
             subject['landing_scope'] = _tool_acceptance_scope(ctx, ctx.tool_candidate, current_main=True)
         except (ValueError, KeyError, TypeError, AttributeError) as exc:
@@ -4357,9 +4359,10 @@ def evaluate(exp_doc, rows, retired, reqs, records, mutations, ctx):
         own = []
         nr = row.get('not_run') or {}
         due_at_f = rid in F_REQUIRED_ROWS or nr.get('release_check') == RC_RULES
-        if phase == 'invalid' and due_at_f:
+        tool_drift_row = tool_drift_scope and rid in RETIREMENT_DRIFT_ROWS
+        if phase == 'invalid' and (due_at_f or tool_drift_row):
             add(rid, 'status-not-allowed', subject['reason'])
-        if rid == 'REP-BUILD' and scope_problem:
+        if (rid == 'REP-BUILD' or tool_drift_row) and scope_problem:
             add(rid, 'status-not-allowed', scope_problem)
         if rules_at_f is False and nr.get('release_check') == RC_RULES:
             add(rid, 'status-not-allowed', 'the required reviewed rule records are absent or misbound at F')
@@ -4416,6 +4419,9 @@ def evaluate(exp_doc, rows, retired, reqs, records, mutations, ctx):
                 job, rec, base = recs[rid]
                 rec_status = rec['status']
                 e['runner_status'] = rec_status
+                deferred_drift = tool_drift_row and phase == 'tool-acceptance' and not scope_problem
+                if deferred_drift and rec_status != 'NOT RUN':
+                    add(rid, 'status-not-allowed', 'drift and reconciliation are due at the retirement landing')
                 if rec_status == 'NOT RUN':
                     if 'NOT RUN' not in allowed:
                         add(rid, 'status-not-allowed', 'NOT RUN not allowed')
@@ -4427,6 +4433,8 @@ def evaluate(exp_doc, rows, retired, reqs, records, mutations, ctx):
                         # OBL-16 keeps native delegated checks on X and C at retirement execution.
                         # The candidate-F chain attestation by itself supplies neither subject.
                         pass
+                    elif deferred_drift:
+                        e['details'].append('not-run: real drift and reconciliation are due at the retirement landing')
                     elif evaluate_release(ctx, row['not_run']['release_check'], status):
                         add(rid, 'status-not-allowed', 'NOT RUN while its release check holds')
                 else:
