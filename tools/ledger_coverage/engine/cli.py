@@ -576,8 +576,11 @@ def run(argv, repo=None, harness=False, stderr=None, extra_records=(), preflight
             return custody_gate(a, out, repo, repo_path, argv)
         if getattr(a, 'final', False) and not getattr(a, 'check', None):
             raise UsageError('--final requires --check')
-        if a.op == 'terms' and bool(a.base) != bool(a.ledger):
-            raise UsageError('--base and --ledger go together')
+        if a.op == 'terms':
+            if a.profile and a.check:
+                raise UsageError('--profile and --check are exclusive')
+            if bool(a.base) != bool(a.ledger):
+                raise UsageError('--base and --ledger go together')
     except UsageError as exc:
         msg = {'schema': oc.result_schema, 'outcome': oc.usage, 'exit_status': 64, 'message': str(exc)}
         stderr.write(json.dumps(msg, sort_keys=True) + '\n')
@@ -915,6 +918,7 @@ def stages(a, repo, harness, result, extra_records, preflight_fn, control, envir
         commit, segment_refs = coverage_chain(a, repo, cfg)
     elif a.op == 'terms':
         commit = resolve(repo, a.commit)
+        selection = terms_selection(a, cfg['checks'], loaded.profiles)
         base = ledger = None
         if a.base:
             base = resolve(repo, a.base)
@@ -945,7 +949,7 @@ def stages(a, repo, harness, result, extra_records, preflight_fn, control, envir
     elif op == 'coverage':
         body = op_coverage(a, repo, ctx, loaded, records, result, commit, segment_refs)
     elif op == 'terms':
-        body = op_terms(a, repo, ctx, loaded, records, result, commit, base, ledger)
+        body = op_terms(a, repo, ctx, loaded, records, result, commit, base, ledger, selection)
     else:
         body = op_execution(a, repo, ctx, loaded, records, result, control)
     items += body + records.items
@@ -1427,12 +1431,9 @@ def hit_counts(hits):
 
 # ---- op D ------------------------------------------------------------------------------------------------
 
-def op_terms(a, repo, ctx, loaded, records, result, commit, base, led):
-    result['evaluated'] = {'commit': commit}
-    if a.profile and a.check:
-        raise oc.Stop(oc.usage, 'USAGE', '--profile and --check are exclusive')
+def terms_selection(a, checks, profiles):
     if a.check:
-        chk = ctx.check(a.check)
+        chk = next((check for check in checks if check['id'] == a.check), None)
         if chk is None:
             raise oc.Stop(oc.usage, 'USAGE', 'unknown check %s' % a.check)
         names = chk['profiles']
@@ -1443,10 +1444,16 @@ def op_terms(a, repo, ctx, loaded, records, result, commit, base, led):
         # no check is defined as a default (R6.RECON.33: `default_for` is CONFIG_INVALID); the terms syntax without
         # --check or --profile stays as it was for a configuration without a default (staging r2 leaves it open)
         chk = None
-        names = [p for p in ctx.profiles]
+        names = list(profiles)
     for n in names:
-        if n not in ctx.profiles:
+        if n not in profiles:
             raise oc.Stop(oc.usage, 'USAGE', 'unknown profile %s' % n)
+    return chk, names
+
+
+def op_terms(a, repo, ctx, loaded, records, result, commit, base, led, selection):
+    result['evaluated'] = {'commit': commit}
+    chk, names = selection
     profs = [ctx.profiles[n] for n in names]
     added = {}
     stexts = None

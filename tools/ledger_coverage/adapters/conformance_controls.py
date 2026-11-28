@@ -1283,6 +1283,8 @@ def pipeline_stages_control(r):
     preflight, _ = run('a failing preflight control together with a planted deny match',
                        witness='bad', target=deny_tree)
     deny, _ = run('deny-only', target=deny_tree)
+    conflict, conflict_raw = run('profile and check supplied together with a bad ledger',
+                                 config='bad', extra=['--check', 'zc'])
     restored, _ = run('restored', baseline=baseline)
     outcomes = {
         'usage': usage == (64, None) and usage_raw['result'] is None and not usage_raw['out_exists'],
@@ -1290,6 +1292,8 @@ def pipeline_stages_control(r):
         integrity[1]['items'] == integrity[1]['preflight'] == [],
         'preflight': preflight[0] == 70 and stop(preflight[1]) == 'PREFLIGHT_FAILED' and not preflight[1]['items'],
         'deny_control': deny[0] == 20 and 'deny-match' in classes(deny[1]),
+        'profile_check_usage': conflict == (64, None) and not conflict_raw['out_exists'] and
+        json.loads(conflict_raw['stderr']).get('message') == '--profile and --check are exclusive',
         'restored': clean[0] == 0 and not stop(clean[1]) and same(clean, restored),
     }
     evidence['preflight-observations.json'] = observations
