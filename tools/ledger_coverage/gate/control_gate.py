@@ -1580,12 +1580,15 @@ def _rep_allow_widening(old, current):
         conditions = (
             (set(r['scope']['files']) - set(q['scope']['files']), 'added files'),
             (before['literal'] != after['literal'], 'changed literal'),
-            (set(map(str, before.get('context', []))) - set(map(str, after.get('context', []))),
+            (len(after.get('context', [])) < len(before.get('context', [])) or
+             set(map(str, before.get('context', []))) - set(map(str, after.get('context', []))),
              'fewer context literals'),
             (set(map(str, before.get('negative', []))) - set(map(str, after.get('negative', []))),
              'fewer negative literals'),
-            (sorted((f['file'], f['sentence_sha256'], f['context_sha256']) for f in q['fingerprints']) !=
-             sorted((f['file'], f['sentence_sha256'], f['context_sha256']) for f in r['fingerprints']),
+            (sorted(json.dumps(f, sort_keys=True, separators=(',', ':'), ensure_ascii=False)
+                    for f in q['fingerprints']) !=
+             sorted(json.dumps(f, sort_keys=True, separators=(',', ':'), ensure_ascii=False)
+                    for f in r['fingerprints']),
              'fingerprint set changed'),
             (r['max_instances'] > q['max_instances'], 'larger max_instances'),
             (q['context_required'] and not r['context_required'], 'context_required turned off'),
