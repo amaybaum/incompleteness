@@ -85,7 +85,7 @@ class Running:
         return hspan
 
 
-def correspondence(edits, splices, read, base):
+def correspondence(edits, splices, read, base, retained=()):
     """Errors (kind, message) when the splices are not exactly P's application of the edit list at base."""
     errors = []
     files = sorted({e['file'] for e in edits})
@@ -122,10 +122,12 @@ def correspondence(edits, splices, read, base):
             continue
         hb = (len(texts[f][:hs[0]].encode('utf-8')), len(texts[f][:hs[1]].encode('utf-8')))
         sp = by_id.get(e['id'])
-        if o == n:
+        if o == n and (sp is None or e['id'] not in retained):
             if sp is not None:
                 errors.append(('correspondence', '%s: a retained edit has a splice' % e['id']))
             continue
+        # R6.PIPE.15 assigns a bound splice of an explicitly retained entry to candidate
+        # evaluation. The splice still has to match the selected source and image exactly.
         if sp is None:
             errors.append(('correspondence', '%s: edit without a splice' % e['id']))
             continue
@@ -192,8 +194,9 @@ def load(main, companions, read=None):
     kinds = {e['id']: e.get('kind') for e in elist}
     for s in splices:
         s['kind'] = kinds.get(s['id'])
+    retained_ids = led.get('retained_unchanged', [])
     if edits is not None and read is not None and not errors:
-        errors += correspondence(elist, splices, read, led['base'])
+        errors += correspondence(elist, splices, read, led['base'], retained_ids)
     retained, mirrors = [], []
     prim = {}
     for e in elist:
@@ -203,7 +206,7 @@ def load(main, companions, read=None):
         if e.get('mirror_of') is not None:
             mirrors.append({'id': e['id'], 'mirror_of': prim.get((e['mirror_of'], e['part']))})
     byid = {e['id']: e for e in elist}
-    for rid in led.get('retained_unchanged', []):
+    for rid in retained_ids:
         e = byid.get(rid)
         pair = (e['old'], e['new']) if e else None
         if e is not None and read is not None and not errors:

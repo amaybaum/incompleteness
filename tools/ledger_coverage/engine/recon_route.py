@@ -43,7 +43,8 @@ class Scope:
         self.harness = harness
         cls = [c for c in ((pinned_class_doc or {}).get('classes') or [])
                if isinstance(c, dict) and c.get('id') == record_authority.tool_landing_class_id]
-        self.prefixes = sorted({p for c in cls for p in (c.get('prefixes') or []) if isinstance(p, str)})
+        self.prefixes = sorted({p.rstrip('/') + '/' for c in cls for p in (c.get('prefixes') or [])
+                                if isinstance(p, str) and p})
         self.pins = {x['path']: x for c in cls for x in (c.get('pins') or [])
                      if isinstance(x, dict) and isinstance(x.get('path'), str)}
         d = plan_dir.rstrip('/') if plan_dir else None
@@ -330,19 +331,21 @@ def admit(repo, cands, scope, items):
 # OBL-28 C-29
 def lint_classified(repo, rev, path, data, doc, scope):
     """A --classify record of another kind in the control harness is linted at its record commit: exactly one
-    review record in its directory, and the chain lint over the records of that directory."""
+    ordinary review in its directory, with class widening reviews checked by the chain lint."""
     scan = scanned_all(repo, rev, posixpath.dirname(path))
     sha = util.sha256(data)
     st = rec.Store(scan, repo, [rev])
     if st.get({'path': path, 'blob_sha256': sha}) is None:
         st.add(path, data)
     d = posixpath.dirname(path)
-    reviews = [s for s, (p, rv) in st.by_sha.items()
+    matches = {s: rv for s, (p, rv) in st.by_sha.items()
                if isinstance(rv, dict) and rv.get('schema') == review_schema and posixpath.dirname(p) == d
-               and isinstance(rv.get('reviewed'), dict) and rv['reviewed'].get('blob_sha256') == sha]
+               and isinstance(rv.get('reviewed'), dict) and rv['reviewed'].get('blob_sha256') == sha}
+    class_record = doc.get('schema') == rec.class_schema
+    reviews = [s for s, rv in matches.items() if not class_record or rv.get('kind', 'review') == 'review']
     if len(reviews) != 1:
         return ['%d review records in the record directory name its blob, not one' % len(reviews)]
-    return rec.lint_chain({'path': path, 'blob_sha256': sha}, st, {sha, reviews[0]})
+    return rec.lint_chain({'path': path, 'blob_sha256': sha}, st, {sha, *matches})
 
 
 def scanned_all(repo, rev, directory):

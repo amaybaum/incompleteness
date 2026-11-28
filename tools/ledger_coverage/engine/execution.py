@@ -91,10 +91,6 @@ class Execution:
             d = self.repo.read(self.H, sp['file']) or b''
             if util.sha256(d[sp['start']:sp['end']]) != sp['old_sha256']:
                 bad.append('%s: old_sha256 does not match its span at H' % sp['id'])
-        sids = {sp['id'] for sp in led['splices']}
-        for r in led['retained']:
-            if r['id'] in sids:
-                bad.append('%s: retained edit has a splice' % r['id'])
         if bad:
             raise oc.Stop(oc.error, 'LEDGER_INTEGRITY', bad[0], {'problems': bad[:50], 'count': len(bad)})
         self.checks.append({'name': 'preconditions-at-H', 'holds': True, 'splices': len(led['splices']),
@@ -208,9 +204,10 @@ class Execution:
         for r in self.ledger['retained']:
             ok = r['id'] not in sids and r.get('text') is not None
             if ok:
-                h = (self.repo.read(self.H, r['file']) or b'').decode('utf-8', 'replace')
-                x = (self.repo.read(X, r['file']) or b'').decode('utf-8', 'replace')
-                ok = h.count(r['text']) == 1 and x.count(r['text']) == 1
+                text = r['text'].encode('utf-8')
+                h = self.repo.read(self.H, r['file']) or b''
+                x = self.repo.read(X, r['file']) or b''
+                ok = h.count(text) == 1 and x.count(text) == 1
             if not ok:
                 self.item('RET', 'retained-changed', r['id'], {'site': r.get('site_ref')}, file=r.get('file'))
 

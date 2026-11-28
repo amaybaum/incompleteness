@@ -91,7 +91,7 @@ def classify_side_named(repo, M, path, classes, record_refs):
             if (gb is None or gb == bid) and bs == sha and bs is not None:
                 return c['id'], None, True
             why = 'the blob at M differs from the pin of class %s' % c['id']
-        if why == 'no class lists the path' and any(path.startswith(x) for x in c.get('prefixes', [])):
+        if why == 'no class lists the path' and any(path.startswith(x.rstrip('/') + '/') for x in c.get('prefixes', [])):
             why = 'under a prefix of class %s but not listed with its blob' % c['id']
     return None, why, named
 
@@ -153,7 +153,8 @@ class RecordDirectory:
         self.conditions['Dir2'] = True
         e_f = {p: e for p, e in repo.entries(F).items() if inside(self.d, p)}
         # Dir3: no ledgered, corpus, class-prefix or workflow path inside the directory, at F or at M
-        prefixes = [x for c in classes if isinstance(c, dict) for x in c.get('prefixes', []) if isinstance(x, str)]
+        prefixes = [x.rstrip('/') + '/' for c in classes if isinstance(c, dict)
+                    for x in c.get('prefixes', []) if isinstance(x, str) and x]
         for p in sorted(set(e_f) | set(e_m)):
             if p in ledgered or in_corpus(p) or any(p.startswith(x) for x in prefixes) or p.startswith('.github/'):
                 self._stop('Dir3', 'a ledgered, corpus, class-prefix or workflow path lies in the record directory: %s'

@@ -315,7 +315,7 @@ def class_entrypoint_controls(cap):
         base_path, tip_path = 'syn/side-classes-root.json', 'syn/side-classes-tip.json'
         pin = {'path': first, 'blob_sha256': sf.sha(sides[first])}
         root = {'schema': 'oi-side-change-classes/1', 'record_id': 'fixture-classes', 'author': sf.WRITER,
-                'supersedes': None, 'classes': [{'id': 'notes', 'prefixes': ['notes/'], 'pins': [pin]}]}
+                'supersedes': None, 'classes': [{'id': 'notes', 'prefixes': ['notes'], 'pins': [pin]}]}
         good = 'a class record whose classes carry id, prefixes and pins [{path, blob_sha256}] (positive)'
 
         def classes(case, entry=None, successor=False, baseline=None):
@@ -345,7 +345,7 @@ def class_entrypoint_controls(cap):
             classes('countercase: a pin carrying git_blob (a key outside the table)',
                     dict(cls, pins=[dict(pin, git_blob=syn.repo.blob_id(m, first))])),
             classes('countercase: a class carrying the class-level paths form',
-                    {'id': 'notes', 'prefixes': ['notes/'], 'paths': [first], 'blob_sha256': pin['blob_sha256']}),
+                    {'id': 'notes', 'prefixes': ['notes'], 'paths': [first], 'blob_sha256': pin['blob_sha256']}),
             classes('countercase: a superseding class record that adds a pin without a widening review',
                     successor=True),
         ]

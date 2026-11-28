@@ -2448,9 +2448,8 @@ def f2_controls(r):
         M = syn.repo.derive(syn.H, {'notes/side.txt': b'side change on main\n'}, parents=[syn.H], subject='M')
         cls = {'schema': 'oi-side-change-classes/1', 'record_id': 'syn-classes', 'author': sf.WRITER,
                'supersedes': None,
-               'classes': [{'id': 'notes', 'prefixes': ['notes/'], 'reason': 'synthetic',
-                            'pins': [{'path': 'notes/side.txt', 'git_blob': syn.repo.blob_id(M, 'notes/side.txt'),
-                                      'blob_sha256': sha(b'side change on main\n')}]}]}
+               'classes': [{'id': 'notes', 'prefixes': ['notes'],
+                            'pins': [{'path': 'notes/side.txt', 'blob_sha256': sha(b'side change on main\n')}]}]}
         files = dict(base['files'])
         v = dict(base)
         if with_class:
@@ -2497,9 +2496,8 @@ def _r4_class_scenario(r, case, cls_mut=None, verdicts=None):
     M = syn.repo.derive(syn.H, {'notes/side.txt': b'side change on main\n'}, parents=[syn.H], subject='M')
     cls = {'schema': 'oi-side-change-classes/1', 'record_id': 'syn-classes', 'author': sf.WRITER,
            'supersedes': None,
-           'classes': [{'id': 'notes', 'prefixes': ['notes/'], 'reason': 'synthetic',
-                        'pins': [{'path': 'notes/side.txt', 'git_blob': syn.repo.blob_id(M, 'notes/side.txt'),
-                                  'blob_sha256': sha(b'side change on main\n')}]}]}
+           'classes': [{'id': 'notes', 'prefixes': ['notes'],
+                        'pins': [{'path': 'notes/side.txt', 'blob_sha256': sha(b'side change on main\n')}]}]}
     if cls_mut:
         cls_mut(cls)
     files = dict(base['files'])
@@ -2534,7 +2532,7 @@ def r4_b3_controls(r):
     """B3: every list entry of a reviewed record carries its id field; a record where one does not is record-invalid
     and its verdicts cannot fall back to the record id."""
     def second_without_id(c):
-        c['classes'].append({'prefixes': ['other/'], 'reason': 'x', 'pins': []})
+        c['classes'].append({'prefixes': ['other'], 'pins': []})
 
     def none_with_id(c):
         for k in c['classes']:
@@ -2583,7 +2581,7 @@ def r4_b3_duplicate_controls(r):
         return observed
 
     def dup_class(c):
-        c['classes'].append(dict(c['classes'][0], prefixes=['other/']))
+        c['classes'].append(dict(c['classes'][0], prefixes=['other']))
     acc = [{'item': 'notes', 'verdict': 'accept'}]
     positive = 'lint: distinct ids, one verdict each (positive)'
     out = {case: lint(case, ids, verdicts) for case, ids, verdicts in (

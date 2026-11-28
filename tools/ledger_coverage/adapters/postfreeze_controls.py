@@ -628,8 +628,7 @@ def rb_variant(w):
     a pin for each path of RB_LANDING; the configuration pins it as roles.side_change_classes."""
     from ledger_coverage import record_authority as ra
     doc = {'schema': 'oi-side-change-classes/1', 'record_id': 'syn-tool-landing', 'author': sf.WRITER,
-           'supersedes': None, 'classes': [{'id': ra.tool_landing_class_id, 'prefixes': [RB_TOOL],
-                                            'reason': 'synthetic tool landing',
+           'supersedes': None, 'classes': [{'id': ra.tool_landing_class_id, 'prefixes': [RB_TOOL.removesuffix('/')],
                                             'pins': [{'path': p, 'blob_sha256': sha(b)}
                                                      for p, b in sorted(RB_LANDING.items())]}]}
     b = jb(doc)
@@ -817,7 +816,7 @@ def rb_controls(r, check):
     # a reviewed class record named by --classify, whose prefixes cover misc/
     w = top({'misc/x.txt': b'x\n'})
     cls = {'schema': 'oi-side-change-classes/1', 'record_id': 'syn-misc', 'author': sf.WRITER, 'supersedes': None,
-           'classes': [{'id': 'misc', 'prefixes': ['misc/'], 'reason': 'synthetic'}]}
+           'classes': [{'id': 'misc', 'prefixes': ['misc'], 'pins': []}]}
     cb = jb(cls)
     cpath = 'syn/late/classes.json'
     crev = w.repo.derive(w.M, {cpath: cb, 'syn/late/classes.review.json': w.review(cpath, cb)}, parents=[w.M])

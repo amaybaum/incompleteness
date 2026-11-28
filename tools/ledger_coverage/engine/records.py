@@ -10,6 +10,7 @@ from . import util
 review_schema = 'oi-review-record/1'
 migration_schema = 'oi-edit-id-migration/1'
 migration_kind = 'edit-id-migration'
+class_schema = 'oi-side-change-classes/1'
 record_schemas = ('oi-term-rules/2', 'oi-hp-adjudication/1', 'oi-context-adjudication/1', 'oi-hit-classification/1',
                   'oi-scope/1', 'oi-side-change-classes/1', 'oi-reconciliation/1', 'oi-reconciliation/2', 'oi-retirement-config/1',
                   'oi-delegation/1', 'oi-reassessment/1', 'oi-adjudication/1', migration_schema)
@@ -19,6 +20,45 @@ _url = re.compile(r'://|/runs/|/actions|check[-_ ]run|/issues/\d+$|^#\d+$|/pull/
 
 item_lists = (('rules', 'id'), ('sites', 'site_id'), ('entries', 'id'), ('classifications', 'id'), ('records', 'id'),
               ('classes', 'id'))
+
+class_keys = {'id': ('nestr', True), 'prefixes': (('arr', 'path'), True),
+              'pins': (('arr', ('keyed', fd.ref_keys)), True)}
+class_record_keys = {'schema': (('lit', (class_schema,)), True), 'record_id': ('nestr', True),
+                     'supersedes': (('or', ('null',), ('keyed', fd.ref_keys)), True),
+                     'author': ('identity', True), 'classes': (('nearray', ('keyed', class_keys)), True)}
+
+
+def class_record_problems(doc):
+    """R6.RECON.34 class record fields, including the exact path and digest of each pin."""
+    out = []
+    fd.validate(class_record_keys, doc, '$', out)
+    if out:
+        return out
+    for i, cls in enumerate(doc['classes']):
+        paths = [p['path'] for p in cls['pins']]
+        if len(paths) != len(set(paths)):
+            out.append('$.classes[%d].pins: repeated pin path' % i)
+    return out
+
+
+def class_widening(old, new):
+    """R6.RECON.34 widening and R6.RECON.31 review items."""
+    before = {c['id']: c for c in old['classes']}
+    after = {c['id']: c for c in new['classes']}
+    for cid, cls in after.items():
+        prior = before.get(cid, {'prefixes': [], 'pins': []})
+        prefixes = set(cls['prefixes'])
+        old_prefixes = set(prior['prefixes'])
+        pins = {(p['path'], p['blob_sha256']) for p in cls['pins']}
+        old_pins = {(p['path'], p['blob_sha256']) for p in prior['pins']}
+        if prefixes - old_prefixes or pins - old_pins:
+            break
+    else:
+        return []
+    items = {cid for cid in before.keys() | after.keys() if before.get(cid) != after.get(cid)}
+    changed = {'field:' + k for k in (old.keys() | new.keys()) - {'classes', 'supersedes', 'version'}
+               if old.get(k) != new.get(k)}
+    return sorted(items) + sorted(changed)
 
 
 def migration_problems(doc):
@@ -177,6 +217,7 @@ class Store:
         self.repo, self.roots, self.record_commit = repo, list(roots), record_commit
         self.by_path = {}
         self.by_sha = {}
+        self.strict_parse_failures = set()
         for path, data in entries:
             self.add(path, data)
         self._scanned = None
@@ -187,10 +228,17 @@ class Store:
     widening = None
     heads_problems = None
 
+    def _decode(self, sha, data):
+        doc = json.loads(data.decode('utf-8'))
+        if isinstance(doc, dict) and doc.get('schema') in (class_schema, review_schema, migration_schema) and \
+                fd.strict_parse(data) is None:
+            self.strict_parse_failures.add(sha)
+        return doc
+
     def add(self, path, data):
         sha = util.sha256(data)
         try:
-            doc = json.loads(data.decode('utf-8'))
+            doc = self._decode(sha, data)
         except (ValueError, UnicodeDecodeError):
             doc = None
         self.by_path.setdefault(path, []).append((sha, doc))
@@ -223,7 +271,7 @@ class Store:
                 if sha in self._scanned:
                     continue
                 try:
-                    self._scanned[sha] = (path, json.loads(data.decode('utf-8')))
+                    self._scanned[sha] = (path, self._decode(sha, data))
                 except (ValueError, UnicodeDecodeError):
                     continue
         return self._scanned
@@ -323,6 +371,8 @@ def lint_chain(ref, store, admitted_shas, predecessor=False, *, observed_reviews
     if doc is None:
         return ['record %s: blob not in the object store at its path' % ref.get('path')]
     if isinstance(doc, dict) and doc.get('schema') == migration_schema:
+        if ref['blob_sha256'] in store.strict_parse_failures:
+            return ['the migration is not a strict JSON object']
         problems = migration_problems(doc)
         if problems:
             return problems
@@ -331,6 +381,12 @@ def lint_chain(ref, store, admitted_shas, predecessor=False, *, observed_reviews
         out.append('record %s: not referenced by the configuration' % ref['path'])
     if doc.get('schema') not in record_schemas:
         out.append('record %s: unknown schema %r' % (ref['path'], doc.get('schema')))
+    if doc.get('schema') == class_schema:
+        if ref['blob_sha256'] in store.strict_parse_failures:
+            out.append('record %s: not a strict JSON object' % ref['path'])
+        out.extend('record %s: %s' % (ref['path'], problem) for problem in class_record_problems(doc))
+        if out:
+            return out
     if 'supersedes' not in doc:
         out.append('record %s: no supersedes field' % ref['path'])
     if not predecessor:
@@ -378,7 +434,7 @@ def lint_chain(ref, store, admitted_shas, predecessor=False, *, observed_reviews
     # class record sharing an id are instead the configuration inconsistency of S7 (ERROR CONFIG_INCONSISTENT,
     # control Z11), raised where the classes are collected
     dup = sorted({i for i in ids if ids.count(i) > 1})
-    if dup and doc.get('schema') != 'oi-side-change-classes/1':
+    if dup and (doc.get('schema') != class_schema or predecessor):
         out.append('record %s: item id %s is given to more than one item' % (ref['path'], dup[0]))
         return out
     if not ids:
@@ -389,6 +445,8 @@ def lint_chain(ref, store, admitted_shas, predecessor=False, *, observed_reviews
     for sha, path, rv, roots in checks:
         # R6.REC.6 as staging S-2 S2.5 restates it: a review not independent (S2.4) of the record's author is no review
         bad = fd.independence_problems(rv, [author])
+        if doc.get('schema') in (class_schema, migration_schema) and sha in store.strict_parse_failures:
+            bad.append('the review is not a strict JSON object')
         # r6 Amendment 10 binds the admitted review of the post-freeze route; a predecessor's review keeps S-1 sec. 3
         bad += revision_problems(store.repo, roots, rv, None if predecessor else store.record_commit)
         if doc.get('schema') == migration_schema:
@@ -411,6 +469,19 @@ def lint_chain(ref, store, admitted_shas, predecessor=False, *, observed_reviews
             bad.append('no method')
         if bad:
             out.append('record %s: review %s: %s' % (ref['path'], path, '; '.join(bad)))
+    if not out and doc.get('schema') == class_schema and doc['supersedes'] is not None:
+        old = store.resolve(doc['supersedes'])
+        if class_record_problems(old):
+            return ['record %s: the superseded class record is malformed' % ref['path']]
+        changed = class_widening(old, doc)
+        if changed:
+            if len(changed) != len(set(changed)):
+                return ['record %s: an ambiguous class widening review item' % ref['path']]
+            reviewers = {r['reviewer'] for _, _, r in exact}
+            problems = widening_review_problems(ref, store, admitted_shas, reviewers, author,
+                                                doc['supersedes'], changed, predecessor=predecessor)
+            if problems:
+                out.append('record %s: widening without a valid widening review: %s' % (ref['path'], problems[0]))
     return out
 
 
@@ -492,14 +563,20 @@ def widening_review_problems(ref, store, admitted_shas, regular_reviewers, autho
 
     def usable(sha):
         return predecessor or sha in admitted_shas
+    target = store.resolve(ref) if predecessor else store.get(ref)
+    class_review = isinstance(target, dict) and target.get('schema') == class_schema
     why = []
+    qualified = False
     for sha, (path, d) in sorted(pool.items()):
         if not isinstance(d, dict) or d.get('schema') != review_schema or d.get('kind') != 'widening':
             continue
-        if not usable(sha) or d.get('reviewed', {}).get('blob_sha256') != ref['blob_sha256']:
+        reviewed = d.get('reviewed')
+        if not usable(sha) or not isinstance(reviewed, dict) or reviewed.get('blob_sha256') != ref['blob_sha256']:
+            continue
+        if class_review and reviewed.get('path') != ref['path']:
             continue
         bad = []
-        if d.get('reviewed', {}).get('path') != ref.get('path'):
+        if reviewed.get('path') != ref.get('path'):
             bad.append('names the reviewed blob at another path')
         # A1 staging amendment r2, sec. 2: `replaces` is an explicit JSON null only in the widening review of the
         # designated first allow-rule record (a root whose supersedes is null); there it must be present and null.
@@ -524,11 +601,26 @@ def widening_review_problems(ref, store, admitted_shas, regular_reviewers, autho
         if designated and any(fd.declared_dependency(o, [who]) for o in ordinary_reviews(ref, pool, usable)):
             # S-2 sec. 3, allow root: the ordinary reviewer is independent of the widening reviewer as well
             bad.append('an ordinary reviewer declares a dependency on the widening reviewer')
-        bad += revision_problems(store.repo, store.roots, d, None if predecessor else store.record_commit)
-        bad += widening_verdict_problems(d, changed)
+        shape = fd.review_schema_problems(d) if class_review else []
+        if class_review and sha in store.strict_parse_failures:
+            shape.append('the review is not a strict JSON object')
+        bad += shape
+        if not shape:
+            bad += revision_problems(store.repo, store.roots, d, None if predecessor else store.record_commit)
+            bad += widening_verdict_problems(d, changed)
+            if class_review:
+                if len(d['verdicts']) != len(changed):
+                    bad.append('the verdict list does not exactly cover the class widening items')
+                if not re.search(r'\b[0-9a-f]{40}\b', d['method']):
+                    bad.append('the method names no full object id')
         if not bad:
-            return []
-        why.append('widening review %s: %s' % (path, '; '.join(bad)))
+            if not class_review:
+                return []
+            qualified = True
+        else:
+            why.append('widening review %s: %s' % (path, '; '.join(bad)))
+    if qualified and not why:
+        return []
     return why or ['no widening review names the superseding blob']
 
 

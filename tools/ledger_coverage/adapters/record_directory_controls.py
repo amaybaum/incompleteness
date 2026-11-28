@@ -515,7 +515,7 @@ def o9_controls(r, check, recorder):
     check('RDIR-17', 'a class record defining class id record-directory: ERROR CONFIG_INCONSISTENT (Dir5)',
           'stop CONFIG_INCONSISTENT, Dir5', res, res.get('stop') == 'CONFIG_INCONSISTENT' and res.get('condition') == 'Dir5')
     cls_doc = {'schema': 'oi-side-change-classes/1', 'record_id': 'reserved', 'author': sf.WRITER, 'supersedes': None,
-               'classes': [{'id': rc.record_directory_class, 'prefixes': ['notes/'], 'reason': 'synthetic', 'pins': []}]}
+               'classes': [{'id': rc.record_directory_class, 'prefixes': ['notes'], 'pins': []}]}
     cp = 'syn/reserved-classes.json'
 
     def extra_cls(files):
