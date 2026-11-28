@@ -271,19 +271,22 @@ def p_module(a):
     mod = types.ModuleType('p_edits_check')
     mod.__file__ = os.path.join(tools, 'p_edits_check.py')
     exec(compile(src.decode('utf-8'), 'p_edits_check', 'exec'), mod.__dict__)
-    return mod
+    return mod, src
 
 
 def unit_of(a):
     loaded = a1c.cfgmod_loaded(a)
     params = peredit.find_params([(r, d) for r, d in loaded.rule_files])
-    return peredit.Unit(params, loaded.profiles), params
+    return peredit.Unit(params, loaded.profiles), params, loaded.profiles
+
+
+def edit_units(edits):
+    return [{'id': e['id'], 'file': e.get('file', 'f'), 'kind': e.get('kind'), 'pairs': le.pairs_of(e),
+             'raw_keys': sorted(e)} for e in edits]
 
 
 def ours(unit, params, edits):
-    units = [{'id': e['id'], 'file': e.get('file', 'f'), 'kind': e.get('kind'), 'pairs': le.pairs_of(e),
-              'raw_keys': sorted(e)} for e in edits]
-    res = unit.run(peredit.unit_pairs(units, params['pairs_key']))
+    res = unit.run(peredit.unit_pairs(edit_units(edits), params['pairs_key']))
     return {k: len(v) for k, v in res.items()}
 
 
@@ -306,9 +309,79 @@ def correspond(text, edits, splices):
     return le.correspondence(edits, splices, lambda c, f: data if f == 'f.md' else None, 'H')
 
 
+def s11_stage(repo, unit, profiles, text, edits, splices, per_splice=False):
+    """Capture the unit or the pinned ledger dispatch on the existing S11 fixture."""
+    stage = 'per-edit unit' if splices is None else 'ledger correspondence'
+    items, stop, operands = [], None, None
+    if splices is None:
+        per_edit, items = peredit.evaluate({'edit_units': edit_units(edits)}, unit.p, profiles)
+    else:
+        splices = [{k: v for k, v in sp.items() if k != 'new_bytes'} for sp in splices]
+        base = repo.add_commit({'f.md': text.encode('utf-8')}, [], subject='S11 correspondence base')
+        rows = [dict(edit, site=edit['id'], part=1) for edit in edits]
+        edits_bytes = json.dumps({'schema': le.EDITS_SCHEMA, 'edits': rows}, sort_keys=True).encode()
+        ledger_bytes = json.dumps({'schema': le.LEDGER_SCHEMA, 'base': base, 'files': {}, 'splices': splices,
+                                   'edits_sha256': sha(edits_bytes)}, sort_keys=True).encode()
+        ref = {'path': 'ledger.json', 'blob_sha256': sha(ledger_bytes),
+               'companion': [{'path': 'edits.json', 'blob_sha256': sha(edits_bytes), 'role': 'edits'}]}
+        commit = repo.derive(base, {'ledger.json': ledger_bytes, 'edits.json': edits_bytes},
+                             subject='S11 correspondence operands')
+        operands = {'base': base, 'commit': commit, 'ledger': ledger_bytes.decode(), 'edits': edits_bytes.decode(),
+                    'pin': ref}
+        loaded = types.SimpleNamespace(config={'adapters': {'ledger': ref}}, ref={'commit': commit},
+                                       modules={'ledger': le},
+                                       ctx=types.SimpleNamespace(edit_params=unit.p, profiles=profiles))
+        try:
+            loaded_ledger = cli.load_adapter_input(repo, loaded, 'ledger')
+        except oc.Stop as exc:
+            stop, per_edit = exc, exc.detail.get('per_edit')
+        else:
+            per_edit, _ = peredit.evaluate(loaded_ledger, unit.p, profiles)
+    selected = [le.select(edit, text) for edit in edits]
+    result = control_records.stage_doc(items, operation=stage, stop=stop, text=text, edits=edits, splices=splices,
+                                       selections=selected, per_edit=per_edit, operands=operands,
+                                       sentences=[unit.split.split(edit['new']) for edit in edits])
+    if per_splice:
+        old, new = selected[0]
+        splice_edit = {'id': edits[0]['id'], 'kind': edits[0]['kind'], 'old': old, 'new': new}
+        evaluation, splice_items = peredit.evaluate({'edit_units': edit_units([splice_edit])}, unit.p, profiles)
+        result['per_splice'] = control_records.stage_doc(splice_items, operation='per-splice unit', per_edit=evaluation)
+    return result
+
+
+def s11_p_output(p, text, edits):
+    variants = [p.variant(edit, text) for edit in edits]
+    applied = p.apply_edits({'edits': edits}, lambda _: text)
+    during = [p.variant(edit, p.apply_edits({'edits': edits[:i]}, lambda _: text).get(edit['file'], text))
+              for i, edit in enumerate(edits)]
+    inf, reg, caps, ids = p.static_new({'edits': edits})
+    return {'text': text, 'edits': edits, 'variants': variants, 'during_application': during, 'applied': applied,
+            'static_new': {'infinity': inf, 'register': reg, 'register-caps': caps, 'identifier': ids},
+            'sentences': [p.sentences(edit['new']) for edit in edits]}
+
+
 def s11_controls(a):
-    p = p_module(a)
-    unit, params = unit_of(a)
+    p, p_source = p_module(a)
+    unit, params, profiles = unit_of(a)
+
+    def retain(cid, cases, clean):
+        if REC is None:
+            return
+        tool_docs = {}
+        oracle_docs = {}
+        for name, (text, edits, splices) in cases.items():
+            result = s11_stage(a.repo, unit, profiles, text, edits, splices, per_splice=cid == 'S11-57a')
+            REC.capture_doc(result['operation'], result, case=name)
+            tool_docs[name] = result
+            oracle_docs[name] = s11_p_output(p, text, edits)
+        baseline = s11_stage(a.repo, unit, profiles, *clean)
+        first = REC.capture_doc(baseline['operation'], baseline, case='baseline')
+        restored = s11_stage(a.repo, unit, profiles, *clean)
+        REC.capture_doc(restored['operation'], restored, case='restored', baseline=first)
+        FILES[cid] = {'tool-output.json': tool_docs, 'oracle-output.json': oracle_docs, 'p-edits_check.py': p_source}
+        PROCS[cid] = {'name': 'p-oracle', 'lib': 'oracle', 'tool_output': 'tool-output.json',
+                      'oracle_output': 'oracle-output.json'}
+
     # S11-56: items 5 and 6 at T1' on P's edits.json
     code, res, _ = a.run(['terms', '--commit', T, '--base', H, '--ledger', a1c.LEDGER, '--check', 'item5'])
     ours56 = (res.get('per_edit') or {}).get('counts')
@@ -335,7 +408,7 @@ def s11_controls(a):
           ours56 == theirs56 == {'register': 0, 'register-caps': 0, 'infinity': 0} and c5 == 20 and c6 == 20 and
           'deny-match' in {i['class'] for i in r5['items']} and 'deny-match' in {i['class'] for i in r6['items']})
     # S11-57a/b: a two-variant edit whose unapplied variant adds "now" / "no longer"
-    out57 = {}
+    out57, fixtures57 = {}, {}
     for name, word, holder in (('a', 'now ', 'old'), ('b', 'no longer ', 'old'), ('b-H-holds-step2', 'no longer ',
                                                                                     'old_step2')):
         e = {'id': 'E1', 'file': 'f.md', 'kind': 'prose', 'old': 'The bound holds.', 'new': 'The bound holds.',
@@ -348,11 +421,17 @@ def s11_controls(a):
         per_splice = ours(unit, params, [{'id': 'E1', 'kind': 'prose', 'old': sel[0], 'new': sel[1]}])
         out57[name] = {'tool': ours(unit, params, [e]), 'P': theirs(p, [e]), 'per_splice': per_splice,
                        'selected_equal': (sel[0], sel[1]) == (ps[0], ps[1]), 'refused': bool(errs)}
+        fixtures57[name] = (text, [e], None)
+    retained57 = fixtures57['a'][1][0]
+    clean57 = (fixtures57['a'][0], [dict(retained57, new_step2=retained57['old_step2'])], None)
+    retain('S11-57a', {'': fixtures57['a']}, clean57)
     check('S11-57a', 'a two-variant edit, selected variant unchanged, unapplied variant adds "now": FAIL deny-match '
           '(register), as P (register 1); the per-splice unit alone would PASS',
           "tool register == P register == 1 and the per-splice unit gives 0", out57['a'],
           out57['a']['tool']['register'] == out57['a']['P']['register'] == 1 and
           out57['a']['per_splice']['register'] == 0)
+    retain('S11-57b', {'at H': fixtures57['b'], 'at an H holding old_step2': fixtures57['b-H-holds-step2']},
+           clean57)
     check('S11-57b', 'the same with "no longer"; also at an H holding old_step2: FAIL deny-match, as P, at both',
           "tool equals P with register 1 at both, with P's selection", {k: out57[k] for k in ('b', 'b-H-holds-step2')},
           all(out57[k]['tool'] == out57[k]['P'] and out57[k]['tool']['register'] == 1 and out57[k]['selected_equal']
@@ -367,6 +446,8 @@ def s11_controls(a):
            'new': 'It holds. Next part now.', 'new_bytes': b'It holds. Next part now.',
            'new_sha256': sha(b'It holds. Next part now.')}
     errs = correspond(text, [e1, e2], [one])
+    retain('S11-57c', {'correspondence': (text, [e1, e2], [one]), 'per edit': (text, [e1, e2], None)},
+           (text, [e1, e2], [splice_for(text, e, le.select(e, text)) for e in (e1, e2)]))
     check('S11-57c', 'one splice covering two edits (one deletes "now", the other adds it): ERROR SOURCE_CHANGED; '
           'evaluated per edit, FAIL deny-match (register), as P', "the correspondence refuses and the per-edit "
           "register count equals P's (1)", {'refusal': [m for _, m in errs][:3], 'tool': ours(unit, params, [e1, e2]),
@@ -375,6 +456,7 @@ def s11_controls(a):
           theirs(p, [e1, e2])['register'] == 1)
     e = {'id': 'E1', 'file': 'f.md', 'kind': 'prose', 'old': 'The bound holds.',
          'new': 'The bound holds; the lattice is infinite.'}
+    retain('S11-57d', {'': (e['old'], [e], None)}, (e['old'], [dict(e, new=e['old'])], None))
     check('S11-57d', '"The bound holds; the lattice is infinite." as an added pair: split as P\'s splitter does; the '
           'result equals P\'s static_new', "P's splitter gives two sentences and the tool's infinity count equals P's",
           {'split': unit.split.split(e['new']), 'tool': ours(unit, params, [e]), 'P': theirs(p, [e])},
@@ -384,7 +466,7 @@ def s11_controls(a):
          'old_step2': 'beta two.', 'new_step2': 'beta two now.'}
     cases = {'a': 'x alpha one. y', 'b': 'x beta two. y', 'c': 'x gamma. y', 'd': 'x alpha one. beta two. y',
              'e': 'x alpha one. alpha one. beta two. y', 'f': 'x alpha one. alpha one. beta two. beta two. y'}
-    out58 = {}
+    out58, fixtures58 = {}, {}
     for k, text in cases.items():
         sel = le.select(e, text)
         ps = p.variant(e, text)
@@ -392,7 +474,9 @@ def s11_controls(a):
         errs = correspond(text, [e], sps)
         out58[k] = {'tool_selected': sel[0] if sel else None, 'P_selected': ps[0], 'refused': bool(errs),
                     'items_equal': ours(unit, params, [e]) == theirs(p, [e])}
+        fixtures58[k] = (text, [e], sps)
     want = {'a': 'alpha one.', 'b': 'beta two.', 'c': None, 'd': 'alpha one.', 'e': 'beta two.', 'f': None}
+    retain('S11-58a-f', fixtures58, fixtures58['a'])
     check('S11-58a-f', 'one two-variant edit with H holding old once, old_step2 only, neither, both once, old twice and '
           'old_step2 once, both ambiguous: selection, refusal (ERROR SOURCE_CHANGED in c and f) and items 5-6 equal '
           'to P\'s', "the tool's selection equals P's and the expected one in each case; refusal exactly in c and f; "
@@ -400,13 +484,18 @@ def s11_controls(a):
           all(out58[k]['tool_selected'] == out58[k]['P_selected'] == want[k] and out58[k]['refused'] == (k in 'cf')
               and out58[k]['items_equal'] for k in cases))
     text_g = cases['e']  # old twice, old_step2 once: P selects (old_step2, new_step2)
-    errs_g = correspond(text_g, [e], [splice_for(text_g, e, (e['old'], e['new']))])
+    wrong_variant = [splice_for(text_g, e, (e['old'], e['new']))]
+    errs_g = correspond(text_g, [e], wrong_variant)
+    retain('S11-58g', {'': (text_g, [e], wrong_variant)}, fixtures58['e'])
     check('S11-58g', 'a splice built for (old, new) while P selects (old_step2, new_step2): ERROR SOURCE_CHANGED',
           "the correspondence refuses", [m for _, m in errs_g][:2], bool(errs_g))
     e1 = {'id': 'E1', 'file': 'f.md', 'kind': 'prose', 'old': 'red fox', 'new': 'blue fox'}
     e2 = {'id': 'E2', 'file': 'f.md', 'kind': 'prose', 'old': 'red fox jumps', 'new': 'red fox runs'}
     text = 'the red fox jumps.'
-    errs_h = correspond(text, [e1, e2], [splice_for(text, e1, ('red fox', 'blue fox'))])
+    first_splice = [splice_for(text, e1, ('red fox', 'blue fox'))]
+    errs_h = correspond(text, [e1, e2], first_splice)
+    retain('S11-58h', {'': (text, [e1, e2], first_splice)},
+           (text, [e2], [splice_for(text, e2, le.select(e2, text))]))
     check('S11-58h', 'an earlier edit that destroys a later edit\'s old: ERROR SOURCE_CHANGED, as P reports the edit '
           'lost', "the correspondence refuses naming E2 as lost", [m for _, m in errs_h][:2],
           any(m.startswith('E2') and 'lost' in m for _, m in errs_h))
@@ -414,6 +503,7 @@ def s11_controls(a):
     text = 'xaaay'
     sp = splice_for(text, e, ('aa', 'b'))
     errs_i = correspond(text, [e], [sp])
+    retain('S11-58i', {'': (text, [e], [sp])}, (text, [e], [sp]))
     check('S11-58i', 'old = "aa" in "xaaay" (non-overlapping count 1): selected at offset 1, as P selects; accepted',
           "selected, splice at offset 1, no refusal", {'start': sp['start'], 'refusal': [m for _, m in errs_i],
                                                        'P': p.variant(e, text)[2]},
@@ -421,7 +511,10 @@ def s11_controls(a):
     e1 = {'id': 'E1', 'file': 'f.md', 'kind': 'prose', 'old': 'cat fox', 'new': 'fox cat'}
     e2 = {'id': 'E2', 'file': 'f.md', 'kind': 'prose', 'old': 'cat', 'new': 'dog'}
     text = 'cat fox.'
-    errs_j = correspond(text, [e1, e2], [splice_for(text, e1, ('cat fox', 'fox cat'))])
+    first_splice = [splice_for(text, e1, ('cat fox', 'fox cat'))]
+    errs_j = correspond(text, [e1, e2], first_splice)
+    retain('S11-58j', {'': (text, [e1, e2], first_splice)},
+           (text, [e2], [splice_for(text, e2, le.select(e2, text))]))
     check('S11-58j', 'chained edits (edit 2\'s only occurrence after edit 1 lies inside edit 1\'s image): ERROR '
           'SOURCE_CHANGED naming edit 2 (chained); P\'s items 5 and 6 recorded', "a refusal naming E2 as chained",
           {'refusal': [m for _, m in errs_j][:2], 'P': theirs(p, [e1, e2])},
@@ -429,7 +522,10 @@ def s11_controls(a):
     e1 = {'id': 'E1', 'file': 'f.md', 'kind': 'prose', 'old': 'ab q', 'new': 'xy'}
     e2 = {'id': 'E2', 'file': 'f.md', 'kind': 'prose', 'old': 'qc', 'new': 'Q', 'old_step2': 'yc', 'new_step2': 'Q'}
     text = 'ab qc'
-    errs_k = correspond(text, [e1, e2], [splice_for(text, e1, ('ab q', 'xy'))])
+    first_splice = [splice_for(text, e1, ('ab q', 'xy'))]
+    errs_k = correspond(text, [e1, e2], first_splice)
+    retain('S11-58k', {'': (text, [e1, e2], first_splice)},
+           (text, [e2], [splice_for(text, e2, le.select(e2, text))]))
     run = le.Running(text)
     run.replace_first('ab q', 'xy')
     p_text = text.replace('ab q', 'xy', 1)

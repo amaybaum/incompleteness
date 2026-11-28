@@ -1311,6 +1311,9 @@ def item2_profile_problems(result, commit, deny_exempt):
 # Overlay.derive must change this restatement with it)
 S11_A1_DIRECTORY = 'verification/audits/foundations/a1exit-deletion-20261121'
 S11_STANDIN_SUBJECT = 'stand-in for F: the staged configuration in the plan record directory'
+S11_P_ORACLE_COMMIT = '4c79be642ca631573f06b444903be75ec4f5e2b6'
+S11_P_ORACLE_ROWS = {'S11-57a', 'S11-57b', 'S11-57c', 'S11-57d', 'S11-58a-f',
+                     'S11-58g', 'S11-58h', 'S11-58i', 'S11-58j', 'S11-58k'}
 _RECORD_PINS = re.compile(r'^### \d+\.\d+ Record pins\b')
 _PIN_ROW = re.compile(r'^\|\s*`([^`]+)`\s*\|\s*`([^`]*)`\s*\|\s*$')
 
@@ -3333,6 +3336,119 @@ def eval_lc_case(exp, case_name, ev, row, findings):
     return actual
 
 
+def _s11_reason(result):
+    errors = (result.get('stop') or {}).get('detail', {}).get('errors', [])
+    for message in errors:
+        if not isinstance(message, str):
+            continue
+        match = re.match(r'^E([0-9]+): (?:the edit is (lost)|(?:a )?(chained) edit)\b', message)
+        if match:
+            return {'names_edit': int(match[1]), 'reason': match[2] or match[3]}
+
+
+def _s11_stage_evidence(ev, case, result):
+    stage = 'per-edit unit' if result['splices'] is None else 'ledger correspondence'
+    outcome = recompute_outcome(result)
+    if (case['argv'] != ['in-process', stage] or result['operation'] != stage or
+            result['outcome'] != outcome or result['exit_status'] != TOOL_EXIT.get(outcome) or
+            ev.text(case['exit_file']) != ('%d\n' % result['exit_status']).encode()):
+        raise ValueError('the retained invocation, result and exit differ')
+    if stage == 'ledger correspondence':
+        inputs = result['operands']
+        ledger, edits = inputs['ledger'], inputs['edits']
+        blobs = {'edits.json': edits.encode(), 'ledger.json': ledger.encode()}
+        pin = {'path': 'ledger.json', 'blob_sha256': _file_sha(blobs['ledger.json']),
+               'companion': [{'path': 'edits.json', 'role': 'edits', 'blob_sha256': _file_sha(blobs['edits.json'])}]}
+        led = json.loads(ledger)
+        base = hashlib.sha1(b'S11 correspondence base' + b'f.md\0' + b'100644:' +
+                            _git_oid('blob', result['text'].encode()).encode()).hexdigest()
+        overlay = hashlib.sha1(b'S11 correspondence operands' + base.encode())
+        for path, data in sorted(blobs.items()):
+            overlay.update(path.encode() + b'\0' + b'100644:' + _git_oid('blob', data).encode())
+        overlay.update(base.encode())
+        if (inputs['pin'] != pin or led['edits_sha256'] != pin['companion'][0]['blob_sha256'] or
+                led['base'] != inputs['base'] or inputs['base'] != base or inputs['commit'] != overlay.hexdigest() or
+                led['splices'] != result['splices'] or
+                json.loads(edits)['edits'] != [dict(e, site=e['id'], part=1) for e in result['edits']]):
+            raise ValueError('the retained ledger or edit list differs from the dispatched pins')
+    return outcome
+
+
+def _s11_clean_result(rid, ev, case, result):
+    baseline = ev.case('baseline') or {}
+    files = (baseline.get('result_file'), case.get('baseline_file'), case.get('result_file'))
+    if (not all(files) or len(set(files)) != 3 or case.get('baseline_argv') != baseline.get('argv') or
+            case.get('argv') != baseline.get('argv') or ev.text(files[0]) is None or
+            ev.text(files[0]) != ev.text(files[1]) or ev.text(files[1]) != ev.text(files[2]) or
+            _s11_stage_evidence(ev, baseline, ev.json(files[0])) != 'PASS' or
+            _s11_stage_evidence(ev, case, result) != 'PASS'):
+        return False
+    primary = {'S11-57b': 'at H', 'S11-57c': 'correspondence', 'S11-58a-f': 'a'}.get(rid, '')
+    original = ev.json((ev.case(primary) or {})['result_file'])
+    if result['text'] != original['text']:
+        return False
+    if rid in ('S11-58a-f', 'S11-58i'):
+        return original == result
+    edits = original['edits']
+    if rid in ('S11-57a', 'S11-57b'):
+        edit = edits[0]
+        return result['edits'] == [dict(edit, new_step2=edit['old_step2'])] and result['splices'] is None
+    if rid == 'S11-57d':
+        edit = edits[0]
+        return result['edits'] == [dict(edit, new=edit['old'])] and result['splices'] is None
+    if rid in ('S11-58h', 'S11-58j', 'S11-58k'):
+        return result['edits'] == edits[1:] and len(result['splices']) == 1
+    return result['edits'] == edits and result['splices'] != original['splices']
+
+
+def _s11_oracle_result(rid, name, ev, proc):
+    case = ev.case(name)
+    result = ev.json(case['result_file'])
+    tool = ev.json(proc['tool_output'])[name]
+    oracle = ev.json(proc['oracle_output'])[name]
+    if result != tool or any(tool[k] != oracle[k] for k in ('text', 'edits')):
+        raise ValueError('the oracle outputs and case result do not bind the same input')
+    outcome = _s11_stage_evidence(ev, case, result)
+    counts = tool['per_edit']['counts']
+    if counts != {k: len(oracle['static_new'][k]) for k in ('infinity', 'register', 'register-caps')}:
+        raise ValueError('the per-edit counts differ from P static_new')
+    variants = [pair[:2] if pair[0] is not None else None for pair in oracle['variants']]
+    if tool['selections'] != variants:
+        raise ValueError('the selections differ from P')
+    if rid in ('S11-57a', 'S11-57b', 'S11-57c') and counts['register'] != 1:
+        raise ValueError('the per-edit result does not contain the expected register finding')
+    if rid == 'S11-57a':
+        old, new = variants[0]
+        if (old != new or tool['per_splice']['operation'] != 'per-splice unit' or
+                recompute_outcome(tool['per_splice']) != 'PASS'):
+            raise ValueError('the unchanged selected splice alone did not pass')
+    if rid == 'S11-57b':
+        fields = ('old', 'new') if name == 'at H' else ('old_step2', 'new_step2')
+        if variants[0] != [tool['edits'][0][k] for k in fields]:
+            raise ValueError('the selected pair does not match the named base')
+    if rid == 'S11-57d' and tool['sentences'] != oracle['sentences']:
+        raise ValueError('the tool and P sentence splits differ')
+    if rid == 'S11-58a-f':
+        old = {'a': 'alpha one.', 'b': 'beta two.', 'c': None,
+               'd': 'alpha one.', 'e': 'beta two.', 'f': None}[name]
+        counts_at_h = tuple(tool['text'].count(tool['edits'][0][k]) for k in ('old', 'old_step2'))
+        if (counts_at_h != {'a': (1, 0), 'b': (0, 1), 'c': (0, 0),
+                            'd': (1, 1), 'e': (2, 1), 'f': (2, 2)}[name] or
+                oracle['variants'][0][0] != old or bool(tool.get('stop')) != (old is None)):
+            raise ValueError('the selection or refusal does not match the original case')
+    if rid == 'S11-58g' and variants[0] != [tool['edits'][0][k] for k in ('old_step2', 'new_step2')]:
+        raise ValueError('P did not select the alternate pair')
+    if rid == 'S11-58h' and oracle['during_application'][1][0] is not None:
+        raise ValueError('P did not lose the later edit during application')
+    if rid == 'S11-58i':
+        old = oracle['variants'][0][0]
+        if old is None or len(tool['text'][:tool['text'].index(old)].encode()) != tool['splices'][0]['start']:
+            raise ValueError('the selected byte offset differs from P')
+    if rid == 'S11-58k' and oracle['applied'].get('f.md') != 'xQ':
+        raise ValueError('the retained P application did not produce xQ')
+    return outcome
+
+
 def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None, phase=None):
     """Evaluates one expectation (the row's, one of its cases, or its restored case) against the retained
     evidence of the case. Appends findings; returns the extracted actual."""
@@ -3475,6 +3591,18 @@ def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None, phase=Non
             if actual['outcome'] != o:
                 findings_out.append(('declarative-mismatch', 'case %r: %s, expected %s' % (case_name,
                                                                                          actual['outcome'], o)))
+        elif rid in S11_P_ORACLE_ROWS and o in ('ORACLE', 'RESULT_EQUAL_CLEAN'):
+            try:
+                if o == 'ORACLE':
+                    proc = (ev.man or {}).get('procedure') or {}
+                    same = _s11_oracle_result(rid, case_name, ev, proc) == 'PASS'
+                else:
+                    same = _s11_clean_result(rid, ev, c, result)
+            except (ValueError, KeyError, TypeError, IndexError, AttributeError):
+                same = False
+            actual['outcome'] = o if same else 'RESULT_DIFFERS'
+            if not same:
+                findings_out.append(('declarative-mismatch', 'case %r: %s evidence differs' % (case_name, o)))
         elif rt_t0 and o == 'RESULT_EQUAL_CLEAN':
             primary = ev.case('')
             first = ev.json(primary.get('result_file')) if primary else None
@@ -3580,6 +3708,10 @@ def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None, phase=Non
         for key, want in sorted((exp.get('counts') or {}).items()):
             if key in rt_t0_counts:
                 got, src = rt_t0_counts[key], 'result'
+            elif rid == 'S11-57d' and key == 'sentences':
+                split = (result or {}).get('sentences')
+                got = len(split[0]) if isinstance(split, list) and len(split) == 1 and isinstance(split[0], list) else None
+                src = 'result' if got is not None else None
             elif rid == 'RT-I7' and key.startswith('lines[literal='):
                 literal = key.removeprefix('lines[literal=').removesuffix(']')
                 if literal == 'A1':
@@ -3682,7 +3814,17 @@ def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None, phase=Non
                 k, v = next(iter(inv.items()))
             if k == 'baseline':
                 continue
-            if rid == 'EI6' and phase in ('tool-acceptance', 'candidate-F') and k == 'before_unloaded_import':
+            if rid in ('S11-58h', 'S11-58j', 'S11-58k') and set(inv) == {'names_edit', 'reason'}:
+                got, src = _s11_reason(result or {}), 'result'
+                holds = got == inv
+            elif rid == 'S11-58i' and k in ('selected_offset', 'refused'):
+                splices = (result or {}).get('splices') or []
+                if k == 'refused':
+                    got = bool(result.get('stop')) if result is not None else None
+                else:
+                    got = splices[0].get('start') if len(splices) == 1 and isinstance(splices[0], dict) else None
+                src, holds = 'result', got == v
+            elif rid == 'EI6' and phase in ('tool-acceptance', 'candidate-F') and k == 'before_unloaded_import':
                 got, src = _bootstrap_refusals_hold(ev.json('import-trace.json')), 'result'
                 holds = got == v
             elif fixed_terms and k in ('representative_candidate', 'scanned_paths_within'):
@@ -3933,7 +4075,22 @@ def eval_procedure(row, ev, findings_out, repo=None):
             for name in (v if isinstance(v, list) else [v]):
                 if isinstance(name, str) and ev.path(name) is None:
                     fail('evidence file %s absent' % name)
-        if lib == 'oracle':
+        if lib == 'oracle' and row['id'] in S11_P_ORACLE_ROWS:
+            try:
+                pin = _rep_plan_pin(repo, S11_P_ORACLE_COMMIT, 'edits_check.py')
+                if ev.text('p-edits_check.py') != _rep_pin(repo, S11_P_ORACLE_COMMIT, pin):
+                    raise ValueError('the retained oracle source differs from the pin at P')
+                names = {n for case in row['expect'].get('cases', [{'case': ''}])
+                         for n in (case['case'] if isinstance(case['case'], list) else [case['case']])}
+                if any(set(ev.json(proc[key])) != names for key in ('tool_output', 'oracle_output')):
+                    raise ValueError('the oracle outputs do not cover the declared cases exactly')
+                for name in sorted(names):
+                    _s11_oracle_result(row['id'], name, ev, proc)
+                actual['agree'] = True
+            except (ValueError, KeyError, TypeError, IndexError, AttributeError) as exc:
+                actual['agree'] = False
+                fail(str(exc))
+        elif lib == 'oracle':
             a, b = ev.json(proc['tool_output']), ev.json(proc['oracle_output'])
             actual['agree'] = a == b
             if a != b:
