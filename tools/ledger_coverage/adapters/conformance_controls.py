@@ -1141,11 +1141,14 @@ def disk_world(r, name):
     host.runs[hf.RUN_ID] = {'repository_id': hf.REPO_ID, 'head_repository_id': hf.REPO_ID, 'event': 'workflow_dispatch',
                             'head_branch': 'main', 'workflow_path': hf.WF_PATH, 'head_sha': ids['T']}
 
-    def run(op='terms', commit=None, extra=(), store=None):
-        repo = gitobj.GitRepo(store or dk.d)
+    def run(op='terms', commit=None, extra=(), store=None, cli_repo=False):
+        store = store or dk.d
+        repo = None if cli_repo else gitobj.GitRepo(store)
         o = r.out()
         argv = [op, '--config', '%s:%s' % (ids['F'], p), '--out', o, '--freeze', ids['F']] + \
             (['--commit', commit or ids['X']] if op == 'terms' else []) + list(extra)
+        if cli_repo:
+            argv += ['--repo', store]
         code, res = cli.run(argv, repo=repo, stderr=io.StringIO(),
                             control={'host': host, 'run_id': hf.RUN_ID, 'repo_id': hf.REPO_ID,
                                      'checkout': {q: hf.TOOL_FILES[q] for q in hf.TOOL_FILES}}, environ={})
@@ -1156,6 +1159,26 @@ def disk_world(r, name):
 def same(a, b):
     """Two results equal as results: canonical JSON, the run directory aside."""
     return a[0] == b[0] and util.canonical(a[1]) == util.canonical(b[1])
+
+
+def pipeline_repo_control(r):
+    _, _, _, run = disk_world(r, 'pipe-repo-store')
+    invalid = os.path.join(r.out_root, 'pipe-non-repository')
+    os.makedirs(invalid)
+    if gitb(invalid, 'rev-parse', '--git-dir', check_=False) is not None:
+        raise ValueError('the invalid --repo fixture resolves to a repository')
+    clean = run(cli_repo=True)
+    baseline = REC.name_last('baseline')
+    bad = run(store=invalid, cli_repo=True)
+    REC.name_last('')
+    restored = run(cli_repo=True)
+    REC.name_last('restored', baseline=baseline)
+    check('PIPE-REPO', 'an existing non-repository passed to terms --repo gives ERROR UNRESOLVABLE',
+          'Git refuses the directory and terms stops at repository resolution; restoring --repo restores the result',
+          {'adverse': show(*bad), 'clean': show(*clean), 'restored_equal': same(clean, restored)},
+          bad[0] == 65 and stop(bad[1]) == 'UNRESOLVABLE' and
+          bad[1]['stop']['message'] == 'not a git repository: ' + invalid and
+          clean[0] in (0, 10, 20) and not stop(clean[1]) and same(clean, restored))
 
 
 def gv_disk_controls(r):
@@ -3393,6 +3416,7 @@ ALL_IDS = ['TR5-sim', 'TR5', 'TR1', 'TR2', 'TR3', 'TR13', 'TR14-tool', 'TR14', '
            'GV2', 'GV3', 'GV4', 'GV5', 'GV6', 'GV6-disk', 'GV7-tool', 'GV7-consumer', 'R16', 'R17', 'A12r', 'Z11',
            'S4a', 'G4', 'G5', 'G6', 'G7', 'G8', 'G9', 'G-A1', 'R3-F2', 'R4-B3', 'R4-B3-DUP', 'R5-N6', 'R6-G6',
            'LN1', 'LN2', 'LN3', 'LN4', 'LN5', 'LN6', 'LN7', 'LN8', 'LN10', 'O3-FILTER',
+           'PIPE-REPO',
            'RULE-MINLIT', 'RULE-ZEROFP', 'CANON-JSON'] + rdc.IDS
 
 
@@ -3435,6 +3459,7 @@ def main(out_root, native_tr5=False):
     not_run('TR45-opC', 'offline replay of an op-C result', replay_deferral)
     t = None
     groups = [('TR', lambda: tr_controls(r, native_tr5)), ('EI5', lambda: ei5_controls(r)), ('O3', lambda: o3_controls(r)),
+              ('PIPE-REPO', lambda: pipeline_repo_control(r)),
               ('R16', lambda: r_controls(r)),
               ('A12r', lambda: a12r(r)), ('rule limits', lambda: allow_rule_limits(r)),
               ('Z11', lambda: z11_s4a(r)), ('G', lambda: g_controls(r)),

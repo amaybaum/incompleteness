@@ -3639,6 +3639,36 @@ def _s11_oracle_result(rid, name, ev, proc):
     return outcome
 
 
+def _pipeline_argv(argv, *omit):
+    """Remove the named single-valued flags from a retained CLI invocation."""
+    if not isinstance(argv, list) or not all(isinstance(arg, str) for arg in argv):
+        return None
+    args = list(argv)
+    for flag in omit:
+        values = _case_args(args, flag)
+        if values is None or len(values) != 1:
+            return None
+        i = args.index(flag)
+        del args[i:i + 2]
+    return args
+
+
+def _pipeline_restored(ev, restored, result, exit_code):
+    clean = ev.case('baseline') or {}
+    paths = (clean.get('result_file'), restored.get('baseline_file'), restored.get('result_file'))
+    clean_argv, restored_argv = clean.get('argv'), restored.get('argv')
+    clean_out, restored_out = _case_args(clean_argv, '--out'), _case_args(restored_argv, '--out')
+    shared = _pipeline_argv(clean_argv, '--out')
+    return (all(paths) and len(set(paths)) == 3 and shared is not None and
+            shared == _pipeline_argv(restored_argv, '--out') and clean_out != restored_out and
+            clean_argv == restored.get('baseline_argv') and
+            ev.text(paths[0]) == ev.text(paths[1]) == ev.text(paths[2]) and
+            ev.text(clean.get('exit_file')) == ev.text(restored.get('exit_file')) and
+            isinstance(result, dict) and not result.get('stop') and
+            exit_code in (0, 10, 20) and exit_code == result.get('exit_status') ==
+            TOOL_EXIT.get(recompute_outcome(result)))
+
+
 def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None, phase=None):
     """Evaluates one expectation (the row's, one of its cases, or its restored case) against the retained
     evidence of the case. Appends findings; returns the extracted actual."""
@@ -3722,6 +3752,17 @@ def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None, phase=Non
     if listing is not None:
         c['_result_absent'] = not any(str(x).endswith('result.json') for x in listing)
     actual['exit'] = exit_code
+    if rid == 'PIPE-REPO' and case_name == '':
+        argv = c.get('argv')
+        baseline = (ev.case('baseline') or {}).get('argv')
+        bad_repo, clean_repo = _case_args(argv, '--repo'), _case_args(baseline, '--repo')
+        shared = _pipeline_argv(argv, '--out', '--repo')
+        if not (bad_repo and clean_repo and bad_repo != clean_repo and shared and shared[0] == 'terms' and
+                shared == _pipeline_argv(baseline, '--out', '--repo') and isinstance(result, dict) and
+                result.get('invocation') == shared and result.get('items') == [] and
+                result.get('preflight') == [] and 'config' not in result and
+                (result.get('stop') or {}).get('message') == 'not a git repository: ' + bad_repo[0]):
+            findings_out.append(('declarative-mismatch', 'terms did not refuse the selected non-repository'))
     if rid == 'S11-2b' and case_name == '':
         # A1 staging amendment r2: S11-2b runs coverage under the same named Item 2 check on its own child
         inv = _coverage_invocation(c.get('argv'))
@@ -3851,6 +3892,11 @@ def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None, phase=Non
             if not same:
                 findings_out.append(('declarative-mismatch', 'case %r differs from the actual fixed clean scan'
                                      % case_name))
+        elif rid == 'PIPE-REPO' and o == 'RESULT_EQUAL_CLEAN':
+            same = _pipeline_restored(ev, c, result, exit_code)
+            actual['outcome'] = o if same else 'RESULT_DIFFERS'
+            if not same:
+                findings_out.append(('declarative-mismatch', 'restoring --repo did not restore the clean result'))
         elif o in ('RESULT_EQUAL_CLEAN', 'RESULT_EQUAL_FULL_STORE', 'RESULT_EQUAL_WITHOUT_AMENDMENT',
                    'REPLAY_EQUAL') and c.get('baseline_file'):
             # gate-computed: the case's item tuples and outcome equal those of the retained baseline run
