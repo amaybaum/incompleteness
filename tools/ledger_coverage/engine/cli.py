@@ -1456,14 +1456,12 @@ def op_terms(a, repo, ctx, loaded, records, result, commit, base, led):
         if any(p.applies_to == 'added-text' and p.kind == 'deny' for p in profs):
             records.items.extend(i for i in per_edit(ctx, led, result) if set(i.get('profiles', [])) <= set(names))
     scope_paths = None
+    scope_record = None
     if any(p.spec.get('scope') == 'repo' for p in profs):
         if not a.scope:
             raise oc.Stop(oc.usage, 'USAGE', 'a repo-scoped profile needs --scope')
-        sd = records.admit(repo, a.scope, 'scope')
-        if sd is None:
-            scope_paths = []
-        else:
-            scope_paths = scope_from_record(repo, commit, sd)
+        scope_record = records.admit(repo, a.scope, 'scope')
+        scope_paths = scope_from_record(repo, commit, scope_record) if scope_record is not None else []
     for r in a.rules:
         rv, rp = split_ref(r)
         if not any(x['path'] == rp for x, _ in loaded.rule_files):
@@ -1482,7 +1480,13 @@ def op_terms(a, repo, ctx, loaded, records, result, commit, base, led):
     tm = pl.Terms(ctx, commit, review, deny, added=added, hit_records=hit_recs, check=chk, scope_paths=scope_paths,
                   splice_texts=stexts, chain_segments=[])
     tm.deny()
-    tm.review()
+    prior_lines, prior_regions = None, None
+    if base is not None and review:
+        prior_scope = scope_paths
+        if scope_record is not None and any(p.spec.get('scope') == 'repo' for p in review):
+            prior_scope = scope_from_record(repo, base, scope_record)
+        prior_lines, prior_regions = terms_prior(ctx, base, commit, led, review, prior_scope)
+    tm.review(region_info=prior_regions, prior_lines=prior_lines)
     if ctx.allow_rules:
         tm.stale_rules()
     items = list(tm.items)
@@ -1512,6 +1516,30 @@ def op_terms(a, repo, ctx, loaded, records, result, commit, base, led):
         # R6.REC.10, sec. 7: record entries outside the chain or for another tree, reported and not findings
         result['out_of_scope'] = sorted(tm.out_of_scope, key=lambda x: json.dumps(x, sort_keys=True))
     return items
+
+
+def terms_prior(ctx, base, commit, ledger, review, scope_paths):
+    """The FROM of a terms comparison supplies the same review scan and source spans of replacement images."""
+    source_ranges, added = {}, {}
+    scanned = set(ctx.corpus(base)) | set(scope_paths or [])
+    for splice in ledger['splices']:
+        path, start, end = splice['file'], splice['start'], splice['end']
+        if start == end or path not in scanned:
+            continue
+        data = ctx.repo.read(base, path)
+        lines = range(util.line_of_offset(data, start), util.line_of_offset(data, end - 1) + 1)
+        source_ranges[splice['id']] = path, lines
+        added.setdefault(path, set()).update(lines)
+    prior = pl.Terms(ctx, base, review, [], added=added, scope_paths=scope_paths).review_lines()
+    prior_lines = {(path, ctx.ft(base, path).lines[line - 1]) for path, line in prior}
+    prior_splices = {sid for sid, (path, lines) in source_ranges.items() if any((path, line) in prior for line in lines)}
+    if not prior_splices or commit == base:
+        return prior_lines, {}
+    paths = sorted(set(ctx.corpus(commit)) & {source_ranges[sid][0] for sid in prior_splices})
+    prior_regions = {(path, line): {'pre_existing': True}
+                     for path, images in pl.image_lines(ctx, commit, ledger, paths).items()
+                     for line, splices in images.items() if prior_splices.intersection(splices)}
+    return prior_lines, prior_regions
 
 
 def scope_from_record(repo, commit, sd):

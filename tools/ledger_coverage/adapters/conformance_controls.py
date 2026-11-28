@@ -1298,6 +1298,50 @@ def pipeline_stages_control(r):
           outcomes, all(outcomes.values()), files=evidence)
 
 
+def pipeline_prior_control(r):
+    syn = sf.Syn()
+    base = syn.repo.read(syn.H, sf.DOC)
+    old, new = b'An old beta mention.', b'A new beta mention.'
+    prior = syn.repo.derive(syn.H, {sf.DOC: base + b'\n' + old + b'\n'}, parents=[syn.H], subject='prior endpoint')
+    old_tree = syn.repo.derive(prior, {sf.DOC: base + b'\nA distinct line.\n' + old + b'\n'},
+                              parents=[prior], subject='moved old hit')
+    new_tree = syn.repo.derive(prior, {sf.DOC: base + b'\n' + new + b'\n'}, parents=[prior], subject='new hit')
+    ledger_path = 'syn/patch.json'
+    ledger = sf.patch_doc(prior, [])
+    rev, path, config_sha, _ = syn.build({'patch_sha': sha(ledger), 'files': {ledger_path: ledger}})
+    evidence = {'prior-config.json': syn.repo.read(rev, path), 'prior-ledger.json': syn.repo.read(rev, ledger_path),
+                'prior.txt': syn.repo.read(prior, sf.DOC)}
+
+    def run(tree, compare=False):
+        args = ['terms', '--commit', tree, '--profile', 'beta-word']
+        if compare:
+            args += ['--base', prior, '--ledger', '%s:%s' % (rev, ledger_path)]
+        return r.cli(syn.repo, args, rev, path, config_sha, harness=True)
+
+    code, res = run(prior)
+    REC.name_last('prior-scan')
+    old_sha, new_sha = sha(old), sha(new)
+    earlier = set((h['file'], h['line_sha256']) for h in (res or {}).get('hits', []))
+    outcomes = {'prior-scan': code == 10 and earlier == {(sf.DOC, old_sha)}}
+    cases = [('a hit present at the prior endpoint and at the named commit', old_tree, 'old_hit', old, old_sha),
+             ('a hit first present at the named commit (countercase)', new_tree, 'new_hit', new, new_sha)]
+    for name, tree, binding, text, digest in cases:
+        raw = syn.repo.read(tree, sf.DOC)
+        evidence['%s.txt' % binding] = raw
+        line = util.lines_of(raw.decode()).index(text.decode()) + 1
+        subject = '%s:%d' % (sf.DOC, line)
+        marked = (sf.DOC, digest) in earlier
+        code, res = run(tree, compare=True)
+        REC.name_last(name, bindings={binding: subject})
+        items, hits = (res or {}).get('items', []), (res or {}).get('hits', [])
+        outcomes[name] = (code == 10 and marked == (binding == 'old_hit') and len(items) == len(hits) == 1 and
+                          items[0]['subject'] == subject and items[0].get('pre_existing') is marked and
+                          hits[0]['line_sha256'] == digest and hits[0].get('pre_existing') is marked)
+    check('PIPE-PRIOR', 'existing and new hits are both reported, with prior-endpoint flags true and false',
+          'the two term cases both exit 10 and their hit/item flags agree with the retained comparison scan',
+          outcomes, all(outcomes.values()), files=evidence)
+
+
 def gv_disk_controls(r):
     dk, ids, p, run = disk_world(r, 'gv-store')
     clean = run()
@@ -3533,7 +3577,7 @@ ALL_IDS = ['TR5-sim', 'TR5', 'TR1', 'TR2', 'TR3', 'TR13', 'TR14-tool', 'TR14', '
            'GV2', 'GV3', 'GV4', 'GV5', 'GV6', 'GV6-disk', 'GV7-tool', 'GV7-consumer', 'R16', 'R17', 'A12r', 'Z11',
            'S4a', 'G4', 'G5', 'G6', 'G7', 'G8', 'G9', 'G-A1', 'R3-F2', 'R4-B3', 'R4-B3-DUP', 'R5-N6', 'R6-G6',
            'LN1', 'LN2', 'LN3', 'LN4', 'LN5', 'LN6', 'LN7', 'LN8', 'LN10', 'O3-FILTER',
-           'PIPE-REPO', 'PIPE-CHAIN', 'PIPE-STAGES',
+           'PIPE-REPO', 'PIPE-CHAIN', 'PIPE-STAGES', 'PIPE-PRIOR',
            'RULE-MINLIT', 'RULE-ZEROFP', 'CANON-JSON'] + rdc.IDS
 
 
@@ -3579,6 +3623,7 @@ def main(out_root, native_tr5=False):
               ('PIPE-REPO', lambda: pipeline_repo_control(r)),
               ('PIPE-CHAIN', lambda: pipeline_chain_control(r)),
               ('PIPE-STAGES', lambda: pipeline_stages_control(r)),
+              ('PIPE-PRIOR', lambda: pipeline_prior_control(r)),
               ('R16', lambda: r_controls(r)),
               ('A12r', lambda: a12r(r)), ('rule limits', lambda: allow_rule_limits(r)),
               ('Z11', lambda: z11_s4a(r)), ('G', lambda: g_controls(r)),

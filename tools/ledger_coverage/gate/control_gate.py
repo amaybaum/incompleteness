@@ -3868,6 +3868,59 @@ def _pipeline_stages_case(ev, case_name, case, result):
     return probe == [True] and result['items'] == [] and result.get('evaluated') == {'commit': target[0]}
 
 
+def _pipeline_prior_case(ev, case_name, case, result, exit_code):
+    old = case_name == 'a hit present at the prior endpoint and at the named commit'
+    binding = 'old_hit' if old else 'new_hit'
+    inv = _pipeline_argv(case.get('argv'), '--out')
+    control = ev.case('prior-scan') or {}
+    prior = ev.json(control['result_file'])
+    prior_inv = _pipeline_argv(control.get('argv'), '--out')
+    cfg = ev.json('prior-config.json')
+    ledger = ev.json('prior-ledger.json')
+    ref, led = prior['config'], cfg['adapters']['ledger']
+    base, target = _case_args(inv, '--base'), _case_args(inv, '--commit')
+    if not (inv and prior_inv and inv[0] == prior_inv[0] == 'terms' and base and target and
+            len(base) == len(target) == 1 and all(HEX40.fullmatch(value) for value in base + target) and
+            base != target and base[0] not in (cfg['roles']['pin'], cfg['roles']['scientific_base']) and
+            base == [ledger['base']] and ledger['edits'] == [] and
+            _case_args(inv, '--config') == ['%s:%s' % (ref['commit'], ref['path'])] and
+            ref['blob_sha256'] == hashlib.sha256(ev.text('prior-config.json')).hexdigest() and
+            _case_args(inv, '--ledger') == ['%s:%s' % (ref['commit'], led['path'])] and
+            led['blob_sha256'] == hashlib.sha256(ev.text('prior-ledger.json')).hexdigest()):
+        return False
+    same_scan = _pipeline_argv(inv, '--base', '--ledger', '--commit')
+    if (not same_scan or same_scan != _pipeline_argv(prior_inv, '--commit') or
+            _case_args(prior_inv, '--commit') != base or _case_args(inv, '--profile') != ['beta-word'] or
+            result['config'] != ref or result['engine'] != prior['engine'] or result['profiles'] != prior['profiles']):
+        return False
+
+    def observed(doc, argv, commit, raw):
+        if (doc.get('operation') != 'terms' or doc.get('invocation') != argv or
+                doc.get('evaluated') != {'commit': commit} or doc.get('profiles_evaluated') != {commit: ['beta-word']}
+                or doc.get('exit_status') != 10 or doc.get('outcome') != 'REVIEW_REQUIRED' or
+                recompute_outcome(doc) != 'REVIEW_REQUIRED' or doc.get('stop')):
+            raise ValueError('the exact terms scan and exit are not retained')
+        hit, = doc['hits']
+        item, = doc['items']
+        path, line = hit['file'], hit['line']
+        lines = raw.splitlines()
+        if not (1 <= line <= len(lines) and doc['covered_paths'] == [path] and hit['tree'] == commit and
+                hit['profiles'] == ['beta-word'] and hit['state'] == item['decision'] == 'REVIEW_REQUIRED' and
+                hit['line_sha256'] == hashlib.sha256(lines[line - 1]).hexdigest() and
+                item['file'] == path and item['line'] == line and item['subject'] == '%s:%d' % (path, line)):
+            raise ValueError('the observed hit and item do not identify the same line')
+        return hit, item, lines[line - 1]
+
+    prior_raw = ev.text('prior.txt')
+    before, _, was = observed(prior, prior_inv, base[0], prior_raw)
+    after, item, text = observed(result, inv, target[0], ev.text('%s.txt' % binding))
+    existed = before['file'] == after['file'] and was == text
+    return (ev.text(control['exit_file']) == b'10\n' and exit_code == 10 and existed == old and
+            (text in prior_raw.splitlines()) == old and (not old or before['line'] != after['line']) and
+            case.get('bindings', {}).get(binding) == item['subject'] and
+            after.get('pre_existing') is existed and item.get('pre_existing') is existed)
+
+
 def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None, phase=None):
     """Evaluates one expectation (the row's, one of its cases, or its restored case) against the retained
     evidence of the case. Appends findings; returns the extracted actual."""
@@ -3979,6 +4032,14 @@ def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None, phase=Non
             fault_check = False
         if not fault_check:
             findings_out.append(('declarative-mismatch', 'case %r: the paired stage inputs or effects do not verify'
+                                 % case_name))
+    if rid == 'PIPE-PRIOR':
+        try:
+            prior_check = _pipeline_prior_case(ev, case_name, c, result, exit_code)
+        except (TypeError, KeyError, AttributeError, ValueError, IndexError):
+            prior_check = False
+        if not prior_check:
+            findings_out.append(('declarative-mismatch', 'case %r: the exact prior and current term scans disagree'
                                  % case_name))
     if rid == 'S11-2b' and case_name == '':
         # A1 staging amendment r2: S11-2b runs coverage under the same named Item 2 check on its own child

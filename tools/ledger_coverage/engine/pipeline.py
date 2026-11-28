@@ -741,10 +741,8 @@ class Terms:
     def deny_on_sentence(self, sentence):
         return [p.name for p in self.deny_profiles if p.applies_to == 'tree' and p.matches(sentence)]
 
-    def review(self, held=None, region_info=None):
-        """Review-profile hits; held lines pass; others are classified by records and rules or stay for review."""
-        held = held or {}
-        region_info = region_info or {}
+    def review_lines(self):
+        """Match the review profiles to lines in the selected tree and scope."""
         by_line = {}
         for p in self.review_profiles:
             for path in self.paths_for(p):
@@ -761,14 +759,23 @@ class Terms:
                         continue
                 for ln, m in sg_scan(p, lines, only).items():
                     by_line.setdefault((path, ln), []).append((p.name, m))
+        return by_line
+
+    def review(self, held=None, region_info=None, prior_lines=None):
+        """Review-profile hits; held lines pass; others are classified by records and rules or stay for review."""
+        held = held or {}
+        region_info = region_info or {}
         rec_index = {}
         for r in self.hit_records:
             rec_index.setdefault((r['file'], r['line_sha256']), []).append(r)
-        for (path, ln), plist in sorted(by_line.items()):
+        for (path, ln), plist in sorted(self.review_lines().items()):
             line = self.ctx.ft(self.commit, path).lines[ln - 1]
             profs = sorted({n for n, _ in plist})
             hit = {'file': path, 'line': ln, 'line_sha256': util.sha256(line), 'profiles': profs,
                    'tree': self.commit, 'keys': {n: sorted({k for k, _, _ in m}) for n, m in plist}}
+            info = region_info.get((path, ln), {})
+            if prior_lines is not None:
+                hit['pre_existing'] = info.get('pre_existing', (path, line) in prior_lines)
             if (path, ln) in held:
                 hit.update(state='PASS', held_by=held[(path, ln)])
                 self.hits.append(hit)
@@ -777,7 +784,6 @@ class Terms:
                 hit.update(state='FAIL', cls='deny-match', rule_id=sorted(self.deny_line_set[(path, ln)]))
                 self.hits.append(hit)
                 continue
-            info = region_info.get((path, ln), {})
             recs = rec_index.get((path, util.sha256(line)), [])
             lines = self.ctx.ft(self.commit, path).lines
             if recs and lines.count(line) == 1 and set(profs) <= set(recs[0].get('profiles', [])):
@@ -824,7 +830,7 @@ class Terms:
                                            info.get('segment'), {'line_sha256': hit['line_sha256'],
                                                                  'profiles': profs, 'rule': rid},
                                            file=path, line=ln, profiles=profs, rule_id=rid,
-                                           pre_existing=info.get('pre_existing'),
+                                           pre_existing=hit.get('pre_existing'),
                                            resolution_needed=None if rank == 3 else
                                            {'record': 'oi-hit-classification/1',
                                             'fields': ['file', 'line_sha256', 'segment', 'profiles',
