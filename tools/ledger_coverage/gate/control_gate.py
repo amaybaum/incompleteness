@@ -2407,10 +2407,10 @@ def _rt_t0_case_bound(case, result, observed, ctx):
     profiles = []
     for p in config['profiles']:
         source = p['source']
-        if p['name'] in checked[0] or p['kind'] == 'deny':
+        if ('path' in source or 'blob_sha256' in source) and (p['name'] in checked[0] or p['kind'] == 'deny'):
             _rep_pin(repo, source.get('commit') or fixed, _rep_ref(source))
         profiles.append({'name': p['name'], 'kind': p['kind'], 'source_commit': source.get('commit'),
-                         'path': source['path'], 'blob_sha256': source['blob_sha256'],
+                         'path': source.get('path'), 'blob_sha256': source.get('blob_sha256'),
                          'pattern_sha256': p['pattern_sha256']})
     denies = {p['name'] for p in profiles if p['kind'] == 'deny'}
     return (bool(denies) and result['profiles'] == profiles and
