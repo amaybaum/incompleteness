@@ -1078,12 +1078,30 @@ def _bootstrap_refusals_hold(trace):
         }
         if set(probes) != cases.keys():
             return False
+        checkout = probes['checkout entry']['checkout'].rstrip('/')
+        ordinary_root = probes['ordinary bootstrap']['checkout'].rstrip('/')
+        into = probes['link into checkout']['injected']
+        external = into.rsplit('/', 1)[0]
+        if (not checkout.startswith('/') or not ordinary_root.startswith('/') or
+                checkout == ordinary_root or not external.startswith('/') or
+                external == checkout or external.startswith(checkout + '/')):
+            return False
+        direct = checkout + '/tools'
+        operands = {
+            'ordinary bootstrap': (ordinary_root, ordinary_root + '/tools', ordinary_root + '/tools', None),
+            'safe-path bootstrap': (ordinary_root, None, None, None),
+            'checkout entry': (checkout, direct, direct, None),
+            'link into checkout': (checkout, external + '/checkout', direct, direct),
+            'link out of checkout': (checkout, direct + '/external', external, external),
+        }
         for subject, (flags, injected) in cases.items():
             p = probes[subject]
             imports = p['imports']
             stderr = p['stderr']
             result = json.loads(stderr)
-            if (p['flags'] != flags or bool(p['injected']) != injected or p['exit'] != 65 or
+            if (tuple(p[k] for k in ('checkout', 'injected', 'resolved', 'link_target')) != operands[subject] or
+                    (injected and imports['path_at_entry'][0] != p['injected']) or
+                    p['flags'] != flags or p['exit'] != 65 or
                     p['result_written'] is not False or len(stderr.splitlines()) != 1 or
                     result['schema'] != 'oi-ledger-coverage/5' or result['outcome'] != 'ERROR' or
                     result['exit_status'] != 65 or result['stop']['class'] != 'NOT_ISOLATED' or
@@ -1091,7 +1109,7 @@ def _bootstrap_refusals_hold(trace):
                     not set(imports['requested']) <= set(imports['startup'])):
                 return False
         return True
-    except (AttributeError, TypeError, KeyError, ValueError):
+    except (AttributeError, IndexError, TypeError, KeyError, ValueError):
         return False
 
 

@@ -1752,6 +1752,7 @@ def observe(name, *args, **kwargs):
 
 if injected:
     sys.path.insert(0, injected)
+path_at_entry = list(sys.path)
 sys.argv = [entry, 'purity-lint', '--out', out]
 source = compile(open(entry, 'rb').read(), entry, 'exec')
 __builtins__.__import__ = observe
@@ -1759,7 +1760,8 @@ try:
     exec(source, {'__name__': '__main__', '__file__': entry})
 finally:
     __builtins__.__import__ = original
-    print(repr({'startup': startup, 'requested': requested, 'added': sorted(set(sys.modules) - set(startup))}))
+    print(repr({'startup': startup, 'requested': requested, 'added': sorted(set(sys.modules) - set(startup)),
+                'path_at_entry': path_at_entry}))
 '''
     cmd = [sys.executable, *flags, '-c', probe, 'tools/ledger_coverage.py', out, injected or '']
     p = subprocess.run(cmd, cwd=d, capture_output=True, text=True,
@@ -1769,8 +1771,11 @@ finally:
         error = json.loads(p.stderr)
     except (SyntaxError, ValueError):
         imports, error = None, {}
-    return {'flags': list(flags), 'injected': injected, 'exit': p.returncode, 'imports': imports,
-            'stderr': p.stderr, 'result_written': os.path.exists(out)}, error
+    return {'flags': list(flags), 'checkout': os.path.realpath(d), 'injected': injected,
+            'resolved': os.path.realpath(injected) if injected else None,
+            'link_target': os.readlink(injected) if injected and os.path.islink(injected) else None,
+            'exit': p.returncode, 'imports': imports, 'stderr': p.stderr,
+            'result_written': os.path.exists(out)}, error
 
 
 def ei_controls(r):
