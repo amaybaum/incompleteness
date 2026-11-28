@@ -82,6 +82,34 @@ enumerations = frozenset([
 # The design's fixed name of the plan's file of record pins (sec. 6.3, configuration admission point 2): a fourth
 # category, linted to be one file name of the plan's record directory. It names no retirement.
 interface_names = frozenset(['PREREG.md'])
+# Public result and runtime literals, limited to their existing engine routines.
+protocol_literals = {
+    'engine/adjudication.py': {
+        'Run.review_problems': {'ADJ-REVIEW': 1},
+        'addressed_problems_at': {'ADJ-FORM': 1},
+        'authorization_problems': {'ADJ-AUTH-FORM': 1, 'ADJ-AUTH-OWNER': 1,
+                                   'ADJ-AUTH-SCOPE': 4, 'ADJ-AUTH-TIME': 1},
+        'binds': {'ADJ-BIND': 4},
+        'citation_problems': {'ADJ-ADMIT': 2},
+        'contradiction_problems': {'ADJ-CONTRA': 1},
+        'dedicated_landing_problems': {'ADJ-DEDICATED': 2},
+        'dissents_addressed_problems': {'ADJ-FORM': 2},
+        'evaluate': {'ADJ-ADMIT': 1, 'ADJ-BIND': 1, 'ADJ-FORM': 1, 'ADJ-LANDED': 1,
+                     'ADJ-REVIEW': 2, 'ADJ-UPHELD': 1},
+        'form_problems': {'ADJ-AUTH-FORM': 2, 'ADJ-FORM': 6},
+        'independence_problems': {'ADJ-INDEP': 7},
+        'location_problems': {'ADJ-ADMIT': 1},
+        'record_id_problems': {'ADJ-FORM': 1},
+        'review_form_problems': {'ADJ-REVIEW': 5},
+        'self_consistency': {'ADJ-BIND': 4},
+        'substance_problems': {'ADJ-SUBST': 4},
+    },
+    'engine/category3.py': {
+        'Cumulative.findings': {'b': 1},
+        'custody_decisions': {'ADJ-DISSENT': 1},
+    },
+    'engine/delegation.py': {'clone_env': {'PATH': 1}},
+}
 _hex = re.compile(r'(?<![0-9A-Za-z])[0-9a-fA-F]{7,}(?![0-9A-Za-z])')
 _field_rx = re.compile(r'^[A-Za-z_][A-Za-z0-9_-]*$')
 _schema_rx = re.compile(r'^oi-[a-z0-9-]+/[0-9]+$')
@@ -94,6 +122,9 @@ def lint_allowlist():
     bad += ['schema id %r' % x for x in schema_ids if not _schema_rx.match(x)]
     bad += ['enumeration %r' % x for x in enumerations if not _enum_rx.match(x)]
     bad += ['interface name %r' % x for x in interface_names if not re.match(r'^[A-Za-z][A-Za-z0-9_-]*\.md$', x)]
+    bad += ['scoped protocol literal %r' % x for scopes in protocol_literals.values()
+            for literals in scopes.values() for x, limit in literals.items()
+            if not _enum_rx.fullmatch(x) or type(limit) is not int or limit < 1]
     return bad
 
 
@@ -166,6 +197,47 @@ def config_values(read, commit, cfg):
     return values
 
 
+def protocol_nodes(name, tree):
+    """Select exact protocol literals in their approved lexical scopes."""
+    name = name.replace(os.sep, '/')
+    if name == 'engine/purity.py':
+        definitions = [node.value for node in tree.body if isinstance(node, ast.Assign)
+                       and len(node.targets) == 1 and isinstance(node.targets[0], ast.Name)
+                       and node.targets[0].id == 'protocol_literals']
+        if len(definitions) != 1:
+            return set()
+        expected = ast.parse(repr(protocol_literals), mode='eval').body
+        if ast.dump(definitions[0]) != ast.dump(expected):
+            return set()
+        return {key for module in definitions[0].values for scope in module.values for key in scope.keys}
+
+    scoped = set()
+    for qualified, limits in protocol_literals.get(name, {}).items():
+        class_name, _, function_name = qualified.rpartition('.')
+        body = tree.body
+        if class_name:
+            classes = [node for node in body if isinstance(node, ast.ClassDef) and node.name == class_name]
+            if len(classes) != 1:
+                continue
+            body = classes[0].body
+        routines = [node for node in body if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
+                    and node.name == function_name]
+        if len(routines) != 1:
+            continue
+        observed = {}
+        pending = list(routines[0].body)
+        while pending:
+            node = pending.pop()
+            if isinstance(node, (ast.ClassDef, ast.FunctionDef, ast.AsyncFunctionDef, ast.Lambda, ast.JoinedStr)):
+                continue
+            if isinstance(node, ast.Constant) and isinstance(node.value, str) and node.value in limits:
+                observed.setdefault(node.value, []).append(node)
+            pending.extend(ast.iter_child_nodes(node))
+        scoped.update(node for literal, nodes in observed.items() if len(nodes) <= limits[literal]
+                      for node in nodes)
+    return scoped
+
+
 def lint_sources(sources, values, profiles):
     """sources: {name: text}; values: strings of the configurations and their records; profiles: compiled
     review and deny profiles of the first configuration. Returns findings."""
@@ -176,6 +248,7 @@ def lint_sources(sources, values, profiles):
         except SyntaxError as exc:
             found.append('%s: does not parse (%s)' % (name, exc))
             continue
+        scoped = protocol_nodes(name, tree)
         for node in ast.walk(tree):
             if isinstance(node, ast.Constant) and isinstance(node.value, str):
                 s = node.value
@@ -183,7 +256,7 @@ def lint_sources(sources, values, profiles):
                 # value-set clause and, as the design reads it (sec. 0.3 F1; amendment 2), from the profile clause
                 if _hex.search(s):
                     found.append('%s:%d: hexadecimal literal of 7 or more digits' % (name, node.lineno))
-                if allowed(s):
+                if allowed(s) or node in scoped:
                     continue
                 if s in values and s.strip():
                     found.append('%s:%d: string literal %r occurs in a configuration or record'
