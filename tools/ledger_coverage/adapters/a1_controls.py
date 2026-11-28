@@ -1554,9 +1554,8 @@ def reference_graph(nodes, required):
 def tree_listing(a, spec, rec_dir):
     """git's own listing, with blob ids, of the tool landing under `spec` and of the plan record directory of the
     freeze. Testing the working files (--overlay-from-disk), the landing is the checkout's files, listed by
-    `git ls-files` and hashed by `git hash-object`; otherwise it is `git ls-tree -r` of the landing commit. The freeze
-    is the stand-in for F: the landing commit's record directory with the staged configuration, whose blob is
-    `git hash-object` of the staged file."""
+    `git ls-files` and hashed by `git hash-object`; otherwise it is `git ls-tree -r` of the landing commit. List the
+    record directory at the Git configuration's revision, or use the existing staged-file overlay for local runs."""
     import subprocess
 
     def git(argv, inp=None):
@@ -1582,8 +1581,9 @@ def tree_listing(a, spec, rec_dir):
     else:
         landing = ls_tree(a.tool_rev, spec)
     landing['commit'] = a.tool_rev
-    freeze = ls_tree(a.tool_rev, [rec_dir])
-    freeze['base_commit'] = a.tool_rev
+    config_tree = a.tool_rev if a.crev in a.repo.mem else a.crev
+    freeze = ls_tree(config_tree, [rec_dir])
+    freeze['base_commit'] = config_tree
     if a.staged:
         blob = git(['hash-object', '--', os.path.abspath(a.staged)]).strip()
         freeze['entries'] = [e for e in freeze['entries'] if e['path'] != a.cpath] + \
@@ -1604,6 +1604,19 @@ def k1_graph(a, tool_files):
     cfg = json.loads(cfg_b)
     rec_dir = a.cpath.rsplit('/', 1)[0] + '/'
     cls_path = cfg['roles']['side_change_classes']['path']
+    descriptor_path = rec_dir + ra.transition_descriptor
+    scoped = {}
+    for r in [cfg['roles']['side_change_classes'], *cfg['records'], *cfg['rules']]:
+        data = cfgmod.read_ref(a.repo, a.crev, r, 'K1 configuration reference')
+        if r['path'] in scoped and scoped[r['path']] != data:
+            raise ValueError('K1 selects different blobs at %s' % r['path'])
+        scoped[r['path']] = data
+    descriptor = a.repo.read(a.crev, descriptor_path)
+    if descriptor is not None:
+        scoped[descriptor_path] = descriptor
+    changed = sorted(p for p in scoped.keys() & tool_files.keys() if scoped[p] != tool_files[p])
+    if changed:
+        raise ValueError('K1 selected record bytes differ from the tool image at %s' % changed[0])
 
     def jb(o):
         return (json.dumps(o, indent=1, sort_keys=True) + '\n').encode()
@@ -1617,7 +1630,7 @@ def k1_graph(a, tool_files):
         A1 staging amendment r2, sec. 3: the configuration's own ordinary and widening reviews and the transition
         descriptor are bound by the external pin table; `config_self` places the configuration's own widening review
         in its records instead (the direct self-cycle)."""
-        nodes = dict(landed)
+        nodes = {**scoped, **landed}
         cls_b = nodes[cls_path]
         rk_p = cls_review_dir + 'reviews/class-record.review.json'
         rk = review(cls_path, cls_b, 'session.fixture-reviewer-fixture')
@@ -1633,7 +1646,7 @@ def k1_graph(a, tool_files):
         nodes[rc_p] = rc
         rw_p = rec_dir + 'reviews/config.widening.json'
         nodes[rw_p] = review(a.cpath, c2b, 'session.fixture-widener-fixture')
-        d_p = rec_dir + 'a1-staging-transition.json'
+        d_p = descriptor_path
         if d_p not in nodes:
             nodes[d_p] = jb({'class_root': {'path': cls_path, 'blob_sha256': sha(cls_b)}})
         pt_p = rec_dir + 'PREREG.md'
@@ -1665,7 +1678,7 @@ def k1_graph(a, tool_files):
     out['config_names_own_widening_review'] = {'cycle': reference_graph(n3, r3)[1]}
     # countercontrol 4: the transition descriptor landed with the tool (an indirect cycle through a class pin)
     n4, r4 = layout(dict(tool_files), rec_dir)
-    d_p = rec_dir + 'a1-staging-transition.json'
+    d_p = descriptor_path
     landed4 = dict(tool_files)
     landed4[d_p] = n4[d_p]
     n4, r4 = layout(landed4, rec_dir)
