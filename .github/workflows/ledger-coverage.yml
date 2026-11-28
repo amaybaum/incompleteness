@@ -209,7 +209,9 @@ jobs:
         run: |
           O="$RUNNER_TEMP/suite"
           set +e
-          python3 -I -B tools/ledger_coverage/adapters/conformance_controls.py "$O/conformance"
+          set --
+          if [[ "$PHASE" == control-suite ]]; then set -- --native-tr5; fi
+          python3 -I -B tools/ledger_coverage/adapters/conformance_controls.py "$O/conformance" "$@"
           echo "$?" > "$O/conformance.exit"
       - name: obl29 controls
         run: |

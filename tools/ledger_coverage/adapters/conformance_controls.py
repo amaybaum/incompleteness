@@ -162,7 +162,7 @@ def with_tool(r, files=None, wf=None, wf_path=hf.WF_PATH, extra=None, run=None):
     return t, w, t.freeze()
 
 
-def tr_controls(r):
+def tr_controls(r, native_tr5=False):
     t = TR(r)
     w = t.world()
     F = t.freeze()
@@ -186,9 +186,10 @@ def tr_controls(r):
           code == 0 and res['config']['admission']['mode'] == 'control-harness' and res.get('harness') is True
           and not pos['missing'] and not pos['missing_run'] and snap.get('tool_commit') == w.T and
           snap.get('freeze') == F)
-    not_run('TR5', '`config.admission: "chain"` with every snapshot field of sec. 6.3 recorded (positive control, '
-            'CI only)', 'needs a run of the pinned workflow in the repository the configuration names, with the '
-            'host API; CI plan in the report')
+    if not native_tr5:
+        not_run('TR5', '`config.admission: "chain"` with every snapshot field of sec. 6.3 recorded (positive control, '
+               'CI only)', 'needs a run of the pinned workflow in the repository the configuration names, with the '
+                'host API; CI plan in the report')
     # TR1: no --freeze, with and without the in-memory host
     a1 = show(*t.run(w, F, args=[], control={}))
     REC.name_last(None, attested={'message_names': '--freeze' if '--freeze' in a1['message'] else None})
@@ -3354,12 +3355,12 @@ def write(out_root):
     return doc
 
 
-def main(out_root):
+def main(out_root, native_tr5=False):
     os.makedirs(out_root, exist_ok=True)
     REC.wrap_cli(cli)
     r = sf.Runner(tempfile.mkdtemp(prefix='conf-', dir=out_root))
     t = None
-    groups = [('TR', lambda: tr_controls(r)), ('EI5', lambda: ei5_controls(r)), ('O3', lambda: o3_controls(r)),
+    groups = [('TR', lambda: tr_controls(r, native_tr5)), ('EI5', lambda: ei5_controls(r)), ('O3', lambda: o3_controls(r)),
               ('R16', lambda: r_controls(r)),
               ('A12r', lambda: a12r(r)), ('Z11', lambda: z11_s4a(r)), ('G', lambda: g_controls(r)),
               ('GV', lambda: gv_disk_controls(r)), ('GV-CACHE', lambda: cache_controls(r)),
@@ -3398,6 +3399,8 @@ def main(out_root):
             record('acceptance-group', 'the group runs', None, '%s: %s %s' % (type(exc).__name__, exc,
                                                                               traceback.format_exc()[-1500:]), 'FAIL')
     for cid in ALL_IDS:
+        if cid == 'TR5' and native_tr5:
+            continue
         if not any(x['id'] == cid for x in RESULTS):
             record(cid, 'the control runs', None, 'its group stopped before it ran: %s'
                    % '; '.join(str(x['actual'])[-300:] for x in RESULTS if x['id'].endswith('-group')), 'FAIL')
@@ -3405,7 +3408,7 @@ def main(out_root):
 
 
 if __name__ == '__main__':
-    doc = main(sys.argv[1])
+    doc = main(sys.argv[1], native_tr5=sys.argv[2:] == ['--native-tr5'])
     print(json.dumps(doc['summary'], sort_keys=True))
     for c in doc['controls']:
         if c['status'] != 'PASS':

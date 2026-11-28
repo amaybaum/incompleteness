@@ -506,11 +506,29 @@ def rt_t(a):
     clean_code, clean_result, _ = a.run(args, harness=False, reader=restored, case='restored',
                                        baseline=baseline, attested=lambda r: observed(r, restored))
     facts = observed(result, logged)
+    cases = list(a.rec.pending)
     a.record('RT-T', code == clean_code == 0 and result == clean_result and
              facts == observed(clean_result, restored) and facts.get('every_record_verifies') and conforming and
              facts.get('scanned_paths_within') == scope,
              'PASS on the exact candidate F with reviewed records and the restored case',
              {'exit': code, 'restored_exit': clean_code, 'X_rep': x, **facts})
+    # The same real main run supplies TR5(a)'s chain-admitted result. The separate candidate check
+    # and the identifier comparison remain OBL-16 evidence outside this run.
+    admission = (result.get('config') or {}).get('admission') or {}
+    snapshot = admission.get('snapshot') or {}
+    host = snapshot.get('run') or {}
+    fields = ['freeze', 'pin_table', 'configuration', 'run', 'tool_commit', 'tool_blobs', 'workflow', 'evaluated']
+    complete = (all(k in snapshot for k in fields) and
+                all(k in host for k in ('run_id', 'repository_id', 'head_repository_id', 'event', 'head_branch',
+                                        'workflow_path', 'head_sha')))
+    names = ['F', 'pin_table', 'configuration', 'run', 'repository_id', 'head_repository_id', 'event', 'T',
+             'tool_blobs', 'workflow_blob', 'evaluated_commits']
+    a.rec.pending = [{**case, 'attested': {'snapshot_fields_all_present': names if complete else []}}
+                     for case in cases]
+    a.record('TR5', code == clean_code == 0 and result == clean_result and complete and
+             admission.get('mode') == 'chain', 'chain admission at the exact F on main with a complete snapshot',
+             {'exit': code, 'restored_exit': clean_code, 'freeze': F, 'head_sha': host.get('head_sha'),
+              'run_id': host.get('run_id'), 'complete': complete})
 
 
 RTDR_MISSING = ('countercase: at H with the DR-1 alternative-a match at book/The-Incompleteness-of-Observation-FULL.md:6504 '
