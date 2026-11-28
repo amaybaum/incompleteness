@@ -2,12 +2,10 @@
 77a73c022091f598cf807fcf89d66c3cf43208de): the cumulative record set R*, detection over it, removal never a discharge,
 the direct review checks over R*, the result fields and an unreadable history.
 
-The tool detects findings of the first kind only (a reviewed `invalidates` entry of a reconciliation record), so each
-control of CONTROLS.json is run here where it is mechanical for that kind; `f` is such a finding landed on main, in
-the post-freeze synthetic world of postfreeze_controls.py. The control ids are those of CONTROLS.json; the expectation
-rows are not registered by this suite (registration is an adoption act), so its records are local evidence only,
-except the amendment-7 cases that generator-amendment7 registered in FINDING-FORM, FINDING-KEYS, FINDING-LINEAGE and
-REASSESS-KEYS, which `amendment_7_rows` records from the engine runs of the local cases that implement them.
+The OBL-29 cases use the post-freeze synthetic world of postfreeze_controls.py, where `f` is an invalidating entry of
+a reconciliation record landed on main. The local control ids are those of CONTROLS.json. The gate also receives
+the SCAN-PARSE executions and the amendment-7 executions of FINDING-FORM, FINDING-KEYS, FINDING-LINEAGE and
+REASSESS-KEYS from the corresponding local cases.
 
 Usage: python3 -I -B tools/ledger_coverage/adapters/obl29_controls.py OUT
 Writes OUT/obl29-controls.json and exits 0 when every control holds, 1 otherwise.
@@ -1943,6 +1941,130 @@ def amendment_7_scope_controls(r):
              and actual['blocked'] == [] and 'retirement-blocked' not in actual['classes'])
 
 
+def scan_parse_controls(r):
+    """R6.RECON.35 and R6.RECON.2 (d)-(e), from the result of each execution."""
+    from ledger_coverage import record_authority as ra
+    from ledger_coverage.engine import gitobj
+
+    cases = {}
+    plan_dir = ra.authorized_record_directories[0]
+
+    def retain(name, result, holds, **bindings):
+        LOCAL.rec.name_last(name, bindings=bindings)
+        cases[name] = dict(result, holds=bool(holds))
+
+    for name, location in (
+        ('a review record carrying a finding, stored without a .json suffix in a reconciliation directory', 'no-suffix'),
+        ("a review carrying a well-formed finding that lies in the plan's record directory", 'plan'),
+        ("a review carrying a finding that lies in a reconciliation directory other than its record's", 'elsewhere'),
+    ):
+        w = pfc.World(r)
+        if location == 'plan':
+            w.c, w.p, _, w.files = w.syn.build(dict(w.build_spec, config_path=plan_dir + '/config.json'))
+        record_path = (plan_dir + '/' if location == 'plan' else pfc.RD) + 'scanned.json'
+        record = w.record()
+        pfc.land(w, [(record_path, record)], 'a reconciliation record with its accepting review')
+        review = json.loads(w.review(record_path, pfc.jb(record), reviewer='session.fixture-reviewer-x'))
+        effect = pfc.invalidating(w, sf.DOC)['paths'][0]['scientific_effect']
+        for verdict in review['verdicts']:
+            if verdict['item'] == sf.DOC + ':scientific_effect':
+                verdict.update(verdict='invalidates', reason='the side change invalidates E1',
+                               invalidated=effect['invalidated'], configuration=effect['configuration'])
+        path = {'no-suffix': pfc.RD + 'scanned-adverse-review', 'plan': plan_dir + '/scanned-adverse.review.json',
+                'elsewhere': pfc.RD2 + 'scanned-adverse.review.json'}[location]
+        step(w, {path: pfc.jb(review)}, 'an independent review records an invalidation')
+        o = outcome(w)
+        review_bytes = w.repo.read(w.M, path)
+        if location == 'no-suffix':
+            well_formed_review = json.loads(review_bytes)
+        ref = {'path': path, 'blob_sha256': sf.sha(review_bytes)}
+        holds = (o['exit'] == 20 and o['stop'] is None and 'retirement-blocked' in o['classes'] and path in o['blocked']
+                 and any(f.get('kind') == 2 and f.get('record') == ref and f.get('witness') == w.M for f in o['all']))
+        if location == 'elsewhere':
+            holds = holds and any(item.get('finding') == ref for item in o['form_items'])
+        else:
+            holds = holds and 'record-invalid' not in o['classes']
+        retain(name, o, holds, path=path)
+
+    malformed = (
+        ('a file under verification/audits/ that begins with { and fails strict parsing (a duplicate key, NaN), '
+         'whose text contains oi-review-record/1 and invalidates: a malformed finding, run level', (
+             ('duplicate-key', b'{"schema":"oi-review-record/1","verdict":"invalidates","n":1,"n":2}', 'b'),
+             ('nan', b'{"schema":"oi-review-record/1","verdict":"invalidates","n":NaN}', 'b'))),
+        ('a file that parses and whose schema is a near miss ("oi-review-record/1 ", "Oi-review-record/1" or '
+         '"oi-review-record/2") with a verdict invalidates: a malformed finding, run level', (
+             ('schema-trailing-space', b'{"schema":"oi-review-record/1 ","verdict":"invalidates"}', 'b'),
+             ('schema-case', b'{"schema":"Oi-review-record/1","verdict":"invalidates"}', 'b'),
+             ('schema-version', b'{"schema":"oi-review-record/2","verdict":"invalidates"}', 'b'))),
+        ('a review carrying a finding stored as a JSON array holding the review object', (
+             ('review-array', pfc.jb([well_formed_review]), 'b'),)),
+        ('a malformed file encoded in UTF-16 with a byte-order mark, or writing the schema id with \\u escapes, '
+         'whose text contains oi-review-record/1 and invalidates', (
+             ('utf16', b'\xff\xfe' + '{"schema":"oi-review-record/1","verdict":"invalidates"}'.encode('utf-16-le'), 'b'),
+             ('escaped-schema', br'{"schema":"oi-revi\u0065w-record/1","verdict":"invalidates"', 'c'))),
+        ('a file beginning with { that holds one invalid UTF-8 byte, whose lossy text contains oi-review-record/1 '
+         'and invalidates: selected by its leading bytes, a malformed finding, run level', (
+             ('invalid-byte', b'{"schema":"oi-review-record/1","verdict":"invalidates","n":"\xff"}', 'b'),)),
+        ("a parsed object with no schema key but a review's shape (a reviewed key and a verdicts entry carrying "
+         'invalidates)', (('review-shape', pfc.jb({k: v for k, v in well_formed_review.items() if k != 'schema'}),
+                            'b'),)),
+    )
+    for name, variants in malformed:
+        w = pfc.World(r)
+        files = {pfc.RD + stem + '.json': data for stem, data, _ in variants}
+        # Use the unbound overlay so fixture review binding cannot reserialize the malformed bytes.
+        w.M = gitobj.Overlay.derive(w.repo, w.M, files, subject='record-shaped malformed inputs')
+        o = outcome(w)
+        expect = {pfc.RD + stem + '.json': letter for stem, _, letter in variants}
+        retain(name, o, all(runlevel_fail(o, path, letter) for path, letter in expect.items()), paths=sorted(files))
+
+    w = pfc.World(r)
+    w.M = w.syn.H
+    path = pfc.RD + 'malformed-without-finding.json'
+    step(w, {path: b'{"schema":"oi-reconciliation/2","id":1,"id":2}'}, 'a malformed nonfinding record')
+    o = outcome(w)
+    retain('a file that fails strict parsing and contains oi-reconciliation/2 but neither invalidates nor invalidated: '
+           'a malformed record, not a finding', o,
+           o['exit'] == 20 and 'record-invalid' in o['classes'] and 'retirement-blocked' not in o['classes'] and
+           any('malformed record' in detail for detail in o['invalid']) and not o['all'], path=path)
+
+    w = pfc.World(r)
+    paths = [pfc.RD + 'scanned.json', pfc.RD2 + 'scanned.json']
+    data = pfc.jb(w.record())
+    files = {path: data for path in paths}
+    files.update({path[:-5] + '.review.json': w.review(path, data) for path in paths})
+    rev = w.rev(files)
+    code, out = w.run(['%s:%s' % (rev, paths[0])], harness=True)
+    out = out or {}
+    admitted = (out.get('inputs') or {}).get('classify_records') or []
+    dispositions = out.get('dispositions') or []
+    conflicts = [i for i in out.get('items', []) if i.get('class') == 'record-invalid' and
+                 'two or more reconciliation records cover one path; none applies' in (i.get('detail') or [])]
+    retain('two byte-identical reconciliation records at different paths covering one path: two records',
+           {'exit': code, 'classes': pfc.classes(out), 'admitted': admitted, 'dispositions': dispositions,
+            'conflicts': conflicts},
+           code == 20 and not admitted and {i.get('subject') for i in conflicts} == set(paths) and
+           'base-drift' in pfc.classes(out), paths=paths)
+
+    for name, path, data in (
+        ('countercase: a Markdown document under verification/audits/ that quotes oi-review-record/1 and '
+         'invalidates (it does not begin a JSON value, so it is not a record) (positive)',
+         pfc.RD + 'notes.md', b'# About findings\n\nA `oi-review-record/1` could have an `invalidates` verdict.\n'),
+        ('countercase: a JSON file under verification/audits/ that parses, whose objects carry no schema beginning '
+         'oi-review-record/ or oi-reconciliation/, and whose text contains invalidates (positive)',
+         pfc.RD + 'other.json', b'{"schema":"oi-control-fixture/1","examples":[{"text":"invalidates"}]}'),
+    ):
+        w = pfc.World(r)
+        w.M = w.syn.H
+        step(w, {path: data}, 'a nonrecord that mentions invalidation')
+        o = outcome(w)
+        retain(name, o, o['exit'] in (0, 10) and o['stop'] is None and not o['all'] and
+               not {'record-invalid', 'retirement-blocked'} & set(o['classes']), path=path)
+
+    case('SCAN-PARSE', 'selection, strict parsing, detection scope, record identity and review placement', cases,
+         all(result['holds'] for result in cases.values()))
+
+
 # The expectation cases of r6 amendment 7 (EXPECTATIONS.json, generator-amendment7) and the local case whose
 # engine run is their evidence: (row, case name, local case id, index of the run among the case's captured runs).
 A7 = 'amendment 7, sec. %s, case %s: '
@@ -2048,6 +2170,7 @@ SUITES = [('removal', removal_controls), ('topology', topology_controls), ('unre
           ('predecessor-widening', predecessor_widening_unit),
           ('pairing-predecessor', pairing_predecessor_controls),
           ('pairing-review-order', pairing_review_order_control), ('r13-form', r13_form_controls),
+          ('scan-parse', scan_parse_controls),
           ('run-level-ledger', run_level_ledger_controls), ('amendment-7', amendment_7_controls),
           ('amendment-7-unit', amendment_7_unit_controls),
           ('amendment-7-reassess', amendment_7_reassess_controls),
@@ -2084,8 +2207,7 @@ def main(out):
     # and the suite's own exit status stays that of its local controls
     rows = {row for row, _n, _c, _i in A7_ROW_CASES}
     bad = [c['id'] for c in RESULTS if c['status'] != 'PASS' and c['id'] not in rows]
-    print(json.dumps({'cases': len(RESULTS), 'failed': bad,
-                      'rows_recorded': sorted(c['id'] for c in RESULTS if c['id'] in rows)}))
+    print(json.dumps({'cases': len(RESULTS), 'failed': bad, 'rows_recorded': sorted(LOCAL.rec.ids)}))
     return 0 if not bad else 1
 
 
