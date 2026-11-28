@@ -106,6 +106,16 @@ def lint_rule(rule, profile_lookup, sentence_lookup, deny_profiles, control_inpu
     if out:
         return out
     if kind == 'allow':
+        matcher = rule['matcher']
+        literal = matcher.get('literal') if isinstance(matcher, dict) else None
+        if not isinstance(literal, str):
+            return ['%s: matcher.literal must be a string' % rule['id']]
+        if len(literal) < 8:
+            out.append('%s: matcher.literal must contain at least eight characters' % rule['id'])
+        if not isinstance(rule['fingerprints'], list):
+            return out + ['%s: fingerprints must be a list' % rule['id']]
+        if not rule['fingerprints']:
+            out.append('%s: an allow rule requires at least one fingerprint' % rule['id'])
         files = rule['scope'].get('files')
         if not isinstance(files, list) or not files or any((not isinstance(f, str)) or f.endswith('/') or '*' in f
                                                            for f in files):
@@ -131,7 +141,7 @@ def lint_rule(rule, profile_lookup, sentence_lookup, deny_profiles, control_inpu
                 spans += [(a, b) for _, a, b in p.matches(sentence)]
             if not spans:
                 out.append('%s: no trigger in fingerprinted sentence' % rule['id'])
-            if not all(literal_covers(rule['matcher']['literal'], sentence, sp) for sp in spans):
+            if not all(literal_covers(literal, sentence, sp) for sp in spans):
                 out.append('%s: literal does not cover the trigger' % rule['id'])
             negs = rule['matcher'].get('negative', [])
             keys = {neg_key(n) for n in negs}

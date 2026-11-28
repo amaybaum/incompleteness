@@ -2758,6 +2758,53 @@ def _clean(o, path):
     return o['exit'] == 0 and path in o['rule_files'] and not o['record_invalid']
 
 
+def allow_rule_limits(r):
+    """Exercise the allow-rule limits with byte-bound synthetic record reviews."""
+    allow_path = 'syn/rules-allow.json'
+    pattern_path = 'syn/rules-pat.json'
+
+    def changed_allow(fields, label):
+        runner = LN(r)
+        doc = json.loads(runner.files[allow_path])
+        doc['rules'][0].update(fields)
+        body = sf.jb(doc)
+        runner.files[allow_path] = body
+        digest = sha(body)
+        for ref in runner.cfg['rules']:
+            if ref['path'] == allow_path:
+                ref['blob_sha256'] = digest
+        for ref in runner.cfg['records']:
+            path = ref['path']
+            if path in ('syn/rules-allow.review.json', 'syn/rules-allow.widen.json'):
+                review = json.loads(runner.files[path])
+                review['reviewed']['blob_sha256'] = digest
+                runner.files[path] = sf.jb(review)
+                ref['blob_sha256'] = sha(runner.files[path])
+        result = runner.run()
+        REC.name_last(label, bindings={'rule_file': allow_path})
+        return result
+
+    _, doc = sf.Syn().rule_files()
+    matcher = doc['rules'][0]['matcher']
+    minimum = {sense: changed_allow({'matcher': dict(matcher, literal=literal)},
+                                  'an allow rule whose matcher.literal is shorter than 8 characters and '
+                                  + sense + ' the trigger')
+               for sense, literal in (('contains', 'Axiom Z'), ('does not contain', 'named'))}
+    check('RULE-MINLIT', 'both short allow-rule literals are refused',
+          'each mutated rule file gives record-invalid for the minimum literal length', minimum,
+          all(_invalid(obs, allow_path, 'at least eight characters') for obs in minimum.values()))
+
+    allow = changed_allow({'fingerprints': [], 'max_instances': 0},
+                          'an allow rule with zero fingerprints and max_instances equal to the fingerprint count')
+    deny = LN(r).run()
+    REC.name_last('a deny rule, which carries no fingerprints (positive)',
+                  bindings={'rule_file': pattern_path})
+    check('RULE-ZEROFP', 'an allow rule needs a fingerprint and a deny rule needs none',
+          'the mutated allow file is record-invalid and the unchanged deny file is admitted',
+          {'allow': allow, 'deny': deny},
+          _invalid(allow, allow_path, 'at least one fingerprint') and _clean(deny, pattern_path))
+
+
 def _ln_pat_v2(r, sup=PAT, dst='syn/rules-pat-v2.json', chain_kw=None, setup=None, case=None, **fields):
     """R2 at `dst`, superseding `sup`, used by the configuration in place of the pattern rule file."""
     x = LN(r)
@@ -3386,7 +3433,8 @@ ALL_IDS = ['TR5-sim', 'TR5', 'TR1', 'TR2', 'TR3', 'TR13', 'TR14-tool', 'TR14', '
            'EI3', 'EI4', 'EI5', 'EI6', 'EI7-tool', 'EI8', 'EI9', 'EI10', 'EI11', 'EI12', 'EI13', 'EI14', 'EI15', 'GV1',
            'GV2', 'GV3', 'GV4', 'GV5', 'GV6', 'GV6-disk', 'GV7-tool', 'GV7-consumer', 'R16', 'R17', 'A12r', 'Z11',
            'S4a', 'G4', 'G5', 'G6', 'G7', 'G8', 'G9', 'G-A1', 'R3-F2', 'R4-B3', 'R4-B3-DUP', 'R5-N6', 'R6-G6',
-           'LN1', 'LN2', 'LN3', 'LN4', 'LN5', 'LN6', 'LN7', 'LN8', 'LN10', 'O3-FILTER'] + rdc.IDS
+           'LN1', 'LN2', 'LN3', 'LN4', 'LN5', 'LN6', 'LN7', 'LN8', 'LN10', 'O3-FILTER',
+           'RULE-MINLIT', 'RULE-ZEROFP'] + rdc.IDS
 
 
 def write(out_root):
@@ -3425,7 +3473,8 @@ def main(out_root, native_tr5=False):
     t = None
     groups = [('TR', lambda: tr_controls(r, native_tr5)), ('EI5', lambda: ei5_controls(r)), ('O3', lambda: o3_controls(r)),
               ('R16', lambda: r_controls(r)),
-              ('A12r', lambda: a12r(r)), ('Z11', lambda: z11_s4a(r)), ('G', lambda: g_controls(r)),
+              ('A12r', lambda: a12r(r)), ('rule limits', lambda: allow_rule_limits(r)),
+              ('Z11', lambda: z11_s4a(r)), ('G', lambda: g_controls(r)),
               ('GV', lambda: gv_disk_controls(r)), ('GV-CACHE', lambda: cache_controls(r)),
               ('EI', lambda: ei_controls(r)),
               ('R3-F2', lambda: f2_controls(r)), ('R4-B3', lambda: r4_b3_controls(r)),
