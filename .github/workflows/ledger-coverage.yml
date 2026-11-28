@@ -271,9 +271,15 @@ jobs:
           done
           if [[ "$PHASE" == control-suite ]]; then
             set -- "$@" --commit "$F" --freeze "$F" --config "$CFG" --rep-main "$M" --rep-snapshot "$S" \
-              --tool-landing "$T_LAND" --main-tip "$GITHUB_SHA"
+              --tool-landing "$T_LAND" --main-tip "$GITHUB_SHA" --fixed-config "$FIXED"
           else
-            set -- "$@" --tool-candidate "$GITHUB_SHA"
+            BASE=$(git --no-replace-objects rev-parse --verify 'refs/remotes/origin/main^{commit}')
+            TREE=$(git --no-replace-objects merge-tree --write-tree "$BASE" "$GITHUB_SHA")
+            PREVIEW=$(GIT_AUTHOR_DATE=1700000000 GIT_COMMITTER_DATE=1700000000 git --no-replace-objects \
+              -c user.name='A1 tool preview' -c user.email=preview@invalid.invalid \
+              commit-tree "$TREE" -p "$BASE" -p "$GITHUB_SHA" -m 'A1 tool preview')
+            set -- "$@" --tool-candidate "$GITHUB_SHA" --tool-base "$BASE" --tool-preview "$PREVIEW" \
+              --fixed-config "$F:$CFG"
           fi
           python3 -I -S -B tools/ledger_coverage/gate/control_gate.py --expectations "$EXP" --requirements "$REQ" "$@" --repo . --out "$O/gate"
       - name: control expectations hold
