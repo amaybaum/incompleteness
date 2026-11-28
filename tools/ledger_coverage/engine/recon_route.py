@@ -239,7 +239,8 @@ def binding_problems(doc, scope):
 
 
 def reference_key(ref):
-    """The record identity of R6.RECON.29, including the path of a byte-identical copy."""
+    """Identify a referenced record by path and byte digest."""
+    # R6.RECON.29 treats identical bytes at two paths as distinct records.
     if isinstance(ref, dict):
         path, sha = ref.get('path'), ref.get('blob_sha256')
         if isinstance(path, str) and isinstance(sha, str):
@@ -311,9 +312,9 @@ def admit(repo, cands, scope, items):
     for scan in scans.values():
         st = rec.Store(scan)
         entries = {(p, s): doc for p, records in st.by_path.items() for s, doc in records if isinstance(doc, dict)}
-        superseded = {reference_key(doc.get('supersedes')) for doc in entries.values()}
+        predecessor_refs = {reference_key(doc.get('supersedes')) for doc in entries.values()}
         for key, doc in entries.items():
-            if doc.get('schema') in recon_schemas and doc.get('M') == scope.M and key not in superseded:
+            if doc.get('schema') in recon_schemas and doc.get('M') == scope.M and key not in predecessor_refs:
                 pool.setdefault(key, doc)
     cover = {}
     for key, doc in pool.items():

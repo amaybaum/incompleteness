@@ -1526,7 +1526,7 @@ def op_terms(a, repo, ctx, loaded, records, result, commit, base, led, selection
 
 
 def terms_prior(ctx, base, commit, ledger, review, scope_paths):
-    """The FROM of a terms comparison supplies the same review scan and source spans of replacement images."""
+    """Scan the base tree with the same review rules and map the source spans of replacement images."""
     source_ranges, added = {}, {}
     scanned = set(ctx.corpus(base)) | set(scope_paths or [])
     for splice in ledger['splices']:
