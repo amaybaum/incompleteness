@@ -3222,6 +3222,96 @@ def eval_z9f_case(exp, case_name, ev, findings_out, ctx):
     return actual
 
 
+def eval_lc_case(exp, case_name, ev, row, findings):
+    """Bind the claimed LC result to its exact fixture bytes and recompute the landing rule."""
+    actual = {'case': case_name}
+    try:
+        declared = row['expect']['cases']
+        names = [c['case'] for c in declared]
+        if [c.get('case') for c in (ev.man or {}).get('cases', [])] != names:
+            raise ValueError('the complete named landing fixture evidence is required')
+        position = names.index(case_name)
+        raw = ev.case(case_name)
+        op = 'compose_landing' if position == 0 else 'execution.landing'
+        label = 'landing builder' if position == 0 else 'execution landing checker'
+        result = ev.json(raw['result_file'])
+        if raw.get('argv') != ['in-process', label] or result['operation'] != op or result.get('in_process') is not True:
+            raise ValueError('the retained runner did not invoke the prescribed landing stage')
+        want = next(inv['fixture'] for inv in declared[0]['invariants'] if 'fixture' in inv)
+        fixture = result['fixture']
+        path = want['path']
+        splice, = want['splices']
+        h, c, m = (fixture[role].encode() for role in ('H', 'C', 'M'))
+        start, end = splice['start'], splice['end']
+        old, new = h[start:end], result['splice_bytes'].encode()
+        if position == 3:
+            want = dict(want, M=(old + h).decode())
+        if (fixture != want or not 0 <= start < end <= len(h) or _file_sha(old) != splice['old_sha256'] or
+                _file_sha(new) != splice['new_sha256']):
+            raise ValueError('the exact fixture inputs, splice span or splice bytes differ')
+
+        conflict = c != h and m != h and c != m
+        offsets = []
+        if conflict:
+            offsets = [i for i in range(len(m) - len(old) + 1) if m[i:i + len(old)] == old]
+            composed = m[:offsets[0]] + new + m[offsets[0] + len(old):] if len(offsets) == 1 else None
+        else:
+            composed = m if c == h else c
+        landing = result['landing']
+        body = landing['bytes'].encode()
+
+        def entry(data):
+            return path.encode() + b'\0' + b'100644:' + _git_oid('blob', data).encode()
+
+        H = hashlib.sha1(b'landing base' + entry(h)).hexdigest()
+        C = hashlib.sha1(b'landing candidate' + H.encode() + entry(c)).hexdigest()
+        M = hashlib.sha1(b'landing main' + H.encode() + entry(m)).hexdigest()
+        parents = M.encode() + C.encode()
+        subject = b'adverse landing' if position >= 2 else b'in-memory landing'
+        change = entry(body) if position >= 2 or body != m else b''
+        L = hashlib.sha1(subject + M.encode() + change + parents).hexdigest()
+        blob = _git_oid('blob', body)
+        if (result['roles'] != {'H': H, 'C': C, 'M': M, 'L': L} or landing['parents'] != [M, C] or
+                landing['mode'] != '100644' or landing['git_blob'] != blob):
+            raise ValueError('the regular-file bytes and parent order do not derive the observed landing')
+        compositions = [{'path': path, 'composed_blob': None if composed is None else _git_oid('blob', composed),
+                         'l': blob}] if conflict and position != 0 else []
+        if result['landing_compositions'] != compositions:
+            raise ValueError('the landing checker did not report the required composition')
+        if position < 2 and body != composed:
+            raise ValueError('the builder or verified landing differs from the computed composition')
+        if position == 2 and (composed is None or len(body) != len(composed) or
+                              sum(a != b for a, b in zip(body, composed)) != 1):
+            raise ValueError('the adverse landing does not change exactly one byte')
+        refusal = result['builder_refusal']
+        if position == 3:
+            if composed is not None or len(offsets) != 2 or refusal != '%s: %s: old bytes occur 2 times at M' % (
+                    path, splice['id']):
+                raise ValueError('the exact repeated-span fixture must refuse composition')
+        elif refusal is not None:
+            raise ValueError('an unexpected builder refusal was reported')
+
+        expect_classes = exp.get('classes_include', [])
+        observed = [(i['class'], i['obligation'], i['decision'], i['subject'], i['file']) for i in result['items']]
+        if observed != [(cls, 'MAIN', 'FAIL', path, path) for cls in expect_classes]:
+            raise ValueError('the landing findings do not name the required class and path')
+        measured = recompute_outcome(result)
+        code = TOOL_EXIT[measured]
+        outcome = ('HASH_EQUAL' if position == 0 else 'LANDING_VERIFIED') if measured == 'PASS' else measured
+        if (outcome != exp['outcome'] or measured != result['outcome'] or result['exit_status'] != code or
+                ev.text(raw['exit_file']) != ('%d\n' % code).encode()):
+            raise ValueError('the recorded and recomputed landing outcomes or exit codes differ')
+        derived = {'fixture': fixture, 'composed_blob': {'path': path, 'bytes': body.decode(), 'sha256': _file_sha(body)}}
+        for inv in exp.get('invariants', []):
+            for key, expected in inv.items():
+                if not isinstance(expected, dict) or {k: derived[key][k] for k in expected} != expected:
+                    raise ValueError('the retained %s differs from the adopted case' % key)
+        actual.update(outcome=outcome, exit=code, landing_blob_sha256=_file_sha(body), landing_compositions=compositions)
+    except (KeyError, ValueError, TypeError, AttributeError) as exc:
+        findings.append(('declarative-mismatch', 'LC case %r: %s' % (case_name, exc)))
+    return actual
+
+
 def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None, phase=None):
     """Evaluates one expectation (the row's, one of its cases, or its restored case) against the retained
     evidence of the case. Appends findings; returns the extracted actual."""
@@ -3229,6 +3319,8 @@ def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None, phase=Non
         return eval_line_patch_case(exp, case_name, ev, findings_out)
     if row['id'] == 'Z9f':
         return eval_z9f_case(exp, case_name, ev, findings_out, ctx)
+    if row['id'] in ('LC-1', 'LC-2', 'LC-3', 'LC-4', 'LC-5', 'LC-6'):
+        return eval_lc_case(exp, case_name, ev, row, findings_out)
     rid = row['id']
     c = ev.case(case_name)
     actual = {'case': case_name}

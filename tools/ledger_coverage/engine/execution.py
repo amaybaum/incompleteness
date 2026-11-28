@@ -1,6 +1,5 @@
 """Operation C: a candidate is exactly the scientific base plus the ledger; tree roles H, M, X, C, L (sec. 13)."""
 import ast
-import difflib
 import re
 import warnings
 
@@ -492,39 +491,10 @@ class Execution:
                     continue
                 self.item('MAIN', 'landing-conflict-unresolved', path, {'l': l, 'm': m, 'c': c}, file=path)
 
-    def translate_onto_main(self, path, splices):
-        """M's bytes with C's splices applied at M-translated offsets, each old_sha256 re-verified."""
-        h = self.repo.read(self.H, path) or b''
-        m = self.repo.read(self.M, path) or b''
-        hl, ml = h.split(b'\n'), m.split(b'\n')
-        hs, ms = [0], [0]
-        for x in hl:
-            hs.append(hs[-1] + len(x) + 1)
-        for x in ml:
-            ms.append(ms[-1] + len(x) + 1)
-        blocks = difflib.SequenceMatcher(None, hl, ml, autojunk=False).get_matching_blocks()
-        out = []
-        for sp in splices:
-            mapped = None
-            for a, b, n in blocks:
-                if n and hs[a] <= sp['start'] and sp['end'] <= hs[a + n]:
-                    mapped = ms[b] + (sp['start'] - hs[a])
-                    break
-            if mapped is None:
-                return None
-            ln = sp['end'] - sp['start']
-            if util.sha256(m[mapped:mapped + ln]) != sp['old_sha256']:
-                return None
-            out.append(dict(sp, start=mapped, end=mapped + ln))
-        return sg.apply_splices(m, out)
-
-
 def compose_landing(repo, H, M, C, ledger, overlay):
-    """An in-memory landing built by the composition rule (for the RT-L controls); never committed."""
+    """Build an in-memory landing, or refuse a ledgered conflict without a verified composition."""
     hp, mp, cp = repo.paths(H), repo.paths(M), repo.paths(C)
     changes = {}
-    ex = Execution.__new__(Execution)
-    ex.repo, ex.H, ex.M = repo, H, M
     by_file = {}
     for sp in ledger['splices']:
         by_file.setdefault(sp['file'], []).append(sp)
@@ -533,6 +503,11 @@ def compose_landing(repo, H, M, C, ledger, overlay):
         if c != h and m == h:
             changes[path] = repo.read(C, path)
         elif c != h and m != h and c != m:
-            want = ex.translate_onto_main(path, by_file.get(path, [])) if path in ledger['files'] else None
-            changes[path] = want if want is not None else repo.read(C, path)
+            if path in ledger['files']:
+                want, why = rc.compose(repo, H, M, path, by_file.get(path, []))
+                if want is None:
+                    raise ValueError('%s: %s' % (path, why))
+                changes[path] = want
+            else:
+                changes[path] = repo.read(C, path)
     return overlay.derive(M, changes, parents=[M, C], subject='in-memory landing')

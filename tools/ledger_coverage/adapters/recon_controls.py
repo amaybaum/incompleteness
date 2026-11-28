@@ -9,8 +9,10 @@ retained as the case's result. Cases the tool revision cannot evaluate yet are n
 their rows record FAIL.
 """
 import copy
+from types import SimpleNamespace
 
 from ledger_coverage.engine import controls_engine as ce, execution as exmod, reconcile as rcmod, schema, util
+from ledger_coverage.engine.gitobj import Overlay
 from ledger_coverage.adapters import control_records
 
 EFFECT = {'conclusions': 'none', 'assessment': 'control fixture: the change on main touches no planned edit',
@@ -93,6 +95,81 @@ def classes(doc):
 
 def name_last(cap, case, **bindings):
     cap.rec.name_last(case, bindings=bindings)
+
+
+def landing_controls(cap):
+    """Run the six exact R6.TREE.12–13 fixtures through the builder and landing checker."""
+    out = cap.result_map()
+    path = 'p.md'
+    base = b'alpha\nbeta\ngamma\n'
+    old, replacement = b'beta\n', b'BETA\n'
+    start = base.index(old)
+    edited = base[:start] + replacement + base[start + len(old):]
+    added = base + b'delta\n'
+    moved = old + base[:start] + base[start + len(old):]
+    extra = 'landing-extra-change'
+    conflict = 'landing-conflict-unresolved'
+    fixtures = (
+        ('neither side changed', base, base, base, extra),
+        ('only X/C changed', edited, base, edited, extra),
+        ('only M changed', base, added, added, 'landing-drops-main-change'),
+        ('both changed to equal blobs', edited, edited, edited, extra),
+        ('both changed to different blobs, ledgered path (a line prepended on M)',
+         edited, b'zero\n' + base, b'zero\n' + edited, conflict),
+        ('both changed to different blobs, ledgered path (the spliced line moved on M)',
+         edited, moved, replacement + moved[len(old):], conflict),
+    )
+    clean_case = 'landing check of L carrying exactly that blob'
+    duplicate_case = 'M carrying the splice\'s old bytes twice (M[p.md] = "beta\\nalpha\\nbeta\\ngamma\\n"): no composition exists, any L'
+    for index, (label, candidate, main, expected, adverse_class) in enumerate(fixtures, 1):
+        repo = Overlay()
+        H = repo.add_commit({path: base}, [], 'landing base')
+        C = repo.add_commit({path: candidate}, [H], 'landing candidate')
+        M = repo.add_commit({path: main}, [H], 'landing main')
+        led = ce.ledger(H, [(path, start, start + len(old), replacement.decode())], repo)
+        sp = led['splices'][0]
+        splice = {k: sp[k] for k in ('id', 'start', 'end', 'old_sha256', 'new_sha256')}
+
+        def retain(case, main_id, landing, builder=False, refusal=None):
+            items, compositions = [], []
+            if not builder:
+                execution = exmod.Execution(SimpleNamespace(repo=repo), H, C, led, M=main_id, L=landing, C=C)
+                execution.landing()
+                items, compositions = execution.items, execution.compositions
+            fixture = {'path': path, 'H': repo.read(H, path).decode(), 'C': repo.read(C, path).decode(),
+                       'M': repo.read(main_id, path).decode(), 'splices': [splice]}
+            cap.rec.capture_doc(
+                'landing builder' if builder else 'execution landing checker',
+                control_records.stage_doc(
+                    items, operation='compose_landing' if builder else 'execution.landing', fixture=fixture,
+                    splice_bytes=sp['new_bytes'].decode(), roles={'H': H, 'C': C, 'M': main_id, 'L': landing},
+                    landing={'bytes': repo.read(landing, path).decode(), 'parents': repo.parents(landing),
+                             'git_blob': repo.blob_id(landing, path), 'mode': repo.mode(landing, path)},
+                    landing_compositions=compositions, builder_refusal=refusal),
+                case=case)
+            return items
+
+        built = exmod.compose_landing(repo, H, M, C, led, repo)
+        retain('builder: the landing blob of p.md composed from the fixture (%s)' % label, M, built, builder=True)
+        clean = retain(clean_case, M, built)
+        wrong = expected[:-1] + b'!' if index <= 4 else expected.replace(replacement, b'BETB\n')
+        mutant = repo.derive(M, {path: wrong}, parents=[M, C], subject='adverse landing')
+        text = wrong.decode().replace('\n', '\\n')
+        adverse = retain('landing check of L carrying that blob with one byte changed (%s)' % text, M, mutant)
+        passed = (repo.read(built, path) == expected and not clean and
+                  [(i['subject'], i['class']) for i in adverse] == [(path, adverse_class)])
+        if index == 5:
+            twice = repo.add_commit({path: old + base}, [H], 'landing main')
+            refusal = None
+            try:
+                exmod.compose_landing(repo, H, twice, C, led, repo)
+            except ValueError as exc:
+                refusal = str(exc)
+            L = repo.derive(twice, {path: candidate}, parents=[twice, C], subject='adverse landing')
+            bad = retain(duplicate_case, twice, L, refusal=refusal)
+            passed = passed and refusal is not None and [(i['subject'], i['class']) for i in bad] == [(path, conflict)]
+        out['LC-%d' % index] = passed
+    return out
 
 
 def recon_controls(cap):

@@ -180,6 +180,10 @@ def main(out_dir):
     except Exception as exc:
         import traceback
         extra['recon-group-error'] = '%s: %s %s' % (type(exc).__name__, exc, traceback.format_exc()[-1200:])
+    try:
+        extra.update(recon_controls.landing_controls(cap))
+    except Exception as exc:
+        extra['landing-group-error'] = '%s: %s' % (type(exc).__name__, exc)
     for cid, v in sorted(extra.items()):
         if cid.startswith('_'):
             continue
