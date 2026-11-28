@@ -680,7 +680,7 @@ def rt_terms(a):
                     '%s:%srecords/repo-scope-v1.json' % (live_rev or a.crev, a.ad)]
     if live_rev:
         c_all, r_all, _, scan_all = rep_run(a, all_profiles, 'ledgered and corpus paths of X_rep',
-                                         config_revision=live_rev)
+                                         case='all review profiles', config_revision=live_rev)
     else:
         c_all, r_all, _ = a.run(all_profiles)
         scan_all = None

@@ -1786,6 +1786,41 @@ def _rep_live_subject(ctx, binding, config, descriptor, chains, class_pins, temp
     if binding.get('tool_image') != {p: after[p] if p in after else _rep_blob(repo, landed[p])[0]
                                      for p in image_paths} or config.get('tool') != template.get('tool'):
         raise ValueError('the candidate F or retained image does not pin the exact accepted tool')
+    # After final H, the representative staging comparison has its own exact role and record pins.
+    # A matching prefix does not classify an added path. The later actual M has its own full check.
+    staged = [descriptor['custody'], binding['descriptor'],
+              *(r for role in binding['chains_at_M'].values() for r in role)]
+    reviews = _rep_review_pool(repo, F, config)
+    for source in config['records']:
+        ref = _rep_ref(source)
+        if not any(r.get('reviewed') == ref and r.get('kind', 'review') == 'review' for r in reviews):
+            continue
+        record = json.loads(_rep_pin(repo, source.get('commit', F), ref))
+        if any(r.get('method') and r.get('reviewed') == ref and r.get('kind', 'review') == 'review' and
+               _rep_review_valid(repo, F, r, ref, record.get('author'), _reviewed_items(record))
+               for r in reviews):
+            staged.append(ref)
+            if record.get('schema') == 'oi-side-change-classes/1':
+                staged.extend(_rep_ref(p) for c in record['classes'] if c['id'] != 'tool-landing'
+                              for p in c.get('pins', []) if {'path', 'blob_sha256'} <= p.keys())
+    for source in config['records']:
+        if source.get('kind') == 'review':
+            ref = _rep_ref(source)
+            review = json.loads(_rep_pin(repo, F, ref))
+            if review.get('reviewed') in staged:
+                staged.append(ref)
+    pins = {(r['path'], r['blob_sha256']) for r in staged}
+    patterns = [re.compile(p) for p in config['corpus'].get('patterns', [])]
+    corpus = set(config['corpus'].get('paths', []))
+    unresolved = []
+    for p in _first_parent_delta(_rep_entries(repo, final_h), main):
+        if p in ledger['files'] or p in corpus or any(pat.search(p) for pat in patterns):
+            unresolved.append(p)
+        elif p not in main or main[p][0] not in REGULAR_MODES or \
+                (p, _rep_blob(repo, main[p])[0]['blob_sha256']) not in pins:
+            unresolved.append(p)
+    if unresolved:
+        raise ValueError('unclassified or drifted representative staging paths: %s' % sorted(unresolved)[:8])
 
 
 def _rep_fill(template, roles):
@@ -2182,6 +2217,24 @@ def _representative_read_scope(repo, config, ledger, x, reads):
     patterns = [re.compile(s) for s in config['corpus'].get('patterns', [])]
     return (isinstance(reads, list) and bool(reads) and len(reads) == len(set(reads)) and
             all(p in paths and (p in scope or any(rx.search(p) for rx in patterns)) for p in reads))
+
+
+def _rt_d_counts(result, census):
+    hits = result.get('hits') if isinstance(result, dict) else None
+    other_hits = census.get('hits') if isinstance(census, dict) else None
+    if not isinstance(hits, list) or not isinstance(other_hits, list):
+        return {}
+    coords = lambda hit: (hit['file'], hit['line'])
+    other_profiles = {coords(h): set(h['profiles']) - {'resid'} for h in other_hits}
+    allowed = {'W1-b', 'W1-c', 'W1-d', 'W2-a', 'W2-b'}
+    pass_lines = {coords(h) for h in hits if h['state'] == 'PASS' and
+                  isinstance(h.get('rule_id'), str) and h['rule_id'] in allowed}
+    resid = {coords(h) for h in hits if h['state'] == 'REVIEW_REQUIRED' and 'resid' in h['profiles']}
+    counts = {'lines[state=PASS,rule_id=W1|W2]': len(pass_lines),
+              'lines[profile=resid,decision=REVIEW_REQUIRED]': len(resid)}
+    if resid <= other_profiles.keys():
+        counts['lines[profile=resid,only_profile=true]'] = sum(not other_profiles[p] for p in resid)
+    return counts
 
 
 def _candidate_case_bound(rid, case, result, observed, ctx, *, profile_census=False):
@@ -2647,6 +2700,7 @@ def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None, phase=Non
         if exit_code is None:
             findings_out.append(('raw-evidence-missing', 'exit file of case %r unreadable' % case_name))
     result = ev.json(c['result_file']) if c.get('result_file') else None
+    terminology_counts = {}
     if phase in ('tool-acceptance', 'candidate-F') and rid in ('N10', 'N11') and case_name == '':
         try:
             _rep_fixed_reconciliation(ctx, phase, rid, ev, c, result)
@@ -2656,9 +2710,12 @@ def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None, phase=Non
         try:
             bound = _candidate_case_bound(rid, c, result, attested, ctx)
             if bound and rid == 'RT-D' and case_name == '':
-                census = ev.case('run2')
-                bound = _candidate_case_bound(rid, census, ev.json(census['result_file']),
+                census = ev.case('all review profiles')
+                profiles = ev.json(census['result_file'])
+                bound = _candidate_case_bound(rid, census, profiles,
                                                ev.json(census['attested']), ctx, profile_census=True)
+                if bound:
+                    terminology_counts = _rt_d_counts(result, profiles)
         except (ValueError, KeyError, TypeError, AttributeError):
             bound = False
         if not bound:
@@ -2809,7 +2866,11 @@ def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None, phase=Non
                     findings_out.append(('declarative-mismatch', 'case %r: %s %s = %s, expected %s'
                                          % (case_name, key, filt, got, want)))
         for key, want in sorted((exp.get('counts') or {}).items()):
-            got, src = extract_count(key, result or {}, bindings, attested)
+            if phase == 'candidate-F' and rid == 'RT-D' and key.startswith('lines['):
+                got = terminology_counts.get(key)
+                src = 'result' if got is not None else None
+            else:
+                got, src = extract_count(key, result or {}, bindings, attested)
             actual.setdefault('counts', {})[key] = got
             if src is None:
                 findings_out.append(('raw-evidence-missing', 'case %r: count %s not extractable' % (case_name, key)))
