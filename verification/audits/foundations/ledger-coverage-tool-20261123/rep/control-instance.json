@@ -632,7 +632,7 @@
   "files": [
    {
     "path": "tools/ledger_coverage.py",
-    "blob_sha256": "352ea5a9f8ca61e8d521f0255271bfc991a92d5be0d14be75387eac9f9388fc6"
+    "blob_sha256": "7e2167c8577c7d53116cbde18172fa9664c8d8580a15447ba99283f023156430"
    },
    {
     "path": "tools/ledger_coverage/__init__.py",
@@ -796,7 +796,7 @@
    },
    {
     "path": "tools/ledger_coverage/engine/controls_engine.py",
-    "blob_sha256": "de9b245e335846357dcd2102a40e73c1ac170f6e2831b7248f2df3173b4d9f70"
+    "blob_sha256": "359b28cc8920b8d0fa51aa4661d8b35274bb2256e8069fe6daf05ab551084952"
    },
    {
     "path": "tools/ledger_coverage/engine/custody.py",
