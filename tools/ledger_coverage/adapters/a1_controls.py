@@ -640,16 +640,23 @@ def rt_terms(a):
     gr58 = st_of.get(('papers/GR.md', 58))
     others = {'p0-core', 'p0-para', 'ledger-ext', 'ptr', 'repo', 'count-grep'}
     # "hit by no other review profile": every review profile evaluated on the same tree (repo with its scope)
-    c_all, r_all, _ = a.run(['terms', '--commit', x_rep(a), '--base', H, '--ledger', ledger_ref, '--profile',
-                             ','.join(sorted(others | {'resid'})), '--scope',
-                             '%s:%srecords/repo-scope-v1.json' % (live_rev or a.crev, a.ad)],
-                            config_revision=live_rev)
+    all_profiles = ['terms', '--commit', x_rep(a), '--base', H, '--ledger', ledger_ref, '--profile',
+                    ','.join(sorted(others | {'resid'})), '--scope',
+                    '%s:%srecords/repo-scope-v1.json' % (live_rev or a.crev, a.ad)]
+    if live_rev:
+        c_all, r_all, _, scan_all = rep_run(a, all_profiles, 'ledgered and corpus paths of X_rep',
+                                         config_revision=live_rev)
+    else:
+        c_all, r_all, _ = a.run(all_profiles)
+        scan_all = None
     prof_at = {(h['file'], h['line']): set(h['profiles']) for h in r_all.get('hits', [])}
     resid_only = [h for h in resid if not prof_at.get((h['file'], h['line']), set()) & others]
     a.record('RT-D', not any(i['class'] == 'deny-match' for i in res.get('items', [])) and
              all(st_of.get(k) == 'PASS' for k in w1_lines + w2_lines) and gr58 == 'REVIEW_REQUIRED' and
              st_of.get(('papers/SM.md', 1394)) == 'REVIEW_REQUIRED' and
-             len(resid) == 45 and len(resid_only) == 17,
+             len(resid) == 45 and len(resid_only) == 17 and
+             (live_rev is None or (scan_d['outside_scope'] == scan_all['outside_scope'] == [] and
+                                   c_all in (0, 10, 20))),
              '0 deny; the 6 W1 lines (W1-c with its allowance) and the 4 W2 lines PASS with their rules; SM:1394 and '
              'GR.md:58 REVIEW (GR.md:58 PASS with its record: RT-D-gr58); 45 resid lines REVIEW, 17 hit by no other '
              'profile',
@@ -658,7 +665,7 @@ def rt_terms(a):
               'w1_w2_states': {'%s:%d' % k: st_of.get(k) for k in w1_lines + w2_lines},
               'sm1394': st_of.get(('papers/SM.md', 1394)),
               'rule_negative': sorted(i['subject'] for i in res.get('items', []) if i['class'] == 'rule-negative-match'),
-              'X_rep': x_rep(a), 'scope': scan_d},
+              'X_rep': x_rep(a), 'scope': scan_d, 'all_profile_scope': scan_all},
              reference_difference=None,
              predicate='no deny-match; the 10 W1/W2 hit states are PASS; SM:1394 and GR.md:58 REVIEW_REQUIRED; 45 resid '
                        'REVIEW lines of which 17 carry no other review profile')
@@ -1964,13 +1971,16 @@ def bind_control_instance(a, template, snapshot, descriptor_sha256, *, tool_land
                     gitobj.on_first_parent_chain(a.base, tool_landing, final_h) and
                     gitobj.on_first_parent_chain(a.base, final_h, b['B'])):
                 raise RepRefused('the final scientific base must lie between the tool landing and preparation base')
+            allow = json.loads(cfgmod.read_ref(a.base, snapshot, b[ri.ALLOW_FILL], 'the active allow rules'))
+            if any(r.get('recorded_at') != final_h for r in allow['rules'] if r.get('kind') == 'allow'):
+                raise RepRefused('the active allowance does not state the candidate F scientific base')
         inst = ri.fill(tb, b)
         a.rep_instance_doc = json.loads(inst)
         a.rep_instance_bytes = inst
         a.rep_binding = {**b, 'template': raw_ref(a.base, template_commit, tpath),
                          'mode': 'live' if live else 'fixture', 'freeze': a.freeze, 'tool_rev': a.tool_rev,
                          'class_tip': b[ri.CLASS_FILL], 'allow_tip': b[ri.ALLOW_FILL], 'instance_sha256': sha(inst)}
-    except (ri.Refused, RepRefused, gitobj.Unresolvable, oc.Stop, ValueError) as exc:
+    except (ri.Refused, RepRefused, gitobj.Unresolvable, oc.Stop, KeyError, ValueError) as exc:
         a.rep_instance_doc = None
         a.rep_instance_bytes = None
         a.rep_binding = {'template': template, 'refused': str(exc)}
@@ -2104,6 +2114,10 @@ def rep_run(a, args, scope_text, case=None, extra=(), **kw):
         holder['outside'] = out = rep_scope(a, x, reads, extra, config_revision=kw.get('config_revision'))
         d = {'read_paths': reads,
              'config': raw_ref(a.repo, kw.get('config_revision') or a.crev, a.cpath)}
+        if a.freeze is not None:
+            d['representative_binding'] = {k: a.rep_binding[k] for k in
+                                           ('freeze', 'T_land', 'M_rep', 'S', 'class_tip', 'allow_tip',
+                                            'instance_sha256')}
         if not getattr(a, '_x_rep_why', ['unchecked']):
             d['representative_candidate'] = REP_CANDIDATE
         if not out:
