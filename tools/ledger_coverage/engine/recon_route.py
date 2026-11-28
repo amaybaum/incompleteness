@@ -238,8 +238,17 @@ def binding_problems(doc, scope):
     return out
 
 
+def reference_key(ref):
+    """The record identity of R6.RECON.29, including the path of a byte-identical copy."""
+    if isinstance(ref, dict):
+        path, sha = ref.get('path'), ref.get('blob_sha256')
+        if isinstance(path, str) and isinstance(sha, str):
+            return path, sha
+    return None
+
+
 # (d) review, lint and lineage at the record commit
-def lint_problems(repo, rev, path, data, doc, scope, scan, config_shas):
+def lint_problems(repo, rev, path, data, doc, scope, scan, config_refs):
     sha = util.sha256(data)
     ref = {'path': path, 'blob_sha256': sha}
     # r6 Amendment 10: the admitted review's revision is the record base, REV's single parent
@@ -247,19 +256,19 @@ def lint_problems(repo, rev, path, data, doc, scope, scan, config_shas):
     if st.get(ref) is None:
         st.add(path, data)
     d = posixpath.dirname(path)
-    reviews = [(s, p, rv) for s, (p, rv) in st.by_sha.items()
+    keyed = [(p, s, record) for p, entries in st.by_path.items() for s, record in entries]
+    reviews = [(s, p, rv) for p, s, rv in keyed
                if isinstance(rv, dict) and rv.get('schema') == review_schema and posixpath.dirname(p) == d
-               and isinstance(rv.get('reviewed'), dict) and rv['reviewed'].get('blob_sha256') == sha]
+               and reference_key(rv.get('reviewed')) == (path, sha)]
     if len(reviews) != 1:
         return ['%d review records in the record directory name its blob, not one' % len(reviews)], None
     review = reviews[0]
     out = rec.lint_chain(ref, st, {sha, review[0]})
-    heads = sorted(p for s, (p, x) in st.by_sha.items() if s != sha and isinstance(x, dict)
-                   and isinstance(x.get('supersedes'), dict) and x['supersedes'].get('blob_sha256') == sha)
+    heads = sorted(p for p, s, x in keyed if (p, s) != (path, sha) and isinstance(x, dict)
+                   and reference_key(x.get('supersedes')) == (path, sha))
     if heads:
         out.append('%s in the scanned set supersedes it' % heads[0])
-    sup = doc.get('supersedes')
-    if isinstance(sup, dict) and sup.get('blob_sha256') in config_shas:
+    if reference_key(doc.get('supersedes')) in config_refs:
         out.append('it supersedes a record the configuration references')
     return out, {'path': review[1], 'sha256': review[0]}
 
@@ -267,7 +276,7 @@ def lint_problems(repo, rev, path, data, doc, scope, scan, config_shas):
 def admit(repo, cands, scope, items):
     """cands: [(rev_text, rev, path, data, doc)] of the reconciliation records named by --classify. Returns the
     admitted records (each with `_ref`) and a listing for the result; appends a record-invalid item per refusal."""
-    config_shas = {(r.get('_ref') or {}).get('blob_sha256') for r in scope.config_recon}
+    config_refs = {reference_key(r['_ref']) for r in scope.config_recon}
     revs = {c[0] for c in cands}
     admitted, listing = [], []
     scans = {}
@@ -286,7 +295,7 @@ def admit(repo, cands, scope, items):
         if not probs:
             if rev not in scans:
                 scans[rev] = scanned(repo, rev, scope)
-            lp, review = lint_problems(repo, rev, path, data, doc, scope, scans[rev], config_shas)
+            lp, review = lint_problems(repo, rev, path, data, doc, scope, scans[rev], config_refs)
             probs += lp
             if review and scope.placement_problem(review['path']):
                 probs.append('its review record is %s' % scope.placement_problem(review['path']))
@@ -298,33 +307,26 @@ def admit(repo, cands, scope, items):
         listing.append({'rev': rev, 'path': path, 'sha256': sha, 'review': review})
     # (e) one record per path, over the records the run reads and the unsuperseded records of the scanned sets
     # that name the run's M
-    others = []
-    for rev, scan in scans.items():
+    pool = {reference_key(r['_ref']): r for r in scope.config_recon + admitted}
+    for scan in scans.values():
         st = rec.Store(scan)
-        superseded_shas = {x['supersedes'].get('blob_sha256') for _s, (_p, x) in st.by_sha.items()
-                           if isinstance(x, dict) and isinstance(x.get('supersedes'), dict)}
-        others += [dict(x, _ref={'path': p, 'blob_sha256': s}) for s, (p, x) in st.by_sha.items()
-                   if isinstance(x, dict) and x.get('schema') in recon_schemas and x.get('M') == scope.M
-                   and s not in superseded_shas]
-    pool = {}
-    for r in list(scope.config_recon) + admitted + others:
-        pool[(r.get('_ref') or {}).get('blob_sha256')] = r
+        entries = {(p, s): doc for p, records in st.by_path.items() for s, doc in records if isinstance(doc, dict)}
+        superseded = {reference_key(doc.get('supersedes')) for doc in entries.values()}
+        for key, doc in entries.items():
+            if doc.get('schema') in recon_schemas and doc.get('M') == scope.M and key not in superseded:
+                pool.setdefault(key, doc)
     cover = {}
-    for s, r in pool.items():
-        for e in r.get('paths') or []:
+    for key, doc in pool.items():
+        for e in doc.get('paths') or []:
             if isinstance(e, dict):
-                cover.setdefault(e.get('path'), set()).add(s)
-    clash = {s for ss in cover.values() if len(ss) > 1 for s in ss}
-    keep = []
-    for r in admitted:
-        s = r['_ref']['blob_sha256']
-        if s in clash:
-            items.append(oc.make_item('RECORD', 'record-invalid', r['_ref']['path'], None,
-                                      {'sha': s, 'why': 'another record covers one of its paths'},
-                                      detail='two or more reconciliation records cover one path; none applies'))
-        else:
-            keep.append(r)
-    listing = [x for x in listing if x['sha256'] not in clash]
+                cover.setdefault(e.get('path'), set()).add(key)
+    clash = {key for refs in cover.values() if len(refs) > 1 for key in refs}
+    for path, sha in sorted(clash):
+        items.append(oc.make_item('RECORD', 'record-invalid', path, None,
+                                  {'sha': sha, 'why': 'another record covers one of its paths'},
+                                  detail='two or more reconciliation records cover one path; none applies'))
+    keep = [r for r in admitted if reference_key(r['_ref']) not in clash]
+    listing = [x for x in listing if (x['path'], x['sha256']) not in clash]
     return keep, listing, clash
 
 

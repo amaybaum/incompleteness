@@ -1676,11 +1676,7 @@ def op_execution(a, repo, ctx, loaded, records, result, control=None):
             got, listing, clash = recon_route.admit(repo, route_cands, scope, records.items)
             if clash:
                 # (e): a configuration-referenced record that shares a path with another is not used either
-                for r_ in [x for x in recon if (x.get('_ref') or {}).get('blob_sha256') in clash]:
-                    records.items.append(oc.make_item('RECORD', 'record-invalid', r_['_ref']['path'], None,
-                                                      {'sha': r_['_ref']['blob_sha256'],
-                                                       'why': 'another record covers one of its paths'}))
-                recon = [x for x in recon if (x.get('_ref') or {}).get('blob_sha256') not in clash]
+                recon = [r for r in recon if recon_route.reference_key(r['_ref']) not in clash]
             recon += got
             result.setdefault('inputs', {})['classify_records'] = listing
     dup = rcmod.duplicate_class_ids(class_docs)
