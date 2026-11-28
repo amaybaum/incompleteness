@@ -2587,7 +2587,7 @@ def _rt_d_counts(result, census):
 
 
 def _rt_d_scope(repo, F, config, projected):
-    """Bind the exact scope and its configured independent review."""
+    """Bind the exact scope root and its configured independent review."""
     refs = [_rep_ref(r) for r in config['records'] if r.get('kind') == 'scope']
     scopes = [(r, json.loads(_rep_pin(repo, F, r))) for r in refs]
     (ref, scope), = [(r, d) for r, d in scopes if d.get('profile') == 'repo']
@@ -2595,6 +2595,8 @@ def _rt_d_scope(repo, F, config, projected):
     if (_file_sha(scope_bytes) != ref['blob_sha256'] or scope['schema'] != 'oi-scope/1' or
             'supersedes' not in scope or projected['records_used'] != [dict(ref, kind='scope')]):
         raise ValueError('RT-D did not read the exact configured repo scope')
+    if scope['supersedes'] is not None:
+        raise ValueError('RT-D successor scope requires independent widening verification')
     reviews = [r for r in _rep_review_pool(repo, F, config) if r.get('reviewed') == ref]
     ordinary = [r for r in reviews if r.get('kind', 'review') == 'review']
     if not ordinary or not all(r.get('method') and

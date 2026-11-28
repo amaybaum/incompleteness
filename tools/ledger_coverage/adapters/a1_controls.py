@@ -2373,6 +2373,23 @@ def rt_d_projection(a, result, residual, profile, scope_doc, scope_read, source_
     }, {'read_paths': reads, 'read_trace': log.trace()}, outside
 
 
+def rt_d_scope_record(repo, revision, loaded):
+    """Admit the exact reviewed repo scope root for the RT-D overlap."""
+    refs = [r for r in loaded.config['records'] if r.get('kind') == 'scope'
+            and (loaded.store.get(r) or {}).get('profile') == 'repo']
+    if len(refs) != 1:
+        raise RepRefused('RT-D needs exactly one configured repo scope')
+    ref = refs[0]
+    records = cli.RecordSet(loaded, False)
+    scope = records.admit(repo, revision + ':' + ref['path'], 'scope')
+    if scope is None or scope.get('schema') != 'oi-scope/1':
+        raise RepRefused('RT-D repo scope is not admitted by its exact review chain')
+    # This control implements the root route. R6.RULE.13 requires a separate widening check for successors.
+    if scope['supersedes'] is not None:
+        raise RepRefused('RT-D successor scope requires independent widening verification')
+    return ref, scope, records.used
+
+
 def rt_d_repo_overlap(a, result, residual, other_profiles):
     """Use only the candidate-F scope and its exact reviewed record chain."""
     label = 'RT-D review membership at residual coordinates'
@@ -2381,15 +2398,7 @@ def rt_d_repo_overlap(a, result, residual, other_profiles):
         _, _, table, _, _ = cli.freeze_admission(a.base, F, F, a.cpath, refuse_rep)
         loaded = cfgmod.load(a.base, F, a.cpath, a.csha, 'terms', 'chain', table=table,
                              admission={'mode': 'candidate-F'})
-        refs = [r for r in loaded.config['records'] if r.get('kind') == 'scope'
-                and (loaded.store.get(r) or {}).get('profile') == 'repo']
-        if len(refs) != 1:
-            raise RepRefused('RT-D needs exactly one configured repo scope')
-        ref = refs[0]
-        records = cli.RecordSet(loaded, False)
-        scope = records.admit(a.base, F + ':' + ref['path'], 'scope')
-        if scope is None or scope.get('schema') != 'oi-scope/1':
-            raise RepRefused('RT-D repo scope is not admitted by its exact review chain')
+        ref, scope, used = rt_d_scope_record(a.base, F, loaded)
         names, = [c['profiles'] for c in loaded.config['checks'] if c['id'] == 'item7']
         selected = {n for n in names if loaded.profiles[n].kind == 'review'}
         profile = loaded.profiles['repo']
@@ -2403,7 +2412,7 @@ def rt_d_repo_overlap(a, result, residual, other_profiles):
         data, observed, outside = rt_d_projection(a, result, residual, profile, scope,
                                                  raw_ref(a.base, F, ref['path']),
                                                  raw_ref(a.base, source.get('commit') or F, source['path']))
-        data['records_used'] = records.used
+        data['records_used'] = used
     except (RepRefused, oc.Stop, gitobj.Unresolvable, util.EncodingFault, KeyError, ValueError, TypeError,
             AttributeError, re.error) as exc:
         data, observed, outside = {'exit_status': 20, 'reason': str(exc)}, {}, None
