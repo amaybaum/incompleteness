@@ -1944,7 +1944,10 @@ def bind_control_instance(a, template, snapshot, descriptor_sha256, *, tool_land
             if not isinstance(paths, dict) or not paths:
                 raise RepRefused('the candidate F ledger does not give a complete path set')
             live = {'tool_landing': tool_landing, 'main_tip': main_tip, 'ledger_paths': paths}
-        b = ri.bind(a.base, a.base.resolve(snapshot), a.main, descriptor_sha256, template=template_ref, **live)
+        if not live and template_commit != a.tool_rev:
+            raise RepRefused('the fixture must use the exact tool candidate template')
+        b = ri.bind(a.base, a.base.resolve(snapshot), a.main, descriptor_sha256, template=template_ref,
+                    fixture=not live, **live)
         if live and (trans['base'] != b['B'] or
                      trans['tips'] != {'class': b[ri.CLASS_FILL], 'allow': b[ri.ALLOW_FILL]}):
             raise RepRefused('the bound snapshot differs from the exact candidate F role tips')
@@ -1959,7 +1962,7 @@ def bind_control_instance(a, template, snapshot, descriptor_sha256, *, tool_land
         inst = ri.fill(tb, b)
         a.rep_instance_doc = json.loads(inst)
         a.rep_instance_bytes = inst
-        a.rep_binding = {**b, 'template': {'commit': template_commit, **template_ref},
+        a.rep_binding = {**b, 'template': raw_ref(a.base, template_commit, tpath),
                          'mode': 'live' if live else 'fixture', 'freeze': a.freeze, 'tool_rev': a.tool_rev,
                          'class_tip': b[ri.CLASS_FILL], 'allow_tip': b[ri.ALLOW_FILL], 'instance_sha256': sha(inst)}
     except (ri.Refused, RepRefused, gitobj.Unresolvable, oc.Stop, ValueError) as exc:
