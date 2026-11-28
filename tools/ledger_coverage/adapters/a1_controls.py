@@ -21,6 +21,7 @@ Usage: python3 -I -B tools/ledger_coverage/adapters/a1_controls.py --repo DIR --
 """
 import argparse
 import collections
+import copy
 import hashlib
 import io
 import json
@@ -566,6 +567,84 @@ RTDR_MISSING = ('countercase: at H with the DR-1 alternative-a match at book/The
                 'removed (one target missing): the target item is absent')
 
 
+def fixed_terms_fixture(phase):
+    """Build the terms-only X_rep from the selected fixture configuration and fixed historical inputs."""
+    a = copy.copy(phase.fixed or phase)
+    a.out_root = tempfile.mkdtemp(prefix='fixed-terms-', dir=a.out_root)
+    a.n = 0
+    a.rep_binding = a.rep_instance_doc = None
+    # These scans have no live main operand. Their marker comparison uses the fixed fixture tree.
+    if not a.staged and not a.overlay:
+        a.main = a.base.resolve(a.crev)
+    cfg = json.loads(a.repo.read(a.crev, a.cpath))
+    build_reads = {'H': set(), 'M': set()}
+    x, changes = build_x_rep(a, reads=build_reads)
+    a._x_rep, a._x_rep_why = x, rep_conforms(a, x, changes)
+    if a._x_rep_why:
+        raise RepRefused('fixed terms candidate: %s' % '; '.join(a._x_rep_why))
+    refs = {'configuration': raw_ref(a.repo, a.crev, a.cpath)}
+    for name in ('controls', 'delegation'):
+        spec = cfg[name]
+        ref = raw_ref(a.repo, spec.get('commit') or a.crev, spec['path'])
+        if ref['blob_sha256'] != spec['blob_sha256']:
+            raise RepRefused('fixed terms %s differs from its configuration pin' % name)
+        refs[name] = ref
+    runner = 'tools/ledger_coverage/adapters/a1_controls.py'
+    with open(__file__, 'rb') as stream:
+        if not a.overlay and sha(stream.read()) != raw_ref(a.base, a.tool_rev, runner)['blob_sha256']:
+            raise RepRefused('fixed terms runner differs from the exact tool revision')
+    for name, path in (('ledger', a.ad + 'rep/ledger.json'), ('edits', a.ad + 'rep/edits.json'),
+                       ('builder', REP_BUILDER), ('runner', runner)):
+        refs[name] = raw_ref(a.base, a.tool_rev, path)
+    scope = {'scope': 'fixed representative terminology control', 'tool': a.tool_rev, 'E': E, 'H_rep': H,
+             'M': a.main, 'X_rep': x, 'X_rep_tree': a.repo.tree_id(x), 'X_rep_parents': a.repo.parents(x),
+             'build_reads': {k: sorted(paths) for k, paths in build_reads.items()}, **refs}
+    for rid in ('RT-DR3W', 'RT-I7', 'RT-I7A'):
+        phase.files_of[rid] = {'fixed-inputs.json': scope}
+    return a, cfg
+
+
+def fixed_terms_reads(repo, subject):
+    """Retain exact paths for each read commit as well as the existing representative path trace."""
+    class Reads(ReadLog):
+        def __init__(self):
+            super().__init__(repo, subject)
+            self.by_commit = collections.defaultdict(set)
+
+        def read(self, commit, path):
+            self.by_commit[commit].add(path)
+            return super().read(commit, path)
+
+        def evidence(self):
+            return {'read_trace': self.trace(),
+                    'paths_by_commit': {c: sorted(ps) for c, ps in self.by_commit.items()}}
+
+    return Reads()
+
+
+def fixed_terms_run(a, args, case, baseline=None):
+    """Run the fixed profile or no-record check with its actual read and rule-selection evidence."""
+    subject = args[args.index('--commit') + 1]
+    log = fixed_terms_reads(a.repo, subject)
+    before = []
+
+    def select_no_records(rule_files):
+        before.append([{'path': r['path'], 'blob_sha256': r['blob_sha256']} for r, _ in rule_files])
+        return []
+
+    def observed(_result):
+        # A profile-only or no-record invocation does not apply the fixture's rule records.
+        facts = {**log.evidence(), 'read_paths': log.read_at(a), 'rule_selection_inputs': before}
+        if subject == x_rep(a):
+            facts['representative_candidate'] = REP_CANDIDATE
+            if not rep_scope(a, subject, facts['read_paths']):
+                facts['scanned_paths_within'] = 'ledgered and corpus paths of X_rep'
+        return facts
+
+    return a.run(args, case=case, baseline=baseline, reader=log, attested=observed,
+                 control={'replace_rule_files': select_no_records})
+
+
 def rt_terms(a):
     case_of = {'H': 'at H', 'E': 'at E', 'T1p': "at T1'"}
     for c, name in ((H, 'H'), (E, 'E'), (T, 'T1p')):
@@ -604,12 +683,11 @@ def rt_terms(a):
     a.runs_of['RT-DR'] = a.rec.take()
     # RT-DR3W, RT-I7 and RT-I7A retain their fixed control configuration at either phase.
     phase = a
-    a = a.fixed or a
-    cfg = json.loads(a.repo.read(a.crev, a.cpath))
-    controls = json.loads(a.repo.read(a.crev, cfg['controls']['path']))
+    a, cfg = fixed_terms_fixture(phase)
+    control_ref = cfg['controls']
+    controls = json.loads(a.repo.read(control_ref.get('commit') or a.crev, control_ref['path']))
     inputs = {i['id']: i for i in controls['control_inputs']}
     dr3 = [p for p in cfg['profiles'] if p['name'] == 'DR-3'][0]
-    prof, _ = prf.load_profile(dr3, lambda s: a.repo.read(s.get('commit') or a.crev, s['path']))
     got = {}
     dr3_cases = (
         ('agents-md-at-H', 'AGENTS.md at H (control input agents-md-at-H)'),
@@ -623,9 +701,13 @@ def rt_terms(a):
         spec = inputs[key]
         # the countercontrol input is AGENTS.md in X_rep (R6.EVID.8), never T1''s copy
         revision = x_rep(a) if spec.get('candidate') else spec['commit']
-        data = a.repo.read(revision, spec['path'])
-        assert sha(data) == spec['sha256']
-        ss = util.sentences_of(util.lines_of(data.decode()), cfg['sentence']['abbreviations'], 2)
+        log = fixed_terms_reads(a.repo, revision)
+        prof, pattern = prf.load_profile(dr3, lambda s: log.read(s.get('commit') or a.crev, s['path']))
+        data = log.read(revision, spec['path'])
+        if sha(data) != spec['sha256'] or pattern != dr3['pattern_sha256']:
+            raise RepRefused('fixed DR-3 witness or profile differs from its pin')
+        ss = util.sentences_of(util.lines_of(data.decode()), cfg['sentence']['abbreviations'],
+                                cfg['sentence']['splitter_version'])
         matches = [(s1, s2) for s, s1, s2 in ss if prof.matches(s)]
         items = [{'file': spec['path'], 'line': s1, 'sentence': '%d:%d' % (s1, s2),
                   'sentence_start_line': s1, 'sentence_end_line': s2, 'rule_id': 'DR-3'}
@@ -634,9 +716,10 @@ def rt_terms(a):
         if key == 'agents-md-at-Xrep' and not a._x_rep_why and spec['path'] == 'AGENTS.md':
             facts = {'representative_candidate': REP_CANDIDATE,
                      'scanned_paths_within': 'AGENTS.md (a ledgered path) of X_rep'}
-        run = a.rec.capture_doc('DR-3 fixed sentence scan', {'input': raw_ref(a.repo, revision, spec['path']),
-                                'items': items}, case=case, baseline=clean if case == 'restored' else None,
-                                attested=facts)
+        run = a.rec.capture_doc('DR-3 fixed sentence scan',
+                                {'input': raw_ref(a.repo, revision, spec['path']), 'items': items,
+                                 'profile': {'spec': dr3, 'pattern_sha256': pattern}, **log.evidence()},
+                                case=case, baseline=clean if case == 'restored' else None, attested=facts)
         if case == 'restored':
             assert matches == got[key]
         else:
@@ -647,11 +730,8 @@ def rt_terms(a):
     a.record('RT-DR3W', len(hgot) == 1 and hgot[0][0] == 37 and hgot[0][1] >= 38 and not got['agents-md-at-Xrep'],
              'exactly one DR-3 sentence at H starting on line 37 and including lines 37-38; 0 in X_rep', got)
     for c, name, want in (('X_rep', 'X_rep', (7, 4)), (H, 'H', (14, 179))):
-        if c == 'X_rep':
-            code, res, t, scan = rep_run(a, ['terms', '--commit', x_rep(a), '--profile', 'item7-literal'],
-                                         'ledgered and corpus paths of X_rep', case='at X_rep (R6.EVID.8)')
-        else:
-            code, res, t = a.run(['terms', '--commit', c, '--profile', 'item7-literal'], case='at H')
+        args = ['terms', '--commit', x_rep(a) if c == 'X_rep' else c, '--profile', 'item7-literal']
+        code, res, t = fixed_terms_run(a, args, 'at X_rep (R6.EVID.8)' if c == 'X_rep' else 'at H')
         lit = collections.Counter(x for i in res.get('items', []) for x in i.get('literals', []))
         rep = res.get('reports', {}).get('item7-literal', {}).get('report_regex_lines')
         n = len(res.get('items', []))
@@ -659,21 +739,16 @@ def rt_terms(a):
                                                                    'A1 179', 'actual': {}})
         a.results['RT-I7']['actual'][name] = {'exit': code, 'lines': n, 'literals': dict(lit), 'A1_lines': rep}
         a.results['RT-I7']['passed'] &= code == 20 and (n, rep) == want
-    redo, reread, _ = a.run(['terms', '--commit', H, '--profile', 'item7-literal'], case='restored',
-                             baseline=a.rec.pending[-1])
+    redo, reread, _ = fixed_terms_run(a, args, 'restored', baseline=a.rec.pending[-1])
     a.results['RT-I7']['passed'] &= redo == code and reread == res
     a.runs_of['RT-I7'] = a.rec.take()
     # RT-I7A and V3
-    retired = retired_lines(a)
+    retired = retired_lines(a, fixed=True)
+    ledger_spec = cfg['adapters']['ledger']
     for c, name in ((H, 'H'), ('X_rep', 'X_rep')):
         args = ['terms', '--commit', x_rep(a) if c == 'X_rep' else c, '--base', H, '--ledger',
-                '%s:%srep/ledger.json' % (a.tool_rev, a.ad), '--check',
-                'item7', '--final']
-        if c == 'X_rep':
-            code, res, t, scan = rep_run(a, args, 'ledgered and corpus paths of X_rep', case='at X_rep (R6.EVID.8)',
-                                         control={'without_allow_rules': True})
-        else:
-            code, res, t = a.run(args, case='at H', control={'without_allow_rules': True})
+                '%s:%s' % (ledger_spec.get('commit') or a.crev, ledger_spec['path']), '--check', 'item7', '--final']
+        code, res, t = fixed_terms_run(a, args, 'at X_rep (R6.EVID.8)' if c == 'X_rep' else 'at H')
         ln, sl, per, alt = dl(res)
         fu = {(i['file'], i['line']) for i in res.get('items', []) if i['class'] == 'final-unclassified'}
         act = {'exit': code, 'deny_lines': len(ln), 'deny_lines_with_sentences': len(ln | sl),
@@ -695,11 +770,11 @@ def rt_terms(a):
                                         'actual': {}})
         a.results['RT-I7A']['actual'][name] = act
         a.results['RT-I7A']['passed'] &= ok
-    redo, reread, _, scoped = rep_run(a, args, 'ledgered and corpus paths of X_rep', case='restored',
-                                     baseline=a.rec.pending[-1], control={'without_allow_rules': True})
-    a.results['RT-I7A']['passed'] &= redo == code and reread == res and scoped == scan
+    redo, reread, _ = fixed_terms_run(a, args, 'restored', baseline=a.rec.pending[-1])
+    a.results['RT-I7A']['passed'] &= redo == code and reread == res
     a.runs_of['RT-I7A'] = a.rec.take()
     # V3 countercontrol: one retired line restored to REVIEW would be visible
+    a = phase.fixed or phase
     a.results['V3-countercontrol'] = v3_countercontrol(a, retired)
     a.runs_of['V3-countercontrol'] = a.rec.take()
     a = phase
@@ -777,7 +852,7 @@ def rt_terms(a):
                                                                          if h['state'] == 'PASS')})
 
 
-def retired_lines(a):
+def retired_lines(a, *, fixed=False):
     import re
     out = []
     lit = ('Fourteen', 'six structural', 'sixth of')
@@ -791,7 +866,8 @@ def retired_lines(a):
             if (re.search(r'\bA1\b', l) or any(x in l for x in lit)) and l not in tl:
                 out.append((f, i))
     # less the deny lines (the design's 95 match no deny rule)
-    code, res, t = a.run(['terms', '--commit', H, '--profile', 'DR-1,DR-3,DR-4,DR-5'])
+    args = ['terms', '--commit', H, '--profile', 'DR-1,DR-3,DR-4,DR-5']
+    code, res, t = (fixed_terms_run(a, args, 'retired deny profile census') if fixed else a.run(args))
     ln, sl, per, alt = dl(res)
     return [x for x in out if x not in ln]
 

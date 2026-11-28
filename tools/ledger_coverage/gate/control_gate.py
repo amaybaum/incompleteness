@@ -2471,6 +2471,192 @@ def _fixed_item7a(result, ctx):
     return counts, bool(retired) and retired <= unclassified, unclassified
 
 
+FIXED_TERMS_ROWS = frozenset(('RT-DR3W', 'RT-I7', 'RT-I7A'))
+FIXED_DR3_H = '12a9281fb88c14395b6715a3bf4b4f6b030f433c'
+FIXED_DR3_H_SHA = 'd87acac54b5f6392af3323630236d98b14bb4d485d10c0ff56b20806b0883e27'
+FIXED_DR3_X_SHA = '59b68984e659ef808819e02d4653d80388f8bd2f4c009796b162fc2453882ce2'
+FIXED_DR3_CASE = 'AGENTS.md at H (control input agents-md-at-H)'
+FIXED_X_CASE = 'at X_rep (R6.EVID.8)'
+FIXED_DENY_PROFILES = ['DR-1', 'DR-3', 'DR-4', 'DR-5']
+FIXED_ITEM7_PROFILES = ['p0-core', 'p0-para', 'ledger-ext', 'ptr', 'count-grep', 'resid'] + FIXED_DENY_PROFILES
+
+
+def _fixed_terms_inputs(ctx, phase, ev):
+    repo, scope = ctx.repo, ev.json('fixed-inputs.json')
+    C, sep, path = (ctx.fixed_config or '').partition(':')
+    if not sep or not HEX40.fullmatch(C) or scope.get('scope') != 'fixed representative terminology control':
+        raise ValueError('the exact fixed terminology scope or configuration is missing')
+    tool = scope['tool']
+    allowed = {ctx.tool_candidate} if phase == 'tool-acceptance' else {git_blob_id(repo, 'HEAD^{commit}')}
+    if phase == 'candidate-F':
+        _, parents = _rep_commit(repo, ctx.tool_landing)
+        if len(parents) != 2:
+            raise ValueError('the exact accepted tool merge is missing')
+        allowed.add(parents[1])
+    if tool not in allowed or scope['M'] != C:
+        raise ValueError('the fixed terminology tool or marker comparison tree has been substituted')
+    config = json.loads(_rep_input(repo, scope['configuration'], C, path))
+    led = _rep_input(repo, scope['ledger'], tool, REP_LEDGER)
+    edits = _rep_input(repo, scope['edits'], tool, REP_EDITS)
+    H = json.loads(led)['base']
+    if (_git_oid('blob', led), _git_oid('blob', edits), scope['H_rep'], scope['E']) != (
+            REP_LEDGER_GIT, REP_EDITS_GIT, H, REP_E) or \
+            (config['roles']['scientific_base'], config['roles']['record_commit'], config['roles']['pin']) != (
+                H, H, REP_E):
+        raise ValueError('the fixed E, H, ledger or edit input differs from its adopted pin')
+    for name in ('delegation', 'controls'):
+        spec = config[name]
+        raw = _rep_input(repo, scope[name], spec.get('commit') or C, spec['path'])
+        if _rep_ref(spec) != _rep_ref(scope[name]):
+            raise ValueError('the fixed %s differs from its configuration pin' % name)
+        if name == 'delegation':
+            delegation = json.loads(raw)
+        else:
+            controls = json.loads(raw)
+    builder = _rep_input(repo, scope['builder'], tool, REP_BUILDER)
+    runner = 'tools/ledger_coverage/adapters/a1_controls.py'
+    _rep_input(repo, scope['runner'], tool, runner)
+    pins = {r['path']: r['blob_sha256'] for r in config['tool']['files']}
+    if ({p: pins.get(p) for p in (REP_BUILDER, runner)} !=
+            {REP_BUILDER: _file_sha(builder), runner: scope['runner']['blob_sha256']} or
+            _rep_imports(builder) - {'hashlib', 'json'}):
+        raise ValueError('the fixed configuration does not pin the actual runner and representative builder')
+    build = _rep_construction(repo, (H, C, led, edits, builder, delegation))
+    if (scope['X_rep'], scope['X_rep_tree'], scope['X_rep_parents'], scope['build_reads']) != (
+            build['commit'], build['tree'], build['parents'], build['reads']):
+        raise ValueError('the exact representative candidate or its H/M reads differ')
+    return scope, config, controls, build, led, edits
+
+
+def _fixed_profile_source(repo, commit, spec, paths):
+    source = spec['source']
+    if source['extractor']['kind'] == 'literal-list':
+        return None
+    revision = source.get('commit') or commit
+    if source['path'] not in paths.get(revision, ()):
+        raise ValueError('missing read of the exact %s profile source' % spec['name'])
+    return _rep_pin(repo, revision, _rep_ref(source))
+
+
+def _fixed_dr3w_case(repo, C, H, X, case, result, config, controls, build):
+    subject = H if case['case'] in (FIXED_DR3_CASE, 'restored') else X
+    path = 'AGENTS.md'
+    refs = {r['id']: r for r in controls['control_inputs']}
+    witness = {'id': 'agents-md-at-H', 'commit': H, 'path': path,
+               'blob': FIXED_DR3_H, 'sha256': FIXED_DR3_H_SHA}
+    counter = {'id': 'agents-md-at-Xrep', 'path': path, 'candidate': 'X_rep (R6.EVID.8)',
+               'sha256': FIXED_DR3_X_SHA}
+    entry = _rep_entry(repo, H, path)[0] if subject == H else build['changes'][path]
+    if (refs[witness['id']] != witness or refs[counter['id']] != counter or
+            (entry['git_blob'], entry['blob_sha256']) !=
+            ((FIXED_DR3_H, FIXED_DR3_H_SHA) if subject == H else (entry['git_blob'], FIXED_DR3_X_SHA)) or
+            result['input'] != dict(entry, path=path, commit=subject) or
+            case['argv'] != ['in-process', 'DR-3 fixed sentence scan']):
+        raise ValueError('the exact DR-3 witness or countercase input differs')
+    profile = next(p for p in config['profiles'] if p['name'] == 'DR-3')
+    raw = _fixed_profile_source(repo, C, profile, result['paths_by_commit'])
+    source = profile['source']
+    if (source['extractor'] != {'kind': 'json-pointer', 'selector': '/rules/1/patterns'} or
+            source['path'] != AUDIT_DIR + 'rules/dr-deny-v1.json' or
+            profile.get('combine') != 'all' or profile.get('levels') != ['sentence'] or
+            profile.get('kind') != 'deny' or config['sentence']['splitter_version'] != 2):
+        raise ValueError('the approved DR-3 sentence profile differs')
+    deny = json.loads(raw)['rules'][1]
+    patterns = json.dumps(deny['patterns'], sort_keys=True, separators=(',', ':'), ensure_ascii=False).encode()
+    observed = {'spec': profile, 'pattern_sha256': _file_sha(patterns)}
+    source_rev = source.get('commit') or C
+    reads = {subject: [path], source_rev: [source['path']]}
+    if source_rev == subject:
+        reads[subject] = sorted((path, source['path']))
+    positive = {'file': path, 'line': 37, 'sentence': '37:39', 'sentence_start_line': 37,
+                'sentence_end_line': 39, 'rule_id': 'DR-3'}
+    if (deny['id'] != 'DR-3' or observed['pattern_sha256'] != profile['pattern_sha256'] or
+            result['profile'] != observed or result['paths_by_commit'] != reads or
+            result['read_trace'] != {'paths': reads[subject], 'blobs': []} or
+            result['items'] != ([positive] if subject == H else [])):
+        raise ValueError('the observed DR-3 profile, read paths or sentence spans differ')
+
+
+def _fixed_terms_case(ctx, phase, rid, ev, case, result, observed):
+    scope, cfg, controls, build, led, edits = _fixed_terms_inputs(ctx, phase, ev)
+    repo, C, path, H, X = ctx.repo, scope['configuration']['commit'], scope['configuration']['path'], \
+        scope['H_rep'], scope['X_rep']
+    name = case['case']
+    if case['mutation'] != []:
+        raise ValueError('the fixed case carries an unprescribed mutation')
+    if rid == 'RT-DR3W':
+        _fixed_dr3w_case(repo, C, H, X, case, result, cfg, controls, build)
+        return
+    subject = X if name == FIXED_X_CASE or (name == 'restored' and rid == 'RT-I7A') else H
+    expected = ['terms', '--config', C + ':' + path, '--commit', subject]
+    adapters = cfg['adapters']['ledger']
+    if rid == 'RT-I7':
+        names = ['item7-literal']
+        expected += ['--profile', 'item7-literal']
+    elif name == 'retired deny profile census':
+        names = FIXED_DENY_PROFILES
+        expected += ['--profile', ','.join(names)]
+    else:
+        names = FIXED_ITEM7_PROFILES
+        pinned_led = adapters.get('commit') or C
+        expected += ['--base', H, '--ledger', pinned_led + ':' + REP_LEDGER, '--check', 'item7', '--final']
+        checks = [c for c in cfg['checks'] if c['id'] == 'item7']
+        companions = [r for r in adapters['companion'] if r['role'] == 'edits']
+        if (checks != [{'id': 'item7', 'profiles': names, 'final_profiles': ['ptr', 'count-grep']}] or
+                adapters['path'] != REP_LEDGER or len(companions) != 1 or companions[0]['path'] != REP_EDITS):
+            raise ValueError('the adopted item7 check or copied ledger adapter inputs differ')
+        companion = companions[0]
+        if (_rep_pin(repo, pinned_led, _rep_ref(adapters)) != led or
+                _rep_pin(repo, companion.get('commit') or pinned_led, _rep_ref(companion)) != edits or
+                REP_LEDGER not in observed['paths_by_commit'].get(pinned_led, ()) or
+                REP_EDITS not in observed['paths_by_commit'].get(companion.get('commit') or pinned_led, ())):
+            raise ValueError('the item7 scan did not read the exact ledger and companion edits')
+    invocation = list(case['argv'])
+    for flag in ('--out', '--repo'):
+        if len(_case_args(invocation, flag) or []) != 1:
+            raise ValueError('the fixed scan invocation has malformed path arguments')
+        i = invocation.index(flag)
+        del invocation[i:i + 2]
+    info = result['config']
+    if (invocation != expected or result['invocation'] != expected or result['operation'] != 'terms' or
+            result['evaluated'] != {'commit': subject} or
+            (info['commit'], info['path'], info['blob_sha256']) != (C, path, scope['configuration']['blob_sha256']) or
+            info['admission']['mode'] != 'control-harness' or result.get('harness') is not True or
+            result['records_used'] != [] or result['control'] != 'rule files replaced in memory by the control' or
+            observed['rule_selection_inputs'] != [result['rule_files']] or
+            result['rule_files'] != [_rep_ref(r) for r in cfg['rules']]):
+        raise ValueError('the actual terms invocation, configuration or fixed rule selection differs')
+    reads_by_commit = observed['paths_by_commit']
+    if path not in reads_by_commit.get(C, ()) or observed['read_trace']['paths'] != reads_by_commit.get(subject):
+        raise ValueError('the actual configuration or evaluated read trace is absent')
+    profile_records = []
+    for spec in cfg['profiles']:
+        source = spec['source']
+        _fixed_profile_source(repo, C, spec, reads_by_commit)
+        if spec.get('except'):
+            _fixed_profile_source(repo, C, dict(spec['except'], name=spec['name'] + ' exclusion'), reads_by_commit)
+        profile_records.append({'name': spec['name'], 'kind': spec['kind'], 'path': source.get('path'),
+                                'source_commit': source.get('commit'), 'blob_sha256': source.get('blob_sha256'),
+                                'pattern_sha256': spec['pattern_sha256']})
+    if rid == 'RT-I7':
+        literal = next(p for p in cfg['profiles'] if p['name'] == 'item7-literal')
+        if (literal['source']['extractor'] != {'kind': 'literal-list', 'selector': ['Fourteen', 'six structural',
+                                                                                 'sixth of']} or
+                literal['kind'] != 'countercontrol' or literal.get('report_regex') != r'\bA1\b'):
+            raise ValueError('the literal countercontrol profile differs')
+    if result['profiles'] != profile_records or result['profiles_evaluated'] != {subject: sorted(names)}:
+        raise ValueError('the reported evaluated profiles differ from the fixed source and pattern pins')
+    entries = _rep_entries(repo, H)
+    patterns = [re.compile(p) for p in cfg['corpus'].get('patterns', [])]
+    exact = set(cfg['corpus'].get('paths', []))
+    allowed = {p for p in entries.keys() | (build['changes'].keys() if subject == X else set())
+               if p in exact or any(rx.search(p) for rx in patterns)}
+    if (not allowed or result['covered_paths'] != sorted(allowed) or
+            not allowed <= set(observed['read_paths']) or
+            not _representative_read_scope(repo, cfg, led, edits, build if subject == X else {'changes': {}}, observed)):
+        raise ValueError('the fixed terms path reads do not cover exactly the applicable corpus and ledger scope')
+
+
 def _candidate_case_bound(rid, case, result, observed, ctx, *, profile_census=False):
     """Check exact candidate-F operands independently of the runner's status."""
     F, path, digest, _ = s11_binding(ctx)
@@ -2945,6 +3131,19 @@ def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None, phase=Non
             findings_out.append(('declarative-mismatch', 'RT-T0 case %r: %s' % (case_name, exc)))
     terminology_counts = {}
     retired_hold, unclassified = False, set()
+    fixed_terms = phase in ('tool-acceptance', 'candidate-F') and rid in FIXED_TERMS_ROWS
+    fixed_bound = False
+    if fixed_terms:
+        try:
+            _fixed_terms_case(ctx, phase, rid, ev, c, result, attested)
+            if rid == 'RT-I7A' and case_name == 'at H':
+                census = ev.case('retired deny profile census')
+                _fixed_terms_case(ctx, phase, rid, ev, census, ev.json(census['result_file']),
+                                  ev.json(census['attested']))
+            fixed_bound = True
+        except (ValueError, SyntaxError, KeyError, TypeError, AttributeError, StopIteration) as exc:
+            findings_out.append(('declarative-mismatch', 'case %r does not bind the fixed %s operands: %s'
+                                 % (case_name, rid, exc)))
     if phase in ('tool-acceptance', 'candidate-F') and rid == 'RT-I7A' and case_name != 'restored':
         try:
             terminology_counts, retired_hold, unclassified = _fixed_item7a(result, ctx)
@@ -3079,6 +3278,18 @@ def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None, phase=Non
             actual['outcome'] = o if same else 'RESULT_DIFFERS'
             if not same:
                 findings_out.append(('declarative-mismatch', 'case %r: no clean TT7 landing with M restored to H'
+                                     % case_name))
+        elif fixed_terms and o == 'RESULT_EQUAL_CLEAN':
+            baseline_name = {'RT-DR3W': FIXED_DR3_CASE, 'RT-I7': 'at H', 'RT-I7A': FIXED_X_CASE}[rid]
+            clean = ev.case(baseline_name) or {}
+            files = (clean.get('result_file'), c.get('baseline_file'), c.get('result_file'))
+            same = (fixed_bound and all(files) and len(set(files)) == 3 and
+                    c.get('baseline_argv') == clean.get('argv') and
+                    ev.text(files[0]) == ev.text(files[1]) == ev.text(files[2]) and
+                    attested == (ev.json(clean['attested']) if clean.get('attested') else {}))
+            actual['outcome'] = o if same else 'RESULT_DIFFERS'
+            if not same:
+                findings_out.append(('declarative-mismatch', 'case %r differs from the actual fixed clean scan'
                                      % case_name))
         elif o in ('RESULT_EQUAL_CLEAN', 'RESULT_EQUAL_FULL_STORE', 'RESULT_EQUAL_WITHOUT_AMENDMENT',
                    'REPLAY_EQUAL') and c.get('baseline_file'):
@@ -3231,6 +3442,8 @@ def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None, phase=Non
             if rid == 'EI6' and phase in ('tool-acceptance', 'candidate-F') and k == 'before_unloaded_import':
                 got, src = _bootstrap_refusals_hold(ev.json('import-trace.json')), 'result'
                 holds = got == v
+            elif fixed_terms and k in ('representative_candidate', 'scanned_paths_within'):
+                holds, got, src = fixed_bound, v if fixed_bound else None, 'verified fixed inputs and reads'
             elif rid == 'RT-I7A' and phase in ('tool-acceptance', 'candidate-F') and 'each_listed_line' in inv:
                 holds, got, src = retired_hold, retired_hold, 'result'
             elif rid == 'TT7' and k in ('L_blob', 'composed_blob'):
