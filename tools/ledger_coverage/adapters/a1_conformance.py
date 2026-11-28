@@ -1,6 +1,6 @@
 """A1 controls of the design (v6.0e) on real objects: W1 option B (WB1-WB15), the per-edit unit and
 the plan checker's selection (S11-56, S11-57a-d, S11-58a-k), the reconciliation conditions and the landing
-composition (N3-N18, with N10 and N11 pinned to main 8e9b8334 and T1'), and the pinned side-change classes (R18,
+composition (N3-N18, with N10 and N11 pinned to main 8e9b8334 and the representative build), and the side-change classes (R18,
 R19). Every run uses the control harness (the A1 records are unreviewed drafts); mutant trees, ledgers and
 records exist only in memory. Each control is reported as {id, expected, predicate, actual, status}.
 
@@ -43,6 +43,7 @@ CONTROL_EFFECT = {'conclusions': 'none', 'assessment': 'control fixture: the cha
 # R6.GATE.7: the tool runs (and in-process stage results) captured since the previous check are its evidence
 REC = None
 RUNS = {}
+FILES = {}
 
 
 # per control id: the procedure of its manifest (R6.GATE.8)
@@ -445,60 +446,188 @@ def s11_controls(a):
 
 class Recon:
     def __init__(self, a):
-        self.a = a
         self.repo = a.repo
         loaded = a1c.cfgmod_loaded(a)
         self.ctx = pl.RunContext(a.repo, loaded.config, loaded.profiles, [], {}, None)
         self.led = le.load(a.repo.read(P, PL + 'ledger.json'), {'edits': a.repo.read(P, PL + 'edits.json')})
         self.path = 'AGENTS.md'
-        m = a.repo.read(M, self.path)
-        hdr = m.find(b'## \xc2\xa7A.49')
-        self.protected = [(hdr, len(m))] if hdr > 0 else []
-        self.classes = [self.cls('trial-workflow', '.github/workflows/a1exit-trial-verify.yml', M),
-                        self.cls('tool-configuration', '.claude/settings.json', M)]
+        self.protected, self.classes = reconciliation_scope(a.repo, self.path)
         self.rec = rc.draft(a.repo, self.ctx, H, M, T, self.led, self.path, self.protected, self.classes, {},
                             scientific_effect=CONTROL_EFFECT)
 
-    def cls(self, cid, path, commit):
-        return {'id': cid, 'pins': [{'path': path, 'git_blob': self.repo.blob_id(commit, path),
-                                     'blob_sha256': sha(self.repo.read(commit, path))}]}
-
-    def run(self, rec=None, m=M, L=None, h=H, classes=None, cand=False, x=T, reader=None, attested=None):
-        ctx = self.ctx
-        if reader is not None:
-            ctx = copy.copy(self.ctx)
-            ctx.repo = reader
-        e = exmod.Execution(ctx, h, x, self.led, None, m, L, x, classes if classes is not None else self.classes,
-                            [rec] if rec else [])
-        corp = set(ctx.corpus(H)) | set(ctx.corpus(m))
-        e.main_role(set(self.led['files']) | corp)
-        if L:
-            e.landing()
-        return exec_doc(e, 'execution main role%s (a1_conformance.Recon.run)' % (' and landing' if L else ''),
-                        attested=attested)
-
-    def rep_run(self, rec, L, scope_text):
-        """Recon.run at X_rep (R6.EVID.8) with its read log: the attested representative_candidate and
-        scanned_paths_within, each when it holds (the extra paths: the side changes H..M)."""
-        a, x = self.a, a1c.x_rep(self.a)
-        log = a1c.ReadLog(self.repo, x)
-        hp, mp = self.repo.paths(H), self.repo.paths(M)
-        side = {q for q in set(hp) | set(mp) if hp.get(q) != mp.get(q)}
-        holder = {}
-
-        def att(_e):
-            holder['outside'] = out = a1c.rep_scope(a, x, log.read_at(a), side)
-            d = {}
-            if not getattr(a, '_x_rep_why', ['unchecked']):
-                d['representative_candidate'] = a1c.REP_CANDIDATE
-            if not out:
-                d['scanned_paths_within'] = scope_text
-            return d
-        e = self.run(rec, L=L, x=x, reader=log, attested=att)
-        return e, {'read_at_X_rep': len(log.read_at(a)), 'outside_scope': holder.get('outside')}
+    def run(self, rec=None, m=M, L=None, h=H, classes=None, x=T):
+        e = reconcile_execution(self.ctx, h, m, x, self.led, classes if classes is not None else self.classes, rec, L)
+        return exec_doc(e, 'execution main role%s (a1_conformance.Recon.run)' % (' and landing' if L else ''))
 
     def failed(self, e):
         return [x for s_ in e.side_changes for ev in (s_.get('record_conditions') or []) for x in ev['failed']]
+
+
+def reconciliation_scope(repo, path):
+    main = repo.read(M, path)
+    hdr = main.find(b'## \xc2\xa7A.49')
+    protected = [(hdr, len(main))] if hdr > 0 else []
+    classes = []
+    for cid, p in (('trial-workflow', a1c.WF), ('tool-configuration', '.claude/settings.json')):
+        classes.append({'id': cid, 'pins': [{'path': p, 'git_blob': repo.blob_id(M, p),
+                                            'blob_sha256': sha(repo.read(M, p))}]})
+    return protected, classes
+
+
+def reconcile_execution(ctx, h, m, x, ledger, classes, record, landing):
+    e = exmod.Execution(ctx, h, x, ledger, None, m, landing, x, classes, [record] if record else [])
+    e.main_role(set(ledger['files']) | set(ctx.corpus(h)) | set(ctx.corpus(m)))
+    if landing:
+        e.landing()
+    return e
+
+
+class FixedReads(a1c.ReadLog):
+    """Keep actual input reads as well as the X_rep scope attribution."""
+
+    def __init__(self, repo, candidate=None):
+        super().__init__(repo, candidate)
+        self.by_commit = {}
+
+    def read(self, cid, path):
+        self.by_commit.setdefault(cid, set()).add(path)
+        return super().read(cid, path)
+
+    def evidence(self):
+        return {'paths': {cid: sorted(paths) for cid, paths in sorted(self.by_commit.items())},
+                'blobs': sorted(self.blobs)}
+
+
+def n10_n11(a):
+    """Evaluate the fixed representative pair with one explicit configuration and one ledger/edit pair."""
+    fixed = copy.copy(a)
+    fixed.main = a.base.resolve(M)
+    build_reads = fixed.base = fixed.repo = FixedReads(a.repo)
+    path = 'AGENTS.md'
+    config_bytes = build_reads.read(a.crev, a.cpath)
+    config = json.loads(config_bytes)
+    ledger_bytes, edits_bytes, delegation = a1c.rep_inputs(fixed)
+    ledger = le.load(ledger_bytes, {'edits': edits_bytes})
+    h = ledger['base']
+    roles = config['roles']
+    if ledger['errors'] or h != H or roles['scientific_base'] != h or roles['record_commit'] != h or roles['pin'] != E:
+        raise a1c.RepRefused('N10/N11 require the fixed representative ledger base and configuration roles')
+    if sha(config_bytes) != a.csha or build_reads.mode(a.crev, a.cpath) != '100644':
+        raise a1c.RepRefused('N10/N11 configuration differs from the selected regular-file input')
+    # Check the same source pair against both of its build outputs and both landing inputs.
+    inputs = {}
+    for name, data, blob, digest in (
+            ('ledger', ledger_bytes, a1c.REP_LEDGER_GIT, '2055e68f2343d00cec93bc35ecbccae21d46d1da154ee1a842663f1e4fec32b5'),
+            ('edits', edits_bytes, a1c.REP_EDITS_GIT, '528f146d03b29cbc3d7dc29948e3dd1d4cd26f4d36e6e009f032e24f9462dec1')):
+        source = a.ad + 'rep/' + name + '.json'
+        if build_reads.entries(a.tool_rev).get(source) != ('100644', blob) or sha(data) != digest:
+            raise a1c.RepRefused('N10/N11 tool revision does not carry the pinned %s mode and bytes' % name)
+        inputs[name] = {'path': source, 'copy_at': PL + name + '.json', 'mode': '100644', 'git_blob': blob,
+                        'blob_sha256': digest}
+    dref = config['delegation']
+    delegation_bytes = build_reads.read(a.crev, dref['path'])
+    if sha(delegation_bytes) != dref['blob_sha256'] or build_reads.mode(a.crev, dref['path']) != '100644':
+        raise a1c.RepRefused('N10/N11 require the pinned regular-file delegation')
+    source = 'tools/ledger_coverage/adapters/rep_build.py'
+    source_bytes = build_reads.read(a.tool_rev, source)
+    builder_pins = [ref['blob_sha256'] for ref in config['tool']['files'] if ref['path'] == source]
+    if source_bytes is None or build_reads.mode(a.tool_rev, source) != '100644' or builder_pins != [sha(source_bytes)]:
+        raise a1c.RepRefused('N10/N11 representative builder differs from its configuration pin')
+    builder, imports = a1c.rep_builder(source_bytes)
+    x, changes = a1c.build_x_rep(fixed, source=source_bytes)
+    problems = a1c.rep_conforms(fixed, x, changes)
+    if problems:
+        raise a1c.RepRefused('N10/N11 representative build differs: %s' % '; '.join(problems))
+
+    def entry(repo, commit, p):
+        return {'commit': commit, 'path': p, 'mode': repo.mode(commit, p), 'git_blob': repo.blob_id(commit, p)}
+
+    markers = []
+    for p in builder.delegated_paths(delegation):
+        if p in ledger['files']:
+            continue
+        base, main, candidate = [entry(build_reads, rev, p) for rev in (h, M, x)]
+        marker = build_reads.read(x, p)
+        if candidate['mode'] != '100644' or marker != builder.MARKER % p.encode('utf-8') or \
+                marker in (build_reads.read(h, p), build_reads.read(M, p)):
+            raise a1c.RepRefused('N10/N11 representative marker differs from its law at %s' % p)
+        markers.append({'H_rep': base, 'M': main, 'X_rep': candidate, 'blob_sha256': sha(marker)})
+    if not markers:
+        raise a1c.RepRefused('N10/N11 require the delegated-path markers')
+
+    setup = FixedReads(a.repo, x)
+    ctx = pl.RunContext(setup, config, {}, [], {}, None)
+    protected, classes = reconciliation_scope(setup, path)
+    good_record = rc.draft(setup, ctx, h, M, x, ledger, path, protected, classes, {}, scientific_effect=CONTROL_EFFECT)
+    correct = exmod.compose_landing(setup, h, M, x, ledger, a.repo)
+    wrong = a.repo.derive(correct, {path: setup.read(x, path)}, parents=[M, x], subject='landing keeping X\'s AGENTS.md')
+    wrong_record = copy.deepcopy(good_record)
+    wrong_record['paths'][0]['l'] = setup.blob_id(x, path)
+    wrong_entries, correct_entries = setup.entries(wrong), setup.entries(correct)
+    pair_delta = sorted(p for p in set(wrong_entries) | set(correct_entries)
+                        if wrong_entries.get(p) != correct_entries.get(p))
+    if pair_delta != [path] or any(setup.mode(rev, path) != '100644' for rev in (h, M, x, wrong, correct)):
+        raise a1c.RepRefused('N10/N11 landings must differ at the regular-file AGENTS.md alone')
+    he, me = setup.entries(h), setup.entries(M)
+    side = sorted(p for p in set(he) | set(me) if he.get(p) != me.get(p))
+    corpus = sorted(set(ctx.corpus(h)) | set(ctx.corpus(M)) | set(ctx.corpus(x)))
+    for name, data in (('ledger', ledger_bytes), ('edits', edits_bytes)):
+        pin = inputs[name]
+        copies = [entry(setup, rev, pin['copy_at']) for rev in (x, wrong, correct)]
+        if any(copy_entry['mode'] != pin['mode'] or copy_entry['git_blob'] != pin['git_blob'] or
+               setup.read(copy_entry['commit'], copy_entry['path']) != data for copy_entry in copies):
+            raise a1c.RepRefused('N10/N11 representative %s copy has different mode or bytes' % name)
+        pin['copies'] = copies
+
+    x_blob = setup.blob_id(x, path)
+    m_blob = setup.blob_id(M, path)
+    scope_text = 'side changes H..M, the ledgered and corpus path sets, and the candidate blobs on drifted paths'
+    composed = '86d79863821f3f8cdad86771008b2df89fd1961a'
+    common = {'scope': 'fixed representative reconciliation control', 'tool': a.tool_rev, 'H_rep': h, 'E': E, 'M': M,
+              'X_rep': x, 'X_rep_tree': setup.tree_id(x), 'X_rep_parents': setup.parents(x), 'inputs': inputs,
+              'configuration': {**entry(setup, a.crev, a.cpath), 'blob_sha256': sha(config_bytes)},
+              'delegation': {**entry(setup, a.crev, dref['path']), 'blob_sha256': sha(delegation_bytes)},
+              'builder': {**entry(setup, a.tool_rev, source), 'blob_sha256': sha(source_bytes), 'imports': imports},
+              'markers': markers, 'protected_ranges': protected, 'classes': classes,
+              'ledgered_paths': sorted(ledger['files']), 'corpus_paths': corpus, 'side_change_paths': side,
+              'landing_pair_delta': pair_delta,
+              'build_reads': build_reads.evidence(), 'setup_reads': setup.evidence()}
+    for cid, landing, record in (('N10', wrong, wrong_record), ('N11', correct, good_record)):
+        log = FixedReads(a.repo, x)
+        ctx = pl.RunContext(log, config, {}, [], {}, None)
+        e = reconcile_execution(ctx, h, M, x, ledger, classes, record, landing)
+        read = log.read_at(fixed)
+        outside = sorted(set(read) - set(ledger['files']) - set(corpus) - set(side))
+        scope = {'read_at_X_rep': len(read), 'paths': read, 'outside_scope': outside}
+        l_blob = log.blob_id(landing, path)
+        comp_blob = next((c['composed_blob'] for c in e.compositions if c['path'] == path), None)
+        outcomes = sorted({i['class'] for i in e.items if i.get('file') == path or path in str(i.get('subject'))})
+        attested = {'L_blob': l_blob, 'composed_blob': comp_blob, 'composition_evaluated': comp_blob is not None,
+                    'representative_candidate': a1c.REP_CANDIDATE}
+        if not outside and path in read:
+            attested['scanned_paths_within'] = scope_text
+        exec_doc(e, 'execution main role and landing (a1_conformance.n10_n11)', attested=attested)
+        FILES[cid] = {'configuration.json': config_bytes, 'delegation.json': delegation_bytes,
+                      'fixed-inputs.json': dict(common, L=landing, L_tree=log.tree_id(landing),
+                                                L_parents=log.parents(landing), read_scope=scope,
+                                                execution_reads=log.evidence(),
+                                                AGENTS=[entry(log, rev, path) for rev in (h, M, x, landing)]),
+                      'reconciliation.json': record}
+        actual = {'x_blob': x_blob, 'm_blob': m_blob, 'l_blob': l_blob, 'composed': comp_blob, 'classes': outcomes,
+                  'X_rep': x, 'scope': scope}
+        bound = (not outside and path in read and comp_blob == composed and
+                 x_blob == '9f4fc3e830707c90ffc105842d26d5b51f01760b' and
+                 m_blob == '6b1280fa92fa30e36555e9afd30cc0d6e992f5bb')
+        if cid == 'N10':
+            check(cid, 'the landing keeps X_rep\'s AGENTS.md and the record predicts it; FAIL the landing and record',
+                  'the composed blob is 86d79863, the landing blob is 9f4fc3e8 and both failures name AGENTS.md',
+                  actual, bound and l_blob == x_blob and
+                  {'landing-conflict-unresolved', 'record-invalid'} <= set(outcomes))
+        else:
+            check(cid, 'the landing and record carry the reference composition of AGENTS.md; PASS for the path',
+                  'the landing blob is 86d79863 and no item names AGENTS.md', dict(actual, items=outcomes),
+                  bound and l_blob == composed and record['paths'][0]['l'] == composed and not outcomes)
+    return correct
 
 
 def n_controls(a):
@@ -611,40 +740,7 @@ def n_controls(a):
     restored()
     check('N18-record', 'the record is record-invalid', "a record-invalid item", [i['class'] for i in e18.items],
           'record-invalid' in [i['class'] for i in e18.items])
-    # N10 and N11: the S6 probe, pinned
-    # N10 and N11 run at X_rep (R6.EVID.8), with a record drafted at X_rep
-    XR = a1c.x_rep(a)
-    SCOPE = 'side changes H..M, the ledgered and corpus path sets, and the candidate blobs on drifted paths'
-    rec_x = rc.draft(repo, rcn.ctx, H, M, XR, rcn.led, path, rcn.protected, rcn.classes, {},
-                     scientific_effect=CONTROL_EFFECT)
-    x_blob = repo.blob_id(XR, path)
-    L10 = repo.derive(M, {path: repo.read(XR, path)}, parents=[M, XR], subject='landing keeping X\'s AGENTS.md')
-    rec10 = entry(copy.deepcopy(rec_x), l=x_blob)
-    e10, scan10 = rcn.rep_run(rec10, L10, SCOPE)
-    comp_blob = rc.blob_id_of(rc.compose(repo, H, M, path, [s for s in rcn.led['splices'] if s['file'] == path])[0])
-    cl10 = sorted({i['class'] for i in e10.items if path in (i.get('file') or '') or path in str(i.get('subject'))})
-    if REC is not None and getattr(e10, 'captured', None) is not None:
-        e10.captured['attested'] = dict(e10.captured.get('attested') or {}, L_blob=repo.blob_id(L10, path),
-                                        composed_blob=comp_blob, composition_evaluated=comp_blob is not None)
-    check('N10', 'M = 8e9b8334, X = X_rep, L\'s AGENTS.md = X\'s blob 9f4fc3e8 (drops M\'s inserted section), a record '
-          'whose l names that blob; reference composition 86d79863: FAIL landing-conflict-unresolved for AGENTS.md '
-          'and record-invalid for the record; the composition is evaluated regardless of the record',
-          "x blob 9f4fc3e8..., composed blob 86d79863..., and both classes for AGENTS.md",
-          {'x_blob': x_blob, 'composed': comp_blob, 'classes': cl10, 'm_blob': repo.blob_id(M, path), 'X_rep': XR,
-           'scope': scan10},
-          x_blob == '9f4fc3e830707c90ffc105842d26d5b51f01760b' and
-          comp_blob == '86d79863821f3f8cdad86771008b2df89fd1961a' and
-          repo.blob_id(M, path).startswith('6b1280fa') and
-          'landing-conflict-unresolved' in cl10 and 'record-invalid' in cl10)
-    L11 = exmod.compose_landing(repo, H, M, XR, rcn.led, repo)
-    e11, scan11 = rcn.rep_run(rec_x, L11, SCOPE)
-    cl11 = [i['class'] for i in e11.items if path in (i.get('file') or '') or path in str(i.get('subject'))]
-    if REC is not None and getattr(e11, 'captured', None) is not None:
-        e11.captured['attested'] = dict(e11.captured.get('attested') or {}, L_blob=repo.blob_id(L11, path))
-    check('N11', 'the same M, X and reference, L\'s AGENTS.md equal to 86d79863 and the record\'s l equal to it: PASS '
-          'for the path', "L's blob is 86d79863... and no item names AGENTS.md",
-          {'l_blob': repo.blob_id(L11, path), 'items': cl11, 'X_rep': XR, 'scope': scan11},
-          repo.blob_id(L11, path) == '86d79863821f3f8cdad86771008b2df89fd1961a' and not cl11)
+    L11 = n10_n11(a)
     # the configuration route (owner: the record is frozen with the plan and referenced by the configuration)
     cfg = json.loads(repo.read(a.crev, a.cpath))
     classes_doc = {'schema': 'oi-side-change-classes/1', 'record_id': 'n3-classes', 'author': 'session.fixture-control-writer',
@@ -763,7 +859,7 @@ def main():
         done.add(r['id'])
         REC.pending = RUNS.get(r['id'], [])
         REC.record(r['id'], 'NOT RUN' if r['id'] in not_due else r['status'], r['actual'],
-                   r['predicate'] or r['expected'], procedure=PROCS.get(r['id']))
+                   r['predicate'] or r['expected'], files=FILES.get(r['id']), procedure=PROCS.get(r['id']))
     REC.write()
     print(json.dumps(summary, sort_keys=True))
     for r in doc['controls']:
