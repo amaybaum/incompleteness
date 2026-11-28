@@ -648,7 +648,7 @@
    },
    {
     "path": "tools/ledger_coverage/adapters/a1_controls.py",
-    "blob_sha256": "8cc2a27e65d17863b6569c531017bece74bacdbd67d187d60a0923baa31757a4"
+    "blob_sha256": "3ea839ba722ce16385d4ab8cce9a7113e81317857b08c49959d7b69726188685"
    },
    {
     "path": "tools/ledger_coverage/adapters/a1exit_exact_edit.py",
