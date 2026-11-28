@@ -491,6 +491,10 @@ class Execution:
                     continue
                 self.item('MAIN', 'landing-conflict-unresolved', path, {'l': l, 'm': m, 'c': c}, file=path)
 
+class LandingCompositionError(ValueError):
+    """The ledgered landing has no verified byte composition."""
+
+
 def compose_landing(repo, H, M, C, ledger, overlay):
     """Build an in-memory landing, or refuse a ledgered conflict without a verified composition."""
     hp, mp, cp = repo.paths(H), repo.paths(M), repo.paths(C)
@@ -506,7 +510,7 @@ def compose_landing(repo, H, M, C, ledger, overlay):
             if path in ledger['files']:
                 want, why = rc.compose(repo, H, M, path, by_file.get(path, []))
                 if want is None:
-                    raise ValueError('%s: %s' % (path, why))
+                    raise LandingCompositionError('%s: %s' % (path, why))
                 changes[path] = want
             else:
                 changes[path] = repo.read(C, path)

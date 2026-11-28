@@ -1523,10 +1523,14 @@ def tree_controls(a, tool_files):
         out['predicted'] = {'exit': code, 'side_changes': res.get('side_changes'),
                             'main_items': sorted((i['class'], i['subject']) for i in res.get('items', [])
                                                  if i['obligation'] == 'MAIN'), 'admission': res.get('config', {}).get('admission')}
-        L2 = ex.compose_landing(a.repo, H, Mp, T, a.led, a.repo)
-        code, res, t = a.run(exec_args(a, extra=['--main', Mp, '--landing', L2] + base_arg + recon_arg))
-        out['predicted_with_landing'] = {'exit': code, 'main_items': sorted(
-            (i['class'], i['subject']) for i in res.get('items', []) if i['obligation'] == 'MAIN')}
+        try:
+            L2 = ex.compose_landing(a.repo, H, Mp, T, a.led, a.repo)
+        except ex.LandingCompositionError as exc:
+            out['predicted_with_landing'] = {'composition_refusal': str(exc)}
+        else:
+            code, res, t = a.run(exec_args(a, extra=['--main', Mp, '--landing', L2] + base_arg + recon_arg))
+            out['predicted_with_landing'] = {'exit': code, 'main_items': sorted(
+                (i['class'], i['subject']) for i in res.get('items', []) if i['obligation'] == 'MAIN')}
         code, res, t = a.run(exec_args(a, extra=['--main', Mp]), harness=False)
         out['predicted_chain_admission'] = {'exit': code, 'stop': res.get('stop', {}).get('class')}
     drift = out.get('predicted', {}).get('main_items', [])
@@ -2644,10 +2648,9 @@ def main():
         t = time.time()
         try:
             fn(a)
-        except Exception as exc:
+        except Exception:
             import traceback
-            a.results['%s-group-error' % name] = {'passed': False, 'expected': 'no exception',
-                                                  'actual': traceback.format_exc()[-3000:]}
+            a.record('%s-group-error' % name, False, 'no exception', traceback.format_exc()[-3000:])
         timing[name] = round(time.time() - t, 1)
     # sec. 10.4: every control carries a status and its predicate
     for cid, v in a.results.items():
