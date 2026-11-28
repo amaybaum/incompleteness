@@ -189,12 +189,13 @@ def representative_binding(repo, B, S, M, roles, descriptor):
     # control inputs supply a verified record snapshot S with the same descriptor and B and a complete first-parent
     # path B..S; the bounded namespace and records checks apply to that path, and the class reference resolved at S
     # equals, by path and digest, the landed class tip in the run's M tree (the head of the same lineage over the
-    # first-parent path B..M). Returns {tips at S, class tip at M}; Refused when the snapshot or the role binding
-    # cannot be verified (the affected controls then stay open).
-    _path_s, chains_s = walk(repo, B, S, roles, descriptor)
-    _path_m, chains_m = walk(repo, B, M, roles, descriptor)
+    # first-parent path B..M). Retains both verified paths and role chains with the tips. Refused when the
+    # snapshot or the role binding cannot be verified (the affected controls then stay open).
+    path_s, chains_s = walk(repo, B, S, roles, descriptor)
+    path_m, chains_m = walk(repo, B, M, roles, descriptor)
     tip_s, tip_m = chains_s['class'][-1], chains_m['class'][-1]
     if tip_s != tip_m:
         raise Refused('the class tip resolved at S (%s) is not the landed class tip in M (%s)'
                       % (tip_s['path'], tip_m['path']))
-    return {'tips_at_S': {k: v[-1] for k, v in chains_s.items()}, 'class_tip_at_M': tip_m}
+    return {'tips_at_S': {k: v[-1] for k, v in chains_s.items()}, 'class_tip_at_M': tip_m,
+            'snapshot_path': path_s, 'representative_path': path_m, 'chains_at_S': chains_s, 'chains_at_M': chains_m}

@@ -14,13 +14,14 @@ staging amendment r2, sec. 2 ("R6.REC.7 and R6.EVID.8 for the designated roles")
   descriptor's base `B`, its custody archive at `B`, and the bounded namespace and records checks over the verified
   first-parent paths `B..S` and `B..M` are those of chain admission (engine `transition.representative_binding`); the
   class tip resolved at S equals the landed class tip in `M` by path and digest; the `tool-landing` pins of that tip
-  are re-derived from `M` (R6.TREE.5): each pinned path's blob at `M` hashes to its pin. Anything else refuses the
-  binding, and the affected controls stay open.
+  are re-derived from the actual first-parent delta of T_land, with exact bytes and modes retained at M.
+  A fixture exercises the staging roles without establishing a live representative binding.
 
 Usage:
   python3 -I -B tools/ledger_coverage/adapters/rep_instance.py --repo DIR --template REV:PATH --snapshot S
-      --descriptor-sha256 HEX --main M --out DIR
+      --descriptor-sha256 HEX --main M --tool-landing T --main-tip MAIN --ledger REV:PATH --out DIR
       writes DIR/binding.json and, when the binding holds, DIR/control-instance.json; exit 0, or 3 when refused
+      use --fixture in place of --tool-landing, --main-tip and --ledger for synthetic fixtures
   python3 -I -B tools/ledger_coverage/adapters/rep_instance.py --make-template CONFIG [--allow-path P ...]
       --write FILE
   python3 -I -B tools/ledger_coverage/adapters/rep_instance.py --self-test [OUT]
@@ -43,13 +44,21 @@ if 'ledger_coverage' not in sys.modules:
     _spec.loader.exec_module(sys.modules['ledger_coverage'])
 
 from ledger_coverage import record_authority as ra  # noqa: E402
-from ledger_coverage.engine import gitobj, transition as tr  # noqa: E402
+from ledger_coverage.engine import config as cfgmod, findings, gitobj, recon_route, reconcile, transition as tr  # noqa: E402
 
 CLASS_FILL = 'class-tip-at-M'
 ALLOW_FILL = 'allow-tip-at-S'
 FILLS = (CLASS_FILL, ALLOW_FILL)
 # the template's path in the tool's audit directory
 TEMPLATE = 'rep/control-instance.json'
+TOOL_AUDIT = 'verification/audits/foundations/ledger-coverage-tool-20261123/'
+WORKFLOW = '.github/workflows/ledger-coverage.yml'
+LANDING_PREFIXES = (
+    'tools/', TOOL_AUDIT,
+    'verification/audits/foundations/a1exit-design-r6-20261125/',
+    'verification/audits/foundations/a1exit-staging-amendment-20261126/',
+    'verification/audits/foundations/a1exit-adjudication-design-20261126/',
+)
 
 
 class Refused(Exception):
@@ -102,10 +111,12 @@ def _refs(doc):
     return out
 
 
-def ref_graph(repo, M, roots):
-    """The reference graph at M from `roots` ([{path, blob_sha256}]): {blob sha256: [referenced blob sha256]}. A
-    referenced blob is followed when M's tree holds its path with those bytes and the bytes are a JSON document; any
-    unresolved reference is a leaf unless another path resolves to the same bytes."""
+def ref_graph(repo, M, roots, other_commits=()):
+    """The reference graph from exact references in the named trees, keyed by blob SHA-256.
+
+    Follow each reference when a tree holds its path and exact bytes. An unresolved reference is a leaf unless
+    another path resolves the same digest.
+    """
     graph, seen, todo = {}, set(), list(roots)
     while todo:
         r = todo.pop()
@@ -115,8 +126,13 @@ def ref_graph(repo, M, roots):
             continue
         seen.add(pin)
         graph.setdefault(digest, [])
-        b = repo.read(M, path)
-        if b is None or _sha(b) != digest:
+        for commit in (M, *other_commits):
+            if repo.mode(commit, path) not in gitobj.regular_modes:
+                continue
+            b = repo.read(commit, path)
+            if _sha(b) == digest:
+                break
+        else:
             continue
         try:
             kids = _refs(json.loads(b.decode('utf-8')))
@@ -172,11 +188,30 @@ def fill(template_bytes, binding):
     if not isinstance(t, dict) or not isinstance(t.get('roles'), dict):
         raise Refused('the control-instance template is not a configuration document')
     hs = holes(t)
-    if (t['roles'].get('side_change_classes') or {}).get('fill') != CLASS_FILL:
+    class_role = t['roles'].get('side_change_classes')
+    if not isinstance(class_role, dict) or class_role.get('fill') != CLASS_FILL:
         raise Refused('the template\'s roles.side_change_classes is not the class hole')
-    bad = sorted({k for _, k in hs if k not in FILLS})
+    bad = sorted({str(k) for _, k in hs if k not in FILLS})
     if bad:
         raise Refused('the template has holes of unknown kind: %s' % bad)
+    fixed = set()
+    if binding.get('mode') == 'live':
+        if _sha(template_bytes) != binding['template']['blob_sha256']:
+            raise Refused('the fill input is not the verified template from T_land')
+        records, rules = t.get('records'), t.get('rules')
+        if not isinstance(records, list) or not isinstance(rules, list):
+            raise Refused('the live template supplies no record and rule lists')
+        class_holes = [('/records/%d' % i, CLASS_FILL) for i, r in enumerate(records)
+                       if r == {'kind': 'side-change-classes', 'fill': CLASS_FILL}]
+        allow_holes = [('/rules/%d' % i, ALLOW_FILL) for i, r in enumerate(rules) if r == {'fill': ALLOW_FILL}]
+        if not class_holes or not allow_holes:
+            raise Refused('the live template must have a class record hole and a staged allow rule hole')
+        if class_role != {'fill': CLASS_FILL} or set(hs) != {
+                ('/roles/side_change_classes', CLASS_FILL), *class_holes, *allow_holes}:
+            raise Refused('the live template has a hole outside the designated role references')
+        if any(tr.in_namespace(r['path'], role) for r in _refs(t) for role in ra.transition_roles):
+            raise Refused('the live template pins a staging role outside its hole')
+        fixed = {binding['descriptor']['blob_sha256']} | {p['blob_sha256'] for p in binding['fixed_inputs']}
     lineage = {r['blob_sha256'] for r in binding.get('class_chain') or []}
     named = _blobs(t) & lineage
     if named:
@@ -204,7 +239,7 @@ def fill(template_bytes, binding):
     graph = dict(graph)
     template_digest, instance_digest = _sha(template_bytes), _sha(inst)
     graph[template_digest] = _blobs(t)
-    graph[instance_digest] = _blobs(filled) | {template_digest}
+    graph[instance_digest] = _blobs(filled) | {template_digest} | fixed
     cyc = reference_cycle(graph, [instance_digest])
     if cyc:
         raise Refused('a cycle in the control-instance dependencies (K1-GRAPH): %s' %
@@ -212,56 +247,205 @@ def fill(template_bytes, binding):
     return inst
 
 
-def bind(repo, S, M, descriptor_sha256, roles=None, rec_dir=None, *, template=None):
-    """The role binding at the snapshot S for the run's M (staging r2 sec. 2). Returns {fill kind: reference, B,
-    descriptor, class_chain, pins_checked}; Refused when the snapshot or the role binding cannot be verified.
-    When a template reference is supplied, its exact path and digest must be among the verified landing pins."""
+def _entry(repo, commit, path, entry):
+    if entry is None:
+        return None
+    mode, oid = entry
+    digest = _sha(repo.read(commit, path)) if mode in gitobj.regular_modes else None
+    return {'mode': mode, 'git_blob': oid, 'blob_sha256': digest}
+
+
+def _landing_class(doc, pins):
+    classes = doc.get('classes')
+    landing = [c for c in classes if isinstance(c, dict) and c.get('id') == ra.tool_landing_class_id] \
+        if isinstance(classes, list) else []
+    if len(landing) != 1:
+        raise Refused('the active class record must define tool-landing exactly once')
+    prefixes, declared = landing[0].get('prefixes'), landing[0].get('pins')
+    if not isinstance(prefixes, list) or not all(
+            isinstance(p, str) and reconcile.clean_path(p.removesuffix('/'))
+            and (p.removesuffix('/') + '/').startswith(LANDING_PREFIXES) for p in prefixes):
+        raise Refused('the tool-landing class names a prefix outside the permitted landing scope')
+    prefixes = tuple(p.removesuffix('/') + '/' for p in prefixes)
+    if not isinstance(declared, list) or any(
+            not isinstance(p, dict) or set(p) != {'path', 'blob_sha256'} or not isinstance(p['path'], str)
+            for p in declared):
+        raise Refused('the tool-landing class pins must be exact path and SHA-256 references')
+    by_path = {p['path']: p['blob_sha256'] for p in declared}
+    if len(by_path) != len(declared) or by_path != pins:
+        raise Refused('the tool-landing class pins differ from the complete first-parent delta of T_land')
+    if any(path != WORKFLOW and not path.startswith(prefixes) for path in by_path):
+        raise Refused('a tool-landing class pin is outside the class prefixes')
+
+
+def _landing_binding(repo, T, M, main_tip, B, ledger_paths, doc, template, tool_candidate):
+    main_path = tr.first_parent_path(repo, M, main_tip)
+    landing_to_base = tr.first_parent_path(repo, T, B)
+    if T == B:
+        raise Refused('T_land must be a strict first-parent predecessor of B')
+    parents = repo.parents(T)
+    if len(parents) != 2:
+        raise Refused('T_land must be the normal two-parent tool merge')
+    parent, candidate = parents
+    if tool_candidate is not None and repo.resolve(tool_candidate) != candidate:
+        raise Refused('T_land does not have the accepted tool candidate as its second parent')
+    if isinstance(ledger_paths, (str, bytes)):
+        raise Refused('the complete final ledger path set is required')
+    try:
+        ledger_paths = set(ledger_paths)
+    except TypeError as exc:
+        raise Refused('the complete final ledger path set is required') from exc
+    if not ledger_paths or not all(isinstance(path, str) and reconcile.clean_path(path) for path in ledger_paths):
+        raise Refused('the complete final ledger path set is required')
+    changed = recon_route.changed_paths(repo, parent, T)
+    overlap = ledger_paths.intersection(changed)
+    if overlap:
+        raise Refused('T_land touches final ledger paths: %s' % sorted(overlap)[:5])
+    ep, et, ec, em = [repo.entries(rev) for rev in (parent, T, candidate, M)]
+    delta = {}
+    for path in changed:
+        if path != WORKFLOW and not path.startswith(LANDING_PREFIXES):
+            raise Refused('T_land changes a path outside the permitted landing scope: %s' % path)
+        entry = et.get(path)
+        if entry is None or entry[0] not in gitobj.regular_modes:
+            raise Refused('T_land supplies no regular entry for its changed path: %s' % path)
+        if ec.get(path) != entry or em.get(path) != entry:
+            raise Refused('the T_land entry differs in its candidate or representative main tree: %s' % path)
+        delta[path] = {'before': _entry(repo, parent, path, ep.get(path)), 'after': _entry(repo, T, path, entry)}
+    pins = {path: change['after']['blob_sha256'] for path, change in delta.items()}
+    _landing_class(doc, pins)
+
+    tpath = TOOL_AUDIT + TEMPLATE
+    if not isinstance(template, dict) or set(template) != {'path', 'blob_sha256'} or template['path'] != tpath or \
+            tpath not in pins or pins[tpath] != template['blob_sha256']:
+        raise Refused('the template is not the exact unfilled template pinned from T_land')
+    tdoc = findings.strict_parse(repo.read(T, tpath))
+    if tdoc is None or tdoc.get('schema') != cfgmod.config_schema:
+        raise Refused('the tool-landing template is not a configuration document')
+    tool = tdoc.get('tool')
+    problems = cfgmod.tool_problems(tool, tdoc.get('repository_id'))
+    if problems:
+        raise Refused('the template does not pin a complete tool image: %s' % problems[0])
+    workflow = tool['workflow']
+    if workflow['path'] != WORKFLOW:
+        raise Refused('the template pins a different tool workflow')
+    entrypoint, package = cfgmod.tool_layout()
+    tool_pins = {p['path']: p['blob_sha256'] for p in tool['files']}
+    tool_paths = {path for path in et if path == entrypoint or path.startswith(package)}
+    if tool_paths != tool_pins.keys():
+        raise Refused('the template tool file set differs from the complete package at T_land')
+    rep_dir = TOOL_AUDIT + 'rep/'
+    fixed_paths = (rep_dir + 'ledger.json', rep_dir + 'edits.json', package + 'adapters/rep_build.py')
+    if not all(path in et for path in fixed_paths):
+        raise Refused('T_land is missing the representative builder or a pinned ledger or edit copy')
+    audit_pins = [r for r in _refs(tdoc) if r['path'].startswith(TOOL_AUDIT)]
+    image_paths = tool_paths | {WORKFLOW} | {path for path in et if path.startswith(rep_dir)}
+    image_paths.update(r['path'] for r in audit_pins)
+    image = {}
+    for entries in (ec, em):
+        if any(path not in image_paths for path in entries if path.startswith((package, rep_dir))):
+            raise Refused('the candidate or representative main adds files to the T_land tool or input image')
+    for path in sorted(image_paths):
+        entry = et.get(path)
+        if entry is None or entry[0] not in gitobj.regular_modes or ec.get(path) != entry or em.get(path) != entry:
+            raise Refused('the T_land tool or input image differs at %s' % path)
+        image[path] = _entry(repo, T, path, entry)
+    for path, sha in {**tool_pins, WORKFLOW: workflow['blob_sha256']}.items():
+        if image[path]['blob_sha256'] != sha:
+            raise Refused('the template pin differs from the T_land image at %s' % path)
+    for ref in audit_pins:
+        if image[ref['path']]['blob_sha256'] != ref['blob_sha256']:
+            raise Refused('the template pin differs from the T_land image at %s' % ref['path'])
+    return {'T_land': T, 'M_rep': M, 'main_tip': main_tip, 'tool_candidate': candidate, 'main_path': main_path,
+            'landing_to_base': landing_to_base, 'landing_parents': parents, 'landing_tree': repo.tree_id(T),
+            'landing_delta': delta, 'ledger_paths': sorted(ledger_paths), 'tool_image': image,
+            'template': {'commit': T, 'path': tpath, **image[tpath]},
+            'fixed_inputs': [{'commit': T, 'path': path, **image[path]} for path in fixed_paths]}
+
+
+def _fixture_pins(repo, M, doc, template):
+    count, stale, template_pinned = 0, [], False
+    for c in doc.get('classes') or []:
+        if not isinstance(c, dict) or c.get('id') != ra.tool_landing_class_id:
+            continue
+        for p in c.get('pins') or []:
+            count += 1
+            b = repo.read(M, p.get('path')) if isinstance(p, dict) and isinstance(p.get('path'), str) else None
+            if b is None or _sha(b) != p.get('blob_sha256') or \
+                    ('git_blob' in p and gitobj.blob_id_of(b) != p['git_blob']):
+                stale.append(p.get('path') if isinstance(p, dict) else p)
+            elif template is not None and all(p.get(k) == v for k, v in template.items()):
+                template_pinned = True
+    if stale:
+        raise Refused('tool-landing pins of the class tip differ from M\'s blobs: %s' % sorted(map(str, stale))[:5])
+    if template is not None and not template_pinned:
+        raise Refused('the control-instance template has no exact tool-landing pin at M: %s' % template['path'])
+    return count
+
+
+def bind(repo, S, M, descriptor_sha256, roles=None, rec_dir=None, *, template=None, tool_landing=None,
+         main_tip=None, ledger_paths=None, tool_candidate=None, fixture=False):
+    """Bind the staging roles and retain the verified Git objects needed to reconstruct the binding.
+
+    For live evidence, the caller supplies T_land from the independently verified landing record, a host-verified
+    main tip, the complete final ledger path set and the exact unfilled template reference. This function checks
+    the Git relationship and bytes. Host, review and candidate-F admission are checked by the caller and consumer.
+    Existing in-memory fixtures and explicit fixture calls have fixture applicability only.
+    """
+    live = any(v is not None for v in (tool_landing, main_tip, ledger_paths, tool_candidate))
+    if live and (fixture or roles is not None or rec_dir is not None or not isinstance(repo, gitobj.GitRepo)):
+        raise Refused('the live representative binding requires the verified Git reader and designated roles')
+    if not live and not fixture and not (isinstance(repo, gitobj.Overlay) and S in repo.mem and M in repo.mem):
+        raise Refused('supply the live landing, main and ledger inputs or explicitly select a fixture')
     roles = roles or ra.transition_roles
     rec_dir = rec_dir or ra.authorized_record_directories[0] + '/'
     dpath = rec_dir + ra.transition_descriptor
     try:
+        if live:
+            if tool_landing is None or main_tip is None or ledger_paths is None or template is None:
+                raise Refused('the live representative binding requires T_land, the verified main tip, the final '
+                              'ledger paths and the exact template')
+            S, M, tool_landing, main_tip = (repo.resolve(c) for c in (S, M, tool_landing, main_tip))
         data = repo.read(S, dpath)
         if data is None:
             raise Refused('the snapshot S holds no transition descriptor at %s' % dpath)
         if _sha(data) != descriptor_sha256:
             raise Refused('the transition descriptor at S is not the reviewed one (sha256 differs)')
+        if live and findings.strict_parse(data) is None:
+            raise Refused('the transition descriptor at S is not a strict JSON object')
         desc = tr.parse_descriptor(data, ra.transition_descriptor_schema)
         B = repo.resolve(desc['base'])
         cust = repo.read(B, desc['custody']['path'])
         if cust is None or _sha(cust) != desc['custody']['blob_sha256']:
             raise Refused('the custody archive is not at B with its pinned digest')
         got = tr.representative_binding(repo, B, S, M, roles, desc)
-        _path, chains_m = tr.walk(repo, B, M, roles, desc)
         tip = got['class_tip_at_M']
         allow = got['tips_at_S']['allow']
-        doc = json.loads(repo.read(M, tip['path']).decode('utf-8'))
-        pins, stale, template_pinned = 0, [], False
-        for c in doc.get('classes') or []:
-            if not isinstance(c, dict) or c.get('id') != ra.tool_landing_class_id:
-                continue
-            for p in c.get('pins') or []:
-                pins += 1
-                b = repo.read(M, p.get('path')) if isinstance(p, dict) and isinstance(p.get('path'), str) else None
-                if b is None or _sha(b) != p.get('blob_sha256') or \
-                        ('git_blob' in p and gitobj.blob_id_of(b) != p['git_blob']):
-                    stale.append(p.get('path') if isinstance(p, dict) else p)
-                elif template is not None and all(p.get(k) == v for k, v in template.items()):
-                    template_pinned = True
-        if stale:
-            raise Refused('tool-landing pins of the class tip differ from M\'s blobs: %s' % sorted(map(str, stale))[:5])
-        if template is not None and not template_pinned:
-            raise Refused('the control-instance template has no exact tool-landing pin at M: %s' % template['path'])
-        graph = ref_graph(repo, M, [tip])
-        for digest, edges in ref_graph(repo, S, [allow]).items():
-            if edges or digest not in graph:
-                graph[digest] = edges
+        descriptor = {'path': dpath, 'blob_sha256': descriptor_sha256}
+        class_bytes = repo.read(M, tip['path'])
+        if live:
+            doc = findings.strict_parse(class_bytes)
+            if doc is None:
+                raise Refused('the active class record is not a strict JSON object')
+            landing = _landing_binding(repo, tool_landing, M, main_tip, B, ledger_paths, doc, template, tool_candidate)
+            pins = len(landing['landing_delta'])
+            graph = ref_graph(repo, M, [tip, allow, descriptor, landing['template'], *landing['fixed_inputs']],
+                              (S, tool_landing, B))
+            landing['custody'] = {'commit': B, **desc['custody']}
+        else:
+            landing = {}
+            pins = _fixture_pins(repo, M, json.loads(class_bytes), template)
+            graph = ref_graph(repo, M, [tip])
+            for digest, edges in ref_graph(repo, S, [allow]).items():
+                if edges or digest not in graph:
+                    graph[digest] = edges
     except tr.Refused as exc:
         raise Refused(str(exc))
     except gitobj.Unresolvable as exc:
         raise Refused('an object the binding reads cannot be read: %s' % exc)
-    return {CLASS_FILL: tip, ALLOW_FILL: allow, 'S': S, 'M': M, 'B': B,
-            'descriptor': {'path': dpath, 'blob_sha256': descriptor_sha256}, 'class_chain': chains_m['class'],
-            'pins_checked': pins, 'graph': graph}
+    return {CLASS_FILL: tip, ALLOW_FILL: allow, 'S': S, 'M': M, 'B': B, 'mode': 'live' if live else 'fixture',
+            'descriptor': descriptor, 'class_chain': got['chains_at_M']['class'],
+            'pins_checked': pins, 'graph': graph, **got, **landing}
 
 
 # ---- command line --------------------------------------------------------------------------------------------
@@ -276,17 +460,31 @@ def _full(repo_path, rev):
 
 def run(args):
     repo = gitobj.GitRepo(args.repo)
-    trev, tpath = args.template.split(':', 1)
+    trev, _, tpath = args.template.partition(':')
     os.makedirs(args.out, exist_ok=True)
     rec = {'template': {'path': tpath, 'blob_sha256': None}}
     try:
-        template_commit = _full(args.repo, trev)
+        if not tpath:
+            raise Refused('the template must be named as REV:PATH')
+        template_commit = _full(args.repo, trev) if args.fixture else repo.resolve(trev)
+        if not args.fixture and template_commit != args.tool_landing:
+            raise Refused('the template must be read from T_land')
         template = repo.read(template_commit, tpath)
         if template is None:
             raise Refused('no template at %s' % args.template)
         rec['template']['blob_sha256'] = _sha(template)
-        b = bind(repo, _full(args.repo, args.snapshot), _full(args.repo, args.main), args.descriptor_sha256,
-                 template=rec['template'])
+        ledger_paths = None
+        if args.ledger is not None:
+            ledger_commit, _, ledger_path = args.ledger.partition(':')
+            ledger = repo.read(repo.resolve(ledger_commit), ledger_path)
+            doc = findings.strict_parse(ledger) if ledger is not None else None
+            if doc is None or not isinstance(doc.get('files'), dict):
+                raise Refused('the active ledger does not provide a file path set')
+            ledger_paths = doc['files']
+        S, M = (_full(args.repo, c) if args.fixture else repo.resolve(c) for c in (args.snapshot, args.main))
+        b = bind(repo, S, M, args.descriptor_sha256, template=rec['template'], tool_landing=args.tool_landing,
+                 main_tip=args.main_tip, ledger_paths=ledger_paths, tool_candidate=args.tool_candidate,
+                 fixture=args.fixture)
         inst = fill(template, b)
         with open(os.path.join(args.out, 'control-instance.json'), 'wb') as f:
             f.write(inst)
@@ -549,6 +747,11 @@ def main():
     ap = argparse.ArgumentParser()
     for k in ('--repo', '--template', '--snapshot', '--descriptor-sha256', '--main', '--out'):
         ap.add_argument(k, required=True)
+    ap.add_argument('--tool-landing', help='actual tool merge identified by the independently checked landing record')
+    ap.add_argument('--main-tip', help='full main tip verified against the host')
+    ap.add_argument('--ledger', help='the exact final ledger at REV:PATH')
+    ap.add_argument('--tool-candidate', help='exact accepted candidate identified by the tool-landing record')
+    ap.add_argument('--fixture', action='store_true', help='bind equivalent fixture roles')
     return run(ap.parse_args())
 
 
