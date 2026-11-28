@@ -104,7 +104,7 @@ def rules_not_due(a, repo_root):
             return a.repo.read(a.crev, path) if isinstance(path, str) else None
         except Exception:
             return None
-    if cg.rule_records_reviewed(cfg, read):
+    if not a.tool_acceptance and cg.rule_records_reviewed(cfg, read):
         return set()
     ep = os.path.join(repo_root, 'verification', 'audits', 'foundations', 'a1exit-design-r6-20261125',
                       'EXPECTATIONS.json')
@@ -131,6 +131,7 @@ class A1:
         data = self.repo.read(self.crev, self.cpath)
         self.csha = sha(data) if data is not None else None
         self.freeze = None
+        self.tool_acceptance = False
         self.rep_binding = None
         self.rep_instance_doc = None
         self.rep_instance_bytes = None
@@ -2354,6 +2355,7 @@ def main():
                 tool_files[p] = a.base.read_blob(b)
     a.classify = ['%s:%s' % (rev_parse(args.repo, ref.split(':', 1)[0]), ref.split(':', 1)[1]) for ref in args.classify]
     a.freeze = args.freeze
+    a.tool_acceptance = args.tool_candidate is not None
     if args.freeze:
         a.fixed = A1(args.repo, args.fixed_config, tempfile.mkdtemp(prefix='fixed-', dir=out_root), main=main_c)
         a.fixed.tool_rev = a.tool_rev

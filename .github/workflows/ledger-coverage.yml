@@ -247,8 +247,11 @@ jobs:
         run: |
           O="$RUNNER_TEMP/suite"
           set +e
-          set --
-          if [[ "$PHASE" == control-suite ]]; then set -- --fixed-config "$FIXED"; fi
+          if [[ "$PHASE" == control-suite ]]; then
+            set -- --fixed-config "$FIXED"
+          else
+            set -- --tool-acceptance
+          fi
           python3 -I -B tools/ledger_coverage/adapters/a1_conformance.py --repo . --config "$F:$CFG" \
             --tool-revision "$GITHUB_SHA" "$@" --out "$O/a1-conformance"
           echo "$?" > "$O/a1-conformance.exit"

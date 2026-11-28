@@ -832,6 +832,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--repo', required=True)
     ap.add_argument('--config', required=True)
+    ap.add_argument('--tool-acceptance', action='store_true', help='evaluate the fixed tool-acceptance subject')
     ap.add_argument('--out', required=True)
     ap.add_argument('--only', default=None)
     ap.add_argument('--staged-config', default=None,
@@ -839,8 +840,11 @@ def main():
     ap.add_argument('--tool-revision', help='full checkout HEAD when the configuration is on a distinct revision')
     ap.add_argument('--fixed-config', help='full REV:PATH of the N10/N11 configuration when distinct from --config')
     args = ap.parse_args()
+    if args.tool_acceptance and (not args.tool_revision or args.fixed_config or args.staged_config):
+        ap.error('tool acceptance requires the exact tool revision and its Git-backed fixture configuration')
     os.makedirs(args.out, exist_ok=True)
     a = a1c.A1(args.repo, args.config, args.out, args.staged_config)
+    a.tool_acceptance = args.tool_acceptance
     if args.tool_revision is not None or args.fixed_config is not None:
         head = a1c.rev_parse(args.repo, 'HEAD')
         if args.tool_revision is not None and args.tool_revision != head:
