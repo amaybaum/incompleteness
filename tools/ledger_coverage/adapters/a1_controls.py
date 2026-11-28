@@ -159,9 +159,9 @@ class A1:
         return os.path.join(self.out_root, 'run%03d' % self.n)
 
     def run(self, args, harness=True, control=None, case=None, mutation=None, bindings=None, baseline=None,
-            reader=None, attested=None, config_revision=None):
+            reader=None, attested=None, config_revision=None, config_path=None):
         out = self.out()
-        argv = args[:1] + ['--config', '%s:%s' % (config_revision or self.crev, self.cpath), '--out', out,
+        argv = args[:1] + ['--config', '%s:%s' % (config_revision or self.crev, config_path or self.cpath), '--out', out,
                            '--repo', self.repo_path] + args[1:]
         t = time.time()
         err = io.StringIO()
@@ -1314,7 +1314,37 @@ def exec_args(a, x=T, extra=()):
 
 
 def ex_controls(a):
-    code, res, t = a.run(exec_args(a))
+    fixture_path = None
+    if a.tool_acceptance:
+        fixture_path = a.cpath.rsplit('/', 1)[0] + '/execution-control-config.json'
+        loaded = cfgmod.load(a.repo, a.crev, fixture_path, None, 'execution', 'harness')
+        primary = json.loads(a.repo.read(a.crev, a.cpath))
+        source = next(p['source'] for p in primary['profiles'] if p['name'] == 'repo')
+        checker = {k: source[k] for k in ('commit', 'path', 'blob_sha256')}
+        primary['adapters']['ledger']['companion'].append(dict(checker, role='checker'))
+        records = primary['records']
+        fixture_records = loaded.config['records']
+        if fixture_records[:len(records)] != records or any(r['kind'] != 'review' for r in fixture_records[len(records):]) or \
+                dict(loaded.config, records=records, config_id=primary['config_id']) != primary:
+            raise ValueError('the execution control configuration changes inputs other than the checker and reviews')
+        spec = loaded.config['adapters']['ledger']
+        edits = next(ref for ref in spec['companion'] if ref['role'] == 'edits')
+        delegation = loaded.config['delegation']
+        revision = spec.get('commit') or a.crev
+        operands = ['--ledger', revision + ':' + spec['path'],
+                    '--edits', (edits.get('commit') or revision) + ':' + edits['path'],
+                    '--delegation', (delegation.get('commit') or a.crev) + ':' + delegation['path']]
+        ledger = cli.load_adapter_input(a.repo, loaded, 'ledger')
+    else:
+        ledger = a.led
+
+    def run_candidate(x=T, extra=(), **kw):
+        if fixture_path is None:
+            return a.run(exec_args(a, x, extra), **kw)
+        args = ['execution', '--scientific-base', H, '--candidate', x, *operands, *extra]
+        return a.run(args, config_path=fixture_path, **kw)
+
+    code, res, t = run_candidate()
     fc = res.get('finding_counts', {})
     non_deleg = {k: v for k, v in fc.items() if not k.startswith('DELEGATED')}
     a.record('RT-C', code == 10 and not non_deleg, 'candidate checks as sec. 11; PASS only with contract evidence; '
@@ -1326,56 +1356,56 @@ def ex_controls(a):
     with open(os.path.join(ev, 'tex-preserve-check.json'), 'w') as f:
         json.dump({'schema': 'a1exit-checker-result-v1', 'checker': 'preserve_check.py', 'plan': None, 'base': H,
                    'ledger_base': H, 'candidate': T[:8], 'exit': 0, 'verdict': 'pass', 'checks': []}, f)
-    code, res, t = a.run(exec_args(a, extra=['--evidence', ev]))
+    code, res, t = run_candidate(extra=['--evidence', ev])
     a.record('G1', any(i['class'] == 'delegated-evidence-invalid' and 'tex' in i['subject'] for i in res.get('items', [])),
              'FAIL delegated-evidence-invalid', sorted(i['subject'][:80] for i in res.get('items', [])
                                                        if i['class'] == 'delegated-evidence-invalid'))
-    a.record('G2', any(i['class'] == 'delegated-evidence-missing' for i in a.run(exec_args(a))[1].get('items', [])),
+    a.record('G2', any(i['class'] == 'delegated-evidence-missing' for i in run_candidate()[1].get('items', [])),
              'REVIEW delegated-evidence-missing', 'as RT-C')
     lj = 'verification/coverage/LEDGER.json'
     x = a.repo.derive(T, {lj: a.repo.read(T, lj).replace(b'"id": "MAIN:L-3"', b'"id": "MAIN:L-3x"', 1)}, parents=[H])
-    code, res, t = a.run(exec_args(a, x))
+    code, res, t = run_candidate(x)
     a.record('G3', any(i['class'] == 'delegated-evidence-invalid' and 'coverage-ledger' in i['subject']
                        for i in res.get('items', [])), 'FAIL', sorted(i['subject'][:90] for i in res.get('items', [])
                                                                       if i['class'] == 'delegated-evidence-invalid'))
     # sec. 11 countercontrols
-    sp = [s for s in a.led['splices'] if s['file'] == 'papers/Main.md'][0]
+    sp = [s for s in ledger['splices'] if s['file'] == 'papers/Main.md'][0]
     hm, tm = a.base.read(H, 'papers/Main.md'), a.base.read(T, 'papers/Main.md')
-    reverted = exmod.sg.apply_splices(hm, [s for s in a.led['splices'] if s['file'] == 'papers/Main.md' and s is not sp])
+    reverted = exmod.sg.apply_splices(hm, [s for s in ledger['splices'] if s['file'] == 'papers/Main.md' and s is not sp])
     x = a.repo.derive(T, {'papers/Main.md': reverted}, parents=[H])
-    code, res, t = a.run(exec_args(a, x))
+    code, res, t = run_candidate(x)
     a.record('S11-1', 'unauthorized-edit' in classes(res), 'FAIL unauthorized-edit', classes(res))
     for cid, word, rule in (('S11-5', ' no longer', 'register'), ('S11-6', ' is infinite', 'infinity')):
-        s0 = [s for s in a.led['splices'] if s['file'] == 'papers/GR.md' and s['new']][0]
-        led = dict(a.led)
+        s0 = [s for s in ledger['splices'] if s['file'] == 'papers/GR.md' and s['new']][0]
+        led = dict(ledger)
         led['splices'] = [dict(s, new=s['new'] + word, new_bytes=(s['new'] + word).encode(),
-                               new_sha256=sha((s['new'] + word).encode())) if s is s0 else s for s in a.led['splices']]
+                               new_sha256=sha((s['new'] + word).encode())) if s is s0 else s for s in ledger['splices']]
         gx = exmod.sg.apply_splices(a.base.read(H, 'papers/GR.md'), [s for s in led['splices'] if s['file'] == 'papers/GR.md'])
         x = a.repo.derive(T, {'papers/GR.md': gx}, parents=[H])
-        code, res, t = a.run(exec_args(a, x), control={'overrides': {'ledger': led}})
+        code, res, t = run_candidate(x, control={'overrides': {'ledger': led}})
         a.record(cid, any(i['class'] == 'deny-match' and i.get('rule_id') == rule for i in res.get('items', [])),
                  'FAIL deny-match (%s)' % rule, sorted({(i['class'], str(i.get('rule_id'))) for i in res.get('items', [])
                                                         if not i['class'].startswith('delegated')}))
-    mirror = [m for m in a.led['mirrors'] if m['mirror_of']][0]
-    led = dict(a.led)
+    mirror = [m for m in ledger['mirrors'] if m['mirror_of']][0]
+    led = dict(ledger)
     led['splices'] = [dict(s, new=s['new'] + ' x', new_bytes=(s['new'] + ' x').encode(),
                            new_sha256=sha((s['new'] + ' x').encode())) if s['id'] == mirror['id'] else s
-                      for s in a.led['splices']]
-    code, res, t = a.run(exec_args(a), control={'overrides': {'ledger': led}})
+                      for s in ledger['splices']]
+    code, res, t = run_candidate(control={'overrides': {'ledger': led}})
     a.record('S11-8', 'mirror-mismatch' in classes(res), 'FAIL mirror-mismatch', classes(res))
     cen = 'verification/lean-manuscript-census.json'
-    css = [s for s in a.led['splices'] if s['file'] == cen]
+    css = [s for s in ledger['splices'] if s['file'] == cen]
     x = a.repo.derive(T, {cen: exmod.sg.apply_splices(a.base.read(H, cen), css[1:])}, parents=[H])
-    code, res, t = a.run(exec_args(a, x))
+    code, res, t = run_candidate(x)
     a.record('S11-9', 'unauthorized-edit' in classes(res), 'FAIL unauthorized-edit (%d census splices)' % len(css),
              classes(res))
-    lean = sorted(f for f in a.led['files'] if f.endswith('.lean'))[0]
+    lean = sorted(f for f in ledger['files'] if f.endswith('.lean'))[0]
     x = a.repo.derive(T, {lean: a.repo.read(T, lean) + b'\ndef controlDefinition : Nat := 1\n'}, parents=[H])
-    code, res, t = a.run(exec_args(a, x))
+    code, res, t = run_candidate(x)
     a.record('S11-10', 'lean-code-change' in classes(res), 'FAIL lean-code-change', classes(res))
-    gp = [e for e in a.led['raw']['edits'] if e.get('kind') == 'guard-pin' and e.get('targets')][0]
+    gp = [e for e in ledger['raw']['edits'] if e.get('kind') == 'guard-pin' and e.get('targets')][0]
     x = a.repo.derive(T, {gp['file']: a.base.read(H, gp['file'])}, parents=[H])
-    code, res, t = a.run(exec_args(a, x))
+    code, res, t = run_candidate(x)
     a.record('S11-12', 'pin-broken' in classes(res) or 'pin-target-missing' in classes(res),
              'FAIL pin-broken (a guard-pin splice dropped)', classes(res))
     x = a.repo.derive(T, {'tools/new_active_control.py': b'# the A1 premise holds here\n'}, parents=[H])
@@ -1390,7 +1420,7 @@ def ex_controls(a):
     ev = tempfile.mkdtemp(dir=a.out_root)
     with open(os.path.join(ev, 'sc42-rerun.json'), 'w') as f:
         json.dump({'candidate': T, 'verbose_exit': 0, 'verbose_equal': False, 'self_test_equal': True}, f)
-    code, res, t = a.run(exec_args(a, extra=['--evidence', ev]))
+    code, res, t = run_candidate(extra=['--evidence', ev])
     a.record('S11-13', any(i['class'] == 'delegated-evidence-invalid' and i['subject'].startswith('sc42')
                            for i in res.get('items', [])),
              'FAIL (the re-execution does not reproduce the hand-edited file)',
@@ -1398,13 +1428,13 @@ def ex_controls(a):
     ev = tempfile.mkdtemp(dir=a.out_root)
     with open(os.path.join(ev, 'ci-host-run.json'), 'w') as f:
         json.dump({'head_sha': H, 'jobs': []}, f)
-    code, res, t = a.run(exec_args(a, extra=['--evidence', ev]))
+    code, res, t = run_candidate(extra=['--evidence', ev])
     a.record('S11-3', any(i['class'] == 'delegated-evidence-invalid' and i['subject'].startswith('ci')
                           for i in res.get('items', [])), 'FAIL delegated-evidence-invalid (another head_sha)', '')
     ev = tempfile.mkdtemp(dir=a.out_root)
     with open(os.path.join(ev, 'proof-census.json'), 'w') as f:
         json.dump({'entries': [{'id': 'MAIN:L-3', 'fingerprint': '0000'}]}, f)
-    code, res, t = a.run(exec_args(a, extra=['--evidence', ev]))
+    code, res, t = run_candidate(extra=['--evidence', ev])
     a.record('S11-4', any(i['class'] == 'delegated-evidence-invalid' and 'coverage-ledger' in i['subject']
                           for i in res.get('items', [])), 'FAIL (one STALE value differs from the census)', '')
     # sec. 11 row 2 countercontrols at E
