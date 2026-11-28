@@ -3721,11 +3721,20 @@ def _record_control_restore(row, ev):
             return False
         targets = [rows['site_overrides']['doc/s.md:5']['anchor'].encode() for rows in (invalid, valid)]
         line = pin.splitlines()[4]
+        negative = ev.json(adverse['result_file'])
+        positive = ev.json(clean['result_file'])
+        expected = ['doc/s.md:5: override anchor not in its pin line']
+        items = negative['items']
         return (targets == [inserted, line] and inserted not in line and shifted.splitlines()[4] != line and
                 all(rows['site_map']['pin'] == contexts[0][1] and rows['digest'] == _file_sha(pin)
-                    for rows in (invalid, valid)))
+                    for rows in (invalid, valid)) and negative['record_checks']['pin_findings'] == expected and
+                positive['record_checks']['pin_findings'] == [] and len(items) == 1 and
+                {k: items[0][k] for k in ('obligation', 'class', 'decision', 'subject', 'detail')} ==
+                {'obligation': 'RECORD', 'class': 'record-invalid', 'decision': 'FAIL', 'subject': 'pin_findings',
+                 'detail': expected})
     clean_checker, fault_checker = (ev.text(label + '.ledger_check.py') for label in ('clean', 'adverse'))
     worker = ev.json('adverse.replay-result.json')
+    clean_worker = ev.json('clean.replay-result.json')
     detail = ev.json(adverse['result_file'])['stop']['detail']
     stage = b'def build():\n'
     return (clean_checker is not None and stage in clean_checker and
@@ -3736,7 +3745,9 @@ def _record_control_restore(row, ev):
             worker['exception'] == {k: detail[k] for k in ('stage', 'class', 'message')} and
             list(worker['calls']) == detail['calls'] and
             ev.text('clean.replay-result.json') == ev.text('restored.replay-result.json') and
-            ev.text('clean.replay-result.json') is not None)
+            set(clean_worker) == {'calls', 'sitemap'} and
+            list(clean_worker['calls']) == ['load_sitemap', 'load_rows', 'manuscript_digest', 'build', 'render_equal',
+                                            'check', 'extended_unmapped', 'self_test'])
 
 
 def _pipeline_chain_case(ev, case_name, argv, result, exit_code):
