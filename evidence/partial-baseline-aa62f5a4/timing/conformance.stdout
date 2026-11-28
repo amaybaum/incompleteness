@@ -1,0 +1,9 @@
+{"FAIL": 3, "NOT RUN": 5, "PASS": 135}
+FAIL BLOCK-KEY {"the edit's wording changed in a revised configuration (new bytes or reason; the same id and target), no reassessment cited": {"exit": 20, "classes": ["base-drift", "delegated-evidence-missing", "retirement-blocked", "side-change-unclassified"], "blocked": ["doc/s.md"], "reassessment_invalid": [], 
+NOT RUN EI14-dispatch "no dispatch of the pinned workflow on a branch holding T' has been made; it needs the tool landed and a launch the owner approves"
+NOT RUN G-A1 "needs F and a CI job (sec. A.40: a full clone of the repository per tree); CI plan in the report"
+FAIL O3-FILTER {"global": {"native": {"clone": true, "file_checked_out": true, "marker": false}, "countercontrol": {"checkout_exit": 0, "marker": true}, "native_markers": [], "unstripped": null}, "system": {"native": {"clone": true, "file_checked_out": true, "marker": false}, "countercontrol": {"checkout_exit": 0,
+FAIL RTL2-BIND {"a reviewed reconciliation record bound to the run: ledger_base the run's H, naming the run's M and X, its m and x the path's blobs at the run's M and C (positive: drift reconciled; REVIEW_REQUIRED only from delegated classes)": {"exit": 10, "classes": ["delegated-evidence-missing"], "drift_state":
+NOT RUN TR45-opB "offline replay is deferred with R6.OUT.15 and OBL-17"
+NOT RUN TR45-opC "offline replay is deferred with R6.OUT.15 and OBL-17"
+NOT RUN TR5 "needs a run of the pinned workflow in the repository the configuration names, with the host API; CI plan in the report"

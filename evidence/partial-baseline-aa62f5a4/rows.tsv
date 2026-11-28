@@ -1,0 +1,620 @@
+id	status	retained_a1	expectation_runner	findings
+A10r	FAIL	yes	a1_controls.py:653	missing-id
+A11r	FAIL	yes	a1_controls.py:653	missing-id
+A12r	PASS	yes	conformance_controls.py:2494	
+A1r	FAIL	yes	a1_controls.py:653	missing-id
+A2r	FAIL	yes	a1_controls.py:653	missing-id
+A3r	FAIL	yes	a1_controls.py:653	missing-id
+A4r	FAIL	yes	a1_controls.py:668	missing-id
+A5r	FAIL	yes	a1_controls.py:753	missing-id
+A5r-generic	PASS	yes	controls_engine.py:634	
+A6r	FAIL	yes	a1_controls.py:653	missing-id
+A7r	FAIL	yes	a1_controls.py:679	missing-id
+A8r	FAIL	yes	a1_controls.py:653	missing-id
+A9r	FAIL	yes	a1_controls.py:653	missing-id
+ACCEPT-SCHEMA	PASS	yes	conformance_controls.py:514	
+ADM-CONFIG-AT-F	PASS	yes	conformance_controls.py:177	
+ANCH-OVERRIDE	PASS	yes	None	
+B1	PASS	yes	controls_engine.py:334	
+B2	PASS	yes	controls_engine.py:343	
+B3	PASS	yes	controls_engine.py:353	
+B4	PASS	yes	controls_engine.py:357	
+B4-MEANING	PASS	yes	conformance_controls.py:1734	
+B5	PASS	yes	controls_engine.py:361	
+B6	PASS	yes	controls_engine.py:366	
+BLOCK-KEY	FAIL	yes	None	raw-evidence-missing,status-not-allowed
+CANON-JSON	PASS	yes	None	
+CHAIN-REFUSAL	FAIL	yes	a1_controls.py:1150	missing-id
+CLASS-PIN-TARGET	PASS	yes	None	
+CLASS-PROV-AMBIGUOUS	PASS	yes	None	
+CLASS-RECORD-CHECKS	PASS	yes	None	
+CLASS-RETAINED	PASS	yes	None	
+CLASS-SCHEMA	PASS	yes	None	
+CLASS-UNLEDGERED	PASS	yes	None	
+CONFIG-LINT	PASS	yes	conformance_controls.py:1698	
+CONFIG-REFS	FAIL	yes	None	missing-id
+CTX-INDICATOR	FAIL	yes	None	missing-id
+DELEG-RECDIR	FAIL	yes	None	missing-id
+DELEG-REGEN	FAIL	yes	None	missing-id
+E-A1r	PASS	yes	controls_engine.py:642	
+E-A2r	PASS	yes	controls_engine.py:643	
+E-A3r	PASS	yes	controls_engine.py:645	
+E-A6r	PASS	yes	controls_engine.py:639	
+E-A8r	PASS	yes	controls_engine.py:641	
+E-L1	PASS	yes	controls_engine.py:623	
+E-L3	PASS	yes	controls_engine.py:625	
+E-S1r	PASS	yes	controls_engine.py:628	
+E-S2r	PASS	yes	controls_engine.py:630	
+EI1	PASS	yes	conformance_controls.py:265	
+EI10	PASS	yes	conformance_controls.py:1388	
+EI11	PASS	yes	conformance_controls.py:1405	
+EI12	PASS	yes	conformance_controls.py:1421	
+EI13	PASS	yes	conformance_controls.py:1458	
+EI14	NOT RUN	yes	conformance_controls.py:1475	
+EI14-dispatch	NOT RUN	yes	None	
+EI15	PASS	yes	conformance_controls.py:1500	
+EI2	PASS	yes	conformance_controls.py:274	
+EI2-consumer	PASS	yes	conformance_controls.py:600	
+EI3	PASS	yes	conformance_controls.py:610	
+EI4	PASS	yes	conformance_controls.py:321	
+EI5	PASS	yes	conformance_controls.py:662	
+EI6	PASS	yes	conformance_controls.py:1545	
+EI7	PASS	yes	None	
+EI7-consumer	PASS	yes	None	
+EI7-tool	PASS	yes	conformance_controls.py:441	
+EI8	PASS	yes	conformance_controls.py:1339	
+EI9	PASS	yes	conformance_controls.py:1360	
+FINDING-FORM	FAIL	yes	None	raw-evidence-missing,status-not-allowed
+FINDING-KEYS	FAIL	yes	None	raw-evidence-missing,status-not-allowed
+FINDING-LINEAGE	FAIL	yes	None	raw-evidence-missing,status-not-allowed
+G-A1	NOT RUN	yes	conformance_controls.py:2434	
+G1	FAIL	yes	a1_controls.py:815	missing-id
+G2	FAIL	yes	a1_controls.py:818	missing-id
+G3	FAIL	yes	a1_controls.py:823	missing-id
+G4	PASS	yes	conformance_controls.py:2332	
+G5	PASS	yes	conformance_controls.py:2380	
+G6	PASS	yes	conformance_controls.py:2402	
+G7	PASS	yes	conformance_controls.py:2430	
+G8	PASS	yes	conformance_controls.py:2355	
+G9	PASS	yes	conformance_controls.py:2343	
+GATE-1	PASS	no	gate self-test	
+GATE-10	PASS	no	gate self-test	
+GATE-11	PASS	no	gate self-test	
+GATE-12	PASS	no	gate self-test	
+GATE-13	PASS	yes	gate self-test	
+GATE-14	PASS	yes	gate self-test	
+GATE-15	PASS	yes	gate self-test	
+GATE-16	PASS	yes	gate self-test	
+GATE-17	PASS	no	gate self-test	
+GATE-18	PASS	yes	gate self-test	
+GATE-19	PASS	yes	gate self-test	
+GATE-2	PASS	no	gate self-test	
+GATE-20	PASS	no	gate self-test	
+GATE-21	PASS	no	gate self-test	
+GATE-22	PASS	no	gate self-test	
+GATE-23	PASS	no	gate self-test	
+GATE-24	PASS	no	gate self-test	
+GATE-25	PASS	no	gate self-test	
+GATE-26	PASS	no	gate self-test	
+GATE-27	PASS	no	gate self-test	
+GATE-28	PASS	no	gate self-test	
+GATE-29	PASS	no	gate self-test	
+GATE-3	PASS	no	gate self-test	
+GATE-30	PASS	no	gate self-test	
+GATE-4	PASS	no	gate self-test	
+GATE-5	PASS	no	gate self-test	
+GATE-6	PASS	no	gate self-test	
+GATE-7	PASS	no	gate self-test	
+GATE-8	PASS	no	gate self-test	
+GATE-9	PASS	no	gate self-test	
+GV-CACHE	PASS	yes	conformance_controls.py:1058	
+GV-CACHE-AFTER-READ	PASS	yes	conformance_controls.py:1145	
+GV-CACHE-IMMUTABLE	PASS	yes	conformance_controls.py:1154	
+GV-CACHE-KEY	PASS	yes	conformance_controls.py:1122	
+GV1	PASS	yes	conformance_controls.py:869	
+GV2	PASS	yes	conformance_controls.py:882	
+GV3	PASS	yes	conformance_controls.py:903	
+GV4	PASS	yes	conformance_controls.py:943	
+GV5	PASS	yes	conformance_controls.py:981	
+GV6	PASS	yes	conformance_controls.py:343	
+GV6-disk	PASS	yes	conformance_controls.py:1008	
+GV7	PASS	yes	None	
+GV7-consumer	PASS	yes	conformance_controls.py:624	
+GV7-tool	PASS	yes	conformance_controls.py:379	
+H1	PASS	yes	controls_engine.py:379	
+H2	PASS	yes	controls_engine.py:385	
+H3	PASS	yes	controls_engine.py:388	
+H4	PASS	yes	controls_engine.py:393	
+H5	PASS	yes	controls_engine.py:400	
+H6	PASS	yes	controls_engine.py:404	
+H7	PASS	yes	controls_engine.py:432	
+HIT-REPLACEMENT	FAIL	yes	None	missing-id
+HP-MERGE-PR	PASS	yes	None	
+HP-RECORDS	FAIL	yes	None	missing-id
+HP-SEMCLASS	FAIL	yes	None	missing-id
+I2-1	PASS	yes	record_directory_controls.py:646	
+I2-2	PASS	yes	record_directory_controls.py:662	
+I2-3	PASS	yes	record_directory_controls.py:675	
+I2-4	PASS	yes	record_directory_controls.py:697	
+I2-5	PASS	yes	record_directory_controls.py:709	
+I2-6	PASS	yes	record_directory_controls.py:724	
+I2-7	PASS	yes	record_directory_controls.py:747	
+I2-8	PASS	yes	record_directory_controls.py:774	
+K1	PASS	yes	controls_engine.py:272	
+K1-GRAPH	FAIL	yes	a1_controls.py:1139	missing-id
+K10	PASS	yes	controls_engine.py:281	
+K2	PASS	yes	controls_engine.py:282	
+K3	PASS	yes	controls_engine.py:287	
+K4	PASS	yes	controls_engine.py:292	
+K5	PASS	yes	controls_engine.py:297	
+K6	PASS	yes	controls_engine.py:302	
+K7	PASS	yes	controls_engine.py:310	
+K8	PASS	yes	controls_engine.py:313	
+K9	PASS	yes	controls_engine.py:320	
+L1	FAIL	yes	a1_controls.py:586	missing-id
+L2	FAIL	yes	a1_controls.py:593	missing-id
+L3	FAIL	yes	a1_controls.py:595	missing-id
+L4	FAIL	yes	a1_controls.py:597	missing-id
+LC-1	PASS	yes	None	
+LC-2	PASS	yes	None	
+LC-3	PASS	yes	None	
+LC-4	PASS	yes	None	
+LC-5	PASS	yes	None	
+LC-6	PASS	yes	None	
+LC-7	FAIL	yes	None	missing-id
+LINE-PATCH-RC8	PASS	yes	None	
+LN1	PASS	yes	conformance_controls.py:2072	
+LN10	PASS	yes	conformance_controls.py:2223	
+LN2	PASS	yes	conformance_controls.py:2079	
+LN3	PASS	yes	conformance_controls.py:2091	
+LN4	PASS	yes	conformance_controls.py:2127	
+LN5	PASS	yes	conformance_controls.py:2164	
+LN6	PASS	yes	conformance_controls.py:2175	
+LN7	PASS	yes	conformance_controls.py:2193	
+LN8	PASS	yes	conformance_controls.py:2210	
+M1	PASS	yes	controls_engine.py:233	
+M10	PASS	yes	synthetic_fixture.py:543	
+M11	PASS	yes	controls_engine.py:258	
+M2	PASS	yes	controls_engine.py:236	
+M3	PASS	yes	controls_engine.py:247	
+M4	PASS	yes	controls_engine.py:249	
+M5	PASS	yes	controls_engine.py:250	
+M6	PASS	yes	controls_engine.py:254	
+M7	FAIL	yes	a1_controls.py:206	missing-id
+M8	FAIL	yes	a1_controls.py:209	missing-id
+M9	FAIL	yes	a1_controls.py:211	missing-id
+MIGRATION-RECORD	PASS	yes	None	
+MUT:c1:C01	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:c1:C02	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:c1:C03	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:c1:C04	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:c1:C05	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:c1:C06	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:c1:C07	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:c1:C08	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:c1:C09	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:c1:C10	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:c1:C11	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:c1:C12	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:c2:D01	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:c2:D02	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:c2:D03	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:cache:K01	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:cache:K02	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:cache:K03	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:cache:K04	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:cache:K05	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:cache:K06	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:cache:K07	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:cache:K08	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:o9:RDIR-m1	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:o9:RDIR-m10	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:o9:RDIR-m11	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:o9:RDIR-m12	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:o9:RDIR-m13	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:o9:RDIR-m14	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:o9:RDIR-m15	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:o9:RDIR-m16	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:o9:RDIR-m17	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:o9:RDIR-m2	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:o9:RDIR-m3	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:o9:RDIR-m4	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:o9:RDIR-m5	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:o9:RDIR-m6	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:o9:RDIR-m7	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:o9:RDIR-m8	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:o9:RDIR-m9	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:A01	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:A02	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:A03	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:A04	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:A05	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:A06	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:A07	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:A08	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:A09	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:A10	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:A11	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:A12	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:A13	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:A14	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:C01	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:C02	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:C03	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:C04	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:C05	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:C06	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:C07	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:C08	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:C09	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:C10	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:C11	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:C12	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:C13	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:C14	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:C15	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:C16	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:E01	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:E02	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:H01	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:H02	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:H03	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:I01	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:I02	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:I03	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:I04	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:I05	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:I06	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:I07	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:I08	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:I09	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:I10	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:I11	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:I12	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:I13	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:I14	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:O01	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:O02	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:P01	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:R01	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:R02	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:R03	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:U01	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:U02	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:U03	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:U04	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:U05	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:V01	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:V02	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:V03	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:V04	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:V05	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:V06	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+MUT:v60e:V07	NOT RUN	no	ledger-coverage-suite-ci.yml step 9-mutation (mutation harness)	
+N-W	FAIL	yes	a1_controls.py:600	missing-id
+N1	PASS	yes	controls_engine.py:574	
+N10	FAIL	yes	a1_conformance.py:505	missing-id
+N11	FAIL	yes	a1_conformance.py:517	missing-id
+N12	FAIL	yes	a1_conformance.py:477	missing-id
+N13	FAIL	yes	a1_conformance.py:480	missing-id
+N14	FAIL	yes	a1_conformance.py:482	missing-id
+N15	FAIL	yes	a1_conformance.py:484	missing-id
+N16	FAIL	yes	a1_conformance.py:488	missing-id
+N16-file	FAIL	yes	a1_conformance.py:490	missing-id
+N17	FAIL	yes	a1_conformance.py:493	missing-id
+N18	FAIL	yes	a1_conformance.py:494	missing-id
+N18-record	FAIL	yes	a1_conformance.py:496	missing-id
+N2	PASS	yes	controls_engine.py:577	
+N3	FAIL	yes	a1_conformance.py:435	missing-id
+N3-config-route	FAIL	yes	a1_conformance.py:542	missing-id
+N4	FAIL	yes	a1_conformance.py:456	missing-id
+N5	FAIL	yes	a1_conformance.py:460	missing-id
+N6	FAIL	yes	a1_conformance.py:461	missing-id
+N7	FAIL	yes	a1_conformance.py:465	missing-id
+N8	FAIL	yes	a1_conformance.py:470	missing-id
+N9	FAIL	yes	a1_conformance.py:471	missing-id
+O1	PASS	yes	controls_engine.py:462	
+O2	PASS	yes	controls_engine.py:465	
+O3	PASS	yes	controls_engine.py:469	
+O3-FILTER	FAIL	yes	conformance_controls.py:719	raw-evidence-missing,status-not-allowed
+O5	PASS	yes	controls_engine.py:470	
+O6	PASS	yes	controls_engine.py:473	
+O7	PASS	yes	controls_engine.py:475	
+O8	PASS	yes	controls_engine.py:479	
+O9	PASS	yes	controls_engine.py:461	
+OUT-ADAPTERS	FAIL	yes	None	missing-id
+OUT-CONFINED	PASS	yes	None	
+OUT-EXPLAIN	FAIL	yes	None	missing-id
+OUT-FROZEN	PASS	yes	None	
+OUT-NOTRUNC	PASS	yes	None	
+PIPE-CHAIN	PASS	yes	None	
+PIPE-PRIOR	PASS	yes	None	
+PIPE-REPO	PASS	yes	None	
+PIPE-STAGES	PASS	yes	None	
+PIPE-UNRESOLVED	PASS	yes	None	
+POSTF-1	PASS	yes	None	
+POSTF-2	PASS	yes	None	
+POSTF-3	PASS	yes	None	
+POSTF-4	PASS	yes	None	
+POSTF-5	PASS	yes	None	
+PROF-LANDING-LIST	FAIL	yes	None	missing-id
+PROF-PARAMS-LINT	FAIL	yes	None	missing-id
+R15	PASS	yes	controls_engine.py:566	
+R16	PASS	yes	conformance_controls.py:2469	
+R17	PASS	yes	conformance_controls.py:2472	
+R18	FAIL	yes	a1_conformance.py:552	missing-id
+R18-engine	PASS	yes	controls_engine.py:513	
+R19	FAIL	yes	a1_conformance.py:563	missing-id
+R19-engine	PASS	yes	controls_engine.py:561	
+R3-F2	PASS	yes	conformance_controls.py:1789	
+R4-B3	PASS	yes	conformance_controls.py:1864	
+R4-B3-DUP	PASS	yes	conformance_controls.py:1903	
+R5-N6	PASS	yes	conformance_controls.py:1924	
+R6-G6	PASS	yes	conformance_controls.py:2235	
+R8-S6	PASS	yes	controls_engine.py:546	
+RB-C10	PASS	yes	None	
+RB-C11	PASS	yes	None	
+RB-C4	PASS	yes	None	
+RB-C4b	PASS	yes	None	
+RB-C4c	PASS	yes	None	
+RB-C4d	PASS	yes	None	
+RB-C4e	PASS	yes	None	
+RB-C5	PASS	yes	None	
+RB-C5b	PASS	yes	None	
+RB-C7	PASS	yes	None	
+RB-C7b	PASS	yes	None	
+RB-C8	PASS	yes	None	
+RB-P1	PASS	yes	None	
+RDIR-1	PASS	yes	record_directory_controls.py:242	
+RDIR-10	PASS	yes	record_directory_controls.py:337	
+RDIR-11	PASS	yes	record_directory_controls.py:349	
+RDIR-12	PASS	yes	record_directory_controls.py:357	
+RDIR-12b	PASS	yes	record_directory_controls.py:368	
+RDIR-13	PASS	yes	record_directory_controls.py:382	
+RDIR-14	PASS	yes	record_directory_controls.py:397	
+RDIR-15	PASS	yes	record_directory_controls.py:409	
+RDIR-16	PASS	yes	record_directory_controls.py:420	
+RDIR-17	PASS	yes	record_directory_controls.py:429	
+RDIR-18	PASS	yes	record_directory_controls.py:410	
+RDIR-19	PASS	yes	record_directory_controls.py:412	
+RDIR-2	PASS	yes	record_directory_controls.py:252	
+RDIR-20	PASS	yes	record_directory_controls.py:480	
+RDIR-21	PASS	yes	record_directory_controls.py:491	
+RDIR-22	PASS	yes	record_directory_controls.py:502	
+RDIR-23	PASS	yes	record_directory_controls.py:526	
+RDIR-24	PASS	yes	record_directory_controls.py:450	
+RDIR-25	FAIL	yes	record_directory_controls.py:538	raw-evidence-missing,status-actual-inconsistent
+RDIR-3	PASS	yes	record_directory_controls.py:261	
+RDIR-4	PASS	yes	record_directory_controls.py:270	
+RDIR-5	PASS	yes	record_directory_controls.py:279	
+RDIR-6	PASS	yes	record_directory_controls.py:287	
+RDIR-7	PASS	yes	record_directory_controls.py:296	
+RDIR-8	PASS	yes	record_directory_controls.py:313	
+RDIR-9	PASS	yes	record_directory_controls.py:326	
+REASSESS-FORM	PASS	yes	None	
+REASSESS-KEYS	FAIL	yes	None	raw-evidence-missing,status-not-allowed
+RECLINT-ORPHAN	PASS	yes	None	
+RECON-BLOCK	PASS	yes	None	
+RECON-CATEGORY	PASS	yes	None	
+RECON-CONFLICT	PASS	yes	None	
+RECON-CORPUS	PASS	yes	None	
+RECON-ENUM	FAIL	yes	None	raw-evidence-missing,status-not-allowed
+RECON-FIELDS	FAIL	yes	None	missing-id
+RECON-MULTI	PASS	yes	None	
+RECON-OVERLAP	FAIL	yes	None	raw-evidence-missing,status-not-allowed
+RECON-RETAINED	PASS	yes	None	
+RECON-SCHEMA	FAIL	yes	None	missing-id
+RECON-SCI	PASS	yes	None	
+RECON-TRIAL	FAIL	yes	None	raw-evidence-missing,status-not-allowed
+RECORD-BASE	PASS	yes	None	
+REP-BUILD	FAIL	yes	a1_controls.py:1961	missing-id
+REPRO-DOUBLE	FAIL	yes	None	missing-id
+REPRO-PYVER	FAIL	yes	None	missing-id
+RESOLUTION-SCHEMA	FAIL	yes	None	missing-id
+REVIEW-SCHEMA	FAIL	yes	None	missing-id
+RL	PASS	yes	controls_engine.py:548	
+RT-A	FAIL	yes	a1_controls.py:171	missing-id
+RT-C	FAIL	yes	a1_controls.py:805	missing-id
+RT-D	FAIL	yes	a1_controls.py:374	missing-id,status-not-allowed
+RT-D-gr58	FAIL	yes	a1_controls.py:389	missing-id
+RT-DR	FAIL	yes	a1_controls.py:296	missing-id
+RT-DR3W	FAIL	yes	a1_controls.py:317	missing-id
+RT-E	FAIL	yes	a1_controls.py:224	missing-id
+RT-H0	FAIL	yes	a1_controls.py:235	missing-id
+RT-I7	FAIL	yes	a1_controls.py:327	missing-id
+RT-I7A	FAIL	yes	a1_controls.py:342	missing-id
+RT-L	FAIL	yes	a1_controls.py:930	missing-id
+RT-L2	FAIL	yes	a1_controls.py:976	missing-id
+RT-M	FAIL	yes	None	missing-id
+RT-O9	FAIL	yes	a1_controls.py:1025	missing-id
+RT-O9-L2	FAIL	yes	None	missing-id
+RT-SHIFT	FAIL	yes	None	missing-id
+RT-T	FAIL	yes	a1_controls.py:271	missing-id
+RT-T0	FAIL	yes	a1_controls.py:262	missing-id
+RT-X	FAIL	yes	a1_controls.py:921	missing-id
+RTL2-BIND	FAIL	yes	None	raw-evidence-missing,status-not-allowed
+RULE-MINLIT	PASS	yes	None	
+RULE-ZEROFP	PASS	yes	None	
+S11-1	FAIL	yes	a1_controls.py:832	missing-id
+S11-10	FAIL	yes	a1_controls.py:860	missing-id
+S11-11	FAIL	yes	a1_controls.py:869	missing-id
+S11-12	FAIL	yes	a1_controls.py:864	missing-id
+S11-13	FAIL	yes	a1_controls.py:879	missing-id
+S11-14	FAIL	yes	a1_controls.py:873	missing-id
+S11-2	FAIL	yes	None	missing-id,status-not-allowed
+S11-2a	FAIL	yes	a1_controls.py:902	missing-id
+S11-2b	FAIL	yes	a1_controls.py:913	missing-id
+S11-2c	FAIL	yes	a1_controls.py:218	missing-id
+S11-3	FAIL	yes	a1_controls.py:887	missing-id
+S11-4	FAIL	yes	a1_controls.py:893	missing-id
+S11-5	FAIL	yes	a1_controls.py:841	missing-id
+S11-56	FAIL	yes	a1_conformance.py:278	missing-id
+S11-57a	FAIL	yes	a1_conformance.py:299	missing-id
+S11-57b	FAIL	yes	a1_conformance.py:304	missing-id
+S11-57c	FAIL	yes	a1_conformance.py:318	missing-id
+S11-57d	FAIL	yes	a1_conformance.py:326	missing-id
+S11-58a-f	FAIL	yes	a1_conformance.py:344	missing-id
+S11-58g	FAIL	yes	a1_conformance.py:352	missing-id
+S11-58h	FAIL	yes	a1_conformance.py:358	missing-id
+S11-58i	FAIL	yes	a1_conformance.py:365	missing-id
+S11-58j	FAIL	yes	a1_conformance.py:373	missing-id
+S11-58k	FAIL	yes	a1_conformance.py:386	missing-id
+S11-6	FAIL	yes	a1_controls.py:841	missing-id
+S11-7	FAIL	yes	None	missing-id
+S11-8	FAIL	yes	a1_controls.py:850	missing-id
+S11-9	FAIL	yes	a1_controls.py:855	missing-id
+S1r	FAIL	yes	a1_controls.py:572	missing-id
+S2r	FAIL	yes	a1_controls.py:578	missing-id
+S4a	PASS	yes	conformance_controls.py:2543	
+S7-schema-and-checker	PASS	yes	synthetic_fixture.py:555	
+SCAN-PARSE	PASS	yes	None	
+SIDE-NONREG	PASS	yes	None	
+SUPERSEDES-RESOLVE	FAIL	yes	None	missing-id
+SW1	FAIL	yes	a1_controls.py:1240	missing-id
+SW2	FAIL	yes	a1_controls.py:1238	missing-id
+TR1	PASS	yes	conformance_controls.py:157	
+TR13	PASS	yes	conformance_controls.py:184	
+TR14	PASS	yes	conformance_controls.py:541	
+TR14-tool	PASS	yes	conformance_controls.py:196	
+TR15	PASS	yes	conformance_controls.py:211	
+TR15-consumer	PASS	yes	None	
+TR2	PASS	yes	conformance_controls.py:164	
+TR28	PASS	yes	None	
+TR28-consumer	PASS	yes	conformance_controls.py:578	
+TR28-tool	PASS	yes	conformance_controls.py:219	
+TR29	PASS	yes	conformance_controls.py:591	
+TR29-tool	PASS	yes	conformance_controls.py:254	
+TR3	PASS	yes	conformance_controls.py:170	
+TR30	PASS	yes	conformance_controls.py:521	
+TR45	NOT RUN	yes	None	
+TR45-opB	NOT RUN	yes	conformance_controls.py:2263	
+TR45-opC	NOT RUN	yes	None	
+TR46	PASS	yes	conformance_controls.py:526	
+TR48	PASS	yes	conformance_controls.py:228	
+TR5	NOT RUN	yes	conformance_controls.py:151	
+TR5-sim	PASS	yes	conformance_controls.py:142	
+TR50	PASS	yes	conformance_controls.py:239	
+TR50-consumer	PASS	yes	None	
+TR51	PASS	yes	conformance_controls.py:246	
+TR51-consumer	PASS	yes	None	
+TR52	PASS	yes	conformance_controls.py:224	
+TR52-consumer	PASS	yes	None	
+TT1	PASS	yes	controls_engine.py:511	
+TT10	PASS	yes	controls_engine.py:552	
+TT11	PASS	yes	controls_engine.py:554	
+TT12	PASS	yes	controls_engine.py:556	
+TT13	PASS	yes	controls_engine.py:559	
+TT14	FAIL	yes	controls_engine.py:563	raw-evidence-missing,status-actual-inconsistent
+TT2	PASS	yes	controls_engine.py:517	
+TT3	PASS	yes	controls_engine.py:519	
+TT4	PASS	yes	controls_engine.py:521	
+TT5	PASS	yes	controls_engine.py:526	
+TT6	PASS	yes	controls_engine.py:532	
+TT7	PASS	yes	controls_engine.py:539	
+TT8	PASS	yes	controls_engine.py:542	
+TT9	PASS	yes	controls_engine.py:550	
+U1	PASS	yes	controls_engine.py:123	
+U10	PASS	yes	controls_engine.py:157	
+U11	PASS	yes	controls_engine.py:162	
+U12	PASS	yes	controls_engine.py:166	
+U14	PASS	yes	controls_engine.py:229	
+U2	PASS	yes	controls_engine.py:126	
+U3	PASS	yes	controls_engine.py:130	
+U4	PASS	yes	controls_engine.py:133	
+U5	PASS	yes	controls_engine.py:136	
+U6	PASS	yes	controls_engine.py:141	
+U7	PASS	yes	controls_engine.py:145	
+U8	PASS	yes	controls_engine.py:148	
+U9	PASS	yes	controls_engine.py:151	
+V1	FAIL	yes	a1_controls.py:466	missing-id
+V10	FAIL	yes	a1_controls.py:466	missing-id
+V11	FAIL	yes	a1_controls.py:466	missing-id
+V12	FAIL	yes	a1_controls.py:466	missing-id
+V13	FAIL	yes	a1_controls.py:466	missing-id
+V14	FAIL	yes	a1_controls.py:474	missing-id
+V15	FAIL	yes	a1_controls.py:499	missing-id
+V16	FAIL	yes	a1_controls.py:466	missing-id
+V17	FAIL	yes	a1_controls.py:466	missing-id
+V18	FAIL	yes	a1_controls.py:466	missing-id
+V19	FAIL	yes	a1_controls.py:466	missing-id
+V2	FAIL	yes	a1_controls.py:555	missing-id
+V20	FAIL	yes	a1_controls.py:466	missing-id
+V21	FAIL	yes	a1_controls.py:499	missing-id
+V22	FAIL	yes	a1_controls.py:485	missing-id
+V23	FAIL	yes	a1_controls.py:522	missing-id
+V24	FAIL	yes	a1_controls.py:526	missing-id
+V25	FAIL	yes	a1_controls.py:535	missing-id
+V26	FAIL	yes	a1_controls.py:518	missing-id
+V27	FAIL	yes	a1_controls.py:493	missing-id,status-not-allowed
+V27-glossary	FAIL	yes	a1_controls.py:507	missing-id
+V3	FAIL	yes	a1_controls.py:466	missing-id
+V3-countercontrol	FAIL	yes	a1_controls.py:425	missing-id
+V4	FAIL	yes	a1_controls.py:493	missing-id
+V5	FAIL	yes	a1_controls.py:466	missing-id
+V6	FAIL	yes	a1_controls.py:478	missing-id
+V7a	FAIL	yes	a1_controls.py:560	missing-id
+V7b	FAIL	yes	a1_controls.py:565	missing-id
+V7c	FAIL	yes	a1_controls.py:570	missing-id
+V9	FAIL	yes	a1_controls.py:466	missing-id
+VD2-HP-SEARCH	FAIL	yes	None	missing-id
+VD3-CONTEXT	FAIL	yes	None	missing-id
+VD3-COUNT	FAIL	yes	None	missing-id
+WB1	FAIL	yes	a1_conformance.py:94	missing-id
+WB10	FAIL	yes	a1_conformance.py:165	missing-id
+WB11	FAIL	yes	a1_conformance.py:173	missing-id
+WB12	FAIL	yes	a1_conformance.py:184	missing-id
+WB13	FAIL	yes	a1_conformance.py:193	missing-id
+WB14	FAIL	yes	a1_conformance.py:205	missing-id
+WB15	FAIL	yes	a1_conformance.py:210	missing-id
+WB2	FAIL	yes	a1_conformance.py:98	missing-id
+WB3	FAIL	yes	a1_conformance.py:103	missing-id
+WB4	FAIL	yes	a1_conformance.py:112	missing-id
+WB5	FAIL	yes	a1_conformance.py:120	missing-id
+WB6	FAIL	yes	a1_conformance.py:125	missing-id
+WB7	FAIL	yes	a1_conformance.py:129	missing-id
+WB8	FAIL	yes	a1_conformance.py:133	missing-id
+WB9	FAIL	yes	a1_conformance.py:140	missing-id
+X1	FAIL	yes	a1_controls.py:176	missing-id
+X10	PASS	yes	synthetic_fixture.py:536	
+X11	PASS	yes	conformance_controls.py:472	
+X2	PASS	yes	synthetic_fixture.py:478	
+X3	PASS	yes	synthetic_fixture.py:482	
+X4	PASS	yes	synthetic_fixture.py:485	
+X5	PASS	yes	synthetic_fixture.py:487	
+X6	PASS	yes	synthetic_fixture.py:490	
+X7	PASS	yes	synthetic_fixture.py:504	
+X8	PASS	yes	synthetic_fixture.py:510	
+X9	PASS	yes	synthetic_fixture.py:517	
+Y1	PASS	no	synthetic_fixture.py:314	
+Y10	PASS	yes	synthetic_fixture.py:362	
+Y2	PASS	yes	synthetic_fixture.py:321	
+Y3	PASS	yes	synthetic_fixture.py:326	
+Y4	PASS	yes	synthetic_fixture.py:334	
+Y5	PASS	no	synthetic_fixture.py:340	
+Y6	PASS	yes	synthetic_fixture.py:349	
+Y7	PASS	yes	synthetic_fixture.py:352	
+Y8	FAIL	yes	a1_controls.py:1262	missing-id
+Y9	PASS	no	synthetic_fixture.py:358	
+Z1	PASS	yes	synthetic_fixture.py:385	
+Z10	PASS	yes	synthetic_fixture.py:449	
+Z11	PASS	yes	conformance_controls.py:2524	
+Z2	PASS	yes	synthetic_fixture.py:386	
+Z3	PASS	yes	synthetic_fixture.py:387	
+Z4	PASS	yes	synthetic_fixture.py:388	
+Z5	PASS	yes	synthetic_fixture.py:389	
+Z6	PASS	yes	synthetic_fixture.py:390	
+Z6b	PASS	yes	synthetic_fixture.py:394	
+Z7	PASS	yes	synthetic_fixture.py:395	
+Z8	PASS	yes	synthetic_fixture.py:398	
+Z9-STAGED	FAIL	yes	selftest.py:30	missing-id
+Z9a	PASS	yes	synthetic_fixture.py:570	
+Z9b	PASS	yes	synthetic_fixture.py:570	
+Z9c	PASS	yes	synthetic_fixture.py:571	
+Z9d	PASS	yes	synthetic_fixture.py:571	
+Z9e	PASS	no	synthetic_fixture.py:572	
+Z9f	PASS	yes	synthetic_fixture.py:573	
+Z9g	FAIL	yes	a1_controls.py:1169	missing-id
+Z9h	FAIL	yes	a1_controls.py:1175	missing-id
+item11-T1p	FAIL	yes	a1_controls.py:396	missing-id
+lint-ok	PASS	yes	controls_engine.py:638	
+rule-negative	PASS	yes	controls_engine.py:632	
