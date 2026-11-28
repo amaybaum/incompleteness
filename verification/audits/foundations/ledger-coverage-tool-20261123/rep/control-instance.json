@@ -648,7 +648,7 @@
    },
    {
     "path": "tools/ledger_coverage/adapters/a1_controls.py",
-    "blob_sha256": "871455be8910204af802c8cd7d342da33edae4b2a8b21359497093fccf68dcde"
+    "blob_sha256": "8cc2a27e65d17863b6569c531017bece74bacdbd67d187d60a0923baa31757a4"
    },
    {
     "path": "tools/ledger_coverage/adapters/a1exit_exact_edit.py",
@@ -776,7 +776,7 @@
    },
    {
     "path": "tools/ledger_coverage/engine/category3.py",
-    "blob_sha256": "4a25bbfc56ad0631dee31a57d5286f3c75f613bcee5c80a32fbff859e8048e06"
+    "blob_sha256": "cf101a2a433705edc15e569da20c23896d1c8898d2f617d43685323441e9b257"
    },
    {
     "path": "tools/ledger_coverage/engine/checker.py",
@@ -856,7 +856,7 @@
    },
    {
     "path": "tools/ledger_coverage/engine/records.py",
-    "blob_sha256": "2817341e4fd93b41e56ff88f163c226c10177aca8d3b7e309996154606518eb9"
+    "blob_sha256": "11bdc4db7306aef9e37acf4e6834a2c7f24a05b3867c6a3147c7d1c3bd90f06b"
    },
    {
     "path": "tools/ledger_coverage/engine/replay.py",
