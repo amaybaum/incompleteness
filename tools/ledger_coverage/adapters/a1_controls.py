@@ -905,7 +905,7 @@ def v_controls(a):
         return run
 
     def terms_added(cid, f, text, check='item7', final=False, profile=None, expect=None, line_expect=None,
-                    without_rules=False, extra=None, retain_planted=False):
+                    without_rules=False, extra=None, retain_planted=False, config_path=None):
         x, led = a.add_eof(f, text)
         args = ['terms', '--commit', x, '--base', H, '--ledger', LEDGER]
         args += ['--profile', profile] if profile else ['--check', check]
@@ -920,7 +920,7 @@ def v_controls(a):
             clean_ctl = dict(ctl, overrides={'ledger': a.led})
             code, res, t = run_planted(args, f, x, new[0], control=ctl, restored_control=clean_ctl)
         else:
-            code, res, t = a.run(args, control=ctl)
+            code, res, t = a.run(args, control=ctl, config_path=config_path)
         its = [i for i in res.get('items', []) if i.get('file') == f and i.get('line') in new]
         hits = [h for h in res.get('hits', []) if h['file'] == f and h['line'] in new]
         return code, res, its, hits
@@ -954,12 +954,14 @@ def v_controls(a):
                                        'the six structural properties of the substratum, including finiteness\n')
     rids = {i['rule_id'] for i in its if i['class'] == 'deny-match'}
     a.record('V6', code == 20 and {'DR-1', 'DR-3'} <= rids, 'FAIL deny-match DR-1b and DR-3', sorted(rids))
+    review_config = execution_control_config(a)[0] if a.tool_acceptance else None
     code, res, its, hits = terms_added('V22', 'papers/Main.md', 'Fourteen items, of unequal weight, and not fourteen '
-                                                                'independent physical assumptions.\n')
+                                                                'independent physical assumptions.\n',
+                                      config_path=review_config)
     rids = {i['rule_id'] for i in its if i['class'] == 'deny-match'}
     code_l, res_l, its_l, _ = terms_added('V22b', 'papers/Main.md', 'Fourteen items, of unequal weight, and not '
                                                                      'fourteen independent physical assumptions.\n',
-                                          profile='item7-literal')
+                                          profile='item7-literal', config_path=review_config)
     a.record('V22', 'DR-5' in rids and code_l == 20, 'FAIL deny-match DR-5; the literal item 7 fails too',
              {'rules': sorted(rids), 'literal_exit': code_l})
     # S11-7 is the same added passage under the same two operations, with their complete run outputs.
@@ -1327,20 +1329,25 @@ def exec_args(a, x=T, extra=()):
             '--classify', drift_classes(a)] + list(extra)
 
 
+def execution_control_config(a):
+    fixture_path = a.cpath.rsplit('/', 1)[0] + '/execution-control-config.json'
+    loaded = cfgmod.load(a.repo, a.crev, fixture_path, None, 'execution', 'harness')
+    primary = json.loads(a.repo.read(a.crev, a.cpath))
+    source = next(p['source'] for p in primary['profiles'] if p['name'] == 'repo')
+    checker = {k: source[k] for k in ('commit', 'path', 'blob_sha256')}
+    primary['adapters']['ledger']['companion'].append(dict(checker, role='checker'))
+    records = primary['records']
+    fixture_records = loaded.config['records']
+    if fixture_records[:len(records)] != records or any(r['kind'] != 'review' for r in fixture_records[len(records):]) or \
+            dict(loaded.config, records=records, config_id=primary['config_id']) != primary:
+        raise ValueError('the execution control configuration changes inputs other than the checker and reviews')
+    return fixture_path, loaded
+
+
 def ex_controls(a):
     fixture_path = None
     if a.tool_acceptance:
-        fixture_path = a.cpath.rsplit('/', 1)[0] + '/execution-control-config.json'
-        loaded = cfgmod.load(a.repo, a.crev, fixture_path, None, 'execution', 'harness')
-        primary = json.loads(a.repo.read(a.crev, a.cpath))
-        source = next(p['source'] for p in primary['profiles'] if p['name'] == 'repo')
-        checker = {k: source[k] for k in ('commit', 'path', 'blob_sha256')}
-        primary['adapters']['ledger']['companion'].append(dict(checker, role='checker'))
-        records = primary['records']
-        fixture_records = loaded.config['records']
-        if fixture_records[:len(records)] != records or any(r['kind'] != 'review' for r in fixture_records[len(records):]) or \
-                dict(loaded.config, records=records, config_id=primary['config_id']) != primary:
-            raise ValueError('the execution control configuration changes inputs other than the checker and reviews')
+        fixture_path, loaded = execution_control_config(a)
         spec = loaded.config['adapters']['ledger']
         edits = next(ref for ref in spec['companion'] if ref['role'] == 'edits')
         delegation = loaded.config['delegation']
