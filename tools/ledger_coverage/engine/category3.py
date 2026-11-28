@@ -65,7 +65,8 @@ def second_kind_findings(doc, ref, record_at, revision=None):
     """Form (i) second-kind findings of one review record (its reference `ref`); record_at(reference) returns the
     reconciliation record the review names, or None when the scan finds none; revision(review) returns the problems of
     its `revision` against the roots it is read from (S-1 sec. 3; with no such function it binds nothing)."""
-    reviewed = record_at(doc.get('reviewed'))
+    reviewed_ref = doc.get('reviewed')
+    reviewed = record_at(reviewed_ref)
     who = doc.get('reviewer')
     if isinstance(reviewed, dict) and fd.identity_ok(who) and who == reviewed.get('author'):
         return []  # staging S-2 S2.5: only a reviewer byte-equal to the author disqualifies the review (Form (i))
@@ -86,11 +87,15 @@ def second_kind_findings(doc, ref, record_at, revision=None):
         form += revision(doc) if revision is not None else rec.revision_problems(None, (), doc)
         if reviewed is None:
             form.append('its reviewed names no record the scan finds')
+        elif isinstance(ref.get('path'), str) and isinstance(reviewed_ref, dict) and \
+                isinstance(reviewed_ref.get('path'), str) and \
+                posixpath.dirname(ref['path']) != posixpath.dirname(reviewed_ref['path']):
+            form.append("the review is outside its reconciliation record's directory")
         entry = fd.entry_of_item(reviewed, v.get('item')) if isinstance(reviewed, dict) else None
         out.append({'kind': 2, 'record': ref, 'item': v.get('item'), 'entry': entry,
                     'path': entry.get('path') if isinstance(entry, dict) else ref.get('path'),
                     'configuration': v.get('configuration'), 'invalidated': v.get('invalidated'),
-                    'verdict_item': v.get('item'), 'form': form, 'entry_record': doc.get('reviewed')})
+                    'verdict_item': v.get('item'), 'form': form, 'entry_record': reviewed_ref})
     return out
 
 
