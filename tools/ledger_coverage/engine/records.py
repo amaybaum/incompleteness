@@ -286,7 +286,7 @@ def lineage_id(doc):
     return v if isinstance(v, str) and v else None
 
 
-def supersedes_problems(ref, doc, store):
+def supersedes_problems(ref, doc, store, *, observed_reviews=(), plan_directory=None):
     """S4 and DI-2 over the `supersedes` chain of one record: every step names a record that exists in the object
     store at or before F and has the same kind, schema and lineage (`record_id`, or `config_id` for the
     configuration); a record that supersedes, or is named by a `supersedes`, carries a valid lineage id; every
@@ -331,7 +331,8 @@ def supersedes_problems(ref, doc, store):
             out.append('record %s: ambiguous ancestry: %s also supersedes %s' % (ref.get('path'), forks[0],
                                                                                sup.get('path')))
             break
-        why = predecessor_problems(sup, prev, store)
+        why = predecessor_problems(sup, prev, store, observed_reviews=observed_reviews,
+                                   plan_directory=plan_directory)
         if why:
             out.append('record %s: its predecessor %s does not pass the lint: %s' % (ref.get('path'), sup.get('path'),
                                                                                     why[0]))
@@ -340,16 +341,20 @@ def supersedes_problems(ref, doc, store):
     return out
 
 
-def predecessor_problems(ref, doc, store):
+def predecessor_problems(ref, doc, store, *, observed_reviews=(), plan_directory=None):
     """DI-2: the lint of a predecessor named by a `supersedes`, read from the object store at or before F and verified
     independently of the superseding record: its own review (found among the records of the audit and plan record
     directories), and, when it widens the record it supersedes, its widening review. Its own chain is walked by the
     caller."""
+    # The scope and reviews of an admitted migration depend on the referring configuration and assessed trees.
+    reusable = doc.get('schema') != migration_schema
     key = ref.get('blob_sha256')
-    if key in store._pred_cache:
-        return store._pred_cache[key]
-    store._pred_cache[key] = ['the predecessor chain is being evaluated']
-    out = lint_chain(ref, store, None, predecessor=True)
+    if reusable:
+        if key in store._pred_cache:
+            return store._pred_cache[key]
+        store._pred_cache[key] = ['the predecessor chain is being evaluated']
+    out = lint_chain(ref, store, None, predecessor=True, observed_reviews=observed_reviews,
+                     plan_directory=plan_directory)
     if not out and store.widening is not None:
         old = store.resolve(doc.get('supersedes')) if doc.get('supersedes') is not None else None
         changed = store.widening(old, doc)
@@ -358,7 +363,8 @@ def predecessor_problems(ref, doc, store):
                                           doc.get('author'), doc.get('supersedes'), changed, predecessor=True)
             if wp:
                 out = ['widening without a valid widening review: %s' % wp[0]]
-    store._pred_cache[key] = out
+    if reusable:
+        store._pred_cache[key] = out
     return out
 
 
@@ -371,6 +377,8 @@ def lint_chain(ref, store, admitted_shas, predecessor=False, *, observed_reviews
     if doc is None:
         return ['record %s: blob not in the object store at its path' % ref.get('path')]
     if isinstance(doc, dict) and doc.get('schema') == migration_schema:
+        if plan_directory and not ref['path'].startswith(plan_directory + '/'):
+            return ['the migration is outside its referring plan record directory']
         if ref['blob_sha256'] in store.strict_parse_failures:
             return ['the migration is not a strict JSON object']
         problems = migration_problems(doc)
@@ -390,7 +398,8 @@ def lint_chain(ref, store, admitted_shas, predecessor=False, *, observed_reviews
     if 'supersedes' not in doc:
         out.append('record %s: no supersedes field' % ref['path'])
     if not predecessor:
-        out += supersedes_problems(ref, doc, store)
+        out += supersedes_problems(ref, doc, store, observed_reviews=observed_reviews,
+                                  plan_directory=plan_directory)
         if store.heads_problems:
             out += [p for p in store.heads_problems.get(ref['blob_sha256'], [])]
     author = doc.get('author')
