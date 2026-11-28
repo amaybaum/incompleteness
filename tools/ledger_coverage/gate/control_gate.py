@@ -2175,8 +2175,17 @@ def _rep_fixed_reconciliation(ctx, phase, rid, ev, case, result):
         raise ValueError('the fixed reconciliation path-read scope differs')
 
 
-def _candidate_case_bound(rid, case, result, observed, ctx):
-    """Check the exact operands of an OBL-15 or OBL-16(a) result independently of its status."""
+def _representative_read_scope(repo, config, ledger, x, reads):
+    origin = json.loads(ledger)
+    paths = _rep_entries(repo, origin['base']).keys() | x['changes'].keys()
+    scope = set(origin['files']) | set(config['corpus'].get('paths', []))
+    patterns = [re.compile(s) for s in config['corpus'].get('patterns', [])]
+    return (isinstance(reads, list) and bool(reads) and len(reads) == len(set(reads)) and
+            all(p in paths and (p in scope or any(rx.search(p) for rx in patterns)) for p in reads))
+
+
+def _candidate_case_bound(rid, case, result, observed, ctx, *, profile_census=False):
+    """Check exact candidate-F operands independently of the runner's status."""
     F, path, digest, _ = s11_binding(ctx)
     repo, argv = ctx.repo, case.get('argv')
     config = json.loads(_rep_pin(repo, F, {'path': path, 'blob_sha256': digest}))
@@ -2192,6 +2201,41 @@ def _candidate_case_bound(rid, case, result, observed, ctx):
         del invocation[i:i + 2]
     if result.get('invocation') != invocation:
         return False
+    if rid in ('RT-D', 'RT-D-gr58'):
+        T, M, S = ctx.tool_landing, ctx.rep_main, ctx.rep_snapshot
+        snapshot = observed['representative_binding']
+        if (snapshot['freeze'], snapshot['T_land'], snapshot['M_rep'], snapshot['S']) != (F, T, M, S):
+            return False
+        _rep_role_selection(config, snapshot['class_tip'], snapshot['allow_tip'])
+        _rep_pin(repo, F, snapshot['allow_tip'])
+        _, ledger = _rep_entry(repo, T, REP_LEDGER)
+        _, edits = _rep_entry(repo, T, REP_EDITS)
+        _, builder = _rep_entry(repo, T, REP_BUILDER)
+        _, template = _rep_entry(repo, T, REP_TEMPLATE)
+        if _git_oid('blob', ledger) != REP_LEDGER_GIT or _git_oid('blob', edits) != REP_EDITS_GIT:
+            return False
+        rep_h = json.loads(ledger)['base']
+        delegation = json.loads(_rep_pin(repo, T, _rep_ref(json.loads(template)['delegation'])))
+        x = _rep_construction(repo, (rep_h, M, ledger, edits, builder, delegation))
+        hit = F + ':' + AUDIT_DIR + 'records/gr58-hit-classification-v3.json'
+        scope = F + ':' + AUDIT_DIR + 'records/repo-scope-v1.json'
+        if (argv[0] != 'terms' or result.get('operation') != 'terms' or
+                result.get('evaluated') != {'commit': x['commit']} or
+                _case_args(argv, '--commit') != [x['commit']] or _case_args(argv, '--base') != [rep_h] or
+                _case_args(argv, '--ledger') != [T + ':' + REP_LEDGER] or
+                result.get('rule_files') != [_rep_ref(r) for r in config['rules']]):
+            return False
+        if profile_census:
+            selectors = _case_args(argv, '--profile')
+            valid = (selectors and len(selectors) == 1 and set(selectors[0].split(',')) ==
+                     {'p0-core', 'p0-para', 'ledger-ext', 'ptr', 'repo', 'count-grep', 'resid'} and
+                     _case_args(argv, '--scope') == [scope] and _case_args(argv, '--check') == [])
+        else:
+            valid = (_case_args(argv, '--profile') == [] and _case_args(argv, '--scope') == [] and
+                     _case_args(argv, '--check') == ['item7'])
+        classified = [hit] if rid == 'RT-D-gr58' else []
+        return (valid and _case_args(argv, '--classify') == classified and
+                _representative_read_scope(repo, config, ledger, x, observed['read_paths']))
     if rid == 'TR5':
         adm = info['admission']
         snap = adm['snapshot']
@@ -2268,12 +2312,7 @@ def _candidate_case_bound(rid, case, result, observed, ctx):
     delegation = json.loads(_rep_pin(repo, F, _rep_ref(config['delegation'])))
     _, builder = _rep_entry(repo, git_blob_id(repo, 'HEAD^{commit}'), REP_BUILDER)
     x = _rep_construction(repo, (H, ctx.rep_main, ledger, edits, builder, delegation))
-    scope = set(json.loads(ledger)['files']) | set(config['corpus'].get('paths', []))
-    patterns = [re.compile(s) for s in config['corpus'].get('patterns', [])]
-    x_paths = _rep_entries(repo, H).keys() | x['changes'].keys()
-    return (evaluated == x['commit'] and isinstance(reads, list) and bool(reads) and
-            len(reads) == len(set(reads)) and all(p in x_paths and
-                (p in scope or any(rx.search(p) for rx in patterns)) for p in reads))
+    return evaluated == x['commit'] and _representative_read_scope(repo, config, ledger, x, reads)
 
 
 def s11_standin(F, P, b):
@@ -2613,9 +2652,13 @@ def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None, phase=Non
             _rep_fixed_reconciliation(ctx, phase, rid, ev, c, result)
         except (ValueError, SyntaxError, KeyError, IndexError, TypeError, AttributeError) as exc:
             findings_out.append(('declarative-mismatch', 'the fixed %s operands do not verify: %s' % (rid, exc)))
-    if phase == 'candidate-F' and rid in ('RT-T', 'TR5'):
+    if phase == 'candidate-F' and rid in ('RT-T', 'TR5', 'RT-D', 'RT-D-gr58'):
         try:
             bound = _candidate_case_bound(rid, c, result, attested, ctx)
+            if bound and rid == 'RT-D' and case_name == '':
+                census = ev.case('run2')
+                bound = _candidate_case_bound(rid, census, ev.json(census['result_file']),
+                                               ev.json(census['attested']), ctx, profile_census=True)
         except (ValueError, KeyError, TypeError, AttributeError):
             bound = False
         if not bound:
