@@ -2586,6 +2586,126 @@ def _rt_d_counts(result, census):
     return counts
 
 
+def _rt_d_scope(repo, F, config, projected):
+    """Bind the exact scope and its configured independent review."""
+    refs = [_rep_ref(r) for r in config['records'] if r.get('kind') == 'scope']
+    scopes = [(r, json.loads(_rep_pin(repo, F, r))) for r in refs]
+    (ref, scope), = [(r, d) for r, d in scopes if d.get('profile') == 'repo']
+    scope_bytes = _rep_input(repo, projected['scope'], F, ref['path'])
+    if (_file_sha(scope_bytes) != ref['blob_sha256'] or scope['schema'] != 'oi-scope/1' or
+            'supersedes' not in scope or projected['records_used'] != [dict(ref, kind='scope')]):
+        raise ValueError('RT-D did not read the exact configured repo scope')
+    reviews = [r for r in _rep_review_pool(repo, F, config) if r.get('reviewed') == ref]
+    ordinary = [r for r in reviews if r.get('kind', 'review') == 'review']
+    if not ordinary or not all(r.get('method') and
+                               _rep_review_valid(repo, F, r, ref, scope.get('author'), _reviewed_items(scope)) and
+                               all(v['verdict'] == 'accept' for v in r['verdicts']) for r in ordinary):
+        raise ValueError('the RT-D scope lacks qualifying independent review')
+    return scope
+
+
+def _rt_d_repo_pattern(repo, F, specs, projected):
+    """Extract the declared repo review pattern independently of the engine."""
+    spec = specs['repo']
+    source = spec['source']
+    if ((spec['kind'], spec['scope'], spec['applies_to']) != ('review', 'repo', 'tree') or
+            spec.get('except') or source['extractor'] != {'kind': 'python-ast-assign', 'selector': 'REPO_PAT'}):
+        raise ValueError('RT-D requires the declared repo review profile')
+    raw = _rep_input(repo, projected['repo_profile_source'], source.get('commit') or F, source['path'])
+    nodes = [n.value for n in ast.parse(raw).body if isinstance(n, ast.Assign) and
+             any(getattr(t, 'id', None) == 'REPO_PAT' for t in n.targets)]
+    if _file_sha(raw) != source['blob_sha256'] or len(nodes) != 1:
+        raise ValueError('RT-D repo profile source differs from the pinned input')
+    call = nodes[0]
+    if not (isinstance(call, ast.Call) and isinstance(call.func, ast.Attribute) and
+            isinstance(call.func.value, ast.Name) and call.func.value.id == 're' and call.func.attr == 'compile' and
+            len(call.args) == 1 and not call.keywords and isinstance(call.args[0], ast.Constant) and
+            isinstance(call.args[0].value, str)):
+        raise ValueError('RT-D repo profile is not the declared literal regex')
+    pattern = call.args[0].value
+    if _file_sha(json.dumps(pattern, ensure_ascii=False).encode()) != spec['pattern_sha256']:
+        raise ValueError('RT-D repo profile pattern digest differs')
+    return re.compile(pattern)
+
+
+def _rt_d_projection_bound(repo, F, path, config, ledger, edits, x, primary, census):
+    """Check the confined census and reproduce membership from verified Git bytes."""
+    case, projected, observed = census
+    X = x['commit']
+    if (case['argv'] != ['in-process', 'RT-D review membership at residual coordinates'] or
+            projected['exit_status'] != 0 or projected['evaluated'] != {'commit': X} or
+            _file_sha(_rep_input(repo, projected['config'], F, path)) != primary['config']['blob_sha256']):
+        return False
+    scope = _rt_d_scope(repo, F, config, projected)
+    specs = {p['name']: p for p in config['profiles']}
+    review_names = {'p0-core', 'p0-para', 'ledger-ext', 'ptr', 'count-grep', 'resid'}
+    names, = [c['profiles'] for c in config['checks'] if c['id'] == 'item7']
+    if (primary['profiles_evaluated'] != {X: sorted(names)} or
+            {n for n in names if specs[n]['kind'] == 'review'} != review_names or
+            any(specs[n]['scope'] != 'corpus' for n in review_names) or specs['resid']['applies_to'] != 'added-text'):
+        return False
+    rows = [{'name': p['name'], 'kind': p['kind'], 'source_commit': p['source'].get('commit'),
+             'path': p['source'].get('path'), 'blob_sha256': p['source'].get('blob_sha256'),
+             'pattern_sha256': p['pattern_sha256']} for p in config['profiles']]
+    if primary['profiles'] != rows:
+        return False
+    for n in review_names:
+        source = specs[n]['source']
+        if source['extractor']['kind'] != 'literal-list':
+            _rep_pin(repo, source.get('commit') or F, _rep_ref(source))
+    matcher = _rt_d_repo_pattern(repo, F, specs, projected)
+    residual = [h for h in primary['hits'] if h['state'] == 'REVIEW_REQUIRED' and 'resid' in h['profiles']]
+    wanted = sorted({h['file'] for h in residual})
+    if (not wanted or observed['read_paths'] != wanted or observed['read_trace']['paths'] != wanted or
+            not _representative_read_scope(repo, config, ledger, edits, x, observed)):
+        return False
+    ex_prefix, ex_files = tuple(scope.get('exclude_prefixes', [])), set(scope.get('exclude_files', []))
+    allow = [re.compile(p) for p in scope.get('include_patterns_within_excluded', [])]
+    exclude = [re.compile(p) for p in scope.get('exclude_patterns', [])]
+    retained = json.loads(ledger)
+    splices = {p: [] for p in wanted}
+    for splice in retained['splices']:
+        if splice['file'] in splices:
+            splices[splice['file']].append(splice)
+    texts, image_lines, selected = {}, {}, []
+    for p in wanted:
+        _, raw = _rep_entry(repo, retained['base'], p)
+        raw = _rep_spliced(raw, p, retained)
+        if p in x['changes'] and _file_sha(raw) != x['changes'][p]['blob_sha256']:
+            return False
+        if b'\r' in raw:
+            return False
+        rows = raw.decode('utf-8').split('\n')
+        texts[p] = rows[:-1] if not raw or raw.endswith(b'\n') else rows
+        shift = 0
+        image_lines[p] = set()
+        for splice in sorted(splices[p], key=lambda s: (s['start'], s['end'])):
+            start, length = splice['start'] + shift, len(splice['new'].encode())
+            shift += length - (splice['end'] - splice['start'])
+            if length:
+                first = raw.count(b'\n', 0, start) + 1
+                last = raw.count(b'\n', 0, start + length - 1) + 1
+                image_lines[p].update(range(first, last + 1))
+        if not (p in ex_files or any(rx.search(p) for rx in exclude) or b'\x00' in raw or
+                (p.startswith(ex_prefix) and not any(rx.search(p) for rx in allow))):
+            selected.append(p)
+    selected_set = set(selected)
+    expected, seen = [], set()
+    for h in residual:
+        p, n, names = h['file'], h['line'], set(h['profiles'])
+        if ((p, n) in seen or not (type(n) is int and n in image_lines[p] and 1 <= n <= len(texts[p])) or
+                not names <= review_names or h['tree'] != X):
+            return False
+        seen.add((p, n))
+        text = texts[p][n - 1]
+        if _file_sha(text.encode()) != h['line_sha256']:
+            return False
+        if p in selected_set and matcher.search(text):
+            names.add('repo')
+        expected.append({'file': p, 'line': n, 'line_sha256': h['line_sha256'], 'profiles': sorted(names)})
+    return projected['selected_paths'] == selected and projected['hits'] == expected
+
+
 def _fixed_item7a(result, ctx):
     """Derive the original Item 7 counts and retired-line predicate from the actual payload."""
     items = result['items']
@@ -2811,7 +2931,7 @@ def _fixed_terms_case(ctx, phase, rid, ev, case, result, observed):
         raise ValueError('the fixed terms path reads do not cover exactly the applicable corpus and ledger scope')
 
 
-def _candidate_case_bound(rid, case, result, observed, ctx, *, profile_census=False):
+def _candidate_case_bound(rid, case, result, observed, ctx, *, census=None):
     """Check exact candidate-F operands independently of the runner's status."""
     F, path, digest, _ = s11_binding(ctx)
     repo, argv = ctx.repo, case.get('argv')
@@ -2845,24 +2965,18 @@ def _candidate_case_bound(rid, case, result, observed, ctx, *, profile_census=Fa
         delegation = json.loads(_rep_pin(repo, T, _rep_ref(json.loads(template)['delegation'])))
         x = _rep_construction(repo, (rep_h, M, ledger, edits, builder, delegation))
         hit = F + ':' + AUDIT_DIR + 'records/gr58-hit-classification-v3.json'
-        scope = F + ':' + AUDIT_DIR + 'records/repo-scope-v1.json'
         if (argv[0] != 'terms' or result.get('operation') != 'terms' or
                 result.get('evaluated') != {'commit': x['commit']} or
                 _case_args(argv, '--commit') != [x['commit']] or _case_args(argv, '--base') != [rep_h] or
                 _case_args(argv, '--ledger') != [T + ':' + REP_LEDGER] or
                 result.get('rule_files') != [_rep_ref(r) for r in config['rules']]):
             return False
-        if profile_census:
-            selectors = _case_args(argv, '--profile')
-            valid = (selectors and len(selectors) == 1 and set(selectors[0].split(',')) ==
-                     {'p0-core', 'p0-para', 'ledger-ext', 'ptr', 'repo', 'count-grep', 'resid'} and
-                     _case_args(argv, '--scope') == [scope] and _case_args(argv, '--check') == [])
-        else:
-            valid = (_case_args(argv, '--profile') == [] and _case_args(argv, '--scope') == [] and
-                     _case_args(argv, '--check') == ['item7'])
+        valid = (_case_args(argv, '--profile') == [] and _case_args(argv, '--scope') == [] and
+                 _case_args(argv, '--check') == ['item7'])
         classified = [hit] if rid == 'RT-D-gr58' else []
         return (valid and _case_args(argv, '--classify') == classified and
-                _representative_read_scope(repo, config, ledger, edits, x, observed))
+                _representative_read_scope(repo, config, ledger, edits, x, observed) and
+                (census is None or _rt_d_projection_bound(repo, F, path, config, ledger, edits, x, result, census)))
     if rid == 'TR5':
         adm = info['admission']
         snap = adm['snapshot']
@@ -3515,15 +3629,14 @@ def eval_case(exp, case_name, ev, row, record, findings_out, ctx=None, phase=Non
             findings_out.append(('declarative-mismatch', 'the fixed %s operands do not verify: %s' % (rid, exc)))
     if phase == 'candidate-F' and rid in ('RT-T', 'TR5', 'RT-D', 'RT-D-gr58'):
         try:
-            bound = _candidate_case_bound(rid, c, result, attested, ctx)
-            if bound and rid == 'RT-D' and case_name == '':
-                census = ev.case('all review profiles')
-                profiles = ev.json(census['result_file'])
-                bound = _candidate_case_bound(rid, census, profiles,
-                                               ev.json(census['attested']), ctx, profile_census=True)
-                if bound:
-                    terminology_counts = _rt_d_counts(result, profiles)
-        except (ValueError, KeyError, TypeError, AttributeError):
+            census = None
+            if rid == 'RT-D' and case_name == '':
+                case = ev.case('all review profiles')
+                census = case, ev.json(case['result_file']), ev.json(case['attested'])
+            bound = _candidate_case_bound(rid, c, result, attested, ctx, census=census)
+            if bound and census is not None:
+                terminology_counts = _rt_d_counts(result, census[1])
+        except (ValueError, KeyError, TypeError, AttributeError, SyntaxError, re.error):
             bound = False
         if not bound:
             findings_out.append(('declarative-mismatch', 'case %r does not bind the actual %s operands at F'

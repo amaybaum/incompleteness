@@ -26,6 +26,7 @@ import hashlib
 import io
 import json
 import os
+import re
 import sys
 import tempfile
 import time
@@ -798,14 +799,14 @@ def rt_terms(a):
     st_of = {(h['file'], h['line']): h['state'] for h in hits}
     gr58 = st_of.get(('papers/GR.md', 58))
     others = {'p0-core', 'p0-para', 'ledger-ext', 'ptr', 'repo', 'count-grep'}
-    # "hit by no other review profile": every review profile evaluated on the same tree (repo with its scope)
-    all_profiles = ['terms', '--commit', x_rep(a), '--base', H, '--ledger', ledger_ref, '--profile',
-                    ','.join(sorted(others | {'resid'})), '--scope',
-                    '%s:%srecords/repo-scope-v1.json' % (live_rev or a.crev, a.ad)]
+    # The live case confines the full-profile overlap to the primary residual coordinates.
     if live_rev:
-        c_all, r_all, _, scan_all = rep_run(a, all_profiles, 'ledgered and corpus paths of X_rep',
-                                         case='all review profiles', config_revision=live_rev)
+        r_all, scan_all = rt_d_repo_overlap(a, res, resid, others)
+        c_all = r_all['exit_status']
     else:
+        all_profiles = ['terms', '--commit', x_rep(a), '--base', H, '--ledger', ledger_ref, '--profile',
+                        ','.join(sorted(others | {'resid'})), '--scope',
+                        '%s:%srecords/repo-scope-v1.json' % (a.crev, a.ad)]
         c_all, r_all, _ = a.run(all_profiles)
         scan_all = None
     prof_at = {(h['file'], h['line']): set(h['profiles']) for h in r_all.get('hits', [])}
@@ -2338,6 +2339,76 @@ def rep_run(a, args, scope_text, case=None, extra=(), *, retain_reads=False, **k
         return d
     code, res, t = a.run(args, case=case, reader=log, attested=att, **kw)
     return code, res, t, {'read_at_X_rep': len(log.read_at(a)), 'outside_scope': holder.get('outside')}
+
+
+def rt_d_projection(a, result, residual, profile, scope_doc, scope_read, source_read):
+    """Project the full review census onto the primary run's residual coordinates."""
+    x = x_rep(a)
+    wanted = {h['file'] for h in residual}
+    if not wanted or rep_scope(a, x, wanted, config_revision=a.freeze):
+        raise RepRefused('RT-D residual coordinates are missing or outside the representative scope')
+
+    class ResidualReader(ReadLog):
+        def paths(self, commit):
+            return {p: oid for p, oid in self._r.paths(commit).items() if p in wanted}
+
+    log = ResidualReader(a.repo, x)
+    selected = cli.scope_from_record(log, x, scope_doc)
+    texts = {p: pl.sg.FileText(log.read(x, p), p).lines for p in wanted}
+    hits = []
+    for h in residual:
+        p, n = h['file'], h['line']
+        if not (type(n) is int and 1 <= n <= len(texts[p])) or sha(texts[p][n - 1].encode()) != h['line_sha256']:
+            raise RepRefused('RT-D residual line differs from the representative tree')
+        names = set(h['profiles'])
+        if p in selected and profile.matches(texts[p][n - 1]):
+            names.add('repo')
+        hits.append({'file': p, 'line': n, 'line_sha256': h['line_sha256'], 'profiles': sorted(names)})
+    reads = log.read_at(a)
+    outside = rep_scope(a, x, reads, config_revision=a.freeze)
+    return {
+        'exit_status': 20 if outside else 0, 'evaluated': result['evaluated'],
+        'config': raw_ref(a.base, a.freeze or a.crev, a.cpath),
+        'scope': scope_read, 'repo_profile_source': source_read, 'selected_paths': selected, 'hits': hits,
+    }, {'read_paths': reads, 'read_trace': log.trace()}, outside
+
+
+def rt_d_repo_overlap(a, result, residual, other_profiles):
+    """Use only the candidate-F scope and its exact reviewed record chain."""
+    label = 'RT-D review membership at residual coordinates'
+    F = a.freeze
+    try:
+        _, _, table, _, _ = cli.freeze_admission(a.base, F, F, a.cpath, refuse_rep)
+        loaded = cfgmod.load(a.base, F, a.cpath, a.csha, 'terms', 'chain', table=table,
+                             admission={'mode': 'candidate-F'})
+        refs = [r for r in loaded.config['records'] if r.get('kind') == 'scope'
+                and (loaded.store.get(r) or {}).get('profile') == 'repo']
+        if len(refs) != 1:
+            raise RepRefused('RT-D needs exactly one configured repo scope')
+        ref = refs[0]
+        records = cli.RecordSet(loaded, False)
+        scope = records.admit(a.base, F + ':' + ref['path'], 'scope')
+        if scope is None or scope.get('schema') != 'oi-scope/1':
+            raise RepRefused('RT-D repo scope is not admitted by its exact review chain')
+        names, = [c['profiles'] for c in loaded.config['checks'] if c['id'] == 'item7']
+        selected = {n for n in names if loaded.profiles[n].kind == 'review'}
+        profile = loaded.profiles['repo']
+        if (selected != ((other_profiles - {'repo'}) | {'resid'}) or
+                result['profiles_evaluated'] != {x_rep(a): sorted(names)} or
+                any(loaded.profiles[n].scope != 'corpus' for n in selected) or
+                loaded.profiles['resid'].applies_to != 'added-text' or
+                profile.kind != 'review' or profile.scope != 'repo' or profile.applies_to != 'tree'):
+            raise RepRefused('RT-D review profiles differ from the applicable Item 7 and repo profiles')
+        source = profile.spec['source']
+        data, observed, outside = rt_d_projection(a, result, residual, profile, scope,
+                                                 raw_ref(a.base, F, ref['path']),
+                                                 raw_ref(a.base, source.get('commit') or F, source['path']))
+        data['records_used'] = records.used
+    except (RepRefused, oc.Stop, gitobj.Unresolvable, util.EncodingFault, KeyError, ValueError, TypeError,
+            AttributeError, re.error) as exc:
+        data, observed, outside = {'exit_status': 20, 'reason': str(exc)}, {}, None
+    a.rec.capture_doc(label, data, case='all review profiles', attested=observed)
+    return data, {'read_at_X_rep': len(observed.get('read_paths', [])), 'outside_scope': outside}
 
 
 def rep_build_control(a):
